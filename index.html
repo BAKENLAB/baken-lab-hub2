@@ -23,7 +23,7 @@
     button,input{font:inherit} button{color:inherit;cursor:pointer}.hidden{display:none!important}
     .shell{width:min(100%,760px);margin:0 auto;padding:18px 14px 48px}.brand{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:4px 2px 18px}
     .brand-mark{font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--accent)}.brand h1{margin:4px 0 0;font-size:24px;letter-spacing:-.04em}.live-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px rgba(200,255,77,.7)}
-    .intro-card{margin:-4px 0 14px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01))}
+    .update-banner{margin:-4px 0 12px;padding:10px 12px;border:1px solid rgba(200,255,77,.34);border-radius:12px;background:rgba(200,255,77,.07);display:flex;align-items:center;gap:9px}.update-badge{flex:0 0 auto;border:1px solid rgba(200,255,77,.42);border-radius:999px;padding:4px 7px;color:var(--accent);font-size:8px;font-weight:950;letter-spacing:.08em}.update-text{min-width:0;color:#dfe6ee;font-size:10px;font-weight:850;line-height:1.45}.intro-card{margin:-4px 0 14px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01))}
     .intro-title{margin-bottom:6px;color:var(--accent);font-size:10px;font-weight:950;letter-spacing:.08em}.intro-card p{margin:0;color:#aeb7c2;font-size:10px;line-height:1.62}.intro-card p+p{margin-top:5px}.intro-card strong{color:var(--text);font-weight:900}.intro-eye{color:var(--eye);font-weight:900}.intro-note{padding-top:6px;border-top:1px solid #1b2028;color:#7f8996!important}
     .main-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);margin-bottom:14px}.main-tab{border:0;border-bottom:2px solid transparent;background:transparent;padding:12px 8px;color:var(--muted);font-weight:900;letter-spacing:.08em}.main-tab.active{color:var(--text);border-bottom-color:var(--accent)}
     .controls{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-bottom:12px}.date-input{min-height:42px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:0 11px}.circuit-switch{display:flex;gap:4px;padding:3px;border:1px solid var(--line);background:var(--panel);border-radius:11px}.circuit-btn{border:0;border-radius:8px;padding:8px 10px;background:transparent;color:var(--muted);font-size:11px;font-weight:800}.circuit-btn.active{background:#242a33;color:var(--text)}
@@ -49,10 +49,16 @@
       <span class="live-dot" aria-label="online"></span>
     </header>
 
+    <section class="update-banner" aria-label="更新情報">
+      <span class="update-badge">更新しました</span>
+      <span class="update-text">脚質表示を追加しました</span>
+    </section>
+
     <section class="intro-card" aria-label="LAB HUBについて">
       <div class="intro-title">LAB HUBとは</div>
       <p>出走全馬を、近走内容・クラス・距離/コース適性・枠・斤量・騎手・脚質・展開などから比較し、人気やオッズに左右されず<strong>LAB RANK</strong>として順位化する競馬分析アプリです。</p>
       <p><span class="intro-eye">🧪 LAB EYE</span>は、上位外の馬をもう一度監査し「今回なら走れる理由」がある1頭を拾う独自指標です。</p>
+      <p>脚質（逃・先・差・追・？）は過去のレース傾向をもとにした参考表示です。展開・作戦などにより実際の位置取りと異なる場合があります。</p>
       <p class="intro-note">推奨買い目はあくまで参考例です。最終的な馬券判断の材料としてご利用ください。</p>
     </section>
 
