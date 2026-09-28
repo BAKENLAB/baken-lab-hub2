@@ -1,5 +1,5 @@
-const CACHE = 'lab-hub-shell-v3';
-const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png'];
+const CACHE = 'lab-hub-shell-v4';
+const SHELL = ['/', '/index.html', '/manifest.webmanifest?v=4', '/icon-192.png?v=4', '/icon-512.png?v=4', '/icon-maskable-512.png?v=4'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
