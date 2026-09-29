@@ -1,14 +1,19 @@
-const CACHE = 'lab-hub-shell-v4';
-const SHELL = ['/', '/index.html', '/manifest.webmanifest?v=4', '/icon-192.png?v=4', '/icon-512.png?v=4', '/icon-maskable-512.png?v=4'];
+const CACHE = 'lab-hub-shell-v5';
+const SHELL = ['/', '/index.html'];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
+  event.waitUntil(
+    caches.open(CACHE)
+      .then((cache) => Promise.allSettled(SHELL.map((url) => cache.add(url))))
+  );
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)))
+    )
   );
   self.clients.claim();
 });
@@ -16,10 +21,20 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
+
   const url = new URL(req.url);
 
-  // Never cache prediction/result API calls; keep live data fresh.
-  if (url.hostname.includes('supabase.co')) return;
+  // Always fetch live API, manifest, service worker and app icons from network.
+  if (
+    url.hostname.includes('supabase.co') ||
+    url.pathname === '/manifest.webmanifest' ||
+    url.pathname === '/sw.js' ||
+    url.pathname === '/icon-192.png' ||
+    url.pathname === '/icon-512.png' ||
+    url.pathname === '/icon-maskable-512.png'
+  ) {
+    return;
+  }
 
   if (req.mode === 'navigate') {
     event.respondWith(
@@ -36,11 +51,7 @@ self.addEventListener('fetch', (event) => {
 
   if (url.origin === self.location.origin) {
     event.respondWith(
-      caches.match(req).then((cached) => cached || fetch(req).then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE).then((cache) => cache.put(req, copy));
-        return res;
-      }))
+      fetch(req).catch(() => caches.match(req))
     );
   }
 });
