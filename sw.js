@@ -1,19 +1,14 @@
-const CACHE = 'lab-hub-shell-v5';
-const SHELL = ['/', '/index.html'];
+const CACHE = 'lab-hub-shell-v6';
+const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png'];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE)
-      .then((cache) => Promise.allSettled(SHELL.map((url) => cache.add(url))))
-  );
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)))
-    )
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
   );
   self.clients.claim();
 });
@@ -21,20 +16,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
-
   const url = new URL(req.url);
 
-  // Always fetch live API, manifest, service worker and app icons from network.
-  if (
-    url.hostname.includes('supabase.co') ||
-    url.pathname === '/manifest.webmanifest' ||
-    url.pathname === '/sw.js' ||
-    url.pathname === '/icon-192.png' ||
-    url.pathname === '/icon-512.png' ||
-    url.pathname === '/icon-maskable-512.png'
-  ) {
-    return;
-  }
+  if (url.hostname.includes('supabase.co')) return;
 
   if (req.mode === 'navigate') {
     event.respondWith(
@@ -51,7 +35,11 @@ self.addEventListener('fetch', (event) => {
 
   if (url.origin === self.location.origin) {
     event.respondWith(
-      fetch(req).catch(() => caches.match(req))
+      caches.match(req).then((cached) => cached || fetch(req).then((res) => {
+        const copy = res.clone();
+        caches.open(CACHE).then((cache) => cache.put(req, copy));
+        return res;
+      }))
     );
   }
 });
