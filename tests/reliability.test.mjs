@@ -11,13 +11,21 @@ const certified=()=>({...clone(saved),integrity:{version:1,prediction_id:saved.i
 const race=p=>({...p,key:contract.raceKey(p),prediction:p,prediction_status:'FROZEN'});
 const response=p=>({ok:true,date:saved.race_date,predictions:[p],races:[race(p)]});
 
+// Only the simulated browser clock is fixed. Production Date logic is unchanged.
+// Local noon keeps TODAY and RESULT on the fixture date in every timezone.
+const fixtureNow = new Date(...saved.race_date.split('-').map((n,i)=>Number(n)-(i===1?1:0)),12).getTime();
+class FixtureDate extends Date {
+  constructor(...args){super(...(args.length ? args : [fixtureNow]));}
+  static now(){return fixtureNow;}
+}
+
 function frontend(fetcher=async()=>{throw new Error('network unavailable')}) {
   const elements=new Map();
   const el=selector=>{
     if(!elements.has(selector))elements.set(selector,{innerHTML:'',value:saved.race_date,addEventListener(){},scrollIntoView(){},classList:{add(){},remove(){},toggle(){}}});
     return elements.get(selector);
   };
-  const context=vm.createContext({...contract,structuredClone,URL,AbortSignal,fetch:fetcher,document:{querySelector:el,querySelectorAll:()=>[]},navigator:{},window:{}});
+  const context=vm.createContext({...contract,Date:FixtureDate,structuredClone,URL,AbortSignal,fetch:fetcher,document:{querySelector:el,querySelectorAll:()=>[]},navigator:{},window:{}});
   let script=readFileSync(new URL('../index.html',import.meta.url),'utf8').split('<script type="module">')[1].split('</script>')[0];
   script=script.replace(/import .* from .*;\n/,'');
   script=script.replace(/;loadToday\(\);/, ';');
