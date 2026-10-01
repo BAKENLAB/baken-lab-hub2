@@ -1,0 +1,29 @@
+{
+  "id": "saved-fixture-1",
+  "race_date": "2026-09-30",
+  "track": "園田",
+  "race_no": 1,
+  "circuit": "LOCAL",
+  "status": "FROZEN",
+  "protocol_version": "CHAPPY_DIRECT_1",
+  "payload": {
+    "runners": [
+      {"horse_no": 7, "horse_name": "監査で選ばれた馬", "rank": 7, "grade": "B", "comment": "通常評価コメント"},
+      {"horse_no": 2, "horse_name": "二番の馬", "rank": 2, "grade": "A", "comment": "二番の評価"},
+      {"horse_no": 1, "horse_name": "一番の馬", "rank": 1, "grade": "S", "comment": "一番の評価"},
+      {"horse_no": 6, "horse_name": "六番の馬", "rank": 6, "grade": "B", "comment": "六番の評価"},
+      {"horse_no": 5, "horse_name": "五番の馬", "rank": 5, "grade": "B", "comment": "五番の評価"},
+      {"horse_no": 3, "horse_name": "三番の馬", "rank": 3, "grade": "A", "comment": "三番の評価"},
+      {"horse_no": 4, "horse_name": "四番の馬", "rank": 4, "grade": "B", "comment": "四番の評価"}
+    ],
+    "top5": [
+      {"horse_no": 1, "horse_name": "一番の馬", "rank": 1, "grade": "S", "mark": "◎"},
+      {"horse_no": 2, "horse_name": "二番の馬", "rank": 2, "grade": "A", "mark": "○"},
+      {"horse_no": 3, "horse_name": "三番の馬", "rank": 3, "grade": "A", "mark": "▲"},
+      {"horse_no": 4, "horse_name": "四番の馬", "rank": 4, "grade": "B", "mark": "☆"},
+      {"horse_no": 5, "horse_name": "五番の馬", "rank": 5, "grade": "B", "mark": "△"}
+    ],
+    "eye": {"horse_no": 7, "horse_name": "監査で選ばれた馬", "reason": "EYE専用の監査理由：通常評価とは異なる", "grade": "B"},
+    "bets": []
+  }
+}
