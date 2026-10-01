@@ -262,7 +262,7 @@ test('unknown protocol with old-looking data is not converted',async()=>{
 });
 
 test('test predictions are excluded and cannot fall back to a legacy normal shape',async()=>{
-  const testRow=clone(saved);testRow.id='test-only';testRow.race_no=2;testRow.protocol_version='CHAPPY_DIRECT_1_TEST';
+  const testRow=clone(saved);testRow.id='test-only';testRow.race_no=2;testRow.protocol_version='BAKEN_LAB_WORK_TEST_V3';
   const b=await backend({official_predictions:[saved,testRow]});const r=await b.call('list');
   assert.equal(r.body.predictions.length,1);assert.equal(r.body.races.length,1);
   assert.deepEqual(contract.predictionSnapshot(r.body.predictions[0].payload),contract.predictionSnapshot(saved.payload));
@@ -291,7 +291,7 @@ test('historical chappy_predictions adapter keeps picks and EYE comment unchange
 });
 
 test('test RESULT prediction is quarantined without leaking saved RANK/TOP5/EYE',async()=>{
-  const p=clone(saved);p.protocol_version='CHAPPY_DIRECT_1_TEST';
+  const p=clone(saved);p.protocol_version='BAKEN_LAB_WORK_TEST_V3';
   const b=await backend({official_predictions:[p],official_results:[{...saved,result:{}}]});
   const r=await b.call('results');assert.equal(r.status,200);
   assert.equal(r.body.results[0].prediction,null);
@@ -422,4 +422,50 @@ test('old X copy prints exactly saved mark/number/name without inferred rank or 
 test('audit run_mode WORK_TEST alone does not exclude a supported normal prediction',async()=>{
   const p=clone(saved);p.payload.audit={run_mode:'WORK_TEST'};assert.equal(contract.isTestPrediction(p),false);
   const b=await backend({official_predictions:[p]});const r=await b.call('list');assert.equal(r.body.predictions.length,1);contract.validatePrediction(r.body.predictions[0]);
+});
+
+for (const flags of [{source:'WORK_TEST'},{is_test:true}]) {
+  test('supported DIRECT remains visible despite test-like metadata: '+JSON.stringify(flags),async()=>{
+    const p={...clone(saved),...flags};assert.equal(contract.isTestPrediction(p),false);
+    const b=await backend({official_predictions:[p]});const r=await b.call('list');
+    assert.equal(r.body.predictions.length,1);assert.deepEqual(contract.predictionSnapshot(r.body.predictions[0].payload),contract.predictionSnapshot(p.payload));
+  });
+}
+test('only exact WORK_TEST_V3 protocol is excluded; unknown TEST protocol is DATA ERROR',async()=>{
+  for(const source of ['TEST','WORK_TEST','SMOKE','FIXTURE'])assert.equal(contract.isTestPrediction({...saved,source,is_test:true}),false);
+  assert.equal(contract.isTestPrediction({...saved,protocol_version:'BAKEN_LAB_WORK_TEST_V3'}),true);
+  const p={...clone(saved),protocol_version:'CHAPPY_DIRECT_1_TEST'};
+  assert.equal(contract.isTestPrediction(p),false);const b=await backend({official_predictions:[p]});const r=await b.call('list');
+  assert.equal(r.body.predictions.length,1);assert.match(r.body.predictions[0].data_error,/unsupported protocol_version/);
+});
+test('TODAY string race_no quarantines only that race and keeps normal HUB rendering',async()=>{
+  const p=certified(),bad={...race(p),race_no:'2',prediction:null};
+  const f=frontend(async()=>({ok:true,json:async()=>({ok:true,date:saved.race_date,races:[race(p),bad],predictions:[p]})}));
+  await f.run('loadToday()');const rows=JSON.parse(f.run('JSON.stringify(state.races)'));
+  assert.equal(rows.length,2);assert.equal(rows.filter(r=>r.prediction_status==='DATA_ERROR').length,1);
+  assert.deepEqual(rows[0].prediction.payload,p.payload);assert.equal(rows[1].prediction,null);
+  assert.ok(f.el('#raceArea').innerHTML.includes('予想公開中'));assert.ok(f.el('#raceArea').innerHTML.includes('DATA ERROR'));
+});
+test('prediction identity failure is isolated; attached invalid race is emitted once',async()=>{
+  const p=certified(),bad=clone(p);bad.id='bad-identity';bad.race_no='2';bad.integrity.prediction_id=bad.id;
+  const data={ok:true,date:saved.race_date,races:[race(p),{...bad,key:'invalid',prediction:bad,prediction_status:'FROZEN'}],predictions:[p,bad]};
+  const f=frontend(async()=>({ok:true,json:async()=>data}));await f.run('loadToday()');
+  const rows=JSON.parse(f.run('JSON.stringify(state.races)'));assert.equal(rows.length,2);assert.equal(rows.filter(r=>r.data_error).length,1);
+  assert.deepEqual(rows[0].prediction.payload,p.payload);assert.equal(rows[1].prediction,null);assert.ok(f.el('#raceArea').innerHTML.includes('予想公開中'));
+});
+test('all invalid identity fields and unassociated predictions remain per-row DATA ERROR',async()=>{
+  const p=certified();
+  for(const field of ['race_no','track','circuit','race_date']){
+    const bad={...p,id:'bad-'+field,[field]:null};
+    for(const embedded of [true,false]){
+      const data={ok:true,date:saved.race_date,races:[race(p),...(embedded?[{...bad,key:'bad',prediction:bad}]:[])],predictions:[p,bad]};
+      const out=contract.reconcileToday(data,saved.race_date);
+      assert.equal(out.races.length,2);assert.equal(out.races.filter(r=>r.prediction_status==='DATA_ERROR').length,1);
+      assert.deepEqual(out.races[0].prediction.payload,p.payload);assert.equal(out.races[1].prediction,null);
+      const f=frontend(async()=>({ok:true,json:async()=>data}));await f.run('loadToday()');
+      assert.equal(f.run('state.races.length'),2);
+      f.context.errorVenue=String(bad.track);f.run('state.venue=errorVenue;renderRaceArea()');
+      assert.ok(f.el('#raceArea').innerHTML.includes('DATA ERROR'));
+    }
+  }
 });

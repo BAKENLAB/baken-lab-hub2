@@ -19,7 +19,7 @@ export function protocolPolicy(version) {
   return policy;
 }
 export function isTestPrediction(row) {
-  return PROTOCOLS[row?.protocol_version]?.excluded === true || row?.is_test === true || [row?.protocol_version,row?.source].some(v=>/(^|[_-])(TEST|SMOKE|FIXTURE)([_-]|$)/i.test(String(v??'')));
+  return row?.protocol_version === 'BAKEN_LAB_WORK_TEST_V3';
 }
 export function eyeReason(eye, version) {
   const policy=protocolPolicy(version);
@@ -109,22 +109,26 @@ export function raceKey(r) {
 }
 export function reconcileToday(data, date) {
   if (!data || data.date !== date || !Array.isArray(data.races) || !Array.isArray(data.predictions)) fail('invalid list response');
-  const predictions = new Map();
+  const predictions = new Map(), invalidPredictions = [];
   for (const raw of data.predictions) {
     if (isTestPrediction(raw)) continue;
-    const k=raceKey(raw);
-    let p=raw;
+    let k, p=raw;
     try {
+      k=raceKey(raw);
       if (raw.race_date !== date || predictions.has(k)) fail('duplicate/wrong-date prediction');
       validatePrediction(raw);
     } catch(e) {p=dataErrorPrediction(raw,e);}
-    predictions.set(k,p);
+    if (k === undefined) invalidPredictions.push(p);
+    else predictions.set(k,p);
   }
-  const seen = new Set();
+  const seen = new Set(), attachedInvalid = new Set();
   const races = data.races.map(r => {
-    const k=raceKey(r);seen.add(k);
-    const p=predictions.get(k);
+    if (r?.prediction?.id) {
+      for (const p of invalidPredictions) if (p.id === r.prediction.id) attachedInvalid.add(p);
+    }
     try {
+      const k=raceKey(r);seen.add(k);
+      const p=predictions.get(k);
       if (r.race_date !== date || r.key !== k) fail('wrong-date race');
       if (r.data_error || p?.data_error) fail(r.data_error || p.data_error);
       if (r.prediction != null) {
@@ -137,7 +141,8 @@ export function reconcileToday(data, date) {
     } catch(e) {return {...r,prediction:null,prediction_status:'DATA_ERROR',data_error:String(e.message)};}
   });
   for (const [k,p] of predictions) if (!seen.has(k)) races.push({...p,key:k,prediction:p.data_error?null:p,prediction_status:p.data_error?'DATA_ERROR':'FROZEN',market_status:p.market_captured_at?'READY':'PENDING'});
-  return {races,predictions:[...predictions.values()]};
+  for (const p of invalidPredictions) if (!attachedInvalid.has(p)) races.push({...p,prediction:null,prediction_status:'DATA_ERROR'});
+  return {races,predictions:[...predictions.values(),...invalidPredictions]};
 }
 export function validateResults(data, date) {
   if (!data || data.date !== date || !Array.isArray(data.results)) fail('invalid results response');
