@@ -1,0 +1,1000 @@
+diff --git a/AUTOMATION_RELIABILITY_PHASE1.md b/AUTOMATION_RELIABILITY_PHASE1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..a4446e534bf20be29c9717c91b0577cd8576a984
+--- /dev/null
++++ b/AUTOMATION_RELIABILITY_PHASE1.md
+@@ -0,0 +1,207 @@
++# Automation reliability — Phase 1 review
++
++Base: `424c4920006ab981bbc19f7a7576a1f9ba944d07`
++Branch: `codex/automation-reliability-v1`
++
++Review draft only. No production migration, merge, deployment, scheduled task
++change, enqueue invocation, or prediction generation has been performed.
++Existing prediction/API/HUB files, prediction logic, RANK/TOP5/LAB EYE/LOCAL_MAIN, saved FROZEN
++predictions, HUB design, and hub2-api are unchanged.
++
++## Added files
++
++- `supabase/migrations/20261001131000_automation_reliability_v1.sql`
++- `tests/fixtures/automation-schema.sql`
++- `tests/automation-queue.test.mjs`
++- This document.
++
++The existing schema was inspected using an information_schema SELECT inside a
++read-only transaction. No existing official tables are altered or written by
++the migration or its functions. `post_time` is timestamptz; identity columns
++are date/text/integer/text. PostgreSQL 15+ is required for security-invoker views.
++
++## DB and ownership
++
++`lab_prediction_jobs`: unique race_date/track/race_no/circuit, region,
++QUEUED/CLAIMED/DONE/RETRY/DEAD, attempts, last_error, claimed_by/claimed_at,
++lease_until, next_attempt_at, created_at/updated_at. Additional columns:
++uuid id, claim_token, worker_run_id, max_attempts (default 5, allowed 1–100). Only LOCAL is accepted. Track/region
++consistency and complete claim metadata are enforced with CHECK constraints.
++`updated_at` is maintained by a trigger on the new job table only.
++
++`lab_worker_runs`: uuid id, worker_id, region (four regions or RESCUE),
++started_at/finished_at, claimed/completed/retry/failed counts, last_error,
++RUNNING/SUCCEEDED/FAILED/ABANDONED. Counts are updated transactionally with
++claims and job finishes. A successful run cannot have unresolved/lost claims.
++Lease reclamation increments the new run's claimed_count; the old run retains
++its unresolved count and should be finished as FAILED or ABANDONED.
++There is no automatic abandoned-run cleanup or scheduler in Phase 1.
++
++Tables have RLS enabled, without browser policies. Tables, views, and RPCs are
++available only to service_role (and DB administrators); PUBLIC/anon/authenticated
++access is explicitly revoked. All functions are SECURITY INVOKER with fixed
++search_path; all views use security_invoker=true. service_role is a trusted
++backend credential and must never be exposed in the HUB.
++
++## Mapping
++
++| Region | Tracks |
++| --- | --- |
++| 北海道東北 | 門別、帯広、盛岡、水沢 |
++| 関東 | 浦和、船橋、大井、川崎 |
++| 中部 | 金沢、笠松、名古屋 |
++| 西日本 | 園田、姫路、高知、佐賀 |
++
++Unknown tracks return NULL, are not enqueued, and are counted in health.
++
++## Queue lifecycle
++
++These calls are examples for a future **disposable/staging** environment only.
++They have not been invoked on production.
++
++1. `lab_enqueue_prediction_jobs(race_date)` explicitly populates eligible jobs.
++   Repeated/concurrent inserts use ON CONFLICT DO NOTHING; DONE/DEAD/RETRY are
++   never reset by enqueue. No trigger on official_races and no cron is installed.
++2. `lab_start_worker_run(worker_id, region)` returns the run UUID.
++3. `lab_claim_prediction_jobs(run_id, limit := 1, lease_seconds := 300)`
++   obtains region/identity from the run and atomically returns claimed jobs.
++   Limits: batch 1–50, lease 10–900 seconds. Claim count and attempts increment.
++4. `lab_finish_prediction_job(run_id, job_id, claim_token, outcome, error,
++   retry_seconds := 60, max_attempts := NULL)` accepts DONE/RETRY/DEAD.
++   RETRY sets next_attempt_at; exhaustion becomes DEAD using the job's
++   max_attempts. An optional RPC max_attempts can lower, but never raise, that cap.
++   DONE requires an already saved official prediction with status FROZEN;
++   this function does not generate or save that prediction.
++5. `lab_finish_worker_run(run_id, status := 'SUCCEEDED', error := NULL)`
++   records the finish. Live claims must finish first. Expired/lost claims require
++   FAILED/ABANDONED. Finishing a run does not revoke another run's claim.
++
++Claim uses **FOR UPDATE OF j SKIP LOCKED** in a single transaction. Independent
++workers skip locked job rows; committed live leases are also excluded.
++Only LOCAL, registry PENDING/RETRY, no official prediction of any status sharing the production 3-column identity,
++no legacy saved prediction, future non-NULL post_time, due next_attempt_at,
++and matching region are eligible. Ordering: closest post_time, then stable race
++identity. Normal region workers claim only 60–150 minutes before post_time (inclusive).
++
++RESCUE is a run with region RESCUE. It ignores region filtering but preserves
++all other safety conditions and restricts post_time to 3–70 minutes from now.
++It claims existing queued jobs; it does not implicitly enqueue missing jobs.
++
++An expired CLAIMED job is directly reclaimable while attempts < max_attempts.
++Its attempt count increases and its token is replaced. At the cap, claim RPCs
++retire expired CLAIMED or exhausted QUEUED/RETRY jobs as DEAD before selecting
++work. Cleanup uses SKIP LOCKED and the run's region (all regions for RESCUE),
++independently of post_time/window/registry eligibility. Live last-attempt leases
++are preserved so they can finish. DEAD cleanup clears ownership without counting
++a new claim or attributing a failure to the cleanup run. Old runs keep unresolved
++counts and must be closed as FAILED/ABANDONED. No automatic reaper is installed.
++Job max_attempts and its default can be configured in a future staging/release
++change; raising the cap does not automatically revive DEAD jobs. Finish checks run,
++worker, token, CLAIMED status, and current unexpired lease under row locks.
++An old worker, including one reusing the same worker_id, cannot finish/retry a
++new claim. Errors roll back both queue and run-counter changes.
++
++## Health
++
++Read `lab_prediction_health_today` for the JST race date:
++LOCAL total, FROZEN, QUEUED, CLAIMED, RETRY, DEAD, expired CLAIMED, missing
++prediction within 70 minutes, URGENT_MISSING_PREDICTION within 45 minutes,
++unmapped tracks, and unknown post_time. Empty days return one row with zeros.
++
++Read `lab_prediction_health_races` for race-level reasons and job metadata:
++
++```sql
++SELECT * FROM public.lab_prediction_health_today;
++SELECT race_date, track, race_no, region, post_time, job_status, alert
++FROM public.lab_prediction_health_races
++WHERE race_date = (statement_timestamp() AT TIME ZONE 'Asia/Tokyo')::date
++  AND alert = 'URGENT_MISSING_PREDICTION'
++ORDER BY post_time;
++```
++
++Health includes unqueued races and non-claimable registry statuses. Missing
++means no official or legacy saved prediction; started races are not urgent.
++FROZEN means registry FROZEN, official status FROZEN, or legacy saved output.
++A FROZEN registry with no saved prediction can therefore also raise a missing
++alert, surfacing the inconsistency. Queue counts and FROZEN are independent
++and may overlap when a prediction was saved externally after enqueue.
++Unknown post_time cannot be evaluated against deadlines.
++
++## Validation and remaining release gates
++
++- Existing prediction/API/HUB tests: **54 passed, 0 failed**.
++- New PostgreSQL integration suite: **40 cases authored; 40 skipped** (26 retained + 14 review regressions) because
++  this workspace has no PostgreSQL/psql and no package acquisition was attempted in this revision. SQL syntax/application, two-connection locking, RLS/permissions,
++  and real claim/lease behavior are **not verified**. These are release gates.
++- The test module passes Node syntax validation. It contains no queue mock.
++- Migration filename uses the standard timestamp format, but Supabase CLI
++  generation/listing/advisors could not run because the CLI is unavailable.
++- Protected existing text files match their base Git blob hashes. Binary assets
++  were not downloaded locally because Git transport was unavailable; their
++  original Git tree entries are retained and marked skip-worktree locally.
++
++Integration tests require a freshly initialized, disposable PostgreSQL 15+
++cluster, with no existing anon/authenticated/service_role roles. They create a
++uniquely named empty DB through a local Unix socket; they refuse remote URLs.
++They retain the scratch DB for inspection. Run on a separate local test cluster:
++
++```sh
++LAB_QUEUE_TEST_DISPOSABLE=YES LAB_QUEUE_TEST_SOCKET=/tmp/lab-queue-pg \
++  LAB_QUEUE_TEST_PORT=55432 LAB_QUEUE_TEST_USER=postgres \
++  node tests/automation-queue.test.mjs
++node tests/reliability.test.mjs
++```
++
++The original 26 integration cases include open concurrent transactions, regional scope,
++RESCUE coverage/window, expired/live leases, registry/official/legacy FROZEN,
++started/unknown-time races, retry/backoff, all track mappings, urgency,
++uniqueness/enqueue idempotency, ordering, JRA exclusion, stale token fencing,
++retry exhaustion, DONE guard/payload preservation, run audit, abandoned runs,
++health state counts, status filtering, input validation, and access controls.
++
++Remaining risks:
++
++- Claim checks existing prediction state at statement snapshot time. External
++  writers and existing scheduled tasks do not use this new queue. They can save
++  after a claim; Phase 2 must enforce the current token, lease, pre-race deadline,
++  and saved-prediction uniqueness in its save transaction. Queue RPC fencing
++  alone does not fence writes to official_predictions.
++- Explicit RETRY and expired-lease reclaim share the per-job max_attempts cap.
++  Exhaustion cleanup runs when a claim RPC is invoked for that region (or RESCUE).
++  Without a future caller/reaper, expired exhausted jobs stay visible as expired
++  CLAIMED until that invocation; they cannot be re-claimed past the cap.
++- Post times and registry statuses must remain accurate. No race-registry
++  synchronization or auto-enqueue is introduced in this phase.
++- No full production schema replay or SQL performance plan has been tested.
++  Existing race/prediction identity indexes should be verified in staging.
++- Service-role holders can directly change queue tables; the RPC ownership
++  checks protect cooperating workers, not a malicious backend credential.
++
++Stop here for review. No production application is authorized by this document.
++
++## Phase 1 review revision
++
++The original local commit a1adf50f42e99aec50544fd3895f5cabe086e313 and
++automation-reliability-v1.patch are retained unchanged. That patch describes
++the pre-review implementation and does not contain this working-tree revision.
++No new commit, push, main change, production write or deployment was performed.
++
++Fixture now mirrors the read-only observed production columns, nullability,
++defaults, race-number/circuit/status constraints and key contracts. In particular,
++official_predictions UNIQUE is (race_date,track,race_no), and status accepts
++FROZEN/PUBLISHED/SETTLED. Official_races has no additional status CHECK in the
++observed production catalog; no guessed status restriction is added. Existing
++tests now use 90-minute regional races and production-valid status values.
++The fixture still does not replay production triggers, RLS or secondary indexes.
++
++14 added DB cases cover: regional 60–150 window; regional/RESCUE window
++separation; five crashed attempts followed by DEAD; shared retry/expiry budget;
++configurable cap above five; preserving the final live attempt; RESCUE exhaustion;
++cleanup outside the claim window; regional cleanup scope; RPC override limits;
++3-column cross-circuit uniqueness; fixture invalid status/circuit/race-number
++rejection; production metadata defaults/NOT NULL; and conflicting-circuit saved
++predictions blocking enqueue/claim.
++
++Validation: 94 total tests = 54 existing passed + 40 DB skipped (26 original +
++14 added). Node syntax validation and git diff --check passed. PostgreSQL SQL
++execution and two-connection locking tests remain unverified release gates.
+diff --git a/supabase/migrations/20261001131000_automation_reliability_v1.sql b/supabase/migrations/20261001131000_automation_reliability_v1.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..c58352de9f942e68de2d7bd08280785de4104c7c
+--- /dev/null
++++ b/supabase/migrations/20261001131000_automation_reliability_v1.sql
+@@ -0,0 +1,365 @@
++-- Phase 1 only. No trigger/cron/worker or writes to existing official tables.
++BEGIN;
++
++CREATE FUNCTION public.lab_prediction_region(p_track text)
++RETURNS text LANGUAGE sql IMMUTABLE STRICT SECURITY INVOKER
++SET search_path = pg_catalog AS $$
++  SELECT CASE
++    WHEN p_track IN ('門別','帯広','盛岡','水沢') THEN '北海道東北'
++    WHEN p_track IN ('浦和','船橋','大井','川崎') THEN '関東'
++    WHEN p_track IN ('金沢','笠松','名古屋') THEN '中部'
++    WHEN p_track IN ('園田','姫路','高知','佐賀') THEN '西日本'
++  END
++$$;
++
++CREATE TABLE public.lab_worker_runs (
++  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
++  worker_id text NOT NULL CHECK (length(btrim(worker_id)) BETWEEN 1 AND 200),
++  region text NOT NULL CHECK (region IN ('北海道東北','関東','中部','西日本','RESCUE')),
++  started_at timestamptz NOT NULL DEFAULT clock_timestamp(),
++  finished_at timestamptz,
++  claimed_count integer NOT NULL DEFAULT 0 CHECK (claimed_count >= 0),
++  completed_count integer NOT NULL DEFAULT 0 CHECK (completed_count >= 0),
++  retry_count integer NOT NULL DEFAULT 0 CHECK (retry_count >= 0),
++  failed_count integer NOT NULL DEFAULT 0 CHECK (failed_count >= 0),
++  last_error text,
++  status text NOT NULL DEFAULT 'RUNNING'
++    CHECK (status IN ('RUNNING','SUCCEEDED','FAILED','ABANDONED')),
++  CHECK ((status = 'RUNNING') = (finished_at IS NULL)),
++  CHECK (finished_at IS NULL OR finished_at >= started_at),
++  CHECK (completed_count + retry_count + failed_count <= claimed_count)
++);
++
++CREATE TABLE public.lab_prediction_jobs (
++  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
++  race_date date NOT NULL,
++  track text NOT NULL,
++  race_no integer NOT NULL CHECK (race_no BETWEEN 1 AND 12),
++  circuit text NOT NULL DEFAULT 'LOCAL' CHECK (circuit = 'LOCAL'),
++  region text NOT NULL CHECK (region IN ('北海道東北','関東','中部','西日本')),
++  job_status text NOT NULL DEFAULT 'QUEUED'
++    CHECK (job_status IN ('QUEUED','CLAIMED','DONE','RETRY','DEAD')),
++  attempts integer NOT NULL DEFAULT 0 CHECK (attempts >= 0),
++  max_attempts integer NOT NULL DEFAULT 5 CHECK (max_attempts BETWEEN 1 AND 100),
++  last_error text,
++  claimed_by text,
++  claimed_at timestamptz,
++  lease_until timestamptz,
++  claim_token uuid,
++  worker_run_id uuid REFERENCES public.lab_worker_runs(id),
++  next_attempt_at timestamptz NOT NULL DEFAULT clock_timestamp(),
++  created_at timestamptz NOT NULL DEFAULT clock_timestamp(),
++  updated_at timestamptz NOT NULL DEFAULT clock_timestamp(),
++  UNIQUE (race_date, track, race_no, circuit),
++  CHECK (public.lab_prediction_region(track) IS NOT NULL
++    AND region = public.lab_prediction_region(track)),
++  CHECK (
++    (job_status = 'CLAIMED' AND claimed_by IS NOT NULL AND claimed_at IS NOT NULL
++      AND lease_until IS NOT NULL AND lease_until > claimed_at
++      AND claim_token IS NOT NULL AND worker_run_id IS NOT NULL)
++    OR
++    (job_status <> 'CLAIMED' AND claimed_by IS NULL AND claimed_at IS NULL
++      AND lease_until IS NULL AND claim_token IS NULL AND worker_run_id IS NULL)
++  )
++);
++
++CREATE INDEX lab_jobs_ready_idx ON public.lab_prediction_jobs
++  (region, next_attempt_at, race_date)
++  WHERE job_status IN ('QUEUED','RETRY','CLAIMED');
++CREATE INDEX lab_jobs_lease_idx ON public.lab_prediction_jobs (lease_until)
++  WHERE job_status = 'CLAIMED';
++CREATE INDEX lab_jobs_run_idx ON public.lab_prediction_jobs (worker_run_id)
++  WHERE job_status = 'CLAIMED';
++CREATE INDEX lab_runs_started_idx ON public.lab_worker_runs (started_at DESC);
++
++ALTER TABLE public.lab_prediction_jobs ENABLE ROW LEVEL SECURITY;
++ALTER TABLE public.lab_worker_runs ENABLE ROW LEVEL SECURITY;
++REVOKE ALL ON public.lab_prediction_jobs, public.lab_worker_runs FROM PUBLIC, anon, authenticated;
++GRANT SELECT, INSERT, UPDATE ON public.lab_prediction_jobs, public.lab_worker_runs TO service_role;
++
++CREATE FUNCTION public.lab_queue_touch_updated_at()
++RETURNS trigger LANGUAGE plpgsql SECURITY INVOKER SET search_path = pg_catalog AS $$
++BEGIN
++  NEW.updated_at := clock_timestamp();
++  RETURN NEW;
++END
++$$;
++CREATE TRIGGER lab_prediction_jobs_updated_at BEFORE UPDATE ON public.lab_prediction_jobs
++FOR EACH ROW EXECUTE FUNCTION public.lab_queue_touch_updated_at();
++
++-- Existing official predictions of ANY status block new work. Legacy saved LOCAL
++-- predictions also block work, so old FROZEN output cannot be regenerated.
++CREATE VIEW public.lab_prediction_race_state WITH (security_invoker = true) AS
++SELECT r.race_date, r.track, r.race_no, r.circuit, r.post_time, r.prediction_status,
++  public.lab_prediction_region(r.track) AS region,
++  EXISTS (
++    SELECT 1 FROM public.official_predictions p
++    -- Production uniqueness excludes circuit; conflicting circuit also blocks work.
++    WHERE (p.race_date,p.track,p.race_no) =
++      (r.race_date,r.track,r.race_no)
++  ) AS has_official_prediction,
++  EXISTS (
++    SELECT 1 FROM public.official_predictions p
++    WHERE (p.race_date,p.track,p.race_no,p.circuit) =
++      (r.race_date,r.track,r.race_no,r.circuit) AND p.status = 'FROZEN'
++  ) AS has_frozen_prediction,
++  EXISTS (
++    SELECT 1 FROM public.chappy_predictions p
++    WHERE (p.race_date,p.track,p.race_no) = (r.race_date,r.track,r.race_no)
++  ) AS has_legacy_prediction
++FROM public.official_races r WHERE r.circuit = 'LOCAL';
++
++-- Explicit, idempotent enqueue. Not scheduled and not invoked by this migration.
++CREATE FUNCTION public.lab_enqueue_prediction_jobs(p_race_date date)
++RETURNS integer LANGUAGE plpgsql SECURITY INVOKER SET search_path = pg_catalog AS $$
++DECLARE v_count integer;
++BEGIN
++  IF p_race_date IS NULL THEN RAISE EXCEPTION 'race_date is required'; END IF;
++  INSERT INTO public.lab_prediction_jobs (race_date,track,race_no,circuit,region)
++  SELECT race_date,track,race_no,circuit,region FROM public.lab_prediction_race_state
++  WHERE race_date = p_race_date AND region IS NOT NULL
++    AND prediction_status IN ('PENDING','RETRY')
++    AND NOT has_official_prediction AND NOT has_legacy_prediction
++    AND post_time > clock_timestamp()
++  ON CONFLICT (race_date,track,race_no,circuit) DO NOTHING;
++  GET DIAGNOSTICS v_count = ROW_COUNT;
++  RETURN v_count;
++END
++$$;
++
++CREATE FUNCTION public.lab_start_worker_run(p_worker_id text, p_region text)
++RETURNS uuid LANGUAGE plpgsql SECURITY INVOKER SET search_path = pg_catalog AS $$
++DECLARE v_id uuid;
++BEGIN
++  INSERT INTO public.lab_worker_runs(worker_id,region)
++  VALUES (p_worker_id,p_region) RETURNING id INTO v_id;
++  RETURN v_id;
++END
++$$;
++
++-- Region and worker identity are taken from the run, never from a claim caller.
++-- All mutable RPCs lock run -> job in that order.
++CREATE FUNCTION public.lab_claim_prediction_jobs(
++  p_run_id uuid, p_limit integer DEFAULT 1, p_lease_seconds integer DEFAULT 300
++)
++RETURNS SETOF public.lab_prediction_jobs
++LANGUAGE plpgsql SECURITY INVOKER SET search_path = pg_catalog AS $$
++DECLARE
++  v_run public.lab_worker_runs;
++  v_job public.lab_prediction_jobs;
++  v_now timestamptz;
++  v_count integer := 0;
++BEGIN
++  IF p_limit IS NULL OR p_limit NOT BETWEEN 1 AND 50
++    OR p_lease_seconds IS NULL OR p_lease_seconds NOT BETWEEN 10 AND 900 THEN
++    RAISE EXCEPTION 'limit must be 1..50; lease_seconds must be 10..900';
++  END IF;
++  SELECT * INTO v_run FROM public.lab_worker_runs WHERE id = p_run_id FOR UPDATE;
++  IF NOT FOUND OR v_run.status <> 'RUNNING' THEN RAISE EXCEPTION 'run is not RUNNING'; END IF;
++  v_now := clock_timestamp();
++  -- Retire exhausted work even outside claim windows or after a race started.
++  -- Never retire an unexpired lease: its last allowed attempt may still finish.
++  -- Only job locks are taken here; old runs retain unresolved claim counts and
++  -- can be closed as FAILED/ABANDONED without reversing run -> job lock order.
++  WITH exhausted AS (
++    SELECT j.id FROM public.lab_prediction_jobs j
++    WHERE j.attempts >= j.max_attempts
++      AND (v_run.region = 'RESCUE' OR j.region = v_run.region)
++      AND (j.job_status IN ('QUEUED','RETRY')
++        OR (j.job_status = 'CLAIMED' AND j.lease_until <= v_now))
++    FOR UPDATE OF j SKIP LOCKED
++  )
++  UPDATE public.lab_prediction_jobs j SET
++    job_status = 'DEAD',
++    last_error = CASE WHEN j.job_status = 'CLAIMED'
++      THEN 'MAX_ATTEMPTS_EXCEEDED: LEASE_EXPIRED'
++      ELSE 'MAX_ATTEMPTS_EXCEEDED: ' || coalesce(j.last_error,'attempt budget exhausted') END,
++    claimed_by = NULL, claimed_at = NULL, lease_until = NULL,
++    claim_token = NULL, worker_run_id = NULL
++  FROM exhausted e WHERE j.id = e.id;
++  FOR v_job IN
++    SELECT j.* FROM public.lab_prediction_jobs j
++    JOIN public.lab_prediction_race_state r
++      ON (r.race_date,r.track,r.race_no,r.circuit) =
++         (j.race_date,j.track,j.race_no,j.circuit)
++    WHERE j.circuit = 'LOCAL'
++      AND r.prediction_status IN ('PENDING','RETRY')
++      AND NOT r.has_official_prediction AND NOT r.has_legacy_prediction
++      AND r.post_time > v_now
++      AND j.region = r.region
++      AND j.next_attempt_at <= v_now
++      AND j.attempts < j.max_attempts
++      AND (j.job_status IN ('QUEUED','RETRY')
++        OR (j.job_status = 'CLAIMED' AND j.lease_until <= v_now))
++      AND (
++        (v_run.region <> 'RESCUE' AND j.region = v_run.region
++          AND r.post_time >= v_now + interval '60 minutes'
++          AND r.post_time <= v_now + interval '150 minutes')
++        OR (v_run.region = 'RESCUE'
++          AND r.post_time >= v_now + interval '3 minutes'
++          AND r.post_time <= v_now + interval '70 minutes')
++      )
++    ORDER BY r.post_time, j.race_date, j.track, j.race_no, j.id
++    LIMIT p_limit
++    FOR UPDATE OF j SKIP LOCKED
++  LOOP
++    UPDATE public.lab_prediction_jobs SET
++      job_status = 'CLAIMED', attempts = attempts + 1,
++      last_error = CASE WHEN job_status = 'CLAIMED' THEN 'LEASE_EXPIRED' ELSE last_error END,
++      claimed_by = v_run.worker_id, claimed_at = v_now,
++      lease_until = v_now + make_interval(secs => p_lease_seconds),
++      claim_token = gen_random_uuid(), worker_run_id = p_run_id
++    WHERE id = v_job.id RETURNING * INTO v_job;
++    v_count := v_count + 1;
++    RETURN NEXT v_job;
++  END LOOP;
++  UPDATE public.lab_worker_runs SET claimed_count = claimed_count + v_count
++  WHERE id = p_run_id;
++END
++$$;
++
++-- A current, unexpired claim token fences off late/stale workers, even when the
++-- same worker_id is reused. DONE requires an existing official FROZEN record.
++CREATE FUNCTION public.lab_finish_prediction_job(
++  p_run_id uuid, p_job_id uuid, p_claim_token uuid, p_outcome text,
++  p_error text DEFAULT NULL, p_retry_seconds integer DEFAULT 60,
++  p_max_attempts integer DEFAULT NULL
++)
++RETURNS public.lab_prediction_jobs
++LANGUAGE plpgsql SECURITY INVOKER SET search_path = pg_catalog AS $$
++DECLARE
++  v_run public.lab_worker_runs;
++  v_job public.lab_prediction_jobs;
++  v_now timestamptz;
++  v_status text;
++BEGIN
++  IF p_outcome IS NULL OR p_outcome NOT IN ('DONE','RETRY','DEAD')
++    OR p_retry_seconds IS NULL OR p_retry_seconds NOT BETWEEN 1 AND 86400
++    OR (p_max_attempts IS NOT NULL AND p_max_attempts NOT BETWEEN 1 AND 100) THEN
++    RAISE EXCEPTION 'invalid outcome/retry_seconds/max_attempts';
++  END IF;
++  IF p_outcome <> 'DONE' AND (p_error IS NULL OR btrim(p_error) = '') THEN
++    RAISE EXCEPTION 'error is required for RETRY/DEAD';
++  END IF;
++  SELECT * INTO v_run FROM public.lab_worker_runs WHERE id = p_run_id FOR UPDATE;
++  IF NOT FOUND OR v_run.status <> 'RUNNING' THEN RAISE EXCEPTION 'run is not RUNNING'; END IF;
++  SELECT * INTO v_job FROM public.lab_prediction_jobs WHERE id = p_job_id FOR UPDATE;
++  v_now := clock_timestamp();
++  IF NOT FOUND OR v_job.job_status <> 'CLAIMED'
++    OR v_job.worker_run_id IS DISTINCT FROM p_run_id
++    OR v_job.claim_token IS DISTINCT FROM p_claim_token
++    OR v_job.claimed_by IS DISTINCT FROM v_run.worker_id
++    OR v_job.lease_until <= v_now THEN
++    RAISE EXCEPTION 'stale or expired claim';
++  END IF;
++  IF p_outcome = 'DONE' AND NOT EXISTS (
++    SELECT 1 FROM public.official_predictions p
++    WHERE (p.race_date,p.track,p.race_no,p.circuit) =
++      (v_job.race_date,v_job.track,v_job.race_no,v_job.circuit)
++      AND p.status = 'FROZEN'
++  ) THEN
++    RAISE EXCEPTION 'DONE requires an official FROZEN prediction';
++  END IF;
++  v_status := CASE
++    WHEN p_outcome = 'RETRY'
++      AND v_job.attempts >= least(coalesce(p_max_attempts,v_job.max_attempts),v_job.max_attempts)
++      THEN 'DEAD'
++    ELSE p_outcome END;
++  UPDATE public.lab_prediction_jobs SET
++    job_status = v_status, last_error = CASE WHEN v_status = 'DONE' THEN NULL ELSE p_error END,
++    next_attempt_at = CASE WHEN v_status = 'RETRY'
++      THEN v_now + make_interval(secs => p_retry_seconds) ELSE next_attempt_at END,
++    claimed_by = NULL, claimed_at = NULL, lease_until = NULL,
++    claim_token = NULL, worker_run_id = NULL
++  WHERE id = p_job_id RETURNING * INTO v_job;
++  UPDATE public.lab_worker_runs SET
++    completed_count = completed_count + (v_status = 'DONE')::integer,
++    retry_count = retry_count + (v_status = 'RETRY')::integer,
++    failed_count = failed_count + (v_status = 'DEAD')::integer,
++    last_error = CASE WHEN v_status = 'DONE' THEN last_error ELSE p_error END
++  WHERE id = p_run_id;
++  RETURN v_job;
++END
++$$;
++
++CREATE FUNCTION public.lab_finish_worker_run(
++  p_run_id uuid, p_status text DEFAULT 'SUCCEEDED', p_error text DEFAULT NULL
++)
++RETURNS public.lab_worker_runs
++LANGUAGE plpgsql SECURITY INVOKER SET search_path = pg_catalog AS $$
++DECLARE v_run public.lab_worker_runs; v_now timestamptz;
++BEGIN
++  IF p_status IS NULL OR p_status NOT IN ('SUCCEEDED','FAILED','ABANDONED') THEN
++    RAISE EXCEPTION 'invalid terminal run status';
++  END IF;
++  SELECT * INTO v_run FROM public.lab_worker_runs WHERE id = p_run_id FOR UPDATE;
++  IF NOT FOUND OR v_run.status <> 'RUNNING' THEN RAISE EXCEPTION 'run is not RUNNING'; END IF;
++  v_now := clock_timestamp();
++  IF EXISTS (SELECT 1 FROM public.lab_prediction_jobs
++    WHERE worker_run_id = p_run_id AND job_status = 'CLAIMED'
++      AND (lease_until > v_now OR p_status = 'SUCCEEDED')) THEN
++    RAISE EXCEPTION 'run has unfinished claims';
++  END IF;
++  IF p_status = 'SUCCEEDED'
++    AND v_run.claimed_count <> v_run.completed_count + v_run.retry_count + v_run.failed_count THEN
++    RAISE EXCEPTION 'run has lost claims; use FAILED or ABANDONED';
++  END IF;
++  UPDATE public.lab_worker_runs SET status = p_status,
++    finished_at = v_now, last_error = coalesce(p_error,last_error)
++  WHERE id = p_run_id RETURNING * INTO v_run;
++  RETURN v_run;
++END
++$$;
++
++-- Health includes unqueued races and races whose registry status is not claimable.
++-- FROZEN counts registry/official FROZEN or legacy saved output. Official rows of
++-- any status block claims, but are not silently counted as FROZEN.
++CREATE VIEW public.lab_prediction_health_races WITH (security_invoker = true) AS
++SELECT r.*, j.id AS job_id, j.job_status, j.attempts, j.last_error,
++  j.claimed_by, j.lease_until, j.next_attempt_at,
++  (r.prediction_status = 'FROZEN' OR r.has_frozen_prediction OR r.has_legacy_prediction) AS frozen,
++  (j.job_status = 'CLAIMED' AND j.lease_until <= statement_timestamp()) AS lease_expired,
++  (NOT r.has_official_prediction AND NOT r.has_legacy_prediction
++    AND r.post_time > statement_timestamp()
++    AND r.post_time <= statement_timestamp() + interval '70 minutes') AS missing_within_70,
++  CASE WHEN NOT r.has_official_prediction AND NOT r.has_legacy_prediction
++    AND r.post_time > statement_timestamp()
++    AND r.post_time <= statement_timestamp() + interval '45 minutes'
++    THEN 'URGENT_MISSING_PREDICTION' END AS alert
++FROM public.lab_prediction_race_state r
++LEFT JOIN public.lab_prediction_jobs j
++  ON (j.race_date,j.track,j.race_no,j.circuit) =
++     (r.race_date,r.track,r.race_no,r.circuit);
++
++CREATE VIEW public.lab_prediction_health_today WITH (security_invoker = true) AS
++SELECT (statement_timestamp() AT TIME ZONE 'Asia/Tokyo')::date AS race_date,
++  count(*) AS local_total,
++  count(*) FILTER (WHERE frozen) AS frozen,
++  count(*) FILTER (WHERE job_status = 'QUEUED') AS queued,
++  count(*) FILTER (WHERE job_status = 'CLAIMED') AS claimed,
++  count(*) FILTER (WHERE job_status = 'RETRY') AS retry,
++  count(*) FILTER (WHERE job_status = 'DEAD') AS dead,
++  count(*) FILTER (WHERE lease_expired) AS expired_claimed,
++  count(*) FILTER (WHERE missing_within_70) AS missing_within_70,
++  count(*) FILTER (WHERE alert = 'URGENT_MISSING_PREDICTION') AS urgent_missing_prediction,
++  count(*) FILTER (WHERE region IS NULL) AS unmapped_tracks,
++  count(*) FILTER (WHERE post_time IS NULL) AS unknown_post_time
++FROM public.lab_prediction_health_races
++WHERE race_date = (statement_timestamp() AT TIME ZONE 'Asia/Tokyo')::date;
++
++REVOKE ALL ON public.lab_prediction_race_state, public.lab_prediction_health_races,
++  public.lab_prediction_health_today FROM PUBLIC, anon, authenticated;
++GRANT SELECT ON public.lab_prediction_race_state, public.lab_prediction_health_races,
++  public.lab_prediction_health_today TO service_role;
++REVOKE ALL ON FUNCTION public.lab_prediction_region(text),
++  public.lab_queue_touch_updated_at(), public.lab_enqueue_prediction_jobs(date),
++  public.lab_start_worker_run(text,text), public.lab_claim_prediction_jobs(uuid,integer,integer),
++  public.lab_finish_prediction_job(uuid,uuid,uuid,text,text,integer,integer),
++  public.lab_finish_worker_run(uuid,text,text) FROM PUBLIC, anon, authenticated;
++GRANT EXECUTE ON FUNCTION public.lab_prediction_region(text),
++  public.lab_enqueue_prediction_jobs(date), public.lab_start_worker_run(text,text),
++  public.lab_claim_prediction_jobs(uuid,integer,integer),
++  public.lab_finish_prediction_job(uuid,uuid,uuid,text,text,integer,integer),
++  public.lab_finish_worker_run(uuid,text,text) TO service_role;
++
++COMMIT;
+diff --git a/tests/automation-queue.test.mjs b/tests/automation-queue.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..90a74c54a8af034fe145f3f17d8871c6703a019b
+--- /dev/null
++++ b/tests/automation-queue.test.mjs
+@@ -0,0 +1,381 @@
++// Real PostgreSQL integration tests, including two independent open transactions.
++// No JS queue simulation. psql is the only external dependency.
++import {test, before} from 'node:test';
++import assert from 'node:assert/strict';
++import {readFileSync} from 'node:fs';
++import {spawn, spawnSync} from 'node:child_process';
++import {randomUUID} from 'node:crypto';
++
++const enabled = process.env.LAB_QUEUE_TEST_DISPOSABLE === 'YES';
++// The suite creates a unique scratch database through a LOCAL PostgreSQL socket.
++// A remote URL, Supabase project, or a caller-selected database is never accepted.
++const socket = process.env.LAB_QUEUE_TEST_SOCKET ?? '/tmp';
++if (!socket.startsWith('/') || socket.includes('..')) throw new Error('local socket path required');
++const port = process.env.LAB_QUEUE_TEST_PORT ?? '5432';
++if (!/^\d{1,5}$/.test(port)) throw new Error('invalid local PostgreSQL port');
++const user = process.env.LAB_QUEUE_TEST_USER ?? process.env.USER ?? 'postgres';
++const db = 'lab_queue_test_' + randomUUID().replaceAll('-', '');
++const args = database => ['-X', '-q', '-A', '-t', '-v', 'ON_ERROR_STOP=1',
++  '-h', socket, '-p', port, '-U', user, '-d', database];
++const env = {...process.env, PGOPTIONS: '', PGSERVICE: '', PGSERVICEFILE: '/dev/null',
++  PGPASSFILE: '/dev/null', PGHOST: socket, PGPORT: port, PGUSER: user, PGDATABASE: db};
++function sql(query, database=db) {
++  const r = spawnSync('psql', args(database), {input:query, encoding:'utf8', env});
++  if (r.error) throw r.error;
++  if (r.status !== 0) throw new Error(r.stderr.trim());
++  return r.stdout.trim();
++}
++function value(q) {return JSON.parse(sql(q));}
++const migration = readFileSync(new URL('../supabase/migrations/20261001131000_automation_reliability_v1.sql', import.meta.url),'utf8');
++const fixture = readFileSync(new URL('./fixtures/automation-schema.sql', import.meta.url),'utf8');
++const t = (name, fn) => test(name, {skip:!enabled}, fn);
++function reset() {
++  sql('TRUNCATE public.lab_prediction_jobs, public.lab_worker_runs, public.official_predictions, public.chappy_predictions, public.official_races;');
++}
++function race(track, no=1, minutes=90, status='PENDING', circuit='LOCAL') {
++  // Parameters below are constants owned by this test suite.
++  sql(`INSERT INTO official_races (race_date,track,race_no,circuit,post_time,prediction_status) VALUES (
++    (clock_timestamp() AT TIME ZONE 'Asia/Tokyo')::date,
++    '${track}',${no},'${circuit}',clock_timestamp()+interval '${minutes} minutes','${status}');`);
++}
++function enqueue() {
++  return Number(sql("SELECT lab_enqueue_prediction_jobs((clock_timestamp() AT TIME ZONE 'Asia/Tokyo')::date);"));
++}
++function run(region='関東', worker='worker-a') {
++  return sql(`SELECT lab_start_worker_run('${worker}','${region}');`);
++}
++function claim(runId, count=1) {
++  return value(`SELECT coalesce(json_agg(j),'[]'::json) FROM lab_claim_prediction_jobs('${runId}',${count},300) j;`);
++}
++function finish(runId, job, outcome='RETRY', error='network timeout', max='NULL') {
++  return value(`SELECT row_to_json(j) FROM lab_finish_prediction_job(
++    '${runId}','${job.id}','${job.claim_token}','${outcome}','${error}',60,${max}) j;`);
++}
++function expire(job) {
++  // Real clock expiry without sleeps or a public RPC time override.
++  sql(`UPDATE lab_prediction_jobs SET claimed_at=clock_timestamp()-interval '2 minutes',
++    lease_until=clock_timestamp()-interval '1 minute' WHERE id='${job.id}';`);
++}
++function session() {
++  const child=spawn('psql',args(db),{env,stdio:['pipe','pipe','pipe']});
++  let buffer='', errors='', pending=null;
++  child.stdout.setEncoding('utf8');
++  child.stderr.setEncoding('utf8');
++  child.stderr.on('data',d=>{errors+=d;});
++  child.stdout.on('data',d=>{
++    buffer+=d;
++    if (pending && buffer.includes(pending.marker)) {
++      const p=pending;pending=null;clearTimeout(p.timeout);
++      const out=buffer.slice(0,buffer.indexOf(p.marker)).trim();
++      buffer=buffer.slice(buffer.indexOf(p.marker)+p.marker.length);
++      p.resolve(out);
++    }
++  });
++  child.on('error',e=>{if(pending){clearTimeout(pending.timeout);pending.reject(e);pending=null;}});
++  child.on('exit',code=>{
++    if(pending){clearTimeout(pending.timeout);pending.reject(new Error(errors||'psql exited '+code));pending=null;}
++  });
++  return {
++    query(query) {
++      if(pending) throw new Error('session query already pending');
++      return new Promise((resolve,reject)=>{
++        const marker='marker_'+randomUUID().replaceAll('-','');
++        const timeout=setTimeout(()=>{pending=null;child.kill();reject(new Error('session timed out: '+errors));},5000);
++        pending={marker,resolve,reject,timeout};
++        child.stdin.write(query+'\n\\echo '+marker+'\n');
++      });
++    },
++    close(){child.stdin.end('ROLLBACK;\n\\q\n');}
++  };
++}
++
++before(()=>{
++  if(!enabled) return;
++  // Schema fixture roles are cluster-wide; use a freshly initialized test cluster.
++  const existing=sql("SELECT count(*) FROM pg_roles WHERE rolname IN ('anon','authenticated','service_role');",'postgres');
++  assert.equal(existing,'0','use a fresh local test cluster; do not use your normal DB');
++  sql(`CREATE DATABASE ${db};`,'postgres');
++  sql(fixture);
++  sql(migration);
++  console.log('Disposable database retained for inspection:',db,'socket:',socket);
++});
++
++t('two independent workers cannot claim the same race while first transaction is open',async()=>{
++  reset();race('大井');race('大井',2,100);enqueue();
++  const a=run('関東','a'), b=run('関東','b'), s1=session(), s2=session();
++  try {
++    const first=JSON.parse(await s1.query(`BEGIN; SELECT row_to_json(j) FROM lab_claim_prediction_jobs('${a}',1,300) j;`));
++    const second=JSON.parse(await s2.query(`BEGIN; SELECT row_to_json(j) FROM lab_claim_prediction_jobs('${b}',1,300) j;`));
++    assert.notEqual(first.id,second.id);
++    assert.equal(first.race_no,1);
++    assert.equal(second.race_no,2);
++    await s1.query('COMMIT;');await s2.query('COMMIT;');
++    assert.equal(claim(a).length,0);
++  } finally {s1.close();s2.close();}
++});
++t('region worker never claims another region',()=>{
++  reset();race('門別');race('大井',1,100);enqueue();
++  const jobs=claim(run('関東'),50);
++  assert.equal(jobs.length,1);assert.equal(jobs[0].track,'大井');
++});
++t('RESCUE spans all four regions',()=>{
++  reset();for(const track of ['門別','大井','名古屋','高知'])race(track,1,30);
++  enqueue();const jobs=claim(run('RESCUE'),50);
++  assert.deepEqual(new Set(jobs.map(j=>j.region)),new Set(['北海道東北','関東','中部','西日本']));
++});
++t('RESCUE excludes races less than 3 or more than 70 minutes away',()=>{
++  reset();race('大井',1,2);race('大井',2,30);race('大井',3,71);enqueue();
++  assert.deepEqual(claim(run('RESCUE'),50).map(j=>j.race_no),[2]);
++});
++t('expired lease is reclaimed with a new token and increased attempts',()=>{
++  reset();race('大井');enqueue();const j=claim(run())[0];expire(j);
++  const next=claim(run('関東','b'))[0];
++  assert.equal(next.id,j.id);assert.notEqual(next.claim_token,j.claim_token);
++  assert.equal(next.attempts,2);assert.equal(next.last_error,'LEASE_EXPIRED');
++});
++t('unexpired lease cannot be reclaimed even with the same worker_id',()=>{
++  reset();race('大井');enqueue();claim(run());assert.equal(claim(run()).length,0);
++});
++t('registry FROZEN blocks enqueue and blocks an already queued race',()=>{
++  reset();race('大井',1,90,'FROZEN');assert.equal(enqueue(),0);
++  sql("UPDATE official_races SET prediction_status='PENDING';");enqueue();
++  sql("UPDATE official_races SET prediction_status='FROZEN';");
++  assert.equal(claim(run()).length,0);
++});
++t('saved official prediction of any status blocks claim',()=>{
++  reset();race('大井');enqueue();
++  sql("INSERT INTO official_predictions(race_date,track,race_no,circuit,status) SELECT race_date,track,race_no,circuit,'FROZEN' FROM official_races;");
++  assert.equal(claim(run()).length,0);
++  for(const status of ['PUBLISHED','SETTLED']) {
++    sql(`UPDATE official_predictions SET status='${status}';`);assert.equal(claim(run()).length,0);
++  }
++});
++t('legacy frozen prediction blocks enqueue and claim',()=>{
++  reset();race('大井');enqueue();
++  sql("INSERT INTO chappy_predictions(race_date,track,race_no) SELECT race_date,track,race_no FROM official_races;");
++  assert.equal(claim(run()).length,0);assert.equal(enqueue(),0);
++});
++t('already started and unknown-post-time races are never claimed',()=>{
++  reset();race('大井');enqueue();
++  sql("UPDATE official_races SET post_time=clock_timestamp()-interval '1 minute';");
++  assert.equal(claim(run()).length,0);
++  sql('UPDATE official_races SET post_time=NULL;');assert.equal(claim(run()).length,0);
++});
++t('RETRY waits for next_attempt_at and can then be reclaimed',()=>{
++  reset();race('大井',1,90,'RETRY');enqueue();const r=run(), j=claim(r)[0];
++  assert.equal(finish(r,j).job_status,'RETRY');assert.equal(claim(run()).length,0);
++  sql("UPDATE lab_prediction_jobs SET next_attempt_at=clock_timestamp()-interval '1 second';");
++  assert.equal(claim(run())[0].attempts,2);
++});
++t('all 15 tracks map correctly; unknown and NULL tracks stay unmapped',()=>{
++  const mapping={
++    北海道東北:['門別','帯広','盛岡','水沢'],関東:['浦和','船橋','大井','川崎'],
++    中部:['金沢','笠松','名古屋'],西日本:['園田','姫路','高知','佐賀']
++  };
++  for(const [region,tracks] of Object.entries(mapping))for(const track of tracks)
++    assert.equal(sql(`SELECT lab_prediction_region('${track}');`),region);
++  assert.equal(sql("SELECT lab_prediction_region('東京') IS NULL AND lab_prediction_region(NULL) IS NULL;"),'t');
++});
++t('URGENT_MISSING_PREDICTION includes unqueued races within 45 minutes only',()=>{
++  reset();race('大井',1,44);race('大井',2,46);race('大井',3,-1);race('大井',4,30);
++  sql("INSERT INTO official_predictions(race_date,track,race_no,circuit,status) SELECT race_date,track,race_no,circuit,'FROZEN' FROM official_races WHERE race_no=4;");
++  assert.deepEqual(value("SELECT json_agg(race_no ORDER BY race_no) FROM lab_prediction_health_races WHERE alert='URGENT_MISSING_PREDICTION';"),[1]);
++  const h=value('SELECT row_to_json(h) FROM lab_prediction_health_today h;');
++  assert.equal(h.local_total,4);assert.equal(h.frozen,1);assert.equal(h.missing_within_70,2);
++  assert.equal(h.urgent_missing_prediction,1);
++});
++t('unique race identity and idempotent enqueue',()=>{
++  reset();race('大井');assert.equal(enqueue(),1);assert.equal(enqueue(),0);
++  assert.throws(()=>sql("INSERT INTO lab_prediction_jobs(race_date,track,race_no,circuit,region) SELECT race_date,track,race_no,circuit,region FROM lab_prediction_jobs;"),/duplicate key/);
++});
++t('ordering is by nearest post time, not race number',()=>{
++  reset();race('大井',1,130);race('大井',2,90);enqueue();
++  assert.equal(claim(run())[0].race_no,2);
++});
++t('JRA and unknown LOCAL tracks are excluded from enqueue',()=>{
++  reset();race('東京',1,30,'PENDING','JRA');race('未知競馬場');assert.equal(enqueue(),0);
++  const h=value('SELECT row_to_json(h) FROM lab_prediction_health_today h;');
++  assert.equal(h.local_total,1);assert.equal(h.unmapped_tracks,1);
++});
++t('old token cannot finish a reclaimed job, including reused worker_id',()=>{
++  reset();race('大井');enqueue();const r=run(), old=claim(r)[0];expire(old);
++  const r2=run(), current=claim(r2)[0];
++  assert.throws(()=>finish(r,old),/stale or expired claim/);
++  assert.throws(()=>finish(r2,{...current,claim_token:old.claim_token}),/stale or expired claim/);
++  assert.equal(sql('SELECT attempts FROM lab_prediction_jobs;'),'2');
++});
++t('expired token cannot finish even before another worker reclaims it',()=>{
++  reset();race('大井');enqueue();const r=run(), j=claim(r)[0];expire(j);
++  assert.throws(()=>finish(r,j),/stale or expired claim/);
++});
++t('retry exhaustion becomes DEAD and cannot be reclaimed',()=>{
++  reset();race('大井');enqueue();const r=run(), j=claim(r)[0];
++  assert.equal(finish(r,j,'RETRY','timeout',1).job_status,'DEAD');
++  assert.equal(claim(run()).length,0);
++  assert.equal(sql(`SELECT failed_count FROM lab_worker_runs WHERE id='${r}';`),'1');
++});
++t('DONE requires official FROZEN and leaves saved payload untouched',()=>{
++  reset();race('大井');enqueue();const r=run(), j=claim(r)[0];
++  assert.throws(()=>finish(r,j,'DONE'),/requires an official FROZEN/);
++  sql("INSERT INTO official_predictions(race_date,track,race_no,circuit,status,payload) SELECT race_date,track,race_no,circuit,'FROZEN','{\"rank\":[2,1],\"eye\":7}'::jsonb FROM official_races;");
++  const saved=sql('SELECT payload FROM official_predictions;');
++  assert.equal(finish(r,j,'DONE').job_status,'DONE');
++  assert.equal(sql('SELECT payload FROM official_predictions;'),saved);
++  assert.throws(()=>finish(r,j,'DONE'),/stale or expired claim/);
++  assert.equal(sql(`SELECT completed_count FROM lab_worker_runs WHERE id='${r}';`),'1');
++});
++t('run audit counts claim and retry exactly once and can finish',()=>{
++  reset();race('大井');enqueue();const r=run(), j=claim(r)[0];finish(r,j);
++  const audit=value(`SELECT row_to_json(r) FROM lab_finish_worker_run('${r}') r;`);
++  assert.equal(audit.claimed_count,1);assert.equal(audit.retry_count,1);
++  assert.equal(audit.status,'SUCCEEDED');assert.ok(audit.finished_at);
++  assert.throws(()=>claim(r),/not RUNNING/);
++});
++t('run cannot finish with a live claim; expired lost claims can be abandoned',()=>{
++  reset();race('大井');enqueue();const r=run(), j=claim(r)[0];
++  assert.throws(()=>sql(`SELECT lab_finish_worker_run('${r}');`),/unfinished claims/);
++  expire(j);
++  assert.throws(()=>sql(`SELECT lab_finish_worker_run('${r}');`),/unfinished claims/);
++  assert.equal(value(`SELECT row_to_json(r) FROM lab_finish_worker_run('${r}','ABANDONED','worker stopped') r;`).status,'ABANDONED');
++  assert.equal(claim(run()).length,1);
++});
++t('health counts all queue states and expired leases',()=>{
++  reset();for(let n=1;n<=5;n++)race('大井',n,30);enqueue();
++  const r=run('RESCUE'), jobs=claim(r,3);
++  finish(r,jobs[0],'RETRY');finish(r,jobs[1],'DEAD');expire(jobs[2]);
++  const h=value('SELECT row_to_json(h) FROM lab_prediction_health_today h;');
++  assert.equal(h.queued,2);assert.equal(h.claimed,1);assert.equal(h.retry,1);
++  assert.equal(h.dead,1);assert.equal(h.expired_claimed,1);
++});
++t('only PENDING or RETRY registry status is claimable',()=>{
++  reset();race('大井');enqueue();sql("UPDATE official_races SET prediction_status='FAILED';");
++  assert.equal(claim(run()).length,0);
++});
++t('invalid claim inputs and invalid mapping are rejected',()=>{
++  reset();const r=run();
++  assert.throws(()=>sql(`SELECT lab_claim_prediction_jobs('${r}',0,300);`),/limit must/);
++  assert.throws(()=>sql(`SELECT lab_claim_prediction_jobs('${r}',1,0);`),/limit must/);
++  assert.throws(()=>run('UNKNOWN'),/check constraint/);
++  assert.throws(()=>sql("INSERT INTO lab_prediction_jobs(race_date,track,race_no,region) VALUES (current_date,'大井',1,'中部');"),/check constraint/);
++});
++t('anon/authenticated cannot read queue/health or execute claim; service_role can',()=>{
++  reset();race('大井');enqueue();const r=run();
++  for(const role of ['anon','authenticated']) {
++    assert.throws(()=>sql(`SET ROLE ${role}; SELECT * FROM lab_prediction_jobs;`),/permission denied/);
++    assert.throws(()=>sql(`SET ROLE ${role}; SELECT * FROM lab_prediction_health_today;`),/permission denied/);
++    assert.throws(()=>sql(`SET ROLE ${role}; SELECT lab_claim_prediction_jobs('${r}');`),/permission denied/);
++  }
++  assert.equal(sql("SET ROLE service_role; SELECT count(*) FROM lab_prediction_jobs;"),'1');
++  assert.equal(sql(`SET ROLE service_role; SELECT count(*) FROM lab_claim_prediction_jobs('${r}');`),'1');
++});
++
++t('regional claim accepts only the 60..150 minute window',()=>{
++  reset();
++  for(const [no,minutes] of [[1,59.9],[2,60.1],[3,90],[4,149.9],[5,150.1]])
++    race('大井',no,minutes);
++  enqueue();
++  assert.deepEqual(claim(run(),50).map(j=>j.race_no),[2,3,4]);
++});
++t('regional and RESCUE workers retain different windows',()=>{
++  reset();race('大井',1,30);race('大井',2,65);race('大井',3,90);enqueue();
++  assert.deepEqual(claim(run(),50).map(j=>j.race_no),[2,3]);
++  assert.deepEqual(claim(run('RESCUE'),50).map(j=>j.race_no),[1]);
++});
++t('five crashes exhaust the default budget and the sixth claim returns nothing',()=>{
++  reset();race('大井');enqueue();
++  let last;
++  for(let attempt=1;attempt<=5;attempt++) {
++    const jobs=claim(run('関東','crash-'+attempt));
++    assert.equal(jobs.length,1);last=jobs[0];
++    assert.equal(last.attempts,attempt);assert.equal(last.max_attempts,5);
++    expire(last);
++  }
++  assert.equal(claim(run()).length,0);
++  const dead=value('SELECT row_to_json(j) FROM lab_prediction_jobs j;');
++  assert.equal(dead.job_status,'DEAD');assert.equal(dead.attempts,5);
++  assert.equal(dead.claim_token,null);assert.equal(dead.worker_run_id,null);
++  assert.match(dead.last_error,/MAX_ATTEMPTS_EXCEEDED: LEASE_EXPIRED/);
++  assert.equal(claim(run('RESCUE')).length,0);
++});
++t('retry and expired leases share the same per-job attempt budget',()=>{
++  reset();race('大井');enqueue();
++  sql('UPDATE lab_prediction_jobs SET max_attempts=2;');
++  const r=run(), first=claim(r)[0];finish(r,first);
++  sql("UPDATE lab_prediction_jobs SET next_attempt_at=clock_timestamp()-interval '1 second';");
++  const last=claim(run())[0];assert.equal(last.attempts,2);expire(last);
++  assert.equal(claim(run()).length,0);
++  assert.equal(sql('SELECT job_status FROM lab_prediction_jobs;'),'DEAD');
++});
++t('configured budget above five is used by both claim and default retry completion',()=>{
++  reset();race('大井');enqueue();sql('UPDATE lab_prediction_jobs SET max_attempts=7;');
++  for(let attempt=1;attempt<=5;attempt++) {
++    const j=claim(run())[0];assert.equal(j.attempts,attempt);expire(j);
++  }
++  const r=run(), sixth=claim(r)[0];
++  assert.equal(sixth.attempts,6);assert.equal(finish(r,sixth).job_status,'RETRY');
++  sql("UPDATE lab_prediction_jobs SET next_attempt_at=clock_timestamp()-interval '1 second';");
++  const r2=run(), seventh=claim(r2)[0];
++  assert.equal(seventh.attempts,7);assert.equal(finish(r2,seventh).job_status,'DEAD');
++  assert.equal(claim(run()).length,0);
++});
++t('the last allowed live lease is not retired and may complete',()=>{
++  reset();race('大井');enqueue();sql('UPDATE lab_prediction_jobs SET max_attempts=1;');
++  const r=run(), j=claim(r)[0];assert.equal(claim(run()).length,0);
++  assert.equal(sql('SELECT job_status FROM lab_prediction_jobs;'),'CLAIMED');
++  sql("INSERT INTO official_predictions(race_date,track,race_no) SELECT race_date,track,race_no FROM official_races;");
++  assert.equal(finish(r,j,'DONE').job_status,'DONE');
++});
++t('RESCUE also retires expired jobs at their configured budget',()=>{
++  reset();race('高知',1,30);enqueue();sql('UPDATE lab_prediction_jobs SET max_attempts=1;');
++  const j=claim(run('RESCUE'))[0];expire(j);
++  assert.equal(claim(run('RESCUE')).length,0);
++  assert.equal(sql('SELECT job_status FROM lab_prediction_jobs;'),'DEAD');
++});
++t('exhausted leases outside the normal time window are still retired',()=>{
++  reset();race('大井');enqueue();sql('UPDATE lab_prediction_jobs SET max_attempts=1;');
++  const j=claim(run())[0];expire(j);
++  sql("UPDATE official_races SET post_time=clock_timestamp()+interval '180 minutes';");
++  assert.equal(claim(run()).length,0);
++  assert.equal(sql('SELECT job_status FROM lab_prediction_jobs;'),'DEAD');
++});
++t('exhaustion cleanup stays regional; RESCUE cleans up all regions',()=>{
++  reset();race('大井');race('高知');enqueue();
++  sql("UPDATE lab_prediction_jobs SET attempts=5;");
++  claim(run('関東'));
++  assert.equal(sql("SELECT job_status FROM lab_prediction_jobs WHERE track='大井';"),'DEAD');
++  assert.equal(sql("SELECT job_status FROM lab_prediction_jobs WHERE track='高知';"),'QUEUED');
++  claim(run('RESCUE'));
++  assert.equal(sql("SELECT job_status FROM lab_prediction_jobs WHERE track='高知';"),'DEAD');
++});
++t('retry override cannot raise the configured per-job cap; invalid caps are rejected',()=>{
++  reset();race('大井');enqueue();sql('UPDATE lab_prediction_jobs SET max_attempts=1;');
++  const r=run(), j=claim(r)[0];
++  assert.equal(finish(r,j,'RETRY','timeout',100).job_status,'DEAD');
++  for(const cap of [0,101])assert.throws(()=>sql(`UPDATE lab_prediction_jobs SET max_attempts=${cap};`),/check constraint/);
++});
++t('fixture prediction uniqueness rejects the same race with another circuit',()=>{
++  reset();race('大井');
++  sql("INSERT INTO official_predictions(race_date,track,race_no,circuit) SELECT race_date,track,race_no,'LOCAL' FROM official_races;");
++  assert.throws(()=>sql("INSERT INTO official_predictions(race_date,track,race_no,circuit) SELECT race_date,track,race_no,'JRA' FROM official_races;"),/duplicate key/);
++});
++t('fixture rejects invalid status, circuit and race number contracts',()=>{
++  reset();race('大井');
++  for(const status of ['DRAFT','RETRY'])assert.throws(()=>sql(`INSERT INTO official_predictions(race_date,track,race_no,status) SELECT race_date,track,race_no,'${status}' FROM official_races;`),/check constraint/);
++  assert.throws(()=>sql("INSERT INTO official_predictions(race_date,track,race_no,circuit) SELECT race_date,track,race_no,'UNKNOWN' FROM official_races;"),/check constraint/);
++  for(const table of ['official_predictions','official_races','chappy_predictions'])
++    for(const no of [0,13])assert.throws(()=>sql(`INSERT INTO ${table}(race_date,track,race_no) VALUES (current_date,'大井',${no});`),/check constraint/);
++});
++t('fixture preserves production metadata defaults and required values',()=>{
++  reset();race('大井');
++  sql("INSERT INTO official_predictions(race_date,track,race_no) SELECT race_date,track,race_no FROM official_races;");
++  const p=value('SELECT row_to_json(p) FROM official_predictions p;');
++  assert.equal(p.status,'FROZEN');assert.equal(p.circuit,'LOCAL');
++  assert.equal(p.protocol_version,'CHAPPY_DIRECT_1');assert.equal(p.model_label,'GPT-5.6 Sol');
++  assert.equal(p.source,'CHATGPT');assert.ok(p.predicted_at);assert.ok(p.frozen_at);
++  assert.throws(()=>sql('UPDATE official_predictions SET protocol_version=NULL;'),/not-null constraint/);
++});
++t('saved prediction with conflicting circuit blocks enqueue and existing queue claim',()=>{
++  reset();race('大井');enqueue();
++  sql("INSERT INTO official_predictions(race_date,track,race_no,circuit) SELECT race_date,track,race_no,'JRA' FROM official_races;");
++  assert.equal(enqueue(),0);assert.equal(claim(run()).length,0);
++});
+diff --git a/tests/fixtures/automation-schema.sql b/tests/fixtures/automation-schema.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..b53581b7505f7a61c355573a742348dc1bb17b03
+--- /dev/null
++++ b/tests/fixtures/automation-schema.sql
+@@ -0,0 +1,52 @@
++-- Disposable PostgreSQL 15+ only. Never execute on a Supabase project.
++-- Types/defaults/nullability and constraints read from production on 2026-10-01.
++-- Does not replay production triggers, policies or secondary indexes.
++CREATE ROLE anon NOLOGIN;
++CREATE ROLE authenticated NOLOGIN;
++CREATE ROLE service_role NOLOGIN BYPASSRLS;
++CREATE TABLE public.official_races (
++  race_date date NOT NULL, track text NOT NULL,
++  race_no integer NOT NULL CHECK (race_no BETWEEN 1 AND 12),
++  circuit text NOT NULL DEFAULT 'LOCAL', race_name text, post_time timestamptz,
++  source text NOT NULL DEFAULT 'SCHEDULE',
++  field_payload jsonb NOT NULL DEFAULT '{}',
++  field_status text NOT NULL DEFAULT 'PENDING', field_fetched_at timestamptz,
++  prediction_status text NOT NULL DEFAULT 'PENDING',
++  prediction_attempts integer NOT NULL DEFAULT 0, prediction_last_error text,
++  market_status text NOT NULL DEFAULT 'PENDING',
++  market_attempts integer NOT NULL DEFAULT 0, market_last_error text,
++  result_status text NOT NULL DEFAULT 'PENDING',
++  result_attempts integer NOT NULL DEFAULT 0, result_last_error text,
++  created_at timestamptz NOT NULL DEFAULT now(),
++  updated_at timestamptz NOT NULL DEFAULT now(),
++  PRIMARY KEY (race_date,track,race_no,circuit)
++);
