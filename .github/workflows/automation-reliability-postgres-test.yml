@@ -21,6 +21,19 @@ jobs:
           set -euo pipefail
           git apply --check automation-reliability-v1-review2.patch
           git apply automation-reliability-v1-review2.patch
+          # Temporary CI-only correction: libpq treats PGSERVICE='' as an explicit
+          # empty service name. The reviewed test harness intended to disable
+          # service lookup, so remove only that empty variable here.
+          python - <<'PY'
+          from pathlib import Path
+          p=Path("tests/automation-queue.test.mjs")
+          s=p.read_text()
+          old="PGOPTIONS: '', PGSERVICE: '', PGSERVICEFILE: '/dev/null'"
+          new="PGOPTIONS: '', PGSERVICEFILE: '/dev/null'"
+          if old not in s:
+              raise SystemExit("expected PGSERVICE test-harness line not found")
+          p.write_text(s.replace(old,new,1))
+          PY
 
       - name: Install PostgreSQL
         run: |
