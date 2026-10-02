@@ -998,3 +998,32 @@ index 0000000000000000000000000000000000000000..b53581b7505f7a61c355573a742348dc
 +  updated_at timestamptz NOT NULL DEFAULT now(),
 +  PRIMARY KEY (race_date,track,race_no,circuit)
 +);
++CREATE TABLE public.official_predictions (
++  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
++  race_date date NOT NULL, track text NOT NULL,
++  race_no integer NOT NULL CHECK (race_no BETWEEN 1 AND 12),
++  race_name text,
++  circuit text NOT NULL DEFAULT 'LOCAL' CHECK (circuit IN ('LOCAL','JRA')),
++  post_time timestamptz,
++  protocol_version text NOT NULL DEFAULT 'CHAPPY_DIRECT_1',
++  model_label text NOT NULL DEFAULT 'GPT-5.6 Sol',
++  source text NOT NULL DEFAULT 'CHATGPT',
++  status text NOT NULL DEFAULT 'FROZEN' CHECK (status IN ('FROZEN','PUBLISHED','SETTLED')),
++  payload jsonb NOT NULL DEFAULT '{}',
++  predicted_at timestamptz NOT NULL DEFAULT now(),
++  frozen_at timestamptz NOT NULL DEFAULT now(),
++  created_at timestamptz NOT NULL DEFAULT now(),
++  UNIQUE (race_date,track,race_no)
++);
++CREATE TABLE public.chappy_predictions (
++  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
++  race_date date NOT NULL, track text NOT NULL,
++  race_no integer NOT NULL CHECK (race_no BETWEEN 1 AND 12),
++  race_name text, picks jsonb NOT NULL DEFAULT '[]', eye jsonb, note text,
++  source text NOT NULL DEFAULT 'CHAT_PRE_RACE',
++  predicted_at timestamptz NOT NULL DEFAULT now(),
++  created_at timestamptz NOT NULL DEFAULT now(),
++  updated_at timestamptz NOT NULL DEFAULT now(),
++  UNIQUE (race_date,track,race_no)
++);
++GRANT SELECT ON public.official_races, public.official_predictions, public.chappy_predictions TO service_role;
