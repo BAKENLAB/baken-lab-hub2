@@ -1,0 +1,49 @@
+name: Automation reliability PostgreSQL test
+
+on:
+  push:
+    branches:
+      - test/automation-reliability-v1-db
+
+permissions:
+  contents: read
+
+jobs:
+  postgres-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply reviewed patch
+        run: |
+          set -euo pipefail
+          git apply --check automation-reliability-v1-review2.patch
+          git apply automation-reliability-v1-review2.patch
+
+      - name: Install PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql postgresql-client
+
+      - name: Start disposable PostgreSQL cluster
+        shell: bash
+        run: |
+          set -euo pipefail
+          PGBIN="$(pg_config --bindir)"
+          SOCK="$RUNNER_TEMP/lab-queue-pg"
+          DATA="$RUNNER_TEMP/lab-queue-data"
+          mkdir -p "$SOCK" "$DATA"
+          "$PGBIN/initdb" -D "$DATA" -A trust --no-locale
+          "$PGBIN/pg_ctl" -D "$DATA" -o "-k $SOCK -p 55432 -c listen_addresses=''" -w start
+          echo "LAB_QUEUE_TEST_DISPOSABLE=YES" >> "$GITHUB_ENV"
+          echo "LAB_QUEUE_TEST_SOCKET=$SOCK" >> "$GITHUB_ENV"
+          echo "LAB_QUEUE_TEST_PORT=55432" >> "$GITHUB_ENV"
+          echo "LAB_QUEUE_TEST_USER=$(whoami)" >> "$GITHUB_ENV"
+
+      - name: Run 40 PostgreSQL queue tests
+        run: node --test tests/automation-queue.test.mjs
+
+      - name: Run existing reliability tests
+        run: node tests/reliability.test.mjs
