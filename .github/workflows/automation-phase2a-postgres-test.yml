@@ -1,0 +1,79 @@
+name: Automation reliability Phase 2A PostgreSQL test
+
+on:
+  push:
+    branches:
+      - test/automation-reliability-phase2a-db
+
+permissions:
+  contents: read
+
+jobs:
+  postgres-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply Phase 1 reviewed patch
+        run: |
+          set -euo pipefail
+          git apply --check automation-reliability-v1-review2.patch
+          git apply automation-reliability-v1-review2.patch
+          python - <<'PY'
+          from pathlib import Path
+          p=Path("tests/automation-queue.test.mjs")
+          s=p.read_text()
+          old="PGOPTIONS: '', PGSERVICE: '', PGSERVICEFILE: '/dev/null'"
+          new="PGOPTIONS: '', PGSERVICEFILE: '/dev/null'"
+          if old not in s:
+              raise SystemExit("expected PGSERVICE test-harness line not found")
+          p.write_text(s.replace(old,new,1))
+          PY
+          node --check tests/automation-queue.test.mjs
+          node --check tests/automation-atomic-save.test.mjs
+          git diff --check
+
+      - name: Install PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql postgresql-client
+          psql --version
+
+      - name: Run Phase 1 PostgreSQL queue tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          PGBIN="$(pg_config --bindir)"
+          SOCK="$RUNNER_TEMP/lab-phase1-pg"
+          DATA="$RUNNER_TEMP/lab-phase1-data"
+          mkdir -p "$SOCK" "$DATA"
+          "$PGBIN/initdb" -D "$DATA" -A trust --no-locale
+          "$PGBIN/pg_ctl" -D "$DATA" -o "-k $SOCK -p 55431 -c listen_addresses=''" -w start
+          LAB_QUEUE_TEST_DISPOSABLE=YES \
+          LAB_QUEUE_TEST_SOCKET="$SOCK" \
+          LAB_QUEUE_TEST_PORT=55431 \
+          LAB_QUEUE_TEST_USER="$(whoami)" \
+          node --test tests/automation-queue.test.mjs
+          "$PGBIN/pg_ctl" -D "$DATA" -m fast -w stop
+
+      - name: Run Phase 2A PostgreSQL atomic save tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          PGBIN="$(pg_config --bindir)"
+          SOCK="$RUNNER_TEMP/lab-phase2a-pg"
+          DATA="$RUNNER_TEMP/lab-phase2a-data"
+          mkdir -p "$SOCK" "$DATA"
+          "$PGBIN/initdb" -D "$DATA" -A trust --no-locale
+          "$PGBIN/pg_ctl" -D "$DATA" -o "-k $SOCK -p 55432 -c listen_addresses=''" -w start
+          LAB_QUEUE_TEST_DISPOSABLE=YES \
+          LAB_QUEUE_TEST_SOCKET="$SOCK" \
+          LAB_QUEUE_TEST_PORT=55432 \
+          LAB_QUEUE_TEST_USER="$(whoami)" \
+          node --test tests/automation-atomic-save.test.mjs
+          "$PGBIN/pg_ctl" -D "$DATA" -m fast -w stop
+
+      - name: Run existing reliability tests
+        run: node tests/reliability.test.mjs
