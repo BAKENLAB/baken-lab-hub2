@@ -1,0 +1,24 @@
+{
+  "site_name": "BAKEN LOCAL Claimed Context",
+  "project_id": "appgprj_6ac109bb095c8191980caae7033ffe11",
+  "site_created": true,
+  "mcp_capability_manifest": true,
+  "deployed": false,
+  "source_pushed": false,
+  "plugin_connection_ready": false,
+  "runtime_keys_set": [
+    "LOCAL_MCP_BEARER_TOKEN",
+    "LOCAL_MCP_WORKER_ID"
+  ],
+  "runtime_keys_unset": [
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "LOCAL_MCP_ALLOWED_SITES_USER_IDS"
+  ],
+  "blockers": [
+    "Sites workflow scripts not supplied in current executor or skill resource",
+    "Executor HTTPS proxy connection refused; permission-enabled attempt aborted after excessive wait and not retried",
+    "Supabase service-role secret unavailable through configured environment or enabled official tools",
+    "Actual Site-scoped allowed user ID not obtained"
+  ],
+  "production_e2e": false
+}

@@ -1,0 +1,8 @@
+{
+  "name": "baken-local-claimed-context-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=24"},
+  "scripts": {"test": "node --test --test-isolation=none tests/*.test.mjs", "check": "node --check src/mcp.mjs && node --check src/claim-resolver.mjs && node --check src/sites-auth.mjs && node --check src/worker.mjs && node --check supabase-candidate/supabase/functions/lab-claimed-context/handler.mjs && node --check supabase-candidate/supabase/functions/lab-claimed-context/context-snapshot.mjs"}
+}
