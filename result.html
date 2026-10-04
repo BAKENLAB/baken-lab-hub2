@@ -49,7 +49,7 @@
     .sub-hero{margin-bottom:14px;padding:12px 2px 4px}
     .sub-kicker{color:var(--accent);font-size:9px;font-weight:950;letter-spacing:.13em}
     .sub-hero h1{margin:5px 0 4px;font-size:24px;letter-spacing:-.04em}
-    .sub-hero p{margin:0;color:#7f8996;font-size:9px;line-height:1.55}
+    .sub-hero p{margin:0;color:#7f8996;font-size:9px;line-height:1.55}.result-guide{margin:0 0 14px;border:1px solid #252c35;border-radius:13px;background:#0d1116;padding:11px 12px}.result-guide-title{color:var(--accent);font-size:8px;font-weight:950;letter-spacing:.08em}.result-guide-grid{display:grid;gap:6px;margin-top:8px}.result-guide-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:start}.result-guide-key{border:1px solid #303844;border-radius:999px;background:#12171e;padding:3px 6px;color:#d5dbe3;font-size:7px;font-weight:950;white-space:nowrap}.result-guide-key.green{border-color:rgba(200,255,77,.38);color:var(--accent)}.result-guide-key.eye{border-color:rgba(255,207,87,.38);color:var(--eye)}.result-guide-copy{color:#8994a1;font-size:8px;line-height:1.5}
     .sub-footer{display:flex;justify-content:space-between;gap:10px;color:#4f5967;font-size:9px;padding:20px 2px 0;border-top:1px solid #151a20;margin-top:20px}
 
   </style>
@@ -61,6 +61,15 @@
       <a class="sub-switch" href="/today.html">TODAY →</a>
     </div>
     <section class="sub-hero"><div class="sub-kicker">BAKEN LAB｜RESULT</div><h1>予想と結果</h1><p>事前に固定したLAB RANK・LAB 🧪 EYEと確定結果を、そのまま振り返ります。</p></section>
+    <section class="result-guide" aria-label="RESULTの見方">
+      <div class="result-guide-title">RESULTの見方</div>
+      <div class="result-guide-grid">
+        <div class="result-guide-row"><span class="result-guide-key">1着・2着・3着</span><span class="result-guide-copy">実際の確定着順と馬番・馬名を表示します。</span></div>
+        <div class="result-guide-row"><span class="result-guide-key green">TOP5 3/3</span><span class="result-guide-copy">実着順の上位3頭を、事前LAB TOP5ですべて拾えていたレースです。</span></div>
+        <div class="result-guide-row"><span class="result-guide-key eye">EYE馬券内</span><span class="result-guide-copy">LAB 🧪 EYEに選んだ馬が3着以内に入ったレースです。</span></div>
+        <div class="result-guide-row"><span class="result-guide-key">見る ›</span><span class="result-guide-copy">事前LAB順位と、なぜ選べた／なぜTOP5外だったのかを予想固定時点の理由で確認できます。</span></div>
+      </div>
+    </section>
     <section id="todayPanel" class="hidden">
       <div class="controls">
         <input id="dateInput" class="date-input" type="date" aria-label="日付">
