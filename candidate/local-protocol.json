@@ -1,0 +1,166 @@
+{
+  "protocol_key": "LOCAL_MAIN",
+  "version": "CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004",
+  "is_active": false,
+  "content": {
+    "goal": "人気・オッズから完全分離した発走前能力予想をFROZENし、その後の市場データを使う買い目判断は別レイヤーで行う。チャッピー手動予想の全頭比較・順位・S〜F・LAB EYEをWorkでも可能な限り同じ順序・基準で再現する。",
+    "name": "BAKEN LAB LOCAL MAIN / Chappy protocol",
+    "output": {
+      "top5_format": "top5には順位1〜5位のhorse_no/horse_name/rank/grade/reason等を保存し、markは不要。",
+      "audit_required": {
+        "eye_pool_checked": "6頭以上ではTOP5外の全horse_no。件数は出走頭数-5と一致必須。",
+        "active_runner_nos": "最新公式で確認したACTIVE全horse_no",
+        "execution_profile": "UNIFIED_LOCAL_ABILITY_V1",
+        "eye_reaudit_guard": "EYE_REAUDIT_GUARD_20260929",
+        "eye_selected_rank": "EYEありなら元rank。なしならnull。",
+        "all_runners_checked": true,
+        "eye_candidate_audit": "TOP5外集合と完全一致、重複なし。horse_no,rank,upside_trigger,hidden_evidence,finish_path,risk,eye_case(boolean),evidence_refs,review_checks（17項目）。",
+        "rank6_auto_selected": false,
+        "runner_evidence_audit": "ACTIVE全馬ぶん必須。horse_no,recent_runs_checked,evidence_summary,missing_items。",
+        "outside_top5_reaudited": "true when field size >=6; NOT_APPLICABLE when <=5",
+        "field_integrity_checked": true,
+        "market_used_for_ranking": false,
+        "eye_audit_specificity_guard": true,
+        "eye_selection_method": "LOCAL_EYE_COMPARISON_V1",
+        "market_used_for_eye": false,
+        "eye_pairwise_comparison": "TOP5外の全組合せ。horse_nos（2頭）,preferred_horse_no（片方またはnull）,criterion,reason,evidence_refs。rank順による暗黙選択不可。",
+        "eye_abstention_reason": "EYE=null時は具体的な根拠不足/比較不能理由。"
+      },
+      "top_level_keys": [
+        "runners",
+        "top5",
+        "eye",
+        "bets",
+        "summary",
+        "bet_strategy",
+        "audit"
+      ],
+      "frozen_market_fields": {
+        "bets": "[]",
+        "bet_strategy": "MARKET_SEPARATE"
+      }
+    },
+    "betting": {
+      "rule": "買い目はFROZEN能力予想の後、最新official_marketの人気・単勝オッズを初めて参照して別レイヤーで設計する。能力順位・TOP5・S〜F・EYEは変更しない。",
+      "layer": "MARKET_SEPARATE",
+      "timing": "原則として発走20〜80分前。最新market captured_atが45分以内のレースを優先する。",
+      "storage": "public.official_bet_plans",
+      "finality": "official_bet_plansは1レース1件のFINAL。既存FINALは更新・上書きしない。",
+      "win_odds": "単勝1倍台は原則推奨外。ただし能力順位は不変。",
+      "eye_usage": "EYEがある場合は到達可能着順を個別判定し、価値があるとき最低1券種に含める。3列目固定は禁止。",
+      "no_fixed_template": true
+    },
+    "lab_eye": {
+      "definition": "TOP5外の全馬を再監査し、能力順位そのものの高さではなく「今回だけ元の能力順位を上回って走る可能性」が最も高い1頭を選ぶ。6位を禁止しない。7位以下を優遇しない。人気・オッズ・人気薄であることは一切使わない。",
+      "finish_rule": "EYEは1着・2着・3着すべてあり得る。選定後、勝ち筋/連対筋/3着筋を別々に検討し、買い目の置き場所を決める。",
+      "not_allowed": [
+        "人気薄だから選ぶ",
+        "高オッズだから選ぶ",
+        "3着候補という固定観念だけで選ぶ"
+      ],
+      "rank6_guard": "能力順位6位を「TOP5の次点だから」という理由だけでEYEに自動選択することを禁止する。6位をEYEにすること自体は可。ただし7位以下を含むTOP5外全馬との再監査後、本当に最も上振れ可能性が高いと判断できた場合に限る。",
+      "failure_guard": "LOCAL_EYE_COMPARISON_V1: 全候補の17項目をCHECKED（事実参照付き）/MISSING（取得不能理由付き）で記録。eye_caseはboolean。全候補間の比較をeye_pairwise_comparisonに記録し、criterion=CURRENT_UPSIDE_OVER_BASELINE、両馬のevidence_refs、具体的reason、preferred_horse_no（比較不能/同等はnull）を必須とする。独立した上振れ根拠があり全相手に優位な唯一の候補だけを選ぶ。候補集合・pool完全一致と重複なし、選択と比較の整合性を保存前検証する。",
+      "selection_pool": "TOP5外全ACTIVE馬を同じ項目で再監査。十分な上振れ根拠がなければeye=null。比較で最優位を確定できない場合もnull。元rank・配列順で選ばない。",
+      "priority_signals": [
+        "転入・転厩・地区替わり",
+        "クラス緩和・条件戻り",
+        "距離替わり",
+        "斤量差",
+        "近走着順に隠れた内容",
+        "不利・展開不向きからの反転",
+        "過去高クラス実績",
+        "脚質と今回展開の噛み合い",
+        "同条件での隠れた好走歴"
+      ],
+      "selection_method": "最初に全候補の具体的事実を、候補配列の順番とは独立して確認する。元能力順位は書換えず、加点にも比較の同点処理にも使わない。距離・競馬場・馬場・クラス・昇降級・斤量・騎手・枠・脚質・同型馬・着差・通過順・上がり・不利・休み明け/叩き・今回適性・同条件実績を全候補同じ深さで調べ、取得不能はMISSING。上振れ候補とする理由、隠れた内容、到達筋、リスクを候補ごとに根拠付きで残す。全候補の一対比較で今回だけの反転確からしさを比較し、元rankの高さ/低さで優先せず、同等/不明はnull。全相手に優位な1頭を確定できなければEYE=null。データから根拠を確認できない項目を推測しない。",
+      "separate_from_rank": "EYEに選んでも能力順位は後付けで繰り上げない。順位と異常値検知を分離する。"
+    },
+    "workflow": [
+      "出走取消を確認",
+      "全頭について近走・今回条件を確認",
+      "人気・オッズを見ずに全頭比較",
+      "全頭順位を1位から最下位まで確定",
+      "S〜F評価を付与",
+      "全頭順位1〜5位をTOP5として確定し、印は付けない",
+      "上位5頭を一旦除外し、残り全馬を別監査",
+      "全候補を独立した上振れ根拠で比較し、最優位1頭またはEYE=nullを確定",
+      "LAB EYEの到達可能性を順位とは別に記録",
+      "能力予想だけをofficial_predictionsへFROZEN",
+      "FROZEN INSERT後にSELECT検証"
+    ],
+    "top5_rule": "TOP5は全頭順位1〜5位そのもの。◎○▲☆△などの印は付けない・表示しない・保存上も必須としない。",
+    "principles": {
+      "no_posthoc": "結果を見た後の順位・印・EYE・FROZEN予想の書き換えは禁止。",
+      "missing_data": "取得不能な項目は推測で埋めず missing と明示し、残りの確認可能データで評価を継続。",
+      "frozen_immutable": "official_predictions は発走前INSERTのみ。既存FROZENのUPDATE/UPSERT/DELETE禁止。",
+      "market_separation": "人気・想定オッズ・実オッズは能力順位・TOP5・S〜F・LAB EYEに一切使用しない。official_predictionsをFROZENした後のみ、official_marketを使って別テーブルofficial_bet_plansで買い目価値判断を行う。FROZEN予想は市場変化で書き換えない。",
+      "independent_evaluation": "外部予想家の印や順位を能力評価の根拠にしない。"
+    },
+    "change_policy": "このプロトコル変更は将来レースにのみ適用し、過去FROZENを変更しない。単発1レースだけでルールを採用せず、仮説/未検証/検証済みを分離する。",
+    "runner_review": {
+      "ranking_rule": "近走着順の見栄えではなく、今回条件での再現性と能力を全頭相対比較して順位を決める。",
+      "required_checks": [
+        "近5走を基本とした着順・着差",
+        "通過順・位置取り・上がり・不利",
+        "クラス実績と昇級/降級/クラス戻り",
+        "距離実績・距離延長短縮・距離戻り",
+        "競馬場実績・同条件実績",
+        "馬場適性",
+        "枠順・1角までの距離・脚質・同型馬",
+        "斤量・減量騎手",
+        "騎手/騎手替わり",
+        "休み明け・叩き何走目",
+        "馬体重・馬具（取得できる場合）",
+        "当日馬場傾向（取得できる場合）",
+        "今回条件で実際に走れる具体的な勝ち筋/好走筋"
+      ]
+    },
+    "transfer_audit": {
+      "rule": "転入は自動加点しない。ただし近走大敗だけで過去の高クラス能力を消さず、上位5頭外でも必ず再監査する。",
+      "scope": [
+        "JRA→地方",
+        "他地区→今回地区",
+        "交流戦経由の転入"
+      ],
+      "checks": [
+        "転入前の最高到達クラス",
+        "着順だけでなく着差・位置取り・走破内容",
+        "今回の地方クラスとの能力差",
+        "距離変更",
+        "小回り・先行力への適応可能性",
+        "斤量変化",
+        "初戦ゆえの不確実性"
+      ]
+    },
+    "execution_guard": {
+      "rule": "WORK_TEST/RESCUE/手動救済の違いは対象時間帯とrun_mode表示だけ。全頭確認・順位付け・TOP5監査・TOP5外監査・EYE選定の深さ、必要データ、保存条件は完全に同一とする。短時間だから処理を省略・要約・定型文で代替してはならない。",
+      "profile": "UNIFIED_LOCAL_ABILITY_V1",
+      "eye_specificity": "TOP5外各馬の eye_candidate_audit は他馬へそのまま転用できる定型文を禁止。upside_trigger/hidden_evidence/finish_path/risk は当該馬固有の具体的事実を最低1つ含める。条件を満たさない候補が1頭でもあればFROZEN INSERT禁止。",
+      "field_integrity": "順位付け前に最新NAR公式の出走状態を再確認する。DBでCANCELLED/EXCLUDEDでも最新公式で出走扱い、または最新公式出馬表とfield_payloadのACTIVE集合が一致しない場合は FIELD_STATUS_CONFLICT としてFROZEN禁止・RETRY。人気/オッズ値は順位付けに使わない。",
+      "runner_evidence": "全ACTIVE馬について recent_runs_checked と evidence_summary を個別に作り、近走/着差/通過順/クラス/距離・競馬場/斤量/騎手/条件替わりのうち確認できた具体的事実を最低2点記録する。取得不能はmissing。全馬分が揃わなければFROZEN INSERT禁止。",
+      "no_shallow_rescue": "処理時間不足なら浅い予想を保存せず、そのレースはPENDING/RETRYのまま次回へ回す。救済のために比較項目を減らさない。",
+      "same_depth_all_modes": true
+    },
+    "display_metadata": {
+      "running_style": {
+        "rule": "全頭順位・S〜F・TOP5・LAB EYE確定後に、過去の通過順・位置取り等から参考脚質を構造化して各runners要素へ保存する。新しい採点・順位変更には絶対に使わない。逃/先など複数該当可。信頼できる材料が不足する場合は不明扱い。これはHUB表示専用の参考情報。",
+        "field": "running_style_reference",
+        "allowed": [
+          "逃",
+          "先",
+          "差",
+          "追",
+          "?"
+        ],
+        "multiple": true
+      }
+    },
+    "known_failure_patterns": [
+      "上位5頭に結果3頭がいても、2列目固定が狭すぎて不的中",
+      "JRAや高クラスからの転入馬を近走着順だけで下げすぎる",
+      "EYEを3着候補としてしか扱わず、1着・2着を取り逃す",
+      "全頭順位決定後の再監査が形式化して、本当に一変する馬を見落とす"
+    ]
+  },
+  "notes": "LOCAL EYEのみの未適用レビュー候補。通常順位/TOP5、買い目停止、表示、JRAは不変。DB有効化は未実施。"
+}
