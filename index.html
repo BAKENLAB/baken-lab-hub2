@@ -59,7 +59,7 @@
 
     <section class="update-card" aria-label="更新情報">
       <div class="update-title">UPDATE / 更新情報</div>
-      <div class="update-list">
+      <div id="updateList" class="update-list">
         <div class="update-item">
           <div class="update-date">2026.10.04</div>
           <div class="update-copy">地方競馬予想ロジックをLOCAL 1.5へ更新しました。LAB 🧪 EYEはTOP5外の全候補を同じ基準で再監査し、候補同士を比較。明確な上振れ根拠がない場合はEYEなしとする方式に変更しました。</div>
@@ -134,6 +134,7 @@
     async function copyPlainText(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return}const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}
 
     async function api(params){const url=new URL(API);Object.entries(params).forEach(([k,v])=>url.searchParams.set(k,v));const res=await fetch(url,{cache:'no-store'});const data=await res.json();if(!res.ok||!data.ok)throw new Error(String(data.error||`HTTP ${res.status}`));return data}
+    async function loadUpdates(){try{const data=await api({action:'updates',limit:20});const rows=Array.isArray(data.updates)?data.updates:[];if(!rows.length)return;$('#updateList').innerHTML=rows.map(x=>`<div class="update-item"><div class="update-date">${esc(String(x.published_on||'').replaceAll('-','.'))}</div><div class="update-copy">${esc(x.body||'')}</div></div>`).join('')}catch{}}
     function horseHelmetClass(no){const n=Number(no);if(!Number.isFinite(n)||n<=0)return'helmet-1 helmet-light';const slot=((n-1)%8)+1;return `helmet-${slot} ${[1,5,7].includes(slot)?'helmet-light':'helmet-dark'}`}
     function gradeClass(g){const v=String(g||'').toUpperCase();return `grade grade-${v||'NA'}`}
     function oneDecimal(v){const n=Number(v);return Number.isFinite(n)?n.toFixed(1):String(v??'')}
@@ -176,7 +177,7 @@
     $('#raceArea').addEventListener('click',e=>{const t=e.target.closest('[data-race-key]');if(!t)return;const race=state.races.find(r=>r.key===t.dataset.raceKey);if(race){state.selectedRaceKey=race.key;renderDetail(race)}});
     document.querySelectorAll('[data-circuit]').forEach(b=>b.addEventListener('click',()=>{state.circuit=b.dataset.circuit||'ALL';document.querySelectorAll('[data-circuit]').forEach(x=>x.classList.toggle('active',x===b));state.venue='';renderVenueTabs();renderRaceArea();$('#detailArea').innerHTML=''}));
     document.querySelectorAll('[data-main-tab]').forEach(b=>b.addEventListener('click',()=>{const tab=b.dataset.mainTab||'today';document.querySelectorAll('[data-main-tab]').forEach(x=>x.classList.toggle('active',x===b));$('#todayPanel').classList.toggle('hidden',tab!=='today');$('#resultPanel').classList.toggle('hidden',tab!=='result');if(tab==='result')loadResults()}));
-    const today=isoToday();$('#dateInput').value=today;$('#resultDateInput').value=defaultResultDate();$('#dateInput').addEventListener('change',()=>{state.selectedRaceKey='';loadToday()});$('#resultDateInput').addEventListener('change',loadResults);loadToday();setInterval(refreshTodayMarket,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshTodayMarket()});
+    const today=isoToday();$('#dateInput').value=today;$('#resultDateInput').value=defaultResultDate();$('#dateInput').addEventListener('change',()=>{state.selectedRaceKey='';loadToday()});$('#resultDateInput').addEventListener('change',loadResults);loadUpdates();loadToday();setInterval(refreshTodayMarket,60000);setInterval(loadUpdates,300000);document.addEventListener('visibilitychange',()=>{if(!document.hidden){refreshTodayMarket();loadUpdates()}});
   </script>
 
   <script>
