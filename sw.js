@@ -1,5 +1,5 @@
-const CACHE = 'lab-hub-shell-v6';
-const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png'];
+const CACHE = 'lab-hub-shell-v7';
+const SHELL = ['/', '/index.html', '/today.html', '/result.html', '/next.html', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
@@ -25,10 +25,14 @@ self.addEventListener('fetch', (event) => {
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put('/index.html', copy));
+          const key = url.pathname === '/' ? '/' : url.pathname;
+          caches.open(CACHE).then((cache) => cache.put(key, copy));
           return res;
         })
-        .catch(() => caches.match('/index.html'))
+        .catch(async () => {
+          const key = url.pathname === '/' ? '/' : url.pathname;
+          return (await caches.match(key)) || (await caches.match('/index.html'));
+        })
     );
     return;
   }
