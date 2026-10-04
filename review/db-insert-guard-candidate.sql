@@ -1,6 +1,6 @@
 -- REVIEW ONLY. NOT APPLIED. Requires isolated PostgreSQL execution tests before approval.
 -- Future INSERTs only. Never UPDATE/DELETE any prediction, rank, TOP5 or registry row.
--- INSERT guard covers RPC and direct writers. Existing FROZEN rows are not scanned.
+-- INSERT guard covers 1.5 RPC and direct writers. 1.4 retains its current guards.
 BEGIN;
 CREATE FUNCTION public.local_eye_comparison_insert_guard()
 RETURNS trigger LANGUAGE plpgsql SET search_path = pg_catalog AS $body$
@@ -16,9 +16,15 @@ DECLARE
 BEGIN
  IF NEW.circuit IS DISTINCT FROM 'LOCAL' THEN RETURN NEW; END IF;
  IF NEW.protocol_version IS DISTINCT FROM 'CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004' THEN
-  RAISE EXCEPTION 'LOCAL_EYE_PROTOCOL';
+  RETURN NEW;
  END IF;
  p := NEW.payload; a := p->'audit';
+ IF jsonb_typeof(p) IS DISTINCT FROM 'object' THEN RAISE EXCEPTION 'LOCAL_EYE_PAYLOAD_KEYS'; END IF;
+ IF NOT (p ?& ARRAY['runners','top5','eye','bets','summary','bet_strategy','audit'])
+  OR (SELECT count(*) FROM jsonb_object_keys(p))<>7 THEN RAISE EXCEPTION 'LOCAL_EYE_PAYLOAD_KEYS'; END IF;
+ IF p->'bets' IS DISTINCT FROM '[]'::jsonb
+  OR p->'bet_strategy' IS DISTINCT FROM '"SUSPENDED_FOR_ABILITY_STABILITY"'::jsonb THEN
+  RAISE EXCEPTION 'LOCAL_EYE_BET_CONTRACT'; END IF;
  IF jsonb_typeof(p->'runners') IS DISTINCT FROM 'array'
   OR jsonb_typeof(p->'top5') IS DISTINCT FROM 'array'
   OR jsonb_typeof(a) IS DISTINCT FROM 'object'
@@ -136,6 +142,6 @@ $body$;
 REVOKE ALL ON FUNCTION public.local_eye_comparison_insert_guard() FROM PUBLIC;
 CREATE TRIGGER trg_local_eye_comparison_insert
  BEFORE INSERT ON public.official_predictions
- FOR EACH ROW WHEN (NEW.circuit = 'LOCAL')
+ FOR EACH ROW WHEN (NEW.circuit = 'LOCAL' AND NEW.protocol_version = 'CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004')
  EXECUTE FUNCTION public.local_eye_comparison_insert_guard();
 COMMIT;

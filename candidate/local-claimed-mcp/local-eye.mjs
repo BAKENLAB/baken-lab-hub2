@@ -1,5 +1,6 @@
 // LOCAL-only review candidate. No DB I/O, ranking, TOP5 generation or market scoring.
 export const VERSION = 'CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004';
+export const LEGACY_VERSION = 'CHAPPY_LOCAL_1.4_EYE_UPSIDE_20260930';
 export const GUARD = 'LOCAL_EYE_COMPARISON_V1';
 export const CHECKS = Object.freeze(['distance_change','track_change','going_change',
   'class_change','promotion_demotion','weight_change','jockey_change','draw',
@@ -110,5 +111,17 @@ export function assertLocalEyeForSave({circuit,protocol_version,payload}) {
     if(Object.hasOwn(payload.eye,'rank')&&payload.eye.rank!==r.rank)bad('SELECTION_MISMATCH');
     noMarket(payload.eye);
   }
+  return true;
+}
+// During preparation 1.4 retains its existing EYE contract; only 1.5 gets the new guard.
+// The DB RPC remains authoritative about the single currently active LOCAL version.
+export function assertLocalSaveDuringTransition(input) {
+  const {circuit,protocol_version,payload}=input;
+  if(circuit!=='LOCAL')bad('LOCAL_ONLY');
+  if(![LEGACY_VERSION,VERSION].includes(protocol_version))bad('PROTOCOL');
+  if(!exactKeys(payload,['runners','top5','eye','bets','summary','bet_strategy','audit']))bad('PAYLOAD_KEYS');
+  if(!Array.isArray(payload.bets)||payload.bets.length!==0
+    ||payload.bet_strategy!=='SUSPENDED_FOR_ABILITY_STABILITY')bad('BET_CONTRACT');
+  if(protocol_version===VERSION)assertLocalEyeForSave(input);
   return true;
 }

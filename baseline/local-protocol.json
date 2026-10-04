@@ -1,7 +1,7 @@
 {
   "protocol_key": "LOCAL_MAIN",
-  "version": "CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004",
-  "is_active": false,
+  "version": "CHAPPY_LOCAL_1.4_EYE_UPSIDE_20260930",
+  "is_active": true,
   "content": {
     "goal": "人気・オッズから完全分離した発走前能力予想をFROZENし、その後の市場データを使う買い目判断は別レイヤーで行う。チャッピー手動予想の全頭比較・順位・S〜F・LAB EYEをWorkでも可能な限り同じ順序・基準で再現する。",
     "name": "BAKEN LAB LOCAL MAIN / Chappy protocol",
@@ -12,19 +12,15 @@
         "active_runner_nos": "最新公式で確認したACTIVE全horse_no",
         "execution_profile": "UNIFIED_LOCAL_ABILITY_V1",
         "eye_reaudit_guard": "EYE_REAUDIT_GUARD_20260929",
-        "eye_selected_rank": "EYEありなら元rank。なしならnull。",
+        "eye_selected_rank": "選定EYEの能力順位。",
         "all_runners_checked": true,
-        "eye_candidate_audit": "TOP5外集合と完全一致、重複なし。horse_no,rank,upside_trigger,hidden_evidence,finish_path,risk,eye_case(boolean),evidence_refs,review_checks（17項目）。",
+        "eye_candidate_audit": "6頭以上ではTOP5外全馬ぶん必須。各要素 horse_no,rank,upside_trigger,hidden_evidence,finish_path,risk,eye_case。",
         "rank6_auto_selected": false,
         "runner_evidence_audit": "ACTIVE全馬ぶん必須。horse_no,recent_runs_checked,evidence_summary,missing_items。",
         "outside_top5_reaudited": "true when field size >=6; NOT_APPLICABLE when <=5",
         "field_integrity_checked": true,
         "market_used_for_ranking": false,
-        "eye_audit_specificity_guard": true,
-        "eye_selection_method": "LOCAL_EYE_COMPARISON_V1",
-        "market_used_for_eye": false,
-        "eye_pairwise_comparison": "TOP5外の全組合せ。horse_nos（2頭）,preferred_horse_no（片方またはnull）,criterion,reason,evidence_refs。rank順による暗黙選択不可。",
-        "eye_abstention_reason": "EYE=null時は具体的な根拠不足/比較不能理由。"
+        "eye_audit_specificity_guard": true
       },
       "top_level_keys": [
         "runners",
@@ -37,7 +33,7 @@
       ],
       "frozen_market_fields": {
         "bets": "[]",
-        "bet_strategy": "SUSPENDED_FOR_ABILITY_STABILITY"
+        "bet_strategy": "MARKET_SEPARATE"
       }
     },
     "betting": {
@@ -59,8 +55,8 @@
         "3着候補という固定観念だけで選ぶ"
       ],
       "rank6_guard": "能力順位6位を「TOP5の次点だから」という理由だけでEYEに自動選択することを禁止する。6位をEYEにすること自体は可。ただし7位以下を含むTOP5外全馬との再監査後、本当に最も上振れ可能性が高いと判断できた場合に限る。",
-      "failure_guard": "LOCAL_EYE_COMPARISON_V1: 全候補の17項目をCHECKED（事実参照付き）/MISSING（取得不能理由付き）で記録。eye_caseはboolean。全候補間の比較をeye_pairwise_comparisonに記録し、criterion=CURRENT_UPSIDE_OVER_BASELINE、両馬のevidence_refs、具体的reason、preferred_horse_no（比較不能/同等はnull）を必須とする。独立した上振れ根拠があり全相手に優位な唯一の候補だけを選ぶ。候補集合・pool完全一致と重複なし、選択と比較の整合性を保存前検証する。",
-      "selection_pool": "TOP5外全ACTIVE馬を同じ項目で再監査。十分な上振れ根拠がなければeye=null。比較で最優位を確定できない場合もnull。元rank・配列順で選ばない。",
+      "failure_guard": "6頭以上では、EYE決定前にTOP5外全馬について audit.eye_candidate_audit=[{horse_no,rank,upside_trigger,hidden_evidence,finish_path,risk,eye_case}] を作成する。配列件数は出走頭数-5と一致必須。さらに audit.eye_pool_checked にTOP5外全horse_no、audit.eye_selected_rank、audit.eye_reaudit_guard=EYE_REAUDIT_GUARD_20260929、audit.rank6_auto_selected=false を保存する。これらを満たさない場合はFROZEN INSERT禁止。",
+      "selection_pool": "6頭以上なら必ず上位5頭外から1頭。5頭以下はEYEなし。",
       "priority_signals": [
         "転入・転厩・地区替わり",
         "クラス緩和・条件戻り",
@@ -72,7 +68,7 @@
         "脚質と今回展開の噛み合い",
         "同条件での隠れた好走歴"
       ],
-      "selection_method": "最初に全候補の具体的事実を、候補配列の順番とは独立して確認する。元能力順位は書換えず、加点にも比較の同点処理にも使わない。距離・競馬場・馬場・クラス・昇降級・斤量・騎手・枠・脚質・同型馬・着差・通過順・上がり・不利・休み明け/叩き・今回適性・同条件実績を全候補同じ深さで調べ、取得不能はMISSING。上振れ候補とする理由、隠れた内容、到達筋、リスクを候補ごとに根拠付きで残す。全候補の一対比較で今回だけの反転確からしさを比較し、元rankの高さ/低さで優先せず、同等/不明はnull。全相手に優位な1頭を確定できなければEYE=null。データから根拠を確認できない項目を推測しない。",
+      "selection_method": "TOP5外全馬を、最初の能力順位付けと同じ基準でもう一度並べ直してはいけない。EYE選定では元の能力順位を固定した基準点として、各候補ごとに①今回固有の上振れトリガー、②近走着順に隠れた内容、③今回条件で元順位を何段階上回れる具体的な1〜3着到達筋、④その上振れが起きる確からしさ、⑤不発リスクを比較する。目的は「TOP5外で絶対能力が最も高い馬」を選ぶことではなく、「元順位に対して今回だけ最も上振れする可能性が高い馬」を選ぶこと。6位が最適なら6位を選ぶ。順位が低いこと自体を加点しない。人気薄・高オッズ・最下位人気を理由に選ばない。無理に6位以外へ変更しない。",
       "separate_from_rank": "EYEに選んでも能力順位は後付けで繰り上げない。順位と異常値検知を分離する。"
     },
     "workflow": [
@@ -83,7 +79,7 @@
       "S〜F評価を付与",
       "全頭順位1〜5位をTOP5として確定し、印は付けない",
       "上位5頭を一旦除外し、残り全馬を別監査",
-      "全候補を独立した上振れ根拠で比較し、最優位1頭またはEYE=nullを確定",
+      "LAB EYEを1頭選定（6頭以上の場合）",
       "LAB EYEの到達可能性を順位とは別に記録",
       "能力予想だけをofficial_predictionsへFROZEN",
       "FROZEN INSERT後にSELECT検証"
@@ -162,5 +158,6 @@
       "全頭順位決定後の再監査が形式化して、本当に一変する馬を見落とす"
     ]
   },
-  "notes": "LOCAL EYEのみの未適用レビュー候補。通常順位/TOP5、買い目停止、表示、JRAは不変。DB有効化は未実施。"
+  "notes": "2026-09-26 朝版固定を廃止。能力予想FROZENと市場/買い目を完全分離。印なし。"
 }
+
