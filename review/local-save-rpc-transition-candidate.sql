@@ -189,7 +189,7 @@ BEGIN
   END IF;
   RETURN v_prediction_id;
 END
-$function$
+$function$;
 
 
 COMMIT;
