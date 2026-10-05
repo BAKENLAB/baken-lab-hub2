@@ -17,7 +17,7 @@
     .quick{margin:0 0 13px;border:1px solid #282f38;border-radius:14px;background:#0d1116;padding:11px}.quick-title{font-size:9px;font-weight:1000;color:#dce2e8}.quick-grid{display:grid;gap:7px;margin-top:8px}.quick-row{display:grid;grid-template-columns:62px minmax(0,1fr);gap:8px;align-items:center;border:1px solid #202731;border-radius:10px;background:#10151b;padding:8px 9px}.quick-key{font-size:10px;font-weight:1000;color:var(--accent)}.quick-copy{color:#99a4b0;font-size:8.5px;line-height:1.45}.quick-copy b{color:#d8dee5}
     .section-title{margin:14px 2px 8px;color:#727d89;font-size:8px;font-weight:950;letter-spacing:.12em}
     .bet-list{display:grid;gap:8px}.bet{border:1px solid #2b323c;border-radius:14px;background:linear-gradient(180deg,#11171e,#0d1116);overflow:hidden}.bet summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px}.bet summary::-webkit-details-marker{display:none}.bet-icon{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(255,159,110,.25);border-radius:12px;background:rgba(255,159,110,.06);color:var(--accent);font-size:12px;font-weight:1000}.bet-name{font-size:15px;font-weight:1000}.bet-one{margin-top:3px;color:#838e9b;font-size:8.5px;line-height:1.4}.open{color:#7f8995;font-size:18px;font-weight:900}
-    .body{border-top:1px solid #20262e;padding:11px 12px 13px}.block+.block{margin-top:10px}.label{color:var(--accent);font-size:7.5px;font-weight:950;letter-spacing:.08em}.copy{margin-top:4px;color:#cfd6de;font-size:9px;line-height:1.65}.copy b{color:#fff}.when{border-left:3px solid var(--good);padding-left:8px}.example{border:1px solid #29313a;border-radius:10px;background:#0a0e13;padding:8px 9px}.example .copy{color:#aeb8c3}.note{margin-top:12px;border:1px solid #242b33;border-radius:12px;background:#0d1116;padding:10px;color:#75808d;font-size:8px;line-height:1.6}.note b{color:#aeb8c3}
+    .body{border-top:1px solid #20262e;padding:11px 12px 13px}.block+.block{margin-top:10px}.label{color:var(--accent);font-size:7.5px;font-weight:950;letter-spacing:.08em}.copy{margin-top:4px;color:#cfd6de;font-size:9px;line-height:1.65}.copy b{color:#fff}.when{border-left:3px solid var(--good);padding-left:8px}.example{border:1px solid #29313a;border-radius:10px;background:#0a0e13;padding:8px 9px}.example .copy{color:#aeb8c3}.method-title{margin-top:12px;padding-top:11px;border-top:1px solid #232a32;color:#e1e6eb;font-size:9px;font-weight:1000}.method-grid{display:grid;gap:7px;margin-top:8px}.method{border:1px solid #29313a;border-radius:10px;background:#0b1015;padding:8px 9px}.method-tag{display:inline-flex;align-items:center;border:1px solid rgba(255,159,110,.28);border-radius:999px;padding:3px 6px;color:var(--accent);font-size:7px;font-weight:1000}.method-copy{margin-top:5px;color:#aeb8c3;font-size:8.5px;line-height:1.6}.method-copy b{color:#fff}.warning{margin-top:7px;border-left:3px solid var(--eye);padding:7px 0 7px 8px;color:#c8d0d8;font-size:8.5px;line-height:1.6}.note{margin-top:12px;border:1px solid #242b33;border-radius:12px;background:#0d1116;padding:10px;color:#75808d;font-size:8px;line-height:1.6}.note b{color:#aeb8c3}
     footer{display:flex;justify-content:space-between;gap:10px;margin-top:20px;padding-top:14px;border-top:1px solid #171c22;color:#4f5967;font-size:8px}
   </style>
 </head>
@@ -36,51 +36,8 @@
     <div class="quick-grid">
       <div class="quick-row"><div class="quick-key">1頭</div><div class="quick-copy"><b>単勝・複勝</b>　この馬！という1頭から買う</div></div>
       <div class="quick-row"><div class="quick-key">2頭</div><div class="quick-copy"><b>ワイド・馬連・馬単</b>　2頭の組み合わせで狙う</div></div>
-      <div class="quick-row"><div class="quick-key">3頭</div><div class="quick-copy"><b>3連複・3連単</b>　3頭まで読めた時に狙う</div></div><div class="quick-row"><div class="quick-key">買い方</div><div class="quick-copy"><b>流し・BOX・フォーメーション</b>　軸や相手の決め方で使い分ける</div></div>
+      <div class="quick-row"><div class="quick-key">3頭</div><div class="quick-copy"><b>3連複・3連単</b>　3頭まで読めた時に狙う</div></div><div class="quick-row"><div class="quick-key">開く</div><div class="quick-copy">各券種の中で<b>流し・BOX・フォーメーション・マルチ</b>まで一緒に解説</div></div>
     </div>
-  </section>
-
-  <div class="section-title">HOW TO BUY / 買い方の形</div>
-  <section class="bet-list">
-
-    <details class="bet">
-      <summary><span class="bet-icon">流</span><span><span class="bet-name">流し</span><span class="bet-one">軸を1頭決めて、相手を広げる買い方</span></span><span class="open">＋</span></summary>
-      <div class="body">
-        <div class="block"><div class="label">流しとは？</div><div class="copy"><b>「この馬は来る」と決めた軸馬を固定</b>して、その相手だけを何頭か選ぶ買い方です。</div></div>
-        <div class="block when"><div class="label">どんな時に？</div><div class="copy">本命は決まっているけど、<b>相手が1頭に絞れない時</b>。馬連・ワイド・馬単・3連複・3連単などで使えます。</div></div>
-        <div class="block example"><div class="label">例：馬連・ワイド 1頭軸流し</div><div class="copy">軸⑧、相手③・⑤・⑩なら<br><b>⑧－③⑤⑩</b><br>と書きます。<br><span style="color:#7f8a97">＝ ⑧－③ / ⑧－⑤ / ⑧－⑩ の3点</span></div></div>
-        <div class="block example"><div class="label">例：3連複1頭軸流し</div><div class="copy">軸⑧、相手③・⑤・⑩なら<br><b>⑧－③－⑤ / ⑧－③－⑩ / ⑧－⑤－⑩</b><br>の3点です。</div></div>
-      </div>
-    </details>
-
-    <details class="bet">
-      <summary><span class="bet-icon">BOX</span><span><span class="bet-name">BOX</span><span class="bet-one">選んだ馬の組み合わせを全部買う</span></span><span class="open">＋</span></summary>
-      <div class="body">
-        <div class="block"><div class="label">BOXとは？</div><div class="copy">選んだ馬だけで作れる<b>すべての組み合わせ</b>をまとめて買う方法です。</div></div>
-        <div class="block when"><div class="label">どんな時に？</div><div class="copy">「この4頭までは絞れた。でも<b>どの組み合わせになるか分からない</b>」という時に便利。</div></div>
-        <div class="block example"><div class="label">例：馬連4頭BOX</div><div class="copy">③・⑤・⑧・⑩を選ぶと<br><b>③－⑤ / ③－⑧ / ③－⑩ / ⑤－⑧ / ⑤－⑩ / ⑧－⑩</b><br>の6点になります。</div></div>
-        <div class="block example"><div class="label">注意</div><div class="copy">頭数を増やすほど点数が一気に増えます。特に<b>3連単BOXは点数が増えやすい</b>ので注意。</div></div>
-      </div>
-    </details>
-
-    <details class="bet">
-      <summary><span class="bet-icon">F</span><span><span class="bet-name">フォーメーション</span><span class="bet-one">役割ごとに買う馬を分ける</span></span><span class="open">＋</span></summary>
-      <div class="body">
-        <div class="block"><div class="label">フォーメーションとは？</div><div class="copy"><b>1着候補・2着候補・3着候補</b>のように、馬の役割を分けて組み合わせる買い方です。</div></div>
-        <div class="block when"><div class="label">どんな時に？</div><div class="copy">「⑧は勝ちそう」「③と⑤は2・3着候補」「⑩は3着ならあり」など、<b>馬ごとの役割が見えている時</b>。</div></div>
-        <div class="block example"><div class="label">例：3連単フォーメーション</div><div class="copy">1着：⑧<br>2着：③・⑤<br>3着：③・⑤・⑩<br><br>なら<br><b>⑧→③→⑤ / ⑧→③→⑩ / ⑧→⑤→③ / ⑧→⑤→⑩</b><br>を買います。</div></div>
-      </div>
-    </details>
-
-    <details class="bet">
-      <summary><span class="bet-icon">M</span><span><span class="bet-name">マルチ</span><span class="bet-one">軸馬の着順を固定せず広げる</span></span><span class="open">＋</span></summary>
-      <div class="body">
-        <div class="block"><div class="label">マルチとは？</div><div class="copy">主に馬単・3連単で、<b>軸馬が何着でも成立するように着順違いもまとめて買う</b>方法です。</div></div>
-        <div class="block when"><div class="label">どんな時に？</div><div class="copy">「⑧は3着以内には来そう。でも<b>1着まで決め打つのは怖い</b>」という時。</div></div>
-        <div class="block example"><div class="label">例：3連単1頭軸マルチ</div><div class="copy">軸⑧、相手③・⑤なら<br>⑧が1着だけでなく、2着・3着になる並びも含めて買います。<br><b>そのぶん点数は増える</b>ので、相手を広げすぎないのがコツ。</div></div>
-      </div>
-    </details>
-
   </section>
 
   <div class="section-title">TAP / 馬券を選ぶと説明が開きます</div>
@@ -91,7 +48,7 @@
       <div class="body">
         <div class="block"><div class="label">単勝とは？</div><div class="copy"><b>1頭だけ選び、その馬が1着になれば的中。</b>いちばんシンプルな馬券です。</div></div>
         <div class="block when"><div class="label">どんな時に？</div><div class="copy">「この馬が一番強い」「勝ち切る可能性が高い」と、<b>本命1頭に自信がある時</b>。</div></div>
-        <div class="block example"><div class="label">例</div><div class="copy">⑧を単勝で購入 → <b>⑧が1着なら当たり。</b>2着では外れ。</div></div>
+        <div class="block example"><div class="label">例</div><div class="copy">⑧を単勝で購入 → <b>⑧が1着なら当たり。</b>2着では外れ。</div></div><div class="method-title">この券種の買い方</div><div class="method-grid"><div class="method"><span class="method-tag">通常</span><div class="method-copy">単勝は<b>1頭を選ぶ馬券</b>なので、流し・BOX・フォーメーションは使いません。</div></div></div>
       </div>
     </details>
 
@@ -100,7 +57,7 @@
       <div class="body">
         <div class="block"><div class="label">複勝とは？</div><div class="copy">選んだ1頭が<b>決められた着順以内</b>に入れば的中。通常は3着以内ですが、出走頭数によって対象着順が変わる場合があります。</div></div>
         <div class="block when"><div class="label">どんな時に？</div><div class="copy">「勝つかは分からないけど、<b>馬券内には来そう</b>」という馬を狙う時。穴馬を1頭だけ狙う時にも使いやすい。</div></div>
-        <div class="block example"><div class="label">例</div><div class="copy">⑧を複勝で購入 → 対象が3着以内なら、<b>⑧が1・2・3着で当たり。</b></div></div>
+        <div class="block example"><div class="label">例</div><div class="copy">⑧を複勝で購入 → 対象が3着以内なら、<b>⑧が1・2・3着で当たり。</b></div></div><div class="method-title">この券種の買い方</div><div class="method-grid"><div class="method"><span class="method-tag">通常</span><div class="method-copy">複勝も<b>1頭を選ぶ馬券</b>なので、流し・BOX・フォーメーションは使いません。</div></div></div>
       </div>
     </details>
 
@@ -110,6 +67,12 @@
         <div class="block"><div class="label">ワイドとは？</div><div class="copy">選んだ2頭が<b>両方とも3着以内</b>に入れば的中。着順の順番は問いません。</div></div>
         <div class="block when"><div class="label">どんな時に？</div><div class="copy">「この2頭は来そう。でも1着2着まで決めるのは難しい」という時。<b>本命＋穴馬</b>の組み合わせにも向いています。</div></div>
         <div class="block example"><div class="label">例</div><div class="copy">③－⑧を購入 → ③が1着、⑧が3着でも<b>当たり。</b></div></div>
+        <div class="method-title">この券種で使える買い方</div>
+        <div class="method-grid">
+          <div class="method"><span class="method-tag">流し</span><div class="method-copy">軸⑧、相手③⑤⑩なら <b>⑧－③⑤⑩</b>。③・⑤・⑩のどれか1頭と⑧が両方3着以内なら的中。</div></div>
+          <div class="method"><span class="method-tag">BOX</span><div class="method-copy">③⑤⑧⑩の4頭BOXなら、その4頭からできる<b>2頭の組み合わせを全部</b>買います。</div></div>
+          <div class="method"><span class="method-tag">フォーメーション</span><div class="method-copy">1頭目：⑧⑩ / 2頭目：③⑤⑧ のようにグループを分けて、その中で成立する組み合わせを買います。<b>ワイドなので着順は関係ありません。</b></div></div>
+        </div>
       </div>
     </details>
 
@@ -119,6 +82,12 @@
         <div class="block"><div class="label">馬連とは？</div><div class="copy"><b>1着と2着になる2頭</b>を当てる馬券。どちらが1着でもOKです。</div></div>
         <div class="block when"><div class="label">どんな時に？</div><div class="copy">「この2頭が抜けていそう」「1着2着はこの2頭だと思うけど、<b>順番までは分からない</b>」時。</div></div>
         <div class="block example"><div class="label">例</div><div class="copy">③－⑧を購入 → ③→⑧でも⑧→③でも<b>当たり。</b></div></div>
+        <div class="method-title">この券種で使える買い方</div>
+        <div class="method-grid">
+          <div class="method"><span class="method-tag">流し</span><div class="method-copy">軸⑧、相手③⑤⑩なら <b>⑧－③⑤⑩</b>。＝⑧－③ / ⑧－⑤ / ⑧－⑩。</div></div>
+          <div class="method"><span class="method-tag">BOX</span><div class="method-copy">③⑤⑧⑩の4頭BOXなら<b>6通り</b>。4頭のうちどの2頭が1・2着でも、その組み合わせを買えていれば的中。</div></div>
+          <div class="method"><span class="method-tag">フォーメーション</span><div class="method-copy">1頭目：⑧⑩ / 2頭目：③⑤⑧ のように分けます。馬連は順不同なので、<b>着順ではなく組み合わせを絞るための列</b>です。</div></div>
+        </div>
       </div>
     </details>
 
@@ -128,6 +97,14 @@
         <div class="block"><div class="label">馬単とは？</div><div class="copy"><b>1着と2着を順番まで当てる</b>馬券です。馬連より条件が厳しい。</div></div>
         <div class="block when"><div class="label">どんな時に？</div><div class="copy">「⑧が勝つ。その相手は③」と、<b>勝ち馬までかなり読めている時</b>。</div></div>
         <div class="block example"><div class="label">例</div><div class="copy">⑧→③を購入 → 1着⑧・2着③なら当たり。<b>③→⑧だと外れ。</b></div></div>
+        <div class="method-title">この券種で使える買い方</div>
+        <div class="method-grid">
+          <div class="method"><span class="method-tag">1着流し</span><div class="method-copy">1着⑧、相手③⑤⑩なら <b>⑧→③⑤⑩</b>。⑧が1着で、相手のどれかが2着なら的中。</div></div>
+          <div class="method"><span class="method-tag">2着流し</span><div class="method-copy">2着⑧、相手③⑤⑩なら <b>③⑤⑩→⑧</b>。⑧が2着に来る前提です。</div></div>
+          <div class="method"><span class="method-tag">BOX</span><div class="method-copy">③⑤⑧の3頭BOXなら、<b>順番違いも含めた6通り</b>を買います。</div></div>
+          <div class="method"><span class="method-tag">フォーメーション</span><div class="method-copy">1着：⑧⑩ / 2着：③⑤⑧ のように、<b>1着候補と2着候補を分ける</b>買い方です。</div></div>
+          <div class="method"><span class="method-tag">マルチ</span><div class="method-copy">⑧から③⑤⑩へ流す時にマルチを付けると、<b>⑧→相手だけでなく相手→⑧も</b>まとめて買います。</div></div>
+        </div>
       </div>
     </details>
 
@@ -137,6 +114,12 @@
         <div class="block"><div class="label">枠連とは？</div><div class="copy">馬そのものではなく、<b>1着と2着の馬が入っている枠番号</b>の組み合わせを当てます。順番は問いません。</div></div>
         <div class="block when"><div class="label">どんな時に？</div><div class="copy">同じ枠に気になる馬が複数いる時や、<b>枠単位で狙いたい時</b>。発売されているレースで利用できます。</div></div>
         <div class="block example"><div class="label">例</div><div class="copy">3枠－6枠を購入 → 1着と2着が3枠・6枠の馬なら<b>当たり。</b></div></div>
+        <div class="method-title">この券種で使える買い方</div>
+        <div class="method-grid">
+          <div class="method"><span class="method-tag">流し</span><div class="method-copy">軸3枠、相手1・4・6枠なら <b>3－1・4・6</b> の形で広げます。</div></div>
+          <div class="method"><span class="method-tag">BOX</span><div class="method-copy">選んだ複数の枠からできる組み合わせをまとめて購入します。</div></div>
+          <div class="method"><span class="method-tag">フォーメーション</span><div class="method-copy">1枠目・2枠目に候補を分けて組み合わせを絞れます。<b>枠連は着順不問</b>です。</div></div>
+        </div>
       </div>
     </details>
 
@@ -146,6 +129,14 @@
         <div class="block"><div class="label">3連複とは？</div><div class="copy"><b>1～3着に入る3頭</b>を当てます。3頭の着順は問いません。</div></div>
         <div class="block when"><div class="label">どんな時に？</div><div class="copy">「この3頭は強そう」「軸1頭は決まったけど、相手を何頭か広げたい」時。<b>順番まで読む必要がない</b>のが特徴。</div></div>
         <div class="block example"><div class="label">例</div><div class="copy">③－⑧－⑩を購入 → ⑩→③→⑧でも⑧→⑩→③でも、3頭が1～3着なら<b>当たり。</b></div></div>
+        <div class="method-title">この券種で使える買い方</div>
+        <div class="method-grid">
+          <div class="method"><span class="method-tag">1頭軸流し</span><div class="method-copy">軸⑧、相手③⑤⑥⑩なら <b>⑧－③⑤⑥⑩</b>。⑧＋相手4頭のうち2頭が3着以内に入れば、その組み合わせが的中。</div></div>
+          <div class="method"><span class="method-tag">2頭軸流し</span><div class="method-copy">軸⑧⑥、相手③⑤⑩なら <b>⑧－⑥－③⑤⑩</b>。⑧と⑥の両方が3着以内＋相手から1頭で的中。</div></div>
+          <div class="method"><span class="method-tag">BOX</span><div class="method-copy">③⑤⑧⑩の4頭BOXなら<b>4通り</b>。その4頭のうち3頭が1～3着を占めれば順番不問で的中。</div></div>
+          <div class="method"><span class="method-tag">フォーメーション</span><div class="method-copy">例：<br>1頭目：⑧<br>2頭目：③⑤⑥<br>3頭目：③⑤⑥⑩<br><br>この3つの列から成立する<b>3頭の組み合わせ</b>を買います。</div>
+          <div class="warning"><b>ここ重要：</b>3連複の「1頭目・2頭目・3頭目」は着順ではありません。たとえば⑥が2頭目の列にいて、実際に⑥が<b>2着でも3着でも</b>、選ばれた3頭が1～3着に入れば当たる可能性があります。</div></div>
+        </div>
       </div>
     </details>
 
@@ -155,6 +146,15 @@
         <div class="block"><div class="label">3連単とは？</div><div class="copy"><b>1着・2着・3着を順番まで全部当てる</b>馬券。難しい分、配当が大きくなりやすいタイプです。</div></div>
         <div class="block when"><div class="label">どんな時に？</div><div class="copy">勝ち馬だけでなく、<b>2着・3着まで展開をかなり具体的に読める時</b>。点数が増えやすいので買いすぎには注意。</div></div>
         <div class="block example"><div class="label">例</div><div class="copy">⑧→③→⑩を購入 → 着順がそのまま<b>⑧・③・⑩なら当たり。</b>順番が1つでも違えば外れ。</div></div>
+        <div class="method-title">この券種で使える買い方</div>
+        <div class="method-grid">
+          <div class="method"><span class="method-tag">1着流し</span><div class="method-copy">1着⑧、相手③⑤⑥⑩なら、⑧を1着固定して相手から2・3着の並びを作ります。</div></div>
+          <div class="method"><span class="method-tag">2頭軸流し</span><div class="method-copy">1着⑧・2着③を固定し、3着を⑤⑥⑩へ流すなら <b>⑧→③→⑤⑥⑩</b>。</div></div>
+          <div class="method"><span class="method-tag">BOX</span><div class="method-copy">③⑤⑧⑩の4頭BOXなら<b>24通り</b>。4頭から3頭を選び、さらにその着順違いまで全部買います。</div></div>
+          <div class="method"><span class="method-tag">フォーメーション</span><div class="method-copy">例：<br>1着：⑧<br>2着：③⑤<br>3着：③⑤⑥⑩<br><br>なら、各着順欄に入れた馬だけで成立する並びを買います。</div>
+          <div class="warning"><b>3連複との違い：</b>3連単は列がそのまま着順です。たとえば⑥を<b>3着欄にしか入れていない</b>のに実際は⑥が2着に来たら、その買い目は外れます。</div></div>
+          <div class="method"><span class="method-tag">1頭軸マルチ</span><div class="method-copy">軸⑧、相手③⑤⑥なら、⑧が<b>1着・2着・3着になる並び</b>をまとめて購入。軸の着順を固定したくない時に使います。</div></div>
+        </div>
       </div>
     </details>
 
