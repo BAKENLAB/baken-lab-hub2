@@ -36,32 +36,32 @@
 <section class="hero">
   <div class="kicker">BAKEN LAB｜LAB JOCKEY</div>
   <h1>騎手も、条件で変わる。</h1>
-  <p>見るのは「有名な騎手か」ではなく、<strong>今回と同じ競馬場・距離で、その騎手が実際にどれくらい走れていたか。</strong></p>
+  <p>見るのは単純な勝率・3着内率ではなく、<strong>その馬ならどのくらい走れそうだったかに対して、騎手が実際どこまで持ってきたか。</strong></p>
   <div class="rule"><b>LAB RANKとは独立。</b> 現在この騎手評価はTODAY順位・TOP5・LAB 🧪 EYEには反映していません。人気・オッズも評価に使用しません。</div>
 </section>
 
 <section class="intro">
   <h2>🏇 LAB JOCKEYって何を見るの？</h2>
-  <p>過去258,930走から、騎手ごとに<strong>「今回の競馬場 × 芝/ダート × 距離」で3着以内に入りやすかったか</strong>を確認します。</p>
-  <div class="example"><b>例：金沢ダ1500m　栗原大 → ＋9.1pt</b><span>＝同じ条件を走った騎手全体より、栗原大騎手の補正後3着内率が高かったという意味。馬の能力とは別の「騎手条件適性」です。</span></div>
+  <p>各騎乗でまず<strong>その馬の過去走だけから「このくらいの着順になりそう」を作り、実際の着順との差</strong>を測ります。評価する騎手自身の過去騎乗は、その馬の基準作りから除外しています。</p>
+  <div class="example"><b>例：名古屋ダ1400m　塚本征 → 平均 ＋0.50着</b><span>＝その馬たちの事前基準より、実際は平均で0.50着ぶん上に持ってきた、という意味。人気・オッズは使いません。</span></div>
 </section>
 
 <section class="guide">
   <div class="guide-title">使い方は3つだけ</div>
   <div class="guide-grid">
     <div class="guide-row"><span class="guide-no">①</span><div class="guide-copy"><b>レース条件を選ぶ。</b><br>競馬場 → 芝/ダート → 距離 → 馬場。</div></div>
-    <div class="guide-row"><span class="guide-no">②</span><div class="guide-copy"><b>条件に合う騎手を見る。</b><br>A+ / Aなら今回条件で強い傾向。</div></div>
-    <div class="guide-row"><span class="guide-no">③</span><div class="guide-copy"><b>気になる騎手名を入れる。</b><br>他の騎手との比較と、その騎手自身の普段との比較を見ます。</div></div>
+    <div class="guide-row"><span class="guide-no">②</span><div class="guide-copy"><b>JOCKEY LIFTを見る。</b><br>＋なら、馬の事前基準より実着順を上へ持ってきた傾向。</div></div>
+    <div class="guide-row"><span class="guide-no">③</span><div class="guide-copy"><b>気になる騎手名を入れる。</b><br>平均で何着上げたか、他騎手より上か、上振れ率まで見られます。</div></div>
   </div>
 </section>
 
 <section class="readme">
   <div class="readme-title">表示の見方</div>
   <div class="readme-grid">
-    <div class="readme-item"><b>A+ / A / B / C / D</b><span>A側ほど今回条件で好成績。</span></div>
-    <div class="readme-item"><b>① 他の騎手と比べて</b><span>今回条件の騎手全体平均との差。</span></div>
-    <div class="readme-item"><b>② この騎手自身では</b><span>同じ競馬場で普段乗る時より今回距離で上がるか。</span></div>
-    <div class="readme-item"><b>信頼度</b><span>今回条件での騎乗数。多いほど判断しやすい。</span></div>
+    <div class="readme-item"><b>JOCKEY LIFT</b><span>馬の事前基準より、実際の着順を平均で何着ぶん上げたか。</span></div>
+    <div class="readme-item"><b>他騎手と比べて</b><span>同じコース・距離の騎手平均との差。少数騎乗は補正します。</span></div>
+    <div class="readme-item"><b>1着 / 2着以上上振れ</b><span>事前基準より実着順を大きく上げた騎乗の割合。</span></div>
+    <div class="readme-item"><b>A+ / A / B / C / D</b><span>他騎手比から付ける実験評価。まだ検証中のβ指標です。</span></div>
   </div>
 </section>
 
@@ -79,7 +79,7 @@
 
 <div id="main"><div class="loading">LAB JOCKEYを準備中…</div></div>
 
-<div class="foot">地方競馬アーカイブ 2025/01/01〜2026/08/31、258,930走を使用。主評価は「競馬場 × 芝/ダート × 距離」。馬場は補足。人気・オッズは評価に使っていません。</div>
+<div class="foot">JOCKEY LIFT βは地方競馬アーカイブから132,800件の評価可能騎乗を作成。馬の基準は対象レース以前の過去走だけを使用し、評価する騎手自身の過去騎乗を除外。着順は頭数差を補正しています。人気・オッズは不使用。主評価は「競馬場 × 芝/ダート × 距離」、馬場は補足です。</div>
 </div>
 
 <div id="jraView" hidden>
@@ -93,12 +93,12 @@
 const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
 const $=s=>document.querySelector(s);
 const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||c));
-const uniq=a=>[...new Set(a)],fmt=v=>Number.isFinite(Number(v))?Number(v).toFixed(1):'—',sign=v=>Number(v)>0?'+'+fmt(v):fmt(v);
+const uniq=a=>[...new Set(a)],fmt=v=>Number.isFinite(Number(v))?Number(v).toFixed(1):'—',fmt2=v=>Number.isFinite(Number(v))?Number(v).toFixed(2):'—',sign=v=>Number(v)>0?'+'+fmt(v):fmt(v),sign2=v=>Number(v)>0?'+'+fmt2(v):fmt2(v);
 let options=[],loading=false;
 function gradeWord(g){return ({'A+':'かなり強い','A':'強い','B':'やや＋','C':'平均','D':'やや−'})[g]||'参考'}
 function gradeClass(g){return ['A+','A','B'].includes(g)?'good':g==='D'?'bad':''}
-function compareWord(v){const n=Number(v);if(n>=10)return'他の騎手よりかなり好成績';if(n>=2)return'他の騎手より好成績';if(n>-2)return'他の騎手とほぼ同じ';return'他の騎手より低め'}
-function selfWord(v){const n=Number(v);if(n>=8)return'この騎手自身にもかなり得意な距離';if(n>=2)return'この騎手自身にも得意寄り';if(n>-2)return'この騎手自身では普段とほぼ同じ';return'この騎手自身ではやや苦手寄り'}
+function liftWord(v){const n=Number(v);if(n>=1)return'馬の事前基準より平均1着以上上へ';if(n>=.3)return'馬の事前基準より平均で上へ';if(n>-.3)return'馬の事前基準とほぼ同じ';return'馬の事前基準より平均で下へ'}
+function compareWord(v){const n=Number(v);if(n>=.75)return'同条件の他騎手よりかなり上';if(n>=.2)return'同条件の他騎手より上';if(n>-.2)return'同条件の他騎手とほぼ同じ';return'同条件の他騎手より下'}
 function available(f={}){return options.filter(x=>Object.entries(f).every(([k,v])=>String(x[k])===String(v)))}
 function fill(el,vals,label=v=>v,preferred=null){const prev=preferred??el.value;el.innerHTML=vals.map(v=>`<option value="${esc(v)}">${esc(label(v))}</option>`).join('');if(vals.map(String).includes(String(prev)))el.value=String(prev)}
 function refill(first=false){
@@ -110,29 +110,31 @@ function refill(first=false){
 }
 function jockeyDetail(x,going){
   if(!x)return '';
-  if(!x.found)return `<div class="empty">「${esc(x.jockey_name)}」はこの条件の過去データから見つかりませんでした。</div>`;
+  if(!x.found)return `<div class="empty">「${esc(x.jockey_name)}」はこの条件でJOCKEY LIFTを作れるデータがありませんでした。</div>`;
   const gc=gradeClass(x.grade),gn=Number(x.going_sample_n||0);
   return `<section class="jockey-card">
-    <div class="jockey-head"><div><div class="caption">今回条件でこの騎手を見る</div><div class="jockey-name">${esc(x.jockey_name)}</div></div><span class="grade ${gc}">${esc(x.grade)}<small>${esc(gradeWord(x.grade))}</small></span></div>
-    <div class="verdict"><b>このカードを一言で読むと</b><span>${esc(compareWord(x.lift_pp))}。 ${esc(selfWord(x.condition_vs_track_pp))}。</span></div>
+    <div class="jockey-head"><div><div class="caption">JOCKEY LIFT β｜今回条件</div><div class="jockey-name">${esc(x.jockey_name)}</div></div><span class="grade ${gc}">${esc(x.grade)}<small>${esc(gradeWord(x.grade))}</small></span></div>
+    <div class="verdict"><b>この騎手を一言で読むと</b><span>${esc(liftWord(x.raw_lift_places))}持ってきた傾向。補正後の比較では${esc(compareWord(x.relative_lift_places))}。</span></div>
     <div class="metrics">
-      <div class="metric"><small>今回条件で3着以内</small><em>同じ競馬場・距離での実績</em><b>${fmt(x.top3_rate)}%</b></div>
-      <div class="metric"><small>① 他の騎手と比べて</small><em>条件全体平均との差</em><b class="${Number(x.lift_pp)>=0?'plus':'minus'}">${sign(x.lift_pp)}pt</b></div>
-      <div class="metric"><small>データの厚さ</small><em>今回条件での騎乗数</em><b>${esc(x.sample_n)}走 / 信頼度 ${esc(x.confidence)}</b></div>
-      <div class="metric"><small>② この騎手自身では</small><em>同じ競馬場で普段乗る時との比較</em><b class="${Number(x.condition_vs_track_pp)>=0?'plus':'minus'}">${sign(x.condition_vs_track_pp)}pt</b></div>
+      <div class="metric"><small>JOCKEY LIFT</small><em>馬の事前基準 → 実着順</em><b class="${Number(x.raw_lift_places)>=0?'plus':'minus'}">${sign2(x.raw_lift_places)}着</b></div>
+      <div class="metric"><small>他の騎手と比べて</small><em>少数騎乗を補正した条件内比較</em><b class="${Number(x.relative_lift_places)>=0?'plus':'minus'}">${sign2(x.relative_lift_places)}着</b></div>
+      <div class="metric"><small>1着以上 上振れ</small><em>想定より1着以上上へ</em><b>${fmt(x.plus1_rate)}%</b></div>
+      <div class="metric"><small>2着以上 上振れ</small><em>想定より2着以上上へ</em><b>${fmt(x.plus2_rate)}%</b></div>
+      <div class="metric"><small>評価できた騎乗</small><em>馬の過去3走以上が必要</em><b>${esc(x.sample_n)}騎乗 / 信頼度 ${esc(x.confidence)}</b></div>
+      <div class="metric"><small>3着内率</small><em>これは補助情報</em><b>${fmt(x.top3_rate)}%</b></div>
     </div>
-    ${going&&gn>0?`<div class="going"><b>③ 馬場は参考</b><br>${esc(going)}だけでは ${sign(x.going_lift_pp)}pt / ${gn}走${gn<20?'。データが少ないので強く判断しない。':''}</div>`:''}
+    ${going&&gn>0?`<div class="going"><b>馬場は参考</b><br>${esc(going)}だけの平均LIFTは ${sign2(x.going_raw_lift_places)}着 / ${gn}騎乗${gn<20?'。データが少ないので強く判断しない。':''}</div>`:''}
   </section>`;
 }
 function card(x,i,going){
-  return `<article class="card"><span class="rank">${i+1}</span><div><div class="name">${esc(x.jockey_name)}</div><div class="meta">3着内 <b>${fmt(x.top3_rate)}%</b> ｜ ${esc(x.sample_n)}走 ｜ 信頼度 ${esc(x.confidence)}</div>${going&&Number(x.going_sample_n)>0?`<div class="going-mini">${esc(going)}：${sign(x.going_lift_pp)}pt / ${x.going_sample_n}走</div>`:''}</div><div class="side"><div class="lift ${Number(x.lift_pp)>=0?'plus':'minus'}">${sign(x.lift_pp)}pt</div><div class="sample">評価 ${esc(x.grade)}</div></div></article>`;
+  return `<article class="card"><span class="rank">${i+1}</span><div><div class="name">${esc(x.jockey_name)}</div><div class="meta">平均LIFT <b>${sign2(x.raw_lift_places)}着</b> ｜ ${esc(x.sample_n)}騎乗 ｜ 信頼度 ${esc(x.confidence)}</div>${going&&Number(x.going_sample_n)>0?`<div class="going-mini">${esc(going)}：平均 ${sign2(x.going_raw_lift_places)}着 / ${x.going_sample_n}騎乗</div>`:''}</div><div class="side"><div class="lift ${Number(x.relative_lift_places)>=0?'plus':'minus'}">${sign2(x.relative_lift_places)}着</div><div class="sample">他騎手比 / 評価 ${esc(x.grade)}</div></div></article>`;
 }
 function render(d){
   const b=d.baseline||{},g=d.going_baseline||{},rows=(d.top_jockeys||[]).slice(0,8);
   $('#main').innerHTML=`
-    <section class="summary"><div class="summary-title">${esc(d.track)}・${esc(d.surface)}${esc(d.distance)}m</div><div class="stats"><div class="stat"><small>比較基準｜全騎乗の3着内率</small><strong class="accent">${fmt(b.top3_rate)}%</strong></div><div class="stat"><small>基礎データ</small><strong>${esc(b.sample_n)}走</strong></div><div class="stat"><small>${esc(d.going||'馬場')}データ</small><strong>${esc(g.sample_n||0)}走</strong></div></div><div class="basis"><b>この数字は騎手の評価ではなく、比較用の基準値です。</b><br>「この競馬場・芝/ダート・距離」で行われた全騎乗をまとめ、そのうち何％が3着以内だったかを表示しています。下の各騎手が、この基準よりどれだけ上・下だったかを比べます。馬場は追加ヒントです。</div></section>
+    <section class="summary"><div class="summary-title">${esc(d.track)}・${esc(d.surface)}${esc(d.distance)}m</div><div class="stats"><div class="stat"><small>評価できた騎乗</small><strong class="accent">${esc(b.evaluated_rides||0)}件</strong></div><div class="stat"><small>見るもの</small><strong style="font-size:11px">馬の基準 → 実着順</strong></div><div class="stat"><small>${esc(d.going||'馬場')}の評価対象</small><strong>${esc(g.evaluated_rides||0)}件</strong></div></div><div class="basis"><b>検索前は、この条件でJOCKEY LIFTを計算できた騎乗数だけを表示。</b><br>下のランキングは「3着に何回来たか」ではなく、各馬の事前基準に対して騎手が実着順をどれだけ上げたかで比較します。</div></section>
     ${jockeyDetail(d.selected_jockey,d.going)}
-    <section class="section"><div class="section-head"><div class="section-title">🏇 条件に合う騎手</div><div class="section-note">補正後平均との差</div></div><div class="section-help"><b>これは今日の出走馬ランキングではありません。</b><br>「この競馬場・距離で過去成績が上がりやすかった騎手」のランキングです。今日その騎手が乗っていれば追加材料として見ます。</div><div class="list">${rows.length?rows.map((x,i)=>card(x,i,d.going)).join(''):'<div class="empty">条件を満たす騎手データがありません。</div>'}</div></section>`;
+    <section class="section"><div class="section-head"><div class="section-title">🏇 JOCKEY LIFT ランキング</div><div class="section-note">馬をどこまで持ってきたか</div></div><div class="section-help"><b>単純な勝率・3着内率ランキングではありません。</b><br>各騎乗の前に、その馬の過去走から事前基準を作り、実着順との差を集計。ランキング順位は少数騎乗を補正した「他騎手比」で並べています。β版なので、まだLAB RANKには反映しません。</div><div class="list">${rows.length?rows.map((x,i)=>card(x,i,d.going)).join(''):'<div class="empty">条件を満たす騎手データがありません。</div>'}</div></section>`;
 }
 async function loadOptions(){try{const u=new URL(API);u.searchParams.set('action','lab_jockey');const r=await fetch(u,{cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'条件読込失敗');options=Array.isArray(d.conditions)?d.conditions:[];refill(true);await load()}catch(e){$('#main').innerHTML=`<div class="error">読み込みエラー：${esc(e?.message||e)}</div>`}}
 async function load(){if(loading)return;loading=true;$('#main').innerHTML='<div class="loading">騎手データを集計中…</div>';try{const u=new URL(API);u.searchParams.set('action','lab_jockey');u.searchParams.set('track',$('#track').value);u.searchParams.set('surface',$('#surface').value);u.searchParams.set('distance',$('#distance').value);u.searchParams.set('going',$('#going').value);u.searchParams.set('min_sample','25');const j=$('#jockeyName').value.trim();if(j)u.searchParams.set('jockey',j);const r=await fetch(u,{cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'集計失敗');render(d)}catch(e){$('#main').innerHTML=`<div class="error">読み込みエラー：${esc(e?.message||e)}</div>`}finally{loading=false}}
