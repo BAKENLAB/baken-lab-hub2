@@ -1,4 +1,4 @@
-const CACHE = 'lab-hub-shell-v11';
+const CACHE = 'lab-hub-shell-v12';
 const SHELL = ['/', '/index.html', '/today.html', '/result.html', '/next.html', '/course.html', '/blood.html', '/bet.html', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png'];
 
 self.addEventListener('install', (event) => {
