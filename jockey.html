@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b0f">
+<title>LAB JOCKEY｜BAKEN LAB</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<style>
+:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans JP',sans-serif;--bg:#090b0f;--line:#272d36;--text:#f6f7f9;--muted:#8993a0;--accent:#ffcf57;--good:#7ef0c5;--bad:#ff8d9a}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:radial-gradient(circle at 88% 0%,rgba(255,207,87,.07),transparent 25%),var(--bg);color:var(--text)}a{color:inherit;text-decoration:none}
+.shell{width:min(100%,760px);margin:auto;padding:14px 11px 42px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px}.back,.beta{border:1px solid var(--line);border-radius:999px;background:#11161d;padding:8px 10px;font-size:9px;font-weight:900}.beta{color:var(--accent);border-color:rgba(255,207,87,.3)}
+.switch{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0 4px}.switch button{border:1px solid #2b333d;border-radius:11px;background:#0d1116;color:#7f8a97;padding:10px 8px;font-size:9px;font-weight:1000}.switch button.active{border-color:rgba(255,207,87,.42);background:rgba(255,207,87,.08);color:#ffe499}.mini{display:block;margin-top:2px;font-size:6.5px}
+.hero{padding:19px 2px 13px}.kicker{color:var(--accent);font-size:9px;font-weight:950;letter-spacing:.13em}.hero h1{margin:6px 0 5px;font-size:29px;letter-spacing:-.05em}.hero p{margin:0;color:#8b96a3;font-size:9.5px;line-height:1.65}.hero strong{color:#e0e6ec}.rule{margin-top:10px;border:1px solid rgba(126,240,197,.25);border-radius:11px;background:rgba(126,240,197,.045);padding:9px 10px;color:#9aa5b1;font-size:8px;line-height:1.55}.rule b{color:var(--good)}
+.intro,.guide,.readme{margin-bottom:12px;border:1px solid #252c35;border-radius:14px;background:#0d1116;padding:11px 12px}.intro{border-color:rgba(255,207,87,.24);background:linear-gradient(180deg,rgba(255,207,87,.04),rgba(255,207,87,.012))}.intro h2,.guide-title,.readme-title{margin:0;color:#f1deb0;font-size:9px;font-weight:1000}.intro p{margin:7px 0 0;color:#98a3af;font-size:8.5px;line-height:1.65}.intro strong{color:#e4e9ef}.example{margin-top:9px;border:1px solid #252c35;border-radius:10px;background:#0a0e13;padding:9px}.example b{color:var(--good);font-size:10px}.example span{display:block;margin-top:4px;color:#7f8a97;font-size:7.5px;line-height:1.5}
+.guide-grid{display:grid;gap:7px;margin-top:8px}.guide-row{display:grid;grid-template-columns:24px 1fr;gap:8px}.guide-no{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:rgba(255,207,87,.08);color:var(--accent);font-size:9px;font-weight:1000}.guide-copy{color:#98a3af;font-size:8.5px;line-height:1.55}.guide-copy b{color:#d9e0e7}
+.readme-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.readme-item{border:1px solid #20262e;border-radius:9px;background:#0a0e13;padding:8px}.readme-item b{display:block;color:#d9e0e7;font-size:8px}.readme-item span{display:block;margin-top:3px;color:#7f8a97;font-size:7.5px;line-height:1.45}
+.step{margin:13px 2px 7px;color:#aeb8c5;font-size:9px;font-weight:1000}.step b{color:var(--accent);margin-right:5px}.filters{display:grid;grid-template-columns:1fr 1fr;gap:7px}.field label{display:block;margin:0 0 4px 2px;color:#66717f;font-size:7px;font-weight:900}.field select,.search input{width:100%;border:1px solid #303844;border-radius:10px;background:#11161d;color:#eef2f6;padding:10px 9px;font-size:10px;font-weight:850;outline:none}.field select{appearance:none}.search{display:grid;grid-template-columns:1fr auto;gap:7px}.search button{border:1px solid rgba(255,207,87,.35);border-radius:10px;background:rgba(255,207,87,.08);color:#ffe499;padding:0 13px;font-size:9px;font-weight:1000}.search-note{margin:5px 2px 0;color:#65717e;font-size:7.5px}
+.summary{border:1px solid #2b333e;border-radius:15px;background:linear-gradient(180deg,#121820,#0d1117);padding:13px;margin-top:11px}.summary-title{font-size:16px;font-weight:1000}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.stat{border:1px solid #252c35;border-radius:10px;background:#0a0e13;padding:8px;text-align:center}.stat small{display:block;color:#6e7987;font-size:7px}.stat strong{display:block;margin-top:4px;font-size:14px}.stat strong.accent{color:var(--accent)}.basis{margin-top:8px;color:#687481;font-size:7.5px;line-height:1.55}
+.jockey-card{margin-top:12px;border:1px solid rgba(255,207,87,.25);border-radius:15px;background:linear-gradient(180deg,rgba(255,207,87,.05),rgba(255,207,87,.015));padding:12px}.jockey-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.jockey-name{font-size:15px;font-weight:1000}.caption{color:#7f8996;font-size:7px}.grade{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:56px;height:50px;border-radius:11px;border:1px solid rgba(255,207,87,.35);background:rgba(255,207,87,.08);color:var(--accent);font-size:16px;font-weight:1000}.grade small{margin-top:4px;font-size:6px}.grade.good{border-color:rgba(126,240,197,.35);background:rgba(126,240,197,.07);color:var(--good)}.grade.bad{border-color:rgba(255,141,154,.35);background:rgba(255,141,154,.07);color:var(--bad)}
+.verdict{margin-top:9px;border:1px solid #242b34;border-radius:10px;background:#10151b;padding:9px}.verdict b{display:block;color:#dfe6ed;font-size:8px}.verdict span{display:block;margin-top:4px;color:#8f9aa7;font-size:8px;line-height:1.55}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.metric{border-top:1px solid #1f252d;padding-top:7px}.metric small{display:block;color:#87919d;font-size:7px;font-weight:900}.metric em{display:block;margin-top:2px;color:#626d79;font-size:6.5px;font-style:normal}.metric b{display:block;margin-top:4px;font-size:10px}.plus{color:var(--good)}.minus{color:var(--bad)}.going{margin-top:8px;border-left:3px solid var(--accent);padding:7px 0 7px 8px;color:#9ca7b3;font-size:8px;line-height:1.55}.going b{color:#ffe08d}
+.section{margin-top:16px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:8px;margin:0 2px 8px}.section-title{font-size:11px;font-weight:1000;color:#ffe08d}.section-note{color:#606b79;font-size:7px}.section-help{margin:0 2px 8px;border:1px solid #242b34;border-radius:10px;background:#0c1015;padding:8px 9px;color:#7f8b98;font-size:7.5px;line-height:1.55}.section-help b{color:#d6dee6}.list{display:grid;gap:8px}.card{display:grid;grid-template-columns:30px 1fr auto;gap:9px;align-items:center;border:1px solid #252c35;border-radius:13px;background:#0d1117;padding:10px}.rank{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#151a21;color:#8e99a6;font-size:10px;font-weight:1000}.name{font-size:10px;font-weight:1000}.meta{margin-top:4px;color:#7d8895;font-size:7.5px}.side{text-align:right}.lift{font-size:12px;font-weight:1000}.sample{margin-top:3px;color:#687481;font-size:7px}.going-mini{margin-top:4px;color:#b7a363;font-size:7px}
+.dev{margin-top:18px;border:1px solid rgba(255,207,87,.25);border-radius:16px;background:linear-gradient(180deg,rgba(255,207,87,.05),rgba(255,207,87,.015));padding:24px 16px;text-align:center}.dev h2{margin:8px 0 6px}.dev p{margin:0;color:#8f9aa7;font-size:9px;line-height:1.7}.badge{display:inline-block;margin-top:12px;border:1px solid rgba(255,207,87,.35);border-radius:999px;padding:7px 10px;color:#ffe08d;font-size:8px;font-weight:1000}
+.loading,.empty,.error{margin-top:12px;border-radius:12px;padding:14px;text-align:center;font-size:9px}.loading{color:#76818e}.empty{border:1px dashed #303844;color:#7d8895}.error{border:1px solid rgba(255,141,154,.3);color:#ffb2ba;background:rgba(255,141,154,.04)}
+.foot{margin-top:15px;border-top:1px solid #171c22;padding-top:12px;color:#626d7a;font-size:7.5px;line-height:1.65}footer{display:flex;justify-content:space-between;margin-top:20px;color:#4f5967;font-size:8px}
+@media(min-width:620px){.filters{grid-template-columns:repeat(4,1fr)}.list{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<main class="shell">
+<div class="top"><a class="back" href="/">← LAB HUB</a><span class="beta">地方版 β</span></div>
+<div class="switch"><button id="localTab" class="active">地方版<span class="mini">LOCAL / β</span></button><button id="jraTab">中央版<span class="mini">JRA / 開発中</span></button></div>
+
+<div id="localView">
+<section class="hero">
+  <div class="kicker">BAKEN LAB｜LAB JOCKEY</div>
+  <h1>騎手も、条件で変わる。</h1>
+  <p>見るのは「有名な騎手か」ではなく、<strong>今回と同じ競馬場・距離で、その騎手が実際にどれくらい走れていたか。</strong></p>
+  <div class="rule"><b>LAB RANKとは独立。</b> 現在この騎手評価はTODAY順位・TOP5・LAB 🧪 EYEには反映していません。人気・オッズも評価に使用しません。</div>
+</section>
+
+<section class="intro">
+  <h2>🏇 LAB JOCKEYって何を見るの？</h2>
+  <p>過去258,930走から、騎手ごとに<strong>「今回の競馬場 × 芝/ダート × 距離」で3着以内に入りやすかったか</strong>を確認します。</p>
+  <div class="example"><b>例：金沢ダ1500m　栗原大 → ＋9.1pt</b><span>＝同じ条件を走った騎手全体より、栗原大騎手の補正後3着内率が高かったという意味。馬の能力とは別の「騎手条件適性」です。</span></div>
+</section>
+
+<section class="guide">
+  <div class="guide-title">使い方は3つだけ</div>
+  <div class="guide-grid">
+    <div class="guide-row"><span class="guide-no">①</span><div class="guide-copy"><b>レース条件を選ぶ。</b><br>競馬場 → 芝/ダート → 距離 → 馬場。</div></div>
+    <div class="guide-row"><span class="guide-no">②</span><div class="guide-copy"><b>条件に合う騎手を見る。</b><br>A+ / Aなら今回条件で強い傾向。</div></div>
+    <div class="guide-row"><span class="guide-no">③</span><div class="guide-copy"><b>気になる騎手名を入れる。</b><br>他の騎手との比較と、その騎手自身の普段との比較を見ます。</div></div>
+  </div>
+</section>
+
+<section class="readme">
+  <div class="readme-title">表示の見方</div>
+  <div class="readme-grid">
+    <div class="readme-item"><b>A+ / A / B / C / D</b><span>A側ほど今回条件で好成績。</span></div>
+    <div class="readme-item"><b>① 他の騎手と比べて</b><span>今回条件の騎手全体平均との差。</span></div>
+    <div class="readme-item"><b>② この騎手自身では</b><span>同じ競馬場で普段乗る時より今回距離で上がるか。</span></div>
+    <div class="readme-item"><b>信頼度</b><span>今回条件での騎乗数。多いほど判断しやすい。</span></div>
+  </div>
+</section>
+
+<div class="step"><b>①</b>今日の条件を選ぶ</div>
+<section class="filters">
+  <div class="field"><label>競馬場</label><select id="track"></select></div>
+  <div class="field"><label>芝 / ダート</label><select id="surface"></select></div>
+  <div class="field"><label>距離</label><select id="distance"></select></div>
+  <div class="field"><label>馬場</label><select id="going"></select></div>
+</section>
+
+<div class="step"><b>②</b>気になる騎手がいれば調べる <span style="color:#66717f">（任意）</span></div>
+<div class="search"><input id="jockeyName" maxlength="100" placeholder="騎手名を入力　例：栗原大"><button id="jockeyBtn">この騎手を見る</button></div>
+<div class="search-note">名前は過去DBの表記で検索します。空欄なら条件別の騎手ランキングだけ見られます。</div>
+
+<div id="main"><div class="loading">LAB JOCKEYを準備中…</div></div>
+
+<div class="foot">地方競馬アーカイブ 2025/01/01〜2026/08/31、258,930走を使用。主評価は「競馬場 × 芝/ダート × 距離」。馬場は補足。人気・オッズは評価に使っていません。</div>
+</div>
+
+<div id="jraView" hidden>
+  <section class="dev"><div style="font-size:34px">🏇</div><h2>LAB JOCKEY｜中央版</h2><p>JRA騎手版は開発中です。地方版をそのまま流用せず、JRA専用の競馬場・芝/ダート・距離・クラス構造で検証してから公開します。</p><span class="badge">COMING SOON / 開発中</span></section>
+</div>
+
+<footer><span>BAKEN LAB｜馬券ラボ</span><span>LAB JOCKEY</span></footer>
+</main>
+
+<script>
+const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||c));
+const uniq=a=>[...new Set(a)],fmt=v=>Number.isFinite(Number(v))?Number(v).toFixed(1):'—',sign=v=>Number(v)>0?'+'+fmt(v):fmt(v);
+let options=[],loading=false;
+function gradeWord(g){return ({'A+':'かなり強い','A':'強い','B':'やや＋','C':'平均','D':'やや−'})[g]||'参考'}
+function gradeClass(g){return ['A+','A','B'].includes(g)?'good':g==='D'?'bad':''}
+function compareWord(v){const n=Number(v);if(n>=10)return'他の騎手よりかなり好成績';if(n>=2)return'他の騎手より好成績';if(n>-2)return'他の騎手とほぼ同じ';return'他の騎手より低め'}
+function selfWord(v){const n=Number(v);if(n>=8)return'この騎手自身にもかなり得意な距離';if(n>=2)return'この騎手自身にも得意寄り';if(n>-2)return'この騎手自身では普段とほぼ同じ';return'この騎手自身ではやや苦手寄り'}
+function available(f={}){return options.filter(x=>Object.entries(f).every(([k,v])=>String(x[k])===String(v)))}
+function fill(el,vals,label=v=>v,preferred=null){const prev=preferred??el.value;el.innerHTML=vals.map(v=>`<option value="${esc(v)}">${esc(label(v))}</option>`).join('');if(vals.map(String).includes(String(prev)))el.value=String(prev)}
+function refill(first=false){
+  const tracks=uniq(options.map(x=>x.track)).filter(Boolean);fill($('#track'),tracks,v=>v,first?localStorage.getItem('jockey_track'):$('#track').value);
+  const t=$('#track').value,surfs=uniq(available({track:t}).map(x=>x.surface)).filter(Boolean);fill($('#surface'),surfs,v=>v,$('#surface').value);
+  const s=$('#surface').value,dists=uniq(available({track:t,surface:s}).map(x=>Number(x.distance))).filter(Number.isFinite).sort((a,b)=>a-b);fill($('#distance'),dists,v=>v+'m',$('#distance').value);
+  const d=$('#distance').value,goings=uniq(available({track:t,surface:s,distance:d}).map(x=>x.going)).filter(Boolean);fill($('#going'),goings,v=>v,$('#going').value);
+  localStorage.setItem('jockey_track',t);
+}
+function jockeyDetail(x,going){
+  if(!x)return '';
+  if(!x.found)return `<div class="empty">「${esc(x.jockey_name)}」はこの条件の過去データから見つかりませんでした。</div>`;
+  const gc=gradeClass(x.grade),gn=Number(x.going_sample_n||0);
+  return `<section class="jockey-card">
+    <div class="jockey-head"><div><div class="caption">今回条件でこの騎手を見る</div><div class="jockey-name">${esc(x.jockey_name)}</div></div><span class="grade ${gc}">${esc(x.grade)}<small>${esc(gradeWord(x.grade))}</small></span></div>
+    <div class="verdict"><b>このカードを一言で読むと</b><span>${esc(compareWord(x.lift_pp))}。 ${esc(selfWord(x.condition_vs_track_pp))}。</span></div>
+    <div class="metrics">
+      <div class="metric"><small>今回条件で3着以内</small><em>同じ競馬場・距離での実績</em><b>${fmt(x.top3_rate)}%</b></div>
+      <div class="metric"><small>① 他の騎手と比べて</small><em>条件全体平均との差</em><b class="${Number(x.lift_pp)>=0?'plus':'minus'}">${sign(x.lift_pp)}pt</b></div>
+      <div class="metric"><small>データの厚さ</small><em>今回条件での騎乗数</em><b>${esc(x.sample_n)}走 / 信頼度 ${esc(x.confidence)}</b></div>
+      <div class="metric"><small>② この騎手自身では</small><em>同じ競馬場で普段乗る時との比較</em><b class="${Number(x.condition_vs_track_pp)>=0?'plus':'minus'}">${sign(x.condition_vs_track_pp)}pt</b></div>
+    </div>
+    ${going&&gn>0?`<div class="going"><b>③ 馬場は参考</b><br>${esc(going)}だけでは ${sign(x.going_lift_pp)}pt / ${gn}走${gn<20?'。データが少ないので強く判断しない。':''}</div>`:''}
+  </section>`;
+}
+function card(x,i,going){
+  return `<article class="card"><span class="rank">${i+1}</span><div><div class="name">${esc(x.jockey_name)}</div><div class="meta">3着内 <b>${fmt(x.top3_rate)}%</b> ｜ ${esc(x.sample_n)}走 ｜ 信頼度 ${esc(x.confidence)}</div>${going&&Number(x.going_sample_n)>0?`<div class="going-mini">${esc(going)}：${sign(x.going_lift_pp)}pt / ${x.going_sample_n}走</div>`:''}</div><div class="side"><div class="lift ${Number(x.lift_pp)>=0?'plus':'minus'}">${sign(x.lift_pp)}pt</div><div class="sample">評価 ${esc(x.grade)}</div></div></article>`;
+}
+function render(d){
+  const b=d.baseline||{},g=d.going_baseline||{},rows=(d.top_jockeys||[]).slice(0,8);
+  $('#main').innerHTML=`
+    <section class="summary"><div class="summary-title">${esc(d.track)}・${esc(d.surface)}${esc(d.distance)}m</div><div class="stats"><div class="stat"><small>条件平均 3着内率</small><strong class="accent">${fmt(b.top3_rate)}%</strong></div><div class="stat"><small>基礎データ</small><strong>${esc(b.sample_n)}走</strong></div><div class="stat"><small>${esc(d.going||'馬場')}データ</small><strong>${esc(g.sample_n||0)}走</strong></div></div><div class="basis">A〜Dは今回条件の騎手全体との比較。馬場は追加ヒントとして表示。</div></section>
+    ${jockeyDetail(d.selected_jockey,d.going)}
+    <section class="section"><div class="section-head"><div class="section-title">🏇 条件に合う騎手</div><div class="section-note">補正後平均との差</div></div><div class="section-help"><b>これは今日の出走馬ランキングではありません。</b><br>「この競馬場・距離で過去成績が上がりやすかった騎手」のランキングです。今日その騎手が乗っていれば追加材料として見ます。</div><div class="list">${rows.length?rows.map((x,i)=>card(x,i,d.going)).join(''):'<div class="empty">条件を満たす騎手データがありません。</div>'}</div></section>`;
+}
+async function loadOptions(){try{const u=new URL(API);u.searchParams.set('action','lab_jockey');const r=await fetch(u,{cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'条件読込失敗');options=Array.isArray(d.conditions)?d.conditions:[];refill(true);await load()}catch(e){$('#main').innerHTML=`<div class="error">読み込みエラー：${esc(e?.message||e)}</div>`}}
+async function load(){if(loading)return;loading=true;$('#main').innerHTML='<div class="loading">騎手データを集計中…</div>';try{const u=new URL(API);u.searchParams.set('action','lab_jockey');u.searchParams.set('track',$('#track').value);u.searchParams.set('surface',$('#surface').value);u.searchParams.set('distance',$('#distance').value);u.searchParams.set('going',$('#going').value);u.searchParams.set('min_sample','25');const j=$('#jockeyName').value.trim();if(j)u.searchParams.set('jockey',j);const r=await fetch(u,{cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'集計失敗');render(d)}catch(e){$('#main').innerHTML=`<div class="error">読み込みエラー：${esc(e?.message||e)}</div>`}finally{loading=false}}
+function setCircuit(m){const local=m==='LOCAL';$('#localView').hidden=!local;$('#jraView').hidden=local;$('#localTab').classList.toggle('active',local);$('#jraTab').classList.toggle('active',!local)}
+$('#localTab').addEventListener('click',()=>setCircuit('LOCAL'));$('#jraTab').addEventListener('click',()=>setCircuit('JRA'));
+$('#track').addEventListener('change',()=>{refill();load()});$('#surface').addEventListener('change',()=>{refill();load()});$('#distance').addEventListener('change',()=>{refill();load()});$('#going').addEventListener('change',load);$('#jockeyBtn').addEventListener('click',load);$('#jockeyName').addEventListener('keydown',e=>{if(e.key==='Enter')load()});
+loadOptions();if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
