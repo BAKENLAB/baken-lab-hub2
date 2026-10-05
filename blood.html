@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#090b0f" />
+  <title>LAB BLOOD｜BAKEN LAB</title>
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <style>
+    :root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans JP',sans-serif;--bg:#090b0f;--panel:#101319;--line:#272d36;--text:#f6f7f9;--muted:#8993a0;--accent:#e68cff;--good:#7ef0c5;--warn:#ffcf57;--bad:#ff8d9a}
+    *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-width:320px;min-height:100vh;background:radial-gradient(circle at 86% 1%,rgba(230,140,255,.07),transparent 24%),var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none}.shell{width:min(100%,760px);margin:0 auto;padding:14px 11px 42px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:10px}.back{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:#11161d;padding:8px 10px;color:#cbd3dc;font-size:9px;font-weight:900}.beta{border:1px solid rgba(230,140,255,.35);border-radius:999px;background:rgba(230,140,255,.07);padding:6px 8px;color:var(--accent);font-size:7px;font-weight:950;letter-spacing:.08em}
+    .hero{padding:20px 2px 13px}.kicker{color:var(--accent);font-size:9px;font-weight:950;letter-spacing:.14em}.hero h1{margin:6px 0 5px;font-size:29px;letter-spacing:-.05em}.hero-copy{margin:0;color:#8b96a3;font-size:9.5px;line-height:1.65}.hero strong{color:#d8dee5}
+    .independent{margin-top:11px;border:1px solid rgba(126,240,197,.25);border-radius:11px;background:rgba(126,240,197,.045);padding:9px 10px;color:#9ba7b3;font-size:8px;line-height:1.5}.independent b{color:var(--good)}
+    .guide{margin:0 0 12px;border:1px solid #252c35;border-radius:13px;background:#0d1116;padding:11px 12px}.guide-title{color:var(--accent);font-size:9px;font-weight:950;letter-spacing:.05em}.guide-grid{display:grid;gap:7px;margin-top:8px}.guide-row{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:start}.guide-no{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:rgba(230,140,255,.09);color:var(--accent);font-size:9px;font-weight:1000}.guide-copy{color:#98a3af;font-size:8.5px;line-height:1.55}.guide-copy b{color:#d9e0e7}
+    .filters{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0}.field label{display:block;margin:0 0 4px 2px;color:#66717f;font-size:7px;font-weight:900}.field select,.horse-search input{width:100%;border:1px solid #303844;border-radius:10px;background:#11161d;color:#eef2f6;padding:10px 9px;font-size:10px;font-weight:850;outline:none}.field select{appearance:none}
+    .step-title{margin:13px 2px 7px;color:#aeb8c5;font-size:9px;font-weight:1000}.step-title b{color:var(--accent);margin-right:5px}
+    .horse-search{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.horse-search button{border:1px solid rgba(230,140,255,.35);border-radius:10px;background:rgba(230,140,255,.09);color:#f5dfff;padding:0 12px;font-size:9px;font-weight:1000}.search-note{margin:5px 2px 0;color:#65717e;font-size:7.5px;line-height:1.5}
+    .summary{border:1px solid #2b333e;border-radius:15px;background:linear-gradient(180deg,#121820,#0d1117);padding:13px;margin-top:11px}.summary-head{display:flex;align-items:center;justify-content:space-between;gap:9px}.summary-title{font-size:16px;font-weight:1000;letter-spacing:-.03em}.summary-tag{border:1px solid rgba(230,140,255,.32);border-radius:999px;background:rgba(230,140,255,.07);padding:4px 7px;color:var(--accent);font-size:7px;font-weight:950}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:11px}.stat{border:1px solid #252c35;border-radius:10px;background:#0a0e13;padding:8px;text-align:center}.stat small{display:block;color:#6e7987;font-size:7px}.stat strong{display:block;margin-top:4px;font-size:14px}.stat strong.accent{color:var(--accent)}
+    .basis{margin-top:8px;color:#687481;font-size:7.5px;line-height:1.55}.basis b{color:#aeb8c3}
+    .horse-card{margin-top:12px;border:1px solid rgba(230,140,255,.27);border-radius:15px;background:linear-gradient(180deg,rgba(230,140,255,.06),rgba(230,140,255,.018));padding:12px}.horse-head{display:flex;align-items:end;justify-content:space-between;gap:8px}.horse-title{font-size:14px;font-weight:1000}.horse-caption{color:#7f8996;font-size:7px}.line-grid{display:grid;gap:8px;margin-top:10px}.line-card{border:1px solid #2a3039;border-radius:12px;background:#0c1015;padding:10px}.line-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.line-kind{color:#8f9aa7;font-size:7px;font-weight:1000}.line-name{margin-top:3px;font-size:12px;font-weight:1000}.grade{display:grid;place-items:center;min-width:42px;height:42px;border-radius:11px;border:1px solid rgba(230,140,255,.35);background:rgba(230,140,255,.08);color:var(--accent);font-size:15px;font-weight:1000}.grade.good{border-color:rgba(126,240,197,.35);background:rgba(126,240,197,.07);color:var(--good)}.grade.bad{border-color:rgba(255,141,154,.35);background:rgba(255,141,154,.07);color:var(--bad)}.line-numbers{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.metric{border-top:1px solid #1f252d;padding-top:6px}.metric small{display:block;color:#697481;font-size:7px}.metric b{display:block;margin-top:2px;font-size:10px}.plus{color:var(--good)}.minus{color:var(--bad)}.going-note{margin-top:7px;border-left:3px solid var(--warn);padding-left:7px;color:#9ca7b3;font-size:8px;line-height:1.5}.going-note b{color:#f0d989}
+    .section{margin-top:16px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:0 2px 8px}.section-title{font-size:11px;font-weight:1000}.section-title.sire{color:#f0b0ff}.section-title.dam{color:#8fdcff}.section-note{color:#606b79;font-size:7px;text-align:right}.blood-list{display:grid;gap:8px}.blood-card{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:9px;align-items:center;border:1px solid #252c35;border-radius:13px;background:#0d1117;padding:10px}.blood-rank{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#151a21;color:#8e99a6;font-size:10px;font-weight:1000}.blood-name{font-size:10px;font-weight:1000}.blood-meta{margin-top:4px;color:#7d8895;font-size:7.5px;line-height:1.5}.blood-meta b{color:#d3dae2}.blood-side{text-align:right}.blood-lift{font-size:12px;font-weight:1000}.blood-lift.pos{color:var(--good)}.blood-lift.neg{color:var(--bad)}.blood-sample{margin-top:3px;color:#687481;font-size:7px}.going-mini{margin-top:4px;color:#b7a363;font-size:7px}
+    .legend{margin-top:14px;border:1px solid #252c35;border-radius:12px;background:#0d1116;padding:10px}.legend-title{color:#d7dee6;font-size:8.5px;font-weight:1000}.legend-copy{margin-top:6px;color:#7f8a97;font-size:8px;line-height:1.6}.legend-copy b{color:#d8dfe6}
+    .empty{border:1px dashed #303844;border-radius:12px;padding:15px 12px;color:#7d8895;text-align:center;font-size:9px;line-height:1.5}.loading{padding:22px 10px;color:#76818e;text-align:center;font-size:9px}.error{border:1px solid rgba(255,141,154,.3);border-radius:12px;background:rgba(255,141,154,.04);padding:13px;color:#ffb2ba;font-size:9px}
+    .footnote{margin-top:15px;border-top:1px solid #171c22;padding-top:12px;color:#626d7a;font-size:7.5px;line-height:1.6}footer{display:flex;justify-content:space-between;gap:10px;margin-top:20px;color:#4f5967;font-size:8px}
+    @media(min-width:620px){.filters{grid-template-columns:repeat(4,1fr)}.line-grid{grid-template-columns:1fr 1fr}.blood-list{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <div class="top"><a class="back" href="/">← LAB HUB</a><span class="beta">地方版 / β</span></div>
+
+  <section class="hero">
+    <div class="kicker">BAKEN LAB｜LAB BLOOD</div>
+    <h1>血統は、条件で顔を変える。</h1>
+    <p class="hero-copy">難しい血統表を読むページではありません。<br><strong>「この父・母父は、今日の条件でどうだった？」</strong>を過去データからシンプルに見ます。</p>
+    <div class="independent"><b>LAB RANKとは独立。</b> 現在この血統データはTODAYの順位・評価・LAB 🧪 EYEには反映していません。</div>
+  </section>
+
+  <section class="guide">
+    <div class="guide-title">最初はここだけ見ればOK</div>
+    <div class="guide-grid">
+      <div class="guide-row"><span class="guide-no">A</span><div class="guide-copy"><b>A+ / Aなら注目。</b> この条件で平均より数字が上がった血統。</div></div>
+      <div class="guide-row"><span class="guide-no">+</span><div class="guide-copy"><b>＋○pt</b>は今回条件の平均との差。少ないデータが暴れすぎないよう補正しています。</div></div>
+      <div class="guide-row"><span class="guide-no">信</span><div class="guide-copy"><b>信頼度 高・中・低</b>でデータ量を確認。馬場は主評価ではなく追加ヒントです。</div></div>
+    </div>
+  </section>
+
+  <div class="step-title"><b>①</b>今日の条件を選ぶ</div>
+  <section class="filters">
+    <div class="field"><label>競馬場</label><select id="track"></select></div>
+    <div class="field"><label>芝 / ダート</label><select id="surface"></select></div>
+    <div class="field"><label>距離</label><select id="distance"></select></div>
+    <div class="field"><label>馬場</label><select id="going"></select></div>
+  </section>
+
+  <div class="step-title"><b>②</b>気になる馬がいれば調べる <span style="color:#66717f;font-weight:800">（任意）</span></div>
+  <div class="horse-search"><input id="horseName" type="text" maxlength="100" placeholder="馬名を入力　例：イズジョーアザヤカ"><button id="horseBtn">この馬を見る</button></div>
+  <div class="search-note">過去DBに出走歴がある馬のみ検索できます。空欄なら血統ランキングだけ見られます。</div>
+
+  <div id="main"><div class="loading">LAB BLOODを準備中…</div></div>
+
+  <section class="legend">
+    <div class="legend-title">このページの評価ルール</div>
+    <div class="legend-copy"><b>主評価は「競馬場 × 芝/ダート × 距離」。</b> 馬場まで細かく絞ると血統ごとのデータが少なくなるため、良・稍重・重・不良は補足表示にしています。A〜Dは過去傾向で、未来の好走を保証する評価ではありません。</div>
+  </section>
+
+  <div class="footnote">※地方競馬アーカイブ 2025/01/01〜2026/08/31、258,930走を基礎データとして使用。ばんえいは性質が異なるためLAB BLOOD βの対象外です。人気・オッズは使用していません。</div>
+  <footer><span>BAKEN LAB｜馬券ラボ</span><span>LAB BLOOD</span></footer>
+</main>
+
+<script>
+const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||c));
+const uniq=a=>[...new Set(a)];
+const fmt=v=>Number.isFinite(Number(v))?Number(v).toFixed(1):'—';
+const sign=v=>Number(v)>0?'+'+fmt(v):fmt(v);
+let options=[],loading=false;
+
+function gradeClass(g){return ['A+','A','B'].includes(g)?'good':g==='D'?'bad':''}
+function available(filter={}) {
+  return options.filter(x=>Object.entries(filter).every(([k,v])=>String(x[k])===String(v)));
+}
+function fillSelect(el,values,labeler=v=>v,preferred=null){
+  const prev=preferred??el.value;
+  el.innerHTML=values.map(v=>`<option value="${esc(v)}">${esc(labeler(v))}</option>`).join('');
+  if(values.map(String).includes(String(prev)))el.value=String(prev);
+}
+function refill(level=0){
+  const tracks=uniq(options.map(x=>x.track)).filter(Boolean);
+  fillSelect($('#track'),tracks,v=>v,level===0?localStorage.getItem('blood_track'):$('#track').value);
+  const t=$('#track').value;
+  const surfaces=uniq(available({track:t}).map(x=>x.surface)).filter(Boolean);
+  fillSelect($('#surface'),surfaces,v=>v,$('#surface').value);
+  const s=$('#surface').value;
+  const distances=uniq(available({track:t,surface:s}).map(x=>Number(x.distance))).filter(Number.isFinite).sort((a,b)=>a-b);
+  fillSelect($('#distance'),distances,v=>v+'m',$('#distance').value);
+  const d=$('#distance').value;
+  const goings=uniq(available({track:t,surface:s,distance:d}).map(x=>x.going)).filter(Boolean);
+  fillSelect($('#going'),goings,v=>v,$('#going').value);
+  localStorage.setItem('blood_track',t);
+}
+function lineCard(x,going){
+  if(!x)return '';
+  const cls=gradeClass(x.grade);
+  const enough=Number(x.sample_n)>=20;
+  const goingN=Number(x.going_sample_n||0);
+  const goingText=going&&goingN>0
+    ? `<div class="going-note">馬場補足：<b>${esc(going)}</b>では ${esc(sign(x.going_lift_pp))}pt / ${goingN}走${goingN<20?'（参考）':''}</div>`
+    :'';
+  return `<article class="line-card">
+    <div class="line-top"><div><div class="line-kind">${x.kind==='SIRE'?'父':'母父'}</div><div class="line-name">${esc(x.blood_name||'—')}</div></div><span class="grade ${cls}">${esc(x.grade||'—')}</span></div>
+    <div class="line-numbers">
+      <div class="metric"><small>今回条件 3着内率</small><b>${enough?fmt(x.top3_rate)+'%':'参考 '+fmt(x.top3_rate)+'%'}</b></div>
+      <div class="metric"><small>条件平均との差</small><b class="${Number(x.lift_pp)>=0?'plus':'minus'}">${esc(sign(x.lift_pp))}pt</b></div>
+      <div class="metric"><small>データ</small><b>${esc(x.sample_n)}走 / 信頼度 ${esc(x.confidence)}</b></div>
+      <div class="metric"><small>血統全体との比較</small><b class="${Number(x.condition_vs_overall_pp)>=0?'plus':'minus'}">${esc(sign(x.condition_vs_overall_pp))}pt</b></div>
+    </div>
+    ${goingText}
+  </article>`;
+}
+function bloodCard(x,i,going){
+  const lift=Number(x.lift_pp),goingN=Number(x.going_sample_n||0);
+  const goingLine=going&&goingN>0
+    ? `<div class="going-mini">${esc(going)}：${esc(sign(x.going_lift_pp))}pt / ${goingN}走${goingN<20?'・参考':''}</div>`
+    :'';
+  return `<article class="blood-card">
+    <span class="blood-rank">${i+1}</span>
+    <div><div class="blood-name">${esc(x.blood_name)}</div><div class="blood-meta">3着内 <b>${fmt(x.top3_rate)}%</b> ｜ ${esc(x.sample_n)}走 ｜ 信頼度 ${esc(x.confidence)}</div>${goingLine}</div>
+    <div class="blood-side"><div class="blood-lift ${lift>=0?'pos':'neg'}">${esc(sign(lift))}pt</div><div class="blood-sample">評価 ${esc(x.grade)}</div></div>
+  </article>`;
+}
+function render(data){
+  const b=data.baseline||{},g=data.going_baseline||{};
+  const horse=data.selected_horse;
+  const horseBox=horse===null?'':horse.found
+    ? `<section class="horse-card"><div class="horse-head"><div><div class="horse-caption">この馬の血統を今回条件で見る</div><div class="horse-title">${esc(horse.horse_name)}</div></div><div class="horse-caption">父＋母父</div></div><div class="line-grid">${(horse.lines||[]).map(x=>lineCard(x,data.going)).join('')}</div></section>`
+    : `<div class="empty" style="margin-top:12px">「${esc(horse.horse_name)}」は過去DBから血統を特定できませんでした。</div>`;
+  const sires=(data.top_sires||[]).slice(0,6),dams=(data.top_damsires||[]).slice(0,6);
+  $('#main').innerHTML=`
+    <section class="summary">
+      <div class="summary-head"><div class="summary-title">${esc(data.track)}・${esc(data.surface)}${esc(data.distance)}m</div><span class="summary-tag">主評価</span></div>
+      <div class="stats">
+        <div class="stat"><small>条件平均 3着内率</small><strong class="accent">${fmt(b.top3_rate)}%</strong></div>
+        <div class="stat"><small>基礎データ</small><strong>${esc(b.sample_n)}走</strong></div>
+        <div class="stat"><small>${esc(data.going||'馬場')} データ</small><strong>${esc(g.sample_n||0)}走</strong></div>
+      </div>
+      <div class="basis"><b>A〜Dは${esc(data.track)}・${esc(data.surface)}${esc(data.distance)}mが基準。</b> ${esc(data.going||'今回馬場')}は追加ヒントとして表示しています。</div>
+    </section>
+    ${horseBox}
+    <section class="section"><div class="section-head"><div class="section-title sire">🧬 条件に合う「父」</div><div class="section-note">補正後平均との差</div></div><div class="blood-list">${sires.length?sires.map((x,i)=>bloodCard(x,i,data.going)).join(''):'<div class="empty">20走以上ある父がいません。</div>'}</div></section>
+    <section class="section"><div class="section-head"><div class="section-title dam">🧬 条件に合う「母父」</div><div class="section-note">補正後平均との差</div></div><div class="blood-list">${dams.length?dams.map((x,i)=>bloodCard(x,i,data.going)).join(''):'<div class="empty">20走以上ある母父がいません。</div>'}</div></section>`;
+}
+async function loadOptions(){
+  try{
+    const u=new URL(API);u.searchParams.set('action','lab_blood');
+    const r=await fetch(u,{cache:'no-store'}),d=await r.json();
+    if(!r.ok||!d.ok)throw new Error(d.error||'条件読込失敗');
+    options=Array.isArray(d.conditions)?d.conditions:[];
+    if(!options.length)throw new Error('条件データがありません');
+    refill(0);await load();
+  }catch(e){$('#main').innerHTML=`<div class="error">読み込みエラー：${esc(e?.message||e)}</div>`}
+}
+async function load(){
+  if(loading)return;loading=true;
+  $('#main').innerHTML='<div class="loading">血統データを集計中…</div>';
+  try{
+    const u=new URL(API);u.searchParams.set('action','lab_blood');
+    u.searchParams.set('track',$('#track').value);u.searchParams.set('surface',$('#surface').value);
+    u.searchParams.set('distance',$('#distance').value);u.searchParams.set('going',$('#going').value);
+    u.searchParams.set('min_sample','20');
+    const h=$('#horseName').value.trim();if(h)u.searchParams.set('horse_name',h);
+    const r=await fetch(u,{cache:'no-store'}),d=await r.json();
+    if(!r.ok||!d.ok)throw new Error(d.error||'集計失敗');
+    render(d);
+  }catch(e){$('#main').innerHTML=`<div class="error">読み込みエラー：${esc(e?.message||e)}</div>`}
+  finally{loading=false}
+}
+$('#track').addEventListener('change',()=>{refill(1);load()});
+$('#surface').addEventListener('change',()=>{refill(2);load()});
+$('#distance').addEventListener('change',()=>{refill(3);load()});
+$('#going').addEventListener('change',load);
+$('#horseBtn').addEventListener('click',load);
+$('#horseName').addEventListener('keydown',e=>{if(e.key==='Enter')load()});
+loadOptions();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{})})}
+</script>
+</body>
+</html>
