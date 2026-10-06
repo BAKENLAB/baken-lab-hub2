@@ -1,8 +1,8 @@
 name: LOCAL Queue PostgreSQL 17 isolation
 on:
   push:
-    branches: ['codex/local-queue-pg17-validation-*']
-    paths: ['tests/**', 'review/**', 'supabase/functions/local-claimed-mcp/**', 'supabase/functions/local-claimed-mcp-canary/**', '.github/workflows/local-queue-pg17.yml']
+    branches: ['codex/local-queue-pg17-validation-*', 'fix/local-backend-worker-*']
+    paths: ['tests/**', 'review/**', 'supabase/functions/local-claimed-mcp/**', 'supabase/functions/local-claimed-mcp-canary/**', 'supabase/functions/local-prediction-worker/**', '.github/workflows/local-queue-pg17.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -37,7 +37,7 @@ jobs:
       - name: Install client only
         run: sudo apt-get update -qq && sudo apt-get install -y postgresql-client
       - name: Unit and actual callback registration
-        run: node --test --test-isolation=none tests/queue-operation.test.mjs tests/mcp-registration.test.mjs tests/source-contracts.test.mjs tests/validator.test.mjs
+        run: node --test --test-isolation=none tests/queue-operation.test.mjs tests/mcp-registration.test.mjs tests/source-contracts.test.mjs tests/validator.test.mjs tests/local-prediction-worker-source.test.mjs
       - name: Canary registration and forbidden-access audit
         run: node --test --test-isolation=none tests/canary-registration.test.mjs
       - name: Real PostgreSQL 17 integration (no SKIP allowed)
@@ -46,3 +46,5 @@ jobs:
         run: deno check --node-modules-dir=auto supabase/functions/local-claimed-mcp/index.ts
       - name: Canary Deno entrypoint and OAuth imports
         run: deno check --node-modules-dir=auto supabase/functions/local-claimed-mcp-canary/index.ts
+      - name: Backend LOCAL worker Deno check
+        run: deno check --node-modules-dir=auto supabase/functions/local-prediction-worker/index.ts
