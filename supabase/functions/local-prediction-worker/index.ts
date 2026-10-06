@@ -51,8 +51,8 @@ async function release(job: any, reason: string) {
     p_claim_token: job.claim_token,
     p_outcome: "RETRY",
     p_error: reason.slice(0, 240),
-    p_retry_after_seconds: 60,
-    p_prediction_id: null,
+    p_retry_seconds: 60,
+    p_max_attempts: null,
   });
 }
 async function claim(worker_id: string) {
