@@ -1,0 +1,39 @@
+name: LOCAL Queue PostgreSQL 17 isolation
+on:
+  push:
+    branches: ['codex/local-queue-pg17-validation-*']
+    paths: ['tests/**', 'review/**', 'supabase/functions/local-claimed-mcp/**', '.github/workflows/local-queue-pg17.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: local-queue-pg17-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  isolated-postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: local_queue_test_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d local_queue_test_ci"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      LOCAL_QUEUE_TEST_DATABASE_URL: postgresql://postgres@127.0.0.1:5432/local_queue_test_ci
+      LOCAL_QUEUE_REQUIRE_POSTGRES: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install client only
+        run: sudo apt-get update -qq && sudo apt-get install -y postgresql-client
+      - name: Unit and actual callback registration
+        run: node --test --test-isolation=none tests/queue-operation.test.mjs tests/mcp-registration.test.mjs tests/source-contracts.test.mjs tests/validator.test.mjs
+      - name: Real PostgreSQL 17 integration (no SKIP allowed)
+        run: node --test tests/postgres.test.mjs
