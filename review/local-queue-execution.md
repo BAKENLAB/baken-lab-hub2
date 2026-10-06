@@ -2,9 +2,9 @@
 
 This is an isolated additive-source Git working directory at
 /workspace/local-queue-execution-review, not a checkout of GitHub main.
-No push, production migration, deploy, cleanup or automation update was performed.
+Review branch was published; no production migration, deploy, cleanup or automation update was performed.
 Source import and implementation are separate local commits. To publish later,
-create a review branch from the then-current GitHub main and copy these additions;
+a review branch from GitHub main holds these additions;
 do not merge this standalone root-history branch into main.
 
 ## Source import
@@ -134,6 +134,29 @@ functions using local-queue-execution-rollback.sql. Keep receipt evidence and al
 existing jobs/runs/predictions. Do not rewrite FROZEN, delete history, change JRA,
 or roll back by applying the reference baseline. Previous path retains blocking
 risk; rollback is not a guarantee of successful unattended execution.
+
+## Final MCP authentication / error / Deno gate
+
+Queue and save handlers authorize once with getUser and the unchanged
+LOCAL_MCP_ALLOWED_USER_ID comparison. Internal helpers do not authenticate;
+queueSave accepts only the handler-supplied userId, not a tool input field.
+SAVE_RETRY_MISMATCH and SAVE_REJECTED are the only DB save-message codes retained;
+unknown SQL messages map to SAVE_REJECTED. Existing public error sanitization stays.
+Save idempotentHint=true: retries with identical job/user/protocol/original JSONB/
+normalized JSONB/FROZEN return the same result without another write. Different
+inputs reject. Queue idempotentHint remains false.
+
+Production READ ONLY inspection on 2026-10-06 confirmed the five legacy signatures:
+enqueue(date), start(text,text), claim(uuid,integer,integer), finish(uuid,text,text),
+save(uuid,uuid,uuid,text,jsonb), all SECURITY INVOKER. The existing LOCAL 1.5 BEFORE
+INSERT guard, AFTER INSERT registry trigger and BEFORE UPDATE rewrite prevention
+trigger remain unchanged. Candidate save delegates to the existing guarded RPC;
+receipt retry only SELECTs the frozen prediction. Validator/7 keys/bets=[]/strategy
+are unchanged. This inspection does not replace full production-trigger testing.
+
+CI now runs deno check against the same index.ts and its npm/jsr/local import
+graph, without runtime secrets or a production connection. Real HTTPS/OAuth
+execution remains a separate gate.
 
 ## Three mandatory audit fixes and CI gate
 

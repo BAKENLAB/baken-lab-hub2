@@ -31,6 +31,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Deno entrypoint check and dependency resolution
+        run: deno check supabase/functions/local-claimed-mcp/index.ts
       - name: Install client only
         run: sudo apt-get update -qq && sudo apt-get install -y postgresql-client
       - name: Unit and actual callback registration
