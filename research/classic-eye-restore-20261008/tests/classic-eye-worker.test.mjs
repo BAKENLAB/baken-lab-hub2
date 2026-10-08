@@ -8,12 +8,14 @@ const src = readFileSync(new URL('../candidate/local-ai-worker/index.ts', import
 const sandbox = { Deno: { serve() {} }, Request, Response, AbortSignal, console }
 vm.runInNewContext(
   stripTypeScriptTypes(src.replace(/^import .*\n/gm, '') +
-    '\nglobalThis.__prompt = promptFor; globalThis.__expand = expandPayload; globalThis.__checks = CHECKS;'),
+    '\nglobalThis.__prompt = promptFor; globalThis.__expand = expandPayload; globalThis.__checks = CHECKS; globalThis.__protocolView = classicEyeProtocolView;'),
   sandbox,
 )
 const expand = sandbox.__expand
 const prompt = sandbox.__prompt
 const checkN = sandbox.__checks.length
+const protocolView = sandbox.__protocolView
+const original = JSON.parse(readFileSync(new URL('../historical/local-1.0-eye.json', import.meta.url), 'utf8'))
 
 function fixture(count = 7, eyeNumber = 7) {
   const context = {
@@ -49,12 +51,19 @@ function fixture(count = 7, eyeNumber = 7) {
   return {model,context}
 }
 
-test('restored EYE instructions remove unanimous-pair gate but preserve rank and odds separation',()=>{
-  const text = prompt({runners:[]},{})
-  assert.match(text,/全候補へのペア全勝は必須にしない/)
-  assert.match(text,/6位だから選ぶ/)
-  assert.match(text,/人気・オッズ/)
-  assert.match(text,/TOP5外/)
+test('restored EYE section is identical to the saved LOCAL 1.0 text',()=>{
+  assert.equal(original.protocol_version,'CHAPPY_LOCAL_1.0_20260925')
+  assert.deepEqual(JSON.parse(JSON.stringify(protocolView({lab_eye:{failure_guard:'CURRENT'}}).lab_eye)),original.lab_eye)
+})
+test('prompt suppresses current EYE winner-takes-all rule without touching other protocol rules',()=>{
+  const current={lab_eye:{failure_guard:'全相手に明確優位な唯一の候補のみ',strength_guard:{pairwise:'全相手に明確優位'}},grade_policy:{no_fixed_quota:true}}
+  const text=prompt({runners:[]},current)
+  assert.doesNotMatch(text,/全相手に明確優位/)
+  assert.match(text,/全ペア全勝をEYE選定の必須条件にしない/)
+  assert.match(text,/人気上位であってもTOP5外なら候補から除外しない/)
+  assert.match(text,/人気薄だから選ぶことも禁止/)
+  assert.match(text,/"no_fixed_quota":true/)
+  assert.equal(current.lab_eye.failure_guard,'全相手に明確優位な唯一の候補のみ')
 })
 test('rank7 can be EYE although a pair prefers rank6',()=>{
   const {model,context}=fixture(7,7)
@@ -89,4 +98,12 @@ test('insufficient evidence may return null rather than invented EYE',()=>{
   const {model,context}=fixture(7,null)
   const p=expand(model,context)
   assert.equal(p.eye,null)
+})
+
+test('expansion of a selected EYE is insensitive to attached popularity metadata',()=>{
+  const {model,context}=fixture(8,8)
+  context.runners.forEach((r,i)=>r.popularity=i+1)
+  const first=expand(model,context).eye.horse_no
+  context.runners.forEach((r,i)=>r.popularity=8-i)
+  assert.equal(expand(model,context).eye.horse_no,first)
 })
