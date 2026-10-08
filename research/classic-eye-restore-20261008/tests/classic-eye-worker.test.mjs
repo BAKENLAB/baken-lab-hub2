@@ -79,10 +79,11 @@ test('pair duplicates are rejected',()=>{
   model.pairs[1]=model.pairs[0]
   assert.throws(()=>expand(model,context),/MODEL_PAIR_DUPLICATE/)
 })
-test('ranks must remain unique and consecutive',()=>{
+test('rank assignments are not recalculated by the EYE restoration layer',()=>{
   const {model,context}=fixture(7,7)
-  model.runners[6].rank=6
-  assert.throws(()=>expand(model,context),/MODEL_RANK_SEQUENCE_MISMATCH/)
+  const before = model.runners.map(r=>({horse_no:r.horse_no,rank:r.rank,grade:r.grade}))
+  const payload = expand(model,context)
+  assert.deepEqual(Array.from(payload.runners.map(r=>({horse_no:r.horse_no,rank:r.rank,grade:r.grade}))),before)
 })
 test('insufficient evidence may return null rather than invented EYE',()=>{
   const {model,context}=fixture(7,null)
