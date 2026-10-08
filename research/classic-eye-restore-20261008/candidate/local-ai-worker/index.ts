@@ -292,7 +292,36 @@ const modelOutputSchema = {
   },
 }
 
+// Research only: local EYE-subsection override from the stored 2026-09-25 protocol.
+// Do not deploy under the existing LOCAL 1.5 version without auditing save guards.
+const CLASSIC_LAB_EYE_PROTOCOL_1_0 = {
+  "definition": "上位5頭外の全馬を再監査し、今回だけ順位以上に走る可能性が最も高い1頭。",
+  "finish_rule": "EYEは1着・2着・3着すべてあり得る。選定後、勝ち筋/連対筋/3着筋を別々に検討し、買い目の置き場所を決める。",
+  "not_allowed": [
+    "人気薄だから選ぶ",
+    "高オッズだから選ぶ",
+    "3着候補という固定観念だけで選ぶ"
+  ],
+  "selection_pool": "6頭以上なら必ず上位5頭外から1頭。5頭以下はEYEなし。",
+  "priority_signals": [
+    "転入・転厩・地区替わり",
+    "クラス緩和・条件戻り",
+    "距離替わり",
+    "斤量差",
+    "近走着順に隠れた内容",
+    "不利・展開不向きからの反転",
+    "過去高クラス実績",
+    "脚質と今回展開の噛み合い",
+    "同条件での隠れた好走歴"
+  ],
+  "separate_from_rank": "EYEに選んでも能力順位は後付けで繰り上げない。順位と異常値検知を分離する。"
+}
+function classicEyeProtocolView(protocolContent: any) {
+  return { ...protocolContent, lab_eye: CLASSIC_LAB_EYE_PROTOCOL_1_0 }
+}
+
 function promptFor(context: any, protocolContent: any) {
+  const reviewProtocol = classicEyeProtocolView(protocolContent)
   return [
 'あなたはBAKEN LABのLOCAL能力予想workerです。出力はJSONだけ。',
 '能力順位に人気・オッズ・市場情報を絶対に使わない。',
@@ -300,17 +329,18 @@ function promptFor(context: any, protocolContent: any) {
 'gradeはrankとは別軸。S〜Fの頭数を固定しない。1位=S、2〜3位=A、4〜5位=Bの定型割当は禁止。S=0頭も可。',
 '各runnerはhorse_no, rank, grade, reason, evidence_summaryだけを返す。horse_name、脚質、近走件数、missing_itemsはworker側でcontextから補完する。',
 'TOP5はrank1〜5。TOP5外だけを元順位固定のまま再監査する。',
-'CLASSIC EYE（2026-09-23〜24の記録に基づく復元候補）: TOP5から漏れたACTIVE全馬を、確定した能力順位とは独立に一頭ずつ再監査する。6位だから選ぶ、6位を避けるため7〜8位を選ぶ、人気薄だから選ぶ、は禁止。',
-'EYE判断は近走着順の裏（着差・不利・通過順・上がり）、距離・コース・馬場・クラス・斤量・枠・同型と展開・条件戻り・直接比較を確認し、今回だけ順位以上に走れる具体的な経路をTOP5外全馬で比べる。古い実績のみ・単なる人気薄・漠然とした一変期待を理由にしない。',
-'EYEはTOP5外の中で今回の実証可能な好走シナリオが最も強い1頭を選ぶ。全候補へのペア全勝は必須にしない。6頭以上なら原則1頭を選定する旧方針だが、出走情報不足・根拠不明なら捏造せずeye=nullと理由を記録する。',
-'candidatesはTOP5外全馬ちょうど1件ずつ。checksは17件ちょうどで、次の順序を厳守: '+CHECKS.join(',')+'。各checkは「CHECKED|具体的な短い所見」または「MISSING|根拠不足」の1文字列で返す。',
-'各checkのCHECKEDはcontextに根拠がある場合のみ。根拠不足はMISSING。check個別の参照はworker側でcandidateのevidence_refsから補完する。',
-'evidence_refsは各馬のcontext.history_source_refsを優先し、無ければcontext.race.current_source_refのみ。URLや参照を捏造しない。',
-'pairsは既存保存契約との互換用の監査証跡。TOP5外n頭ならn*(n-1)/2件、各unordered pairを1回だけ。優劣判定は上振れ条件による診断であり、EYEを全ペア全勝のみに制限するゲートには使わない。',
-'eyeは選ぶ場合horse_noと今回の条件に即したreasonだけ返し、candidatesのeye_case=trueはその1頭だけ。horse_nameとrankはworker側で補完する。見送る場合は全eye_case=false、eye=nullで具体的な資料不足・選出不能理由を書く。',
-'文章は極めて短く具体的に。check findingは短い句、pair reasonも1文以内。重複説明を避ける。',
+  'CLASSIC LAB EYE: 2026-09-25の保存済み初期規則に従う。人気やオッズを材料にしない。人気上位であってもTOP5外なら候補から除外しない。人気薄だから選ぶことも禁止。',
+  'TOP5外の全ACTIVE馬を能力順位を変更せずに独立再監査し、各馬の今回条件での好走筋が最も強い1頭を選ぶ。6位固定も意図的な7位以下選好も禁止。',
+  '1着・2着・3着への到達可能性をそれぞれ考え、今回の能力順位以上に走る現実的な根拠を比較する。穴っぽさ、近走の大敗そのもの、古い好走だけを加点理由にしない。',
+  '根拠は条件戻り、クラス緩和、距離替わり、斤量差、着差、上がりと通過順、展開の不利、同条件での能力など具体的な事実から確認する。',
+  '6頭以上なら旧LOCAL 1.0に従いTOP5外から1頭を原則選ぶ。ただし根拠が不足している場合は事実を捏造せずeye=nullにして、欠落情報と理由を記録する。5頭以下はEYEなし。',
+  'candidatesはTOP5外全馬ちょうど1件ずつ。checksは17件ちょうどで次の順序を厳守: '+CHECKS.join(',')+'。CHECKED|具体的事実またはMISSING|取得不能理由。',
+  '参照元は各馬context.history_source_refs、またはcontext.race.current_source_refを使用。URLや根拠は捏造しない。',
+  'pairsは現行JSON保存契約との互換のためTOP5外の全unordered pairを記録。ただし全ペア全勝をEYE選定の必須条件にしない。',
+  'eyeは選んだhorse_noと今回条件のreasonのみ。candidatesのeye_case=trueは選択した1頭だけ。馬名・rankはworker側で元順位から補完する。',
+  '文章は極めて短く具体的に。check findingは短い句、pair reasonも1文以内。重複説明を避ける。',
 '市場・人気・オッズは順位にもEYEにも使わない。contextにない事実を推測しない。',
-'ACTIVE PROTOCOL CONTENT:\n'+JSON.stringify(protocolContent),
+'ACTIVE PROTOCOL (EYE subsection overridden locally from 2026-09-25):\n'+JSON.stringify(reviewProtocol),
 'OFFICIAL COMPACT CONTEXT:\n'+JSON.stringify(context),
   ].join('\n\n')
 }
