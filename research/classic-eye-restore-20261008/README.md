@@ -27,5 +27,6 @@ Recover the **late-September 2026 LAB 🧪EYE selection process** without touchi
 
 ## Status
 - GitHub isolated branch ONLY; no production migration, worker deploy or API call.
-- Unit tests have been **written, not yet run**. New candidate is **NOT production-ready**.
+- The isolated pure `expandPayload` function was executed with synthetic fixtures using basic TypeScript type stripping: **6 PASS / 0 FAIL** (selected rank7, coverage, flag agreement, pair uniqueness, rank sequence, null abstention). This is **not** the Node 24 suite, OpenAI inference, backend save, or DB test.
+- Node 24 full worker test file is **written, not yet run**. New candidate is **NOT production-ready**.
 - API credits were exhausted on 2026-10-08, so even a safe rollout would not resume paid LOCAL calls without a separate approved funding/architecture decision.
