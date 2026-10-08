@@ -337,9 +337,6 @@ function expandPayload(model: any, context: any) {
   if (runners.length !== (context.runners ?? []).length || seen.size !== runners.length) {
     throw new Error('MODEL_RUNNER_COUNT_MISMATCH')
   }
-  if (runners.some((r: any, i: number) => r.rank !== i + 1)) {
-    throw new Error('MODEL_RANK_SEQUENCE_MISMATCH')
-  }
 
   const rankMap = new Map(runners.map((r: any) => [r.horse_no, r]))
   const top5 = runners.filter((r: any) => r.rank <= 5)
