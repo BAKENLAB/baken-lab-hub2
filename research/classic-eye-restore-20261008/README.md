@@ -14,7 +14,7 @@ Recover the **late-September 2026 LAB 🧪EYE selection process** without touchi
 - Modify **only prompt-side EYE criteria** in the LOCAL v6 code; retain model, API call count, full-field ability ranking, fixed TOP5, S–F grading, protocol string, JSON shape, frozen save route and suspended bets as baseline for review.
 - Replace *unanimous win in all unordered candidate pairs* as a selection requirement. Keep unordered pairs as diagnostic audit records to preserve current JSON/save expectations, but choose EYE based on concrete current-condition upside versus other excluded horses.
 - Restore one EYE per race with >5 ACTIVE runners when evidence is sufficient; allow null with explicit missing-evidence explanation instead of inventing facts.
-- Add guards: unique consecutive ranks, full unique outside-TOP5 candidate set, exactly one matching EYE flag, and unique comparison pairs.
+- Add guards: full unique outside-TOP5 candidate set, exactly one matching EYE flag, and unique comparison pairs. LAB RANK is neither recomputed nor subjected to an additional rank-validation gate.
 - Does **not** reproduce historical judgment quality merely by matching prose. Current protocol content may still conflict; no model output quality or DB save acceptance tested.
 
 ## Mandatory checks before any real deploy
@@ -27,6 +27,6 @@ Recover the **late-September 2026 LAB 🧪EYE selection process** without touchi
 
 ## Status
 - GitHub isolated branch ONLY; no production migration, worker deploy or API call.
-- The isolated pure `expandPayload` function was executed with synthetic fixtures using basic TypeScript type stripping: **6 PASS / 0 FAIL** (selected rank7, coverage, flag agreement, pair uniqueness, rank sequence, null abstention). This is **not** the Node 24 suite, OpenAI inference, backend save, or DB test.
+- The isolated pure `expandPayload` function was executed with synthetic fixtures using basic TypeScript type stripping: **6 PASS / 0 FAIL** (selected rank7, coverage, flag agreement, pair uniqueness, rank unchanged, null abstention). This is **not** the Node 24 suite, OpenAI inference, backend save, or DB test.
 - Node 24 full worker test file is **written, not yet run**. New candidate is **NOT production-ready**.
 - API credits were exhausted on 2026-10-08, so even a safe rollout would not resume paid LOCAL calls without a separate approved funding/architecture decision.
