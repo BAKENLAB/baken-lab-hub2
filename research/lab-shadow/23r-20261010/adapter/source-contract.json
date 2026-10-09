@@ -1,0 +1,377 @@
+{
+  "source": "Previous read-only Supabase production source audit; re-read in this implementation, not re-invoked",
+  "function": "lab-claimed-context",
+  "version": 8,
+  "ezbr_sha256": "5242c259c45eefd4051c58e31c85a63591b9dd32e2c693b356886b7a3cf2d09c",
+  "worker": {
+    "version": 6,
+    "ezbr_sha256": "e6ec9728e27ff398efe159b7af7068c2a2f3166b265bd10b7dc8a782b22baf9f"
+  },
+  "protocol_version": "CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004",
+  "excerpts": [
+    {
+      "path": "supabase/functions/lab-claimed-context/handler.mjs",
+      "lines": [
+        {
+          "line": 28,
+          "text": "export function finalContext(context,state,now=Date.now()){"
+        },
+        {
+          "line": 29,
+          "text": " assertLiveClaim(state,now);"
+        },
+        {
+          "line": 30,
+          "text": " if(context.claim.job_id!==state.job.id||context.claim.run_id!==state.run.id||context.claim.claim_token!==state.job.claim_token||context.protocol_version!==state.protocol.version||context.field_integrity_checked!==true||['race_date','track','race_no','circuit','post_time'].some(k=>context.race[k]!==state.race[k]))throw new ContextError('CONTEXT_CHANGED');"
+        },
+        {
+          "line": 31,
+          "text": " if(!Array.isArray(context.runners)||!context.runners.length||context.runners.length>20)throw new ContextError('INVALID_OUTPUT');"
+        },
+        {
+          "line": 32,
+          "text": " const seen=new Set();"
+        },
+        {
+          "line": 33,
+          "text": " const publicHistoryKeys=['race_date','track','race_no','race_name','surface','distance','going','finish','margin','time_raw','early_pos','final_turn_pos','final3f','weight_carried','body_weight','jockey'];"
+        },
+        {
+          "line": 34,
+          "text": " let currentSourceRef=null;"
+        },
+        {
+          "line": 35,
+          "text": " const runners=context.runners.map(r=>{"
+        },
+        {
+          "line": 36,
+          "text": "  if(!Number.isInteger(r.horse_no)||seen.has(r.horse_no)||!Array.isArray(r.recent_runs)||r.recent_runs.length>5)throw new ContextError('INVALID_OUTPUT');seen.add(r.horse_no);"
+        },
+        {
+          "line": 37,
+          "text": "  strings(r.identity_refs);"
+        },
+        {
+          "line": 38,
+          "text": "  if(typeof r.current_source_ref!=='string'||!r.current_source_ref)throw new ContextError('INVALID_OUTPUT');"
+        },
+        {
+          "line": 39,
+          "text": "  if(currentSourceRef===null)currentSourceRef=r.current_source_ref;"
+        },
+        {
+          "line": 40,
+          "text": "  if(r.current_source_ref!==currentSourceRef)throw new ContextError('INVALID_OUTPUT');"
+        },
+        {
+          "line": 41,
+          "text": "  const historySourceRefs=[];"
+        },
+        {
+          "line": 42,
+          "text": "  const recent_runs=r.recent_runs.map(h=>{"
+        },
+        {
+          "line": 43,
+          "text": "   if(!historyBeforeRace(h,state.race)||!['NAR_OFFICIAL_DEBA','NAR_OFFICIAL_HISTORY','NAR_OFFICIAL_RESCUE','jra_public_reference'].includes(h.source)||!h.source_ref||!h.identity_source_ref||!['OFFICIAL_HORSE_REF','OFFICIAL_RACE_HORSE_NO'].includes(h.identity_verified_by))throw new ContextError('UNSAFE_HISTORY');"
+        },
+        {
+          "line": 44,
+          "text": "   for(const k of ['fetched_at','available_at','observed_at'])if(h[k]!=null&&(!Number.isFinite(Date.parse(h[k]))||Date.parse(h[k])>now||Date.parse(h[k])>=Date.parse(state.race.post_time)))throw new ContextError('UNSAFE_HISTORY');"
+        },
+        {
+          "line": 45,
+          "text": "   if(!historySourceRefs.includes(h.source_ref))historySourceRefs.push(h.source_ref);"
+        },
+        {
+          "line": 46,
+          "text": "   return pick(h,publicHistoryKeys);"
+        },
+        {
+          "line": 47,
+          "text": "  });"
+        },
+        {
+          "line": 48,
+          "text": "  return {...pick(r,currentKeys.filter(k=>k!=='current_source_ref')),running_style_reference:styleRefs(r.running_style_reference),history_source_refs:historySourceRefs,recent_runs,missing_items:strings(r.missing_items)};"
+        },
+        {
+          "line": 49,
+          "text": " });"
+        },
+        {
+          "line": 50,
+          "text": " return {context_format:'COMPACT_V1',race:{...pick(context.race,['race_date','track','race_no','circuit','post_time','race_name']),conditions:pick(context.race.conditions??{},conditionKeys),current_source_ref:currentSourceRef},protocol:{protocol_key:'LOCAL_MAIN',version:state.protocol.version,enforced_server_side:true},runners,missing_conditions:strings(context.missing_conditions),field_integrity_checked:true,stage:'AWAITING_FULL_DEPTH_COMPARISON',protocol_version:state.protocol.version};"
+        }
+      ]
+    },
+    {
+      "path": "automation/local-worker-data.mjs",
+      "lines": [
+        {
+          "line": 109,
+          "text": "function latestFive(rows) {"
+        },
+        {
+          "line": 110,
+          "text": "  const unique = new Map();"
+        },
+        {
+          "line": 111,
+          "text": "  // Order of inputs is source priority; a second source cannot overwrite facts."
+        },
+        {
+          "line": 112,
+          "text": "  for (const row of rows) if (!unique.has(key(row))) unique.set(key(row),row);"
+        },
+        {
+          "line": 113,
+          "text": "  return [...unique.values()].sort((a,b) => b.race_date.localeCompare(a.race_date) || b.race_no-a.race_no)"
+        },
+        {
+          "line": 114,
+          "text": "    .slice(0,RECENT_RUN_LIMIT);"
+        },
+        {
+          "line": 115,
+          "text": "}"
+        },
+        {
+          "line": 116,
+          "text": "const STYLE_ORDER = Object.freeze(['逃','先','差','追']);"
+        },
+        {
+          "line": 117,
+          "text": "export function deriveRunningStyleReference(runs) {"
+        },
+        {
+          "line": 118,
+          "text": "  const positions=(Array.isArray(runs)?runs:[])"
+        },
+        {
+          "line": 119,
+          "text": "    .map(r=>Number(r?.early_pos))"
+        },
+        {
+          "line": 120,
+          "text": "    .filter(p=>Number.isInteger(p)&&p>=1&&p<=20);"
+        },
+        {
+          "line": 121,
+          "text": "  if(positions.length<2)return ['?'];"
+        },
+        {
+          "line": 122,
+          "text": "  const counts={逃:0,先:0,差:0,追:0};"
+        },
+        {
+          "line": 123,
+          "text": "  for(const p of positions){"
+        },
+        {
+          "line": 124,
+          "text": "    if(p===1)counts.逃++;"
+        },
+        {
+          "line": 125,
+          "text": "    else if(p<=4)counts.先++;"
+        },
+        {
+          "line": 126,
+          "text": "    else if(p<=8)counts.差++;"
+        },
+        {
+          "line": 127,
+          "text": "    else counts.追++;"
+        },
+        {
+          "line": 128,
+          "text": "  }"
+        },
+        {
+          "line": 129,
+          "text": "  const selected=STYLE_ORDER.filter(s=>counts[s]>=2);"
+        },
+        {
+          "line": 130,
+          "text": "  return selected.length?selected:['?'];"
+        },
+        {
+          "line": 131,
+          "text": "}"
+        },
+        {
+          "line": 213,
+          "text": "    const missing = attributes.filter(k => !present(current[k]));"
+        },
+        {
+          "line": 214,
+          "text": "    for(const k of optionalCurrentFields) if(!present(current[k])) missing.push(k);"
+        },
+        {
+          "line": 215,
+          "text": "    if (runs.length < RECENT_RUN_LIMIT) missing.push('recent_runs:'+runs.length+'/5');"
+        },
+        {
+          "line": 216,
+          "text": "    if (runs.length === 0) missing.push('verified_history');"
+        },
+        {
+          "line": 217,
+          "text": "    runners.push({horse_no:runner.horse_no,horse_name:runner.horse_name,"
+        },
+        {
+          "line": 218,
+          "text": "      ...Object.fromEntries(attributes.map(k => [k,present(current[k]) ? current[k] : null])),"
+        },
+        {
+          "line": 219,
+          "text": "      ...pick(current,optionalCurrentFields),"
+        },
+        {
+          "line": 220,
+          "text": "      identity_refs:references(current),recent_runs:runs,missing_items:missing,"
+        },
+        {
+          "line": 221,
+          "text": "      running_style_reference:deriveRunningStyleReference(runs),"
+        },
+        {
+          "line": 222,
+          "text": "      current_source_ref:snapshot.source_ref});"
+        },
+        {
+          "line": 223,
+          "text": "  }"
+        },
+        {
+          "line": 224,
+          "text": "  assertLiveClaim(state,now());"
+        },
+        {
+          "line": 225,
+          "text": "  return {claim:{job_id:job.id,run_id:state.run.id,claim_token:job.claim_token},"
+        },
+        {
+          "line": 226,
+          "text": "    race:{...pick(race,['race_date','track','race_no','circuit','post_time','race_name']),"
+        },
+        {
+          "line": 227,
+          "text": "      conditions:pick(snapshot.conditions ?? {},conditionFields)},"
+        },
+        {
+          "line": 228,
+          "text": "    missing_conditions:conditionFields.filter(k=>!present(snapshot.conditions?.[k])),"
+        },
+        {
+          "line": 229,
+          "text": "    protocol_version:protocol.version,runners,initial_missing:initialMissing,"
+        },
+        {
+          "line": 230,
+          "text": "    field_integrity_checked:true,supplementation_audit:audit,"
+        },
+        {
+          "line": 231,
+          "text": "    stage:'AWAITING_FULL_DEPTH_COMPARISON'};"
+        }
+      ]
+    },
+    {
+      "path": "automation/nar-history-rescue.mjs",
+      "lines": [
+        {
+          "line": 65,
+          "text": "    const track=c[1].startsWith('J')?c[1].slice(1):c[1];"
+        },
+        {
+          "line": 66,
+          "text": "    if(!(c[1].startsWith('J')?central.has(track):Object.hasOwn(NAR_TRACK_CODES,track)))continue;"
+        },
+        {
+          "line": 67,
+          "text": "    const h={race_date:c[0].replaceAll('/','-'),track,race_no:Number(c[2]),"
+        },
+        {
+          "line": 68,
+          "text": "      horse_no:Number(c[11]),horse_name:current.horse_name,horse_ref:ref,"
+        },
+        {
+          "line": 69,
+          "text": "      source:'NAR_OFFICIAL_RESCUE',data_origin:'NAR_OFFICIAL_RESCUE',source_ref:ref,race_name:c[3]};"
+        },
+        {
+          "line": 70,
+          "text": "    if(!historyBeforeRace(h,race))continue; // Never copy banned columns before this gate."
+        },
+        {
+          "line": 71,
+          "text": "    if(h.race_no<1 || h.race_no>12 || h.horse_no<1 || h.horse_no>20)continue;"
+        },
+        {
+          "line": 72,
+          "text": "    if(/^\\d+$/.test(c[5]))h.distance=Number(c[5]);"
+        },
+        {
+          "line": 73,
+          "text": "    else if(/^芝\\d+$/.test(c[5])){h.surface='芝';h.distance=Number(c[5].slice(1));}"
+        },
+        {
+          "line": 74,
+          "text": "    // Unlabelled surface is missing, not assumed from distance."
+        },
+        {
+          "line": 75,
+          "text": "    h.going=c[7]||null;"
+        },
+        {
+          "line": 76,
+          "text": "    h.finish=/^\\d+$/.test(c[13])?Number(c[13]):null;"
+        },
+        {
+          "line": 77,
+          "text": "    h.time_raw=c[14]||null;h.margin=c[15]||null;h.final3f=c[16]||null;"
+        },
+        {
+          "line": 78,
+          "text": "    h.body_weight=/^\\d+$/.test(c[17])?Number(c[17]):null;"
+        },
+        {
+          "line": 79,
+          "text": "    h.jockey=c[18]||null;"
+        },
+        {
+          "line": 80,
+          "text": "    h.weight_carried=/^\\d+(?:\\.\\d+)?$/.test(c[19])?Number(c[19]):null;"
+        },
+        {
+          "line": 81,
+          "text": "    h.trainer=c[20]||null;"
+        },
+        {
+          "line": 82,
+          "text": "    runs.push(h);"
+        },
+        {
+          "line": 83,
+          "text": "  }"
+        },
+        {
+          "line": 84,
+          "text": "  const unique=new Map();"
+        },
+        {
+          "line": 85,
+          "text": "  for(const h of runs){const key=JSON.stringify([h.race_date,h.track,h.race_no]);if(unique.has(key))throw new ContextError('DUPLICATE_HORSE_HISTORY');unique.set(key,h);}"
+        },
+        {
+          "line": 86,
+          "text": "  return [...unique.values()].sort((a,b)=>b.race_date.localeCompare(a.race_date)||b.race_no-a.race_no).slice(0,5);"
+        }
+      ]
+    }
+  ],
+  "contract_note": "Production requires field_integrity_checked=true and enforced_server_side=true. The offline draft intentionally keeps both false and is not production-accepted."
+}
