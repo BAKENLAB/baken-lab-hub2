@@ -1,0 +1,100 @@
+{
+  "commit": "4fa28fbbdfd01aa5e9c371c2214212737df17f85",
+  "scope": "GitHub candidate/backup source, not certified active production specification",
+  "sources": [
+    {
+      "path": "automation/local-worker-data.mjs",
+      "blob": "56d165d9bb7a30738ce9f8fe503f04d4b24c54f7",
+      "excerpts": [
+        {
+          "line": 3,
+          "text": "export const RECENT_RUN_LIMIT = 5;"
+        },
+        {
+          "line": 91,
+          "text": "  if (!Array.isArray(rows) || rows.length > RECENT_RUN_LIMIT) throw new ContextError('HISTORY_LIMIT_EXCEEDED');"
+        },
+        {
+          "line": 114,
+          "text": "    .slice(0,RECENT_RUN_LIMIT);"
+        },
+        {
+          "line": 160,
+          "text": "    const opts = {before:race.race_date,limit:RECENT_RUN_LIMIT};"
+        },
+        {
+          "line": 162,
+          "text": "    if (!Array.isArray(horse) || horse.length < RECENT_RUN_LIMIT)"
+        },
+        {
+          "line": 165,
+          "text": "    const fallback = !Array.isArray(horse) || horse.length < RECENT_RUN_LIMIT"
+        },
+        {
+          "line": 171,
+          "text": "  const snapshot = await read('OFFICIAL_FIELD',null,official.readRace,[race,{limit:RECENT_RUN_LIMIT}]);"
+        },
+        {
+          "line": 175,
+          "text": "  if (snapshot.history.length > currentActive.length * RECENT_RUN_LIMIT)"
+        },
+        {
+          "line": 192,
+          "text": "    if (runs.length < RECENT_RUN_LIMIT && references(current).length) {"
+        },
+        {
+          "line": 194,
+          "text": "        [current,{before:race.race_date,limit:RECENT_RUN_LIMIT}]);"
+        },
+        {
+          "line": 201,
+          "text": "    if (runs.length < RECENT_RUN_LIMIT && typeof official.readHistory === 'function') {"
+        },
+        {
+          "line": 203,
+          "text": "        [current,{before:race.race_date,limit:RECENT_RUN_LIMIT,race}]);"
+        },
+        {
+          "line": 215,
+          "text": "    if (runs.length < RECENT_RUN_LIMIT) missing.push('recent_runs:'+runs.length+'/5');"
+        },
+        {
+          "line": 220,
+          "text": "      identity_refs:references(current),recent_runs:runs,missing_items:missing,"
+        },
+        {
+          "line": 235,
+          "text": "export function assessComparison(context, assessment) {"
+        },
+        {
+          "line": 237,
+          "text": "  if(!conditions || conditions.major_unresolved!==false || !present(conditions.comparison_rationale) ||"
+        },
+        {
+          "line": 251,
+          "text": "        review.major_unresolved !== false || !present(review.comparison_rationale))"
+        },
+        {
+          "line": 255,
+          "text": "  if (assessment.full_depth_comparison_established !== true || assessment.eye_audit_established !== true)"
+        }
+      ]
+    },
+    {
+      "path": "automation/nar-history-rescue.mjs",
+      "blob": "2bd19a27eaf6edfdb864fc9a2c3735570838f733",
+      "excerpts": [
+        {
+          "line": 76,
+          "text": "    h.finish=/^\\d+$/.test(c[13])?Number(c[13]):null;"
+        }
+      ]
+    }
+  ],
+  "network_check": {
+    "url": "https://www.jra.go.jp/datafile/seiseki/",
+    "curl_exit": 7,
+    "http": 0,
+    "reason": "Could not connect to configured proxy; no bypass or retry"
+  }
+}
