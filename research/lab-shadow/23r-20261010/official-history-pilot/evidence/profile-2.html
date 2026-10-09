@@ -1,0 +1,1681 @@
+<!-- resources/views/home.blade.php -->
+
+
+<!-- resources/views/layouts/app.blade.php -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+        <title>地方競馬 データ情報</title>
+    
+    <!-- CSSファイルの読み込み -->
+            <link rel="stylesheet" href="/KeibaWeb/resources/css/reset.css?t=20260201_1" type="text/css" media="all" />
+            <link rel="stylesheet" href="/KeibaWeb/resources/css/DataRoom_common.css?t=20260201_1" type="text/css" media="all" />
+            <link rel="stylesheet" href="/KeibaWeb/resources/css/DataRoom_raceinfo2.css?t=20260201_1" type="text/css" media="all" />
+            <link rel="stylesheet" href="/KeibaWeb/resources/css/DataRoom_odd.css?t=20260201_1" type="text/css" media="all" />
+            <link rel="stylesheet" href="/KeibaWeb/resources/css/DataRoom.css?t=20260201_1" type="text/css" media="all" />
+            <link rel="stylesheet" href="/KeibaWeb/resources/css/DataRoomTop.css?t=20260201_1" type="text/css" media="all" />
+    
+    <!-- JSファイルの読み込み -->
+            <script type="text/javascript" src="/KeibaWeb/resources/js/jquery-1.9.1.min.js?t=20260130_1"></script>
+            <script type="text/javascript" src="/KeibaWeb/resources/js/common.js?t=20260130_1"></script>
+            <script type="text/javascript" src="/KeibaWeb/resources/js/common2.js?t=20260130_1"></script>
+            <script type="text/javascript" src="/KeibaWeb/resources/js/monthltconveninfo.js?t=20260130_1"></script>
+            <script type="text/javascript" src="/KeibaWeb/resources/js/odd.js?t=20260130_1"></script>
+            <script type="text/javascript" src="/KeibaWeb/resources/js/recentButton.js?t=20260130_1"></script>
+        <link rel="shortcut icon" href="/KeibaWeb/resources/img/favicon.ico" />
+</head>
+<body>
+    <header>
+    <div class="headerInner">
+        <div class="titleArea">
+            <h1>
+                <span>地方競馬情報サイト</span>
+                <a href="/index.html">
+                    <img src="/KeibaWeb/resources/img/mainlogo.png?bld=20240319134801" alt="">
+                </a>
+            </h1>
+            <div class="vote">
+                <img id="headerbanner00" src="/KeibaWeb/resources/img/header_banner_00.png?bld=20240319134801" alt="">
+            </div>
+            <ul class="bannerArea clearfix">
+                <li>
+                    <a href="/jranet/" target="_blank">
+                        <img class="normal" src="/KeibaWeb/resources/img/header_banner_01.png?bld=20240319134801">
+                        <img class="min" src="/KeibaWeb/resources/img/header_banner_01_min.png?bld=20240319134801">
+                    </a>
+                </li>
+                                <li>
+                    <a href="https://www.spat4.jp/keiba/pc" target="_blank">
+                        <img class="normal" src="/KeibaWeb/resources/img/header_banner_02.png?bld=20240319134801">
+                        <img class="min" src="/KeibaWeb/resources/img/header_banner_02_min.png?bld=20240319134801">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://my.keiba.rakuten.co.jp/?scid=keiba_NAR_bet" target="_blank">
+                        <img class="normal" src="/KeibaWeb/resources/img/header_banner_03.png?bld=20240319134801">
+                        <img class="min" src="/KeibaWeb/resources/img/header_banner_03_min.png?bld=20240319134801">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.oddspark.com/keiba/auth/VoteKeibaTop.do" target="_blank">
+                        <img class="normal" src="/KeibaWeb/resources/img/header_banner_04.png?bld=20240319134801">
+                        <img class="min" src="/KeibaWeb/resources/img/header_banner_04_min.png?bld=20240319134801">
+                    </a>
+                </li>
+                            </ul>
+            <div class="topSearch clearfix">
+                <form id="cse-search-box" action="https://google.com/cse">
+                    <input type="hidden" name="cx" value="000374752549361390111:sr3uzpcoe-q" />
+                    <input type="hidden" name="ie" value="UTF-8" />
+                    <input type="text" name="q" size="31" class="searchBox"/ placeholder="サイト内検索">
+                    <input type="submit" name="sa" value="" class="searchBtn"/>
+                </form>
+                <script type="text/javascript"
+                                src="https://www.google.com/coop/cse/brand?form=cse-search-boxamp;lang=ja"></script>
+            </div>
+        </div>
+    </div>
+
+    <div class="globalNavi">
+        <ul class="gNavi clearfix">
+            <li class="gNaviitem1">
+                <a href="/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop">
+                    <img src="/KeibaWeb/resources/img/icon_gnavi_08.png?bld=20240319134801" alt="">
+                    <p>レース情報</p>
+                </a>
+            </li>
+            <li class="gNaviitem2">
+                <a href="/KeibaWeb/MonthlyConveneInfo/MonthlyConveneInfoTop">
+                    <img src="/KeibaWeb/resources/img/icon_gnavi_01.png?bld=20240319134801" alt="">
+                                            <p>開催日程</p>
+                                    </a>
+            </li>
+            <li class="gNaviitem3">
+                <a href="/live/?20260804" target="_blank">
+                    <img src="/KeibaWeb/resources/img/icon_gnavi_02.png?bld=20240319134801" alt="">
+                    <p>ライブ中継</p>
+                </a>
+            </li>
+            <li class="gNaviitem4">
+                <a href="/dirtgraderace/">
+                    <img class="dart" src="/KeibaWeb/resources/img/icon_gnavi_12.png?bld=20240319134801" alt="">
+                    <p>ダートグレード競走</p>
+                </a>
+            </li>
+            <li class="gNaviitem5">
+                <a href="/gradedrace/">
+                    <img src="/KeibaWeb/resources/img/icon_gnavi_04.png?bld=20240319134801" alt="">
+                    <p>シリーズ･重賞競走</p>
+                </a>
+            </li>
+            <li class="gNaviitem6">
+                <a href="/KeibaWeb/DataRoom/DataRoomTop">
+                    <img src="/KeibaWeb/resources/img/icon_gnavi_05.png?bld=20240319134801" alt="">
+                    <p>データ検索</p>
+                </a>
+            </li>
+            <li class="gNaviitem7">
+                <a href="/guide/index.html">
+                    <img src="/KeibaWeb/resources/img/icon_gnavi_06.png?bld=20240319134801" alt="">
+                    <p>競馬場ガイド</p>
+                </a>
+            </li>
+            <!--<li>
+                <a href="about/">
+                    <img src="/KeibaWeb/resources/img/icon_gnavi_07.png?bld=20240319134801" alt="">
+                    <p>もっと！地方競馬</p>
+                </a>
+            </li>-->
+        </ul>
+    </div>
+</header>
+<div class="breadCrumb"></div>
+ <!-- Head部分の読み込み -->
+        <main>
+        <div id="mainContainer">
+    <article class="raceCard">
+        <div class="innerWrapper auto">
+            <div id="databasesearch">
+                <div class="odd_header">
+                    <ul class="horseinfo horse">
+                        <li>
+                            <h4 class="odd_title">サノノスピード</h4>
+                        </li>
+                        <li>
+                            <div>
+                                <span class="sex ">牡</span><span class="age ">5</span>                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                                                    現役
+                                                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                                            </div>
+                        </li>
+                        <li>
+                            <a class="cNaviBtn"
+                                href="/KeibaWeb/DataRoom/RaceHorseInfo?k_lineageLoginCode=30015409086&amp;k_activeCode=1">馬情報</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                    <table class="HorseMarkInfo_table">
+                <thead>
+                    <tr>
+                        <th>年月日</th>
+                        <th>競馬場</th>
+                        <th>R</th>
+                        <th>競走名</th>
+                        <th>格組</th>
+                        <th>距離</th>
+                        <th colspan="3">天候・馬場</th>
+                        <th>頭数</th>
+                        <th>枠</th>
+                        <th>馬番</th>
+                        <th>人気</th>
+                        <th>着順</th>
+                        <th>タイム</th>
+                        <th>差</th>
+                        <th>上3F</th>
+                        <th>体重</th>
+                        <th>騎手(所属)</th>
+                        <th>重量</th>
+                        <th>調教師</th>
+                        <th>収得賞金</th>
+                        <th>1着馬または(2着馬)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                                            <tr>
+                            <td>2026/06/20</td>
+                            <td>高知</td>
+                            <td>10</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F06%2F20&amp;k_raceNo=10&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｂ－２
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｂ
+                            </td>
+                            <td>1400</td>
+                            <td>曇</td>
+                            <td>不良</td>
+                            <td></td>
+                            <td  class="dbdata2">8</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td  class=" gray ">
+                                7
+                                        </td>
+                            <td>1:31.5</td>
+                            <td>0.9</td>
+                            <td>40.6</td>
+                            <td  class="dbdata2">
+                                502
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    ネオヒューズ
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2026/05/23</td>
+                            <td>高知</td>
+                            <td>10</td>
+                            <td class="green">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F05%2F23&amp;k_raceNo=10&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            新荘川特別Ｂ－１選抜馬
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｂ
+                            </td>
+                            <td>1400</td>
+                            <td>曇</td>
+                            <td>不良</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>4</td>
+                            <td>4</td>
+                            <td>8</td>
+                            <td  class=" gray ">
+                                11
+                                        </td>
+                            <td>1:31.1</td>
+                            <td>2.4</td>
+                            <td>38.6</td>
+                            <td  class="dbdata2">
+                                504
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    リーチアディール
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2026/05/10</td>
+                            <td>高知</td>
+                            <td>7</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F05%2F10&amp;k_raceNo=7&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            ＡＢ混合
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                ＡＢ
+                            </td>
+                            <td>1400</td>
+                            <td>晴</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>6</td>
+                            <td>8</td>
+                            <td>3</td>
+                            <td  class=" blue ">
+                                2
+                                        </td>
+                            <td>1:31.9</td>
+                            <td>0.4</td>
+                            <td>39.1</td>
+                            <td  class="dbdata2">
+                                505
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        720,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    スカイライト
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2026/04/11</td>
+                            <td>高知</td>
+                            <td>9</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F04%2F11&amp;k_raceNo=9&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｂ－２
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｂ
+                            </td>
+                            <td>1400</td>
+                            <td>晴</td>
+                            <td>不良</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td  class=" gray ">
+                                6
+                                        </td>
+                            <td>1:30.5</td>
+                            <td>0.6</td>
+                            <td>39.9</td>
+                            <td  class="dbdata2">
+                                511
+                            </td>
+                            <td>近藤翔
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    イナフセド
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2026/03/23</td>
+                            <td>高知</td>
+                            <td>7</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F03%2F23&amp;k_raceNo=7&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｂ－２
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｂ
+                            </td>
+                            <td>1400</td>
+                            <td>晴</td>
+                            <td>重</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>8</td>
+                            <td>11</td>
+                            <td>5</td>
+                            <td  class=" blue ">
+                                2
+                                        </td>
+                            <td>1:29.8</td>
+                            <td>0.0</td>
+                            <td>38.6</td>
+                            <td  class="dbdata2">
+                                505
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        480,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    ウインアウォード
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2026/03/10</td>
+                            <td>高知</td>
+                            <td>9</td>
+                            <td class="green">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F03%2F10&amp;k_raceNo=9&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            安芸川特別Ｂ－１選抜馬
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｂ
+                            </td>
+                            <td>1400</td>
+                            <td>晴</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">10</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>7</td>
+                            <td  class=" gray ">
+                                9
+                                        </td>
+                            <td>1:34.5</td>
+                            <td>2.9</td>
+                            <td>42.2</td>
+                            <td  class="dbdata2">
+                                507
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    グランレザンドール
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2026/02/17</td>
+                            <td>高知</td>
+                            <td>7</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F02%2F17&amp;k_raceNo=7&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｂ－２
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｂ
+                            </td>
+                            <td>1600</td>
+                            <td>晴</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">7</td>
+                            <td>7</td>
+                            <td>7</td>
+                            <td>2</td>
+                            <td  class=" yellow ">
+                                3
+                                        </td>
+                            <td>1:48.1</td>
+                            <td>1.0</td>
+                            <td>41.5</td>
+                            <td  class="dbdata2">
+                                512
+                            </td>
+                            <td>井上瑛
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        300,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    デルマアズラエル
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2026/01/20</td>
+                            <td>高知</td>
+                            <td>10</td>
+                            <td class="green">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F01%2F20&amp;k_raceNo=10&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            筆山特別Ｂ－１選抜馬
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｂ
+                            </td>
+                            <td>1600</td>
+                            <td>晴</td>
+                            <td>良</td>
+                            <td></td>
+                            <td  class="dbdata2">9</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>3</td>
+                            <td  class=" gray ">
+                                7
+                                        </td>
+                            <td>1:49.7</td>
+                            <td>2.4</td>
+                            <td>42.2</td>
+                            <td  class="dbdata2">
+                                509
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    ベンダバリラビア
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/12/20</td>
+                            <td>高知</td>
+                            <td>10</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F12%2F20&amp;k_raceNo=10&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｂ－３
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｂ
+                            </td>
+                            <td>1600</td>
+                            <td>曇</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">9</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td  class=" blue ">
+                                2
+                                        </td>
+                            <td>1:46.9</td>
+                            <td>0.4</td>
+                            <td>39.5</td>
+                            <td  class="dbdata2">
+                                512
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        480,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    スカイライト
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/11/29</td>
+                            <td>高知</td>
+                            <td>5</td>
+                            <td class="yellow">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F11%2F29&amp;k_raceNo=5&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            浦戸湾特別Ｃ級以下
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                 
+                            </td>
+                            <td>1800</td>
+                            <td>晴</td>
+                            <td>良</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>7</td>
+                            <td>10</td>
+                            <td>6</td>
+                            <td  class=" blue ">
+                                2
+                                        </td>
+                            <td>2:04.5</td>
+                            <td>0.1</td>
+                            <td>42.8</td>
+                            <td  class="dbdata2">
+                                515
+                            </td>
+                            <td>塚本征
+                                        (愛知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        1,200,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    リーチアディール
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/11/02</td>
+                            <td>高知</td>
+                            <td>11</td>
+                            <td class="green">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F11%2F02&amp;k_raceNo=11&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            天狗高原特別Ｃ１－１選抜馬
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ１
+                            </td>
+                            <td>1400</td>
+                            <td>曇</td>
+                            <td>重</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>4</td>
+                            <td  class=" yellow ">
+                                3
+                                        </td>
+                            <td>1:30.0</td>
+                            <td>0.4</td>
+                            <td>38.9</td>
+                            <td  class="dbdata2">
+                                502
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        400,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    スカイライト
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/10/19</td>
+                            <td>高知</td>
+                            <td>6</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F10%2F19&amp;k_raceNo=6&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｃ１－３
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ１
+                            </td>
+                            <td>1600</td>
+                            <td>曇</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">9</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td  class=" red ">
+                                1
+                                        </td>
+                            <td>1:47.1</td>
+                            <td>0.1</td>
+                            <td>40.2</td>
+                            <td  class="dbdata2">
+                                506
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        900,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    （ヘキクウ）
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/09/21</td>
+                            <td>高知</td>
+                            <td>11</td>
+                            <td class="green">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F09%2F21&amp;k_raceNo=11&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            秋分特別Ｃ２－１選抜馬
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ２
+                            </td>
+                            <td>1300</td>
+                            <td>晴</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>6</td>
+                            <td  class=" red ">
+                                1
+                                        </td>
+                            <td>1:24.7</td>
+                            <td>0.2</td>
+                            <td>39.3</td>
+                            <td  class="dbdata2">
+                                498
+                            </td>
+                            <td>佐原秀
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        1,300,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    （ウキヨノユメ）
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/09/06</td>
+                            <td>高知</td>
+                            <td>9</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F09%2F06&amp;k_raceNo=9&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｃ２－３
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ２
+                            </td>
+                            <td>1400</td>
+                            <td>晴</td>
+                            <td>重</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>4</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td  class=" blue ">
+                                2
+                                        </td>
+                            <td>1:31.5</td>
+                            <td>0.4</td>
+                            <td>40.4</td>
+                            <td  class="dbdata2">
+                                498
+                            </td>
+                            <td>井上瑛
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        280,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    ミラクルドリーム
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/07/26</td>
+                            <td>高知</td>
+                            <td>11</td>
+                            <td class="green">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F07%2F26&amp;k_raceNo=11&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            夏休み特別Ｃ２－１選抜馬
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ２
+                            </td>
+                            <td>1600</td>
+                            <td>曇</td>
+                            <td>重</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>8</td>
+                            <td>11</td>
+                            <td>7</td>
+                            <td  class=" gray ">
+                                9
+                                        </td>
+                            <td>1:48.8</td>
+                            <td>2.9</td>
+                            <td>43.6</td>
+                            <td  class="dbdata2">
+                                495
+                            </td>
+                            <td>郷間勇
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    ビービーベジェサ
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/07/12</td>
+                            <td>高知</td>
+                            <td>8</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F07%2F12&amp;k_raceNo=8&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｃ２－４
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ２
+                            </td>
+                            <td>1300</td>
+                            <td>晴</td>
+                            <td>重</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>8</td>
+                            <td>12</td>
+                            <td>4</td>
+                            <td  class=" blue ">
+                                2
+                                        </td>
+                            <td>1:23.1</td>
+                            <td>0.5</td>
+                            <td>38.7</td>
+                            <td  class="dbdata2">
+                                499
+                            </td>
+                            <td>井上瑛
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        280,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    ヴァリアント
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/06/28</td>
+                            <td>高知</td>
+                            <td>8</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F06%2F28&amp;k_raceNo=8&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｃ２－４
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ２
+                            </td>
+                            <td>1400</td>
+                            <td>晴</td>
+                            <td>重</td>
+                            <td></td>
+                            <td  class="dbdata2">10</td>
+                            <td>4</td>
+                            <td>4</td>
+                            <td>7</td>
+                            <td  class=" gray ">
+                                5
+                                        </td>
+                            <td>1:31.9</td>
+                            <td>1.0</td>
+                            <td>38.2</td>
+                            <td  class="dbdata2">
+                                493
+                            </td>
+                            <td>井上瑛
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        70,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    トミケンシャイリ
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/06/14</td>
+                            <td>高知</td>
+                            <td>8</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F06%2F14&amp;k_raceNo=8&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｃ２－４
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ２
+                            </td>
+                            <td>1400</td>
+                            <td>雨</td>
+                            <td>不良</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>7</td>
+                            <td>10</td>
+                            <td>4</td>
+                            <td  class=" gray ">
+                                12
+                                        </td>
+                            <td>1:32.7</td>
+                            <td>2.7</td>
+                            <td>40.2</td>
+                            <td  class="dbdata2">
+                                492
+                            </td>
+                            <td>岡遼太
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    デトネイター
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2025/01/12</td>
+                            <td>高知</td>
+                            <td>7</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F01%2F12&amp;k_raceNo=7&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｃ２－３
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ２
+                            </td>
+                            <td>1400</td>
+                            <td>晴</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">9</td>
+                            <td>6</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td  class=" gray ">
+                                9
+                                        </td>
+                            <td>1:35.8</td>
+                            <td>2.8</td>
+                            <td>43.4</td>
+                            <td  class="dbdata2">
+                                501
+                            </td>
+                            <td>中島龍
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    フォックススリープ
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/12/28</td>
+                            <td>高知</td>
+                            <td>7</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F12%2F28&amp;k_raceNo=7&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            Ｃ２－３
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ２
+                            </td>
+                            <td>1600</td>
+                            <td>晴</td>
+                            <td>良</td>
+                            <td></td>
+                            <td  class="dbdata2">8</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td  class=" gray ">
+                                8
+                                        </td>
+                            <td>1:54.2</td>
+                            <td>3.4</td>
+                            <td>43.3</td>
+                            <td  class="dbdata2">
+                                498
+                            </td>
+                            <td>赤岡修
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    クレフェノー
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/11/30</td>
+                            <td>高知</td>
+                            <td>5</td>
+                            <td class="yellow">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F11%2F30&amp;k_raceNo=5&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            浦戸湾特別Ｃ級以下
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                 
+                            </td>
+                            <td>1800</td>
+                            <td>晴</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>4</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td  class=" gray ">
+                                11
+                                        </td>
+                            <td>2:04.1</td>
+                            <td>2.2</td>
+                            <td>41.6</td>
+                            <td  class="dbdata2">
+                                494
+                            </td>
+                            <td>多田誠
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    エマージングロール
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/11/03</td>
+                            <td>高知</td>
+                            <td>6</td>
+                            <td class="pink">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F11%2F03&amp;k_raceNo=6&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            土佐秋月賞３歳３歳
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                ３歳
+                            </td>
+                            <td>1600</td>
+                            <td>晴</td>
+                            <td>不良</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td  class=" yellow ">
+                                3
+                                        </td>
+                            <td>1:45.5</td>
+                            <td>0.9</td>
+                            <td>39.9</td>
+                            <td  class="dbdata2">
+                                493
+                            </td>
+                            <td>宮川実
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        1,600,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    シンメデージー
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/10/05</td>
+                            <td>高知</td>
+                            <td>3</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F10%2F05&amp;k_raceNo=3&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            泰青君誕生日特別Ｃ３－３
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                Ｃ３
+                            </td>
+                            <td>1300</td>
+                            <td>曇</td>
+                            <td>不良</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>8</td>
+                            <td>12</td>
+                            <td>1</td>
+                            <td  class=" red ">
+                                1
+                                        </td>
+                            <td>1:22.1</td>
+                            <td>1.2</td>
+                            <td>37.8</td>
+                            <td  class="dbdata2">
+                                494
+                            </td>
+                            <td>赤岡修
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        600,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    （シャフトオブライト）
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/08/04</td>
+                            <td>高知</td>
+                            <td>9</td>
+                            <td class="pink">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F08%2F04&amp;k_raceNo=9&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            黒潮菊花賞３歳３歳
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                ３歳
+                            </td>
+                            <td>1900</td>
+                            <td>晴</td>
+                            <td>良</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>7</td>
+                            <td>10</td>
+                            <td>3</td>
+                            <td  class=" yellow ">
+                                3
+                                        </td>
+                            <td>2:07.2</td>
+                            <td>1.9</td>
+                            <td>41.2</td>
+                            <td  class="dbdata2">
+                                497
+                            </td>
+                            <td>赤岡修
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        1,600,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    プリフロオールイン
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/07/15</td>
+                            <td>高知</td>
+                            <td>6</td>
+                            <td class="yellow">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F07%2F15&amp;k_raceNo=6&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            魚梁瀬杉特別３歳３歳
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                ３歳
+                            </td>
+                            <td>1300</td>
+                            <td>雨</td>
+                            <td>不良</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>7</td>
+                            <td>9</td>
+                            <td>1</td>
+                            <td  class=" gray ">
+                                6
+                                        </td>
+                            <td>1:23.6</td>
+                            <td>2.1</td>
+                            <td>40.0</td>
+                            <td  class="dbdata2">
+                                500
+                            </td>
+                            <td>赤岡修
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    バウンティキャット
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/06/16</td>
+                            <td>高知</td>
+                            <td>7</td>
+                            <td class="pink">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F06%2F16&amp;k_raceNo=7&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            高知優駿３歳３歳
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                ３歳
+                            </td>
+                            <td>1900</td>
+                            <td>晴</td>
+                            <td>良</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td>4</td>
+                            <td  class=" gray ">
+                                5
+                                        </td>
+                            <td>2:08.6</td>
+                            <td>3.6</td>
+                            <td>40.8</td>
+                            <td  class="dbdata2">
+                                498
+                            </td>
+                            <td>赤岡修
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        1,600,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    プリフロオールイン
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/05/05</td>
+                            <td>高知</td>
+                            <td>7</td>
+                            <td class="pink">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F05%2F05&amp;k_raceNo=7&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            黒潮皐月賞３歳３歳
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                ３歳
+                            </td>
+                            <td>1400</td>
+                            <td>晴</td>
+                            <td>稍重</td>
+                            <td></td>
+                            <td  class="dbdata2">12</td>
+                            <td>8</td>
+                            <td>11</td>
+                            <td>2</td>
+                            <td  class=" blue ">
+                                2
+                                        </td>
+                            <td>1:30.7</td>
+                            <td>1.3</td>
+                            <td>38.7</td>
+                            <td  class="dbdata2">
+                                494
+                            </td>
+                            <td>赤岡修
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        2,800,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    プリフロオールイン
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/04/06</td>
+                            <td>高知</td>
+                            <td>5</td>
+                            <td class="yellow">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F04%2F06&amp;k_raceNo=5&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            仙台屋桜特別３歳３歳
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                ３歳
+                            </td>
+                            <td>1600</td>
+                            <td>曇</td>
+                            <td>重</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td  class=" blue ">
+                                2
+                                        </td>
+                            <td>1:44.9</td>
+                            <td>0.2</td>
+                            <td>38.6</td>
+                            <td  class="dbdata2">
+                                491
+                            </td>
+                            <td>赤岡修
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        1,400,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    プリフロオールイン
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/03/24</td>
+                            <td>高知</td>
+                            <td>1</td>
+                            <td class="">
+                                                                    <a href="/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2024%2F03%2F24&amp;k_raceNo=1&amp;k_babaCode=31">
+                                        <p class="text-overflow">
+                                            ３歳－４
+                                        </p>
+                                    </a>
+                                                            </td>
+                            <td>
+                                ３歳
+                            </td>
+                            <td>1600</td>
+                            <td>雨</td>
+                            <td>不良</td>
+                            <td></td>
+                            <td  class="dbdata2">10</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td  class=" red ">
+                                1
+                                        </td>
+                            <td>1:44.3</td>
+                            <td>3.1</td>
+                            <td>39.1</td>
+                            <td  class="dbdata2">
+                                492
+                            </td>
+                            <td>塚本雄
+                                        (高知)
+                                </td>
+                            <td class="dbdata2">
+                                                                    56.0
+                                                                </td>
+                            <td>目迫大</td>
+                            <td class="dbdata2">
+                                        600,000
+                                </td>
+                            <td class="dbdata3">
+                                                                    （レースノワエ）
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/02/24</td>
+                            <td>Ｊ小倉</td>
+                            <td>5</td>
+                            <td class="">
+                                                                    <p class="text-overflow nolink">
+                                        ３歳未勝利
+                                    </p>
+                                                            </td>
+                            <td>
+                                 
+                            </td>
+                            <td>芝2000</td>
+                            <td>晴</td>
+                            <td>重</td>
+                            <td></td>
+                            <td  class="dbdata2">18</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>18</td>
+                            <td  class=" gray ">
+                                18
+                                        </td>
+                            <td>2:07.5</td>
+                            <td>5.0</td>
+                            <td>38.5</td>
+                            <td  class="dbdata2">
+                                486
+                            </td>
+                            <td>黛弘人
+                                        (JRA)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>尾形和</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    ゴージョニーゴー
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2024/02/11</td>
+                            <td>Ｊ小倉</td>
+                            <td>6</td>
+                            <td class="">
+                                                                    <p class="text-overflow nolink">
+                                        ３歳未勝利
+                                    </p>
+                                                            </td>
+                            <td>
+                                 
+                            </td>
+                            <td>芝1200</td>
+                            <td>晴</td>
+                            <td>良</td>
+                            <td></td>
+                            <td  class="dbdata2">18</td>
+                            <td>7</td>
+                            <td>15</td>
+                            <td>14</td>
+                            <td  class=" gray ">
+                                17
+                                        </td>
+                            <td>1:11.3</td>
+                            <td>2.4</td>
+                            <td>36.1</td>
+                            <td  class="dbdata2">
+                                490
+                            </td>
+                            <td>丹内祐
+                                        (JRA)
+                                </td>
+                            <td class="dbdata2">
+                                                                    57.0
+                                                                </td>
+                            <td>尾形和</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    セイウンティーダ
+                                                                </td>
+                        </tr>
+                                            <tr>
+                            <td>2023/06/18</td>
+                            <td>Ｊ函館</td>
+                            <td>5</td>
+                            <td class="">
+                                                                    <p class="text-overflow nolink">
+                                        ２歳新馬
+                                    </p>
+                                                            </td>
+                            <td>
+                                 
+                            </td>
+                            <td>芝1200</td>
+                            <td>晴</td>
+                            <td>良</td>
+                            <td></td>
+                            <td  class="dbdata2">11</td>
+                            <td>8</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td  class=" gray ">
+                                8
+                                        </td>
+                            <td>1:11.9</td>
+                            <td>1.3</td>
+                            <td>36.7</td>
+                            <td  class="dbdata2">
+                                472
+                            </td>
+                            <td>丹内祐
+                                        (JRA)
+                                </td>
+                            <td class="dbdata2">
+                                                                    55.0
+                                                                </td>
+                            <td>尾形和</td>
+                            <td class="dbdata2">
+                                        0
+                                </td>
+                            <td class="dbdata3">
+                                                                    ベルパッション
+                                                                </td>
+                        </tr>
+                                    </tbody>
+            </table>
+                        </article>
+</div>
+    </main>
+</body>
+        <div class="innerWrapper2">
+    <footer>
+        <ul class="footerMenu">
+            <li>
+                <a href="/index.html">
+                    HOME
+                </a>
+            </li>
+            <li>
+                <a href="/association/">
+                    地方競馬全国協会（NAR）
+                </a>
+            </li>
+            <li>
+                <a href="/sitemap.html">
+                    サイトマップ
+                </a>
+            </li>
+            <li>
+                <a href="/link.html">
+                    関連リンク
+                </a>
+            </li>
+            <li>
+                <a href="/terms.html">
+                    利用規約
+                </a>
+            </li>
+            <li>
+                <a href="/qa.html">
+                    ご意見・ご要望／FAQ
+                </a>
+            </li>
+        </ul>
+        <div class="copyright">
+        copyright 1998-NAR (The National Association of Racing) All Rights Reserved
+        </div>
+        <!-- 言語選択 -->
+        <div class="language cp_sl01">
+            <select onChange="location.href=value;">
+                <option value="#">Language</option>
+                <option value="https://www.goracing.jp/english/">English</option>
+                <option value="https://www.goracing.jp/french/">Francais</option>
+                <option value="https://www.goracing.jp/chinese/">中文</option>
+                <option value="https://www.goracing.jp/korea/">한글</option>
+            </select>
+        </div>
+    </footer>
+</div></html>
