@@ -1,0 +1,23 @@
+{
+  "function": "lab-claimed-context",
+  "version": 8,
+  "ezbr_sha256": "5242c259c45eefd4051c58e31c85a63591b9dd32e2c693b356886b7a3cf2d09c",
+  "path": "automation/nar-official-data.mjs",
+  "excerpts": [
+    {
+      "start_line": 9,
+      "end_line": 20,
+      "code": "function currentRunnerSlice(cells) {\n  const normalized=cells.map(clean);\n  const pastIndex=normalized.findIndex(s=>/\\d{2,4}[./年-]\\d{1,2}[./月-]\\d{1,2}/.test(s));\n  return normalized.slice(0,pastIndex>=0?pastIndex:normalized.length);\n}\nfunction currentRunnerStatus(cells) {\n  const currentText=currentRunnerSlice(cells).join(' ');\n  return /取消/.test(currentText)?'CANCELLED':/除外/.test(currentText)?'EXCLUDED':'ACTIVE';\n}\nfunction hasCurrentPositiveOdds(cells) {\n  return currentRunnerSlice(cells).some(s=>/^\\d+(?:\\.\\d+)?\\s*\\(\\d+人気\\)$/.test(s));\n}"
+    },
+    {
+      "start_line": 91,
+      "end_line": 105,
+      "code": "  const going=header.match(/馬場\\s*[:：]?\\s*(不良|稍重|良|重)/),weather=header.match(/天候\\s*[:：]?\\s*(晴|曇|雨|雪)/);\n  const conditions={};\n  if(course){conditions.surface=course[1];conditions.distance=Number(course[2]);if(course[3])conditions.turn=course[3];}\n  if(going)conditions.going=going[1];if(weather)conditions.weather=weather[1];\n  const expected=new URL('https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable');\n  expected.searchParams.set('k_babaCode',codes[race.track]);expected.searchParams.set('k_raceDate',race.race_date.replaceAll('-','/'));\n  expected.searchParams.set('k_raceNo',String(race.race_no));\n  // DOM-owned runner records are already segmented. Never parse attribute rows as horses.\n  const snapshotRunners=diagnostic.runners.map(r=>{\n    const currentCells=Array.isArray(r.current_row_cells)?r.current_row_cells.map(c=>c?.text):[];\n    if(r.status!=='ACTIVE' && currentCells.length && hasCurrentPositiveOdds(currentCells))\n      throw new ContextError('OFFICIAL_FIELD_STATUS_CONFLICT');\n    return {horse_no:r.horse_no,horse_name:clean(r.horse_name),status:r.status,\n      jockey:clean(r.jockey_text).replace(/\\s*[（(][^）)]+[）)]$/,''),\n      ...parseCurrentAttributes(r.current_attribute_cells),identity_refs:[]};"
+    },
+    {
+      "start_line": 158,
+      "end_line": 172,
+      "code": "    const following=rows.filter(row=>row.index>main.index&&row.index<nextIndex);\n    const attrs=parseCurrentAttributes(following.filter(row=>\n      !row.cells.some(s=>/\\d{2,4}[./年-]\\d{1,2}[./月-]\\d{1,2}/.test(s))).flatMap(row=>row.cells));\n    const horseCell=main.pairs[jockeyIndex-1]?.el;\n    const refs=[];\n    if(horseCell)$(horseCell).find('a').each((_i,a)=>{\n      const href=$(a).attr('href'); if(!href)return;\n      try{refs.push(narHorseUrl(href,expected.href));}catch{}\n    });\n    const identity_refs=[...new Set(refs)];\n    const status=currentRunnerStatus(main.cells);\n    if(status!=='ACTIVE' && hasCurrentPositiveOdds(main.cells))\n      throw new ContextError('OFFICIAL_FIELD_STATUS_CONFLICT');\n    runners.push({\n      horse_no:horseNo,horse_name:horseName,"
+    }
+  ]
+}

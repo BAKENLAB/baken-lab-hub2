@@ -1,0 +1,2773 @@
+{
+  "audited_at": "2026-10-09T22:46:02.673034+00:00",
+  "source_commit": "d801233e5dee49bb5db37367b05ba047de6ecb21",
+  "raw_sha256": "e679a0f05e5325feffd0266e783dd6be3775d03bd23a377c72854d47373c1ec7",
+  "network_attempt": {
+    "url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=3&k_babaCode=31",
+    "curl_exit": 7,
+    "http_status": 0,
+    "error": "Failed to connect to proxy port 8080",
+    "attempted_requests": 1,
+    "remaining_requests": "NOT_ATTEMPTED_SHARED_CONNECTION_FAILURE"
+  },
+  "latest_verified_races": 0,
+  "corrected_latest_active_total": null,
+  "ready_changed": false,
+  "races": [
+    {
+      "track": "高知",
+      "race_no": 1,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=1&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 9,
+      "raw_active_nos": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "raw_cancelled_nos": [
+        2
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "キヨスリョウマ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "フルフィルメント",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "キープインマインド",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "コスモアミュレット",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "モズガネシア",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ワイドアルバ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "クラールス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "エンファサイズ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "フウリンカザン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 2,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=2&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 11,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "シデンイッセン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "プルメリアクヒオ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "スマイル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "シーザソング",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "フォレストターキン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "リゼレインボー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "バリキング",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "ソックス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "コントリビュート",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "シシランマン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "シェルブールレイン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 3,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=3&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 9,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+      ],
+      "raw_cancelled_nos": [
+        6
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "メイショウオキビ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "サノノスピード",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ウォーターレモン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "ゲンパチレオニダス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "モズリッキー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "アルデヤーノ",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "エイシンオッティモ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "ハルノサムソン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "ストーミーデイ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ],
+      "archived_comparison": {
+        "captured_at": "2026-10-09T22:11:44.282639+00:00",
+        "html_path": "../official-history-pilot/evidence/kochi3-card.html",
+        "sha256": "4ac733b51a252a1234a2000670addcb93a4b2a939674a452ecbabf8563142995",
+        "official_listed_count": 9,
+        "active_nos": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "cancelled_nos": [],
+        "horses": [
+          {
+            "horse_no": 1,
+            "horse_name": "メイショウオキビ",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30027401756",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [],
+            "dom_basis": {
+              "horse_row_index": 2,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          },
+          {
+            "horse_no": 2,
+            "horse_name": "サノノスピード",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30015409086",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [],
+            "dom_basis": {
+              "horse_row_index": 7,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          },
+          {
+            "horse_no": 3,
+            "horse_name": "ウォーターレモン",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40001403976",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [],
+            "dom_basis": {
+              "horse_row_index": 12,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          },
+          {
+            "horse_no": 4,
+            "horse_name": "ゲンパチレオニダス",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30025401166",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [],
+            "dom_basis": {
+              "horse_row_index": 17,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          },
+          {
+            "horse_no": 5,
+            "horse_name": "モズリッキー",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30078404566",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [],
+            "dom_basis": {
+              "horse_row_index": 22,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          },
+          {
+            "horse_no": 6,
+            "horse_name": "アルデヤーノ",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30017405296",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [
+              "取消 26.05.23 不良 9頭 高知 右1400 1番"
+            ],
+            "dom_basis": {
+              "horse_row_index": 27,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          },
+          {
+            "horse_no": 7,
+            "horse_name": "エイシンオッティモ",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30055407086",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [],
+            "dom_basis": {
+              "horse_row_index": 32,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          },
+          {
+            "horse_no": 8,
+            "horse_name": "ハルノサムソン",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30058404076",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [],
+            "dom_basis": {
+              "horse_row_index": 37,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          },
+          {
+            "horse_no": 9,
+            "horse_name": "ストーミーデイ",
+            "archive_status": "ACTIVE",
+            "current_status": null,
+            "current_status_verification": "UNVERIFIED_NO_FRESH_FETCH",
+            "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30084406246",
+            "current_status_cells": [
+              "",
+              ""
+            ],
+            "structural_proof": true,
+            "past_status_mentions": [],
+            "dom_basis": {
+              "horse_row_index": 42,
+              "current_selector": "own block > direct td.odds_weight",
+              "ignored_selector": "div.raceInfo / nested result table"
+            }
+          }
+        ],
+        "difference_from_raw": [
+          {
+            "horse_no": 6,
+            "raw_status": "CANCELLED",
+            "archive_status": "ACTIVE"
+          }
+        ]
+      }
+    },
+    {
+      "track": "高知",
+      "race_no": 4,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=4&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 12,
+      "raw_active_nos": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "raw_cancelled_nos": [
+        2
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "グラティアスグー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "プレイサーゴールド",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ロイズピーク",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "サンライズグリット",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ディベルティール",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ベストディシジョン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ダイヤモンドフジ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "ミラクルドリーム",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "サンダーゼウス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "ウインザナドゥ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "アメージング",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 12,
+          "horse_name": "ニクソンテソーロ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 5,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=5&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 10,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10
+      ],
+      "raw_cancelled_nos": [
+        6
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ジョウショーブリエ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "アキヤン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ボールドステート",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "オーシンミリオン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ヴィビーム",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "エリジブル",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ゲクウ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "ケイベエ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "グリエールキック",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "ビビットピンク",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 6,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_babaCode=31&k_raceDate=2026%2F10%2F10&k_raceNo=6",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 8,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8
+      ],
+      "raw_cancelled_nos": [
+        4
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "モトサン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "セージブラッシュ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "エムティパブロ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "クルマトラサン",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ブロードグリン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "チョットヤバイヨネ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "スクーバー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "メイショウクリフト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 7,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=7&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 9,
+      "raw_active_nos": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "raw_cancelled_nos": [
+        1
+      ],
+      "raw_excluded_nos": [
+        3
+      ],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "チュラウェーブ",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ヨシュア",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "グロリアスヒーロー",
+          "raw_status": "EXCLUDED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "セントキルダ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "クワッドマリニン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ハチャプリ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "トーケンタカハール",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "マサハヤアン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "チュウワロンドン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 8,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=8&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 12,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ヒメカミノイタダキ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ルナヴェローチェ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "コムルヴァン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "プレシャスメノウ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "オブリマイラブ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ブルースター",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "パルメリータ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "ハチキンムスメ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "フランフィズ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "サンブル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "ターニーノーブル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 12,
+          "horse_name": "シンゼンシャイン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 9,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=9&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 11,
+      "raw_active_nos": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "raw_cancelled_nos": [
+        3
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ブルグミューラー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ムサシフウジン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "スピードイエロー",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "クラックオブドーン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "サーブルミラージュ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "カムランベイ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "アースライザー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "セイウンガレオン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "デルマアズラエル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "ショウサンキズナ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "ダノンフロイデ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 10,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=10&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 9,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ソッコータルマカ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ユキノマリア",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "モルフェウス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "アプサラー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ステラマテュティナ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ウィズユアドリーム",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ヒマワリクン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "クスダマ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "ビックス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "高知",
+      "race_no": 11,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=11&k_babaCode=31",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 12,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "raw_cancelled_nos": [
+        5
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "クラックミーアップ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "クラウンクーロン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ジェットブレイク",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "ツウキンカイソク",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "エターナルライズ",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "クリュメノス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "レリッシュ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "クレインヴォイス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "ファーストシーン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "ユミッチラブ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "タマモアマルフィ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 12,
+          "horse_name": "レンジシ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 1,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=1&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 7,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "raw_cancelled_nos": [
+        5
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "タンバーテソーロ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ダイメイサンシ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "バミューダボーイ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "セーズノヴァ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ハクアイファミリー",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ムーンオブザグラス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "マギサキルケー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 2,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=2&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 10,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ],
+      "raw_cancelled_nos": [
+        8
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "フリーリターン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "バチェラーパーティ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ブロンザイト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "アレキサンダーサン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "アユツリムスメ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "イサゴールド",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "レインボーカロル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "キタノローマン",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "アオイサンギュリエ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "マイネルガンナー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 3,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=3&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 12,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ウイングラフトン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "クラックアスマイル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ユレマー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "レイナロハルンバ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ウマナミカイドウ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "サウンドディアナ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ジョーマゴス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "ケイツーコルーニ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "アリーワーク",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "オーケーグリット",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "トルマリンテソーロ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 12,
+          "horse_name": "ダイメイミラクル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 4,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=4&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 10,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ミッキースワン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "コスモタキシード",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ウメボシ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "ジュンカチガラス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ボンレジェンド",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "リルマイベイビー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "タイショウロマン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "エクセレンプライム",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "ダイメイハマダ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "コスモペンタス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 5,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=5&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 12,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [
+        11
+      ],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "オールスティール",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ゴイゴイスー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ラインアンジェラ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "エムティピース",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "テーオースミス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "チャールストン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ホウオウジュビリー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "カガカプチーノ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "コワン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "サムシンググレート",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "オレノアイバ",
+          "raw_status": "EXCLUDED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 12,
+          "horse_name": "マツリダマスラオ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 6,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=6&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 12,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12
+      ],
+      "raw_cancelled_nos": [
+        8
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "アルクノワール",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "マイネルアイフェル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ダノンプレリュード",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "メイブロッサム",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ユイノササヤキ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ジェイエルライナー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ロードゴスペル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "ピーチアバランチェ",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "ロードアルフィーネ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "リュウノトマト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "チョウギャル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 12,
+          "horse_name": "メイショウシュハリ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 7,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=7&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 10,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ロードアライアンス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ラブミーナッソー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "アナザーヴィータ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "ハッピールンナ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ポムヴェルト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "オールズフェア",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ミッキージェントル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "シーザサンライズ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "ゴルトツィーゲル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "フェブリノ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 8,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=8&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 11,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ベラジオボッキーニ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ファインギフト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "タケノエイコウ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "サーリアル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "アウトレイジング",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ヴァイスウィッチ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ロベルタインパクト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "アニラ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "クライミーアリバー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "ミスレモン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "フリューゲル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 9,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=9&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 12,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ヒロニャン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "フクノエヴリー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "ニシノガウェイン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "クラウンライジング",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "コースタルタウン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "フラクタル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "アーコレード",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "ウイニングザソウル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "ブライトカラー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "リーフアクアリウム",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "スーパーフルール",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 12,
+          "horse_name": "ジーティースピカ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 10,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=10&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 11,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "アッシュグレイス",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "リケアエスプレッソ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "エイシンコラソン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "クラリスヒメ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ウタカタ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "アエログラム",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "コスモマウイ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "コスモチャンティ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "イントゥゴールデン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "ワイドヴィンクルム",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "パドマーワト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 11,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=11&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 11,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "raw_cancelled_nos": [
+        4
+      ],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "ニフェーデービル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "ベルウッドウズメ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "プアラニ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "ノーブルビーチ",
+          "raw_status": "CANCELLED",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "キトーウィン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "サヨノハッピー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "マイブレイブ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "コスモコンクエスト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "フランシナテソーロ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "オーケーエンジェル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "ナニーピオニー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "track": "佐賀",
+      "race_no": 12,
+      "official_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=12&k_babaCode=32",
+      "latest_verification": "UNVERIFIED",
+      "official_latest_count": null,
+      "raw_listed_count": 14,
+      "raw_active_nos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "raw_cancelled_nos": [],
+      "raw_excluded_nos": [],
+      "corrected_latest_active_nos": null,
+      "horses": [
+        {
+          "horse_no": 1,
+          "horse_name": "イケノエナガチャン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 2,
+          "horse_name": "テイエムロングダン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 3,
+          "horse_name": "モズナツノジン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 4,
+          "horse_name": "アシャカルー",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "ミラクルスパート",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "ヴィアツァ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "ダノンクラウディア",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "エバーステイ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "ハミングディスト",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 10,
+          "horse_name": "ワカワカ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "エールヴェガ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 12,
+          "horse_name": "ゼットクイン",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 13,
+          "horse_name": "ディグニダドレアル",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        },
+        {
+          "horse_no": 14,
+          "horse_name": "キャッチミークライ",
+          "raw_status": "ACTIVE",
+          "current_status": null,
+          "verification": "UNVERIFIED",
+          "reason": "FRESH_OFFICIAL_FETCH_UNAVAILABLE"
+        }
+      ]
+    }
+  ]
+}
