@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {planFlatRaceStage} from './scoped-stage-planner.mjs';
+const race={id:'kyoto-6',race_type:'平地',surface:'ダート',distance:1800};
+const runners=[{horse_no:1},{horse_no:2}];
+const statuses=[{horse_no:1,status:'ACTIVE',verified:true,scope:'CURRENT_RACE'},{horse_no:2,status:'CANCELLED',verified:true,scope:'CURRENT_RACE'}];
+const base={race,runners,verifiedStatuses:statuses,sourceSignature:'a'.repeat(64),previousSignature:'b'.repeat(64)};
+test('flat race produces staging plan only',()=>assert.deepEqual(planFlatRaceStage(base),{state:'STAGE_ONLY',raceId:'kyoto-6',activeHorseNos:[1],sourceSignature:'a'.repeat(64),model:'JRA_FLAT_ONLY',eligibleForOfficialPublish:false}));
+test('jump race never stages',()=>assert.equal(planFlatRaceStage({...base,race:{...race,race_type:'障害'}}).state,'SKIP'));
+test('unknown runner status never stages',()=>assert.equal(planFlatRaceStage({...base,verifiedStatuses:[]}).state,'HOLD'));
+test('unchanged signature does not stage',()=>assert.equal(planFlatRaceStage({...base,previousSignature:'a'.repeat(64)}).state,'NO_CHANGE'));
+test('no active runners holds',()=>assert.equal(planFlatRaceStage({...base,verifiedStatuses:statuses.map(s=>({...s,status:'CANCELLED'}))}).reason,'NO_ACTIVE_RUNNERS'));
