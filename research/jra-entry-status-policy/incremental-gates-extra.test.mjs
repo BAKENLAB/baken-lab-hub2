@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {planScopedRefresh} from './incremental-gates.mjs';
+const base={race:{id:'r'},runners:[{horse_no:1},{horse_no:2}],sourceSignature:'a'.repeat(64),previousSignature:'b'.repeat(64)};
+const s=(horse_no,status='ACTIVE')=>({horse_no,status,verified:true,scope:'CURRENT_RACE'});
+test('duplicate status number holds',()=>assert.deepEqual(planScopedRefresh({...base,verifiedStatuses:[s(1),s(1)]}),{state:'HOLD',reason:'STATUS_FIELD_MISMATCH'}));
+test('unknown status number holds',()=>assert.equal(planScopedRefresh({...base,verifiedStatuses:[s(1),s(3)]}).reason,'STATUS_FIELD_MISMATCH'));
+test('negative runner number holds',()=>assert.equal(planScopedRefresh({...base,runners:[{horse_no:-1},{horse_no:2}],verifiedStatuses:[s(-1),s(2)]}).state,'HOLD'));
+test('status order cannot affect active horse order',()=>assert.deepEqual(planScopedRefresh({...base,verifiedStatuses:[s(2),s(1,'CANCELLED')]}).activeHorseNos,[2]));
+test('all cancelled produces empty staging field',()=>assert.deepEqual(planScopedRefresh({...base,verifiedStatuses:[s(1,'CANCELLED'),s(2,'EXCLUDED')]}).activeHorseNos,[]));
