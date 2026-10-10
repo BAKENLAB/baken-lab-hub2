@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {validateOfficialSnapshot as check} from './official-snapshot-gate.mjs';
+const hash='a'.repeat(64),race={id:'r'},field=[{horse_no:1,horse_name:'A'},{horse_no:2,horse_name:'B'}];
+const observations=field.map(r=>({race_id:'r',horse_no:r.horse_no,horse_name:r.horse_name,html_sha256:hash,scope:'CURRENT_RACE',status:'ACTIVE',verified:true,dom_locator:'table tr',dom_text:r.horse_name,status_basis:'OFFICIAL_CURRENT_RACE_ENTRY'}));
+const base={race,field,observations,htmlSha256:hash,sourceUrl:'https://www.jra.go.jp/JRADB/accessD.html?CNAME=x',checkedAt:'2026-10-11T04:40:00+09:00'};
+test('complete evidence remains shadow only',()=>assert.equal(check(base).eligibleForOfficialPublish,false));
+test('missing horse holds',()=>assert.equal(check({...base,observations:[observations[0]]}).state,'HOLD'));
+test('wrong race holds',()=>assert.equal(check({...base,observations:[{...observations[0],race_id:'other'},observations[1]]}).state,'HOLD'));
+test('wrong HTML hash holds',()=>assert.equal(check({...base,observations:[{...observations[0],html_sha256:'b'.repeat(64)},observations[1]]}).state,'HOLD'));
+test('duplicate horse holds',()=>assert.equal(check({...base,observations:[observations[0],observations[0]]}).state,'HOLD'));
+test('unverified active holds',()=>assert.equal(check({...base,observations:[{...observations[0],status_basis:'GUESSED'},observations[1]]}).state,'HOLD'));
+test('missing DOM locator holds',()=>assert.equal(check({...base,observations:[{...observations[0],dom_locator:''},observations[1]]}).state,'HOLD'));
+test('bad source holds',()=>assert.equal(check({...base,sourceUrl:'https://example.com/'}).state,'HOLD'));
+test('name mismatch holds',()=>assert.equal(check({...base,observations:[{...observations[0],horse_name:'Z'},observations[1]]}).state,'HOLD'));
