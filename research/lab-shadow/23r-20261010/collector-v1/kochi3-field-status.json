@@ -1,0 +1,510 @@
+{
+  "schema": "LAB_SHADOW_COLLECTOR_V1_KOCHI3",
+  "parser_version": "KOCHI3_CHANGE_CELL_V1",
+  "race": {
+    "race_date": "2026-10-10",
+    "track": "高知",
+    "race_no": 3,
+    "circuit": "LOCAL",
+    "post_time": "2026-10-10T16:40:00+09:00"
+  },
+  "source": {
+    "evidence_json": {
+      "url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_raceDate=2026%2F10%2F10&k_raceNo=3&k_babaCode=31",
+      "path": "evidence/kochi3-card.html",
+      "sha256": "4ac733b51a252a1234a2000670addcb93a4b2a939674a452ecbabf8563142995",
+      "download_completed_at": "2026-10-09T22:11:44.282639+00:00"
+    },
+    "html_sha256": "4ac733b51a252a1234a2000670addcb93a4b2a939674a452ecbabf8563142995",
+    "html_byte_length": 204907,
+    "captured_at": "2026-10-09T22:11:44.282639+00:00",
+    "http_status": null,
+    "http_status_reason": "NOT_RECORDED_IN_CARD_FETCH_JSON",
+    "source_kind": "SAVED_HTML",
+    "origin_evidence": "../official-history-pilot/card-fetch.json",
+    "origin_html": "../official-history-pilot/evidence/kochi3-card.html"
+  },
+  "official_status_patterns_confirmed": false,
+  "production_dispatch_allowed": false,
+  "ready_evaluated": false,
+  "latest_status_checked": false,
+  "horses": [
+    {
+      "horse_no": 1,
+      "horse_name": "メイショウオキビ",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30027401756",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 6,
+            "direct_cell_index": 2,
+            "source_line": 545,
+            "source_column": 36,
+            "source_char_start": 32668,
+            "source_char_end": 32796
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 6,
+            "direct_cell_index": 2,
+            "source_line": 545,
+            "source_column": 36,
+            "source_char_start": 32668,
+            "source_char_end": 32796
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 2,
+        "direct_cell_index": 1,
+        "source_line": 287,
+        "source_column": 56,
+        "source_char_start": 14452,
+        "source_char_end": 14491
+      }
+    },
+    {
+      "horse_no": 2,
+      "horse_name": "サノノスピード",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30015409086",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 11,
+            "direct_cell_index": 2,
+            "source_line": 827,
+            "source_column": 36,
+            "source_char_start": 52593,
+            "source_char_end": 52721
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 11,
+            "direct_cell_index": 2,
+            "source_line": 827,
+            "source_column": 36,
+            "source_char_start": 52593,
+            "source_char_end": 52721
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 7,
+        "direct_cell_index": 1,
+        "source_line": 569,
+        "source_column": 56,
+        "source_char_start": 34383,
+        "source_char_end": 34422
+      }
+    },
+    {
+      "horse_no": 3,
+      "horse_name": "ウォーターレモン",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40001403976",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 16,
+            "direct_cell_index": 2,
+            "source_line": 1109,
+            "source_column": 36,
+            "source_char_start": 72519,
+            "source_char_end": 72647
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 16,
+            "direct_cell_index": 2,
+            "source_line": 1109,
+            "source_column": 36,
+            "source_char_start": 72519,
+            "source_char_end": 72647
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 12,
+        "direct_cell_index": 1,
+        "source_line": 851,
+        "source_column": 56,
+        "source_char_start": 54303,
+        "source_char_end": 54342
+      }
+    },
+    {
+      "horse_no": 4,
+      "horse_name": "ゲンパチレオニダス",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30025401166",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 21,
+            "direct_cell_index": 2,
+            "source_line": 1391,
+            "source_column": 36,
+            "source_char_start": 92445,
+            "source_char_end": 92573
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 21,
+            "direct_cell_index": 2,
+            "source_line": 1391,
+            "source_column": 36,
+            "source_char_start": 92445,
+            "source_char_end": 92573
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 17,
+        "direct_cell_index": 1,
+        "source_line": 1133,
+        "source_column": 56,
+        "source_char_start": 74231,
+        "source_char_end": 74270
+      }
+    },
+    {
+      "horse_no": 5,
+      "horse_name": "モズリッキー",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30078404566",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 26,
+            "direct_cell_index": 2,
+            "source_line": 1673,
+            "source_column": 36,
+            "source_char_start": 112382,
+            "source_char_end": 112510
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 26,
+            "direct_cell_index": 2,
+            "source_line": 1673,
+            "source_column": 36,
+            "source_char_start": 112382,
+            "source_char_end": 112510
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 22,
+        "direct_cell_index": 1,
+        "source_line": 1415,
+        "source_column": 56,
+        "source_char_start": 94153,
+        "source_char_end": 94192
+      }
+    },
+    {
+      "horse_no": 6,
+      "horse_name": "アルデヤーノ",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30017405296",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 31,
+            "direct_cell_index": 2,
+            "source_line": 1955,
+            "source_column": 36,
+            "source_char_start": 132274,
+            "source_char_end": 132402
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 31,
+            "direct_cell_index": 2,
+            "source_line": 1955,
+            "source_column": 36,
+            "source_char_start": 132274,
+            "source_char_end": 132402
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 27,
+        "direct_cell_index": 1,
+        "source_line": 1697,
+        "source_column": 56,
+        "source_char_start": 114089,
+        "source_char_end": 114128
+      }
+    },
+    {
+      "horse_no": 7,
+      "horse_name": "エイシンオッティモ",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30055407086",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 36,
+            "direct_cell_index": 2,
+            "source_line": 2237,
+            "source_column": 36,
+            "source_char_start": 152213,
+            "source_char_end": 152341
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 36,
+            "direct_cell_index": 2,
+            "source_line": 2237,
+            "source_column": 36,
+            "source_char_start": 152213,
+            "source_char_end": 152341
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 32,
+        "direct_cell_index": 1,
+        "source_line": 1979,
+        "source_column": 56,
+        "source_char_start": 133980,
+        "source_char_end": 134019
+      }
+    },
+    {
+      "horse_no": 8,
+      "horse_name": "ハルノサムソン",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30058404076",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 41,
+            "direct_cell_index": 2,
+            "source_line": 2519,
+            "source_column": 36,
+            "source_char_start": 172125,
+            "source_char_end": 172253
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 41,
+            "direct_cell_index": 2,
+            "source_line": 2519,
+            "source_column": 36,
+            "source_char_start": 172125,
+            "source_char_end": 172253
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 37,
+        "direct_cell_index": 1,
+        "source_line": 2261,
+        "source_column": 56,
+        "source_char_start": 153929,
+        "source_char_end": 153968
+      }
+    },
+    {
+      "horse_no": 9,
+      "horse_name": "ストーミーデイ",
+      "horse_ref": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30084406246",
+      "entry_status": "UNKNOWN",
+      "status_at_capture": "UNKNOWN",
+      "latest_status": "UNKNOWN",
+      "reason": "EMPTY_CHANGE_CELL",
+      "change_info": {
+        "existence_count": 1,
+        "extraction_status": "PRESENT_EMPTY",
+        "cell": {
+          "raw_text": "\n                                                                            ",
+          "normalized_text": "",
+          "raw_html": "<td class=\"info\" style=\"white-space: normal;\">\n                                                                            </td>",
+          "attributes": {
+            "class": "info",
+            "style": "white-space: normal;"
+          },
+          "location": {
+            "table_index": 0,
+            "outer_row_index": 46,
+            "direct_cell_index": 2,
+            "source_line": 2798,
+            "source_column": 36,
+            "source_char_start": 191865,
+            "source_char_end": 191993
+          },
+          "block_row": 5,
+          "direct_cell_number": 3
+        },
+        "candidate_locations": [
+          {
+            "table_index": 0,
+            "outer_row_index": 46,
+            "direct_cell_index": 2,
+            "source_line": 2798,
+            "source_column": 36,
+            "source_char_start": 191865,
+            "source_char_end": 191993
+          }
+        ]
+      },
+      "horse_anchor": {
+        "table_index": 0,
+        "outer_row_index": 42,
+        "direct_cell_index": 0,
+        "source_line": 2540,
+        "source_column": 56,
+        "source_char_start": 173668,
+        "source_char_end": 173707
+      }
+    }
+  ]
+}
