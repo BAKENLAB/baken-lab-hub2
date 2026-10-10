@@ -1,10 +1,10 @@
 // SHADOW ONLY. Parse row-level explicit cancellation signals; never infer ACTIVE.
 // This function accepts extracted row attributes/text from the official JRA HTML.
-// Unknown or contradictory signals always HOLD. No DB writes.
+// Only current-entry horse cell and row metadata are inspected; past-run cells may contain historical 取消/除外.\n// Unknown or contradictory signals always HOLD. No DB writes.
 const bad=reason=>({state:'HOLD',reason});
 export function classifyCurrentRow({horseNo,horseName,rowText,horseCellText,classes=[],images=[]}={}){
  if(!Number.isInteger(horseNo)||horseNo<1||!horseName||typeof rowText!=='string'||typeof horseCellText!=='string')return bad('ROW_MISSING');
- const normalized=[rowText,horseCellText,...classes,...images].map(x=>String(x).normalize('NFKC'));
+ const normalized=[horseCellText,...classes,...images].map(x=>String(x).normalize('NFKC'));
  const text=normalized.join(' ');
  const cancelled=/(?:出走取消|出走取り消し|競走取消|取消)/.test(text);
  const excluded=/(?:競走除外|出走除外|除外)/.test(text);
