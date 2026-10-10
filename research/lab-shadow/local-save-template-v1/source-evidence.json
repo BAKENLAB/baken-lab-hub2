@@ -1,0 +1,17 @@
+{
+  "project_id": "qjlvsndiqjfsfjinilig",
+  "function_slug": "local-claimed-mcp",
+  "function_version": 9,
+  "protocol_version": "CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004",
+  "record_created_at": "2026-10-10T10:46:39.193680+00:00",
+  "retrieval_method": "Supabase MCP get_edge_function and SELECT pg_get_functiondef / active LOCAL_MAIN",
+  "sql_execution_prohibited": true,
+  "baseline_hashes": {
+    "baseline/active-local-protocol.json": "2dc4fda9095d85afb6cd608264eb1179a2c1011c76509083a92c1b7e97fe937a",
+    "baseline/lab_queue_save_prediction_v1.sql": "62c5d57101942e5ab403ede8774823d933c5264907db6a444fd5cc65052e1afd",
+    "baseline/lab_save_claimed_prediction.sql": "f435ea4ed2296724d295aeda83d954e4bce3fbdbc627127499cef1dab8e40ee8",
+    "baseline/mcp-v9/index.ts": "302830148bab5c5ce4ff5312d7e4e8084d275c6ada12c45bf5c2333dd6389792",
+    "baseline/mcp-v9/local-eye.mjs": "3af767c7f05438840b2f7038dae2bddf2a2f3c6df681f610782f22182be6a45a",
+    "baseline/mcp-v9/queue-operation.mjs": "1c7842021b4aa855e6634b4809768add0e28a06854739ce83e6cc25571c0e1f2"
+  }
+}
