@@ -1,0 +1,16 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import fs from 'node:fs';import vm from 'node:vm';import {stripTypeScriptTypes} from 'node:module';import {authorizeCron} from './candidate/cron-auth.mjs';
+const token='a'.repeat(64),digest=createHash('sha256').update(token).digest('hex');
+const req=(headers={},method='POST')=>new Request('https://offline.invalid',{method,headers:{Authorization:'Bearer gateway-fixture','X-JRA-Cron-Token':token,...headers}});
+test('valid cron discovers',async()=>assert.deepEqual(await authorizeCron(req(),{action:'discover'},digest),{ok:true}));
+test('valid cron syncs bounded batch',async()=>assert.equal((await authorizeCron(req(),{action:'sync_batch',batch_size:1},digest)).ok,true));
+test('missing configuration fails closed',async()=>assert.equal((await authorizeCron(req(),{action:'discover'},undefined)).status,503));
+test('missing bearer denied',async()=>assert.equal((await authorizeCron(req({Authorization:''}),{action:'discover'},digest)).status,401));
+test('ordinary JWT without dedicated token denied',async()=>assert.equal((await authorizeCron(req({'X-JRA-Cron-Token':''}),{action:'discover'},digest)).status,401));
+test('incorrect dedicated token denied',async()=>assert.equal((await authorizeCron(req({'X-JRA-Cron-Token':'b'.repeat(64)}),{action:'discover'},digest)).status,401));
+test('status and publish actions denied',async()=>{for(const action of ['status','publish','save_prediction'])assert.equal((await authorizeCron(req(),{action},digest)).status,403)});
+test('arbitrary URL/race injection denied',async()=>assert.equal((await authorizeCron(req(),{action:'discover',url:'https://other.invalid'},digest)).status,400));
+test('oversized batch denied',async()=>assert.equal((await authorizeCron(req(),{action:'sync_batch',batch_size:6},digest)).status,400));
+test('GET denied',async()=>assert.equal((await authorizeCron(req({},'GET'),{action:'discover'},digest)).status,405));
+test('candidate denies unauthorized before client/network creation',async()=>{let handler;const source=fs.readFileSync(new URL('./candidate/index.ts',import.meta.url),'utf8').replace(/^import .*;\s*$/gm,'');vm.runInNewContext(stripTypeScriptTypes(source),{authorizeCron,Deno:{env:{get:()=>digest},serve(fn){handler=fn}},TextDecoder,Response,createClient(){throw Error('CLIENT_MUST_NOT_RUN')},fetch(){throw Error('FETCH_MUST_NOT_RUN')}});const r=await handler(new Request('https://offline.invalid',{method:'POST',headers:{Authorization:'Bearer fixture'},body:JSON.stringify({action:'discover'})}));assert.equal(r.status,401)});
+test('candidate never calls official publication and verify_jwt kept true',()=>{const s=fs.readFileSync(new URL('./candidate/index.ts',import.meta.url),'utf8');assert.equal(s.includes('db.rpc("publish_jra_live_race"'),false);assert.match(fs.readFileSync(new URL('./config.toml',import.meta.url),'utf8'),/verify_jwt = true/)});
+test('cron SQL is scope-limited and stores no credential literals',()=>{const s=fs.readFileSync(new URL('./cron-proposal.sql',import.meta.url),'utf8');assert.match(s,/vault.decrypted_secrets/);assert.match(s,/SECURITY INVOKER/);assert.match(s,/role' IS DISTINCT FROM 'anon'/);assert.equal(/cron.alter_job\(21/.test(s),false);assert.equal(/sb_secret_|eyJhbG|service_role.*Bearer/.test(s),false)});
