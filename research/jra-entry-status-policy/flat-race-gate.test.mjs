@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {gateFlatRace} from './flat-race-gate.mjs';
+const base={id:'r',race_type:'平地',surface:'芝',distance:1600};
+test('flat turf eligible',()=>assert.equal(gateFlatRace(base).state,'ELIGIBLE'));
+test('flat dirt eligible',()=>assert.equal(gateFlatRace({...base,surface:'ダート'}).state,'ELIGIBLE'));
+test('jump race skipped',()=>assert.deepEqual(gateFlatRace({...base,race_type:'障害'}),{state:'SKIP',reason:'JUMP_RACE'}));
+test('missing type held',()=>assert.equal(gateFlatRace({...base,race_type:null}).state,'HOLD'));
+test('unknown type held',()=>assert.equal(gateFlatRace({...base,race_type:'不明'}).state,'HOLD'));
+test('missing surface held',()=>assert.equal(gateFlatRace({...base,surface:null}).state,'HOLD'));
+test('invalid distance held',()=>assert.equal(gateFlatRace({...base,distance:0}).state,'HOLD'));
