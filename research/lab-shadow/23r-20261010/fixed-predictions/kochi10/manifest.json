@@ -1,0 +1,65 @@
+{
+  "schema_version": "SHADOW_FIXED_PREDICTION_V1",
+  "race": {
+    "race_date": "2026-10-10",
+    "track": "高知",
+    "race_no": 10,
+    "race_name": "平家平特別 B-1選抜馬",
+    "scheduled_post_time": "2026-10-10T20:20:00+09:00"
+  },
+  "record_created_at": "2026-10-10T10:35:10Z",
+  "prediction_generated_at": null,
+  "prediction_generated_at_status": "UNCONFIRMED_NO_MESSAGE_TIMESTAMP_AVAILABLE",
+  "source": "Original assistant final response in this conversation, copied verbatim; not a platform conversation export.",
+  "timing_evidence": {
+    "clock_before_claim": "2026-10-10T10:23:06Z",
+    "claim_lease_until": "2026-10-10T10:38:09.326439+00:00",
+    "warning": "Claim time and lease time are not prediction generation timestamps. Exact generation time cannot be independently established from available evidence. Record creation and Git commit times date this archive only."
+  },
+  "status": "SHADOW_ONLY_UNSAVED_DRAFT",
+  "production_save_performed_in_this_operation": false,
+  "official_results_requested_in_this_operation": false,
+  "job_id": "2df66e83-5d25-4439-a19c-2df8c079b3eb",
+  "worker_run_id": "87a8d99d-bc79-4a7f-9c75-5a9dc85f621d",
+  "protocol_version": "CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004",
+  "files": {
+    "prediction-original.md": {
+      "sha256": "d32ad66dad1da358dbbe861932336f52f7ab59b74fc312e71bd14d06dd5a339a"
+    },
+    "input-context.json": {
+      "sha256": "91de38bab70e8221a30e73f1005a10854764f8acd84d63294d59599060a9cc02",
+      "source": "Exact text content returned by LOCAL MCP v9 lab_claimed_context, with final newline; no fields added."
+    }
+  },
+  "ranked_horse_nos": [
+    5,
+    8,
+    2,
+    1,
+    6,
+    3,
+    4,
+    9,
+    7
+  ],
+  "grades": [
+    "A",
+    "B",
+    "B",
+    "C",
+    "C",
+    "C",
+    "C",
+    "D",
+    "D"
+  ],
+  "top5_horse_nos": [
+    5,
+    8,
+    2,
+    1,
+    6
+  ],
+  "eye": null,
+  "immutability_policy": "Never overwrite these files. Store official results and subsequent analysis in separate new files. Original closing request for production-save approval is retained as historical text and is not current authorization."
+}
