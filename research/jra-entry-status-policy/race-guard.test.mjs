@@ -1,0 +1,17 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {assessRace} from './race-guard.mjs';
+const race={id:'r',race_type:'平地',surface:'ダート'};
+const runners=[{id:'a',horse_no:1},{id:'b',horse_no:2}];
+const verifiedStatuses=[{horse_no:1,status:'ACTIVE',scope:'CURRENT_RACE',verified:true},{horse_no:2,status:'CANCELLED',scope:'CURRENT_RACE',verified:true}];
+const scoringRows=[{live_race_id:'r',live_runner_id:'a',score:77}];
+const b={race,runners,verifiedStatuses,scoringRows};
+const check=(over={})=>assessRace({...b,...over});
+test('stages only active',()=>assert.deepEqual(check(),{state:'STAGE_ONLY',raceId:'r',activeCount:1,excludedCount:1,eligibleForOfficialPublish:false}));
+test('jump holds',()=>assert.equal(check({race:{...race,race_type:'障害'}}).state,'HOLD'));
+test('unknown surface holds',()=>assert.equal(check({race:{...race,surface:'障害'}}).state,'HOLD'));
+test('unverified status holds',()=>assert.equal(check({verifiedStatuses:[{...verifiedStatuses[0],verified:false},verifiedStatuses[1]]}).state,'HOLD'));
+test('missing status holds',()=>assert.equal(check({verifiedStatuses:verifiedStatuses.slice(0,1)}).state,'HOLD'));
+test('duplicate runner holds',()=>assert.equal(check({runners:[runners[0],runners[0]]}).state,'HOLD'));
+test('score of cancelled runner holds',()=>assert.equal(check({scoringRows:[{...scoringRows[0],live_runner_id:'b'}]}).state,'HOLD'));
+test('wrong race score holds',()=>assert.equal(check({scoringRows:[{...scoringRows[0],live_race_id:'other'}]}).state,'HOLD'));
+test('missing score holds',()=>assert.equal(check({scoringRows:[]}).state,'HOLD'));
+test('score above 100 holds',()=>assert.equal(check({scoringRows:[{...scoringRows[0],score:101}]}).state,'HOLD'));
