@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {combineComponents,rankRaceShadow} from './weighted-score.mjs';
+test('single recent component retains its score',()=>assert.equal(combineComponents({components:{recent:80},historyN:4}).score,80));
+test('all seven scores equal yields same score',()=>assert.equal(combineComponents({components:{recent:70,exact:70,distance:70,track:70,going:70,transition:70,jockey:70},historyN:3}).score,70));
+test('ranked requires history >=3 and four components',()=>assert.equal(combineComponents({components:{recent:80,exact:70,distance:60,track:50},historyN:3}).dataStatus,'RANKED'));
+test('new horse is data insufficient',()=>assert.equal(combineComponents({components:{},historyN:0}).dataStatus,'DATA_INSUFFICIENT'));
+test('missing score is not zero',()=>assert.equal(combineComponents({components:{recent:null,exact:60},historyN:1}).score,60));
+test('invalid score holds',()=>assert.equal(combineComponents({components:{recent:Infinity},historyN:2}).state,'HOLD'));
+test('stable ranking with equal scores',()=>assert.deepEqual(rankRaceShadow([{horse_no:2,components:{recent:80},historyN:3},{horse_no:1,components:{recent:80},historyN:3}]).ranked.map(x=>x.horse_no),[1,2]));
+test('duplicate horse holds',()=>assert.equal(rankRaceShadow([{horse_no:1,components:{},historyN:0},{horse_no:1,components:{},historyN:0}]).state,'HOLD'));
+test('stage only, never official',()=>assert.equal(rankRaceShadow([{horse_no:1,components:{recent:80},historyN:3}]).eligibleForOfficialPublish,false));
