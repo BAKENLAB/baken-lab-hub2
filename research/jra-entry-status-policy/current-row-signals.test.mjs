@@ -9,4 +9,4 @@ test('historical unrelated row is not acceptable proof of active',()=>assert.equ
 test('no horse number holds',()=>assert.equal(f({...base,horseNo:0}).reason,'ROW_MISSING'));
 test('duplicate horse holds',()=>assert.equal(all([base,base]).reason,'DUPLICATE_HORSE'));
 test('nonstarts still not publishable',()=>assert.equal(all([{...base,horseCellText:'出走取消'}]).eligibleForOfficialPublish,false));
-test('past-run cancellation does not imply current cancellation',()=>assert.equal(f({...base,rowText:'過去走 取消'}).reason,'ACTIVE_NOT_PROVEN'));\n
+test('past-run cancellation does not imply current cancellation',()=>assert.equal(f({...base,rowText:'過去走 取消'}).reason,'ACTIVE_NOT_PROVEN'));
