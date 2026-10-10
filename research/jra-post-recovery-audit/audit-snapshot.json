@@ -1,0 +1,473 @@
+{
+  "at": "2026-10-10T23:22:45.684374+00:00",
+  "jobs": [
+    {
+      "id": 10,
+      "active": true,
+      "schedule": "* * * * *",
+      "command_hash": "9a565a4e4bf8ad60b4c8833697226de5"
+    },
+    {
+      "id": 21,
+      "active": true,
+      "schedule": "*/5 * * * *",
+      "command_hash": "bcdeb15f34f4449ea0fa98514d01a959"
+    },
+    {
+      "id": 9,
+      "active": true,
+      "schedule": "*/30 * * * *",
+      "command_hash": "a5e5ff23545f3de041b3591a34149989"
+    }
+  ],
+  "runs": [
+    {
+      "jobid": 10,
+      "runid": 47058,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:22:00.135454+00:00",
+      "start_time": "2026-10-10T23:22:00.100243+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47057,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:21:00.048844+00:00",
+      "start_time": "2026-10-10T23:21:00.035709+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47056,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:20:00.231545+00:00",
+      "start_time": "2026-10-10T23:20:00.215038+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47051,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:19:00.107846+00:00",
+      "start_time": "2026-10-10T23:19:00.094283+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47050,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:18:00.143704+00:00",
+      "start_time": "2026-10-10T23:18:00.093196+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47049,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:17:00.068974+00:00",
+      "start_time": "2026-10-10T23:17:00.050381+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47048,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:16:00.128491+00:00",
+      "start_time": "2026-10-10T23:16:00.092518+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47047,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:15:00.114145+00:00",
+      "start_time": "2026-10-10T23:15:00.094789+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47045,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:14:00.133318+00:00",
+      "start_time": "2026-10-10T23:14:00.108584+00:00"
+    },
+    {
+      "jobid": 9,
+      "runid": 47044,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:14:00.129158+00:00",
+      "start_time": "2026-10-10T23:14:00.097734+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47043,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:12:00.342039+00:00",
+      "start_time": "2026-10-10T23:12:00.288483+00:00"
+    },
+    {
+      "jobid": 10,
+      "runid": 47042,
+      "status": "succeeded",
+      "end_time": "2026-10-10T23:11:00.044095+00:00",
+      "start_time": "2026-10-10T23:11:00.034542+00:00"
+    }
+  ],
+  "races": [
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 1,
+      "runners": 15,
+      "attempts": 0,
+      "race_key": "20261011_京都_1R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 2,
+      "runners": 10,
+      "attempts": 0,
+      "race_key": "20261011_京都_2R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 3,
+      "runners": 16,
+      "attempts": 0,
+      "race_key": "20261011_京都_3R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "done",
+      "race_no": 4,
+      "runners": 9,
+      "attempts": 1,
+      "race_key": "20261011_京都_4R",
+      "last_error": null,
+      "updated_at": "2026-10-10T17:03:02.436+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 5,
+      "runners": 11,
+      "attempts": 0,
+      "race_key": "20261011_京都_5R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 6,
+      "runners": 16,
+      "attempts": 0,
+      "race_key": "20261011_京都_6R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 7,
+      "runners": 11,
+      "attempts": 0,
+      "race_key": "20261011_京都_7R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 8,
+      "runners": 16,
+      "attempts": 0,
+      "race_key": "20261011_京都_8R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 9,
+      "runners": 16,
+      "attempts": 0,
+      "race_key": "20261011_京都_9R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 10,
+      "runners": 17,
+      "attempts": 0,
+      "race_key": "20261011_京都_10R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:45:00.135461+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 11,
+      "runners": 14,
+      "attempts": 0,
+      "race_key": "20261011_京都_11R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:45:00.135461+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "京都",
+      "status": "pending",
+      "race_no": 12,
+      "runners": 16,
+      "attempts": 0,
+      "race_key": "20261011_京都_12R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:45:00.135461+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 1,
+      "runners": 15,
+      "attempts": 1,
+      "race_key": "20261011_東京_1R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:05:16.533+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:05:16.173+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 2,
+      "runners": 12,
+      "attempts": 1,
+      "race_key": "20261011_東京_2R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:12:57.548+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:12:57.104+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 3,
+      "runners": 14,
+      "attempts": 1,
+      "race_key": "20261011_東京_3R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:14:01.812+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:14:01.433+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 4,
+      "runners": 16,
+      "attempts": 1,
+      "race_key": "20261011_東京_4R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:15:03.081+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:15:02.775+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 5,
+      "runners": 11,
+      "attempts": 1,
+      "race_key": "20261011_東京_5R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:16:01.982+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:16:01.702+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 6,
+      "runners": 16,
+      "attempts": 1,
+      "race_key": "20261011_東京_6R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:17:01.638+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:17:01.245+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 7,
+      "runners": 16,
+      "attempts": 1,
+      "race_key": "20261011_東京_7R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:18:01.763+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:18:01.269+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 8,
+      "runners": 17,
+      "attempts": 1,
+      "race_key": "20261011_東京_8R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:19:01.685+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:19:01.228+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 9,
+      "runners": 12,
+      "attempts": 1,
+      "race_key": "20261011_東京_9R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:20:04.779+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:20:04.39+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 10,
+      "runners": 16,
+      "attempts": 1,
+      "race_key": "20261011_東京_10R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:21:02.445+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:21:02.05+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "done",
+      "race_no": 11,
+      "runners": 16,
+      "attempts": 1,
+      "race_key": "20261011_東京_11R",
+      "last_error": null,
+      "updated_at": "2026-10-10T23:22:02.304+00:00",
+      "evidence_count": 1,
+      "evidence_latest": "2026-10-10T23:22:01.788+00:00"
+    },
+    {
+      "track": "東京",
+      "status": "pending",
+      "race_no": 12,
+      "runners": 16,
+      "attempts": 0,
+      "race_key": "20261011_東京_12R",
+      "last_error": null,
+      "updated_at": "2026-10-10T21:40:00.161301+00:00",
+      "evidence_count": 0,
+      "evidence_latest": null
+    }
+  ],
+  "responses": [
+    {
+      "id": 17782,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_11R\",\"runners\":16,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:22:00.135479+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17781,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_10R\",\"runners\":16,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:21:00.048242+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17780,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_9R\",\"runners\":12,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:20:03.289759+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17776,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_8R\",\"runners\":17,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:19:00.107786+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17775,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_7R\",\"runners\":16,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:18:00.143058+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17774,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_6R\",\"runners\":16,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:17:00.068614+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17773,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_5R\",\"runners\":11,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:16:00.128451+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17772,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_4R\",\"runners\":16,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:15:00.113915+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17771,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_3R\",\"runners\":14,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:14:00.129219+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17770,
+      "content": "{\"ok\":true,\"race_date\":\"2026-10-11\",\"meetings\":[{\"track_code\":\"05\",\"track\":\"東京\",\"race_no\":1,\"race_date\":\"2026-10-11\"},{\"track_code\":\"08\",\"track\":\"京都\",\"race_no\":1,\"race_date\":\"2026-10-11\"}],\"queued\":24,\"future_seeds\":[\"2026-10-12\"]}",
+      "created": "2026-10-10T23:14:00.129219+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17767,
+      "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_2R\",\"runners\":12,\"evidence_saved\":true}],\"failed\":[]}",
+      "created": "2026-10-10T23:12:54.96238+00:00",
+      "status_code": 200
+    },
+    {
+      "id": 17766,
+      "content": "{\"ok\":true,\"race_date\":\"2026-10-11\",\"meetings\":[{\"track_code\":\"05\",\"track\":\"東京\",\"race_no\":1,\"race_date\":\"2026-10-11\"},{\"track_code\":\"08\",\"track\":\"京都\",\"race_no\":1,\"race_date\":\"2026-10-11\"}],\"queued\":24,\"future_seeds\":[\"2026-10-12\"]}",
+      "created": "2026-10-10T23:12:54.96238+00:00",
+      "status_code": 200
+    }
+  ]
+}
