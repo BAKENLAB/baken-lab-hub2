@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {recentScoreShadow} from './recent-score-shadow.mjs';
+const finish=(f,n,margin)=>({raw:`2026年10月1日 東京 1着 ${n}頭`,finish:f,field_size:n,margin_to_winner:margin});
+const excluded={raw:'2026年9月21日 阪神 牝新馬 除外 14頭7番',finish:null};
+test('win with zero margin scores 100',()=>assert.equal(recentScoreShadow([finish(1,10,0)]).recentScore,100));
+test('excluded event does not count as a start',()=>assert.deepEqual(recentScoreShadow([excluded,finish(1,10,0)]),{state:'CALCULATED',actualStarts:1,scoredLastFour:1,recentScore:100}));
+test('fifth source event enters recent four after exclusion',()=>assert.equal(recentScoreShadow([excluded,finish(1,10,0),finish(1,10,0),finish(1,10,0),finish(1,10,0)]).scoredLastFour,4));
+test('new horse has no score',()=>assert.deepEqual(recentScoreShadow([]),{state:'CALCULATED',actualStarts:0,scoredLastFour:0,recentScore:null}));
+test('unknown event holds',()=>assert.equal(recentScoreShadow([{raw:'unrecognized'}]).state,'HOLD'));
+test('did not finish counts as start not finish',()=>assert.deepEqual(recentScoreShadow([{raw:'2026年9月21日 中止',finish:null},finish(1,10,0)]),{state:'CALCULATED',actualStarts:2,scoredLastFour:1,recentScore:100}));
