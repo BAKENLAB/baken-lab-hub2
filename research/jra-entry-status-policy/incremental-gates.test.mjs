@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {planScopedRefresh} from './incremental-gates.mjs';
+const sig='a'.repeat(64);
+const race={id:'race-1'};
+const runners=[{horse_no:1},{horse_no:2}];
+const verifiedStatuses=[{horse_no:1,status:'ACTIVE',verified:true,scope:'CURRENT_RACE'},{horse_no:2,status:'CANCELLED',verified:true,scope:'CURRENT_RACE'}];
+const base={race,runners,verifiedStatuses,sourceSignature:sig,previousSignature:'b'.repeat(64)};
+test('stage only active horse',()=>assert.deepEqual(planScopedRefresh(base),{state:'STAGE_ONLY',raceId:'race-1',activeHorseNos:[1],sourceSignature:sig}));
+test('unchanged source no-op',()=>assert.equal(planScopedRefresh({...base,previousSignature:sig}).state,'NO_CHANGE'));
+test('missing status holds',()=>assert.equal(planScopedRefresh({...base,verifiedStatuses:verifiedStatuses.slice(0,1)}).state,'HOLD'));
+test('unverified status holds',()=>assert.equal(planScopedRefresh({...base,verifiedStatuses:[{...verifiedStatuses[0],verified:false},verifiedStatuses[1]]}).state,'HOLD'));
+test('historic scope holds',()=>assert.equal(planScopedRefresh({...base,verifiedStatuses:[{...verifiedStatuses[0],scope:'PAST_RACE'},verifiedStatuses[1]]}).state,'HOLD'));
+test('duplicate horse holds',()=>assert.equal(planScopedRefresh({...base,runners:[{horse_no:1},{horse_no:1}]}).state,'HOLD'));
+test('missing signature holds',()=>assert.equal(planScopedRefresh({...base,sourceSignature:''}).state,'HOLD'));
