@@ -3,6 +3,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import { load } from "npm:cheerio@1.0.0";
 import { authorizeCron } from "./cron-auth.mjs";
+import { dbTimeFetch } from "./db-time.mjs";
 
 const BASE="https://www.jra.go.jp";
 const TRACKS={"01":"札幌","02":"函館","03":"福島","04":"新潟","05":"東京","06":"中山","07":"中京","08":"京都","09":"阪神","10":"小倉"};
@@ -249,7 +250,7 @@ Deno.serve(async(req)=>{
   const url=Deno.env.get("SUPABASE_URL");
   const key=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
   if(!url||!key) return json({ok:false,error:"config"},500);
-  const db=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
+  const db=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false},global:{fetch:dbTimeFetch(key)}});
   const action=String(body.action??"");
 
   if(action==="discover"){
@@ -257,7 +258,7 @@ Deno.serve(async(req)=>{
     const seedResult=await db.from("jra_live_seeds")
       .select("*").eq("active",true).gte("race_date",nowJst)
       .order("race_date",{ascending:true}).limit(1).maybeSingle();
-    if(seedResult.error) return json({ok:false,error:seedResult.error.message},500);
+    if(seedResult.error) return json({ok:false,stage:"discover.seed_read",error:seedResult.error.message},500);
     if(!seedResult.data) return json({ok:true,done:true,message:"no seed"});
 
     const targetDate=seedResult.data.race_date;
@@ -419,3 +420,4 @@ Deno.serve(async(req)=>{
 
   return json({ok:false,error:"unsupported"},400);
 });
+
