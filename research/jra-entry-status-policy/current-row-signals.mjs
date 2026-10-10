@@ -7,8 +7,10 @@ export function classifyCurrentRow({horseNo,horseName,rowText,horseCellText,clas
  if(!Number.isInteger(horseNo)||horseNo<1||!horseName||typeof rowText!=='string'||typeof horseCellText!=='string')return bad('ROW_MISSING');
  const normalized=[horseCellText,...classes,...images].map(x=>String(x).normalize('NFKC'));
  const text=normalized.join(' ');
- const cancelled=/(?:出走取消|出走取り消し|競走取消|取消)/.test(text);
- const excluded=/(?:競走除外|出走除外|除外)/.test(text);
+ // Generic words 取消/除外 may appear in horse names or unrelated labels.
+ // Require explicit current-entry phrases until real official DOM is verified.
+ const cancelled=/(?:出走取消|出走取り消し|競走取消)/.test(text);
+ const excluded=/(?:競走除外|出走除外)/.test(text);
  if(cancelled&&excluded)return bad('CONFLICTING_STATUS');
  if(cancelled)return {state:'EXPLICIT_NONSTART',status:'CANCELLED',horseNo,horseName,signal:'取消',eligibleForOfficialPublish:false};
  if(excluded)return {state:'EXPLICIT_NONSTART',status:'EXCLUDED',horseNo,horseName,signal:'除外',eligibleForOfficialPublish:false};
