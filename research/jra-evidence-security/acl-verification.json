@@ -1,0 +1,378 @@
+{
+  "after": {
+    "at": "2026-10-10T23:42:36.460728+00:00",
+    "acl": [
+      "postgres=X/postgres",
+      "service_role=X/postgres"
+    ],
+    "jobs": [
+      {
+        "jobid": 10,
+        "active": true,
+        "schedule": "* * * * *"
+      },
+      {
+        "jobid": 9,
+        "active": true,
+        "schedule": "*/30 * * * *"
+      }
+    ],
+    "runs": [
+      {
+        "jobid": 10,
+        "runid": 47089,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:42:00.107978+00:00",
+        "start_time": "2026-10-10T23:42:00.101843+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47088,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:41:00.44156+00:00",
+        "start_time": "2026-10-10T23:41:00.328564+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47087,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:40:00.20017+00:00",
+        "start_time": "2026-10-10T23:40:00.196661+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47082,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:39:00.031184+00:00",
+        "start_time": "2026-10-10T23:39:00.028196+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47081,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:38:00.067673+00:00",
+        "start_time": "2026-10-10T23:38:00.060588+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47080,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:37:00.055209+00:00",
+        "start_time": "2026-10-10T23:37:00.04776+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47079,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:36:00.087433+00:00",
+        "start_time": "2026-10-10T23:36:00.084466+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47078,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:35:00.084007+00:00",
+        "start_time": "2026-10-10T23:35:00.07418+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47076,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:34:00.108766+00:00",
+        "start_time": "2026-10-10T23:34:00.08695+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47075,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:33:00.05696+00:00",
+        "start_time": "2026-10-10T23:33:00.038654+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47074,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:32:00.541324+00:00",
+        "start_time": "2026-10-10T23:32:00.393628+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47073,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:31:00.088685+00:00",
+        "start_time": "2026-10-10T23:31:00.056587+00:00"
+      },
+      {
+        "jobid": 10,
+        "runid": 47072,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:30:00.268823+00:00",
+        "start_time": "2026-10-10T23:30:00.22453+00:00"
+      },
+      {
+        "jobid": 9,
+        "runid": 47071,
+        "status": "succeeded",
+        "end_time": "2026-10-10T23:30:00.262863+00:00",
+        "start_time": "2026-10-10T23:30:00.220038+00:00"
+      }
+    ],
+    "queue": [
+      {
+        "count": 24,
+        "status": "done"
+      }
+    ],
+    "responses": [
+      {
+        "id": 17802,
+        "content": "{\"ok\":true,\"done\":[{\"race_key\":\"20261011_東京_1R\",\"runners\":15,\"evidence_saved\":true}],\"failed\":[]}",
+        "created": "2026-10-10T23:41:00.44891+00:00",
+        "status_code": 200
+      }
+    ],
+    "job21_hash": "910dea3ae42120106d909bfd5b573d06",
+    "predictions_hash": "3b6c6a52b5e3f526b2737d03fdeb7a46"
+  },
+  "edge_functions": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "lab-access",
+        "version": 99,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "lab-link",
+        "version": 5,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "jra-backfill",
+        "version": 27,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "jra-live",
+        "version": 26,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "lab-access-live",
+        "version": 5,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "lab-auth",
+        "version": 7,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "nar-odds-probe",
+        "version": 10,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "hub2-api",
+        "version": 32,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "baken-lab-mcp",
+        "version": 5,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "lab-morning-import",
+        "version": 7,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "local-data-refresh",
+        "version": 13,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "nar-schedule-probe",
+        "version": 13,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "local-result-refresh",
+        "version": 6,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "jra-result-refresh",
+        "version": 7,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "jra-result-probe",
+        "version": 6,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "lab-claimed-context",
+        "version": 11,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "local-claimed-mcp",
+        "version": 12,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "jra-claimed-mcp",
+        "version": 4,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "local-claimed-mcp-canary",
+        "version": 4,
+        "mentions": []
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "local-ai-worker",
+        "version": 9,
+        "mentions": []
+      }
+    }
+  ],
+  "main_files": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "bet.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "blood.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "course.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "index.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "jockey.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "next.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "oauth/consent/index.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "result.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "sw.js",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "today.html",
+        "mention": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "file": "vercel.json",
+        "mention": false
+      }
+    }
+  ]
+}
