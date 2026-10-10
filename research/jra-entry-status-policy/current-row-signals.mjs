@@ -1,6 +1,7 @@
 // SHADOW ONLY. Parse row-level explicit cancellation signals; never infer ACTIVE.
 // This function accepts extracted row attributes/text from the official JRA HTML.
-// Only current-entry horse cell and row metadata are inspected; past-run cells may contain historical 取消/除外.\n// Unknown or contradictory signals always HOLD. No DB writes.
+// Only current-entry horse cell and row metadata are inspected; past-run cells may contain historical 取消/除外.
+// Unknown or contradictory signals always HOLD. No DB writes.
 const bad=reason=>({state:'HOLD',reason});
 export function classifyCurrentRow({horseNo,horseName,rowText,horseCellText,classes=[],images=[]}={}){
  if(!Number.isInteger(horseNo)||horseNo<1||!horseName||typeof rowText!=='string'||typeof horseCellText!=='string')return bad('ROW_MISSING');
