@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {classifyCurrentRow as f,inspectCurrentRows as all} from './current-row-signals.mjs';
+const base={horseNo:1,horseName:'テスト',rowText:'テスト 牡3 57kg',horseCellText:'テスト'};
+test('ordinary row never proves active',()=>assert.equal(f(base).reason,'ACTIVE_NOT_PROVEN'));
+test('explicit cancellation',()=>assert.equal(f({...base,rowText:'テスト 出走取消'}).status,'CANCELLED'));
+test('explicit exclusion',()=>assert.equal(f({...base,rowText:'テスト 競走除外'}).status,'EXCLUDED'));
+test('image alt exclusion',()=>assert.equal(f({...base,images:['除外']}).status,'EXCLUDED'));
+test('conflicting signals hold',()=>assert.equal(f({...base,rowText:'取消 除外'}).state,'HOLD'));
+test('historical unrelated row is not acceptable proof of active',()=>assert.equal(f({...base,rowText:'1着 2着'}).state,'HOLD'));
+test('no horse number holds',()=>assert.equal(f({...base,horseNo:0}).reason,'ROW_MISSING'));
+test('duplicate horse holds',()=>assert.equal(all([base,base]).reason,'DUPLICATE_HORSE'));
+test('nonstarts still not publishable',()=>assert.equal(all([{...base,rowText:'出走取消'}]).eligibleForOfficialPublish,false));
