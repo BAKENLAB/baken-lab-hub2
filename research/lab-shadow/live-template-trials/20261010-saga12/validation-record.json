@@ -1,0 +1,39 @@
+{
+  "race": {
+    "race_date": "2026-10-10",
+    "track": "佐賀",
+    "race_no": 12,
+    "circuit": "LOCAL",
+    "post_time": "2026-10-10T11:40:00+00:00",
+    "race_name": "SAGAリベFEVER14C2-26組",
+    "conditions": {
+      "surface": "ダート",
+      "distance": 1400,
+      "going": "良",
+      "weather": "晴",
+      "turn": "右"
+    },
+    "current_source_ref": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_babaCode=32&k_raceDate=2026%2F10%2F10&k_raceNo=12"
+  },
+  "started_at": "2026-10-10T11:00:52Z",
+  "completed_at": "2026-10-10T11:05:45.170Z",
+  "elapsed_seconds": 293.17,
+  "job_lease_until": "2026-10-10T11:15:53.864156+00:00",
+  "format_valid": true,
+  "production_save_verified": false,
+  "production_save_performed": false,
+  "live_claim_rechecked": false,
+  "input_verification_source": "LOCAL MCP v9 returned field_integrity_checked=true; independent official re-fetch not performed",
+  "runner_audits": 14,
+  "outside_candidates": 9,
+  "outside_check_count": 153,
+  "pair_count": 36,
+  "exact_generation_source": "Human assessment recorded in evaluation-record.mjs; script only formats records",
+  "limitations": [
+    "JRA margin strings are not seconds",
+    "NAR recent positions absent",
+    "No condition/fitness inference from missing data",
+    "Display styles derive partly from old JRA history and are not used to rank",
+    "MCP format pass is not truth or production acceptance proof"
+  ]
+}
