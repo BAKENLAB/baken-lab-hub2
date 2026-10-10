@@ -2,6 +2,7 @@
 export function classifyPastRun(run) {
   const raw = typeof run?.raw === 'string' ? run.raw : '';
   if (!raw) return { kind: 'UNKNOWN', countAsStart: false, countAsFinish: false };
+  if (/JRAへ転入/.test(raw)) return { kind: 'TRANSFER', countAsStart: false, countAsFinish: false };
   if (/(?:^|\s)(?:除外|取消)(?:\s|$)/.test(raw)) return { kind: /除外/.test(raw) ? 'EXCLUDED' : 'CANCELLED', countAsStart: false, countAsFinish: false };
   if (/(?:^|\s)中止(?:\s|$)/.test(raw)) return { kind: 'DID_NOT_FINISH', countAsStart: true, countAsFinish: false };
   if (Number.isInteger(run?.finish) && run.finish > 0) return { kind: 'FINISHED', countAsStart: true, countAsFinish: true };
