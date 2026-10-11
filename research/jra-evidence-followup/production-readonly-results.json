@@ -1,0 +1,71 @@
+{
+  "initial": {
+    "at": "2026-10-11T00:04:34.749814+00:00",
+    "kyoto4": [
+      {
+        "cname": "pw01dde0108202604040420261011/79",
+        "status": "done",
+        "surface": "障害",
+        "attempts": 1,
+        "distance": 2910,
+        "race_key": "20261011_京都_4R",
+        "race_type": "障害",
+        "last_error": null,
+        "updated_at": "2026-10-10T17:03:02.436+00:00",
+        "source_checked_at": "2026-10-10T17:03:02.161+00:00"
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX jra_html_evidence_pkey ON public.jra_html_evidence USING btree (id)",
+      "CREATE UNIQUE INDEX jra_html_evidence_race_key_html_sha256_key ON public.jra_html_evidence USING btree (race_key, html_sha256)",
+      "CREATE INDEX jra_html_evidence_recent ON public.jra_html_evidence USING btree (race_key, fetched_at DESC)"
+    ],
+    "evidence": {
+      "rows": 40,
+      "races": 23
+    },
+    "predictions_hash": "e9323c31f96075b247f073690f5f9509",
+    "job21_queue_clause": "update public.jra_live_queue q set status='pending', attempts=0, last_error=null, updated_at=now() where q.race_date=((now() at time zone 'Asia/Tokyo')::date) and q.status='done' and q.updated_at < now()-interval '30 minutes' and exists (select 1 from public.official_races r where r.race_date=q.race_date and r.track=q.track and r.race_no=q.race_no and r.circuit='JRA' and r.post_time is not null and r.post_time > now())"
+  },
+  "kyoto_result": {
+    "kyoto4": [
+      {
+        "status": "done",
+        "attempts": 1,
+        "last_error": null
+      }
+    ],
+    "evidence": [
+      {
+        "race_key": "20261011_京都_4R",
+        "fetched_at": "2026-10-11T00:06:02.083+00:00",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202604040420261011%2F79",
+        "html_sha256": "9cd50b686ae3b2cba4808abf956d19e4238235220e9ef7bcc5fcd5423bb7b64a",
+        "runner_count": 9
+      }
+    ],
+    "duplicate_pairs": 0,
+    "candidate_absent": true,
+    "predictions_hash": "e9323c31f96075b247f073690f5f9509"
+  },
+  "final": {
+    "at": "2026-10-11T00:16:51.220935+00:00",
+    "queue": [
+      {
+        "count": 24,
+        "status": "done"
+      }
+    ],
+    "evidence": {
+      "rows": 48,
+      "races": 24,
+      "verified": 0
+    },
+    "duplicates": 0,
+    "job21_hash": "910dea3ae42120106d909bfd5b573d06",
+    "rpc_absent": true,
+    "schema_absent": true,
+    "predictions_hash": "e9323c31f96075b247f073690f5f9509",
+    "job21_mentions_predictions": false
+  }
+}

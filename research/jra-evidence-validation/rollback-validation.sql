@@ -49,6 +49,7 @@ BEGIN
  IF TG_TABLE_NAME='html_blobs' THEN
   IF coalesce((SELECT sum(compressed_bytes) FROM jra_evidence_private.html_blobs),0)+octet_length(NEW.body_gzip)>536870912 THEN RAISE EXCEPTION 'EVIDENCE_CAPACITY_LIMIT'; END IF;
  ELSE
+  IF EXISTS(SELECT 1 FROM jra_evidence_private.html_captures WHERE cname=NEW.cname AND wire_sha256=NEW.wire_sha256 AND fetched_at=NEW.fetched_at) THEN RETURN NEW; END IF;
   IF (SELECT count(*) FROM jra_evidence_private.html_captures)>=100000 THEN RAISE EXCEPTION 'EVIDENCE_CAPTURE_LIMIT'; END IF;
  END IF;
  RETURN NEW;
@@ -82,7 +83,6 @@ BEGIN
 END $$;
 REVOKE EXECUTE ON FUNCTION public.jra_store_html_evidence_v1(jsonb,bytea) FROM PUBLIC,anon,authenticated;
 GRANT EXECUTE ON FUNCTION public.jra_store_html_evidence_v1(jsonb,bytea) TO service_role;
-
 SET LOCAL ROLE service_role;
 DO $test$ DECLARE v_meta jsonb:= $meta${"format_version":"JRA_PRIVATE_HTML_V1","race":{"cname":"pw01dde0105202604040120261011/7C","track_code":"05","race_no":1,"race_date":"2026-10-11"},"source_url":"https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604040120261011%2F7C","fetched_at":"2026-09-01T00:00:00Z","expires_at":"2026-10-01T00:00:00.000Z","wire_sha256":"6c3c7f70ab4832f04ac2828dac79dcf328166184d4d651f8714f4a676f0d098f","decoded_utf8_sha256":"6c3c7f70ab4832f04ac2828dac79dcf328166184d4d651f8714f4a676f0d098f","gzip_sha256":"8b1c94909217ead620d9d1f88825ed7ff19bf41e555d9b5f2921e3c05dc20a2f","raw_bytes":43,"compressed_bytes":57,"encoding":"shift_jis","compression":"gzip","status_verified":false}$meta$::jsonb; v_gzip bytea:=decode('1f8b0800000000000003b3c928c9cdb1b349ca4fa9b40b8ef40bf1700df1745670715208710d0eb1d1078bdbe8831501005df38de42b000000','hex'); a bigint; b bigint;
 BEGIN
