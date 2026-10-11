@@ -1,0 +1,37 @@
+{
+  "baseline_commit": "7bb5909a1e19aa0ca405e8450cf3de3d2867771a",
+  "checked_at": "2026-10-11T00:50:42.276844Z",
+  "environment": {
+    "psql": false,
+    "postgres": false,
+    "python_drivers": {
+      "psycopg": false,
+      "psycopg2": false,
+      "pg8000": false
+    },
+    "docker_attempted": false
+  },
+  "database": {
+    "read_only_query": "PASS",
+    "private_schema_absent": true,
+    "archive_rpc_absent": true,
+    "concurrent_writes": "UNVERIFIED",
+    "concurrent_capacity": "UNVERIFIED",
+    "concurrent_same_hash": "UNVERIFIED"
+  },
+  "official_page": {
+    "url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202604040120261011/7C",
+    "tool": "search_service_web_run",
+    "access": "PASS",
+    "representation": "transformed_text",
+    "race_date": "2026-10-11",
+    "track": "東京",
+    "race_no": 1,
+    "raw_html_obtained": false,
+    "wire_sha256": null,
+    "dom_verification": "UNVERIFIED",
+    "entry_status_verification": "UNVERIFIED",
+    "official_response_timestamp": null
+  },
+  "production_applied": false
+}
