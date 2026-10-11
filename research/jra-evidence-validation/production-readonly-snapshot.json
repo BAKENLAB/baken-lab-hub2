@@ -1,0 +1,256 @@
+{
+  "boundary": {
+    "at": "2026-10-11T00:00:12.517548+00:00",
+    "http": [
+      {
+        "id": 17819,
+        "content": "{\"ok\":true,\"race_date\":\"2026-10-11\",\"meetings\":[{\"track_code\":\"05\",\"track\":\"東京\",\"race_no\":1,\"race_date\":\"2026-10-11\"},{\"track_code\":\"08\",\"track\":\"京都\",\"race_no\":1,\"race_date\":\"2026-10-11\"}],\"queued\":24,\"future_seeds\":[\"2026-10-12\"]}",
+        "created": "2026-10-11T00:00:03.546557+00:00",
+        "status_code": 200
+      }
+    ],
+    "cron9": [
+      {
+        "runid": 47117,
+        "status": "succeeded",
+        "end_time": "2026-10-11T00:00:00.209534+00:00",
+        "start_time": "2026-10-11T00:00:00.199036+00:00"
+      }
+    ],
+    "queue": [
+      {
+        "count": 19,
+        "status": "done"
+      },
+      {
+        "count": 5,
+        "status": "pending"
+      }
+    ],
+    "evidence": {
+      "rows": 36,
+      "races": 23,
+      "verified": 0
+    },
+    "rpc_absent": true,
+    "schema_absent": true
+  },
+  "races": [
+    {
+      "track": "京都",
+      "race_no": 1,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "2歳未勝利",
+      "runners": 15,
+      "evidence": 2
+    },
+    {
+      "track": "京都",
+      "race_no": 2,
+      "status": "pending",
+      "race_type": "平地",
+      "race_name": "2歳未勝利",
+      "runners": 10,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 3,
+      "status": "pending",
+      "race_type": "平地",
+      "race_name": "メイクデビュー京都",
+      "runners": 16,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 4,
+      "status": "done",
+      "race_type": "障害",
+      "race_name": "障害3歳以上未勝利",
+      "runners": 9,
+      "evidence": 0
+    },
+    {
+      "track": "京都",
+      "race_no": 5,
+      "status": "pending",
+      "race_type": "平地",
+      "race_name": "メイクデビュー京都",
+      "runners": 11,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 6,
+      "status": "pending",
+      "race_type": "平地",
+      "race_name": "3歳以上1勝クラス",
+      "runners": 16,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 7,
+      "status": "pending",
+      "race_type": "平地",
+      "race_name": "3歳以上1勝クラス",
+      "runners": 11,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 8,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "3歳以上2勝クラス",
+      "runners": 16,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 9,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "円山特別",
+      "runners": 16,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 10,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "三年坂ステークス",
+      "runners": 17,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 11,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "太秦ステークス",
+      "runners": 14,
+      "evidence": 1
+    },
+    {
+      "track": "京都",
+      "race_no": 12,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "3歳以上1勝クラス",
+      "runners": 16,
+      "evidence": 1
+    },
+    {
+      "track": "東京",
+      "race_no": 1,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "2歳未勝利",
+      "runners": 15,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 2,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "2歳未勝利",
+      "runners": 12,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 3,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "2歳未勝利",
+      "runners": 14,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 4,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "メイクデビュー東京",
+      "runners": 16,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 5,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "メイクデビュー東京",
+      "runners": 11,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 6,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "3歳以上1勝クラス",
+      "runners": 16,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 7,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "3歳以上1勝クラス",
+      "runners": 16,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 8,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "3歳以上1勝クラス",
+      "runners": 17,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 9,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "鷹巣山特別",
+      "runners": 12,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 10,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "テレビ静岡賞",
+      "runners": 16,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 11,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "アイルランドトロフィー",
+      "runners": 16,
+      "evidence": 2
+    },
+    {
+      "track": "東京",
+      "race_no": 12,
+      "status": "done",
+      "race_type": "平地",
+      "race_name": "3歳以上2勝クラス",
+      "runners": 16,
+      "evidence": 2
+    }
+  ]
+}
