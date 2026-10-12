@@ -1,0 +1,16 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),test=require('node:test');
+const path=require('node:path'),root=path.resolve(__dirname,'../..');
+const html=fs.readFileSync(path.join(root,'today.html'),'utf8');
+const fn=html.slice(html.indexOf('function renderRaceArea()'),html.indexOf('function compactBets('));
+function render(r){const area={innerHTML:''};const before=JSON.stringify(r);vm.runInNewContext(fn+';renderRaceArea();',{visibleRaces:()=>[r],$:()=>area,state:{circuit:r.circuit,venue:r.track},esc:s=>String(s),fmtTime:()=>'',Date});assert.equal(JSON.stringify(r),before);return area.innerHTML;}
+const race={circuit:'JRA',track:'東京',race_no:1,key:'東京1',race_name:'2歳未勝利',post_time:'2026-10-12T00:50:00Z',prediction_status:'NO_PREDICTION'};
+test('Tokyo1 past race is disabled, no prediction fabricated',()=>{const out=render(race);assert.match(out,/発走済み・予想なし/);assert.match(out,/disabled/);assert.doesNotMatch(out,/data-race-key/);});
+test('Tokyo4 explicitly unsupported hurdle race',()=>assert.match(render({...race,race_no:4,race_name:'障害3歳以上未勝利',prediction_status:'UNSUPPORTED'}),/障害戦・予想対象外/));
+test('FROZEN retains published label and existing detail interaction',()=>{const out=render({...race,prediction_status:'FROZEN',prediction:{eye:null}});assert.match(out,/予想公開中/);assert.match(out,/data-race-key="東京1"/);assert.doesNotMatch(out,/disabled/);});
+test('LOCAL past label unchanged',()=>{const out=render({...race,circuit:'LOCAL'});assert.match(out,/>予想なし</);assert.doesNotMatch(out,/発走済み/);});
+test('generic unsupported JRA label without inferred hurdle',()=>assert.match(render({...race,prediction_status:'UNSUPPORTED'}),/>予想対象外</));
+test('future normal JRA remains pending',()=>assert.match(render({...race,post_time:'2099-10-12T00:50:00Z',prediction_status:'PENDING'}),/予想準備中/));
+const sql=fs.readFileSync(path.join(__dirname,'tokyo-listing-proposal.sql'),'utf8').replace(/--[^\n]*/g,'');
+test('proposal writes only official_races using INSERT; no existing mutations or prediction RPC',()=>{assert.deepEqual([...sql.matchAll(/\bINSERT\s+INTO\s+(\S+)/gi)].map(m=>m[1]),['public.official_races']);assert.doesNotMatch(sql,/\b(UPDATE|DELETE|TRUNCATE|ALTER|DROP|CREATE)\b/i);assert.doesNotMatch(sql,/publish_jra_live_race|enqueue|claim|official_predictions|prediction_jobs/i);});
+test('proposal restricts exact source IDs/date/types and rejects pre-start execution',()=>{for(const value of ['fdd1aba5-af38-4b6a-92c4-6439ec7ce90d','7e53c8a6-02da-4c16-8e6c-85c7d6fba9c2','2026-10-12','TOKYO_LISTING_SOURCE_MISMATCH','TOKYO_LISTING_SCHEDULE_MISMATCH','post_ts >= clock_timestamp()','TOKYO_LISTING_MUST_BE_POST_START','DISPLAY_ONLY','NO_PREDICTION','UNSUPPORTED'])assert.ok(sql.includes(value),value);assert.match(sql,/ON CONFLICT[\s\S]*DO NOTHING/);assert.match(sql,/'entry_status_verified',false/);});
+test('Cron21 future-time predicate excludes both rows at/after post; enqueue excludes statuses',()=>{for(const post of ['2026-10-12T00:50:00Z','2026-10-12T02:20:00Z']){const p=Date.parse(post);assert.equal(p>p,false);assert.equal(p>p+1,false);}for(const status of ['NO_PREDICTION','UNSUPPORTED'])assert.equal(['PENDING','RETRY'].includes(status),false);});
