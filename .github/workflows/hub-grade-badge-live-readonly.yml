@@ -1,0 +1,59 @@
+name: HUB grade badge production browser regression
+on:
+  push:
+    branches: ['test/hub-jra-list-readonly-20261013']
+    paths: ['.github/workflows/hub-grade-badge-live-readonly.yml']
+permissions:
+  contents: read
+jobs:
+  badge-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 9
+    steps:
+      - name: Compare production HTML to GitHub main
+        run: |
+          python - <<'PY'
+          import urllib.request,hashlib,json,time
+          for path in ('today.html','result.html'):
+            live='https://baken-lab.vercel.app/'+path
+            source='https://raw.githubusercontent.com/BAKENLAB/baken-lab-hub2/main/'+path
+            def get(u):
+              return urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'BAKEN-LAB-DISPLAY-VALIDATION/1'}),timeout=20).read()
+            main=get(source)
+            same=False
+            for attempt in range(8):
+              production=get(live)
+              same=hashlib.sha256(main).digest()==hashlib.sha256(production).digest()
+              if same:break
+              time.sleep(9)
+            print('DEPLOY_CHECK',json.dumps({'page':path,'matches_main':same,'main_bytes':len(main),'live_bytes':len(production),'grade_function_in_live':b'displayGrade(g)' in production,'no_rank_grade_fallback':b"Number(r.rank)+'\xe4\xbd\x8d'" not in production}))
+            assert same,'Production HTML not yet identical to main: '+path
+          PY
+      - name: Install isolated browser
+        run: |
+          npm install --prefix /tmp/lab-hub-grade --no-save --no-audit --no-fund playwright@1.56.1
+          /tmp/lab-hub-grade/node_modules/.bin/playwright install chromium --only-shell
+      - name: Test existing JRA grade missing rendering
+        run: |
+          node - <<'JS'
+          const {chromium}=require('/tmp/lab-hub-grade/node_modules/playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+            try{
+              const p=await browser.newPage({locale:'ja-JP',timezoneId:'Asia/Tokyo'});
+              const errors=[];p.on('pageerror',e=>errors.push(String(e).slice(0,250)));
+              await p.goto('https://baken-lab.vercel.app/today.html',{waitUntil:'domcontentloaded',timeout:25000});
+              await p.locator('#dateInput').fill('2026-10-12');
+              await p.locator('#dateInput').dispatchEvent('change');
+              await p.locator('[data-circuit="JRA"]').click();
+              const race=p.locator('#raceArea .race-row[data-race-key="2026-10-12|東京|8|JRA"]');
+              await race.waitFor({timeout:20000});
+              await race.click();
+              const grades=await p.locator('#detailArea .runner .rank-grade').allTextContents();
+              const ranks=await p.locator('#detailArea .runner .lab-rank-number').allTextContents();
+              const outcome={race:'2026-10-12 東京8R',total_grades:grades.length,grades:grades.slice(0,7),ranks:ranks.slice(0,7),jsErrors:errors};
+              console.log('BROWSER_GRADE',JSON.stringify(outcome));
+              if(grades.length!==6||grades[0].trim()!=='未評価'||ranks[0].trim()!=='1位'||grades.some(g=>/\d+位/.test(g))||errors.length)throw Error('GRADE_RENDER_REGRESSION');
+            }finally{await browser.close()}
+          })().catch(err=>{console.error('GRADE_TEST_FAILED',String(err));process.exitCode=1});
+          JS
