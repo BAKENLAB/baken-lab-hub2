@@ -1,0 +1,31 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {processResultRaces} from '../process-result-races.mjs';
+import {baseline} from './baseline-race-loop.mjs';
+const now=Date.parse('2026-10-12T10:00:00Z');
+class Clock extends Date {constructor(...args){super(...(args.length?args:[now]));}}
+const race=n=>({race_date:'2026-10-12',track:'東京',race_no:n,race_name:'fixture '+n,post_time:'2026-10-12T00:00:00Z',result_attempts:2});
+function harness({numbers=[1,4,7],failures={},missing=[],notReady=[]}={}){
+ const writes=[],reads=[],races=numbers.map(race),inputBefore=JSON.stringify(races);
+ const db={from(table){assert.ok(['official_results','official_races'].includes(table));return {
+ async upsert(value,options){writes.push({table,value,options});const f=failures[value.race_no];if(f==='save_return')return {error:{message:'synthetic rejection'}};if(f==='save_throw')throw Error('synthetic transport');return {error:null};},
+ update(value){const match={};const q={eq(k,v){match[k]=v;return q;},then(resolve,reject){writes.push({table,value,match:{...match}});const f=failures[match.race_no];if(f==='ledger_throw')return Promise.reject(Error('synthetic transport')).then(resolve,reject);return Promise.resolve({error:f==='ledger_return'?{message:'synthetic rejection'}:null}).then(resolve,reject);}};return q;}};}};
+ const deps={races,db,now,cnameByKey:new Map(numbers.filter(n=>!missing.includes(n)).map(n=>['東京|'+n,'card-'+n])),date:'2026-10-12',clock:Clock,
+ resolveResultCname:async c=>{const n=Number(c.split('-')[1]);reads.push(n);if(failures[n]==='fetch_throw')throw Error('synthetic fetch');return c;},
+ fetchHtml:async(_,c)=>c,
+ parseResult:html=>notReady.includes(Number(html.split('-')[1]))?{ready:false,error:'result_not_published'}:{ready:true,finishers:[{horse_no:2,finish:1}],payouts:{win:[]},metadata:{},race_name:'official fixture'}};
+ return {deps,writes,reads,unchanged:()=>assert.equal(JSON.stringify(races),inputBefore)};
+}
+test('normal result+ledger successful; exact baseline writes and reports preserved except additive fields',async()=>{
+ const a=harness(),b=harness();const old=await baseline(a.deps),next=await processResultRaces(b.deps);assert.deepEqual(b.writes,a.writes);assert.deepEqual(next.report.map(({result_saved,ledger_updated,partial_failure,...rest})=>rest),old.report);assert.equal(next.success_count,3);assert.equal(next.failure_count,0);assert.ok(next.report.every(r=>r.result_saved&&r.ledger_updated));b.unchanged();
+});
+for(const [fault,stage,kind,partial] of [['save_return','RESULT_SAVE','RETURNED_ERROR',false],['save_throw','RESULT_SAVE','EXCEPTION',false],['ledger_return','LEDGER_UPDATE','RETURNED_ERROR',true],['ledger_throw','LEDGER_UPDATE','EXCEPTION',true]]){
+ test(fault+' detected, later race continues; no catch write/retry',async()=>{const h=harness({failures:{4:fault}}),out=await processResultRaces(h.deps);const bad=out.report.find(r=>r.race_no===4);assert.equal(bad.ok,false);assert.equal(bad.error,stage+'_FAILED');assert.equal(bad.failure_kind,kind);assert.equal(bad.partial_failure,partial);assert.equal(bad.result_saved,partial);assert.equal(bad.ledger_updated,false);assert.equal(out.success_count,2);assert.equal(out.failure_count,1);assert.equal(out.partial_failure_count,partial?1:0);assert.equal(out.report.at(-1).ok,true);assert.deepEqual(h.reads,[1,4,7]);assert.equal(h.writes.filter(w=>(w.value.race_no??w.match?.race_no)===4).length,partial?2:1);h.unchanged();});
+}
+test('multiple failed races reported separately; successful race alone counted',async()=>{const h=harness({failures:{1:'save_return',4:'ledger_return'}});const out=await processResultRaces(h.deps);assert.equal(out.success_count,1);assert.equal(out.failure_count,2);assert.equal(out.partial_failure_count,1);assert.equal(out.report.at(-1).race_no,7);assert.equal(out.report.at(-1).ok,true);});
+test('reproduction baseline aborts on save error; candidate continues',async()=>{const a=harness({failures:{1:'save_return'}}),b=harness({failures:{1:'save_return'}});await assert.rejects(baseline(a.deps));assert.deepEqual(a.reads,[1]);const out=await processResultRaces(b.deps);assert.deepEqual(b.reads,[1,4,7]);assert.equal(out.success_count,2);});
+test('baseline falsely succeeds on ledger returned error; candidate reports partial failure',async()=>{const a=harness({failures:{1:'ledger_return'}}),b=harness({failures:{1:'ledger_return'}});const old=await baseline(a.deps),next=await processResultRaces(b.deps);assert.equal(old.report[0].ok,true);assert.equal(next.report[0].ok,false);assert.equal(next.report[0].partial_failure,true);});
+test('adding Tokyo1/4 leaves normal race writes/reports unchanged',async()=>{const a=harness({numbers:[7]}),b=harness();const old=await processResultRaces(a.deps),next=await processResultRaces(b.deps);assert.deepEqual(next.report.filter(r=>r.race_no===7),old.report);assert.deepEqual(b.writes.filter(w=>(w.value.race_no??w.match?.race_no)===7),a.writes);});
+for(const cause of ['missing_cname','not_ready','fetch_exception'])test(cause+' remains failed despite successful RETRY ledger update',async()=>{const h=harness({missing:cause==='missing_cname'?[1]:[],notReady:cause==='not_ready'?[1]:[],failures:cause==='fetch_exception'?{1:'fetch_throw'}:{}});const out=await processResultRaces(h.deps);assert.equal(out.report[0].ok,false);assert.equal(out.report[0].result_saved,false);assert.equal(out.report[0].ledger_updated,true);assert.equal(out.success_count,2);assert.equal(h.writes.filter(w=>w.table==='official_results'&&w.value.race_no===1).length,0);});
+for(const path of ['missing','not_ready'])test(path+' RETRY ledger returned error isolated',async()=>{const h=harness({missing:path==='missing'?[1]:[],notReady:path==='not_ready'?[1]:[],failures:{1:'ledger_return'}});const out=await processResultRaces(h.deps);assert.equal(out.report[0].failure_kind,'RETURNED_ERROR');assert.equal(out.report[0].ledger_updated,false);assert.equal(out.report.at(-1).ok,true);});
+test('READY/too-early skipped unchanged, no write or success count',async()=>{const h=harness();h.deps.races[0].result_status='READY';h.deps.races[1].post_time=new Date(now-9*60000).toISOString();const out=await processResultRaces(h.deps);assert.equal(out.skipped_count,2);assert.equal(out.success_count,1);assert.deepEqual(h.reads,[7]);assert.equal(h.writes.length,2);});
