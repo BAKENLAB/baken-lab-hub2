@@ -1,0 +1,22 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const summary=require('../../result-summary.js'),html=fs.readFileSync(__dirname+'/../../result.html','utf8');
+const nodes=new Map(),pending=[];
+function node(id){if(!nodes.has(id))nodes.set(id,{innerHTML:'',textContent:'',value:'',dataset:{},listeners:{},classList:{add(){},remove(){},toggle(){}},addEventListener(k,f){this.listeners[k]=f},scrollIntoView(){}});return nodes.get(id);}
+const buttons=['ALL','LOCAL','JRA'].map(c=>Object.assign(node('button-'+c),{dataset:{resultCircuit:c}}));
+const context=vm.createContext({console,URL,Date,ResultDailySummary:summary,document:{hidden:false,querySelector:node,querySelectorAll:s=>s==='[data-result-circuit]'?buttons:[]},navigator:{},window:{addEventListener(){}},fetch:url=>new Promise(resolve=>pending.push({url:new URL(url),resolve}))});
+const script=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)][0][1];vm.runInContext(script,context);
+function row(circuit,track){const id={race_date:'2026-10-12',track,race_no:7,circuit};return {...id,settled_at:'2026-10-12T05:00:00Z',prediction:{...id,status:'FROZEN',payload:{runners:[1,2,3,4,5].map(horse_no=>({horse_no,horse_name:'horse'+horse_no,rank:horse_no,grade:'C'})),top5:[1,2,3,4,5].map(horse_no=>({horse_no,rank:horse_no,mark:horse_no===1?'◎':'△'})),eye:null}},result:{finishers:[1,2,3].map(horse_no=>({horse_no,horse_name:'horse'+horse_no,finish:horse_no}))}};}
+const resolve=(p,results)=>p.resolve({ok:true,status:200,json:async()=>({ok:true,date:p.url.searchParams.get('date'),results})});
+const flush=()=>new Promise(r=>setImmediate(r));
+(async()=>{
+ resolve(pending.shift(),[]);await flush();
+ node('#resultDateInput').value='2026-10-12';vm.runInContext('loadResults()',context);resolve(pending.shift(),[row('JRA','東京'),row('LOCAL','盛岡')]);await flush();
+ assert.match(node('#dailySummary').innerHTML,/照合済み 2レース/);console.log('PASS initial summary and unchanged cards');assert.match(node('#resultArea').innerHTML,/data-result-row-index/);
+ buttons[1].listeners.click();assert.match(node('#dailySummary').innerHTML,/照合済み 1レース/);assert.match(node('#resultVenueTabs').innerHTML,/盛岡/);assert.doesNotMatch(node('#resultVenueTabs').innerHTML,/東京/);console.log('PASS circuit switches summary and existing list');
+ const before=node('#dailySummary').innerHTML;vm.runInContext("state.resultFilter='TOP5';renderResultFilters();renderResultList()",context);assert.equal(node('#dailySummary').innerHTML,before);console.log('PASS card filters preserve day-wide denominators');
+ node('#resultDateInput').value='2026-10-11';vm.runInContext('loadResults()',context);assert.match(node('#dailySummary').innerHTML,/読み込み中/);const old=pending.shift();node('#resultDateInput').value='2026-10-12';vm.runInContext('loadResults()',context);resolve(pending.shift(),[row('JRA','東京'),row('LOCAL','盛岡')]);await flush();resolve(old,[]);await flush();assert.match(node('#dailySummary').innerHTML,/照合済み 1レース/);console.log('PASS late date response cannot replace latest data');
+ vm.runInContext('loadResults()',context);pending.shift().resolve({ok:false,status:500,json:async()=>({ok:false,error:'offline failure'})});await flush();assert.match(node('#dailySummary').innerHTML,/取得できませんでした/);assert.doesNotMatch(node('#dailySummary').innerHTML,/100\.0%/);console.log('PASS HTTP failure clears stale summary');
+ for(const [name,hash] of Object.entries({"normalizeFinishers": "f37c3825ab909ad9aa80f253a09fabb2ef7672368e4e890d5e520e22ecffcf84", "renderResultDetail": "15c48a82fa3dfffd8e66b8678aab2b09f3f3536c7c3401d297031a75ba23dfdb", "resultStats": "5da8c20646ca058adf789cc40e590964ee5c05974226ab078aea9dfd1d01b604"})){const line=html.split('\n').find(l=>l.includes('function '+name+'('));assert.equal(require('node:crypto').createHash('sha256').update(line.trim()).digest('hex'),hash);}console.log('PASS existing detail and per-race calculations unchanged');
+ assert.match(html,/repeat\(3,minmax\(0,1fr\)\)/);assert.match(html,/\.daily-eye\{grid-column:1\/-1/);assert.ok(html.indexOf('id="dailySummary"')<html.indexOf('id="resultArea"'));console.log('PASS three-column layout and full-width EYE placement (static)');
+ console.log('7 PASS / 0 FAIL; real mobile browser SKIP');
+})().catch(e=>{console.error(e);process.exitCode=1});
