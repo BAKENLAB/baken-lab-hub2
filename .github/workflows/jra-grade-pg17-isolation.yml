@@ -1,0 +1,46 @@
+name: JRA grade guard PostgreSQL 17 isolation
+on:
+  push:
+    branches: ['test/jra-grade-pg17-isolation-*']
+    paths:
+      - '.github/workflows/jra-grade-pg17-isolation.yml'
+      - 'review/jra-grade/**'
+      - 'tests/jra-grade-setup.sql'
+      - 'tests/jra-grade-assertions.sql'
+permissions:
+  contents: read
+concurrency:
+  group: jra-grade-pg17-isolation-only
+  cancel-in-progress: false
+jobs:
+  isolated-postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: jra_grade_isolation
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d jra_grade_isolation"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: '5432'
+      PGUSER: postgres
+      PGDATABASE: jra_grade_isolation
+      PGCONNECT_TIMEOUT: '10'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PostgreSQL client
+        run: sudo apt-get update -qq && sudo apt-get install -y postgresql-client
+      - name: Apply schema fixtures, actual candidate SQL, and assertions
+        run: |
+          psql -v ON_ERROR_STOP=1 \
+            -f tests/jra-grade-setup.sql \
+            -f review/jra-grade/save-rpc-candidate.sql \
+            -f tests/jra-grade-assertions.sql
+      - name: Report success
+        run: echo "JRA grade guard candidate executed against isolated PostgreSQL 17. No production connection."
