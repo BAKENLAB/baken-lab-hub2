@@ -1,0 +1,44 @@
+name: HUB JRA read-only browser smoke
+on:
+  push:
+    branches: ['test/hub-jra-list-readonly-20261013']
+    paths: ['.github/workflows/hub-jra-browser-readonly.yml']
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 9
+    steps:
+      - name: Install pinned headless browser on isolated runner
+        run: |
+          mkdir -p /tmp/lab-hub-e2e
+          npm install --prefix /tmp/lab-hub-e2e --no-save --no-audit --no-fund playwright@1.56.1
+          /tmp/lab-hub-e2e/node_modules/.bin/playwright install chromium --only-shell
+      - name: Test live TODAY JRA screen without saves or mutations
+        run: |
+          node - <<'JS'
+          const {chromium}=require('/tmp/lab-hub-e2e/node_modules/playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+            try{
+              const page=await browser.newPage({locale:'ja-JP',timezoneId:'Asia/Tokyo'});
+              const errors=[];page.on('pageerror',e=>errors.push(String(e).slice(0,200)));
+              await page.goto('https://baken-lab.vercel.app/today.html',{waitUntil:'domcontentloaded',timeout:25000});
+              for(const [date,expectedRaces,expectedFrozen] of [['2026-10-12',22,10],['2026-10-11',23,14]]){
+                await page.locator('#dateInput').fill(date);
+                await page.locator('#dateInput').dispatchEvent('change');
+                await page.locator('[data-circuit="JRA"]').click();
+                await page.waitForFunction((n)=>document.querySelectorAll('#raceArea .race-row').length===n,expectedRaces,{timeout:25000});
+                const raceCount=await page.locator('#raceArea .race-row').count();
+                const frozen=await page.locator('#raceArea .race-row[data-race-key]').count();
+                const venues=await page.locator('#raceArea .jra-venue-head strong').allTextContents();
+                if(raceCount!==expectedRaces||frozen!==expectedFrozen||!venues.includes('東京')||!venues.includes('京都'))throw Error('FAILED_DISPLAY '+JSON.stringify({date,raceCount,frozen,venues,errors}));
+                await page.locator('#raceArea .race-row[data-race-key]').first().click();
+                const detailChars=(await page.locator('#detailArea').innerText()).trim().length;
+                if(detailChars<30)throw Error('DETAIL_EMPTY '+JSON.stringify({date,detailChars}));
+                console.log('BROWSER_PASS '+JSON.stringify({date,races:raceCount,frozen,venues,detailChars,jsErrors:errors}));
+              }
+            }finally{await browser.close();}
+          })().catch(e=>{console.error('BROWSER_FAIL',String(e).slice(0,1500));process.exitCode=1});
+          JS
