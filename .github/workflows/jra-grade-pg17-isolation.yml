@@ -7,6 +7,7 @@ on:
       - 'review/jra-grade/**'
       - 'tests/jra-grade-setup.sql'
       - 'tests/jra-grade-assertions.sql'
+      - 'tests/jra-grade-guard.test.mjs'
 permissions:
   contents: read
 concurrency:
@@ -34,6 +35,8 @@ jobs:
       PGCONNECT_TIMEOUT: '10'
     steps:
       - uses: actions/checkout@v4
+      - name: Nonproduction generator grade preflight
+        run: node --test tests/jra-grade-guard.test.mjs
       - name: Install PostgreSQL client
         run: sudo apt-get update -qq && sudo apt-get install -y postgresql-client
       - name: Apply schema fixtures, actual candidate SQL, and assertions
@@ -43,4 +46,4 @@ jobs:
             -f review/jra-grade/save-rpc-candidate.sql \
             -f tests/jra-grade-assertions.sql
       - name: Report success
-        run: echo "JRA grade guard candidate executed against isolated PostgreSQL 17. No production connection."
+        run: echo "Isolated PostgreSQL 17 and pure preflight passed. No production connection."
