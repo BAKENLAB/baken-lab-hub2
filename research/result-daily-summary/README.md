@@ -31,3 +31,13 @@ today.html and result.html ALL RUNNERS renderDetail now show saved numeric rank 
     node research/result-daily-summary/rank-display.test.cjs
 
 2 render tests PASS: same B grades keep individual ranks, unsorted input renders in saved-rank order, payload remains unchanged, missing rank stays unknown and existing fields/EYE remain. Real mobile browser remains SKIP.
+
+## Additional requested verification
+
+2026-10-12: existing rank UI commit 43d6462 verified on branch; not reimplemented. UI integration expanded to 9 PASS with existing race-detail open/back, null-versus-missing EYE rendering. Aggregation 23 PASS, rank UI 2 PASS. Total 34 independent checks.
+
+Real browser attempt via installed Python Playwright and /usr/bin/chromium: SKIP. BrowserType.launch reports Target page, context or browser has been closed before page creation. Attempt bounded to 55 seconds; no repeated launches, alternate network routes, paid resources, production calls or permission bypass. 320/375/390px actual layout is NOT verified.
+
+    python research/result-daily-summary/mobile-browser-check.py
+
+This offline script routes the production API URL to explicit synthetic fixtures and aborts other remote requests; it can be run in an existing browser-capable isolated environment. No real API communication or browser success claimed. Width assertions, date/circuit changes, detail open/back, EYE-null and empty-date screenshots are exercised if browser launch works. Visual review remains required.
