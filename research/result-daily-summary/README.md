@@ -23,3 +23,11 @@ SKIP: real browser/mobile screenshot, actual page-to-API HTTP, production servic
 
 Before production approval: open this branch in a local/isolated preview at 320/375/390px, check long counts and waiting labels, switch JRA/LOCAL/ALL and dates, open/back existing cards, verify newest date survives delayed responses. Preview creation was not performed; no production deployment.
 Deployment must include result.html and result-summary.js together. Module URL versioned v=20261012-v1. If the module cannot load, existing race rendering continues with summary waiting text. Service worker is unchanged; check online/offline cached pages before release, and hard-refresh if needed. Rollback restores original result.html; unused summary asset can remain until separate cleanup.
+
+## Saved LAB RANK display addition
+
+today.html and result.html ALL RUNNERS renderDetail now show saved numeric rank above the existing S–F badge. A copied display array sorts by saved rank, missing/invalid ranks last; no source mutation or rank inference. Eye rendering, top5/marks, horse numbers/names/comments and original result details remain unchanged.
+
+    node research/result-daily-summary/rank-display.test.cjs
+
+2 render tests PASS: same B grades keep individual ranks, unsorted input renders in saved-rank order, payload remains unchanged, missing rank stays unknown and existing fields/EYE remain. Real mobile browser remains SKIP.
