@@ -7,8 +7,10 @@ function render(rows,circuit='JRA'){const area={innerHTML:''},ctx={visibleRaces:
 test('specific verified Kyoto8 reason',()=>assert.match(render([r]),/⑥カドーダムールの公式出走歴0件/));
 test('specific reason never leaks to other date/track/R',()=>{for(const override of [{race_date:'2026-10-13'},{track:'東京'},{race_no:9}])assert.doesNotMatch(render([{...r,...override}]),/カドーダムール/)});
 test('FROZEN has no reason, keeps detail key/status/odds',()=>{const out=render([{...r,prediction_status:'FROZEN',prediction:{eye:null}}]);assert.doesNotMatch(out,/class="r-reason"/);assert.match(out,/予想公開中/);assert.match(out,/data-race-key="K8"/);assert.match(out,/ODDS ●/)});
-test('maiden and hurdle explicit labels',()=>{assert.match(render([{...r,race_name:'2歳新馬'}]),/新馬戦は現在の評価対象外/);assert.match(render([{...r,race_name:'障害未勝利'}]),/障害戦は現在の評価対象外/)});
-test('unknown future reason not inferred from pending',()=>assert.match(render([{...r,race_no:7}]),/予想未公開（理由確認中）/));
+test('maiden and hurdle explicit labels',()=>{assert.match(render([{...r,race_name:'2歳新馬'}]),/新馬戦は過去走データがなく/);assert.match(render([{...r,race_name:'障害未勝利'}]),/障害戦は現在の評価対象外/)});
+test('future pending race shows time remaining without implying failure',()=>assert.match(render([{...r,race_no:7}]),/予想準備中（発走まで時間があります）/));
+test('unknown state remains reason unknown',()=>assert.match(render([{...r,race_no:7,prediction_status:'RETRY'}]),/予想未公開（理由確認中）/));
+test('make debut past race explains missing data before past-time label',()=>{const out=render([{...r,race_no:4,race_name:'メイクデビュー京都',post_time:'2026-10-12T00:00:00Z'}]);assert.match(out,/新馬戦は過去走データがなく/);assert.match(out,/<span class="badge no-pred">予想対象外/);assert.doesNotMatch(out,/発走済み・正式予想未公開/)});
 test('past missing prediction has explicit observable reason',()=>assert.match(render([{...r,race_no:7,post_time:'2026-10-12T00:00:00Z'}]),/予想なし（発走済み・正式予想未公開）/));
 test('LOCAL is not classified as JRA unsupported',()=>{const out=render([{...r,circuit:'LOCAL',track:'盛岡',race_name:'新馬'}],'LOCAL');assert.doesNotMatch(out,/新馬戦は現在/);assert.match(out,/理由確認中/)});
 test('reason directly below race title, HTML escaped',()=>{const out=render([{...r,race_no:7,race_name:'<script>alert(1)</script>'}]);assert.match(out,/&lt;script&gt;/);assert.doesNotMatch(out,/<script>/);assert.match(out,/class="r-title"[\s\S]*?<\/div><div class="r-reason"/)});
