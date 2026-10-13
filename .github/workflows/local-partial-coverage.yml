@@ -1,0 +1,15 @@
+name: LOCAL partial coverage regression
+on:
+  push:
+    branches: [fix/local-partial-coverage-no-history-20261013]
+  workflow_dispatch:
+jobs:
+  partial-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate LOCAL partial and original full-save contracts
+        run: node --test automation/local-eye-partial.test.mjs
