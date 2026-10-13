@@ -4,6 +4,7 @@ DECLARE v text; old text; n integer;
 BEGIN
  SELECT pg_get_functiondef(p.oid) INTO v FROM pg_proc p JOIN pg_namespace ns ON ns.oid=p.pronamespace WHERE ns.nspname='public' AND p.proname='local_eye_comparison_insert_guard';
  IF v IS NULL THEN RAISE EXCEPTION 'MISSING_OLD_EYE_GUARD';END IF;
+ IF position('IF NEW.protocol_version NOT IN (''CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004'',''CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013'') THEN' in v)=0 THEN
  old:='IF NEW.protocol_version IS DISTINCT FROM ''CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004'' THEN';
  IF position(old in v)=0 THEN RAISE EXCEPTION 'GUARD_VERSION_ANCHOR_MISMATCH';END IF;
  v:=replace(v,old,'IF NEW.protocol_version NOT IN (''CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004'',''CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013'') THEN');
@@ -20,12 +21,15 @@ BEGIN
  END IF;
  IF jsonb_array_length(a->''eye_pairwise_comparison'')<>cardinality(outside)*(cardinality(outside)-1)/2 THEN');
  EXECUTE v;
+ END IF;
  SELECT pg_get_functiondef(p.oid) INTO v FROM pg_proc p JOIN pg_namespace ns ON ns.oid=p.pronamespace WHERE ns.nspname='public' AND p.proname='lab_save_claimed_prediction';
  IF v IS NULL THEN RAISE EXCEPTION 'MISSING_SAVE_FUNCTION';END IF;
+ IF position('CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013' in v)=0 THEN
  old:='''CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004'') THEN';
  IF position(old in v)=0 THEN RAISE EXCEPTION 'SAVE_VERSION_ANCHOR_MISMATCH';END IF;
  v:=replace(v,old,'''CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004'',
     ''CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013'') THEN');
  EXECUTE v;
+ END IF;
 END
 $migration$;
