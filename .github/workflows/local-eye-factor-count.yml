@@ -1,0 +1,20 @@
+name: LOCAL EYE factor-count guard
+on:
+  push:
+    branches: [feat/local-eye-factor-count-20261013]
+  pull_request:
+    paths:
+      - 'automation/local-eye.mjs'
+      - 'automation/local-eye-factor.test.mjs'
+      - 'automation/local-ai-worker-factor.ts'
+      - '.github/workflows/local-eye-factor-count.yml'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: New factor count and old partial tests
+        run: node --test automation/local-eye-factor.test.mjs automation/local-eye-partial.test.mjs automation/local-queue-error.test.mjs
