@@ -108,8 +108,9 @@ export function selectLocalEye({circuit,payload}) {
       if((c.preferred_horse_no!==null || candidate.evidence_refs.length>0)
         &&!c.evidence_refs.some(ref=>candidate.evidence_refs.includes(ref)))bad('PAIR_UNLINKED');}
     if(c.preferred_horse_no!==null){
-      if(!c.horse_nos.includes(c.preferred_horse_no)
-        ||!a.eye_candidate_audit.find(x=>x.horse_no===c.preferred_horse_no).eye_case)bad('PAIR_PREFERENCE');
+      // Pairwise winners can be non-EYE horses. EYE selection below still
+      // requires exactly one independently supported dominant candidate.
+      if(!c.horse_nos.includes(c.preferred_horse_no))bad('PAIR_PREFERENCE');
       wins.set(c.preferred_horse_no,wins.get(c.preferred_horse_no)+1);
     }
   }
