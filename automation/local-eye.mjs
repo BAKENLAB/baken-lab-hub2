@@ -135,13 +135,84 @@ export function assertLocalEyeForSave({circuit,protocol_version,payload}) {
   }
   return true;
 }
+
+// V1.6: count independent positive factors. All 17 checks remain mandatory;
+// a CHECKED item alone is NOT a positive factor.
+export const FACTOR_VERSION='CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013';
+export const FACTOR_GUARD='LOCAL_EYE_FACTOR_COUNT_V1';
+export function selectLocalFactorEye({circuit,payload}) {
+ if(circuit!=='LOCAL')bad('LOCAL_ONLY');
+ const outside=pool(payload),a=payload?.audit;
+ if(!obj(a)||a.rank6_auto_selected!==false||a.market_used_for_eye!==false
+   ||a.eye_selection_method!==FACTOR_GUARD
+   ||a.eye_reaudit_guard!=='EYE_REAUDIT_GUARD_20260929')bad('AUDIT_FLAGS');
+ if(!sameSet(a.eye_pool_checked,outside.map(r=>r.horse_no)))bad('POOL_SET');
+ checked(a.eye_candidate_audit,outside);
+ if(!Array.isArray(a.eye_pairwise_comparison)||a.eye_pairwise_comparison.length!==0)bad('OLD_PAIRS_FORBIDDEN');
+ const fa=a.eye_positive_factor_audit;
+ if(!Array.isArray(fa)||!sameSet(fa.map(x=>x?.horse_no),outside.map(r=>r.horse_no)))bad('FACTOR_POOL');
+ noMarket(fa);noMarket(a.eye_tie_break);
+ const eligible=[];
+ for(const record of fa){
+   if(!exactKeys(record,['horse_no','positive_factors'])||!Array.isArray(record.positive_factors)||record.positive_factors.length>17)bad('FACTOR_SCHEMA');
+   const cand=a.eye_candidate_audit.find(x=>x.horse_no===record.horse_no);
+   const seenCategories=new Set(),seenReasons=new Set();let recent=false;
+   for(const f of record.positive_factors){
+     if(!exactKeys(f,['category','reason','evidence_refs','current_relevance'])
+       ||!CHECKS.includes(f.category)||!text(f.reason)||rankOnly.test(f.reason)
+       ||!refs(f.evidence_refs)||typeof f.current_relevance!=='boolean')bad('FACTOR_SCHEMA');
+     if(seenCategories.has(f.category)||seenReasons.has(f.reason.trim()))bad('FACTOR_DUPLICATE');
+     seenCategories.add(f.category);seenReasons.add(f.reason.trim());
+     const check=cand.review_checks[f.category];
+     if(check.status!=='CHECKED'
+       ||!f.evidence_refs.every(r=>cand.evidence_refs.includes(r)&&check.evidence_refs.includes(r)))bad('FACTOR_UNVERIFIED');
+     if(f.current_relevance)recent=true;
+   }
+   if(record.positive_factors.length>=2)eligible.push({horse_no:record.horse_no,count:record.positive_factors.length});
+ }
+ const max=eligible.length?Math.max(...eligible.map(x=>x.count)):0;
+ const leaders=eligible.filter(x=>x.count===max).map(x=>x.horse_no);
+ const tie=a.eye_tie_break;
+ let selected=null;
+ if(a.partial_coverage===true){
+   if(tie!==null)bad('PARTIAL_EYE_MUST_ABSTAIN');
+ }else if(leaders.length===1){
+   if(tie!==null)bad('TIE_BREAK_UNEXPECTED');
+   selected=leaders[0];
+ }else if(leaders.length>1){
+   if(tie!==null){
+     if(!exactKeys(tie,['selected_horse_no','strength_reason','recency_reason','risk_reason','evidence_refs'])
+       ||!leaders.includes(tie.selected_horse_no)||!text(tie.strength_reason)
+       ||!text(tie.recency_reason)||!text(tie.risk_reason)||!refs(tie.evidence_refs))bad('TIE_BREAK_SCHEMA');
+     for(const k of ['strength_reason','recency_reason','risk_reason'])
+       if(rankOnly.test(tie[k]))bad('TIE_BREAK_EVIDENCE');
+     const winner=a.eye_candidate_audit.find(x=>x.horse_no===tie.selected_horse_no);
+     if(!tie.evidence_refs.some(r=>winner.evidence_refs.includes(r)))bad('TIE_BREAK_EVIDENCE');
+     selected=tie.selected_horse_no;
+   }
+ }else if(tie!==null)bad('TIE_BREAK_UNEXPECTED');
+ if(!a.eye_candidate_audit.every(c=>c.eye_case===(c.horse_no===selected&&selected!==null)))bad('SELECTION_MISMATCH');
+ if(selected===null){
+   if(payload.eye!==null||a.eye_selected_rank!==null||!text(a.eye_abstention_reason)
+     ||rankOnly.test(a.eye_abstention_reason)||marketText.test(a.eye_abstention_reason))bad('ABSTENTION');
+ }else{
+   const r=outside.find(x=>x.horse_no===selected);
+   if(!obj(payload.eye)||payload.eye.horse_no!==selected||payload.eye.horse_name!==r.horse_name
+      ||a.eye_selected_rank!==r.rank||!text(payload.eye.reason)||rankOnly.test(payload.eye.reason)
+      ||Object.hasOwn(payload.eye,'rank')&&payload.eye.rank!==r.rank)bad('SELECTION_MISMATCH');
+   noMarket(payload.eye);
+ }
+ return selected;
+}
+
 export function assertLocalSaveDuringTransition(input) {
   const {circuit,protocol_version,payload}=input;
   if(circuit!=='LOCAL')bad('LOCAL_ONLY');
-  if(![LEGACY_VERSION,VERSION].includes(protocol_version))bad('PROTOCOL');
+  if(![LEGACY_VERSION,VERSION,FACTOR_VERSION].includes(protocol_version))bad('PROTOCOL');
   if(!exactKeys(payload,['runners','top5','eye','bets','summary','bet_strategy','audit']))bad('PAYLOAD_KEYS');
   if(!Array.isArray(payload.bets)||payload.bets.length!==0
     ||payload.bet_strategy!=='SUSPENDED_FOR_ABILITY_STABILITY')bad('BET_CONTRACT');
   if(protocol_version===VERSION)assertLocalEyeForSave(input);
+  if(protocol_version===FACTOR_VERSION){if(payload?.audit?.protocol_version!==FACTOR_VERSION)bad('PROTOCOL');selectLocalFactorEye({circuit,payload});}
   return true;
 }
