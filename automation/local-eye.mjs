@@ -58,7 +58,7 @@ function pool(payload) {
     ||rated.length<5||rated.some(r=>r.rank>rated.length)||new Set(rated.map(r=>r.rank)).size!==rated.length
     ||(!partial&&runners.some(r=>!integer(r.rank))))bad('RUNNERS');
   const top=payload.top5.map(r=>r?.horse_no);
-  if(!sameSet(top,runners.filter(r=>r.rank<=5).map(r=>r.horse_no)))bad('TOP5_IDENTITY');
+  if(!sameSet(top,runners.filter(r=>integer(r.rank)&&r.rank<=5).map(r=>r.horse_no)))bad('TOP5_IDENTITY');
   return runners.filter(r=>!top.includes(r.horse_no));
 }
 function checked(candidates,outside) {
