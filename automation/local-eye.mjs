@@ -168,7 +168,7 @@ export function selectLocalFactorEye({circuit,payload}) {
        ||!f.evidence_refs.every(r=>cand.evidence_refs.includes(r)&&check.evidence_refs.includes(r)))bad('FACTOR_UNVERIFIED');
      if(f.current_relevance)recent=true;
    }
-   if(record.positive_factors.length>=2&&recent)eligible.push({horse_no:record.horse_no,count:record.positive_factors.length});
+   if(record.positive_factors.length>=2)eligible.push({horse_no:record.horse_no,count:record.positive_factors.length});
  }
  const max=eligible.length?Math.max(...eligible.map(x=>x.count)):0;
  const leaders=eligible.filter(x=>x.count===max).map(x=>x.horse_no);
