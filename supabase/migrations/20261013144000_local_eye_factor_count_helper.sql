@@ -61,7 +61,7 @@ BEGIN
    IF f->>'current_relevance'='true' THEN current_n:=current_n+1;END IF;
   END LOOP;
   n:=jsonb_array_length(c->'positive_factors');
-  IF n>=2 AND current_n>=1 THEN
+  IF n>=2 THEN
    IF n>max_n THEN
     max_n:=n;leader_nos:=ARRAY[no];
    ELSIF n=max_n THEN
