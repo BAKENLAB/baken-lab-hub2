@@ -10,6 +10,7 @@ export const PROTOCOLS = Object.freeze({
   'CHAPPY_LOCAL_1.3_EXECUTION_GUARD_20260930': Object.freeze({eyeFields:['reason'], legacy:false}),
   'CHAPPY_LOCAL_1.4_EYE_UPSIDE_20260930': Object.freeze({eyeFields:['reason'], legacy:false}),
   'CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004': Object.freeze({eyeFields:['reason'], legacy:false, allowOneUnratedNoHistory:true}),
+  'CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013': Object.freeze({eyeFields:['reason'], legacy:false, allowOneUnratedNoHistory:true}),
   'JRA_REBUILD_0.3_FLAT_HISTORY': Object.freeze({eyeFields:['reason'], legacy:false, top5OptionalGrade:true}),
   'JRA_REBUILD_0.3_FLAT_HISTORY_20261004': Object.freeze({eyeFields:['reason'], legacy:false, top5OptionalGrade:true, runnerOptionalGrade:true}),
   'JRA_REBUILD_0.3_FLAT_HISTORY_EYE_ALLCLASS_20261004': Object.freeze({eyeFields:['concrete_upside_reason','reason'], legacy:false, top5OptionalGrade:true, runnerOptionalGrade:true}),
