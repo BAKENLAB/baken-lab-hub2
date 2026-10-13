@@ -9,7 +9,7 @@ DECLARE
 BEGIN
   IF p_race_date IS NULL THEN RAISE EXCEPTION 'RACE_DATE_REQUIRED'; END IF;
   WITH eligible AS (
-    SELECT j.id
+    SELECT j.id,j.worker_run_id
     FROM public.lab_prediction_jobs j
     JOIN public.official_races r
       ON (r.race_date,r.track,r.race_no,r.circuit)=(j.race_date,j.track,j.race_no,j.circuit)
@@ -29,11 +29,11 @@ BEGIN
         claimed_by=NULL, claimed_at=NULL, lease_until=NULL,
         claim_token=NULL, worker_run_id=NULL
     FROM eligible e WHERE j.id=e.id
-    RETURNING j.id, j.worker_run_id
+    RETURNING j.id
   )
-  SELECT count(*)::integer,coalesce(array_agg(DISTINCT worker_run_id)
-      FILTER(WHERE worker_run_id IS NOT NULL),ARRAY[]::uuid[])
-  INTO v_count,v_runs FROM updated;
+  SELECT count(*)::integer,coalesce(array_agg(DISTINCT e.worker_run_id)
+      FILTER(WHERE e.worker_run_id IS NOT NULL),ARRAY[]::uuid[])
+  INTO v_count,v_runs FROM updated u JOIN eligible e ON e.id=u.id;
 
   -- Failed/abandoned runs are recorded, but never reopen or alter prediction rows.
   FOREACH v_run_id IN ARRAY v_runs LOOP
