@@ -21,3 +21,5 @@ test('true tie may abstain',()=>{assert.equal(assertLocalSaveDuringTransition(fi
 test('same category repeated cannot inflate factor count',()=>{const v=fixture();v.payload.audit.eye_positive_factor_audit[2].positive_factors[1].category='distance_change';assert.throws(()=>assertLocalSaveDuringTransition(v),/LOCAL_EYE_FACTOR_DUPLICATE/)});
 test('unverified factor cannot count as positive',()=>{const v=fixture();v.payload.audit.eye_positive_factor_audit[2].positive_factors[1].evidence_refs=['FAKE'];assert.throws(()=>assertLocalSaveDuringTransition(v),/LOCAL_EYE_FACTOR_UNVERIFIED/)});
 test('market references are forbidden',()=>{const v=fixture();v.payload.audit.eye_positive_factor_audit[2].positive_factors[1].reason='オッズが良い';assert.throws(()=>assertLocalSaveDuringTransition(v),/LOCAL_EYE_MARKET_EVIDENCE/)});
+
+test('recency is a tie criterion, never a hidden eligibility veto',()=>{const v=fixture([2,3,4],8);for(const r of v.payload.audit.eye_positive_factor_audit)for(const f of r.positive_factors)f.current_relevance=false;assert.equal(assertLocalSaveDuringTransition(v),true)});
