@@ -65,3 +65,25 @@ test('TODAY uses a separate section and removes only truly unranked from ability
  assert.ok(scripts.length>=1);
  for(const m of scripts){new Script(m[1]);}
 });
+
+
+test('LAB WATCH starts collapsed and expands from a native keyboard-accessible summary',()=>{
+ const content=w.watchSectionHtml({runners:[runner()]},info);
+ assert.match(content,/<details class="watch-card" data-watch-horse="9">/);
+ assert.match(content,/<summary class="watch-heading">/);
+ assert.doesNotMatch(content,/<details[^>]*\sopen(?:\s|=|>)/);
+ assert.match(content,/<div class="watch-expanded">/);
+ assert.match(content,/詳細 ▼/);
+ assert.match(content,/閉じる ▲/);
+ assert.match(content,/<\/summary>[\s\S]*Wootton Bassett[\s\S]*<\/details>/);
+ assert.match(content,/<\/details>/);
+});
+test('LAB RANK is displayed before WATCH while keeping original blue palette',()=>{
+ const rank=html.indexOf('LAB RANK / 評価できた馬');
+ const watch=html.indexOf('window.LabWatch?.watchSectionHtml(payload');
+ const lastNote=html.indexOf('<div class="style-note">※脚質は過去のレース傾向');
+ assert.ok(rank>=0 && watch>rank && lastNote>watch);
+ assert.match(html,/\.watch-card\{border:1px solid rgba\(111,163,255,\.35\)/);
+ assert.match(html,/#1b334a/);
+ assert.match(html,/\.watch-card\[open\] \.watch-label-close\{display:inline\}/);
+});

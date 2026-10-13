@@ -1,7 +1,7 @@
 name: LAB WATCH isolated regression
 on:
   push:
-    branches: [feat/local-watch-unrated-profile-20261013]
+    branches: [feat/local-watch-unrated-profile-20261013, ui/lab-watch-compact-accordion-20261013]
   workflow_dispatch:
 jobs:
   watch:
