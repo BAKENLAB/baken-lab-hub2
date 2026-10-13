@@ -378,7 +378,7 @@ function expandPayload(model: any, context: any) {
       return [k, {
         status,
         finding,
-        evidence_refs: status === 'CHECKED' ? refs.slice(0,2) : [],
+        evidence_refs: status === 'CHECKED' ? refs : [],
       }]
     }))
     return {
