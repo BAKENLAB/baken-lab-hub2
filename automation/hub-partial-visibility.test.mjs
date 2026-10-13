@@ -70,6 +70,6 @@ test('malformed / forged partial TOP5 is rejected',()=>{
  assert.throws(()=>validatePayload(p.payload,false,version),/partial top5 mismatch/);
 });
 test('snapshot comparison detects any changed rank or grade',()=>{
- const p=fixture();p.payload.runners[1].grade='F';
+ const p=fixture();p.payload.runners[1].grade='F';p.payload.top5[1].grade='F';
  assert.throws(()=>validatePrediction(p),/prediction integrity mismatch/);
 });
