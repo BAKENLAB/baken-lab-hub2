@@ -8,7 +8,7 @@ const CHECKS=['distance_change','track_change','going_change','class_change',
 'pace_peers','margins','passing_order','final_section','trouble',
 'layoff_preparation','current_suitability','same_condition_history'];
 const currentRef='https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_babaCode=24&k_raceDate=2026%2F10%2F13&k_raceNo=1';
-function fixture(partial=true) {
+export function fixture(partial=true) {
  const runners=Array.from({length:6},(_,i)=>({
    horse_no:i+1,horse_name:'TEST_HORSE_'+(i+1),status:'ACTIVE',
    rank:i<5?i+1:partial?null:6,grade:i<5?'B':partial?null:'E',
