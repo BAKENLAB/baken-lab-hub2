@@ -1,0 +1,15 @@
+name: LOCAL isolated history regression
+on:
+  push:
+    branches: [fix/local-history-horse-isolation-20261013]
+  workflow_dispatch:
+jobs:
+  isolated-history:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run standalone LOCAL history regression
+        run: node --test automation/local-worker-data-isolation.test.mjs
