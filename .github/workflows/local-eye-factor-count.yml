@@ -18,3 +18,9 @@ jobs:
           node-version: '22'
       - name: New factor count and old partial tests
         run: node --test automation/local-eye-factor.test.mjs automation/local-eye-partial.test.mjs automation/local-queue-error.test.mjs
+
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Validate Edge worker TypeScript
+        run: deno check automation/local-ai-worker-factor.ts
