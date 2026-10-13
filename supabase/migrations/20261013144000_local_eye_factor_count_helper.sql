@@ -53,8 +53,8 @@ BEGIN
    seen_categories:=array_append(seen_categories,cat);seen_reasons:=array_append(seen_reasons,txt);
    ck:=cand->'review_checks'->cat;
    IF ck IS NULL OR (ck->>'status')<>'CHECKED'
-     OR NOT (cand->'evidence_refs' @> f->'evidence_refs')
-     OR NOT (ck->'evidence_refs' @> f->'evidence_refs')
+     OR NOT ((cand->'evidence_refs') @> (f->'evidence_refs'))
+     OR NOT ((ck->'evidence_refs') @> (f->'evidence_refs'))
      OR EXISTS(SELECT 1 FROM jsonb_array_elements(f->'evidence_refs') x
         WHERE jsonb_typeof(x.value) IS DISTINCT FROM 'string' OR btrim(x.value#>>'{}')='')
    THEN RAISE EXCEPTION 'LOCAL_EYE_FACTOR_UNVERIFIED'; END IF;
@@ -90,7 +90,7 @@ BEGIN
    SELECT value INTO cand FROM jsonb_array_elements(a->'eye_candidate_audit')
      WHERE (value->>'horse_no')::integer=selected;
    IF NOT EXISTS(SELECT 1 FROM jsonb_array_elements(tie->'evidence_refs') x
-      WHERE cand->'evidence_refs' @> jsonb_build_array(x.value))
+      WHERE (cand->'evidence_refs') @> jsonb_build_array(x.value))
    THEN RAISE EXCEPTION 'LOCAL_EYE_TIE_BREAK_EVIDENCE';END IF;
    FOREACH cat IN ARRAY ARRAY['strength_reason','recency_reason','risk_reason'] LOOP
     IF jsonb_typeof(tie->cat) IS DISTINCT FROM 'string' OR btrim(tie->>cat)=''
