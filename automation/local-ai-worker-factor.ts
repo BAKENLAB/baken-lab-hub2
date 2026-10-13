@@ -322,7 +322,7 @@ function promptFor(context: any, protocolContent: any) {
 '各runnerはhorse_no, rank, grade, reason, evidence_summaryだけを返す。horse_name、脚質、近走件数、missing_itemsはworker側でcontextから補完する。',
 'TOP5はrank1〜5。TOP5外だけを元順位固定のまま再監査する。',
 'EYEは独立した具体的好走プラス材料が2個以上あるTOP5外候補から選ぶ。17項目を確認したことはプラス材料ではない。実際に好走へ寄与する肯定材料だけをpositive_factorsに書く。カテゴリー重複や同一事実の言い換えは二重計上しない。',
-'プラス材料2個以上かつ今回条件または直近1〜2走の根拠を最低1個持つ馬だけが候補。候補内でプラス材料の個数最多をEYEにする。個数が違う場合に材料の質で逆転させない。',
+'プラス材料2個以上ある馬だけが候補。候補内でプラス材料の個数最多をEYEにする。材料の新しさは同数のときの比較基準であり、最多数を覆したり単独の資格条件にはしない。',
 '最多個数が同数なら、その同数候補だけを根拠の強さ、現在性、マイナス材料の順で比較してtie_breakを記録し1頭を選ぶ。どれも同等ならtie_break=nullでEYEなし。最多候補が1頭ならtie_break=nullで必ずその1頭。プラス2個未満ならEYEなし。',
 'candidatesはTOP5外全馬ちょうど1件ずつ。checksは17件ちょうどで、次の順序を厳守: '+CHECKS.join(',')+'。各checkは「CHECKED|具体的な短い所見」または「MISSING|根拠不足」の1文字列で返す。',
 '各checkのCHECKEDはcontextに根拠がある場合のみ。根拠不足はMISSING。check個別の参照はworker側でcandidateのevidence_refsから補完する。',
