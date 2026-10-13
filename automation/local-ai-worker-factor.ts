@@ -401,7 +401,7 @@ function expandPayload(model: any, context: any) {
     const distinct = new Set((r.positive_factors??[]).map((x:any)=>x.category))
     if(!c||distinct.size!==r.positive_factors.length||r.positive_factors.some((x:any)=>c.review_checks[x.category]?.status!=='CHECKED'||!x.evidence_refs?.length||!x.evidence_refs.every((ref:string)=>c.evidence_refs.includes(ref))))throw new Error('MODEL_POSITIVE_FACTOR_UNVERIFIED')
     return {horse_no:r.horse_no,count:r.positive_factors.length,current:r.positive_factors.some((x:any)=>x.current_relevance===true)}
-  }).filter((r:any)=>r.count>=2&&r.current)
+  }).filter((r:any)=>r.count>=2)
   const most=verified.length?Math.max(...verified.map((r:any)=>r.count)):0
   const leaders=verified.filter((r:any)=>r.count===most).map((r:any)=>r.horse_no)
   const pick=model.eye?.horse_no??null
