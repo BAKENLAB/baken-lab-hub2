@@ -1,0 +1,54 @@
+name: LOCAL partial coverage SQL guard regression
+on:
+  push:
+    branches: [fix/local-partial-coverage-no-history-20261013]
+  workflow_dispatch:
+jobs:
+  postgres-guard:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare test table
+        run: |
+          psql -v ON_ERROR_STOP=1 -c "CREATE TABLE public.official_predictions (circuit text, protocol_version text, payload jsonb);"
+      - name: Compile actual production function and install trigger
+        run: |
+          psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261013112800_local_partial_coverage_guard.sql
+          psql -v ON_ERROR_STOP=1 -c "CREATE TRIGGER trg_local_eye_comparison_insert BEFORE INSERT ON public.official_predictions FOR EACH ROW WHEN ((NEW.circuit='LOCAL' AND NEW.protocol_version='CHAPPY_LOCAL_1.5_EYE_COMPARISON_20261004')) EXECUTE FUNCTION public.local_eye_comparison_insert_guard();"
+      - name: Generate independent SQL payload tests
+        run: node automation/local-partial-sql-fixtures.mjs
+      - name: Positive complete and partial coverage
+        run: |
+          psql -v ON_ERROR_STOP=1 -f /tmp/local-partial-sql-tests/valid-full.sql
+          psql -v ON_ERROR_STOP=1 -f /tmp/local-partial-sql-tests/valid-partial.sql
+          test "$(psql -Atc 'select count(*) from public.official_predictions')" = 2
+      - name: Invalid coverage must all be rejected by DB trigger
+        run: |
+          for t in invalid-made-up-rank invalid-fake-F invalid-missing-history-proof invalid-two-unknowns invalid-eye-pool; do
+            if psql -v ON_ERROR_STOP=1 -f "/tmp/local-partial-sql-tests/$t.sql"; then
+              echo "FAIL: incorrectly accepted $t"
+              exit 1
+            else
+              echo "PASS: rejected $t"
+            fi
+          done
