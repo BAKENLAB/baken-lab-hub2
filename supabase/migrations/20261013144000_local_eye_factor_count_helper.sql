@@ -52,7 +52,7 @@ BEGIN
    IF cat=ANY(seen_categories) OR txt=ANY(seen_reasons) THEN RAISE EXCEPTION 'LOCAL_EYE_FACTOR_DUPLICATE'; END IF;
    seen_categories:=array_append(seen_categories,cat);seen_reasons:=array_append(seen_reasons,txt);
    ck:=cand->'review_checks'->cat;
-   IF ck IS NULL OR ck->>'status'<>'CHECKED'
+   IF ck IS NULL OR (ck->>'status')<>'CHECKED'
      OR NOT (cand->'evidence_refs' @> f->'evidence_refs')
      OR NOT (ck->'evidence_refs' @> f->'evidence_refs')
      OR EXISTS(SELECT 1 FROM jsonb_array_elements(f->'evidence_refs') x
