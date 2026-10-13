@@ -1,0 +1,25 @@
+name: LOCAL EYE pairwise alignment
+on:
+  push:
+    branches: [fix/local-eye-pair-validity-20261013]
+    paths:
+      - 'automation/local-eye.mjs'
+      - 'automation/local-eye-partial.test.mjs'
+      - 'automation/local-eye-pair-validity.test.mjs'
+      - '.github/workflows/local-eye-pairwise-alignment.yml'
+  pull_request:
+    paths:
+      - 'automation/local-eye.mjs'
+      - 'automation/local-eye-partial.test.mjs'
+      - 'automation/local-eye-pair-validity.test.mjs'
+      - '.github/workflows/local-eye-pairwise-alignment.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test all local eye invariants
+        run: node --test automation/local-eye-partial.test.mjs automation/local-eye-pair-validity.test.mjs
