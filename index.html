@@ -94,7 +94,7 @@
   </main>
 
   <script>
-    const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
+    const API=location.origin+'/api/hub-data';
     const esc=value=>String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||c));
     async function loadUpdates(){
       try{
