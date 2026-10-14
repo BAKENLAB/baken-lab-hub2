@@ -2,6 +2,12 @@ import { COOKIE_NAME, SESSION_TTL_SECONDS, createSession, passwordMatches, safeD
 
 export const config = { runtime: 'edge' };
 const headers = { 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' };
+// Best-effort per-instance throttling for the shared beta access code.
+// Edge instances can recycle; this does not substitute for durable WAF throttling.
+const attempts = new Map();
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_FAILURES = 5;
+
 
 export default async function handler(request) {
   if (request.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: { ...headers, Allow: 'POST' } });
@@ -15,8 +21,20 @@ export default async function handler(request) {
   let form;
   try { form = await request.formData(); } catch { return new Response('Bad request', { status: 400, headers }); }
   const destination = safeDestination(form.get('next'));
+  const ip = String(request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown').split(',')[0].trim().slice(0, 80);
+  const now = Date.now();
+  if (attempts.size > 3000) attempts.clear();
+  let state = attempts.get(ip);
+  if (state && state.until <= now) { attempts.delete(ip); state = undefined; }
+  if (state && state.count >= MAX_FAILURES) return new Response('Too many attempts. Wait 10 minutes.', {
+    status: 429, headers: { ...headers, 'Retry-After': String(Math.ceil((state.until - now) / 1000)) }
+  });
   const correct = await passwordMatches(form.get('password'), expected);
-  if (!correct) return Response.redirect(new URL('/login.html?error=1&next=' + encodeURIComponent(destination), request.url), 303);
+  if (!correct) {
+    attempts.set(ip, { count: (state?.count || 0) + 1, until: state?.until || now + WINDOW_MS });
+    return Response.redirect(new URL('/login.html?error=1&next=' + encodeURIComponent(destination), request.url), 303);
+  }
+  attempts.delete(ip);
 
   const token = await createSession(secret + ':' + expected);
   return new Response(null, {
