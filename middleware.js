@@ -1,5 +1,5 @@
 import { next } from '@vercel/functions';
-import { isAuthenticated } from './auth-utils.js';
+import { COOKIE_NAME, SESSION_TTL_SECONDS, SESSION_REFRESH_WINDOW_SECONDS, authenticatedSessionExpiresAt, createSession } from './auth-utils.js';
 
 // Applied before cached/static content: fail closed if either secret is missing.
 export default async function middleware(request) {
@@ -12,8 +12,19 @@ export default async function middleware(request) {
   if (!password || !secret || secret.length < 32) {
     return new Response('LAB HUB is temporarily unavailable.', { status: 503, headers: { 'Cache-Control': 'no-store' } });
   }
-  // Password rotation invalidates all existing viewer sessions.
-  if (await isAuthenticated(request.headers.get('cookie'), secret + ':' + password)) return next();
+  // Session signatures are bound to the current password; changing it revokes all older sessions.
+  const signingKey = secret + ':' + password;
+  const expiresAt = await authenticatedSessionExpiresAt(request.headers.get('cookie'), signingKey);
+  if (expiresAt !== null) {
+    // Also upgrade valid 7-day cookies issued before this deployment, without another login.
+    const response = next();
+    if (expiresAt - Math.floor(Date.now() / 1000) < SESSION_REFRESH_WINDOW_SECONDS) {
+      const token = await createSession(signingKey);
+      response.headers.set('Set-Cookie', `${COOKIE_NAME}=${token}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${SESSION_TTL_SECONDS}`);
+      response.headers.set('Cache-Control', 'private, no-store');
+    }
+    return response;
+  }
 
   if (url.pathname.startsWith('/api/')) {
     return new Response('Unauthorized', { status: 401, headers: { 'Cache-Control': 'no-store' } });

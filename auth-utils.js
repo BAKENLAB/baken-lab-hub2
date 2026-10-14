@@ -1,6 +1,8 @@
 // Shared server-side authentication helpers. Never import this file from browser pages.
 export const COOKIE_NAME = 'baken_hub_session';
-export const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60;
+// Maximum idle session is one year; password rotation invalidates every issued token.
+export const SESSION_TTL_SECONDS = 365 * 24 * 60 * 60;
+export const SESSION_REFRESH_WINDOW_SECONDS = 30 * 24 * 60 * 60;
 const encoder = new TextEncoder();
 
 function toHex(bytes) {
@@ -28,17 +30,20 @@ export async function createSession(secret) {
   const message = `v1.${expires}.${nonce}`;
   return `${message}.${await sign(message, secret)}`;
 }
-export async function isAuthenticated(cookieHeader, secret) {
-  if (!cookieHeader || !secret || secret.length < 32) return false;
+export async function authenticatedSessionExpiresAt(cookieHeader, secret) {
+  if (!cookieHeader || !secret || secret.length < 32) return null;
   const cookie = cookieHeader.split(';').map(x => x.trim()).find(x => x.startsWith(COOKIE_NAME + '='));
-  if (!cookie) return false;
+  if (!cookie) return null;
   const value = cookie.slice(COOKIE_NAME.length + 1);
   const match = /^v1\.(\d{10,12})\.([a-f0-9]{32})\.([a-f0-9]{64})$/.exec(value);
-  if (!match) return false;
+  if (!match) return null;
   const expires = Number(match[1]), now = Math.floor(Date.now() / 1000);
-  if (expires <= now || expires > now + SESSION_TTL_SECONDS + 60) return false;
+  if (expires <= now || expires > now + SESSION_TTL_SECONDS + 60) return null;
   const message = `v1.${match[1]}.${match[2]}`;
-  return safeEquals(match[3], await sign(message, secret));
+  return safeEquals(match[3], await sign(message, secret)) ? expires : null;
+}
+export async function isAuthenticated(cookieHeader, secret) {
+  return (await authenticatedSessionExpiresAt(cookieHeader, secret)) !== null;
 }
 export function safeDestination(value) {
   if (typeof value !== 'string' || !value.startsWith('/') || value.startsWith('//') || value.includes('\\') || /[\r\n]/.test(value) || value.length > 500) return '/';
