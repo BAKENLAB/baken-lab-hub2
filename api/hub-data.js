@@ -16,9 +16,9 @@ export default async function handler(request) {
   if (!allowed.has(action) || input.search.length > 2048) return new Response('Bad request', { status: 400, headers: head });
   const upstream = new URL('https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api');
   upstream.search = input.search;
-  const headers = new Headers({ Accept: 'application/json' });
-  // This header is activated once the upstream hub2-api also verifies the same server-only secret.
-  if (process.env.LAB_HUB_UPSTREAM_SECRET) headers.set('X-Lab-Hub-Gate', process.env.LAB_HUB_UPSTREAM_SECRET);
+  const upstreamSecret = process.env.LAB_HUB_UPSTREAM_SECRET;
+  if (!upstreamSecret || upstreamSecret.length < 40) return new Response('Proxy unavailable', { status: 503, headers: head });
+  const headers = new Headers({ Accept: 'application/json', 'X-Lab-Hub-Gate': upstreamSecret });
   try {
     const response = await fetch(upstream, { headers, method: 'GET', cache: 'no-store', redirect: 'error' });
     const data = await response.text();
