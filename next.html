@@ -44,7 +44,7 @@
     <div class="foot"><span>BAKEN LAB｜馬券ラボ</span><span>LAB NEXT</span></div>
   </main>
   <script>
-    const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
+    const API=location.origin+'/api/hub-data';
     const $=s=>document.querySelector(s);
     function esc(value){return String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||c))}
     function fmtTime(value){if(!value)return'--:--';try{return new Intl.DateTimeFormat('ja-JP',{hour:'2-digit',minute:'2-digit'}).format(new Date(String(value)))}catch{return'--:--'}}
