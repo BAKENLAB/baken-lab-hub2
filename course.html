@@ -82,7 +82,7 @@
   </main>
 
   <script>
-    const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
+    const API=location.origin+'/api/hub-data';
     const $=s=>document.querySelector(s);
     let state={circuit:'LOCAL',conditions:[],selected:{},loading:false};
 
