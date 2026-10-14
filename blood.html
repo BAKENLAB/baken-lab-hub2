@@ -110,7 +110,7 @@
 </main>
 
 <script>
-const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
+const API=location.origin+'/api/hub-data';
 const $=s=>document.querySelector(s);
 const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||c));
 const uniq=a=>[...new Set(a)];

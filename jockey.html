@@ -90,7 +90,7 @@
 </main>
 
 <script>
-const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
+const API=location.origin+'/api/hub-data';
 const $=s=>document.querySelector(s);
 const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||c));
 const uniq=a=>[...new Set(a)],fmt=v=>Number.isFinite(Number(v))?Number(v).toFixed(1):'—',fmt2=v=>Number.isFinite(Number(v))?Number(v).toFixed(2):'—',sign=v=>Number(v)>0?'+'+fmt(v):fmt(v),sign2=v=>Number(v)>0?'+'+fmt2(v):fmt2(v);
