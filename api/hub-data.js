@@ -7,7 +7,8 @@ const head = { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': '
 export default async function handler(request) {
   if (request.method !== 'GET') return new Response('Method not allowed', { status: 405, headers: { ...head, Allow: 'GET' } });
   const secret = process.env.LAB_HUB_SESSION_SECRET;
-  if (!await isAuthenticated(request.headers.get('cookie'), secret)) {
+  const password = process.env.LAB_HUB_ACCESS_PASSWORD;
+  if (!secret || !password || !await isAuthenticated(request.headers.get('cookie'), secret + ':' + password)) {
     return new Response('Unauthorized', { status: 401, headers: head });
   }
   const input = new URL(request.url);
