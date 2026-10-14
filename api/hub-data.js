@@ -23,13 +23,17 @@ export default async function handler(request) {
   if (!upstreamSecret || upstreamSecret.length < 40) return new Response('Proxy unavailable', { status: 503, headers: head });
   const headers = new Headers({ Accept: 'application/json', 'X-Lab-Hub-Gate': upstreamSecret });
   try {
-    const response = await fetch(upstream, { headers, method: 'GET', cache: 'no-store', redirect: 'error' });
+    const response = await fetch(upstream.toString(), { headers, method: 'GET', redirect: 'follow' });
     const data = await response.text();
     if (data.length > 5000000) return new Response('Response too large', { status: 502, headers: head });
     const type = response.headers.get('content-type') || '';
     if (!type.toLowerCase().includes('application/json')) return new Response('Upstream error', { status: 502, headers: head });
     return new Response(data, { status: response.status, headers: { ...head, 'Content-Type': 'application/json; charset=utf-8' } });
-  } catch {
-    return new Response('Upstream unavailable', { status: 502, headers: head });
+  } catch (error) {
+    // Log only the generic transport error, never URLs, cookies or secret headers.
+    console.error('HUB_PROXY_FETCH_FAIL', String(error?.name || 'Error'), String(error?.message || 'unknown').slice(0, 180));
+    return new Response(JSON.stringify({ ok: false, error: 'upstream_unavailable' }), {
+      status: 502, headers: { ...head, 'Content-Type': 'application/json; charset=utf-8' }
+    });
   }
 }
