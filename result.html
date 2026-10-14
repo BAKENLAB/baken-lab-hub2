@@ -101,7 +101,7 @@
   </div>
   <script src="./result-summary.js?v=20261014-rank1-fix"></script>
   <script>
-    const API='https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/hub2-api';
+    const API=location.origin+'/api/hub-data';
     const $=s=>document.querySelector(s);
     const state={races:[],predictions:[],circuit:'ALL',venue:'',resultRows:[],resultVenue:'',resultFilter:'ALL',selectedRaceKey:'',resultCircuit:'ALL',resultPhase:'loading'};
 
