@@ -35,8 +35,17 @@
       if (rank !== i + 1) return null; // Accept competition ranks, including ties.
       while (i < finishes.length && finishes[i].finish === rank) i++;
     }
+    // Current FROZEN predictions identify ◎ by rank: 1; older ones may use mark: '◎'.
+    // Never guess if the two formats conflict or if the rank is ambiguous.
     const marked = payload.top5.filter(x => x.mark === '◎');
-    const favorite = marked.length === 1 ? horse(marked[0].horse_no) : null;
+    const rankedFirst = payload.top5.filter(x => number(x.rank) === 1);
+    const hasRanks = payload.top5.some(x => x.rank !== null && x.rank !== undefined);
+    const markedNo = marked.length === 1 ? horse(marked[0].horse_no) : null;
+    const rankedNo = rankedFirst.length === 1 ? horse(rankedFirst[0].horse_no) : null;
+    const favorite = marked.length > 1 ||
+      (hasRanks && rankedFirst.length !== 1) ||
+      (markedNo !== null && rankedNo !== null && markedNo !== rankedNo)
+      ? null : (rankedNo ?? markedNo);
     const eye = payload.eye;
     const eyeValid = eye === null || (eye && typeof eye === 'object' && !Array.isArray(eye) && ids.includes(horse(eye.horse_no)) && !top.includes(horse(eye.horse_no)));
     return { finishes, top, favorite, eye: eye === null ? null : horse(eye?.horse_no), eyeValid: !!eyeValid };
