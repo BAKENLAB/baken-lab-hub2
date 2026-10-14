@@ -11,7 +11,8 @@ export default async function middleware(request) {
   if (!password || !secret || secret.length < 32) {
     return new Response('LAB HUB is temporarily unavailable.', { status: 503, headers: { 'Cache-Control': 'no-store' } });
   }
-  if (await isAuthenticated(request.headers.get('cookie'), secret)) return next();
+  // Password rotation invalidates all existing viewer sessions.
+  if (await isAuthenticated(request.headers.get('cookie'), secret + ':' + password)) return next();
 
   if (url.pathname.startsWith('/api/')) {
     return new Response('Unauthorized', { status: 401, headers: { 'Cache-Control': 'no-store' } });
