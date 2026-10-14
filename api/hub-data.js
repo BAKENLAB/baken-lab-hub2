@@ -1,6 +1,9 @@
 // Read-only HUB API proxy. Only logged-in visitors may use this endpoint.
 import { isAuthenticated } from '../auth-utils.js';
 
+// Use Web Request/Response API to match middleware and login session parsing.
+export const config = { runtime: 'edge' };
+
 const allowed = new Set(['health','updates','lab_next','lab_jockey','lab_blood','lab_course','list','prediction','market','results']);
 const head = { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' };
 
