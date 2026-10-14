@@ -18,7 +18,7 @@ export default async function handler(request) {
   const correct = await passwordMatches(form.get('password'), expected);
   if (!correct) return Response.redirect(new URL('/login.html?error=1&next=' + encodeURIComponent(destination), request.url), 303);
 
-  const token = await createSession(secret);
+  const token = await createSession(secret + ':' + expected);
   return new Response(null, {
     status: 303,
     headers: {
