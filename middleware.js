@@ -4,7 +4,8 @@ import { isAuthenticated } from './auth-utils.js';
 // Applied before cached/static content: fail closed if either secret is missing.
 export default async function middleware(request) {
   const url = new URL(request.url);
-  if (url.pathname === '/login.html' || url.pathname === '/api/lab-login') return next();
+  // OAuth consent is independently authenticated by Supabase Auth; keep plugin connection flows functional.
+  if (url.pathname === '/login.html' || url.pathname === '/api/lab-login' || url.pathname.startsWith('/oauth/consent/')) return next();
 
   const password = process.env.LAB_HUB_ACCESS_PASSWORD;
   const secret = process.env.LAB_HUB_SESSION_SECRET;
