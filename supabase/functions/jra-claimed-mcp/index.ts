@@ -127,7 +127,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        if(/cancel|scratched|except|withdraw/i.test(rowClass) && status==="ACTIVE"){
          throw Error("JRA_UNRECOGNIZED_STATUS_CLASS_"+horseNo);
        }
-       const jockey=clean(rowObj.find("td.jockey p.jockey a").first().text());
+       const jockey=clean(rowObj.find("td.jockey p.jockey").first().text());
        const weightText=clean(rowObj.find("td.jockey p.weight").first().text());
        const weightMatch=weightText.match(/(\d{2}(?:\.\d)?)\s*kg/i);
        const weight=weightMatch?Number(weightMatch[1]):null;
