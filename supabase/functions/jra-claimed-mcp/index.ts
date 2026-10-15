@@ -39,4 +39,20 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      return {isError:true,content:[{type:"text",text:err(e)}]};
    }
  });
+
+ s.registerTool("jra_queue_status",{
+   description:"Read-only JRA manual queue/readiness status: schedule capture, verified official race readiness, claims and FROZEN. Defaults to next available JRA date in Japan.",
+   inputSchema:z.object({race_date:z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional()}).strict(),
+   annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}
+ },async({race_date})=>{
+   try{
+     await auth();
+     const c=admin();
+     const {data,error}=await c.rpc("jra_manual_readiness_v1",{p_race_date:race_date??null});
+     if(error||!data)throw Error("JRA_QUEUE_STATUS_UNAVAILABLE");
+     return {content:[{type:"text",text:JSON.stringify(data)}],structuredContent:{status:data}};
+   }catch(e){
+     return {isError:true,content:[{type:"text",text:err(e)}]};
+   }
+ });
  return s});return handler.fetch(req)}));
