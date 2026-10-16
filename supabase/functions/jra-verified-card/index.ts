@@ -40,7 +40,7 @@ Deno.serve(async req=>{
   if(!race||race.race_type==="障害"||!["芝","ダート"].includes(race.surface)||
      !Number.isInteger(race.field_size)||!race.cname)return reply({ok:false,error:"UNSUPPORTED_OR_MISSING_LIVE_RACE"},422);
   const runnersQuery=await db.from("jra_live_runners")
-    .select("horse_no,horse_name,draw,jockey,weight_carried")
+    .select("horse_no,horse_name,horse_ref,draw,jockey,weight_carried")
     .eq("live_race_id",race.id).order("horse_no",{ascending:true});
   if(runnersQuery.error||!runnersQuery.data)return reply({ok:false,error:"RUNNERS_READ_ERROR"},500);
   // Current SOURCE, fetched afresh; never derive proof time/hash from stored historical capture.
