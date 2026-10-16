@@ -69,3 +69,41 @@ where jobname like 'local-ai-%' order by jobname;
 - SAVE with confidence, not after deadline; exhausted/no data jobs are documented instead of repaired by rewriting history.
 - On 10/16, 33 LOCAL DONE+FROZEN, 3 Kawasaki DEAD deadline misses. Avoid a repeat.
 - The `local_eye_factor_count_guard_v1` correction is already applied as migration `local_eye_current_relevance_count_20261017`; no further LOCAL migration necessary to run today's manual saves.
+
+
+## Late-night read-only audit update | 2026-10-17 02:48 JST
+
+Official databases still contain **0** 2026-10-17 JRA official_races and **0** LOCAL official_races, and **0** predictions. The JRA source capture queue has **36 DONE**. All **36** HTML evidence rows remain \`UNVERIFIED_HTML_CAPTURE\`, **not** official status verified. All LOCAL AI worker Cron entries remain disabled.
+
+### JRA 36-race classification (official captured entries; not yet official READY)
+- Kyoto: 9 standard flat / 2 debut / 1 obstacle.
+- Niigata: 11 standard flat / 1 debut / 0 obstacle.
+- Tokyo: 10 standard flat / 2 debut / 0 obstacle.
+- Total: **30 standard flat with past results** + **5 debut** + **1 obstacle**.
+- The **66 horses without any past race rows are exactly the 66 participants of the five debut races**, no missing-history runner identified in those 30 ordinary flat races. Not evidence that the complete records in the other races are error-free.
+- JRA live source rows: **472 horses**, no null official horse reference, draw, jockey or weight; no field count, distinct horse-no, or distinct horse-ref mismatches across all 36 races.
+
+### JRA early race priority if official current-card proof becomes available
+| Track/race | Post time JST | Earliest manual claim window JST |
+|---|---|---|
+| Niigata 1R | 09:45 | 08:35 |
+| Kyoto 1R | 09:55 | 08:45 |
+| Tokyo 1R | 10:05 | 08:55 |
+| Niigata 2R | 10:15 | 09:05 |
+| Kyoto 2R | 10:25 | 09:15 |
+| Tokyo 2R | 10:35 | 09:25 |
+
+These are time-window calculations, **not** live claim availability. Claim requires fresh verified official field, future post time, no existing frozen prediction, and all other guarded checks.
+
+### LOCAL detail timing
+The normal 07:00+ local-data-refresh discovers schedule. It fetches official horse details only in the **four hours before each scheduled post**. Therefore **07:00 schedule discovery does NOT imply READY at 07:00**. A late-afternoon local first post may not gain official READY until late morning. Do not mark a local race as a worker failure merely because its detail field is blank early in the morning.
+
+### JRA strict dry-run verification added to production project
+- Deployed separate Edge Function \`jra-verified-card-dryrun\` v1 as **read-only** current JRA card validator; \`verify_jwt=true\` plus dedicated JRA cron-token hash challenge.
+- Confirmed via fetched deployed code: has no \`.rpc(\` call, and no table \`insert/update/upsert/delete\` calls. It only reads live data and fetches JRA HTML. This is **not the future publishing Edge Function**.
+- Niigata 1R: actual live JRA Shift_JIS bytes -> decode -> Cheerio -> strict checker passed 12/12 (ACTIVE=12), HTTP 200 in one permitted authenticated dry-run request. Other race requests were blocked by upstream safety verification, not success.
+- Test fixture source \`supabase/functions/jra-verified-card/card.test.ts\` now includes 13 synthetic cases including cancelled, excluded, historical-cancel false positive, conflicting price/status, missing row, stale source, rider and identity mismatch, and blinker HTML. **The 13 Deno tests have not been executed** (Deno unavailable in current isolated runtime). Their pass/fail outcomes are not claimed.
+- Offline read-only view suggests eligibility for 30 ordinary flat races **conditionally**, but publishing blocker from Issue #21 remains open.
+
+### Continue only after proof
+For JRA verified publisher, real cancellation/exception HTML fixture and full tests remain mandatory; do not switch on a publishing route just because one dry-run returned OK. A partial day with skips is preferable to fabricated verified statuses.
