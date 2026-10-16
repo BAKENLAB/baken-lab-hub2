@@ -20,7 +20,8 @@ export function validateCurrentJraField({race,officialRows,liveRows,checkedAt,no
   if(r.horse_no_source!=="EXPLICIT_CURRENT_CARD"||r.draw_source!=="EXPLICIT_CURRENT_CARD"||!Number.isInteger(draw)||draw<1||draw>8)error("INFERRED_DRAW_OR_NUMBER_FORBIDDEN");
   if(r.current_status_source!=="CURRENT_NUMBERED_CARD_ROW"||!["ACTIVE","CANCELLED","EXCLUDED"].includes(r.status))error("CURRENT_STATUS_UNVERIFIED");
   const prev=liveByNo.get(no);
-  if(!prev||normJra(r.horse_name)!==normJra(prev.horse_name)||draw!==Number(prev.draw))error("JRA_CURRENT_IDENTITY_MISMATCH");
+  if(!prev||normJra(r.horse_name)!==normJra(prev.horse_name)||draw!==Number(prev.draw)||
+     !r.horse_ref||String(r.horse_ref)!==String(prev.horse_ref))error("JRA_CURRENT_IDENTITY_MISMATCH");
   if(r.status==="ACTIVE"){
    const w=Number(r.weight_carried);
    if(!Number.isFinite(w)||w<45||w>70||!normJra(r.jockey)||normJra(r.jockey)!==normJra(prev.jockey)||w!==Number(prev.weight_carried))error("JRA_CURRENT_ACTIVE_DETAILS_MISMATCH");
