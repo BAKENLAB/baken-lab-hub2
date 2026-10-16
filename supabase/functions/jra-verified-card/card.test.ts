@@ -27,11 +27,14 @@ function fixture(n,opts={}) {
  const rows=Array.from({length:n},(_,i)=>{
   const no=i+1,draw=frame(no,n),blink=opts.blink&&no===8;
   const extra=blink?'<span class="horse_icon blinker"><img src="/JRADB/img/kigo/icon_blinker.png" /></span>':"";
-  const current=opts.noOdds&&no===3?"":'<div class="odds_line"><span class="num"><strong class="red">9.2</strong></span></div>';
+  const isCancel=opts.cancelNo===no;
+  const isExclude=opts.excludeNo===no;
+  const current=opts.noOdds&&no===3||isCancel||isExclude?"":'<div class="odds_line"><span class="num"><strong class="red">9.2</strong></span></div>';
+  const statusText=isCancel?"<span>出走取消</span>":isExclude?"<span>競走除外</span>":"";
   const img=opts.badDraw&&no===3?"/unknown.png":"/JRADB/img/waku/"+draw+".png";
   return '<tr><td class="waku"><img src="'+img+'"/></td>'+
     '<td class="num">'+no+extra+'</td>'+
-    '<td class="horse"><a href="/JRADB/accessU.html?CNAME=H'+no+'">馬'+no+'</a>'+current+'</td>'+
+    '<td class="horse"><a href="/JRADB/accessU.html?CNAME=H'+no+'">馬'+no+'</a>'+current+statusText+'</td>'+
     '<td class="jockey"><p class="weight">55.0<span>kg</span></p><p class="jockey">騎手'+no+'</p></td>'+
     '<td class="past">前走 取消</td></tr>';
  }).join("");
@@ -75,4 +78,31 @@ Deno.test("horse identity reference mismatch is rejected",()=>{
 Deno.test("stale source evidence is rejected",()=>{
  const parsed=parseNumberedJraCard({html:fixture(5),load,expectedRace:race(5)});
  expectThrows(()=>validateCurrentJraField({race:race(5),officialRows:parsed.rows,liveRows:live(5),checkedAt:"2026-10-17T08:39:00+09:00",nowMs}),"STALE_OR_FUTURE_JRA_PROOF");
+});
+
+Deno.test("a past-run cancellation does not cancel current entry",()=>{
+ const parsed=parseNumberedJraCard({html:fixture(5),load,expectedRace:race(5)});
+ expect(parsed.rows.every(x=>x.status==="ACTIVE"),"history cancellation is irrelevant");
+});
+Deno.test("explicit current cancellation has current status and no price",()=>{
+ const parsed=parseNumberedJraCard({html:fixture(5,{cancelNo:3}),load,expectedRace:race(5)});
+ expect(parsed.rows[2].status==="CANCELLED","current cancellation");
+ const checked=validateCurrentJraField({race:race(5),officialRows:parsed.rows,liveRows:live(5),checkedAt,nowMs});
+ expect(checked.filter(x=>x.status==="CANCELLED").length===1,"one explicit cancellation");
+});
+Deno.test("explicit current exclusion has current status",()=>{
+ const parsed=parseNumberedJraCard({html:fixture(5,{excludeNo:3}),load,expectedRace:race(5)});
+ expect(parsed.rows[2].status==="EXCLUDED","current exclusion");
+});
+Deno.test("current cancellation with positive odds conflicts and fails closed",()=>{
+ const html=fixture(5,{cancelNo:3}).replace('<span>出走取消</span>','<div class="odds_line"><span class="num"><strong>9.2</strong></span></div><span>出走取消</span>');
+ expectThrows(()=>parseNumberedJraCard({html,load,expectedRace:race(5)}),"JRA_CURRENT_STATUS_MARKET_CONFLICT");
+});
+Deno.test("cancel and excluded simultaneously is rejected",()=>{
+ const html=fixture(5,{cancelNo:3}).replace('<span>出走取消</span>','<span>出走取消 競走除外</span>');
+ expectThrows(()=>parseNumberedJraCard({html,load,expectedRace:race(5)}),"JRA_CURRENT_STATUS_CONFLICT");
+});
+Deno.test("missing horse row cannot be silently skipped",()=>{
+ const html=fixture(5).replace('/JRADB/accessU.html?CNAME=H3','/not_official');
+ expectThrows(()=>parseNumberedJraCard({html,load,expectedRace:race(5)}),"JRA_FULL_NUMBERED_FIELD_MISMATCH");
 });
