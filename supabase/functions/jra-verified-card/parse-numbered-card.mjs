@@ -17,6 +17,9 @@ export function parseNumberedJraCard({html,load,expectedRace}) {
   const track=clean(expectedRace.track);
   const titleArea=clean($(".race_header").first().text()+" "+$(".race_title").first().text());
   if(!titleArea.includes(track))throw Error("JRA_OFFICIAL_CARD_TRACK_UNVERIFIED");
+  const raceNumberSrc=String($(".race_title .race_number img").first().attr("src")??"");
+  const actualRaceNo=Number(raceNumberSrc.match(/^\/JRADB\/img\/race_number_main\/race_num_(\d{1,2})\.png(?:\?.*)?$/)?.[1]);
+  if(!Number.isInteger(actualRaceNo)||actualRaceNo!==Number(expectedRace.race_no))throw Error("JRA_OFFICIAL_RACE_NUMBER_MISMATCH");
   const heading=clean($(".race_name").first().text());
   if(!heading||heading!==clean(expectedRace.race_name))throw Error("JRA_OFFICIAL_RACE_NAME_MISMATCH");
   const course=clean($(".race_title .cell.course").first().text());
@@ -42,6 +45,8 @@ export function parseNumberedJraCard({html,load,expectedRace}) {
     const horseLink=horseCell.find("a[href*='accessU']").first();
     if(!horseLink.length)return;
     const horse_name=clean(horseLink.text());
+    const horse_ref=String(horseLink.attr("href")??"");
+    if(!/^\/JRADB\/accessU\.html\?CNAME=[^\s"'<>]+$/.test(horse_ref))throw Error("JRA_CURRENT_HORSE_REF_MISSING");
     if(!horse_name)throw Error("JRA_OFFICIAL_HORSE_NAME_MISSING");
     // Horse number must be explicitly printed in the CURRENT row.
     const n=clean(current.children("td.num").first().text());
@@ -91,7 +96,7 @@ export function parseNumberedJraCard({html,load,expectedRace}) {
     const weight_carried=weightMatch?Number(weightMatch[1]):null;
     const jockey=riderText||null;
     if(status==="ACTIVE"&&(!jockey||weight_carried===null))throw Error("JRA_CURRENT_JOCKEY_WEIGHT_NOT_PUBLISHED");
-    rows.push({horse_no,horse_name,draw:frame,status,jockey,weight_carried,
+    rows.push({horse_no,horse_name,horse_ref,draw:frame,status,jockey,weight_carried,
       horse_no_source:"EXPLICIT_CURRENT_CARD",draw_source:"EXPLICIT_CURRENT_CARD",
       current_status_source:"CURRENT_NUMBERED_CARD_ROW"});
   });
