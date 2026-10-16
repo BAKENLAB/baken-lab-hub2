@@ -1,6 +1,6 @@
 /**
  * Staged JRA card/parser regression tests.
- * Run with: deno test --allow-none supabase/functions/jra-verified-card/card.test.ts
+ * Run with: deno test supabase/functions/jra-verified-card/card.test.ts
  * Synthetic fixtures model verified 2026-10-17 official DOM features:
  * - frame image /JRADB/img/waku/X.png
  * - p.weight and p.jockey, strong.red odds
@@ -16,7 +16,13 @@ const race=(field_size)=>({
  race_date:"2026-10-17",track:"新潟",race_no:1,race_name:"2歳未勝利",race_type:"平地",
  surface:"芝",distance:1600,field_size,post_time:"9時45分"
 });
-const frame=(n,count)=>count<=8?n:Math.min(8,Math.max(1,Math.ceil(n*8/count)));
+const frame=(n,count)=>{
+ if(count<=8)return n;
+ const base=Math.floor(count/8),extra=count%8;
+ let ceiling=0;
+ for(let f=1;f<=8;f++){ceiling+=base+(f>8-extra?1:0);if(n<=ceiling)return f}
+ throw Error("INVALID_FRAME");
+};
 function fixture(n,opts={}) {
  const rows=Array.from({length:n},(_,i)=>{
   const no=i+1,draw=frame(no,n),blink=opts.blink&&no===8;
