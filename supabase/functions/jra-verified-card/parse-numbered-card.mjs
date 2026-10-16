@@ -52,9 +52,14 @@ export function parseNumberedJraCard({html,load,expectedRace}) {
     const frameCell=current.children("td.waku").first();
     let frame;
     if(frameCell.length){
-      const f=clean(frameCell.text());
-      if(!/^[1-8]$/.test(f))throw Error("JRA_CURRENT_DRAW_NOT_PUBLISHED");
-      frame=Number(f);
+      // JRA renders each frame as an image in td.waku, e.g. /JRADB/img/waku/5.png.
+      // Decode ONLY the explicit image source on this numbered row; no inference from horse_no.
+      const imgSrc=String(frameCell.find("img").first().attr("src")??"");
+      const imageFrame=imgSrc.match(/^\/JRADB\/img\/waku\/([1-8])\.png(?:\?.*)?$/)?.[1];
+      const textFrame=clean(frameCell.text());
+      if(imageFrame)frame=Number(imageFrame);
+      else if(/^[1-8]$/.test(textFrame))frame=Number(textFrame);
+      else throw Error("JRA_CURRENT_DRAW_NOT_PUBLISHED");
       const span=Number(frameCell.attr("rowspan")||"1");
       if(!Number.isInteger(span)||span<1||span>4)throw Error("JRA_FRAME_ROWSPAN_INVALID");
       activeFrame=frame; frameRowsRemaining=span-1;
@@ -63,7 +68,10 @@ export function parseNumberedJraCard({html,load,expectedRace}) {
     } else {
       throw Error("JRA_CURRENT_DRAW_NOT_PUBLISHED");
     }
-    const jockeyText=clean(current.children("td.jockey").first().text());
+    const jockeyCell=current.children("td.jockey").first();
+    // JRA official currently separates <p class="weight"> and <p class="jockey">.
+    const weightText=clean(jockeyCell.children("p.weight").first().text());
+    const riderText=clean(jockeyCell.children("p.jockey").first().text());
     // Strip only past-running-history TDs: "取消"/"除外" in the past
     // cannot be used to mark the current row as cancelled/excluded.
     const currentRow=current.clone();
@@ -73,10 +81,15 @@ export function parseNumberedJraCard({html,load,expectedRace}) {
     const isOut=/競走除外|除外/.test(currentText)||/\bexcluded\b/i.test(currentClasses);
     const isCancel=/出走取消|取消/.test(currentText)||/\bcancell?ed\b/i.test(currentClasses);
     if(isOut&&isCancel)throw Error("JRA_CURRENT_STATUS_CONFLICT");
+    // ACTIVE must have a positive *current row* signal as well as a numbered entry.
+    // Current odds are used only to corroborate live entry status, never as a model factor.
+    const hasCurrentOdds=/^\d+(?:\.\d+)?$/.test(clean(horseCell.find(".odds_line .num strong").first().text()));
+    if(!isOut&&!isCancel&&!hasCurrentOdds)throw Error("JRA_CURRENT_ACTIVE_STATUS_UNVERIFIED");
+    if((isOut||isCancel)&&hasCurrentOdds)throw Error("JRA_CURRENT_STATUS_MARKET_CONFLICT");
     const status=isOut?"EXCLUDED":isCancel?"CANCELLED":"ACTIVE";
-    const jockeyMatch=jockeyText.match(/([0-9]+(?:\.[0-9]+)?)kg\s+(.+)$/);
-    const weight_carried=jockeyMatch?Number(jockeyMatch[1]):null;
-    const jockey=jockeyMatch?clean(jockeyMatch[2]):null;
+    const weightMatch=weightText.match(/^([0-9]+(?:\.[0-9]+)?)\s*kg$/);
+    const weight_carried=weightMatch?Number(weightMatch[1]):null;
+    const jockey=riderText||null;
     if(status==="ACTIVE"&&(!jockey||weight_carried===null))throw Error("JRA_CURRENT_JOCKEY_WEIGHT_NOT_PUBLISHED");
     rows.push({horse_no,horse_name,draw:frame,status,jockey,weight_carried,
       horse_no_source:"EXPLICIT_CURRENT_CARD",draw_source:"EXPLICIT_CURRENT_CARD",
