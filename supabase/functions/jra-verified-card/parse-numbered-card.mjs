@@ -49,7 +49,13 @@ export function parseNumberedJraCard({html,load,expectedRace}) {
     if(!/^\/JRADB\/accessU\.html\?CNAME=[^\s"'<>]+$/.test(horse_ref))throw Error("JRA_CURRENT_HORSE_REF_MISSING");
     if(!horse_name)throw Error("JRA_OFFICIAL_HORSE_NAME_MISSING");
     // Horse number must be explicitly printed in the CURRENT row.
-    const n=clean(current.children("td.num").first().text());
+    const numberCell=current.children("td.num").first();
+    const n=clean(numberCell.text());
+    // Real JRA official example 2026-10-17 Tokyo 5R: a scratched
+    // entry uses <td class="num"><span class="cap">取消</span></td>.
+    // Do not invent the missing printed number from row order or captured data.
+    if(!/^\d{1,2}$/.test(n) && numberCell.find("span.cap").length)
+      throw Error("JRA_CURRENT_SCRATCH_NUMBER_OMITTED_REQUIRES_RECONCILIATION");
     if(!/^\d{1,2}$/.test(n))throw Error("JRA_CURRENT_HORSE_NUMBER_NOT_PUBLISHED");
     const horse_no=Number(n);
     // Read draw ONLY from the current official numbered table, supporting
