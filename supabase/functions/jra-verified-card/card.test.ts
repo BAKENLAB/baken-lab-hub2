@@ -106,3 +106,11 @@ Deno.test("missing horse row cannot be silently skipped",()=>{
  const html=fixture(5).replace('/JRADB/accessU.html?CNAME=H3','/not_official');
  expectThrows(()=>parseNumberedJraCard({html,load,expectedRace:race(5)}),"JRA_FULL_NUMBERED_FIELD_MISMATCH");
 });
+
+Deno.test("real JRA style: scratched row without printed horse number fails closed",()=>{
+ const html=fixture(5).replace('<td class="num">3</td>', '<td class="num"><span class="cap">取消</span></td>');
+ expectThrows(
+  ()=>parseNumberedJraCard({html,load,expectedRace:race(5)}),
+  "JRA_CURRENT_SCRATCH_NUMBER_OMITTED_REQUIRES_RECONCILIATION"
+ );
+});
