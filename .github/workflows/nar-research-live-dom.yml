@@ -1,5 +1,5 @@
 name: RESEARCH ONLY NAR pre-race HTML smoke test
-# Log DOM of two unparsed runners in second, isolated 2026-10-21 fixture.
+# Verify canceled-race slot repair, baseline fixtures and real official card.
 on:
   push:
     branches:
@@ -21,6 +21,8 @@ jobs:
           node-version: '22'
       - name: Install parser dependency
         run: npm install --no-save --package-lock=false --ignore-scripts cheerio@1.0.0
+      - name: Verify every research DebaTable parser/shadow unit test
+        run: node --test automation/nar-deba-*.test.mjs
       - name: Verify published Kasamatsu 2026-08-14 11R card
         run: node automation/nar-deba-live-html-diagnostic.mjs
       - name: Verify missed 2026-10-21 winner's official pre-race card
