@@ -1,5 +1,5 @@
 name: RESEARCH ONLY NAR pre-race HTML smoke test
-# Two bounded GETs of public official racecards; evidence is pre-race columns only.
+# One bounded official GET per fixture; rerun after fixing duplicate target horse matcher.
 on:
   push:
     branches:
