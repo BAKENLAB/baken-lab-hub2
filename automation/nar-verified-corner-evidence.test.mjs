@@ -15,3 +15,9 @@ test('same-day history is excluded',()=>{const q=enrichVerifiedCornerHistory({ru
 test('finish differs from horse profile -> reject',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[{...row(r1),finish:2}]});assert.equal(q.accepted,0);});
 test('invalid passage shape -> reject',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[{...row(r1),corner_order:'1,1,1,1'}]});assert.equal(q.accepted,0);});
 test('do not rewrite existing evidence',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[{...r1,early_pos:2}],resultRows:[row(r1)]});assert.equal(q.runs[0].early_pos,2);});
+
+test('duplicate official result rows cannot produce an accepted position',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[row(r1),row(r1),row(r1)]});assert.equal(q.accepted,0);assert.equal(q.runs[0].early_pos,undefined);});
+test('unparseable passing order is excluded',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[{...row(r1),corner_order:'01-1-1-1'}]});assert.equal(q.accepted,0);});
+test('untrusted origin is excluded',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[{...row(r1),source_ref:'https://example.com/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=23&k_raceDate=2026%2F08%2F14&k_raceNo=5'}]});assert.equal(q.accepted,0);});
+test('conflicting previously verified corner evidence is not overwritten',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[{...r1,early_pos:2}],resultRows:[row(r1)]});assert.equal(q.accepted,0);assert.equal(q.runs[0].early_pos,2);});
+test('duplicated horse-profile race key is not accepted',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1,{...r1}],resultRows:[row(r1)]});assert.equal(q.accepted,0);});
