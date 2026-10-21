@@ -6,8 +6,9 @@ import {extractOwnedDebaPastCorners} from './nar-deba-past-corners.mjs';
 import {buildDebaRunningStyleShadow} from './nar-deba-style-shadow.mjs';
 const url='https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable?k_babaCode=23&k_raceDate=2026%2F10%2F21&k_raceNo=11';
 const race={circuit:'LOCAL',track:'笠松',race_date:'2026-10-21',race_no:11};
-const expectedNames=['ジョリーメモリー','トーホウジェンマ','コスモフィネス','ツインレイ','コスモフィネス','マーゴットメネス','カジカライズ','リアルカイザー','カレンアイバーソン','アースリーブラ'];
+const expectedNames=['ジョリーメモリー','トーホウジェンマ','ウィステリアベル','ツインレイ','コスモフィネス','マーゴットメネス','カジカライズ','リアルカイザー','カレンアイバーソン','アースリーブラ'];
 const norm=s=>String(s??'').normalize('NFKC').replace(/\s+/g,' ').trim();
+if(new Set(expectedNames).size!==expectedNames.length)throw Error('EXPECTED_RUNNERS_NOT_UNIQUE');
 const ctrl=new AbortController();const kill=setTimeout(()=>ctrl.abort(),15000);
 let response;
 try{response=await fetch(url,{signal:ctrl.signal,redirect:'error',headers:{'accept':'text/html','user-agent':'Mozilla/5.0 BAKEN-LAB-RESEARCH/1.0'}})}finally{clearTimeout(kill)}
