@@ -1,0 +1,24 @@
+name: RESEARCH ONLY NAR pre-race HTML smoke test
+on:
+  push:
+    branches:
+      - research/local-corner-history-verification-20261022
+    paths:
+      - '.github/workflows/nar-research-live-dom.yml'
+jobs:
+  live-html-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install parser dependency
+        run: npm install --no-save --package-lock=false --ignore-scripts cheerio@1.0.0
+      - name: Read one official NAR card; no secrets or writes
+        run: node automation/nar-deba-live-html-diagnostic.mjs
