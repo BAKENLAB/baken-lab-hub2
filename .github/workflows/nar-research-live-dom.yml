@@ -1,5 +1,5 @@
 name: RESEARCH ONLY NAR pre-race HTML smoke test
-# Research only: retest NAR full field after cancellation/exclusion/blank slot repair.
+# Research only: shadow-context sidecar and legacy tests, plus actual NAR HTML cards.
 on:
   push:
     branches:
@@ -23,6 +23,8 @@ jobs:
         run: npm install --no-save --package-lock=false --ignore-scripts cheerio@1.0.0
       - name: Verify every research DebaTable parser/shadow unit test
         run: node --test automation/nar-deba-*.test.mjs
+      - name: Verify strict shadow claimed-context sidecar and immutable history
+        run: node --test automation/nar-claimed-context-corner-sidecar.test.mjs
       - name: Verify published Kasamatsu 2026-08-14 11R card
         run: node automation/nar-deba-live-html-diagnostic.mjs
       - name: Verify missed 2026-10-21 winner's official pre-race card
