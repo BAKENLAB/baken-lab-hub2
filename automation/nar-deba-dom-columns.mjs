@@ -18,15 +18,30 @@ export function captureOwnedDebaPriorColumns({rows,diagnosedRunners,horseNo,deba
  // Date and passing-order must appear in rows owned by the same horse.
  const dates=owned.map(r=>({row:r,cells:r.cells.map(c=>neat(c?.text))})).filter(r=>r.cells.filter(x=>DATE_RX.test(x)).length>0);
  const forms=owned.map(r=>({row:r,cells:r.cells.map(c=>neat(c?.text))})).filter(r=>r.cells.filter(x=>PASS_RX.test(x)).length>0);
- if(dates.length!==1 || forms.length!==1 || dates[0].cells.length!==forms[0].cells.length) return [];
+ if(dates.length!==1 || forms.length!==1) return [];
  const date=dates[0],form=forms[0];
  if(form.row.row_index<=date.row.row_index) return []; // Must be later in same horse group.
+ const dateAt=date.cells.flatMap((v,i)=>DATE_RX.test(v)?[i]:[]);
+ const formAt=form.cells.flatMap((v,i)=>PASS_RX.test(v)?[i]:[]);
+ if(dateAt.length<1 || dateAt.length>5 || dateAt.length!==formAt.length)return [];
+ // Two observed, explicitly documented layouts only:
+ //  A. Paired same-column rows; sparse starts use exactly the same index.
+ //  B. NAR official DebaTable: horse identity/summary consumes 6 date-row
+ //     columns, while dam/owner consume 2 form-row columns. Five historical
+ //     starts align positionally at date[6..10] and form[2..6].
+ // Ambiguous, shifted or newly changed layouts remain unavailable ("?").
+ const sameColumn=date.cells.length===form.cells.length &&
+    dateAt.every((idx,k)=>idx===formAt[k]);
+ const officialFive=date.cells.length===11 && form.cells.length===7 &&
+    dateAt.length===5 &&
+    dateAt.every((idx,k)=>idx===6+k) &&
+    formAt.every((idx,k)=>idx===2+k);
+ if(!sameColumn&&!officialFive)return [];
  const result=[];
- for(let i=0;i<date.cells.length;i++){
-   if(!DATE_RX.test(date.cells[i]))continue;
-   if(!PASS_RX.test(form.cells[i]))return []; // never shift nearby columns.
-   if(result.length===5)return [];
-   result.push({slot:result.length+1,headline:date.cells[i],form:form.cells[i],
+ for(let slot=0;slot<dateAt.length;slot++){
+   const i=dateAt[slot],j=formAt[slot];
+   if(!DATE_RX.test(date.cells[i]) || !PASS_RX.test(form.cells[j]))return [];
+   result.push({slot:slot+1,headline:date.cells[i],form:form.cells[j],
       owner_horse_no:owner.horse_no,owner_row_index:owner.row_index,deba_source_ref:debaSourceRef});
  }
  return result;
