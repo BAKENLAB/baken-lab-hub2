@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseNarCornerRows} from './nar-official-result-parser.mjs';
+const race={"race_date":"2026-08-14","track":"笠松","race_no":5};
+const source_ref="https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=23&k_raceDate=2026%2F08%2F14&k_raceNo=5";
+const header_text="2026年8月14日（金）　笠　松　第5競走　競走成績";
+const columns=["着順","枠","馬番","馬名","所属","性齢","負担重量","騎手","調教師","馬体重","タイム","着差","上がり3F","コーナー 通過順","人気","単勝オッズ"];
+const row=(no,name,corners)=>{const cells=Array(16).fill('');cells[0]=String(no);cells[2]=String(no);cells[3]=name;cells[13]=corners;return {cells};};
+const rows=[{cells:columns},row(4,'コスモフィネス','1-1-1-1'),row(5,'テルケンレングレー','2-2-2-2')];
+test('extract past corners from known official result table layout',()=>{const x=parseNarCornerRows({race,source_ref,header_text,rows});assert.equal(x.length,2);assert.equal(x[0].horse_name,'コスモフィネス');assert.equal(x[0].corner_order,'1-1-1-1');});
+test('wrong race header never returns rows',()=>{assert.equal(parseNarCornerRows({race,source_ref,header_text:header_text.replace('第5競走','第6競走'),rows}).length,0);});
+test('wrong day never returns rows',()=>{assert.equal(parseNarCornerRows({race,source_ref,header_text:header_text.replace('14日','15日'),rows}).length,0);});
+test('missing required header refuses extraction',()=>{assert.equal(parseNarCornerRows({race,source_ref,header_text,rows:[{cells:columns.filter(s=>s!=='馬番')},rows[1]]}).length,0);});
+test('duplicate horse number rejects whole table',()=>{assert.equal(parseNarCornerRows({race,source_ref,header_text,rows:[rows[0],rows[1],rows[1]]}).length,0);});
+test('malformed corners are skipped, not guessed',()=>{const x=parseNarCornerRows({race,source_ref,header_text,rows:[rows[0],row(4,'コスモフィネス','1--1--1'),rows[2]]});assert.equal(x.length,1);assert.equal(x[0].horse_no,5);});
