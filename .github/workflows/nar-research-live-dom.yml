@@ -1,5 +1,5 @@
 name: RESEARCH ONLY NAR pre-race HTML smoke test
-# One bounded official GET per fixture; rerun with full ten-runner passage coverage.
+# Two isolated GET fixtures; verify strict 10/7 plus 11/7 horse-row formats.
 on:
   push:
     branches:
