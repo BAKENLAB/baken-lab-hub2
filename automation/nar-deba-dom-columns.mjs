@@ -3,7 +3,7 @@
 // Requires exact row/cell-column alignment. Unknown HTML layout yields no data.
 const neat = s => String(s??'').normalize('NFKC').replace(/\s+/g,' ').trim();
 const DATE_RX=/^(?:[1-9]|1\d|20)\s+\d{2}\.\d{2}\.\d{2}\s+(?:良|稍重|重|不良)\s+\d{1,2}頭(?:\s|$)/;
-const CANCELLED_RX=/^取止\s+\d{2}\.\d{2}\.\d{2}\s+(?:良|稍重|重|不良)\s+0頭(?:\s|$)/;
+const VOID_RUN_RX=/^(?:取止\s+\d{2}\.\d{2}\.\d{2}\s+(?:良|稍重|重|不良)\s+0頭|(?:取消|除外)\s+\d{2}\.\d{2}\.\d{2}\s+(?:良|稍重|重|不良)\s+(?:[1-9]|1\d|20)頭)(?:\s|$)/;
 const PASS_RX=/(?:^|\s)\d{1,2}:\d{2}\.\d\s+(?:[1-9]|1\d|20)(?:-(?:[1-9]|1\d|20)){1,4}\s+\d{2}\.\d(?:\s|$)/;
 export function captureOwnedDebaPriorColumns({rows,diagnosedRunners,horseNo,debaSourceRef}){
  if(!Array.isArray(rows)||rows.length>2000 || !Array.isArray(diagnosedRunners)||
@@ -29,7 +29,7 @@ export function captureOwnedDebaPriorColumns({rows,diagnosedRunners,horseNo,deba
  // slots remain present and must NOT shift the other four run pairings.
  let pairs=[];
  if(date.cells.length===form.cells.length){
-   pairs=date.cells.flatMap((v,i)=>DATE_RX.test(v)||CANCELLED_RX.test(v)?[[i,i]]:[]);
+   pairs=date.cells.flatMap((v,i)=>DATE_RX.test(v)||VOID_RUN_RX.test(v)?[[i,i]]:[]);
    // A passage without a recognized run header at that exact position is an
    // alignment conflict, not evidence to reuse from an adjacent cell.
    if(form.cells.some((v,i)=>PASS_RX.test(v)&&!pairs.some(p=>p[0]===i)))return [];
@@ -45,11 +45,12 @@ export function captureOwnedDebaPriorColumns({rows,diagnosedRunners,horseNo,deba
        owner_row_index:owner.row_index,deba_source_ref:debaSourceRef});
      continue;
    }
-   // Only a clearly identified 0-horse canceled race paired with an
+   // Only a clearly identified 0-horse stopped meeting, or official canceled/excluded
+   // start, paired with an
    // empty form cell can be safely skipped. Never invent its corner order.
-   if(CANCELLED_RX.test(h) && !p)continue;
+   if(VOID_RUN_RX.test(h) && !p)continue;
    if(!h && !p)continue; // genuinely absent prior-run slots
-   if(i < date.cells.length && !DATE_RX.test(h) && !CANCELLED_RX.test(h)
+   if(i < date.cells.length && !DATE_RX.test(h) && !VOID_RUN_RX.test(h)
       && !h && !p && date.cells.length===form.cells.length)continue;
    // Any shifted, truncated or ambiguous data rejects the horse.
    return [];
