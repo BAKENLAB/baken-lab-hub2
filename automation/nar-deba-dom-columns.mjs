@@ -3,6 +3,7 @@
 // Requires exact row/cell-column alignment. Unknown HTML layout yields no data.
 const neat = s => String(s??'').normalize('NFKC').replace(/\s+/g,' ').trim();
 const DATE_RX=/^(?:[1-9]|1\d|20)\s+\d{2}\.\d{2}\.\d{2}\s+(?:良|稍重|重|不良)\s+\d{1,2}頭(?:\s|$)/;
+const CANCELLED_RX=/^取止\s+\d{2}\.\d{2}\.\d{2}\s+(?:良|稍重|重|不良)\s+0頭(?:\s|$)/;
 const PASS_RX=/(?:^|\s)\d{1,2}:\d{2}\.\d\s+(?:[1-9]|1\d|20)(?:-(?:[1-9]|1\d|20)){1,4}\s+\d{2}\.\d(?:\s|$)/;
 export function captureOwnedDebaPriorColumns({rows,diagnosedRunners,horseNo,debaSourceRef}){
  if(!Array.isArray(rows)||rows.length>2000 || !Array.isArray(diagnosedRunners)||
@@ -16,35 +17,40 @@ export function captureOwnedDebaPriorColumns({rows,diagnosedRunners,horseNo,deba
  const owned=rows.filter(r=>r&&Number.isInteger(r.row_index)&&
      r.row_index>=owner.row_index && r.row_index<next && Array.isArray(r.cells));
  // Date and passing-order must appear in rows owned by the same horse.
- const dates=owned.map(r=>({row:r,cells:r.cells.map(c=>neat(c?.text))})).filter(r=>r.cells.filter(x=>DATE_RX.test(x)).length>0);
- const forms=owned.map(r=>({row:r,cells:r.cells.map(c=>neat(c?.text))})).filter(r=>r.cells.filter(x=>PASS_RX.test(x)).length>0);
+ const dates=owned.map(r=>({row:r,cells:r.cells.map(c=>neat(c?.text))}))
+   .filter(r=>r.cells.some(v=>DATE_RX.test(v)));
+ const forms=owned.map(r=>({row:r,cells:r.cells.map(c=>neat(c?.text))}))
+   .filter(r=>r.cells.some(v=>PASS_RX.test(v)));
  if(dates.length!==1 || forms.length!==1) return [];
  const date=dates[0],form=forms[0];
- if(form.row.row_index<=date.row.row_index) return []; // Must be later in same horse group.
- const dateAt=date.cells.flatMap((v,i)=>DATE_RX.test(v)?[i]:[]);
- const formAt=form.cells.flatMap((v,i)=>PASS_RX.test(v)?[i]:[]);
- if(dateAt.length<1 || dateAt.length>5 || dateAt.length!==formAt.length)return [];
- // Two observed, explicitly documented layouts only:
- //  A. Paired same-column rows; sparse starts use exactly the same index.
- //  B. NAR official DebaTable: some runner rows contain one or two leading
- //     frame/horse-no cells; the 10- or 11-cell headline row ends in five
- //     dated starts, while the 7-cell dam/owner row ends in five passages.
- //     These exact five-slot suffixes align positionally.
- // Ambiguous, shifted or newly changed layouts remain unavailable ("?").
- const sameColumn=date.cells.length===form.cells.length &&
-    dateAt.every((idx,k)=>idx===formAt[k]);
- const officialFive=(date.cells.length===11 || date.cells.length===10) &&
-    form.cells.length===7 &&
-    dateAt.length===5 &&
-    dateAt.every((idx,k)=>idx===date.cells.length-5+k) &&
-    formAt.every((idx,k)=>idx===2+k);
- if(!sameColumn&&!officialFive)return [];
+ if(form.row.row_index<=date.row.row_index)return [];
+ // Only two explicitly observed layouts: 1:1 same columns, or NAR's
+ // 10/11-cell dated starts with the 7-cell form row. Canceled historical
+ // slots remain present and must NOT shift the other four run pairings.
+ let pairs=[];
+ if(date.cells.length===form.cells.length){
+   pairs=date.cells.map((_,i)=>[i,i]);
+ }else if((date.cells.length===10||date.cells.length===11)&&form.cells.length===7){
+   pairs=Array.from({length:5},(_,i)=>[date.cells.length-5+i,2+i]);
+ }else return [];
  const result=[];
- for(let slot=0;slot<dateAt.length;slot++){
-   const i=dateAt[slot],j=formAt[slot];
-   if(!DATE_RX.test(date.cells[i]) || !PASS_RX.test(form.cells[j]))return [];
-   result.push({slot:slot+1,headline:date.cells[i],form:form.cells[j],
-      owner_horse_no:owner.horse_no,owner_row_index:owner.row_index,deba_source_ref:debaSourceRef});
+ for(let i=0;i<pairs.length;i++){
+   const [di,fi]=pairs[i],h=date.cells[di],p=form.cells[fi];
+   const valid=DATE_RX.test(h) && PASS_RX.test(p);
+   if(valid){
+     result.push({slot:i+1,headline:h,form:p,owner_horse_no:owner.horse_no,
+       owner_row_index:owner.row_index,deba_source_ref:debaSourceRef});
+     continue;
+   }
+   // Only a clearly identified 0-horse canceled race paired with an
+   // empty form cell can be safely skipped. Never invent its corner order.
+   if(CANCELLED_RX.test(h) && !p)continue;
+   if(!h && !p)continue; // genuinely absent prior-run slots
+   if(i < date.cells.length && !DATE_RX.test(h) && !CANCELLED_RX.test(h)
+      && !h && !p && date.cells.length===form.cells.length)continue;
+   // Any shifted, truncated or ambiguous data rejects the horse.
+   return [];
  }
+ if(!result.length || result.length>5)return [];
  return result;
 }
