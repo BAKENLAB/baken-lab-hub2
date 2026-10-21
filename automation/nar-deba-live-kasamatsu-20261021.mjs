@@ -100,6 +100,15 @@ for(const item of full) {
   fullCoverage.push({no,name,past_runs_found:past.length,
     style:shadow.runners[0].shadow_style,evidence_status:shadow.runners[0].evidence_status});
 }
+// Diagnostics for exactly the two unresolved runners. Do not guess missing positions.
+for(const targetNo of [1,7]){
+  const owner=blocks.find(x=>x.horse_no===targetNo);
+  const nextIndex=Math.min(...blocks.filter(x=>x.row_index>owner.row_index).map(x=>x.row_index),Infinity);
+  const owned=rows.filter(x=>x.row_index>=owner.row_index && x.row_index<nextIndex)
+    .map(x=>({row:x.row_index,n:x.cells.length,
+      cells:x.cells.map(c=>norm(c.text).slice(0,175))}));
+  console.log('UNRESOLVED_RUNNER_DOM',JSON.stringify({no:targetNo,owner_row:owner.row_index,owned}));
+}
 console.log('FULL_FIELD_RESEARCH_COVERAGE',JSON.stringify(fullCoverage));
 console.log('FULL_FIELD_COVERAGE_COUNTS',JSON.stringify({
  runners:fullCoverage.length,
