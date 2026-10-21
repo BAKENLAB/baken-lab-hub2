@@ -1,5 +1,5 @@
 name: RESEARCH ONLY NAR pre-race HTML smoke test
-# Verify canceled-race slot repair, baseline fixtures and real official card.
+# Research only: canceled-history tests and three separate live official cards.
 on:
   push:
     branches:
@@ -27,3 +27,5 @@ jobs:
         run: node automation/nar-deba-live-html-diagnostic.mjs
       - name: Verify missed 2026-10-21 winner's official pre-race card
         run: node automation/nar-deba-live-kasamatsu-20261021.mjs
+      - name: Verify independent 2026-10-21 Sonoda 6R official card
+        run: node automation/nar-deba-live-sonoda-20261021.mjs
