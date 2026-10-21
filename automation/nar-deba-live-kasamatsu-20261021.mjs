@@ -78,3 +78,33 @@ if(passages.length){
  console.log('RESEARCH_SHADOW_RESULT',JSON.stringify(out.runners[0]));
 }
 if(!passages.length)throw Error('RESEARCH_PARSER_NOT_YET_MATCHING_REAL_DOM');
+
+const fullCoverage=[];
+if(full.length!==expectedNames.length ||
+   new Set(full.map(x=>x.names[0])).size!==expectedNames.length) {
+  throw Error('RUNNER_FIELD_INTEGRITY_NOT_ESTABLISHED');
+}
+for(const item of full) {
+  const name=item.names[0], no=expectedNames.indexOf(name)+1;
+  const row=rows.find(x=>x.row_index===item.row_index);
+  const links=row?.cells.flatMap(x=>x.links).filter(x=>x.href?.includes('k_lineageLoginCode'))||[];
+  // Official row ownership, and exactly one official lineage URL, not name alone.
+  const refs=[...new Set(links.map(x=>new URL(x.href,url).href))];
+  if(refs.length!==1)throw Error('RUNNER_IDENTITY_AMBIGUOUS '+no);
+  const runner={status:'ACTIVE',horse_no:no,horse_name:name,row_index:item.row_index,
+    identity_refs:refs,current_source_ref:url,running_style_reference:['?'],recent_runs:[]};
+  const columns=captureOwnedDebaPriorColumns({rows,diagnosedRunners:blocks,horseNo:no,debaSourceRef:url});
+  const past=extractOwnedDebaPastCorners({race,cardSourceRef:url,cardHeader:text.slice(0,1300),
+    runner,columns});
+  const shadow=buildDebaRunningStyleShadow({context:{race,runners:[runner]},priorEvidence:past});
+  fullCoverage.push({no,name,past_runs_found:past.length,
+    style:shadow.runners[0].shadow_style,evidence_status:shadow.runners[0].evidence_status});
+}
+console.log('FULL_FIELD_RESEARCH_COVERAGE',JSON.stringify(fullCoverage));
+console.log('FULL_FIELD_COVERAGE_COUNTS',JSON.stringify({
+ runners:fullCoverage.length,
+ runs_with_two_plus:fullCoverage.filter(x=>x.past_runs_found>=2).length,
+ styles_resolved:fullCoverage.filter(x=>!x.style.includes('?')).length,
+ total_prior_runs:fullCoverage.reduce((sum,x)=>sum+x.past_runs_found,0)
+}));
+
