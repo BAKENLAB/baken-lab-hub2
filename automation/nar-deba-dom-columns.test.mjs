@@ -105,3 +105,48 @@ test('missing passage column stops extraction',()=>{const q=structuredClone(inpu
 test('ambiguous owner refuses extraction',()=>{const r=[...inputs.diagnosedRunners,{horse_no:6,row_index:30}];assert.deepEqual(captureOwnedDebaPriorColumns({...inputs,diagnosedRunners:r}),[]);});
 test('misaligned form-row count rejects',()=>{const q=structuredClone(inputs);q.rows[2].cells.shift();assert.deepEqual(captureOwnedDebaPriorColumns(q),[]);});
 test('second horse returns only own column',()=>{const r=captureOwnedDebaPriorColumns({...inputs,horseNo:5});assert.equal(r.length,1);assert.equal(r[0].owner_horse_no,5);});
+
+
+test('actual official 2026-08-14 Kasamatsu 11R HTML row layout (11 date cols / 7 form cols)',()=>{
+  const source=inputs.debaSourceRef;
+  const values=[
+    '6','6','ウィステリアベル','加藤聡(愛知)','7.3 (4人気)',
+    '全 2- 5- 2- 9 左 0- 0- 0- 1 右 2- 5- 2- 7 場 2- 5- 2- 6',
+    '6 26.07.09 良 10頭 笠松 右1400 10番',
+    '1 26.06.26 不良 10頭 笠松 右1580 6番',
+    '1 26.06.10 良 12頭 笠松 右1400 6番',
+    '8 26.05.27 良 10頭 笠松 右1400 3番',
+    '3 26.05.12 良 8頭 笠松 右1580 7番'
+  ];
+  const forms=[
+    'スズベルベット','(同)JPN技研','1:31.6 2-2-1-2 41.1',
+    '1:45.6 1-1-1-1 40.7','1:33.8 1-1-1-1 41.3',
+    '1:33.6 1-1-1-3 42.1','1:47.3 1-2-1-1 41.2'
+  ];
+  const observed=[
+    {row_index:57,cells:values.map(text=>({text}))},
+    {row_index:66,cells:forms.map(text=>({text}))},
+    {row_index:68,cells:[{text:'7'},{text:'サンモスクテール'}]}
+  ];
+  const result=captureOwnedDebaPriorColumns({
+    rows:observed,horseNo:6,debaSourceRef:source,
+    diagnosedRunners:[{horse_no:6,row_index:57},{horse_no:7,row_index:68}]
+  });
+  assert.equal(result.length,5);
+  assert.deepEqual(result.map(x=>x.form.split(/\s+/)[1]),
+    ['2-2-1-2','1-1-1-1','1-1-1-1','1-1-1-3','1-2-1-1']);
+});
+test('official 11/7 columns cannot be silently shifted',()=>{
+ const date=['6','6','ウィステリアベル','加藤聡','7.3','前走情報',
+ '6 26.07.09 良 10頭 笠松 右1400 10番','1 26.06.26 不良 10頭 笠松 右1580 6番',
+ '1 26.06.10 良 12頭 笠松 右1400 6番','8 26.05.27 良 10頭 笠松 右1400 3番',
+ '3 26.05.12 良 8頭 笠松 右1580 7番'].map(text=>({text}));
+ const form=['母','馬主','1:31.6 2-2-1-2 41.1','1:45.6 1-1-1-1 40.7',
+ '1:33.8 1-1-1-1 41.3','1:33.6 1-1-1-3 42.1','1:47.3 1-2-1-1 41.2'].map(text=>({text}));
+ const rows=[{row_index:57,cells:date},{row_index:66,cells:form.slice(1)},
+             {row_index:68,cells:[]}];
+ const result=captureOwnedDebaPriorColumns({rows,horseNo:6,
+ diagnosedRunners:[{horse_no:6,row_index:57},{horse_no:7,row_index:68}],
+ debaSourceRef:inputs.debaSourceRef});
+ assert.deepEqual(result,[]);
+});
