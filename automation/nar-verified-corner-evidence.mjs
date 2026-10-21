@@ -5,7 +5,7 @@
 const NAR_CODES = Object.freeze({"門別":"36","帯広":"03","盛岡":"10","水沢":"11","浦和":"18","船橋":"19","大井":"20","川崎":"21","金沢":"22","笠松":"23","名古屋":"24","園田":"27","姫路":"28","高知":"31","佐賀":"32"});
 function normalizedHorseName(s) {return String(s??'').normalize('NFKC').replace(/\s+/g,' ').trim()}
 function parseOfficialResultUrl(input) {
- if(typeof input!=='string'||!/^https:\/\/(?:www|sp)\.keiba\.go\.jp\/KeibaWeb\/TodayRaceInfo\/RaceMarkTable\?/.test(input))return null;
+ if(typeof input!=='string'||!/^https:\/\/(?:www|sp)\.keiba\.go\.jp\/(?:KeibaWeb\/TodayRaceInfo\/RaceMarkTable|KeibaWeb_IPAT\/TodayRaceInfo\/RaceMarkTable_ipat)\?/.test(input))return null;
  const q=input.slice(input.indexOf('?')+1).split('&'), fields={};
  if(q.length!==3)return null;
  for(const pair of q){const at=pair.indexOf('=');if(at<1)return null;const key=pair.slice(0,at);if(!['k_babaCode','k_raceDate','k_raceNo'].includes(key)||Object.prototype.hasOwnProperty.call(fields,key))return null;try{fields[key]=decodeURIComponent(pair.slice(at+1).replace(/\+/g,' '))}catch{return null}}
