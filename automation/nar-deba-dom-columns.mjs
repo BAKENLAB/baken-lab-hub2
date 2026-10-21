@@ -26,15 +26,17 @@ export function captureOwnedDebaPriorColumns({rows,diagnosedRunners,horseNo,deba
  if(dateAt.length<1 || dateAt.length>5 || dateAt.length!==formAt.length)return [];
  // Two observed, explicitly documented layouts only:
  //  A. Paired same-column rows; sparse starts use exactly the same index.
- //  B. NAR official DebaTable: horse identity/summary consumes 6 date-row
- //     columns, while dam/owner consume 2 form-row columns. Five historical
- //     starts align positionally at date[6..10] and form[2..6].
+ //  B. NAR official DebaTable: some runner rows contain one or two leading
+ //     frame/horse-no cells; the 10- or 11-cell headline row ends in five
+ //     dated starts, while the 7-cell dam/owner row ends in five passages.
+ //     These exact five-slot suffixes align positionally.
  // Ambiguous, shifted or newly changed layouts remain unavailable ("?").
  const sameColumn=date.cells.length===form.cells.length &&
     dateAt.every((idx,k)=>idx===formAt[k]);
- const officialFive=date.cells.length===11 && form.cells.length===7 &&
+ const officialFive=(date.cells.length===11 || date.cells.length===10) &&
+    form.cells.length===7 &&
     dateAt.length===5 &&
-    dateAt.every((idx,k)=>idx===6+k) &&
+    dateAt.every((idx,k)=>idx===date.cells.length-5+k) &&
     formAt.every((idx,k)=>idx===2+k);
  if(!sameColumn&&!officialFive)return [];
  const result=[];
