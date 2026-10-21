@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {enrichVerifiedCornerHistory} from './nar-verified-corner-evidence.mjs';
+const ref='https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=12345678901';
+const runner={horse_no:5,horse_name:'コスモフィネス',identity_refs:[ref]};
+const currentRace={race_date:'2026-10-21',track:'笠松',race_no:11,circuit:'LOCAL'};
+const r1={"race_date":"2026-08-14","track":"笠松","race_no":5,"horse_no":4,"horse_name":"コスモフィネス","horse_ref":"https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=12345678901","source":"NAR_OFFICIAL_RESCUE","finish":1};
+const r2={"race_date":"2026-09-09","track":"笠松","race_no":9,"horse_no":3,"horse_name":"コスモフィネス","horse_ref":"https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=12345678901","source":"NAR_OFFICIAL_RESCUE","finish":1};
+const row=r=>({...r,source:'NAR_OFFICIAL_RESULT',circuit:'LOCAL',corner_order:'1-1-1-1',source_ref:'https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=23&k_raceDate='+r.race_date.replaceAll('-','%2F')+'&k_raceNo='+r.race_no});
+test('correct official profile and race number -> retrieve historical corner',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1,r2],resultRows:[row(r1),row(r2)]});assert.equal(q.accepted,2);assert.deepEqual(q.runs.map(r=>r.early_pos),[1,1]);});
+test('identical horse name alone is insufficient',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[{...r1,horse_ref:ref.replace('12345678901','99999999999')}],resultRows:[row(r1)]});assert.equal(q.accepted,0);});
+test('different old horse number -> reject',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[{...row(r1),horse_no:12}]});assert.equal(q.accepted,0);});
+test('mismatched official race URL -> reject',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[{...row(r1),source_ref:row(r1).source_ref.replace('k_raceNo=5','k_raceNo=6')}]});assert.equal(q.accepted,0);});
+test('same-day history is excluded',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace:{...currentRace,race_date:'2026-09-09'},profileRuns:[r2],resultRows:[row(r2)]});assert.equal(q.accepted,0);});
+test('finish differs from horse profile -> reject',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[{...row(r1),finish:2}]});assert.equal(q.accepted,0);});
+test('invalid passage shape -> reject',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[r1],resultRows:[{...row(r1),corner_order:'1,1,1,1'}]});assert.equal(q.accepted,0);});
+test('do not rewrite existing evidence',()=>{const q=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[{...r1,early_pos:2}],resultRows:[row(r1)]});assert.equal(q.runs[0].early_pos,2);});
