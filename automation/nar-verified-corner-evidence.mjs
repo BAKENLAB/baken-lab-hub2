@@ -17,16 +17,24 @@ export function enrichVerifiedCornerHistory({runner,currentRace,profileRuns,resu
  if(!runner||!currentRace||!Array.isArray(runner.identity_refs)||runner.identity_refs.length!==1||!Array.isArray(profileRuns)||!Array.isArray(resultRows)||!validDate(currentRace.race_date))throw Error('INVALID_INPUT');
  const ref=runner.identity_refs[0];
  if(typeof ref!=='string'||!/^https:\/\/www\.keiba\.go\.jp\/KeibaWeb\/DataRoom\/HorseMarkInfo\?k_lineageLoginCode=\d{5,30}$/.test(ref))return {runs:profileRuns,accepted:0,rejected:resultRows.length};
- const result=new Map();let accepted=0,rejected=0;
+ const result=new Map(),seenKeys=new Set(),invalidKeys=new Set();let rejected=0;
  for(const x of resultRows){
    const p=parseOfficialResultUrl(x?.source_ref),d=x?.race_date;
-   const matchingRun=profileRuns.find(h=>h&&h.race_date===d&&h.track===x.track&&h.race_no===x.race_no&&h.horse_no===x.horse_no&&h.horse_ref===ref&&same(h.horse_name,runner.horse_name)&&h.source==='NAR_OFFICIAL_RESCUE');
-   const vals=typeof x?.corner_order==='string'?x.corner_order.trim().split('-').map(Number):[];
-   const good=!!p&&!!matchingRun&&validDate(d)&&d<currentRace.race_date&&p.k_babaCode===NAR_CODES[x.track]&&p.k_raceDate===d.replaceAll('-','/')&&p.k_raceNo===String(x.race_no)&&x.circuit==='LOCAL'&&same(x.horse_name,runner.horse_name)&&x.horse_no>=1&&x.horse_no<=20&&x.source==='NAR_OFFICIAL_RESULT'&&(!Number.isInteger(x.finish)||!Number.isInteger(matchingRun.finish)||x.finish===matchingRun.finish)&&vals.length>=2&&vals.length<=5&&vals.every(n=>Number.isInteger(n)&&n>=1&&n<=20);
+   const matches=profileRuns.filter(h=>h&&h.race_date===d&&h.track===x.track&&h.race_no===x.race_no&&h.horse_no===x.horse_no&&h.horse_ref===ref&&same(h.horse_name,runner.horse_name)&&h.source==='NAR_OFFICIAL_RESCUE');
+   const matchingRun=matches.length===1?matches[0]:null;
+   const corner=typeof x?.corner_order==='string'?x.corner_order.trim():'';
+   const strict=/^(?:[1-9]|1[0-9]|20)(?:-(?:[1-9]|1[0-9]|20)){1,4}$/;
+   const vals=strict.test(corner)?corner.split('-').map(Number):[];
+   const good=!!p&&!!matchingRun&&validDate(d)&&d<currentRace.race_date&&p.k_babaCode===NAR_CODES[x.track]&&p.k_raceDate===d.replaceAll('-','/')&&p.k_raceNo===String(x.race_no)&&x.circuit==='LOCAL'&&same(x.horse_name,runner.horse_name)&&x.horse_no>=1&&x.horse_no<=20&&x.source==='NAR_OFFICIAL_RESULT'&&Number.isInteger(x.finish)&&Number.isInteger(matchingRun.finish)&&x.finish===matchingRun.finish&&vals.length>=2&&vals.length<=5&&vals.every(n=>Number.isInteger(n)&&n>=1&&n<=20);
    if(!good){rejected++;continue}
-   const key=[d,x.track,x.race_no,x.horse_no].join('|');if(result.has(key)){result.delete(key);rejected+=2;accepted--;continue}
-   result.set(key,{early_pos:vals[0],final_turn_pos:vals[vals.length-1],source_ref:x.source_ref,identity_source_ref:ref,identity_verified_by:'OFFICIAL_HORSE_REF'});accepted++;
+   const key=[d,x.track,x.race_no,x.horse_no].join('|');
+   if(seenKeys.has(key)){invalidKeys.add(key);result.delete(key);rejected++;continue}
+   seenKeys.add(key);
+   result.set(key,{early_pos:vals[0],final_turn_pos:vals[vals.length-1],source_ref:x.source_ref,identity_source_ref:ref,identity_verified_by:'OFFICIAL_HORSE_REF'});
  }
- const runs=profileRuns.map(h=>{const key=[h.race_date,h.track,h.race_no,h.horse_no].join('|');const m=result.get(key);if(!m)return h;if(h.early_pos!=null && Number(h.early_pos)!==m.early_pos)return h;return {...h,early_pos:m.early_pos,final_turn_pos:m.final_turn_pos,corner_evidence_ref:m.source_ref};});
+ let accepted=0;
+ const runs=profileRuns.map(h=>{const key=[h.race_date,h.track,h.race_no,h.horse_no].join('|');const m=result.get(key);if(!m||invalidKeys.has(key))return h;
+  if((h.early_pos!=null && Number(h.early_pos)!==m.early_pos)||(h.final_turn_pos!=null && Number(h.final_turn_pos)!==m.final_turn_pos)){rejected++;return h}
+  accepted++;return {...h,early_pos:m.early_pos,final_turn_pos:m.final_turn_pos,corner_evidence_ref:m.source_ref};});
  return {runs,accepted,rejected};
 }
