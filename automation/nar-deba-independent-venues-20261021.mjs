@@ -78,6 +78,20 @@ for(const task of tasks){
    runners_with_style:field.filter(x=>!x.style.includes('?')).length,
    runners_2plus_prior:field.filter(x=>x.valid_prior_runs>=2).length,
    prior_run_count:field.reduce((a,x)=>a+x.valid_prior_runs,0)};
+ // Diagnostic only: capture owner-bound source rows of unparsed Monbetsu starts
+ // so fixtures can be repaired without name-only joining or unknown guesses.
+ if(race.track==='門別'){
+  for(const n of [3,9,12]){
+    const current=diagnosed.find(x=>x.horse_no===n);
+    const next=Math.min(...diagnosed.filter(x=>x.row_index>current.row_index)
+      .map(x=>x.row_index),Infinity);
+    const rowsOwned=rows.filter(x=>x.row_index>=current.row_index&&x.row_index<next)
+      .map(x=>({idx:x.row_index,cell_count:x.cells.length,
+        texts:x.cells.map(c=>clean(c.text).slice(0,190))}));
+    console.log('RESEARCH_UNPARSED_MONBETSU_DOM',JSON.stringify({
+      no:n,name:current.horse_name,rows:rowsOwned}));
+  }
+ }
  console.log('RESEARCH_OFFICIAL_FIELD',JSON.stringify(stats));
  console.log('RESEARCH_OFFICIAL_RUNNERS',JSON.stringify(field));
  console.log('RESEARCH_FROZEN_CROSSCHECK_LABEL',JSON.stringify({
