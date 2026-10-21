@@ -29,7 +29,10 @@ export function captureOwnedDebaPriorColumns({rows,diagnosedRunners,horseNo,deba
  // slots remain present and must NOT shift the other four run pairings.
  let pairs=[];
  if(date.cells.length===form.cells.length){
-   pairs=date.cells.map((_,i)=>[i,i]);
+   pairs=date.cells.flatMap((v,i)=>DATE_RX.test(v)||CANCELLED_RX.test(v)?[[i,i]]:[]);
+   // A passage without a recognized run header at that exact position is an
+   // alignment conflict, not evidence to reuse from an adjacent cell.
+   if(form.cells.some((v,i)=>PASS_RX.test(v)&&!pairs.some(p=>p[0]===i)))return [];
  }else if((date.cells.length===10||date.cells.length===11)&&form.cells.length===7){
    pairs=Array.from({length:5},(_,i)=>[date.cells.length-5+i,2+i]);
  }else return [];
