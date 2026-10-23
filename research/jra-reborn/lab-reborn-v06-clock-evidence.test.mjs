@@ -44,7 +44,7 @@ test("historical Chukyo 2025 winner is compared with 2023-24 same condition",()=
  assert.equal(a.score_delta,0);
 });
 test("do not treat an unknown racing condition as bad ability",()=>{
- const r=assessHistoricalRun({...runner,going:"不良"},{date:"2025-09-13"},prepared);
+ const r=assessHistoricalRun({...runner,going:"不良"},{date:"2025-09-13",horse_ref:ref},prepared);
  assert.ok(["CONDITION_EVIDENCE_READY","NO_MATCHED_REFERENCE"].includes(r.status));
 });
 test("target from same day / future cannot be included",()=>{
@@ -59,7 +59,7 @@ test("horse identity remains fixed when enriching previous races",()=>{
 });
 test("misreported winner seconds cannot be silently trusted",()=>{
  assert.equal(assessHistoricalRun({...runner,winner_time:"1:13.0"},
-  {date:"2025-09-13"},prepared).status,"INVALID_TIMING");
+  {date:"2025-09-13",horse_ref:ref},prepared).status,"INVALID_TIMING");
 });
 test("market data old ranks and target result do not affect evidence",()=>{
  const context={date:"2025-09-13",horse_ref:ref};
