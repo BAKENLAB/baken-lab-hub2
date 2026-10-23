@@ -95,3 +95,15 @@ test("wrong rival historical date is removed",()=>{
  ]}]},options);
  assert.equal(x.runners[0].rival_followup_results,0);
 });
+
+
+test("a prior winner with large WINNING margin remains strong evidence",()=>{
+  const x=auditJraV04Race({...bundle,runners:[{
+    ...bundle.runners[0],past_race_content:[{...hist,finish:1,
+      margin_to_winner:1.2,race_name:"仮想テスト勝利"}],
+    opponent_followups:[]
+  }]},options);
+  assert.equal(x.runners[0].competitive_near_condition_runs,1);
+  assert.ok(x.runners[0].facts.some(f=>f.text.includes("1着（勝利）")));
+  assert.ok(x.runners[0].facts.every(f=>!f.text.includes("着差1.2")));
+});
