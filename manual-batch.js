@@ -32,13 +32,15 @@
       if (r.prediction || !statusAllowed.has(r.prediction_status) || r.data_error) {
         skipped.savedOrClosed++;continue;
       }
-      if (r.field_status !== 'READY') {skipped.notReady++;continue}
+      if (r.circuit === 'LOCAL' ? r.field_status !== 'READY' : !['BASIC_READY', 'READY'].includes(r.field_status)) {skipped.notReady++;continue}
       const t = Date.parse(r.post_time ?? '');
       if (!Number.isFinite(t)) {skipped.invalid++;continue}
       const minutes = (t - now.getTime())/60000;
-      // Each LOCAL save requires a live claim and strictly pre-post guard.
-      // JRA freeze window is handled separately. Never mix JRA/LOCAL RPCs.
-      if (r.circuit === 'LOCAL' ? minutes<=3 : (minutes<70 || minutes>150)) {
+      // Candidate ranges mirror current guarded claim RPCs, not a promise of a save.
+      // LOCAL ordinary worker: 20..150m; RESCUE: 10..70m -> union 10..150m.
+      // JRA manual claim: strictly >3m and <=70m before post.
+      // The official MCP rechecks all conditions at execution time.
+      if (r.circuit === 'LOCAL' ? (minutes < 10 || minutes > 150) : (minutes <= 3 || minutes > 70)) {
         skipped.cutoff++;continue;
       }
       sorted.push({
