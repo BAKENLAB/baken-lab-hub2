@@ -164,10 +164,14 @@ export function buildRebornPrediction(packet,ctx){
   return {status:"IDENTITY_MISMATCH",runners:[],production_write:false};
  scored.sort((a,b)=>(b.score??-1)-(a.score??-1)||a.horse_no-b.horse_no);
  scored.forEach((x,i)=>{x.reborn_rank=x.score===null?null:i+1;});
- return {status:scored.every(x=>x.score!==null)?"RESEARCH_READY":"PARTIAL_HISTORY",
+ const complete=scored.every(x=>x.score!==null);
+ return {status:complete?"RESEARCH_READY":"PARTIAL_HISTORY",
    model:"LAB_REBORN_0.1_INDEPENDENT",runners:scored,
-   top5:scored.filter(x=>x.reborn_rank!==null).slice(0,5),
-   eligible_top5:scored.filter(x=>x.reborn_rank!==null).length>=5,
+   // Incomplete fields may be inspected, but must NOT be treated as
+   // complete-field predictions or scored against official FROZEN.
+   top5:complete?scored.slice(0,5):[],
+   provisional_top5:complete?[]:scored.filter(x=>x.reborn_rank!==null).slice(0,5),
+   eligible_top5:complete&&scored.length>=5,
    evaluation_policy:"independent 5-axis quality; no old LAB score/rank or odds",
    weights_are_validated:false,production_write:false,no_result_leak:true,
    no_frozen_change:true};
