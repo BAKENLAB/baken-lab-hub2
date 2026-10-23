@@ -17,6 +17,10 @@ const sides=new Set(["芝","ダート"]);
 const sigs=(r)=>{
  const n4=finite(r.n4),p4=finite(r.podium4),m=finite(r.mean_gap4);
  if(n4===null||p4===null||n4<0||p4<0||p4>n4||n4>8)return null;
+ for(const name of ["near_close46","recent_sameclass_close","recent_near_top3",
+  "old_same_track_top3","recent_3f_close","recent_consistent"]){
+  if(typeof r[name]!=="boolean")return null;
+ }
  return [
   "P"+Math.min(3,p4),"H"+Math.min(3,n4),
   "M"+(m===null?"NONE":m<=0.5?"A":m<=1?"B":m<=2?"C":"D"),
@@ -69,10 +73,15 @@ export function rankRebornV04(rows,locked){
  if(!prepared)return {status:"INVALID_LOCKED_MODEL",runners:[],production_write:false};
  if(!Array.isArray(rows)||rows.length<6)return {status:"INCOMPLETE_FIELD",runners:[],production_write:false};
  const ctx=rows[0],ids=new Set();
+ const fieldSize=finite(ctx.field_size);
+ if(fieldSize===null||fieldSize!==rows.length){
+  return {status:"INCOMPLETE_FIELD",runners:[],production_write:false};
+ }
  for(const x of rows){
   const num=finite(x.horse_no);
   if(num===null||num<1||ids.has(num)||
      x.race_date!==ctx.race_date||x.track!==ctx.track||+x.race_no!==+ctx.race_no||
+     finite(x.field_size)!==fieldSize||
      typeof x.horse_name!=="string")return {status:"INVALID_FIELD_IDENTITIES",runners:[],production_write:false};
   ids.add(num);
  }
