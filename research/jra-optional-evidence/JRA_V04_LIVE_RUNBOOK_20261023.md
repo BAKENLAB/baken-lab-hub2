@@ -68,3 +68,14 @@ Of those 43, 27 had at least one rank change. TOP5 podium capture was **85 for o
 Instead use \`boundary-review-v04.mjs\` as an optional read-only **review ledger**, after \`race-evidence-audit.mjs\`. It compares ALL horses outside TOP5 with protected TOP5 evidence and flags conditions for *independent full-runner examination*, without determining replacements. This code is currently in the GitHub research branch, not in the live JRA CLAIM payload or server-side scorer. Verified in isolated JS (8 tests PASS), plus read-only 秋華賞 and 富士S historical packets.
 
 For tomorrow's live JRA work, keep active JRA 0.4 contract but do not assert that the new numerical ranking is validated or integrated. If optional research tools are unavailable, proceed exactly through the original trusted model and guarded save flow; never wait on missing trainer comments. **No automatic TOP5 changes from tie-shadow.**
+
+
+## JRA 0.5 new optional evidence (2026-10-23)
+New read-only private functions installed: jra_optional_content_evidence_v2 and jra_v05_evidence_bundle_v1.
+Optional SQL for a verified pre-race card: SELECT private.jra_v05_evidence_bundle_v1(DATE 'YYYY-MM-DD', 'TRACK', RACE_NO);
+Replace these illustrative parameters only with the verified claimed JRA date, track and race number. Never pass untrusted values into SQL.
+If this optional read fails or is blocked, default scoring and guarded FROZEN saving must proceed without delay or missing-data penalty.
+The new numerical v0.5 shadow code remains research-only and is NOT applied automatically to live TOP5 or EYE.
+38 inspected historical races: original 73 podium captures versus shadow 73, no net predictive uplift. Another 5 formerly studied races were not re-read.
+Detailed records and methodology: v05-base-first-correction-20261023.md.
+Production protocol JRA 0.4 remains active; production BASE_CORE, guarded CLAIM/SAVE, Cron, EYE and prior FROZEN unchanged.
