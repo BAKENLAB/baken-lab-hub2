@@ -18,7 +18,7 @@ function positives(x){
     fact:"後に好走した対戦相手"+x.distinct_rivals_with_followups+"頭"});
   return p;
 }
-export function reviewJraV04Boundary(base,ledger,{candidateMaxRank=10}={}){
+export function reviewJraV04Boundary(base,ledger,{candidateMaxRank=Number.POSITIVE_INFINITY}={}){
   if(!Array.isArray(base)||ledger?.status!=="READY"
      ||!Array.isArray(ledger.runners)) return empty("MISSING_INPUT");
   const originals=[...base].sort((a,b)=>Number(a.rank)-Number(b.rank));
