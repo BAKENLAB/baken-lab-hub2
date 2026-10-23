@@ -31,3 +31,29 @@ Date: 2026-10-23 JST. Scope: upcoming JRA flat races only.
 
 ## Rollback safeguard (instructions, not an automated action)
 Only if no active JRA CLAIM jobs remain, deactivate 0.4 and reactivate the previously retained `JRA_REBUILD_0.3_FLAT_HISTORY_EYE_ALLCLASS_20261004` via an atomic transaction, ensuring exactly one active JRA_MAIN. Existing FROZEN with 0.4 remain as historical records and MUST NOT be rewritten. The optional archive helper may safely remain unused.
+
+
+## 2026-10-23 new verified research installation
+
+Installed and SELECT-verified in unexposed private schema (all SECURITY INVOKER, execution revoked from PUBLIC/anon/authenticated):
+
+1. private.jra_prior_opponent_evidence_v1(race_date,track,race_no,horse_no): match each runner's up-to-four historical flat runs by exact date/track/surface/distance and stable horse-code plus matching name; require exactly one archive race; link top-three historical rivals to subsequent 1st-3rd finishes strictly before target race date. Factual evidence, no score effect.
+2. private.jra_v04_evidence_bundle_v1(race_date,track,race_no): combine all runners' verified prior content and subsequent known rival results in ONE read-only payload. This does not replace public.jra_claimed_context (that earlier modification was blocked, not deployed).
+3. research/jra-optional-evidence/race-evidence-audit.mjs: pure JS evidence ledger with near-condition form, verified fast last3f, archive coverage, rival results and ambiguity notes; no score/rank/EYE effect. 11 isolated tests passed, not Node CI.
+
+Optional operator read after a verified claim:
+SELECT private.jra_v04_evidence_bundle_v1(DATE '<exact race date>','<verified JRA track>',<verified race number>);
+
+Historical pilot confirmations:
+- 2026-10-18 京都11R 秋華賞: 17 horses, 66 prior runs, 50 archive-linked, 84 later-rival podium records.
+- 2026-10-17 東京11R 富士S: 14 horses, 56 prior runs, 49 archive-linked, 66 later-rival podium records.
+- 2026-10-18 東京8R 1勝: 16 horses, 62 prior runs, 44 archive-linked, 107 later-rival podium records.
+- 2026-10-18 新潟6R 1勝: 15 horses, 58 prior runs, 50 archive-linked, 102 later-rival podium records.
+
+Counts are observations, not unique strong rivals. No current future official result is read. A historical archived record may not be an immutable old snapshot.
+
+ギャラボーグ: 2025 阪神JF 2nd/last3f rank 1; winner スターアニス later won 桜花賞; third タイセイボーグ later won チューリップ賞. Both later achievements happened before the target 2026 秋華賞. No automatic bonus based on title alone.
+
+CRITICAL: JRA 0.4 protocol is active and standalone optional evidence reads are installed, but actual guarded CLAIM payload and automated production scoring formula have NOT been rewritten. A human/agent whole-field comparison must intentionally use optional evidence as available; failure to fetch cannot block. There is no established improvement in predictive accuracy. Do not claim full automation.
+
+Preserve bets=[] and bet_strategy=SUSPENDED_FOR_ABILITY_STABILITY. Preserve EYE rules and all existing FROZEN. No Cron restart, paid API or unauthorized write.
