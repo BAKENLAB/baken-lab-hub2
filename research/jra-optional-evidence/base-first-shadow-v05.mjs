@@ -36,9 +36,10 @@ export function inspectV05Horse(row,ctx){
   const distanceDiff=Math.abs(dist-ctx.distance);
   // Relative distance: 200m is much more on a sprint than on 2200m.
   const differenceRatio=distanceDiff/ctx.distance;
-  // All comparable surface runs contribute; distant performances are
-  // explicitly weaker evidence than similar course/distance performances.
-  if(differenceRatio>0.35)continue;
+  // Do not treat unrelated distances as the same ability test:
+  // ±200m for sprints, ±330m around 2200m, capped at ±400m.
+  const maxMeters=Math.max(200,Math.min(400,ctx.distance*0.15));
+  if(distanceDiff>maxMeters)continue;
   const relevance=Math.max(0.3,1-differenceRatio*1.4);
   let achievement;
   if(finish===1) achievement=1.00;
@@ -55,10 +56,10 @@ export function inspectV05Horse(row,ctx){
   const classFactor=from!==null&&to!==null && from<to?
     Math.max(0.68,1-0.13*(to-from)):1;
   const trackBonus=h.prior_track===ctx.track?0.035:0;
-  const archiveBonus=n(h.archive_match_count)===1&&
-    n(h.final3f_rank)!==null&&Number(h.final3f_rank)<=3?0.045:0;
+  // Rich archive is supplementary context only. A missing 3F rank must
+  // NEVER reduce this numeric evidence score relative to the same base run.
   const score=Math.max(0,
-    relevance*achievement*classFactor+trackBonus+archiveBonus);
+    relevance*achievement*classFactor+trackBonus);
   past.push({date:h.prior_date,track:h.prior_track,distance:dist,finish,
    gap:round(gap),prior_class:h.prior_class??null,source_kind:h.source_kind??null,
    detailed:n(h.archive_match_count)===1,threef_rank:n(h.final3f_rank),
