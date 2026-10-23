@@ -13,6 +13,15 @@ const day=x=>typeof x==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(x);
 const clamp=(x,min,max)=>Math.min(max,Math.max(min,x));
 const fix=(x,d=3)=>Math.round(x*10**d)/10**d;
 const key=o=>[o.track,o.surface,+o.distance,o.going,o.segment].join("|");
+/** Stable JRA horse reference code. CNAME URL's leading mode/trailing token
+ * may change between live cards and archive; the ten digit horse code does not.
+ * Do not fall back to Japanese name or an unverified URL.
+ */
+export function canonicalHorseId(ref){
+ if(typeof ref!=="string")return null;
+ const m=ref.match(/([0-9]{10})\/[A-Za-z0-9]{1,4}(?:[?#].*)?$/);
+ return m?m[1]:null;
+}
 export function parseRaceSeconds(s){
  if(typeof s!=="string"||!/^([0-9]+):([0-5][0-9])\.([0-9])$/.test(s))return null;
  const [minutes,secs]=s.split(":");const v=+minutes*60+Number(secs);
@@ -57,8 +66,9 @@ export function assessHistoricalRun(run,target,profile){
  !day(run?.date)||run.date>=target.date||
  target.date>"2099-12-31")
  return {status:"INVALID_ASOF",warnings:["INVALID_DATE_OR_FUTURE_RUN"]};
- if(run.horse_ref&&target.horse_ref&&run.horse_ref!==target.horse_ref)
- return {status:"IDENTITY_MISMATCH",warnings:["DIFFERENT_HORSE_REF"]};
+ const expected=canonicalHorseId(target.horse_ref),observed=canonicalHorseId(run.horse_ref);
+ if(expected===null||observed===null||expected!==observed)
+ return {status:"IDENTITY_MISMATCH",warnings:["MISSING_OR_DIFFERENT_CANONICAL_HORSE_CODE"]};
  const finish=num(run.finish),distance=num(run.distance),raceWinnerTime=
  parseRaceSeconds(run.winner_time);
  const runnerTime=parseRaceSeconds(run.runner_time);
@@ -115,16 +125,17 @@ export function buildRebornV06Evidence(packet,locked){
  return {status:"INVALID_PACKET",runners:[],production_write:false};
  const seen=new Set(),runners=[];
  for(const horse of packet.runners){
-  if(!horse?.horse_ref||!Array.isArray(horse.history)||seen.has(horse.horse_ref))
+  const canonical=canonicalHorseId(horse?.horse_ref);
+  if(!canonical||!Array.isArray(horse.history)||seen.has(canonical))
     return {status:"DUPLICATE_OR_MISSING_HORSE_REF",runners:[],production_write:false};
-  seen.add(horse.horse_ref);
+  seen.add(canonical);
   const entries=horse.history.map(run=>assessHistoricalRun(
    run,{date:packet.date,horse_ref:horse.horse_ref},index));
   // Fail closed when a future run or mismatched identity appears. No sorting
   // of post-target facts, race results, LAB base model fields or odds.
   if(entries.some(x=>["INVALID_ASOF","IDENTITY_MISMATCH"].includes(x.status)))
    return {status:"ASOF_OR_IDENTITY_REJECTED",runners:[],production_write:false};
-  runners.push({horse_ref:horse.horse_ref,horse_no:horse.horse_no,
+  runners.push({horse_ref:horse.horse_ref,horse_id:canonical,horse_no:horse.horse_no,
    horse_name:horse.horse_name,
    runs_checked:entries.length,
    usable_runs:entries.filter(x=>x.status==="CONDITION_EVIDENCE_READY").length,
