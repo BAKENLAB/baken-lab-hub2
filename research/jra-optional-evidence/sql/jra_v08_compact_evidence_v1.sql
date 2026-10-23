@@ -8,7 +8,7 @@ LANGUAGE sql STABLE SECURITY INVOKER
 SET search_path=pg_catalog,public,private
 AS $body$
 WITH live AS (
- SELECT r.id,r.surface,r.distance,r.class_name
+ SELECT r.id,r.surface,r.distance,r.class_name,r.field_size
  FROM public.jra_live_races r
  WHERE r.race_date=p_date AND r.track=p_track AND r.race_no=p_race_no
  AND COALESCE(r.race_type,'')<>'障害' LIMIT 1
@@ -76,7 +76,14 @@ WITH live AS (
  FROM horses h
 )
 SELECT jsonb_build_object(
- 'status',CASE WHEN EXISTS(SELECT 1 FROM pkt) THEN 'READY' ELSE 'NO_RACE' END,
+ 'status',CASE WHEN NOT EXISTS(SELECT 1 FROM pkt) THEN 'NO_RACE'
+  WHEN EXISTS(SELECT 1 FROM live WHERE field_size IS NOT NULL
+   AND field_size<>(SELECT COUNT(*) FROM enriched)) THEN 'PARTIAL_FIELD'
+  WHEN (SELECT COUNT(*) FROM enriched) <>
+    (SELECT COUNT(DISTINCT rec->>'horse_no') FROM enriched) THEN 'DUPLICATE_HORSE'
+  ELSE 'READY' END,
+ 'expected_field_size',(SELECT field_size FROM live),
+ 'evidence_runner_count',(SELECT COUNT(*) FROM enriched),
  'research_only',true,'as_of',p_date,'track',p_track,'race_no',p_race_no,
  'production_rank_changed',false,
  'runners',COALESCE((SELECT jsonb_agg(rec ORDER BY (rec->>'horse_no')::integer) FROM enriched),'[]'::jsonb)
