@@ -13,7 +13,7 @@ const spec=(no,name,priorDate,priorClass,raceName)=>({
 const p={race_date:ctx.date,track:ctx.track,race_no:11,
  recent_evidence:{runners:[
  spec(1,"CERTIFIED","2026-09-06","オープン","セントウルS"),
- spec(2,"UNKNOWN_OPEN","2025-06-01","オープン",null),
+ spec(2,"UNKNOWN_OPEN","2026-09-06","オープン",null),
  spec(3,"LOWER_CLASS","2026-09-19","1勝クラス",null),
  spec(4,"C","2026-09-05","オープン",null),
  spec(5,"D","2026-09-01","オープン",null)
