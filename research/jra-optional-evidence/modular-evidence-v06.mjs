@@ -27,7 +27,10 @@ const classLevel=x=>{
 };
 const strength=(finish,gap)=>{
  if(finish===1)return 1;
- if(gap===null||gap<0)return null;
+ // Older archived results sometimes have verified finish but no numeric margin.
+ // Retain lower-resolution positive evidence WITHOUT inventing a beaten gap.
+ if(gap===null)return finish<=3?0.60:finish<=6?0.25:finish<=10?0.10:0.02;
+ if(gap<0)return null;
  if(finish<=3)return gap<=0.2?0.94:gap<=0.5?0.81:gap<=1?0.65:0.40;
  if(finish<=6)return gap<=0.2?0.74:gap<=0.5?0.60:gap<=1?0.38:0.10;
  if(finish<=10)return gap<=0.2?0.59:gap<=0.5?0.44:gap<=1?0.24:0.06;
