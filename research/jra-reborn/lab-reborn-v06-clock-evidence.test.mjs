@@ -1,11 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {parseRaceSeconds,parseVerifiedHalons,prepareConditionReference,
+import {canonicalHorseId,parseRaceSeconds,parseVerifiedHalons,prepareConditionReference,
  assessHistoricalRun,buildRebornV06Evidence} from "./lab-reborn-v06-clock-evidence.mjs";
 const profile=JSON.parse(readFileSync(new URL("./REBORN_V06_2023_2024_CONDITION_REFERENCES.json",import.meta.url),"utf8"));
 const prepared=prepareConditionReference(profile);
 const ref="/JRADB/accessU.html?CNAME=pw01dud102020104523/CF";
+const fakeRef=i=>"/JRADB/accessU.html?CNAME=pw01dud10"+String(2020104523+i)+"/CF";
 const runner={date:"2025-01-12",track:"中京",surface:"ダート",distance:1200,
  going:"良",segment:"CLASS1",horse_ref:ref,finish:1,runner_time:"1:12.2",
  winner_time:"1:12.2",halon_times:"12.7 - 11.2 - 12.3 - 12.3 - 11.6 - 12.1",
@@ -69,8 +70,8 @@ test("market data old ranks and target result do not affect evidence",()=>{
 });
 test("full-field packet integrity and no production score",()=>{
  const target={date:"2025-09-13",runners:Array.from({length:6},(_,i)=>({
-   horse_ref:ref+"_"+i,horse_no:i+1,horse_name:"H"+i,
-   history:[{...runner,horse_ref:ref+"_"+i}]
+   horse_ref:fakeRef(i),horse_no:i+1,horse_name:"H"+i,
+   history:[{...runner,horse_ref:fakeRef(i)}]
  }))};
  const result=buildRebornV06Evidence(target,profile);
  assert.equal(result.status,"RESEARCH_EVIDENCE_READY");
@@ -81,7 +82,29 @@ test("full-field packet integrity and no production score",()=>{
 });
 test("a single future record poisons whole packet; never ignore it",()=>{
  const target={date:"2025-09-13",runners:Array.from({length:5},(_,i)=>({
- horse_ref:ref+"_"+i,horse_no:i+1,history:[{
- ...runner,date:i===1?"2025-10-01":runner.date,horse_ref:ref+"_"+i}]}))};
+ horse_ref:fakeRef(i),horse_no:i+1,history:[{
+ ...runner,date:i===1?"2025-10-01":runner.date,horse_ref:fakeRef(i)}]}))};
  assert.equal(buildRebornV06Evidence(target,profile).status,"ASOF_OR_IDENTITY_REJECTED");
+});
+
+test("same horse live/archive URLs with distinct tokens still match",()=>{
+ const fromLive="/JRADB/accessU.html?CNAME=pw01dud002023105825/F4";
+ const fromArchive="/JRADB/accessU.html?CNAME=pw01dud102023105825/DB";
+ assert.equal(canonicalHorseId(fromLive),canonicalHorseId(fromArchive));
+ assert.equal(canonicalHorseId(fromLive),"2023105825");
+ const result=assessHistoricalRun({...runner,horse_ref:fromArchive},
+   {date:"2025-09-13",horse_ref:fromLive},prepared);
+ assert.notEqual(result.status,"IDENTITY_MISMATCH");
+});
+test("two different URL variants of same horse are duplicate roster entries",()=>{
+ const a="/JRADB/accessU.html?CNAME=pw01dud002023105825/F4";
+ const b="/JRADB/accessU.html?CNAME=pw01dud102023105825/DB";
+ const rows=[a,b,...[2,3,4].map(fakeRef)].map((id,i)=>({
+ horse_ref:id,horse_no:i+1,history:[]}));
+ assert.equal(buildRebornV06Evidence({date:"2025-09-13",runners:rows},profile).status,
+ "DUPLICATE_OR_MISSING_HORSE_REF");
+});
+test("cannot use horse name alone or malformed reference as identity",()=>{
+ assert.equal(canonicalHorseId("ギャラボーグ"),null);
+ assert.equal(canonicalHorseId("/JRADB/accessU.html?CNAME=pw01dud102023105825/"),null);
 });
