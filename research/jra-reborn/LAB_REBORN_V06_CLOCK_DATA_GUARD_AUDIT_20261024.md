@@ -23,7 +23,7 @@
 - Read-only Supabase queries: source completeness, 50 multi-winner races, winner-clock agreement, and 16 -> 32 -> 16 corrected join witness.
 - Fetched and ran the research branch's clock **pure JavaScript module** inside an isolated JS execution context against the real frozen 190-group JSON.
 - **17/17** focused invariants passed: reference parsing, clock/200m parsing, stable horse identity, historical comparative median, as-of guards, zero score change, market/LAB-score non-influence, updated course-confidence flags, and source-SQL join guard.
-- The modified `node:test` file was updated in GitHub but **full native Node test suite and CI were NOT run**. No new model ranking/backtest uplift is claimed.
+- Executed all three existing v06 test source suites using synchronous `node:test`-compatible shims inside an isolated V8 evaluation (not native Node): **clock 16/16, opponent 11/11, integrated 9/9 = 36/36 passed**, alongside 17/17 focused checks. **Native Node CI remains NOT run**. No new model ranking/backtest uplift is claimed.
 - `REBORN_V06_2023_2024_CONDITION_REFERENCES.json` and learned v04/v05 coefficients are **unchanged**.
 
 ## Remaining issues / gates
