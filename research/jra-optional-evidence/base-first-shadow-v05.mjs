@@ -60,9 +60,21 @@ export function inspectV05Horse(row,ctx){
   // NEVER reduce this numeric evidence score relative to the same base run.
   const score=Math.max(0,
     relevance*achievement*classFactor+trackBonus);
+  // Exact, verifiable fractions of the RACE pace (not the horse's personal
+  // sectionals). Can help contextualize positional changes without claiming
+  // interference, being boxed-in or a wide trip.
+  const fractions=typeof h.race_halons==="string"?
+    h.race_halons.split(/\\s*-\\s*/).map(v=>Number(v.trim())):[];
+  const validFractions=fractions.length>=6&&fractions.every(v=>
+    Number.isFinite(v)&&v>=8&&v<=20);
+  const first600=validFractions?round(fractions.slice(0,3).reduce((a,b)=>a+b,0)):null;
+  const last600=validFractions?round(fractions.slice(-3).reduce((a,b)=>a+b,0)):null;
   past.push({date:h.prior_date,track:h.prior_track,distance:dist,finish,
    gap:round(gap),prior_class:h.prior_class??null,source_kind:h.source_kind??null,
    detailed:n(h.archive_match_count)===1,threef_rank:n(h.final3f_rank),
+   early_pos:n(h.early_pos),pos_change:n(h.pos_change),
+   race_first600:first600,race_last600:last600,
+   race_first_minus_last600:first600!==null?round(first600-last600):null,
    relevance:round(relevance),class_factor:round(classFactor),
    evidence_quality:round(score)});
  }
@@ -82,10 +94,20 @@ export function inspectV05Horse(row,ctx){
  // with a single comparable run, conservative ranking behavior applies.
  const summary=second===null?strongest*0.93:strongest*0.72+second*0.28;
  const earlierWins=ordered.filter(h=>h.finish===1).length;
+ const knownPastDates=new Set(ordered.map(h=>h.date));
+ const rivalRuns=Array.isArray(row?.opponent_followups)?
+   row.opponent_followups.filter(v=>v&&day(v.historical_race_date)
+     &&knownPastDates.has(v.historical_race_date)&&day(v.later_date)
+     &&v.later_date>v.historical_race_date&&v.later_date<ctx.date
+     &&n(v.later_finish)!==null&&Number(v.later_finish)<=3
+     &&Number(v.later_finish)>=1):[];
+ const rivals=[...new Set(rivalRuns.map(v=>v.rival_name).filter(Boolean))];
  return {
   status:"COMPARABLE_BASE_FACTS",quality:round(summary),
   max_effort:strongest,repeatability:repeatability===null?null:round(repeatability),
   prior_wins:earlierWins,
+  opponent_context:{unique_rival_count:rivals.length,
+    followup_results:rivalRuns.length,score_effect:0},
   eligible_source_count:runs.length,
   source_archive_gap:raw.filter(h=>n(h.archive_match_count)!==1).length,
   sources:ordered,
