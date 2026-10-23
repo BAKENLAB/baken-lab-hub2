@@ -113,7 +113,10 @@ export function assessHistoricalRun(run,target,profile){
     front_under_faster_than_reference_pace:projectedFront,
     gained_three_places_with_verified_last3f:recovered}:null,
   sample:{reference_races:+reference.n,reference_pace_races:+reference.n_pace,
-    reference_years:"2023_2024",exact_condition:true},
+    reference_years:"2023_2024",
+    matched_reference_dimensions:["track","surface","distance","going","segment"],
+    metadata_condition_group_matched:true,
+    course_geometry_verified:false,exact_condition:false},
   source_only:true,score_delta:0,used_target_result:false,
   warnings};
 }
