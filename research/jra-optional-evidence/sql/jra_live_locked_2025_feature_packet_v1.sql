@@ -102,9 +102,245 @@ WITH race AS (
       AND j->>'final3f_rank' IS NOT NULL
   )) AS fast3f_history_unknown,
   (r.race_source_checked_at AT TIME ZONE 'Asia/Tokyo' <=
-    (r.race_date::timestamp+r.post_time::time)) AS race_snapshot_before_post,
+    (r.race_date::timestamp + CASE
+      WHEN r.post_time ~ '^[0-9]{1,2}時[0-9]{2}分) AS race_snapshot_before_post,
   (r.runner_source_checked_at AT TIME ZONE 'Asia/Tokyo' <=
     (r.race_date::timestamp+r.post_time::time)) AS runner_snapshot_before_post
+ FROM raw r
+), results AS (
+ SELECT f.*,
+  GREATEST(0.01,LEAST(0.95,f.base_rate))::numeric AS score_proxy
+ FROM flags f
+), summary AS (
+ SELECT COUNT(*)::integer n,
+  COUNT(DISTINCT horse_no)::integer unique_horses,
+  MAX(field_size)::integer expected,
+  COUNT(*) FILTER(WHERE base_rate IS NULL OR base_rank IS NULL)::integer no_baseline,
+  COUNT(*) FILTER(WHERE horse_ref IS NULL
+    OR private.jra_horse_key(horse_ref) IS NULL)::integer unverified_identity,
+  COUNT(*) FILTER(WHERE race_snapshot_before_post IS NOT TRUE
+    OR runner_snapshot_before_post IS NOT TRUE)::integer unverified_snapshot,
+  COUNT(*) FILTER(WHERE fast3f_history_unknown)::integer missing_fast3f_rank
+ FROM results
+)
+SELECT jsonb_build_object(
+ 'status',CASE
+  WHEN NOT EXISTS(SELECT 1 FROM race) THEN 'NO_RACE'
+  WHEN (SELECT n FROM summary)<>(SELECT expected FROM summary)
+    OR (SELECT n FROM summary)<>(SELECT unique_horses FROM summary)
+    THEN 'PARTIAL_OR_DUPLICATE_ROSTER'
+  WHEN (SELECT unverified_identity FROM summary)>0 THEN 'IDENTITY_UNVERIFIED'
+  WHEN (SELECT unverified_snapshot FROM summary)>0 THEN 'NOT_PROVABLY_PRESTART_SNAPSHOT'
+  WHEN (SELECT no_baseline FROM summary)>0 THEN 'BASE_CORE_UNAVAILABLE_FOR_ALL'
+  ELSE 'READY_FOR_RESEARCH_SHADOW' END,
+ 'race_date',p_date,'track',p_track,'race_no',p_race_no,
+ 'expected',(SELECT expected FROM summary),
+ 'count',(SELECT n FROM summary),
+ 'missing_fast3f_rank',(SELECT missing_fast3f_rank FROM summary),
+ 'source_cutoff','before target race post_time JST',
+ 'older_history_policy','ordinal races 5 through 8; do not use approximate older-any flag',
+ 'saved_predictions_changed',false,'source','LIVE_AND_HISTORICAL_ASOF',
+ 'runners',COALESCE((
+ SELECT jsonb_agg(jsonb_build_object(
+  'race_date',f.race_date,'track',f.track,'race_no',f.race_no,
+  'horse_no',f.horse_no,'horse_name',f.horse_name,
+  'segment',f.segment,'base_rate',f.base_rate,
+  'base_rank',f.base_rank,'n4',f.recent_n4,'n8',f.n8,
+  'near_close46',f.close46,
+  'recent_near_top3',f.near_podium,
+  'recent_sameclass_close',f.same_class_close,
+  'old_same_track_top3',f.older_course_podium,
+  'recent_3f_close',f.fast_close,
+  'fast3f_history_unknown',f.fast3f_history_unknown,
+  'mean_gap4',f.recent_avg_margin4,
+  'snapshot_before_post',f.runner_snapshot_before_post
+ ) ORDER BY f.horse_no) FROM results f
+ ),'[]'::jsonb)
+);
+$fn$;
+REVOKE ALL ON FUNCTION private.jra_live_locked_2025_feature_packet_v1(date,text,integer) FROM PUBLIC;
+REVOKE ALL ON FUNCTION private.jra_live_locked_2025_feature_packet_v1(date,text,integer) FROM anon,authenticated;
+
+        THEN make_interval(hours => split_part(r.post_time,'時',1)::int,
+          mins => split_part(split_part(r.post_time,'時',2),'分',1)::int)
+      WHEN r.post_time ~ '^([01]?[0-9]|2[0-3]):[0-5][0-9]) AS race_snapshot_before_post,
+  (r.runner_source_checked_at AT TIME ZONE 'Asia/Tokyo' <=
+    (r.race_date::timestamp+r.post_time::time)) AS runner_snapshot_before_post
+ FROM raw r
+), results AS (
+ SELECT f.*,
+  GREATEST(0.01,LEAST(0.95,f.base_rate))::numeric AS score_proxy
+ FROM flags f
+), summary AS (
+ SELECT COUNT(*)::integer n,
+  COUNT(DISTINCT horse_no)::integer unique_horses,
+  MAX(field_size)::integer expected,
+  COUNT(*) FILTER(WHERE base_rate IS NULL OR base_rank IS NULL)::integer no_baseline,
+  COUNT(*) FILTER(WHERE horse_ref IS NULL
+    OR private.jra_horse_key(horse_ref) IS NULL)::integer unverified_identity,
+  COUNT(*) FILTER(WHERE race_snapshot_before_post IS NOT TRUE
+    OR runner_snapshot_before_post IS NOT TRUE)::integer unverified_snapshot,
+  COUNT(*) FILTER(WHERE fast3f_history_unknown)::integer missing_fast3f_rank
+ FROM results
+)
+SELECT jsonb_build_object(
+ 'status',CASE
+  WHEN NOT EXISTS(SELECT 1 FROM race) THEN 'NO_RACE'
+  WHEN (SELECT n FROM summary)<>(SELECT expected FROM summary)
+    OR (SELECT n FROM summary)<>(SELECT unique_horses FROM summary)
+    THEN 'PARTIAL_OR_DUPLICATE_ROSTER'
+  WHEN (SELECT unverified_identity FROM summary)>0 THEN 'IDENTITY_UNVERIFIED'
+  WHEN (SELECT unverified_snapshot FROM summary)>0 THEN 'NOT_PROVABLY_PRESTART_SNAPSHOT'
+  WHEN (SELECT no_baseline FROM summary)>0 THEN 'BASE_CORE_UNAVAILABLE_FOR_ALL'
+  ELSE 'READY_FOR_RESEARCH_SHADOW' END,
+ 'race_date',p_date,'track',p_track,'race_no',p_race_no,
+ 'expected',(SELECT expected FROM summary),
+ 'count',(SELECT n FROM summary),
+ 'missing_fast3f_rank',(SELECT missing_fast3f_rank FROM summary),
+ 'source_cutoff','before target race post_time JST',
+ 'older_history_policy','ordinal races 5 through 8; do not use approximate older-any flag',
+ 'saved_predictions_changed',false,'source','LIVE_AND_HISTORICAL_ASOF',
+ 'runners',COALESCE((
+ SELECT jsonb_agg(jsonb_build_object(
+  'race_date',f.race_date,'track',f.track,'race_no',f.race_no,
+  'horse_no',f.horse_no,'horse_name',f.horse_name,
+  'segment',f.segment,'base_rate',f.base_rate,
+  'base_rank',f.base_rank,'n4',f.recent_n4,'n8',f.n8,
+  'near_close46',f.close46,
+  'recent_near_top3',f.near_podium,
+  'recent_sameclass_close',f.same_class_close,
+  'old_same_track_top3',f.older_course_podium,
+  'recent_3f_close',f.fast_close,
+  'fast3f_history_unknown',f.fast3f_history_unknown,
+  'mean_gap4',f.recent_avg_margin4,
+  'snapshot_before_post',f.runner_snapshot_before_post
+ ) ORDER BY f.horse_no) FROM results f
+ ),'[]'::jsonb)
+);
+$fn$;
+REVOKE ALL ON FUNCTION private.jra_live_locked_2025_feature_packet_v1(date,text,integer) FROM PUBLIC;
+REVOKE ALL ON FUNCTION private.jra_live_locked_2025_feature_packet_v1(date,text,integer) FROM anon,authenticated;
+
+        THEN r.post_time::time - TIME '00:00'
+      ELSE NULL::interval END)) AS race_snapshot_before_post,
+  (r.runner_source_checked_at AT TIME ZONE 'Asia/Tokyo' <=
+    (r.race_date::timestamp + CASE
+      WHEN r.post_time ~ '^[0-9]{1,2}時[0-9]{2}分) AS runner_snapshot_before_post
+ FROM raw r
+), results AS (
+ SELECT f.*,
+  GREATEST(0.01,LEAST(0.95,f.base_rate))::numeric AS score_proxy
+ FROM flags f
+), summary AS (
+ SELECT COUNT(*)::integer n,
+  COUNT(DISTINCT horse_no)::integer unique_horses,
+  MAX(field_size)::integer expected,
+  COUNT(*) FILTER(WHERE base_rate IS NULL OR base_rank IS NULL)::integer no_baseline,
+  COUNT(*) FILTER(WHERE horse_ref IS NULL
+    OR private.jra_horse_key(horse_ref) IS NULL)::integer unverified_identity,
+  COUNT(*) FILTER(WHERE race_snapshot_before_post IS NOT TRUE
+    OR runner_snapshot_before_post IS NOT TRUE)::integer unverified_snapshot,
+  COUNT(*) FILTER(WHERE fast3f_history_unknown)::integer missing_fast3f_rank
+ FROM results
+)
+SELECT jsonb_build_object(
+ 'status',CASE
+  WHEN NOT EXISTS(SELECT 1 FROM race) THEN 'NO_RACE'
+  WHEN (SELECT n FROM summary)<>(SELECT expected FROM summary)
+    OR (SELECT n FROM summary)<>(SELECT unique_horses FROM summary)
+    THEN 'PARTIAL_OR_DUPLICATE_ROSTER'
+  WHEN (SELECT unverified_identity FROM summary)>0 THEN 'IDENTITY_UNVERIFIED'
+  WHEN (SELECT unverified_snapshot FROM summary)>0 THEN 'NOT_PROVABLY_PRESTART_SNAPSHOT'
+  WHEN (SELECT no_baseline FROM summary)>0 THEN 'BASE_CORE_UNAVAILABLE_FOR_ALL'
+  ELSE 'READY_FOR_RESEARCH_SHADOW' END,
+ 'race_date',p_date,'track',p_track,'race_no',p_race_no,
+ 'expected',(SELECT expected FROM summary),
+ 'count',(SELECT n FROM summary),
+ 'missing_fast3f_rank',(SELECT missing_fast3f_rank FROM summary),
+ 'source_cutoff','before target race post_time JST',
+ 'older_history_policy','ordinal races 5 through 8; do not use approximate older-any flag',
+ 'saved_predictions_changed',false,'source','LIVE_AND_HISTORICAL_ASOF',
+ 'runners',COALESCE((
+ SELECT jsonb_agg(jsonb_build_object(
+  'race_date',f.race_date,'track',f.track,'race_no',f.race_no,
+  'horse_no',f.horse_no,'horse_name',f.horse_name,
+  'segment',f.segment,'base_rate',f.base_rate,
+  'base_rank',f.base_rank,'n4',f.recent_n4,'n8',f.n8,
+  'near_close46',f.close46,
+  'recent_near_top3',f.near_podium,
+  'recent_sameclass_close',f.same_class_close,
+  'old_same_track_top3',f.older_course_podium,
+  'recent_3f_close',f.fast_close,
+  'fast3f_history_unknown',f.fast3f_history_unknown,
+  'mean_gap4',f.recent_avg_margin4,
+  'snapshot_before_post',f.runner_snapshot_before_post
+ ) ORDER BY f.horse_no) FROM results f
+ ),'[]'::jsonb)
+);
+$fn$;
+REVOKE ALL ON FUNCTION private.jra_live_locked_2025_feature_packet_v1(date,text,integer) FROM PUBLIC;
+REVOKE ALL ON FUNCTION private.jra_live_locked_2025_feature_packet_v1(date,text,integer) FROM anon,authenticated;
+
+        THEN make_interval(hours => split_part(r.post_time,'時',1)::int,
+          mins => split_part(split_part(r.post_time,'時',2),'分',1)::int)
+      WHEN r.post_time ~ '^([01]?[0-9]|2[0-3]):[0-5][0-9]) AS runner_snapshot_before_post
+ FROM raw r
+), results AS (
+ SELECT f.*,
+  GREATEST(0.01,LEAST(0.95,f.base_rate))::numeric AS score_proxy
+ FROM flags f
+), summary AS (
+ SELECT COUNT(*)::integer n,
+  COUNT(DISTINCT horse_no)::integer unique_horses,
+  MAX(field_size)::integer expected,
+  COUNT(*) FILTER(WHERE base_rate IS NULL OR base_rank IS NULL)::integer no_baseline,
+  COUNT(*) FILTER(WHERE horse_ref IS NULL
+    OR private.jra_horse_key(horse_ref) IS NULL)::integer unverified_identity,
+  COUNT(*) FILTER(WHERE race_snapshot_before_post IS NOT TRUE
+    OR runner_snapshot_before_post IS NOT TRUE)::integer unverified_snapshot,
+  COUNT(*) FILTER(WHERE fast3f_history_unknown)::integer missing_fast3f_rank
+ FROM results
+)
+SELECT jsonb_build_object(
+ 'status',CASE
+  WHEN NOT EXISTS(SELECT 1 FROM race) THEN 'NO_RACE'
+  WHEN (SELECT n FROM summary)<>(SELECT expected FROM summary)
+    OR (SELECT n FROM summary)<>(SELECT unique_horses FROM summary)
+    THEN 'PARTIAL_OR_DUPLICATE_ROSTER'
+  WHEN (SELECT unverified_identity FROM summary)>0 THEN 'IDENTITY_UNVERIFIED'
+  WHEN (SELECT unverified_snapshot FROM summary)>0 THEN 'NOT_PROVABLY_PRESTART_SNAPSHOT'
+  WHEN (SELECT no_baseline FROM summary)>0 THEN 'BASE_CORE_UNAVAILABLE_FOR_ALL'
+  ELSE 'READY_FOR_RESEARCH_SHADOW' END,
+ 'race_date',p_date,'track',p_track,'race_no',p_race_no,
+ 'expected',(SELECT expected FROM summary),
+ 'count',(SELECT n FROM summary),
+ 'missing_fast3f_rank',(SELECT missing_fast3f_rank FROM summary),
+ 'source_cutoff','before target race post_time JST',
+ 'older_history_policy','ordinal races 5 through 8; do not use approximate older-any flag',
+ 'saved_predictions_changed',false,'source','LIVE_AND_HISTORICAL_ASOF',
+ 'runners',COALESCE((
+ SELECT jsonb_agg(jsonb_build_object(
+  'race_date',f.race_date,'track',f.track,'race_no',f.race_no,
+  'horse_no',f.horse_no,'horse_name',f.horse_name,
+  'segment',f.segment,'base_rate',f.base_rate,
+  'base_rank',f.base_rank,'n4',f.recent_n4,'n8',f.n8,
+  'near_close46',f.close46,
+  'recent_near_top3',f.near_podium,
+  'recent_sameclass_close',f.same_class_close,
+  'old_same_track_top3',f.older_course_podium,
+  'recent_3f_close',f.fast_close,
+  'fast3f_history_unknown',f.fast3f_history_unknown,
+  'mean_gap4',f.recent_avg_margin4,
+  'snapshot_before_post',f.runner_snapshot_before_post
+ ) ORDER BY f.horse_no) FROM results f
+ ),'[]'::jsonb)
+);
+$fn$;
+REVOKE ALL ON FUNCTION private.jra_live_locked_2025_feature_packet_v1(date,text,integer) FROM PUBLIC;
+REVOKE ALL ON FUNCTION private.jra_live_locked_2025_feature_packet_v1(date,text,integer) FROM anon,authenticated;
+
+        THEN r.post_time::time - TIME '00:00'
+      ELSE NULL::interval END)) AS runner_snapshot_before_post
  FROM raw r
 ), results AS (
  SELECT f.*,
