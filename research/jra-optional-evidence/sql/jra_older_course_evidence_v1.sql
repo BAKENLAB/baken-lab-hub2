@@ -22,7 +22,7 @@ WITH race AS (
  SELECT h.*,
  (SELECT min(run.prior_date) FROM private.jra_merged_flat_history_v2(
     h.horse_name,h.horse_ref,h.race_date,h.past_runs,4
- )) AS oldest_of_current_four
+ ) AS run) AS oldest_of_current_four
  FROM horses h
 )
 SELECT coalesce(jsonb_agg(jsonb_build_object(
