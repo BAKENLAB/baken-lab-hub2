@@ -70,3 +70,18 @@ test("missing runners never mutate frozen predictions",()=>{
  assert.ok(out.declined_reasons.includes("MISSING_COMPARABLE_BASIC_HISTORY"));
  assert.equal(out.rank_effect_on_saved,false);
 });
+
+
+test("fast 3F detail is descriptive, never a coverage-dependent numeric bonus",()=>{
+ const good={...h("2026-09-20",2,0.1,1),final3f_rank:1};
+ const missing={...good,archive_match_count:0,final3f_rank:null};
+ const a=inspectV05Horse({past_race_content:[good]},C);
+ const b=inspectV05Horse({past_race_content:[missing]},C);
+ assert.equal(a.quality,b.quality);
+});
+test("500m apart on 2200m target is not comparable same-condition evidence",()=>{
+ const r=inspectV05Horse({past_race_content:[
+ {...h("2026-09-20",1,0.1,1),prior_distance:1700}
+ ]},C);
+ assert.equal(r.quality,null);
+});
