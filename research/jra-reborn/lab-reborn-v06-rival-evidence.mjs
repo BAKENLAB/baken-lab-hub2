@@ -1,4 +1,5 @@
 import {official2026Grade} from "./jra-official-2026-grade-registry.mjs";
+import {official2024to2025FlatGI} from "./jra-official-2024-2025-flat-gi-registry.mjs";
 
 /**
  * LAB REBORN 0.6 research-only opponent evidence.
@@ -37,7 +38,8 @@ export function auditOpponentEvidence(rows,targetDate,horseCode){
      v.later_no].join("|");
   if(fingerprints.has(fingerprint)){skipped.duplicate++;continue;}
   fingerprints.add(fingerprint);
-  const verified=official2026Grade(v.later_date,v.later_track,v.later_name);
+  const verified=official2026Grade(v.later_date,v.later_track,v.later_name)
+    ??official2024to2025FlatGI(v.later_date,v.later_track,v.later_name);
   const grade=verified?.level??null;
   const classOfLater=String(v.later_class??"");
   const classCertainty=grade!==null?"OFFICIAL_GRADED":
