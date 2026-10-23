@@ -64,7 +64,7 @@ export function inspectV05Horse(row,ctx){
   // sectionals). Can help contextualize positional changes without claiming
   // interference, being boxed-in or a wide trip.
   const fractions=typeof h.race_halons==="string"?
-    h.race_halons.split(/\\s*-\\s*/).map(v=>Number(v.trim())):[];
+    h.race_halons.split(/\s*-\s*/).map(v=>Number(v.trim())):[];
   const validFractions=fractions.length>=6&&fractions.every(v=>
     Number.isFinite(v)&&v>=8&&v<=20);
   const first600=validFractions?round(fractions.slice(0,3).reduce((a,b)=>a+b,0)):null;
