@@ -68,9 +68,14 @@ function normalizeRun(e,isOld,ctx){
  const grade=authoritative?.level??rebornClassLevel(priorClass,name);
  const gradeTarget=targetAuthority?.level??rebornClassLevel(ctx.className,ctx.raceName);
  const diff=grade===null||gradeTarget===null?null:gradeTarget-grade;
- // Class G2 -> G1 is a one-step upgrade; maiden -> G1 is not interchangeable.
- const levelFactor=diff===null?0.90:
+ // In the raw archive "オープン" covers both actual non-graded OP and a
+ // GII/GI with its grade stripped. Do NOT infer that OPEN means a weak race.
+ const historicalGradeUncertain=grade===4 && !authoritative &&
+  /オープン/.test(String(priorClass??"")) && nameGrade(name)===null;
+ const classFactorRaw=diff===null?0.90:
   diff<=0?1:diff===1?0.94:diff===2?0.85:diff===3?0.75:diff===4?0.65:0.55;
+ const levelFactor=historicalGradeUncertain&&gradeTarget>=5?
+  Math.max(0.94,classFactorRaw):classFactorRaw;
  const delta=Math.abs(distance-ctx.distance);
  const sprint=ctx.distance<=1400 && distance<=1400;
  const distFactor=delta<=100?1:
@@ -119,6 +124,7 @@ function normalizeRun(e,isOld,ctx){
           +((placed&&final3fVerified)?0.06:0)):null;
  return {date,finish,gap,win_margin_unverified:winMargin,grade,
   grade_source:authoritative?"JRA_2026_OFFICIAL":"NAME_OR_CLASS_FALLBACK",
+  historical_grade_uncertain:historicalGradeUncertain,
   target_grade_source:targetAuthority?"JRA_2026_OFFICIAL":"NAME_OR_CLASS_FALLBACK",
   grade_target:gradeTarget,grade_diff:diff,
   race_name:name,class_name:priorClass,track,surface,distance,
@@ -224,6 +230,7 @@ function evalHorse(rec,older,ctx){
    evidence:history.slice(0,8).map(x=>({
     date:x.date,track:x.track,race_name:x.race_name,
     class_name:x.class_name,class_level:x.grade,grade_source:x.grade_source,
+    historical_grade_uncertain:x.historical_grade_uncertain,
     finish:x.finish,gap_behind_winner:x.gap,
     unverified_winning_margin:x.win_margin_unverified,
     surface:x.surface,distance:x.distance,
