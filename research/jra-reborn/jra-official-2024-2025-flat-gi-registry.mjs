@@ -1,0 +1,276 @@
+/**
+ * LAB REBORN research only: JRA official 2024 and 2025 FLAT G-I ledger.
+ * Verified against JRA yearly official stakes results (date, track, title):
+ * 2024 https://www.jra.go.jp/datafile/seiseki/replay/2024/jyusyo.html
+ * 2025 https://www.jra.go.jp/datafile/seiseki/replay/2025/jyusyo.html
+ * The source titles use 'オークス'/'日本ダービー' while archived DB stores
+ * '優駿牝馬'/'東京優駿'. Both are guarded by same date and track.
+ *
+ * Only FLAT G-I is in this new register (24 events/year).
+ * NO G-II, G-III, J-GI/II/III, future target outcomes or winning horses.
+ * Unknown result is null: NOT a lower class or weak horse signal.
+ * Never change a production prediction or model coefficient from this file.
+ */
+export const verifiedFlatGI2024_2025 = [
+ [
+  "2024-02-18",
+  "東京",
+  "フェブラリー"
+ ],
+ [
+  "2024-03-24",
+  "中京",
+  "高松宮記念"
+ ],
+ [
+  "2024-03-31",
+  "阪神",
+  "大阪杯"
+ ],
+ [
+  "2024-04-07",
+  "阪神",
+  "桜花賞"
+ ],
+ [
+  "2024-04-14",
+  "中山",
+  "皐月賞"
+ ],
+ [
+  "2024-04-28",
+  "京都",
+  "天皇賞"
+ ],
+ [
+  "2024-05-05",
+  "東京",
+  "NHKマイル"
+ ],
+ [
+  "2024-05-12",
+  "東京",
+  "ヴィクトリアマイル"
+ ],
+ [
+  "2024-05-19",
+  "東京",
+  "優駿牝馬"
+ ],
+ [
+  "2024-05-26",
+  "東京",
+  "東京優駿"
+ ],
+ [
+  "2024-06-02",
+  "東京",
+  "安田記念"
+ ],
+ [
+  "2024-06-23",
+  "京都",
+  "宝塚記念"
+ ],
+ [
+  "2024-09-29",
+  "中山",
+  "スプリンターズ"
+ ],
+ [
+  "2024-10-13",
+  "京都",
+  "秋華賞"
+ ],
+ [
+  "2024-10-20",
+  "京都",
+  "菊花賞"
+ ],
+ [
+  "2024-10-27",
+  "東京",
+  "天皇賞"
+ ],
+ [
+  "2024-11-10",
+  "京都",
+  "エリザベス女王杯"
+ ],
+ [
+  "2024-11-17",
+  "京都",
+  "マイルチャンピオン"
+ ],
+ [
+  "2024-11-24",
+  "東京",
+  "ジャパン"
+ ],
+ [
+  "2024-12-01",
+  "中京",
+  "チャンピオンズ"
+ ],
+ [
+  "2024-12-08",
+  "京都",
+  "阪神ジュベナイル"
+ ],
+ [
+  "2024-12-15",
+  "京都",
+  "朝日杯フューチュリティ"
+ ],
+ [
+  "2024-12-22",
+  "中山",
+  "有馬記念"
+ ],
+ [
+  "2024-12-28",
+  "中山",
+  "ホープフル"
+ ],
+ [
+  "2025-02-23",
+  "東京",
+  "フェブラリー"
+ ],
+ [
+  "2025-03-30",
+  "中京",
+  "高松宮記念"
+ ],
+ [
+  "2025-04-06",
+  "阪神",
+  "大阪杯"
+ ],
+ [
+  "2025-04-13",
+  "阪神",
+  "桜花賞"
+ ],
+ [
+  "2025-04-20",
+  "中山",
+  "皐月賞"
+ ],
+ [
+  "2025-05-04",
+  "京都",
+  "天皇賞"
+ ],
+ [
+  "2025-05-11",
+  "東京",
+  "NHKマイル"
+ ],
+ [
+  "2025-05-18",
+  "東京",
+  "ヴィクトリアマイル"
+ ],
+ [
+  "2025-05-25",
+  "東京",
+  "優駿牝馬"
+ ],
+ [
+  "2025-06-01",
+  "東京",
+  "東京優駿"
+ ],
+ [
+  "2025-06-08",
+  "東京",
+  "安田記念"
+ ],
+ [
+  "2025-06-15",
+  "阪神",
+  "宝塚記念"
+ ],
+ [
+  "2025-09-28",
+  "中山",
+  "スプリンターズ"
+ ],
+ [
+  "2025-10-19",
+  "京都",
+  "秋華賞"
+ ],
+ [
+  "2025-10-26",
+  "京都",
+  "菊花賞"
+ ],
+ [
+  "2025-11-02",
+  "東京",
+  "天皇賞"
+ ],
+ [
+  "2025-11-16",
+  "京都",
+  "エリザベス女王杯"
+ ],
+ [
+  "2025-11-23",
+  "京都",
+  "マイルチャンピオン"
+ ],
+ [
+  "2025-11-30",
+  "東京",
+  "ジャパン"
+ ],
+ [
+  "2025-12-07",
+  "中京",
+  "チャンピオンズ"
+ ],
+ [
+  "2025-12-14",
+  "阪神",
+  "阪神ジュベナイル"
+ ],
+ [
+  "2025-12-21",
+  "阪神",
+  "朝日杯フューチュリティ"
+ ],
+ [
+  "2025-12-27",
+  "中山",
+  "ホープフル"
+ ],
+ [
+  "2025-12-28",
+  "中山",
+  "有馬記念"
+ ]
+];
+
+const normalizeName=s=>typeof s==="string"?s.normalize("NFKC")
+  .replace(/[\s\u3000（）()]/g,""):null;
+export function official2024to2025FlatGI(date,track,name){
+ if(typeof date!=="string"||typeof track!=="string"||
+ !/^(?:2024|2025)-\d{2}-\d{2}$/.test(date))return null;
+ const n=normalizeName(name);
+ if(!n)return null;
+ const found=verifiedFlatGI2024_2025.filter(([d,t,term])=>{
+  if(d!==date||t!==track)return false;
+  const names=[term,...(term==="優駿牝馬"?["オークス"]:
+    term==="東京優駿"?["日本ダービー"]:[])];
+  return names.some(k=>n.includes(k));
+ });
+ if(found.length!==1)return null;
+ const [d,t,term]=found[0];
+ return {level:7,label:"GI",official_date:d,official_track:t,
+  evidence_kind:"OFFICIAL_JRA_2024_2025_FLAT_GI_DATE_TRACK_NAME_MATCH",
+  match_term:term,not_performance_data:true,
+  grade_registry_scope:"PARTIAL_GI_ONLY"};
+}
