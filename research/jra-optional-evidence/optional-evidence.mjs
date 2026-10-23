@@ -79,15 +79,18 @@ export async function enrichPredictionNonBlocking(prediction, {
   let handle;
   const deadline = new Promise(resolve => {
     handle = setTimeout(() => {
-      controller.abort();
       resolve(TIMEOUT);
+      controller.abort();
     }, limit);
   });
   let raw;
   try {
+    // Never let an optional source mutate the score/rank-bearing input.
+    const readOnlyCopy = typeof structuredClone === "function"
+      ? structuredClone(prediction) : JSON.parse(JSON.stringify(prediction));
     raw = await Promise.race([
       Promise.resolve().then(() => loadComments({
-        prediction, asOf, signal: controller.signal,
+        prediction: readOnlyCopy, asOf, signal: controller.signal,
       })),
       deadline,
     ]);
