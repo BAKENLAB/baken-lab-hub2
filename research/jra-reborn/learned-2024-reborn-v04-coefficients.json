@@ -1,0 +1,1300 @@
+{
+  "id": "LAB_REBORN_V04_ASOF_2024_FIT",
+  "title": "INDEPENDENT time-split categorical evidence learner",
+  "training": "2024-01-01/2024-12-31",
+  "history_start": "2023-01-01",
+  "validation": "2025-01-01/2025-12-31",
+  "holdout2": "2026-01-01/2026-09-13",
+  "status": "FROZEN_BEFORE_VALIDATION",
+  "data_contract": "Only historical features in private.jra_research_asof_features_v1, NO base_rate/base_rank/old LAB input. target_top3 used only training labels and test metrics.",
+  "source_staleness": "Retrospective archive. Prior results timestamp guarded.",
+  "alpha": 350,
+  "cap": 0.85,
+  "units": {
+    "P": 0.75,
+    "H": 0.2,
+    "M": 0.68,
+    "CLOSE46": 0.22,
+    "CLASS_CLOSE": 0.23,
+    "NEAR_PODIUM": 0.25,
+    "OLD_COURSE": 0.16,
+    "FAST_CLOSE": 0.14,
+    "REPEAT": 0.2
+  },
+  "cohort": [
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "n": 6972,
+      "top3": 1572,
+      "p": 0.225341
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "n": 5210,
+      "top3": 1230,
+      "p": 0.235787
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "n": 4731,
+      "top3": 993,
+      "p": 0.209894
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "n": 4378,
+      "top3": 1048,
+      "p": 0.238982
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "n": 9197,
+      "top3": 1938,
+      "p": 0.210716
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "n": 7220,
+      "top3": 1504,
+      "p": 0.208324
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "n": 1095,
+      "top3": 225,
+      "p": 0.205714
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "n": 2687,
+      "top3": 573,
+      "p": 0.213178
+    }
+  ],
+  "coeffs": [
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "CLASS_CLOSE",
+      "n": 4305,
+      "top3": 1202,
+      "coefficient": 0.060418
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "CLOSE46",
+      "n": 983,
+      "top3": 267,
+      "coefficient": 0.038796
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "FAST_CLOSE",
+      "n": 463,
+      "top3": 122,
+      "coefficient": 0.015157
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "H0",
+      "n": 68,
+      "top3": 6,
+      "coefficient": -0.022985
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "H1",
+      "n": 198,
+      "top3": 32,
+      "coefficient": -0.02639
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "H2",
+      "n": 340,
+      "top3": 89,
+      "coefficient": 0.017361
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "H3",
+      "n": 6366,
+      "top3": 1445,
+      "coefficient": 0.001697
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "MA",
+      "n": 887,
+      "top3": 359,
+      "coefficient": 0.401061
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "MB",
+      "n": 2251,
+      "top3": 668,
+      "coefficient": 0.215711
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "MC",
+      "n": 2968,
+      "top3": 477,
+      "coefficient": -0.252108
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "MD",
+      "n": 798,
+      "top3": 62,
+      "coefficient": -0.555027
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "MNONE",
+      "n": 68,
+      "top3": 6,
+      "coefficient": -0.078149
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "NEAR_PODIUM",
+      "n": 3608,
+      "top3": 1109,
+      "coefficient": 0.095397
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "OLD_COURSE",
+      "n": 750,
+      "top3": 220,
+      "coefficient": 0.037096
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "P0",
+      "n": 2712,
+      "top3": 327,
+      "coefficient": -0.493546
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "P1",
+      "n": 2292,
+      "top3": 522,
+      "coefficient": 0.00809
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "P2",
+      "n": 1321,
+      "top3": 427,
+      "coefficient": 0.287185
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "P3",
+      "n": 647,
+      "top3": 296,
+      "coefficient": 0.496495
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "ダート",
+      "signal": "REPEAT",
+      "n": 1585,
+      "top3": 582,
+      "coefficient": 0.111063
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "CLASS_CLOSE",
+      "n": 3637,
+      "top3": 897,
+      "coefficient": 0.012095
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "CLOSE46",
+      "n": 1472,
+      "top3": 418,
+      "coefficient": 0.043328
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "FAST_CLOSE",
+      "n": 701,
+      "top3": 186,
+      "coefficient": 0.013616
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "H0",
+      "n": 54,
+      "top3": 1,
+      "coefficient": -0.03144
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "H1",
+      "n": 158,
+      "top3": 43,
+      "coefficient": 0.008804
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "H2",
+      "n": 311,
+      "top3": 86,
+      "coefficient": 0.017381
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "H3",
+      "n": 4687,
+      "top3": 1100,
+      "coefficient": -0.001295
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "MA",
+      "n": 1361,
+      "top3": 567,
+      "coefficient": 0.443989
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "MB",
+      "n": 1936,
+      "top3": 457,
+      "coefficient": -0.000419
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "MC",
+      "n": 1537,
+      "top3": 182,
+      "coefficient": -0.451375
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "MD",
+      "n": 322,
+      "top3": 23,
+      "coefficient": -0.398564
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "MNONE",
+      "n": 54,
+      "top3": 1,
+      "coefficient": -0.106898
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "NEAR_PODIUM",
+      "n": 2736,
+      "top3": 911,
+      "coefficient": 0.105307
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "OLD_COURSE",
+      "n": 459,
+      "top3": 134,
+      "coefficient": 0.024101
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "P0",
+      "n": 1971,
+      "top3": 211,
+      "coefficient": -0.591838
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "P1",
+      "n": 1762,
+      "top3": 451,
+      "coefficient": 0.065572
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "P2",
+      "n": 986,
+      "top3": 329,
+      "coefficient": 0.258948
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "P3",
+      "n": 491,
+      "top3": 239,
+      "coefficient": 0.463743
+    },
+    {
+      "segment": "CLASS1",
+      "surface": "芝",
+      "signal": "REPEAT",
+      "n": 1160,
+      "top3": 462,
+      "coefficient": 0.11422
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "CLASS_CLOSE",
+      "n": 3178,
+      "top3": 687,
+      "coefficient": 0.00769
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "CLOSE46",
+      "n": 998,
+      "top3": 229,
+      "coefficient": 0.018076
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "FAST_CLOSE",
+      "n": 410,
+      "top3": 85,
+      "coefficient": -0.001095
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "H0",
+      "n": 23,
+      "top3": 0,
+      "coefficient": -0.008357
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "H1",
+      "n": 37,
+      "top3": 6,
+      "coefficient": -0.003188
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "H2",
+      "n": 69,
+      "top3": 11,
+      "coefficient": -0.007469
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "H3",
+      "n": 4602,
+      "top3": 976,
+      "coefficient": 0.002427
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "MA",
+      "n": 978,
+      "top3": 357,
+      "coefficient": 0.376594
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "MB",
+      "n": 1775,
+      "top3": 418,
+      "coefficient": 0.082734
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "MC",
+      "n": 1637,
+      "top3": 195,
+      "coefficient": -0.369593
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "MD",
+      "n": 318,
+      "top3": 23,
+      "coefficient": -0.343493
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "MNONE",
+      "n": 23,
+      "top3": 0,
+      "coefficient": -0.028413
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "NEAR_PODIUM",
+      "n": 2973,
+      "top3": 789,
+      "coefficient": 0.068124
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "OLD_COURSE",
+      "n": 1041,
+      "top3": 258,
+      "coefficient": 0.02511
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "P0",
+      "n": 1480,
+      "top3": 151,
+      "coefficient": -0.501102
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "P1",
+      "n": 1488,
+      "top3": 253,
+      "coefficient": -0.154396
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "P2",
+      "n": 1056,
+      "top3": 311,
+      "coefficient": 0.248252
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "P3",
+      "n": 707,
+      "top3": 278,
+      "coefficient": 0.431607
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "ダート",
+      "signal": "REPEAT",
+      "n": 1526,
+      "top3": 520,
+      "coefficient": 0.106464
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "CLASS_CLOSE",
+      "n": 3377,
+      "top3": 782,
+      "coefficient": -0.008812
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "CLOSE46",
+      "n": 1597,
+      "top3": 406,
+      "coefficient": 0.014033
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "FAST_CLOSE",
+      "n": 835,
+      "top3": 206,
+      "coefficient": 0.003468
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "H0",
+      "n": 18,
+      "top3": 3,
+      "coefficient": -0.002617
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "H1",
+      "n": 24,
+      "top3": 6,
+      "coefficient": -0.000804
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "H2",
+      "n": 43,
+      "top3": 13,
+      "coefficient": 0.002953
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "H3",
+      "n": 4293,
+      "top3": 1026,
+      "coefficient": -0.000192
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "MA",
+      "n": 1594,
+      "top3": 583,
+      "coefficient": 0.331942
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "MB",
+      "n": 1810,
+      "top3": 367,
+      "coefficient": -0.119731
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "MC",
+      "n": 848,
+      "top3": 85,
+      "coefficient": -0.479136
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "MD",
+      "n": 108,
+      "top3": 10,
+      "coefficient": -0.136638
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "MNONE",
+      "n": 18,
+      "top3": 3,
+      "coefficient": -0.008899
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "NEAR_PODIUM",
+      "n": 2677,
+      "top3": 829,
+      "coefficient": 0.077705
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "OLD_COURSE",
+      "n": 860,
+      "top3": 259,
+      "coefficient": 0.034327
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "P0",
+      "n": 1407,
+      "top3": 161,
+      "coefficient": -0.521607
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "P1",
+      "n": 1345,
+      "top3": 290,
+      "coefficient": -0.07967
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "P2",
+      "n": 990,
+      "top3": 302,
+      "coefficient": 0.178248
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "P3",
+      "n": 636,
+      "top3": 295,
+      "coefficient": 0.467953
+    },
+    {
+      "segment": "CLASS2_3",
+      "surface": "芝",
+      "signal": "REPEAT",
+      "n": 1375,
+      "top3": 494,
+      "coefficient": 0.090211
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "CLASS_CLOSE",
+      "n": 4299,
+      "top3": 1473,
+      "coefficient": 0.141429
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "CLOSE46",
+      "n": 409,
+      "top3": 156,
+      "coefficient": 0.093315
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "FAST_CLOSE",
+      "n": 190,
+      "top3": 65,
+      "coefficient": 0.028845
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "H0",
+      "n": 471,
+      "top3": 36,
+      "coefficient": -0.121966
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "H1",
+      "n": 2205,
+      "top3": 398,
+      "coefficient": -0.032739
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "H2",
+      "n": 1905,
+      "top3": 368,
+      "coefficient": -0.018115
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "H3",
+      "n": 4616,
+      "top3": 1136,
+      "coefficient": 0.037151
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "MA",
+      "n": 472,
+      "top3": 244,
+      "coefficient": 0.513473
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "MB",
+      "n": 1430,
+      "top3": 608,
+      "coefficient": 0.546801
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "MC",
+      "n": 3503,
+      "top3": 770,
+      "coefficient": 0.03299
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "MD",
+      "n": 3321,
+      "top3": 280,
+      "coefficient": -0.645958
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "MNONE",
+      "n": 471,
+      "top3": 36,
+      "coefficient": -0.414685
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "NEAR_PODIUM",
+      "n": 2099,
+      "top3": 952,
+      "coefficient": 0.240073
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "OLD_COURSE",
+      "n": 73,
+      "top3": 39,
+      "coefficient": 0.029784
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "P0",
+      "n": 6559,
+      "top3": 799,
+      "coefficient": -0.463493
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "P1",
+      "n": 1734,
+      "top3": 657,
+      "coefficient": 0.508056
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "P2",
+      "n": 637,
+      "top3": 326,
+      "coefficient": 0.635751
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "P3",
+      "n": 267,
+      "top3": 156,
+      "coefficient": 0.489107
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "ダート",
+      "signal": "REPEAT",
+      "n": 652,
+      "top3": 356,
+      "coefficient": 0.188144
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "CLASS_CLOSE",
+      "n": 4576,
+      "top3": 1306,
+      "coefficient": 0.088631
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "CLOSE46",
+      "n": 1091,
+      "top3": 334,
+      "coefficient": 0.084064
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "FAST_CLOSE",
+      "n": 484,
+      "top3": 151,
+      "coefficient": 0.041949
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "H0",
+      "n": 411,
+      "top3": 41,
+      "coefficient": -0.084687
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "H1",
+      "n": 1987,
+      "top3": 447,
+      "coefficient": 0.016461
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "H2",
+      "n": 1447,
+      "top3": 300,
+      "coefficient": -0.000923
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "H3",
+      "n": 3375,
+      "top3": 716,
+      "coefficient": 0.004153
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "MA",
+      "n": 1047,
+      "top3": 547,
+      "coefficient": 0.708413
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "MB",
+      "n": 1823,
+      "top3": 521,
+      "coefficient": 0.235682
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "MC",
+      "n": 2564,
+      "top3": 328,
+      "coefficient": -0.344572
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "MD",
+      "n": 1375,
+      "top3": 67,
+      "coefficient": -0.848053
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "MNONE",
+      "n": 411,
+      "top3": 41,
+      "coefficient": -0.287936
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "NEAR_PODIUM",
+      "n": 1972,
+      "top3": 841,
+      "coefficient": 0.217735
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "OLD_COURSE",
+      "n": 87,
+      "top3": 35,
+      "coefficient": 0.023226
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "P0",
+      "n": 4980,
+      "top3": 592,
+      "coefficient": -0.464504
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "P1",
+      "n": 1543,
+      "top3": 554,
+      "coefficient": 0.454313
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "P2",
+      "n": 506,
+      "top3": 243,
+      "coefficient": 0.529916
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "P3",
+      "n": 191,
+      "top3": 115,
+      "coefficient": 0.405432
+    },
+    {
+      "segment": "MAIDEN",
+      "surface": "芝",
+      "signal": "REPEAT",
+      "n": 573,
+      "top3": 300,
+      "coefficient": 0.169715
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "CLASS_CLOSE",
+      "n": 789,
+      "top3": 170,
+      "coefficient": 0.009156
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "CLOSE46",
+      "n": 250,
+      "top3": 48,
+      "coefficient": -0.006758
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "FAST_CLOSE",
+      "n": 116,
+      "top3": 17,
+      "coefficient": -0.010815
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "H0",
+      "n": 12,
+      "top3": 0,
+      "coefficient": -0.002543
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "H1",
+      "n": 30,
+      "top3": 3,
+      "coefficient": -0.005447
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "H2",
+      "n": 33,
+      "top3": 9,
+      "coefficient": 0.003686
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "H3",
+      "n": 1020,
+      "top3": 213,
+      "coefficient": 0.002848
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "MA",
+      "n": 363,
+      "top3": 122,
+      "coefficient": 0.216974
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "MB",
+      "n": 390,
+      "top3": 75,
+      "coefficient": -0.027242
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "MC",
+      "n": 267,
+      "top3": 24,
+      "coefficient": -0.242479
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "MD",
+      "n": 63,
+      "top3": 4,
+      "coefficient": -0.075942
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "MNONE",
+      "n": 12,
+      "top3": 0,
+      "coefficient": -0.008648
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "NEAR_PODIUM",
+      "n": 717,
+      "top3": 193,
+      "coefficient": 0.057125
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "OLD_COURSE",
+      "n": 223,
+      "top3": 58,
+      "coefficient": 0.017084
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "P0",
+      "n": 311,
+      "top3": 25,
+      "coefficient": -0.332065
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "P1",
+      "n": 288,
+      "top3": 45,
+      "coefficient": -0.100713
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "P2",
+      "n": 248,
+      "top3": 66,
+      "coefficient": 0.094979
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "P3",
+      "n": 248,
+      "top3": 89,
+      "coefficient": 0.21777
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "ダート",
+      "signal": "REPEAT",
+      "n": 439,
+      "top3": 141,
+      "coefficient": 0.063408
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "CLASS_CLOSE",
+      "n": 1987,
+      "top3": 413,
+      "coefficient": -0.00623
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "CLOSE46",
+      "n": 769,
+      "top3": 170,
+      "coefficient": 0.006652
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "FAST_CLOSE",
+      "n": 374,
+      "top3": 73,
+      "coefficient": -0.007506
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "H0",
+      "n": 34,
+      "top3": 4,
+      "coefficient": -0.006116
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "H1",
+      "n": 160,
+      "top3": 56,
+      "coefficient": 0.036904
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "H2",
+      "n": 237,
+      "top3": 54,
+      "coefficient": 0.005971
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "H3",
+      "n": 2256,
+      "top3": 459,
+      "coefficient": -0.010115
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "MA",
+      "n": 1410,
+      "top3": 412,
+      "coefficient": 0.224909
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "MB",
+      "n": 793,
+      "top3": 103,
+      "coefficient": -0.269144
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "MC",
+      "n": 399,
+      "top3": 49,
+      "coefficient": -0.219088
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "MD",
+      "n": 51,
+      "top3": 5,
+      "coefficient": -0.044412
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "MNONE",
+      "n": 34,
+      "top3": 4,
+      "coefficient": -0.020795
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "NEAR_PODIUM",
+      "n": 1808,
+      "top3": 465,
+      "coefficient": 0.050523
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "OLD_COURSE",
+      "n": 361,
+      "top3": 83,
+      "coefficient": 0.007185
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "P0",
+      "n": 611,
+      "top3": 53,
+      "coefficient": -0.466102
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "P1",
+      "n": 846,
+      "top3": 196,
+      "coefficient": 0.054559
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "P2",
+      "n": 712,
+      "top3": 156,
+      "coefficient": 0.016497
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "P3",
+      "n": 518,
+      "top3": 168,
+      "coefficient": 0.243126
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "surface": "芝",
+      "signal": "REPEAT",
+      "n": 954,
+      "top3": 257,
+      "coefficient": 0.043741
+    }
+  ]
+}
