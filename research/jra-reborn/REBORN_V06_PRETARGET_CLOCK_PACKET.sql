@@ -37,8 +37,14 @@ WITH target AS (
       winner.time_raw winner_time
     FROM public.jra_lab_runs x
     JOIN public.jra_lab_races r ON r.id=x.race_id
-    LEFT JOIN public.jra_lab_runs winner ON winner.race_id=r.id
-      AND winner.record_role='full_runner' AND winner.finish=1
+    -- Dead heats can have two finish=1 records. A direct JOIN doubles
+    -- every runner in that historical race; one winner clock per race only.
+    LEFT JOIN LATERAL (
+      SELECT MIN(w.time_raw) AS time_raw
+      FROM public.jra_lab_runs w
+      WHERE w.race_id=r.id AND w.record_role='full_runner'
+        AND w.finish=1
+    ) winner ON TRUE
     WHERE t.horse_code IS NOT NULL
       AND substring(x.horse_ref FROM '([0-9]{10})/')=t.horse_code
       AND x.record_role='full_runner' AND x.finish IS NOT NULL
