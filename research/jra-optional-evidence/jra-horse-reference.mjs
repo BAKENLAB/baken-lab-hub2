@@ -6,7 +6,7 @@
  */
 export function jraHorseCode(ref) {
   if(typeof ref!=="string") return null;
-  const m=ref.match(/(?:[?&])CNAME=pw01dud[0-9](\d{10})\/[0-9a-fA-F]{2}(?:&|$)/);
+  const m=ref.match(/(?:[?&])CNAME=pw01dud[01]0(\d{10})\/[0-9a-fA-F]{2}(?:&|$)/);
   return m?m[1]:null;
 }
 
