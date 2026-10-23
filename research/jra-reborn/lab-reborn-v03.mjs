@@ -162,8 +162,8 @@ function evalHorse(rec,older,ctx){
  const exact=near.filter(x=>x.same_track);
  const sameSurf=near;
  const nearAbility=sameSurf.length?clamp(
-    0.82*medianTop2(sameSurf.map(x=>x.adjusted))+
-    0.18*mean(sameSurf.map(x=>x.adjusted))):null;
+    0.84*Math.max(...sameSurf.map(x=>x.adjusted))+
+    0.16*medianTop2(sameSurf.map(x=>x.adjusted))):null;
  const localProof=exact.length?clamp(
     0.78*medianTop2(exact.map(x=>x.adjusted))+
     0.22*mean(exact.map(x=>x.adjusted))):null;
