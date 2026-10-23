@@ -79,3 +79,16 @@ The new numerical v0.5 shadow code remains research-only and is NOT applied auto
 38 inspected historical races: original 73 podium captures versus shadow 73, no net predictive uplift. Another 5 formerly studied races were not re-read.
 Detailed records and methodology: v05-base-first-correction-20261023.md.
 Production protocol JRA 0.4 remains active; production BASE_CORE, guarded CLAIM/SAVE, Cron, EYE and prior FROZEN unchanged.
+
+
+## 2026-10-23 last update: compact evidence for future manual JRA predictions
+
+When a future JRA claim context has a verified date/track/race number, optional read-only compact source:
+
+`SELECT private.jra_v08_compact_evidence_v1(DATE '<verified-date>','<verified-track>',<verified-race-no>);`
+
+- Requires `status=READY` and evidence_runner_count matching expected_field_size. NO_RACE, PARTIAL_FIELD and DUPLICATE_HORSE mean skip this optional enrichment; DO NOT block existing scoring or save.
+- Compact fields cover recent near-condition close efforts, same surface results, older course podium history, separate lower maiden-class successes, archived/fallback 3F evidence and opponent followup counts. Neither a count nor source availability is an automatic bonus.
+- The experimental numeric v0.6 full-runner score is NOT live. In inspected 109 JRA races, cautious version tied current TOP5 catch 198/198; stronger version lost one capture 197/198. No GO for production scoring formula.
+- Historical FROZEN, BASE_CORE, EYE, Cron and safe CLAIM/SAVE remain unchanged.
+- Detailed diagnostics and reproduction: `modular-feature-trial-20261023.md`.
