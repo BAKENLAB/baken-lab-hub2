@@ -1,6 +1,6 @@
 const analyzePastRace = (function coreModule() {
   const isDay = v => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v+"T00:00:00Z"));
-  const asOfDay = v => typeof v === "string" && /^\d{4}-\d{2}-\d{2}T/.test(v) && Number.isFinite(Date.parse(v)) ? v.slice(0,10):null;
+  const asOfDay = v => typeof v === "string" && /^\d{4}-\d{2}-\d{2}T/.test(v) && /(Z|[+-]\d{2}:\d{2})$/.test(v) && Number.isFinite(Date.parse(v)) ? new Date(Date.parse(v)+9*60*60*1000).toISOString().slice(0,10):null;
   const pos = x => Number.isInteger(x)&&x>0;
   const seconds = raw => {
     if(typeof raw!=="string"||!/^\d+:\d\d\.\d$/.test(raw))return null;
@@ -28,7 +28,7 @@ const analyzePastRace = (function coreModule() {
     const runner=normalized(run),all=field.map(normalized).filter(Boolean);
     if(!runner)return rejected("INVALID_INPUT","対象馬の特定失敗");
     const matched=all.filter(r=>r.horse_no===runner.horse_no);
-    if(matched.length!==1||matched[0].horse_name!==runner.horse_name||new Set(all.map(r=>r.horse_no)).size!==all.length) return rejected("FIELD_MISMATCH","馬番の重複・不一致");
+    if(matched.length!==1||matched[0].horse_name!==runner.horse_name||new Set(all.map(r=>r.horse_no)).size!==all.length||(run.finish!==undefined&&matched[0].finish!==runner.finish)||(run.time_raw!==undefined&&matched[0].time!==runner.time)) return rejected("FIELD_MISMATCH","馬番・対象馬の結果の重複または不一致");
     const expected=pos(race.field_size)?race.field_size:null;
     const full=expected!==null&&all.length===expected&&all.length===field.length;
     const winners=all.filter(r=>r.finish===1&&r.time!==null);
