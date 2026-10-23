@@ -137,3 +137,24 @@ test("gain and loss counted horse-by-horse rather than net only",()=>{
  assert.equal(report.shadow_caught,1);
  assert.equal(report.lost.length,1);
 });
+
+
+test("archive string corner order is interpreted and non-scoring pace is separate",()=>{
+ const source=recentRun({prior_date:"2026-09-20",
+  archive_match_count:1,final3f_rank:2,corner_positions:"8 7 6",
+  race_halons:"12.0 - 11.2 - 11.8 - 12.5 - 12.6 - 12.7",finish:4});
+ const p={...packet,recent_evidence:{runners:[{
+  ...packet.recent_evidence.runners[0],past_race_content:[source]},
+  packet.recent_evidence.runners[1]]}};
+ const panel=make(p);
+ const m=panel.runners[0].metrics;
+ assert.equal(m.context_only.runs_with_corners,1);
+ assert.equal(m.context_only.runs_gaining_places_after_final_turn,1);
+ assert.equal(m.context_only.high_early_pace_races,1);
+ const signal=m.historical_peak;
+ const q={...packet,recent_evidence:{runners:[{
+  ...packet.recent_evidence.runners[0],past_race_content:[{
+   ...source,race_halons:null,corner_positions:null,final3f_rank:null}]},
+  packet.recent_evidence.runners[1]]}};
+ assert.equal(make(q).runners[0].metrics.historical_peak,signal);
+});
