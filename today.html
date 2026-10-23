@@ -235,9 +235,11 @@
         for(const r of batch.eligible)byTrack.set(r.track,(byTrack.get(r.track)||0)+1);
         const breakdown=[...byTrack].map(([track,count])=>track+count+'R').join('・');
         out.innerHTML='<strong>'+clock+' 時点：'+batch.count+'レースを対象候補として抽出</strong>（'+esc(breakdown)+'）\n'+
-          'ChatGPTで「送信」すると手動処理が始まります。MCPのCLAIM・保存判定はその時点で改めて行います。';
+          'ChatGPTが開いたら「送信」してください。正規MCPでCLAIM・全頭評価・保存判定を改めて行います。';
         $('#manualBatchChatLink').href='https://chatgpt.com/?q='+encodeURIComponent(manualBatchPrompt);
         actions.hidden=false;
+        // Open the manual ChatGPT handoff with this single tap; no server-side save happens here.
+        window.location.assign($('#manualBatchChatLink').href);
       }catch(error){
         out.textContent='開始候補の確認に失敗：'+String(error?.message||error)+'。保存は実行していません。';
       }finally{
