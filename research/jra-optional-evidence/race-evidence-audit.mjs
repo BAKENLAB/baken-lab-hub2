@@ -42,7 +42,9 @@ export function auditJraV04Race(bundle,{targetSurface,targetDistance}={}){
         &&Math.abs(Number(h.prior_distance)-targetMeters)<=200):[];
     const relevantClose=nearCondition.filter(h=>{
       const gap=asNum(h.margin_to_winner),finish=asNum(h.finish);
-      return gap!==null&&gap>=0&&gap<=0.5&&finish!==null&&finish>=1;
+      // For 1st place, margin_to_winner can mean WINNING margin, not defeat.
+      if(finish===1)return true;
+      return gap!==null&&gap>=0&&gap<=0.5&&finish!==null&&finish>1;
     });
     const knownFast3f=archived.filter(h=>{
       const r=asNum(h.final3f_rank);
@@ -67,7 +69,7 @@ export function auditJraV04Race(bundle,{targetSurface,targetDistance}={}){
       facts.push(note(baseDate,
         (h.race_name??h.prior_track??"過去走")+" "+
         h.prior_surface+h.prior_distance+"m "+
-        fin+"着・着差"+gap.toFixed(1)+"秒"+
+        (fin===1?"1着（勝利）":fin+"着・勝ち馬から"+gap.toFixed(1)+"秒")+
         (rank!==null?"・上がり順位"+rank:"")));
     }
     for(const h of [...knownFast3f].sort((a,b)=>b.prior_date.localeCompare(a.prior_date)).slice(0,2)){
