@@ -58,7 +58,11 @@ function normalizeRun(run,older,ctx){
  const exactCourse=course===ctx.track&&distanceDifference<=Math.max(100,ctx.distance*0.1);
  const archived=older||number(run.archive_match_count)===1;
  const final3fRank=number(run.final3f_rank);
- const corners=older?run.corners:run.corner_positions;
+ const originalCorners=older?run.corners:(run.corner_positions??run.live_corner_positions);
+ const corners=Array.isArray(originalCorners)
+   ?originalCorners.map(Number).filter(x=>Number.isInteger(x)&&x>0)
+   :typeof originalCorners==="string" && /^\s*\d+(?:[\s-]+\d+)*\s*$/.test(originalCorners)
+     ?originalCorners.trim().split(/[\s-]+/).map(Number):[];
  const pace=older?null:run.race_halons;
  const fractions=typeof pace==="string"?
   pace.split(/\s*-\s*/).map(x=>Number(x)):[];
@@ -103,6 +107,10 @@ function metrics(recent,older,ctx){
  const pacing=runs.filter(x=>x.final3f_rank!==null||x.race_first600!==null);
  const last3fFast=pacing.filter(x=>x.final3f_rank!==null&&x.final3f_rank<=3);
  const moves=runs.filter(x=>Array.isArray(x.positions)&&x.positions.length>=2);
+ const actualClosing=moves.filter(x=>x.positions[x.positions.length-1]>x.finish);
+ const frontStarts=moves.filter(x=>x.positions[0]<=3);
+ const earlyFast=runs.filter(x=>x.race_first600!==null&&x.race_last600!==null
+    &&x.race_first600<x.race_last600-1.0);
  return {
    historical_peak:peak===null?null:r3(peak),
    recent_repeatability:repeatability===null?null:r3(repeatability),
@@ -110,7 +118,11 @@ function metrics(recent,older,ctx){
    current_class_proof:classProven===null?null:r3(classProven),
    context_only:{past_runs_with_pace_or_3f:pacing.length,
      last3f_top3_runs:last3fFast.length,
-     runs_with_corners:moves.length},
+     runs_with_corners:moves.length,
+     runs_gaining_places_after_final_turn:actualClosing.length,
+     early_top3_position_runs:frontStarts.length,
+     high_early_pace_races:earlyFast.length,
+     verified_pace_sources:runs.filter(x=>x.race_first600!==null).length},
    eligible_runs:runs.length,
    older_runs_eligible:runs.filter(x=>x.older).length,
    unknown_components:[
