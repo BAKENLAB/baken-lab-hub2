@@ -226,7 +226,7 @@ function evalHorse(rec,older,ctx){
     provenance:x.provenance,final3f_verified:x.final3f_verified
    }))};
 }
-export function buildRebornV02(packet,ctx){
+export function buildRebornV03(packet,ctx){
  if(!ctx||!validDate(ctx.date)||!["芝","ダート"].includes(ctx.surface)||
     ![1,2,3,4,5,6,7,8,9,10,11,12].includes(Number(ctx.raceNo))||
     N(ctx.distance)===null||!packet||packet.race_date!==ctx.date||
