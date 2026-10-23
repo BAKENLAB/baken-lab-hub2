@@ -3,8 +3,13 @@ on:
   push:
     branches:
       - feature/hub-manual-batch-20261022
+      - fix/hub-one-tap-jra-local-20261024
     paths:
       - '.github/workflows/hub-manual-batch.yml'
+      - 'manual-batch.js'
+      - 'automation/hub-manual-batch.test.mjs'
+      - 'index.html'
+      - 'today.html'
 jobs:
   manual-batch-check:
     runs-on: ubuntu-latest
