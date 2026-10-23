@@ -39,6 +39,11 @@ test("historical Chukyo 2025 winner is compared with 2023-24 same condition",()=
  assert.equal(a.clock.condition_median_winner,72.0);
  assert.equal(a.clock.comparative_seconds,-0.2);
  assert.equal(a.sample.reference_races,23);
+ assert.equal(a.sample.metadata_condition_group_matched,true);
+ assert.equal(a.sample.course_geometry_verified,false);
+ assert.equal(a.sample.exact_condition,false);
+ assert.deepEqual(a.sample.matched_reference_dimensions,
+  ["track","surface","distance","going","segment"]);
  assert.equal(a.pace.first600,36.2);
  assert.equal(a.pace.early_speed_ahead_of_reference,-1.6);
  assert.equal(a.score_delta,0);
