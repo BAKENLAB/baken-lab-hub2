@@ -90,3 +90,20 @@ test("optional extras cannot change TOP5/EYE or stored ability", async()=>{
   assert.equal(JSON.stringify(prediction),before);
   assert.equal(out.optional_evidence[0].summary,usable.summary);
 });
+
+
+test("an optional loader cannot mutate a mutable source prediction", async()=>{
+  const mutable={
+    runners:[{horse_no:1,rank:7,grade:"C",reason:"original"}],
+    top5:[],eye:null,
+  };
+  const before=JSON.stringify(mutable);
+  const out=await enrichPredictionNonBlocking(mutable,{asOf,loadComments:async({prediction:copy})=>{
+    copy.runners[0].rank=1;
+    copy.runners[0].reason="tampered";
+    return [];
+  }});
+  assert.strictEqual(out.prediction,mutable);
+  assert.equal(JSON.stringify(mutable),before);
+  assert.equal(mutable.runners[0].rank,7);
+});
