@@ -21,7 +21,10 @@ export function auditOpponentEvidence(rows,targetDate,horseCode){
    skipped.identity++;continue;
   }
   if(v.target_date!==targetDate||!date(v.meeting_date)||!date(v.later_date)||
-      !(v.meeting_date<v.later_date&&v.later_date<targetDate)){
+      !(v.meeting_date<v.later_date&&v.later_date<targetDate)||
+      !v.meeting_track||!v.later_track||!v.later_name||
+      !(int(v.meeting_no)>=1&&int(v.meeting_no)<=12)||
+      !(int(v.later_no)>=1&&int(v.later_no)<=12)){
    skipped.date++;continue;
   }
   const own=int(v.own_finish),rival=int(v.rival_finish),later=int(v.later_finish);
