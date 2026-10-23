@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {buildJra06FeaturePanel,rankJra06Shadow} from "./modular-evidence-v06.mjs";
+import {buildJra06FeaturePanel,rankJra06Shadow,compareShadowOutcome} from "./modular-evidence-v06.mjs";
 const recentRun=(o={})=>({
  prior_date:"2026-09-20",prior_track:"東京",prior_surface:"ダート",
  prior_distance:1400,prior_class:"1勝クラス",finish:2,margin_to_winner:0.1,
@@ -111,4 +111,29 @@ test("one winning run not erased by bad run in separate peak component",()=>{
  const m=make().runners[0].metrics;
  const last=m.evidence.find(x=>x.date==="2026-08-01");
  assert.ok(m.historical_peak>last.adjusted_strength);
+});
+
+
+test("unranked frozen runner makes shadow SKIPPED, never zero-hit loss",()=>{
+ const unranked=[{horse_no:1,horse_name:"A",rank:1},{horse_no:2,horse_name:"B",rank:null}];
+ const panel=buildJra06FeaturePanel(unranked,packet,ctx);
+ const shadow=rankJra06Shadow(panel);
+ const report=compareShadowOutcome(unranked,shadow,[
+  {horse_no:1,horse_name:"A",finish:1},
+  {horse_no:2,horse_name:"B",finish:2}
+ ]);
+ assert.equal(panel.status,"INVALID_ROSTER_OR_RANKS");
+ assert.equal(report.status,"SHADOW_SKIPPED");
+ assert.equal(report.baseline_caught,1);
+ assert.equal(report.shadow_caught,null);
+});
+test("gain and loss counted horse-by-horse rather than net only",()=>{
+ const report=compareShadowOutcome(base,{status:"SHADOW_READY",runners:[
+ {horse_no:1,shadow_rank:2},{horse_no:2,shadow_rank:6}]},[
+ {horse_no:1,horse_name:"A",finish:1},{horse_no:2,horse_name:"B",finish:2}
+ ]);
+ assert.equal(report.status,"COMPARABLE");
+ assert.equal(report.baseline_caught,2);
+ assert.equal(report.shadow_caught,1);
+ assert.equal(report.lost.length,1);
 });
