@@ -195,3 +195,30 @@ export function rankJra06Shadow(panel,{signalScale=10}={}){
     horse_no:r.horse_no,horse_name:r.horse_name,baseline_rank:r.baseline_rank,shadow_rank:r.shadow_rank})),
   runners:result.sort((a,b)=>a.baseline_rank-b.baseline_rank)};
 }
+
+
+/** Result evaluator used ONLY after official finish publication.
+ * If the shadow scorer could not rank all runners, label it SKIPPED,
+ * never count absent shadow rows as wrong picks.
+ */
+export function compareShadowOutcome(base,shadow,finishers){
+ if(!Array.isArray(base)||!Array.isArray(finishers))return {status:"INVALID_EVALUATION"};
+ const podium=finishers.filter(x=>Number(x.finish)<=3&&Number(x.finish)>0)
+   .map(x=>({horse_no:Number(x.horse_no),horse_name:x.horse_name,finish:Number(x.finish)}));
+ const baseSet=new Set(base.filter(x=>Number.isInteger(Number(x.rank))&&
+   x.rank!==null&&Number(x.rank)<=5&&Number(x.rank)>=1).map(x=>Number(x.horse_no)));
+ const baseHits=podium.filter(x=>baseSet.has(x.horse_no));
+ if(shadow?.status!=="SHADOW_READY"||!Array.isArray(shadow.runners)||
+    shadow.runners.length!==base.length){
+   return {status:"SHADOW_SKIPPED",baseline_caught:baseHits.length,
+      shadow_caught:null,gained:[],lost:[],reason:shadow?.status??"NO_SHADOW"};
+ }
+ const shadowSet=new Set(shadow.runners.filter(x=>x.shadow_rank<=5)
+   .map(x=>x.horse_no));
+ const shadowHits=podium.filter(x=>shadowSet.has(x.horse_no));
+ return {status:"COMPARABLE",baseline_caught:baseHits.length,
+   shadow_caught:shadowHits.length,
+   gained:shadowHits.filter(x=>!baseSet.has(x.horse_no)),
+   lost:baseHits.filter(x=>!shadowSet.has(x.horse_no)),
+   result_count:podium.length};
+}
