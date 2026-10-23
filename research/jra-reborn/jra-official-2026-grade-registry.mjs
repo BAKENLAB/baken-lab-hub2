@@ -44,7 +44,7 @@ export function official2026Grade(raceDate,track,raceName){
  if(typeof raceName!=="string"||!raceName.trim()||
     typeof raceDate!=="string"||typeof track!=="string")return null;
  const name=raceName.replace(/[\s（）()\u3000]/g,"");
- const matched=gradedRaces2026.filter(([date,t,,term,,,alias])=>
+ const matched=gradedRaces2026.filter(([date,t,level,term,label,alias])=>
     date===raceDate&&t===track&&
     (name.includes(term)||(typeof alias==="string"&&name.includes(alias))));
  if(matched.length!==1)return null;
