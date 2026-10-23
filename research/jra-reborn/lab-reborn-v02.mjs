@@ -29,9 +29,13 @@ const nameGrade=x=>{
  if(typeof x!=="string")return null;
  const v=x.trim();
  // Never infer "grade" merely because a race ends in S or ステークス.
- if(/(?:G|Ｇ)[ⅠI1]|グレード[ⅠI1]/.test(v))return 7;
- if(/(?:G|Ｇ)[Ⅱ2]|グレード[Ⅱ2]/.test(v))return 6;
- if(/(?:G|Ｇ)[Ⅲ3]|グレード[Ⅲ3]/.test(v))return 5;
+ // Check longest Roman sequence first: GIII must NEVER be mistaken for GI.
+ if(/(?:G|Ｇ)(?:III|Ⅲ|3)(?![IVX0-9])/i.test(v))return 5;
+ if(/(?:G|Ｇ)(?:II|Ⅱ|2)(?![IVX0-9])/i.test(v))return 6;
+ if(/(?:G|Ｇ)(?:I|Ⅰ|1)(?![IVX0-9])/i.test(v))return 7;
+ if(/グレード(?:Ⅲ|3)/.test(v))return 5;
+ if(/グレード(?:Ⅱ|2)/.test(v))return 6;
+ if(/グレード(?:Ⅰ|1)/.test(v))return 7;
  if(grades.GI.some(s=>v===s||v.includes(s)))return 7;
  if(grades.GII.some(s=>v===s||v.includes(s)))return 6;
  if(grades.GIII.some(s=>v===s||v.includes(s)))return 5;
@@ -190,6 +194,7 @@ function evalHorse(rec,older,ctx){
    status:scored?"SCORED":"INSUFFICIENT_HISTORY",
    data_warnings:[
     ...(near.length?[]:["NO_PROVEN_NEAR_DISTANCE_HISTORY"]),
+    ...(!exact.length&&sameSurf.length?["COURSE_FIT_TRANSFER_ONLY"]:[]),
     ...(detail.length?[]:["UNVERIFIED_POSITION_AND_3F_CONTENT"]),
     ...(coverage<0.60?["LOW_EVIDENCE_COVERAGE"]:[])
    ],
