@@ -37,7 +37,10 @@ jobs:
           assert.match(page,/api\(\{action:'list',date\}\)/);
           assert.match(page,/BAKENManualBatch\.selectEligible/);
           assert.match(page,/https:\/\/chatgpt\.com\/\?q=/);
-          assert.match(home,/today\.html#manual-batch/);
+          assert.match(home,/id="hubBatchBtn"/);
+          assert.match(home,/BAKENManualBatch\.makePrompt/);
+          const homeInline=[...home.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+          for(const [,js] of homeInline)new Function(js);
           const inline=[...page.matchAll(/<script>([\s\S]*?)<\/script>/g)];
           for(const [,js] of inline)new Function(js);
           console.log('UI_INVARIANTS_OK',inline.length);
