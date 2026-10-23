@@ -31,6 +31,12 @@ export function buildRebornV06Research(baseRows,clockPacket,rivalRows,
  if(byNumber.size!==baseRows.length)return fail("DUPLICATE_CLOCK_ROSTER");
  const codes=new Set(clock.runners.map(x=>x.horse_id));
  if(codes.size!==baseRows.length)return fail("DUPLICATE_HORSE_ID");
+ for(const v of rivalRows){
+  if(v.target_date!==date||v.target_track!==track||+v.target_no!==+raceNo||
+   !codes.has(v.target_horse_code)||
+   !(v.meeting_date<v.later_date&&v.later_date<date))
+   return fail("MIXED_OR_FUTURE_RIVAL_SOURCE");
+ }
  const expanded=[];
  for(const horse of baseline.runners){
   const c=byNumber.get(+horse.horse_no);
