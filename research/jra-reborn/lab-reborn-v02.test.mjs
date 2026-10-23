@@ -19,6 +19,10 @@ const packet={race_date:ctx.date,track:ctx.track,race_no:11,
 const clone=x=>JSON.parse(JSON.stringify(x));
 test("GII aliases, GI target and literal L/OP parsed safely",()=>{
  assert.equal(rebornClassLevel("ローズS",null),6);
+ assert.equal(rebornClassLevel("GIII",null),5);
+ assert.equal(rebornClassLevel("GII",null),6);
+ assert.equal(rebornClassLevel("GI",null),7);
+ assert.equal(rebornClassLevel("ＧⅢ",null),5);
  assert.equal(rebornClassLevel("紫苑S",null),6);
  assert.equal(rebornClassLevel("オープン","秋華賞"),7);
  assert.equal(rebornClassLevel("オープン","優駿牝馬"),7);
@@ -54,8 +58,9 @@ test("graded winning evidence outranks maiden-only win at same distance",()=>{
 test("missing same-track history is not a low artificial course ability",()=>{
  const x=buildRebornV02(packet,ctx);
  const a=x.runners.find(x=>x.horse_no===1);
- assert.equal(a.axes.course_fit,null);
- assert.ok(a.data_warnings.includes("NO_PROVEN_NEAR_DISTANCE_HISTORY")===false);
+ assert.ok(a.axes.course_fit>50);
+ assert.ok(a.data_warnings.includes("COURSE_FIT_TRANSFER_ONLY"));
+ assert.ok(!a.data_warnings.includes("NO_PROVEN_NEAR_DISTANCE_HISTORY"));
 });
 test("unknown last3f rank does not invent proven fast finish",()=>{
  const x=buildRebornV02(packet,ctx).runners.find(x=>x.horse_no===1);
