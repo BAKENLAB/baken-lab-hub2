@@ -57,3 +57,14 @@ Counts are observations, not unique strong rivals. No current future official re
 CRITICAL: JRA 0.4 protocol is active and standalone optional evidence reads are installed, but actual guarded CLAIM payload and automated production scoring formula have NOT been rewritten. A human/agent whole-field comparison must intentionally use optional evidence as available; failure to fetch cannot block. There is no established improvement in predictive accuracy. Do not claim full automation.
 
 Preserve bets=[] and bet_strategy=SUSPENDED_FOR_ABILITY_STABILITY. Preserve EYE rules and all existing FROZEN. No Cron restart, paid API or unauthorized write.
+
+
+## 2026-10-23 43-race scoring trial — IMPORTANT NO-GO
+
+The research-only code \`tie-shadow-v04.mjs\` tried reordering **only exactly equal validated_core_base_rate horses** based on corroborated past same-surface/near-distance evidence. Among 110 previously verified JRA FROZEN races, 43 had all-runner baseline probability fields; 66 had none, one was partial.
+
+Of those 43, 27 had at least one rank change. TOP5 podium capture was **85 for original LAB**, **83 for shadow**, net -2. An example: 新潟9R 2nd-place エルナト demoted from rank5 to rank6; 新潟10R winning キャリーグレイス demoted rank5 to rank7. The trial is REJECTED for live rank selection, EYE, saved predictions, and automatic scoring. Do not optimize on the same already-inspected 43 and claim out-of-sample validation.
+
+Instead use \`boundary-review-v04.mjs\` as an optional read-only **review ledger**, after \`race-evidence-audit.mjs\`. It compares ALL horses outside TOP5 with protected TOP5 evidence and flags conditions for *independent full-runner examination*, without determining replacements. This code is currently in the GitHub research branch, not in the live JRA CLAIM payload or server-side scorer. Verified in isolated JS (8 tests PASS), plus read-only 秋華賞 and 富士S historical packets.
+
+For tomorrow's live JRA work, keep active JRA 0.4 contract but do not assert that the new numerical ranking is validated or integrated. If optional research tools are unavailable, proceed exactly through the original trusted model and guarded save flow; never wait on missing trainer comments. **No automatic TOP5 changes from tie-shadow.**
