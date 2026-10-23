@@ -8,7 +8,7 @@ const base={race_date:'2026-10-22',circuit:'LOCAL',track:'笠松',
  field_status:'READY',prediction_status:'PENDING',prediction:null};
 test('JST date not user browser timezone',()=>{assert.equal(B.jstDate(now),'2026-10-22')});
 test('all venues sorted regardless of current UI circuit/venue',()=>{
- const r=[{...base,track:'浦和',race_no:2,post_time:'2026-10-22T04:30:00Z'},base,{...base,track:'園田',race_no:1,post_time:'2026-10-22T01:40:00Z'}];
+ const r=[{...base,track:'浦和',race_no:2,post_time:'2026-10-22T02:30:00Z'},base,{...base,track:'園田',race_no:1,post_time:'2026-10-22T01:40:00Z'}];
  const x=B.selectEligible({date:'2026-10-22',races:r,now});
  assert.deepEqual(x.eligible.map(z=>z.track),['笠松','園田','浦和']);assert.equal(x.count,3);
 });
@@ -22,19 +22,19 @@ test('PENDING field excluded and READY/RETRY counted',()=>{
   {...base,track:'園田',prediction_status:'RETRY'}];
  assert.equal(B.selectEligible({date:'2026-10-22',races:r,now}).count,1);
 });
-test('after start or inside three minute LOCAL reserve cannot enter batch',()=>{
+test('LOCAL excludes outside 10..150 minute combined claim windows',()=>{
  const r=[{...base,post_time:'2026-10-22T00:14:00Z'},
  {...base,track:'園田',post_time:'2026-10-22T00:18:00Z'},
- {...base,track:'浦和',post_time:'2026-10-22T00:18:01Z'}];
+ {...base,track:'浦和',post_time:'2026-10-22T00:26:00Z'}];
  const x=B.selectEligible({date:'2026-10-22',races:r,now});
  assert.equal(x.count,1);assert.equal(x.eligible[0].track,'浦和');
 });
-test('JRA uses its own research freeze window, not LOCAL three-minute rule',()=>{
+test('JRA accepts only 3..70 minute manual claim window',()=>{
  const r=[{...base,circuit:'JRA',track:'東京',post_time:'2026-10-22T01:14:00Z'},
  {...base,circuit:'JRA',track:'京都',post_time:'2026-10-22T02:00:00Z'},
  {...base,circuit:'JRA',track:'新潟',post_time:'2026-10-22T03:20:00Z'}];
  const x=B.selectEligible({date:'2026-10-22',races:r,now});
- assert.equal(x.count,1);assert.equal(x.eligible[0].track,'京都');
+ assert.equal(x.count,1);assert.equal(x.eligible[0].track,'東京');
 });
 test('stale selected date rejected instead of replaying yesterday',()=>{
  assert.throws(()=>B.selectEligible({date:'2026-10-21',races:[base],now}),/TODAY_ONLY/);
@@ -50,4 +50,31 @@ test('prompt explicitly forbids paid worker and false saved claims',()=>{
  const text=B.makePrompt(x);
  assert.match(text,/有料OpenAI API/);assert.match(text,/CLAIM/);
  assert.match(text,/保存件数と未処理理由/);assert.match(text,/笠松1R/);
+});
+
+test('LOCAL union of ordinary + RESCUE window stops at 150 minutes',()=>{
+  const r=[
+    {...base,track:'園田',post_time:'2026-10-22T00:24:59Z'},
+    {...base,track:'笠松',post_time:'2026-10-22T00:25:00Z'},
+    {...base,track:'浦和',post_time:'2026-10-22T02:45:00Z'},
+    {...base,track:'佐賀',post_time:'2026-10-22T02:45:01Z'},
+  ];
+  const x=B.selectEligible({date:'2026-10-22',races:r,now});
+  assert.deepEqual(x.eligible.map(z=>z.track),['笠松','浦和']);
+});
+test('JRA BASIC_READY accepted; LOCAL BASIC_READY excluded',()=>{
+  const x=B.selectEligible({date:'2026-10-22',races:[
+    {...base,circuit:'JRA',track:'東京',field_status:'BASIC_READY',post_time:'2026-10-22T00:55:00Z'},
+    {...base,track:'笠松',field_status:'BASIC_READY'}
+  ],now});
+  assert.deepEqual(x.eligible.map(z=>z.track),['東京']);
+});
+test('JRA cutoff after 3m and maximum 70m',()=>{
+  const x=B.selectEligible({date:'2026-10-22',races:[
+    {...base,circuit:'JRA',track:'東京',post_time:'2026-10-22T00:18:00Z'},
+    {...base,circuit:'JRA',track:'京都',post_time:'2026-10-22T00:18:01Z'},
+    {...base,circuit:'JRA',track:'新潟',post_time:'2026-10-22T01:25:00Z'},
+    {...base,circuit:'JRA',track:'札幌',post_time:'2026-10-22T01:25:01Z'},
+  ],now});
+  assert.deepEqual(x.eligible.map(z=>z.track),['京都','新潟']);
 });
