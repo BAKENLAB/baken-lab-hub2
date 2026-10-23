@@ -1,0 +1,465 @@
+{
+  "model": "JRA_ASOF_2025_RESIDUAL_V01",
+  "status": "LOCKED_BEFORE_2026_VALIDATION",
+  "train_from": "2025-01-01",
+  "train_to": "2025-12-31",
+  "history_from": "2023-01-01",
+  "holdout_from": "2026-01-01",
+  "holdout_to": "2026-09-13",
+  "base_model": "JRA_BASE_CORE_0.1_AB_2025_STATS",
+  "features": [
+    "CLOSE_4TO6",
+    "NEAR_PODIUM",
+    "SAMECLASS_CLOSE",
+    "OLDER_COURSE_PODIUM",
+    "FAST_CLOSE"
+  ],
+  "rate_bin": "floor(base_rate*5)",
+  "smoothing_additional_n": 150,
+  "uplift_cap_abs": 0.055,
+  "global_damping": 0.6,
+  "total_correction_cap_abs": 0.1,
+  "score_cap": [
+    0.01,
+    0.95
+  ],
+  "scores_not_calibrated": true,
+  "missing_features_neutral": true,
+  "odds_forbidden": true,
+  "coefficients": [
+    {
+      "segment": "CLASS1",
+      "rate_group": 0,
+      "signal": "CLOSE_4TO6",
+      "n": 1122,
+      "uplift": "0.03551"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 0,
+      "signal": "FAST_CLOSE",
+      "n": 614,
+      "uplift": "0.00824"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 0,
+      "signal": "NEAR_PODIUM",
+      "n": 1233,
+      "uplift": "0.01202"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 0,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 709,
+      "uplift": "0.05500"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 0,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 3926,
+      "uplift": "0.02168"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 1,
+      "signal": "CLOSE_4TO6",
+      "n": 1402,
+      "uplift": "0.00765"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 1,
+      "signal": "FAST_CLOSE",
+      "n": 620,
+      "uplift": "0.00562"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 1,
+      "signal": "NEAR_PODIUM",
+      "n": 4430,
+      "uplift": "0.01017"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 1,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 665,
+      "uplift": "0.03993"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 1,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 3457,
+      "uplift": "0.02408"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 2,
+      "signal": "CLOSE_4TO6",
+      "n": 130,
+      "uplift": "0.03011"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 2,
+      "signal": "FAST_CLOSE",
+      "n": 47,
+      "uplift": "0.01024"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 2,
+      "signal": "NEAR_PODIUM",
+      "n": 810,
+      "uplift": "-0.00634"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 2,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 136,
+      "uplift": "0.02327"
+    },
+    {
+      "segment": "CLASS1",
+      "rate_group": 2,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 559,
+      "uplift": "0.01842"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 0,
+      "signal": "CLOSE_4TO6",
+      "n": 979,
+      "uplift": "0.02461"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 0,
+      "signal": "FAST_CLOSE",
+      "n": 539,
+      "uplift": "0.00326"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 0,
+      "signal": "NEAR_PODIUM",
+      "n": 951,
+      "uplift": "-0.00017"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 0,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 798,
+      "uplift": "0.03936"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 0,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 2954,
+      "uplift": "0.00699"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 1,
+      "signal": "CLOSE_4TO6",
+      "n": 1506,
+      "uplift": "0.01571"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 1,
+      "signal": "FAST_CLOSE",
+      "n": 646,
+      "uplift": "0.00459"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 1,
+      "signal": "NEAR_PODIUM",
+      "n": 3602,
+      "uplift": "0.00469"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 1,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 1066,
+      "uplift": "0.00993"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 1,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 2851,
+      "uplift": "0.00611"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 2,
+      "signal": "CLOSE_4TO6",
+      "n": 202,
+      "uplift": "-0.00851"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 2,
+      "signal": "FAST_CLOSE",
+      "n": 77,
+      "uplift": "-0.00721"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 2,
+      "signal": "NEAR_PODIUM",
+      "n": 1133,
+      "uplift": "-0.00546"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 2,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 300,
+      "uplift": "-0.00197"
+    },
+    {
+      "segment": "CLASS2_3",
+      "rate_group": 2,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 634,
+      "uplift": "0.00415"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 0,
+      "signal": "CLOSE_4TO6",
+      "n": 405,
+      "uplift": "0.05500"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 0,
+      "signal": "FAST_CLOSE",
+      "n": 198,
+      "uplift": "0.05500"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 0,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 43,
+      "uplift": "0.01166"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 0,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 2669,
+      "uplift": "0.01718"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 1,
+      "signal": "CLOSE_4TO6",
+      "n": 896,
+      "uplift": "0.01570"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 1,
+      "signal": "FAST_CLOSE",
+      "n": 431,
+      "uplift": "0.01681"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 1,
+      "signal": "NEAR_PODIUM",
+      "n": 2142,
+      "uplift": "0.01243"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 1,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 55,
+      "uplift": "0.02689"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 1,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 4124,
+      "uplift": "-0.00066"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 2,
+      "signal": "CLOSE_4TO6",
+      "n": 367,
+      "uplift": "-0.03892"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 2,
+      "signal": "FAST_CLOSE",
+      "n": 157,
+      "uplift": "-0.00004"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 2,
+      "signal": "NEAR_PODIUM",
+      "n": 1785,
+      "uplift": "0.01141"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 2,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 52,
+      "uplift": "-0.01374"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 2,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 2008,
+      "uplift": "0.00207"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 3,
+      "signal": "CLOSE_4TO6",
+      "n": 42,
+      "uplift": "-0.01523"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 3,
+      "signal": "FAST_CLOSE",
+      "n": 20,
+      "uplift": "-0.00763"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 3,
+      "signal": "NEAR_PODIUM",
+      "n": 271,
+      "uplift": "-0.00359"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 3,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 27,
+      "uplift": "0.00208"
+    },
+    {
+      "segment": "MAIDEN",
+      "rate_group": 3,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 295,
+      "uplift": "-0.00285"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 0,
+      "signal": "CLOSE_4TO6",
+      "n": 449,
+      "uplift": "0.02573"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 0,
+      "signal": "FAST_CLOSE",
+      "n": 245,
+      "uplift": "0.03101"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 0,
+      "signal": "NEAR_PODIUM",
+      "n": 622,
+      "uplift": "0.00020"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 0,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 345,
+      "uplift": "0.03652"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 0,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 1327,
+      "uplift": "0.00639"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 1,
+      "signal": "CLOSE_4TO6",
+      "n": 526,
+      "uplift": "0.00051"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 1,
+      "signal": "FAST_CLOSE",
+      "n": 227,
+      "uplift": "-0.02588"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 1,
+      "signal": "NEAR_PODIUM",
+      "n": 1804,
+      "uplift": "0.00046"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 1,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 359,
+      "uplift": "0.01639"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 1,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 1333,
+      "uplift": "0.00066"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 2,
+      "signal": "NEAR_PODIUM",
+      "n": 172,
+      "uplift": "0.00795"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 2,
+      "signal": "OLDER_COURSE_PODIUM",
+      "n": 40,
+      "uplift": "0.02749"
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "rate_group": 2,
+      "signal": "SAMECLASS_CLOSE",
+      "n": 133,
+      "uplift": "0.00316"
+    }
+  ]
+}
