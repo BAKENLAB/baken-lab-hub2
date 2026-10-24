@@ -100,7 +100,15 @@ export function enrichLockedRebornHistory(snapshot, archiveRows=[]){
     corner_positions:run.corner_positions,
     final3f:run.final3f,
     final3f_rank:proof?.final3f_rank??null,
-    final3f_source:proof&&int(proof.final3f_rank)!==null?"VERIFIED_ARCHIVE":"UNVERIFIED",
+    // Require full field and matching recorded per-horse final 3F time
+    // before accepting an archive ordinal rank as independently verified.
+    final3f_source:proof&&proof.full_field===true&&
+      int(proof.final3f_rank)!==null&&
+      int(proof.final3f_rank)>=1&&
+      int(proof.final3f_rank)<=int(proof.field_size)&&
+      number(run.final3f)!==null&&number(proof.final3f)!==null&&
+      Math.abs(number(run.final3f)-number(proof.final3f))<=0.15?
+        "VERIFIED_ARCHIVE":"UNVERIFIED",
     source_kind:proof?"PRETARGET_LIVE_ARCHIVE_CROSSCHECK":"LOCKED_LIVE_UNCROSSCHECKED"
    });
   }
@@ -115,7 +123,10 @@ export function enrichLockedRebornHistory(snapshot, archiveRows=[]){
     older_same_surface_near_distance:old4.map(a=>({
       date:a.race_date,track:a.track,race_name:a.race_name,class_name:a.class_name,
       surface:a.surface,distance:a.distance,finish:a.finish,field_size:a.field_size,
-      final3f_rank:a.final3f_rank??null,final3f:a.final3f??null,
+      final3f_rank:a.full_field===true&&int(a.final3f_rank)!==null&&
+        int(a.final3f_rank)>=1&&int(a.final3f_rank)<=int(a.field_size)?
+        int(a.final3f_rank):null,
+      final3f:a.final3f??null,
       corners:a.corner_positions??null,
       provenance:"JRA_LAB_ARCHIVE_BEFORE_FROZEN_HISTORY",
       // Archive margin is to preceding horse, NOT winner gap. Never
