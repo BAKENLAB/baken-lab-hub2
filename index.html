@@ -22,12 +22,6 @@
     details.about{margin-top:11px;border:1px solid #20262e;border-radius:13px;background:#0d1116;padding:0 12px}details.about summary{cursor:pointer;list-style:none;padding:11px 0;color:#8b96a3;font-size:9px;font-weight:900}details.about summary::-webkit-details-marker{display:none}.about-body{padding:0 0 12px;color:#818c99;font-size:9px;line-height:1.65}.about-body strong{color:#c9d1da}.about-body p{margin:0}.about-body p+p{margin-top:7px}
     footer{display:flex;justify-content:space-between;gap:10px;margin-top:22px;padding-top:15px;border-top:1px solid #151a20;color:#4f5967;font-size:8px}
     @media(min-width:640px){.hub-grid{grid-template-columns:1fr 1fr}.shell{padding-top:32px}}
-    .manual-shortcut{display:flex;align-items:center;justify-content:space-between;gap:12px;
-      margin:0 0 17px;padding:13px 15px;border:1px solid #41592b;border-radius:13px;
-      background:linear-gradient(135deg,#1c2819,#0e1918);text-decoration:none;color:#edffd0;font:inherit;text-align:left;width:100%;cursor:pointer}
-    .manual-shortcut strong{display:block;font-size:12px;font-weight:950}
-    .manual-shortcut small{display:block;font-size:9px;line-height:1.5;color:#9eb49b;margin-top:4px}
-    .manual-shortcut>span:last-child{font-size:22px;color:#d5ef78}
   </style>
 </head>
 <body>
@@ -41,12 +35,6 @@
       <h1>馬券に、理由を。</h1>
       <p><strong>LAB HUB</strong>は、今日の予想、過去の検証、未来の注目馬をそれぞれのコンテンツで楽しむBAKEN LABのホームです。</p>
     </section>
-
-    <button class="manual-shortcut" id="hubBatchBtn" type="button" aria-label="現在の全レース保存候補を確認してChatGPTで実行依頼">
-      <span><strong>🔥 全レースの保存を一括依頼</strong><small>最新の保存候補を確認 → ChatGPTで正規MCP実行（送信が必要）</small></span>
-      <span aria-hidden="true">›</span>
-    </button>
-    <div id="hubBatchStatus" role="status" aria-live="polite" hidden style="color:#cbd8d0;font-size:12px;line-height:1.6;margin:-8px 0 17px;padding:0 6px"></div>
 
     <div class="section-label">CONTENTS / 見たいものを選ぶ</div>
     <nav class="hub-grid" aria-label="LAB HUBコンテンツ">
@@ -105,7 +93,6 @@
     <footer><span>BAKEN LAB｜馬券ラボ</span><span>LAB HUB</span></footer>
   </main>
 
-  <script src="/manual-batch.js"></script>
   <script>
     const API=location.origin+'/api/hub-data';
     const esc=value=>String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||c));
@@ -119,30 +106,6 @@
         document.querySelector('#updateList').innerHTML=rows.map(x=>`<div class="update-item"><div class="update-date">${esc(String(x.published_on||'').replaceAll('-','.'))}</div><div class="update-copy">${esc(x.body||'')}</div></div>`).join('');
       }catch{}
     }
-    async function requestAllRaces(){
-      const button=document.querySelector('#hubBatchBtn'),status=document.querySelector('#hubBatchStatus');
-      if(button.disabled)return;
-      button.disabled=true;status.hidden=false;status.textContent='保存候補を本番DBから再確認中…';
-      try{
-        const now=new Date(),date=BAKENManualBatch.jstDate(now),url=new URL(API);
-        url.searchParams.set('action','list');url.searchParams.set('date',date);
-        const response=await fetch(url,{cache:'no-store'});
-        if(!response.ok)throw new Error('本番のレース一覧を読み込めませんでした（HTTP '+response.status+'）');
-        const data=await response.json();
-        if(!data.ok||!Array.isArray(data.races))throw new Error('本番レース一覧が不完全です');
-        const batch=BAKENManualBatch.selectEligible({date,races:data.races,now:new Date()});
-        if(batch.count===0){
-          status.textContent='現在、正規CLAIM可能な保存候補は0Rです。JRA/地方の出馬表未取得・時間帯・保存済みなどを確認してください。保存は行っていません。';
-          return;
-        }
-        status.textContent='保存候補 '+batch.count+'R（JRA '+batch.byCircuit.JRA+'／地方 '+batch.byCircuit.LOCAL+'）。ChatGPTで送信後、正規MCPで全頭評価と保存を開始します。';
-        // Single tap opens the free manual MCP conversation; this page never writes FROZEN.
-        window.location.assign('https://chatgpt.com/?q='+encodeURIComponent(BAKENManualBatch.makePrompt(batch)));
-      }catch(e){
-        status.textContent='実行依頼を開けませんでした：'+String(e?.message||e)+'。保存は行っていません。';
-      }finally{button.disabled=false}
-    }
-    document.querySelector('#hubBatchBtn').addEventListener('click',requestAllRaces);
     loadUpdates();setInterval(loadUpdates,300000);
     if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{})})}
   </script>
