@@ -74,23 +74,6 @@
     .watch-facts{display:grid;gap:7px;margin-top:12px}.watch-fact{border-left:2px solid #77acf0;background:rgba(33,68,111,.21);border-radius:0 7px 7px 0;padding:8px}
     .watch-fact strong{display:block;color:#b4d4ff;font-size:10px}.watch-fact p{margin:3px 0 4px;color:#c0cad6;font-size:9px;line-height:1.55}.watch-fact a{color:#83bbfa;font-size:9px;text-decoration:underline;text-underline-offset:2px}
     .watch-empty{font-size:9px;color:#8898a8;padding:12px 0}.watch-disclaimer{border-top:1px solid rgba(130,150,176,.16);padding-top:8px;color:#8092a8}
-
-    /* Owner-initiated, paid-API-free manual all-venue batch handoff. */
-    .batch-panel{margin:12px 0 18px;padding:16px;border:1px solid #3c4c24;border-radius:15px;background:linear-gradient(150deg,#172014,#10171b)}
-    .batch-kicker{font-size:10px;letter-spacing:.12em;color:#d4fc77;font-weight:900}
-    .batch-title{font-size:16px;font-weight:900;margin:5px 0;color:#f0f5e8}
-    .batch-desc{font-size:11px;line-height:1.7;color:#aab7ac;margin:0 0 11px}
-    .batch-primary{width:100%;min-height:47px;border:1px solid #a7cd50;border-radius:11px;
-      background:#caed79;color:#162111;font-size:13px;font-weight:900;cursor:pointer}
-    .batch-primary:disabled{opacity:.55;cursor:wait}
-    .batch-result{font-size:11px;line-height:1.75;color:#b8c9ba;margin:10px 0 0;white-space:pre-wrap}
-    .batch-result strong{color:#e7ffd3}
-    .batch-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
-    .batch-actions[hidden]{display:none}
-    .batch-actions a,.batch-actions button{display:inline-flex;align-items:center;justify-content:center;
-      padding:9px 12px;border:1px solid #4a6c36;border-radius:9px;color:#e6ffb6;
-      background:#1a2619;font-size:11px;font-weight:800;text-decoration:none;cursor:pointer}
-    .batch-small{font-size:10px;color:#94a09b;line-height:1.55;margin:10px 0 0}
   </style>
 </head>
 <body>
@@ -109,20 +92,6 @@
           <button class="circuit-btn" data-circuit="JRA">中央</button>
         </div>
       </div>
-
-      <section id="manual-batch" class="batch-panel" aria-labelledby="manualBatchTitle">
-        <div class="batch-kicker">OWNER CONTROL / 無料・手動実行</div>
-        <h2 class="batch-title" id="manualBatchTitle">本日の全レースをまとめて確認</h2>
-        <p class="batch-desc">押した時点で全競馬場を再取得し、READY・未保存・発走前の対象を選び直します。表示中の「地方／中央」や競馬場の絞り込みには左右されません。</p>
-        <button id="manualBatchBtn" class="batch-primary" type="button">🔥 保存可能な全レースを一括依頼</button>
-        <div id="manualBatchStatus" class="batch-result" role="status" aria-live="polite">ChatGPTの手動MCPに引き継ぐ方式です。押しただけでFROZEN保存完了にはなりません。</div>
-        <div id="manualBatchActions" class="batch-actions" hidden>
-          <a id="manualBatchChatLink" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPTで実行依頼を開く ↗</a>
-          <button id="manualBatchCopyBtn" type="button">依頼文をコピー</button>
-        </div>
-        <p class="batch-small">※有料API・Cronは起動しません。ChatGPTで依頼を送信してから、1レースずつMCPで再検証・保存します。発走後と既存FROZENは対象外です。</p>
-      </section>
-
       <div id="venueTabs" class="venue-tabs"></div>
       <div id="raceArea"></div>
       <div id="detailArea"></div>
@@ -140,7 +109,6 @@
     <footer class="sub-footer"><span>BAKEN LAB｜馬券ラボ</span><span>TODAY</span></footer>
   </div>
   <script src="./lab-watch.js"></script>
-  <script src="./manual-batch.js"></script>
   <script>
     const API=location.origin+'/api/hub-data';
     const $=s=>document.querySelector(s);
@@ -208,60 +176,6 @@
     $('#raceArea').addEventListener('click',e=>{const t=e.target.closest('[data-race-key]');if(!t)return;const race=state.races.find(r=>r.key===t.dataset.raceKey);if(race){state.selectedRaceKey=race.key;renderDetail(race)}});
     document.querySelectorAll('[data-circuit]').forEach(b=>b.addEventListener('click',()=>{state.circuit=b.dataset.circuit||'ALL';document.querySelectorAll('[data-circuit]').forEach(x=>x.classList.toggle('active',x===b));state.venue='';renderVenueTabs();renderRaceArea();$('#detailArea').innerHTML=''}));
     document.querySelectorAll('[data-main-tab]').forEach(b=>b.addEventListener('click',()=>{const tab=b.dataset.mainTab||'today';document.querySelectorAll('[data-main-tab]').forEach(x=>x.classList.toggle('active',x===b));$('#todayPanel').classList.toggle('hidden',tab!=='today');$('#resultPanel').classList.toggle('hidden',tab!=='result');if(tab==='result')loadResults()}));
-
-    let manualBatchPrompt = '';
-    async function prepareManualBatch(){
-      const button=$('#manualBatchBtn'),out=$('#manualBatchStatus'),actions=$('#manualBatchActions');
-      if(button.disabled)return;
-      button.disabled=true;button.textContent='対象を最新確認中…';actions.hidden=true;manualBatchPrompt='';
-      try{
-        const date=BAKENManualBatch.jstDate(new Date());
-        if($('#dateInput').value!==date)throw new Error('今日の日付を選んでから実行してください。');
-        // Always refetch: NEVER use stale state.races or the selected track/tab.
-        const fresh=await api({action:'list',date});
-        const checked=new Date();const batch=BAKENManualBatch.selectEligible({
-          date,races:Array.isArray(fresh.races)?fresh.races:[],now:checked
-        });
-        state.races=Array.isArray(fresh.races)?fresh.races:[];
-        state.predictions=Array.isArray(fresh.predictions)?fresh.predictions:[];
-        renderVenueTabs();renderRaceArea();
-        const clock=new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(checked);
-        if(batch.count===0){
-          out.textContent=clock+' 時点：保存候補は0レースです。出馬表READY・未保存・発走前を満たすレースがありません。';
-          return;
-        }
-        manualBatchPrompt=BAKENManualBatch.makePrompt(batch);
-        const byTrack=new Map();
-        for(const r of batch.eligible)byTrack.set(r.track,(byTrack.get(r.track)||0)+1);
-        const breakdown=[...byTrack].map(([track,count])=>track+count+'R').join('・');
-        out.innerHTML='<strong>'+clock+' 時点：'+batch.count+'レースを対象候補として抽出</strong>（'+esc(breakdown)+'）\n'+
-          'ChatGPTが開いたら「送信」してください。正規MCPでCLAIM・全頭評価・保存判定を改めて行います。';
-        $('#manualBatchChatLink').href='https://chatgpt.com/?q='+encodeURIComponent(manualBatchPrompt);
-        actions.hidden=false;
-        // Open the manual ChatGPT handoff with this single tap; no server-side save happens here.
-        window.location.assign($('#manualBatchChatLink').href);
-      }catch(error){
-        out.textContent='開始候補の確認に失敗：'+String(error?.message||error)+'。保存は実行していません。';
-      }finally{
-        button.disabled=false;button.textContent='🔥 保存可能な全レースを一括依頼';
-      }
-    }
-    async function copyManualBatchPrompt(){
-      if(!manualBatchPrompt)return;
-      const button=$('#manualBatchCopyBtn');
-      try{
-        if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(manualBatchPrompt);}
-        else {
-          const temp=document.createElement('textarea');temp.value=manualBatchPrompt;
-          temp.style.position='fixed';temp.style.opacity='0';document.body.appendChild(temp);
-          temp.select();if(!document.execCommand('copy'))throw new Error('copy failed');temp.remove();
-        }
-        button.textContent='コピーしました ✓';
-      }catch{button.textContent='コピー不可：ChatGPTリンクを利用';}
-    }
-    $('#manualBatchBtn').addEventListener('click',prepareManualBatch);
-    $('#manualBatchCopyBtn').addEventListener('click',copyManualBatchPrompt);
-
     const today=isoToday();$('#dateInput').value=today;$('#resultDateInput').value=defaultResultDate();$('#dateInput').addEventListener('change',()=>{state.selectedRaceKey='';loadToday()});$('#resultDateInput').addEventListener('change',loadResults);loadToday();setInterval(refreshTodayMarket,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshTodayMarket()});
   </script>
 
