@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseNarCornerRows} from './nar-official-result-parser.mjs';
+import {enrichVerifiedCornerHistory} from './nar-verified-corner-evidence.mjs';
+const ref='https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=12345678901';
+const runner={horse_no:5,horse_name:'コスモフィネス',identity_refs:[ref]};
+const currentRace={race_date:'2026-10-21',track:'笠松',race_no:11,circuit:'LOCAL'};
+const profile=(day,no,horseNo,finish=1)=>({race_date:day,track:'笠松',race_no:no,horse_no:horseNo,horse_name:'コスモフィネス',horse_ref:ref,source:'NAR_OFFICIAL_RESCUE',finish});
+const page=(day,no,horseNo)=>{const [y,m,d]=day.split('-').map(Number);const cells=['着順','枠','馬番','馬名','所属','性齢','負担重量','騎手','調教師','馬体重','タイム','着差','上がり3F','コーナー 通過順','人気','単勝オッズ'];const r=Array(16).fill('');r[0]='1';r[2]=String(horseNo);r[3]='コスモフィネス';r[13]='1-1-1-1';return {race:{race_date:day,track:'笠松',race_no:no},source_ref:'https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=23&k_raceDate='+day.replaceAll('-','%2F')+'&k_raceNo='+no,header_text:y+'年'+m+'月'+d+'日 笠松 第'+no+'競走 競走成績',rows:[{cells},{cells:r}]};};
+const pages=[page('2026-08-14',5,4),page('2026-09-09',9,3)];
+test('two official race result tables enrich only verified same horse prior races',()=>{const rows=pages.flatMap(parseNarCornerRows);const result=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[profile('2026-08-14',5,4),profile('2026-09-09',9,3)],resultRows:rows});assert.equal(result.accepted,2);assert.deepEqual(result.runs.map(x=>x.early_pos),[1,1]);});
+test('a different official horse identity never receives the corners',()=>{const rows=pages.flatMap(parseNarCornerRows);const result=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[{...profile('2026-08-14',5,4),horse_ref:'https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=99999999'}],resultRows:[rows[0]]});assert.equal(result.accepted,0);});
+test('mismatched race number does not enrich',()=>{const rows=pages.flatMap(parseNarCornerRows);const result=enrichVerifiedCornerHistory({runner,currentRace,profileRuns:[profile('2026-08-14',5,4)],resultRows:[{...rows[0],race_no:9}]});assert.equal(result.accepted,0);});

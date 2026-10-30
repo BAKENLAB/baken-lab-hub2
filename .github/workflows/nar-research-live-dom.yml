@@ -1,0 +1,35 @@
+name: RESEARCH ONLY NAR pre-race HTML smoke test
+# Research only: shadow-context sidecar and legacy tests, plus actual NAR HTML cards.
+on:
+  push:
+    branches:
+      - research/local-corner-history-verification-20261022
+    paths:
+      - '.github/workflows/nar-research-live-dom.yml'
+jobs:
+  live-html-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install parser dependency
+        run: npm install --no-save --package-lock=false --ignore-scripts cheerio@1.0.0
+      - name: Verify every research DebaTable parser/shadow unit test
+        run: node --test automation/nar-deba-*.test.mjs
+      - name: Verify strict shadow claimed-context sidecar and immutable history
+        run: node --test automation/nar-claimed-context-corner-sidecar.test.mjs
+      - name: Verify published Kasamatsu 2026-08-14 11R card
+        run: node automation/nar-deba-live-html-diagnostic.mjs
+      - name: Verify missed 2026-10-21 winner's official pre-race card
+        run: node automation/nar-deba-live-kasamatsu-20261021.mjs
+      - name: Verify independent 2026-10-21 Sonoda 6R official card
+        run: node automation/nar-deba-live-sonoda-20261021.mjs
+      - name: Verify production-identical runner IDs at Urawa and Monbetsu
+        run: node automation/nar-deba-independent-venues-20261021.mjs
