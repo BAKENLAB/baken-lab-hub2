@@ -4,7 +4,7 @@ This branch adds a **read-only, deterministic shadow review**, not a replacement
 
 ## Verified 2026-10-30 evidence
 - 47/47 races FROZEN before post and matched to result records.
-- Honshu? No: data covers 名古屋12, 園田12, 大井12, 金沢11 races.
+- Data covers 名古屋12, 園田12, 大井12, 金沢11 races.
 - ◎ 15/47 wins; ◎ top3 33/47; winners in frozen TOP5 37/47; TOP5 podium horses 97/141.
 - Winner ranks outside top5: 6th=5, 7th=2, 8th=2, 10th=1.
 - Pure hindsight replacement of frozen fifth by sixth would move podium captured 97->105 and all-three 13->18, but destroys seven races where only the fifth was top3. This is **not** a deployable rule.
