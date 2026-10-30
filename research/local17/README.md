@@ -25,3 +25,28 @@ It cannot change ranking, scores, protocol, FROZEN records or EYE selection. It 
 5. Ship to production ONLY after independent scoring/evaluation and user authorization, with no paid API, Cron restoration, schema writes or modification of existing FROZEN.
 
 Run: node --test research/local17/deep-history-review.test.mjs
+
+## 2026-10-31 follow-up: Oct 26–30 LOCAL1.6 frozen/result comparison (read-only)
+
+Same LOCAL1.6 protocol, FROZEN before post, five TOP5 runners, and three official finishers. Matched sample: Oct 26–29 **183 races**, Oct 30 **47 races**.
+
+| Metric | Oct 26–29 (183) | Oct 30 (47) |
+| --- | ---: | ---: |
+| ◎ wins | 46 | 15 |
+| ◎ top 3 | 99 | 33 |
+| Winner in original TOP5 | 140 | 37 |
+| EYE top 3 | 23/88 EYE | 6/16 EYE |
+| Rank 5 top 3 | 59 | 11 |
+| Rank 6 top 3 | 49 | 19 |
+| Swapping rank 5→6: gained top-3 runners | 37 | 15 |
+| Swapping rank 5→6: lost top-3 runners | 47 | 7 |
+
+**Score-gap <= 2** trial (frozen rank5 score minus rank6 score): Oct26–29 flagged 17/183, gaining 4 top-3 runners but losing 8 (winner gain 0, loss 1); Oct30 flagged 12/47, gaining 7 and losing 1 (winner gain 4, loss 1). This inconsistent rule must NOT be deployed.
+
+Oct30 EYE: 16 selected, 16 with exactly two positive factors. Oct26–29 saved FROZEN: 89 selected (one omitted from complete result comparison), 62 with exactly two factors, 27 with three or more. Independently audit factor evidence and do not inflate duplicate facts.
+
+**Ground correction:** Oct30 名古屋12R FROZEN rationale assumed 稍重 and the historical 2026-06-05 same-track/same-distance/same-race-name 2nd place also was 稍重. But **final going for Oct30 名古屋12R was 重**: 名古屋 R1–10 ended 稍重, R11–12 重. Historic going matches the pre-race assessment, NOT the final track condition. The deep-history example must not claim final-going identity. Changes in going require independent updates, never retroactive edits of FROZEN.
+
+**Data limits:** Official result JSON returns just top-three finishers for 30/47 Oct30 races, and no lap/passing-order arrays. Archived horse_runs ends 2026-08-31. Name-only past-form joins are insufficient for proof of identity or 47-race validated deep-history replay. No new rank-scoring model has proven superior.
+
+**Decision:** Protect current LOCAL1.6. Research read-only alerts for verified older-condition form, class drops/transfers, close rank5/rank6 scores and going changes, then independently rerun with a ledger for both gained AND lost top-3 runners. No main merges, FROZEN edits, Cron or paid API.
