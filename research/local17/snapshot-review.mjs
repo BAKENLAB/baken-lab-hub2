@@ -20,7 +20,7 @@ function allRanked(f){
   return runners;
 }
 function mentions(r){
-  const t=asText(r?.reason)+' '+asText(r?.evidence_summary);
+  const t=asText(r?.reason); // Exactly the frozen field referenced by snapshot-replay.sql
   return {
     // A mention can say 'no same-condition record'; it is NOT verified positive form.
     prior_condition_mentioned:/(過去|同場|同距離|実績|好走|以前)/.test(t),
