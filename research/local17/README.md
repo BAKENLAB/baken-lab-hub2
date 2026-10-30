@@ -50,3 +50,29 @@ Oct30 EYE: 16 selected, 16 with exactly two positive factors. Oct26–29 saved F
 **Data limits:** Official result JSON returns just top-three finishers for 30/47 Oct30 races, and no lap/passing-order arrays. Archived horse_runs ends 2026-08-31. Name-only past-form joins are insufficient for proof of identity or 47-race validated deep-history replay. No new rank-scoring model has proven superior.
 
 **Decision:** Protect current LOCAL1.6. Research read-only alerts for verified older-condition form, class drops/transfers, close rank5/rank6 scores and going changes, then independently rerun with a ledger for both gained AND lost top-3 runners. No main merges, FROZEN edits, Cron or paid API.
+
+## 2026-10-31 reproducible 230-race shadow replay, correct horse-level ledger
+
+Added:
+- `snapshot-review.mjs`: pure research-only pre-race FROZEN audit; flags historical form / higher-class / layoff text without *certifying* positive form and without changing any score/rank/EYE.
+- `snapshot-review.test.mjs`: 10 local safety scenarios for immutable source, missing source, market isolation, previous winning rank-5 horses, and strict result separation.
+- `snapshot-replay.sql`: READ-ONLY, source-backed 230-race replay of four specific speculative switches using exactly the saved FROZEN score gap and pre-race **text mentions**. Re-executed against production read-only and returned 12 period×policy rows.
+
+**Important methodological correction:** Earlier rough reports counted races with *only* rank6 or *only* rank5 in the first three. A genuine changed-TOP5 horse-level ledger counts both a newly added rank6 **and** a removed rank5 when both finish top-three. The two counts do not cancel invisibly.
+
+| Policy | 2026-10-26–29 183R gained / lost | 2026-10-30 47R gained / lost |
+| --- | --- | --- |
+| Swap rank5→rank6 in every race | 49 / 59 | 19 / 11 |
+| Gap <= 2 | 5 / 9 | 7 / 1 |
+| Gap <= 2 AND prior-form keyword appears in rank6 reason | 1 / 5 | 6 / 0 |
+| Gap <= 2 AND fifth's reason has poor-finish keyword | 1 / 3 | 7 / 0 |
+| Gap <= 2 AND sixth's reason mentions upper grade | 0 / 2 | 1 / 0 |
+
+At the headline baseline, original TOP5 had 473/690 possible top-three horse slots, 177/230 winners; even the highest in-sample variant isn't a validated independent full ability re-score. **No variant is authorized for automatic production adoption.**
+
+The keyword conditions are not proven horse history: for example the text `同場同距離の実走なし` mentions the condition while expressly saying evidence is missing. This is why the implementation raises a **verification-required alert**, not a positive score or EYE factor. These exploratory combinations were checked *after* the researchers had seen the Oct-30 outcomes; there is no unbiased out-of-sample uplift evidence.
+
+GitHub check execution against the *exact committed module* is still pending; local equivalent unit scenarios passed 10/10. To run on a workstation/CI, use:
+`node --test research/local17/snapshot-review.test.mjs`.
+
+The strict history identity issue is also still open: `horse_runs` historical archive ends 2026-08-31 and 2026-10 missing details prevent proving the official verified full-context runner-level deep-history correction across all 230 races. Any actual 100-point rating change requires that dependency and a time-split independent 1.7 replay, while preserving 1.6 successes and frozen invariants.
