@@ -59,7 +59,7 @@ export function evaluateLabValue({race,frozen,runners,market=null,as_of}) {
   if(now>=post)return {...base,reason:"POST_TIME_PASSED"};
   if(frozen?.status!=="FROZEN"||!Number.isFinite(froze)||froze>=post||froze>now)
     return {...base,reason:"NO_VALID_PRE_RACE_FROZEN"};
-  if(/新馬|障害/.test(String(race.race_type||race.class_name||"")))
+  if(/新馬|障害/.test(String(race.race_type||"")+" "+String(race.class_name||"")))
     return {...base,reason:"EXCLUDED_RACE_TYPE"};
   if(!Array.isArray(runners)||!Number.isInteger(race.field_size)||
      runners.length!==race.field_size||runners.length<2)
