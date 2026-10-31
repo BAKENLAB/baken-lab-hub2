@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d12"><title>LAB VALUE｜BAKEN LAB</title>
+<style>
+:root{color-scheme:dark;--bg:#090d12;--panel:#111821;--border:#293341;--text:#e6edf6;--muted:#8c9dae;--lime:#c8ff4d;--gold:#ffd66d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}
+main{max-width:760px;margin:auto;padding:16px 13px 48px}a{color:inherit}.back{font-size:12px;color:var(--lime);text-decoration:none;font-weight:900}
+.kicker{margin:22px 0 5px;color:var(--lime);letter-spacing:.12em;font-size:10px;font-weight:900}
+h1{margin:0 0 7px;font-size:30px;letter-spacing:-.035em}h2{margin:0;font-size:15px}p{color:var(--muted);line-height:1.65;font-size:12px;margin:8px 0}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:15px;margin:13px 0}
+.next{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}.time{font-size:30px;line-height:1.15;font-weight:1000;color:var(--lime)}
+.hint{font-size:10px;color:var(--muted)}.small{font-size:11px;color:var(--muted)}.alert{color:#ffd77e}
+button{border:0;border-radius:12px;padding:14px 16px;background:var(--lime);color:#10140b;font-weight:1000;font-size:13px;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}.minor{border:1px solid #566275;background:#171e28;color:#d1dfea;font-size:11px;padding:11px 12px}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:13px}
+input[type=date]{font:inherit;font-size:12px;border-radius:10px;padding:10px;background:#0c1219;color:#eef7fb;border:1px solid #455363}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:12px 0}.stat{text-align:center;background:#0c131b;border-radius:10px;padding:10px 4px}
+.stat strong{display:block;color:var(--lime);font-size:18px}.stat span{color:var(--muted);font-size:9px}
+.status{font-size:11px;color:var(--muted);margin-top:8px}.error{color:#ff9f9f}.race{margin:8px 0;border:1px solid #27313b;border-radius:13px;padding:11px;background:#0c131b}
+.race-head{display:flex;gap:10px;justify-content:space-between;align-items:baseline}.race-title{font-size:12px;font-weight:900}.race-state{font-size:10px;color:var(--muted)}
+.horse{margin:8px 0 0;padding:10px;border:1px solid #2f4051;border-radius:11px;background:#141d27}
+.horse.high{border-color:#7a7644;background:#221f13}.horse-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.horse-name{font-size:13px;font-weight:900}.odds{color:var(--gold);font-weight:1000}
+.tag{display:inline-block;font-size:10px;margin:4px 4px 2px 0;padding:3px 6px;color:#c4d5e5;background:#263442;border-radius:5px}
+.no-data{padding:13px;text-align:center;font-size:12px;color:var(--muted)}
+.fine{font-size:10px;color:#8d9cab;line-height:1.65}.buttons{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:380px){.time{font-size:25px}.stats{gap:4px}.stat strong{font-size:16px}}
+</style>
+</head><body><main>
+<a class="back" href="/">← LAB HUB</a>
+<div class="kicker">BAKEN LAB / RESEARCH ONLY</div>
+<h1>LAB VALUE <span style="color:var(--gold)">🧪</span></h1>
+<p>未知の条件でも、過去走に<strong style="color:#d7e2ed">証拠のある武器</strong>を持つ馬を探す。能力順位は変えず、オッズは最後に別チェック。</p>
+<section class="panel">
+<div class="next"><div><div class="hint">11月1日（日）JRA 正規CLAIM 最短受付</div><div class="time">08:35 <span style="font-size:12px;color:#9caebd">JST</span></div></div><div class="small">京都1R 9:45発走<br>正式READYなら実行可能</div></div>
+<p class="fine">8:35は発走70分前という既存ルールから計算した最短時刻。READY、CLAIM可否、正式照合が済んでいなければ開始できません。</p>
+<div class="controls"><input type="date" id="date" aria-label="研究対象日付"><button id="scan" type="button">全場を一括確認 🔥</button></div>
+<div id="progress" class="status" role="status">日付を選び、全場一括確認を押してください。</div>
+<p class="fine">このボタンは<strong>既にFROZENされたJRAレースだけを読み取り検査</strong>します。FROZEN保存、予想生成、買い目生成、Cron起動は行いません。</p>
+</section>
+<section class="panel">
+<h2>一括検査の結果</h2>
+<div id="stats" class="stats" hidden>
+<div class="stat"><strong id="countAll">—</strong><span>当日レース</span></div>
+<div class="stat"><strong id="countFrozen">—</strong><span>FROZEN済</span></div>
+<div class="stat"><strong id="countReview">—</strong><span>研究候補</span></div>
+<div class="stat"><strong id="countHigh">—</strong><span>20倍以上</span></div>
+</div>
+<div id="results" class="no-data">まだ検査していません。</div>
+</section>
+<section class="panel">
+<h2>仕事中に何度も押せないときは</h2>
+<p>画面を開いている間は3分ごとに最新のFROZENを再チェックできます。ただしスマホの画面を閉じたりブラウザが停止すると自動更新も止まります。</p>
+<div class="buttons"><button class="minor" id="watch" type="button" aria-pressed="false">画面内の自動更新：OFF</button>
+<button class="minor" id="copy" type="button">一括FROZEN＋VALUE指示文をコピー</button></div>
+<p class="fine">ずっと裏で自動実行する機能ではありません。ChatGPT側の予想保存は、正規MCPの確認とChatGPTの実行が必要です。</p>
+</section>
+<section class="panel"><h2>判定方針</h2>
+<p class="fine">① 過去の同馬場・近距離で勝ちや着内・小差など具体的な証拠を持つか確認。② 条件の未知部分と明確な反証を区別。③ TOP5外のうち条件を満たした馬だけ、後から単勝オッズと比較。④ 20倍以上は「高配当の再検討候補」であり、プラス期待値や購入を保証しません。⑤ 該当馬なしなら「該当なし」。</p></section>
+</main>
+<script>
+const $=x=>document.querySelector(x),esc=x=>String(x??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const map={NEAR_DISTANCE_WIN:"近距離で勝利",REPEATED_NEAR_TOP3:"近距離で複数回3着内",REPEATED_NARROW_LOSSES:"近距離で複数回小差",DECISIVE_NEAR_WIN:"着差をつけて勝利",PROVEN_EARLY_POSITION:"先行実績",TOP3_AND_CLOSE_LOSS:"好走と小差の両方"};
+const unknown={EXACT_DISTANCE_UNPROVEN:"今回距離未検証",TRACK_AT_NEAR_DISTANCE_UNPROVEN:"今回競馬場未検証",OPEN_CLASS_UNPROVEN:"上級・OPで未検証"};
+const fmt=x=>x?new Date(x).toLocaleTimeString("ja-JP",{timeZone:"Asia/Tokyo",hour:"2-digit",minute:"2-digit"}):"時刻未確認";
+const stateText={WAIT_FROZEN:"FROZEN待ち",RESEARCH_CANDIDATES:"候補あり",NO_CANDIDATE:"該当なし",POST_TIME_PASSED:"発走済み（対象外）",EXCLUDED_RACE_TYPE:"対象外（新馬・障害）",INCOMPLETE_FIELD:"全頭照合未完了",RUNNER_MISMATCH:"出走馬情報不一致",UNVERIFIED_PRE_RACE_SOURCE:"発走前情報未検証",INVALID_POST_TIME:"発走時刻未確認"};
+const japanDate=()=>new Intl.DateTimeFormat("sv-SE",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+$("#date").value=japanDate()==="2026-10-31"?"2026-11-01":japanDate();
+let running=false,auto=null;
+async function scan(){
+ if(running)return;running=true;$("#scan").disabled=true;$("#progress").textContent="全場のFROZEN・近走・オッズを確認中…";
+ try{
+  const res=await fetch("/api/lab-value?date="+encodeURIComponent($("#date").value),{cache:"no-store"});
+  if(res.status===401){location.href="/login.html";return}
+  const data=await res.json();
+  if(!res.ok||!data.ok)throw Error(data.error||"取得失敗");
+  $("#stats").hidden=false;
+  $("#countAll").textContent=data.summary.total;
+  $("#countFrozen").textContent=data.summary.frozen;
+  $("#countReview").textContent=data.summary.reviewHorses;
+  $("#countHigh").textContent=data.summary.highOdds;
+  $("#progress").textContent="最終確認 "+fmt(data.checked_at)+"｜次の受付目安 "+fmt(data.next_claim_window_opens)+"｜研究用・保存なし";
+  const rows=data.races.filter(r=>r.status==="RESEARCH_CANDIDATES");
+  const waiting=data.races.filter(r=>r.status==="WAIT_FROZEN").length;
+  const finished=data.races.filter(r=>r.status==="NO_CANDIDATE").length;
+  const errors=data.races.filter(r=>["INCOMPLETE_FIELD","RUNNER_MISMATCH","UNVERIFIED_PRE_RACE_SOURCE","INVALID_POST_TIME"].includes(r.status));
+  let content=rows.map(r=>'<div class="race"><div class="race-head"><div class="race-title">'+esc(r.track)+esc(r.race_no)+'R '+esc(r.race_name)+'</div><div class="race-state">'+esc(fmt(r.post_time))+'発走</div></div>'+
+    r.candidates.map(h=>'<div class="horse '+(h.price_band==="HIGH_ODDS_REVIEW"?"high":"")+'"><div class="horse-top"><span class="horse-name"> '+esc(h.horse_no)+'番 '+esc(h.horse_name)+'</span><span class="odds">'+(h.win_odds===null?"オッズ待ち":esc(h.win_odds)+"倍")+'</span></div><div class="small">LAB '+esc(h.rank)+'位・'+esc(h.score)+'点 / '+esc(h.price_band)+'</div><div>'+h.evidence.map(x=>'<span class="tag">'+esc(map[x]||x)+'</span>').join('')+'</div><div class="small">未知：'+esc(h.unknown.map(x=>unknown[x]||x).join("・"))+'</div></div>').join('')+'</div>').join('');
+  if(!rows.length)content='<div class="no-data">この時点では該当馬なし（またはFROZEN待ち）。無理に選びません。</div>';
+  content+='<p class="fine">研究候補あり：'+rows.length+'R ／ 候補なし：'+finished+'R ／ FROZEN待ち：'+waiting+'R'+(errors.length?' ／ 情報未検証：'+errors.length+'R':'')+'。この画面のオッズは取得時点の値で、最終値とは限りません。</p>';
+  $("#results").innerHTML=content;
+ }catch(e){$("#progress").textContent="確認失敗："+String(e.message||"取得エラー");$("#progress").className="status error";}
+ finally{running=false;$("#scan").disabled=false}
+}
+$("#scan").addEventListener("click",scan);
+$("#watch").addEventListener("click",()=>{
+ if(auto){clearInterval(auto);auto=null;$("#watch").textContent="画面内の自動更新：OFF";$("#watch").setAttribute("aria-pressed","false")}
+ else {scan();auto=setInterval(()=>{if(!document.hidden)scan()},180000);$("#watch").textContent="画面内の自動更新：ON";$("#watch").setAttribute("aria-pressed","true")}
+});
+$("#copy").addEventListener("click",async()=>{
+ const d=$("#date").value,txt="【BAKEN LAB｜"+d+" JRA＋LOCAL一括FROZEN＆LAB VALUE研究】現在JST・公式READY・全頭・CLAIM・既存FROZENを確認し、発走前READY未保存のJRA・LOCALを発走順に正規MCPで可能な範囲まで連続処理。JRA現行0.4／LOCAL1.6、人気オッズを能力評価に使わず、TOP5／EYEを監査、bets=[]、bet_strategy=SUSPENDED_FOR_ABILITY_STABILITY。各保存後DBでDONE/FROZEN検証。既存FROZEN変更、発走後保存、新馬障害・未READY・不完全照合・CLAIM不可レース保存、Cron再開、有料APIは禁止。JRAのFROZEN済・発走前・全頭と出典時刻が検証できるレースについては、別研究LAB VALUEをTOP5外全頭から事前資料だけで判定。先に近距離実績・武器・未知条件をオッズ抜きで評価し、その後に発走前実オッズを別に比較。高配当でも根拠不足は該当なし。候補・取得時刻・見送り理由を発走前に記録し、既存順位と買い目を一切変更しない。全場合計、保存件数、研究対象数、候補と該当なし、次の正規実行時刻を報告。実行開始後に何時間も自動稼働できると誤認させず、この呼出し中にできた処理だけを正確に報告。";
+ try{await navigator.clipboard.writeText(txt);$("#copy").textContent="コピーしました ✓";setTimeout(()=>$("#copy").textContent="一括FROZEN＋VALUE指示文をコピー",2000)}
+ catch{window.prompt("指示文をコピーしてください",txt)}
+});
+</script></body></html>
