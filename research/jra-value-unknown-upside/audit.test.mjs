@@ -99,3 +99,10 @@ test("immutable input, no predicted win chance or bets",()=>{
  assert.equal(out.proposed_scores,null);
  assert.equal(out.price_watch[0].expected_value,null);
 });
+
+test("new-horse and obstacle race are excluded even with generic race type",()=>{
+ const d=sample();d.race.class_name="2歳新馬";
+ assert.equal(evaluateLabValue(d).reason,"EXCLUDED_RACE_TYPE");
+ d.race.class_name="障害オープン";
+ assert.equal(evaluateLabValue(d).reason,"EXCLUDED_RACE_TYPE");
+});
