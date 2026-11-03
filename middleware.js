@@ -1,11 +1,17 @@
 import { next } from '@vercel/functions';
-import { COOKIE_NAME, SESSION_TTL_SECONDS, SESSION_REFRESH_WINDOW_SECONDS, authenticatedSessionExpiresAt, createSession } from './auth-utils.js';
+import { COOKIE_NAME, SESSION_TTL_SECONDS, SESSION_REFRESH_WINDOW_SECONDS, authenticatedSessionExpiresAt, createSession, isPublicFreeWindow } from './auth-utils.js';
 
 // Applied before cached/static content: fail closed if either secret is missing.
 export default async function middleware(request) {
   const url = new URL(request.url);
   // OAuth consent is independently authenticated by Supabase Auth; keep plugin connection flows functional.
   if (url.pathname === '/login.html' || url.pathname === '/api/lab-login' || url.pathname.startsWith('/oauth/consent/')) return next();
+
+  // JBC commemorative public window: pages plus read-only HUB endpoints only.
+  if (isPublicFreeWindow()) {
+    if (!url.pathname.startsWith('/api/')) return next();
+    if (request.method === 'GET' && (url.pathname === '/api/hub-data' || url.pathname === '/api/lab-value')) return next();
+  }
 
   const password = process.env.LAB_HUB_ACCESS_PASSWORD;
   const secret = process.env.LAB_HUB_SESSION_SECRET;
