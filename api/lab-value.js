@@ -1,11 +1,11 @@
 // Authenticated, read-only relay for LAB VALUE pre-race research.
-import { isAuthenticated } from '../auth-utils.js';
+import { isAuthenticated, isPublicFreeWindow } from '../auth-utils.js';
 export const config={runtime:'edge'};
 const headers={'Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'};
 export default async function handler(request){
  if(request.method!=='GET')return new Response('Method not allowed',{status:405,headers:{...headers,Allow:'GET'}});
  const s=process.env.LAB_HUB_SESSION_SECRET,p=process.env.LAB_HUB_ACCESS_PASSWORD;
- if(!s||!p||!await isAuthenticated(request.headers.get('cookie'),s+':'+p))
+ if(!isPublicFreeWindow()&&(!s||!p||!await isAuthenticated(request.headers.get('cookie'),s+':'+p)))
   return new Response('Unauthorized',{status:401,headers});
  const url=new URL(request.url);
  const date=url.searchParams.get('date');
