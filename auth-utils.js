@@ -4,6 +4,11 @@ export const COOKIE_NAME = 'baken_hub_session';
 export const SESSION_TTL_SECONDS = 365 * 24 * 60 * 60;
 export const SESSION_REFRESH_WINDOW_SECONDS = 30 * 24 * 60 * 60;
 const encoder = new TextEncoder();
+const PUBLIC_FREE_UNTIL_MS = Date.parse('2026-11-08T15:00:00Z'); // 2026-11-09 00:00 JST
+
+export function isPublicFreeWindow() {
+  return Date.now() < PUBLIC_FREE_UNTIL_MS;
+}
 
 function toHex(bytes) {
   return [...new Uint8Array(bytes)].map(b => b.toString(16).padStart(2, '0')).join('');
