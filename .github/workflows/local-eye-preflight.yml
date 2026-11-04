@@ -1,0 +1,20 @@
+name: LOCAL EYE read-only preflight tests
+on:
+  pull_request:
+    paths:
+      - 'automation/local-eye-preflight.mjs'
+      - 'automation/local-eye-preflight.test.mjs'
+      - 'automation/LOCAL_EYE_PREFLIGHT_README.md'
+      - '.github/workflows/local-eye-preflight.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Offline preflight unit tests
+        run: node --test automation/local-eye-preflight.test.mjs
