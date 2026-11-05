@@ -1,78 +1,88 @@
-/* LAB HUB: evidence-led comments for display only; FROZEN source is never edited. */
+/* LAB HUB — display-only, evidence-grounded narrative v3. Existing FROZEN is immutable. */
 (function(global){
   'use strict';
-  const formatReason = function formatReason(source,meta={}) {
+  const formatReason = function formatReason(source, meta = {}) {
   const raw=String(source??"").trim();
   if(!raw)return "評価コメント未登録";
-  const boiler=/推測(?:で)?加点しない|推測で補わない|推測しない|未取得のため推測|取得できず推測|通過順・当日馬場・枠・調教|^今回同場同距離実走\d+件|^今回.{0,55}(?:近走|同場|距離適性|クラス).{0,30}(?:比較|照合)/;
+  const fixed=/(?:推測(?:で)?加点しない|推測で補わない|推測しない|未取得のため推測|取得できず推測)/;
   if(!/^20\d{2}-\d{2}-\d{2}/.test(raw)){
-    const meaningful=raw.split("。").map(s=>s.trim()).filter(s=>s&&!boiler.test(s));
-    return meaningful.length?meaningful.join("。")+"。":"評価材料が限られるため、判断は慎重に。";
+    const s=raw.split("。").map(x=>x.trim()).filter(x=>x&&!fixed.test(x));
+    return s.length?s.join("。")+"。":"判断できる材料が限られ、評価は慎重に。";
   }
-  const ix=raw.indexOf("。"),list=ix<0?raw:raw.slice(0,ix),body=ix<0?"":raw.slice(ix+1);
-  const venueNames="船橋|園田|笠松|盛岡|門別|高知|佐賀|名古屋|大井|川崎|浦和|水沢|金沢|東京|京都|阪神|中山|中京|新潟|小倉|札幌|函館";
-  const venueRegex=new RegExp(`(${venueNames})(?:ダ|芝)?\\s*(\\d{3,4})m`);
-  const next=body.match(new RegExp(`今回(?:は|の)?\\s*(${venueNames})(?:ダ|芝)?\\s*(\\d{3,4})m`));
-  const target=next?{venue:next[1],distance:Number(next[2])}:null;
-  const rows=list.split("／").map((s,i)=>{
-    const date=s.match(/^20\d{2}-(\d{2})-(\d{2})/),course=s.match(venueRegex),finish=s.match(/(\d{1,2})着/);
-    if(!date||!finish)return null;
-    const after=s.slice(finish.index+finish[0].length);
-    const m=after.match(/^(?:[\s・、]|着差(?:表記)?)*(\d+(?:\.\d+)?)(?:差)?/);
-    return {date:`${Number(date[1])}/${Number(date[2])}`,venue:course?.[1]||"",distance:course?Number(course[2]):null,finish:Number(finish[1]),margin:m?Number(m[1]):null,index:i,raw:s};
+  const b=raw.indexOf("。"),history=b<0?raw:raw.slice(0,b),rest=b<0?"":raw.slice(b+1);
+  const venue="船橋|園田|笠松|盛岡|門別|高知|佐賀|名古屋|大井|川崎|浦和|水沢|金沢|東京|京都|阪神|中山|中京|新潟|小倉|札幌|函館";
+  const vm=new RegExp(`(${venue})(?:ダ|芝)?\\s*(\\d{3,4})m`);
+  const targetInfo=rest.match(new RegExp(`今回(?:は|の)?\\s*(${venue})(?:ダ|芝)?\\s*(\\d{3,4})m`));
+  const target=targetInfo?{track:targetInfo[1],distance:Number(targetInfo[2])}:null;
+  const rr=history.split("／").map((s,i)=>{
+    const dt=s.match(/^20\d{2}-(\d{2})-(\d{2})/),course=s.match(vm),pos=s.match(/(\d{1,2})着/);
+    if(!dt||!pos)return null;
+    const suffix=s.slice(pos.index+pos[0].length);
+    const mm=suffix.match(/^(?:[\s・、]|着差(?:表記)?)*(\d+(?:\.\d+)?)(?:差)?/);
+    return {day:`${Number(dt[1])}/${Number(dt[2])}`,track:course?.[1]||"",distance:course?Number(course[2]):null,finish:Number(pos[1]),margin:mm?Number(mm[1]):null,i,raw:s};
   }).filter(Boolean);
-  if(!rows.length)return raw;
-  const same=r=>!!(target&&r.venue===target.venue&&r.distance===target.distance);
-  const short=r=>`${r.date}${r.venue}${r.distance??""}m・${r.finish}着${r.margin!==null?`（${r.margin}差）`:""}`;
-  const nice=r=>`${r.venue}${r.distance??""}mで${r.finish}着${r.margin!==null?`、${r.margin}差`:""}`;
-  const good=rows.filter(r=>r.finish<=3),goodSame=good.filter(same),sameRows=rows.filter(same),near=rows.filter(r=>r.finish>=4&&r.finish<=6&&r.margin!==null&&r.margin<=1.0);
-  const bad=rows.filter(r=>r.finish>=6),poorSame=sameRows.filter(r=>r.finish>=6).sort((a,b)=>a.index-b.index),latest=rows[0];
-  const caution=poorSame.find(r=>r.margin!==null&&r.margin>=1.2)||bad.find(r=>r.margin!==null&&r.margin>=1.5)||bad[0];
-  const output=[],isHigh=Number(meta.rank)<=2,rankPhrase=isHigh?"上位に評価":"評価";
-  if(goodSame.length>=2){
-    output.push(`今回と同じ${target.venue}${target.distance}mで、${goodSame.slice(0,2).map(r=>`${r.date}に${r.finish}着${r.margin!==null?`（${r.margin}差）`:""}`).join("、")}。この条件で好走を重ねている点が強み。`);
+  if(!rr.length)return raw;
+  const course=r=>`${r.track}${r.distance||""}m`;
+  const same=r=>target&&r.track===target.track&&r.distance===target.distance;
+  const f=r=>`${r.day}${course(r)}・${r.finish}着${r.margin!==null?`（${r.margin}差）`:""}`;
+  const good=rr.filter(r=>r.finish<=3);
+  const goodSame=good.filter(same);
+  const wins=good.filter(r=>r.finish===1);
+  const winsSame=wins.filter(same);
+  const close=rr.filter(r=>r.finish>=4&&r.finish<=6&&r.margin!==null&&r.margin<=1);
+  const last=rr[0],sameCount=rr.filter(same).length;
+  let sentences=[];
+  if(winsSame.length>=2){
+    const v=winsSame.slice(0,2);
+    sentences.push(`この舞台で勝ち切る力は証明済み。${f(v[0])}、${f(v[1])}と${target.track}${target.distance}mで複数の勝利を挙げている。`);
+    sentences.push(`コース適性の確かさが何よりの魅力で、今回も主役候補。`);
+  }else if(goodSame.length>=2){
+    const v=goodSame.slice(0,2);
+    const type=winsSame.length?"勝利と好走を重ねている":"繰り返し上位に迫っている";
+    sentences.push(`${f(v[0])}、${f(v[1])}。同じ${target.track}${target.distance}mで${type}のは心強い。`);
+    sentences.push(winsSame.length?"この条件での勝負強さを生かしたい。":"相手が変わっても力を出せるか、注目したい一頭。");
   }else if(goodSame.length===1){
-    const r=goodSame[0];
-    output.push(`今回と同じ${target.venue}${target.distance}mで${r.date}に${r.finish}着${r.margin!==null?`、${r.margin}差`:""}。距離への対応を示した実績として${rankPhrase}。`);
-    const additional=good.find(x=>x!==r);
-    if(additional)output.push(`${short(additional)}もあり、他の条件でも好走経験がある。`);
+    const r=goodSame[0],extra=good.find(x=>x!==r);
+    if(r.finish===1)sentences.push(`${f(r)}。今回と同じ舞台で勝った経験は、頼もしい武器になる。`);
+    else sentences.push(`${f(r)}。今回と同じ舞台でしっかり結果を残している。`);
+    if(extra)sentences.push(`${f(extra)}もあり、好走の裏付けは一つだけではない。`);
+    else sentences.push(`この実績を今回の走りにつなげられるかが見どころ。`);
   }else if(good.length>=2){
-    output.push(`${short(good[0])}、${short(good[1])}と複数の好走歴がある。`);
-    if(target&&!sameRows.length)output.push(`ただし今回の${target.distance}mは未経験で、距離への対応が鍵。`);
-    else output.push(`過去の走りは魅力だが、今回の条件で力を発揮できるか見極めたい。`);
+    const a=good.slice(0,2);
+    const prefix=wins.length>=2?"勝ち切った経験が複数ある。":"好走を重ねてきた経験がある。";
+    sentences.push(`${f(a[0])}、${f(a[1])}。${prefix}`);
+    if(target&&sameCount===0)sentences.push(`今回の${target.distance}mは未経験。その力を新しい条件でも発揮できるか楽しみだ。`);
+    else sentences.push("今回の条件でその力を出し切れるかがポイント。");
   }else if(good.length===1){
     const r=good[0];
-    if(rows.length===1){
-      const debut=/NewBeginning|新馬|フレッシュチャレンジ/.test(r.raw)?"デビュー戦":"前走";
-      output.push(`${debut}の${nice(r)}。確認できる実走はまだ1回だが、この走りを手掛かりに${rankPhrase}。`);
-    }else{
-      output.push(`${short(r)}の好走歴があり、巻き返しの根拠はある。`);
-      if(latest!==r&&latest.finish>=4)output.push(`一方、直近は${short(latest)}。最近の内容には課題が残る。`);
+    const debut=rr.length===1&&/NewBeginning|新馬|フレッシュチャレンジ/.test(r.raw);
+    const stem=debut?"デビュー戦":"過去";
+    sentences.push(`${stem}の${f(r)}は評価できる走り。`);
+    if(rr.length===1)sentences.push("まだ材料は少ないが、この一戦を手掛かりに力を見極めたい。");
+    else if(last!==r&&last.finish>=6)sentences.push(`直近は${f(last)}と苦戦。好走時の姿を取り戻せるかが焦点だ。`);
+    else sentences.push("この走りを今回も見せられるか期待したい。");
+    if(target&&!sameCount){
+      const change=r.distance?target.distance>r.distance?"距離延長":target.distance<r.distance?"距離短縮":"距離変更":"初距離";
+      sentences.push(`ただし今回は${target.distance}mへの${change}。未知の条件をどうこなすかが鍵。`);
     }
-    if(target&&!sameRows.length) {
-      const direction=r.distance&&target.distance>r.distance?"距離延長":r.distance&&target.distance<r.distance?"距離短縮":"距離変更";
-      output.push(`今回は${target.distance}mへの${direction}が初めてで、対応できるかが焦点。`);
-    }
-  }else if(near.length){
-    const r=near[0];output.push(`${short(r)}と、着順ほど大きく負けていない走りはある。`);
-    if(latest!==r&&latest.finish>=7)output.push(`ただし直近は${short(latest)}と苦戦しており、上位争いには改善が必要。`);
-    if(target&&!sameRows.length)output.push(`今回の${target.distance}mは未経験。条件替わりも未知数だ。`);
-    else if(output.length<2)output.push(`3着以内の実績がなく、勝ち負けを強く推す材料はまだ少ない。`);
+  }else if(close.length){
+    const r=close[0];
+    sentences.push(`${f(r)}と大きくは離されていない一戦がある。`);
+    if(last!==r&&last.finish>=7)sentences.push(`一方で直近は${f(last)}。まずはこの差を詰めたい。`);
+    else sentences.push("勝ち負けの実績はまだ不足しているが、着差の小さい走りが手掛かり。");
+    if(target&&!sameCount)sentences.push(`${target.distance}mへの条件替わりも未知数。`);
   }else{
-    if(rows.length>1)output.push(`近走は${short(latest)}、${short(rows[1])}と厳しい結果が続いている。`);
-    else output.push(`${short(latest)}と、現時点で好走を裏付ける材料が少ない。`);
-    if(target&&!sameRows.length)output.push(`今回の${target.distance}mは初条件で、変わり身は未知数。`);
-    else output.push(`今回の条件でも上位争いを裏付ける材料が乏しく、${rankPhrase}は控えめ。`);
+    sentences.push(rr.length>1?`近走は${f(rr[0])}、${f(rr[1])}と厳しい結果が続いている。`:`${f(rr[0])}と、好走の手掛かりがまだ少ない。`);
+    sentences.push(target&&!sameCount?`今回の${target.distance}mは未経験。変化を見たいが、強く推せる根拠はまだ足りない。`:"ここは評価を抑えたが、次につながる走りが欲しい。");
   }
-  const hasRisk=output.some(s=>/ただし|一方|課題|鍵|未知|初めて|未経験|厳しい|苦戦|材料が乏し/.test(s));
-  if(good.length&&caution&&caution.margin!==null&&caution.margin>=1.2&&!hasRisk){
-    if(same(caution))output.push(`ただし同じ距離では${short(caution)}もあり、安定感に不安が残る。`);
-    else output.push(`ただし${short(caution)}の敗戦もあり、過信は禁物。`);
-  }else if(good.length&&caution&&same(caution)&&caution.margin!==null&&caution.margin>=1.2&&!output.some(s=>s.includes(caution.date))){
-    output.push(`同距離では${short(caution)}の敗戦もあり、適性には課題が残る。`);
+  const latestPoor=last.finish>=6&&last.margin!==null&&last.margin>=1.4;
+  const latestAlreadyMentioned=sentences.some(s=>s.includes(f(last)));
+  if(good.length>=2&&latestPoor&&!latestAlreadyMentioned&&!sentences.some(s=>s.includes("苦戦"))){
+    if(same(last))sentences.push(`気になるのは直近の${f(last)}。得意舞台でも立て直せるかが勝負どころ。`);
+    else sentences.push(`直近の${f(last)}から、どれだけ巻き返せるかがポイント。`);
   }
-  if(output.length>3)output.splice(3);
-  return output.join("").replace(/。。/g,"。");
+  const out=sentences.slice(0,3).join("");
+  return out.length>200?sentences.slice(0,2).join(""):out;
 };
-  global.LabReasonView=Object.freeze({format:formatReason});
+  global.LabReasonView = Object.freeze({format:formatReason});
 })(window);
