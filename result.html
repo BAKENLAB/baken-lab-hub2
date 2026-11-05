@@ -100,7 +100,7 @@
     <footer class="sub-footer"><span>BAKEN LAB｜馬券ラボ</span><span>RESULT</span></footer>
   </div>
   <script src="./result-summary.js?v=20261014-rank1-fix"></script>
-  <script src="./lab-reason-view.js?v=20261106-reason-v1"></script>
+  <script src="./lab-reason-view.js?v=20261106-reason-v2"></script>
   <script>
     const API=location.origin+'/api/hub-data';
     const $=s=>document.querySelector(s);
@@ -124,7 +124,7 @@
     function oneDecimal(v){const n=Number(v);return Number.isFinite(n)?n.toFixed(1):String(v??'')}
     function runnerMetaText(r){const jockey=String(r.jockey||'').trim();const w=r.weight_carried;return `<div class="runner-meta">${esc(jockey||'騎手 —')} <span>/</span> ${esc(w===null||w===undefined||w===''?'斤量 —':oneDecimal(w)+'kg')}</div>`} function runningStyleBadges(r){const allowed=['逃','先','差','追','?'];const raw=r?.running_style_reference;let styles=Array.isArray(raw)?raw.map(x=>String(x).trim()):typeof raw==='string'?raw.split(/[、,\/|\s]+/).map(x=>x.trim()).filter(Boolean):[];styles=[...new Set(styles.filter(x=>allowed.includes(x)))];if(!styles.length)styles=['?'];return `<div class="running-style" aria-label="脚質・参考"><span class="running-style-label">脚質</span>${allowed.map(x=>`<span class="style-badge ${styles.includes(x)?'active':''}">${esc(x)}</span>`).join('')}</div>`}
     function marketText(r){const ao=r.win_odds??r.odds??null,ap=r.popularity??null,po=r.predicted_odds??null,pp=r.predicted_popularity??null,has=ao!==null&&ao!=='';const odds=has?ao:po,pop=has?ap:pp;const ot=odds===null||odds===''?'—':oneDecimal(odds)+'倍';const pt=pop===null||pop===''?'—人気':pop+'人気';return `<div class="market">${!has&&odds!==null&&odds!==''?'想定 ':''}<strong>${esc(ot)}</strong> / ${esc(pt)}</div>`}
-    function reason(r){const raw=String(r.comment||r.reason||r.short_reason||'評価コメント未登録');return window.LabReasonView?.format(raw)||raw}
+    function reason(r){const raw=String(r.comment||r.reason||r.short_reason||'評価コメント未登録');return window.LabReasonView?.format(raw,{rank:r.rank,grade:r.grade})||raw}
 
     function visibleRaces(){return state.races.filter(r=>state.circuit==='ALL'||r.circuit===state.circuit).sort((a,b)=>String(a.track).localeCompare(String(b.track),'ja')||Number(a.race_no)-Number(b.race_no))}
     function renderVenueTabs(){const rows=visibleRaces(),names=[...new Set(rows.map(r=>String(r.track)))];if(state.circuit==='JRA'){$('#venueTabs').innerHTML='';state.venue='';return}if(!names.includes(state.venue))state.venue=names[0]||'';$('#venueTabs').innerHTML=names.map(name=>{const vr=rows.filter(r=>r.track===name),fixed=vr.filter(r=>r.prediction_status==='FROZEN'&&r.prediction).length;return `<button class="venue-btn ${state.venue===name?'active':''}" data-venue="${esc(name)}">${esc(name)}<small>${fixed}/${vr.length}R</small></button>`}).join('')}
