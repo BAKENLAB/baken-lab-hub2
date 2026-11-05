@@ -35,7 +35,7 @@
   if(winsSame.length>=2){
     const v=winsSame.slice(0,2);
     sentences.push(`この舞台で勝ち切る力は証明済み。${f(v[0])}、${f(v[1])}と${target.track}${target.distance}mで複数の勝利を挙げている。`);
-    sentences.push(`コース適性の確かさが何よりの魅力で、今回も主役候補。`);
+    sentences.push(Number(meta.rank)>2?`同じ舞台で勝ち切っているだけに、上位評価馬との勝負でも見逃せない。`:`コース適性の確かさが何よりの魅力で、今回も主役候補。`);
   }else if(goodSame.length>=2){
     const v=goodSame.slice(0,2);
     const type=winsSame.length?"勝利と好走を重ねている":"繰り返し上位に迫っている";
