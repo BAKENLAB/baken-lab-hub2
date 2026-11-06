@@ -38,7 +38,7 @@ function riskFor(r,race){
   const good=runs.filter(x=>x.finish<=3);
   if(good.length&&good.every(x=>!/(A1|A2)/.test(x.grade)))return '記載された好走はB級以下が中心。今回のA級混合でどこまで通用するかが焦点';
  }
- return '原本に個別の懸念は明記されておらず、今回の適性を断定できない'
+ return ''
 }
 function peerOf(r,p){
  const top=Array.isArray(p?.top5)?[...p.top5].sort((a,b)=>Number(a.rank)-Number(b.rank)):[];
@@ -60,7 +60,7 @@ function comment(r,p,race){
  const n=narrative(r),rank=Number(r.rank),isEye=!!p?.eye&&Number(p.eye.horse_no)===Number(r.horse_no)&&!(p.top5||[]).some(x=>Number(x.horse_no)===Number(r.horse_no));
  const name=isEye?'TOP5外でも警戒する材料':rank===1?'◎の評価材料':rank===2?'○の逆転材料':rank<=5?'相手候補としての材料':'能力評価の材料';
  const positive=n.positive?`。${n.positive.replace(/。$/,'')}`:'';
- return [`【${name}】${evidence(r,2)}${positive}。`,`【ライバル比較】${compare(r,p)}`,`【判断の分かれ目】${riskFor(r,race)}。`].join('\n')
+ const lines=[`【${name}】${evidence(r,2)}${positive}。`,`【ライバル比較】${compare(r,p)}`];const risk=riskFor(r,race);if(risk)lines.push(`【判断の分かれ目】${risk}。`);return lines.join('\n')
 }
 function overview(p,race){
  const top=Array.isArray(p?.top5)?[...p.top5].sort((a,b)=>Number(a.rank)-Number(b.rank)):[];
