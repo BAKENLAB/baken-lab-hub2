@@ -1,7 +1,7 @@
 -- STAGED / NOT APPLIED. Append-only pre-CLAIM evidence snapshots for JRA + LOCAL.
 -- This does NOT touch official_predictions, FROZEN, claims, results, odds or Cron.
 -- Installation, DDL review, grants and worker wiring require separate approval.
--- Store only independently verified historical data and explicitly flagged
+-- The optional LOCAL_OFFICIAL_CORNERS packet is only looked up after core CLAIM checks.\n-- Store only independently verified historical data and explicitly flagged
 -- unverified candidates; never store source secrets or market/popularity.
 
 CREATE TABLE IF NOT EXISTS private.lab_preclaim_evidence_snapshots_v1 (
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS private.lab_preclaim_evidence_snapshots_v1 (
   official_post_time timestamptz NOT NULL,
   captured_at timestamptz NOT NULL DEFAULT clock_timestamp(),
   as_of timestamptz NOT NULL,
-  source_kind text NOT NULL CHECK (source_kind IN ('JRA_ARCHIVE_ASOF','JRA_LIVE','LOCAL_ARCHIVE','OFFICIAL_RECENT','COMBINED')),
+  source_kind text NOT NULL CHECK (source_kind IN ('JRA_ARCHIVE_ASOF','JRA_LIVE','LOCAL_ARCHIVE','OFFICIAL_RECENT','LOCAL_OFFICIAL_CORNERS','COMBINED')),
   source_version text NOT NULL,
   source_status text NOT NULL CHECK (source_status IN ('READY','PARTIAL','FAILED')),
   active_runner_count integer NOT NULL CHECK (active_runner_count BETWEEN 1 AND 24),
