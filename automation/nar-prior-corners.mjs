@@ -19,6 +19,17 @@ const iso=(x)=>/^\d{4}-\d{2}-\d{2}$/.test(String(x))?String(x):null;
 const millis=(x)=>typeof x==='string' && Number.isFinite(Date.parse(x)) ? Date.parse(x):null;
 const num=(x)=>Number.isInteger(Number(x)) && Number(x)>=1 && Number(x)<=24 ? Number(x):null;
 
+/** Construct only the official historic NAR result URL. No URL is user-supplied. */
+export function officialNarPastResultUrl(priorRace) {
+  if(!priorRace||!iso(priorRace.raceDate)||!CODES[priorRace.track]||!num(priorRace.raceNo))
+    throw new Error('INVALID_PRIOR_RACE');
+  const url=new URL('https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable');
+  url.searchParams.set('k_babaCode',CODES[priorRace.track]);
+  url.searchParams.set('k_raceDate',priorRace.raceDate.replaceAll('-','/'));
+  url.searchParams.set('k_raceNo',String(priorRace.raceNo));
+  return url.href;
+}
+
 export function checkOfficialPastRaceSource({sourceUrl,priorRace,targetRaceDate,targetPostTime,sourceCheckedAt,raceHeaderText}) {
   if(!priorRace || !iso(priorRace.raceDate) || !iso(targetRaceDate) ||
      !CODES[priorRace.track] || !num(priorRace.raceNo) ||
