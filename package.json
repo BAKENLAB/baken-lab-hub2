@@ -4,5 +4,8 @@
   "type": "module",
   "dependencies": {
     "@vercel/functions": "3.9.9"
+  },
+  "scripts": {
+    "test:pace": "node --test research/pace-evidence.test.mjs research/pace-evidence-adapters.test.mjs"
   }
 }
