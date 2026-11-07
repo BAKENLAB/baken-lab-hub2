@@ -6,6 +6,6 @@
     "@vercel/functions": "3.9.9"
   },
   "scripts": {
-    "test:pace": "node --test research/pace-evidence.test.mjs research/pace-evidence-adapters.test.mjs research/claim-evidence-readiness.test.mjs research/asof-integration.test.mjs"
+    "test:pace": "node --test research/*.test.mjs"
   }
 }
