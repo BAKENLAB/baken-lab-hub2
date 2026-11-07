@@ -18,7 +18,8 @@ test('real prefreeze history produces market-free immutable-store record',async(
  assert.equal(result.status,'STORED');
  assert.equal(rows.length,1);
  assert.equal(rows[0].source_kind,'COMBINED');
- assert.equal(rows[0].source_status,'READY');
+ assert.equal(rows[0].source_status,'PARTIAL');
+ assert.equal(rows[0].data_quality.unverifiedRuns,1);
  assert.equal(rows[0].active_runner_count,2);
  assert.equal(rows[0].official_roster_digest.length,64);
  assert.equal(rows[0].payload_digest.length,64);
