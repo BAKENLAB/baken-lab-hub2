@@ -21,3 +21,8 @@ jobs:
           node-version: "22"
       - name: Verify evidence prefetch and safety
         run: npm run test:pace
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Verify NAR official result HTML extraction (Deno/Cheerio)
+        run: deno test research/nar-prior-corners-dom.test.ts
