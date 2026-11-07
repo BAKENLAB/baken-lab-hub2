@@ -21,6 +21,8 @@ jobs:
           node-version: "22"
       - name: Verify evidence prefetch and safety
         run: npm run test:pace
+      - name: Syntax check staged LOCAL context v14 (not deployed)
+        run: node --check research/staged-lab-claimed-context-handler-v14.mjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
