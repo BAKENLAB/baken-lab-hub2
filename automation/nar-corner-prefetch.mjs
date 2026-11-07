@@ -9,6 +9,17 @@ const day=x=>typeof x==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x)?x:null;
 const at=x=>Number.isFinite(Date.parse(x))?Date.parse(x):null;
 const no=x=>Number.isInteger(Number(x))&&Number(x)>0?Number(x):null;
 const key=x=>JSON.stringify([x.raceDate,x.track,x.raceNo]);
+const validOfficialHorseRef=(ref)=>{
+ try{
+  const u=new URL(ref);
+  return u.protocol==='https:' && u.hostname==='www.keiba.go.jp' &&
+    u.pathname==='/KeibaWeb/DataRoom/HorseMarkInfo' &&
+    !u.username && !u.password && !u.hash &&
+    u.searchParams.getAll('k_lineageLoginCode').length===1 &&
+    /^[0-9]{1,30}$/.test(u.searchParams.get('k_lineageLoginCode')??'') &&
+    [...u.searchParams.keys()].every(k=>k==='k_lineageLoginCode'||k==='k_activeCode');
+ }catch{return false;}
+};
 
 /**
  * plan.run witnesses MUST originate in official horse-specific history,
@@ -26,7 +37,7 @@ export function planLocalPriorCornerFetches({targetRace,runners,maxPriorRaces=12
   for(const past of runner.verifiedRecentRuns){
    if(!day(past.raceDate)||past.raceDate>=targetRace.raceDate ||
       no(past.pastHorseNo)===null||no(past.raceNo)===null ||
-      !past.track||!past.horseRef ||
+      !past.track||!validOfficialHorseRef(past.horseRef) ||
       !['OFFICIAL_HORSE_REF','OFFICIAL_RACE_HORSE_NO'].includes(past.identityVerifiedBy) ||
       !['NAR_OFFICIAL_RESCUE','NAR_OFFICIAL_HISTORY'].includes(past.source)||
       past.earlyPos!=null && past.finalTurnPos!=null) continue;
