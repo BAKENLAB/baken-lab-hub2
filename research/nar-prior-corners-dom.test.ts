@@ -1,5 +1,6 @@
 import {extractNarPriorCornerHtml} from '../automation/nar-prior-corners-official-source.mjs';
 import {buildVerifiedPriorCornerEvidence} from '../automation/nar-prior-corners.mjs';
+import {prepareLocalOfficialCornerPacket} from '../automation/nar-official-corner-acquisition.mjs';
 
 const html = [
  '<!DOCTYPE html><html><body>',
@@ -49,4 +50,32 @@ Deno.test('Deno+Cheerio: false title or horse number may not pass identity gate'
  sourceCheckedAt:'2026-11-08T07:00:00+09:00'});}
  catch{rejected=true;}
  check(rejected,true,'Race header mismatch');
+});
+
+Deno.test('full read-only preclaim chain: prior official HTML -> exact horse numbers -> position packet',async()=>{
+ const targetRace={raceDate:'2026-11-08',track:'佐賀',raceNo:7,postTime:'2026-11-08T09:00:00+09:00'};
+ const clock=()=>Date.parse('2026-11-08T07:00:00+09:00');
+ let calls=0;
+ const officialVerifiedRunners=[
+  {horseNo:1,horseName:'架空馬A',verifiedRecentRuns:[{
+    raceDate:'2026-11-07',track:'佐賀',raceNo:5,pastHorseNo:6,
+    source:'NAR_OFFICIAL_RESCUE',identityVerifiedBy:'OFFICIAL_HORSE_REF',
+    horseRef:'https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=123456',
+    earlyPos:null,finalTurnPos:null
+  }]},
+  {horseNo:2,horseName:'架空馬B',verifiedRecentRuns:[{
+    raceDate:'2026-11-07',track:'佐賀',raceNo:5,pastHorseNo:11,
+    source:'NAR_OFFICIAL_RESCUE',identityVerifiedBy:'OFFICIAL_HORSE_REF',
+    horseRef:'https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=223456',
+    earlyPos:null,finalTurnPos:null
+  }]}
+ ];
+ const result=await prepareLocalOfficialCornerPacket({targetRace,officialVerifiedRunners,
+   clock,fetchImpl:async()=>{calls++;return new Response(html,{status:200,headers:{'content-type':'text/html'}});}});
+ check(calls,1,'One past-result fetch for two horses');
+ check(result.linkedRunEvidence,2,'Linked prior-running positions');
+ check(result.evidence.find((e)=>e.horseNo===1)?.earlyPos,1,'Original 6 early');
+ check(result.evidence.find((e)=>e.horseNo===2)?.finalTurnPos,1,'Original 11 final');
+ check(result.claimStarted,false,'No CLAIM');
+ check(result.saveAuthorized,false,'No SAVE');
 });
