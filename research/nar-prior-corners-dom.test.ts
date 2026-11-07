@@ -21,6 +21,7 @@ Deno.test('Deno+Cheerio: official prior-corner DOM bridge extracts only verified
  const priorRace={raceDate:'2026-11-07',track:'佐賀',raceNo:5};
  const got=extractNarPriorCornerHtml(html,priorRace);
  check(got.knownHorseNos.length,11,'Horse count');
+ check(got.officialHorseNames['6'],'架空馬6','Official prior-race horse name');
  check(got.cornerRows.length,2,'Corner count');
  const packet=buildVerifiedPriorCornerEvidence({
   ...got,priorRace,targetRaceDate:'2026-11-08',targetPostTime:'2026-11-08T09:00:00+09:00',
@@ -57,13 +58,13 @@ Deno.test('full read-only preclaim chain: prior official HTML -> exact horse num
  const clock=()=>Date.parse('2026-11-08T07:00:00+09:00');
  let calls=0;
  const officialVerifiedRunners=[
-  {horseNo:1,horseName:'架空馬A',verifiedRecentRuns:[{
+  {horseNo:1,horseName:'架空馬6',verifiedRecentRuns:[{
     raceDate:'2026-11-07',track:'佐賀',raceNo:5,pastHorseNo:6,
     source:'NAR_OFFICIAL_RESCUE',identityVerifiedBy:'OFFICIAL_HORSE_REF',
     horseRef:'https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=123456',
     earlyPos:null,finalTurnPos:null
   }]},
-  {horseNo:2,horseName:'架空馬B',verifiedRecentRuns:[{
+  {horseNo:2,horseName:'架空馬11',verifiedRecentRuns:[{
     raceDate:'2026-11-07',track:'佐賀',raceNo:5,pastHorseNo:11,
     source:'NAR_OFFICIAL_RESCUE',identityVerifiedBy:'OFFICIAL_HORSE_REF',
     horseRef:'https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=223456',
