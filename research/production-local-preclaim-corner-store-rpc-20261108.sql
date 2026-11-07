@@ -57,17 +57,17 @@ BEGIN
   RAISE EXCEPTION 'SERVICE_ROLE_REQUIRED' USING ERRCODE='42501';
  END IF;
  IF p_record IS NULL OR jsonb_typeof(p_record)<>'object' OR
-    p_record->>'circuit'<>'LOCAL' OR
-    p_record->>'source_kind'<>'LOCAL_OFFICIAL_CORNERS' OR
-    p_record->>'source_version'<>'LOCAL_CORNER_1' OR
-    p_record->>'source_status' NOT IN ('READY','PARTIAL') OR
-    p_record#>>'{evidence,schemaVersion}'<>'LOCAL_OFFICIAL_CORNERS_1' OR
-    p_record#>>'{evidence,packet,status}'<>'PREFETCH_ONLY' OR
-    p_record#>>'{evidence,packet,marketUsed}'<>'false' OR
-    p_record#>>'{evidence,packet,targetResultUsed}'<>'false' OR
-    p_record#>>'{evidence,packet,claimStarted}'<>'false' OR
-    p_record#>>'{evidence,packet,saveAuthorized}'<>'false' OR
-    p_record#>>'{evidence,packet,rankChanged}'<>'false' THEN
+    p_record->>'circuit' IS DISTINCT FROM 'LOCAL' OR
+    p_record->>'source_kind' IS DISTINCT FROM 'LOCAL_OFFICIAL_CORNERS' OR
+    p_record->>'source_version' IS DISTINCT FROM 'LOCAL_CORNER_1' OR
+    (p_record->>'source_status' IS NULL OR p_record->>'source_status' NOT IN ('READY','PARTIAL')) OR
+    p_record#>>'{evidence,schemaVersion}' IS DISTINCT FROM 'LOCAL_OFFICIAL_CORNERS_1' OR
+    p_record#>>'{evidence,packet,status}' IS DISTINCT FROM 'PREFETCH_ONLY' OR
+    p_record#>>'{evidence,packet,marketUsed}' IS DISTINCT FROM 'false' OR
+    p_record#>>'{evidence,packet,targetResultUsed}' IS DISTINCT FROM 'false' OR
+    p_record#>>'{evidence,packet,claimStarted}' IS DISTINCT FROM 'false' OR
+    p_record#>>'{evidence,packet,saveAuthorized}' IS DISTINCT FROM 'false' OR
+    p_record#>>'{evidence,packet,rankChanged}' IS DISTINCT FROM 'false' THEN
    RAISE EXCEPTION 'UNVERIFIED_PRECLAIM_PACKET' USING ERRCODE='22023';
  END IF;
  INSERT INTO private.lab_preclaim_evidence_snapshots_v1
