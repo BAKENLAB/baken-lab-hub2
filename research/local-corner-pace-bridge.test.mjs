@@ -5,11 +5,17 @@ import {officialNarPastResultUrl} from '../automation/nar-prior-corners.mjs';
 const date='2026-11-08',clock=()=>Date.parse('2026-11-08T08:00:00+09:00');
 const targetRace={raceDate:date,track:'佐賀',raceNo:1,postTime:'2026-11-08T09:30:00+09:00'};
 const horseRef='https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=123456';
+const history=(race_date,race_no)=>({
+ race_date,track:'佐賀',race_no,horse_no:6,horse_ref:horseRef,
+ identity_verified_by:'OFFICIAL_HORSE_REF',source:'NAR_OFFICIAL_HISTORY',
+ surface:'ダート',distance:1300,early_pos:null,final_turn_pos:null
+});
 const officialRunners=[
- {horse_no:1,horse_name:'ハヤブサブロー',recent_runs:[
-  {race_date:'2026-11-07',track:'佐賀',race_no:5,surface:'ダート',distance:1300,early_pos:null,final_turn_pos:null},
-  {race_date:'2026-11-01',track:'佐賀',race_no:3,surface:'ダート',distance:1300,early_pos:null,final_turn_pos:null}]},
- {horse_no:2,horse_name:'シエルブリエ',recent_runs:[]}
+ {horse_no:1,horse_name:'ハヤブサブロー',identity_refs:[horseRef],recent_runs:[
+  history('2026-11-07',5),history('2026-11-01',3)]},
+ {horse_no:2,horse_name:'シエルブリエ',identity_refs:[
+  'https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=998877'
+ ],recent_runs:[]}
 ];
 const evidence=(raceDate,raceNo,earlyPos,finalTurnPos)=>{
  const pastRace={raceDate,track:'佐賀',raceNo};return {
@@ -64,4 +70,27 @@ test('wrong target race and unsafe market or claim packet are rejected',()=>{
 test('duplicate historic race cannot add two independent examples',()=>{
  const out=bridge({...packet,evidence:[packet.evidence[0],packet.evidence[0]]});
  assert.equal(out.applied,1);assert.equal(out.ignored,1);
+});
+
+test('incorrect past horse number is rejected even when runner name and URL match',()=>{
+ const wrong=structuredClone(officialRunners);
+ wrong[0].recent_runs[0].horse_no=11;
+ const out=bridge(packet,wrong);
+ assert.equal(out.applied,1);assert.equal(out.ignored,1);
+ assert.equal(out.reports[0].reason,'HISTORICAL_HORSE_IDENTITY_MISMATCH');
+});
+test('historical horse ref must be one of official current identity links',()=>{
+ const wrong=structuredClone(officialRunners);
+ wrong[0].identity_refs=['https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=888888'];
+ const out=bridge(packet,wrong);
+ assert.equal(out.applied,0);assert.equal(out.ignored,2);
+ assert.equal(out.field_pace_evidence.repeated_front_style_contenders,0);
+});
+test('invalid first row must not suppress valid duplicate historical evidence',()=>{
+ const malformed=structuredClone(packet);
+ malformed.evidence[0].sourceRef='https://evil.example/';
+ malformed.evidence.splice(1,0,structuredClone(packet.evidence[0]));
+ const out=bridge(malformed);
+ assert.equal(out.applied,2);
+ assert.equal(out.ignored,1);
 });
