@@ -1,0 +1,23 @@
+name: BAKEN LAB evidence research checks
+on:
+  push:
+    branches:
+      - feature/pace-evidence-prereace-gate
+  pull_request:
+    paths:
+      - "research/*.mjs"
+      - "package.json"
+      - ".github/workflows/evidence-research.yml"
+permissions:
+  contents: read
+jobs:
+  evidence-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify evidence prefetch and safety
+        run: npm run test:pace
