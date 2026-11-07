@@ -67,7 +67,9 @@ export async function persistPreclaimEvidence({
     return {status:'SKIPPED_ROSTER_MISMATCH',normalCorePathAllowed:false,inserted:false};
   const evidence=sanitizePreclaimEvidence(report);
   const sourceFailures=report.sourceReports.filter(x=>x.status==='SOURCE_FAILED'||x.status==='SOURCE_TIMEOUT').length;
-  const partial=(sourceFailures>0||report.fieldCoverage.anyHistory<roster.length);
+  const unverifiedRuns=report.runners.reduce((n,r)=>n+(r.runs||[]).filter(h=>
+    !h.provenance.identityVerified || !h.provenance.sourceTimestampVerified).length,0);
+  const partial=(sourceFailures>0||report.fieldCoverage.anyHistory<roster.length || unverifiedRuns>0);
   const record={
     circuit,race_date:race.raceDate,track:race.track,race_no:Number(race.raceNo),
     official_post_time:iso(race.postTime),as_of:iso(report.asOf),
@@ -79,7 +81,7 @@ export async function persistPreclaimEvidence({
       historyCovered:report.fieldCoverage.anyHistory,
       positionsCovered:report.fieldCoverage.position,
       lapsCovered:report.fieldCoverage.laps,
-      sourceFailures,unverifiedTiming:report.runners.filter(x=>x.evidenceStatus==='UNVERIFIED_ONLY').length
+      sourceFailures,unverifiedRuns,unverifiedTiming:report.runners.filter(x=>x.evidenceStatus==='UNVERIFIED_ONLY').length
     }
   };
   try {
