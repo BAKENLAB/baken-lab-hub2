@@ -98,7 +98,8 @@ export function createHandler({client,serviceKey,now=Date.now,officialFactory=()
     try{
      preclaimCornerPacket=await Promise.race([
       Promise.resolve().then(()=>preclaimLookup({
-       race:fresh.race,job:fresh.job,run:fresh.run},now())),
+       race:fresh.race,job:fresh.job,run:fresh.run,
+       verifiedRunners:context.runners},now())),
       new Promise(resolve=>setTimeout(()=>resolve(null),250))
      ]);
     }catch{preclaimCornerPacket=null;}
