@@ -24,7 +24,10 @@ SELECT race_date,circuit,track,race_no,
  CASE
   WHEN prediction_status='FROZEN' THEN 'FROZEN_NO_ACTION'
   WHEN post_time<=(SELECT now_utc FROM clock) THEN 'PAST_POST_NO_SAVE'
-  WHEN field_complete<>'true' OR field_status NOT IN ('READY','VERIFIED') THEN 'CORE_ROSTER_VERIFY'
+  WHEN (circuit='LOCAL' AND
+    (field_complete<>'true' OR field_status NOT IN ('READY','VERIFIED')))
+    OR (circuit='JRA' AND field_status NOT IN ('BASIC_READY','READY','VERIFIED'))
+    THEN 'CORE_ROSTER_VERIFY'
   WHEN job_status='CLAIMED' THEN 'CLAIM_LEASE_CHECK_ONLY'
   WHEN job_status IS NULL THEN 'NO_JOB_CHECK_SCHEDULER'
   WHEN job_status='DEAD' THEN 'DEAD_NO_RESEND'
