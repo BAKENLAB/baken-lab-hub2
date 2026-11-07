@@ -59,7 +59,11 @@ export async function persistPreclaimEvidence({
   const roster=officialRunners.filter(x=>x.status!=='CANCELLED' && x.status!=='EXCLUDED')
     .map(x=>({horseNo:String(x.horseNo),horseName:x.horseName,horseRef:x.horseRef??null}))
     .sort((a,b)=>Number(a.horseNo)-Number(b.horseNo));
-  if(roster.length!==report.rosterCount || report.runners.length!==roster.length)
+  const expectedKey=[race.raceDate,race.track,race.raceNo].join('/');
+  const sameNames=roster.every(x=>report.runners.some(r=>
+    String(r.horseNo)===x.horseNo && r.horseName===x.horseName));
+  if(roster.length!==report.rosterCount || report.runners.length!==roster.length ||
+     !sameNames || report.raceKey!==expectedKey)
     return {status:'SKIPPED_ROSTER_MISMATCH',normalCorePathAllowed:false,inserted:false};
   const evidence=sanitizePreclaimEvidence(report);
   const sourceFailures=report.sourceReports.filter(x=>x.status==='SOURCE_FAILED'||x.status==='SOURCE_TIMEOUT').length;
