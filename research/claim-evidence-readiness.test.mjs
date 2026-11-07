@@ -103,3 +103,28 @@ test('duplicate historical same-race source cannot inflate sample',async()=>{
  assert.equal(a.runners[0].counts.historicalRuns,1);
  assert.equal(a.runners[0].runs[0].final3f,34.1);
 });
+
+test('hung optional provider times out, so the normal prediction path can continue',async()=>{
+ const start=Date.now();
+ const a=await prepareClaimEvidence({race,asOf,officialRunners:roster,clock:()=>Date.parse(asOf),
+  providerTimeoutMs:15,providers:[
+   {id:'HUNG',identity:'VERIFIED',load:async()=>new Promise(()=>{})},
+   provider('FALLBACK','VERIFIED',[{horseNo:8,horseName:'A',runs:[run()]}])
+ ]});
+ assert.equal(a.sourceReports[0].status,'SOURCE_TIMEOUT');
+ assert.equal(a.sourceReports[1].status,'OK');
+ assert.equal(a.fieldCoverage.anyHistory,1);
+ assert.equal(a.normalCorePathAllowed,true);
+ assert.ok(Date.now()-start<1500);
+});
+test('provider cancellation signal is passed for cooperative abort',async()=>{
+ let signal;
+ const a=await prepareClaimEvidence({race,asOf,officialRunners:roster,
+ clock:()=>Date.parse(asOf),providerTimeoutMs:15,
+ providers:[{id:'SLOW',identity:'VERIFIED',load:({signal:abortSignal})=>{
+  signal=abortSignal;
+  return new Promise(()=>{});
+ }}]});
+ assert.equal(a.sourceReports[0].status,'SOURCE_TIMEOUT');
+ assert.equal(signal.aborted,true);
+});
