@@ -8,6 +8,23 @@
  * Callers MUST still enforce official READY/field integrity, post-time and lease guards.
  */
 
+class OptionalSourceTimeout extends Error {
+  constructor(){super('Optional evidence provider timed out');this.name='OptionalSourceTimeout';}
+}
+async function loadWithDeadline(provider, args, timeoutMs) {
+  const controller=new AbortController();
+  let timer;
+  try {
+    return await Promise.race([
+      Promise.resolve().then(()=>provider.load({...args,signal:controller.signal})),
+      new Promise((_,reject)=>{
+        timer=setTimeout(()=>{controller.abort();reject(new OptionalSourceTimeout());},timeoutMs);
+      })
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
 const parseTime = (x) => {
   const millis = Date.parse(x);
   return Number.isFinite(millis) ? millis : null;
@@ -64,7 +81,7 @@ function normalizeRun(run, source, asOfMs, raceDate) {
  */
 export async function prepareClaimEvidence({
   race, officialRunners, providers=[], asOf, clock=()=>Date.now(),
-  minimumClaimBufferMs=5*60*1000
+  minimumClaimBufferMs=5*60*1000, providerTimeoutMs=4000
 }) {
   if(!race?.raceDate || !race?.track || !Number.isInteger(Number(race.raceNo)) ||
     !asOf || !Number.isFinite(parseTime(asOf))) throw new TypeError('Invalid race/asOf');
@@ -92,7 +109,12 @@ export async function prepareClaimEvidence({
       continue;
     }
     try {
-      const loaded=await provider.load({race,roster:officialRunners,asOf});
+      // Keep supplemental fetching outside the official CLAIM. One failing/hanging source
+      // cannot consume the entire pre-race window.
+      const timeRemaining=deadlineMs===null?providerTimeoutMs:
+        Math.max(1,deadlineMs-clock()-minimumClaimBufferMs);
+      const budgetMs=Math.max(1,Math.min(providerTimeoutMs,timeRemaining));
+      const loaded=await loadWithDeadline(provider,{race,roster:officialRunners,asOf},budgetMs);
       if(!Array.isArray(loaded)) throw new TypeError('Provider returned non-array');
       let accepted=0,ignored=0;
       for(const item of loaded){
@@ -119,7 +141,8 @@ export async function prepareClaimEvidence({
       }
       sourceReports.push({provider:provider.id,status:'OK',accepted,ignored});
     }catch(error){
-      sourceReports.push({provider:provider.id,status:'SOURCE_FAILED',
+      sourceReports.push({provider:provider.id,
+        status:error instanceof OptionalSourceTimeout?'SOURCE_TIMEOUT':'SOURCE_FAILED',
         errorCode:'OPTIONAL_PROVIDER_FAILURE'});
     }
   }
@@ -148,7 +171,7 @@ export async function prepareClaimEvidence({
       last3f:runners.filter((r)=>r.counts.last3fRuns>0).length,
       laps:runners.filter((r)=>r.counts.halonRuns>0).length
     },
-    optionalProviderFailures:sourceReports.filter((r)=>r.status==='SOURCE_FAILED').length,
+    optionalProviderFailures:sourceReports.filter((r)=>r.status==='SOURCE_FAILED'||r.status==='SOURCE_TIMEOUT').length,
     // "Proceed" here means supplemental fetch did not veto the normal procedure.
     // It never authorizes a SAVE: the independent official/CLAIM/lease gates decide.
     normalCorePathAllowed:true,
