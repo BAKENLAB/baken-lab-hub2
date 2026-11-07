@@ -26,3 +26,7 @@ jobs:
           deno-version: v2.x
       - name: Verify NAR official result HTML extraction (Deno/Cheerio)
         run: deno test --allow-env research/nar-prior-corners-dom.test.ts
+      - name: Probe completed NAR official archive (non-blocking external reachability check)
+        continue-on-error: true
+        timeout-minutes: 1
+        run: deno test --allow-env --allow-net=www.keiba.go.jp research/nar-official-archive-live.test.ts
