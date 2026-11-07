@@ -3,6 +3,8 @@
 -- A historical archive run is eligible only if race AND runner rows were both stored by as_of.
 -- Never join to the target race's finish, corner, lap, market or published outcome.
 -- Editing the params CTE makes this work for other supported JRA flat races.
+-- Missing archived horse_ref rows are retained as name-only candidates,
+-- NOT as verified proof. Reject explicit horse_ref mismatch. No automatic score changes.
 WITH params AS (
  SELECT '2026-11-07'::date race_date, '福島'::text track, 10::int race_no,
         '2026-11-07T04:49:12+00'::timestamptz as_of,
@@ -29,9 +31,12 @@ WITH params AS (
         ar.class_name,ar.going,ar.halon_times,ar.race_final3f,
         x.finish,x.margin,x.early_pos,x.final_turn_pos,x.corner_positions,
         x.final3f,x.final3f_rank,ar.source_checked_at,x.created_at runner_created_at,
+        CASE WHEN x.horse_ref IS NULL THEN 'NAME_ONLY_UNVERIFIED'
+          ELSE 'HORSE_REF_MATCH' END AS identity_status,
         row_number() OVER (
           PARTITION BY lr.horse_no, ar.race_date,ar.track,ar.race_no
-          ORDER BY ar.source_checked_at DESC,x.created_at DESC
+          ORDER BY CASE WHEN x.horse_ref IS NOT NULL THEN 0 ELSE 1 END,
+                   ar.source_checked_at DESC,x.created_at DESC
         ) version_rank
  FROM live_runners lr
  JOIN public.jra_lab_runs x
@@ -41,10 +46,11 @@ WITH params AS (
    AND ar.created_at<=lr.as_of AND x.created_at<=lr.as_of
    AND ar.surface IN ('芝','ダート')
    AND coalesce(ar.race_type,'')<>'障害'
-   AND lr.horse_ref IS NOT NULL AND x.horse_ref IS NOT NULL
+   AND lr.horse_ref IS NOT NULL
    AND substring(lr.horse_ref FROM '([0-9]{10})/') IS NOT NULL
-   AND substring(x.horse_ref FROM '([0-9]{10})/')=
-       substring(lr.horse_ref FROM '([0-9]{10})/')
+   AND (x.horse_ref IS NULL
+     OR substring(x.horse_ref FROM '([0-9]{10})/')=
+        substring(lr.horse_ref FROM '([0-9]{10})/'))
 ), unique_history AS (
  SELECT *, row_number() OVER (
     PARTITION BY horse_no ORDER BY race_date DESC,track,race_no
@@ -56,6 +62,10 @@ WITH params AS (
     count(h.early_pos)::int archive_pos_at_asof,
     count(h.final3f)::int archive_last3f_at_asof,
     count(h.halon_times)::int archive_laps_at_asof,
+    count(*) FILTER(WHERE h.identity_status='HORSE_REF_MATCH')::int
+       verified_id_runs_at_asof,
+    count(*) FILTER(WHERE h.identity_status='NAME_ONLY_UNVERIFIED')::int
+       unverified_name_only_runs_at_asof,
     count(*) FILTER(WHERE h.track=(SELECT track FROM params)
        AND h.surface=l.target_surface AND h.distance=l.target_distance
        AND h.finish BETWEEN 1 AND 3)::int same_track_distance_podium,
@@ -66,7 +76,10 @@ WITH params AS (
       'final_turn_pos',h.final_turn_pos,'corner_positions',h.corner_positions,
       'last3f',h.final3f,'last3f_rank',h.final3f_rank,
       'halon_times',h.halon_times,'race_last3f',h.race_final3f,
-      'archive_checked_at',h.source_checked_at,'run_created_at',h.runner_created_at
+      'archive_checked_at',h.source_checked_at,'run_created_at',h.runner_created_at,
+      'identity_status',h.identity_status,
+      'may_change_ranking',CASE WHEN h.identity_status='HORSE_REF_MATCH' THEN 'REVIEW_REQUIRED'
+                             ELSE 'NO_UNTIL_INDEPENDENT_VERIFICATION' END
     ) ORDER BY h.race_date DESC,h.track,h.race_no)
     FILTER(WHERE h.race_date IS NOT NULL),'[]'::jsonb) runs
  FROM live_runners l
