@@ -25,4 +25,4 @@ jobs:
         with:
           deno-version: v2.x
       - name: Verify NAR official result HTML extraction (Deno/Cheerio)
-        run: deno test research/nar-prior-corners-dom.test.ts
+        run: deno test --allow-env research/nar-prior-corners-dom.test.ts
