@@ -35,6 +35,9 @@ CREATE INDEX IF NOT EXISTS lab_preclaim_evidence_find_v1
 
 -- No public/anon/authenticated read or write permissions. No SECURITY DEFINER.
 REVOKE ALL ON TABLE private.lab_preclaim_evidence_snapshots_v1 FROM PUBLIC,anon,authenticated;
+-- Only an already-authorized server-side worker may append and read snapshots.
+-- No UPDATE/DELETE grants, and no client-side Data API exposure.
+GRANT SELECT, INSERT ON TABLE private.lab_preclaim_evidence_snapshots_v1 TO service_role;
 ALTER TABLE private.lab_preclaim_evidence_snapshots_v1 ENABLE ROW LEVEL SECURITY;
 
 -- Immutable history: never rewrite the evidence available at a prior moment.
@@ -51,6 +54,8 @@ DROP TRIGGER IF EXISTS lab_preclaim_snapshot_immutable_trigger
 CREATE TRIGGER lab_preclaim_snapshot_immutable_trigger
  BEFORE UPDATE OR DELETE ON private.lab_preclaim_evidence_snapshots_v1
  FOR EACH ROW EXECUTE FUNCTION private.lab_preclaim_snapshot_immutable_v1();
+REVOKE ALL ON FUNCTION private.lab_preclaim_snapshot_immutable_v1() FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION private.lab_preclaim_snapshot_immutable_v1() TO service_role;
 
 -- No public RPC or blanket grant. An already-authorized private worker
 -- must insert with the exact official roster; ON CONFLICT DO NOTHING is allowed
