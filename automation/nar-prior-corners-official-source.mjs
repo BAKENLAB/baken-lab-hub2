@@ -48,7 +48,10 @@ export function extractNarPriorCornerHtml(html,priorRace) {
   if(/^(?:第)?[1-4](?:角|コーナー)$/.test(values[0]))cornerRows.push(values);
  });
  if(!cornerRows.length||cornerRows.length>4)throw sourceError('CORNERS_UNAVAILABLE');
- return {raceHeaderText,cornerRows,knownHorseNos:horseNumbers};
+ // Preserve official past-result horse names for a second identity cross-check.
+ // Horse numbers alone are not identity evidence across different races.
+ const officialHorseNames=Object.fromEntries(resultRows.map(x=>[String(x.horseNo),x.horseName]));
+ return {raceHeaderText,cornerRows,knownHorseNos:horseNumbers,officialHorseNames};
 }
 
 export async function readNarOfficialPriorCorners({
