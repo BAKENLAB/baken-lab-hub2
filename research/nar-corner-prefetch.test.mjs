@@ -12,14 +12,20 @@ const past=(pastHorseNo)=>({
  earlyPos:null,finalTurnPos:null
 });
 const runners=[
- {horseNo:1,horseName:'A',verifiedRecentRuns:[past(6)]},
- {horseNo:2,horseName:'B',verifiedRecentRuns:[past(11)]}
+ {horseNo:1,horseName:'ハヤブサブロー',verifiedRecentRuns:[past(6)]},
+ {horseNo:2,horseName:'シエルブリエ',verifiedRecentRuns:[past(11)]}
 ];
 const officialPacket={
  sourceUrl:'https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=32&k_raceDate=2026%2F11%2F07&k_raceNo=5',
  raceHeaderText:'2026年11月7日（土） 佐 賀 第5競走 競走成績',
  sourceCheckedAt:'2026-11-08T07:01:00+09:00',
  knownHorseNos:Array.from({length:11},(_,i)=>i+1),
+ officialHorseNames:{
+   '1':'タイショウロマン','2':'クラックアスマイル','3':'ポジターノ',
+   '4':'アルクノワール','5':'ロードゴスペル','6':'ハヤブサブロー',
+   '7':'ボンレジェンド','8':'コスモペンタス','9':'マハーギータ',
+   '10':'ロードアルフィーネ','11':'シエルブリエ'
+ },
  cornerRows:[['１角','6 , 7 , ( 4 , 9 ) , ( 8 , 11 ) , 5 - 1 , ( 3 , 10 )- 2'],
  ['４角','11 , 9 - 8 , 7 - 3 , 10 , 4 , 1 , 5 , ( 6 , 2 )']]
 };
@@ -69,4 +75,33 @@ test('hung official source times out independently',async()=>{
  fetchVerifiedRace:async()=>new Promise(()=>{})});
  assert.equal(out.linkedRunEvidence,0);
  assert.equal(out.sourceReports[0].status,'OPTIONAL_SOURCE_UNAVAILABLE');
+});
+
+test('official past race cannot attach another horse position to a correct current horse',async()=>{
+ const swapped=structuredClone(runners);
+ swapped[0].verifiedRecentRuns[0].pastHorseNo=11;
+ const out=await fetchLocalPriorCornerEvidence({targetRace:race,runners:swapped,clock:now,
+ fetchVerifiedRace:async()=>officialPacket});
+ assert.equal(out.linkedRunEvidence,1);
+ assert.equal(out.evidence[0].horseName,'シエルブリエ');
+ assert.equal(out.sourceReports[0].status,'VERIFIED_WITH_IDENTITY_REJECTIONS');
+ assert.equal(out.sourceReports[0].identityRejected,1);
+});
+test('official result name map missing or partial: no horse evidence admitted',async()=>{
+ for(const names of [undefined,{'6':'ハヤブサブロー'}]){
+  const raw={...officialPacket,officialHorseNames:names};
+  const out=await fetchLocalPriorCornerEvidence({targetRace:race,runners,clock:now,
+   fetchVerifiedRace:async()=>raw});
+  assert.equal(out.linkedRunEvidence,0);
+  assert.equal(out.sourceReports[0].status,'OPTIONAL_SOURCE_UNAVAILABLE');
+  assert.equal(out.claimStarted,false);
+ }
+});
+test('horse names allow only typographic width and spacing normalization',async()=>{
+ const spaced=structuredClone(runners);
+ spaced[0].horseName='  ハヤブサ ブロー　';
+ const out=await fetchLocalPriorCornerEvidence({targetRace:race,runners:spaced,clock:now,
+ fetchVerifiedRace:async()=>officialPacket});
+ assert.equal(out.linkedRunEvidence,2);
+ assert.equal(out.sourceReports[0].identityRejected,0);
 });
