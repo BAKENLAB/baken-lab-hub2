@@ -6,6 +6,7 @@
 import {buildVerifiedPriorCornerEvidence} from './nar-prior-corners.mjs';
 
 const day=x=>typeof x==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x)?x:null;
+const normalizedHorseName=x=>String(x??'').normalize('NFKC').replace(/\s+/g,'').trim();
 const at=x=>Number.isFinite(Date.parse(x))?Date.parse(x):null;
 const no=x=>Number.isInteger(Number(x))&&Number(x)>0?Number(x):null;
 const key=x=>JSON.stringify([x.raceDate,x.track,x.raceNo]);
@@ -89,7 +90,21 @@ export async function fetchLocalPriorCornerEvidence({
      ...raw,priorRace:work.priorRace,targetRaceDate:targetRace.raceDate,
      targetPostTime:targetRace.postTime
    });
+   // A verified horse URL and past horse number are necessary but not sufficient:
+   // the official result must also identify that past number by the same horse name.
+   // Missing or partial result-name maps fail closed, without blocking the CLAIM path.
+   const officialNames=raw?.officialHorseNames;
+   if(!officialNames || typeof officialNames!=='object' ||
+      !Array.isArray(raw?.knownHorseNos) ||
+      raw.knownHorseNos.some(n=>!normalizedHorseName(officialNames[String(n)])))
+     throw new Error('OFFICIAL_RESULT_HORSE_NAMES_UNVERIFIED');
+   let identityRejected=0,linkedRunners=0;
    for(const link of work.links){
+     if(normalizedHorseName(link.horseName)!==
+        normalizedHorseName(officialNames[String(link.pastHorseNo)])){
+       identityRejected++;
+       continue;
+     }
      const prior=packet.runners.find(r=>r.prior_horse_no===link.pastHorseNo);
      if(prior?.evidence_status!=='OFFICIAL_CORNER_POSITIONS_VERIFIED')continue;
      gathered.push({horseNo:link.horseNo,horseName:link.horseName,horseRef:link.horseRef,
@@ -100,9 +115,11 @@ export async function fetchLocalPriorCornerEvidence({
        source:'NAR_OFFICIAL_PAST_RACE_RESULT',sourceRef:packet.source_ref,
        sourceCheckedAt:packet.source_checked_at,
        rankingEffect:'NONE_UNTIL_REVIEWED'});
+     linkedRunners++;
    }
-   reports.push({priorRace:work.priorRace,status:'VERIFIED',linkedRunners:
-     gathered.filter(g=>key(g.pastRace)===key(work.priorRace)).length});
+   reports.push({priorRace:work.priorRace,
+     status:identityRejected?'VERIFIED_WITH_IDENTITY_REJECTIONS':'VERIFIED',
+     linkedRunners,identityRejected});
   }catch{
    reports.push({priorRace:work.priorRace,status:'OPTIONAL_SOURCE_UNAVAILABLE'});
   }
