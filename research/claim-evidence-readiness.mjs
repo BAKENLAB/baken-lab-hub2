@@ -50,8 +50,11 @@ function normalizeRun(run, source, asOfMs, raceDate) {
   }
   // An unversioned, unverified historical record may be cited, never counted
   // as an authenticated source for a confident causal or model-ranking assertion.
+  // The archived row may carry an explicitly unverified missing horse-ref identity
+  // even when its race and runner insertion timestamps are before asOf.
+  const recordIdentity=run.identityStatus ?? source.identity;
   const verified=run.sourceCheckedAt !== null && run.sourceCheckedAt !== undefined &&
-    source.identity==='VERIFIED';
+    (recordIdentity==='VERIFIED' || recordIdentity==='HORSE_REF_MATCH');
   const position=(validNumber(run.earlyPos) && Number(run.earlyPos)>0)
     ? Number(run.earlyPos) : null;
   const finalTurn=(validNumber(run.finalTurnPos) && Number(run.finalTurnPos)>0)
@@ -65,9 +68,10 @@ function normalizeRun(run, source, asOfMs, raceDate) {
     finish:validNumber(run.finish)?Number(run.finish):null,
     earlyPos:position, finalTurnPos:finalTurn, final3f:last3f,
     raceHalons:halfLaps,
-    provenance:{provider:source.id, identity:source.identity,
+    provenance:{provider:source.id, identity:recordIdentity,
       sourceCheckedAt:run.sourceCheckedAt??null,
       sourceTimestampVerified:verified,
+      identityVerified:(recordIdentity==='VERIFIED' || recordIdentity==='HORSE_REF_MATCH'),
       timestampUnknown:run.sourceCheckedAt===null || run.sourceCheckedAt===undefined}
   };
 }
