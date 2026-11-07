@@ -175,17 +175,22 @@ export async function lookupLocalCornerSnapshot({
    before:new Date(now).toISOString()
   });
  }catch{return null;}
- if(!row)return null;
+ if(!row||!row.evidence||typeof row.evidence!=='object'||
+    Array.isArray(row.evidence)||row.evidence.schemaVersion!=='LOCAL_OFFICIAL_CORNERS_1')
+    return null;
  const capture=finiteTime(row.captured_at),asOf=finiteTime(row.as_of);
  if(row.circuit!=='LOCAL'||row.race_date!==target.raceDate||
     row.track!==target.track||Number(row.race_no)!==target.raceNo||
     row.source_kind!=='LOCAL_OFFICIAL_CORNERS'||
+    row.source_version!=='LOCAL_CORNER_1'||
     !['READY','PARTIAL'].includes(row.source_status)||
     row.official_roster_digest!==rosterDigest||
     row.active_runner_count!==active.length||
     finiteTime(row.official_post_time)!==post||
     capture===null||asOf===null||asOf>capture||capture>now||
-    capture>=post||row.payload_digest!==digest(row.evidence))return null;
+    capture>=post)return null;
+ try{if(row.payload_digest!==digest(row.evidence))return null;}
+ catch{return null;}
  // Revalidate the projected packet against this same race; no trusted caller
  // can turn this optional material into the core ranking or save gate.
  const packet=row.evidence?.packet;
@@ -193,6 +198,18 @@ export async function lookupLocalCornerSnapshot({
     packet.raceTrack!==target.track||Number(packet.raceNo)!==target.raceNo||
     packet.marketUsed!==false||packet.targetResultUsed!==false||
     packet.rankChanged!==false||packet.claimStarted!==false||
-    packet.saveAuthorized!==false||!Array.isArray(packet.evidence))return null;
+    packet.saveAuthorized!==false||!Array.isArray(packet.evidence)||
+    packet.evidence.length>200||
+    packet.evidence.length!==packet.linkedRunEvidence||
+    packet.evidence.some(e=>{
+      const h=active.find(r=>r.horseNo===e?.horseNo);
+      const when=finiteTime(e?.sourceCheckedAt);
+      return !h||h.horseName!==norm(e.horseName)||!e.pastRace||
+       !date(e.pastRace.raceDate)||e.pastRace.raceDate>=target.raceDate||
+       !int(e.pastRace.raceNo,1,14)||!int(e.pastHorseNo)||
+       !int(e.earlyPos)||!int(e.finalTurnPos)||!identityRef(e.horseRef)||
+       !when||when>asOf||when>=post||e.rankingEffect!=='NONE_UNTIL_REVIEWED'||
+       e.source!=='NAR_OFFICIAL_PAST_RACE_RESULT';
+    }))return null;
  return structuredClone(packet);
 }
