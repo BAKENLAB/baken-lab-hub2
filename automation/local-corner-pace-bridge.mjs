@@ -8,6 +8,16 @@ import {buildLocalFieldPaceEvidence} from './local-field-pace.mjs';
 const norm=x=>String(x??'').normalize('NFKC').replace(/\s+/g,'').trim();
 const time=x=>typeof x==='string'&&Number.isFinite(Date.parse(x))?Date.parse(x):null;
 const pos=x=>Number.isInteger(x)&&x>=1&&x<=24;
+const officialHorseRef=x=>{
+ try{
+  const u=new URL(x);
+  return u.protocol==='https:'&&u.hostname==='www.keiba.go.jp'&&
+   u.pathname==='/KeibaWeb/DataRoom/HorseMarkInfo'&&!u.username&&!u.password&&!u.hash&&
+   u.searchParams.getAll('k_lineageLoginCode').length===1&&
+   /^[0-9]{1,30}$/.test(u.searchParams.get('k_lineageLoginCode')??'')&&
+   [...u.searchParams.keys()].every(k=>k==='k_lineageLoginCode'||k==='k_activeCode');
+ }catch{return false;}
+};
 const key=h=>[h.race_date,h.track,Number(h.race_no)].join('/');
 const pastKey=h=>[h.raceDate,h.track,Number(h.raceNo)].join('/');
 export function bridgeLocalOfficialCorners({targetRace,officialRunners,cornerPacket,conditions={},clock=()=>Date.now()}){
@@ -43,25 +53,33 @@ export function bridgeLocalOfficialCorners({targetRace,officialRunners,cornerPac
   }
   const id=[e.horseNo,pastKey(e.pastRace)].join('/');
   if(seen.has(id)){reject('DUPLICATE_HISTORY');continue;}
-  seen.add(id);
   try{if(e.sourceRef!==officialNarPastResultUrl(e.pastRace)){
     reject('SOURCE_RACE_MISMATCH');continue;
   }}catch{reject('SOURCE_RACE_MISMATCH');continue;}
   const r=roster.get(e.horseNo);
   if(norm(r.horse_name)!==norm(e.horseName)||
      !['OFFICIAL_HORSE_REF','OFFICIAL_RACE_HORSE_NO'].includes(e.identityVerifiedBy)||
-     typeof e.horseRef!=='string'||
-     !e.horseRef.startsWith('https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?')){
+     !officialHorseRef(e.horseRef)||
+     !Array.isArray(r.identity_refs)||!r.identity_refs.includes(e.horseRef)){
     reject('HORSE_IDENTITY_MISMATCH');continue;
   }
   const matches=r.recent_runs.filter(h=>key(h)===pastKey(e.pastRace));
   if(matches.length!==1){reject('HISTORY_ROW_NOT_UNIQUE');continue;}
   const run=matches[0];
+  // The previous race number is NOT the current race horse number.
+  // Verify official historical horse number and the same stable horse reference.
+  if(Number(run.horse_no)!==e.pastHorseNo||
+     !['NAR_OFFICIAL_DEBA','NAR_OFFICIAL_HISTORY','NAR_OFFICIAL_RESCUE'].includes(run.source)||
+     (run.horse_ref!=null&&run.horse_ref!==e.horseRef)||
+     !['OFFICIAL_HORSE_REF','OFFICIAL_RACE_HORSE_NO'].includes(run.identity_verified_by)){
+    reject('HISTORICAL_HORSE_IDENTITY_MISMATCH');continue;
+  }
   if((run.early_pos!=null&&run.early_pos!==e.earlyPos)||
      (run.final_turn_pos!=null&&run.final_turn_pos!==e.finalTurnPos)){
     reject('HISTORICAL_POSITION_CONFLICT');continue;
   }
   if(run.early_pos!=null&&run.final_turn_pos!=null){reject('ALREADY_COVERED');continue;}
+  seen.add(id);
   run.early_pos=e.earlyPos;run.final_turn_pos=e.finalTurnPos;applied++;
   reports.push({horseNo:e.horseNo,pastRace:e.pastRace,reason:'OFFICIAL_CORNERS_ADDED'});
  }
