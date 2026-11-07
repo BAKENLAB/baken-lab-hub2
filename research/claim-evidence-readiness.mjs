@@ -212,3 +212,33 @@ export function localArchiveRowsToProvider(packet){
     }))
   }));
 }
+
+
+/**
+ * Adapt result of research/jra-asof-evidence-packet.sql.
+ * The SQL filters archived record date AND the race/runner insertion timestamps
+ * to <= asOf. Missing horse_ref is explicitly NAME_ONLY_UNVERIFIED.
+ *
+ * This packet is pre-race history only. It is NOT a new ranking algorithm.
+ */
+export function jraAsOfArchiveRowsToProvider(packet) {
+  const rows=array(packet?.runners);
+  return rows.map((runner)=>({
+    horseNo:runner.horse_no,
+    horseName:runner.horse_name,
+    runs:array(runner.runs).map((h)=>{
+      const stamp1=parseTime(h.archive_checked_at);
+      const stamp2=parseTime(h.run_created_at);
+      const maxStamp=stamp1!==null && stamp2!==null
+        ? new Date(Math.max(stamp1,stamp2)).toISOString() : null;
+      return {
+        raceDate:h.race_date,track:h.track,raceNo:h.race_no,
+        surface:h.surface,distance:h.distance,raceClass:h.class_name,
+        finish:h.finish,earlyPos:h.early_pos,finalTurnPos:h.final_turn_pos,
+        final3f:h.last3f,halonTimes:h.halon_times,
+        sourceCheckedAt:maxStamp,
+        identityStatus:h.identity_status||'NAME_ONLY_UNVERIFIED'
+      };
+    })
+  }));
+}
