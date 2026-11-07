@@ -15,7 +15,7 @@ const html = [
  '<tr><th>４角</th><td>11 , 9 - 8 , 7 - 3 , 10 , 4 , 1 , 5 , ( 6 , 2 )</td></tr>',
  '</table></body></html>'
 ].join('');
-function check(value,expected,msg){if(value!==expected)throw new Error(msg+' expected '+expected+' got '+value);}
+function check(value:unknown,expected:unknown,msg:string){if(value!==expected)throw new Error(msg+' expected '+expected+' got '+value);}
 Deno.test('Deno+Cheerio: official prior-corner DOM bridge extracts only verified corner rows',()=>{
  const priorRace={raceDate:'2026-11-07',track:'佐賀',raceNo:5};
  const got=extractNarPriorCornerHtml(html,priorRace);
@@ -27,8 +27,8 @@ Deno.test('Deno+Cheerio: official prior-corner DOM bridge extracts only verified
   sourceCheckedAt:'2026-11-08T07:00:00+09:00'
  });
  check(packet.runners.length,11,'Results mapped');
- check(packet.runners.find((v)=>v.prior_horse_no===6).early_pos,1,'First-corner 6');
- check(packet.runners.find((v)=>v.prior_horse_no===11).final_turn_pos,1,'Last-corner 11');
+ check(packet.runners.find((v)=>v.prior_horse_no===6)?.early_pos,1,'First-corner 6');
+ check(packet.runners.find((v)=>v.prior_horse_no===11)?.final_turn_pos,1,'Last-corner 11');
  check(packet.market_used,false,'No market');
  check(packet.scoring_effect,0,'No ranking change');
 });
