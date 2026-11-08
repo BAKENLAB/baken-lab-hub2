@@ -54,14 +54,16 @@ export function planJraOfficialCardAcquisition({
    status='INVALID_RACE_METADATA';
   else if(frozen.has(k)||full?.prediction_status==='DONE'||full?.prediction_status==='FROZEN')
    status='PREVIOUS_FROZEN';
+  else if(r.race_type!=='平地'||!['芝','ダート'].includes(r.surface))
+   status='EXCLUDED_NOT_FLAT';
+  else if(/新馬|メイクデビュー/.test(String(r.race_name??'')+' '+String(r.class_name??'')+' '+String(full?.field_payload?.race?.class_name??'')))
+   status='EXCLUDED_NEW_HORSE';
   else if(full&&['READY','BASIC_READY'].includes(full.field_status)){
    const proof=full.field_payload?.official_status_verification;
    status=full.source==='JRA_OFFICIAL_VERIFIED_GATE_V1'&&
      proof?.html_sha256&&/^[a-f0-9]{64}$/.test(proof.html_sha256)
     ?'ALREADY_OFFICIAL_READY':'EXISTING_OFFICIAL_ROW_UNVERIFIED';
   }
-  else if(r.race_type!=='平地'||!['芝','ダート'].includes(r.surface))
-   status='EXCLUDED_NOT_FLAT';
   else if(post<=clock()+reserveMs)status='TOO_LATE_FOR_SAFE_VERIFICATION';
   else if(!number(r.field_size)||!r.cname||
     rows.length!==r.field_size ||
@@ -70,7 +72,8 @@ export function planJraOfficialCardAcquisition({
    status='LIVE_CANDIDATE_UNVERIFIED';
   else status='NEEDS_FRESH_JRA_OFFICIAL_CARD';
   return {race_date:raceDate,track:r.track,race_no:r.race_no,
-   race_type:r.race_type,post_time:r.post_time,post_ms:post,
+   race_type:r.race_type,race_name:r.race_name??null,
+   post_time:r.post_time,post_ms:post,
    live_runner_count:rows.length,live_field_size:r.field_size,
    status,needsOfficialFullField:status==='NEEDS_FRESH_JRA_OFFICIAL_CARD'};
  });
@@ -95,7 +98,14 @@ export async function runAuthorizedJraOfficialCardAcquisition({
  const reports=[];
  for(const r of plan.items){
   if(reports.length>=maxRaces)break;
-  if(!r.needsOfficialFullField){reports.push({track:r.track,race_no:r.race_no,status:r.status});continue;}
+  // Defense in depth: a caller cannot flip needsOfficialFullField on a debut
+  // or obstacle item and cause official acquisition.
+  if(r.race_type!=='平地'||/新馬|メイクデビュー/.test(String(r.race_name??''))){
+   reports.push({track:r.track,race_no:r.race_no,status:'EXCLUDED_NEW_HORSE_OR_NOT_FLAT'});continue;
+  }
+  if(r.status!=='NEEDS_FRESH_JRA_OFFICIAL_CARD'||r.needsOfficialFullField!==true){
+   reports.push({track:r.track,race_no:r.race_no,status:r.status});continue;
+  }
   if(r.post_ms<=clock()+reserveMs){
    reports.push({track:r.track,race_no:r.race_no,status:'TOO_LATE_FOR_SAFE_VERIFICATION'});continue;
   }
