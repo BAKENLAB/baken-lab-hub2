@@ -44,6 +44,10 @@ jobs:
         continue-on-error: true
         timeout-minutes: 2
         run: deno test --allow-env --allow-net=www.keiba.go.jp,qjlvsndiqjfsfjinilig.supabase.co research/nar-morioka4-actual-corner-chain-smoke.test.ts
+      - name: Live NAR full ten horse profiles and official corners to in-memory snapshot
+        continue-on-error: true
+        timeout-minutes: 3
+        run: deno test --allow-env --allow-net=www.keiba.go.jp,qjlvsndiqjfsfjinilig.supabase.co research/nar-morioka4-full-field-corners-live.test.ts
       - name: Probe completed NAR official archive (non-blocking external reachability check)
         continue-on-error: true
         timeout-minutes: 1
