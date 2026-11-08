@@ -1,0 +1,52 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {buildLocalRelativeConditionComparison as compare} from '../automation/local-relative-condition-comparison.mjs';
+const runs=[
+ {race_date:'2026-10-10',track:'高知',race_name:'C3-10',surface:'ダート',distance:1300,finish:1,margin:'0.2',early_pos:2,final_turn_pos:2},
+ {race_date:'2026-10-25',track:'高知',race_name:'C3-9',surface:'ダート',distance:1400,finish:3,margin:'0.4',early_pos:2,final_turn_pos:3}
+];
+const field=()=>[
+ {horse_no:1,horse_name:'A',recent_runs:structuredClone(runs)},
+ {horse_no:2,horse_name:'B',recent_runs:[
+ {race_date:'2026-10-10',track:'高知',surface:'ダート',distance:1300,finish:9,margin:'1.9',early_pos:8},
+ {race_date:'2026-10-25',track:'高知',surface:'ダート',distance:1300,finish:7,margin:'0.5',early_pos:7}
+ ]},
+ {horse_no:3,horse_name:'C',recent_runs:[]}
+];
+test('compares official claimed pre-race runs with downside and missingness',()=>{
+ const f=field(),before=structuredClone(f),v=compare(f,{surface:'ダート',distance:1300},'2026-11-08');
+ assert.equal(v.status,'READY');assert.equal(v.runner_count,3);assert.equal(v.comparison_count,1);
+ assert.equal(v.runner_evidence[0].close_runs,2);
+ assert.equal(v.runner_evidence[1].decisive_defeats,1);
+ assert.equal(v.runner_evidence[2].comparison_status,'NO_COMPARABLE_RUN');
+ assert.equal(v.comparisons[0].close_evidence_leader,1);
+ assert.equal(v.rank_effect,false);assert.equal(v.score_effect,false);
+ assert.equal(v.market_used,false);assert.equal(v.target_result_used,false);
+ assert.deepEqual(f,before);
+});
+test('does not invent margin from nonnumeric official historical text',()=>{
+ const f=field();f[0].recent_runs[1].margin='ハナ';
+ const v=compare(f,{surface:'ダート',distance:1300},'2026-11-08');
+ assert.equal(v.runner_evidence[0].close_runs,1);
+ assert.equal(v.runner_evidence[0].podium_runs,2);
+});
+test('invalid roster and future date fail closed',()=>{
+ let f=field();f[1].horse_no=1;
+ assert.equal(compare(f,{surface:'ダート',distance:1300},'2026-11-08').status,'UNVERIFIED_ROSTER');
+ f=field();f[0].recent_runs[0].race_date='2026-11-08';
+ assert.equal(compare(f,{surface:'ダート',distance:1300},'2026-11-08').status,'HISTORICAL_ASOF_REJECTED');
+});
+test('unknown conditions cannot become an adopted scorer',()=>{
+ const v=compare(field(),{},'2026-11-08');
+ assert.equal(v.status,'CONDITIONS_OR_ROSTER_UNAVAILABLE');
+ assert.equal(v.rank_effect,false);
+});
+test('odds and current result are not input features',()=>{
+ const f=field();f[0].popularity=1;f[0].win_odds=1.1;f[0].result={finish:16};
+ const v=compare(f,{surface:'ダート',distance:1300},'2026-11-08');
+ const str=JSON.stringify(v);
+ assert.equal(v.status,'READY');
+ assert.equal(str.includes('popularity'),false);
+ assert.equal(str.includes('win_odds'),false);
+ assert.equal(str.includes('"result"'),false);
+});
