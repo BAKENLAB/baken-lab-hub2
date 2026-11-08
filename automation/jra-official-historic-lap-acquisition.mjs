@@ -20,6 +20,20 @@ const invalidUrl=ref=>{
   return u.href;
  }catch{return null;}
 };
+/**
+ * @param {{
+ *  targetRace:{raceDate:string,postTime:string},
+ *  priorRace:{raceDate:string,track:string,raceNo:number,distance:number,surface:string,sourceRef:string},
+ *  fetchImpl:(url:string,options:RequestInit)=>Promise<Response>,
+ *  extractText:(html:string)=>string|Promise<string>,
+ *  clock?:()=>number,timeoutMs?:number,reserveMs?:number
+ * }} options
+ * @returns {Promise<{
+ *  status:string,verified:boolean,claim_started:boolean,prediction_saved:boolean,
+ *  lap_seconds?:number[],first_600m_seconds?:number|null,last_600m_seconds?:number|null,
+ *  pace_classification?:string
+ * }>}
+ */
 export async function acquireVerifiedJraHistoricLaps({
  targetRace,priorRace,fetchImpl,extractText,clock=()=>Date.now(),
  timeoutMs=7000,reserveMs=180000
