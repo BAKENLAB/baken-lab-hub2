@@ -122,7 +122,7 @@ Deno.test('FULL SHADOW PIPELINE: official card and past-horse witness -> real HT
    readRace:async()=>source,
    readHistory:async()=>[history]
   },
-  prepareCorners:(input:Parameters<typeof prepareLocalOfficialCornerPacket>[0])=>prepareLocalOfficialCornerPacket({
+  prepareCorners:(input:any)=>prepareLocalOfficialCornerPacket({
    ...input,fetchImpl:async()=>{http++;return new Response(html,{status:200,headers:{'content-type':'text/html'}});}
   })
  });
