@@ -94,6 +94,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      race:{race_date:ctx.race.race_date,post_time:ctx.race.post_time,
        observation_at:new Date().toISOString(),circuit:"LOCAL",
        class_name:ctx.race.conditions?.class_name,
+       race_name:ctx.race.race_name,
        surface:ctx.race.conditions?.surface,
        distance:ctx.race.conditions?.distance},
      baseline,comparison:ctx.relative_condition_evidence
