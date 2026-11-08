@@ -25,6 +25,7 @@ jobs:
         run: |
           node --check research/staged-lab-claimed-context-handler-v14.mjs
           node --check research/staged-lab-claimed-context-handler-v15.mjs
+          node --check research/staged-lab-claimed-context-relative-v15.mjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
