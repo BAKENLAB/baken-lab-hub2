@@ -120,7 +120,7 @@ BEGIN
     'job_id',v_job.id,'track',v_job.track,'race_no',v_job.race_no,
     'lease_until',v_job.lease_until,'queued',v_queued);
 END
-$function$
+$function$;
 
 ALTER FUNCTION public.jra_manual_claim_next_v2() SECURITY INVOKER;
 REVOKE ALL ON FUNCTION public.jra_manual_claim_next_v2() FROM PUBLIC, anon, authenticated;
