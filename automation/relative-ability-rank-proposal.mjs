@@ -32,7 +32,10 @@ function level(x) {
   const v=s.match(/([123])勝クラス/);
   if(v)return 'JRA_'+v[1];
   if(/(?:G|GⅠ|GⅡ|GⅢ|OP|オープン|重賞)/i.test(s))return 'JRA_OPEN';
-  // Do NOT assume local C1/C2/C3/B/etc are equivalent across districts.
+  // Within one LOCAL race field use only an explicitly matching class tier.
+  // Never assume equivalence across different LOCAL districts.
+  const local=s.match(/^([ABC])([123])(?:-|$)/);
+  if(local)return 'LOCAL_'+local[1]+local[2];
   return null;
 }
 function summarizeEvidence(row,race) {
