@@ -111,9 +111,9 @@ Deno.test('FULL SHADOW PIPELINE: official card and past-horse witness -> real HT
   fetched_at:'2026-11-08T06:59:50+09:00',
   runners:[current]
  };
- let http=0,stored=null;
+ let http=0,stored:Record<string,unknown>|null=null;
  const store={
-  async insertIfAbsent(row){stored={...structuredClone(row),captured_at:row.as_of};return {inserted:true};},
+  async insertIfAbsent(row:Record<string,unknown>){stored={...structuredClone(row),captured_at:row.as_of};return {inserted:true};},
   async findLatest(){return stored;}
  };
  const result=await runAuthorizedLocalCornerPreclaim({
@@ -122,7 +122,7 @@ Deno.test('FULL SHADOW PIPELINE: official card and past-horse witness -> real HT
    readRace:async()=>source,
    readHistory:async()=>[history]
   },
-  prepareCorners:(input)=>prepareLocalOfficialCornerPacket({
+  prepareCorners:(input:Parameters<typeof prepareLocalOfficialCornerPacket>[0])=>prepareLocalOfficialCornerPacket({
    ...input,fetchImpl:async()=>{http++;return new Response(html,{status:200,headers:{'content-type':'text/html'}});}
   })
  });
