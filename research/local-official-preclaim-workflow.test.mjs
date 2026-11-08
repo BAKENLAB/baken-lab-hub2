@@ -35,6 +35,7 @@ const packet=(targetRace)=>({
 });
 const make=(override={})=>{
  const calls={card:0,history:0,corners:0,writes:0,authorized:0};
+ let witnessed=null;
  const officialReader={
   async readRace(){calls.card++;return snapshot;},
   async readHistory(){calls.history++;return history;}
@@ -44,14 +45,16 @@ const make=(override={})=>{
   assertAuthorized:async()=>{calls.authorized++;},
   prepareCorners:async ({targetRace,officialVerifiedRunners})=>{
    calls.corners++;
-   assert.equal(officialVerifiedRunners[0].verifiedRecentRuns[0].pastHorseNo,6);
+   witnessed=structuredClone(officialVerifiedRunners);
    return packet(targetRace);
   },clock:now,...override};
- return {calls,run:()=>runAuthorizedLocalCornerPreclaim(opts)};
+ return {calls,getWitness:()=>witnessed,run:()=>runAuthorizedLocalCornerPreclaim(opts)};
 };
 test('explicit authorized preclaim traverses official card and exact horse history, without CLAIM',async()=>{
  const x=make(),out=await x.run();
  assert.equal(out.status,'STORED');assert.equal(out.storeWritten,true);
+ assert.equal(x.getWitness()?.[0]?.verifiedRecentRuns?.[0]?.pastHorseNo,6,
+   'Official history witness must include prior race horse number');
  assert.equal(out.linkedRunEvidence,1);assert.equal(out.claimStarted,false);
  assert.equal(out.predictionSaved,false);
  assert.deepEqual(x.calls,{card:1,history:1,corners:1,writes:1,authorized:1});
