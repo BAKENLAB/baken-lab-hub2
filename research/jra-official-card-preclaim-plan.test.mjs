@@ -44,7 +44,9 @@ test('JRA candidate schedule is not official READY even with complete live runne
 test('existing verified full field is preserved and never republished',()=>{
  const p=plans({officialRaces:[{
   race_date:date,track:'福島',race_no:1,
-  field_status:'BASIC_READY',prediction_status:'PENDING'
+  field_status:'BASIC_READY',prediction_status:'PENDING',
+  source:'JRA_OFFICIAL_VERIFIED_GATE_V1',
+  field_payload:{official_status_verification:{html_sha256:'b'.repeat(64)}}
  }]});
  assert.equal(p.items[0].status,'ALREADY_OFFICIAL_READY');
  assert.equal(p.items[0].needsOfficialFullField,false);
@@ -86,4 +88,14 @@ test('malformed or duplicate candidate race metadata never produces a safe candi
  assert.throws(()=>plans({liveRaces:[live[0],live[0]]}),/DUPLICATE_LIVE_RACE/);
  const p=plans({liveRaces:[mk('福島',1,'wrong')]});
  assert.equal(p.items[0].status,'INVALID_RACE_METADATA');
+});
+
+test('a BASIC_READY label without verified official provenance is not trusted',()=>{
+ const p=plans({officialRaces:[{
+  race_date:date,track:'福島',race_no:1,
+  field_status:'BASIC_READY',source:'SCHEDULE',
+  field_payload:{},prediction_status:'PENDING'
+ }]});
+ assert.equal(p.items[0].status,'EXISTING_OFFICIAL_ROW_UNVERIFIED');
+ assert.equal(p.items[0].needsOfficialFullField,false);
 });
