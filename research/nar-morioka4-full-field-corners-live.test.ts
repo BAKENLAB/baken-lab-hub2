@@ -53,7 +53,7 @@ Deno.test('REAL NAR full Morioka4 all 10 historic horse profiles and bounded off
    readRace:(r:any,opts:any,signal:AbortSignal)=>actual.readRace(r,opts,signal),
    readHistory:async(r:any,opts:any,signal:AbortSignal)=>{
     profileRequests++;
-    const history=await actual.readHistory(r,{...opts,limit:3},signal);
+    const history=await actual.readHistory(r,opts,signal);
     if(history.length)profileWithResults++;
     return history.slice(0,3);
    }
