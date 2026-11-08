@@ -44,13 +44,13 @@ Deno.test('NAR current Morioka4 REAL reader -> past race corners -> append-only 
  const originalFetch=fetch;
  const result=await runAuthorizedLocalCornerPreclaim({
   race,clock:()=>Date.now(),store,
-  assertAuthorized:async ({raceKey})=>{
+  assertAuthorized:async ({raceKey}:{raceKey:unknown[]})=>{
    if(JSON.stringify(raceKey)!==JSON.stringify([race.race_date,race.track,race.race_no]))
     throw Error('UNAUTHORIZED_RACE_KEY');
   },
   officialReader:{
-   readRace:(current,opts,signal)=>real.readRace(current,opts,signal),
-   readHistory:async (current,opts,signal)=>{
+   readRace:(current:any,opts:any,signal:AbortSignal)=>real.readRace(current,opts,signal),
+   readHistory:async (current:any,opts:any,signal:AbortSignal)=>{
     // This bounded canary intentionally selects only two current horse IDs.
     // It does not claim to check all ten official profiles.
     if(current.horse_no!==1&&current.horse_no!==2)return [];
@@ -59,9 +59,9 @@ Deno.test('NAR current Morioka4 REAL reader -> past race corners -> append-only 
     return runs.slice(0,2);
    }
   },
-  prepareCorners:(args)=>prepareLocalOfficialCornerPacket({
+  prepareCorners:(args:any)=>prepareLocalOfficialCornerPacket({
    ...args,maxPriorRaces:4,timeoutMs:1800,
-   fetchImpl:(url,options)=>{
+   fetchImpl:(url:RequestInfo|URL,options:RequestInit)=>{
     oldResultRequests++;
     return originalFetch(url,options);
    }
@@ -72,7 +72,7 @@ Deno.test('NAR current Morioka4 REAL reader -> past race corners -> append-only 
  console.log(JSON.stringify({status:result.status,profiles_attempted:officialProfiles,
   verified_horse_profile_calls:result.readCount,old_result_requests:oldResultRequests,
   linked_prior_runs:result.linkedRunEvidence,store_written:result.storeWritten,
-  report_statuses:(result.horseReports??[]).map((r)=>r.status),
+  report_statuses:(result.horseReports??[]).map((r:{status:string})=>r.status),
   claim_started:false,prediction_saved:false,rank_changed:false
  }));
  if(result.status!=='STORED'||!stored||result.linkedRunEvidence<1)
@@ -80,11 +80,11 @@ Deno.test('NAR current Morioka4 REAL reader -> past race corners -> append-only 
  const copy=await lookupLocalCornerSnapshot({
   race,officialRunners:race.field_payload.runners,store,clock:()=>Date.now()
  });
- if(!copy||copy.linkedRunEvidence<1||copy.evidence.some((x)=>
+ if(!copy||copy.linkedRunEvidence<1||copy.evidence.some((x:{horseNo:number;source:string})=>
   ![1,2].includes(x.horseNo)||x.source!=='NAR_OFFICIAL_PAST_RACE_RESULT'))
   throw Error('SAFE_READBACK_NOT_VERIFIED');
  console.log(JSON.stringify({status:'REAL_PAST_OFFICIAL_CORNER_READBACK_OK',
   linked_runs:copy.linkedRunEvidence,
-  current_horse_nos:[...new Set(copy.evidence.map((x)=>x.horseNo))],
+  current_horse_nos:[...new Set(copy.evidence.map((x:{horseNo:number})=>x.horseNo))],
   claim_started:false,prediction_saved:false,market_used:false}));
 });
