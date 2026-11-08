@@ -50,10 +50,8 @@ jobs:
       # Retired from every push to avoid repeated public JRA fetches.
       # JRA missing race_no real source proof: CI 42438790605, verified 9 splits.
       # Retired from every push to avoid unnecessary official site requests.
-      - name: One-off read-only official NAR Morioka5 11-horse actual corners evidence
-        continue-on-error: true
-        timeout-minutes: 2
-        run: deno test --allow-env --allow-net=www.keiba.go.jp,qjlvsndiqjfsfjinilig.supabase.co research/nar-morioka5-today-real-corners.test.ts
+      # Morioka5 official 11/11 horse and 20 prior-corner source proof:
+      # Successful one-time CI run 42441394579; no repeated public NAR calls.
       - name: Probe completed NAR official archive (non-blocking external reachability check)
         continue-on-error: true
         timeout-minutes: 1
