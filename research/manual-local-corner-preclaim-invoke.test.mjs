@@ -22,12 +22,16 @@ test('explicit authorized service call is one-race preclaim only; omits secret a
   assert.equal(opts.headers.authorization,'Bearer '+key);
   return {ok:true,url,
    json:async()=>({ok:true,status:'STORED',read_count:2,
-    linked_prior_runs:3,stored:true,claim_started:false,prediction_saved:false})};
+    linked_prior_runs:3,stored:true,verified_profile_horses:2,
+    verified_prior_witnesses:6,unavailable_or_empty_profiles:8,
+    claim_started:false,prediction_saved:false})};
  }});
  assert.equal(invoked,1);
  assert.deepEqual(result,{
   status:'STORED',request_started:true,claim_started:false,
-  prediction_saved:false,stored:true,read_count:2,linked_prior_runs:3
+  prediction_saved:false,stored:true,read_count:2,linked_prior_runs:3,
+  verified_profile_horses:2,verified_prior_witnesses:6,
+  unavailable_or_empty_profiles:8
  });
  assert.equal(JSON.stringify(result).includes(key),false);
 });
