@@ -5,6 +5,7 @@
  * race's results. A failure is diagnostic; it must not change normal FROZEN.
  */
 import {createNarOfficialReader} from '../automation/nar-official-data.mjs';
+type OfficialRunner = {horse_no:number;horse_name:string;status:string;horse_link_evidence?:{horse_ref:string};identity_refs?:string[]};
 const race={
  race_date:'2026-11-08',track:'盛岡',race_no:4,circuit:'LOCAL',
  post_time:'2026-11-08T13:30:00+09:00',prediction_status:'PENDING'
@@ -29,11 +30,11 @@ Deno.test('LIVE READ ONLY: NAR Morioka4 official current horse links and past-ru
   if(card.source!=='NAR_OFFICIAL_DEBA'||card.runners.length!==expected.length)
    throw Error('LIVE_CURRENT_OFFICIAL_ROSTER_UNVERIFIED');
   for(const [no,name] of expected){
-   const x=card.runners.find((h)=>h.horse_no===no);
+   const x=card.runners.find((h:OfficialRunner)=>h.horse_no===no);
    if(!x||x.horse_name!==name||x.status!=='ACTIVE')
     throw Error('LIVE_OFFICIAL_ROSTER_IDENTITY_MISMATCH_'+no);
   }
-  const identities=card.runners.filter((h)=>
+  const identities=card.runners.filter((h:OfficialRunner)=>
    h.horse_link_evidence?.horse_ref&&
    h.identity_refs?.includes(h.horse_link_evidence.horse_ref));
   if(identities.length<1)throw Error('NO_OFFICIAL_DOM_OWNED_HORSE_REFERENCE');
