@@ -64,6 +64,7 @@ export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=n
     status:shadow.status,applied_prior_runs:shadow.applied_prior_runs,
     ignored_prior_runs:shadow.ignored_prior_runs,
     inserted_corner_fields:shadow.inserted_corner_fields,
+    verified_corner_sources:shadow.verified_corner_sources,
     field_pace_evidence:shadow.field_pace_evidence,
     use_for_rank:false,use_for_save_gate:false
    };

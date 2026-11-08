@@ -22,3 +22,11 @@ test('v15 has only optional shadow observations without modifying core score or 
  assert.ok(v15.includes("true_cause_status:'NOT_PROVEN'"));
  assert.ok(!/lab_save_claimed_prediction|lab_queue_claim_next|cron\.schedule|official_predictions|update\('official_races'/i.test(v15));
 });
+
+test('both research handlers hand off source links only as descriptive corner shadow',()=>{
+ for(const source of [v14,v15]){
+  assert.ok(source.includes('verified_corner_sources:shadow.verified_corner_sources'));
+  assert.ok(source.includes('use_for_rank:false,use_for_save_gate:false'));
+  assert.ok(source.includes('preclaimCornerPacket=await Promise.race'));
+ }
+});

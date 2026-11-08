@@ -36,6 +36,14 @@ test('same verified pre-CLAIM corners enter shadow field pace without changing c
  assert.equal(x.applied_prior_runs,2);
  assert.equal(x.inserted_corner_fields,4);
  assert.equal(x.field_pace_evidence.runners[0].repeated_front_evidence,true);
+ assert.equal(x.verified_corner_sources.length,2);
+ assert.deepEqual(x.verified_corner_sources.map(s=>s.past_race.race_no),[5,3]);
+ assert.equal(x.verified_corner_sources[0].official_source_ref,
+  officialNarPastResultUrl({raceDate:'2026-11-07',track:'佐賀',raceNo:5}));
+ assert.equal(x.verified_corner_sources[0].current_horse_no,1);
+ assert.equal(x.verified_corner_sources[0].past_horse_no,6);
+ assert.equal(x.verified_corner_sources[0].source_checked_at,'2026-11-08T07:55:00+09:00');
+ assert.equal(x.verified_corner_sources[0].rank_effect,'NONE_UNTIL_REVIEWED');
  assert.deepEqual(compact,original);assert.deepEqual(unredacted,witness);
  assert.equal(x.use_for_rank,false);assert.equal(x.use_for_save_gate,false);
  assert.equal(JSON.stringify(x).includes('claim_token'),false);
@@ -44,6 +52,8 @@ test('unmatched confirmed horse identity never creates new historical facts',()=
  const copy=structuredClone(unredacted);copy[0].recent_runs[0].horse_no=11;
  const x=make({verifiedRunners:copy});
  assert.equal(x.applied_prior_runs,1);
+ assert.equal(x.verified_corner_sources.length,1);
+ assert.equal(x.verified_corner_sources[0].past_race.race_no,3);
  assert.equal(x.runners[0].recent_runs[0].early_pos,null);
  assert.equal(x.field_pace_evidence.runners[0].repeated_front_evidence,false);
 });
@@ -58,4 +68,13 @@ test('core position mismatch fails closed and never rewrites core values',()=>{
  const copy=structuredClone(compact);copy[0].recent_runs[0].early_pos=9;
  assert.throws(()=>make({compactRunners:copy}),/CORE_POSITION_MISMATCH/);
  assert.equal(copy[0].recent_runs[0].early_pos,9);
+});
+
+test('future-checked official page never becomes a cited witness',()=>{
+ const copy=structuredClone(packet);
+ copy.evidence[0].sourceCheckedAt='2026-11-08T09:31:00+09:00';
+ const x=make({cornerPacket:copy});
+ assert.equal(x.applied_prior_runs,1);
+ assert.equal(x.verified_corner_sources.length,1);
+ assert.equal(x.verified_corner_sources[0].past_race.race_no,3);
 });

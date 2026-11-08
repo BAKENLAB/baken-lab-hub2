@@ -49,13 +49,36 @@ export function buildLocalClaimedCornerShadow({
  }
  const pace=buildLocalFieldPaceEvidence(shadowRunners,conditions);
  for(const item of enriched.reports)audits.push(item);
+ // Only the adapter-confirmed past results become cited witnesses. Rejected,
+ // conflicting, stale and already-covered rows never receive source provenance.
+ const acceptedKeys=new Set(enriched.reports
+  .filter(r=>r.reason==='OFFICIAL_CORNERS_ADDED')
+  .map(r=>[r.horseNo,r.pastRace?.raceDate,r.pastRace?.track,Number(r.pastRace?.raceNo)].join('/')));
+ const verifiedCornerSources=(Array.isArray(cornerPacket?.evidence)?cornerPacket.evidence:[])
+  .filter(e=>acceptedKeys.has([e.horseNo,e.pastRace?.raceDate,e.pastRace?.track,Number(e.pastRace?.raceNo)].join('/')))
+  .map(e=>({
+   current_horse_no:e.horseNo,horse_name:norm(e.horseName),
+   past_race:{race_date:e.pastRace.raceDate,track:e.pastRace.track,
+    race_no:Number(e.pastRace.raceNo)},past_horse_no:e.pastHorseNo,
+   early_pos:e.earlyPos,final_turn_pos:e.finalTurnPos,
+   official_source_ref:e.sourceRef,source_checked_at:e.sourceCheckedAt,
+   identity_verified_by:e.identityVerifiedBy,
+   verification_scope:'PRECLAIM_OFFICIAL_PAST_RESULT',
+   rank_effect:'NONE_UNTIL_REVIEWED'
+  }))
+  .sort((a,b)=>a.current_horse_no-b.current_horse_no||
+   b.past_race.race_date.localeCompare(a.past_race.race_date)||
+   a.past_race.race_no-b.past_race.race_no);
+ if(acceptedKeys.size!==enriched.applied||verifiedCornerSources.length!==enriched.applied)
+  throw new TypeError('CORNER_SOURCE_PROVENANCE_MISMATCH');
  return {
   status:enriched.status,source:'NAR_OFFICIAL_PRECLAIM_CORNERS',
   use_for_rank:false,use_for_save_gate:false,market_used:false,
   race:{race_date:targetRace.raceDate,track:targetRace.track,
    race_no:Number(targetRace.raceNo)},
   applied_prior_runs:enriched.applied,ignored_prior_runs:enriched.ignored,
-  inserted_corner_fields:inserted,field_pace_evidence:pace,
+  inserted_corner_fields:inserted,verified_corner_sources:verifiedCornerSources,
+  field_pace_evidence:pace,
   runners:shadowRunners,reports:audits
  };
 }
