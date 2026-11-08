@@ -58,5 +58,6 @@
     async function load(){try{const data=await api({action:'lab_next'});const rows=Array.isArray(data.items)?data.items:[];const jra=rows.filter(x=>x.circuit==='JRA'),local=rows.filter(x=>x.circuit==='LOCAL'),unrated=rows.filter(x=>String(x.next_rank)==='UNRATED').length;$('#totalCount').textContent=rows.length+'頭';$('#unratedCount').textContent=String(unrated);$('#jraCount').textContent=jra.length+'頭';$('#localCount').textContent=local.length+'頭';$('#jraTrack').innerHTML=jra.length?jra.map(card).join(''):'<div class="empty">JRAの追跡馬を準備中です。</div>';$('#localTrack').innerHTML=local.length?local.map(card).join(''):'<div class="empty">地方の追跡馬を準備中です。</div>'}catch(e){$('#jraTrack').innerHTML='<div class="empty">LAB NEXTを読み込めませんでした。</div>';$('#localTrack').innerHTML='<div class="empty">LAB NEXTを読み込めませんでした。</div>'}}
     load();setInterval(load,300000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)load()});
   </script>
+  <script defer src="/track.js"></script>
 </body>
 </html>
