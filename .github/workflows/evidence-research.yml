@@ -56,10 +56,9 @@ jobs:
         continue-on-error: true
         timeout-minutes: 2
         run: deno test --allow-env --allow-net=www.keiba.go.jp,qjlvsndiqjfsfjinilig.supabase.co research/nar-morioka6-2yo-today-real-corners.test.ts
-      - name: One-off official JRA shared past Niigata turf1800 for today's Fukushima9
-        continue-on-error: true
-        timeout-minutes: 1
-        run: deno test --allow-net=www.jra.go.jp research/jra-fukushima9-common-niigata-race-live.test.ts
+      # Shared past Niigata turf1800 JRA real-lap proof completed:
+      # successful CI run 42444805031, 9 splits and result race identity.
+      # Retired from every push to avoid repeated source fetches.
       - name: Probe completed NAR official archive (non-blocking external reachability check)
         continue-on-error: true
         timeout-minutes: 1
