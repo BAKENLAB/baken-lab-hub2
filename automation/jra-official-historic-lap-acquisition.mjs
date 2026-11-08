@@ -8,6 +8,7 @@
  * claims, ranks or freezes a race. Intended for a pre-CLAIM worker only.
  */
 import {parseJraOfficialHistoricLaps} from './jra-official-historic-race-laps.mjs';
+import {deriveVerifiedJraPriorRaceNo} from './jra-official-prior-raceno.mjs';
 const invalidUrl=ref=>{
  try{
   if(typeof ref!=='string'||!ref.startsWith('/JRADB/accessS.html?CNAME='))
@@ -23,7 +24,7 @@ const invalidUrl=ref=>{
 /**
  * @param {{
  *  targetRace:{raceDate:string,postTime:string},
- *  priorRace:{raceDate:string,track:string,raceNo:number,distance:number,surface:string,sourceRef:string},
+ *  priorRace:{raceDate:string,track:string,raceNo?:number,distance:number,surface:string,sourceRef:string},
  *  fetchImpl:(url:string,options:RequestInit)=>Promise<Response>,
  *  extractText:(html:string)=>string|Promise<string>,
  *  clock?:()=>number,timeoutMs?:number,reserveMs?:number
@@ -31,7 +32,7 @@ const invalidUrl=ref=>{
  * @returns {Promise<{
  *  status:string,verified:boolean,claim_started:boolean,prediction_saved:boolean,
  *  lap_seconds?:number[],first_600m_seconds?:number|null,last_600m_seconds?:number|null,
- *  pace_classification?:string
+ *  pace_classification?:string,race_no?:number
  * }>}
  */
 export async function acquireVerifiedJraHistoricLaps({
@@ -69,8 +70,20 @@ export async function acquireVerifiedJraHistoricLaps({
    return fail('OFFICIAL_RESULT_TEXT_UNVERIFIED');
   const received=clock();
   if(received+reserveMs>=post)return fail('POST_OR_CLAIM_BUFFER_EXCEEDED');
+  let verifiedPriorRace=priorRace;
+  if(!Number.isInteger(priorRace.raceNo)){
+   const identity=deriveVerifiedJraPriorRaceNo({
+    targetRaceDate:targetRace.raceDate,targetPostTime:targetRace.postTime,
+    priorRaceDate:priorRace.raceDate,track:priorRace.track,surface:priorRace.surface,
+    sourceRef:priorRace.sourceRef,officialUrl:url,bodyText:text,
+    sourceCheckedAt:new Date(received).toISOString(),
+    verifiedOfficialResponse:true,clock:()=>received
+   });
+   if(!identity.verified)return fail(identity.status);
+   verifiedPriorRace={...priorRace,raceNo:identity.race_no};
+  }
   const parsed=parseJraOfficialHistoricLaps({
-   targetRace,priorRace,
+   targetRace,priorRace:verifiedPriorRace,
    source:{url,checkedAt:new Date(received).toISOString(),
     bodyText:text,verifiedOfficialResponse:true},
    clock:()=>received
