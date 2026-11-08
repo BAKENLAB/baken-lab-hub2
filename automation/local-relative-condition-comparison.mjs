@@ -48,6 +48,7 @@ export function buildLocalRelativeConditionComparison(runners,conditions={},targ
     class_comparison:'NOT_ESTABLISHED_FROM_THIS_SIGNAL',
     supporting_runs:similar.map(h=>({
       race_date:h.race_date,track:h.track,race_name:h.race_name,
+      class:h.race_class??h.class_name??h.race_name??null,
       surface:h.surface,distance:h.distance,finish:h.finish,
       margin:h.margin,early_pos:h.early_pos,final_turn_pos:h.final_turn_pos
     })),
