@@ -30,6 +30,12 @@ jobs:
           deno-version: v2.x
       - name: Verify NAR official result HTML extraction (Deno/Cheerio)
         run: deno test --allow-env research/nar-prior-corners-dom.test.ts
+      - name: Typecheck the fully bundled dormant LOCAL preclaim Edge runtime
+        run: |
+          mkdir -p .edge-preclaim-ci
+          cp research/staged-local-preclaim-edge-index.ts .edge-preclaim-ci/index.ts
+          cp -R automation .edge-preclaim-ci/automation
+          deno check .edge-preclaim-ci/index.ts
       - name: Probe completed NAR official archive (non-blocking external reachability check)
         continue-on-error: true
         timeout-minutes: 1
