@@ -124,3 +124,27 @@ test('stale official card fails independent freshness check',async()=>{
  assert.equal((await x.run()).status,'OFFICIAL_FIELD_MISMATCH');
  assert.equal(x.calls.writes,0);
 });
+
+test('history response with zero verified runs is not labelled VERIFIED',async()=>{
+ const x=make({officialReader:{
+  readRace:async()=>snapshot,
+  readHistory:async()=>[]
+ }});
+ const out=await x.run();
+ assert.equal(out.status,'REJECTED_UNVERIFIED_EVIDENCE');
+ assert.equal(out.horseReports[0].status,'NO_VERIFIED_PRIOR_RUNS');
+ assert.equal(out.coverage.active_horses,1);
+ assert.equal(out.coverage.successful_history_responses,1);
+ assert.equal(out.coverage.horses_with_verified_history,0);
+ assert.equal(out.coverage.verified_prior_run_witnesses,0);
+ assert.equal(out.coverage.unavailable_or_empty_history,1);
+ assert.equal(x.calls.writes,0);
+});
+test('saved official profile witness returns truthful verified coverage',async()=>{
+ const x=make(),out=await x.run();
+ assert.equal(out.status,'STORED');
+ assert.equal(out.coverage.active_horses,1);
+ assert.equal(out.coverage.horses_with_verified_history,1);
+ assert.equal(out.coverage.verified_prior_run_witnesses,1);
+ assert.equal(out.coverage.missing_official_horse_links,0);
+});
