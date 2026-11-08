@@ -10,7 +10,13 @@ const ids=Object.freeze({
 });
 const okText=x=>typeof x==='string'&&x.length>0&&x.length<=160;
 const iso=x=>typeof x==='string'&&Number.isFinite(Date.parse(x));
-export function createLocalCornerServiceRpcStore({client,timeoutMs=180}={}){
+/**
+ * Deno TypeScript checks this JavaScript export as an external Edge dependency.
+ * Require an explicit server-side client in the public factory type, rather than
+ * letting JS inference erase the required client property.
+ * @param {{client: {rpc: (name:string, args: Record<string, unknown>)=>any}, timeoutMs?:number}} options
+ */
+export function createLocalCornerServiceRpcStore({client,timeoutMs=180}){
  if(typeof client?.rpc!=='function'||!Number.isInteger(timeoutMs)||
     timeoutMs<1||timeoutMs>2000)throw new TypeError('SERVER_RPC_CLIENT_REQUIRED');
  const call=async (name,args)=>{
