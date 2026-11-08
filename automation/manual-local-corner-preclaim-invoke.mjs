@@ -60,7 +60,16 @@ export async function runManualLocalCornerPreclaim({
    status:body.status,request_started:true,claim_started:false,
    prediction_saved:false,stored:body.stored===true,
    read_count:Number.isInteger(body.read_count)?body.read_count:0,
-   linked_prior_runs:Number.isInteger(body.linked_prior_runs)?body.linked_prior_runs:0
+   linked_prior_runs:Number.isInteger(body.linked_prior_runs)?body.linked_prior_runs:0,
+   verified_profile_horses:Number.isInteger(body.verified_profile_horses)&&
+    body.verified_profile_horses>=0&&body.verified_profile_horses<=20?
+    body.verified_profile_horses:0,
+   verified_prior_witnesses:Number.isInteger(body.verified_prior_witnesses)&&
+    body.verified_prior_witnesses>=0&&body.verified_prior_witnesses<=200?
+    body.verified_prior_witnesses:0,
+   unavailable_or_empty_profiles:Number.isInteger(body.unavailable_or_empty_profiles)&&
+    body.unavailable_or_empty_profiles>=0&&body.unavailable_or_empty_profiles<=20?
+    body.unavailable_or_empty_profiles:0
   };
  }catch{
   return {status:'BACKEND_TIMEOUT_OR_TRANSPORT_ERROR',request_started:Boolean(response),
