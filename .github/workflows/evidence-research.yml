@@ -39,6 +39,10 @@ jobs:
       # The three one-day current-race NAR canaries already passed on 2026-11-08.
       # Retired from each push to avoid repeatedly hitting public official servers.
       # Test source and immutable successful CI logs remain available for audit.
+      - name: One-off official JRA prior Kyoto4 historical laps diagnostic
+        continue-on-error: true
+        timeout-minutes: 1
+        run: deno test --allow-net=www.jra.go.jp research/jra-kyoto4-historical-laps-live.test.ts
       - name: Probe completed NAR official archive (non-blocking external reachability check)
         continue-on-error: true
         timeout-minutes: 1
