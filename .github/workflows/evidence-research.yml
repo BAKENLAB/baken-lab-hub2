@@ -40,6 +40,10 @@ jobs:
         continue-on-error: true
         timeout-minutes: 1
         run: deno test --allow-env --allow-net=www.keiba.go.jp,qjlvsndiqjfsfjinilig.supabase.co research/nar-morioka4-current-live-smoke.test.ts
+      - name: One-day REAL NAR current-to-past-corners-to-in-memory-snapshot smoke
+        continue-on-error: true
+        timeout-minutes: 2
+        run: deno test --allow-env --allow-net=www.keiba.go.jp,qjlvsndiqjfsfjinilig.supabase.co research/nar-morioka4-actual-corner-chain-smoke.test.ts
       - name: Probe completed NAR official archive (non-blocking external reachability check)
         continue-on-error: true
         timeout-minutes: 1
