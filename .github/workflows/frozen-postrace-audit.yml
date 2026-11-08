@@ -5,11 +5,11 @@ on:
     branches:
       - research/20261108-frozen-grade-eye-audit
     paths:
-      - 'research/frozen-postrace-calibration*.mjs'
+      - 'research/frozen-*.mjs'
       - '.github/workflows/frozen-postrace-audit.yml'
   pull_request:
     paths:
-      - 'research/frozen-postrace-calibration*.mjs'
+      - 'research/frozen-*.mjs'
       - '.github/workflows/frozen-postrace-audit.yml'
 
 permissions:
@@ -25,4 +25,4 @@ jobs:
         with:
           node-version: '22'
       - name: Validate immutable postrace audit
-        run: node --test research/frozen-postrace-calibration.test.mjs
+        run: node --test research/frozen-postrace-calibration.test.mjs research/frozen-eye-boundary-study.test.mjs
