@@ -54,8 +54,12 @@ export function planJraOfficialCardAcquisition({
    status='INVALID_RACE_METADATA';
   else if(frozen.has(k)||full?.prediction_status==='DONE'||full?.prediction_status==='FROZEN')
    status='PREVIOUS_FROZEN';
-  else if(full&&['READY','BASIC_READY'].includes(full.field_status))
-   status='ALREADY_OFFICIAL_READY';
+  else if(full&&['READY','BASIC_READY'].includes(full.field_status)){
+   const proof=full.field_payload?.official_status_verification;
+   status=full.source==='JRA_OFFICIAL_VERIFIED_GATE_V1'&&
+     proof?.html_sha256&&/^[a-f0-9]{64}$/.test(proof.html_sha256)
+    ?'ALREADY_OFFICIAL_READY':'EXISTING_OFFICIAL_ROW_UNVERIFIED';
+  }
   else if(r.race_type!=='平地'||!['芝','ダート'].includes(r.surface))
    status='EXCLUDED_NOT_FLAT';
   else if(post<=clock()+reserveMs)status='TOO_LATE_FOR_SAFE_VERIFICATION';
