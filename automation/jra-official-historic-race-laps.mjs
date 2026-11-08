@@ -55,7 +55,7 @@ export function parseJraOfficialHistoricLaps({targetRace,priorRace,source,clock=
   return absent('UNVERIFIED_RESULT_SOURCE');
  const body=source.bodyText.normalize('NFKC');
  const japaneseDate=dateInJapanese(priorRace.raceDate);
- const rx=new RegExp('(?:^|[^0-9])0?'+priorRace.raceNo+'\\s*R(?=[^0-9]|$)|第\\s*0?'+priorRace.raceNo+'競走','i');
+ const rx=new RegExp('(?:^|[^0-9])0?'+priorRace.raceNo+'\\s*(?:R|レース)(?=[^0-9]|$)|第\\s*0?'+priorRace.raceNo+'競走','i');
  if(!japaneseDate.test(body)||!body.includes(priorRace.track)||!rx.test(body)||
     !body.includes('ハロンタイム'))
   return absent('OFFICIAL_RACE_IDENTITY_MISMATCH');
