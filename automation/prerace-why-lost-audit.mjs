@@ -48,7 +48,7 @@ const byRun=(run,target)=>{
  const unit=v(run,'lapSegmentMeters','lap_segment_meters');
  const verified=v(run,'lapSourceVerified','lap_source_verified')===true;
  const officialLapUrl=typeof officialLapRef==='string'&&
-  /^https:\/\/(?:www\\.jra\\.go\\.jp|www\\.keiba\\.go\\.jp)\//.test(officialLapRef);
+  /^https:\/\/(?:www\.jra\.go\.jp|www\.keiba\.go\.jp)\//.test(officialLapRef);
  let lapEvidence={status:'LAPS_UNAVAILABLE',first_600m:null,last_600m:null,
   pace_classification:'UNDETERMINED',comparability:'NO_BASELINE'};
  if(Array.isArray(laps)) {
