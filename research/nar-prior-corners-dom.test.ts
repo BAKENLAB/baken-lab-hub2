@@ -1,6 +1,9 @@
 import {extractNarPriorCornerHtml} from '../automation/nar-prior-corners-official-source.mjs';
 import {buildVerifiedPriorCornerEvidence} from '../automation/nar-prior-corners.mjs';
 import {prepareLocalOfficialCornerPacket} from '../automation/nar-official-corner-acquisition.mjs';
+import {runAuthorizedLocalCornerPreclaim} from '../automation/local-official-preclaim-workflow.mjs';
+import {lookupLocalCornerSnapshot} from '../automation/local-corner-snapshot-handoff.mjs';
+import {buildLocalClaimedCornerShadow} from '../automation/local-claimed-corner-shadow.mjs';
 
 const html = [
  '<!DOCTYPE html><html><body>',
@@ -79,4 +82,74 @@ Deno.test('full read-only preclaim chain: prior official HTML -> exact horse num
  check(result.evidence.find((e)=>e.horseNo===2)?.finalTurnPos,1,'Original 11 final');
  check(result.claimStarted,false,'No CLAIM');
  check(result.saveAuthorized,false,'No SAVE');
+});
+
+Deno.test('FULL SHADOW PIPELINE: official card and past-horse witness -> real HTML parser -> snapshot -> claimed pace',async()=>{
+ const postTime='2026-11-08T09:00:00+09:00';
+ const clock=()=>Date.parse('2026-11-08T07:00:00+09:00');
+ const race={
+  circuit:'LOCAL',race_date:'2026-11-08',track:'佐賀',race_no:7,
+  post_time:postTime,prediction_status:'PENDING',
+  field_payload:{runners:[{horse_no:1,horse_name:'架空馬6',status:'ACTIVE'}]}
+ };
+ const url=new URL('https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable');
+ url.searchParams.set('k_babaCode','32');
+ url.searchParams.set('k_raceDate','2026/11/08');
+ url.searchParams.set('k_raceNo','7');
+ const horseRef='https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=123456';
+ const current={
+  horse_no:1,horse_name:'架空馬6',status:'ACTIVE',
+  identity_refs:[horseRef],horse_link_evidence:{horse_no:1,horse_ref:horseRef}
+ };
+ const history={
+  race_date:'2026-11-07',track:'佐賀',race_no:5,horse_no:6,
+  horse_name:'架空馬6',horse_ref:horseRef,source:'NAR_OFFICIAL_RESCUE'
+ };
+ const source={
+  source:'NAR_OFFICIAL_DEBA',source_ref:url.href,
+  circuit:'LOCAL',race_date:race.race_date,track:race.track,race_no:race.race_no,
+  fetched_at:'2026-11-08T06:59:50+09:00',
+  runners:[current]
+ };
+ let http=0,stored=null;
+ const store={
+  async insertIfAbsent(row){stored={...structuredClone(row),captured_at:row.as_of};return {inserted:true};},
+  async findLatest(){return stored;}
+ };
+ const result=await runAuthorizedLocalCornerPreclaim({
+  race,clock,store,assertAuthorized:async()=>{},
+  officialReader:{
+   readRace:async()=>source,
+   readHistory:async()=>[history]
+  },
+  prepareCorners:(input)=>prepareLocalOfficialCornerPacket({
+   ...input,fetchImpl:async()=>{http++;return new Response(html,{status:200,headers:{'content-type':'text/html'}});}
+  })
+ });
+ check(result.status,'STORED','NAR archived DOM to append-only store');
+ check(result.linkedRunEvidence,1,'Linked one official prior run');
+ check(http,1,'Only one official archived result downloaded');
+ const cornerPacket=await lookupLocalCornerSnapshot({
+  race,officialRunners:[{horse_no:1,horse_name:'架空馬6'}],
+  store,clock:()=>clock()+1000
+ });
+ check(cornerPacket?.evidence.length,1,'Safe claim-side read');
+ const compact=[{horse_no:1,horse_name:'架空馬6',recent_runs:[
+  {race_date:'2026-11-07',track:'佐賀',race_no:5,
+   surface:'ダート',distance:1300,early_pos:null,final_turn_pos:null}
+ ]}];
+ const rich=[{...current,recent_runs:[{...history,
+  identity_verified_by:'OFFICIAL_HORSE_REF',early_pos:null,final_turn_pos:null}]}];
+ const shadow=buildLocalClaimedCornerShadow({
+  targetRace:{raceDate:race.race_date,track:race.track,raceNo:race.race_no,
+    postTime:race.post_time},
+  verifiedRunners:rich,compactRunners:compact,cornerPacket,
+  conditions:{surface:'ダート',distance:1300},clock:()=>clock()+1000
+ });
+ check(shadow.applied_prior_runs,1,'One verified prior run enriched');
+ check(shadow.runners[0].recent_runs[0].early_pos,1,'First position fed to field pace');
+ check(shadow.runners[0].recent_runs[0].final_turn_pos,10,'Final position fed to field pace');
+ check(compact[0].recent_runs[0].early_pos,null,'Original production input unchanged');
+ check(shadow.use_for_rank,false,'Still no ranking changes');
+ check(shadow.use_for_save_gate,false,'Still no saving gate changes');
 });
