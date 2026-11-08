@@ -9,6 +9,8 @@
  *
  * A single, conservatively evidenced boundary exchange is possible; stronger
  * existing TOP5 horses remain protected. No automatic sixth-rank promotion.
+ * v0.2 expands deep review into a strict eligible 9+ rank proposal only when
+ * there are multiple distinct, fresh, same-class proofs and incumbent downside.
  */
 const key = x => String(x ?? '').normalize('NFKC').replace(/\s+/g,'').trim();
 const date = x => typeof x==='string' && /^\d{4}-\d\d-\d\d$/.test(x) &&
@@ -19,7 +21,7 @@ const num = (x,lo,hi) => typeof x==='number'&&Number.isFinite(x)&&x>=lo&&x<=hi;
 const no = x => Number.isInteger(x)&&x>=1&&x<=24;
 const integer = (x,lo,hi)=>Number.isInteger(x)&&x>=lo&&x<=hi;
 const out = (status,extra={})=>({
-  status,model_version:'ABILITY_RELATIVE_V0_1',
+  status,model_version:'ABILITY_RELATIVE_V0_2',
   stage:'SHADOW_RANK_PROPOSAL_PRE_RACE',
   production_rank_effect:false,production_grade_effect:false,
   frozen_modified:false,market_used:false,target_result_used:false,
@@ -41,11 +43,15 @@ function level(x) {
 function summarizeEvidence(row,race) {
   const supporting=row.supporting_runs;
   const reasons=[];
-  let similar=0,good=0,poor=0,sameClass=0,sameClassGood=0,front=0;
+  let similar=0,good=0,poor=0,sameClass=0,sameClassGood=0,front=0,wins=0,recentGood=0;
+  const seenPast=new Set();
   const targetClass=level(race.class_name);
   for(const h of supporting){
     const d=h.date??h.race_date;
     if(!date(d)||d>=race.race_date)return null;
+    const pastKey=[d,h.track??'',h.surface??'',h.distance??''].join('|');
+    if(seenPast.has(pastKey))continue;
+    seenPast.add(pastKey);
     const surface=h.surface??null, distance=Number(h.distance);
     if(surface!==race.surface||!integer(distance,800,3600)||
       Math.abs(distance-race.distance)>200)continue;
@@ -53,10 +59,17 @@ function summarizeEvidence(row,race) {
     const cls=level(h.class??h.race_class??h.class_name??null);
     const f=h.finish, margin=h.margin;
     const close=integer(f,1,24)&&(f===1||(f<=3&&num(margin,0,0.5)));
-    const aClass=!!targetClass&&!!cls&&cls===targetClass;
+    // Do not silently equate LOCAL class C3 across independent districts.
+    const aClass=!!targetClass&&!!cls&&cls===targetClass &&
+      (race.circuit!=='LOCAL'||(key(race.track)&&key(h.track)===key(race.track)));
     if(aClass)sameClass++;
     if(close)good++;
-    if(close&&aClass)sameClassGood++;
+    if(close&&aClass){
+      sameClassGood++;
+      if(f===1)wins++;
+      const age=(Date.parse(race.race_date+'T00:00:00Z')-Date.parse(d+'T00:00:00Z'))/86400000;
+      if(age>=0&&age<=180)recentGood++;
+    }
     if(integer(f,8,24)&&num(margin,1.5,30)&&aClass)poor++;
     if(aClass&&integer(h.early_pos,1,3))front++;
     if(aClass&&close)reasons.push({date:d,type:'MATCHED_CLASS_CLOSE',finish:f,source_class:cls});
@@ -66,6 +79,7 @@ function summarizeEvidence(row,race) {
   return {horse_no:row.horse_no,horse_name:row.horse_name,
     comparable_runs:similar,close_runs:good,
     same_class_runs:sameClass,same_class_close_runs:sameClassGood,
+    same_class_wins:wins,same_class_recent_close_runs:recentGood,
     same_class_decisive_defeats:poor,same_class_front_runs:front,
     target_class_status:targetClass??'UNKNOWN_CLASS_LEVEL',
     qualifying_proof:reasons,proof_count:reasons.length};
@@ -125,25 +139,46 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
   const selected=[];
   // Require two independently observed same-class close runs before promotion.
   // This is an explicit, falsifiable trial, NOT an assumed performance gain.
-  for(const challenger of original.slice(5,8)){
+  for(const challenger of original.slice(5)){
     const proof=reports.get(challenger.horse_no);
     if(proof.target_class_status==='UNKNOWN_CLASS_LEVEL')continue;
     if(proof.same_class_runs<2||proof.same_class_close_runs<2)continue;
     const better=proof.same_class_close_runs-inc.same_class_close_runs;
     const safer=inc.same_class_decisive_defeats-proof.same_class_decisive_defeats;
-    const challengerStrong=better>=2&&safer>=0||
-      better>=1&&safer>=1;
-    if(!challengerStrong)continue;
+    const deep=challenger.rank>=9;
+    // Never punish a fifth horse only for missing or sparse history.
+    // Deep rescue must beat BOTH strong prior proof and verified downside.
+    if(deep){
+      if(proof.same_class_close_runs<3||proof.same_class_wins<1||
+        proof.same_class_recent_close_runs<1||proof.same_class_decisive_defeats>0||
+        inc.same_class_runs<2||inc.same_class_decisive_defeats<1||
+        better<2||safer<1)continue;
+    } else {
+      const challengerStrong=better>=2&&safer>=0||
+        better>=1&&safer>=1;
+      if(!challengerStrong)continue;
+    }
     // Protect a good incumbent: no swap unless challenger is decisively stronger.
     if(inc.same_class_close_runs>=2&&inc.same_class_decisive_defeats===0)continue;
     selected.push({horse_no:challenger.horse_no,old_rank:challenger.rank,
       close_delta:better,defeat_delta:safer,
       challenger_positive:proof.qualifying_proof,
       incumbent_positive:inc.qualifying_proof,
-      independent_condition_proof:proof.same_class_close_runs});
+      independent_condition_proof:proof.same_class_close_runs,
+      depth:deep?'RANK9_PLUS_STRICT':'RANK6_8',
+      historical_wins:proof.same_class_wins,
+      recent_close_proof:proof.same_class_recent_close_runs,
+      incumbent_known_runs:inc.same_class_runs,
+      protected_top5:original.slice(0,5).map(h=>{
+        const v=reports.get(h.horse_no);
+        return {horse_no:h.horse_no,rank:h.rank,
+          same_class_close_runs:v.same_class_close_runs,
+          same_class_decisive_defeats:v.same_class_decisive_defeats};
+      })});
   }
   selected.sort((a,b)=>b.close_delta-a.close_delta||
-    b.defeat_delta-a.defeat_delta||a.old_rank-b.old_rank);
+    b.defeat_delta-a.defeat_delta||
+    b.historical_wins-a.historical_wins||a.old_rank-b.old_rank);
   const deep_review_candidates=original.slice(8).map(h=>{
     const report=reports.get(h.horse_no);
     return {horse_no:h.horse_no,old_rank:h.rank,
@@ -152,6 +187,10 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
       status:report.same_class_close_runs>=2?'REVIEW_LEAD_NOT_PROMOTED':'NOT_QUALIFIED'};
   }).filter(x=>x.status==='REVIEW_LEAD_NOT_PROMOTED');
   const chosen=selected[0]??null;
+  for(const candidate of deep_review_candidates){
+    if(chosen?.horse_no===candidate.horse_no)
+      candidate.status='SHADOW_PROMOTED_NOT_PRODUCTION';
+  }
   if(chosen){
     ordered.splice(chosen.old_rank-1,1);
     ordered.splice(4,0,chosen.horse_no);
@@ -171,7 +210,7 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     deep_review_candidates,
     verified_field_count:baseline.length,
     proof_by_horse:original.map(h=>reports.get(h.horse_no)),
-    safety_policy:'NO_AUTOMATIC_RANK6_NO_RESULT_NO_MARKET_NO_MODEL_ADOPTION',
-    scoring_rule:'CLASS_AND_CONDITION_MATCHED_REPEATED_FORM_V0_1'
+    safety_policy:'PROTECT_BASELINE_NO_MISSINGNESS_PENALTY_NO_RESULT_NO_MARKET',
+    scoring_rule:'V0_2_STRICT_DISTINCT_MATCHED_CLASS_EVIDENCE_WITH_DEEP_RESCUE'
   });
 }
