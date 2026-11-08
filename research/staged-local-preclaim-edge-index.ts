@@ -16,7 +16,7 @@ if(!serviceKey||!supabaseUrl)throw new Error('SERVICE_CONFIGURATION_REQUIRED');
 const db=createClient(supabaseUrl,serviceKey,{auth:{persistSession:false,autoRefreshToken:false}});
 const store=createLocalCornerServiceRpcStore({client:db,timeoutMs:180});
 const trk=new Set(['盛岡','水沢','浦和','船橋','大井','川崎','金沢','笠松','名古屋','園田','姫路','高知','佐賀','門別']);
-const respond=(code,body)=>new Response(JSON.stringify(body),{status:code,
+const respond=(code: number,body: Record<string,unknown>)=>new Response(JSON.stringify(body),{status:code,
  headers:{'content-type':'application/json','cache-control':'no-store'}});
 Deno.serve(async req=>{
  if(req.method!=='POST')return respond(405,{ok:false,error:'POST_REQUIRED'});
