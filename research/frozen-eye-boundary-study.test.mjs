@@ -43,8 +43,8 @@ test('without EYE, never auto-promote rank 6',()=>{
  assert.equal(a.state,'NO_EYE_NOT_AUTO_RANK6');
  assert.equal(a.proposal,null);
  const s=auditMechanicalEyeSwapPairs([p]);
- assert.equal(s.cohorts['JRA|HOLDOUT_1108'].candidates,0);
- assert.equal(s.cohorts['JRA|HOLDOUT_1108'].eye_without_promotion,1);
+ assert.equal(s.cohorts['JRA|RECENT_1108'].candidates,0);
+ assert.equal(s.cohorts['JRA|RECENT_1108'].eye_without_promotion,1);
 });
 test('prerace builder rejects result leakage, late freeze, and horse mismatch',()=>{
  const p=fixture();
@@ -66,7 +66,7 @@ test('aggregate reports both the added EYE and displaced fifth, with duplicate r
  const a=fixture({actual:[6,9,15]});
  const b=fixture({track:'東京',race_no:10,actual:[9,4,14]});
  const x=auditMechanicalEyeSwapPairs([a,b,a]);
- const s=x.cohorts['JRA|HOLDOUT_1108'];
+ const s=x.cohorts['JRA|RECENT_1108'];
  assert.equal(s.races,2);assert.equal(s.candidates,2);
  assert.equal(s.podium_gain,2);assert.equal(s.podium_loss,1);
  assert.equal(s.winner_gain,1);assert.equal(s.winner_loss,1);
