@@ -34,9 +34,15 @@ function level(x) {
   const v=s.match(/([123])勝クラス/);
   if(v)return 'JRA_'+v[1];
   if(/(?:G|GⅠ|GⅡ|GⅢ|OP|オープン|重賞)/i.test(s))return 'JRA_OPEN';
-  // Within one LOCAL race field use only an explicitly matching class tier.
-  // Never assume equivalence across different LOCAL districts.
-  const local=s.match(/^([ABC])([123])(?:-|$)/);
+  // NAR class labels are usually Ｃ２四組, Ｃ３二３歳以上, Ｂ１, etc.
+  // NFKC converts the alphabet/digit but keeps the Kanji. "C1 3歳以上"
+  // becomes "C13歳以上" after whitespace removal, so that exact
+  // age-suffix sequence is explicitly permitted; arbitrary C13 is not.
+  // Three-year-old-only "３歳Ｃ２" is NOT adult C2.
+  if(/^[ABC][123][・/][ABC][123]/.test(s))return null;
+  const ageThree=s.match(/^3歳([ABC])([123])(?=$|[^0-9A-Za-z])/);
+  if(ageThree)return 'LOCAL_AGE3_'+ageThree[1]+ageThree[2];
+  const local=s.match(/^([ABC])([123])(?=$|[^0-9A-Za-z]|[23]歳以上)/);
   if(local)return 'LOCAL_'+local[1]+local[2];
   return null;
 }
@@ -186,6 +192,21 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
       same_class_decisive_defeats:report.same_class_decisive_defeats,
       status:report.same_class_close_runs>=2?'REVIEW_LEAD_NOT_PROMOTED':'NOT_QUALIFIED'};
   }).filter(x=>x.status==='REVIEW_LEAD_NOT_PROMOTED');
+
+  // Reporters' selections are NOT ordinary same-tier races. The special
+  // selection mechanism and past defeat contexts require a separate
+  // evidence policy; never force a standard-class TOP5 swap here.
+  if(race.circuit==='LOCAL' &&
+    /ファイナル|記者選抜/.test(key(race.race_name??'')+key(race.class_name))){
+    return out('SPECIAL_FINAL_REVIEW_ONLY',{
+      candidate_order:ordered,top5:ordered.slice(0,5),
+      baseline_top5:ordered.slice(0,5),rank_deltas:[],
+      candidate_count:selected.length,deep_review_candidates,
+      verified_field_count:baseline.length,
+      proof_by_horse:original.map(h=>reports.get(h.horse_no)),
+      special_handling:'FINAL_REQUIRES_OFFICIAL_CLASS_OPPONENT_AND_LOSS_CAUSE_EVIDENCE'
+    });
+  }
   const chosen=selected[0]??null;
   for(const candidate of deep_review_candidates){
     if(chosen?.horse_no===candidate.horse_no)
