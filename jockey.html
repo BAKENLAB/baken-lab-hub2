@@ -149,5 +149,6 @@ $('#localTab').addEventListener('click',()=>setCircuit('LOCAL'));$('#jraTab').ad
 $('#track').addEventListener('change',()=>{refill();load()});$('#surface').addEventListener('change',()=>{refill();load()});$('#distance').addEventListener('change',()=>{refill();load()});$('#going').addEventListener('change',load);$('#jockeyBtn').addEventListener('click',load);$('#jockeyName').addEventListener('keydown',e=>{if(e.key==='Enter')load()});$('#main').addEventListener('click',e=>{const b=e.target.closest('[data-jockey]');if(!b)return;$('#jockeyName').value=b.dataset.jockey||'';load()});
 loadOptions();if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 </script>
+  <script defer src="/track.js"></script>
 </body>
 </html>
