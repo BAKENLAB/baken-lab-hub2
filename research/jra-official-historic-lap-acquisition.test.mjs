@@ -63,3 +63,22 @@ test('race-identity mismatch in a fetched result cannot invent 200m split eviden
  const wrong=await run({extractText:async html=>html.replace('京都 第12競走','東京 第12競走')});
  assert.equal(wrong.status,'OFFICIAL_RACE_IDENTITY_MISMATCH');
 });
+
+test('JRA prior history with missing race_no derives it only from unique official result label',async()=>{
+ requests=[];
+ const x=await run({
+  priorRace:{...prior,raceNo:undefined},
+  extractText:async html=>html.replace('第12競走','12レース')
+ });
+ assert.equal(x.status,'OFFICIAL_RACE_LAPS_VERIFIED');
+ assert.equal(x.race_no,12);
+ assert.equal(x.first_600m_seconds,36.9);
+ assert.equal(requests.length,1);
+});
+test('JRA prior race_no missing with ambiguous official headers remains unavailable',async()=>{
+ const x=await run({
+  priorRace:{...prior,raceNo:undefined},
+  extractText:async html=>html.replace('第12競走','12レース 11レース')
+ });
+ assert.equal(x.status,'OFFICIAL_RACE_NUMBER_NOT_UNIQUE');
+});
