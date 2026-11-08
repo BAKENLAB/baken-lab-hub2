@@ -3,7 +3,7 @@
 -- Important: jra_live_races is merely a candidate source. Its runner counts do
 -- not constitute JRA_OFFICIAL_VERIFIED_GATE_V1 or BASIC_READY.
 WITH live AS(
- SELECT r.race_date,r.track,r.race_no,r.race_type,r.surface,
+ SELECT r.race_date,r.track,r.race_no,r.race_type,r.race_name,r.surface,
    r.post_time,r.field_size,r.source_checked_at,
    (substring(r.post_time from '([0-9]{1,2})時')::integer*60
      +substring(r.post_time from '([0-9]{2})分')::integer) AS post_minute,
@@ -27,6 +27,10 @@ rows AS(
       WHEN p.race_date IS NOT NULL THEN 'FROZEN_ALREADY'
       WHEN l.race_type='障害' OR l.surface NOT IN ('芝','ダート')
         THEN 'EXCLUDED_NOT_FLAT'
+      WHEN coalesce(l.race_name,'') LIKE '%メイクデビュー%'
+        OR coalesce(l.race_name,'') LIKE '%新馬%'
+        OR coalesce(o.field_payload->'race'->>'class_name','') LIKE '%新馬%'
+        THEN 'EXCLUDED_NEW_HORSE'
       WHEN o.field_status IN ('READY','BASIC_READY') AND
         o.source='JRA_OFFICIAL_VERIFIED_GATE_V1' AND
         o.field_payload#>>'{official_status_verification,html_sha256}' ~ '^[a-f0-9]{64}$'
