@@ -170,3 +170,48 @@ test('rank9 with recent close races but without a class-level win stays review-o
  assert.equal(r.proof_by_horse.find(e=>e.horse_no===9).same_class_wins,0);
  assert.equal(r.status,'UNCHANGED');
 });
+
+test('official fullwidth LOCAL class label Ｃ２四組 matches Ｃ２二組 at same track',()=>{
+ const x=fx();x.race.circuit='LOCAL';x.race.track='盛岡';x.race.class_name='Ｃ２四組';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)
+  for(const h of row.supporting_runs){h.class='Ｃ２二組';h.track='盛岡';}
+ const r=calculate(x);
+ assert.equal(r.status,'REORDERED');
+ assert.deepEqual(r.top5,[1,2,3,4,6]);
+});
+test('official 園田 Ｃ１ ３歳以上特別 and Ｃ１二３歳以上 can compare',()=>{
+ const x=fx();x.race.circuit='LOCAL';x.race.track='園田';x.race.class_name='Ｃ１ ３歳以上特別';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)
+  for(const h of row.supporting_runs){h.class='Ｃ１二３歳以上';h.track='園田';}
+ const r=calculate(x);
+ assert.equal(r.status,'REORDERED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,2);
+});
+test('3-year-old-only Ｃ２ never proves equivalent adult Ｃ２',()=>{
+ const x=fx();x.race.circuit='LOCAL';x.race.track='盛岡';x.race.class_name='Ｃ２四組';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)
+  for(const h of row.supporting_runs){h.class='３歳Ｃ２四組';h.track='盛岡';}
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
+});
+test('reporters Final does not auto swap even with class-matched historical evidence',()=>{
+ const x=fx();x.race.circuit='LOCAL';x.race.track='高知';
+ x.race.class_name='Ｃ３二';x.race.race_name='ファイナルレース 記者選抜';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)
+   for(const h of row.supporting_runs){h.class='Ｃ３二';h.track='高知';}
+ const before=structuredClone(x),r=calculate(x);
+ assert.equal(r.status,'SPECIAL_FINAL_REVIEW_ONLY');
+ assert.deepEqual(r.candidate_order,[1,2,3,4,5,6,7,8,9,10]);
+ assert.deepEqual(r.top5,[1,2,3,4,5]);
+ assert.equal(r.production_rank_effect,false);
+ assert.deepEqual(x,before);
+});
