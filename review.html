@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b0f"><title>LAB REVIEW｜BAKEN LAB</title><link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icon-192.png">
+<style>
+:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;--bg:#090b0f;--line:#303640;--panel:#11161d;--text:#f6f7f9;--muted:#a1aab6;--lime:#c8ff4d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}a{color:inherit;text-decoration:none}.shell{width:min(100%,760px);margin:auto;padding:22px 14px 50px}.top{display:flex;align-items:center;justify-content:space-between;font-size:11px;gap:10px}.brand{color:var(--lime);font-weight:900;letter-spacing:.13em}.back{color:var(--muted)}h1{font-size:30px;letter-spacing:-.06em;margin:27px 0 8px}.lead{color:var(--muted);font-size:12px;line-height:1.7;margin:0 0 20px}.box{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:15px;margin:15px 0}.box h2{font-size:15px;margin:0 0 10px}.box p{font-size:11px;color:#b8c2cd;line-height:1.8;margin:8px 0 0}.caution{border-color:#525144;background:#1b1d18}.caution strong{color:var(--lime)}.label{font-size:9px;color:#8995a3;letter-spacing:.12em;font-weight:900;margin:20px 2px 9px}.switch{display:flex;gap:4px;padding:4px;background:#131920;border:1px solid var(--line);border-radius:11px}.switch button{flex:1;border:0;padding:11px 7px;border-radius:8px;background:none;color:#aab5c2;font-weight:850;cursor:pointer;font-size:12px}.switch button[aria-pressed="true"]{background:#2e382e;color:#dcff8d}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.stat{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:12px}.stat small{color:var(--muted);font-size:10px;display:block}.stat b{display:block;color:var(--lime);font-size:24px;margin:5px 0}.stat em{font-size:10px;color:#b2becb;font-style:normal}.metric{border-top:1px solid #2a323c;padding:12px 0}.metric:first-child{border-top:0}.caption{display:flex;gap:10px;justify-content:space-between;font-size:11px}.caption span:last-child{white-space:nowrap;font-weight:900}.bars{display:grid;gap:5px;margin-top:9px}.bar{border-radius:9px;background:#27303a;height:7px;overflow:hidden}.bar>i{display:block;height:100%;background:#9ca5b2}.bar.new>i{background:var(--lime)}.legend{font-size:10px;color:var(--muted)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#9ca5b2;margin:0 5px 0 10px}.dot.new{background:var(--lime)}table{width:100%;border-collapse:collapse;font-size:11px}th,td{padding:10px 4px;text-align:left;border-bottom:1px solid #2a323a}th{color:#a9b3bf}td:last-child{text-align:right;font-weight:900}tr:last-child td{border:0}ul{margin:0;padding-left:18px;color:#bac4ce;font-size:11px;line-height:1.8}li+li{margin-top:6px}.foot{font-size:10px;line-height:1.7;color:#8c98a5;margin:18px 1px}.links{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.links a{font-size:11px;font-weight:800;border:1px solid var(--line);padding:11px 13px;border-radius:10px}@media(min-width:640px){.statgrid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body><main class="shell">
+<div class="top"><a href="/" class="brand">BAKEN LAB｜LAB HUB</a><a href="/result.html" class="back">RESULTを見る ›</a></div>
+<h1>LAB REVIEW</h1><p class="lead">馬券に、理由を。発走前FROZENと公式結果を使い、当たった理由も外れた理由も検証します。</p>
+<section class="box caution"><strong>11/8 JRA午後の比較｜暫定研究</strong><p>11月7日と8日の同じ時間帯を比較。ただし同じレースを旧版／強化版の両方で予想した対照実験ではありません。<strong>「強化分析によって順位が何頭変わったか」は未検証</strong>です。</p></section>
+<div class="label">COMPARE / 集計対象</div><div class="switch" role="group" aria-label="発走時刻の集計開始"><button type="button" data-range="13" aria-pressed="true">13:00以降</button><button type="button" data-range="14" aria-pressed="false">14:00以降</button></div>
+<p id="rangeNote" class="foot" aria-live="polite"></p><div id="stats" class="statgrid"></div>
+<section class="box"><h2>午後の主要指標</h2><div id="metrics"></div><p class="legend"><span class="dot"></span>11/7 <span class="dot new"></span>11/8｜同じ項目内で割合を比較</p></section>
+<section class="box"><h2>LAB EYEが救った勝ち馬｜11/8午後</h2><table><thead><tr><th>レース</th><th>EYE（TOP5外）</th><th>結果</th></tr></thead><tbody><tr><td>京都7R</td><td>④リアンドゥクール・6位</td><td>1着</td></tr><tr><td>東京9R</td><td>⑦エスクアドラ・6位</td><td>1着</td></tr><tr><td>東京10R</td><td>⑧ワイドクリーガー・7位</td><td>1着</td></tr></tbody></table><p>福島3Rの⑬エリーニックもEYEで1着。ただし午前10:45発走のため、午後集計には含めません。</p></section>
+<section class="box"><h2>まだ取りこぼしている勝ち馬</h2><table><thead><tr><th>レース</th><th>勝ち馬</th><th>事前LAB順位</th></tr></thead><tbody><tr><td>東京11R</td><td>⑥ファミリータイム</td><td>16位</td></tr><tr><td>京都9R</td><td>④ホットロッドハート</td><td>15位</td></tr><tr><td>福島11R</td><td>⑧ギリーズボール</td><td>11位</td></tr></tbody></table><p>東京11Rでは⑫メイショウゲキリンを事前5位で評価し、実際3着を捕捉。一方で同レースの勝ち馬は16位でした。成功と失敗を同じ基準で確認します。</p></section>
+<section class="box"><h2>「強化版」の効果を断定しない理由</h2><ul>
+<li>11/7・11/8の本番予想はどちらも <strong>JRA_REBUILD_0.4</strong>。モデル番号だけで強化適用の有無は特定できません。</li>
+<li>11/8福島9Rは、過去の新潟芝1800mにおける公式9区間ラップを、出走馬2頭の過去走と照合した記録があります。ただし全頭・全過去走の網羅ではありません。</li>
+<li>一部レースで相手の後走・全体ラップ・具体的敗因の独立確認は未完了。未検証内容を事実扱いしません。</li>
+<li>旧基準と強化基準の同一レース発走前シャドー比較が未保存。<strong>新たに拾えた馬と失った馬の件数は、まだ確定できません。</strong></li>
+</ul></section>
+<p class="foot">集計対象：2026年11月7日・8日JRA、指定時刻以降の発走前FROZENと本番Supabaseに記録されたJRA公式確定結果を照合したレース。公開数値は2026年11月8日時点の固定スナップショットで自動更新されません。予想順位・既存FROZENには変更なし。人気・オッズは能力評価に利用しません。</p>
+<div class="links"><a href="/result.html">RESULTへ ›</a><a href="/today.html">TODAYへ ›</a><a href="/">HUBホームへ ›</a></div>
+</main><script>
+const DATA={
+'13':{note:'13:00以降｜両日各16R、3着以内48頭。すべて発走前FROZENと公式結果を照合。',d7:{r:16,aw:1,ap:6,tw:8,tp:25,ec:15,ew:4,ep:6,cw:12,cp:31},d8:{r:16,aw:2,ap:5,tw:7,tp:26,ec:16,ew:3,ep:5,cw:10,cp:31}},
+'14':{note:'14:00以降｜11/7は12R、11/8は11R。レース数が異なるため割合で比較。',d7:{r:12,aw:0,ap:4,tw:5,tp:17,ec:11,ew:3,ep:4,cw:8,cp:21},d8:{r:11,aw:1,ap:3,tw:4,tp:17,ec:11,ew:2,ep:3,cw:6,cp:20}}};
+const pct=(n,d)=>d?100*n/d:0,fmt=(n,d)=>pct(n,d).toFixed(1)+'%';
+function draw(k){
+const x=DATA[k],a=x.d7,b=x.d8;
+document.getElementById('rangeNote').textContent=x.note;
+const items=[['◎1着',a.aw,a.r,b.aw,b.r],['◎3着以内',a.ap,a.r,b.ap,b.r],['勝ち馬TOP5',a.tw,a.r,b.tw,b.r],['1〜3着TOP5',a.tp,a.r*3,b.tp,b.r*3],['EYE1着',a.ew,a.ec,b.ew,b.ec],['EYE3着以内',a.ep,a.ec,b.ep,b.ec],['TOP5＋EYE勝ち馬捕捉',a.cw,a.r,b.cw,b.r],['TOP5＋EYEの1〜3着',a.cp,a.r*3,b.cp,b.r*3]];
+document.getElementById('stats').innerHTML=[items[0],items[2],items[3],items[5]].map(v=>'<div class="stat"><small>'+v[0]+'</small><b>'+fmt(v[3],v[4])+'</b><em>11/7 '+fmt(v[1],v[2])+' → 11/8</em></div>').join('');
+document.getElementById('metrics').innerHTML=items.map(v=>'<div class="metric"><div class="caption"><span>'+v[0]+'</span><span>'+fmt(v[1],v[2])+' → '+fmt(v[3],v[4])+'</span></div><div class="bars"><div class="bar"><i style="width:'+pct(v[1],v[2])+'%"></i></div><div class="bar new"><i style="width:'+pct(v[3],v[4])+'%"></i></div></div></div>').join('');
+document.querySelectorAll('[data-range]').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.range===k)));
+}
+document.querySelectorAll('[data-range]').forEach(btn=>btn.addEventListener('click',()=>draw(btn.dataset.range)));draw('13');
+</script><script defer src="/track.js"></script></body></html>
