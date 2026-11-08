@@ -81,7 +81,7 @@ test('authorized publisher is only called for eligible flat races and no safety 
  assert.deepEqual(invoked,['福島1','東京1']);
  assert.equal(out.reports[0].status,'OFFICIAL_SOURCE_UNAVAILABLE');
  assert.equal(out.reports[1].status,'OFFICIALLY_VERIFIED');
- assert.equal(out.reports[2].status,'EXCLUDED_NOT_FLAT');
+ assert.equal(out.reports[2].status,'EXCLUDED_NEW_HORSE_OR_NOT_FLAT');
  assert.equal(out.claimStarted,false);assert.equal(out.predictionSaved,false);
 });
 test('malformed or duplicate candidate race metadata never produces a safe candidate',()=>{
@@ -98,4 +98,24 @@ test('a BASIC_READY label without verified official provenance is not trusted',(
  }]});
  assert.equal(p.items[0].status,'EXISTING_OFFICIAL_ROW_UNVERIFIED');
  assert.equal(p.items[0].needsOfficialFullField,false);
+});
+
+test('JRA new-horse races are always excluded even if their official card was published',async()=>{
+ const liveRaces=[mk('東京',4,'11時25分',{race_name:'メイクデビュー東京'})];
+ const p=plans({liveRaces,runnerRows:runs('東京',4),officialRaces:[{
+  race_date:date,track:'東京',race_no:4,
+  field_status:'BASIC_READY',prediction_status:'PENDING',
+  source:'JRA_OFFICIAL_VERIFIED_GATE_V1',
+  field_payload:{race:{class_name:'新馬'},official_status_verification:{html_sha256:'b'.repeat(64)}}
+ }]});
+ assert.equal(p.items[0].status,'EXCLUDED_NEW_HORSE');
+ assert.equal(p.items[0].needsOfficialFullField,false);
+ const forged={...p,items:[{...p.items[0],needsOfficialFullField:true,status:'NEEDS_FRESH_JRA_OFFICIAL_CARD'}]};
+ let calls=0;
+ const out=await runAuthorizedJraOfficialCardAcquisition({
+  plan:forged,assertAuthorized:async()=>{},clock:now,
+  publishOfficial:async()=>{calls++;return {ok:true}}
+ });
+ assert.equal(calls,0);
+ assert.equal(out.reports[0].status,'EXCLUDED_NEW_HORSE_OR_NOT_FLAT');
 });
