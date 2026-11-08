@@ -114,7 +114,7 @@ test('rank 9 with three independent similar-class close runs and win beats unpro
  assert.deepEqual(r.top5,[1,2,3,4,9]);
  assert.equal(r.elected_challenger.depth,'RANK9_PLUS_STRICT');
  assert.equal(r.elected_challenger.independent_condition_proof,3);
- assert.equal(r.elected_challenger.historical_wins,1);
+ assert.equal(r.elected_challenger.historical_wins,2);
  assert.equal(r.deep_review_candidates.find(e=>e.horse_no===9).status,'SHADOW_PROMOTED_NOT_PRODUCTION');
  assert.deepEqual(x,before);
 });
@@ -163,8 +163,10 @@ test('different LOCAL tracks do not establish equivalent same-class proof',()=>{
 test('rank9 with recent close races but without a class-level win stays review-only',()=>{
  const x=fx();x.comparison.runner_evidence[5].supporting_runs=[];
  const deep=x.comparison.runner_evidence[8];
+ for(const h of deep.supporting_runs){if(h.finish===1)h.finish=2;}
  deep.supporting_runs.push({date:'2026-10-30',track:'福島',surface:'ダート',
-   distance:1200,class:'1勝クラス',finish:2,margin:0.1});
+   distance:1200,class:'1勝クラス',finish:3,margin:0.1});
  const r=calculate(x);
+ assert.equal(r.proof_by_horse.find(e=>e.horse_no===9).same_class_wins,0);
  assert.equal(r.status,'UNCHANGED');
 });
