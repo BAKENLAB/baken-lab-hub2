@@ -41,6 +41,10 @@ jobs:
       # Test source and immutable successful CI logs remain available for audit.
       # Completed one-off real JRA historical lap test: CI 42438541291.
       # Retired from every push to avoid repeated public JRA fetches.
+      - name: Final one-off verified JRA historic lap race_no recovery
+        continue-on-error: true
+        timeout-minutes: 1
+        run: deno test --allow-net=www.jra.go.jp research/jra-kyoto4-historical-laps-live.test.ts
       - name: Probe completed NAR official archive (non-blocking external reachability check)
         continue-on-error: true
         timeout-minutes: 1
