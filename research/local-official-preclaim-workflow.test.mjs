@@ -94,3 +94,33 @@ test('horse history outage quarantined without overclaiming readiness',async()=>
  assert.equal(out.horseReports[0].status,'OPTIONAL_HISTORY_UNAVAILABLE');
  assert.equal(x.calls.writes,0);
 });
+
+test('cancelled/excluded field mismatch is also detected, even if active horses look equal',async()=>{
+ const mismatched=structuredClone(race);
+ mismatched.field_payload.runners.push({
+  horse_no:2,horse_name:'取消馬',status:'CANCELLED'
+ });
+ const x=make({race:mismatched});
+ const out=await x.run();
+ assert.equal(out.status,'OFFICIAL_FIELD_MISMATCH');
+ assert.equal(x.calls.corners,0);assert.equal(x.calls.writes,0);
+});
+test('unresponsive official card times out without claiming or writing',async()=>{
+ const x=make({officialReader:{
+  readRace:async()=>new Promise(()=>{}),
+  readHistory:async()=>history
+ },officialCardTimeoutMs:15});
+ const out=await x.run();
+ assert.equal(out.status,'OFFICIAL_FIELD_UNAVAILABLE');
+ assert.equal(x.calls.corners,0);assert.equal(x.calls.writes,0);
+});
+test('stale official card fails independent freshness check',async()=>{
+ const stale=structuredClone(snapshot);
+ stale.fetched_at='2026-11-08T08:55:00+09:00';
+ const x=make({officialReader:{
+  readRace:async()=>stale,
+  readHistory:async()=>history
+ }});
+ assert.equal((await x.run()).status,'OFFICIAL_FIELD_MISMATCH');
+ assert.equal(x.calls.writes,0);
+});
