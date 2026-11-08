@@ -96,7 +96,7 @@ export function auditMechanicalEyeSwapPairs(pairs){
  const zero=()=>({races:0,candidates:0,eye_without_promotion:0,podium_gain:0,
    podium_loss:0,winner_gain:0,winner_loss:0});
  for(const pair of pairs){
-   const p=pair?.prediction,period=p?.race_date==='2026-11-08'?'HOLDOUT_1108':'EARLIER',
+   const p=pair?.prediction,period=p?.race_date==='2026-11-08'?'RECENT_1108':'EARLIER',
      key=[p?.race_date,p?.track,p?.race_no].join('|'),group=p?.circuit+'|'+period;
    if(seen.has(key)){invalid.push({key,reason:'DUPLICATE_RACE'});continue;}
    seen.add(key);
