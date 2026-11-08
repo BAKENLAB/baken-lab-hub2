@@ -37,6 +37,12 @@ jobs:
           cp research/staged-local-preclaim-edge-index.ts .edge-preclaim-ci/index.ts
           cp -R automation .edge-preclaim-ci/automation
           deno check .edge-preclaim-ci/index.ts
+      - name: Typecheck staged JRA claimed relative-rank runtime
+        run: |
+          mkdir -p .jra-mcp-ci
+          cp research/staged-jra-claimed-mcp-ability-v9.ts .jra-mcp-ci/index.ts
+          cp automation/relative-ability-rank-proposal.mjs .jra-mcp-ci/relative-ability-rank-proposal.mjs
+          deno check .jra-mcp-ci/index.ts
       - name: Typecheck the staged LOCAL MCP terminal-rejection repair against live handler dependencies
         run: |
           mkdir -p .local-mcp-ci
