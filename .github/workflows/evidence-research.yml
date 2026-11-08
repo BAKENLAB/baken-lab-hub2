@@ -52,6 +52,10 @@ jobs:
       # Retired from every push to avoid unnecessary official site requests.
       # Morioka5 official 11/11 horse and 20 prior-corner source proof:
       # Successful one-time CI run 42441394579; no repeated public NAR calls.
+      - name: One-off Morioka6 nine 2yo official historical corner evidence
+        continue-on-error: true
+        timeout-minutes: 2
+        run: deno test --allow-env --allow-net=www.keiba.go.jp,qjlvsndiqjfsfjinilig.supabase.co research/nar-morioka6-2yo-today-real-corners.test.ts
       - name: Probe completed NAR official archive (non-blocking external reachability check)
         continue-on-error: true
         timeout-minutes: 1
