@@ -18,7 +18,7 @@ function officialUrl(src){
   const c=u.searchParams.get('CNAME');
   if(!allowedHost.has(u.hostname)||u.protocol!=='https:'||
      u.pathname!=='/JRADB/accessS.html'||u.username||u.password||u.hash||
-     u.searchParams.size!==1||!/^sw?[0-9A-Za-z/]{12,100}$/.test(c??''))
+     u.searchParams.size!==1||!/^[sp]w[0-9A-Za-z/]{12,100}$/.test(c??''))
     return null;
   return {url:u.href,cname:c};
  }catch{return null;}
@@ -28,7 +28,8 @@ const numericSplits=s=>{
  const m=s.match(/[0-9]{1,2}\.[0-9](?:\s*[-－―–]\s*[0-9]{1,2}\.[0-9])*/);
  if(!m)return null;
  const parts=m[0].split(/\s*[-－―–]\s*/).map(Number);
- return parts.every(x=>x>=8&&x<=30)?parts:null;
+ return parts.length>=6&&parts[0]>=5&&parts[0]<=30&&
+  parts.slice(1).every(x=>x>=8&&x<=30)?parts:null;
 };
 const dateInJapanese=s=>{
  const [year,month,day]=s.split('-').map(Number);
@@ -54,7 +55,7 @@ export function parseJraOfficialHistoricLaps({targetRace,priorRace,source,clock=
   return absent('UNVERIFIED_RESULT_SOURCE');
  const body=source.bodyText.normalize('NFKC');
  const japaneseDate=dateInJapanese(priorRace.raceDate);
- const rx=new RegExp('(^|[^0-9])0?'+priorRace.raceNo+'\\s*R(?=[^0-9]|$)','i');
+ const rx=new RegExp('(?:^|[^0-9])0?'+priorRace.raceNo+'\\s*R(?=[^0-9]|$)|第\\s*0?'+priorRace.raceNo+'競走','i');
  if(!japaneseDate.test(body)||!body.includes(priorRace.track)||!rx.test(body)||
     !body.includes('ハロンタイム'))
   return absent('OFFICIAL_RACE_IDENTITY_MISMATCH');
