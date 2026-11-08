@@ -38,6 +38,19 @@ Deno.test('REAL official JRA 2026-10-11 Kyoto6 candidate race laps read-only pre
     .replace(/&nbsp;|&#160;/gi,' ').replace(/&amp;/gi,'&')
     .replace(/\s+/g,' ').trim();
    extractedTextLength=normalized.length;
+   const folded=normalized.normalize('NFKC');
+   console.log(JSON.stringify({
+    identity_probe:{
+     has_kyoto:folded.includes('京都'),
+     race_r_matches:[...Array(12)].map((_,i)=>i+1).filter(n=>
+      new RegExp('(?:^|[^0-9])0?'+n+'\\s*R(?=[^0-9]|$)','i').test(folded)),
+     race_kyoso_matches:[...Array(12)].map((_,i)=>i+1).filter(n=>
+      new RegExp('第\\s*0?'+n+'競走').test(folded)),
+     race_lace_matches:[...Array(12)].map((_,i)=>i+1).filter(n=>
+      new RegExp('(?:^|[^0-9])0?'+n+'\\s*レース').test(folded)),
+     page_head:folded.slice(0,105)
+    }
+   }));
    hasHarontime=normalized.includes('ハロンタイム');
    hasDate=normalized.includes('2026年10月11日');
    return normalized;
