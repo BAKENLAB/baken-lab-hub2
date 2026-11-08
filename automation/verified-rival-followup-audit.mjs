@@ -8,6 +8,16 @@ const date=s=>typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&
   Number.isFinite(Date.parse(s+'T00:00:00Z'));
 const safeNo=n=>Number.isInteger(n)&&n>=1&&n<=24;
 const safeId=s=>typeof s==='string'&&/^[a-zA-Z0-9/_:-]{3,96}$/.test(s);
+const officialRef=(ref,kind)=>{
+ try{
+  const u=new URL(ref);
+  const host=kind==='JRA_PAST_OFFICIAL'?'www.jra.go.jp':'www.keiba.go.jp';
+  return u.protocol==='https:'&&u.hostname===host&&
+   !u.username&&!u.password&&!u.hash&&
+   (kind==='JRA_PAST_OFFICIAL'?u.pathname.startsWith('/JRADB/'):
+    u.pathname.startsWith('/KeibaWeb/'));
+ }catch{return false;}
+};
 export function auditVerifiedRivalFollowUps({
  targetRaceDate,targetPostTime,priorRace,entrants,followUps,
  verifiedSource,clock=()=>Date.now()
@@ -41,7 +51,11 @@ export function auditVerifiedRivalFollowUps({
     !date(run.raceDate)||run.raceDate<=priorRace.raceDate||
     run.raceDate>=targetRaceDate||!safeNo(run.finish)||
     run.officialSourceVerified!==true||
-    !['JRA_PAST_OFFICIAL','NAR_PAST_OFFICIAL'].includes(run.sourceKind))
+    !['JRA_PAST_OFFICIAL','NAR_PAST_OFFICIAL'].includes(run.sourceKind)||
+    !officialRef(run.sourceRef,run.sourceKind)||
+    !Number.isFinite(Date.parse(run.sourceCheckedAt??''))||
+    Date.parse(run.sourceCheckedAt)>now||
+    Date.parse(run.sourceCheckedAt)>=post)
     continue;
   if(run.sourceKind!==verifiedSource.kind)continue;
   const known=followById.get(run.horseId);
