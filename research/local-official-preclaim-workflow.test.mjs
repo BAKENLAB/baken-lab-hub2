@@ -28,7 +28,7 @@ const packet=(targetRace)=>({
  linkedRunEvidence:1,claimStarted:false,saveAuthorized:false,
  marketUsed:false,targetResultUsed:false,rankChanged:false,
  evidence:[{horseNo:1,horseName:'架空馬6',horseRef:code,identityVerifiedBy:'OFFICIAL_HORSE_REF',
- pastHorseNo:6,pastRace,earlyPos:1,finalTurnPos:5,
+ pastHorseNo:6,pastRace:priorRace,earlyPos:1,finalTurnPos:5,
  corners:[{corner:1,position:1},{corner:4,position:5}],
  source:'NAR_OFFICIAL_PAST_RACE_RESULT',sourceRef:officialNarPastResultUrl(priorRace),
  sourceCheckedAt:'2026-11-08T08:59:57+09:00',rankingEffect:'NONE_UNTIL_REVIEWED'}]
