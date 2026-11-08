@@ -14,7 +14,7 @@ const serviceKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')??'';
 const supabaseUrl=Deno.env.get('SUPABASE_URL')??'';
 if(!serviceKey||!supabaseUrl)throw new Error('SERVICE_CONFIGURATION_REQUIRED');
 const db=createClient(supabaseUrl,serviceKey,{auth:{persistSession:false,autoRefreshToken:false}});
-const store=createLocalCornerServiceRpcStore({client:db,timeoutMs:180});
+const store=createLocalCornerServiceRpcStore({client:db,timeoutMs:1500});
 const trk=new Set(['盛岡','水沢','浦和','船橋','大井','川崎','金沢','笠松','名古屋','園田','姫路','高知','佐賀','門別']);
 const respond=(code: number,body: Record<string,unknown>)=>new Response(JSON.stringify(body),{status:code,
  headers:{'content-type':'application/json','cache-control':'no-store'}});
