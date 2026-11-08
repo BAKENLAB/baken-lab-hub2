@@ -74,6 +74,10 @@ function summarizeEvidence(row,race) {
  * The current runner roster is compared by exact horse_no and normalized name.
  */
 export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) {
+  if(race?.result!==undefined||race?.finishers!==undefined||
+    comparison?.result!==undefined||comparison?.finishers!==undefined||
+    baseline?.some?.(h=>h?.result!==undefined||h?.finish!==undefined||h?.odds!==undefined||h?.popularity!==undefined))
+    return stop('RESULT_OR_MARKET_IN_PRERACE_INPUT');
   if(!date(race?.race_date)||!['JRA','LOCAL'].includes(race.circuit)||
     !integer(race.distance,800,3600)||typeof race.surface!=='string'||
     !key(race.class_name)||
@@ -89,6 +93,10 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     return stop('BASELINE_OR_EVIDENCE_NOT_READY');
   if(comparison.target_date!==undefined&&comparison.target_date!==race.race_date)
     return stop('EVIDENCE_TARGET_DATE_MISMATCH');
+  const source=comparison.source_scope??comparison.data_scope;
+  if((race.circuit==='JRA'&&source!=='JRA_CLAIMED_RUNNER_HISTORY')||
+     (race.circuit==='LOCAL'&&source!=='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY'))
+    return stop('UNTRUSTED_EVIDENCE_SOURCE');
   const roster=new Map(),ranks=new Set();
   for(const h of baseline){
     if(!no(h?.horse_no)||!key(h.horse_name)||!integer(h.rank,1,baseline.length)||
@@ -133,6 +141,13 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
   }
   selected.sort((a,b)=>b.close_delta-a.close_delta||
     b.defeat_delta-a.defeat_delta||a.old_rank-b.old_rank);
+  const deep_review_candidates=original.slice(8).map(h=>{
+    const report=reports.get(h.horse_no);
+    return {horse_no:h.horse_no,old_rank:h.rank,
+      same_class_close_runs:report.same_class_close_runs,
+      same_class_decisive_defeats:report.same_class_decisive_defeats,
+      status:report.same_class_close_runs>=2?'REVIEW_LEAD_NOT_PROMOTED':'NOT_QUALIFIED'};
+  }).filter(x=>x.status==='REVIEW_LEAD_NOT_PROMOTED');
   const chosen=selected[0]??null;
   if(chosen){
     ordered.splice(chosen.old_rank-1,1);
@@ -150,6 +165,7 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     elected_challenger:chosen,
     protected_incumbent:chosen?fifth.horse_no:null,
     candidate_count: selected.length,
+    deep_review_candidates,
     verified_field_count:baseline.length,
     proof_by_horse:original.map(h=>reports.get(h.horse_no)),
     safety_policy:'NO_AUTOMATIC_RANK6_NO_RESULT_NO_MARKET_NO_MODEL_ADOPTION',
