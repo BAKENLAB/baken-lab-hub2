@@ -104,4 +104,5 @@ $("#copy").addEventListener("click",async()=>{
  try{await navigator.clipboard.writeText(txt);$("#copy").textContent="コピーしました ✓";setTimeout(()=>$("#copy").textContent="一括FROZEN＋VALUE指示文をコピー",2000)}
  catch{window.prompt("指示文をコピーしてください",txt)}
 });
-</script></body></html>
+</script>  <script defer src="/track.js"></script>
+</body></html>
