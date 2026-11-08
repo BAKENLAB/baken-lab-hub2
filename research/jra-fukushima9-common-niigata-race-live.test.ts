@@ -41,18 +41,18 @@ Deno.test('REAL official JRA 2026-08-02 Niigata candidate race laps read-only pr
    const folded=normalized.normalize('NFKC');
    console.log(JSON.stringify({
     identity_probe:{
-     has_kyoto:folded.includes('新潟'),
+     has_niigata:folded.includes('新潟'),
      race_r_matches:[...Array(12)].map((_,i)=>i+1).filter(n=>
       new RegExp('(?:^|[^0-9])0?'+n+'\\s*R(?=[^0-9]|$)','i').test(folded)),
      race_kyoso_matches:[...Array(12)].map((_,i)=>i+1).filter(n=>
       new RegExp('第\\s*0?'+n+'競走').test(folded)),
      race_lace_matches:[...Array(12)].map((_,i)=>i+1).filter(n=>
       new RegExp('(?:^|[^0-9])0?'+n+'\\s*レース').test(folded)),
-     prior_date_header_verified:folded.includes('2026年10月11日')
+     prior_date_header_verified:folded.includes('2026年8月2日')
     }
    }));
    hasHarontime=normalized.includes('ハロンタイム');
-   hasDate=normalized.includes('2026年10月11日');
+   hasDate=normalized.includes('2026年8月2日');
    return normalized;
   }
  });
