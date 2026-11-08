@@ -82,3 +82,22 @@ test('rejects spoofed horse identity, missing full-field history and invalid sou
  const z=fx();z.comparison.source_scope='UNVERIFIED_IMPORT';
  assert.equal(calculate(z).status,'UNTRUSTED_EVIDENCE_SOURCE');
 });
+
+test('LOCAL C3 class-tier evidence can actually promote a verified challenger',()=>{
+ const x=fx();x.race.circuit='LOCAL';x.race.class_name='C3-19';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)
+   for(const h of row.supporting_runs)h.class='C3-17';
+ const result=calculate(x);
+ assert.equal(result.status,'REORDERED');assert.deepEqual(result.top5,[1,2,3,4,6]);
+});
+test('different LOCAL class C2 cannot be treated as matching C3 evidence',()=>{
+ const x=fx();x.race.circuit='LOCAL';x.race.class_name='C3-19';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)
+   for(const h of row.supporting_runs)h.class='C2-1';
+ const result=calculate(x);
+ assert.equal(result.status,'UNCHANGED');
+});
