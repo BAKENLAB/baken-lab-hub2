@@ -44,13 +44,32 @@ test('evidence only: track, distance, close finish and passing-order clues',()=>
  assert.equal(x.opponent_level,'UNKNOWN_UNLESS_INDEPENDENT_RIVALS_VERIFIED');
  assert.ok(x.missed_facts.includes('RACE_LAPS_MISSING'));
 });
-test('valid split arrays can be recorded but cannot prove high/slow pace',()=>{
+test('unlabeled lap numbers must not be misrepresented as 200m splits',()=>{
  const x=run().runners[1].records[0];
- assert.equal(x.lap_evidence.status,'SPLITS_PRESENT_200M_ASSUMED');
+ assert.equal(x.lap_evidence.status,'LAPS_UNVERIFIED_UNIT_OR_SOURCE');
+ assert.equal(x.lap_evidence.first_600m,null);
+ assert.equal(x.lap_evidence.last_600m,null);
+ assert.ok(x.missed_facts.includes('RACE_LAPS_NOT_OFFICIALLY_VERIFIED'));
+});
+test('official 200m lap source with exact full distance records arithmetic, not a proved pace class',()=>{
+ const copy=structuredClone(runners);
+ Object.assign(copy[1].past_runs[0],{
+  lapSegmentMeters:200,lapSourceVerified:true,
+  lapSourceRef:'https://www.jra.go.jp/JRADB/accessS.html?CNAME=official'
+ });
+ const x=run({runners:copy}).runners[1].records[0];
+ assert.equal(x.lap_evidence.status,'OFFICIAL_200M_SPLITS_PRESENT');
  assert.equal(x.lap_evidence.first_600m,38.2);
  assert.equal(x.lap_evidence.last_600m,38.6);
  assert.equal(x.lap_evidence.pace_classification,'UNDETERMINED');
  assert.equal(x.lap_evidence.comparability,'NEEDS_TRACK_DISTANCE_CLASS_REFERENCE');
+});
+test('winners have zero deficit; reported positive value may represent winning margin',()=>{
+ const x=run().runners[0].records[0];
+ assert.equal(x.finish,1);
+ assert.equal(x.margin_to_winner,0);
+ assert.equal(x.margin_source_value,0.1);
+ assert.equal(x.margin_basis,'WINNER_NO_DEFICIT_REPORTED_MARGIN_MAY_BE_LEAD');
 });
 test('runner with absent corner and lap evidence gets explicit missing flags',()=>{
  const x=run({runners:[{horse_no:1,horse_name:'別馬',past_runs:[{
