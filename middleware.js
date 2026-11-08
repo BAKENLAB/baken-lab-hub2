@@ -11,6 +11,7 @@ export default async function middleware(request) {
   if (isPublicFreeWindow()) {
     if (!url.pathname.startsWith('/api/')) return next();
     if (request.method === 'GET' && (url.pathname === '/api/hub-data' || url.pathname === '/api/lab-value')) return next();
+    if (request.method === 'POST' && url.pathname === '/api/track-view') return next();
   }
 
   const password = process.env.LAB_HUB_ACCESS_PASSWORD;
