@@ -117,7 +117,8 @@ export async function runAuthorizedLocalCornerPreclaim({
        finalTurnPos:h.final_turn_pos??null
       }));
     }
-    reports.push({horseNo:runner.horse_no,status:'VERIFIED',runs:history.length});
+    reports.push({horseNo:runner.horse_no,
+     status:history.length?'VERIFIED':'NO_VERIFIED_PRIOR_RUNS',runs:history.length});
    }catch{
     reports.push({horseNo:runner.horse_no,status:'OPTIONAL_HISTORY_UNAVAILABLE'});
    }finally{clearTimeout(timer);controller.abort();}
@@ -139,9 +140,17 @@ export async function runAuthorizedLocalCornerPreclaim({
   return {status:'OPTIONAL_CORNERS_UNAVAILABLE',storeWritten:false,
    readCount,horseReports:reports};
  }
+ const coverage={
+  active_horses:active.length,
+  successful_history_responses:readCount,
+  horses_with_verified_history:reports.filter(r=>r.status==='VERIFIED').length,
+  verified_prior_run_witnesses:witnessRunners.reduce((n,h)=>n+h.verifiedRecentRuns.length,0),
+  missing_official_horse_links:reports.filter(r=>r.status==='OFFICIAL_HORSE_REF_MISSING').length,
+  unavailable_or_empty_history:reports.filter(r=>['NO_VERIFIED_PRIOR_RUNS','OPTIONAL_HISTORY_UNAVAILABLE'].includes(r.status)).length
+ };
  const saved=await stageLocalCornerSnapshot({race,officialRunners:witnessRunners,
   packet:cornerPacket,store,clock});
  return {status:saved.status,storeWritten:!!saved.inserted,
-  readCount,horseReports:reports,linkedRunEvidence:cornerPacket?.linkedRunEvidence||0,
+  readCount,horseReports:reports,coverage,linkedRunEvidence:cornerPacket?.linkedRunEvidence||0,
   claimStarted:false,predictionSaved:false};
 }
