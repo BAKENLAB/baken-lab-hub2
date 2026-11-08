@@ -1,0 +1,28 @@
+name: Frozen postrace audit research tests
+
+on:
+  push:
+    branches:
+      - research/20261108-frozen-grade-eye-audit
+    paths:
+      - 'research/frozen-postrace-calibration*.mjs'
+      - '.github/workflows/frozen-postrace-audit.yml'
+  pull_request:
+    paths:
+      - 'research/frozen-postrace-calibration*.mjs'
+      - '.github/workflows/frozen-postrace-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate immutable postrace audit
+        run: node --test research/frozen-postrace-calibration.test.mjs
