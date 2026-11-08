@@ -24,12 +24,15 @@ const byRun=(run,target)=>{
  const finish=position(v(run,'finish'),24);
  const field=position(v(run,'fieldSize','field_size'),24);
  const margin=num(v(run,'marginToWinner','margin_to_winner'));
+ const safeMargin=finish===1?0:margin;
+ const marginBasis=finish===1?'WINNER_NO_DEFICIT_REPORTED_MARGIN_MAY_BE_LEAD':
+  finish===null?'NO_FINISH_CONFIRMED':'RACE_RESULT_REPORTED_DEFICIT';
  const early=position(v(run,'earlyPos','early_pos'),field);
  const last=position(v(run,'finalTurnPos','final_turn_pos'),field);
  const last3f=num(v(run,'last3f','final3f'));
  const cls=v(run,'raceClass','race_class','class_name');
  const clues=[];
- if(margin!==null&&margin>=0&&margin<=0.5&&finish!==null&&finish>1)
+ if(safeMargin!==null&&safeMargin>=0&&safeMargin<=0.5&&finish!==null&&finish>1)
   clues.push({code:'CLOSE_FINISH',basis:'FINISH_MARGIN',detail:'着差0.5秒以内の接戦'});
  if(early!==null&&last!==null&&last-early>=4)
   clues.push({code:'LOST_POSITION_BEFORE_FINAL_TURN',basis:'TWO_OFFICIAL_CORNERS',
@@ -41,16 +44,28 @@ const byRun=(run,target)=>{
   clues.push({code:'FADED_FROM_FRONT_AFTER_TURN',basis:'EARLY_LAST_FINISH',
     detail:'コーナー先行後に着順を落とした。原因は未確認'});
  const laps=v(run,'lapTimes','lap_times','laps');
+ const officialLapRef=v(run,'lapSourceRef','lap_source_ref');
+ const unit=v(run,'lapSegmentMeters','lap_segment_meters');
+ const verified=v(run,'lapSourceVerified','lap_source_verified')===true;
+ const officialLapUrl=typeof officialLapRef==='string'&&
+  /^https:\/\/(?:www\\.jra\\.go\\.jp|www\\.keiba\\.go\\.jp)\//.test(officialLapRef);
  let lapEvidence={status:'LAPS_UNAVAILABLE',first_600m:null,last_600m:null,
   pace_classification:'UNDETERMINED',comparability:'NO_BASELINE'};
- if(Array.isArray(laps)&&laps.length>=6&&laps.length<=24&&
+ if(Array.isArray(laps)) {
+  lapEvidence={...lapEvidence,status:'LAPS_UNVERIFIED_UNIT_OR_SOURCE'};
+  // A sequence of unlabeled numbers is NOT a verified 200m split series.
+  // For split arithmetic demand official source, unit, and full known distance.
+  if(verified&&officialLapUrl&&unit===200&&
+    Number.isInteger(distance)&&distance%200===0&&
+    laps.length===distance/200&&laps.length>=6&&laps.length<=24&&
     laps.every(x=>typeof x==='number'&&Number.isFinite(x)&&x>=8&&x<=30)){
-  const rounded=n=>Math.round(n*10)/10;
-  lapEvidence={status:'SPLITS_PRESENT_200M_ASSUMED',
-   first_600m:rounded(laps.slice(0,3).reduce((a,b)=>a+b,0)),
-   last_600m:rounded(laps.slice(-3).reduce((a,b)=>a+b,0)),
-   pace_classification:'UNDETERMINED',
-   comparability:'NEEDS_TRACK_DISTANCE_CLASS_REFERENCE'};
+   const rounded=n=>Math.round(n*10)/10;
+   lapEvidence={status:'OFFICIAL_200M_SPLITS_PRESENT',
+    first_600m:rounded(laps.slice(0,3).reduce((a,b)=>a+b,0)),
+    last_600m:rounded(laps.slice(-3).reduce((a,b)=>a+b,0)),
+    pace_classification:'UNDETERMINED',
+    comparability:'NEEDS_TRACK_DISTANCE_CLASS_REFERENCE'};
+  }
  }
  const sameSurface=surface===target.surface&&surface!==null;
  const distanceDelta=Number.isInteger(distance)&&Number.isInteger(target.distance)
@@ -60,7 +75,8 @@ const byRun=(run,target)=>{
  const classComparison=cls===null||target.className===null?'NOT_VERIFIABLE'
   :norm(cls)===norm(target.className)?'SAME_LABEL':'DIFFERENT_LABEL_ONLY';
  return {
-  race_date:raceDate,track,finish,margin_to_winner:margin,
+  race_date:raceDate,track,finish,margin_to_winner:safeMargin,
+  margin_source_value:margin,margin_basis:marginBasis,
   surface,distance,early_pos:early,final_turn_pos:last,final3f:last3f,
   class_name:cls,field_size:field,
   clues,lap_evidence:lapEvidence,
@@ -72,7 +88,8 @@ const byRun=(run,target)=>{
   missed_facts:[
    ...(early===null||last===null?['CORNER_SEQUENCE_INCOMPLETE']:[]),
    ...(last3f===null?['LAST_3F_MISSING']:[]),
-   ...(lapEvidence.status==='LAPS_UNAVAILABLE'?['RACE_LAPS_MISSING']:[]),
+   ...(lapEvidence.status==='LAPS_UNAVAILABLE'?['RACE_LAPS_MISSING']:
+      lapEvidence.status==='LAPS_UNVERIFIED_UNIT_OR_SOURCE'?['RACE_LAPS_NOT_OFFICIALLY_VERIFIED']:[]),
    'RIVAL_LEVEL_NOT_INDEPENDENTLY_VERIFIED'
   ]
  };
@@ -111,7 +128,7 @@ export function auditPreRaceLossEvidence({
    near_surface_distance_count:records.filter(x=>x.course_match.near_course_distance).length,
    close_finish_count:records.filter(x=>x.clues.some(c=>c.code==='CLOSE_FINISH')).length,
    observed_corners_count:records.filter(x=>x.early_pos!==null&&x.final_turn_pos!==null).length,
-   available_laps_count:records.filter(x=>x.lap_evidence.status!=='LAPS_UNAVAILABLE').length,
+   available_laps_count:records.filter(x=>x.lap_evidence.status==='OFFICIAL_200M_SPLITS_PRESENT').length,
    records
   };
  });
