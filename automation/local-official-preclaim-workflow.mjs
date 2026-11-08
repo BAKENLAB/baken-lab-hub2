@@ -35,20 +35,23 @@ const verifiedCurrent=({race,snapshot,now})=>{
  u.searchParams.set('k_raceDate',race.race_date.replaceAll('-','/'));
  u.searchParams.set('k_raceNo',String(race.race_no));
  if(snapshot.source_ref!==u.href)return null;
+ const dbAll=race.field_payload?.runners;
+ if(!Array.isArray(dbAll)||dbAll.length!==snapshot.runners.length||
+    snapshot.runners.some(r=>!Number.isInteger(r.horse_no)||r.horse_no<1||
+     r.horse_no>20||!norm(r.horse_name)||
+     !['ACTIVE','CANCELLED','EXCLUDED'].includes(r.status)||
+     !dbAll.some(x=>x.horse_no===r.horse_no&&
+      norm(x.horse_name)===norm(r.horse_name)&&x.status===r.status))||
+    new Set(snapshot.runners.map(r=>r.horse_no)).size!==snapshot.runners.length||
+    new Set(dbAll.map(r=>r.horse_no)).size!==dbAll.length)return null;
  const officialActive=snapshot.runners.filter(r=>r.status==='ACTIVE');
- const dbActive=(race.field_payload?.runners||[]).filter(r=>r.status==='ACTIVE');
- if(officialActive.length<1||officialActive.length!==dbActive.length||
-    new Set(officialActive.map(r=>r.horse_no)).size!==officialActive.length||
-    officialActive.some(r=>!Number.isInteger(r.horse_no)||r.horse_no<1||
-     r.horse_no>20||!norm(r.horse_name)||!dbActive.some(x=>
-      x.horse_no===r.horse_no&&norm(x.horse_name)===norm(r.horse_name))))return null;
- return officialActive;
+ return officialActive.length>0?officialActive:null;
 };
 
 export async function runAuthorizedLocalCornerPreclaim({
  race,officialReader,prepareCorners,store,assertAuthorized,
  clock=()=>Date.now(),reserveMs=5*60*1000,
- perHorseDeadlineMs=2500
+ perHorseDeadlineMs=2500,officialCardTimeoutMs=5000
 }){
  if(typeof assertAuthorized!=='function')throw new TypeError('AUTHORIZATION_GATE_REQUIRED');
  await assertAuthorized({raceKey:[race?.race_date,race?.track,race?.race_no]});
@@ -61,17 +64,24 @@ export async function runAuthorizedLocalCornerPreclaim({
     typeof store?.insertIfAbsent!=='function'||!Number.isInteger(reserveMs)||
     reserveMs<180000||reserveMs>900000||
     !Number.isInteger(perHorseDeadlineMs)||perHorseDeadlineMs<200||
-    perHorseDeadlineMs>10000)
+    perHorseDeadlineMs>10000||!Number.isInteger(officialCardTimeoutMs)||
+    officialCardTimeoutMs<10||officialCardTimeoutMs>10000)
   throw new TypeError('PRECLAIM_INVALID_OPTIONS');
  const post=Date.parse(race.post_time);
  if(post-clock()<=reserveMs)return {status:'SKIPPED_DEADLINE',storeWritten:false,readCount:0};
  const ctrl=new AbortController();
- let official;
+ let official,timer;
  try{
-  official=await officialReader.readRace(race,{limit:5},ctrl.signal);
+  official=await Promise.race([
+   Promise.resolve().then(()=>officialReader.readRace(race,{limit:5},ctrl.signal)),
+   new Promise((_,reject)=>{
+    timer=setTimeout(()=>{ctrl.abort();reject(new Error('OFFICIAL_CARD_TIMEOUT'));},
+      Math.min(officialCardTimeoutMs,Math.max(1,post-clock()-reserveMs)));
+   })
+  ]);
  }catch{
   return {status:'OFFICIAL_FIELD_UNAVAILABLE',storeWritten:false,readCount:0};
- }finally{ctrl.abort();}
+ }finally{clearTimeout(timer);ctrl.abort();}
  const active=verifiedCurrent({race,snapshot:official,now:clock()});
  if(!active)return {status:'OFFICIAL_FIELD_MISMATCH',storeWritten:false,readCount:0};
  const reports=[],linked=[],witnessRunners=[];let readCount=0;
