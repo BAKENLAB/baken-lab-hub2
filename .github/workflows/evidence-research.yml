@@ -36,6 +36,13 @@ jobs:
           cp research/staged-local-preclaim-edge-index.ts .edge-preclaim-ci/index.ts
           cp -R automation .edge-preclaim-ci/automation
           deno check .edge-preclaim-ci/index.ts
+      - name: Typecheck the staged LOCAL MCP terminal-rejection repair against live handler dependencies
+        run: |
+          mkdir -p .local-mcp-ci
+          cp research/staged-local-claimed-mcp-v20.ts .local-mcp-ci/index.ts
+          cp research/local-claimed-prod-guard-v19.mjs .local-mcp-ci/local-eye.mjs
+          cp automation/local-mcp-queue-operation-v19.mjs .local-mcp-ci/queue-operation.mjs
+          deno check .local-mcp-ci/index.ts
       # The three one-day current-race NAR canaries already passed on 2026-11-08.
       # Retired from each push to avoid repeatedly hitting public official servers.
       # Test source and immutable successful CI logs remain available for audit.
