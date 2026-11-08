@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {rescueJraDeepHistory} from '../automation/jra-verified-deep-history-bridge.mjs';
 import {auditPreRaceLossEvidence} from '../automation/prerace-why-lost-audit.mjs';
+import {buildJraClaimedLossShadow} from './jra-claimed-loss-shadow.mjs';
 const clock=()=>Date.parse('2026-11-08T10:03:00+09:00');
 const checked='2026-11-08T09:45:00+09:00';
 const cname='pw01dde0103202603020320261108/87';
@@ -120,4 +121,21 @@ test('impossible 4-corner values never enter the loss comparison',()=>{
  const x=run({liveRunners:a});
  assert.equal(x.runner_history[0].past_runs[0].final_turn_pos,null);
  assert.equal(x.runner_history[0].past_runs[0].final3f,39.3);
+});
+
+test('production-style claimed JRA loss shadow includes rescued corners and 3F with no ranking effects',()=>{
+ const x=buildJraClaimedLossShadow(current(),{
+  clock,liveRace,liveRunners:live()
+ });
+ assert.equal(x.status,'EVIDENCE_ONLY');
+ assert.equal(x.deep_snapshot_status,'SNAPSHOT_MATCHED');
+ assert.equal(x.deep_corner_runs,3);
+ assert.equal(x.deep_last3f_runs,3);
+ assert.equal(x.audit.runners[0].observed_corners_count,2);
+ assert.equal(x.audit.runners[0].records[0].final_turn_pos,3);
+ assert.equal(x.audit.runners[0].records[0].final3f,39.3);
+ assert.equal(x.audit.runners[0].records[0].true_loss_cause,'UNPROVEN');
+ assert.equal(x.audit.runner_history,undefined);
+ assert.equal(x.rank_effect,false);
+ assert.equal(x.save_gate_effect,false);
 });
