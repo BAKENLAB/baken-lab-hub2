@@ -52,7 +52,7 @@ const make=(override={})=>{
 };
 test('explicit authorized preclaim traverses official card and exact horse history, without CLAIM',async()=>{
  const x=make(),out=await x.run();
- assert.equal(out.status,'STORED');assert.equal(out.storeWritten,true);
+ assert.equal(out.status,'STORED',JSON.stringify({out,calls:x.calls,witness:x.getWitness()}));assert.equal(out.storeWritten,true);
  assert.equal(x.getWitness()?.[0]?.verifiedRecentRuns?.[0]?.pastHorseNo,6,
    'Official history witness must include prior race horse number');
  assert.equal(out.linkedRunEvidence,1);assert.equal(out.claimStarted,false);
