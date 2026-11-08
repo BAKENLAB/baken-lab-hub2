@@ -69,8 +69,13 @@ Deno.serve(async req=>{
    perHorseDeadlineMs:1500,officialCardTimeoutMs:5000
   });
   // Only counts, status and absence of CLAIM/SAVE are returned.
+  const coverage=result.coverage;
   return respond(200,{ok:true,status:result.status,
    read_count:result.readCount??0,
+   verified_profile_horses:coverage?.horses_with_verified_history??0,
+   verified_prior_witnesses:coverage?.verified_prior_run_witnesses??0,
+   unavailable_or_empty_profiles:coverage?.unavailable_or_empty_history??0,
+   missing_official_horse_links:coverage?.missing_official_horse_links??0,
    linked_prior_runs:result.linkedRunEvidence??0,
    stored:Boolean(result.storeWritten),
    claim_started:false,prediction_saved:false});
