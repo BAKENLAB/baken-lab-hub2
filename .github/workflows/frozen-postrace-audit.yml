@@ -25,4 +25,4 @@ jobs:
         with:
           node-version: '22'
       - name: Validate immutable postrace audit
-        run: node --test research/frozen-postrace-calibration.test.mjs research/frozen-eye-boundary-study.test.mjs
+        run: node --test research/frozen-postrace-calibration.test.mjs research/frozen-eye-boundary-study.test.mjs research/frozen-grade-coherence.test.mjs
