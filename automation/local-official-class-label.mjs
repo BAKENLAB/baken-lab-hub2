@@ -11,7 +11,7 @@
  * strip words from actual evidence or weakening the production save guard.
  * This module is NOT a writer and does not retry a rejected MCP save.
  */
-const classPattern=/(?:^|[^A-Z0-9])((?:[ABC][1-3])|(?:3歳[ABC][1-3])|(?:オープン)|(?:Jpn(?:I{1,3}|[ⅠⅡⅢ])))(?=$|[^A-Z0-9])/iu;
+const classPattern=/(?:^|[^A-Z0-9])((?:3歳[ABC][1-3])|(?:[ABC][1-3])|(?:オープン)|(?:Jpn(?:I{1,3}|[ⅠⅡⅢ])))(?=$|[^A-Z0-9])/iu;
 export function classifyLocalOfficialRaceLabel({
  race_name,evidence_ref
 }={}){
