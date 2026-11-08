@@ -43,6 +43,14 @@ jobs:
           cp research/staged-jra-claimed-mcp-ability-v9.ts .jra-mcp-ci/index.ts
           cp automation/relative-ability-rank-proposal.mjs .jra-mcp-ci/relative-ability-rank-proposal.mjs
           deno check .jra-mcp-ci/index.ts
+      - name: Typecheck staged LOCAL claimed relative-rank preview
+        run: |
+          mkdir -p .local-relative-ci
+          cp research/staged-local-claimed-mcp-relative-v21.ts .local-relative-ci/index.ts
+          cp automation/relative-ability-rank-proposal.mjs .local-relative-ci/relative-ability-rank-proposal.mjs
+          cp research/local-claimed-prod-guard-v19.mjs .local-relative-ci/local-eye.mjs
+          cp automation/local-mcp-queue-operation-v19.mjs .local-relative-ci/queue-operation.mjs
+          deno check .local-relative-ci/index.ts
       - name: Typecheck the staged LOCAL MCP terminal-rejection repair against live handler dependencies
         run: |
           mkdir -p .local-mcp-ci
