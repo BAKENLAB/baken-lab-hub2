@@ -5,7 +5,7 @@
  */
 import {acquireVerifiedJraHistoricLaps} from '../automation/jra-official-historic-lap-acquisition.mjs';
 const priorRace={
- raceDate:'2026-10-11',track:'京都',raceNo:6,
+ raceDate:'2026-10-11',track:'京都',raceNo:undefined,
  distance:1800,surface:'ダート',
  sourceRef:'/JRADB/accessS.html?CNAME=pw01sde1008202604040620261011/7E'
 };
@@ -48,7 +48,7 @@ Deno.test('REAL official JRA 2026-10-11 Kyoto6 candidate race laps read-only pre
       new RegExp('第\\s*0?'+n+'競走').test(folded)),
      race_lace_matches:[...Array(12)].map((_,i)=>i+1).filter(n=>
       new RegExp('(?:^|[^0-9])0?'+n+'\\s*レース').test(folded)),
-     page_head:folded.slice(0,105)
+     prior_date_header_verified:folded.includes('2026年10月11日')
     }
    }));
    hasHarontime=normalized.includes('ハロンタイム');
@@ -67,6 +67,6 @@ Deno.test('REAL official JRA 2026-10-11 Kyoto6 candidate race laps read-only pre
   pace_classification:result.pace_classification??null,
   claim_started:false,prediction_saved:false
  }));
- if(result.status!=='OFFICIAL_RACE_LAPS_VERIFIED'||requestCount!==1)
+ if(result.status!=='OFFICIAL_RACE_LAPS_VERIFIED'||result.race_no!==6||requestCount!==1)
   throw Error('OFFICIAL_JRA_PRIOR_LAPS_NOT_VERIFIED');
 });
