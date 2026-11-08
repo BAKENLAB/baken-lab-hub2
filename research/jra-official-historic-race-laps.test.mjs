@@ -75,3 +75,10 @@ test('no future result, no after-post new evidence and no stale source',()=>{
  assert.equal(run({clock:()=>Date.parse(targetRace.postTime)}).status,'UNVERIFIED_AS_OF_OR_RACE');
  assert.equal(run({source:{...source,checkedAt:'2026-11-05T09:58:00+09:00'}}).status,'UNVERIFIED_AS_OF_OR_RACE');
 });
+
+test('real official JRA page-style 12レース is a verified race identity, not a guess',()=>{
+ const x=run({source:{...source,bodyText:body.replace('京都第12競走','京都 12レース')}});
+ assert.equal(x.status,'OFFICIAL_RACE_LAPS_VERIFIED');
+ const bad=run({source:{...source,bodyText:body.replace('京都第12競走','京都 11レース')}});
+ assert.equal(bad.status,'OFFICIAL_RACE_IDENTITY_MISMATCH');
+});
