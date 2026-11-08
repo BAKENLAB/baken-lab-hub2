@@ -1,18 +1,18 @@
 /**
  * ONE-OFF PUBLIC READ ONLY: actual JRA historical result for 2026-10-11
- * Kyoto4R (dirt 1800m) referenced by independently retrieved 2026-11-08
+ * Kyoto historic race (dirt 1800m) referenced by independently retrieved 2026-11-08
  * Kyoto4R runners. No secrets, user account, betting, CLAIM, DB or FROZEN.
  */
 import {acquireVerifiedJraHistoricLaps} from '../automation/jra-official-historic-lap-acquisition.mjs';
 const priorRace={
- raceDate:'2026-10-11',track:'京都',raceNo:4,
+ raceDate:'2026-10-11',track:'京都',raceNo:6,
  distance:1800,surface:'ダート',
  sourceRef:'/JRADB/accessS.html?CNAME=pw01sde1008202604040620261011/7E'
 };
 const targetRace={
  raceDate:'2026-11-08',postTime:'2026-11-08T12:50:00+09:00'
 };
-Deno.test('REAL official JRA 2026-10-11 Kyoto4 race laps read-only preclaim source',async()=>{
+Deno.test('REAL official JRA 2026-10-11 Kyoto6 candidate race laps read-only preclaim source',async()=>{
  const now=Date.now();
  if(now>=Date.parse(targetRace.postTime)-15*60000){
   console.log(JSON.stringify({status:'SKIPPED_SAFETY_DEADLINE'}));
