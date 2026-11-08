@@ -55,3 +55,23 @@ Official result: ④エスケーブラッド (HUB 8th), ⑦ユイノナナフシ
 4. Require non-regression across multiple holdout dates before proposing an explicit versioned model change.
 
 Existing ongoing PR #41 remains untouched.
+
+## 11/9 follow-up: direct counterfactual checks
+
+**No automatic EYE-to-TOP5 promotion.** In 2026-10-25–11-08 FROZEN/official-result pairs with at least three finishers, a mechanical **EYE replaces 5th** policy had these outcome counts (newly captured podium runners versus displaced previously captured podium runners):
+
+| cohort | eligible EYE cases | added podium | lost podium | net |
+|---|---:|---:|---:|---:|
+| JRA 10/25–11/7 | 35 | 10 | 8 | +2 |
+| JRA 11/8 | 21 | 3 | 5 | -2 |
+| LOCAL 10/25–11/7 | 185 | 37 | 48 | -11 |
+| LOCAL 11/8 | 8 | 3 | 0 | +3 |
+| **Total** | **249** | **53** | **61** | **-8** |
+
+These are retrospective, **not untouched holdouts**. There is no causal proof of improvement; the mechanical replacement policy **loses more podium horses than it gains** in the pooled set. It does not validate any alternative dynamic threshold. Most important concrete failure: Fukushima8 EYE⑨ finished 2nd but the existing rank5⑥ won; replacing ⑥ would lose the actual winner. Preserve TOP5 unless a separately verified, as-of evidence-based shadow proves that displacement is safe across independent dates.
+
+**Grade anomaly investigation:** Same JRA protocol name appears in all 10/25–11/8 FROZEN snapshots, but S on ◎ jumped from 1/28 on 10/25 to 17/17 on 10/31, 30/30 on 11/7 and 25/27 on 11/8. 10/25 saved no numeric TOP5 score; 10/31+ usually did. 11/8 includes S92 for Tokyo1 and A94 for Tokyo10/Fukushima11. The score-to-grade overlap may reflect confidence factors beyond score; classify as **needs review**, not a proven label error. Avoid pooling grades across dates without version/time stratification.
+
+**Code:** added a pure pre-race-only EYE counterfactual builder, a separate after-result evaluator, cohort audit, and tests; added frozen-grade-coherence to detect score overlap, S saturation, missing scores and missing A comparator. Neither module updates live score, grade, bets, FROZEN or runs. GitHub Actions is configured to execute all three research test suites. A pass has to be observed from the workflow before calling CI verified.
+
+**As-of boundary:** The FROZEN snapshot verifies what was recorded before post time, not independent per-source historical retrieval time. This research does not claim unstructured EYE reasons prove official provenance nor that recorded recent run data are complete. Any evidence-dependent promotion still requires source identity/time proofs and counterexamples.
