@@ -7,13 +7,13 @@ function fx(){
  const supporting=names.map((_,i)=>{
   const idx=i+1,good=idx===6?2:idx===5?0:idx===9?2:1;
   const poor=idx===5?2:0, all=[];
-  for(let k=0;k<good;k++)all.push({date:'2026-10-'+String(15+k).padStart(2,'0'),surface:'ダート',distance:1200,class:'1勝クラス',finish:k+1,margin:0.2,early_pos:2});
-  for(let k=0;k<poor;k++)all.push({date:'2026-10-'+String(20+k).padStart(2,'0'),surface:'ダート',distance:1200,class:'1勝クラス',finish:9,margin:2.4,early_pos:7});
+  for(let k=0;k<good;k++)all.push({date:'2026-10-'+String(15+k).padStart(2,'0'),track:'福島',surface:'ダート',distance:1200,class:'1勝クラス',finish:k+1,margin:0.2,early_pos:2});
+  for(let k=0;k<poor;k++)all.push({date:'2026-10-'+String(20+k).padStart(2,'0'),track:'福島',surface:'ダート',distance:1200,class:'1勝クラス',finish:9,margin:2.4,early_pos:7});
   return {horse_no:idx,horse_name:names[i],supporting_runs:all};
  });
  return {race:{race_date:'2026-11-08',post_time:'2026-11-08T13:40:00+09:00',
    observation_at:'2026-11-08T12:20:00+09:00',circuit:'JRA',
-   class_name:'1勝クラス',surface:'ダート',distance:1150},
+   track:'福島',class_name:'1勝クラス',surface:'ダート',distance:1150},
    baseline,comparison:{status:'READY',market_used:false,target_result_used:false,
      rank_effect:false,target_date:'2026-11-08',source_scope:'JRA_CLAIMED_RUNNER_HISTORY',
      runner_evidence:supporting}};
@@ -55,8 +55,11 @@ test('deep outside TOP5 with evidence is flagged, never auto promoted',()=>{
  assert.equal(r.top5.includes(9),false);
 });
 test('mixed LOCAL competitor with exact class history may use shared evaluator',()=>{
- const x=fx();x.race.circuit='LOCAL';x.comparison.source_scope=undefined;
+ const x=fx();x.race.circuit='LOCAL';x.race.class_name='C3-19';x.race.track='高知';
+ x.comparison.source_scope=undefined;
  x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)
+   for(const h of row.supporting_runs){h.class='C3-17';h.track='高知';}
  const r=calculate(x);
  assert.equal(r.status,'REORDERED');
 });
@@ -84,20 +87,84 @@ test('rejects spoofed horse identity, missing full-field history and invalid sou
 });
 
 test('LOCAL C3 class-tier evidence can actually promote a verified challenger',()=>{
- const x=fx();x.race.circuit='LOCAL';x.race.class_name='C3-19';
+ const x=fx();x.race.circuit='LOCAL';x.race.class_name='C3-19';x.race.track='高知';
  x.comparison.source_scope=undefined;
  x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
  for(const row of x.comparison.runner_evidence)
-   for(const h of row.supporting_runs)h.class='C3-17';
+   for(const h of row.supporting_runs){h.class='C3-17';h.track='高知';}
  const result=calculate(x);
  assert.equal(result.status,'REORDERED');assert.deepEqual(result.top5,[1,2,3,4,6]);
 });
 test('different LOCAL class C2 cannot be treated as matching C3 evidence',()=>{
- const x=fx();x.race.circuit='LOCAL';x.race.class_name='C3-19';
+ const x=fx();x.race.circuit='LOCAL';x.race.class_name='C3-19';x.race.track='高知';
  x.comparison.source_scope=undefined;
  x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
  for(const row of x.comparison.runner_evidence)
-   for(const h of row.supporting_runs)h.class='C2-1';
+   for(const h of row.supporting_runs){h.class='C2-1';h.track='高知';}
  const result=calculate(x);
  assert.equal(result.status,'UNCHANGED');
+});
+
+test('rank 9 with three independent similar-class close runs and win beats unprotected fifth',()=>{
+ const x=fx(),deep=x.comparison.runner_evidence[8];
+ deep.supporting_runs.push({date:'2026-10-30',track:'福島',surface:'ダート',
+   distance:1200,class:'1勝クラス',finish:1,margin:0.0,early_pos:3});
+ const before=structuredClone(x),r=calculate(x);
+ assert.equal(r.status,'REORDERED');
+ assert.deepEqual(r.top5,[1,2,3,4,9]);
+ assert.equal(r.elected_challenger.depth,'RANK9_PLUS_STRICT');
+ assert.equal(r.elected_challenger.independent_condition_proof,3);
+ assert.equal(r.elected_challenger.historical_wins,1);
+ assert.equal(r.deep_review_candidates.find(e=>e.horse_no===9).status,'SHADOW_PROMOTED_NOT_PRODUCTION');
+ assert.deepEqual(x,before);
+});
+test('rank 9 is NOT rescued by two wins alone or an old win beyond six months',()=>{
+ let x=fx();x.comparison.runner_evidence[5].supporting_runs=[];
+ let r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');assert.equal(r.deep_review_candidates.length,1);
+ x=fx();x.comparison.runner_evidence[5].supporting_runs=[];
+ const deep=x.comparison.runner_evidence[8];
+ deep.supporting_runs=[
+ {date:'2025-01-01',track:'福島',surface:'ダート',distance:1200,class:'1勝クラス',finish:1,margin:0.0},
+ {date:'2025-02-01',track:'福島',surface:'ダート',distance:1200,class:'1勝クラス',finish:1,margin:0.0},
+ {date:'2025-03-01',track:'福島',surface:'ダート',distance:1200,class:'1勝クラス',finish:1,margin:0.0}
+ ];
+ r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.ok(r.deep_review_candidates.some(e=>e.horse_no===9));
+});
+test('rank 9 cannot replace a fifth with unknown comparison history',()=>{
+ const x=fx();
+ x.comparison.runner_evidence[4].supporting_runs=[];
+ x.comparison.runner_evidence[5].supporting_runs=[];
+ x.comparison.runner_evidence[8].supporting_runs.push(
+ {date:'2026-10-30',track:'福島',surface:'ダート',distance:1200,class:'1勝クラス',finish:1,margin:0.0});
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');assert.deepEqual(r.top5,[1,2,3,4,5]);
+});
+test('duplicate same-date evidence is not counted as independent rank9 proof',()=>{
+ const x=fx();x.comparison.runner_evidence[5].supporting_runs=[];
+ const deep=x.comparison.runner_evidence[8];
+ deep.supporting_runs.push({...deep.supporting_runs[0]});
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(e=>e.horse_no===9).same_class_close_runs,2);
+});
+test('different LOCAL tracks do not establish equivalent same-class proof',()=>{
+ const x=fx();x.race.circuit='LOCAL';x.race.track='高知';x.race.class_name='C3-19';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)
+   for(const h of row.supporting_runs){h.class='C3-18';h.track='川崎';}
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(x=>x.horse_no===6).same_class_close_runs,0);
+});
+test('rank9 with recent close races but without a class-level win stays review-only',()=>{
+ const x=fx();x.comparison.runner_evidence[5].supporting_runs=[];
+ const deep=x.comparison.runner_evidence[8];
+ deep.supporting_runs.push({date:'2026-10-30',track:'福島',surface:'ダート',
+   distance:1200,class:'1勝クラス',finish:2,margin:0.1});
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
 });
