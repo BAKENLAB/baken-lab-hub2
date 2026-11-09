@@ -244,7 +244,7 @@ export function createNarOfficialReader({fetchImpl = fetch, now = Date.now} = {}
     },
     async readHistory(current,options,signal) {
       live(options.race);
-      if(options.limit!==5 || options.before!==options.race.race_date || !bound ||
+      if(![5,12].includes(options.limit) || options.before!==options.race.race_date || !bound ||
         ['race_date','track','race_no','circuit','post_time'].some(k=>bound.race[k]!==options.race[k]))
         throw new ContextError('HORSE_HISTORY_UNVERIFIED');
       const original=bound.snapshot.runners.find(r=>r.horse_no===current.horse_no);
@@ -259,7 +259,7 @@ export function createNarOfficialReader({fetchImpl = fetch, now = Date.now} = {}
       // Additional active parameter is not silently dropped from identity.
       if(active!==null)throw new ContextError('HORSE_HISTORY_UNSUPPORTED_LINK');
       const profile=await get(url,options.race,signal);
-      return parseNarHorseHistory(profile,original,options.race);
+      return parseNarHorseHistory(profile,original,options.race,{maxRuns:options.limit});
     }
   };
 }
