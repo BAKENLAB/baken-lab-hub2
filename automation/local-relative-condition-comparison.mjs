@@ -59,6 +59,21 @@ export function buildLocalRelativeConditionComparison(runners,conditions={},targ
     const cls=resolveLocalOfficialClassLiteral(h.race_class??h.class_name??h.race_name,h.track);
     return {h,i,resolution,cls};
   });
+  // Preserve EVERY verified pre-race past run in a separate descriptive lane.
+  // Supporting runs keep their legacy narrow same-surface/near-distance
+  // semantics; cross-condition/JRA-transfer history is NOT thrown away.
+  // No result, odds, popularity or market attributes are ever projected.
+  const project=({h,i,resolution,cls})=>({
+      race_date:h.race_date,track:h.track,race_name:h.race_name,
+      class:cls.class_label,class_provenance:cls.status,
+      surface:resolution.surface,surface_provenance:resolution.provenance,
+      surface_source_ref:resolution.source_ref,
+      distance:safeNumber(h.distance),finish:safeNumber(h.finish),
+      ...confirmedNarSecondPlaceMargin(h),raw_margin:h.margin??null,
+      early_pos:safeNumber(h.early_pos),final_turn_pos:safeNumber(h.final_turn_pos),
+      evidence_ref:`COMPACT_V1.runners[horse_no=${r.horse_no}].recent_runs[${i}]`
+  });
+  const contextRuns=prepared.map(project);
   const similar=prepared.filter(({h,resolution})=>
     resolution.surface===surface && Number.isInteger(safeNumber(h.distance)) &&
     Math.abs(safeNumber(h.distance)-distance)<=200);
@@ -77,16 +92,12 @@ export function buildLocalRelativeConditionComparison(runners,conditions={},targ
     class_comparison:'EXPLICIT_OFFICIAL_TITLE_ONLY_SAME_DISTRICT_GUARDED_BY_SCORER',
     surface_unknown_runs:prepared.filter(x=>x.resolution.surface===null).length,
     surface_recovered_from_track:prepared.filter(x=>x.resolution.provenance==='NAR_OFFICIAL_SINGLE_SURFACE_TRACK_CAPABILITY').length,
-    supporting_runs:similar.map(({h,i,resolution,cls})=>({
-      race_date:h.race_date,track:h.track,race_name:h.race_name,
-      class:cls.class_label,class_provenance:cls.status,
-      surface:resolution.surface,surface_provenance:resolution.provenance,
-      surface_source_ref:resolution.source_ref,
-      distance:safeNumber(h.distance),finish:safeNumber(h.finish),
-      ...confirmedNarSecondPlaceMargin(h),raw_margin:h.margin??null,
-      early_pos:safeNumber(h.early_pos),final_turn_pos:safeNumber(h.final_turn_pos),
-      evidence_ref:`COMPACT_V1.runners[horse_no=${r.horse_no}].recent_runs[${i}]`
-    })),
+    supporting_runs:similar.map(project),
+    // Distinct from legacy supporting_runs: includes other verified distances,
+    // districts and class histories for full-field condition-change audit.
+    // A different condition is a REVIEW LEAD, not matched scoring proof.
+    context_runs:contextRuns,
+    cross_condition_run_count:contextRuns.length-similar.length,
     comparison_status:similar.length>=2?'REPEATED_COMPARABLE_RUNS':
        similar.length===1?'SINGLE_COMPARABLE_RUN':'NO_COMPARABLE_RUN'};
  });
