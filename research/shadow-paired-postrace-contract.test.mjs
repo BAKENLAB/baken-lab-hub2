@@ -61,3 +61,16 @@ test('legacy JRA saved rank omitting ALL runner status remains comparable withou
  assert.doesNotMatch(sql,/p\.circuit='LOCAL' AND\s*NOT EXISTS/);
  assert.match(sql,/official_frozen_field IS DISTINCT FROM field_athletes/);
 });
+
+test('NAR results with duplicate raw first-place rows use verified official WIN payout only',()=>{
+ assert.match(sql,/spurious extra "finish:1" row/);
+ assert.match(sql,/official_podium_places IS DISTINCT FROM '\[1,2,3\]'::jsonb/);
+ assert.match(sql,/official_win_payout_count<>1/);
+ assert.match(sql,/r\.result->'payouts'->'win'/);
+ assert.match(sql,/w->>'combination'=h->>'horse_no'/);
+ assert.match(sql,/p\.circuit<>'LOCAL' OR h->>'finish'<>'1'/);
+ // The canonical podium requires exactly 1st, 2nd and 3rd and a
+ // UNIQUE independently verifiable winner.  JRA uses existing logic.
+ assert.match(sql,/THEN 'WAITING_VERIFIED_PODIUM'/);
+ assert.equal((sql.match(/CREATE OR REPLACE VIEW/g)||[]).length,2);
+});
