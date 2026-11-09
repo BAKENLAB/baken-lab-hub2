@@ -44,7 +44,9 @@ test('v1.7 creates an independent 100pt full-field order with no old ranks or sc
  assert.equal(x.runners.every(h=>Number.isInteger(h.score)&&h.score>=0&&h.score<=100),true);
  assert.equal(new Set(x.runners.map(h=>h.horse_no)).size,12);
  assert.equal(x.ability_evidence_audit.length,12);
- assert.equal(x.lab_eye_status,'SEPARATE_AFTER_TOP5_NOT_AUTO_SELECTED');
+ assert.equal(x.lab_eye_status,'ABSTAINED');
+ assert.equal(x.eye_candidate,null);
+ assert.equal(x.eye_all_outsider_audits.length,7);
  assert.equal(x.production_rank_effect,false);
  assert.equal(x.frozen_modified,false);
 });
@@ -115,4 +117,27 @@ test('future JST racedate is protected even when UTC observation is previous day
  const e=make();
  e.race.observation_at='2026-11-09T14:59:59Z';
  assert.equal(v17(e).reason,'RACE_OR_ASOF_UNVERIFIED');
+});
+
+test('1.7 EYE is separate from TOP5 and reviews all outsiders without auto rank6',()=>{
+ const d=make();
+ for(let n=1;n<=7;n++){
+  d.comparison.runner_evidence[n-1].context_runs=[
+   run(n,0,1),run(n,1,2)];
+ }
+ d.comparison.runner_evidence[11].context_runs=[
+  run(12,0,2,{track:'佐賀',distance:1400,class:'C2'}),
+  run(12,1,3,{track:'名古屋',distance:1500,class:'C2'})
+ ];
+ const x=v17(d);
+ assert.equal(x.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(x.eye_all_outsider_audits.length,7);
+ // The independent current evidence and two distinct races, not a
+ // rank position, determine whether an outsider is interesting.
+ const a=x.eye_all_outsider_audits.find(h=>h.horse_no===12);
+ assert.equal(a?.prior_evidence_count,2);
+ assert.equal(a?.eye_case,true);
+ assert.equal(a?.independent_podium_refs.length,2);
+ assert.equal(x.production_eye_effect,false);
+ assert.equal(x.frozen_modified,false);
 });
