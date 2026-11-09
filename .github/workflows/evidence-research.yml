@@ -40,7 +40,8 @@ jobs:
       - name: Typecheck staged JRA claimed relative-rank runtime
         run: |
           mkdir -p .jra-mcp-ci
-          cp research/staged-jra-claimed-mcp-ability-v9.ts .jra-mcp-ci/index.ts
+          cp research/staged-jra-claimed-mcp-ability-v12.ts .jra-mcp-ci/index.ts
+          cp automation/jra-relative-draft-adapter.mjs .jra-mcp-ci/jra-relative-draft-adapter.mjs
           cp automation/relative-ability-rank-proposal.mjs .jra-mcp-ci/relative-ability-rank-proposal.mjs
           cp automation/local-verified-condition-bridge.mjs .jra-mcp-ci/local-verified-condition-bridge.mjs
           deno check .jra-mcp-ci/index.ts
