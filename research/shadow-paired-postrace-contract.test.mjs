@@ -74,3 +74,27 @@ test('NAR results with duplicate raw first-place rows use verified official WIN 
  assert.match(sql,/THEN 'WAITING_VERIFIED_PODIUM'/);
  assert.equal((sql.match(/CREATE OR REPLACE VIEW/g)||[]).length,2);
 });
+
+test('sealed official podium audit exposes ◎ win, podium place and complete TOP5 triple',()=>{
+ for(const field of [
+  'baseline_honmei_win','shadow_honmei_win',
+  'baseline_honmei_in_podium','shadow_honmei_in_podium',
+  'baseline_all_three_in_top5','shadow_all_three_in_top5',
+  'baseline_honmei_wins','shadow_honmei_wins',
+  'baseline_honmei_podium','shadow_honmei_podium',
+  'baseline_full_podium_captures','shadow_full_podium_captures'
+ ])assert.ok(sql.includes(field),'Missing prospective metric: '+field);
+ assert.match(sql,/draft_order->0=official_podium->0/);
+ assert.match(sql,/proposed_order->0=official_podium->0/);
+ assert.match(sql,/CASE WHEN audit_status='PAIRED' THEN/);
+});
+test('report separates changed TOP5 races and credits both newly caught and lost horses',()=>{
+ for(const field of [
+  'shadow_changed_rank','shadow_changed_top5',
+  'any_rank_change_paired','top5_changed_paired',
+  'net_podium_gain_on_changed_top5',
+  'newly_captured_on_changed_top5','lost_captured_on_changed_top5'
+ ])assert.ok(sql.includes(field),'Missing changed-case metric: '+field);
+ assert.match(sql,/sum\(newly_captured-lost_captured\) FILTER\(WHERE audit_status='PAIRED' AND shadow_changed_top5\)/);
+ assert.match(sql,/count\(\*\) FILTER\(WHERE audit_status='PAIRED' AND shadow_changed_top5\)/);
+});
