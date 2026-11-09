@@ -39,7 +39,11 @@ export function attachDomHorseLinks(snapshot, diagnostic) {
       deba_source_ref:snapshot.source_ref,horse_ref:identity_refs[0]}:null};
   })};
 }
-export function parseNarHorseHistory(profile,current,race) {
+export function parseNarHorseHistory(profile,current,race,{maxRuns=5}={}) {
+  // Default remains the production's existing 5-run boundary.
+  // The deeper read is optional, identity-checked, and bounded to 12 runs.
+  if(!Number.isInteger(maxRuns)||maxRuns<1||maxRuns>12)
+    throw new ContextError('HISTORY_DEPTH_INVALID');
   if(race.circuit!=='LOCAL' || !Object.hasOwn(NAR_TRACK_CODES,race.track))throw new ContextError('RACE_MISMATCH');
   const ref=current.horse_link_evidence?.horse_ref;
   if(!ref || current.horse_link_evidence.horse_no!==current.horse_no ||
@@ -83,5 +87,5 @@ export function parseNarHorseHistory(profile,current,race) {
   }
   const unique=new Map();
   for(const h of runs){const key=JSON.stringify([h.race_date,h.track,h.race_no]);if(unique.has(key))throw new ContextError('DUPLICATE_HORSE_HISTORY');unique.set(key,h);}
-  return [...unique.values()].sort((a,b)=>b.race_date.localeCompare(a.race_date)||b.race_no-a.race_no).slice(0,5);
+  return [...unique.values()].sort((a,b)=>b.race_date.localeCompare(a.race_date)||b.race_no-a.race_no).slice(0,maxRuns);
 }
