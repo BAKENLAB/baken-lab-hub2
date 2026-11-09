@@ -18,15 +18,22 @@ WITH captures AS (
    p.protocol_version official_protocol,
    p.frozen_at official_frozen_at,
    p.post_time official_post_time,
+   CASE WHEN p.circuit='JRA' AND NOT EXISTS (
+      SELECT 1 FROM jsonb_array_elements(COALESCE(p.payload->'runners','[]'::jsonb)) k WHERE k ? 'status'
+   ) THEN 'JRA_LEGACY_ALL_STATUS_MISSING' ELSE 'EXPLICIT_ACTIVE' END AS frozen_runner_status_policy,
    r.source result_source,r.settled_at result_settled_at,
    (SELECT jsonb_agg((h->>'horse_no')::int ORDER BY (h->>'rank')::int)
     FROM jsonb_array_elements(COALESCE(p.payload->'runners','[]'::jsonb)) h
-    WHERE h->>'status'='ACTIVE' AND h->>'rank' ~ '^[0-9]{1,2}$'
+    WHERE (h->>'status'='ACTIVE' OR (p.circuit='JRA' AND
+      NOT EXISTS (SELECT 1 FROM jsonb_array_elements(COALESCE(p.payload->'runners','[]'::jsonb)) k WHERE k ? 'status')))
+      AND h->>'rank' ~ '^[0-9]{1,2}$'
       AND h->>'horse_no' ~ '^[0-9]{1,2}$') official_frozen_order,
    (SELECT jsonb_agg(jsonb_build_object('horse_no',h->'horse_no',
       'horse_name',h->>'horse_name') ORDER BY (h->>'horse_no')::int)
     FROM jsonb_array_elements(COALESCE(p.payload->'runners','[]'::jsonb)) h
-    WHERE h->>'status'='ACTIVE' AND h->>'horse_no' ~ '^[0-9]{1,2}$')
+    WHERE (h->>'status'='ACTIVE' OR (p.circuit='JRA' AND
+      NOT EXISTS (SELECT 1 FROM jsonb_array_elements(COALESCE(p.payload->'runners','[]'::jsonb)) k WHERE k ? 'status')))
+      AND h->>'horse_no' ~ '^[0-9]{1,2}$')
       official_frozen_field,
    (SELECT jsonb_agg((h->>'horse_no')::int ORDER BY (h->>'finish')::int)
     FROM jsonb_array_elements(COALESCE(r.result->'finishers','[]'::jsonb)) h
@@ -63,6 +70,7 @@ WITH captures AS (
 )
 SELECT circuit,race_date,track,race_no,captured_at,official_frozen_at,post_time,
  protocol_version,proposal_model,proposal_status,capture_sha256,
+ frozen_runner_status_policy,
  audit_status,draft_order,proposed_order,
  (SELECT jsonb_agg(x.value ORDER BY x.ord)
   FROM jsonb_array_elements(draft_order) WITH ORDINALITY x(value,ord) WHERE ord<=5) baseline_top5,
