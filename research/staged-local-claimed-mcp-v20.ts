@@ -30,10 +30,12 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  const auth=async()=>{const a=Deno.env.get("LOCAL_MCP_ALLOWED_USER_ID")??"";if(!uuid(a))throw Error("AUTHORIZATION_NOT_CONFIGURED");const {data:{user},error}=await bounded(()=>supabase.auth.getUser());if(error||!user||user.id!==a)throw Error("FORBIDDEN");return user};
  const claim=async(c:any,id:string)=>{const {data:j,error:e}=await c.from("lab_prediction_jobs").select("id,circuit,job_status,worker_run_id,claim_token,claimed_by,lease_until,attempts,max_attempts").eq("id",id).eq("circuit","LOCAL").eq("job_status","CLAIMED").limit(2);if(e||!j||j.length!==1)throw Error("CLAIM_UNAVAILABLE");const x=j[0];if(!uuid(x.worker_run_id)||!uuid(x.claim_token)||(!Number.isFinite(Date.parse(x.lease_until))||Date.parse(x.lease_until)<=Date.now())||x.attempts>x.max_attempts||!WORKERS.has(x.claimed_by))throw Error("CLAIM_UNAVAILABLE");const {data:r,error:re}=await c.from("lab_worker_runs").select("id,worker_id,status,region").eq("id",x.worker_run_id).eq("status","RUNNING").limit(2);if(re||!r||r.length!==1||x.claimed_by!==r[0].worker_id||WORKERS.get(r[0].worker_id)!==r[0].region)throw Error("CLAIM_UNAVAILABLE");return {j:x,r:r[0]}};
 
- const TERMINAL_EYE_CODES=new Set(["LOCAL_EYE_SELECTION_MISMATCH","LOCAL_EYE_OLD_PAIRS_FORBIDDEN","LOCAL_EYE_MARKET_EVIDENCE"]);
+ const TERMINAL_EYE_CODES=new Set(["LOCAL_EYE_SELECTION_MISMATCH","LOCAL_EYE_OLD_PAIRS_FORBIDDEN","LOCAL_EYE_MARKET_EVIDENCE","LOCAL_EYE_CHECK_EVIDENCE"]);
  const KNOWN_FAILED_JOBS=[
   {id:"0d99a3a5-ace4-4c51-b0e3-5337df1300e6",worker:"LOCAL_QUEUE_KANTO",race_date:"2026-11-02",track:"船橋",race_no:9,error:"LOCAL_EYE_SELECTION_MISMATCH"},
-  {id:"83cf4e54-ccb0-4995-bcc6-2728518be7e1",worker:"LOCAL_QUEUE_HOKKAIDO_TOHOKU",race_date:"2026-11-08",track:"盛岡",race_no:4,error:"LOCAL_EYE_MARKET_EVIDENCE"}
+  {id:"83cf4e54-ccb0-4995-bcc6-2728518be7e1",worker:"LOCAL_QUEUE_HOKKAIDO_TOHOKU",race_date:"2026-11-08",track:"盛岡",race_no:4,error:"LOCAL_EYE_MARKET_EVIDENCE"},
+  // Verified 2026-11-09 guard rejection. Never resubmit the refused input.
+  {id:"0e833929-c3d6-48c9-80fd-1f9a86480f7b",worker:"LOCAL_QUEUE_KANTO",race_date:"2026-11-09",track:"川崎",race_no:1,error:"LOCAL_EYE_CHECK_EVIDENCE"}
  ];
  const closeFailedClaim=async(c:any,job_id:string,code:string)=>{
    if(!TERMINAL_EYE_CODES.has(code))throw Error("QUEUE_STATE_UNAVAILABLE");
