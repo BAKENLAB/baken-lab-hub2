@@ -64,7 +64,10 @@ test('JRA optional prep genuinely computes new TOP5 only before post time',()=>{
  assert.equal(buildOptionalSaveJraShadow({context:ctx,payload:p,now:'2026-11-10T14:59:00+09:00'}),null);
 });
 test('LOCAL optional prep uses officially verified matching track history only',()=>{
- const ctx=local();ctx.race.track='京都';
+ const ctx=local();ctx.race.track='高知';ctx.race.conditions.class_name='Ｃ２四組';
+ for(const row of ctx.relative_condition_evidence.runner_evidence){
+  for(const h of row.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+ }
  const result=buildOptionalSaveLocalShadow({context:ctx,payload:payload(),now});
  assert.ok(result);assert.deepEqual(result.preview.top5,[1,2,3,4,6]);
  assert.equal(result.preview.official_saved,false);
