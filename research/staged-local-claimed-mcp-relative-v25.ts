@@ -2,6 +2,7 @@ import {buildOptionalSaveLocalShadow,extractOfficialSaveDraft} from "./optional-
 import {buildRelativeAbilityRankProposal} from "./relative-ability-rank-proposal.mjs";
 import {buildLocalFullFieldOverUnderShadow} from "./local-full-field-over-under-shadow.mjs";
 import {buildLocalV17IndependentShadow} from "./local-v17-full-field-independent-shadow.mjs";
+import {buildLocalRelativeConditionComparison} from "./local-relative-condition-comparison.mjs";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import {createMcpHandler,McpServer} from "npm:@modelcontextprotocol/server@^2.0.0";
 import {pipeline} from "npm:@supabase/middleware@1";
@@ -133,6 +134,15 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
    if(b.r.id!==a.r.id||b.j.claim_token!==a.j.claim_token)
      throw Error("CLAIM_CHANGED");
    const ctx=o.context;
+   // Rebuild the full historical packet from the ALREADY verified official
+   // CLAIM runners. The deployed optional relative comparator currently
+   // filters other distances, so using it directly would repeat the bug.
+   // This research adapter only projects public verified run fields.
+   if(!Array.isArray(ctx.runners)||ctx.runners.length<6||
+      ctx.runners.length>20||ctx.field_integrity_checked!==true)
+     throw Error("VERIFIED_FULL_FIELD_REQUIRED");
+   const complete=buildLocalRelativeConditionComparison(
+    ctx.runners,ctx.race?.conditions??{},ctx.race?.race_date);
    const candidate=buildLocalV17IndependentShadow({
     race:{circuit:"LOCAL",race_date:ctx.race?.race_date,
       race_no:ctx.race?.race_no,track:ctx.race?.track,
@@ -142,7 +152,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
       distance:ctx.race?.conditions?.distance,
       observation_at:new Date().toISOString(),
       post_time:ctx.race?.post_time},
-    comparison:ctx.relative_condition_evidence
+    comparison:complete
    });
    const out={...candidate,claim_verified:true,
     officially_saved:false,save_authorized:false,
