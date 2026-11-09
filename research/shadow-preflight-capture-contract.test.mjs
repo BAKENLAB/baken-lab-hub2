@@ -20,7 +20,7 @@ test('RPC denies anon/ordinary users and requires live CLAIM, matching official 
  assert.match(sql,/REVOKE ALL ON FUNCTION public\.lab_capture_rank_shadow_preflight_v1\(text,uuid,jsonb,jsonb\)\s*FROM PUBLIC,anon,authenticated/);
  assert.match(sql,/GRANT EXECUTE ON FUNCTION public\.lab_capture_rank_shadow_preflight_v1\(text,uuid,jsonb,jsonb\)\s*TO service_role/);
  for(const required of [
-  'j.job_status=\\'CLAIMED\\'','j.lease_until>v_now',
+  "j.job_status='CLAIMED'",'j.lease_until>v_now',
   "r.post_time>v_now+interval '3 minutes'",
   "r.prediction_status IN ('PENDING','RETRY')",
   "r.field_status IN ('READY','BASIC_READY')",
