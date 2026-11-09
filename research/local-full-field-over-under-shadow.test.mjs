@@ -147,3 +147,15 @@ test('candidate still refuses to change rankings if no verified incumbent is ove
  assert.equal(x.candidate_order.length,12);
  assert.deepEqual(x.proposed_top5,[1,2,3,4,5]);
 });
+
+test('UTC early-morning LIVE CLAIM is checked in JST, not falsely rejected as yesterday',()=>{
+ const d=make();
+ const x=review({race:{...race,observation_at:'2026-11-09T23:00:00Z'},...d});
+ assert.equal(x.status,'PROPOSED_FULL_FIELD_EXCHANGE');
+ assert.deepEqual(x.proposed_top5,[1,3,4,5,9]);
+});
+test('real previous local calendar date and future date still fail the as-of gate',()=>{
+ const d=make();
+ assert.equal(review({race:{...race,observation_at:'2026-11-09T14:59:59Z'},...d}).status,'UNVERIFIED');
+ assert.equal(review({race:{...race,observation_at:'2026-11-10T15:00:01Z'},...d}).status,'UNVERIFIED');
+});
