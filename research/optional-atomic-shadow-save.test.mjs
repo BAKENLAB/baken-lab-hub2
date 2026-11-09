@@ -14,7 +14,8 @@ const official=()=>field.map(r=>({
  horse_no:r.horse_no,horse_name:r.horse_name,supporting_runs:
  r.horse_no===6?[
   {date:'2026-10-10',race_date:'2026-10-10',track:'京都',class:'1勝クラス',surface:'芝',distance:1400,finish:1,margin:0.0},
-  {date:'2026-10-20',race_date:'2026-10-20',track:'京都',class:'1勝クラス',surface:'芝',distance:1400,finish:2,margin:0.2}
+  {date:'2026-10-20',race_date:'2026-10-20',track:'京都',class:'1勝クラス',surface:'芝',distance:1400,finish:2,margin:0.2,
+   margin_unit:'LENGTHS_TO_WINNER',margin_basis:'NAR_SECOND_PLACE_PRECEDING_IS_WINNER'}
  ]:r.horse_no===5?[
   {date:'2026-10-10',race_date:'2026-10-10',track:'京都',class:'1勝クラス',surface:'芝',distance:1400,finish:8,margin:2.1},
   {date:'2026-10-20',race_date:'2026-10-20',track:'京都',class:'1勝クラス',surface:'芝',distance:1400,finish:9,margin:2.0}
