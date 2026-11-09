@@ -1,0 +1,178 @@
+/**
+ * BAKEN LAB LOCAL 1.7 (from zero) — independent PRE-RACE shadow prototype.
+ *
+ * This is NOT a 1.6 re-sort and NOT a 5/6 swap. No baseline rank or score
+ * is accepted as input; every horse gets the same scoring features and
+ * historical-evidence audit BEFORE the engine determines any rank.
+ *
+ * Run only against an already officially verified live CLAIM context.
+ * Results, payouts, odds, market ranks, target-day outcomes, or data acquired
+ * after start are forbidden. Missing facts produce uncertainty, NOT a penalty.
+ *
+ * UNRELEASED/UNCALIBRATED. No production ranking, FROZEN or EYE mutation.
+ */
+import {resolveLocalOfficialClassLiteral} from './local-verified-condition-bridge.mjs';
+
+const norm=x=>String(x??'').normalize('NFKC').replace(/\s+/g,'').trim();
+const isDay=x=>typeof x==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x)&&Number.isFinite(Date.parse(x+'T00:00:00Z'));
+const time=x=>typeof x==='string'&&/(?:Z|[+-]\d\d:\d\d)$/.test(x)&&Number.isFinite(Date.parse(x))?Date.parse(x):NaN;
+const localDay=x=>Number.isFinite(time(x))?new Date(time(x)+9*3600000).toISOString().slice(0,10):null;
+const nr=x=>Number.isInteger(x)&&x>=1&&x<=24;
+const finite=x=>typeof x==='number'&&Number.isFinite(x);
+const validSourceRef=(s,n)=>typeof s==='string'&&
+ /^COMPACT_V1\.runners\[horse_no=\d{1,2}\]\.recent_runs\[\d\]$/.test(s)&&
+ s.includes('horse_no='+n+']');
+const leakKeys=/^(?:win_odds|odds|popularity|market|result|finishers|payouts|target_result|result_finish|baseline_rank|baseline_score)$/i;
+const hasLeak=v=>{
+ if(!v||typeof v!=='object')return false;
+ if(Array.isArray(v))return v.some(hasLeak);
+ return Object.entries(v).some(([k,x])=>leakKeys.test(k)||hasLeak(x));
+};
+const stop=(reason,more={})=>({
+ status:'UNVERIFIED',reason,model:'LOCAL_1_7_INDEPENDENT_SHADOW_V0_1',
+ version:'1.7-research',production_rank_effect:false,production_eye_effect:false,
+ frozen_modified:false,market_used:false,target_result_used:false,...more
+});
+const scoreBound=n=>Math.min(100,Math.max(0,Math.round(n)));
+const ageDays=(today,day)=>(Date.parse(today+'T00:00:00Z')-Date.parse(day+'T00:00:00Z'))/86400000;
+const rankWeight=finish=>finish===1?28:finish===2?22:finish===3?16:
+ finish<=5?9:finish<=8?2:-3;
+
+/** Simple, interpretable prior-run signals; NO retrospective calibration. */
+function evaluateRun(h,conditions,horseNo,usedRefs){
+ if(!h||!validSourceRef(h.evidence_ref,horseNo)||usedRefs.has(h.evidence_ref)||
+    !isDay(h.race_date)||h.race_date>=conditions.race_date||hasLeak(h)||
+    !norm(h.track)||!Number.isInteger(h.finish)||h.finish<1||h.finish>24||
+    (h.distance!==null&&!Number.isInteger(h.distance))||
+    (h.distance!==null&&(h.distance<800||h.distance>3600))||
+    ![null,'ダート','芝'].includes(h.surface??null))
+  return null;
+ usedRefs.add(h.evidence_ref);
+ const days=ageDays(conditions.race_date,h.race_date);
+ if(days<0)return null;
+ const surfaceMatch=h.surface===conditions.surface;
+ const surfaceUnknown=h.surface===null||h.surface===undefined;
+ const courseMatch=norm(h.track)===norm(conditions.track);
+ const distanceDelta=Number.isInteger(h.distance)?
+   Math.abs(h.distance-conditions.distance):null;
+ const cls=norm(h.class),sameClass=courseMatch&&cls&&
+   conditions.target_class!==null&&cls===norm(conditions.target_class);
+ // Even JRA/other-NAR history stays in the evaluation pool.
+ // Different venue and distance are NEVER interpreted as poor ability.
+ const contextBand=!surfaceMatch?'SURFACE_CHANGED_OR_UNKNOWN':
+   !courseMatch?'OTHER_TRACK':
+   distanceDelta!==null&&distanceDelta>300?'LONG_DISTANCE_CHANGE':
+   !sameClass?'CLASS_OR_GROUP_UNVERIFIED':'SAME_OFFICIAL_CLASS';
+ const freshness=days<=45?6:days<=120?4:days<=240?2:days<=540?1:0;
+ const matchBonus=(surfaceMatch?3:0)+(courseMatch?3:0)+
+   (distanceDelta!==null&&distanceDelta<=100?5:
+    distanceDelta!==null&&distanceDelta<=300?2:0)+(sameClass?3:0);
+ const classUncertainty=conditions.target_class===null||
+   cls===''||(!courseMatch&&cls!=='');
+ // Positive run can still be useful after a change. Less directly
+ // transferable evidence receives a SMALL bonus, NOT a negative.
+ const runSignal=rankWeight(h.finish)+freshness+matchBonus;
+ return {
+  evidence_ref:h.evidence_ref,history_date:h.race_date,age_days:days,
+  finish:h.finish,track:h.track,distance:h.distance,
+  surface:h.surface??null,class_literal:h.class??null,
+  context_band:contextBand,class_equivalence_unverified:classUncertainty,
+  distance_delta:distanceDelta,
+  score_signal:runSignal,
+  finish_proof:h.finish<=3?'WIN_OR_PODIUM':'NO_PODIUM',
+  winner_gap:'UNVERIFIED_UNLESS_INDEPENDENTLY_VERIFIED',
+  turn_positions:{early:h.early_pos??null,last:h.final_turn_pos??null}
+ };
+}
+export function buildLocalV17IndependentShadow({race,comparison}={}){
+ if(!race||race.circuit!=='LOCAL'||!isDay(race.race_date)||
+    !norm(race.track)||!nr(race.race_no)||
+    !['芝','ダート'].includes(race.surface)||
+    !Number.isInteger(race.distance)||race.distance<800||race.distance>3600||
+    !Number.isFinite(time(race.observation_at))||
+    !Number.isFinite(time(race.post_time))||
+    time(race.observation_at)>=time(race.post_time)||
+    localDay(race.observation_at)!==race.race_date||hasLeak(race))
+  return stop('RACE_OR_ASOF_UNVERIFIED');
+ if(!comparison||comparison.status!=='READY'||
+    comparison.data_scope!=='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY'||
+    comparison.target_date!==race.race_date||
+    comparison.market_used!==false||
+    comparison.target_result_used!==false||
+    comparison.rank_effect!==false||comparison.score_effect!==false||
+    !Array.isArray(comparison.runner_evidence)||
+    comparison.runner_evidence.length<6||
+    comparison.runner_evidence.length>20||hasLeak(comparison))
+  return stop('COMPLETE_OFFICIAL_PRE_RACE_PACKET_UNVERIFIED');
+ const target=resolveLocalOfficialClassLiteral(race.class_name??race.race_name,race.track);
+ const target_class=target.class_label??null;
+ const audit=[],identity=new Set(),evidenceGaps=[];
+ for(const r of comparison.runner_evidence){
+  if(!nr(r?.horse_no)||!norm(r.horse_name)||identity.has(r.horse_no)||
+    !Array.isArray(r.context_runs)||r.context_runs.length>5||
+    // Full historical context, not just narrow same-distance subset, REQUIRED.
+    !Array.isArray(r.supporting_runs)||r.supporting_runs.length>5||
+    hasLeak(r))return stop('WHOLE_FIELD_IDENTITY_OR_HISTORY_UNVERIFIED');
+  identity.add(r.horse_no);
+  const refs=new Set(),proof=[];
+  for(const h of r.context_runs){
+   const found=evaluateRun(h,{race_date:race.race_date,track:race.track,
+     surface:race.surface,distance:race.distance,target_class},r.horse_no,refs);
+   if(!found)return stop('HISTORY_IDENTITY_ASOF_OR_PROVENANCE_UNVERIFIED');
+   if(found.age_days<=540)proof.push(found);
+  }
+  // Zero history is not a low ability: refuse an artificial 1...N rank.
+  if(proof.length===0)evidenceGaps.push({horse_no:r.horse_no,
+   horse_name:r.horse_name,reason:'NO_VERIFIED_540_DAY_RUNS'});
+  // All horses score using EXACTLY the same formula. One poor run cannot
+  // erase multiple independent better performances.
+  const ordered=proof.slice().sort((a,b)=>b.score_signal-a.score_signal||
+    a.age_days-b.age_days||a.evidence_ref.localeCompare(b.evidence_ref));
+  const contributions=ordered.slice(0,3)
+    .map((x,i)=>({ref:x.evidence_ref,signal:x.score_signal,weight:[0.7,0.35,0.15][i]}));
+  const base=50;
+  const raw=base+contributions.reduce((n,x)=>n+x.signal*x.weight,0);
+  // Provisional score is NOT a probability and not calibrated against 1.6.
+  const score=scoreBound(raw);
+  audit.push({horse_no:r.horse_no,horse_name:r.horse_name,
+   independent_score:score,base_score:base,
+   evidence_runs_checked:r.context_runs.length,
+   evidence_runs_used:proof.length,
+   comparable_same_venue:proof.filter(x=>x.track===race.track).length,
+   other_condition_runs:proof.filter(x=>x.context_band!=='SAME_OFFICIAL_CLASS').length,
+   runs:proof,score_contributions:contributions,
+   gaps:proof.length?'NONE':'INSUFFICIENT_OFFICIAL_HISTORY',
+   missing_information_penalty:0,
+   target_class_status:target.status,
+   excludes_target_results:true
+  });
+ }
+ if(evidenceGaps.length)return stop('INSUFFICIENT_EVIDENCE_FOR_FAIR_WHOLE_FIELD_RANK',{
+  all_runners_checked:audit.length,missing:evidenceGaps,
+  observed_runner_data:audit,proposed_top5:null});
+ // Rank is decided ONLY AFTER every complete-field assessment.
+ const sorted=audit.slice().sort((a,b)=>b.independent_score-a.independent_score||
+  b.evidence_runs_used-a.evidence_runs_used||a.horse_no-b.horse_no);
+ const equalScores=sorted.filter((v,i)=>i>0&&v.independent_score===sorted[i-1].independent_score);
+ return {
+  status:'READY_FOR_PROSPECTIVE_PAIRED_TEST',
+  model:'LOCAL_1_7_INDEPENDENT_SHADOW_V0_1',
+  version:'1.7-research',release_status:'RESEARCH_NOT_DEPLOYED',
+  observation_at:race.observation_at,
+  race_identity:{circuit:'LOCAL',race_date:race.race_date,
+   track:race.track,race_no:race.race_no,post_time:race.post_time},
+  target_class_status:target.status,
+  all_runners_checked:audit.length,
+  runners:sorted.map((r,i)=>({rank:i+1,horse_no:r.horse_no,
+   horse_name:r.horse_name,score:r.independent_score,
+   confidence:r.evidence_runs_used>=3?'HISTORY_AVAILABLE':'LIMITED_HISTORY'})),
+  top5:sorted.slice(0,5).map(x=>x.horse_no),
+  ability_evidence_audit:audit,
+  tied_score_runner_count:equalScores.length,
+  rank_tiebreak:'EVIDENCE_COVERAGE_THEN_HORSE_NO_NO_MARKET',
+  lab_eye_status:'SEPARATE_AFTER_TOP5_NOT_AUTO_SELECTED',
+  production_rank_effect:false,production_eye_effect:false,
+  frozen_modified:false,market_used:false,target_result_used:false,
+  safety:'PROSPECTIVE_ONLY; NOT OFFICIALLY SAVED; NO ODDS OR RESULTS'
+ };
+}
