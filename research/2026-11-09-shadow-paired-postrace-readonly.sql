@@ -18,6 +18,7 @@ WITH captures AS (
    p.protocol_version official_protocol,
    p.frozen_at official_frozen_at,
    p.post_time official_post_time,
+   r.source result_source,r.settled_at result_settled_at,
    (SELECT jsonb_agg((h->>'horse_no')::int ORDER BY (h->>'rank')::int)
     FROM jsonb_array_elements(COALESCE(p.payload->'runners','[]'::jsonb)) h
     WHERE h->>'status'='ACTIVE' AND h->>'rank' ~ '^[0-9]{1,2}$'
@@ -46,8 +47,12 @@ WITH captures AS (
        OR official_frozen_at>=post_time-interval '3 minutes' THEN 'INVALID_FREEZE_TIMING'
    WHEN official_frozen_order IS DISTINCT FROM draft_order OR
         official_frozen_field IS DISTINCT FROM field_athletes THEN 'DRAFT_NOT_OFFICIAL_FROZEN'
-   WHEN jsonb_typeof(official_podium)<>'array' OR
-        jsonb_array_length(official_podium)<>3 OR
+   WHEN (circuit='JRA' AND result_source IS DISTINCT FROM 'JRA_OFFICIAL')
+      OR (circuit='LOCAL' AND result_source IS DISTINCT FROM 'NAR_OFFICIAL_RACEMARK')
+      OR result_settled_at IS NULL
+      OR result_settled_at<captured_at THEN 'UNVERIFIED_RESULT_SOURCE'
+   WHEN COALESCE(jsonb_typeof(official_podium),'null')<>'array' OR
+        COALESCE(jsonb_array_length(official_podium),0)<>3 OR
         (SELECT count(DISTINCT h.value) FROM jsonb_array_elements(official_podium) h)<>3 OR
         EXISTS (SELECT 1 FROM jsonb_array_elements(official_podium) h
                 WHERE NOT EXISTS(SELECT 1 FROM jsonb_array_elements(draft_order) d
