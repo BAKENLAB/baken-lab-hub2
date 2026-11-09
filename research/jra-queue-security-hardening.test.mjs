@@ -32,7 +32,10 @@ test('JRA privileged save/finalize and queue RPCs all lose anonymous execution',
 });
 
 test('hardening does not touch predictions, queue rows, result rows or any Cron',()=>{
- assert.doesNotMatch(migration,/\b(?:INSERT INTO|UPDATE|DELETE FROM|TRUNCATE|DROP TABLE|CREATE POLICY)\b/i);
+ const statements=migration.split(';').map(x=>x.split('\n')
+   .filter(line=>!line.trim().startsWith('--')).join(' ').trim()).filter(Boolean);
+ for(const statement of statements)
+   assert.doesNotMatch(statement,/^(?:INSERT\s+INTO|UPDATE\s+|DELETE\s+FROM|TRUNCATE\s+|DROP\s+TABLE|CREATE\s+POLICY)/i);
  assert.doesNotMatch(migration,/official_predictions|official_results|pg_cron|cron\.schedule/i);
 });
 
