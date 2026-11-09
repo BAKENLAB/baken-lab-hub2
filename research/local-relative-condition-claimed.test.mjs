@@ -50,3 +50,36 @@ test('odds and current result are not input features',()=>{
  assert.equal(str.includes('win_odds'),false);
  assert.equal(str.includes('"result"'),false);
 });
+
+test('CLAIM comparison must NOT discard verified prior runs after class, district or distance change',()=>{
+ const f=field();
+ f[0].recent_runs=[
+  {race_date:'2026-10-25',track:'佐賀',race_name:'C2-18',surface:'ダート',
+   distance:1300,finish:2,margin:'クビ'},
+  {race_date:'2026-09-19',track:'東京',race_name:'1勝クラス',surface:'芝',
+   distance:1800,finish:5,margin:null}
+ ];
+ const v=compare(f,{surface:'ダート',distance:900},'2026-11-10');
+ assert.equal(v.status,'READY');
+ assert.equal(v.runner_evidence[0].supporting_runs.length,0);
+ assert.equal(v.runner_evidence[0].context_runs.length,2);
+ assert.equal(v.runner_evidence[0].cross_condition_run_count,2);
+ assert.equal(v.runner_evidence[0].context_runs[0].finish,2);
+ assert.equal(v.runner_evidence[0].context_runs[0].distance,1300);
+ assert.equal(v.runner_evidence[0].context_runs[1].finish,5);
+ assert.equal(v.runner_evidence[0].context_runs[1].track,'東京');
+ assert.equal(v.rank_effect,false);
+});
+test('projected context does not carry market or results, and never treats NAR raw margin as seconds',()=>{
+ const f=field();
+ f[0].recent_runs[1].popularity=1;
+ f[0].recent_runs[1].win_odds=1.1;
+ const v=compare(f,{surface:'ダート',distance:1300},'2026-11-08');
+ const h=v.runner_evidence[0].context_runs[1];
+ assert.equal(h.raw_margin,'クビ');
+ assert.equal(h.margin_basis,'NAR_SECOND_PLACE_PRECEDING_IS_WINNER');
+ assert.equal(h.margin_unit,'LENGTHS_TO_WINNER');
+ assert.equal(JSON.stringify(v).includes('win_odds'),false);
+ assert.equal(JSON.stringify(v).includes('popularity'),false);
+ assert.equal(v.target_result_used,false);
+});
