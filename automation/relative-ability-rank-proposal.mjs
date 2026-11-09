@@ -12,6 +12,7 @@
  * v0.2 expands deep review into a strict eligible 9+ rank proposal only when
  * there are multiple distinct, fresh, same-class proofs and incumbent downside.
  */
+import {resolveLocalOfficialClassLiteral} from './local-verified-condition-bridge.mjs';
 const key = x => String(x ?? '').normalize('NFKC').replace(/\s+/g,'').trim();
 const date = x => typeof x==='string' && /^\d{4}-\d\d-\d\d$/.test(x) &&
   Number.isFinite(Date.parse(x+'T00:00:00Z'));
@@ -97,13 +98,21 @@ function summarizeEvidence(row,race) {
  * The current runner roster is compared by exact horse_no and normalized name.
  */
 export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) {
+  // LOCAL official cards often provide class solely inside race_name.
+  // Only a unique, literally printed grade qualifies; missing/ambiguous stays UNKNOWN.
+  const targetClassResolution=race?.circuit==='LOCAL'?
+    resolveLocalOfficialClassLiteral(race.class_name??race.race_name):null;
+  const verifiedTargetClass=race?.circuit==='LOCAL'?
+    targetClassResolution.class_label:race?.class_name;
+  const comparisonRace=race?.circuit==='LOCAL'?
+    {...race,class_name:verifiedTargetClass}:race;
   if(race?.result!==undefined||race?.finishers!==undefined||
     comparison?.result!==undefined||comparison?.finishers!==undefined||
     baseline?.some?.(h=>h?.result!==undefined||h?.finish!==undefined||h?.odds!==undefined||h?.popularity!==undefined))
     return stop('RESULT_OR_MARKET_IN_PRERACE_INPUT');
   if(!date(race?.race_date)||!['JRA','LOCAL'].includes(race.circuit)||
     !integer(race.distance,800,3600)||typeof race.surface!=='string'||
-    !key(race.class_name)||
+    !key(verifiedTargetClass)||
     !Number.isFinite(instant(race.post_time))||
     !Number.isFinite(instant(race.observation_at))||
     instant(race.observation_at)>=instant(race.post_time))
@@ -135,7 +144,7 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
       key(e.horse_name)!==key(roster.get(e.horse_no).horse_name)||
       reports.has(e.horse_no)||!Array.isArray(e.supporting_runs)||
       e.supporting_runs.length>12)return stop('EVIDENCE_IDENTITY_OR_SHAPE_INVALID');
-    const report=summarizeEvidence(e,race);
+    const report=summarizeEvidence(e,comparisonRace);
     if(!report)return stop('EVIDENCE_CONTAINS_CURRENT_OR_FUTURE_RACE');
     reports.set(e.horse_no,report);
   }
@@ -232,6 +241,10 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     verified_field_count:baseline.length,
     proof_by_horse:original.map(h=>reports.get(h.horse_no)),
     safety_policy:'PROTECT_BASELINE_NO_MISSINGNESS_PENALTY_NO_RESULT_NO_MARKET',
+    target_class_evidence:race.circuit==='LOCAL'?
+      {status:targetClassResolution.status,class_label:verifiedTargetClass,
+       tier_comparison:'SAME_NAR_VENUE_AND_EXPLICIT_TIER_NOT_PROVEN_OPPONENT_EQUIVALENCE'}:
+      {status:'JRA_PROVIDED_CLASS',class_label:verifiedTargetClass},
     scoring_rule:'V0_2_STRICT_DISTINCT_MATCHED_CLASS_EVIDENCE_WITH_DEEP_RESCUE'
   });
 }
