@@ -29,14 +29,36 @@ export function resolveLocalHistoricalSurface(run){
  return {surface:null,provenance:'MIXED_OR_UNKNOWN_TRACK_NEEDS_EXPLICIT_SURFACE',source_ref:null};
 }
 /**
- * An explicitly printed CLASS label, extracted from an official race title.
- * Accept C2 / C2七組 / C29組 (=C2 9組) / C2-18組.
- * A1・A2 is ambiguous, not a single comparable class.
- * 3歳C2 is NOT adult C2. Original race name stays unchanged.
+ * Strict, venue-aware official CLASS literal reader.
+ * 名古屋/笠松: A・B・C are grades; suffix numbers are individual 組 numbers.
+ * Thus 名古屋 C23組 = C級23組, NEVER generic C2/3組 or C2.
+ * Other NAR districts: B1/B2, C1/C2/C3 etc. are graded class tiers.
+ * When the district is missing, compact C23 is ambiguous (fail closed).
+ * Mixed divisions such as A4・B3組/C14・C17組 are never one class.
+ *
+ * Caller supplies the official CURRENT race district for the target and
+ * the prior runner's ACTUAL verified historical district for each run.
+ * No inferred cross-district equivalence.
+ * Evidence: NAR class guide, Nagoya official race-program C級 group rules.
  */
-export function resolveLocalOfficialClassLiteral(name){
- const s=normalized(name);
+export function resolveLocalOfficialClassLiteral(name,track=null){
+ const s=normalized(name),venue=normalized(track);
  if(!s)return {status:'CLASS_MISSING',class_label:null};
+ if(venue==='名古屋'||venue==='笠松'){
+   // Age-only events cannot be treated as adult A/B/C grade.
+   if(/(?:^|[^0-9])3歳[ABC][0-9]/u.test(s))
+     return {status:'AGE_RESTRICTED_CLASS',class_label:null};
+   const all=[];
+   const re=/(?:^|[^A-Z0-9])([ABC])([1-9][0-9]?)(?=$|[^A-Z0-9])/gu;
+   for(const m of s.matchAll(re)) all.push(m[1]+String(Number(m[2])));
+   const unique=[...new Set(all)];
+   if(unique.length!==1)return {status:unique.length?'AMBIGUOUS_CLASS':'CLASS_NOT_EXPLICIT',class_label:null};
+   return {status:'OFFICIAL_TOKAI_GROUP_LITERAL',class_label:unique[0]};
+ }
+ // Compact two-digit class+group tokens need a confirmed Tokai district.
+ // A C29組 from Nagoya must not be read as C2 without its source venue.
+ if(!venue&&/(?:^|[^A-Z0-9])[ABC][123][0-9]組/u.test(s))
+   return {status:'VENUE_REQUIRED_FOR_COMPACT_CLASS',class_label:null};
  const matches=[];
  const re=/(?:^|[^A-Z0-9])(3歳)?([ABC])([123])(?=$|[^A-Z0-9]|[1-9]\d?組|[23]歳以上)/gu;
  for(const m of s.matchAll(re)){
