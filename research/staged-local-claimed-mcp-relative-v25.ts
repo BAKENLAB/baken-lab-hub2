@@ -1,6 +1,7 @@
 import {buildOptionalSaveLocalShadow,extractOfficialSaveDraft} from "./optional-atomic-shadow-save.mjs";
 import {buildRelativeAbilityRankProposal} from "./relative-ability-rank-proposal.mjs";
 import {buildLocalFullFieldOverUnderShadow} from "./local-full-field-over-under-shadow.mjs";
+import {buildLocalV17IndependentShadow} from "./local-v17-full-field-independent-shadow.mjs";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import {createMcpHandler,McpServer} from "npm:@modelcontextprotocol/server@^2.0.0";
 import {pipeline} from "npm:@supabase/middleware@1";
@@ -105,6 +106,52 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      application:"OPTIONAL_PRE_FROZEN_PREVIEW_ONLY",production_protocol_unmodified:true};
    return {content:[{type:"text",text:JSON.stringify(output)}],structuredContent:output};
   }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
+ });
+
+ // LOCAL1.7 independent experiment: official CLAIM -> whole-field context
+ // -> scores/ranks. This is NOT a LOCAL1.6 alteration or a saved FROZEN.
+ s.registerTool("lab_local_v17_independent_preview",{
+  description:"LOCAL 1.7 research-only whole-field 100pt independent pre-race rank. No 1.6 scores or old rankings, no target results/odds. Requires live guarded CLAIM and full unfiltered official history. No save/publication.",
+  inputSchema:z.object({job_id:z.string().uuid()}).strict(),
+  annotations:{readOnlyHint:true,destructiveHint:false,
+    idempotentHint:true,openWorldHint:false}
+ },async({job_id})=>{
+  try {
+   await auth();
+   const {u,k,c}=admin(),a=await claim(c,job_id);
+   const response=await fetch(u+"/functions/v1/lab-claimed-context",{
+    method:"POST",headers:{"content-type":"application/json",
+      authorization:"Bearer "+k,apikey:k},
+    body:JSON.stringify({run_id:a.r.id,job_id:a.j.id,
+      claim_token:a.j.claim_token}),
+    signal:AbortSignal.timeout(30000)
+   });
+   const o=await response.json().catch(()=>null);
+   if(!response.ok||o?.ok!==true||!o.context)
+     throw Error(o?.error||"CONTEXT_UNAVAILABLE");
+   const b=await claim(c,job_id);
+   if(b.r.id!==a.r.id||b.j.claim_token!==a.j.claim_token)
+     throw Error("CLAIM_CHANGED");
+   const ctx=o.context;
+   const candidate=buildLocalV17IndependentShadow({
+    race:{circuit:"LOCAL",race_date:ctx.race?.race_date,
+      race_no:ctx.race?.race_no,track:ctx.race?.track,
+      race_name:ctx.race?.race_name,
+      class_name:ctx.race?.conditions?.class_name,
+      surface:ctx.race?.conditions?.surface,
+      distance:ctx.race?.conditions?.distance,
+      observation_at:new Date().toISOString(),
+      post_time:ctx.race?.post_time},
+    comparison:ctx.relative_condition_evidence
+   });
+   const out={...candidate,claim_verified:true,
+    officially_saved:false,save_authorized:false,
+    application:"LOCAL_1_7_PROSPECTIVE_SHADOW_ONLY",
+    original_local_1_6_unchanged:true};
+   return {content:[{type:"text",text:JSON.stringify(out)}],
+     structuredContent:out};
+  }catch(e){return {isError:true,content:[{
+    type:"text",text:err(e)}]}}
  });
 
  // Staged read-only full-field over/under valuation challenger.
