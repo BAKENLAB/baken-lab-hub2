@@ -1,5 +1,6 @@
 import {buildOptionalSaveLocalShadow,extractOfficialSaveDraft} from "./optional-atomic-shadow-save.mjs";
 import {buildRelativeAbilityRankProposal} from "./relative-ability-rank-proposal.mjs";
+import {buildLocalFullFieldOverUnderShadow} from "./local-full-field-over-under-shadow.mjs";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import {createMcpHandler,McpServer} from "npm:@modelcontextprotocol/server@^2.0.0";
 import {pipeline} from "npm:@supabase/middleware@1";
@@ -102,6 +103,55 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
    });
    const output={...proposal,claim_verified:true,save_authorized:false,
      application:"OPTIONAL_PRE_FROZEN_PREVIEW_ONLY",production_protocol_unmodified:true};
+   return {content:[{type:"text",text:JSON.stringify(output)}],structuredContent:output};
+  }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
+ });
+
+ // Staged read-only full-field over/under valuation challenger.
+ // Independent pre-result factor comparisons for every rank (not rank 5/6).
+ // Requires the same official active lease, and refuses data/field mismatch.
+ s.registerTool("lab_full_field_over_under_preview",{
+  description:"Official pre-race LOCAL complete-field audit of TOP5 overvaluation and outsiders' undervaluation; read-only research rank hypothesis, never an official prediction.",
+  inputSchema:z.object({
+   job_id:z.string().uuid(),
+   baseline:z.array(z.object({
+    horse_no:z.number().int().min(1).max(24),
+    horse_name:z.string().min(1).max(160),
+    rank:z.number().int().min(1).max(20),
+    score:z.number().finite().min(0).max(100)
+   }).strict()).min(6).max(20)
+  }).strict(),
+  annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}
+ },async({job_id,baseline})=>{
+  try{
+   await auth();
+   const {u,k,c}=admin(),first=await claim(c,job_id);
+   const response=await fetch(u+"/functions/v1/lab-claimed-context",{
+    method:"POST",headers:{"content-type":"application/json",
+      authorization:"Bearer "+k,apikey:k},
+    body:JSON.stringify({run_id:first.r.id,job_id:first.j.id,
+      claim_token:first.j.claim_token}),
+    signal:AbortSignal.timeout(30000)
+   });
+   const o=await response.json().catch(()=>null);
+   if(!response.ok||o?.ok!==true||!o.context)
+     throw Error(o?.error||"CONTEXT_UNAVAILABLE");
+   const second=await claim(c,job_id);
+   if(second.r.id!==first.r.id||second.j.claim_token!==first.j.claim_token)
+     throw Error("CLAIM_CHANGED");
+   const ctx=o.context;
+   const proposal=buildLocalFullFieldOverUnderShadow({
+    race:{race_date:ctx.race?.race_date,track:ctx.race?.track,
+     race_no:ctx.race?.race_no,race_name:ctx.race?.race_name,
+     class_name:ctx.race?.conditions?.class_name,
+     surface:ctx.race?.conditions?.surface,
+     distance:ctx.race?.conditions?.distance,
+     observation_at:new Date().toISOString(),post_time:ctx.race?.post_time},
+    baseline,comparison:ctx.relative_condition_evidence
+   });
+   const output={...proposal,claim_verified:true,save_authorized:false,
+    application:"STAGED_PRE_FROZEN_RESEARCH_ONLY",
+    production_protocol_unmodified:true};
    return {content:[{type:"text",text:JSON.stringify(output)}],structuredContent:output};
   }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
  });
