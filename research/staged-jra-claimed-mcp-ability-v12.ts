@@ -1,4 +1,5 @@
 import {buildRelativeAbilityRankProposal} from "./relative-ability-rank-proposal.mjs";
+import {buildJraClaimedDraftPreview} from "./jra-relative-draft-adapter.mjs";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import {createMcpHandler,McpServer} from "npm:@modelcontextprotocol/server@^2.0.0";
 import {pipeline} from "npm:@supabase/middleware@1";
@@ -59,17 +60,11 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      const c=admin();
      const {data,error}=await c.rpc("jra_claimed_context",{p_job_id:job_id});
      if(error||!data)throw Error("CONTEXT_UNAVAILABLE");
-     const conditions=data.race?.field_payload?.race??{};
-     const result=buildRelativeAbilityRankProposal({
-       race:{race_date:data.race?.race_date,post_time:data.race?.post_time,
-         observation_at:new Date().toISOString(),circuit:"JRA",
-         track:data.race?.track,race_name:data.race?.race_name,
-         class_name:conditions.class_name,surface:conditions.surface,
-         distance:conditions.distance},
-       baseline,comparison:data.relative_condition_evidence
+     const result=buildJraClaimedDraftPreview({
+       claimedContext:data,baseline,observedAt:new Date().toISOString()
      });
      const output={...result,
-       baseline_kind:"USER_SUPPLIED_WHOLE_FIELD_DRAFT_NOT_BASE_CORE",
+       baseline_kind:"EXPLICIT_WHOLE_FIELD_PRE_FREEZE_DRAFT",
        production_protocol_unmodified:true,
        official_saved:false,save_authorized:false,
        application:"PRE_FROZEN_ALTERNATIVE_RANK_PROPOSAL_ONLY"};
