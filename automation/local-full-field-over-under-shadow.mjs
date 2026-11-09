@@ -33,7 +33,7 @@ const poisoned=o=>o&&['win_odds','odds','popularity','market','result','finisher
 const days=(recent,old)=>(Date.parse(recent+'T00:00:00Z')-Date.parse(old+'T00:00:00Z'))/86400000;
 
 function profile(runner, conditions) {
- let matching=0,podium=0,nearMiss=0,bigLoss=0,olderPodium=0,otherVenueOrClass=0;
+ let matching=0,podium=0,nearMiss=0,bigLoss=0,deepFinishes=0,olderPodium=0,otherVenueOrClass=0;
  const positive=[],negative=[],seen=new Set();
  for(const run of runner.supporting_runs){
   if(!date(run.race_date)||run.race_date>=conditions.race_date||
@@ -57,7 +57,11 @@ function profile(runner, conditions) {
   }
   matching++;
   const age=days(conditions.race_date,run.race_date);
-  const margin=numeric(run.margin);
+  // The NAR 'raw_margin' describes the PRECEDING horse, not the winner.
+  // Even if a number happens to be present, it is NOT a winner-relative
+  // loss magnitude unless an independent source explicitly verified that.
+  const margin=run.margin_basis==='VERIFIED_WINNER_RELATIVE_SECONDS'?
+    numeric(run.margin):null;
   if(run.finish<=3){
    if(age<=365){
     podium++;
@@ -69,19 +73,55 @@ function profile(runner, conditions) {
    positive.push({type:'CLOSE_LOSS_NOT_PODIUM',source_ref:run.evidence_ref,
      past_race_date:run.race_date,finish:run.finish,margin,age_days:age});
   }
-  if(run.finish>=8&&margin!==null&&margin>=1.5&&age<=365) {
-   bigLoss++;
-   negative.push({type:'SAME_CONDITION_DECISIVE_LOSS',source_ref:run.evidence_ref,
-     past_race_date:run.race_date,finish:run.finish,margin,age_days:age});
+  if(run.finish>=8&&age<=365){
+   deepFinishes++;
+   negative.push({type:'VERIFIED_LOW_FINISH_POSITION_ONLY',source_ref:run.evidence_ref,
+      past_race_date:run.race_date,finish:run.finish,
+      winner_gap_status:margin===null?'UNVERIFIED_WINNER_GAP':'VERIFIED',age_days:age});
+   if(margin!==null&&margin>=1.5)bigLoss++;
   }
+ }
+ // The historical context is strictly official pre-race context.  Keep
+ // uncalibrated condition changes on the radar instead of discarding them.
+ // They are separate REVIEW leads, never automatic promotion evidence.
+ const contextLeads=[],contextSeen=new Set();
+ const context=Array.isArray(runner.context_runs)?runner.context_runs:runner.supporting_runs;
+ if(context.length>5)return null;
+ for(const h of context){
+  if(!date(h?.race_date)||h.race_date>=conditions.race_date||
+     !horseNo(h.finish)&&h.finish!==null||
+     !clean(h.track)||poisoned(h)||
+     typeof h.evidence_ref!=='string'||
+     !/^COMPACT_V1\\.runners\\[horse_no=\\d{1,2}\\]\\.recent_runs\\[\\d\\]$/.test(h.evidence_ref)||
+     !h.evidence_ref.includes('horse_no='+runner.horse_no+']')||
+     contextSeen.has(h.evidence_ref))return null;
+  contextSeen.add(h.evidence_ref);
+  const age=days(conditions.race_date,h.race_date);
+  if(age>365||!Number.isInteger(h.finish)||h.finish>5||h.finish<1)continue;
+  const isSame=h.track===conditions.track&&h.surface===conditions.surface&&
+   Number.isInteger(h.distance)&&Math.abs(h.distance-conditions.distance)<=200&&
+   clean(h.class)===conditions.class_label;
+  if(isSame)continue;
+  contextLeads.push({
+   type:h.finish===1?'OTHER_CONDITION_WIN':
+    h.finish<=3?'OTHER_CONDITION_PODIUM':'OTHER_CONDITION_TOP5',
+   source_ref:h.evidence_ref,past_race_date:h.race_date,
+   finish:h.finish,track:h.track,surface:h.surface??null,
+   distance:h.distance??null,class_literal:h.class??null,
+   relevance:'UNVERIFIED_TRANSFER_OR_DISTANCE_CLASS_EQUIVALENCE_REVIEW_ONLY',
+   age_days:age
+  });
  }
  const freshPositive=positive.some(x=>x.age_days<=180);
  return {
   horse_no:runner.horse_no,horse_name:runner.horse_name,
   matching_comparable_runs:matching,
   recent_matched_podium:podium,small_margin_near_misses:nearMiss,
-  recent_matched_big_losses:bigLoss,older_matched_podium:olderPodium,
+  recent_matched_big_losses:bigLoss,
+  recent_matched_low_finishes:deepFinishes,
+  older_matched_podium:olderPodium,
   other_venue_or_class_runs:otherVenueOrClass,
+  cross_condition_positive_leads:contextLeads,
   positive_evidence:positive,negative_evidence:negative,
   has_fresh_positive: freshPositive,
   missing_history_is_not_failure:true
@@ -121,7 +161,9 @@ export function buildLocalFullFieldOverUnderShadow({race,baseline,comparison}={}
   if(!horseNo(e?.horse_no)||!field.has(e.horse_no)||
      clean(e.horse_name)!==clean(field.get(e.horse_no).horse_name)||
      evidenceByNo.has(e.horse_no)||!Array.isArray(e.supporting_runs)||
-     e.supporting_runs.length>5||poisoned(e))
+     e.supporting_runs.length>5||
+     (e.context_runs!==undefined&&(!Array.isArray(e.context_runs)||e.context_runs.length>5))||
+     poisoned(e))
     return refuse('CLAIM_EVIDENCE_IDENTITY_INVALID');
   const p=profile(e,{race_date:race.race_date,surface:race.surface,
     track:race.track,distance:race.distance,class_label:cls.class_label});
@@ -133,12 +175,14 @@ export function buildLocalFullFieldOverUnderShadow({race,baseline,comparison}={}
   const p=evidenceByNo.get(h.horse_no);
   const over=h.rank<=5&&p.matching_comparable_runs>=2&&
     p.recent_matched_podium===0&&p.small_margin_near_misses===0&&
-    p.recent_matched_big_losses>=2;
+    p.recent_matched_low_finishes>=2;
   const under=h.rank>5&&p.recent_matched_podium>=2&&
-    p.has_fresh_positive&&p.recent_matched_big_losses<=1;
+    p.has_fresh_positive&&p.recent_matched_low_finishes<=1;
   return {...p,baseline_rank:h.rank,baseline_score:h.score,
     review:over?'TOP5_POSSIBLE_OVERVALUATION':
       under?'OUTSIDE_POSSIBLE_UNDERVALUATION':
+      h.rank>5&&p.cross_condition_positive_leads.length?
+        'OUTSIDE_UNCALIBRATED_CONDITION_CHANGE_REVIEW':
       p.matching_comparable_runs===0?'INSUFFICIENT_COMPARABLE_HISTORY':
       'NO_TWO_SIDED_SWAP_PROOF'};
  });
@@ -146,7 +190,8 @@ export function buildLocalFullFieldOverUnderShadow({race,baseline,comparison}={}
    .sort((a,b)=>b.recent_matched_big_losses-a.recent_matched_big_losses||a.baseline_rank-b.baseline_rank);
  const under=reports.filter(x=>x.review==='OUTSIDE_POSSIBLE_UNDERVALUATION')
    .sort((a,b)=>b.recent_matched_podium-a.recent_matched_podium||
-     a.recent_matched_big_losses-b.recent_matched_big_losses||a.baseline_rank-b.baseline_rank);
+     a.recent_matched_low_finishes-b.recent_matched_low_finishes||a.baseline_rank-b.baseline_rank);
+ const crossReview=reports.filter(x=>x.baseline_rank>5&&x.cross_condition_positive_leads.length>0);
  // Each accepted shadow exchange requires a verified negative incumbent AND
  // positive outsider. Never demote a horse merely for missing evidence.
  const count=Math.min(over.length,under.length);
@@ -167,7 +212,9 @@ export function buildLocalFullFieldOverUnderShadow({race,baseline,comparison}={}
   full_field_checked:original.length,
   overvaluation_review_count:over.length,
   undervaluation_review_count:under.length,
+  cross_condition_review_count:crossReview.length,
   overvaluation_review:over,undervaluation_review:under,
+  cross_condition_review:crossReview,
   all_runner_audits:reports,
   exchanges:displaced.map((d,i)=>({
    removed_top5_horse_no:d.horse_no,removed_from_rank:d.baseline_rank,
@@ -179,7 +226,7 @@ export function buildLocalFullFieldOverUnderShadow({race,baseline,comparison}={}
     horse_no:x.horse_no,baseline_rank:x.rank,
     shadow_rank:candidate.indexOf(x.horse_no)+1
    })).filter(x=>x.baseline_rank!==x.shadow_rank),
-  special_case_limitations:'CROSS_DISTRICT_OR_UNKNOWN_CLASS_NOT_EQUIVALENT; NO_LAP_OR_OPPONENT_LEVEL_PROOF',
+  special_case_limitations:'OTHER_CONDITION_FORM_IS_REVIEW_ONLY; NOT PROVEN CROSS_CLASS_EQUIVALENCE; NAR GAP TO WINNER UNVERIFIED; NO OFFICIAL LAPS/OPPONENT LEVEL',
   scorer_status:'PRE_RACE_SHADOW_CHALLENGER_NOT_CALIBRATED_NOT_PRODUCTION'
  });
 }
