@@ -127,7 +127,34 @@ SELECT circuit,race_date,track,race_no,captured_at,official_frozen_at,post_time,
  CASE WHEN audit_status='PAIRED' THEN
    EXISTS (SELECT 1 FROM jsonb_array_elements(proposed_order) WITH ORDINALITY d(value,ord)
       WHERE d.ord<=5 AND d.value=official_podium->0) END winner_in_shadow,
- frozen_runner_status_policy
+ frozen_runner_status_policy,
+ CASE WHEN audit_status='PAIRED' THEN
+   (draft_order->0=official_podium->0) END baseline_honmei_win,
+ CASE WHEN audit_status='PAIRED' THEN
+   (proposed_order->0=official_podium->0) END shadow_honmei_win,
+ CASE WHEN audit_status='PAIRED' THEN
+   EXISTS (SELECT 1 FROM jsonb_array_elements(official_podium) p
+      WHERE p.value=draft_order->0) END baseline_honmei_in_podium,
+ CASE WHEN audit_status='PAIRED' THEN
+   EXISTS (SELECT 1 FROM jsonb_array_elements(official_podium) p
+      WHERE p.value=proposed_order->0) END shadow_honmei_in_podium,
+ CASE WHEN audit_status='PAIRED' THEN
+   (SELECT count(*)=3 FROM jsonb_array_elements(official_podium) p
+     WHERE EXISTS (
+       SELECT 1 FROM jsonb_array_elements(draft_order) WITH ORDINALITY b(value,ord)
+       WHERE b.ord<=5 AND b.value=p.value)) END baseline_all_three_in_top5,
+ CASE WHEN audit_status='PAIRED' THEN
+   (SELECT count(*)=3 FROM jsonb_array_elements(official_podium) p
+     WHERE EXISTS (
+       SELECT 1 FROM jsonb_array_elements(proposed_order) WITH ORDINALITY b(value,ord)
+       WHERE b.ord<=5 AND b.value=p.value)) END shadow_all_three_in_top5,
+ CASE WHEN audit_status='PAIRED' THEN
+   (draft_order IS DISTINCT FROM proposed_order) END shadow_changed_rank,
+ CASE WHEN audit_status='PAIRED' THEN
+   ((SELECT jsonb_agg(v.value ORDER BY v.ord) FROM jsonb_array_elements(draft_order) WITH ORDINALITY v(value,ord) WHERE v.ord<=5)
+    IS DISTINCT FROM
+    (SELECT jsonb_agg(v.value ORDER BY v.ord) FROM jsonb_array_elements(proposed_order) WITH ORDINALITY v(value,ord) WHERE v.ord<=5))
+   END shadow_changed_top5
 FROM classified;
 
 REVOKE ALL ON private.lab_rank_shadow_paired_audit_v1 FROM PUBLIC,anon,authenticated;
@@ -146,7 +173,18 @@ SELECT circuit,
  sum(newly_captured) FILTER(WHERE audit_status='PAIRED') added_podium_horses,
  sum(lost_captured) FILTER(WHERE audit_status='PAIRED') lost_podium_horses,
  count(*) FILTER(WHERE audit_status='PAIRED' AND winner_in_baseline) baseline_winners_in_top5,
- count(*) FILTER(WHERE audit_status='PAIRED' AND winner_in_shadow) proposed_winners_in_top5
+ count(*) FILTER(WHERE audit_status='PAIRED' AND winner_in_shadow) proposed_winners_in_top5,
+ count(*) FILTER(WHERE audit_status='PAIRED' AND baseline_honmei_win) baseline_honmei_wins,
+ count(*) FILTER(WHERE audit_status='PAIRED' AND shadow_honmei_win) shadow_honmei_wins,
+ count(*) FILTER(WHERE audit_status='PAIRED' AND baseline_honmei_in_podium) baseline_honmei_podium,
+ count(*) FILTER(WHERE audit_status='PAIRED' AND shadow_honmei_in_podium) shadow_honmei_podium,
+ count(*) FILTER(WHERE audit_status='PAIRED' AND baseline_all_three_in_top5) baseline_full_podium_captures,
+ count(*) FILTER(WHERE audit_status='PAIRED' AND shadow_all_three_in_top5) shadow_full_podium_captures,
+ count(*) FILTER(WHERE audit_status='PAIRED' AND shadow_changed_rank) any_rank_change_paired,
+ count(*) FILTER(WHERE audit_status='PAIRED' AND shadow_changed_top5) top5_changed_paired,
+ sum(newly_captured-lost_captured) FILTER(WHERE audit_status='PAIRED' AND shadow_changed_top5) net_podium_gain_on_changed_top5,
+ sum(newly_captured) FILTER(WHERE audit_status='PAIRED' AND shadow_changed_top5) newly_captured_on_changed_top5,
+ sum(lost_captured) FILTER(WHERE audit_status='PAIRED' AND shadow_changed_top5) lost_captured_on_changed_top5
 FROM private.lab_rank_shadow_paired_audit_v1
 GROUP BY circuit;
 
