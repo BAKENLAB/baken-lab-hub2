@@ -40,7 +40,7 @@ jobs:
       - name: Typecheck staged JRA claimed relative-rank runtime
         run: |
           mkdir -p .jra-mcp-ci
-          cp research/staged-jra-claimed-mcp-ability-v12.ts .jra-mcp-ci/index.ts
+          cp research/staged-jra-claimed-mcp-ability-v13.ts .jra-mcp-ci/index.ts
           cp automation/jra-relative-draft-adapter.mjs .jra-mcp-ci/jra-relative-draft-adapter.mjs
           cp automation/relative-ability-rank-proposal.mjs .jra-mcp-ci/relative-ability-rank-proposal.mjs
           cp automation/local-verified-condition-bridge.mjs .jra-mcp-ci/local-verified-condition-bridge.mjs
@@ -48,7 +48,7 @@ jobs:
       - name: Typecheck staged LOCAL claimed relative-rank preview
         run: |
           mkdir -p .local-relative-ci
-          cp research/staged-local-claimed-mcp-relative-v21.ts .local-relative-ci/index.ts
+          cp research/staged-local-claimed-mcp-relative-v24.ts .local-relative-ci/index.ts
           cp automation/relative-ability-rank-proposal.mjs .local-relative-ci/relative-ability-rank-proposal.mjs
           cp automation/local-verified-condition-bridge.mjs .local-relative-ci/local-verified-condition-bridge.mjs
           cp research/local-claimed-prod-guard-v19.mjs .local-relative-ci/local-eye.mjs
