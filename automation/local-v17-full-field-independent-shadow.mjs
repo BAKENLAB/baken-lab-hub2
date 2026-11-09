@@ -154,6 +154,40 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
  const sorted=audit.slice().sort((a,b)=>b.independent_score-a.independent_score||
   b.evidence_runs_used-a.evidence_runs_used||a.horse_no-b.horse_no);
  const equalScores=sorted.filter((v,i)=>i>0&&v.independent_score===sorted[i-1].independent_score);
+ // Phase 2 is the DISTINCT LAB EYE mission, after all-horse scores/top5.
+ // It never changes the ability order. Multiple independently verified
+ // podium races, including an other-condition run, may justify a research
+ // EYE case. One old result or rank=6 alone is NOT enough.
+ const outsiders=sorted.slice(5);
+ const eyeAudit=outsiders.map(a=>{
+  const podium=a.runs.filter(x=>x.finish<=3&&x.age_days<=365);
+  const current=podium.filter(x=>x.age_days<=180);
+  const related=podium.filter(x=>x.surface===race.surface&&
+   x.distance_delta!==null&&x.distance_delta<=300);
+  const qualifies=podium.length>=2&&current.length>=1&&related.length>=1;
+  return {horse_no:a.horse_no,prior_evidence_count:podium.length,
+   recent_podium_count:current.length,related_podium_count:related.length,
+   independent_podium_refs:podium.map(x=>x.evidence_ref),
+   eye_case:qualifies,selection_reason:qualifies?
+     'TWO_VERIFIED_INDEPENDENT_PODIUM_RUNS_ONE_RECENT_ONE_SURFACE_DISTANCE_RELATED':
+     'INSUFFICIENT_INDEPENDENT_CURRENT_POSITIVE_EVIDENCE',
+   baseline_rank_input_used:false
+  };
+ });
+ const qualified=eyeAudit.filter(x=>x.eye_case).sort((a,b)=>
+  b.prior_evidence_count-a.prior_evidence_count||
+  b.related_podium_count-a.related_podium_count||
+  b.recent_podium_count-a.recent_podium_count);
+ const leader=qualified[0];
+ const runnerup=qualified[1];
+ const uniqueLeader=leader&&(!runnerup||
+  leader.prior_evidence_count>runnerup.prior_evidence_count||
+  leader.prior_evidence_count===runnerup.prior_evidence_count&&
+   leader.related_podium_count>runnerup.related_podium_count||
+  leader.prior_evidence_count===runnerup.prior_evidence_count&&
+   leader.related_podium_count===runnerup.related_podium_count&&
+   leader.recent_podium_count>runnerup.recent_podium_count);
+ const eyeSelected=uniqueLeader?leader:null;
  return {
   status:'READY_FOR_PROSPECTIVE_PAIRED_TEST',
   model:'LOCAL_1_7_INDEPENDENT_SHADOW_V0_1',
@@ -170,7 +204,12 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
   ability_evidence_audit:audit,
   tied_score_runner_count:equalScores.length,
   rank_tiebreak:'EVIDENCE_COVERAGE_THEN_HORSE_NO_NO_MARKET',
-  lab_eye_status:'SEPARATE_AFTER_TOP5_NOT_AUTO_SELECTED',
+  lab_eye_status:eyeSelected?'EVIDENCE_BACKED_RESEARCH_CANDIDATE':'ABSTAINED',
+  eye_candidate:eyeSelected?{horse_no:eyeSelected.horse_no,
+    horse_name:audit.find(x=>x.horse_no===eyeSelected.horse_no).horse_name,
+    evidence_refs:eyeSelected.independent_podium_refs,
+    research_only:true}:null,
+  eye_all_outsider_audits:eyeAudit,
   production_rank_effect:false,production_eye_effect:false,
   frozen_modified:false,market_used:false,target_result_used:false,
   safety:'PROSPECTIVE_ONLY; NOT OFFICIALLY SAVED; NO ODDS OR RESULTS'
