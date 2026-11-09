@@ -92,7 +92,7 @@ function profile(runner, conditions) {
      !horseNo(h.finish)&&h.finish!==null||
      !clean(h.track)||poisoned(h)||
      typeof h.evidence_ref!=='string'||
-     !/^COMPACT_V1\\.runners\\[horse_no=\\d{1,2}\\]\\.recent_runs\\[\\d\\]$/.test(h.evidence_ref)||
+     !/^COMPACT_V1\.runners\[horse_no=\d{1,2}\]\.recent_runs\[\d\]$/.test(h.evidence_ref)||
      !h.evidence_ref.includes('horse_no='+runner.horse_no+']')||
      contextSeen.has(h.evidence_ref))return null;
   contextSeen.add(h.evidence_ref);
