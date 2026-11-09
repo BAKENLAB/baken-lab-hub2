@@ -93,13 +93,34 @@ DECLARE
  v_response jsonb;
  v_receipt jsonb;
  v_shadow_status text:='NOT_PROVIDED';
+ v_initial_run_id uuid;
+ v_locked_job public.lab_prediction_jobs;
 BEGIN
  IF p_baseline IS NOT NULL AND p_preview IS NOT NULL THEN
   BEGIN
    IF NOT private.lab_shadow_draft_equals_save_v1('LOCAL',p_payload,p_baseline)
    THEN RAISE EXCEPTION 'SHADOW_DRAFT_NOT_SAVED_PAYLOAD'; END IF;
-   -- Keep LOCAL queue save's advisory lock order before the preflight check.
+   -- Mirror the ORIGINAL LOCAL save lock order: advisory -> worker run ->
+   -- job -> official race. The existing captured-context function later
+   -- re-locks the same rows in this transaction, never in reverse order.
    PERFORM pg_advisory_xact_lock(72817,hashtext(p_job_id::text));
+   SELECT j.worker_run_id INTO v_initial_run_id
+     FROM public.lab_prediction_jobs j WHERE j.id=p_job_id;
+   IF v_initial_run_id IS NULL THEN RAISE EXCEPTION 'SHADOW_NO_JOB_RUN'; END IF;
+   PERFORM 1 FROM public.lab_worker_runs w
+     WHERE w.id=v_initial_run_id FOR UPDATE;
+   IF NOT FOUND THEN RAISE EXCEPTION 'SHADOW_RUN_UNAVAILABLE'; END IF;
+   SELECT j.* INTO v_locked_job FROM public.lab_prediction_jobs j
+     WHERE j.id=p_job_id AND j.worker_run_id=v_initial_run_id
+     FOR UPDATE;
+   IF NOT FOUND OR v_locked_job.job_status<>'CLAIMED' THEN
+     RAISE EXCEPTION 'SHADOW_JOB_UNAVAILABLE';
+   END IF;
+   PERFORM 1 FROM public.official_races r
+     WHERE (r.race_date,r.track,r.race_no,r.circuit)=
+       (v_locked_job.race_date,v_locked_job.track,v_locked_job.race_no,'LOCAL')
+     FOR UPDATE;
+   IF NOT FOUND THEN RAISE EXCEPTION 'SHADOW_RACE_UNAVAILABLE'; END IF;
    v_receipt:=public.lab_capture_rank_shadow_preflight_v1('LOCAL',p_job_id,p_baseline,p_preview);
    v_shadow_status:=coalesce(v_receipt->>'status','UNVERIFIED_RECEIPT');
   EXCEPTION WHEN OTHERS THEN
