@@ -215,3 +215,34 @@ test('reporters Final does not auto swap even with class-matched historical evid
  assert.equal(r.production_rank_effect,false);
  assert.deepEqual(x,before);
 });
+
+test('NAR lengths to prior finisher cannot be misread as seconds to winner',()=>{
+ const x=fx();
+ x.race.circuit='LOCAL';x.race.track='高知';x.race.class_name='Ｃ２四組';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)for(const h of row.supporting_runs){
+  h.track='高知';h.class='Ｃ２二組';
+ }
+ // Third-place "クビ" means gap to the preceding horse, NOT confirmed
+ // seconds-to-winner. A number string "3" means lengths, NOT three seconds.
+ const challenger=x.comparison.runner_evidence[5];
+ challenger.supporting_runs=[
+  {date:'2026-10-05',track:'高知',class:'Ｃ２二組',surface:'ダート',
+   distance:1200,finish:2,margin:'クビ'},
+  {date:'2026-10-20',track:'高知',class:'Ｃ２三組',surface:'ダート',
+   distance:1200,finish:3,margin:'1/2'}
+ ];
+ const incumbent=x.comparison.runner_evidence[4];
+ incumbent.supporting_runs=[
+  {date:'2026-10-05',track:'高知',class:'Ｃ２二組',surface:'ダート',
+   distance:1200,finish:9,margin:'3'},
+  {date:'2026-10-20',track:'高知',class:'Ｃ２三組',surface:'ダート',
+   distance:1200,finish:8,margin:'大差'}
+ ];
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_decisive_defeats,0);
+ // Only separately verified winner-relative distance may count as close loss.
+});
