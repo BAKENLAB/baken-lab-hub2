@@ -73,7 +73,17 @@ function summarizeEvidence(row,race) {
     similar++;
     const cls=level(h.class??h.race_class??h.class_name??null,h.track??null);
     const f=h.finish, margin=h.margin;
-    const close=integer(f,1,24)&&(f===1||(f<=3&&num(margin,0,0.5)));
+    // JRA has audited winner-relative seconds. NAR generally records
+    // a gap to the PRECEDING finisher in horse lengths. Only an explicitly
+    // tagged second-place gap to the winner can prove close; third-place
+    // gaps and bare numeric strings must NEVER masquerade as winner-relative.
+    const localClose=race.circuit==='LOCAL' && f===2 &&
+      h.margin_unit==='LENGTHS_TO_WINNER' &&
+      h.margin_basis==='NAR_SECOND_PLACE_PRECEDING_IS_WINNER' &&
+      num(margin,0,0.5);
+    const close=integer(f,1,24)&&
+      (f===1||(race.circuit==='LOCAL'?localClose:
+       f<=3&&num(margin,0,0.5)));
     // Do not silently equate LOCAL class C3 across independent districts.
     const aClass=!!targetClass&&!!cls&&cls===targetClass &&
       (race.circuit!=='LOCAL'||(key(race.track)&&key(h.track)===key(race.track)));
@@ -85,10 +95,13 @@ function summarizeEvidence(row,race) {
       const age=(Date.parse(race.race_date+'T00:00:00Z')-Date.parse(d+'T00:00:00Z'))/86400000;
       if(age>=0&&age<=180)recentGood++;
     }
-    if(integer(f,8,24)&&num(margin,1.5,30)&&aClass)poor++;
+    if(integer(f,8,24)&&num(margin,1.5,30)&&aClass &&
+       (race.circuit!=='LOCAL' || h.margin_basis==='OFFICIALLY_VERIFIED_WINNER_GAP'))
+      poor++;
     if(aClass&&integer(h.early_pos,1,3))front++;
     if(aClass&&close)reasons.push({date:d,type:'MATCHED_CLASS_CLOSE',finish:f,source_class:cls});
-    else if(aClass&&integer(f,8,24)&&num(margin,1.5,30))
+    else if(aClass&&integer(f,8,24)&&num(margin,1.5,30)&&
+      (race.circuit!=='LOCAL'||h.margin_basis==='OFFICIALLY_VERIFIED_WINNER_GAP'))
       reasons.push({date:d,type:'MATCHED_CLASS_DEFEAT',finish:f,source_class:cls});
   }
   return {horse_no:row.horse_no,horse_name:row.horse_name,
