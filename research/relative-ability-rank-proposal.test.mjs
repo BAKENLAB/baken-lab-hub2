@@ -59,7 +59,7 @@ test('mixed LOCAL competitor with exact class history may use shared evaluator',
  x.comparison.source_scope=undefined;
  x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
  for(const row of x.comparison.runner_evidence)
-   for(const h of row.supporting_runs){h.class='C3-17';h.track='高知';}
+   for(const h of row.supporting_runs){h.class='C3-17';h.track='高知';if(h.finish===2){h.margin_unit='LENGTHS_TO_WINNER';h.margin_basis='NAR_SECOND_PLACE_PRECEDING_IS_WINNER';}}
  const r=calculate(x);
  assert.equal(r.status,'REORDERED');
 });
@@ -91,7 +91,7 @@ test('LOCAL C3 class-tier evidence can actually promote a verified challenger',(
  x.comparison.source_scope=undefined;
  x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
  for(const row of x.comparison.runner_evidence)
-   for(const h of row.supporting_runs){h.class='C3-17';h.track='高知';}
+   for(const h of row.supporting_runs){h.class='C3-17';h.track='高知';if(h.finish===2){h.margin_unit='LENGTHS_TO_WINNER';h.margin_basis='NAR_SECOND_PLACE_PRECEDING_IS_WINNER';}}
  const result=calculate(x);
  assert.equal(result.status,'REORDERED');assert.deepEqual(result.top5,[1,2,3,4,6]);
 });
@@ -176,7 +176,7 @@ test('official fullwidth LOCAL class label Ｃ２四組 matches Ｃ２二組 at 
  x.comparison.source_scope=undefined;
  x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
  for(const row of x.comparison.runner_evidence)
-  for(const h of row.supporting_runs){h.class='Ｃ２二組';h.track='盛岡';}
+  for(const h of row.supporting_runs){h.class='Ｃ２二組';h.track='盛岡';if(h.finish===2){h.margin_unit='LENGTHS_TO_WINNER';h.margin_basis='NAR_SECOND_PLACE_PRECEDING_IS_WINNER';}}
  const r=calculate(x);
  assert.equal(r.status,'REORDERED');
  assert.deepEqual(r.top5,[1,2,3,4,6]);
@@ -186,7 +186,7 @@ test('official 園田 Ｃ１ ３歳以上特別 and Ｃ１二３歳以上 can co
  x.comparison.source_scope=undefined;
  x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
  for(const row of x.comparison.runner_evidence)
-  for(const h of row.supporting_runs){h.class='Ｃ１二３歳以上';h.track='園田';}
+  for(const h of row.supporting_runs){h.class='Ｃ１二３歳以上';h.track='園田';if(h.finish===2){h.margin_unit='LENGTHS_TO_WINNER';h.margin_basis='NAR_SECOND_PLACE_PRECEDING_IS_WINNER';}}
  const r=calculate(x);
  assert.equal(r.status,'REORDERED');
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,2);
