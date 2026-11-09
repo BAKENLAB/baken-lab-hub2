@@ -70,7 +70,6 @@ WITH captures AS (
 )
 SELECT circuit,race_date,track,race_no,captured_at,official_frozen_at,post_time,
  protocol_version,proposal_model,proposal_status,capture_sha256,
- frozen_runner_status_policy,
  audit_status,draft_order,proposed_order,
  (SELECT jsonb_agg(x.value ORDER BY x.ord)
   FROM jsonb_array_elements(draft_order) WITH ORDINALITY x(value,ord) WHERE ord<=5) baseline_top5,
@@ -102,7 +101,8 @@ SELECT circuit,race_date,track,race_no,captured_at,official_frozen_at,post_time,
       WHERE d.ord<=5 AND d.value=official_podium->0) END winner_in_baseline,
  CASE WHEN audit_status='PAIRED' THEN
    EXISTS (SELECT 1 FROM jsonb_array_elements(proposed_order) WITH ORDINALITY d(value,ord)
-      WHERE d.ord<=5 AND d.value=official_podium->0) END winner_in_shadow
+      WHERE d.ord<=5 AND d.value=official_podium->0) END winner_in_shadow,
+ frozen_runner_status_policy
 FROM classified;
 
 REVOKE ALL ON private.lab_rank_shadow_paired_audit_v1 FROM PUBLIC,anon,authenticated;
