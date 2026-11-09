@@ -135,7 +135,7 @@ BEGIN
     OR p_preview->'official_saved' IS DISTINCT FROM 'false'::jsonb
     OR p_preview->'save_authorized' IS DISTINCT FROM 'false'::jsonb
     OR p_preview->'draft_runners_verified' IS DISTINCT FROM 'true'::jsonb
-    OR p_preview->>'model_version' !~ '^ABILITY_RELATIVE_V0_[0-9]+$' THEN
+    OR coalesce(p_preview->>'model_version','') !~ '^ABILITY_RELATIVE_V0_[0-9]+ THEN
    RAISE EXCEPTION 'SHADOW_CAPTURE_UNVERIFIED_PREVIEW';
  END IF;
  IF p_preview->'baseline_top5' IS DISTINCT FROM (
@@ -145,7 +145,170 @@ BEGIN
  v_proposed:=p_preview->'candidate_order';
  IF jsonb_typeof(v_proposed)<>'array' OR jsonb_array_length(v_proposed)<>v_n
    OR EXISTS (SELECT 1 FROM jsonb_array_elements(v_proposed) v
-     WHERE v::text !~ '^[0-9]{1,2}$' OR
+     WHERE v.value::text !~ '^[0-9]{1,2}
+       NOT EXISTS (SELECT 1 FROM jsonb_array_elements(v_draft) b WHERE b.value=v.value))
+   OR (SELECT count(distinct v.value) FROM jsonb_array_elements(v_proposed) v)<>v_n
+ THEN RAISE EXCEPTION 'SHADOW_CAPTURE_PROPOSAL_FIELD_MISMATCH'; END IF;
+ IF p_preview->'top5' IS DISTINCT FROM (
+  SELECT jsonb_agg(v.value ORDER BY v.ord)
+  FROM jsonb_array_elements(v_proposed) WITH ORDINALITY v(value,ord) WHERE ord<=5)
+ THEN RAISE EXCEPTION 'SHADOW_CAPTURE_TOP5_MISMATCH'; END IF;
+ v_status:=p_preview->>'status';
+ IF (v_status='REORDERED' AND v_proposed=v_draft) OR
+    (v_status='UNCHANGED' AND v_proposed<>v_draft) THEN
+   RAISE EXCEPTION 'SHADOW_CAPTURE_STATUS_MISMATCH';
+ END IF;
+ -- SHA256 is calculated by the database; client-supplied digest is ignored.
+ v_digest:=encode(extensions.digest(convert_to(
+   jsonb_build_object('circuit',p_circuit,'race_date',v_date,'track',v_track,
+    'race_no',v_no,'job_id',p_job_id,'field',
+    (SELECT jsonb_agg(jsonb_build_object('horse_no',f->'horse_no','horse_name',f->>'horse_name')
+     ORDER BY (f->>'horse_no')::int) FROM jsonb_array_elements(v_field) f WHERE f->>'status'='ACTIVE'),
+    'draft',v_draft,'proposed',v_proposed,'protocol',v_protocol,
+    'model',p_preview->>'model_version')::text,'UTF8'),'sha256'),'hex');
+ INSERT INTO private.lab_rank_shadow_preflight_v1(
+  circuit,race_date,track,race_no,job_id,post_time,protocol_version,
+  proposal_model,proposal_status,field_athletes,draft_order,proposed_order,capture_sha256
+ ) VALUES (
+  p_circuit,v_date,v_track,v_no,p_job_id,v_post,v_protocol,
+  p_preview->>'model_version',v_status,
+  (SELECT jsonb_agg(jsonb_build_object('horse_no',f->'horse_no','horse_name',f->>'horse_name')
+    ORDER BY (f->>'horse_no')::int) FROM jsonb_array_elements(v_field) f WHERE f->>'status'='ACTIVE'),
+  v_draft,v_proposed,v_digest
+ ) ON CONFLICT (circuit,race_date,track,race_no) DO NOTHING
+ RETURNING id INTO v_id;
+ IF v_id IS NULL THEN
+   SELECT s.capture_sha256 INTO v_saved FROM private.lab_rank_shadow_preflight_v1 s
+    WHERE (s.circuit,s.race_date,s.track,s.race_no)=(p_circuit,v_date,v_track,v_no);
+   IF v_saved IS DISTINCT FROM v_digest THEN RAISE EXCEPTION 'SHADOW_CAPTURE_ALREADY_SEALED_DIFFERENT'; END IF;
+ END IF;
+ RETURN jsonb_build_object('status',CASE WHEN v_id IS NOT NULL THEN 'SEALED_PRE_RACE'
+   ELSE 'ALREADY_SEALED_SAME' END,'capture_sha256',v_digest,
+   'circuit',p_circuit,'race_date',v_date,'track',v_track,'race_no',v_no,
+   'draft_top5',(SELECT jsonb_agg(x.value ORDER BY x.ord) FROM
+      jsonb_array_elements(v_draft) WITH ORDINALITY x(value,ord) WHERE ord<=5),
+   'shadow_top5',p_preview->'top5',
+   'official_frozen_modified',false,'model_adopted',false);
+END $$;
+REVOKE ALL ON FUNCTION public.lab_capture_rank_shadow_preflight_v1(text,uuid,jsonb,jsonb)
+FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION public.lab_capture_rank_shadow_preflight_v1(text,uuid,jsonb,jsonb)
+TO service_role;
+COMMENT ON TABLE private.lab_rank_shadow_preflight_v1 IS
+ 'Separate sealed research ranks only. Never writes official_predictions. Pre-race claim and source identity guarded. No updates/deletes.';
+ OR
+       NOT EXISTS (SELECT 1 FROM jsonb_array_elements(v_draft) b WHERE b.value=v.value))
+   OR (SELECT count(distinct v.value) FROM jsonb_array_elements(v_proposed) v)<>v_n
+ THEN RAISE EXCEPTION 'SHADOW_CAPTURE_PROPOSAL_FIELD_MISMATCH'; END IF;
+ IF p_preview->'top5' IS DISTINCT FROM (
+  SELECT jsonb_agg(v.value ORDER BY v.ord)
+  FROM jsonb_array_elements(v_proposed) WITH ORDINALITY v(value,ord) WHERE ord<=5)
+ THEN RAISE EXCEPTION 'SHADOW_CAPTURE_TOP5_MISMATCH'; END IF;
+ v_status:=p_preview->>'status';
+ IF (v_status='REORDERED' AND v_proposed=v_draft) OR
+    (v_status='UNCHANGED' AND v_proposed<>v_draft) THEN
+   RAISE EXCEPTION 'SHADOW_CAPTURE_STATUS_MISMATCH';
+ END IF;
+ -- SHA256 is calculated by the database; client-supplied digest is ignored.
+ v_digest:=encode(extensions.digest(convert_to(
+   jsonb_build_object('circuit',p_circuit,'race_date',v_date,'track',v_track,
+    'race_no',v_no,'job_id',p_job_id,'field',
+    (SELECT jsonb_agg(jsonb_build_object('horse_no',f->'horse_no','horse_name',f->>'horse_name')
+     ORDER BY (f->>'horse_no')::int) FROM jsonb_array_elements(v_field) f WHERE f->>'status'='ACTIVE'),
+    'draft',v_draft,'proposed',v_proposed,'protocol',v_protocol,
+    'model',p_preview->>'model_version')::text,'UTF8'),'sha256'),'hex');
+ INSERT INTO private.lab_rank_shadow_preflight_v1(
+  circuit,race_date,track,race_no,job_id,post_time,protocol_version,
+  proposal_model,proposal_status,field_athletes,draft_order,proposed_order,capture_sha256
+ ) VALUES (
+  p_circuit,v_date,v_track,v_no,p_job_id,v_post,v_protocol,
+  p_preview->>'model_version',v_status,
+  (SELECT jsonb_agg(jsonb_build_object('horse_no',f->'horse_no','horse_name',f->>'horse_name')
+    ORDER BY (f->>'horse_no')::int) FROM jsonb_array_elements(v_field) f WHERE f->>'status'='ACTIVE'),
+  v_draft,v_proposed,v_digest
+ ) ON CONFLICT (circuit,race_date,track,race_no) DO NOTHING
+ RETURNING id INTO v_id;
+ IF v_id IS NULL THEN
+   SELECT s.capture_sha256 INTO v_saved FROM private.lab_rank_shadow_preflight_v1 s
+    WHERE (s.circuit,s.race_date,s.track,s.race_no)=(p_circuit,v_date,v_track,v_no);
+   IF v_saved IS DISTINCT FROM v_digest THEN RAISE EXCEPTION 'SHADOW_CAPTURE_ALREADY_SEALED_DIFFERENT'; END IF;
+ END IF;
+ RETURN jsonb_build_object('status',CASE WHEN v_id IS NOT NULL THEN 'SEALED_PRE_RACE'
+   ELSE 'ALREADY_SEALED_SAME' END,'capture_sha256',v_digest,
+   'circuit',p_circuit,'race_date',v_date,'track',v_track,'race_no',v_no,
+   'draft_top5',(SELECT jsonb_agg(x.value ORDER BY x.ord) FROM
+      jsonb_array_elements(v_draft) WITH ORDINALITY x(value,ord) WHERE ord<=5),
+   'shadow_top5',p_preview->'top5',
+   'official_frozen_modified',false,'model_adopted',false);
+END $$;
+REVOKE ALL ON FUNCTION public.lab_capture_rank_shadow_preflight_v1(text,uuid,jsonb,jsonb)
+FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION public.lab_capture_rank_shadow_preflight_v1(text,uuid,jsonb,jsonb)
+TO service_role;
+COMMENT ON TABLE private.lab_rank_shadow_preflight_v1 IS
+ 'Separate sealed research ranks only. Never writes official_predictions. Pre-race claim and source identity guarded. No updates/deletes.';
+ THEN
+   RAISE EXCEPTION 'SHADOW_CAPTURE_UNVERIFIED_PREVIEW';
+ END IF;
+ IF p_preview->'baseline_top5' IS DISTINCT FROM (
+     SELECT jsonb_agg(x.value ORDER BY x.ord)
+     FROM jsonb_array_elements(v_draft) WITH ORDINALITY x(value,ord) WHERE ord<=5)
+ THEN RAISE EXCEPTION 'SHADOW_CAPTURE_BASELINE_MISMATCH'; END IF;
+ v_proposed:=p_preview->'candidate_order';
+ IF jsonb_typeof(v_proposed)<>'array' OR jsonb_array_length(v_proposed)<>v_n
+   OR EXISTS (SELECT 1 FROM jsonb_array_elements(v_proposed) v
+     WHERE v.value::text !~ '^[0-9]{1,2}
+       NOT EXISTS (SELECT 1 FROM jsonb_array_elements(v_draft) b WHERE b.value=v.value))
+   OR (SELECT count(distinct v.value) FROM jsonb_array_elements(v_proposed) v)<>v_n
+ THEN RAISE EXCEPTION 'SHADOW_CAPTURE_PROPOSAL_FIELD_MISMATCH'; END IF;
+ IF p_preview->'top5' IS DISTINCT FROM (
+  SELECT jsonb_agg(v.value ORDER BY v.ord)
+  FROM jsonb_array_elements(v_proposed) WITH ORDINALITY v(value,ord) WHERE ord<=5)
+ THEN RAISE EXCEPTION 'SHADOW_CAPTURE_TOP5_MISMATCH'; END IF;
+ v_status:=p_preview->>'status';
+ IF (v_status='REORDERED' AND v_proposed=v_draft) OR
+    (v_status='UNCHANGED' AND v_proposed<>v_draft) THEN
+   RAISE EXCEPTION 'SHADOW_CAPTURE_STATUS_MISMATCH';
+ END IF;
+ -- SHA256 is calculated by the database; client-supplied digest is ignored.
+ v_digest:=encode(extensions.digest(convert_to(
+   jsonb_build_object('circuit',p_circuit,'race_date',v_date,'track',v_track,
+    'race_no',v_no,'job_id',p_job_id,'field',
+    (SELECT jsonb_agg(jsonb_build_object('horse_no',f->'horse_no','horse_name',f->>'horse_name')
+     ORDER BY (f->>'horse_no')::int) FROM jsonb_array_elements(v_field) f WHERE f->>'status'='ACTIVE'),
+    'draft',v_draft,'proposed',v_proposed,'protocol',v_protocol,
+    'model',p_preview->>'model_version')::text,'UTF8'),'sha256'),'hex');
+ INSERT INTO private.lab_rank_shadow_preflight_v1(
+  circuit,race_date,track,race_no,job_id,post_time,protocol_version,
+  proposal_model,proposal_status,field_athletes,draft_order,proposed_order,capture_sha256
+ ) VALUES (
+  p_circuit,v_date,v_track,v_no,p_job_id,v_post,v_protocol,
+  p_preview->>'model_version',v_status,
+  (SELECT jsonb_agg(jsonb_build_object('horse_no',f->'horse_no','horse_name',f->>'horse_name')
+    ORDER BY (f->>'horse_no')::int) FROM jsonb_array_elements(v_field) f WHERE f->>'status'='ACTIVE'),
+  v_draft,v_proposed,v_digest
+ ) ON CONFLICT (circuit,race_date,track,race_no) DO NOTHING
+ RETURNING id INTO v_id;
+ IF v_id IS NULL THEN
+   SELECT s.capture_sha256 INTO v_saved FROM private.lab_rank_shadow_preflight_v1 s
+    WHERE (s.circuit,s.race_date,s.track,s.race_no)=(p_circuit,v_date,v_track,v_no);
+   IF v_saved IS DISTINCT FROM v_digest THEN RAISE EXCEPTION 'SHADOW_CAPTURE_ALREADY_SEALED_DIFFERENT'; END IF;
+ END IF;
+ RETURN jsonb_build_object('status',CASE WHEN v_id IS NOT NULL THEN 'SEALED_PRE_RACE'
+   ELSE 'ALREADY_SEALED_SAME' END,'capture_sha256',v_digest,
+   'circuit',p_circuit,'race_date',v_date,'track',v_track,'race_no',v_no,
+   'draft_top5',(SELECT jsonb_agg(x.value ORDER BY x.ord) FROM
+      jsonb_array_elements(v_draft) WITH ORDINALITY x(value,ord) WHERE ord<=5),
+   'shadow_top5',p_preview->'top5',
+   'official_frozen_modified',false,'model_adopted',false);
+END $$;
+REVOKE ALL ON FUNCTION public.lab_capture_rank_shadow_preflight_v1(text,uuid,jsonb,jsonb)
+FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION public.lab_capture_rank_shadow_preflight_v1(text,uuid,jsonb,jsonb)
+TO service_role;
+COMMENT ON TABLE private.lab_rank_shadow_preflight_v1 IS
+ 'Separate sealed research ranks only. Never writes official_predictions. Pre-race claim and source identity guarded. No updates/deletes.';
+ OR
        NOT EXISTS (SELECT 1 FROM jsonb_array_elements(v_draft) b WHERE b.value=v.value))
    OR (SELECT count(distinct v.value) FROM jsonb_array_elements(v_proposed) v)<>v_n
  THEN RAISE EXCEPTION 'SHADOW_CAPTURE_PROPOSAL_FIELD_MISMATCH'; END IF;
