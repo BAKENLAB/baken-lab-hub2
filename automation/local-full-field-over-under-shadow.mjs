@@ -17,6 +17,10 @@ const clean=x=>String(x??'').normalize('NFKC').replace(/\s+/g,'').trim();
 const date=x=>typeof x==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x)&&Number.isFinite(Date.parse(x+'T00:00:00Z'));
 const instant=x=>typeof x==='string'&&/(?:Z|[+-]\d\d:\d\d)$/.test(x)&&Number.isFinite(Date.parse(x))?Date.parse(x):NaN;
 const horseNo=x=>Number.isInteger(x)&&x>=1&&x<=24;
+// Live MCP observation_at is UTC ISO; NAR's race_date is Japan-local.
+// Comparing the raw UTC date falsely rejects genuine early-morning CLAIMs.
+const japanDate=x=>Number.isFinite(instant(x))?
+  new Date(instant(x)+9*3600000).toISOString().slice(0,10):null;
 const numeric=x=>typeof x==='number'&&Number.isFinite(x)?x:typeof x==='string'&&/^\d+(?:\.\d+)?$/.test(x.trim())?Number(x):null;
 const status=(kind,extra={})=>({
  status:kind,mode:'LOCAL_FULL_FIELD_BIDIRECTIONAL_SHADOW_V0_1',
@@ -91,7 +95,7 @@ export function buildLocalFullFieldOverUnderShadow({race,baseline,comparison}={}
     !Number.isFinite(instant(race.observation_at))||
     !Number.isFinite(instant(race.post_time))||
     instant(race.observation_at)>=instant(race.post_time)||
-    race.observation_at.slice(0,10)!==race.race_date||
+    japanDate(race.observation_at)!==race.race_date||
     poisoned(race))return refuse('RACE_ASOF_OR_CONDITION_INVALID');
  const cls=resolveLocalOfficialClassLiteral(race.class_name??race.race_name);
  if(cls.status!=='OFFICIAL_CLASS_LITERAL')return refuse('OFFICIAL_TARGET_CLASS_UNVERIFIED');
