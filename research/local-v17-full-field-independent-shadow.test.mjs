@@ -87,7 +87,7 @@ test('empty history is unknown, not bottom-ranked with invented neutral score',(
 test('old 1.6 rank/score, target result or market are refused as evidence',()=>{
  const d=make();
  d.comparison.runner_evidence[8].baseline_rank=6;
- assert.equal(v17(d).reason,'WHOLE_FIELD_IDENTITY_OR_HISTORY_UNVERIFIED');
+ assert.equal(v17(d).reason,'COMPLETE_OFFICIAL_PRE_RACE_PACKET_UNVERIFIED');
  const e=make();
  e.comparison.runner_evidence[8].context_runs[0].odds=1.1;
  assert.equal(v17(e).reason,'COMPLETE_OFFICIAL_PRE_RACE_PACKET_UNVERIFIED');
