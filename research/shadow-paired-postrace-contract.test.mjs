@@ -49,3 +49,15 @@ test('postrace audit remains private, read-only and service-role restricted',()=
  assert.match(sql,/GRANT SELECT ON private\.lab_rank_shadow_paired_summary_v1 TO service_role/);
  assert.doesNotMatch(sql,/\bINSERT INTO\b|\bUPDATE public\b|\bDELETE FROM\b/i);
 });
+
+test('legacy JRA saved rank omitting ALL runner status remains comparable without accepting mixed-status fields',()=>{
+ assert.match(sql,/p\.circuit='JRA' AND\s+NOT EXISTS \(\s*SELECT 1 FROM jsonb_array_elements\(COALESCE\(p\.payload->'runners','\[\]'::jsonb\)\) k WHERE k \? 'status'/);
+ assert.match(sql,/frozen_runner_status_policy/);
+ assert.match(sql,/JRA_LEGACY_ALL_STATUS_MISSING/);
+ // The allowance MUST be restricted to JRA and only when no saved runner
+ // has status; it must not automatically treat an explicitly inactive runner
+ // as active, or be enabled for LOCAL.
+ assert.equal((sql.match(/h->>'status'='ACTIVE' OR \(p\.circuit='JRA' AND/g)||[]).length,2);
+ assert.doesNotMatch(sql,/p\.circuit='LOCAL' AND\s*NOT EXISTS/);
+ assert.match(sql,/official_frozen_field IS DISTINCT FROM field_athletes/);
+});
