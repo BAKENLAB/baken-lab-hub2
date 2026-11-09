@@ -111,7 +111,8 @@ test('different district, class, surface or distance cannot create false matched
 test('prior small-margin fourth is a positive sign but not inflated into podium proof',()=>{
  const d=make();
  d.comparison.runner_evidence[8].supporting_runs=[
-  run(9,0,4,'0.3'),run(9,1,2,'0.4')];
+  run(9,0,4,'0.3',{margin_basis:'VERIFIED_WINNER_RELATIVE_SECONDS'}),
+  run(9,1,2,'0.4')];
  const x=review({race,...d});
  assert.equal(x.all_runner_audits[8].small_margin_near_misses,1);
  assert.equal(x.all_runner_audits[8].recent_matched_podium,1);
@@ -158,4 +159,53 @@ test('real previous local calendar date and future date still fail the as-of gat
  const d=make();
  assert.equal(review({race:{...race,observation_at:'2026-11-09T14:59:59Z'},...d}).status,'UNVERIFIED');
  assert.equal(review({race:{...race,observation_at:'2026-11-10T15:00:01Z'},...d}).status,'UNVERIFIED');
+});
+
+test('raw NAR preceding-horse gap is never considered a winner-relative big defeat',()=>{
+ const d=make();
+ const x=review({race,...d});
+ assert.equal(x.status,'PROPOSED_FULL_FIELD_EXCHANGE');
+ const second=x.all_runner_audits.find(h=>h.horse_no===2);
+ assert.equal(second.recent_matched_big_losses,0);
+ assert.equal(second.recent_matched_low_finishes,2);
+ assert.equal(second.negative_evidence.every(e=>e.winner_gap_status==='UNVERIFIED_WINNER_GAP'),true);
+});
+test('a 9th-ranked transfer or distance-change horse retains leads without unearned promotion',()=>{
+ const d=make();
+ d.comparison.runner_evidence[8].supporting_runs=[];
+ d.comparison.runner_evidence[8].context_runs=[
+  run(9,0,2,'クビ',{track:'佐賀',surface:'ダート',distance:1300,class:'C2'}),
+  run(9,1,5,'unverified',{track:'東京',surface:'芝',distance:1800,
+      class:null,raw_margin:null})
+ ];
+ const x=review({race,...d});
+ assert.equal(x.status,'UNCHANGED');
+ assert.equal(x.cross_condition_review_count,1);
+ const ninth=x.all_runner_audits.find(h=>h.horse_no===9);
+ assert.equal(ninth.review,'OUTSIDE_UNCALIBRATED_CONDITION_CHANGE_REVIEW');
+ assert.equal(ninth.cross_condition_positive_leads.length,2);
+ assert.deepEqual(ninth.cross_condition_positive_leads.map(e=>e.type),[
+  'OTHER_CONDITION_PODIUM','OTHER_CONDITION_TOP5']);
+ assert.equal(x.proposed_top5.includes(9),false);
+ assert.equal(x.market_used,false);
+});
+test('same-class but different venue cannot be an automatic TOP5 promotion',()=>{
+ const d=make();
+ d.comparison.runner_evidence[8].supporting_runs=[];
+ d.comparison.runner_evidence[8].context_runs=[
+  run(9,0,1,'',{track:'川崎',class:'C2'}),
+  run(9,1,1,'',{track:'川崎',class:'C2'})
+ ];
+ const x=review({race,...d});
+ assert.equal(x.status,'UNCHANGED');
+ assert.equal(x.cross_condition_review_count,1);
+ assert.deepEqual(x.cross_condition_review[0].cross_condition_positive_leads.map(x=>x.type),
+  ['OTHER_CONDITION_WIN','OTHER_CONDITION_WIN']);
+});
+test('future-dated historical context is rejected rather than used as a rescue lead',()=>{
+ const d=make();
+ d.comparison.runner_evidence[8].context_runs=[
+  run(9,0,2,'',{race_date:'2026-11-10',distance:1300})
+ ];
+ assert.equal(review({race,...d}).reason,'HISTORICAL_EVIDENCE_NOT_VERIFIED_ASOF');
 });
