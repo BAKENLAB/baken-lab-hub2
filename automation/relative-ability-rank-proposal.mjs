@@ -29,7 +29,15 @@ const out = (status,extra={})=>({
   ...extra
 });
 const stop = status => out(status,{candidate_order:null,rank_deltas:[]});
-function level(x) {
+function level(x,track=null) {
+  const venue=key(track);
+  // Tokai grade letters are A/B/C; the digits enumerate groups, not
+  // generic A1/B1/C2 competitive classes. Never collapse C23 into C2.
+  if(venue==='名古屋'||venue==='笠松'){
+    const resolved=resolveLocalOfficialClassLiteral(x,track);
+    return resolved.class_label?
+      'LOCAL_TOKAI_'+venue+'_'+resolved.class_label:null;
+  }
   const s=key(x);
   if(/(?:^|[^0-9])未勝利/.test(s))return 'MAIDEN';
   const v=s.match(/([123])勝クラス/);
@@ -52,7 +60,7 @@ function summarizeEvidence(row,race) {
   const reasons=[];
   let similar=0,good=0,poor=0,sameClass=0,sameClassGood=0,front=0,wins=0,recentGood=0;
   const seenPast=new Set();
-  const targetClass=level(race.class_name);
+  const targetClass=level(race.class_name,race.track);
   for(const h of supporting){
     const d=h.date??h.race_date;
     if(!date(d)||d>=race.race_date)return null;
@@ -63,7 +71,7 @@ function summarizeEvidence(row,race) {
     if(surface!==race.surface||!integer(distance,800,3600)||
       Math.abs(distance-race.distance)>200)continue;
     similar++;
-    const cls=level(h.class??h.race_class??h.class_name??null);
+    const cls=level(h.class??h.race_class??h.class_name??null,h.track??null);
     const f=h.finish, margin=h.margin;
     const close=integer(f,1,24)&&(f===1||(f<=3&&num(margin,0,0.5)));
     // Do not silently equate LOCAL class C3 across independent districts.
@@ -101,7 +109,7 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
   // LOCAL official cards often provide class solely inside race_name.
   // Only a unique, literally printed grade qualifies; missing/ambiguous stays UNKNOWN.
   const targetClassResolution=race?.circuit==='LOCAL'?
-    resolveLocalOfficialClassLiteral(race.class_name??race.race_name):null;
+    resolveLocalOfficialClassLiteral(race.class_name??race.race_name,race.track):null;
   const verifiedTargetClass=race?.circuit==='LOCAL'?
     targetClassResolution.class_label:race?.class_name;
   const comparisonRace=race?.circuit==='LOCAL'?
