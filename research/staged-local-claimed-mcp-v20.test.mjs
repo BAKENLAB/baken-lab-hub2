@@ -5,12 +5,13 @@ import {readFileSync} from 'node:fs';
 const file=readFileSync(new URL('./staged-local-claimed-mcp-v20.ts',import.meta.url),'utf8');
 const prior=readFileSync(new URL('./local-claimed-prod-guard-v19.mjs',import.meta.url),'utf8');
 
-test('targeted rescue handles precisely two signed rejected job identities',()=>{
+test('targeted rescue handles exactly three verified rejected job identities',()=>{
  const jobs=[...file.matchAll(/\{id:"([0-9a-f-]{36})",worker:"([^"]+)",race_date:"(\d{4}-\d{2}-\d{2})",track:"([^"]+)",race_no:(\d+),error:"([^"]+)"\}/g)]
   .map(x=>({id:x[1],worker:x[2],date:x[3],track:x[4],race:+x[5],code:x[6]}));
  assert.deepEqual(jobs,[
   {id:'0d99a3a5-ace4-4c51-b0e3-5337df1300e6',worker:'LOCAL_QUEUE_KANTO',date:'2026-11-02',track:'船橋',race:9,code:'LOCAL_EYE_SELECTION_MISMATCH'},
-  {id:'83cf4e54-ccb0-4995-bcc6-2728518be7e1',worker:'LOCAL_QUEUE_HOKKAIDO_TOHOKU',date:'2026-11-08',track:'盛岡',race:4,code:'LOCAL_EYE_MARKET_EVIDENCE'}
+  {id:'83cf4e54-ccb0-4995-bcc6-2728518be7e1',worker:'LOCAL_QUEUE_HOKKAIDO_TOHOKU',date:'2026-11-08',track:'盛岡',race:4,code:'LOCAL_EYE_MARKET_EVIDENCE'},
+  {id:'0e833929-c3d6-48c9-80fd-1f9a86480f7b',worker:'LOCAL_QUEUE_KANTO',date:'2026-11-09',track:'川崎',race:1,code:'LOCAL_EYE_CHECK_EVIDENCE'}
  ]);
  assert.equal(file.includes('KNOWN_FAILED_JOB.id'),false);
  assert.match(file,/result\.claimed && result\.job_id===x\.id && input\.worker_id===x\.worker/);
@@ -34,4 +35,8 @@ test('normal official save and refusal guards remain intact',()=>{
  assert.ok(prior.includes('MARKET_EVIDENCE'));
  assert.equal(file.includes('update({job_status:"DEAD"'),false);
  assert.equal(file.includes('from("official_predictions").insert('),false);
+});
+
+test('future guard refusals include CHECK_EVIDENCE in the terminal whitelist',()=>{
+ assert.match(file,/TERMINAL_EYE_CODES=new Set\(\[[^\]]*"LOCAL_EYE_CHECK_EVIDENCE"/);
 });
