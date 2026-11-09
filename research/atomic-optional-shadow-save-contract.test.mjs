@@ -67,3 +67,21 @@ test('no original save function redefinition, no public direct table writes',()=
  assert.match(sql,/REVOKE ALL ON FUNCTION public\.jra_save_claimed_prediction_with_shadow_v1/);
  assert.match(sql,/REVOKE ALL ON FUNCTION public\.lab_queue_save_prediction_with_shadow_v1/);
 });
+
+test('LOCAL shadow preflight holds worker -> job -> race locks in original save order',()=>{
+ const start=sql.indexOf('CREATE OR REPLACE FUNCTION public.lab_queue_save_prediction_with_shadow_v1');
+ const section=sql.slice(start,sql.indexOf('REVOKE ALL ON FUNCTION public.lab_queue_save_prediction_with_shadow_v1',start));
+ const locks=[
+  'pg_advisory_xact_lock(72817,hashtext(p_job_id::text))',
+  'FROM public.lab_worker_runs w',
+  'FROM public.lab_prediction_jobs j\n     WHERE j.id=p_job_id AND j.worker_run_id=v_initial_run_id',
+  'FROM public.official_races r',
+  "lab_capture_rank_shadow_preflight_v1('LOCAL'",
+  'public.lab_queue_save_prediction_v1('
+ ];
+ const offsets=locks.map(x=>section.indexOf(x));
+ assert.ok(offsets.every(x=>x>=0),'all lock and save stages must be present');
+ assert.deepEqual([...offsets].sort((a,b)=>a-b),offsets,'must follow canonical run/job/race order');
+ assert.match(section,/IF NOT FOUND OR v_locked_job.job_status<>'CLAIMED'/);
+ assert.match(section,/EXCEPTION WHEN OTHERS THEN\s+v_shadow_status:='OPTIONAL_CAPTURE_SKIPPED'/);
+});
