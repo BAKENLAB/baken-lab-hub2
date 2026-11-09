@@ -3,6 +3,7 @@
  * Not a scorer. No market, target results, CLAIM, DB or FROZEN writes.
  * Call only after finalContext() validated exact official identity, source and as-of.
  */
+import {resolveLocalHistoricalSurface,resolveLocalOfficialClassLiteral} from './local-verified-condition-bridge.mjs';
 const safeNumber=x=>{
   if(typeof x==='number'&&Number.isFinite(x))return x;
   if(typeof x==='string'&&/^[0-9]+(?:\.[0-9]{1,3})?$/.test(x.trim()))return Number(x.trim());
@@ -32,25 +33,37 @@ export function buildLocalRelativeConditionComparison(runners,conditions={},targ
    return status('HISTORICAL_ASOF_REJECTED');
  }
  const perRunner=runners.map(r=>{
-  const similar=r.recent_runs.filter(h=>
-    h.surface===surface && Number.isInteger(safeNumber(h.distance)) &&
+  const prepared=r.recent_runs.map((h,i)=>{
+    const resolution=resolveLocalHistoricalSurface(h);
+    // Official source verified by finalContext prior to this pure comparison.
+    const cls=resolveLocalOfficialClassLiteral(h.race_class??h.class_name??h.race_name);
+    return {h,i,resolution,cls};
+  });
+  const similar=prepared.filter(({h,resolution})=>
+    resolution.surface===surface && Number.isInteger(safeNumber(h.distance)) &&
     Math.abs(safeNumber(h.distance)-distance)<=200);
-  const close=similar.filter(h=>{
+  const close=similar.filter(({h})=>{
     const f=safeNumber(h.finish),m=safeNumber(h.margin);
     return f===1||(int(f)&&f<=3&&m!==null&&m<=0.5);
   }).length;
-  const podium=similar.filter(h=>int(safeNumber(h.finish))&&safeNumber(h.finish)<=3).length;
-  const front=similar.filter(h=>int(safeNumber(h.early_pos))&&safeNumber(h.early_pos)<=3).length;
-  const deep=similar.filter(h=>safeNumber(h.finish)>=8&&safeNumber(h.margin)>=1.5).length;
+  const podium=similar.filter(({h})=>int(safeNumber(h.finish))&&safeNumber(h.finish)<=3).length;
+  const front=similar.filter(({h})=>int(safeNumber(h.early_pos))&&safeNumber(h.early_pos)<=3).length;
+  const deep=similar.filter(({h})=>safeNumber(h.finish)>=8&&safeNumber(h.margin)>=1.5).length;
   return {horse_no:r.horse_no,horse_name:r.horse_name,
     comparable_runs:similar.length,close_runs:close,podium_runs:podium,
     front3_runs:front,decisive_defeats:deep,
-    class_comparison:'NOT_ESTABLISHED_FROM_THIS_SIGNAL',
-    supporting_runs:similar.map(h=>({
+    class_comparison:'EXPLICIT_OFFICIAL_TITLE_ONLY_SAME_DISTRICT_GUARDED_BY_SCORER',
+    surface_unknown_runs:prepared.filter(x=>x.resolution.surface===null).length,
+    surface_recovered_from_track:prepared.filter(x=>x.resolution.provenance==='NAR_OFFICIAL_SINGLE_SURFACE_TRACK_CAPABILITY').length,
+    supporting_runs:similar.map(({h,i,resolution,cls})=>({
       race_date:h.race_date,track:h.track,race_name:h.race_name,
-      class:h.race_class??h.class_name??h.race_name??null,
-      surface:h.surface,distance:h.distance,finish:h.finish,
-      margin:h.margin,early_pos:h.early_pos,final_turn_pos:h.final_turn_pos
+      class:cls.class_label,class_provenance:cls.status,
+      surface:resolution.surface,surface_provenance:resolution.provenance,
+      surface_source_ref:resolution.source_ref,
+      distance:safeNumber(h.distance),finish:safeNumber(h.finish),
+      margin:safeNumber(h.margin),raw_margin:h.margin??null,
+      early_pos:safeNumber(h.early_pos),final_turn_pos:safeNumber(h.final_turn_pos),
+      evidence_ref:`COMPACT_V1.runners[horse_no=${r.horse_no}].recent_runs[${i}]`
     })),
     comparison_status:similar.length>=2?'REPEATED_COMPARABLE_RUNS':
        similar.length===1?'SINGLE_COMPARABLE_RUN':'NO_COMPARABLE_RUN'};
@@ -69,6 +82,8 @@ export function buildLocalRelativeConditionComparison(runners,conditions={},targ
  }
  return status('READY',{target_date:targetDate,present_conditions:{surface,distance},
    runner_count:perRunner.length,runner_evidence:perRunner,
+   recovered_surface_run_count:perRunner.reduce((n,r)=>n+r.surface_recovered_from_track,0),
+   comparable_runner_count:perRunner.filter(r=>r.comparable_runs>0).length,
    comparisons,comparison_count:comparisons.length,
    data_scope:'ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY',
    class_scope:'DISTINCT_RACE_CLASS_NOT_NORMALIZED'});
