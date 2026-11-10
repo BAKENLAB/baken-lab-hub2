@@ -42,7 +42,7 @@ test('same source duplicate is counted once; never invent lap, cause or market d
  assert.equal(r.lap_covered_horses,0);assert.equal(r.betting_data_used,false);
  assert.equal(r.excluded_reasons.DUPLICATE_SOURCE,1);
 });
-test('JRA independent lap review stays available in common handoff',()=>{
+test('JRA independent lap review stays available in common handoff',async()=>{
  const {prepareHistoricalRaceReview}=await import('../automation/historical-race-review-handoff.mjs');
  const r=prepareHistoricalRaceReview({targetRace:{...targetRace,circuit:'JRA'},
  runners,evidence:[{horse_no:2,horse_name:'乙',past_race_date:'2026-11-07',
