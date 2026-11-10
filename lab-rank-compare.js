@@ -1,24 +1,55 @@
 /* LAB RANK: evidence-based comparative notes. Read-only; never modifies FROZEN. */
 (function(window){'use strict';
-function rawText(r){return String(r?.comment||r?.reason||r?.short_reason||'').trim()}
+function rawText(r){
+ // Saved official reason is the authoritative ability explanation. A generic
+ // optional display comment must never conceal it.
+ return String(r?.reason||r?.comment||r?.short_reason||'').trim()
+}
 function getRuns(r){
  const head=rawText(r).split('。')[0]||'';
- return head.split('／').slice(0,8).map((part,i)=>{
-  const date=part.match(/20\d{2}-(\d{2})-(\d{2})/),venue=part.match(/(船橋|園田|笠松|盛岡|門別|高知|佐賀|名古屋|大井|川崎|浦和|水沢|金沢|東京|京都|阪神|中山|中京|新潟|小倉|札幌|函館)[^\d]{0,16}?(\d{3,4})m/),place=part.match(/(\d{1,2})着/);
-  if(!date||!venue||!place)return null;
-  const suffix=part.slice(place.index+place[0].length),margin=suffix.match(/^(?:\s|・|、|着差|=)*(\d+(?:\.\d+)?)/);
-  const grade=part.match(/(?:A1|A2|A3|B1|B2|B3|C1|C2|C3)(?:A1|A2|B1|B2)?|オープン|3勝クラス|2勝クラス|JpnI{1,3}/);
-  return {day:`${Number(date[1])}/${Number(date[2])}`,venue:venue[1],distance:Number(venue[2]),finish:Number(place[1]),margin:margin?margin[1]:null,grade:grade?.[0]||'',index:i}
+ // LOCAL saved reasons commonly use short dates and 、 separators,
+ // rather than ISO dates and ／ separators. Recognize both safely.
+ const dates=[...head.matchAll(/20\d{2}[-/]\d{1,2}[-/]\d{1,2}|\d{1,2}\/\d{1,2}/g)].slice(0,8);
+ let previousVenue='';
+ return dates.map((date,i)=>{
+  const part=head.slice(date.index,dates[i+1]?.index??head.length);
+  const dm=date[0].match(/(?:20\d{2}[-/])?(\d{1,2})[-/](\d{1,2})$/);
+  const place=part.match(/(\d{1,2})着/);
+  if(!dm||!place)return null;
+  const course=part.slice(date[0].length);
+  const venue=course.match(/(船橋|園田|笠松|盛岡|門別|高知|佐賀|名古屋|大井|川崎|浦和|水沢|金沢|東京|京都|阪神|中山|中京|新潟|小倉|札幌|函館)/);
+  // "同1400m" inherits venue only when a prior explicit venue was parsed.
+  const same=/^\s*同(?:場)?/.test(course);
+  const track=venue?.[1]||(same?previousVenue:'');
+  if(venue)previousVenue=venue[1];
+  const distance=course.match(/(\d{3,4})\s*m/);
+  const suffix=part.slice(place.index+place[0].length);
+  // Retain saved literal; never reinterpret NAR lengths as seconds.
+  const margin=suffix.match(/^\s*(\d+(?:\.\d+)?)差/);
+  const grade=course.match(/(?:3歳)?[ABC]\d{1,2}(?:[一二三四五六七八九十]+|[-]\d+)?|[123]勝クラス|オープン|JpnI{1,3}/);
+  return {day:String(Number(dm[1]))+'/'+String(Number(dm[2])),venue:track,
+   distance:distance?Number(distance[1]):null,
+   finish:Number(place[1]),margin:margin?margin[1]:null,grade:grade?.[0]||'',index:i}
  }).filter(Boolean)
 }
-function formatRun(v){return `${v.day}${v.venue}${v.distance}m${v.grade?' '+v.grade:''}・${v.finish}着${v.margin!==null?`（${v.margin}差）`:''}`}
+function formatRun(v){
+ return v.day+(v.venue||'')+(v.distance?String(v.distance)+'m':'')+
+  (v.grade?' '+v.grade:'')+'・'+v.finish+'着'+
+  (v.margin!==null?'（原文'+v.margin+'差）':'')
+}
 function evidence(r,limit=2){
- const rows=getRuns(r),pos=rows.filter(x=>x.finish<=3),near=rows.filter(x=>x.finish<=6&&(x.margin===null||Number(x.margin)<=1.5)),pick=pos.length?pos.slice(0,limit):near.length?near.slice(0,limit):rows.slice(0,Math.min(limit,2));
- return pick.length?pick.map(formatRun).join('、'):'確認できる近走材料が不足'
+ const rows=getRuns(r);
+ const pos=rows.filter(x=>x.finish<=3);
+ // Missing margin is UNKNOWN, not evidence of a close finish.
+ const near=rows.filter(x=>x.finish<=6&&x.margin!==null&&Number(x.margin)<=1.5);
+ const pick=pos.length?pos.slice(0,limit):near.length?near.slice(0,limit):rows.slice(0,Math.min(limit,2));
+ if(pick.length)return pick.map(formatRun).join('、');
+ // Parser failure is not a race-history acquisition failure.
+ return rawText(r).split('。')[0]||'具体的な近走根拠の記載なし'
 }
 function narrative(r){
  const parts=rawText(r).split('。').map(x=>x.trim()).filter(Boolean).slice(1);
- const notes=parts.filter(x=>!/^(今回|未取得の|確認できない|通過順|独立比較：)/.test(x)&&!/推測加点しない|推測で補わない|推定しない|推測しない/.test(x));
+ const notes=parts.filter(x=>!/^(未取得の|確認できない|通過順|独立比較：)/.test(x)&&!/推測加点しない|推測で補わない|推定しない|推測しない/.test(x));
  const positives=notes.filter(s=>!/ただし|未知|未実証|反証|不確実|課題/.test(s)&&/評価|実績|勝ち|安定|強み|重視|適合|好走|級|軽量化|力/.test(s));
  const risks=notes.filter(s=>/ただし|級差|未知|未実証|反証|不確実|相手強化|課題|不安|未確証|距離延長|距離短縮|苦戦/.test(s));
  return {positive:positives[0]||'',risk:risks[0]||''}
