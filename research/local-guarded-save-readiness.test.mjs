@@ -79,3 +79,35 @@ test('known guard rejection, past cutoff, or mismatched roster fail closed',()=>
 test('deployed validator version drift cannot be silently accepted',()=>{
  assert.equal(examineNewLocalSave({...make(),deployedValidatorVersion:20}).code,'DEPLOYED_VALIDATOR_VERSION_CHANGED');
 });
+
+test('positive-factor coverage catches 11/10-style all-empty outsider arrays before first save',()=>{
+ const a=make();
+ for(const runner of a.verifiedRunners){
+  runner.status='ACTIVE';
+  runner.recent_runs[0].surface='ダート';
+  runner.recent_runs[0].race_name='C2 1400m';
+ }
+ const officialPreRace={
+  race_date:'2026-11-09',observation_at:a.now,post_time:a.postTime,
+  track:'川崎',race_no:7,surface:'ダート',distance:1400,
+  class_name:'C2',official_context_verified:true
+ };
+ const before=structuredClone({...a,officialPreRace});
+ const check=examineNewLocalSave({...a,officialPreRace});
+ assert.equal(check.ok,false);
+ assert.equal(check.code,'EYE_POSITIVE_FACTOR_REVIEW_REQUIRED');
+ assert.deepEqual(check.omitted_runner_nos,[6,7]);
+ assert.equal(check.unreported_run_count,2);
+ assert.equal(check.eye_auto_promoted,false);
+ assert.deepEqual({...a,officialPreRace},before);
+});
+test('cannot claim evidence review with post-race or unverified source timestamps',()=>{
+ const a=make();
+ const officialPreRace={
+  race_date:'2026-11-09',observation_at:'2026-11-09T15:35:00+09:00',
+  post_time:a.postTime,track:'川崎',race_no:7,surface:'ダート',
+  distance:1400,class_name:'C2',official_context_verified:true
+ };
+ assert.equal(examineNewLocalSave({...a,officialPreRace}).code,
+  'EYE_COVERAGE_CONTEXT_UNVERIFIED');
+});
