@@ -95,7 +95,7 @@ export function localOfficialHistoricalClassEvidence(run) {
  if(cls.class_label){
    const at=name.indexOf(cls.class_label);
    const tail=at>=0?name.slice(at+cls.class_label.length):'';
-   const suffix=/^([一二三四五六七八九十0-9]+組)/u.exec(tail)?.[1]??'';
+   const suffix=tail.startsWith('組')?'組':(/^([一二三四五六七八九十0-9]+組)/u.exec(tail)?.[1]??'');
    return {status:'OFFICIAL_CLASS_ONLY',display:cls.class_label+suffix,evidence_ref:source};
  }
  if(age)return {status:'OFFICIAL_AGE_ONLY',display:age,evidence_ref:source};
