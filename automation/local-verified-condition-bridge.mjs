@@ -69,3 +69,35 @@ export function resolveLocalOfficialClassLiteral(name,track=null){
  if(unique.length!==1)return {status:unique.length?'AMBIGUOUS_CLASS':'CLASS_NOT_EXPLICIT',class_label:null};
  return {status:'OFFICIAL_CLASS_LITERAL',class_label:unique[0]};
 }
+
+
+/**
+ * Provenance-preserving official race CLASS text used in LOCAL EYE review.
+ *
+ * A sponsor's official race title can contain "オッズ" or "人気" as part of
+ * a proper noun (e.g. "オッズパーク賞C1五組"). Those are not horse market
+ * statistics. Instead of sending raw sponsor titles into EYE free-text
+ * evidence and triggering a false MARKET_EVIDENCE rejection, extract only
+ * the official verified class/age. The original full title stays in the
+ * source-verified context and remains independently inspectable.
+ *
+ * IMPORTANT: This does NOT relax any market-evidence validator. Ad hoc
+ * market commentary and market-derived evaluation stay prohibited.
+ */
+export function localOfficialHistoricalClassEvidence(run) {
+ const name=normalized(run?.race_name),track=run?.track;
+ const source=typeof run?.evidence_ref==='string'?run.evidence_ref:null;
+ if(!name||!track||!source||
+    !/^COMPACT_V1\.runners\[horse_no=\d{1,2}\]\.recent_runs\[\d\]$/.test(source))
+   return {status:'OFFICIAL_HISTORY_UNVERIFIED',display:null,evidence_ref:null};
+ const cls=resolveLocalOfficialClassLiteral(run.race_name,track);
+ const age=name.match(/(?:2歳|3歳)(?:牝馬)?(?:未勝利|新馬)?/u)?.[0]??null;
+ if(cls.class_label){
+   const at=name.indexOf(cls.class_label);
+   const tail=at>=0?name.slice(at+cls.class_label.length):'';
+   const suffix=/^([一二三四五六七八九十0-9]+組)/u.exec(tail)?.[1]??'';
+   return {status:'OFFICIAL_CLASS_ONLY',display:cls.class_label+suffix,evidence_ref:source};
+ }
+ if(age)return {status:'OFFICIAL_AGE_ONLY',display:age,evidence_ref:source};
+ return {status:'CLASS_UNVERIFIED',display:null,evidence_ref:source};
+}
