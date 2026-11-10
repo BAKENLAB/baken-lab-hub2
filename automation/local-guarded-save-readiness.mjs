@@ -5,10 +5,12 @@
  */
 import {testLocalPayloadBeforeOfficialMcp} from './local-production-v19-guard-parity.mjs';
 import {checkLocalEyeTextBeforeSave} from './local-eye-market-safety-audit.mjs';
+import {auditLocalEyePositiveFactorCoverage} from './local-eye-factor-coverage-shadow.mjs';
 const isDate=x=>typeof x==='string'&&Number.isFinite(Date.parse(x));
 export function examineNewLocalSave({
  payload,protocolVersion,verifiedRunners,postTime,now,
- previousGuardRejected=false,deployedValidatorVersion=19
+ previousGuardRejected=false,deployedValidatorVersion=19,
+ officialPreRace=null
 }={}){
  if(previousGuardRejected)return {ok:false,code:'PREVIOUS_GUARD_REJECTION_NO_RESUBMIT'};
  if(!isDate(postTime)||!isDate(now)||Date.parse(postTime)<=Date.parse(now)+180000)
@@ -34,5 +36,23 @@ export function examineNewLocalSave({
   payload,protocolVersion,currentDeployedMcpVersion:deployedValidatorVersion
  });
  if(!v19.ok)return {ok:false,code:v19.code};
+ // Optional STRICTLY PRE-RACE independent evidence check.
+ // Never changes the original payload, promotes an EYE, or supplies a new save attempt.
+ // When an officially verifiable recent podium is omitted from positive-factor
+ // audit, hold the FIRST submission for review rather than silently sending [].
+ if(officialPreRace!==null){
+  const coverage=auditLocalEyePositiveFactorCoverage({
+   race:officialPreRace,verifiedRunners,
+   baseline:payload.runners,eyePositiveFactorAudit:payload.audit?.eye_positive_factor_audit
+  });
+  if(coverage.status!=='READY')
+   return {ok:false,code:'EYE_COVERAGE_CONTEXT_UNVERIFIED',reason:coverage.reason};
+  if(coverage.missing_positive_evidence_runs>0)
+   return {ok:false,code:'EYE_POSITIVE_FACTOR_REVIEW_REQUIRED',
+    omitted_runner_nos:coverage.runner_reports.filter(
+     r=>r.unreported_verified_positive_runs.length>0).map(r=>r.horse_no),
+    unreported_run_count:coverage.missing_positive_evidence_runs,
+    eye_auto_promoted:false};
+ }
  return {ok:true,code:'PRE_SUBMIT_V19_PARITY_PASS',scanned_runner_count:verifiedRunners.length};
 }
