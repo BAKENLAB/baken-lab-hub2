@@ -166,3 +166,30 @@ test('official preclaim sustained-front corners change LOCAL rank only in resear
  enriched.corner_evidence_scope='UNVERIFIED_LATER_RESULT';
  assert.equal(buildOptionalSaveLocalShadow({context:ctx,payload:p,now}).preview.status,'UNCHANGED');
 });
+
+test('optional LOCAL proposal accurately tags verified corner source vs normal history',()=>{
+ const ctx=local(),p=payload(),old=structuredClone(p);
+ ctx.race.track='高知';ctx.race.conditions.class_name='Ｃ２四組';
+ for(const row of ctx.relative_condition_evidence.runner_evidence){
+  for(const h of row.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+ }
+ const normal=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(normal);
+ assert.equal(normal.preview.observed_corner_source,'NORMAL_VERIFIED_CLAIM_HISTORY_ONLY');
+ assert.equal(normal.preview.verified_preclaim_corner_applied_runs,0);
+ const corner=structuredClone(ctx.relative_condition_evidence);
+ corner.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
+ corner.corner_enriched_prior_runs=2;corner.runner_count=field.length;corner.score_effect=false;
+ ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',applied_prior_runs:2,
+  use_for_rank:false,use_for_save_gate:false,research_relative_condition_evidence:corner};
+ const yes=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(yes);
+ assert.equal(yes.preview.observed_corner_source,'VERIFIED_PRECLAIM_CORNER_SHADOW');
+ assert.equal(yes.preview.verified_preclaim_corner_applied_runs,2);
+ corner.corner_evidence_scope='UNVERIFIED_LATER_RESULT';
+ const rejected=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(rejected);
+ assert.equal(rejected.preview.observed_corner_source,'NORMAL_VERIFIED_CLAIM_HISTORY_ONLY');
+ assert.equal(rejected.preview.verified_preclaim_corner_applied_runs,0);
+ assert.deepEqual(p,old);
+});
