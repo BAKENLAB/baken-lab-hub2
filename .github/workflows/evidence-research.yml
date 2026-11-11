@@ -1,0 +1,93 @@
+name: BAKEN LAB evidence research checks
+on:
+  push:
+    branches:
+      - feature/pace-evidence-prereace-gate
+  pull_request:
+    paths:
+      - "research/*.mjs"
+      - "package.json"
+      - ".github/workflows/evidence-research.yml"
+permissions:
+  contents: read
+jobs:
+  evidence-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify evidence prefetch and safety
+        run: npm run test:pace
+      - name: Syntax check staged LOCAL context v14 and research v15 (v15 not deployed)
+        run: |
+          node --check research/staged-lab-claimed-context-handler-v14.mjs
+          node --check research/staged-lab-claimed-context-handler-v15.mjs
+          node --check research/staged-lab-claimed-context-relative-v15.mjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Verify NAR official result HTML extraction (Deno/Cheerio)
+        run: deno test --allow-env research/nar-prior-corners-dom.test.ts
+      - name: Typecheck the fully bundled dormant LOCAL preclaim Edge runtime
+        run: |
+          mkdir -p .edge-preclaim-ci
+          cp research/staged-local-preclaim-edge-index.ts .edge-preclaim-ci/index.ts
+          cp -R automation .edge-preclaim-ci/automation
+          deno check .edge-preclaim-ci/index.ts
+      - name: Typecheck staged JRA claimed relative-rank runtime
+        run: |
+          mkdir -p .jra-mcp-ci
+          cp research/staged-jra-claimed-mcp-ability-v14.ts .jra-mcp-ci/index.ts
+          cp automation/jra-relative-draft-adapter.mjs .jra-mcp-ci/jra-relative-draft-adapter.mjs
+          cp automation/optional-atomic-shadow-save.mjs .jra-mcp-ci/optional-atomic-shadow-save.mjs
+          cp automation/relative-ability-rank-proposal.mjs .jra-mcp-ci/relative-ability-rank-proposal.mjs
+          cp automation/local-verified-condition-bridge.mjs .jra-mcp-ci/local-verified-condition-bridge.mjs
+          deno check .jra-mcp-ci/index.ts
+      - name: Typecheck staged LOCAL claimed relative-rank preview
+        run: |
+          mkdir -p .local-relative-ci
+          cp research/staged-local-claimed-mcp-preclaim-v29.ts .local-relative-ci/index.ts
+          cp automation/relative-ability-rank-proposal.mjs .local-relative-ci/relative-ability-rank-proposal.mjs
+          cp automation/local-full-field-over-under-shadow.mjs .local-relative-ci/local-full-field-over-under-shadow.mjs
+          cp automation/local-v17-full-field-independent-shadow.mjs .local-relative-ci/local-v17-full-field-independent-shadow.mjs
+          cp automation/hyogo-official-ability-evidence.mjs .local-relative-ci/hyogo-official-ability-evidence.mjs
+          cp automation/local-relative-condition-comparison.mjs .local-relative-ci/local-relative-condition-comparison.mjs
+          cp automation/optional-atomic-shadow-save.mjs .local-relative-ci/optional-atomic-shadow-save.mjs
+          cp automation/jra-relative-draft-adapter.mjs .local-relative-ci/jra-relative-draft-adapter.mjs
+          cp automation/local-verified-condition-bridge.mjs .local-relative-ci/local-verified-condition-bridge.mjs
+          cp research/local-claimed-prod-guard-v19.mjs .local-relative-ci/local-eye.mjs
+          cp automation/local-mcp-queue-operation-v19.mjs .local-relative-ci/queue-operation.mjs
+          deno check .local-relative-ci/index.ts
+      - name: Typecheck the staged LOCAL MCP terminal-rejection repair against live handler dependencies
+        run: |
+          mkdir -p .local-mcp-ci
+          cp research/staged-local-claimed-mcp-v20.ts .local-mcp-ci/index.ts
+          cp research/local-claimed-prod-guard-v19.mjs .local-mcp-ci/local-eye.mjs
+          cp automation/local-mcp-queue-operation-v19.mjs .local-mcp-ci/queue-operation.mjs
+          deno check .local-mcp-ci/index.ts
+      # Verified real official Hyogo 2026-10-27 ability detail/135:
+      # 2026-11-11 one-time required probe PASSED (correct ability/gate distinction).
+      # via research/hyogo-official-live-once.probe.mjs. No recurring fetch.
+      # The three one-day current-race NAR canaries already passed on 2026-11-08.
+      # Retired from each push to avoid repeatedly hitting public official servers.
+      # Test source and immutable successful CI logs remain available for audit.
+      # Completed one-off real JRA historical lap test: CI 42438541291.
+      # Retired from every push to avoid repeated public JRA fetches.
+      # JRA missing race_no real source proof: CI 42438790605, verified 9 splits.
+      # Retired from every push to avoid unnecessary official site requests.
+      # Morioka5 official 11/11 horse and 20 prior-corner source proof:
+      # Successful one-time CI run 42441394579; no repeated public NAR calls.
+      - name: One-off Morioka6 nine 2yo official historical corner evidence
+        continue-on-error: true
+        timeout-minutes: 2
+        run: deno test --allow-env --allow-net=www.keiba.go.jp,qjlvsndiqjfsfjinilig.supabase.co research/nar-morioka6-2yo-today-real-corners.test.ts
+      # Shared past Niigata turf1800 JRA real-lap proof completed:
+      # successful CI run 42444805031, 9 splits and result race identity.
+      # Retired from every push to avoid repeated source fetches.
+      - name: Probe completed NAR official archive (non-blocking external reachability check)
+        continue-on-error: true
+        timeout-minutes: 1
+        run: deno test --allow-env --allow-net=www.keiba.go.jp research/nar-official-archive-live.test.ts

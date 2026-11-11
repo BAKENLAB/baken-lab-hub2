@@ -1,0 +1,120 @@
+{
+  "note": "Actual historical source rows from read-only AS-OF query. NO Nov 7 target result, odds or market. 2-runner mini fixture; target race full field 16.",
+  "asOf": "2026-11-07T04:49:12+00:00",
+  "race": {
+    "raceDate": "2026-11-07",
+    "track": "福島",
+    "raceNo": 10,
+    "postTime": "2026-11-07T05:45:00+00:00",
+    "surface": "芝",
+    "distance": 1200
+  },
+  "roster": [
+    {
+      "horseNo": 5,
+      "horseName": "ヴァンヴィーヴ",
+      "status": "ACTIVE"
+    },
+    {
+      "horseNo": 8,
+      "horseName": "カレンデュラ",
+      "status": "ACTIVE"
+    }
+  ],
+  "packet": {
+    "runners": [
+      {
+        "horse_no": 5,
+        "horse_name": "ヴァンヴィーヴ",
+        "runs": [
+          {
+            "race_date": "2026-07-19",
+            "track": "福島",
+            "race_no": 9,
+            "surface": "芝",
+            "distance": 1200,
+            "class_name": "2勝クラス",
+            "finish": 6,
+            "early_pos": 8,
+            "final_turn_pos": 8,
+            "last3f": 33.8,
+            "halon_times": "12.1 - 10.8 - 11.4 - 11.3 - 11.4 - 11.3",
+            "identity_status": "HORSE_REF_MATCH",
+            "archive_checked_at": "2026-09-18T20:56:02.986+00:00",
+            "run_created_at": "2026-09-18T20:56:03.357486+00:00"
+          },
+          {
+            "race_date": "2026-05-23",
+            "track": "新潟",
+            "race_no": 11,
+            "surface": "芝",
+            "distance": 1200,
+            "class_name": "2勝クラス",
+            "finish": 3,
+            "early_pos": 3,
+            "final_turn_pos": 3,
+            "last3f": 34.7,
+            "halon_times": "12.1 - 10.6 - 11.4 - 11.8 - 11.5 - 11.8",
+            "identity_status": "HORSE_REF_MATCH",
+            "archive_checked_at": "2026-09-18T22:37:02.424+00:00",
+            "run_created_at": "2026-09-18T22:37:02.904209+00:00"
+          }
+        ]
+      },
+      {
+        "horse_no": 8,
+        "horse_name": "カレンデュラ",
+        "runs": [
+          {
+            "race_date": "2026-08-30",
+            "track": "新潟",
+            "race_no": 9,
+            "surface": "芝",
+            "distance": 1000,
+            "class_name": "2勝クラス",
+            "finish": 9,
+            "early_pos": null,
+            "final_turn_pos": null,
+            "last3f": 34.1,
+            "halon_times": "11.9 - 10.2 - 10.7 - 11.1 - 12.0",
+            "identity_status": "HORSE_REF_MATCH",
+            "archive_checked_at": "2026-09-18T18:45:03.366+00:00",
+            "run_created_at": "2026-09-18T18:45:03.769236+00:00"
+          },
+          {
+            "race_date": "2026-04-26",
+            "track": "福島",
+            "race_no": 4,
+            "surface": "芝",
+            "distance": 1200,
+            "class_name": "未勝利",
+            "finish": 1,
+            "early_pos": 1,
+            "final_turn_pos": 1,
+            "last3f": 34.3,
+            "halon_times": "12.5 - 11.1 - 11.3 - 11.1 - 11.3 - 11.9",
+            "identity_status": "NAME_ONLY_UNVERIFIED",
+            "archive_checked_at": "2026-09-18T18:21:04.633+00:00",
+            "run_created_at": "2026-09-18T18:21:05.008367+00:00"
+          },
+          {
+            "race_date": "2025-11-15",
+            "track": "福島",
+            "race_no": 4,
+            "surface": "芝",
+            "distance": 1200,
+            "class_name": "未勝利",
+            "finish": 3,
+            "early_pos": 1,
+            "final_turn_pos": 1,
+            "last3f": 35.6,
+            "halon_times": "12.0 - 10.3 - 11.1 - 11.6 - 11.7 - 12.2",
+            "identity_status": "HORSE_REF_MATCH",
+            "archive_checked_at": "2026-09-19T03:33:03.331+00:00",
+            "run_created_at": "2026-09-19T03:33:03.689711+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}
