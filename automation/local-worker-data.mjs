@@ -250,7 +250,7 @@ export async function collectClaimedContext(state, {db, official, now = Date.now
         for(const e of packet.evidence){
           const current=unknown.find(r=>r.horse_no===e.horse_no &&
             canonicalName(r.horse_name)===canonicalName(e.horse_name) &&
-            canonicalName(r.trainer)===canonicalName(e.trainer));
+            canonicalName(r.trainer).replace(/\s+/g,'')===canonicalName(e.trainer).replace(/\s+/g,''));
           if(current && !current.ability_test)current.ability_test=e;
         }
       }
