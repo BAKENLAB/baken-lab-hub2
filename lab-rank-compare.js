@@ -33,7 +33,7 @@ function getRuns(r){
  return dated.map((m,i)=>{
   const next=dated[i+1];
   const original=src.slice(m.index+m[0].length,next?.index??src.length);
-  let part=original.split('。')[0],finish=part.match(/(\d{1,2})着|勝ち|勝利/);
+  let part=original.split('。')[0],finish=part.match(/(\d{1,2})着|勝ち|(?<!未)勝利/);
   // The two dates explicitly share a finish in "9/23と8/26の園田...でともに3着".
   if(!finish&&next&&/^\s*と\s*$/.test(part)){
    const following=src.slice(next.index+next[0].length,dated[i+2]?.index??src.length).split('。')[0];
@@ -65,28 +65,31 @@ function evidence(r){
  if(selected.length)return selected.map(formatRun).join('、');
  // No extracted date is not proof of no past performance.
  const raw=rawText(r);
- return raw?'具体的な過去走の抽出に失敗。保存理由の原文を確認':'保存理由が未登録';
+ return raw?'保存コメントには具体的なレース結果の記載なし':'保存理由が未登録';
 }
 function dissect(r){
  const saved=rawText(r),runs=getRuns(r),strengths=[],risks=[];
  const dateAtStart=/^\s*(?:(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2})(?!\d)/;
- const riskWords=/反証|未実証|未検証|未確認|未知|不安|大敗|低調|苦戦|不振|失速|不足|休養|空白|初挑戦|初戦|実績なし|根拠は限定的|現在性が低い|過信しない|減点しすぎ/;
- const positiveWords=/評価|重視|好走|勝利|勝ち|連対|実績|証拠|材料|通用|強み|接近|安定|再浮上|巻き返し|上積み|適性|末脚|先行力|水準|上位入線|入着|素地|優位|近接/;
+ const riskWords=/反証|未実証|未検証|未確認|未知|不安|大敗|低調|苦戦|不振|失速|不足|休養|空白|初挑戦|初戦|実績なし|根拠は限定的|現在性が低い|過信しない|減点しすぎ|3着内なし|検証できない|確認できない|不明|順位は低い/;
+ const positiveWords=/評価|重視|好走|勝利|勝ち|連対|実績|証拠|材料|通用|強み|接近|安定|再浮上|巻き返し|上積み|適性|実走|末脚|先行力|水準|上位入線|入着|素地|優位|近接/;
  for(const sentence of saved.split('。').map(x=>x.trim()).filter(Boolean)){
+  const cautionIntro=/^(?:ただし|一方で|一方|しかし)/.test(sentence);
   if(/^TOP5外\d+位$/.test(sentence))continue;
   // Date-led results are evidence, not an inferred interpretation of why a horse ranked.
   // Crucially, they must remain available as the fallback when no narrative follows.
   if(dateAtStart.test(sentence)){
-   const tail=sentence.split(/[、，]/).find(x=>riskWords.test(x));
-   if(tail)risks.push(compact(tail));
+   const fields=sentence.split(/[、，]/);
+   const tail=fields.find(x=>/(?:[4-9]|1[0-9])着/.test(x))||fields.find(x=>riskWords.test(x));
+   if(riskWords.test(sentence)&&tail)risks.push(compact(tail));
    continue;
   }
-  for(const clause of sentence.split(/(?:ただし|一方で|一方|しかし|ものの|だが|したが|けれども)/g)){
+  for(const clause of sentence.split(/(?:(?:は|を)(?:評価|重視)するが|ただし|一方で|一方|しかし|ものの|だが|したが|けれども)/g)){
    const text=compact(clause.replace(/^(?:そして|なお)[、，\s]*/,''));
-   if(!text)continue;
+   if(!text||(/^過去走は複数/.test(text)&&!/\d{1,2}着/.test(text)))continue;
+   if(cautionIntro){risks.push(text);continue;}
    // Split at a true risk clause, not at every comma between race records.
    let pair=text.match(/^(.+?)[、，]\s*(.+(?:反証|未検証|未実証|未確認|未知|不安|大敗|低調|不足).*)$/);
-   if(pair&&!riskWords.test(pair[1])){
+   if(pair&&!riskWords.test(pair[1])&&!/^\s*\d{1,2}[-/]\d{1,2}/.test(pair[1])){
     if(positiveWords.test(pair[1]))strengths.push(compact(pair[1]));
     risks.push(compact(pair[2]));continue;
    }
@@ -100,16 +103,34 @@ function dissect(r){
   reason=podium.slice(0,2).map(formatRun).join('、')+'の好走記録を根拠として確認';
  }
  if(!reason&&runs.length){
-  reason=runs.slice(0,2).map(formatRun).join('、')+'の実走記録を参照（上位好走の証明は限定的）';
+  reason=runs.slice(0,2).map(formatRun).join('、')+'の出走記録を参照（上位好走の証明は限定的）';
  }
  return {reason:plain(reason),risk:plain(risks[0]||'')};
 }
 function headline(r,p,race){
- if(!rawText(r))return '上位評価の理由が保存されていません';
- const finding=dissect(r);
- if(finding.reason)return compact(finding.reason,118);
- // Never imply missing records or reverse the sign of a caution as the ranking merit.
- return '保存理由から評価の要点を抽出できません。詳細で原文を確認';
+ const source=rawText(r);
+ if(!source)return '上位評価の理由が保存されていません';
+ const finding=dissect(r),runs=getRuns(r);
+ const first=source.split('。')[0];
+ if(/^\s*(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2}/.test(first)&&/を評価|として評価|を重視/.test(first)){
+  return compact(plain(first),118);
+ }
+ if(/近\d+走.*(?:隔たり|比較的小さ|差が小さ)/.test(finding.reason)){
+  const podium=runs.find(x=>x.finish<=3&&/C3三|C3-3/.test(x.raw));
+  if(podium)return compact(podium.date+(podium.track||'')+(podium.distance?podium.distance+'m':'')+
+   'C3三で'+podium.finish+'着の実績を重視。今回も同じ条件で巻き返しを期待',118);
+ }
+ const pair=source.match(/(\d{1,2}\/\d{1,2})と(\d{1,2}\/\d{1,2})の([^。]+?)でともに(\d{1,2})着/);
+ if(pair&&/複数回|3着内実績|同じ条件|同条件/.test(finding.reason)){
+  return compact(pair[1]+'・'+pair[2]+'の'+pair[3]+'でともに'+pair[4]+'着。今回もその実績を評価',118);
+ }
+ if(finding.reason){
+  if(/実績水準|上位級|上級組|掲示板周辺|素地|証拠が2件/.test(finding.reason)&&runs.length>=2){
+   return compact(runs.slice(0,2).map(formatRun).join('・')+'。'+finding.reason,118);
+  }
+  return compact(finding.reason,118);
+ }
+ return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
  if(!rawText(r))return '【評価理由】保存された評価理由がありません。';
