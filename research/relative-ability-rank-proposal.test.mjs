@@ -313,3 +313,75 @@ test('LOCAL two incumbent comparable close runs remain protected despite backfie
  assert.equal(r.status,'UNCHANGED');
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_close_runs,2);
 });
+
+
+function localPodiumFixture(){
+ const x=fx();x.race.circuit='LOCAL';x.race.track='高知';x.race.class_name='Ｃ２四組';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)for(const h of row.supporting_runs){
+   h.track='高知';h.class='Ｃ２二組';
+ }
+ // 5th-place incumbent: two distinct verified backfield finishes.
+ for(const h of x.comparison.runner_evidence[4].supporting_runs){
+   h.margin=null;h.margin_basis='UNVERIFIED_WINNER_GAP';
+ }
+ // Challenger: two official 3rd-place results. Their preceding-runner
+ // margin is UNKNOWN as a winner gap; no close-to-winner evidence is claimed.
+ x.comparison.runner_evidence[5].supporting_runs=[
+  {date:'2026-10-15',track:'高知',surface:'ダート',distance:1200,
+   class:'Ｃ２二組',finish:3,margin:null,margin_basis:'UNVERIFIED_WINNER_GAP'},
+  {date:'2026-10-20',track:'高知',surface:'ダート',distance:1200,
+   class:'Ｃ２二組',finish:3,margin:null,margin_basis:'UNVERIFIED_WINNER_GAP'}
+ ];
+ return x;
+}
+test('LOCAL confirmed two third-place finishes can actually trigger rank6 shadow rescue despite unknown winner margins',()=>{
+ const x=localPodiumFixture(),before=structuredClone(x),r=calculate(x);
+ assert.equal(r.status,'REORDERED');
+ assert.deepEqual(r.top5,[1,2,3,4,6]);
+ assert.equal(r.elected_challenger.podium_evidence_effect,'VERIFIED_REPEATED_PODIUM_NOT_WINNER_MARGIN');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_podium_finishes,2);
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_backfield_finishes,2);
+ assert.equal(r.production_rank_effect,false);
+ assert.equal(r.frozen_modified,false);
+ assert.deepEqual(x,before);
+});
+test('LOCAL podium alternative refuses one podium, different venue and unknown incumbent',()=>{
+ let x=localPodiumFixture();
+ x.comparison.runner_evidence[5].supporting_runs[1].finish=4;
+ assert.equal(calculate(x).status,'UNCHANGED');
+ x=localPodiumFixture();
+ x.comparison.runner_evidence[5].supporting_runs[1].track='園田';
+ assert.equal(calculate(x).status,'UNCHANGED');
+ x=localPodiumFixture();
+ x.comparison.runner_evidence[4].supporting_runs=[];
+ assert.equal(calculate(x).status,'UNCHANGED');
+});
+test('LOCAL proven incumbents and special-composition events are not displaced by podium alternative',()=>{
+ let x=localPodiumFixture();
+ x.comparison.runner_evidence[4].supporting_runs=[
+  {date:'2026-10-14',track:'高知',surface:'ダート',distance:1200,class:'Ｃ２二組',finish:3},
+  {date:'2026-10-20',track:'高知',surface:'ダート',distance:1200,class:'Ｃ２二組',finish:3}
+ ];
+ assert.equal(calculate(x).status,'UNCHANGED');
+ x=localPodiumFixture();x.race.race_name='Ｃ２十四 特別編成';
+ assert.equal(calculate(x).status,'UNCHANGED');
+});
+test('LOCAL rank9 three independently verified podiums including win can qualify in shadow',()=>{
+ const x=localPodiumFixture();
+ x.comparison.runner_evidence[5].supporting_runs=[];
+ x.comparison.runner_evidence[8].supporting_runs=[
+  {date:'2026-09-20',track:'高知',surface:'ダート',distance:1200,class:'Ｃ２二組',finish:3},
+  {date:'2026-10-10',track:'高知',surface:'ダート',distance:1200,class:'Ｃ２三組',finish:1},
+  {date:'2026-10-30',track:'高知',surface:'ダート',distance:1200,class:'Ｃ２四組',finish:3}
+ ];
+ const r=calculate(x);
+ assert.equal(r.status,'REORDERED');
+ assert.deepEqual(r.top5,[1,2,3,4,9]);
+ assert.equal(r.elected_challenger.depth,'RANK9_PLUS_STRICT');
+ assert.equal(r.elected_challenger.podium_evidence_effect,'VERIFIED_REPEATED_PODIUM_NOT_WINNER_MARGIN');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===9).same_class_close_runs,1);
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===9).same_class_podium_finishes,3);
+});
