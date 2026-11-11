@@ -155,6 +155,15 @@ function comment(r,p,race){
  if(!finding.reason)lines.push('【保存理由の原文】'+compact(rawText(r),350)+'。');
  return lines.join('\n');
 }
+function formatComparableRun(run){
+ // Class labels are copied only when explicitly present next to the saved result.
+ // This prevents a C4-3 win being mistaken for a C4-2 win in rank comparisons.
+ const raw=String(run.raw||'');
+ const classMatch=raw.match(/(?:[ABC]\d{1,2}(?:[-－]\d{1,2}|[a-z]|[一二三四五六七八九十])?|C\d{1,2}(?:[-－]\d{1,2}|[一二三四五六七八九十])?|[123]勝(?:級|クラス)|未勝利|新馬|JpnI{1,3})/i);
+ const label=classMatch?classMatch[0]:'';
+ return run.date+(run.track||'')+(run.distance?run.distance+'m':'')+
+  (label?label:'')+'・'+run.finish+'着';
+}
 function comparison(r,p,race){
  const ordered=(p?.top5||[]).filter(x=>Number(x.rank)>=1&&Number(x.rank)<=5)
   .sort((a,b)=>Number(a.rank)-Number(b.rank));
@@ -171,7 +180,7 @@ function comparison(r,p,race){
   (x.horse_name||String(x.horse_no||'?'));
  const relevant=x=>{
   const runs=runsOf(x),podium=runs.filter(q=>q.finish<=3);
-  return (podium.length?podium:runs).slice(0,2).map(formatRun).join('、');
+  return (podium.length?podium:runs).slice(0,2).map(formatComparableRun).join('、');
  };
  return '【近い順位の馬と根拠を比較】'+label(current)+'：'+relevant(current)+
   ' ／ '+label(other)+'：'+relevant(other)+
