@@ -219,3 +219,22 @@ test('generic headline gains an actual race, specific condition rationale is ret
  assert.match(rank.headline(generic,{top5:[generic]},{}),/^10\/14名古屋1500m・3着/);
  assert.match(rank.headline(specific,{top5:[specific]},{}),/^今回C2十四特別編成/);
 });
+
+test('same-date same-track distance and class records take priority over each horse best finish',()=>{
+ const one={horse_no:1,horse_name:'オッシレイション',rank:1,reason:'10/14名古屋1500mA4特別3着0.4、9/1名古屋1500mB1勝ち。今回A4同距離3着を評価。'};
+ const two={horse_no:2,horse_name:'ドラゴステ',rank:2,reason:'10/14名古屋1500mA4特別4着0.5、9/4同距離A4特別2着0.3。今回A4で連対歴を評価。'};
+ const p={top5:[one,two]},before=JSON.stringify(p);
+ const got=rank.comparison(one,p,{track:'名古屋'});
+ assert.match(got,/同条件の記録を比較/);
+ assert.match(got,/◎オッシレイション：10\/14名古屋1500mA4・3着/);
+ assert.match(got,/○ドラゴステ：10\/14名古屋1500mA4・4着/);
+ assert.doesNotMatch(got,/○ドラゴステ：9\/4/);
+ assert.equal(JSON.stringify(p),before);
+});
+test('different class or year never becomes same-condition comparison',()=>{
+ const first={horse_no:1,rank:1,reason:'2025-10-14名古屋1500mA4特別3着。'};
+ const second={horse_no:2,rank:2,reason:'2026-10-14名古屋1500mA4特別4着。'};
+ const third={horse_no:3,rank:2,reason:'2025-10-14名古屋1500mB4特別4着。'};
+ assert.doesNotMatch(rank.comparison(first,{top5:[first,second]},{}),/同条件の記録を比較/);
+ assert.doesNotMatch(rank.comparison(first,{top5:[first,third]},{}),/同条件の記録を比較/);
+});
