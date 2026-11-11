@@ -246,3 +246,67 @@ test('NAR lengths to prior finisher cannot be misread as seconds to winner',()=>
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_decisive_defeats,0);
  // Only separately verified winner-relative distance may count as close loss.
 });
+
+
+function officialLocalBackfieldFixture(){
+ const x=fx();x.race.circuit='LOCAL';x.race.track='高知';x.race.class_name='Ｃ２四組';
+ x.comparison.source_scope=undefined;
+ x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+ for(const row of x.comparison.runner_evidence)for(const h of row.supporting_runs){
+   h.track='高知';h.class='Ｃ２二組';
+   if(h.finish===2){h.margin=0.3;h.margin_unit='LENGTHS_TO_WINNER';
+     h.margin_basis='NAR_SECOND_PLACE_PRECEDING_IS_WINNER';}
+ }
+ const fifth=x.comparison.runner_evidence[4];
+ for(const h of fifth.supporting_runs){h.margin=null;h.margin_unit=null;h.margin_basis='UNVERIFIED_WINNER_GAP';}
+ const deep=x.comparison.runner_evidence[8];
+ deep.supporting_runs.push({date:'2026-10-30',track:'高知',surface:'ダート',
+   distance:1200,class:'Ｃ２二組',finish:1,margin:0,margin_basis:'WINNER',
+   margin_unit:'LENGTHS_TO_WINNER',early_pos:2});
+ return x;
+}
+test('LOCAL rank9 can earn a strict shadow promotion from independent official backfield finishes, no invented margins',()=>{
+ const x=officialLocalBackfieldFixture(),before=structuredClone(x),r=calculate(x);
+ assert.equal(r.status,'REORDERED');
+ assert.deepEqual(r.top5,[1,2,3,4,9]);
+ assert.equal(r.elected_challenger.backfield_evidence_effect,'VERIFIED_REPEATED_BACKFIELD_FINISH_ONLY');
+ assert.equal(r.elected_challenger.incumbent_backfield_finishes,2);
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_decisive_defeats,0);
+ assert.ok(r.proof_by_horse.find(h=>h.horse_no===5).qualifying_proof.some(p=>p.type==='MATCHED_CLASS_BACKFIELD_FINISH_NOT_MARGIN'));
+ assert.equal(r.production_rank_effect,false);
+ assert.equal(r.frozen_modified,false);
+ assert.equal(r.market_used,false);
+ assert.equal(r.target_result_used,false);
+ assert.deepEqual(x,before);
+});
+test('LOCAL deep promotion requires two distinct official comparable backfield finishes',()=>{
+ const x=officialLocalBackfieldFixture(),fifth=x.comparison.runner_evidence[4];
+ fifth.supporting_runs[1].finish=7;
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_backfield_finishes,1);
+});
+test('LOCAL deep promotion will not fabricate a second backfield result from a duplicate race',()=>{
+ const x=officialLocalBackfieldFixture(),fifth=x.comparison.runner_evidence[4];
+ fifth.supporting_runs[1]={...fifth.supporting_runs[0]};
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_backfield_finishes,1);
+});
+test('LOCAL deep promotion refuses backfield data from a different district',()=>{
+ const x=officialLocalBackfieldFixture(),fifth=x.comparison.runner_evidence[4];
+ fifth.supporting_runs[1].track='園田';
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_backfield_finishes,1);
+});
+test('LOCAL two incumbent comparable close runs remain protected despite backfield observations',()=>{
+ const x=officialLocalBackfieldFixture(),fifth=x.comparison.runner_evidence[4];
+ fifth.supporting_runs.push({date:'2026-09-25',track:'高知',surface:'ダート',
+   distance:1200,class:'Ｃ２二組',finish:1,margin:0,early_pos:2});
+ fifth.supporting_runs.push({date:'2026-10-01',track:'高知',surface:'ダート',
+   distance:1200,class:'Ｃ２二組',finish:1,margin:0,early_pos:2});
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_close_runs,2);
+});
