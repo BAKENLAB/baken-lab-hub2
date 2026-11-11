@@ -177,3 +177,57 @@ test('ordinary class comparison unchanged and special status does not invent abs
  assert.equal(after.status,'UNVERIFIED');
  assert.equal(after.reason,'INSUFFICIENT_EVIDENCE_FOR_FAIR_WHOLE_FIELD_RANK');
 });
+
+test('official Hyogo ability test lets a no-race debutant enter independent provisional all-horse comparison',()=>{
+ const d=make();
+ d.race={...d.race,race_date:'2026-11-11',track:'園田',race_no:1,
+   race_name:'C3三',class_name:'C3',distance:1400,
+   observation_at:'2026-11-11T10:15:00+09:00',
+   post_time:'2026-11-11T10:40:00+09:00'};
+ d.comparison.target_date=d.race.race_date;
+ const current=d.comparison.runner_evidence[1];
+ current.horse_name='エディットフォース';current.context_runs=[];
+ current.supporting_runs=[];current.trainer='柏原誠路';current.sex_age='牡3';
+ current.ability_test={
+  horse_no:2,horse_name:'エディットフォース',source:'HYOGO_OFFICIAL_ABILITY_TEST',
+  identity_method:'EXACT_NAME_AGE_TRAINER_NOT_STABLE_HORSE_ID',
+  category:'能力検査',passed:true,official_race_result:false,
+  valid_for_provisional_comparison:true,trainer:'柏原 誠路',age:3,
+  event_date:'2026-10-27',source_ref:'https://www.sonoda-himeji.jp/data/ability/detail/135',
+  time_seconds:78,distance:1200,same_session_distance_peer_count:3,
+  same_session_faster_or_equal_count:1,as_of:d.race.observation_at
+ };
+ const result=v17(d);
+ assert.equal(result.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST',JSON.stringify(result));
+ assert.equal(result.runners.length,12);
+ const debut=result.runners.find(x=>x.horse_no===2);
+ assert.equal(Number.isInteger(debut.score),true);
+ assert.equal(debut.confidence,'ABILITY_TEST_ONLY_UNCALIBRATED');
+ const audit=result.ability_evidence_audit.find(x=>x.horse_no===2);
+ assert.equal(audit.official_ability_test_used,true);
+ assert.equal(audit.evidence_runs_used,0);
+ assert.equal(audit.gaps,'NO_RACE_HISTORY_ABILITY_TEST_ONLY');
+ assert.equal(audit.score_contributions[0].category,'OFFICIAL_ABILITY_TEST_ONLY_UNCALIBRATED');
+ assert.equal(result.production_rank_effect,false);
+ assert.equal(result.frozen_modified,false);
+});
+test('fake, wrong trainer or post-race Hyogo test cannot alter a debut ranking',()=>{
+ const d=make();
+ d.race={...d.race,race_date:'2026-11-11',track:'園田',race_no:1,distance:1400,
+  observation_at:'2026-11-11T10:15:00+09:00',post_time:'2026-11-11T10:40:00+09:00'};
+ d.comparison.target_date=d.race.race_date;
+ const first=d.comparison.runner_evidence[1];first.context_runs=[];
+ first.trainer='柏原誠路';first.sex_age='牡3';
+ first.ability_test={horse_no:2,horse_name:first.horse_name,
+  source:'HYOGO_OFFICIAL_ABILITY_TEST',category:'能力検査',
+  identity_method:'EXACT_NAME_AGE_TRAINER_NOT_STABLE_HORSE_ID',
+  passed:true,official_race_result:false,valid_for_provisional_comparison:true,
+  trainer:'別厩舎',age:3,event_date:'2026-10-27',
+  source_ref:'https://www.sonoda-himeji.jp/data/ability/detail/135',
+  time_seconds:78,distance:1200,same_session_distance_peer_count:3,
+  same_session_faster_or_equal_count:1,as_of:d.race.observation_at};
+ assert.equal(v17(d).reason,'ABILITY_TEST_IDENTITY_ASOF_OR_PROVENANCE_UNVERIFIED');
+ first.ability_test.trainer='柏原誠路';
+ first.ability_test.event_date='2026-11-11';
+ assert.equal(v17(d).reason,'ABILITY_TEST_IDENTITY_ASOF_OR_PROVENANCE_UNVERIFIED');
+});
