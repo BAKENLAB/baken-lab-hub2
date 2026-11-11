@@ -41,7 +41,8 @@ test('unparseable source does not create positive evidence or falsely claim hist
  const r={horse_no:3,horse_name:'検証',rank:3,score:75,
  reason:'過去走は複数の同場1400m実走。相手水準はまだ検証できない。'};
  const got=rank.comment(r,{top5:[fire,timer,r]},race);
- assert.match(got,/上位評価の決め手は保存理由に明記なし|具体的な評価理由は保存情報から確認できません/);
+ assert.match(got,/【この順位にした理由】評価理由の要約に失敗。詳細で保存済みの原文を確認/);
+ assert.match(got,/【保存理由の原文】過去走は複数の同場1400m実走/);
  assert.match(got,/具体的なレース結果の記載なし/);
  assert.doesNotMatch(got,/確認できる近走材料が不足/);
 });
