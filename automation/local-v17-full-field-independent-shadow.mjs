@@ -55,19 +55,20 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
  const courseMatch=norm(h.track)===norm(conditions.track);
  const distanceDelta=Number.isInteger(h.distance)?
    Math.abs(h.distance-conditions.distance):null;
- const cls=norm(h.class),sameClass=courseMatch&&cls&&
+ const cls=norm(h.class),sameClass=!conditions.specialSelection&&courseMatch&&cls&&
    conditions.target_class!==null&&cls===norm(conditions.target_class);
  // Even JRA/other-NAR history stays in the evaluation pool.
  // Different venue and distance are NEVER interpreted as poor ability.
  const contextBand=!surfaceMatch?'SURFACE_CHANGED_OR_UNKNOWN':
    !courseMatch?'OTHER_TRACK':
    distanceDelta!==null&&distanceDelta>300?'LONG_DISTANCE_CHANGE':
+   conditions.specialSelection?'SPECIAL_SELECTION_CLASS_COMPARABILITY_UNVERIFIED':
    !sameClass?'CLASS_OR_GROUP_UNVERIFIED':'SAME_OFFICIAL_CLASS';
  const freshness=days<=45?6:days<=120?4:days<=240?2:days<=540?1:0;
  const matchBonus=(surfaceMatch?3:0)+(courseMatch?3:0)+
    (distanceDelta!==null&&distanceDelta<=100?5:
     distanceDelta!==null&&distanceDelta<=300?2:0)+(sameClass?3:0);
- const classUncertainty=conditions.target_class===null||
+ const classUncertainty=conditions.specialSelection||conditions.target_class===null||
    cls===''||(!courseMatch&&cls!=='');
  // Positive run can still be useful after a change. Less directly
  // transferable evidence receives a SMALL bonus, NOT a negative.
@@ -76,7 +77,8 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
   evidence_ref:h.evidence_ref,history_date:h.race_date,age_days:days,
   finish:h.finish,track:h.track,distance:h.distance,
   surface:h.surface??null,class_literal:h.class??null,
-  context_band:contextBand,class_equivalence_unverified:classUncertainty,
+  context_band:contextBand,class_equivalence_unverified:Boolean(classUncertainty),
+  special_selection_class_match_suppressed:conditions.specialSelection===true,
   distance_delta:distanceDelta,
   score_signal:runSignal,
   finish_proof:h.finish<=3?'WIN_OR_PODIUM':'NO_PODIUM',
@@ -106,6 +108,11 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
   return stop('COMPLETE_OFFICIAL_PRE_RACE_PACKET_UNVERIFIED');
  const target=resolveLocalOfficialClassLiteral(race.class_name??race.race_name,race.track);
  const target_class=target.class_label??null;
+ // The current entry's selection condition must not be treated as the
+ // same ordinary class simply because both titles contain e.g. C2.
+ // Special編成 is not a proven downgrade or an equivalent opponent pool.
+ const specialSelection=/特別編成|記者選抜|ファイナル/.test(
+  norm(race.race_name)+' '+norm(race.class_name));
  const audit=[],identity=new Set(),evidenceGaps=[];
  for(const r of comparison.runner_evidence){
   if(!nr(r?.horse_no)||!norm(r.horse_name)||identity.has(r.horse_no)||
@@ -117,7 +124,7 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
   const refs=new Set(),proof=[];
   for(const h of r.context_runs){
    const found=evaluateRun(h,{race_date:race.race_date,track:race.track,
-     surface:race.surface,distance:race.distance,target_class},r.horse_no,refs);
+     surface:race.surface,distance:race.distance,target_class,specialSelection},r.horse_no,refs);
    if(!found)return stop('HISTORY_IDENTITY_ASOF_OR_PROVENANCE_UNVERIFIED');
    if(found.age_days<=540)proof.push(found);
   }
@@ -144,6 +151,7 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
    gaps:proof.length?'NONE':'INSUFFICIENT_OFFICIAL_HISTORY',
    missing_information_penalty:0,
    target_class_status:target.status,
+   special_selection_class_equivalence: specialSelection?'NOT_VERIFIED':'NOT_APPLICABLE',
    excludes_target_results:true
   });
  }
@@ -196,6 +204,7 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
   race_identity:{circuit:'LOCAL',race_date:race.race_date,
    track:race.track,race_no:race.race_no,post_time:race.post_time},
   target_class_status:target.status,
+  special_selection_class_equivalence:specialSelection?'NOT_VERIFIED':'NOT_APPLICABLE',
   all_runners_checked:audit.length,
   runners:sorted.map((r,i)=>({rank:i+1,horse_no:r.horse_no,
    horse_name:r.horse_name,score:r.independent_score,
