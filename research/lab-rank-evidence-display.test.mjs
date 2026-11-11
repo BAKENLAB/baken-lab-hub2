@@ -132,7 +132,7 @@ test('real Nagoya 5R: all five ranks explain their own factual merits, not "no s
  }
  assert.match(headlines[0],/10\/1名古屋1500m・2着/);
  assert.match(headlines[0],/10\/16名古屋1500m・3着/);
- assert.match(full[0],/【不安・未確認】中央札幌1700m大敗は別条件として反証/);
+ assert.match(full[0],/【不安・未確認】中央札幌1700m大敗は別条件として不安材料/);
  assert.match(headlines[1],/地元ダ1500mへ戻る近況の好走証拠/);
  assert.match(headlines[2],/9\/3名古屋1500m・2着/);
  assert.match(headlines[2],/7\/30名古屋1500m・1着/);
