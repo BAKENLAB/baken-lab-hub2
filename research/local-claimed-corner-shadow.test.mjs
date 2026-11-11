@@ -81,7 +81,13 @@ test('future-checked official page never becomes a cited witness',()=>{
 
 
 test('validated pre-CLAIM corners become shadow relative evidence, never core ranks',()=>{
- const x=make();
+ // Relative whole-field review deliberately requires at least two starters.
+ const x=make({
+  verifiedRunners:[...structuredClone(unredacted),{
+   horse_no:2,horse_name:'架空馬2',identity_refs:[],recent_runs:[]}],
+  compactRunners:[...structuredClone(compact),{
+   horse_no:2,horse_name:'架空馬2',recent_runs:[]}]
+ });
  const v=x.research_relative_condition_evidence;
  assert.equal(v.status,'READY');
  assert.equal(v.corner_evidence_scope,'VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY');
