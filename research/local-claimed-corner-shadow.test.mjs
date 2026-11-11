@@ -78,3 +78,31 @@ test('future-checked official page never becomes a cited witness',()=>{
  assert.equal(x.verified_corner_sources.length,1);
  assert.equal(x.verified_corner_sources[0].past_race.race_no,3);
 });
+
+
+test('validated pre-CLAIM corners become shadow relative evidence, never core ranks',()=>{
+ const x=make();
+ const v=x.research_relative_condition_evidence;
+ assert.equal(v.status,'READY');
+ assert.equal(v.corner_evidence_scope,'VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY');
+ assert.equal(v.corner_enriched_prior_runs,2);
+ assert.equal(v.runner_evidence[0].supporting_runs.length,2);
+ assert.deepEqual(v.runner_evidence[0].supporting_runs.map(h=>h.early_pos),[1,2]);
+ assert.deepEqual(v.runner_evidence[0].supporting_runs.map(h=>h.final_turn_pos),[10,6]);
+ assert.equal(v.rank_effect,false);
+ assert.equal(v.score_effect,false);
+ assert.equal(v.market_used,false);
+ assert.equal(v.target_result_used,false);
+ assert.equal(x.use_for_rank,false);
+ assert.equal(x.use_for_save_gate,false);
+ assert.equal(compact[0].recent_runs[0].early_pos,null);
+ assert.equal(unredacted[0].recent_runs[0].early_pos,null);
+});
+test('rejected or missing preclaim corners produce no shadow relative comparison',()=>{
+ const copy=structuredClone(packet);
+ copy.evidence.forEach(e=>e.sourceCheckedAt='2026-11-08T09:31:00+09:00');
+ const x=make({cornerPacket:copy});
+ assert.equal(x.applied_prior_runs,0);
+ assert.equal(x.research_relative_condition_evidence,null);
+ assert.equal(x.runners[0].recent_runs[0].early_pos,null);
+});
