@@ -61,7 +61,7 @@ test('real Kawasaki C2: saved same-course win is why rank1, not generic top5 pra
  const got=rank.comment(first,p,{track:'川崎'});
  assert.match(got,/^【この順位にした理由】今回と同一条件の勝利/);
  assert.match(got,/9\/9川崎1500m・1着/);
- assert.match(got,/【上位2頭の差】○1とは総合評価で3点差/);
+ assert.doesNotMatch(got,/【上位2頭の差】/);
  const two=rank.comment(rival,p,{track:'川崎'});
  assert.match(two,/2着以内を評価/);
  assert.match(two,/【不安・未確認】10\/12川崎1500mC2 6着/);
@@ -78,4 +78,33 @@ test('real JRA saved short MM/DD reason also works without inventing recent lap 
 test('unrated / no reason never receives an invented explanation',()=>{
  const r={horse_no:2,rank:null,score:null};
  assert.equal(rank.headline(r,{},race),'上位評価の理由が保存されていません');
+});
+
+
+test('2026-11-11 Sonoda 1R: all saved top5 get concrete reasons, including date-led evaluation sentences',()=>{
+ const runners=[
+ {horse_no:10,horse_name:'ハギノメルヴェイユ',rank:1,score:84,reason:'10/14園田1400mC3二5着（記録着差0.5）、9/30同C3三2着0.9、9/10同C3三5着1.2。近3走の同場同距離で相手との隔たりが比較的小さく、今回C3三で巻き返しを期待。過去の角通過順は未確認。'},
+ {horse_no:3,horse_name:'テーオーモンブラン',rank:2,score:81,reason:'9/23と8/26の園田1400mC3三でともに3着（記録着差0.5）。今回の同条件で複数回の3着内実績を評価。10/29同C3二9着、10/7同C3二7着は近況面の反証。'},
+ {horse_no:1,horse_name:'ゴールドプレミアム',rank:3,score:78,reason:'7/29園田1400mC3二2着（記録着差0.0）を評価。10/23と10/1は同C3二で7着1.3、7着2.1と近況低調だが、C3三への組替わりで相手緩和の可能性。'},
+ {horse_no:5,horse_name:'シトロネット',rank:4,score:74,reason:'9/18園田1400mC3三3着0.6を今回条件への実績として評価。ただし10/30 C3二10着1.9、10/14同8着2.0、10/1同6着2.1と近走の順位は低い。'},
+ {horse_no:4,horse_name:'ワンダーフレックス',rank:5,score:71,reason:'8/26園田1400mC3三5着0.6、9/16同C3三5着1.1、10/22同C3二6着1.5。近走に3着内実績はなく上位根拠は限定的だが、今回の同場同距離経験を評価。'}
+ ];
+ const p={top5:runners},race={track:'園田',race_name:'C3三3歳以上'};
+ const snapshot=JSON.stringify(p);
+ const headings=runners.map(r=>rank.headline(r,p,race));
+ const details=runners.map(r=>rank.comment(r,p,race));
+ assert.match(headings[0],/9\/30園田1400m.*C3三.*2着/);
+ assert.match(details[0],/【不安・未確認】過去の角通過順は未確認/);
+ assert.match(headings[1],/9\/23・8\/26.*ともに3着/);
+ assert.match(details[1],/【不安・未確認】10\/29同C3二9着/);
+ assert.match(headings[2],/7\/29園田1400mC3二2着/);
+ assert.match(details[2],/【不安・未確認】10\/23と10\/1は同C3二で7着/);
+ assert.match(headings[3],/9\/18園田1400mC3三3着/);
+ assert.match(details[3],/【不安・未確認】10\/30 C3二10着/);
+ assert.match(headings[4],/今回の同じ競馬場・距離経験を評価/);
+ assert.match(details[4],/【不安・未確認】近走に3着内実績はなく上位根拠は限定的/);
+ for(const text of [...headings,...details]){
+  assert.doesNotMatch(text,/上位評価の決め手は保存理由に明記なし|確認できる近走材料が不足|【上位2頭の差】/);
+ }
+ assert.equal(JSON.stringify(p),snapshot);
 });
