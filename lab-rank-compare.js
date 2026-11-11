@@ -182,6 +182,29 @@ function comparison(r,p,race){
   const runs=runsOf(x),podium=runs.filter(q=>q.finish<=3);
   return (podium.length?podium:runs).slice(0,2).map(formatComparableRun).join('、');
  };
+ // When the saved sources have matching date, track, distance, AND class,
+ // compare those results before selectively showing each horse's best finish.
+ // This is a condition match, not proof they were in the same numbered race.
+ const cls=x=>{
+  const m=String(x.raw||'').match(/(?:[ABC]\d{1,2}(?:[-－]\d{1,2}|[a-z]|[一二三四五六七八九十])?|C\d{1,2}(?:[-－]\d{1,2}|[一二三四五六七八九十])?|[123]勝(?:級|クラス)|未勝利|新馬|JpnI{1,3})/i);
+  return m?m[0]:'';
+ };
+ const matches=[];
+ for(const a of runsOf(current)){
+  for(const b of runsOf(other)){
+   if(a.date===b.date&&a.track&&a.track===b.track&&a.distance&&
+     a.distance===b.distance&&cls(a)&&cls(a)===cls(b)){
+    matches.push({a,b});
+   }
+  }
+ }
+ if(matches.length){
+  const same=matches[0];
+  return '【近い順位の馬と同条件の記録を比較】'+
+   label(current)+'：'+formatComparableRun(same.a)+' ／ '+
+   label(other)+'：'+formatComparableRun(same.b)+
+   '。保存された日付・競馬場・距離・クラスが一致する記録であり、同一レースの直接対戦や順位差の採点理由を断定するものではありません。';
+ }
  return '【近い順位の馬と根拠を比較】'+label(current)+'：'+relevant(current)+
   ' ／ '+label(other)+'：'+relevant(other)+
   '。保存済みの実績を並べたもので、順位差の採点理由を断定するものではありません。';
