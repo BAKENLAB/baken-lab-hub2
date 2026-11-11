@@ -50,7 +50,7 @@ function getRuns(r){
   const dm=part.match(/(\d{3,4})\s*m/);
   const distance=dm?Number(dm[1]):(/^\s*同/.test(part)?previousDistance:null);
   if(dm)previousDistance=Number(dm[1]);
-  return {date:Number(parsedDate[1])+'/'+Number(parsedDate[2]),track,distance,
+  return {date:Number(parsedDate[1])+'/'+Number(parsedDate[2]),year:/^20\d{2}/.test(m[0])?Number(m[0].slice(0,4)):null,track,distance,
     finish:finish[1]?Number(finish[1]):1,raw:part};
  }).filter(Boolean);
 }
@@ -192,7 +192,7 @@ function comparison(r,p,race){
  const matches=[];
  for(const a of runsOf(current)){
   for(const b of runsOf(other)){
-   if(a.date===b.date&&a.track&&a.track===b.track&&a.distance&&
+   if(a.date===b.date&&(!a.year||!b.year||a.year===b.year)&&a.track&&a.track===b.track&&a.distance&&
      a.distance===b.distance&&cls(a)&&cls(a)===cls(b)){
     matches.push({a,b});
    }
