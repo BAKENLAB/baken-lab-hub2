@@ -64,15 +64,26 @@ export function buildOptionalSaveLocalShadow({context,payload,now}={}){
  const baseline=extractOfficialSaveDraft(payload,'LOCAL');
  const race=context?.race;
  if(!baseline||!enoughTime(race?.post_time,now))return null;
+ const selectedComparison=selectVerifiedLocalResearchComparison(context);
+ const verifiedCorner=context?.official_corner_shadow;
+ const sourceIsCorner=selectedComparison!==null&&selectedComparison!==undefined&&
+  selectedComparison===verifiedCorner?.research_relative_condition_evidence&&
+  verifiedCorner?.status==='DESCRIPTIVE_SHADOW_ONLY';
  const result=buildRelativeAbilityRankProposal({
   race:{race_date:race?.race_date,post_time:race?.post_time,
    observation_at:now,circuit:'LOCAL',track:race?.track,
    race_name:race?.race_name,class_name:race?.conditions?.class_name,
    surface:race?.conditions?.surface,distance:race?.conditions?.distance},
-  baseline,comparison:selectVerifiedLocalResearchComparison(context)
+  baseline,comparison:selectedComparison
  });
  if(!valid(result)||!['REORDERED','UNCHANGED'].includes(result.status))return null;
  return {baseline,preview:{...result,
+  // Do not claim official pre-CLAIM corner use when only ordinary history
+  // was available. This records WHICH lane supplied the shadow evaluator.
+  observed_corner_source:sourceIsCorner?
+   'VERIFIED_PRECLAIM_CORNER_SHADOW':'NORMAL_VERIFIED_CLAIM_HISTORY_ONLY',
+  verified_preclaim_corner_applied_runs:sourceIsCorner?
+   verifiedCorner.applied_prior_runs:0,
   baseline_kind:'EXPLICIT_WHOLE_FIELD_PRE_FREEZE_DRAFT',
   draft_runners_verified:true,official_saved:false,save_authorized:false,
   application:'AUTO_OPTIONAL_SAME_TRANSACTION_CAPTURE'}};
