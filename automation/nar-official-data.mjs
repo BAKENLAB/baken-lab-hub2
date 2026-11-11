@@ -1,11 +1,24 @@
 // Uses the EXISTING read-only nar-schedule-probe -> NAR DebaTable path.
 // Does not invoke local-data-refresh (which writes race and market tables).
 import {load} from "npm:cheerio@1.0.0";
+import {collectHyogoAbilityBeforeRace} from './hyogo-official-ability-evidence.mjs';
 import {ContextError,NAR_TRACK_CODES as codes} from './local-worker-data.mjs';
 import {attachDomHorseLinks,parseNarHorseHistory,narHorseUrl} from './nar-history-rescue.mjs';
 const endpoint = 'https://qjlvsndiqjfsfjinilig.supabase.co/functions/v1/nar-schedule-probe';
 const clean = s => String(s ?? '').normalize('NFKC').replace(/\s+/g,' ').trim();
 const sexAgePattern = /^(?:牡|牝|セ|セン|騙|騸|せん)\d+$/;
+// Only explicitly labeled official trainer cells establish three-part identity.
+// Never infer the trainer from an unrelated neighboring person's name.
+function labeledTrainer(cells) {
+ const a=Array.isArray(cells)?cells.map(x=>clean(x?.text??x)):[];
+ for(let i=0;i<a.length;i++) {
+  const m=a[i].match(/^(?:調教師|厩舎|きゅう舎)\s*[：:]\s*(\S[\s\S]*)$/);
+  if(m && /^[^\d]{2,40}$/.test(m[1])) return m[1].trim();
+  if(/^(?:調教師|厩舎|きゅう舎)$/.test(a[i]) &&
+     i+1<a.length && /^[^\d]{2,40}$/.test(a[i+1])) return a[i+1];
+ }
+ return null;
+}
 function currentRunnerSlice(cells) {
   const normalized=cells.map(clean);
   const pastIndex=normalized.findIndex(s=>/\d{2,4}[./年-]\d{1,2}[./月-]\d{1,2}/.test(s));
@@ -102,7 +115,9 @@ export function parseNarDomDiagnostic(diagnostic,race) {
       throw new ContextError('OFFICIAL_FIELD_STATUS_CONFLICT');
     return {horse_no:r.horse_no,horse_name:clean(r.horse_name),status:r.status,
       jockey:clean(r.jockey_text).replace(/\s*[（(][^）)]+[）)]$/,''),
-      ...parseCurrentAttributes(r.current_attribute_cells),identity_refs:[]};
+      ...parseCurrentAttributes(r.current_attribute_cells),
+      ...(labeledTrainer(r.current_attribute_cells)?{trainer:labeledTrainer(r.current_attribute_cells)}:{}),
+      identity_refs:[]};
   });
   const snapshot={race_date:race.race_date,track:race.track,race_no:race.race_no,circuit:'LOCAL',
     source:'NAR_OFFICIAL_DEBA',source_ref:expected.href,fetched_at:diagnostic.fetched_at,conditions,history:[],
@@ -172,6 +187,8 @@ async function readDirectOfficialRace(fetchImpl,race,signal,now) {
       horse_no:horseNo,horse_name:horseName,
       jockey:jockeyRaw.replace(/\s*[（(][^）)]+[）)]$/,''),
       ...attrs,
+      ...(labeledTrainer(following.flatMap(row=>row.cells))?
+        {trainer:labeledTrainer(following.flatMap(row=>row.cells))}:{}),
       status,
       identity_refs:identity_refs.length===1?identity_refs:[],
       horse_link_evidence:identity_refs.length===1?{
@@ -242,6 +259,40 @@ export function createNarOfficialReader({fetchImpl = fetch, now = Date.now} = {}
       bound={race:structuredClone(race),snapshot:structuredClone(attached)};
       return attached;
     },
+    async readAbility(race,options,signal) {
+       live(race);
+       if(!['園田','姫路'].includes(race.track) || !bound ||
+         ['race_date','track','race_no','post_time'].some(k=>bound.race[k]!==race[k]) ||
+         !Array.isArray(options?.runners) || options.runners.length>20)
+         throw new ContextError('ABILITY_OFFICIAL_FIELD_UNVERIFIED');
+       const eligible=options.runners.filter(r=>{
+         const own=bound.snapshot.runners.find(x=>x.horse_no===r.horse_no);
+         return own && own.status==='ACTIVE' &&
+           clean(own.horse_name)===clean(r.horse_name) &&
+           !!clean(own.trainer) && clean(own.trainer)===clean(r.trainer) &&
+           clean(own.sex_age)===clean(r.sex_age);
+       });
+       if(!eligible.length)return {status:'NO_THREE_PART_OFFICIAL_IDENTITY',evidence:[]};
+       const getPage=async url=>{
+         const u=new URL(url);
+         if(u.origin!=='https://www.sonoda-himeji.jp' ||
+            !(/^\/data\/ability\/?$/.test(u.pathname)||
+              /^\/data\/ability\/detail\/[1-9]\d{0,5}\/?$/.test(u.pathname)) ||
+            (u.search && !/^\/data\/ability\/?$/.test(u.pathname)))
+           throw new ContextError('ABILITY_SOURCE_NOT_ALLOWED');
+         const resp=await fetchImpl(u.href,{method:'GET',signal,
+           redirect:'error',cache:'no-store',headers:{accept:'text/html'}});
+         if(!resp.ok || Number(resp.headers.get('content-length'))>2_000_000)
+           throw new ContextError('ABILITY_SOURCE_UNAVAILABLE');
+         const data=await resp.arrayBuffer();
+         if(data.byteLength>2_000_000)throw new ContextError('ABILITY_SOURCE_TOO_LARGE');
+         live(race);
+         return new TextDecoder().decode(data);
+       };
+       return collectHyogoAbilityBeforeRace({
+         race:{...race,observation_at:options.observation_at},
+         runners:eligible,getPage,indexPages:1,maxDetailPages:8});
+     },
     async readHistory(current,options,signal) {
       live(options.race);
       if(![5,12].includes(options.limit) || options.before!==options.race.race_date || !bound ||
