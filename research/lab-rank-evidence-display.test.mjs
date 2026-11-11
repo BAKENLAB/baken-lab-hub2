@@ -108,3 +108,46 @@ test('2026-11-11 Sonoda 1R: all saved top5 get concrete reasons, including date-
  }
  assert.equal(JSON.stringify(p),snapshot);
 });
+
+
+test('real Nagoya 5R: all five ranks explain their own factual merits, not "no stored reason"',()=>{
+ const top=[
+ {horse_no:1,horse_name:'アークレオン',rank:1,score:93,
+  reason:'10/1名古屋1500mJ認セレクトゴールド第3で2着0.1、10/16同1500m2歳1組特別3着0.5。交流戦の今回条件で地元上位級に通じた新鮮な連対・3着証拠が2件あり、中央札幌1700m大敗は別条件として反証。'},
+ {horse_no:7,horse_name:'デナリ',rank:2,score:90,
+  reason:'10/29名古屋1500mネオステージフューチャー戦2歳2着0.1、10/16同1500m2歳1組特別6着1.3、7/31同900m新馬勝ち。今回地元ダ1500mへ戻る近況の好走証拠がある。'},
+ {horse_no:4,horse_name:'ナガノアリス',rank:3,score:84,
+  reason:'9/3名古屋1500mJ認セレクトゴールド第1で2着0.3、7/30同2歳2組1着0.2。上級組への実走水準は実証したが10/29ネクストスター10着3.4、10/16特別9着2.5、9/16認定10着6.5が強い近況反証。'},
+ {horse_no:8,horse_name:'ロンリーマン',rank:4,score:81,
+  reason:'8/30中京1400m2歳未勝利4着、8/8同1600m2歳未勝利5着。中央2戦で掲示板周辺の素地がある。ただし今回名古屋ダ1500m・左回りから右回りへの転入初戦で、芝・ダートと地区水準の直結は未検証。'},
+ {horse_no:6,horse_name:'カローナ',rank:5,score:78,
+  reason:'8/8中京1600m2歳未勝利4着、9/27阪神1600m未勝利7着、7/19小倉1800m新馬6着。中央で短い距離の経験あり、今回は名古屋1500m交流のダート適性が未実証で暫定評価。'}
+ ];
+ const p={top5:top},race={track:'名古屋',race_name:'J交 名古屋チャレンジカップ コメッ2歳'};
+ const before=JSON.stringify(p);
+ const headlines=top.map(r=>rank.headline(r,p,race));
+ const full=top.map(r=>rank.comment(r,p,race));
+ for(const str of [...headlines,...full]){
+  assert.doesNotMatch(str,/決め手は保存理由に明記なし|確認できる近走材料が不足|【上位2頭の差】/);
+ }
+ assert.match(headlines[0],/10\/1名古屋1500m・2着/);
+ assert.match(headlines[0],/10\/16名古屋1500m・3着/);
+ assert.match(full[0],/【不安・未確認】中央札幌1700m大敗は別条件として反証/);
+ assert.match(headlines[1],/地元ダ1500mへ戻る近況の好走証拠/);
+ assert.match(headlines[2],/9\/3名古屋1500m・2着/);
+ assert.match(headlines[2],/7\/30名古屋1500m・1着/);
+ assert.match(full[2],/【不安・未確認】10\/29ネクストスター10着/);
+ assert.match(headlines[3],/8\/30中京1400m・4着/);
+ assert.match(headlines[3],/中央2戦で掲示板周辺の素地/);
+ assert.match(full[3],/【不安・未確認】今回名古屋ダ1500m/);
+ assert.match(full[4],/ダート適性が未確認/);
+ assert.equal(JSON.stringify(p),before);
+});
+test('mixed strength + risk in same sentence stays separated without inventing race data',()=>{
+ const h={horse_no:3,rank:3,score:83,
+  reason:'10/2名古屋1500m2歳一2着、10/15同3着。上位クラスで2着と3着の実績あり、直近特別戦で大敗は不安材料。'};
+ const got=rank.comment(h,{top5:[h]},{track:'名古屋'});
+ assert.match(got,/【この順位にした理由】上位クラスで2着と3着の実績あり/);
+ assert.match(got,/【不安・未確認】直近特別戦で大敗は不安材料/);
+ assert.doesNotMatch(got,/確認できる近走材料が不足/);
+});
