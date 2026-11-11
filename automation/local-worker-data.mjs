@@ -237,6 +237,25 @@ export async function collectClaimedContext(state, {db, official, now = Date.now
       running_style_reference:deriveRunningStyleReference(runs),
       current_source_ref:snapshot.source_ref});
   }
+  // Missing race history is not proof of missing ability. Retrieve optional
+  // official Hyogo test evidence only with a current verified name/age/trainer.
+  if(['園田','姫路'].includes(race.track) && typeof official.readAbility==='function'){
+    const unknown=runners.filter(r=>r.recent_runs.length===0 &&
+      present(r.trainer)&&present(r.sex_age));
+    if(unknown.length){
+      const packet=await read('OFFICIAL_ABILITY',null,official.readAbility,
+        [race,{runners:unknown,observation_at:new Date(now()).toISOString()}]);
+      if(packet?.status==='READY_RESEARCH_ONLY'&&packet.market_used===false &&
+         packet.production_rank_effect===false&&Array.isArray(packet.evidence)){
+        for(const e of packet.evidence){
+          const current=unknown.find(r=>r.horse_no===e.horse_no &&
+            canonicalName(r.horse_name)===canonicalName(e.horse_name) &&
+            canonicalName(r.trainer)===canonicalName(e.trainer));
+          if(current && !current.ability_test)current.ability_test=e;
+        }
+      }
+    }
+  }
   assertLiveClaim(state,now());
   return {claim:{job_id:job.id,run_id:state.run.id,claim_token:job.claim_token},
     race:{...pick(race,['race_date','track','race_no','circuit','post_time','race_name']),
