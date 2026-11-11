@@ -187,8 +187,8 @@ async function readDirectOfficialRace(fetchImpl,race,signal,now) {
       horse_no:horseNo,horse_name:horseName,
       jockey:jockeyRaw.replace(/\s*[（(][^）)]+[）)]$/,''),
       ...attrs,
-      ...(labeledTrainer(following.flatMap(row=>row.cells))?
-        {trainer:labeledTrainer(following.flatMap(row=>row.cells))}:{}),
+      ...(labeledTrainer(following.filter(row=>!row.cells.some(c=>/\d{2,4}[./年-]\d{1,2}[./月-]\d{1,2}/.test(c))).flatMap(row=>row.cells))?
+        {trainer:labeledTrainer(following.filter(row=>!row.cells.some(c=>/\d{2,4}[./年-]\d{1,2}[./月-]\d{1,2}/.test(c))).flatMap(row=>row.cells))}:{}),
       status,
       identity_refs:identity_refs.length===1?identity_refs:[],
       horse_link_evidence:identity_refs.length===1?{
