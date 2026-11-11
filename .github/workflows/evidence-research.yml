@@ -68,6 +68,10 @@ jobs:
           cp research/local-claimed-prod-guard-v19.mjs .local-mcp-ci/local-eye.mjs
           cp automation/local-mcp-queue-operation-v19.mjs .local-mcp-ci/queue-operation.mjs
           deno check .local-mcp-ci/index.ts
+      - name: One-time official Hyogo ability source proof (remove from recurring CI after validation)
+        continue-on-error: true
+        timeout-minutes: 1
+        run: node research/hyogo-official-live-once.probe.mjs
       # The three one-day current-race NAR canaries already passed on 2026-11-08.
       # Retired from each push to avoid repeatedly hitting public official servers.
       # Test source and immutable successful CI logs remain available for audit.
