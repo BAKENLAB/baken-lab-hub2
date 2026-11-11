@@ -21,6 +21,7 @@ function plain(s){
   .replace(/別条件材料/g,'別条件での実績')
   .replace(/未実証/g,'未確認')
   .replace(/級差推定/g,'クラス差の推測')
+  .replace(/鮮度/g,'最近の実績')
   .replace(/反証/g,'不安材料');
 }
 function getRuns(r){
@@ -75,10 +76,12 @@ function dissect(r){
   if(match){addGood(match[1]);addRisk(match[2]);continue;}
   match=s.match(/^(.+?)(?:、|，)(.+?(?:は反証|が反証|は不安|未実証|未検証|未知))$/);
   if(match){addGood(match[1]);addRisk(match[2]);continue;}
+  match=s.match(/^(.+?)が[、，]\s*(.+(?:未実証|未検証|未確認|不安|反証|未知|課題).*)$/);
+  if(match){addGood(match[1]);addRisk(match[2]);continue;}
   match=s.match(/^(.+?)(?:、|，)?(?:ただし|一方で|一方|しかし)[、，]?\s*(.+)$/);
   if(match){addGood(match[1]);addRisk(match[2]);continue;}
   // A single documented caution must not be rebranded as positive evidence.
-  if(/^(ただし|一方|反証|不安|未検証|未確認)|(?:は反証|が反証|は不安|未実証|未検証|未知数|が課題)(?:[。]?|$)/.test(s)){
+  if(/^(ただし|一方|反証|不安|未検証|未確認)|(?:は反証|が反証|は不安|未実証|未検証|未知数|が課題|検証できない)(?:[。]?|$)/.test(s)){
    addRisk(s);continue;
   }
   if(/今回|評価|重視|実績|強み|好走|連対|勝ち|勝利|接近|安定|力|クラス|条件|通用|優位|再現性|現級|上昇材料/.test(s)){
