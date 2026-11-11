@@ -30,3 +30,38 @@ test('running-style metrics never require odds/market attributes',()=>{
 test('an incorrect number or duplicate horse is rejected',()=>{
  assert.throws(()=>buildLocalFieldPaceEvidence([{horse_no:1,recent_runs:[]},{horse_no:1,recent_runs:[]}],{}),/Duplicate/);
 });
+
+test('two officially checked Nagoya dirt-only runs are not lost when historic surface is omitted',()=>{
+ const input=[{horse_no:1,recent_runs:[
+  run('2026-10-15',2,4,{track:'名古屋',surface:null}),
+  run('2026-09-15',1,3,{track:'名古屋',surface:null})
+ ]}];
+ const before=structuredClone(input);
+ const x=buildLocalFieldPaceEvidence(input,{surface:'ダート',distance:1600});
+ assert.equal(x.runners[0].similar_condition_early_position_runs,2);
+ assert.equal(x.runners[0].repeated_front_evidence,true);
+ assert.equal(x.runners[0].similar_condition_surface_recovered_runs,2);
+ assert.equal(x.recovered_surface_pace_runs,2);
+ assert.equal(x.race_pace_projection,'NOT_VALIDATED');
+ assert.equal(x.scoring_effect,0);
+ assert.deepEqual(input,before);
+});
+test('mixed-surface Morioka history without explicit turf/dirt remains unknown',()=>{
+ const x=buildLocalFieldPaceEvidence([{horse_no:1,recent_runs:[
+  run('2026-10-15',1,2,{track:'盛岡',surface:null}),
+  run('2026-09-15',2,3,{track:'盛岡',surface:null})
+ ]}],{surface:'ダート',distance:1600});
+ assert.equal(x.runners[0].prior_early_position_runs,2);
+ assert.equal(x.runners[0].similar_condition_early_position_runs,0);
+ assert.equal(x.runners[0].repeated_front_evidence,false);
+ assert.equal(x.recovered_surface_pace_runs,0);
+});
+test('explicit conflicting surface is never overwritten by track-level recovery',()=>{
+ const x=buildLocalFieldPaceEvidence([{horse_no:1,recent_runs:[
+  run('2026-10-15',1,2,{track:'名古屋',surface:'芝'}),
+  run('2026-09-15',1,2,{track:'名古屋',surface:null})
+ ]}],{surface:'ダート',distance:1600});
+ assert.equal(x.runners[0].similar_condition_early_position_runs,1);
+ assert.equal(x.runners[0].repeated_front_evidence,false);
+ assert.equal(x.recovered_surface_pace_runs,1);
+});
