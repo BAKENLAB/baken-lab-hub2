@@ -87,6 +87,10 @@ export function buildLocalRelativeConditionComparison(runners,conditions={},targ
   // winner. Unknown deep-loss magnitude is not fabricated.
   const deep=0;
   return {horse_no:r.horse_no,horse_name:r.horse_name,
+    // Preserve strictly pre-validated optional debut evidence for v1.7.
+    // Missing history is not evidence of weak ability.
+    trainer:r.trainer??null,sex_age:r.sex_age??null,
+    ...(r.ability_test?{ability_test:r.ability_test}:{}),
     comparable_runs:similar.length,close_runs:close,podium_runs:podium,
     front3_runs:front,decisive_defeats:deep,
     class_comparison:'EXPLICIT_OFFICIAL_TITLE_ONLY_SAME_DISTRICT_GUARDED_BY_SCORER',
