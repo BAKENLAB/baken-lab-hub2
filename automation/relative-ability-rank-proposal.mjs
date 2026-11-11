@@ -206,8 +206,8 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     const localRepeatedPodium=race.circuit==='LOCAL'&&!specialComposition&&
       inc.same_class_runs>=2&&inc.same_class_backfield_finishes>=2&&
       inc.same_class_podium_finishes===0&&
-      proof.same_class_podium_finishes>=2&&
-      proof.same_class_recent_podium_finishes>=1&&
+      proof.same_class_podium_finishes>=3&&
+      proof.same_class_recent_podium_finishes>=2&&
       proof.same_class_backfield_finishes===0;
     const deep=challenger.rank>=9;
     const podiumRescue=localRepeatedPodium&&(!deep||
