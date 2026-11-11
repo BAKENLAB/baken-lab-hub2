@@ -419,3 +419,65 @@ test('missing final turn, different class and special composition cannot cause c
  x.race.race_name='Ｃ２十四 特別編成';
  assert.equal(calculate(x).status,'UNCHANGED');
 });
+
+
+function localLateAdvanceFixture(){
+ const x=localPodiumFixture();
+ const runs=x.comparison.runner_evidence[5].supporting_runs;
+ runs.pop(); // two official podium finishes, not enough for old three-podium rule
+ for(const h of runs){h.early_pos=9;h.final_turn_pos=4;}
+ return x;
+}
+test('LOCAL verified late-corner advance podium proof changes shadow rank6',()=>{
+ const x=localLateAdvanceFixture(),before=structuredClone(x),r=calculate(x);
+ assert.equal(r.model_version,'ABILITY_RELATIVE_V0_6');
+ assert.equal(r.status,'REORDERED');
+ assert.deepEqual(r.top5,[1,2,3,4,6]);
+ assert.equal(r.elected_challenger.podium_evidence_effect,
+   'VERIFIED_LATE_CORNER_ADVANCE_PODIUM_NO_PACE_CAUSALITY');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_late_advance_podium_runs,2);
+ assert.ok(r.proof_by_horse.find(h=>h.horse_no===6).qualifying_proof.every(
+   p=>p.type!=='VERIFIED_LATE_CORNER_ADVANCE_PODIUM'||p.cause==='UNPROVEN'));
+ assert.equal(r.production_rank_effect,false);
+ assert.equal(r.frozen_modified,false);
+ assert.deepEqual(x,before);
+});
+test('LOCAL late-corner advance needs both official early and final corner positions',()=>{
+ const x=localLateAdvanceFixture(),runs=x.comparison.runner_evidence[5].supporting_runs;
+ runs[0].final_turn_pos=null;
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_late_advance_podium_runs,1);
+});
+test('LOCAL late-corner advance needs repeated distinct podiums with 4+ places gained',()=>{
+ let x=localLateAdvanceFixture(),runs=x.comparison.runner_evidence[5].supporting_runs;
+ runs[1].final_turn_pos=6; // only 3 places gained
+ let r=calculate(x);assert.equal(r.status,'UNCHANGED');
+ x=localLateAdvanceFixture();runs=x.comparison.runner_evidence[5].supporting_runs;
+ runs[1]={...runs[0]}; // duplicate, not independent
+ r=calculate(x);assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_late_advance_podium_runs,1);
+});
+test('LOCAL late-corner advance cannot displace proven incumbent or win from rank9 alone',()=>{
+ let x=localLateAdvanceFixture();
+ x.comparison.runner_evidence[4].supporting_runs=[
+  {date:'2026-10-14',track:'高知',surface:'ダート',distance:1200,class:'Ｃ２二組',finish:3},
+  {date:'2026-10-20',track:'高知',surface:'ダート',distance:1200,class:'Ｃ２二組',finish:3}
+ ];
+ assert.equal(calculate(x).status,'UNCHANGED');
+ x=localLateAdvanceFixture();
+ x.comparison.runner_evidence[8].supporting_runs=
+   structuredClone(x.comparison.runner_evidence[5].supporting_runs);
+ x.comparison.runner_evidence[5].supporting_runs=[];
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.deepEqual(r.top5,[1,2,3,4,5]);
+});
+test('LOCAL late-corner advance cannot qualify in special composition or different class',()=>{
+ let x=localLateAdvanceFixture();
+ x.race.race_name='C2十四 特別編成';
+ assert.equal(calculate(x).status,'UNCHANGED');
+ x=localLateAdvanceFixture();
+ x.comparison.runner_evidence[5].supporting_runs[1].class='Ｃ３二組';
+ assert.equal(calculate(x).status,'UNCHANGED');
+});
