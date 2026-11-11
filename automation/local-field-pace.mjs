@@ -3,6 +3,7 @@
  * Input recent_runs MUST already be validated by finalContext's official-history checks.
  * No ranking, market, odds, result of the target race, or FROZEN modification.
  */
+import {resolveLocalHistoricalSurface} from './local-verified-condition-bridge.mjs';
 const number = (x) => x === null || x === undefined || x === '' ? null :
   Number.isFinite(Number(x)) ? Number(x) : null;
 const positivePosition = (x) => {
@@ -19,11 +20,20 @@ export function buildLocalFieldPaceEvidence(runners, conditions={}) {
       typeof x==='object' && x!==null &&
       typeof x.race_date==='string' &&
       positivePosition(x.early_pos)!==null);
-    const similar=observations.filter(x=>
-      surface !== null && x.surface===surface &&
-      distance!==null && number(x.distance)!==null &&
-      Math.abs(number(x.distance)-distance)<=200);
-    const repeatedFront=similar.filter(x=>positivePosition(x.early_pos)<=3).length;
+    // Official NAR dirt-only venue metadata can recover an omitted historical
+    // surface. The relative-ability comparator already uses this resolver;
+    // field-pace previously discarded the very same verified runs.
+    // Mixed-surface Morioka and explicit conflicting surface stay unknown.
+    const compatible=observations.map(x=>({
+      run:x,surfaceEvidence:resolveLocalHistoricalSurface(x)
+    }));
+    const similar=compatible.filter(({run,surfaceEvidence})=>
+      surface !== null && surfaceEvidence.surface===surface &&
+      distance!==null && number(run.distance)!==null &&
+      Math.abs(number(run.distance)-distance)<=200);
+    const recoveredSimilar=similar.filter(x=>
+      x.surfaceEvidence.provenance==='NAR_OFFICIAL_SINGLE_SURFACE_TRACK_CAPABILITY').length;
+    const repeatedFront=similar.filter(x=>positivePosition(x.run.early_pos)<=3).length;
     const reliablePair=similar.length>=2;
     const posMoves=observations.filter(x=>positivePosition(x.final_turn_pos)!==null)
       .map(x=>({race_date:x.race_date,early_pos:positivePosition(x.early_pos),
@@ -35,6 +45,7 @@ export function buildLocalFieldPaceEvidence(runners, conditions={}) {
       prior_last3f_runs:safeRuns(r.recent_runs).filter(x=>number(x.final3f)!==null && number(x.final3f)>0).length,
       similar_condition_early_position_runs:similar.length,
       similar_condition_front3_runs:repeatedFront,
+      similar_condition_surface_recovered_runs:recoveredSimilar,
       repeated_front_evidence:reliablePair && repeatedFront>=2,
       repeated_front_status:reliablePair?'COMPARABLE':'INSUFFICIENT_RELEVANT_RUNS',
       verified_passing_order_examples:posMoves.slice(0,5)
@@ -54,6 +65,7 @@ export function buildLocalFieldPaceEvidence(runners, conditions={}) {
     runners_with_historical_passing_order:perRunner.filter(x=>x.prior_early_position_runs>0).length,
     runners_with_historical_last3f:perRunner.filter(x=>x.prior_last3f_runs>0).length,
     runners_with_two_or_more_similar_runs:perRunner.filter(x=>x.similar_condition_early_position_runs>=2).length,
+    recovered_surface_pace_runs:perRunner.reduce((n,x)=>n+x.similar_condition_surface_recovered_runs,0),
     repeated_front_style_contenders:perRunner.filter(x=>x.repeated_front_evidence).length,
     race_lap_data_available:false,
     // No speed/pace direction is asserted from headcount alone.
