@@ -88,3 +88,32 @@ test('missing verification safely skips without touching official payload',()=>{
  assert.equal(buildOptionalSaveJraShadow({context:j,payload:p,now}),null);
  assert.deepEqual(p,snapshot);
 });
+
+
+test('verified historical preclaim corner lane reaches research rank proof but never edits FROZEN candidate',()=>{
+ const ctx=local();
+ ctx.race.track='高知';ctx.race.conditions.class_name='Ｃ２四組';
+ for(const row of ctx.relative_condition_evidence.runner_evidence)
+  for(const h of row.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+ const original=buildOptionalSaveLocalShadow({context:ctx,payload:payload(),now});
+ assert.ok(original);
+ assert.equal(original.preview.proof_by_horse.find(x=>x.horse_no===6).same_class_front_runs,0);
+ const corner=structuredClone(ctx.relative_condition_evidence);
+ corner.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
+ corner.corner_enriched_prior_runs=1;
+ corner.runner_evidence.find(x=>x.horse_no===6).supporting_runs[0].early_pos=1;
+ ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',applied_prior_runs:1,
+  use_for_rank:false,use_for_save_gate:false,research_relative_condition_evidence:corner};
+ const p=payload(),snapshot=structuredClone(p);
+ const enriched=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(enriched);
+ assert.equal(enriched.preview.proof_by_horse.find(x=>x.horse_no===6).same_class_front_runs,1);
+ assert.equal(enriched.preview.production_rank_effect,false);
+ assert.equal(enriched.preview.frozen_modified,false);
+ assert.equal(enriched.preview.market_used,false);
+ assert.deepEqual(p,snapshot);
+ corner.corner_evidence_scope='UNVERIFIED_LATER_RESULT';
+ const rejected=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(rejected);
+ assert.equal(rejected.preview.proof_by_horse.find(x=>x.horse_no===6).same_class_front_runs,0);
+});
