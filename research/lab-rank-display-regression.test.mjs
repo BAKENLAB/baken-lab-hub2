@@ -188,3 +188,34 @@ test('hyphenated JRA prior result remains a sixth, not a first',()=>{
  assert.match(detail,/10\/17京都1800m・6着/);
  assert.doesNotMatch(detail,/10\/17京都1800m・1着/);
 });
+
+test('adjacent rank comparison cites both actual classes without re-ranking or claiming an ability advantage',()=>{
+ const first={horse_no:1,horse_name:'C4-2実績',rank:2,reason:'10/6門別1000mC4-2 2着0.2。今回同級の連対を評価。'};
+ const second={horse_no:2,horse_name:'C4-3実績',rank:3,reason:'10/27門別1000mC4-3 1着0.8。今回昇級初戦で相手強化が懸念。'};
+ const p={top5:[first,second]},before=JSON.stringify(p);
+ const got=rank.comment(second,p,{track:'門別'});
+ assert.match(got,/▲C4-3実績：10\/27門別1000mC4-3・1着/);
+ assert.match(got,/○C4-2実績：10\/6門別1000mC4-2・2着/);
+ assert.match(got,/順位差の採点理由を断定するものではありません/);
+ assert.equal(JSON.stringify(p),before);
+});
+test('rank one compares to rank two, not to an unrelated horse',()=>{
+ const one={horse_no:1,rank:1,reason:'10/14名古屋1500mA4特別3着0.4。今回同級距離で直近好走。'};
+ const two={horse_no:2,rank:2,reason:'9/4名古屋1500mA4特別2着0.3。A4で連対。'};
+ const three={horse_no:3,rank:3,reason:'10/5名古屋1400mB1勝ち。'};
+ const got=rank.comparison(one,{top5:[three,one,two]},{track:'名古屋'});
+ assert.match(got,/◎1：10\/14名古屋1500mA4・3着/);
+ assert.match(got,/○2：9\/4名古屋1500mA4・2着/);
+ assert.doesNotMatch(got,/▲3/);
+});
+test('top5 comparison is hidden rather than fabricating history when a rival has no saved dated run',()=>{
+ const one={horse_no:1,rank:1,reason:'過去走の内容は確認できない。'};
+ const two={horse_no:2,rank:2,reason:'10/1門別1000mC4-2 3着。'};
+ assert.equal(rank.comparison(one,{top5:[one,two]},{}),'');
+});
+test('generic headline gains an actual race, specific condition rationale is retained',()=>{
+ const generic={horse_no:1,rank:2,reason:'10/14名古屋1500mA4特別3着0.4。今回A4への通用を示す同距離3着が直近にある。'};
+ const specific={horse_no:2,rank:1,reason:'10/27金沢1400mC2二4着。今回C2十四特別編成へ条件変更するため上のC2二での近接実績を最重要視。'};
+ assert.match(rank.headline(generic,{top5:[generic]},{}),/^10\/14名古屋1500m・3着/);
+ assert.match(rank.headline(specific,{top5:[specific]},{}),/^今回C2十四特別編成/);
+});
