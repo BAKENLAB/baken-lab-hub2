@@ -67,6 +67,10 @@ export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=n
     inserted_corner_fields:shadow.inserted_corner_fields,
     verified_corner_sources:shadow.verified_corner_sources,
     field_pace_evidence:shadow.field_pace_evidence,
+    // An authenticated pre-CLAIM research lane, never a production scorer.
+    research_relative_condition_evidence:shadow.research_relative_condition_evidence&&
+     JSON.stringify(shadow.research_relative_condition_evidence).length<=196608?
+      shadow.research_relative_condition_evidence:null,
     use_for_rank:false,use_for_save_gate:false
    };
    try{
