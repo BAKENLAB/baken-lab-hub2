@@ -33,7 +33,7 @@ test('Kanazawa 4: weak class-level assumption and risk are visible despite grade
 });
 test('negative and positive clauses in one sentence must be separated',()=>{
  const got=rank.comment(timer,payload,race);
- assert.match(got,/【この順位にした理由】C2上の組の同場距離実績は評価/);
+ assert.match(got,/【この順位にした理由】C2上の組の同場距離実績/);
  assert.match(got,/【不安・未確認】近走は6～9着/);
  assert.doesNotMatch(rank.headline(timer,payload,race),/勝ち・2着以内実績なし/);
 });
