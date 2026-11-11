@@ -332,17 +332,19 @@ function localPodiumFixture(){
   {date:'2026-10-15',track:'高知',surface:'ダート',distance:1200,
    class:'Ｃ２二組',finish:3,margin:null,margin_basis:'UNVERIFIED_WINNER_GAP'},
   {date:'2026-10-20',track:'高知',surface:'ダート',distance:1200,
+   class:'Ｃ２二組',finish:3,margin:null,margin_basis:'UNVERIFIED_WINNER_GAP'},
+  {date:'2026-10-25',track:'高知',surface:'ダート',distance:1200,
    class:'Ｃ２二組',finish:3,margin:null,margin_basis:'UNVERIFIED_WINNER_GAP'}
  ];
  return x;
 }
-test('LOCAL confirmed two third-place finishes can actually trigger rank6 shadow rescue despite unknown winner margins',()=>{
+test('LOCAL three independently verified third-place finishes can trigger strict rank6 shadow rescue despite unknown winner margins',()=>{
  const x=localPodiumFixture(),before=structuredClone(x),r=calculate(x);
  assert.equal(r.status,'REORDERED');
  assert.deepEqual(r.top5,[1,2,3,4,6]);
  assert.equal(r.elected_challenger.podium_evidence_effect,'VERIFIED_REPEATED_PODIUM_NOT_WINNER_MARGIN');
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
- assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_podium_finishes,2);
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_podium_finishes,3);
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===5).same_class_backfield_finishes,2);
  assert.equal(r.production_rank_effect,false);
  assert.equal(r.frozen_modified,false);
