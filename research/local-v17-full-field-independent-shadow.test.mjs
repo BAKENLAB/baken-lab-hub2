@@ -141,3 +141,39 @@ test('1.7 EYE is separate from TOP5 and reviews all outsiders without auto rank6
  assert.equal(x.production_eye_effect,false);
  assert.equal(x.frozen_modified,false);
 });
+
+test('Kanazawa special 編成 must not treat ordinary C2 as proven equal class',()=>{
+ const ordinary=make();
+ ordinary.race.track='金沢';ordinary.race.race_name='C2十四組';ordinary.race.class_name='C2十四組';
+ const special=structuredClone(ordinary);
+ special.race.race_name='若菜&春樹 夫婦スタートC2十四特別編成';
+ special.race.class_name=null;
+ for(const data of [ordinary,special])
+  for(const r of data.comparison.runner_evidence){
+   for(const h of r.context_runs){h.track='金沢';h.class='C2';}
+   for(const h of r.supporting_runs){h.track='金沢';h.class='C2';}
+  }
+ const baseline=v17(ordinary),changed=v17(special);
+ assert.equal(baseline.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(changed.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(changed.special_selection_class_equivalence,'NOT_VERIFIED');
+ const a=baseline.ability_evidence_audit.find(r=>r.horse_no===3);
+ const b=changed.ability_evidence_audit.find(r=>r.horse_no===3);
+ assert.equal(a.runs.every(x=>x.context_band==='SAME_OFFICIAL_CLASS'),true);
+ assert.equal(b.runs.every(x=>x.context_band==='SPECIAL_SELECTION_CLASS_COMPARABILITY_UNVERIFIED'),true);
+ assert.equal(b.runs.every(x=>x.class_equivalence_unverified===true),true);
+ assert.equal(b.runs.every(x=>x.special_selection_class_match_suppressed===true),true);
+ assert.ok(b.independent_score<a.independent_score);
+ assert.equal(changed.production_rank_effect,false);
+});
+test('ordinary class comparison unchanged and special status does not invent absent history',()=>{
+ const before=v17(make());
+ assert.equal(before.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(before.special_selection_class_equivalence,'NOT_APPLICABLE');
+ const special=make();
+ special.race.race_name='C2十四特別編成';
+ special.comparison.runner_evidence[4].context_runs=[];
+ const after=v17(special);
+ assert.equal(after.status,'UNVERIFIED');
+ assert.equal(after.reason,'INSUFFICIENT_EVIDENCE_FOR_FAIR_WHOLE_FIELD_RANK');
+});
