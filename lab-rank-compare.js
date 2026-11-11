@@ -108,7 +108,7 @@ function dissect(r){
   match=s.match(/^(.+?)(?:、|，)?(?:ただし|一方で|一方|しかし)[、，]?\s*(.+)$/);
   if(match){addGood(match[1]);addRisk(match[2]);continue;}
   // A single documented caution must not be rebranded as positive evidence.
-  if(/^(ただし|一方|反証|不安|未検証|未確認)|(?:は反証|が反証|は不安|未実証|未検証|未知数|が課題|検証できない|過去反証|近況低調)(?:[。]?|$)|角通過順は未確認|前回\d+着/.test(s)){
+  if(/^(ただし|一方|反証|不安|未検証|未確認)|反証|近況低調|未検証|未確認|勝ち切り証拠は不足|連対不足|角通過順は未確認|前回\d+着/.test(s)){
    addRisk(s);continue;
   }
   if(/今回|評価|重視|実績|強み|好走|連対|勝ち|勝利|接近|安定|力|クラス|条件|通用|優位|再現性|現級|上昇材料/.test(s)){
@@ -129,13 +129,9 @@ function headline(r,p,race){
  if(/近\d+走.*(?:隔たり|比較的小さ|差が小さ)/.test(finding.reason)){
   const podium=runs.find(x=>x.finish<=3&&/C3三|C3-3/.test(x.raw));
   if(podium){
-   const latest=runs[0];
-   const latestLabel=latest&&latest!==podium?
-    '、直近'+(latest.date)+(latest.track||'')+(latest.distance||'')+
-    (latest.distance?'m':'')+'で'+latest.finish+'着':'';
-   return compact(podium.date+(podium.track||'')+(podium.distance||'')+
-     (podium.distance?'m':'')+'のC3三で'+podium.finish+
-     '着の実績'+latestLabel+'を評価',86);
+   return compact(podium.date+(podium.track||'')+
+     (podium.distance?podium.distance+'m':'')+
+     'のC3三で'+podium.finish+'着の実績を重視。今回同じC3三で巻き返しを期待',86);
   }
  }
  // An explicit paired-date 3rd-place note is stronger than "some top-3 results".
