@@ -70,7 +70,7 @@ function evidence(r){
 function dissect(r){
  const saved=rawText(r),runs=getRuns(r),strengths=[],risks=[];
  const dateAtStart=/^\s*(?:(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2})(?!\d)/;
- const riskWords=/反証|未実証|未検証|未確認|未知|不安|大敗|低調|苦戦|不振|失速|不足|休養|空白|初挑戦|初戦|実績なし|根拠は限定的|現在性が低い|過信しない|減点しすぎ|3着内なし|検証できない|確認できない|不明|順位は低い/;
+ const riskWords=/反証|未実証|未検証|未確認|未知|不安|大敗|低調|苦戦|不振|失速|不足|休養|空白|初挑戦|初戦|実績なし|根拠は限定的|現在性が低い|過信しない|減点しすぎ|3着内なし|検証できない|確認できない|不明|順位は低い|リスク|課題/;
  const positiveWords=/評価|重視|好走|勝利|勝ち|連対|実績|証拠|材料|通用|強み|接近|安定|再浮上|巻き返し|上積み|適性|実走|末脚|先行力|水準|上位入線|入着|素地|優位|近接/;
  for(const sentence of saved.split('。').map(x=>x.trim()).filter(Boolean)){
   const cautionIntro=/^(?:ただし|一方で|一方|しかし)/.test(sentence);
@@ -78,9 +78,10 @@ function dissect(r){
   // Date-led results are evidence, not an inferred interpretation of why a horse ranked.
   // Crucially, they must remain available as the fallback when no narrative follows.
   if(dateAtStart.test(sentence)){
-   const fields=sentence.split(/[、，]/);
-   const tail=fields.find(x=>/(?:[4-9]|1[0-9])着/.test(x))||fields.find(x=>riskWords.test(x));
-   if(riskWords.test(sentence)&&tail)risks.push(compact(tail));
+   const riskOnly=sentence.split(/(?:だが|しかし|ものの|ただし)/)[0];
+   const fields=riskOnly.split(/[、，]/);
+   const firstBad=fields.find(x=>/(?:[4-9]|1[0-9])着/.test(x))||fields.find(x=>riskWords.test(x));
+   if(riskWords.test(riskOnly)&&firstBad)risks.push(compact(firstBad));
    continue;
   }
   for(const clause of sentence.split(/(?:(?:は|を)(?:評価|重視)するが|ただし|一方で|一方|しかし|ものの|だが|したが|けれども)/g)){
