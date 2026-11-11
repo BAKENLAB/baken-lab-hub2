@@ -22,7 +22,7 @@ const num = (x,lo,hi) => typeof x==='number'&&Number.isFinite(x)&&x>=lo&&x<=hi;
 const no = x => Number.isInteger(x)&&x>=1&&x<=24;
 const integer = (x,lo,hi)=>Number.isInteger(x)&&x>=lo&&x<=hi;
 const out = (status,extra={})=>({
-  status,model_version:'ABILITY_RELATIVE_V0_2',
+  status,model_version:'ABILITY_RELATIVE_V0_3',
   stage:'SHADOW_RANK_PROPOSAL_PRE_RACE',
   production_rank_effect:false,production_grade_effect:false,
   frozen_modified:false,market_used:false,target_result_used:false,
@@ -58,7 +58,7 @@ function level(x,track=null) {
 function summarizeEvidence(row,race) {
   const supporting=row.supporting_runs;
   const reasons=[];
-  let similar=0,good=0,poor=0,sameClass=0,sameClassGood=0,front=0,wins=0,recentGood=0;
+  let similar=0,good=0,poor=0,backfield=0,sameClass=0,sameClassGood=0,front=0,wins=0,recentGood=0;
   const seenPast=new Set();
   const targetClass=level(race.class_name,race.track);
   for(const h of supporting){
@@ -88,6 +88,11 @@ function summarizeEvidence(row,race) {
     const aClass=!!targetClass&&!!cls&&cls===targetClass &&
       (race.circuit!=='LOCAL'||(key(race.track)&&key(h.track)===key(race.track)));
     if(aClass)sameClass++;
+    // LOCAL finishing position is verified but is NOT winner-relative margin.
+    // Repeated same-class backfield results are a separate factual signal.
+    const verifiedLocalBackfield=race.circuit==='LOCAL'&&aClass&&
+      integer(f,8,24);
+    if(verifiedLocalBackfield)backfield++;
     if(close)good++;
     if(close&&aClass){
       sameClassGood++;
@@ -100,7 +105,8 @@ function summarizeEvidence(row,race) {
       poor++;
     if(aClass&&integer(h.early_pos,1,3))front++;
     if(aClass&&close)reasons.push({date:d,type:'MATCHED_CLASS_CLOSE',finish:f,source_class:cls});
-    else if(aClass&&integer(f,8,24)&&num(margin,1.5,30)&&
+    if(verifiedLocalBackfield)reasons.push({date:d,type:'MATCHED_CLASS_BACKFIELD_FINISH_NOT_MARGIN',finish:f,source_class:cls});
+    if(aClass&&integer(f,8,24)&&num(margin,1.5,30)&&
       (race.circuit!=='LOCAL'||h.margin_basis==='OFFICIALLY_VERIFIED_WINNER_GAP'))
       reasons.push({date:d,type:'MATCHED_CLASS_DEFEAT',finish:f,source_class:cls});
   }
@@ -108,7 +114,8 @@ function summarizeEvidence(row,race) {
     comparable_runs:similar,close_runs:good,
     same_class_runs:sameClass,same_class_close_runs:sameClassGood,
     same_class_wins:wins,same_class_recent_close_runs:recentGood,
-    same_class_decisive_defeats:poor,same_class_front_runs:front,
+    same_class_decisive_defeats:poor,same_class_backfield_finishes:backfield,
+    same_class_front_runs:front,
     target_class_status:targetClass??'UNKNOWN_CLASS_LEVEL',
     qualifying_proof:reasons,proof_count:reasons.length};
 }
@@ -182,22 +189,30 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     const better=proof.same_class_close_runs-inc.same_class_close_runs;
     const safer=inc.same_class_decisive_defeats-proof.same_class_decisive_defeats;
     const deep=challenger.rank>=9;
+    // NAR official winner-gap often cannot be established. Use 2+ distinct
+    // verified backfield finishes (not estimated beaten lengths) only when
+    // the challenger has zero same-class backfield results.
+    const localRepeatedBackfield=race.circuit==='LOCAL'&&
+      inc.same_class_runs>=2&&inc.same_class_backfield_finishes>=2&&
+      proof.same_class_backfield_finishes===0;
     // Never punish a fifth horse only for missing or sparse history.
     // Deep rescue must beat BOTH strong prior proof and verified downside.
     if(deep){
       if(proof.same_class_close_runs<3||proof.same_class_wins<1||
         proof.same_class_recent_close_runs<1||proof.same_class_decisive_defeats>0||
-        inc.same_class_runs<2||inc.same_class_decisive_defeats<1||
-        better<2||safer<1)continue;
+        inc.same_class_runs<2||
+        !(inc.same_class_decisive_defeats>=1&&safer>=1||localRepeatedBackfield)||
+        better<2)continue;
     } else {
       const challengerStrong=better>=2&&safer>=0||
-        better>=1&&safer>=1;
+        better>=1&&(safer>=1||localRepeatedBackfield);
       if(!challengerStrong)continue;
     }
     // Protect a good incumbent: no swap unless challenger is decisively stronger.
     if(inc.same_class_close_runs>=2&&inc.same_class_decisive_defeats===0)continue;
     selected.push({horse_no:challenger.horse_no,old_rank:challenger.rank,
       close_delta:better,defeat_delta:safer,
+      backfield_evidence_effect:localRepeatedBackfield?'VERIFIED_REPEATED_BACKFIELD_FINISH_ONLY':'NONE',
       challenger_positive:proof.qualifying_proof,
       incumbent_positive:inc.qualifying_proof,
       independent_condition_proof:proof.same_class_close_runs,
@@ -205,11 +220,14 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
       historical_wins:proof.same_class_wins,
       recent_close_proof:proof.same_class_recent_close_runs,
       incumbent_known_runs:inc.same_class_runs,
+      incumbent_backfield_finishes:inc.same_class_backfield_finishes,
+      challenger_backfield_finishes:proof.same_class_backfield_finishes,
       protected_top5:original.slice(0,5).map(h=>{
         const v=reports.get(h.horse_no);
         return {horse_no:h.horse_no,rank:h.rank,
           same_class_close_runs:v.same_class_close_runs,
-          same_class_decisive_defeats:v.same_class_decisive_defeats};
+          same_class_decisive_defeats:v.same_class_decisive_defeats,
+          same_class_backfield_finishes:v.same_class_backfield_finishes};
       })});
   }
   selected.sort((a,b)=>b.close_delta-a.close_delta||
@@ -220,6 +238,7 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     return {horse_no:h.horse_no,old_rank:h.rank,
       same_class_close_runs:report.same_class_close_runs,
       same_class_decisive_defeats:report.same_class_decisive_defeats,
+      same_class_backfield_finishes:report.same_class_backfield_finishes,
       status:report.same_class_close_runs>=2?'REVIEW_LEAD_NOT_PROMOTED':'NOT_QUALIFIED'};
   }).filter(x=>x.status==='REVIEW_LEAD_NOT_PROMOTED');
 
@@ -266,6 +285,6 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
       {status:targetClassResolution.status,class_label:verifiedTargetClass,
        tier_comparison:'SAME_NAR_VENUE_AND_EXPLICIT_TIER_NOT_PROVEN_OPPONENT_EQUIVALENCE'}:
       {status:'JRA_PROVIDED_CLASS',class_label:verifiedTargetClass},
-    scoring_rule:'V0_2_STRICT_DISTINCT_MATCHED_CLASS_EVIDENCE_WITH_DEEP_RESCUE'
+    scoring_rule:'V0_3_LOCAL_VERIFIED_REPEATED_BACKFIELD_ALTERNATIVE_TO_UNAVAILABLE_WINNER_GAP'
   });
 }
