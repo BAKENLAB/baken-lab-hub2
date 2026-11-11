@@ -387,3 +387,35 @@ test('LOCAL rank9 three independently verified podiums including win can qualify
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===9).same_class_close_runs,1);
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===9).same_class_podium_finishes,3);
 });
+
+
+test('two verified LOCAL sustained-front podiums genuinely change rank6 shadow with no invented winning gap',()=>{
+ const x=localPodiumFixture(),runner=x.comparison.runner_evidence[5];
+ runner.supporting_runs.pop(); // two historical podiums: short of v0.4 3-run rescue
+ const plain=calculate(x);
+ assert.equal(plain.status,'UNCHANGED');
+ for(const h of runner.supporting_runs){h.early_pos=2;h.final_turn_pos=3;}
+ const before=structuredClone(x),r=calculate(x);
+ assert.equal(r.status,'REORDERED');
+ assert.deepEqual(r.top5,[1,2,3,4,6]);
+ assert.equal(r.elected_challenger.podium_evidence_effect,'VERIFIED_SUSTAINED_FRONT_PODIUM_NO_WINNER_GAP');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_sustained_front_podium_runs,2);
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
+ assert.equal(r.production_rank_effect,false);
+ assert.equal(r.frozen_modified,false);
+ assert.deepEqual(x,before);
+});
+test('missing final turn, different class and special composition cannot cause corner-based promotion',()=>{
+ let x=localPodiumFixture(),h=x.comparison.runner_evidence[5].supporting_runs;
+ h.pop();for(const r of h)r.early_pos=2;
+ h[0].final_turn_pos=3;
+ assert.equal(calculate(x).status,'UNCHANGED');
+ x=localPodiumFixture();h=x.comparison.runner_evidence[5].supporting_runs;h.pop();
+ for(const r of h){r.early_pos=2;r.final_turn_pos=3;}
+ h[1].class='Ｃ３二組';
+ assert.equal(calculate(x).status,'UNCHANGED');
+ x=localPodiumFixture();h=x.comparison.runner_evidence[5].supporting_runs;h.pop();
+ for(const r of h){r.early_pos=2;r.final_turn_pos=3;}
+ x.race.race_name='Ｃ２十四 特別編成';
+ assert.equal(calculate(x).status,'UNCHANGED');
+});
