@@ -87,6 +87,25 @@ function dissect(r){
   if(/^(?:直近|前走|休み明け).*?(?:なし|不安|反証|未実証)|^近走.*?なし|^ただし/.test(s)){
     addRisk(s);continue;
   }
+  // Separate a witnessed ability claim from its counter-evidence.
+  // Previous versions misclassified the *whole sentence* as a risk:
+  // "上級組で2着・3着の証拠あり、中央大敗は反証"
+  // and "上級組への水準は実証したが直近3走が大敗".
+  let contrast=s.match(/^(.+?)(?:したが|だが|ものの)[、，]?\s*(.+)$/);
+  if(contrast){
+   const before=contrast[1].trim(),after=contrast[2].trim();
+   if(/低調|苦戦|不振|根拠は限定的|実績はなく|不安|未確認|未検証|大敗/.test(before))
+     addRisk(before);
+   else addGood(before);
+   if(/可能性|未検証|未確認|未知|期待|反証|低調|苦戦|大敗|\d+着/.test(after))
+     addRisk(after);
+   else addGood(after);
+   continue;
+  }
+  contrast=s.match(/^(.+?)[、，]\s*(.+(?:反証|未検証|未実証|未確認|未知|不安材料|大敗|低調).*)$/);
+  if(contrast&&!/反証|未検証|未実証|未確認|未知|不安材料|低調/.test(contrast[1])){
+   addGood(contrast[1]);addRisk(contrast[2]);continue;
+  }
   // "poor recent results, but possible condition improvement" is a
   // documented HOPE, not verified race strength.
   let match=s.match(/^(.+?(?:低調|苦戦|不振|根拠は限定的|実績はなく|未確認))だが[、，]?\s*(.+)$/);
@@ -111,7 +130,7 @@ function dissect(r){
   if(/^(ただし|一方|反証|不安|未検証|未確認)|反証|近況低調|未検証|未確認|勝ち切り証拠は不足|連対不足|角通過順は未確認|前回\d+着/.test(s)){
    addRisk(s);continue;
   }
-  if(/今回|評価|重視|実績|強み|好走|連対|勝ち|勝利|接近|安定|力|クラス|条件|通用|優位|再現性|現級|上昇材料/.test(s)){
+  if(/今回|評価|重視|実績|強み|好走|連対|勝ち|勝利|接近|安定|力|クラス|条件|通用|優位|再現性|現級|上昇材料|実証|掲示板|素地|上級|水準/.test(s)){
    addGood(s);continue;
   }
   // Narrative cannot be reconstructed from raw records alone.
@@ -140,9 +159,18 @@ function headline(r,p,race){
   return compact(combo[1]+'・'+combo[2]+'の'+combo[3]+'でともに'+combo[4]+
     '着。今回もこの条件での実績を評価',86);
  }
- if(finding.reason)return compact(finding.reason,86);
- return runs.length?'上位評価の決め手は保存理由に明記なし（要確認）':
-  '具体的な評価理由は保存情報から確認できません';
+ if(finding.reason){
+  // Concrete recorded finishing positions are more useful than abstractions
+  // like "上級組への実走水準" or "中央2戦で素地あり".
+  if(/(?:実走水準|上位級|上級組|掲示板周辺|素地|証拠が2件)/.test(finding.reason)&&runs.length>=2){
+   return compact(runs.slice(0,2).map(formatRun).join('・')+
+     '。'+finding.reason,100);
+  }
+  return compact(finding.reason,86);
+ }
+ // A parser failure is NOT proof that the saved prediction had no reason.
+ // Never silently discard the official reason: expose it in expanded details.
+ return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
  if(!rawText(r))return '【評価理由】保存された評価理由がありません。';
@@ -151,7 +179,10 @@ function comment(r,p,race){
  const rank=Number(r.rank),finding=dissect(r);
  const name=isEye?'EYEに選んだ理由':rank>=1&&rank<=5?
   'この順位にした理由':'評価した理由';
- const lines=['【'+name+'】'+headline(r,p,race)+'。'];
+ const head=headline(r,p,race);
+ const lines=['【'+name+'】'+head+'。'];
+ if(head.startsWith('評価理由の要約に失敗'))
+  lines.push('【保存理由の原文】'+compact(rawText(r),350)+'。');
  lines.push('【根拠となる過去走】'+evidence(r)+'。');
  if(finding.risk)lines.push('【不安・未確認】'+finding.risk+'。');
  // Rank point differences are NOT independent ability evidence and
