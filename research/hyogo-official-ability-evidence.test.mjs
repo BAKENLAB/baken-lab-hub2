@@ -76,3 +76,15 @@ test('official source failure fails closed; missing source is not recorded as a 
  assert.equal(out.incomplete_index,true);
  assert.equal(out.prediction_saved,false);
 });
+
+test('actual Hyogo DOM has section th INSIDE each table, so gate and ability must not swap',()=>{
+ const table=(name,rows)=>'<table class="table field_info"><tbody>'+
+  '<tr><th class="u-fw7" colspan="6">'+name+'</th></tr>'+label+rows+'</tbody></table>';
+ const real='<h1>能力検査 結果</h1><p>2026/10/27 西脇トレーニングセンター 馬場状態：不良</p>'+
+  table('ゲート検査',row('ゲート馬',3,1200,'1,18.4',490,'A 調教師'))+
+  table('能力検査',row('エディットフォース',3,1200,'1,18.0',532,'柏原 誠路'));
+ const out=parseHyogoAbilityDetail(real,detail);
+ assert.equal(out.status,'PARSED');
+ assert.deepEqual(out.entries.map(e=>[e.horse_name,e.section]),
+  [['ゲート馬','ゲート検査'],['エディットフォース','能力検査']]);
+});
