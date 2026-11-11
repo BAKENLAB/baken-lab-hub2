@@ -45,7 +45,24 @@ export function buildOptionalSaveLocalShadow({context,payload,now}={}){
    observation_at:now,circuit:'LOCAL',track:race?.track,
    race_name:race?.race_name,class_name:race?.conditions?.class_name,
    surface:race?.conditions?.surface,distance:race?.conditions?.distance},
-  baseline,comparison:context?.relative_condition_evidence
+  baseline,comparison:
+    // Only a verified, read-only corner overlay from the authenticated
+    // claimed-context service may enrich a RESEARCH ranking proposal.
+    // Production save payload and official BASELINE remain unchanged.
+    (context?.official_corner_shadow?.use_for_rank===false &&
+     context?.official_corner_shadow?.use_for_save_gate===false &&
+     Number.isInteger(context.official_corner_shadow.applied_prior_runs) &&
+     context.official_corner_shadow.applied_prior_runs>0 &&
+     context.official_corner_shadow.research_relative_condition_evidence?.status==='READY' &&
+     context.official_corner_shadow.research_relative_condition_evidence?.corner_evidence_scope===
+      'VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY' &&
+     context.official_corner_shadow.research_relative_condition_evidence?.market_used===false &&
+     context.official_corner_shadow.research_relative_condition_evidence?.target_result_used===false &&
+     context.official_corner_shadow.research_relative_condition_evidence?.rank_effect===false &&
+     context.official_corner_shadow.research_relative_condition_evidence?.target_date===
+      race?.race_date)
+     ?context.official_corner_shadow.research_relative_condition_evidence:
+       context?.relative_condition_evidence
  });
  if(!valid(result)||!['REORDERED','UNCHANGED'].includes(result.status))return null;
  return {baseline,preview:{...result,
