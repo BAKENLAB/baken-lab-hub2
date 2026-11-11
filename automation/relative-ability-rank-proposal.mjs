@@ -22,7 +22,7 @@ const num = (x,lo,hi) => typeof x==='number'&&Number.isFinite(x)&&x>=lo&&x<=hi;
 const no = x => Number.isInteger(x)&&x>=1&&x<=24;
 const integer = (x,lo,hi)=>Number.isInteger(x)&&x>=lo&&x<=hi;
 const out = (status,extra={})=>({
-  status,model_version:'ABILITY_RELATIVE_V0_4',
+  status,model_version:'ABILITY_RELATIVE_V0_5',
   stage:'SHADOW_RANK_PROPOSAL_PRE_RACE',
   production_rank_effect:false,production_grade_effect:false,
   frozen_modified:false,market_used:false,target_result_used:false,
@@ -58,7 +58,7 @@ function level(x,track=null) {
 function summarizeEvidence(row,race) {
   const supporting=row.supporting_runs;
   const reasons=[];
-  let similar=0,good=0,poor=0,backfield=0,sameClass=0,sameClassGood=0,sameClassPodium=0,recentPodium=0,front=0,wins=0,recentGood=0;
+  let similar=0,good=0,poor=0,backfield=0,sameClass=0,sameClassGood=0,sameClassPodium=0,recentPodium=0,sustainedFrontPodium=0,front=0,wins=0,recentGood=0;
   const seenPast=new Set();
   const targetClass=level(race.class_name,race.track);
   for(const h of supporting){
@@ -92,6 +92,14 @@ function summarizeEvidence(row,race) {
     // the preceding runner. Keep this independent of a close-to-winner claim.
     const officialLocalPodium=race.circuit==='LOCAL'&&aClass&&integer(f,1,3);
     if(officialLocalPodium){
+      // This is an OBSERVED position pattern, not a proven causal pace
+      // explanation. Both early and final-turn positions are required.
+      if(integer(h.early_pos,1,3)&&integer(h.final_turn_pos,1,3)){
+        sustainedFrontPodium++;
+        reasons.push({date:d,type:'VERIFIED_SUSTAINED_FRONT_PODIUM',
+          finish:f,early_pos:h.early_pos,final_turn_pos:h.final_turn_pos,
+          source_class:cls});
+      }
       sameClassPodium++;
       const age=(Date.parse(race.race_date+'T00:00:00Z')-Date.parse(d+'T00:00:00Z'))/86400000;
       if(age>=0&&age<=180)recentPodium++;
@@ -126,6 +134,7 @@ function summarizeEvidence(row,race) {
     same_class_runs:sameClass,same_class_close_runs:sameClassGood,
     same_class_wins:wins,same_class_recent_close_runs:recentGood,
     same_class_podium_finishes:sameClassPodium,same_class_recent_podium_finishes:recentPodium,
+    same_class_sustained_front_podium_runs:sustainedFrontPodium,
     same_class_decisive_defeats:poor,same_class_backfield_finishes:backfield,
     same_class_front_runs:front,
     target_class_status:targetClass??'UNKNOWN_CLASS_LEVEL',
@@ -210,11 +219,22 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
       proof.same_class_recent_podium_finishes>=2&&
       proof.same_class_backfield_finishes===0;
     const deep=challenger.rank>=9;
+    // Independent pre-race official corner observations can establish a
+    // repeated front-position podium pattern. This is stricter than the bare
+    // two-podium count but does NOT invent a missing winner-relative gap.
+    // Only rank6-8, a demonstrably weak incumbent, and ordinary classes.
+    const cornerPodiumRescue=race.circuit==='LOCAL'&&!specialComposition&&!deep&&
+      inc.same_class_runs>=2&&inc.same_class_backfield_finishes>=2&&
+      inc.same_class_podium_finishes===0&&
+      proof.same_class_podium_finishes>=2&&
+      proof.same_class_recent_podium_finishes>=2&&
+      proof.same_class_sustained_front_podium_runs>=2&&
+      proof.same_class_backfield_finishes===0;
     const podiumRescue=localRepeatedPodium&&(!deep||
       (proof.same_class_podium_finishes>=3&&
        proof.same_class_wins>=1&&proof.same_class_recent_podium_finishes>=2));
     if(proof.same_class_runs<2||
-       (proof.same_class_close_runs<2&&!podiumRescue))continue;
+       (proof.same_class_close_runs<2&&!podiumRescue&&!cornerPodiumRescue))continue;
     const better=proof.same_class_close_runs-inc.same_class_close_runs;
     const safer=inc.same_class_decisive_defeats-proof.same_class_decisive_defeats;
     // NAR official winner-gap often cannot be established. Use 2+ distinct
@@ -234,7 +254,7 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
       if(!strictClose&&!podiumRescue)continue;
     } else {
       const challengerStrong=(better>=2&&safer>=0||
-        better>=1&&(safer>=1||localRepeatedBackfield))||podiumRescue;
+        better>=1&&(safer>=1||localRepeatedBackfield))||podiumRescue||cornerPodiumRescue;
       if(!challengerStrong)continue;
     }
     // Protect a good incumbent: no swap unless challenger is decisively stronger.
@@ -244,8 +264,10 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     selected.push({horse_no:challenger.horse_no,old_rank:challenger.rank,
       close_delta:better,defeat_delta:safer,
       backfield_evidence_effect:localRepeatedBackfield?'VERIFIED_REPEATED_BACKFIELD_FINISH_ONLY':'NONE',
-      podium_evidence_effect:podiumRescue?'VERIFIED_REPEATED_PODIUM_NOT_WINNER_MARGIN':'NONE',
+      podium_evidence_effect:podiumRescue?'VERIFIED_REPEATED_PODIUM_NOT_WINNER_MARGIN':
+        cornerPodiumRescue?'VERIFIED_SUSTAINED_FRONT_PODIUM_NO_WINNER_GAP':'NONE',
       challenger_podium_finishes:proof.same_class_podium_finishes,
+      challenger_sustained_front_podium_runs:proof.same_class_sustained_front_podium_runs,
       incumbent_podium_finishes:inc.same_class_podium_finishes,
       challenger_positive:proof.qualifying_proof,
       incumbent_positive:inc.qualifying_proof,
@@ -262,6 +284,7 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
         return {horse_no:h.horse_no,rank:h.rank,
           same_class_close_runs:v.same_class_close_runs,
           same_class_podium_finishes:v.same_class_podium_finishes,
+          same_class_sustained_front_podium_runs:v.same_class_sustained_front_podium_runs,
           same_class_decisive_defeats:v.same_class_decisive_defeats,
           same_class_backfield_finishes:v.same_class_backfield_finishes};
       })});
@@ -274,6 +297,7 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     return {horse_no:h.horse_no,old_rank:h.rank,
       same_class_close_runs:report.same_class_close_runs,
       same_class_podium_finishes:report.same_class_podium_finishes,
+      same_class_sustained_front_podium_runs:report.same_class_sustained_front_podium_runs,
       same_class_decisive_defeats:report.same_class_decisive_defeats,
       same_class_backfield_finishes:report.same_class_backfield_finishes,
       status:report.same_class_close_runs>=2?'REVIEW_LEAD_NOT_PROMOTED':'NOT_QUALIFIED'};
@@ -322,6 +346,6 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
       {status:targetClassResolution.status,class_label:verifiedTargetClass,
        tier_comparison:'SAME_NAR_VENUE_AND_EXPLICIT_TIER_NOT_PROVEN_OPPONENT_EQUIVALENCE'}:
       {status:'JRA_PROVIDED_CLASS',class_label:verifiedTargetClass},
-    scoring_rule:'V0_4_LOCAL_VERIFIED_PODIUM_AND_BACKFIELD_INDEPENDENT_OF_WINNER_GAP'
+    scoring_rule:'V0_5_LOCAL_VERIFIED_CORNER_POSITION_EVIDENCE_SHADOW_ONLY'
   });
 }
