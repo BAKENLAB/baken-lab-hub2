@@ -49,7 +49,7 @@ jobs:
       - name: Typecheck staged LOCAL claimed relative-rank preview
         run: |
           mkdir -p .local-relative-ci
-          cp research/staged-local-claimed-mcp-corner-v28.ts .local-relative-ci/index.ts
+          cp research/staged-local-claimed-mcp-preclaim-v29.ts .local-relative-ci/index.ts
           cp automation/relative-ability-rank-proposal.mjs .local-relative-ci/relative-ability-rank-proposal.mjs
           cp automation/local-full-field-over-under-shadow.mjs .local-relative-ci/local-full-field-over-under-shadow.mjs
           cp automation/local-v17-full-field-independent-shadow.mjs .local-relative-ci/local-v17-full-field-independent-shadow.mjs
