@@ -36,6 +36,30 @@ export function buildOptionalSaveJraShadow({context,payload,now}={}){
  if(!valid(preview)||preview.draft_runners_verified!==true)return null;
  return {baseline,preview};
 }
+/**
+ * Distinguish observed official corner positions in a server-validated
+ * pre-CLAIM snapshot from missing or untrusted evidence. This helper only
+ * chooses the RESEARCH input; it never touches production ranks, saves or
+ * raw FROZEN payloads. Unknown/invalid packet => normal verified evidence.
+ */
+export function selectVerifiedLocalResearchComparison(context){
+ const fallback=context?.relative_condition_evidence??null;
+ const shadow=context?.official_corner_shadow;
+ const extra=shadow?.research_relative_condition_evidence;
+ if(shadow?.use_for_rank!==false||shadow?.use_for_save_gate!==false||
+    shadow?.status!=='DESCRIPTIVE_SHADOW_ONLY'||
+    !int(shadow?.applied_prior_runs,1,100)||
+    !extra||extra.status!=='READY'||
+    extra.corner_evidence_scope!=='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY'||
+    extra.corner_enriched_prior_runs!==shadow.applied_prior_runs||
+    extra.target_date!==context?.race?.race_date||
+    extra.runner_count!==context?.runners?.length||
+    extra.market_used!==false||extra.target_result_used!==false||
+    extra.rank_effect!==false||extra.score_effect!==false||
+    extra.data_scope!=='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY')
+  return fallback;
+ return extra;
+}
 export function buildOptionalSaveLocalShadow({context,payload,now}={}){
  const baseline=extractOfficialSaveDraft(payload,'LOCAL');
  const race=context?.race;
@@ -45,24 +69,7 @@ export function buildOptionalSaveLocalShadow({context,payload,now}={}){
    observation_at:now,circuit:'LOCAL',track:race?.track,
    race_name:race?.race_name,class_name:race?.conditions?.class_name,
    surface:race?.conditions?.surface,distance:race?.conditions?.distance},
-  baseline,comparison:
-    // Only a verified, read-only corner overlay from the authenticated
-    // claimed-context service may enrich a RESEARCH ranking proposal.
-    // Production save payload and official BASELINE remain unchanged.
-    (context?.official_corner_shadow?.use_for_rank===false &&
-     context?.official_corner_shadow?.use_for_save_gate===false &&
-     Number.isInteger(context.official_corner_shadow.applied_prior_runs) &&
-     context.official_corner_shadow.applied_prior_runs>0 &&
-     context.official_corner_shadow.research_relative_condition_evidence?.status==='READY' &&
-     context.official_corner_shadow.research_relative_condition_evidence?.corner_evidence_scope===
-      'VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY' &&
-     context.official_corner_shadow.research_relative_condition_evidence?.market_used===false &&
-     context.official_corner_shadow.research_relative_condition_evidence?.target_result_used===false &&
-     context.official_corner_shadow.research_relative_condition_evidence?.rank_effect===false &&
-     context.official_corner_shadow.research_relative_condition_evidence?.target_date===
-      race?.race_date)
-     ?context.official_corner_shadow.research_relative_condition_evidence:
-       context?.relative_condition_evidence
+  baseline,comparison:selectVerifiedLocalResearchComparison(context)
  });
  if(!valid(result)||!['REORDERED','UNCHANGED'].includes(result.status))return null;
  return {baseline,preview:{...result,
