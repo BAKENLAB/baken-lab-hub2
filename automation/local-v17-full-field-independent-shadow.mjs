@@ -87,22 +87,45 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
   turn_positions:{early:h.early_pos??null,last:h.final_turn_pos??null}
  };
 }
-/**
- * An official ability test is not a race result. It gives a debutant a
- * strictly provisional, separately labeled input instead of "no data".
- * Identity is name + age + current trainer; no market or target-day results.
- */
+/** A verified test is not a completed race; score as limited debut evidence. */
 function evaluateDebutAbilityTest(a,r,race) {
- if(!a || r.context_runs.length!==0 ||
-    a.source!==HYOGO_ABILITY_SOURCE || a.category!=='能力検査' ||
+ if(!a || r.context_runs.length!==0 || a.source!==HYOGO_ABILITY_SOURCE ||
+    a.category!=='能力検査' || a.passed!==true ||
     a.identity_method!=='EXACT_NAME_AGE_TRAINER_NOT_STABLE_HORSE_ID' ||
-    a.passed!==true || a.official_race_result!==false ||
-    a.valid_for_provisional_comparison!==true ||
+    a.official_race_result!==false || a.valid_for_provisional_comparison!==true ||
     norm(a.horse_name)!==norm(r.horse_name) ||
-    !Number.isInteger(a.horse_no)||a.horse_no!==r.horse_no ||
-    !norm(r.trainer)||norm(a.trainer)!==norm(r.trainer) ||
-    !Number.isInteger(a.age)||a.age<2||a.age>20 ||
-    !new RegExp('(?:^|\\D)'+a.age+'
+    a.horse_no!==r.horse_no || !norm(r.trainer) ||
+    norm(a.trainer)!==norm(r.trainer) ||
+    !Number.isInteger(a.age) || a.age<2 || a.age>20 ||
+    !norm(r.sex_age).endsWith(String(a.age)) ||
+    !isDay(a.event_date) || a.event_date>=race.race_date ||
+    typeof a.source_ref!=='string' ||
+    !a.source_ref.startsWith('https://www.sonoda-himeji.jp/data/ability/detail/') ||
+    !Number.isInteger(Number(a.source_ref.split('/').pop())) ||
+    !finite(a.time_seconds) || a.time_seconds<40 || a.time_seconds>180 ||
+    !Number.isInteger(a.distance) || a.distance<800 || a.distance>1870 ||
+    !Number.isInteger(a.same_session_distance_peer_count) ||
+    a.same_session_distance_peer_count<1 ||
+    a.same_session_distance_peer_count>30 ||
+    !Number.isInteger(a.same_session_faster_or_equal_count) ||
+    a.same_session_faster_or_equal_count<1 ||
+    a.same_session_faster_or_equal_count>a.same_session_distance_peer_count ||
+    !Number.isFinite(time(a.as_of)) || time(a.as_of)>time(race.observation_at))
+   return null;
+ const delta=Math.abs(a.distance-race.distance);
+ const fresh=ageDays(race.race_date,a.event_date)<=45;
+ // Uncalibrated weak signal, not a race win or class-equivalence proof.
+ const signal=8+(a.same_session_distance_peer_count>=3 &&
+   a.same_session_faster_or_equal_count===1?4:0)+(delta<=300?2:0)+(fresh?2:0);
+ return {evidence_ref:a.source_ref,history_date:a.event_date,
+  source:HYOGO_ABILITY_SOURCE,score_signal:signal,category:'OFFICIAL_TEST_NOT_RACE',
+  test_distance:a.distance,target_distance:race.distance,time_seconds:a.time_seconds,
+  session_peer_count:a.same_session_distance_peer_count,
+  best_in_session:a.same_session_faster_or_equal_count===1,
+  track_equivalence:'UNPROVEN',class_equivalence:'UNPROVEN',
+  race_ability_uncertainty:'DEBUT_NOT_YET_RACE_PROVEN'};
+}
+export function buildLocalV17IndependentShadow({race,comparison}={}){
  if(!race||race.circuit!=='LOCAL'||!isDay(race.race_date)||
     !norm(race.track)||!nr(race.race_no)||
     !['芝','ダート'].includes(race.surface)||
@@ -147,9 +170,7 @@ function evaluateDebutAbilityTest(a,r,race) {
   const ability=r.ability_test===undefined?null:evaluateDebutAbilityTest(r.ability_test,r,race);
   if(r.ability_test!==undefined && !ability)
    return stop('ABILITY_TEST_IDENTITY_ASOF_OR_PROVENANCE_UNVERIFIED');
-  // A verified official ability test provides limited debut evidence,
-  // never the same strength as a completed race, and never a free promotion.
-  if(proof.length===0&&!ability)evidenceGaps.push({horse_no:r.horse_no,
+  if(proof.length===0 && !ability)evidenceGaps.push({horse_no:r.horse_no,
    horse_name:r.horse_name,reason:'NO_VERIFIED_RACE_OR_OFFICIAL_ABILITY_TEST'});
   // All horses score using EXACTLY the same formula. One poor run cannot
   // erase multiple independent better performances.
@@ -235,169 +256,6 @@ function evaluateDebutAbilityTest(a,r,race) {
    horse_name:r.horse_name,score:r.independent_score,
    confidence:r.official_ability_test_used?'ABILITY_TEST_ONLY_UNCALIBRATED':
     r.evidence_runs_used>=3?'HISTORY_AVAILABLE':'LIMITED_HISTORY'})),
-  top5:sorted.slice(0,5).map(x=>x.horse_no),
-  ability_evidence_audit:audit,
-  tied_score_runner_count:equalScores.length,
-  rank_tiebreak:'EVIDENCE_COVERAGE_THEN_HORSE_NO_NO_MARKET',
-  lab_eye_status:eyeSelected?'EVIDENCE_BACKED_RESEARCH_CANDIDATE':'ABSTAINED',
-  eye_candidate:eyeSelected?{horse_no:eyeSelected.horse_no,
-    horse_name:audit.find(x=>x.horse_no===eyeSelected.horse_no).horse_name,
-    evidence_refs:eyeSelected.independent_podium_refs,
-    research_only:true}:null,
-  eye_all_outsider_audits:eyeAudit,
-  production_rank_effect:false,production_eye_effect:false,
-  frozen_modified:false,market_used:false,target_result_used:false,
-  safety:'PROSPECTIVE_ONLY; NOT OFFICIALLY SAVED; NO ODDS OR RESULTS'
- };
-}
-).test(norm(r.sex_age)) ||
-    !isDay(a.event_date)||a.event_date>=race.race_date ||
-    !/^https:\/\/www\.sonoda-himeji\.jp\/data\/ability\/detail\/[1-9]\d{0,5}\/?$/.test(a.source_ref) ||
-    !finite(a.time_seconds)||a.time_seconds<40||a.time_seconds>180 ||
-    !Number.isInteger(a.distance)||a.distance<800||a.distance>1870 ||
-    !Number.isInteger(a.same_session_distance_peer_count)||
-    a.same_session_distance_peer_count<1||a.same_session_distance_peer_count>30||
-    !Number.isInteger(a.same_session_faster_or_equal_count)||
-    a.same_session_faster_or_equal_count<1||
-    a.same_session_faster_or_equal_count>a.same_session_distance_peer_count||
-    !Number.isFinite(time(a.as_of))||time(a.as_of)>time(race.observation_at))
-  return null;
- const delta=Math.abs(a.distance-race.distance);
- const freshest=ageDays(race.race_date,a.event_date)<=45;
- // Deliberately weak and uncalibrated: 1 test can never become 1 race win.
- const signal=8+(a.same_session_distance_peer_count>=3 &&
-  a.same_session_faster_or_equal_count===1?4:0)+(delta<=300?2:0)+(freshest?2:0);
- return {evidence_ref:a.source_ref,history_date:a.event_date,
-  source:HYOGO_ABILITY_SOURCE,score_signal:signal,category:'OFFICIAL_TEST_NOT_RACE',
-  test_distance:a.distance,target_distance:race.distance,
-  time_seconds:a.time_seconds,session_peer_count:a.same_session_distance_peer_count,
-  best_in_session:a.same_session_faster_or_equal_count===1,
-  track_equivalence:'UNPROVEN',class_equivalence:'UNPROVEN',
-  race_ability_uncertainty:'DEBUT_NOT_YET_RACE_PROVEN'};
-}
-export function buildLocalV17IndependentShadow({race,comparison}={}){
- if(!race||race.circuit!=='LOCAL'||!isDay(race.race_date)||
-    !norm(race.track)||!nr(race.race_no)||
-    !['芝','ダート'].includes(race.surface)||
-    !Number.isInteger(race.distance)||race.distance<800||race.distance>3600||
-    !Number.isFinite(time(race.observation_at))||
-    !Number.isFinite(time(race.post_time))||
-    time(race.observation_at)>=time(race.post_time)||
-    localDay(race.observation_at)!==race.race_date||hasLeak(race))
-  return stop('RACE_OR_ASOF_UNVERIFIED');
- if(!comparison||comparison.status!=='READY'||
-    comparison.data_scope!=='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY'||
-    comparison.target_date!==race.race_date||
-    comparison.market_used!==false||
-    comparison.target_result_used!==false||
-    comparison.rank_effect!==false||comparison.score_effect!==false||
-    !Array.isArray(comparison.runner_evidence)||
-    comparison.runner_evidence.length<6||
-    comparison.runner_evidence.length>20||hasLeak(comparison))
-  return stop('COMPLETE_OFFICIAL_PRE_RACE_PACKET_UNVERIFIED');
- const target=resolveLocalOfficialClassLiteral(race.class_name??race.race_name,race.track);
- const target_class=target.class_label??null;
- // The current entry's selection condition must not be treated as the
- // same ordinary class simply because both titles contain e.g. C2.
- // Special編成 is not a proven downgrade or an equivalent opponent pool.
- const specialSelection=/特別編成|記者選抜|ファイナル/.test(
-  norm(race.race_name)+' '+norm(race.class_name));
- const audit=[],identity=new Set(),evidenceGaps=[];
- for(const r of comparison.runner_evidence){
-  if(!nr(r?.horse_no)||!norm(r.horse_name)||identity.has(r.horse_no)||
-    !Array.isArray(r.context_runs)||r.context_runs.length>5||
-    // Full historical context, not just narrow same-distance subset, REQUIRED.
-    !Array.isArray(r.supporting_runs)||r.supporting_runs.length>5||
-    hasLeak(r))return stop('WHOLE_FIELD_IDENTITY_OR_HISTORY_UNVERIFIED');
-  identity.add(r.horse_no);
-  const refs=new Set(),proof=[];
-  for(const h of r.context_runs){
-   const found=evaluateRun(h,{race_date:race.race_date,track:race.track,
-     surface:race.surface,distance:race.distance,target_class,specialSelection},r.horse_no,refs);
-   if(!found)return stop('HISTORY_IDENTITY_ASOF_OR_PROVENANCE_UNVERIFIED');
-   if(found.age_days<=540)proof.push(found);
-  }
-  // Zero history is not a low ability: refuse an artificial 1...N rank.
-  if(proof.length===0)evidenceGaps.push({horse_no:r.horse_no,
-   horse_name:r.horse_name,reason:'NO_VERIFIED_540_DAY_RUNS'});
-  // All horses score using EXACTLY the same formula. One poor run cannot
-  // erase multiple independent better performances.
-  const ordered=proof.slice().sort((a,b)=>b.score_signal-a.score_signal||
-    a.age_days-b.age_days||a.evidence_ref.localeCompare(b.evidence_ref));
-  const contributions=ordered.slice(0,3)
-    .map((x,i)=>({ref:x.evidence_ref,signal:x.score_signal,weight:[0.7,0.35,0.15][i]}));
-  const base=50;
-  const raw=base+contributions.reduce((n,x)=>n+x.signal*x.weight,0);
-  // Provisional score is NOT a probability and not calibrated against 1.6.
-  const score=scoreBound(raw);
-  audit.push({horse_no:r.horse_no,horse_name:r.horse_name,
-   independent_score:score,base_score:base,
-   evidence_runs_checked:r.context_runs.length,
-   evidence_runs_used:proof.length,
-   comparable_same_venue:proof.filter(x=>x.track===race.track).length,
-   other_condition_runs:proof.filter(x=>x.context_band!=='SAME_OFFICIAL_CLASS').length,
-   runs:proof,score_contributions:contributions,
-   gaps:proof.length?'NONE':'INSUFFICIENT_OFFICIAL_HISTORY',
-   missing_information_penalty:0,
-   target_class_status:target.status,
-   special_selection_class_equivalence: specialSelection?'NOT_VERIFIED':'NOT_APPLICABLE',
-   excludes_target_results:true
-  });
- }
- if(evidenceGaps.length)return stop('INSUFFICIENT_EVIDENCE_FOR_FAIR_WHOLE_FIELD_RANK',{
-  all_runners_checked:audit.length,missing:evidenceGaps,
-  observed_runner_data:audit,proposed_top5:null});
- // Rank is decided ONLY AFTER every complete-field assessment.
- const sorted=audit.slice().sort((a,b)=>b.independent_score-a.independent_score||
-  b.evidence_runs_used-a.evidence_runs_used||a.horse_no-b.horse_no);
- const equalScores=sorted.filter((v,i)=>i>0&&v.independent_score===sorted[i-1].independent_score);
- // Phase 2 is the DISTINCT LAB EYE mission, after all-horse scores/top5.
- // It never changes the ability order. Multiple independently verified
- // podium races, including an other-condition run, may justify a research
- // EYE case. One old result or rank=6 alone is NOT enough.
- const outsiders=sorted.slice(5);
- const eyeAudit=outsiders.map(a=>{
-  const podium=a.runs.filter(x=>x.finish<=3&&x.age_days<=365);
-  const current=podium.filter(x=>x.age_days<=180);
-  const related=podium.filter(x=>x.surface===race.surface&&
-   x.distance_delta!==null&&x.distance_delta<=300);
-  const qualifies=podium.length>=2&&current.length>=1&&related.length>=1;
-  return {horse_no:a.horse_no,prior_evidence_count:podium.length,
-   recent_podium_count:current.length,related_podium_count:related.length,
-   independent_podium_refs:podium.map(x=>x.evidence_ref),
-   eye_case:qualifies,selection_reason:qualifies?
-     'TWO_VERIFIED_INDEPENDENT_PODIUM_RUNS_ONE_RECENT_ONE_SURFACE_DISTANCE_RELATED':
-     'INSUFFICIENT_INDEPENDENT_CURRENT_POSITIVE_EVIDENCE',
-   baseline_rank_input_used:false
-  };
- });
- const qualified=eyeAudit.filter(x=>x.eye_case).sort((a,b)=>
-  b.prior_evidence_count-a.prior_evidence_count||
-  b.related_podium_count-a.related_podium_count||
-  b.recent_podium_count-a.recent_podium_count);
- const leader=qualified[0];
- const runnerup=qualified[1];
- const uniqueLeader=leader&&(!runnerup||
-  leader.prior_evidence_count>runnerup.prior_evidence_count||
-  leader.prior_evidence_count===runnerup.prior_evidence_count&&
-   leader.related_podium_count>runnerup.related_podium_count||
-  leader.prior_evidence_count===runnerup.prior_evidence_count&&
-   leader.related_podium_count===runnerup.related_podium_count&&
-   leader.recent_podium_count>runnerup.recent_podium_count);
- const eyeSelected=uniqueLeader?leader:null;
- return {
-  status:'READY_FOR_PROSPECTIVE_PAIRED_TEST',
-  model:'LOCAL_1_7_INDEPENDENT_SHADOW_V0_1',
-  version:'1.7-research',release_status:'RESEARCH_NOT_DEPLOYED',
-  observation_at:race.observation_at,
-  race_identity:{circuit:'LOCAL',race_date:race.race_date,
-   track:race.track,race_no:race.race_no,post_time:race.post_time},
-  target_class_status:target.status,
-  special_selection_class_equivalence:specialSelection?'NOT_VERIFIED':'NOT_APPLICABLE',
-  all_runners_checked:audit.length,
-  runners:sorted.map((r,i)=>({rank:i+1,horse_no:r.horse_no,
-   horse_name:r.horse_name,score:r.independent_score,
-   confidence:r.evidence_runs_used>=3?'HISTORY_AVAILABLE':'LIMITED_HISTORY'})),
   top5:sorted.slice(0,5).map(x=>x.horse_no),
   ability_evidence_audit:audit,
   tied_score_runner_count:equalScores.length,
