@@ -129,6 +129,14 @@ function headline(r,p,race){
   if(/実績水準|上位級|上級組|掲示板周辺|素地|証拠が2件/.test(finding.reason)&&runs.length>=2){
    return compact(runs.slice(0,2).map(formatRun).join('・')+'。'+finding.reason,118);
   }
+  // For vague summaries, attach the race already documented in the frozen reason.
+  // Do not override the explicit, more useful explanations with a generic date.
+  const vague=/^(?:今回(?:の)?|同条件|同場|同距離|継続した|近走)(?:(?!\d{1,2}[-/]\d{1,2}).){0,85}(?:経験|材料|証拠|実績|評価|接戦|近接|通用)/;
+  if(vague.test(finding.reason)&&
+    !/(?:最重要視|特別編成|同一条件の勝利)/.test(finding.reason)&&runs.length){
+   const one=runs.find(x=>x.finish<=3)||runs[0];
+   return compact(formatRun(one)+'。'+finding.reason,118);
+  }
   return compact(finding.reason,118);
  }
  return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
@@ -140,15 +148,39 @@ function comment(r,p,race){
  const rank=Number(r.rank),finding=dissect(r),head=headline(r,p,race);
  const name=isEye?'EYEに選んだ理由':rank>=1&&rank<=5?'この順位にした理由':'評価した理由';
  const lines=['【'+name+'】'+head+'。','【根拠となる過去走】'+evidence(r)+'。'];
+ const contrast=comparison(r,p,race);
+ if(contrast)lines.push(contrast);
  if(finding.risk)lines.push('【不安・未確認】'+finding.risk+'。');
  // Preserve the full evidence source whenever interpretation is still incomplete.
  if(!finding.reason)lines.push('【保存理由の原文】'+compact(rawText(r),350)+'。');
  return lines.join('\n');
+}
+function comparison(r,p,race){
+ const ordered=(p?.top5||[]).filter(x=>Number(x.rank)>=1&&Number(x.rank)<=5)
+  .sort((a,b)=>Number(a.rank)-Number(b.rank));
+ if(ordered.length<2)return '';
+ const rank=Number(r.rank);
+ if(!Number.isInteger(rank)||rank<1||rank>5)return '';
+ const current=ordered.find(x=>Number(x.horse_no)===Number(r.horse_no));
+ const other=rank===1?ordered.find(x=>Number(x.rank)===2):ordered.find(x=>Number(x.rank)===rank-1);
+ if(!current||!other||!rawText(current)||!rawText(other))return '';
+ const runsOf=x=>getRuns(x);
+ if(!runsOf(current).length||!runsOf(other).length)return '';
+ const label=x=>(Number(x.rank)===1?'◎':Number(x.rank)===2?'○':
+  Number(x.rank)===3?'▲':Number(x.rank)===4?'☆':'△')+
+  (x.horse_name||String(x.horse_no||'?'));
+ const relevant=x=>{
+  const runs=runsOf(x),podium=runs.filter(q=>q.finish<=3);
+  return (podium.length?podium:runs).slice(0,2).map(formatRun).join('、');
+ };
+ return '【近い順位の馬と根拠を比較】'+label(current)+'：'+relevant(current)+
+  ' ／ '+label(other)+'：'+relevant(other)+
+  '。保存済みの実績を並べたもので、順位差の採点理由を断定するものではありません。';
 }
 function overview(p,race){
  const top=[...(p?.top5||[])].sort((a,b)=>Number(a.rank)-Number(b.rank));
  return top.slice(0,2).map((r,i)=>(i?'○':'◎')+r.horse_no+' '+(r.horse_name||'')+
   '｜'+headline(r,p,race)).join('\n');
 }
-window.LabRankCompare=Object.freeze({comment,overview,headline});
+window.LabRankCompare=Object.freeze({comment,overview,headline,comparison});
 })(window);
