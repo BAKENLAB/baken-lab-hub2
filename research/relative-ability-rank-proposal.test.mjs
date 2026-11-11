@@ -257,6 +257,9 @@ function officialLocalBackfieldFixture(){
    if(h.finish===2){h.margin=0.3;h.margin_unit='LENGTHS_TO_WINNER';
      h.margin_basis='NAR_SECOND_PLACE_PRECEDING_IS_WINNER';}
  }
+ // Isolate the rank9 policy: rank6's old independent challenger remains
+ // covered by other tests and must not mask whether rank9 was rejected.
+ x.comparison.runner_evidence[5].supporting_runs=[];
  const fifth=x.comparison.runner_evidence[4];
  for(const h of fifth.supporting_runs){h.margin=null;h.margin_unit=null;h.margin_basis='UNVERIFIED_WINNER_GAP';}
  const deep=x.comparison.runner_evidence[8];
