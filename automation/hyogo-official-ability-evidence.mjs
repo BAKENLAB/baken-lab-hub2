@@ -65,9 +65,15 @@ export function parseHyogoAbilityDetail(html, url) {
  for (const match of html.matchAll(/<table\b[^>]*>[\s\S]*?<\/table>/gi)) {
   const prefix=strip(html.slice(Math.max(0,match.index-1500),match.index));
   const sections=[...prefix.matchAll(/(ゲート検査|能力検査|発走検査|自主参加)/g)];
-  const section=sections.at(-1)?.[1];
+  const table=match[0];
+  // The REAL official page puts the section label in a <th colspan> INSIDE
+  // its own table. Never infer from the preceding table's heading.
+  const ownSection=[...table.matchAll(/<th\b[^>]*>([\s\S]*?)<\/th>/gi)]
+   .map(m=>norm(strip(m[1])))
+   .find(x=>['ゲート検査','能力検査','発走検査','自主参加'].includes(x));
+  const section=ownSection??sections.at(-1)?.[1];
   if (!section) continue;
-  const table=match[0], heads=[...table.matchAll(/<th\b[^>]*>([\s\S]*?)<\/th>/gi)]
+  const heads=[...table.matchAll(/<th\b[^>]*>([\s\S]*?)<\/th>/gi)]
    .map(m=>norm(strip(m[1])));
   // Some official tables use a td-based header row.
   const rows=[...table.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)]
