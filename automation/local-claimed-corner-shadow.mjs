@@ -6,6 +6,7 @@
  */
 import {bridgeLocalOfficialCorners} from './local-corner-pace-bridge.mjs';
 import {buildLocalFieldPaceEvidence} from './local-field-pace.mjs';
+import {buildLocalRelativeConditionComparison} from './local-relative-condition-comparison.mjs';
 const norm=x=>String(x??'').normalize('NFKC').replace(/\s+/g,'').trim();
 const raceKey=r=>[String(r.race_date),r.track,Number(r.race_no)].join('/');
 const copy=o=>structuredClone(o);
@@ -48,6 +49,20 @@ export function buildLocalClaimedCornerShadow({
   }
  }
  const pace=buildLocalFieldPaceEvidence(shadowRunners,conditions);
+ // Official pre-CLAIM corners can enrich research comparison facts only.
+ // Preserve original claimed/saved inputs and never declare the displayed
+ // corner history to be a validated lap, a winner-relative margin or a score.
+ const compared=enriched.applied>0
+   ?buildLocalRelativeConditionComparison(
+      shadowRunners,conditions,targetRace.raceDate)
+   :null;
+ const researchRelativeComparison=compared?.status==='READY'&&
+   compared.runner_count===shadowRunners.length&&
+   compared.rank_effect===false&&compared.market_used===false&&
+   compared.target_result_used===false?
+    {...compared,corner_evidence_scope:'VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY',
+      corner_enriched_prior_runs:enriched.applied,
+      scoring_effect:0}:null;
  for(const item of enriched.reports)audits.push(item);
  // Only the adapter-confirmed past results become cited witnesses. Rejected,
  // conflicting, stale and already-covered rows never receive source provenance.
@@ -79,6 +94,8 @@ export function buildLocalClaimedCornerShadow({
   applied_prior_runs:enriched.applied,ignored_prior_runs:enriched.ignored,
   inserted_corner_fields:inserted,verified_corner_sources:verifiedCornerSources,
   field_pace_evidence:pace,
+  // Separate research-only lane; not passed to production ability scorer.
+  research_relative_condition_evidence:researchRelativeComparison,
   runners:shadowRunners,reports:audits
  };
 }
