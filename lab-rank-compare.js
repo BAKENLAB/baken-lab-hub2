@@ -22,7 +22,8 @@ function plain(s){
   .replace(/未実証/g,'未確認')
   .replace(/級差推定/g,'クラス差の推測')
   .replace(/鮮度/g,'最近の実績')
-  .replace(/反証/g,'不安材料');
+  .replace(/反証/g,'不安材料')
+  .replace(/^(?:ただし|一方で|しかし)[、，\s]*/,'');
 }
 function getRuns(r){
  const head=rawText(r).split('。')[0]||'';
@@ -69,10 +70,14 @@ function dissect(r){
  const addRisk=s=>{const t=compact(s);if(t)cautions.push(t)};
  for(const s of analysis){
   if(/^未取得|^推測で補わない|^推測加点しない/.test(s))continue;
+  // A caution-only sentence must not promote its opening half to a strength.
+  if(/^(?:直近|前走|休み明け).*?(?:なし|不安|反証|未実証)|^近走.*?なし/.test(s)){
+    addRisk(s);continue;
+  }
   let match=s.match(/^(.+?)が不安材料だが[、，]?\s*(.+)$/);
   if(!match)match=s.match(/^(.+?)が反証だが[、，]?\s*(.+)$/);
   if(match){addRisk(match[1]);addGood(match[2]);continue;}
-  match=s.match(/^(.+?)(?:を評価するが|を重視するが|を評価したが|を重視したが)[、，]?\s*(.+)$/);
+  match=s.match(/^(.+?)(?:を|は)(?:評価するが|重視するが|評価したが|重視したが)[、，]?\s*(.+)$/);
   if(match){addGood(match[1]);addRisk(match[2]);continue;}
   match=s.match(/^(.+?)(?:、|，)(.+?(?:は反証|が反証|は不安|未実証|未検証|未知))$/);
   if(match){addGood(match[1]);addRisk(match[2]);continue;}
@@ -81,7 +86,7 @@ function dissect(r){
   match=s.match(/^(.+?)(?:、|，)?(?:ただし|一方で|一方|しかし)[、，]?\s*(.+)$/);
   if(match){addGood(match[1]);addRisk(match[2]);continue;}
   // A single documented caution must not be rebranded as positive evidence.
-  if(/^(ただし|一方|反証|不安|未検証|未確認)|(?:は反証|が反証|は不安|未実証|未検証|未知数|が課題|検証できない)(?:[。]?|$)/.test(s)){
+  if(/^(ただし|一方|反証|不安|未検証|未確認)|(?:は反証|が反証|は不安|未実証|未検証|未知数|が課題|検証できない|過去反証)(?:[。]?|$)/.test(s)){
    addRisk(s);continue;
   }
   if(/今回|評価|重視|実績|強み|好走|連対|勝ち|勝利|接近|安定|力|クラス|条件|通用|優位|再現性|現級|上昇材料/.test(s)){
