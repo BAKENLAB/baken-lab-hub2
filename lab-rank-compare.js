@@ -168,8 +168,9 @@ function headline(r,p,race){
   }
   return compact(finding.reason,86);
  }
- return runs.length?'上位評価の決め手は保存理由に明記なし（要確認）':
-  '具体的な評価理由は保存情報から確認できません';
+ // A parser failure is NOT proof that the saved prediction had no reason.
+ // Never silently discard the official reason: expose it in expanded details.
+ return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
  if(!rawText(r))return '【評価理由】保存された評価理由がありません。';
@@ -178,7 +179,10 @@ function comment(r,p,race){
  const rank=Number(r.rank),finding=dissect(r);
  const name=isEye?'EYEに選んだ理由':rank>=1&&rank<=5?
   'この順位にした理由':'評価した理由';
- const lines=['【'+name+'】'+headline(r,p,race)+'。'];
+ const head=headline(r,p,race);
+ const lines=['【'+name+'】'+head+'。'];
+ if(head.startsWith('評価理由の要約に失敗'))
+  lines.push('【保存理由の原文】'+compact(rawText(r),350)+'。');
  lines.push('【根拠となる過去走】'+evidence(r)+'。');
  if(finding.risk)lines.push('【不安・未確認】'+finding.risk+'。');
  // Rank point differences are NOT independent ability evidence and
