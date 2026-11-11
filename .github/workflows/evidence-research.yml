@@ -68,6 +68,9 @@ jobs:
           cp research/local-claimed-prod-guard-v19.mjs .local-mcp-ci/local-eye.mjs
           cp automation/local-mcp-queue-operation-v19.mjs .local-mcp-ci/queue-operation.mjs
           deno check .local-mcp-ci/index.ts
+      - name: Recheck real Hyogo 10-27 ability section (must pass)
+        timeout-minutes: 1
+        run: node research/hyogo-official-live-once.probe.mjs
       # Verified one-off real official Hyogo 2026-10-27 ability detail/135
       # via research/hyogo-official-live-once.probe.mjs. No recurring fetch.
       # The three one-day current-race NAR canaries already passed on 2026-11-08.
