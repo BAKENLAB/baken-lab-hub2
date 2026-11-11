@@ -31,7 +31,7 @@ const jra=()=>({race:{race_date:raceDate,track:'京都',race_no:6,post_time:post
  field_payload:{race:{class_name:'1勝クラス',surface:'芝',distance:1400}}},
  candidates:field.map(x=>({...x,base_rank:x.rank})),
  relative_condition_evidence:comparison('JRA')});
-const local=()=>({race:{race_date:raceDate,track:'京都',race_no:6,post_time:post,
+const local=()=>({runners:field.map(x=>({horse_no:x.horse_no,horse_name:x.horse_name})),race:{race_date:raceDate,track:'京都',race_no:6,post_time:post,
  race_name:'普通',conditions:{class_name:'1勝クラス',surface:'芝',distance:1400}},
  relative_condition_evidence:comparison('LOCAL')});
 
@@ -101,6 +101,8 @@ test('verified historical preclaim corner lane reaches research rank proof but n
  const corner=structuredClone(ctx.relative_condition_evidence);
  corner.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
  corner.corner_enriched_prior_runs=1;
+ corner.runner_count=field.length;
+ corner.score_effect=false;
  corner.runner_evidence.find(x=>x.horse_no===6).supporting_runs[0].early_pos=1;
  ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',applied_prior_runs:1,
   use_for_rank:false,use_for_save_gate:false,research_relative_condition_evidence:corner};
@@ -116,4 +118,51 @@ test('verified historical preclaim corner lane reaches research rank proof but n
  const rejected=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
  assert.ok(rejected);
  assert.equal(rejected.preview.proof_by_horse.find(x=>x.horse_no===6).same_class_front_runs,0);
+});
+
+
+test('official preclaim sustained-front corners change LOCAL rank only in research preview',()=>{
+ const ctx=local(),p=payload();
+ ctx.race.track='高知';
+ ctx.race.conditions.class_name='Ｃ２四組';
+ ctx.race.conditions.surface='芝';
+ // The fixture's existing supporting_runs are Kyoto turf; rehome all verified
+ // history to this fictional LOCAL-compatible track and class.
+ for(const row of ctx.relative_condition_evidence.runner_evidence)
+  for(const h of row.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+ // Rank5 has two backfield races; rank6 has 2 podiums but no winner gap.
+ const fifth=ctx.relative_condition_evidence.runner_evidence[4];
+ fifth.supporting_runs.forEach(h=>{
+  h.finish=9;h.margin=null;h.margin_basis='UNVERIFIED_WINNER_GAP';
+ });
+ const sixth=ctx.relative_condition_evidence.runner_evidence[5];
+ sixth.supporting_runs.forEach(h=>{
+  h.finish=3;h.margin=null;h.margin_basis='UNVERIFIED_WINNER_GAP';
+  delete h.early_pos;delete h.final_turn_pos;
+ });
+ const before=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(before);
+ assert.equal(before.preview.status,'UNCHANGED');
+ const enriched=structuredClone(ctx.relative_condition_evidence);
+ for(const h of enriched.runner_evidence[5].supporting_runs){
+  h.early_pos=2;h.final_turn_pos=2;
+ }
+ enriched.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
+ enriched.corner_enriched_prior_runs=2;
+ enriched.runner_count=field.length;
+ enriched.score_effect=false;
+ ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',
+  applied_prior_runs:2,use_for_rank:false,use_for_save_gate:false,
+  research_relative_condition_evidence:enriched};
+ const original=structuredClone(p);
+ const after=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.equal(after.preview.status,'REORDERED');
+ assert.deepEqual(after.preview.top5,[1,2,3,4,6]);
+ assert.equal(after.preview.elected_challenger.podium_evidence_effect,
+  'VERIFIED_SUSTAINED_FRONT_PODIUM_NO_WINNER_GAP');
+ assert.equal(after.preview.production_rank_effect,false);
+ assert.deepEqual(p,original);
+ // Replacing the trusted source label with a fake one must restore baseline.
+ enriched.corner_evidence_scope='UNVERIFIED_LATER_RESULT';
+ assert.equal(buildOptionalSaveLocalShadow({context:ctx,payload:p,now}).preview.status,'UNCHANGED');
 });
