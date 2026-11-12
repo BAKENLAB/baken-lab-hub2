@@ -231,3 +231,71 @@ test('fake, wrong trainer or post-race Hyogo test cannot alter a debut ranking',
  first.ability_test.event_date='2026-11-11';
  assert.equal(v17(d).reason,'ABILITY_TEST_IDENTITY_ASOF_OR_PROVENANCE_UNVERIFIED');
 });
+
+test('v1.7 full-field score recognizes official same-venue C2 subdivisions, not raw string equality',()=>{
+ const plain=make(),subdivision=make();
+ plain.race.track='園田';plain.race.class_name='C2';
+ subdivision.race.track='園田';subdivision.race.class_name='C2';
+ for(const data of [plain,subdivision]){
+  for(const runner of data.comparison.runner_evidence){
+   for(const h of runner.context_runs){h.track='園田';h.class='C2';}
+  }
+ }
+ for(const runner of subdivision.comparison.runner_evidence)
+  for(const h of runner.context_runs)h.class='C2一3歳以上';
+ const x=v17(plain),y=v17(subdivision);
+ assert.equal(x.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(y.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.deepEqual(
+  x.ability_evidence_audit.map(h=>h.independent_score),
+  y.ability_evidence_audit.map(h=>h.independent_score));
+ assert.deepEqual(x.top5,y.top5);
+ assert.equal(y.ability_evidence_audit[2].runs[0].normalized_historical_class,'C2');
+ assert.equal(y.ability_evidence_audit[2].runs[0].historical_class_status,'OFFICIAL_CLASS_LITERAL');
+ assert.equal(y.ability_evidence_audit[2].runs[0].context_band,'SAME_OFFICIAL_CLASS');
+});
+test('v1.7 Nagoya C23組 stays distinct from C2組; mixed C3/C4 never gets class bonus',()=>{
+ const n=make();n.race.track='名古屋';n.race.class_name='C2組';
+ const nValid=structuredClone(n),nWrong=structuredClone(n);
+ for(const runner of nValid.comparison.runner_evidence)
+  for(const h of runner.context_runs){h.track='名古屋';h.class='C2組';}
+ for(const runner of nWrong.comparison.runner_evidence)
+  for(const h of runner.context_runs){h.track='名古屋';h.class='C23組';}
+ const x=v17(nValid),y=v17(nWrong);
+ assert.equal(x.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(y.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.ok(x.ability_evidence_audit[2].independent_score>
+   y.ability_evidence_audit[2].independent_score);
+ assert.equal(y.ability_evidence_audit[2].runs[0].normalized_historical_class,'C23');
+ assert.equal(y.ability_evidence_audit[2].runs[0].context_band,'CLASS_OR_GROUP_UNVERIFIED');
+ const m=make();m.race.track='門別';m.race.class_name='C4-2';
+ for(const runner of m.comparison.runner_evidence)
+  for(const h of runner.context_runs){
+   h.track='門別';h.class='C3-2 C4-1';
+  }
+ const mixed=v17(m);
+ assert.equal(mixed.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(mixed.ability_evidence_audit[2].runs[0].normalized_historical_class,null);
+ assert.equal(mixed.ability_evidence_audit[2].runs[0].historical_class_status,'AMBIGUOUS_CLASS');
+ assert.equal(mixed.ability_evidence_audit[2].runs[0].context_band,'CLASS_OR_GROUP_UNVERIFIED');
+});
+test('v1.7 prior Kanazawa special-collection result never certifies normal C2 equivalence',()=>{
+ const valid=make(),special=make();
+ for(const d of [valid,special]){
+  d.race.track='金沢';d.race.class_name='C2';
+  for(const row of d.comparison.runner_evidence)
+   for(const h of row.context_runs){h.track='金沢';h.class='C2';}
+ }
+ for(const row of special.comparison.runner_evidence)
+  for(const h of row.context_runs){
+   h.class='C2十四特別編成';h.race_name='C2十四特別編成';
+  }
+ const a=v17(valid),b=v17(special);
+ assert.equal(a.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(b.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.ok(a.ability_evidence_audit[2].independent_score>
+   b.ability_evidence_audit[2].independent_score);
+ assert.equal(b.ability_evidence_audit[2].runs[0].special_selection_class_match_suppressed,true);
+ assert.equal(b.ability_evidence_audit[2].runs[0].context_band,
+  'SPECIAL_SELECTION_CLASS_COMPARABILITY_UNVERIFIED');
+});
