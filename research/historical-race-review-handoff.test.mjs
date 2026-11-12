@@ -32,3 +32,15 @@ test('duplicates and unsupported odds-like evidence cannot change ranking',()=>{
  assert.equal(x.runners[0].history.length,1);assert.equal(x.excluded_count,2);
  assert.equal(x.betting_data_used,false);assert.equal(x.save_authorized,false);
 });
+
+for(const circuit of ['JRA','LOCAL']){
+ test(circuit+' preserves uneven 100m/200m sectional lengths through the review handoff',()=>{
+  const x=prepareHistoricalRaceReview({targetRace:{...targetRace,circuit},runners,evidence:[{
+   ...evidence,source:'JRA_OFFICIAL_LAP',early_pos:null,final_turn_pos:null,
+   lap_splits:[7,12,12,12,12,12,12,12,12],
+   lap_lengths:[100,200,200,200,200,200,200,200,200]
+  }]});
+  assert.deepEqual(x.runners[0].history[0].lap_lengths,[100,200,200,200,200,200,200,200,200]);
+  assert.equal(x.ranking_changed,false);
+ });
+}
