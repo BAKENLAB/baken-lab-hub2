@@ -60,6 +60,41 @@ export function selectVerifiedLocalResearchComparison(context){
   return fallback;
  return extra;
 }
+/**
+ * Counterfactual integrity: prove all scorer-relevant historical facts are
+ * identical between the normal and corner-enriched source EXCEPT the two
+ * passing-order fields. No class/finish/condition/identity changes qualify.
+ */
+function verifyCornerOnlySupportChange(normal,enhanced){
+ const left=normal?.runner_evidence,right=enhanced?.runner_evidence;
+ if(!Array.isArray(left)||!Array.isArray(right)||left.length!==right.length)
+  return {status:'NON_CORNER_INPUT_MISMATCH',changed_runs:0};
+ const byNo=new Map(left.map(x=>[x?.horse_no,x]));
+ if(byNo.size!==left.length)return {status:'NON_CORNER_INPUT_MISMATCH',changed_runs:0};
+ const signature=run=>{
+  const {early_pos,final_turn_pos,...rest}=run;
+  return JSON.stringify(rest);
+ };
+ const validCorner=(before,after)=>before===after||
+   (before==null&&int(after,1,24));
+ let changed=0;
+ for(const row of right){
+  const prior=byNo.get(row?.horse_no);
+  if(!prior||prior.horse_name!==row.horse_name||
+     !Array.isArray(prior.supporting_runs)||!Array.isArray(row.supporting_runs)||
+     prior.supporting_runs.length!==row.supporting_runs.length)
+   return {status:'NON_CORNER_INPUT_MISMATCH',changed_runs:0};
+  for(let i=0;i<row.supporting_runs.length;i++){
+   const a=prior.supporting_runs[i],b=row.supporting_runs[i];
+   if(!a||!b||signature(a)!==signature(b)||
+      !validCorner(a.early_pos,b.early_pos)||
+      !validCorner(a.final_turn_pos,b.final_turn_pos))
+    return {status:'NON_CORNER_INPUT_MISMATCH',changed_runs:0};
+   if(a.early_pos!==b.early_pos||a.final_turn_pos!==b.final_turn_pos)changed++;
+  }
+ }
+ return {status:'MATCHED_SUPPORTING_RUNS',changed_runs:changed};
+}
 export function buildOptionalSaveLocalShadow({context,payload,now}={}){
  const baseline=extractOfficialSaveDraft(payload,'LOCAL');
  const race=context?.race;
@@ -91,10 +126,16 @@ export function buildOptionalSaveLocalShadow({context,payload,now}={}){
     surface:race?.conditions?.surface,distance:race?.conditions?.distance},
    baseline,comparison:context?.relative_condition_evidence
   });
-  if(valid(plain)&&['REORDERED','UNCHANGED'].includes(plain.status)){
+  const integrity=verifyCornerOnlySupportChange(
+   context?.relative_condition_evidence,selectedComparison);
+  if(integrity.status==='NON_CORNER_INPUT_MISMATCH'){
+   cornerImpact={...cornerImpact,status:'NON_CORNER_EVIDENCE_CHANGED'};
+  }else if(valid(plain)&&['REORDERED','UNCHANGED'].includes(plain.status)){
    const oldTop=plain.top5??[],newTop=result.top5??[];
    const oldIds=new Set(oldTop),newIds=new Set(newTop);
-   cornerImpact={status:'VERIFIED_SAME_DRAFT_AB_COMPARISON',
+   cornerImpact={status:integrity.changed_runs>0?
+     'VERIFIED_SAME_DRAFT_AB_COMPARISON':'CORNER_SOURCE_NO_MATCHED_SUPPORTING_RUN_CHANGE',
+    verified_changed_supporting_runs:integrity.changed_runs,
     normal_top5:[...oldTop],enriched_top5:[...newTop],
     changed_top5:oldTop.some((x,i)=>newTop[i]!==x),
     changed_any_rank:(plain.candidate_order??[]).some((x,i)=>result.candidate_order?.[i]!==x),
