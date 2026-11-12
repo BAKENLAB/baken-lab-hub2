@@ -510,3 +510,39 @@ test('LOCAL C4-tier podium form can rescue a boundary outsider; C3 cannot',()=>{
  mixed.race.class_name='3歳以上 C3-2 C4-1';
  assert.equal(calculate(mixed).status,'PRE_RACE_IDENTITY_OR_TIME_UNVERIFIED');
 });
+
+
+test('JRA G1 vs ordinary OP/listed or lower G2/G3 cannot count as same-class rescue',()=>{
+ const make=(pastClass)=>{
+  const x=fx();
+  x.race.class_name='GⅠ';
+  for(const e of x.comparison.runner_evidence)
+   for(const run of e.supporting_runs)run.class=pastClass;
+  return x;
+ };
+ for(const other of ['OP','オープン','リステッド','L','GⅡ','GIII','重賞']){
+  const r=calculate(make(other));
+  assert.equal(r.status,'UNCHANGED',other);
+  assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0,other);
+ }
+ for(const same of ['G1','GⅠ','GI']){
+  const r=calculate(make(same));
+  assert.equal(r.status,'REORDERED',same);
+  assert.deepEqual(r.top5,[1,2,3,4,6],same);
+ }
+});
+test('JRA exact G2, G3, listed and ordinary OP each retain their own tier',()=>{
+ for(const [target,matching,wrong] of [
+  ['GⅡ','G2','G1'],['GⅢ','GIII','GII'],
+  ['リステッド','L','OP'],['オープン','OP','L']
+ ]){
+  const make=c=>{
+   const x=fx();x.race.class_name=target;
+   for(const e of x.comparison.runner_evidence)
+    for(const h of e.supporting_runs)h.class=c;
+   return calculate(x);
+  };
+  assert.equal(make(matching).status,'REORDERED',target+' '+matching);
+  assert.equal(make(wrong).status,'UNCHANGED',target+' '+wrong);
+ }
+});
