@@ -1,0 +1,77 @@
+{
+  "audit_version": "ARCHIVE_EXPLORATORY_V1",
+  "generated_at_note": "Reproduced during Nov 13 2026 JST research; source queries and pure replay source are in this PR.",
+  "certification": "RETROSPECTIVE_ARCHIVE_UNVERIFIED_NOT_PRERACE",
+  "eligible_for_official_metrics": false,
+  "historical_source": "public.horse_runs, max race_date 2026-08-31 at inspection",
+  "current_race_course_source": "public.official_results.result.metadata, available after race",
+  "archived_runner_identity": "horse_name matching only; horse identifiers not independently verified",
+  "baseline_source": "public.official_predictions status FROZEN, full field rank",
+  "score_source": "research/local-archive-replay-v06.mjs invoking pure ABILITY_RELATIVE_V0_6 research evaluator",
+  "original_frozen_changed": false,
+  "scenarios": [
+    {
+      "race_date": "2026-11-11",
+      "frozen_local_races": 48,
+      "evaluable": 29,
+      "unchanged": 29,
+      "reordered": 0,
+      "skipped": 19,
+      "skip_reasons": {
+        "MODEL_REJECTED_PRE_RACE_IDENTITY_OR_TIME_UNVERIFIED": 18,
+        "INCOMPLETE_FROZEN_BASELINE": 1
+      },
+      "retrospective_top3_captured_before": 61,
+      "retrospective_top3_captured_after": 61,
+      "retrospective_newly_captured": 0,
+      "retrospective_lost_captured": 0
+    },
+    {
+      "race_date": "2026-11-12",
+      "frozen_local_races": 44,
+      "evaluable": 29,
+      "unchanged": 29,
+      "reordered": 0,
+      "skipped": 15,
+      "skip_reasons": {
+        "MODEL_REJECTED_PRE_RACE_IDENTITY_OR_TIME_UNVERIFIED": 15
+      },
+      "retrospective_top3_captured_before": 60,
+      "retrospective_top3_captured_after": 60,
+      "retrospective_newly_captured": 0,
+      "retrospective_lost_captured": 0
+    }
+  ],
+  "totals": {
+    "frozen_local_races": 92,
+    "evaluable": 58,
+    "unchanged": 58,
+    "reordered": 0,
+    "skipped": 34,
+    "retrospective_top3_captured_before": 121,
+    "retrospective_top3_captured_after": 121,
+    "retrospective_newly_captured": 0,
+    "retrospective_lost_captured": 0,
+    "certified_improvements": 0
+  },
+  "class_parser_fix": {
+    "previously_missed": "explicit C4-2/C4-3 in 門別",
+    "newly_accepted_example_races": [
+      "2026-11-11 門別3R",
+      "2026-11-11 門別4R",
+      "2026-11-11 門別5R"
+    ],
+    "newly_rejected_mixed_example": "C3-2 C4-1, B4-2~C3, B3B4-1",
+    "prior_31_to_new_29_races_on_2026_11_11": "3 explicit C4 races now evaluable, 5 mixed-grade races excluded; net -2 as intended",
+    "official_rank_adoption": false
+  },
+  "validation": {
+    "class_and_rank_unit_tests_passed": 50,
+    "archive_replay_unit_tests_passed": 5,
+    "retrospective_cohort_method": "entire saved LOCAL cohort for each fixed day, not selected by resulting finish",
+    "model_outcome_leakage": "official_results.finishers not passed to ranking evaluator; passed only to retrospective audit",
+    "stale_history_warning": "missing Sep-Nov 2026 results; not a real as-of certified preclaim snapshot"
+  },
+  "blocking_gap": "Dedicated private.lab_preclaim_evidence_snapshots_v1 had 0 rows in latest read-only inspection; authorized real pre-CLAIM evidence acquisition is required for certified rank-change evaluation.",
+  "next_step": "Use only the authorized server-side official pre-CLAIM workflow, verify pre-post timestamps and roster digest, then compare regular vs corner-enriched same-draft rankings and postrace outcomes. Do not bypass gate, mutate FROZEN, or deploy shadow as production."
+}
