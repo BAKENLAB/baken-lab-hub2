@@ -77,7 +77,32 @@ export function buildOptionalSaveLocalShadow({context,payload,now}={}){
   baseline,comparison:selectedComparison
  });
  if(!valid(result)||!['REORDERED','UNCHANGED'].includes(result.status))return null;
- return {baseline,preview:{...result,
+ // Direct A/B counterfactual, holding the SAME official rank draft fixed.
+ // A corner source is not proof the corners CHANGED any decision. Compare
+ // normal history with the enriched verified pre-CLAIM corner lane.
+ let cornerImpact={status:sourceIsCorner?'NORMAL_HISTORY_NOT_COMPARABLE':'NO_VERIFIED_PRECLAIM_CORNERS',
+  normal_top5:null,enriched_top5:result.top5??null,changed_top5:null,
+  changed_any_rank:null,new_top5_horse_numbers:[],lost_top5_horse_numbers:[]};
+ if(sourceIsCorner){
+  const plain=buildRelativeAbilityRankProposal({
+   race:{race_date:race?.race_date,post_time:race?.post_time,
+    observation_at:now,circuit:'LOCAL',track:race?.track,
+    race_name:race?.race_name,class_name:race?.conditions?.class_name,
+    surface:race?.conditions?.surface,distance:race?.conditions?.distance},
+   baseline,comparison:context?.relative_condition_evidence
+  });
+  if(valid(plain)&&['REORDERED','UNCHANGED'].includes(plain.status)){
+   const oldTop=plain.top5??[],newTop=result.top5??[];
+   const oldIds=new Set(oldTop),newIds=new Set(newTop);
+   cornerImpact={status:'VERIFIED_SAME_DRAFT_AB_COMPARISON',
+    normal_top5:[...oldTop],enriched_top5:[...newTop],
+    changed_top5:oldTop.some((x,i)=>newTop[i]!==x),
+    changed_any_rank:(plain.candidate_order??[]).some((x,i)=>result.candidate_order?.[i]!==x),
+    new_top5_horse_numbers:newTop.filter(x=>!oldIds.has(x)),
+    lost_top5_horse_numbers:oldTop.filter(x=>!newIds.has(x))};
+  }
+ }
+ return {baseline,preview:{...result,corner_rank_counterfactual:cornerImpact,
   // Do not claim official pre-CLAIM corner use when only ordinary history
   // was available. This records WHICH lane supplied the shadow evaluator.
   observed_corner_source:sourceIsCorner?
