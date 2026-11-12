@@ -1,0 +1,49 @@
+{
+  "audit": "JRA_HISTORIC_CLASS_DETAIL_LOSS_AND_REPAIR_RESEARCH",
+  "checked_date_jst": "2026-11-13",
+  "source": "Read-only production inspection: public.jra_live_runners.past_runs, private.jra_relative_condition_comparison_v1 SQL, current official_predictions.frozen_at",
+  "cohort": "2026-11-07 and 2026-11-08, five JRA races whose full live-runner set was last checked no later than original FROZEN",
+  "exact_live_field_races": 5,
+  "runners": 76,
+  "archived_prior_runs": 234,
+  "prior_runs_with_explicit_abbreviated_class_detail": 52,
+  "prior_runs_whose_race_class_text_lacks_that_tier": 52,
+  "condition_comparable_prior_runs_losing_matching_class_detail": 46,
+  "venues": {
+    "2026-11-08 京都12R": {
+      "course_matching_explicit_omitted_class_runs": 6,
+      "horses_affected": 6
+    },
+    "2026-11-08 東京12R": {
+      "course_matching_explicit_omitted_class_runs": 8,
+      "horses_affected": 6
+    },
+    "2026-11-08 福島10R": {
+      "course_matching_explicit_omitted_class_runs": 32,
+      "horses_affected": 13
+    }
+  },
+  "observed_root_cause": "Installed private.jra_relative_condition_comparison_v1 projects supporting_runs.class <- past_runs.race_class (which often equals a named race: WASJ3/桑園特別/いわき特別) while past_runs.race_class_detail contains its tier (2勝ク).",
+  "applied_prod_sql": false,
+  "staged_sql_file": "research/staged-jra-relative-condition-class-detail-v2.sql",
+  "research_rank_parser": "automation/relative-ability-rank-proposal.mjs",
+  "research_regression_tests": "research/relative-ability-rank-proposal.test.mjs",
+  "source_gate": "Conflicting explicit class and detail fail closed; ambiguous bare Open cannot be equated with a graded event.",
+  "research_replay_after_detail": {
+    "full_field_races": 5,
+    "shadow_top5_changes": 0,
+    "newly_captured_podium_positions": 0,
+    "lost_captured_podium_positions": 0,
+    "baseline_podium_captured": 11,
+    "shadow_podium_captured": 11,
+    "certified_uplift": 0
+  },
+  "limitations": [
+    "Current jra_live_runners rows remain mutable; last-source-checked timestamp is not an immutable capture snapshot.",
+    "This is a fixed historical replay, not a live pre-CLAIM pair nor actual production scoring.",
+    "JRA claimed-context installed SQL is unchanged. Stage code must NOT be reported as deployed.",
+    "No new official JRA graded-race source was independently verified; broad Open remains unidentified.",
+    "Never attribute a rank change to class detail without real pre-FROZEN source and full-field A/B comparison."
+  ],
+  "next_action": "After review, add class_detail to guarded claimed context (not core score) via approved migration, capture immutable official source, compare same-draft research ranks, then evaluate results only after post."
+}
