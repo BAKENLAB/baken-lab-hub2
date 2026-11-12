@@ -54,7 +54,7 @@ function level(x,track=null) {
   if(/リステッド|(?:^|[^A-Z0-9])L(?=$|[^A-Z0-9])/.test(s))
     return 'JRA_LISTED';
   if(/オープン|(?:^|[^A-Z0-9])OP(?=$|[^A-Z0-9])/i.test(s))
-    return 'JRA_OPEN';
+    return 'JRA_OPEN_UNSPECIFIED';
   // NAR class labels are usually Ｃ２四組, Ｃ３二３歳以上, Ｂ１, etc.
   // NFKC converts the alphabet/digit but keeps the Kanji. "C1 3歳以上"
   // becomes "C13歳以上" after whitespace removal, so that exact
@@ -97,7 +97,13 @@ function summarizeEvidence(row,race) {
       (f===1||(race.circuit==='LOCAL'?localClose:
        f<=3&&num(margin,0,0.5)));
     // Do not silently equate LOCAL class C3 across independent districts.
-    const aClass=!!targetClass&&!!cls&&cls===targetClass &&
+    // JRA's broad "オープン" label also covers many G2/G3 races.
+    // Without an explicit official grade, a historical OP is not proven
+    // to be the SAME tier; default to no same-class proof rather than
+    // manufacture comparable grade evidence from the broad label.
+    const openGradeUnknown=race.circuit==='JRA'&&
+      (targetClass==='JRA_OPEN_UNSPECIFIED'||cls==='JRA_OPEN_UNSPECIFIED');
+    const aClass=!openGradeUnknown&&!!targetClass&&!!cls&&cls===targetClass &&
       (race.circuit!=='LOCAL'||(key(race.track)&&key(h.track)===key(race.track)));
     if(aClass)sameClass++;
     // A verified podium FINISH is known even if LOCAL's margin is only to
