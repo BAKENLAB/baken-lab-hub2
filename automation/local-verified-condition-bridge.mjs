@@ -57,10 +57,16 @@ export function resolveLocalOfficialClassLiteral(name,track=null){
  }
  // Compact two-digit class+group tokens need a confirmed Tokai district.
  // A C29組 from Nagoya must not be read as C2 without its source venue.
- if(!venue&&/(?:^|[^A-Z0-9])[ABC][123][0-9]組/u.test(s))
+ if(!venue&&/(?:^|[^A-Z0-9])[ABC][1-4][0-9]組/u.test(s))
    return {status:'VENUE_REQUIRED_FOR_COMPACT_CLASS',class_label:null};
+ // Do not silently collapse two official groups into one: even whitespace
+ // has disappeared under NFKC normalization (e.g. C3-2 C4-1 -> C3-2C4-1).
+ const listedGrades=[...s.matchAll(/([ABC])([1-4])(?=$|[^0-9]|[23]歳以上)/gu)]
+   .map(m=>m[1]+m[2]);
+ if(new Set(listedGrades).size>1)
+   return {status:'AMBIGUOUS_CLASS',class_label:null};
  const matches=[];
- const re=/(?:^|[^A-Z0-9])(3歳)?([ABC])([123])(?=$|[^A-Z0-9]|[1-9]\d?組|[23]歳以上)/gu;
+ const re=/(?:^|[^A-Z0-9])(3歳)?([ABC])([1-4])(?=$|[^A-Z0-9]|[1-9]\d?組|[23]歳以上)/gu;
  for(const m of s.matchAll(re)){
    const label=(m[1]?'3歳':'')+m[2]+m[3];
    matches.push(label);
