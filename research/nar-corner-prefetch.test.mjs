@@ -105,3 +105,46 @@ test('horse names allow only typographic width and spacing normalization',async(
  assert.equal(out.linkedRunEvidence,2);
  assert.equal(out.sourceReports[0].identityRejected,0);
 });
+
+test('bounded 10 official reads cover 10 different current horses before a sixth recent page for the same horse',()=>{
+ const pageRace={...race,raceDate:'2026-11-13'};
+ const eligible=Array.from({length:10},(_,i)=>({
+  horseNo:i+1,horseName:'検証馬'+(i+1),
+  verifiedRecentRuns:Array.from({length:5},(_,j)=>({
+   ...past(i+1),raceDate:i===9?'2026-07-'+String(10-j).padStart(2,'0'):
+    '2026-11-'+String(10-j).padStart(2,'0'),
+   track:'園田',raceNo:i+1
+  }))
+ }));
+ const planned=planLocalPriorCornerFetches({targetRace:pageRace,
+  runners:eligible,maxPriorRaces:10});
+ assert.equal(planned.length,10);
+ const covered=new Set(planned.flatMap(job=>job.links.map(h=>h.horseNo)));
+ assert.equal(covered.size,10);
+ for(let i=1;i<=10;i++)assert.equal(covered.has(i),true,'horse '+i);
+ // A slower/archive-only horse is served before the second history from
+ // the other nine horses, despite having a much older result.
+ assert.equal(planned.at(-1).links[0].horseNo,10);
+});
+test('already observed profile corner fields still require official past-result verification',()=>{
+ const seen=structuredClone(runners);
+ seen[0].verifiedRecentRuns[0].earlyPos=2;
+ seen[0].verifiedRecentRuns[0].finalTurnPos=3;
+ seen[1].verifiedRecentRuns[0].earlyPos=4;
+ seen[1].verifiedRecentRuns[0].finalTurnPos=2;
+ const planned=planLocalPriorCornerFetches({targetRace:race,runners:seen});
+ assert.equal(planned.length,1);
+ assert.equal(planned[0].links.length,2);
+ assert.deepEqual(runners[0].verifiedRecentRuns[0],past(6));
+});
+test('shared official past race is one fetch but counts as evidence for two horses',()=>{
+ const prior=structuredClone(runners);
+ prior[0].verifiedRecentRuns.push({...past(6),
+  raceDate:'2026-11-06',raceNo:2});
+ prior[1].verifiedRecentRuns.push({...past(11),
+  raceDate:'2026-11-05',raceNo:2});
+ const first=planLocalPriorCornerFetches({
+  targetRace:race,runners:prior,maxPriorRaces:1});
+ assert.equal(first.length,1);
+ assert.equal(first[0].links.length,2);
+});
