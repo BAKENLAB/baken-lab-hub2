@@ -46,7 +46,11 @@ export function prepareHistoricalRaceReview({targetRace,runners,evidence}) {
     e.lap_splits.every(v=>Number.isFinite(v)&&v>0&&v<60)?
     [...e.lap_splits]:null;
   if(!positions&&!laps){excluded.push(reject('NO_VERIFIED_PACE_FACTS'));continue;}
-  rows.get(e.horse_no).push({past_race:prior,positions,laps,
+  const lap_lengths=Array.isArray(e.lap_lengths) && laps &&
+   e.lap_lengths.length===laps.length && e.lap_lengths.every(v=>Number.isInteger(v)&&v>0&&v<=400)?
+   [...e.lap_lengths]:null;
+  // Unknown segment lengths are not silently converted into 200m sections.
+  rows.get(e.horse_no).push({past_race:prior,positions,laps,lap_lengths,
    source:e.source,source_ref:e.source_ref,source_checked_at:e.source_checked_at});
  }
  const field=active.map(r=>({horse_no:r.horse_no,horse_name:r.horse_name,
