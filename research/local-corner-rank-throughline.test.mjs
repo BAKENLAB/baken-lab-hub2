@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {officialNarPastResultUrl} from '../automation/nar-prior-corners.mjs';
 import {buildLocalRelativeConditionComparison} from '../automation/local-relative-condition-comparison.mjs';
 import {buildLocalClaimedCornerShadow} from '../automation/local-claimed-corner-shadow.mjs';
+import {stageLocalCornerSnapshot,lookupLocalCornerSnapshot} from '../automation/local-corner-snapshot-handoff.mjs';
 import {buildOptionalSaveLocalShadow} from '../automation/optional-atomic-shadow-save.mjs';
 
 /**
@@ -33,6 +34,7 @@ function fixture(){
   return {horseNo:6,horseName:'検証馬6',horseRef,
    identityVerifiedBy:'OFFICIAL_HORSE_REF',pastRace,pastHorseNo:6,
    earlyPos:i===0?9:8,finalTurnPos:i===0?4:3,
+   corners:[{corner:1,position:i===0?9:8},{corner:4,position:i===0?4:3}],
    source:'NAR_OFFICIAL_PAST_RACE_RESULT',
    sourceRef:officialNarPastResultUrl(pastRace),
    sourceCheckedAt:'2026-11-08T07:50:00+09:00',
@@ -41,7 +43,7 @@ function fixture(){
  const packet={status:'PREFETCH_ONLY',raceDate:target.raceDate,
   raceTrack:target.track,raceNo:target.raceNo,
   claimStarted:false,saveAuthorized:false,marketUsed:false,
-  targetResultUsed:false,rankChanged:false,evidence};
+  targetResultUsed:false,rankChanged:false,linkedRunEvidence:2,evidence};
  const normal=buildLocalRelativeConditionComparison(compact,conditions,target.raceDate);
  const payload={runners:compact.map(r=>({horse_no:r.horse_no,horse_name:r.horse_name,
   rank:r.horse_no,status:'ACTIVE'}))};
@@ -120,4 +122,43 @@ test('official horse identity or past-result URL mismatch cannot make rank propo
   assert.equal(out.preview.status,'UNCHANGED');
   assert.deepEqual(out.preview.top5,[1,2,3,4,5]);
  }
+});
+
+
+test('official snapshot append-only store/read round-trip reaches research rank and rejects tampering',async()=>{
+ const fx=fixture(),before=structuredClone(fx),rows=[];
+ const official=fx.verified.map(v=>({horseNo:v.horse_no,horseName:v.horse_name,status:'ACTIVE',
+  verifiedRecentRuns:v.recent_runs.map(h=>({raceDate:h.race_date,track:h.track,raceNo:h.race_no,
+    pastHorseNo:h.horse_no,horseRef:h.horse_ref,identityVerifiedBy:'OFFICIAL_HORSE_REF',
+    source:'NAR_OFFICIAL_HISTORY'}))}));
+ const store={
+  async insertIfAbsent(r){rows.push({...structuredClone(r),captured_at:r.as_of});return{inserted:true};},
+  async findLatest(q){return rows.find(r=>r.circuit===q.circuit&&
+   r.race_date===q.race_date&&r.track===q.track&&r.race_no===q.race_no&&
+   r.source_kind===q.source_kind&&r.official_roster_digest===q.official_roster_digest&&
+   Date.parse(r.as_of)<=Date.parse(q.before))??null}
+ };
+ const rr={raceDate:target.raceDate,track:target.track,raceNo:target.raceNo,postTime:target.postTime};
+ const saved=await stageLocalCornerSnapshot({race:rr,officialRunners:official,packet:fx.packet,store,
+  clock:()=>Date.parse(asOf)});
+ assert.equal(saved.status,'STORED',JSON.stringify(saved));assert.equal(rows.length,1);
+ const packet=await lookupLocalCornerSnapshot({race:rr,officialRunners:official,store,
+  clock:()=>Date.parse(asOf)+60000});
+ assert.equal(packet.evidence.length,2);
+ const shadow=buildLocalClaimedCornerShadow({targetRace:target,verifiedRunners:fx.verified,
+  compactRunners:fx.compact,cornerPacket:packet,conditions,clock:()=>Date.parse(asOf)+60000});
+ assert.equal(shadow.applied_prior_runs,2);
+ fx.context.official_corner_shadow=shadow;
+ const result=predict(fx),delta=result.preview.corner_rank_counterfactual;
+ assert.deepEqual(result.preview.top5,[1,2,3,4,6]);
+ assert.equal(delta.status,'VERIFIED_SAME_DRAFT_AB_COMPARISON');
+ assert.equal(delta.verified_changed_supporting_runs,2);
+ const changed=structuredClone(official);changed[5].horseName='別の馬';
+ assert.equal(await lookupLocalCornerSnapshot({race:rr,officialRunners:changed,store,
+  clock:()=>Date.parse(asOf)+60000}),null);
+ rows[0].evidence.packet.evidence[0].earlyPos=1;
+ assert.equal(await lookupLocalCornerSnapshot({race:rr,officialRunners:official,store,
+  clock:()=>Date.parse(asOf)+60000}),null);
+ assert.deepEqual(fx.packet,before.packet);assert.deepEqual(fx.verified,before.verified);
+ assert.deepEqual(fx.compact,before.compact);
 });
