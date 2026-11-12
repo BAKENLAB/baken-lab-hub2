@@ -61,12 +61,15 @@ export function buildJraRecordedCornerResearchOverlay({
      Number(x.distance)===Number(run.distance)&&x.finish===run.finish&&
      x.early_pos===run.early_pos&&
      x.deep_status==='EXACT_CLAIM_LIVE_HISTORY_MATCH'&&
-     x.official_source_scope==='HISTORIC_JRA_RESULT_URL_RECORDED_NOT_REFETCHED');
+     x.official_source_scope==='HISTORIC_JRA_RESULT_URL_RECORDED_NOT_REFETCHED'&&
+     notCertified(x.historical_source_ref));
    // A JOIN with 2 possible histories is NOT evidence.
    if(matches.length>1)ambiguous++;
    const valid=matches.length===1?matches[0]:null;
    const cs=valid&&Array.isArray(valid.corner_positions)&&valid.corner_positions.length>=1&&
-     valid.corner_positions.length<=4&&valid.corner_positions.every(x=>number(x,1,24))?
+     valid.corner_positions.length<=4&&valid.corner_positions.every(x=>number(x,1,24))&&
+    (valid.early_pos==null||valid.corner_positions[0]===valid.early_pos)&&
+    (valid.final_turn_pos==null||valid.corner_positions.at(-1)===valid.final_turn_pos)?
      [...valid.corner_positions]:[];
    const last=valid&&typeof valid.final3f==='number'&&
      valid.final3f>=25&&valid.final3f<=65?valid.final3f:null;
@@ -74,7 +77,7 @@ export function buildJraRecordedCornerResearchOverlay({
    if(cs.length)withCorners++;
    if(last!==null)with3f++;
    const safe={
-    date,track:run.track??null,surface:run.surface,distance:run.distance,
+    date,track:valid?.track??run.track??null,surface:run.surface,distance:run.distance,
     class:run.class??null,finish:run.finish,margin:run.margin??null,
     early_pos:run.early_pos??null,
     final_turn_pos:cs.length?cs.at(-1):null,corner_positions:cs,
@@ -100,5 +103,6 @@ export function buildJraRecordedCornerResearchOverlay({
 }
 function notCertified(ref){
  // Only report that a prior source URL existed. Do not publish URL or raw data.
- return typeof ref==='string'&&ref.startsWith('https://www.jra.go.jp/JRADB/accessS.html?');
+ return typeof ref==='string'&&
+  /^https:\/\/www\.jra\.go\.jp\/JRADB\/accessS\.html\?CNAME=pw[A-Za-z0-9/]{10,100}$/.test(ref);
 }
