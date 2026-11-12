@@ -565,3 +565,41 @@ test('coarse JRA Open class cannot masquerade as an identical graded/non-graded 
   for(const run of row.supporting_runs)run.class='GII';
  assert.equal(calculate(graded).status,'REORDERED');
 });
+
+
+test('named JRA special races use distinct official 2勝ク detail to recover same-tier evidence',()=>{
+ const x=fx();
+ x.race.class_name='2勝クラス';
+ for(const row of x.comparison.runner_evidence)
+  for(const h of row.supporting_runs){
+   h.class='WASJ3';h.class_detail='2勝ク';
+  }
+ const fixed=calculate(x);
+ assert.equal(fixed.status,'REORDERED');
+ assert.deepEqual(fixed.top5,[1,2,3,4,6]);
+ assert.equal(fixed.elected_challenger.horse_no,6);
+ assert.equal(fixed.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,2);
+ // Demonstrate the original missing-detail path remains non-certifying.
+ for(const row of x.comparison.runner_evidence)
+  for(const h of row.supporting_runs)delete h.class_detail;
+ assert.equal(calculate(x).status,'UNCHANGED');
+});
+test('conflicting JRA named class and explicit detail reject same-class promotion',()=>{
+ const x=fx();
+ x.race.class_name='2勝クラス';
+ for(const row of x.comparison.runner_evidence)
+  for(const h of row.supporting_runs){
+   h.class='3勝クラス';h.class_detail='2勝ク';
+  }
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
+});
+test('JRA bare graded/Open/unknown detail cannot be assigned to 2勝',()=>{
+ const x=fx();x.race.class_name='2勝クラス';
+ for(const row of x.comparison.runner_evidence)
+  for(const h of row.supporting_runs){
+   h.class='桑園特別';h.class_detail='重賞';
+  }
+ assert.equal(calculate(x).status,'UNCHANGED');
+});
