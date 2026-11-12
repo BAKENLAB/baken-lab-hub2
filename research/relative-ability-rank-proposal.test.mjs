@@ -481,3 +481,32 @@ test('LOCAL late-corner advance cannot qualify in special composition or differe
  x.comparison.runner_evidence[5].supporting_runs[1].class='Ｃ３二組';
  assert.equal(calculate(x).status,'UNCHANGED');
 });
+
+test('LOCAL C4-tier podium form can rescue a boundary outsider; C3 cannot',()=>{
+ const make=()=>{
+  const x=fx();x.race.circuit='LOCAL';x.race.track='門別';
+  x.race.class_name='3歳以上 C4-2';x.race.race_name='3歳以上 C4-2';
+  delete x.comparison.source_scope;
+  x.comparison.data_scope='ALREADY_OFFICIALLY_VALIDATED_LOCAL_CLAIMED_HISTORY';
+  for(const row of x.comparison.runner_evidence)
+   for(const run of row.supporting_runs){
+    run.track='門別';run.class='C4-3';
+    if(run.finish===2){
+     run.margin_unit='LENGTHS_TO_WINNER';
+     run.margin_basis='NAR_SECOND_PLACE_PRECEDING_IS_WINNER';
+    }
+   }
+  return x;
+ };
+ const yes=calculate(make());
+ assert.equal(yes.status,'REORDERED');
+ assert.deepEqual(yes.top5,[1,2,3,4,6]);
+ assert.equal(yes.proof_by_horse.find(h=>h.horse_no===6).target_class_status,'LOCAL_C4');
+ const wrong=make();
+ for(const row of wrong.comparison.runner_evidence)
+  for(const run of row.supporting_runs)run.class='C3-2';
+ assert.equal(calculate(wrong).status,'UNCHANGED');
+ const mixed=make();mixed.race.race_name='3歳以上 C3-2 C4-1';
+ mixed.race.class_name='3歳以上 C3-2 C4-1';
+ assert.equal(calculate(mixed).status,'PRE_RACE_IDENTITY_OR_TIME_UNVERIFIED');
+});
