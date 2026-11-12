@@ -30,3 +30,19 @@ for(const circuit of ['JRA','LOCAL']){
 test('invalid duplicate field rejected',()=>{
  assert.throws(()=>review({circuit:'JRA',runners:[{horse_no:1,history:[]},{horse_no:1,history:[]}]}),/INVALID/);
 });
+
+for(const circuit of ['JRA','LOCAL']){
+ test(circuit+' rejects overlapping 3-split windows rather than inventing pace',()=>{
+  const r=review(packet(circuit,[h({early_pos:8,final_turn_pos:3},[11,12,13],'official')]));
+  assert.equal(r.context_supported_horses,0);
+  assert.equal(r.runners[0].historical_races[0].field_pace_pattern,null);
+  assert.equal(r.runners[0].historical_races[0].hypothesis,'NO_CAUSAL_CLAIM');
+ });
+ test(circuit+' rejects mixed 100m/200m split lengths for raw 600m comparison',()=>{
+  const mixed={...h({early_pos:8,final_turn_pos:3},[7,12,12,12,12,12,12,12,12],'official'),
+   lap_lengths:[100,200,200,200,200,200,200,200,200]};
+  const r=review(packet(circuit,[mixed]));
+  assert.equal(r.context_supported_horses,0);
+  assert.equal(r.runners[0].historical_races[0].field_pace_pattern,null);
+ });
+}
