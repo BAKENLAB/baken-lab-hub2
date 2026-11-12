@@ -143,3 +143,15 @@ test('NAR third-place neck and distant numerical lengths never become close-to-w
  assert.equal(p.status,'UNCHANGED');
  assert.equal(p.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
 });
+
+test('official 門別 C4 is a distinct tier and mixed C3/C4/B3B4 is never a single class',()=>{
+ assert.deepEqual(resolveLocalOfficialClassLiteral('3歳以上 C4-2','門別'),
+  {status:'OFFICIAL_CLASS_LITERAL',class_label:'C4'});
+ assert.deepEqual(resolveLocalOfficialClassLiteral('3歳以上 C4-3','門別'),
+  {status:'OFFICIAL_CLASS_LITERAL',class_label:'C4'});
+ for(const label of ['3歳以上 C3-2 C4-1','B4-2~C3','B3B4-1']){
+  assert.equal(resolveLocalOfficialClassLiteral(label,'門別').status,'AMBIGUOUS_CLASS');
+ }
+ assert.equal(resolveLocalOfficialClassLiteral('B1B2 3歳以上','園田').status,'AMBIGUOUS_CLASS');
+ assert.equal(resolveLocalOfficialClassLiteral('C23組','名古屋').class_label,'C23');
+});
