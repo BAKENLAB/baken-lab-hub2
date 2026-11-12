@@ -40,7 +40,9 @@ function level(x,track=null) {
   }
   const s=key(x);
   if(/(?:^|[^0-9])未勝利/.test(s))return 'MAIDEN';
-  const v=s.match(/([123])勝クラス/);
+  // JRA's official past-run class detail abbreviates e.g. "2勝ク".
+  // The detailed tier is separate from named races like "WASJ3".
+  const v=s.match(/(?:^|[^0-9])([123])勝ク(?:ラス)?(?=$|[^A-Za-z0-9])/);
   if(v)return 'JRA_'+v[1];
   // Official JRA graded stakes are NOT interchangeable with an ordinary OP,
   // listed stakes, or one another. NFKC maps Ⅰ/Ⅱ/Ⅲ to I/II/III.
@@ -83,7 +85,12 @@ function summarizeEvidence(row,race) {
     if(surface!==race.surface||!integer(distance,800,3600)||
       Math.abs(distance-race.distance)>200)continue;
     similar++;
-    const cls=level(h.class??h.race_class??h.class_name??null,h.track??null);
+    const namedClass=level(h.class??h.race_class??h.class_name??null,h.track??null);
+    const detailedClass=level(h.class_detail??h.race_class_detail??null,h.track??null);
+    // A known detailed official tier can rescue a named-race history, but
+    // contradictory explicit classes fail CLOSED, never silently upgraded.
+    const cls=detailedClass&&namedClass&&detailedClass!==namedClass?
+      null:(detailedClass??namedClass);
     const f=h.finish, margin=h.margin;
     // JRA has audited winner-relative seconds. NAR generally records
     // a gap to the PRECEDING finisher in horse lengths. Only an explicitly
