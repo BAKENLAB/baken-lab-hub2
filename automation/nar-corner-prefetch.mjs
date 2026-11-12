@@ -40,8 +40,9 @@ export function planLocalPriorCornerFetches({targetRace,runners,maxPriorRaces=12
       no(past.pastHorseNo)===null||no(past.raceNo)===null ||
       !past.track||!validOfficialHorseRef(past.horseRef) ||
       !['OFFICIAL_HORSE_REF','OFFICIAL_RACE_HORSE_NO'].includes(past.identityVerifiedBy) ||
-      !['NAR_OFFICIAL_RESCUE','NAR_OFFICIAL_HISTORY'].includes(past.source)||
-      past.earlyPos!=null && past.finalTurnPos!=null) continue;
+      !['NAR_OFFICIAL_RESCUE','NAR_OFFICIAL_HISTORY'].includes(past.source)) continue;
+   // Prior horse-profile corners do not substitute for independent official
+   // RACE-result corner witnesses, so they remain eligible for verification.
    const race={raceDate:past.raceDate,track:past.track,raceNo:Number(past.raceNo)};
    const k=key(race);
    if(!jobs.has(k))jobs.set(k,{priorRace:race,links:[]});
@@ -53,8 +54,30 @@ export function planLocalPriorCornerFetches({targetRace,runners,maxPriorRaces=12
    });
   }
  }
- return [...jobs.values()].sort((a,b)=>b.priorRace.raceDate.localeCompare(a.priorRace.raceDate))
-   .slice(0,maxPriorRaces);
+ // Prioritize per-horse official witness COVERAGE over redundant
+ // newer races for horses already served. Share one result page among any
+ // current horses who ran in it, and prefer newest when coverage ties.
+ const remaining=[...jobs.values()].sort((a,b)=>
+   b.priorRace.raceDate.localeCompare(a.priorRace.raceDate)||
+   b.priorRace.raceNo-a.priorRace.raceNo||
+   a.priorRace.track.localeCompare(b.priorRace.track));
+ const covered=new Map(),selected=[];
+ let tier=0;
+ while(remaining.length&&selected.length<maxPriorRaces){
+   const gain=work=>new Set(work.links.map(h=>h.horseNo)
+     .filter(h=>(covered.get(h)||0)<=tier)).size;
+   let best=-1,bestGain=0;
+   for(let i=0;i<remaining.length;i++){
+     const n=gain(remaining[i]);
+     if(n>bestGain){bestGain=n;best=i;}
+   }
+   if(best===-1){tier++;continue;}
+   const [chosen]=remaining.splice(best,1);
+   selected.push(chosen);
+   for(const horse of new Set(chosen.links.map(x=>x.horseNo)))
+     covered.set(horse,(covered.get(horse)||0)+1);
+ }
+ return selected;
 }
 
 async function readWithin(fn,timeoutMs){
