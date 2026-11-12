@@ -19,10 +19,11 @@ export function reviewHistoricalPaceCausality(packet) {
      !Number.isInteger(h.past_race.race_no))continue;
    const id=key(h),prev=races.get(id)??{positions:null,laps:null,source_refs:[]};
    const p=h.positions,l=h.laps;
+   if(Array.isArray(h.lap_lengths))prev.lap_lengths=h.lap_lengths;
    if(p&&Number.isInteger(p.early_pos)&&p.early_pos>0&&
      Number.isInteger(p.final_turn_pos)&&p.final_turn_pos>0)
      prev.positions=p;
-   if(Array.isArray(l)&&l.length>=3&&l.every(x=>valid(x)&&x<60))
+   if(Array.isArray(l)&&l.length>=6&&l.every(x=>valid(x)&&x<60))
      prev.laps=l;
    if(typeof h.source_ref==='string')prev.source_refs.push(h.source_ref);
    races.set(id,prev);
@@ -31,7 +32,14 @@ export function reviewHistoricalPaceCausality(packet) {
    const pos=x.positions;
    const movement=pos?pos.early_pos-pos.final_turn_pos:null;
    // Splits are whole-field pace, never the horse's individual sectionals.
-   const first=x.laps?.slice(0,3),last=x.laps?.slice(-3);
+   // Three or fewer splits would overlap the compared windows; require six.
+   // A verified split-length array is needed for unequal sections (e.g. 1700m
+   // with a 100m first segment). Without it, the pace hypothesis is withheld.
+   const segmentLengths=x.lap_lengths;
+   const equalLengths=!segmentLengths || (Array.isArray(segmentLengths) &&
+     segmentLengths.length===x.laps?.length && segmentLengths.every(n=>n===200));
+   const first=x.laps?.length>=6 && equalLengths?x.laps.slice(0,3):null;
+   const last=x.laps?.length>=6 && equalLengths?x.laps.slice(-3):null;
    const early=first?first.reduce((a,b)=>a+b,0):null;
    const late=last?last.reduce((a,b)=>a+b,0):null;
    const pattern=early!==null&&late!==null?
