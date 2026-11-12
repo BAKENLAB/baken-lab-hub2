@@ -387,7 +387,9 @@ export function buildRelativeAbilityRankProposal({race,baseline,comparison}={}) 
     target_class_evidence:race.circuit==='LOCAL'?
       {status:targetClassResolution.status,class_label:verifiedTargetClass,
        tier_comparison:'SAME_NAR_VENUE_AND_EXPLICIT_TIER_NOT_PROVEN_OPPONENT_EQUIVALENCE'}:
-      {status:'JRA_PROVIDED_CLASS',class_label:verifiedTargetClass},
+      {status:level(verifiedTargetClass)==='JRA_OPEN_UNSPECIFIED'?
+         'JRA_OPEN_GRADE_UNVERIFIED':'JRA_PROVIDED_CLASS',
+       class_label:verifiedTargetClass},
     scoring_rule:'V0_6_LOCAL_VERIFIED_POSITION_GAIN_AND_FRONT_PATTERN_SHADOW_ONLY'
   });
 }
