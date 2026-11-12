@@ -1,0 +1,174 @@
+{
+  "purpose": "RETROSPECTIVE_DIAGNOSTIC_ONLY_NOT_CERTIFIED_OR_PRODUCTION",
+  "generated_from": "Read-only Supabase public.official_predictions FROZEN + current mutable public.jra_live_runners.past_runs + public.official_results",
+  "cohort_dates": [
+    "2026-11-07",
+    "2026-11-08"
+  ],
+  "cohort_selection": "The only five races out of 57 with the full current live history last-source-checked no later than original FROZEN.",
+  "as_of_strength": "SOURCE_CHECK_TIMESTAMP_COMPATIBLE_ONLY_CURRENT_MUTABLE_COPY_NOT_IMMUTABLE_EVIDENCE",
+  "historical_refetch_verified": false,
+  "official_claim_provenance": false,
+  "evaluator": "research ABILITY_RELATIVE_V0_6, scorer compatibility scope injected offline; not a genuine claimed-context token",
+  "target_result_used_in_evaluator": false,
+  "betting_or_public_prediction_effect": false,
+  "production_rank_effect": false,
+  "full_field_races": 5,
+  "full_field_runners": 76,
+  "results": [
+    {
+      "race_date": "2026-11-07",
+      "track": "福島",
+      "race_no": 1,
+      "runner_count": 15,
+      "baseline_top5": [
+        7,
+        3,
+        15,
+        2,
+        8
+      ],
+      "shadow_top5": [
+        7,
+        3,
+        15,
+        2,
+        8
+      ],
+      "actual_podium": [
+        4,
+        2,
+        8
+      ],
+      "captured_before": 2,
+      "captured_after": 2,
+      "shadow_status": "UNCHANGED"
+    },
+    {
+      "race_date": "2026-11-08",
+      "track": "京都",
+      "race_no": 12,
+      "runner_count": 18,
+      "baseline_top5": [
+        5,
+        16,
+        14,
+        18,
+        7
+      ],
+      "shadow_top5": [
+        5,
+        16,
+        14,
+        18,
+        7
+      ],
+      "actual_podium": [
+        12,
+        18,
+        5
+      ],
+      "captured_before": 2,
+      "captured_after": 2,
+      "shadow_status": "UNCHANGED"
+    },
+    {
+      "race_date": "2026-11-08",
+      "track": "東京",
+      "race_no": 12,
+      "runner_count": 12,
+      "baseline_top5": [
+        3,
+        5,
+        4,
+        1,
+        9
+      ],
+      "shadow_top5": [
+        3,
+        5,
+        4,
+        1,
+        9
+      ],
+      "actual_podium": [
+        4,
+        7,
+        8
+      ],
+      "captured_before": 1,
+      "captured_after": 1,
+      "shadow_status": "UNCHANGED"
+    },
+    {
+      "race_date": "2026-11-08",
+      "track": "福島",
+      "race_no": 1,
+      "runner_count": 16,
+      "baseline_top5": [
+        5,
+        4,
+        3,
+        15,
+        7
+      ],
+      "shadow_top5": [
+        5,
+        4,
+        3,
+        15,
+        7
+      ],
+      "actual_podium": [
+        5,
+        3,
+        4
+      ],
+      "captured_before": 3,
+      "captured_after": 3,
+      "shadow_status": "UNCHANGED"
+    },
+    {
+      "race_date": "2026-11-08",
+      "track": "福島",
+      "race_no": 10,
+      "runner_count": 15,
+      "baseline_top5": [
+        1,
+        6,
+        9,
+        3,
+        15
+      ],
+      "shadow_top5": [
+        1,
+        6,
+        9,
+        3,
+        15
+      ],
+      "actual_podium": [
+        6,
+        1,
+        3
+      ],
+      "captured_before": 3,
+      "captured_after": 3,
+      "shadow_status": "UNCHANGED"
+    }
+  ],
+  "summary": {
+    "races": 5,
+    "podium_positions_possible": 15,
+    "podium_captured_baseline": 11,
+    "podium_captured_shadow": 11,
+    "winner_captured_baseline": 3,
+    "winner_captured_shadow": 3,
+    "races_with_changed_top5": 0,
+    "retrospective_newly_captured": 0,
+    "retrospective_lost_captured": 0,
+    "certified_lift": 0
+  },
+  "caution": "Never report 11/15 as model improvement: unchanged old/new, selection of five is source-availability-biased, current live history mutable, and no independently sealed prior results before original FROZEN.",
+  "next_gate": "Capture immutable source-verified JRA official prior result witnesses under live preclaim before next FROZEN, then run same-draft full-field paired shadow, compare with official outcomes after the post."
+}
