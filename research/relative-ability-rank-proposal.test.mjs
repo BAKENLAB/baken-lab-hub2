@@ -557,6 +557,7 @@ test('coarse JRA Open class cannot masquerade as an identical graded/non-graded 
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).target_class_status,
   'JRA_OPEN_UNSPECIFIED');
  assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
+ assert.equal(r.target_class_evidence.status,'JRA_OPEN_GRADE_UNVERIFIED');
  // A specific official class G2 plus corresponding GII history *is*
  // interpretable, even while a generic Open class is not.
  const graded=fx();graded.race.class_name='GⅡ';
