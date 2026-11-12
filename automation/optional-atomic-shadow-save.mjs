@@ -128,7 +128,8 @@ export function buildOptionalSaveLocalShadow({context,payload,now}={}){
   });
   const integrity=verifyCornerOnlySupportChange(
    context?.relative_condition_evidence,selectedComparison);
-  if(integrity.status==='NON_CORNER_INPUT_MISMATCH'){
+  if(context?.relative_condition_evidence &&
+     integrity.status==='NON_CORNER_INPUT_MISMATCH'){
    cornerImpact={...cornerImpact,status:'NON_CORNER_EVIDENCE_CHANGED'};
   }else if(valid(plain)&&['REORDERED','UNCHANGED'].includes(plain.status)){
    const oldTop=plain.top5??[],newTop=result.top5??[];
