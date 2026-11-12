@@ -258,3 +258,43 @@ test('missing ordinary history cannot manufacture a measured corner uplift',()=>
  assert.equal(out.preview.corner_rank_counterfactual.changed_top5,null);
  assert.deepEqual(out.preview.corner_rank_counterfactual.new_top5_horse_numbers,[]);
 });
+
+test('corner counterfactual refuses attribution if class, finish, or distance changed too',()=>{
+ for(const mutation of ['class','finish','distance']){
+  const ctx=local(),p=payload();
+  ctx.race.track='高知';ctx.race.conditions.class_name='Ｃ２四組';
+  for(const row of ctx.relative_condition_evidence.runner_evidence)
+   for(const h of row.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+  const corner=structuredClone(ctx.relative_condition_evidence);
+  corner.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
+  corner.corner_enriched_prior_runs=1;corner.runner_count=field.length;corner.score_effect=false;
+  const run=corner.runner_evidence[5].supporting_runs[0];
+  run.early_pos=2;
+  if(mutation==='class')run.class='Ｃ３一組';
+  if(mutation==='finish')run.finish=3;
+  if(mutation==='distance')run.distance=1300;
+  ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',
+   applied_prior_runs:1,use_for_rank:false,use_for_save_gate:false,
+   research_relative_condition_evidence:corner};
+  const output=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+  assert.ok(output);
+  assert.equal(output.preview.corner_rank_counterfactual.status,'NON_CORNER_EVIDENCE_CHANGED');
+  assert.equal(output.preview.corner_rank_counterfactual.changed_top5,null);
+ }
+});
+test('a verified source with no changed comparable corner fields earns no corner uplift credit',()=>{
+ const ctx=local(),p=payload();ctx.race.track='高知';ctx.race.conditions.class_name='Ｃ２四組';
+ for(const row of ctx.relative_condition_evidence.runner_evidence)
+  for(const h of row.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+ const untouched=structuredClone(ctx.relative_condition_evidence);
+ untouched.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
+ untouched.corner_enriched_prior_runs=1;untouched.runner_count=field.length;
+ untouched.score_effect=false;
+ ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',applied_prior_runs:1,
+  use_for_rank:false,use_for_save_gate:false,research_relative_condition_evidence:untouched};
+ const res=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(res);
+ assert.equal(res.preview.corner_rank_counterfactual.status,'CORNER_SOURCE_NO_MATCHED_SUPPORTING_RUN_CHANGE');
+ assert.equal(res.preview.corner_rank_counterfactual.verified_changed_supporting_runs,0);
+ assert.equal(res.preview.corner_rank_counterfactual.changed_top5,false);
+});
