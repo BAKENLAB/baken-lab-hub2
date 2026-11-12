@@ -56,21 +56,30 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
  const courseMatch=norm(h.track)===norm(conditions.track);
  const distanceDelta=Number.isInteger(h.distance)?
    Math.abs(h.distance-conditions.distance):null;
- const cls=norm(h.class),sameClass=!conditions.specialSelection&&courseMatch&&cls&&
-   conditions.target_class!==null&&cls===norm(conditions.target_class);
+ // Official grade can be recorded as C2一3歳以上 or C4-3 rather than C2/C4.
+ // The venue-aware parser is required, not raw class-string equality.
+ const priorClass=resolveLocalOfficialClassLiteral(h.class??null,h.track);
+ const cls=priorClass.class_label;
+ const priorSpecialSelection=/特別編成|記者選抜|ファイナル/.test(
+   norm(h.race_name)+' '+norm(h.class));
+ const sameClass=!conditions.specialSelection&&!priorSpecialSelection&&
+   courseMatch&&priorClass.status!=='AMBIGUOUS_CLASS'&&!!cls&&
+   conditions.target_class!==null&&cls===conditions.target_class;
  // Even JRA/other-NAR history stays in the evaluation pool.
  // Different venue and distance are NEVER interpreted as poor ability.
  const contextBand=!surfaceMatch?'SURFACE_CHANGED_OR_UNKNOWN':
    !courseMatch?'OTHER_TRACK':
    distanceDelta!==null&&distanceDelta>300?'LONG_DISTANCE_CHANGE':
-   conditions.specialSelection?'SPECIAL_SELECTION_CLASS_COMPARABILITY_UNVERIFIED':
+   conditions.specialSelection||priorSpecialSelection?
+     'SPECIAL_SELECTION_CLASS_COMPARABILITY_UNVERIFIED':
    !sameClass?'CLASS_OR_GROUP_UNVERIFIED':'SAME_OFFICIAL_CLASS';
  const freshness=days<=45?6:days<=120?4:days<=240?2:days<=540?1:0;
  const matchBonus=(surfaceMatch?3:0)+(courseMatch?3:0)+
    (distanceDelta!==null&&distanceDelta<=100?5:
     distanceDelta!==null&&distanceDelta<=300?2:0)+(sameClass?3:0);
- const classUncertainty=conditions.specialSelection||conditions.target_class===null||
-   cls===''||(!courseMatch&&cls!=='');
+ const classUncertainty=conditions.specialSelection||priorSpecialSelection||
+   conditions.target_class===null||!cls||
+   priorClass.status==='AMBIGUOUS_CLASS'||(!courseMatch&&!!cls);
  // Positive run can still be useful after a change. Less directly
  // transferable evidence receives a SMALL bonus, NOT a negative.
  const runSignal=rankWeight(h.finish)+freshness+matchBonus;
@@ -78,8 +87,11 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
   evidence_ref:h.evidence_ref,history_date:h.race_date,age_days:days,
   finish:h.finish,track:h.track,distance:h.distance,
   surface:h.surface??null,class_literal:h.class??null,
+  normalized_historical_class:cls??null,
+  historical_class_status:priorClass.status,
   context_band:contextBand,class_equivalence_unverified:Boolean(classUncertainty),
-  special_selection_class_match_suppressed:conditions.specialSelection===true,
+  special_selection_class_match_suppressed:conditions.specialSelection===true||
+    priorSpecialSelection,
   distance_delta:distanceDelta,
   score_signal:runSignal,
   finish_proof:h.finish<=3?'WIN_OR_PODIUM':'NO_PODIUM',
