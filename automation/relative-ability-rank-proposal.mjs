@@ -42,7 +42,19 @@ function level(x,track=null) {
   if(/(?:^|[^0-9])未勝利/.test(s))return 'MAIDEN';
   const v=s.match(/([123])勝クラス/);
   if(v)return 'JRA_'+v[1];
-  if(/(?:G|GⅠ|GⅡ|GⅢ|OP|オープン|重賞)/i.test(s))return 'JRA_OPEN';
+  // Official JRA graded stakes are NOT interchangeable with an ordinary OP,
+  // listed stakes, or one another. NFKC maps Ⅰ/Ⅱ/Ⅲ to I/II/III.
+  // A generic "重賞" without an exact grade is NOT sufficient evidence.
+  const grade=s.match(/(?:^|[^A-Z0-9])G(III|II|I|[123])(?=$|[^A-Z0-9])/i);
+  if(grade){
+    const g=grade[1].toUpperCase();
+    return g==='III'||g==='3'?'JRA_G3':
+      g==='II'||g==='2'?'JRA_G2':'JRA_G1';
+  }
+  if(/リステッド|(?:^|[^A-Z0-9])L(?=$|[^A-Z0-9])/.test(s))
+    return 'JRA_LISTED';
+  if(/オープン|(?:^|[^A-Z0-9])OP(?=$|[^A-Z0-9])/i.test(s))
+    return 'JRA_OPEN';
   // NAR class labels are usually Ｃ２四組, Ｃ３二３歳以上, Ｂ１, etc.
   // NFKC converts the alphabet/digit but keeps the Kanji. "C1 3歳以上"
   // becomes "C13歳以上" after whitespace removal, so that exact
