@@ -49,9 +49,9 @@ function level(x,track=null) {
   // age-suffix sequence is explicitly permitted; arbitrary C13 is not.
   // Three-year-old-only "３歳Ｃ２" is NOT adult C2.
   if(/^[ABC][123][・/][ABC][123]/.test(s))return null;
-  const ageThree=s.match(/^3歳([ABC])([123])(?=$|[^0-9A-Za-z])/);
+  const ageThree=s.match(/^3歳([ABC])([1-4])(?=$|[^0-9A-Za-z])/);
   if(ageThree)return 'LOCAL_AGE3_'+ageThree[1]+ageThree[2];
-  const local=s.match(/^([ABC])([123])(?=$|[^0-9A-Za-z]|[23]歳以上)/);
+  const local=s.match(/^([ABC])([1-4])(?=$|[^0-9A-Za-z]|[23]歳以上)/);
   if(local)return 'LOCAL_'+local[1]+local[2];
   return null;
 }
