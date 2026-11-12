@@ -193,3 +193,68 @@ test('optional LOCAL proposal accurately tags verified corner source vs normal h
  assert.equal(rejected.preview.verified_preclaim_corner_applied_runs,0);
  assert.deepEqual(p,old);
 });
+
+
+test('same-draft A/B identifies an actual NEW top5 horse caused by official corners',()=>{
+ const ctx=local(),p=payload();
+ ctx.race.track='高知';ctx.race.conditions.class_name='Ｃ２四組';ctx.race.conditions.surface='芝';
+ for(const entry of ctx.relative_condition_evidence.runner_evidence)
+  for(const h of entry.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+ const fifth=ctx.relative_condition_evidence.runner_evidence[4];
+ for(const h of fifth.supporting_runs){h.finish=9;h.margin=null;h.margin_basis='UNVERIFIED_WINNER_GAP';}
+ const sixth=ctx.relative_condition_evidence.runner_evidence[5];
+ for(const h of sixth.supporting_runs){h.finish=3;h.margin=null;h.margin_basis='UNVERIFIED_WINNER_GAP';delete h.early_pos;delete h.final_turn_pos;}
+ const before=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.equal(before.preview.corner_rank_counterfactual.status,'NO_VERIFIED_PRECLAIM_CORNERS');
+ assert.equal(before.preview.status,'UNCHANGED');
+ const enhanced=structuredClone(ctx.relative_condition_evidence);
+ for(const h of enhanced.runner_evidence[5].supporting_runs){h.early_pos=2;h.final_turn_pos=2;}
+ enhanced.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
+ enhanced.corner_enriched_prior_runs=2;enhanced.runner_count=field.length;enhanced.score_effect=false;
+ ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',applied_prior_runs:2,
+  use_for_rank:false,use_for_save_gate:false,research_relative_condition_evidence:enhanced};
+ const original=structuredClone(p),after=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.equal(after.preview.status,'REORDERED');
+ const proof=after.preview.corner_rank_counterfactual;
+ assert.equal(proof.status,'VERIFIED_SAME_DRAFT_AB_COMPARISON');
+ assert.deepEqual(proof.normal_top5,[1,2,3,4,5]);
+ assert.deepEqual(proof.enriched_top5,[1,2,3,4,6]);
+ assert.equal(proof.changed_top5,true);
+ assert.deepEqual(proof.new_top5_horse_numbers,[6]);
+ assert.deepEqual(proof.lost_top5_horse_numbers,[5]);
+ assert.equal(after.preview.production_rank_effect,false);
+ assert.deepEqual(p,original);
+});
+test('preclaim corners do NOT get credit for an identical rank ordering',()=>{
+ const ctx=local(),p=payload();ctx.race.track='高知';ctx.race.conditions.class_name='Ｃ２四組';
+ for(const entry of ctx.relative_condition_evidence.runner_evidence)
+  for(const h of entry.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+ const enriched=structuredClone(ctx.relative_condition_evidence);
+ enriched.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
+ enriched.corner_enriched_prior_runs=1;enriched.runner_count=field.length;enriched.score_effect=false;
+ enriched.runner_evidence[5].supporting_runs[0].early_pos=1;
+ ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',applied_prior_runs:1,
+  use_for_rank:false,use_for_save_gate:false,research_relative_condition_evidence:enriched};
+ const result=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(result);assert.equal(result.preview.observed_corner_source,'VERIFIED_PRECLAIM_CORNER_SHADOW');
+ assert.equal(result.preview.corner_rank_counterfactual.status,'VERIFIED_SAME_DRAFT_AB_COMPARISON');
+ assert.equal(result.preview.corner_rank_counterfactual.changed_top5,false);
+ assert.deepEqual(result.preview.corner_rank_counterfactual.new_top5_horse_numbers,[]);
+});
+test('missing ordinary history cannot manufacture a measured corner uplift',()=>{
+ const ctx=local(),p=payload();
+ ctx.race.track='高知';ctx.race.conditions.class_name='Ｃ２四組';
+ for(const row of ctx.relative_condition_evidence.runner_evidence)
+  for(const h of row.supporting_runs){h.track='高知';h.class='Ｃ２二組';}
+ const enhanced=structuredClone(ctx.relative_condition_evidence);
+ enhanced.corner_evidence_scope='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY';
+ enhanced.corner_enriched_prior_runs=1;enhanced.runner_count=field.length;enhanced.score_effect=false;
+ ctx.official_corner_shadow={status:'DESCRIPTIVE_SHADOW_ONLY',applied_prior_runs:1,
+  use_for_rank:false,use_for_save_gate:false,research_relative_condition_evidence:enhanced};
+ delete ctx.relative_condition_evidence;
+ const out=buildOptionalSaveLocalShadow({context:ctx,payload:p,now});
+ assert.ok(out);
+ assert.equal(out.preview.corner_rank_counterfactual.status,'NORMAL_HISTORY_NOT_COMPARABLE');
+ assert.equal(out.preview.corner_rank_counterfactual.changed_top5,null);
+ assert.deepEqual(out.preview.corner_rank_counterfactual.new_top5_horse_numbers,[]);
+});
