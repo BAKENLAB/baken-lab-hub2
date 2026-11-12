@@ -534,7 +534,7 @@ test('JRA G1 vs ordinary OP/listed or lower G2/G3 cannot count as same-class res
 test('JRA exact G2, G3, listed and ordinary OP each retain their own tier',()=>{
  for(const [target,matching,wrong] of [
   ['GⅡ','G2','G1'],['GⅢ','GIII','GII'],
-  ['リステッド','L','OP'],['オープン','OP','L']
+  ['リステッド','L','OP']
  ]){
   const make=c=>{
    const x=fx();x.race.class_name=target;
@@ -545,4 +545,22 @@ test('JRA exact G2, G3, listed and ordinary OP each retain their own tier',()=>{
   assert.equal(make(matching).status,'REORDERED',target+' '+matching);
   assert.equal(make(wrong).status,'UNCHANGED',target+' '+wrong);
  }
+});
+
+test('coarse JRA Open class cannot masquerade as an identical graded/non-graded tier',()=>{
+ const x=fx();x.race.class_name='オープン';x.race.race_name='架空の重賞';
+ for(const row of x.comparison.runner_evidence)
+  for(const run of row.supporting_runs)run.class='OP';
+ const r=calculate(x);
+ assert.equal(r.status,'UNCHANGED');
+ assert.deepEqual(r.top5,[1,2,3,4,5]);
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).target_class_status,
+  'JRA_OPEN_UNSPECIFIED');
+ assert.equal(r.proof_by_horse.find(h=>h.horse_no===6).same_class_close_runs,0);
+ // A specific official class G2 plus corresponding GII history *is*
+ // interpretable, even while a generic Open class is not.
+ const graded=fx();graded.race.class_name='GⅡ';
+ for(const row of graded.comparison.runner_evidence)
+  for(const run of row.supporting_runs)run.class='GII';
+ assert.equal(calculate(graded).status,'REORDERED');
 });
