@@ -1,0 +1,76 @@
+{
+  "audit": "JRA_MUTABLE_LIVE_ROWS_PRE_FROZEN_SOURCE_DIAGNOSTIC",
+  "as_of_check_date_jst": "2026-11-13",
+  "cohort_dates": [
+    "2026-11-07",
+    "2026-11-08"
+  ],
+  "cohort_frozen_races": 57,
+  "cohort_live_runners": 800,
+  "verified_identity_rows": 800,
+  "last_checked_pre_frozen_runners": 76,
+  "last_checked_post_frozen_runners": 724,
+  "whole_field_pre_frozen_races": 5,
+  "not_whole_field_pre_frozen_races": 52,
+  "boundary": "source_checked_at <= original official_predictions.frozen_at",
+  "disclaimer": "jra_live_runners.past_runs is a mutable copy; last reported fetch time alone does not establish immutable as-of evidence or official prior-result refetch. This is diagnostic, never certified outcome testing.",
+  "code": "automation/jra-frozen-asof-source-guard.mjs",
+  "code_tests": "research/jra-frozen-asof-source-guard.test.mjs",
+  "source_sql": "research/jra-live-history-frozen-asof-coverage-readonly.sql",
+  "smoke_cases": [
+    {
+      "race_date": "2026-11-07",
+      "track": "福島",
+      "race_no": 1,
+      "runner_count": 15,
+      "prior_corner_runs_with_recorded_url": 28,
+      "prior_final3f_runs_with_recorded_url": 28
+    },
+    {
+      "race_date": "2026-11-08",
+      "track": "京都",
+      "race_no": 12,
+      "runner_count": 18,
+      "prior_corner_runs_with_recorded_url": 71,
+      "prior_final3f_runs_with_recorded_url": 71
+    },
+    {
+      "race_date": "2026-11-08",
+      "track": "東京",
+      "race_no": 12,
+      "runner_count": 12,
+      "prior_corner_runs_with_recorded_url": 45,
+      "prior_final3f_runs_with_recorded_url": 48
+    },
+    {
+      "race_date": "2026-11-08",
+      "track": "福島",
+      "race_no": 1,
+      "runner_count": 16,
+      "prior_corner_runs_with_recorded_url": 26,
+      "prior_final3f_runs_with_recorded_url": 26
+    },
+    {
+      "race_date": "2026-11-08",
+      "track": "福島",
+      "race_no": 10,
+      "runner_count": 15,
+      "prior_corner_runs_with_recorded_url": 59,
+      "prior_final3f_runs_with_recorded_url": 59
+    }
+  ],
+  "smoke_totals": {
+    "runner_count": 76,
+    "prior_corner_runs_with_recorded_url": 229,
+    "prior_final3f_runs_with_recorded_url": 232
+  },
+  "certified_pre_race_pairs": 0,
+  "official_result_used_in_source_audit": false,
+  "claim_or_frozen_mutation": false,
+  "next_conditions": [
+    "Preserve an immutable independently verified past-result snapshot before each proposed JRA rank/official FROZEN time",
+    "Make official race ID and full field identity agree with pre-freeze official card",
+    "Only count effects when same full draft and authenticated source have been A/B compared before first post time",
+    "Compare with future official results after race, never in source acquisition"
+  ]
+}
