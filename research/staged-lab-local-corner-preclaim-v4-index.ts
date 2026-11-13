@@ -1,4 +1,4 @@
-// RESEARCH-STAGED v4. NOT DEPLOYED. Companion automation modules must
+// v4 deployed to Supabase ACTIVE on 2026-11-13 JST; companion modules must
 // be bundled from feature/pace-evidence-prereace-gate after tests and review.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import {createClient} from "npm:@supabase/supabase-js@2.49.8";
