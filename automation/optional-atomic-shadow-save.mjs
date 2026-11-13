@@ -122,6 +122,10 @@ function buildLocalV17FullFieldSidecar({context,comparison,baseline,now}){
  });
  if(proof?.status!=='READY_FOR_PROSPECTIVE_PAIRED_TEST')
   return abstain(proof?.reason??'NO_FULL_FIELD_INDEPENDENT_PROOF');
+ if(proof.top5_boundary_score_tie===true)
+  return {...abstain('TOP5_BOUNDARY_SCORE_TIE_NOT_ABILITY_RESOLVED'),
+   all_runners_checked:proof.all_runners_checked,
+   tied_score_runner_count:proof.tied_score_runner_count};
  const byNo=new Map(baseline.map(h=>[h.horse_no,h]));
  if(proof.all_runners_checked!==baseline.length||
     proof.runners.length!==baseline.length||
