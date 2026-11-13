@@ -5,8 +5,8 @@
  *
  * A historical podium is the PRIMARY evidence. Course correlation can
  * annotate that existing run, never become an independent extra run.
- * A bounded one-point 100pt scoring assist is allowed only when the user's
- * Eval S/A direction agrees with JRA's own 2023-25 HIGH/MEDIUM n>=120
+ * A bounded one-point 100pt scoring review is allowed when Eval S/A
+ * direction agrees with JRA's own 2023-25 HIGH/MEDIUM n>=120
  * transfer cohort. This is not probability or a multiplied win rate.
  */
 const JRA=new Set(['札幌','函館','福島','新潟','東京','中山','中京','京都','阪神','小倉']);
@@ -25,47 +25,72 @@ const fail=(reason,more={})=>({
  market_used:false,target_result_used:false,snapshot_republished:false,...more
 });
 /**
- * Private snapshot shape:
- * {v,targets:[[track,surface,variant,distance]],sources:[[...]],
- *  pairs:[[target_idx,source_idx,tier_rank_1_to_5,multiplier_x100]]}
- * The ratio is a descriptive historical association, NEVER a win-odds
- * multiplier and NEVER directly used in ability points.
+ * User-supplied private, rank-only Eval snapshot. No historical rate, market
+ * edge or source URL is shipped into the public repo or output.
+ * Exactly all 1,942 NORMAL rows across 82 JRA target courses are indexed;
+ * 199 REF rows across 14 unsupported targets are never admitted.
+ *
+ * {v,observed_at,scope:'NORMAL_ALL_1942',targets:[...],sources:[...],
+ *  pairs:[[target_index,source_index,tier_1_to_5,rank_1_to_39],...]}
  */
+const variant=x=>{
+ const s=norm(x).toUpperCase();
+ if(['OUTER','外','外回り'].includes(s))return '外';
+ if(['INNER','内','内回り'].includes(s))return '内';
+ if(['STRAIGHT','直','直線'].includes(s))return '直';
+ return s===''?'':s;
+};
 function verifiedSnapshot(s){
- if(!s||s.v!=='2026-11-13'||!Array.isArray(s.targets)||
-    !Array.isArray(s.sources)||!Array.isArray(s.pairs)||
-    s.targets.length!==82||s.sources.length>120||
-    s.pairs.length!==246||s.scope!=='NORMAL_TOP3_ONLY')return null;
+ if(!s||s.v!=='2026-11-13'||
+    s.scope!=='NORMAL_ALL_1942'||
+    s.observed_at!=='2026-11-13T21:30:21Z'||
+    !Array.isArray(s.targets)||!Array.isArray(s.sources)||
+    !Array.isArray(s.pairs)||s.targets.length!==82||
+    s.sources.length!==94||s.pairs.length!==1942)return null;
  const targetKeys=new Map(),sourceKeys=new Map();
- const init=(arr,store)=>{
-  for(let i=0;i<arr.length;i++){
-   const [t,sw,varn,d]=arr[i];
+ const init=(rows,keys)=>{
+  for(let i=0;i<rows.length;i++){
+   const row=rows[i];
+   if(!Array.isArray(row)||row.length!==4) return false;
+   const [t,sw,varn,d]=row;
    if(!JRA.has(t)||!surf(sw)||typeof varn!=='string'||
-     !Number.isInteger(d)||d<1000||d>3600)return false;
+      !['','内','外','直'].includes(varn)||
+      !Number.isInteger(d)||d<1000||d>3600)return false;
    const key=K(t,sw,varn,d);
-   if(store.has(key))return false;
-   store.set(key,i);
+   if(keys.has(key))return false;
+   keys.set(key,i);
   }
   return true;
  };
  if(!init(s.targets,targetKeys)||!init(s.sources,sourceKeys))return null;
- const pairs=new Map();
+ const pairs=new Map(),ranks=new Map();
  for(const p of s.pairs){
-  const [a,b,tier,ratio]=p;
+  if(!Array.isArray(p)||p.length!==4)return null;
+  const [a,b,tier,rank]=p;
   if(!Number.isInteger(a)||a<0||a>=s.targets.length||
      !Number.isInteger(b)||b<0||b>=s.sources.length||
      !Number.isInteger(tier)||tier<1||tier>5||
-     !Number.isInteger(ratio)||ratio<20||ratio>400)return null;
+     !Number.isInteger(rank)||rank<1||rank>39)return null;
   const k=a+'|'+b;if(pairs.has(k))return null;
-  pairs.set(k,{tier,ratio});
+  pairs.set(k,{tier,rank});
+  const order=ranks.get(a)??new Set();
+  if(order.has(rank))return null;
+  order.add(rank);ranks.set(a,order);
  }
- const resolve=(rows,t,sw,d,variant)=>{
+ // No substituted data, missing target, duplicate or skipped rankings.
+ if(ranks.size!==82||[...ranks.values()].some(group=>
+    [...group].sort((a,b)=>a-b).some((n,i)=>n!==i+1)))return null;
+ const resolve=(rows,t,sw,d,layout)=>{
   const candidates=[];
-  for(let i=0;i<rows.length;i++)if(rows[i][0]===t&&rows[i][1]===sw&&rows[i][3]===d)
-   candidates.push(i);
-  // Multiple inner/out JRA variants are NOT inferred from distance alone.
+  for(let i=0;i<rows.length;i++)
+   if(rows[i][0]===t&&rows[i][1]===sw&&rows[i][3]===d)
+    candidates.push(i);
   if(candidates.length===1)return candidates[0];
-  if(candidates.length>1&&variant)return candidates.find(i=>rows[i][2]===variant)??null;
+  if(candidates.length>1&&layout){
+   const found=candidates.filter(i=>rows[i][2]===variant(layout));
+   if(found.length===1)return found[0];
+  }
+  // Never guess inner/outer or a source course absent from official history.
   return null;
  };
  return {targetKeys,sourceKeys,pairs,resolve};
