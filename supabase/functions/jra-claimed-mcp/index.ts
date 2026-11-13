@@ -3,6 +3,7 @@ import {buildRelativeAbilityRankProposal} from "./relative-ability-rank-proposal
 import {buildJraClaimedDraftPreview} from "./jra-relative-draft-adapter.mjs";
 import {buildEvalTransferForJraClaim} from "./eval-course-transfer-live.mjs";
 import {PRIVATE_EVAL_PRIORITIES} from "./eval-course-private-data.mjs";
+import {buildJraVerifiedEvidenceRankBridge,verifyJraBridgeAlreadyApplied} from "./jra-verified-evidence-rank-bridge.mjs";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import {createMcpHandler,McpServer} from "npm:@modelcontextprotocol/server@^2.0.0";
 import {pipeline} from "npm:@supabase/middleware@1";
@@ -17,6 +18,26 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  const handler=createMcpHandler(()=>{const s=new McpServer({name:"BAKEN JRA Claimed Context",version:"0.1.0"});
  const admin=()=>{const u=Deno.env.get("SUPABASE_URL")??"",k=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")??"";if(!u||!k)throw Error("SERVER_CONFIGURATION_ERROR");return createClient(u,k,{auth:{persistSession:false,autoRefreshToken:false}})};
  const auth=async()=>{const a=Deno.env.get("LOCAL_MCP_ALLOWED_USER_ID")??"";if(!uuid(a))throw Error("AUTHORIZATION_NOT_CONFIGURED");const {data:{user},error}=await supabase.auth.getUser();if(error||!user||user.id!==a)throw Error("FORBIDDEN")};
+
+ // Only official CLAIM context is accepted; source limit & rights remain fixed.
+ const loadEvalForClaim=async(data:any,c:any)=>{
+   const rc=data?.race?.field_payload?.race??{};
+   const turn=['東京','新潟','中京'].includes(data?.race?.track)?'左':'右';
+   const key=String(data?.race?.track??'')+'|'+String(rc?.surface??'')+
+     '|'+String(rc?.distance??'')+'|'+turn;
+   let cohorts=[];
+   if(PRIVATE_EVAL_PRIORITIES?.scope==='NORMAL_ALL_1942'&&
+      data?.stage==='AWAITING_JRA_FULL_DEPTH_COMPARISON'){
+     const {data:rows,error}=await c.from('lab_course_jra_transfer_v1')
+       .select('source_course_key,target_course_key,runners,top3_lift,reliability,condition_precision,training_to')
+       .eq('target_course_key',key).limit(200);
+     if(!error&&Array.isArray(rows))cohorts=rows;
+   }
+   return buildEvalTransferForJraClaim({
+     context:data,snapshot:PRIVATE_EVAL_PRIORITIES,
+     ownedTransferStats:cohorts,observedAt:new Date().toISOString()
+   });
+ };
  s.registerTool("jra_claimed_context",{description:"Get verified JRA CLAIM context with live_ability_rank_input for the real pre-race JRA0.4 full-field decision. Review all ranks (not just 5/6) and use official historical proof to update official 100-point ranks and TOP5 when justified BEFORE save. Never use odds, target result, or rewrite FROZEN. Read-only.",inputSchema:z.object({job_id:z.string().uuid()}),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async({job_id})=>{try{await auth();const c=admin();const {data,error}=await c.rpc("jra_claimed_context",{p_job_id:job_id});if(error||!data)throw Error("CONTEXT_UNAVAILABLE");
  // Post-CLAIM, before save: generate an explicit alternative ranking, never
  // change the official baseline or bypass the existing save gate.
@@ -81,23 +102,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  // This feeds the real current full-field rank decision,
  // not the postrace shadow and NEVER the official FROZEN directly.
  try{
-   const rc=data?.race?.field_payload?.race??{};
-   const turn=['東京','新潟','中京'].includes(data?.race?.track)?'左':'右';
-   const key=String(data?.race?.track??'')+'|'+String(rc?.surface??'')+
-     '|'+String(rc?.distance??'')+'|'+turn;
-   let cohorts=[];
-   if(PRIVATE_EVAL_PRIORITIES?.scope==='NORMAL_ALL_1942'&&
-      data?.stage==='AWAITING_JRA_FULL_DEPTH_COMPARISON'){
-     const {data:rows,error:cohortError}=await c
-       .from('lab_course_jra_transfer_v1')
-       .select('source_course_key,target_course_key,runners,top3_lift,reliability,condition_precision,training_to')
-       .eq('target_course_key',key).limit(200);
-     if(!cohortError&&Array.isArray(rows))cohorts=rows;
-   }
-   const evalInput=buildEvalTransferForJraClaim({
-     context:data,snapshot:PRIVATE_EVAL_PRIORITIES,
-     ownedTransferStats:cohorts,observedAt:new Date().toISOString()
-   });
+   const evalInput=await loadEvalForClaim(data,c);
    data.eval_course_transfer_input=evalInput;
    if(data.live_ability_rank_input &&
       typeof data.live_ability_rank_input==='object'){
@@ -193,26 +198,124 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      return {content:[{type:"text",text:JSON.stringify(receipt)}],structuredContent:receipt};
    } catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
  });
- s.registerTool("jra_save_claimed_prediction",{description:"Save a completed BAKEN LAB JRA prediction only for the currently live JRA claim through the guarded JRA save RPC.",inputSchema:z.object({job_id:z.string().uuid(),protocol_version:z.string().min(1).max(100),payload:z.object({runners:z.array(z.unknown()).min(1),top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),audit:z.record(z.string(),z.unknown())}).strict()}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:false,openWorldHint:false}},async({job_id,protocol_version,payload})=>{try{await auth();const c=admin();
- let shadow=null;
- // Optional, bounded provenance check. Failed evidence can never block save.
- try{
-  if(extractOfficialSaveDraft(payload,"JRA")){
-   const {data:context,error:ce}=await c.rpc("jra_claimed_context",{p_job_id:job_id})
-     .abortSignal(AbortSignal.timeout(2200));
-   if(!ce&&context)shadow=buildOptionalSaveJraShadow({
-     context,payload,now:new Date().toISOString()
-   });
-  }
- }catch{/* Core official save must remain available. */}
- const {data,error}=await c.rpc("jra_save_claimed_prediction_with_shadow_v1",{
-   p_job_id:job_id,p_protocol_version:protocol_version,p_payload:payload,
-   p_baseline:shadow?.baseline??null,p_preview:shadow?.preview??null
+
+ // PRE-SAVE real 100-point evidence rank finalizer, read-only and reversible.
+ // HUB may use this before the official save to review score/rank/EYE changes.
+ s.registerTool("jra_evidence_rank_preview",{
+   description:"JRA LIVE pre-FROZEN full-field rank finalizer: use official as-of previous races, Eval normal 1,942 pair course-fit and verified corner/pace/last3f to ACTUALLY RECOMPUTE 100-point scores, rank, TOP5 and explain every delta. Pure read-only; never CLAIMs or saves. If TOP5 changes, EYE must be re-audited before regular official FROZEN save.",
+   inputSchema:z.object({
+     job_id:z.string().uuid(),
+     payload:z.object({runners:z.array(z.unknown()).min(1),
+       top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),
+       bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),
+       audit:z.record(z.string(),z.unknown())}).strict()
+   }).strict(),
+   annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}
+ },async({job_id,payload})=>{
+   try {
+     await auth();
+     const c=admin();
+     const {data:context,error}=await c.rpc("jra_claimed_context",{p_job_id:job_id});
+     if(error||!context)throw Error("OFFICIAL_CLAIM_CONTEXT_UNAVAILABLE");
+     const evalInput=await loadEvalForClaim(context,c);
+     const result=buildJraVerifiedEvidenceRankBridge({
+       context,evalInput,payload,observedAt:new Date().toISOString()
+     });
+     const output={...result,job_id,eval_status:evalInput.status,
+       official_saved:false,save_authorized:false,
+       use_proposal_only_after_eye_reaudited:true};
+     return {content:[{type:"text",text:JSON.stringify(output)}],structuredContent:output};
+   }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
  });
- if(error||!uuid(data?.prediction_id)||data?.ok!==true)throw Error("SAVE_REJECTED");
- const result={ok:true,prediction_id:data.prediction_id,
-   shadow_status:data.shadow_status??"UNKNOWN"};
- return {content:[{type:"text",text:JSON.stringify(result)}],structuredContent:result}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
+ // The real save entrypoint now applies verified score/rank changes itself
+ // BEFORE the old guarded RPC. If changing TOP5, stop for independent
+ // outside-TOP5 EYE re-audit (do not silently drop or promote the EYE).
+ s.registerTool("jra_save_claimed_prediction",{
+   description:"Save the current live JRA prediction through the unchanged guarded RPC. BEFORE FROZEN, all-field Eval+official pace evidence is reconciled with 100-point scores and TOP5; the verified deterministic score/rank delta and prior-run refs are added to FROZEN audit. When TOP5 membership changes, call jra_evidence_rank_preview, re-audit EYE and resubmit its proposal with audit.eye_reaudited_after_rank_change=true. No odds/results, no existing FROZEN edits.",
+   inputSchema:z.object({job_id:z.string().uuid(),
+     protocol_version:z.string().min(1).max(100),
+     payload:z.object({runners:z.array(z.unknown()).min(1),
+       top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),
+       bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),
+       audit:z.record(z.string(),z.unknown())}).strict()}),
+   annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:false,openWorldHint:false}
+ },async({job_id,protocol_version,payload})=>{
+   try{
+     await auth();
+     const c=admin(),observedAt=new Date().toISOString();
+     let savedPayload:any=payload,rankBridgeStatus="NOT_READY",
+       rankScoreChanges=0,beforeTop5:any=null,afterTop5:any=null,
+       evalStatus="OPTIONAL_UNAVAILABLE";
+     // Validity (official READY, active CLAIM, lease, race cutoff) is
+     // still enforced by BOTH JRA claimed_context & original save RPC.
+     // The optional Eval source must never directly write or change DB.
+     try{
+       const {data:context,error:ce}=await c.rpc("jra_claimed_context",
+         {p_job_id:job_id}).abortSignal(AbortSignal.timeout(12000));
+       if(!ce&&context){
+         const evalInput=await loadEvalForClaim(context,c);
+         evalStatus=evalInput?.status??"OPTIONAL_UNAVAILABLE";
+         if(evalStatus==='READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW'){
+           if(payload.audit?.evidence_rank_bridge?.version==='JRA_EVAL_1942_PACE_SCORE_V1'){
+             const verified=verifyJraBridgeAlreadyApplied({
+               context,evalInput,payload,observedAt:new Date().toISOString()
+             });
+             if(verified.status!=='VERIFIED')
+               throw Error("JRA_EVIDENCE_ALREADY_APPLIED_INVALID_"+verified.reason);
+             rankBridgeStatus="VERIFIED_ALREADY_APPLIED";
+             rankScoreChanges=payload.audit.evidence_rank_bridge.per_runner.filter(
+               (r:any)=>r.applied_delta>0).length;
+             beforeTop5=payload.audit.evidence_rank_bridge.old_order.slice(0,5);
+             afterTop5=payload.audit.evidence_rank_bridge.new_order.slice(0,5);
+           }else{
+             const preview=buildJraVerifiedEvidenceRankBridge({
+               context,evalInput,payload,observedAt:new Date().toISOString()
+             });
+             if(preview.status==='REJECTED')
+               throw Error("JRA_EVIDENCE_DRAFT_INVALID_"+preview.reason);
+             if(preview.status==='EYE_REAUDIT_REQUIRED')
+               throw Error("JRA_EVIDENCE_EYE_REAUDIT_REQUIRED_CALL_jra_evidence_rank_preview:FROM_"+
+                 preview.before_top5.join("_")+"_TO_"+preview.after_top5.join("_"));
+             if(preview.status==='READY_FOR_OFFICIAL_SAVE'){
+               savedPayload=preview.proposed_payload;
+               rankBridgeStatus="APPLIED_TO_SAVE_PAYLOAD";
+               rankScoreChanges=preview.runner_score_changes;
+               beforeTop5=preview.before_top5;afterTop5=preview.after_top5;
+             }else rankBridgeStatus="OPTIONAL_PREVIEW_"+preview.status;
+           }
+         }
+       }
+     }catch(e){
+       // A verified new-input safety refusal is never converted into a
+       // fallback save. Missing optional data alone follows old JRA0.4.
+       if(String(err(e)).startsWith('JRA_EVIDENCE_'))throw e;
+       rankBridgeStatus="OPTIONAL_SOURCE_UNAVAILABLE";
+     }
+     let shadow=null;
+     try{
+       if(extractOfficialSaveDraft(savedPayload,"JRA")){
+         const {data:context,error:ce}=await c.rpc("jra_claimed_context",
+           {p_job_id:job_id}).abortSignal(AbortSignal.timeout(2200));
+         if(!ce&&context)shadow=buildOptionalSaveJraShadow({
+           context,payload:savedPayload,now:new Date().toISOString()
+         });
+       }
+     }catch{/* Keep core save available; optional paired proof is best effort. */}
+     const {data,error}=await c.rpc("jra_save_claimed_prediction_with_shadow_v1",{
+       p_job_id:job_id,p_protocol_version:protocol_version,p_payload:savedPayload,
+       p_baseline:shadow?.baseline??null,p_preview:shadow?.preview??null
+     });
+     if(error||!uuid(data?.prediction_id)||data?.ok!==true)throw Error("SAVE_REJECTED");
+     const result={ok:true,prediction_id:data.prediction_id,
+       shadow_status:data.shadow_status??"UNKNOWN",
+       rank_evidence_bridge:rankBridgeStatus,eval_source_status:evalStatus,
+       score_changed_runner_count:rankScoreChanges,
+       top5_before:beforeTop5,top5_saved:afterTop5,
+       frozen_payload_had_evidence_provenance:
+         savedPayload?.audit?.evidence_rank_bridge?.status==='APPLIED_TO_NEW_PREDICTION'};
+     return {content:[{type:"text",text:JSON.stringify(result)}],structuredContent:result};
+   }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
+ });
 
  s.registerTool("jra_queue_claim_next",{
    description:"Manually claim or resume the next eligible JRA flat-race job: scheduled in Japan today, field BASIC_READY/READY, unsaved, 3-70 minutes before post. Uses the guarded jra_manual_claim_next_v1 RPC; does not predict, call paid APIs, enable Cron, or change FROZEN rows.",
