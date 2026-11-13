@@ -93,21 +93,30 @@ async function readWithin(fn,timeoutMs){
 
 export async function fetchLocalPriorCornerEvidence({
  targetRace,runners,fetchVerifiedRace,maxPriorRaces=12,timeoutMs=3000,
- reserveMs=5*60*1000,clock=()=>Date.now()
+ reserveMs=5*60*1000,clock=()=>Date.now(),absoluteDeadlineMs=null
 }) {
  if(typeof fetchVerifiedRace!=='function'||!Number.isFinite(timeoutMs)||timeoutMs<1||
-   timeoutMs>15000||!Number.isFinite(reserveMs)||reserveMs<0)
+   timeoutMs>15000||!Number.isFinite(reserveMs)||reserveMs<0||
+   (absoluteDeadlineMs!==null&&
+    (!Number.isFinite(absoluteDeadlineMs)||absoluteDeadlineMs<=0)))
    throw new TypeError('INVALID_PREFETCH_OPTIONS');
  const plan=planLocalPriorCornerFetches({targetRace,runners,maxPriorRaces});
  const post=at(targetRace.postTime);
  if(post===null)throw new TypeError('INVALID_POST_TIME');
  const reports=[],gathered=[];
  for(const work of plan){
-  if(post-clock()<=reserveMs){
-   reports.push({priorRace:work.priorRace,status:'SKIPPED_PRE_RACE_BUDGET'});continue;
+  const postBudget=post-clock()-reserveMs;
+  const operationBudget=absoluteDeadlineMs===null?
+    Number.POSITIVE_INFINITY:absoluteDeadlineMs-clock();
+  if(postBudget<=0||operationBudget<=0){
+   reports.push({priorRace:work.priorRace,status:
+    postBudget<=0?'SKIPPED_PRE_RACE_BUDGET':'SKIPPED_OPERATION_BUDGET'});
+   continue;
   }
   try {
-   const remaining=Math.max(1,post-clock()-reserveMs);
+   // A single canonical deadline extends across ALL prior-race pages;
+   // otherwise 40 * 1.5s can exhaust the caller before the seal is written.
+   const remaining=Math.min(postBudget,operationBudget);
    const raw=await readWithin(signal=>fetchVerifiedRace({priorRace:work.priorRace,signal}),Math.min(timeoutMs,remaining));
    const packet=buildVerifiedPriorCornerEvidence({
      ...raw,priorRace:work.priorRace,targetRaceDate:targetRace.raceDate,
@@ -149,7 +158,9 @@ export async function fetchLocalPriorCornerEvidence({
  }
  return {status:'PREFETCH_ONLY',raceDate:targetRace.raceDate,
   raceTrack:targetRace.track,raceNo:targetRace.raceNo,
-  planned:plan.length,attempted:reports.filter(x=>x.status!=='SKIPPED_PRE_RACE_BUDGET').length,
+  planned:plan.length,attempted:reports.filter(x=>
+   !['SKIPPED_PRE_RACE_BUDGET','SKIPPED_OPERATION_BUDGET'].includes(x.status)).length,
+  operation_budget_exhausted:reports.some(x=>x.status==='SKIPPED_OPERATION_BUDGET'),
   linkedRunEvidence:gathered.length,sourceReports:reports,evidence:gathered,
   claimStarted:false,saveAuthorized:false,
   targetResultUsed:false,marketUsed:false,rankChanged:false};
