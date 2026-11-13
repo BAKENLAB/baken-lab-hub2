@@ -106,13 +106,13 @@ function verifyCornerOnlySupportChange(normal,enhanced){
  */
 function buildLocalV17FullFieldSidecar({context,comparison,baseline,now}){
  const race=context?.race;
+ const independentRace={circuit:'LOCAL',race_date:race?.race_date,
+  track:race?.track,race_no:race?.race_no,race_name:race?.race_name,
+  class_name:race?.conditions?.class_name,
+  surface:race?.conditions?.surface,distance:race?.conditions?.distance,
+  observation_at:now,post_time:race?.post_time};
  const proof=buildLocalV17IndependentShadow({
-  race:{circuit:'LOCAL',race_date:race?.race_date,track:race?.track,
-   race_no:race?.race_no,race_name:race?.race_name,
-   class_name:race?.conditions?.class_name,
-   surface:race?.conditions?.surface,distance:race?.conditions?.distance,
-   observation_at:now,post_time:race?.post_time},
-  comparison
+  race:independentRace,comparison
  });
  const abstain=(reason)=>({
   status:'ABSTAINED',reason,model:'LOCAL_1_7_INDEPENDENT_SHADOW',
@@ -141,6 +141,49 @@ function buildLocalV17FullFieldSidecar({context,comparison,baseline,now}){
   return abstain('INDEPENDENT_FIELD_IDENTITY_OR_SAFETY_MISMATCH');
  const oldTop=baseline.slice(0,5).map(x=>x.horse_no),newTop=[...proof.top5];
  const oldSet=new Set(oldTop),newSet=new Set(newTop);
+ // True same-draft A/B: only the independently certified corner-WITNESS
+ // list is omitted. All horses, historical finish/class/surface, and the
+ // saved 1.6 draft remain byte-for-byte identical in both scorer calls.
+ let cornerPointCounterfactual={
+  status:'NO_INDEPENDENT_VERIFIED_CORNER_WITNESSES',
+  verified_witnesses:0,normal_top5:null,verified_corner_top5:null,
+  changed_top5_membership:null,point_deltas:[]
+ };
+ if(proof.official_corner_witness_status==='VERIFIED_PRECLAIM_CORNER_WITNESSES'){
+  const noCertificate={...comparison};
+  delete noCertificate.corner_evidence_scope;
+  delete noCertificate.corner_enriched_prior_runs;
+  delete noCertificate.verified_corner_witnesses;
+  const noCorner=buildLocalV17IndependentShadow({
+   race:independentRace,comparison:noCertificate
+  });
+  if(noCorner.status==='READY_FOR_PROSPECTIVE_PAIRED_TEST'&&
+     noCorner.all_runners_checked===proof.all_runners_checked){
+   const scoreByHorse=new Map(noCorner.runners.map(h=>[h.horse_no,h.score]));
+   const deltas=proof.runners.map(h=>({
+    horse_no:h.horse_no,without_official_corner_score:scoreByHorse.get(h.horse_no),
+    verified_corner_score:h.score,
+    score_delta:h.score-scoreByHorse.get(h.horse_no)
+   }));
+   cornerPointCounterfactual={
+    status:'SAME_WHOLE_FIELD_ONLY_OFFICIAL_CORNER_PROOF_CHANGED',
+    verified_witnesses:proof.official_corner_witness_count,
+    normal_top5:[...noCorner.top5],verified_corner_top5:[...proof.top5],
+    normal_top5_score_tied:noCorner.top5_boundary_score_tie===true,
+    changed_top5_membership:proof.top5.some(h=>!noCorner.top5.includes(h)),
+    changed_full_field_order:proof.runners.some((h,i)=>
+     h.horse_no!==noCorner.runners[i].horse_no),
+    point_deltas:deltas,
+    positive_point_delta_horses:deltas.filter(x=>x.score_delta>0).map(x=>x.horse_no),
+    negative_point_delta_horses:deltas.filter(x=>x.score_delta<0).map(x=>x.horse_no),
+    independence_scope:'WITNESS_METADATA_ONLY_SAME_HISTORY_RANK_SCORE_RESEARCH'
+   };
+  }else{
+   cornerPointCounterfactual={
+    ...cornerPointCounterfactual,status:'PLAIN_HISTORY_REPLAY_NOT_FULL_FIELD_READY'
+   };
+  }
+ }
  return {
   status:'FULL_FIELD_PAIRED_RESEARCH_ONLY',
   model:proof.model,version:proof.version,rank_source:'INDEPENDENT_SCORE_NO_BASELINE_RANK_INPUT',
@@ -153,12 +196,15 @@ function buildLocalV17FullFieldSidecar({context,comparison,baseline,now}){
   // Give users an inspectable reason why the new independent rank moved,
   // not just an opaque 100pt number or a blanket "過信禁物" warning.
   // No odds, payouts, target results, or raw scraped history are propagated.
+  official_corner_score_counterfactual:cornerPointCounterfactual,
   score_table:proof.runners.map(x=>{
    const audit=proof.ability_evidence_audit.find(a=>a.horse_no===x.horse_no);
    return {horse_no:x.horse_no,rank:x.rank,
     research_score_100:x.score,confidence:x.confidence,
     historical_runs_checked:audit?.evidence_runs_checked??null,
     historical_runs_used:audit?.evidence_runs_used??null,
+    independently_verified_corner_runs:audit?.independently_verified_corner_runs??0,
+    verified_corner_bonus_points:audit?.corner_bonus_points??0,
     top5_positive_runs:audit?.runs?.filter(z=>z.contextual_bonus_applied).length??null,
     same_class_top5_runs:audit?.runs?.filter(z=>
       z.contextual_bonus_applied&&z.context_band==='SAME_OFFICIAL_CLASS').length??null,
@@ -167,8 +213,8 @@ function buildLocalV17FullFieldSidecar({context,comparison,baseline,now}){
     strongest_evidence_refs:audit?.score_contributions?.slice(0,2).map(z=>z.ref)??[]
    };
   }),
-  historic_corner_source:comparison?.corner_evidence_scope===
-   'VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY'?
+  historic_corner_source:proof.official_corner_witness_status===
+   'VERIFIED_PRECLAIM_CORNER_WITNESSES'?
     'INDEPENDENT_VERIFIED_PRECLAIM_CORNER_SNAPSHOT':
     'NORMAL_CLAIM_HISTORY_NO_SEPARATE_CORNER_CERTIFICATION',
   tie_count:proof.tied_score_runner_count,
