@@ -4,6 +4,7 @@
  */
 import {buildJraClaimedDraftPreview} from './jra-relative-draft-adapter.mjs';
 import {buildRelativeAbilityRankProposal} from './relative-ability-rank-proposal.mjs';
+import {buildLocalV17IndependentShadow} from './local-v17-full-field-independent-shadow.mjs';
 const int=(n,min,max)=>Number.isInteger(n)&&n>=min&&n<=max;
 const clean=s=>typeof s==='string'?s.normalize('NFKC').replace(/\s+/g,'').trim():'';
 export function extractOfficialSaveDraft(payload,circuit){
@@ -95,6 +96,67 @@ function verifyCornerOnlySupportChange(normal,enhanced){
  }
  return {status:'MATCHED_SUPPORTING_RUNS',changed_runs:changed};
 }
+/**
+ * Independent LOCAL1.7 candidate is scored from the same verified CLAIM
+ * history, but WITHOUT the original rank or score. Those are inspected only
+ * AFTER the pure full-field scorer has already returned its own order.
+ *
+ * Compact pre-FROZEN paired audit: no odds/results, no official save or
+ * promotion, and no silent conversion of insufficient evidence into ranking.
+ */
+function buildLocalV17FullFieldSidecar({context,comparison,baseline,now}){
+ const race=context?.race;
+ const proof=buildLocalV17IndependentShadow({
+  race:{circuit:'LOCAL',race_date:race?.race_date,track:race?.track,
+   race_no:race?.race_no,race_name:race?.race_name,
+   class_name:race?.conditions?.class_name,
+   surface:race?.conditions?.surface,distance:race?.conditions?.distance,
+   observation_at:now,post_time:race?.post_time},
+  comparison
+ });
+ const abstain=(reason)=>({
+  status:'ABSTAINED',reason,model:'LOCAL_1_7_INDEPENDENT_SHADOW',
+  eligible_for_official_accuracy_claim:false,
+  production_rank_effect:false,production_score_effect:false,
+  frozen_modified:false,market_used:false,target_result_used:false
+ });
+ if(proof?.status!=='READY_FOR_PROSPECTIVE_PAIRED_TEST')
+  return abstain(proof?.reason??'NO_FULL_FIELD_INDEPENDENT_PROOF');
+ const byNo=new Map(baseline.map(h=>[h.horse_no,h]));
+ if(proof.all_runners_checked!==baseline.length||
+    proof.runners.length!==baseline.length||
+    proof.top5.length!==5||byNo.size!==baseline.length||
+    proof.runners.some(h=>!byNo.has(h.horse_no)||
+      clean(byNo.get(h.horse_no).horse_name)!==clean(h.horse_name)||
+      !int(h.rank,1,baseline.length)||!int(h.score,0,100))||
+    new Set(proof.runners.map(h=>h.horse_no)).size!==baseline.length||
+    new Set(proof.top5).size!==5||
+    proof.runners.slice(0,5).some((h,i)=>h.horse_no!==proof.top5[i])||
+    proof.production_rank_effect!==false||proof.frozen_modified!==false||
+    proof.market_used!==false||proof.target_result_used!==false)
+  return abstain('INDEPENDENT_FIELD_IDENTITY_OR_SAFETY_MISMATCH');
+ const oldTop=baseline.slice(0,5).map(x=>x.horse_no),newTop=[...proof.top5];
+ const oldSet=new Set(oldTop),newSet=new Set(newTop);
+ return {
+  status:'FULL_FIELD_PAIRED_RESEARCH_ONLY',
+  model:proof.model,version:proof.version,rank_source:'INDEPENDENT_SCORE_NO_BASELINE_RANK_INPUT',
+  all_runners_checked:proof.all_runners_checked,
+  old_top5:oldTop,shadow_top5:newTop,
+  changed_top5_membership:newTop.some(x=>!oldSet.has(x)),
+  changed_full_field_order:baseline.some((x,i)=>proof.runners[i].horse_no!==x.horse_no),
+  newly_selected:newTop.filter(x=>!oldSet.has(x)),
+  lost_from_top5:oldTop.filter(x=>!newSet.has(x)),
+  score_table:proof.runners.map(x=>({horse_no:x.horse_no,rank:x.rank,
+   research_score_100:x.score,confidence:x.confidence})),
+  tie_count:proof.tied_score_runner_count,
+  eye_research_candidate:proof.eye_candidate?.horse_no??null,
+  verified_history_inputs:'ALREADY_VERIFIED_LOCAL_CLAIMED_HISTORY_ONLY',
+  eligible_for_official_accuracy_claim:false,
+  production_rank_effect:false,production_score_effect:false,
+  frozen_modified:false,market_used:false,target_result_used:false
+ };
+}
+
 export function buildOptionalSaveLocalShadow({context,payload,now}={}){
  const baseline=extractOfficialSaveDraft(payload,'LOCAL');
  const race=context?.race;
@@ -144,7 +206,12 @@ export function buildOptionalSaveLocalShadow({context,payload,now}={}){
     lost_top5_horse_numbers:oldTop.filter(x=>!newIds.has(x))};
   }
  }
- return {baseline,preview:{...result,corner_rank_counterfactual:cornerImpact,
+ const independentV17=buildLocalV17FullFieldSidecar({
+  context,comparison:selectedComparison,baseline,now
+ });
+ return {baseline,preview:{...result,
+  independent_full_field_v17:independentV17,
+  corner_rank_counterfactual:cornerImpact,
   // Do not claim official pre-CLAIM corner use when only ordinary history
   // was available. This records WHICH lane supplied the shadow evaluator.
   observed_corner_source:sourceIsCorner?
