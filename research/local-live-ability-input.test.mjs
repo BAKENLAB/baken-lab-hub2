@@ -42,6 +42,8 @@ test('outside top5 ranked horse also has same-condition evidence rendered',()=>{
  const f=fixture();
  const outsider=f.relative_condition_evidence.runner_evidence[7];
  outsider.context_runs[0].finish=1;
+ // Keep the 5th/6th scoring boundary distinct: never weaken the tie guard.
+ f.relative_condition_evidence.runner_evidence[4].context_runs[0].finish=6;
  const r=build(f,'2026-11-14T12:00:00+09:00');
  assert.equal(r.status,'READY_FOR_OFFICIAL_RANK_DECISION');
  const x=r.full_field_100point_rank_candidate.find(x=>x.horse_no===8);
