@@ -5,6 +5,7 @@
  * No HTTP/DB, no saves or changes to existing FROZEN.
  */
 import {buildLocalV17IndependentShadow} from './local-v17-full-field-independent-shadow.mjs';
+import {selectVerifiedLocalResearchComparison} from './optional-atomic-shadow-save.mjs';
 
 const norm=x=>typeof x==='string'?x.normalize('NFKC').replace(/\s+/g,'').trim():'';
 const number=x=>Number.isInteger(x)&&x>=1&&x<=24;
@@ -112,4 +113,58 @@ export function buildLocalV17ReviewHandoff({race,comparison,activeRunners,baseli
   production_score_effect:false,production_eye_effect:false,
   frozen_modified:false,market_used:false,target_result_used:false
  };
+}
+
+/**
+ * Research-only adaptation of the exact COMPACT_V1 shape emitted by the
+ * production guarded lab_claimed_context server (NOT a live claim check).
+ * The caller must still hold and recheck a lawful CLAIM before any save.
+ * No fetch, token, RPC, or write operation happens here.
+ */
+export function buildLocalV17ReviewFromClaimedContext({
+ claimedContext,baseline,observedAt
+}={}){
+ const context=claimedContext;
+ if(!context||context.context_format!=='COMPACT_V1'||
+    context.field_integrity_checked!==true||
+    context.stage!=='AWAITING_FULL_DEPTH_COMPARISON'||
+    context.protocol?.enforced_server_side!==true||
+    context.protocol?.protocol_key!=='LOCAL_MAIN'||
+    context.race?.circuit!=='LOCAL'||
+    !Array.isArray(context.runners)||
+    context.runners.length<6||context.runners.length>20||
+    context.relative_condition_status!=='READY'||
+    !context.relative_condition_evidence||
+    context.relative_condition_evidence.runner_count!==context.runners.length)
+  return refuse('VERIFIED_CLAIMED_CONTEXT_NOT_AVAILABLE');
+ const comparison=selectVerifiedLocalResearchComparison(context);
+ if(!comparison||comparison.status!=='READY'||
+    comparison.runner_count!==context.runners.length)
+  return refuse('FULL_FIELD_RESEARCH_HISTORY_NOT_AVAILABLE');
+ const identity=new Set();
+ const activeRunners=context.runners.map(r=>{
+  if(!number(r?.horse_no)||!norm(r.horse_name)||identity.has(r.horse_no))
+   return null;
+  identity.add(r.horse_no);
+  return {horse_no:r.horse_no,horse_name:r.horse_name,status:'ACTIVE'};
+ });
+ if(activeRunners.some(x=>x===null))
+  return refuse('OFFICIAL_CLAIMED_FIELD_IDENTITY_MISMATCH');
+ const race={circuit:'LOCAL',race_date:context.race.race_date,
+  track:context.race.track,race_no:context.race.race_no,
+  race_name:context.race.race_name,
+  class_name:context.race.conditions?.class_name,
+  surface:context.race.conditions?.surface,
+  distance:context.race.conditions?.distance,
+  observation_at:observedAt,post_time:context.race.post_time};
+ const report=buildLocalV17ReviewHandoff({
+  race,comparison,activeRunners,baseline
+ });
+ const actualCorner=comparison===context.official_corner_shadow?.research_relative_condition_evidence;
+ return {...report,
+  evidence_lane:actualCorner?'VERIFIED_PRECLAIM_CORNER_RESEARCH':
+   'NORMAL_CLAIM_OFFICIAL_HISTORY_ONLY',
+  live_claim_rechecked_by_this_pure_function:false,
+  ready_for_production_adoption:false,
+  signed_official_score:false};
 }
