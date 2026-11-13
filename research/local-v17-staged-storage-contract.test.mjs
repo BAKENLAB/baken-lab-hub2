@@ -74,7 +74,7 @@ test('existing guarded preflight is executed BEFORE optional 1.7 capture',()=>{
 test('official save remains canonical and atomic; optional capture cannot block it',()=>{
  const old=save.slice(save.indexOf('CREATE OR REPLACE FUNCTION public.lab_queue_save_prediction_with_shadow_v1'));
  const capture=old.indexOf("public.lab_capture_rank_shadow_preflight_v1('LOCAL'");
- const official=old.indexOf('public.lab_queue_save_prediction(');
+ const official=old.indexOf('public.lab_queue_save_prediction_v1(');
  assert.ok(capture>=0 && official>capture);
  assert.match(old,/EXCEPTION WHEN OTHERS THEN[\s\S]*v_shadow_status:='OPTIONAL_CAPTURE_SKIPPED'/);
  assert.match(bridge,/independent_full_field_v17:independentV17/);
