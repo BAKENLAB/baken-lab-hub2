@@ -39,7 +39,7 @@ test('full-field score proof never accepts an odds, result, fake field or borrow
  assert.match(stage,/p_sidecar->'target_result_used' IS DISTINCT FROM 'false'::jsonb/);
  assert.match(stage,/p_sidecar->'production_rank_effect' IS DISTINCT FROM 'false'::jsonb/);
  assert.match(stage,/INDEPENDENT_SCORE_NO_BASELINE_RANK_INPUT/);
- assert.match(stage,/LOCAL_1_7_INDEPENDENT_SHADOW_V0_2/);
+ assert.match(stage,/LOCAL_1_7_INDEPENDENT_SHADOW_V0_3/);
  assert.match(stage,/ALREADY_VERIFIED_LOCAL_CLAIMED_HISTORY_ONLY/);
  assert.match(stage,/p_sidecar->'old_top5' IS DISTINCT FROM v_baseline/);
  assert.match(stage,/jsonb_array_length\(p_sidecar->'score_table'\)<>v_n/);
