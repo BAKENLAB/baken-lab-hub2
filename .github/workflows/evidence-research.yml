@@ -45,6 +45,10 @@ jobs:
           cp automation/optional-atomic-shadow-save.mjs .jra-mcp-ci/optional-atomic-shadow-save.mjs
           cp automation/relative-ability-rank-proposal.mjs .jra-mcp-ci/relative-ability-rank-proposal.mjs
           cp automation/local-verified-condition-bridge.mjs .jra-mcp-ci/local-verified-condition-bridge.mjs
+          # optional-atomic-shadow-save now imports LOCAL 1.7 research engine;
+          # copy its transitive dependencies for this isolated JRA typecheck.
+          cp automation/local-v17-full-field-independent-shadow.mjs .jra-mcp-ci/local-v17-full-field-independent-shadow.mjs
+          cp automation/hyogo-official-ability-evidence.mjs .jra-mcp-ci/hyogo-official-ability-evidence.mjs
           deno check .jra-mcp-ci/index.ts
       - name: Typecheck staged LOCAL claimed relative-rank preview
         run: |

@@ -33,7 +33,12 @@ function getRuns(r){
   const section=head.slice(m.index,dates[i+1]?.index??head.length);
   const dm=m[0].match(/(?:20\d{2}[-/])?(\d{1,2})[-/](\d{1,2})$/);
   let part=section.slice(m[0].length);
-  let place=part.match(/(\d{1,2})着|勝ち|勝利/);
+  // Prefer an explicitly stated finish. "未勝利4着" is FOURTH, not a
+  // victory; the race-class name 未勝利 must never be parsed as a win.
+  // The absence of an ordinal only permits an explicit "勝ち"/"勝利"
+  // outside "未勝利" and unrelated class labels.
+  const explicitFinish=part.match(/(\d{1,2})着/);
+  let place=explicitFinish||part.match(/(?<!未)(?:勝ち|勝利)/);
   if(!dm)return null;
   // Official note sometimes says "9/23と8/26の園田C3三でともに3着".
   // Two independent results are stated explicitly in that wording.
@@ -83,6 +88,17 @@ function dissect(r){
  const addRisk=s=>{const t=compact(s);if(t)cautions.push(t)};
  for(const s of analysis){
   if(/^未取得|^推測で補わない|^推測加点しない/.test(s))continue;
+  // Treat inability to verify as uncertainty, never a strength merely
+  // because the sentence contains "水準" or other ability vocabulary.
+  if(/検証できない|証明できない|判断できない|根拠がない/.test(s)){
+    addRisk(s);continue;
+  }
+  // "10/29...9着、10/7...7着は近況反証" is one full caution,
+  // not a good 9th-place run followed by a risk on only the 7th.
+  if(/^\d{1,2}\/\d{1,2}.*\d{1,2}着.*(?:反証|不安材料)/.test(s)&&
+     !/(?:を評価|を重視|好走を証明)/.test(s)){
+    addRisk(s);continue;
+  }
   // A caution-only sentence must not promote its opening half to a strength.
   if(/^(?:直近|前走|休み明け).*?(?:なし|不安|反証|未実証)|^近走.*?なし|^ただし/.test(s)){
     addRisk(s);continue;
