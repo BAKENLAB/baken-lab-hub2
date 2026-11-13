@@ -299,3 +299,45 @@ test('v1.7 prior Kanazawa special-collection result never certifies normal C2 eq
  assert.equal(b.ability_evidence_audit[2].runs[0].context_band,
   'SPECIAL_SELECTION_CLASS_COMPARABILITY_UNVERIFIED');
 });
+
+test('two verified poor finishes never beat a single sixth only because course and freshness matched',()=>{
+ const one=make(),two=make();
+ one.comparison.runner_evidence[4].context_runs=[run(5,0,6)];
+ two.comparison.runner_evidence[4].context_runs=[run(5,0,8),run(5,1,10)];
+ const a=v17(one),b=v17(two);
+ assert.equal(a.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ assert.equal(b.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ const horseA=a.ability_evidence_audit.find(h=>h.horse_no===5);
+ const horseB=b.ability_evidence_audit.find(h=>h.horse_no===5);
+ assert.ok(horseB.independent_score<=horseA.independent_score,
+  JSON.stringify({sixth:horseA.independent_score,poor:horseB.independent_score}));
+ assert.equal(horseB.runs.every(x=>x.contextual_bonus_applied===false),true);
+ assert.equal(horseB.runs.find(x=>x.finish===8).score_signal,0);
+ assert.equal(horseB.runs.find(x=>x.finish===10).same_condition_poor_offset,3);
+});
+test('unverified class transfer does not turn last place into proven same-class underperformance',()=>{
+ const x=make();
+ x.comparison.runner_evidence[4].context_runs=[
+  run(5,0,10,{class:'B1',track:'佐賀',distance:1300}),
+  run(5,1,9,{class:'B1',track:'佐賀',distance:1300})
+ ];
+ const r=v17(x);
+ assert.equal(r.status,'READY_FOR_PROSPECTIVE_PAIRED_TEST');
+ const h=r.ability_evidence_audit.find(z=>z.horse_no===5);
+ assert.equal(h.runs.every(z=>z.same_condition_poor_offset===0),true);
+ assert.equal(h.runs.every(z=>z.score_signal===0),true);
+ assert.equal(h.missing_information_penalty,0);
+ assert.equal(h.independent_score,50);
+ assert.equal(r.market_used,false);
+});
+test('repeated positive verified form still scores higher than repeated recent deep finishes',()=>{
+ const good=make(),poor=make();
+ good.comparison.runner_evidence[4].context_runs=[run(5,0,1),run(5,1,2)];
+ poor.comparison.runner_evidence[4].context_runs=[run(5,0,9),run(5,1,10)];
+ const a=v17(good),b=v17(poor);
+ const x=a.ability_evidence_audit.find(z=>z.horse_no===5);
+ const y=b.ability_evidence_audit.find(z=>z.horse_no===5);
+ assert.ok(x.independent_score>y.independent_score);
+ assert.equal(x.runs.every(z=>z.contextual_bonus_applied===true),true);
+ assert.equal(y.runs.every(z=>z.contextual_bonus_applied===false),true);
+});
