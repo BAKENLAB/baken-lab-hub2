@@ -88,6 +88,9 @@ export function buildEvalTransferForJraClaim({
   return fail('JRA_OFFICIAL_CLAIM_ASOF_NOT_VERIFIED');
  const validated=verifiedSnapshot(snapshot);
  if(!validated)return fail('PRIVATE_EVAL_SNAPSHOT_NOT_VALIDATED');
+ // Snapshot was collected after 2026-11-13 races. It must NEVER be
+ // presented as contemporaneous evidence for a race on/before that date.
+ if(date<=snapshot.v)return fail('EVAL_SNAPSHOT_NOT_AVAILABLE_ASOF_TARGET_RACE');
  const tid=validated.resolve(snapshot.targets,race.track,rc.surface,
   Number(rc.distance),norm(rc.course_layout));
  if(tid===null)return fail('EVAL_TARGET_NOT_IN_82_NORMAL_COURSES');
