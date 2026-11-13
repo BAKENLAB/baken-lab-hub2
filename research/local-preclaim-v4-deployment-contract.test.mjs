@@ -51,8 +51,8 @@ test('no auto-claim, post-race save, direct prediction mutation or odds capabili
  assert.doesNotMatch(workflow,/official_market|market_odds|payouts|odds|popularity/);
  assert.match(edge,/claim_started:false,prediction_saved:false/);
 });
-test('stage remains un-deployed and source bundle names explicit',()=>{
- assert.match(edge,/RESEARCH-STAGED v4\. NOT DEPLOYED/);
+test('deployed v4 source remains server-only with explicit imports',()=>{
+ assert.match(edge,/v4 deployed to Supabase ACTIVE/);
  assert.match(edge,/createLocalCornerServiceRpcStore/);
  assert.match(edge,/runAuthorizedLocalCornerPreclaim/);
  assert.match(edge,/prepareLocalOfficialCornerPacket/);
