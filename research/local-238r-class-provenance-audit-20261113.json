@@ -1,0 +1,69 @@
+{
+  "audit_type": "LOCAL_CLASS_PROVENANCE_AND_MISSINGNESS",
+  "check_date_jst": "2026-11-13",
+  "source": "Read-only public.official_predictions FROZEN for 2026-11-07 through 2026-11-12; official race name and original audit.missing_conditions",
+  "model": "Research official venue-aware class resolver (NOT production)",
+  "local_frozen_races": 238,
+  "original_audit_missing_class_name": 238,
+  "class_recoverable_from_race_name": 167,
+  "class_not_explicit_in_race_name": 54,
+  "mixed_grade_ambiguous": 17,
+  "class_recovered_after_saga_suffix_fix": 3,
+  "current_parser_summary": {
+    "OFFICIAL_CLASS_LITERAL": 133,
+    "OFFICIAL_TOKAI_GROUP_LITERAL": 34,
+    "CLASS_NOT_EXPLICIT": 54,
+    "AMBIGUOUS_CLASS": 17
+  },
+  "by_track": {
+    "佐賀": {
+      "total": 28,
+      "recovered": 21,
+      "ambiguous": 1
+    },
+    "高知": {
+      "total": 20,
+      "recovered": 14,
+      "ambiguous": 0
+    },
+    "盛岡": {
+      "total": 30,
+      "recovered": 27,
+      "ambiguous": 0
+    },
+    "名古屋": {
+      "total": 47,
+      "recovered": 34,
+      "ambiguous": 0
+    },
+    "川崎": {
+      "total": 47,
+      "recovered": 32,
+      "ambiguous": 2
+    },
+    "金沢": {
+      "total": 11,
+      "recovered": 10,
+      "ambiguous": 1
+    },
+    "門別": {
+      "total": 34,
+      "recovered": 12,
+      "ambiguous": 12
+    },
+    "園田": {
+      "total": 21,
+      "recovered": 17,
+      "ambiguous": 1
+    }
+  },
+  "cautions": [
+    "A missing class_name audit flag does not prove the old production ability scorer ignored class information elsewhere.",
+    "Recovered tokens are class labels parsed from pre-existing stored race titles, not independently re-fetched official race programs.",
+    "Tokai C23 is NOT the C2 tier. Mixed A1/A2 or C3/C4 remains ambiguous rather than guessed.",
+    "No source can establish class strength, transfer equivalence, or future performance on its own.",
+    "The 238-race audit is source completeness only; not accuracy improvement and not a prospective 1.7 study.",
+    "Current production LOCAL1.6 ranks and all FROZEN rows remain untouched."
+  ],
+  "next_step": "Capture an authenticated, immutable official pre-CLAIM 1.7 full-field paired shadow from every eligible original saved rank draft and compare only after official target result is published."
+}
