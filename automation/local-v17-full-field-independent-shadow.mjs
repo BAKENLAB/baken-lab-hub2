@@ -237,6 +237,8 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
  const sorted=audit.slice().sort((a,b)=>b.independent_score-a.independent_score||
   b.evidence_runs_used-a.evidence_runs_used||a.horse_no-b.horse_no);
  const equalScores=sorted.filter((v,i)=>i>0&&v.independent_score===sorted[i-1].independent_score);
+ // Neither horse number nor evidence-count tiebreaks certify ability.
+ const top5BoundaryTied=sorted[4]?.independent_score===sorted[5]?.independent_score;
  // Phase 2 is the DISTINCT LAB EYE mission, after all-horse scores/top5.
  // It never changes the ability order. Multiple independently verified
  // podium races, including an other-condition run, may justify a research
@@ -288,6 +290,10 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
   top5:sorted.slice(0,5).map(x=>x.horse_no),
   ability_evidence_audit:audit,
   tied_score_runner_count:equalScores.length,
+  top5_boundary_score_tie:top5BoundaryTied,
+  top5_boundary_confidence:top5BoundaryTied?
+    'UNRESOLVED_SCORE_TIE_NO_RANK_CERTIFICATION':
+    'INDEPENDENT_SCORE_SEPARATION_UNCALIBRATED',
   rank_tiebreak:'EVIDENCE_COVERAGE_THEN_HORSE_NO_NO_MARKET',
   lab_eye_status:eyeSelected?'EVIDENCE_BACKED_RESEARCH_CANDIDATE':'ABSTAINED',
   eye_candidate:eyeSelected?{horse_no:eyeSelected.horse_no,
