@@ -89,3 +89,14 @@ test('duplicate history run is counted once, no multiplier applied',()=>{
  assert.equal(r.runners[0].matched_verified_prior_runs,1);
  assert.equal(r.runners[0].optional_course_fit_budget_points,1);
 });
+
+test('Eval snapshot collected on 11/13 cannot be used to backfill an 11/13 or older race',()=>{
+ const context=claimed();
+ context.race.race_date='2026-11-13';
+ context.race.post_time='2026-11-13T10:50:00+09:00';
+ const r=evaluate({context,snapshot:fakeSnapshot(),ownedTransferStats:stats,
+  observedAt:'2026-11-13T09:50:00+09:00'});
+ assert.equal(r.status,'EVAL_TRANSFER_UNAVAILABLE');
+ assert.equal(r.reason,'EVAL_SNAPSHOT_NOT_AVAILABLE_ASOF_TARGET_RACE');
+ assert.equal(r.score_effect,0);
+});
