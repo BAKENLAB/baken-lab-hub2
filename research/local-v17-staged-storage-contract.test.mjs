@@ -90,24 +90,7 @@ test('sidecar guard checks current service lease and READY again, not merely yes
  assert.match(stage,/FROM public\.official_races r/);
  assert.match(stage,/r\.prediction_status IN \('PENDING','RETRY'\)/);
  assert.match(stage,/r\.field_status IN \('READY','BASIC_READY'\)/);
- assert.ok(stage.includes("v_reason !~ '^[A-Z0-9_]{1,120}
-});
-test('postrace comparison never invents a FROZEN replay or three finishers',()=>{
- assert.match(postrace,/^-- READ ONLY/m);
- assert.match(postrace,/private\.lab_v17_independent_preflight_v1/);
- assert.match(postrace,/private\.lab_rank_shadow_preflight_v1/);
- assert.match(postrace,/p\.capture_sha256=v\.original_capture_sha256/);
- assert.match(postrace,/j\.saved_order IS DISTINCT FROM j\.draft_order/);
- assert.match(postrace,/j\.frozen_at<j\.captured_at OR j\.frozen_at>=j\.post_time/);
- assert.match(postrace,/j\.official_result_settled_at<j\.post_time/);
- assert.match(postrace,/j\.top3_finish_positions<>3 OR j\.top3_distinct_horses<>3/);
- assert.match(postrace,/THEN 'WAITING_VERIFIED_PODIUM'/);
- assert.match(postrace,/WHEN j\.status='ABSTAINED' THEN 'RESEARCH_ABSTAINED'/);
- assert.match(postrace,/newly_captured/);
- assert.match(postrace,/lost_captured/);
- assert.doesNotMatch(postrace,/\b(?:INSERT|UPDATE|DELETE|DROP|TRUNCATE)\b/i);
-});
-"));
+ assert.ok(stage.includes("v_reason !~ '^[A-Z0-9_]{1,120}$'"));
 });
 test('postrace comparison never invents a FROZEN replay or three finishers',()=>{
  assert.match(postrace,/^-- READ ONLY/m);
