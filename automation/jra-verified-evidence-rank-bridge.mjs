@@ -154,6 +154,7 @@ export function buildJraVerifiedEvidenceRankBridge({context,evalInput,payload,ob
  const after=adjusted.map(r=>r.horse_no),beforeTop5=original.slice(0,5),
   afterTop5=after.slice(0,5);
  const changedTop5=beforeTop5.some((n,i)=>n!==afterTop5[i]);
+ const changedTop5Membership=beforeTop5.some(n=>!afterTop5.includes(n));
  const newEye=payload.eye===null?null:
   adjusted.find(x=>x.horse_no===payload.eye.horse_no);
  const eye=(newEye&&newEye.rank>5)?
@@ -165,17 +166,19 @@ export function buildJraVerifiedEvidenceRankBridge({context,evalInput,payload,ob
     used_official_claim_context:true,eval_normal_rows:1942,
     all_runners_checked:true,market_used:false,target_result_used:false,
     old_order:original,new_order:after,top5_changed:changedTop5,
+    top5_membership_changed:changedTop5Membership,
     per_runner:audit
   }};
  const outPayload={...payload,runners:adjusted,top5:adjusted.slice(0,5),
   eye,audit:newAudit};
- return boundedResult(changedTop5?'EYE_REAUDIT_REQUIRED':'READY_FOR_OFFICIAL_SAVE',
-  changedTop5?'TOP5_ORDER_CHANGED_REAUDIT_EYE_AND_RANK_REASONS':
+ return boundedResult(changedTop5Membership?'EYE_REAUDIT_REQUIRED':'READY_FOR_OFFICIAL_SAVE',
+  changedTop5Membership?'TOP5_MEMBERSHIP_CHANGED_REAUDIT_EYE_AND_RANK_REASONS':
   'FULL_FIELD_EVIDENCE_SCORES_AND_RANKS_APPLIED',{
   full_field_count:adjusted.length,runner_score_changes:audit.filter(x=>x.applied_delta>0).length,
   before_top5:beforeTop5,after_top5:afterTop5,
   score_and_rank_diff:audit,proposed_payload:outPayload,
-  needs_eye_reaudit:changedTop5,existing_frozen_untouched:true
+  needs_eye_reaudit:changedTop5Membership,top5_order_changed:changedTop5,
+  existing_frozen_untouched:true
  });
 }
 export function verifyJraBridgeAlreadyApplied({context,evalInput,payload,observedAt}={}){
