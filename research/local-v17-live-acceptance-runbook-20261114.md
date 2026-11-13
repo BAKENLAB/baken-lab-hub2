@@ -36,3 +36,12 @@
 - 正規MCPのCLAIM/save/preclaim/preview/seal 呼出し、Edge配備、DB書込み、Cron再開、FROZEN修正は今回ゼロ。
 
 次の実際の取得では、「公式通過順を取得できた馬が何頭か」「そのうち順位判断に使える証拠が何走か」「研究順位でTOP5を変えた理由」を必ず具体的に示す。
+
+## 2026-11-14 早朝｜実DB＋公式日程で確認した取得ウィンドウ
+- NAR公式 2026-11-14は高知11R、佐賀11R。佐賀1R 15:20、高知1R 15:35、高知11Rファイナル20:50（日本時間）。公式: https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_babaCode=32&k_raceDate=2026%2F11%2F14 および https://www.sagakeiba.net/raceinfo/start/ 。
+- 11/14 05:38 JST の `public.official_races` LOCAL登録0・READY0。これは正常取得時間帯前。`local-data-refresh` 本番Edge v14 は **07:00～22:00 JST** にのみ通常登録（`force`なし）し、発走 **240分前から** 個別出走馬取得を試みる。
+- 実DB 11/10～11/13 はほぼ全場07:00～07:10 JSTに登録（`created_at` 照合）、最初の出走馬確認は各開催の発走4時間程度前。したがって「早朝の0件＝登録故障」ではない。
+- 佐賀1Rの通常詳細取得開始目安11:20、高知1R11:35、高知11R16:50。**目安でありREADY・CLAIM可能・その時刻の保存成功を保証しない**。
+- `cron.job` をread-onlyで確認: local-data-refreshとlocal-prediction-enqueueはactive、旧local-ai worker群はinactive。**停止したworker群の再開は禁止**。Cronの`succeeded`はHTTP応答内容でのREADYを証明しない。
+- `automation/local-v17-intake-window-advisory.mjs` はJST登録窓／詳細4h窓／フィールドREADYを分けて出す**純粋な研究用補助**。発走後・既存FROZENは不可、いずれもCLAIM・preclaim・saveを許可するものではない。
+- `lab_preclaim_official_corners`は対象のレース日・場・レース番号を**ユーザーが正確に指定した場合に限り**正式な発走前ルートで実行。研究コードから代行・force実行・レース結果での再構成をしない。
