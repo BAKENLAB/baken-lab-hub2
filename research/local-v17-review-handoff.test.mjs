@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {buildLocalV17ReviewHandoff as handoff} from '../automation/local-v17-review-handoff.mjs';
+import {buildLocalV17ReviewHandoff as handoff, buildLocalV17ReviewFromClaimedContext as fromContext} from '../automation/local-v17-review-handoff.mjs';
 
 const race={
  circuit:'LOCAL',race_date:'2026-11-14',track:'名古屋',race_no:6,
@@ -121,4 +121,72 @@ test('the handoff is review-only and not a saving payload',()=>{
  assert.equal(r.production_eye_effect,false);
  assert.equal('bets' in r,false);
  assert.equal('payload' in r,false);
+});
+
+function claimedFixture(){
+ const f=fixture();
+ const claimedContext={
+  context_format:'COMPACT_V1',field_integrity_checked:true,
+  stage:'AWAITING_FULL_DEPTH_COMPARISON',
+  protocol:{protocol_key:'LOCAL_MAIN',enforced_server_side:true,version:'1.6'},
+  race:{circuit:'LOCAL',race_date:f.race.race_date,track:f.race.track,
+   race_no:f.race.race_no,race_name:f.race.race_name,
+   post_time:f.race.post_time,
+   conditions:{class_name:f.race.class_name,surface:f.race.surface,
+    distance:f.race.distance}},
+  runners:f.activeRunners.map(({horse_no,horse_name})=>({horse_no,horse_name,
+   recent_runs:[],missing_items:[]})),
+  relative_condition_status:'READY',
+  relative_condition_evidence:{...f.comparison,runner_count:f.activeRunners.length}
+ };
+ return {claimedContext,baseline:f.baseline,observedAt:f.race.observation_at};
+}
+test('real COMPACT_V1 structural adapter emits independent review with exact field',()=>{
+ const f=claimedFixture(),before=structuredClone(f),r=fromContext(f);
+ assert.equal(r.status,'RESEARCH_DRAFT_REVIEWABLE',JSON.stringify(r));
+ assert.equal(r.evidence_lane,'NORMAL_CLAIM_OFFICIAL_HISTORY_ONLY');
+ assert.equal(r.all_runners_checked,10);
+ assert.deepEqual(r.independently_scored_top5,[1,2,3,4,5]);
+ assert.equal(r.live_claim_rechecked_by_this_pure_function,false);
+ assert.equal(r.ready_for_production_adoption,false);
+ assert.equal(r.signed_official_score,false);
+ assert.deepEqual(f,before);
+});
+test('forged optional corner metadata does not claim independent official corners',()=>{
+ const f=claimedFixture();
+ f.claimedContext.official_corner_shadow={
+  status:'DESCRIPTIVE_SHADOW_ONLY',use_for_rank:false,
+  use_for_save_gate:false,applied_prior_runs:1,
+  research_relative_condition_evidence:{status:'READY',runner_count:10}
+ };
+ const r=fromContext(f);
+ assert.equal(r.status,'RESEARCH_DRAFT_REVIEWABLE');
+ assert.equal(r.evidence_lane,'NORMAL_CLAIM_OFFICIAL_HISTORY_ONLY');
+ assert.equal(r.official_corner_witness_count,0);
+});
+test('partial, unverified or non-LOCAL claimed context abstains',()=>{
+ for(const mutate of [
+  x=>{x.claimedContext.field_integrity_checked=false},
+  x=>{x.claimedContext.relative_condition_status='PARTIAL_OR_INVALID'},
+  x=>{x.claimedContext.relative_condition_evidence.runner_count=9},
+  x=>{x.claimedContext.race.circuit='JRA'},
+  x=>{x.claimedContext.stage='FINISHED'},
+  x=>{x.claimedContext.protocol.enforced_server_side=false}
+ ]){
+  const x=claimedFixture();mutate(x);
+  const r=fromContext(x);
+  assert.equal(r.status,'ABSTAINED');
+  assert.equal(r.reason,'VERIFIED_CLAIMED_CONTEXT_NOT_AVAILABLE');
+ }
+});
+test('COMPACT_V1 adapter never trusts an after-post time or market-tainted history',()=>{
+ const a=claimedFixture();a.observedAt=a.claimedContext.race.post_time;
+ const expired=fromContext(a);
+ assert.equal(expired.status,'ABSTAINED');
+ assert.equal(expired.live_claim_rechecked_by_this_pure_function,false);
+ const b=claimedFixture();
+ b.claimedContext.relative_condition_evidence.runner_evidence[0].context_runs[0].popularity=1;
+ const tainted=fromContext(b);
+ assert.equal(tainted.status,'ABSTAINED');
+ assert.equal(tainted.scorer_reason,'COMPLETE_OFFICIAL_PRE_RACE_PACKET_UNVERIFIED');
 });
