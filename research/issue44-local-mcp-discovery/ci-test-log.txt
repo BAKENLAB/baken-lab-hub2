@@ -1,0 +1,45 @@
+Excerpt of actual test output from GitHub job 132068121766 (only test lines; excludes runner auth/setup logs)
+2026-11-13T18:00:43.6124858Z TAP version 13
+2026-11-13T18:00:43.6621475Z # Subtest: actual source six / current host three is reproduced without tool calls
+2026-11-13T18:00:43.6625245Z ok 1 - actual source six / current host three is reproduced without tool calls
+2026-11-13T18:00:43.6637093Z # Subtest: six source registrations alone do not prove authenticated discovery
+2026-11-13T18:00:43.6640213Z ok 2 - six source registrations alone do not prove authenticated discovery
+2026-11-13T18:00:43.6656079Z # Subtest: hypothetical authenticated six / client three isolates surface not Android cause
+2026-11-13T18:00:43.6659481Z ok 3 - hypothetical authenticated six / client three isolates surface not Android cause
+2026-11-13T18:00:43.6669690Z # Subtest: both live list and conversation six are required for COMPLETE
+2026-11-13T18:00:43.6679637Z ok 4 - both live list and conversation six are required for COMPLETE
+2026-11-13T18:00:43.6690074Z # Subtest: incomplete authenticated list remains a server discovery problem
+2026-11-13T18:00:43.6693262Z ok 5 - incomplete authenticated list remains a server discovery problem
+2026-11-13T18:00:43.6703982Z # Subtest: unauthenticated supplied list is never trusted
+2026-11-13T18:00:43.6706587Z ok 6 - unauthenticated supplied list is never trusted
+2026-11-13T18:00:43.6717053Z # Subtest: incomplete source is reported independently
+2026-11-13T18:00:43.6719592Z ok 7 - incomplete source is reported independently
+2026-11-13T18:00:43.6729355Z # Subtest: ambiguous package bindings are warnings not proven causal priority
+2026-11-13T18:00:43.6731272Z ok 8 - ambiguous package bindings are warnings not proven causal priority
+2026-11-13T18:00:43.6738223Z # Subtest: remote URL alone is not labelled mobile-compatible or Desktop-only
+2026-11-13T18:00:43.6739757Z ok 9 - remote URL alone is not labelled mobile-compatible or Desktop-only
+2026-11-13T18:00:43.6745267Z # Subtest: duplicate tool names rejected
+2026-11-13T18:00:43.6746683Z ok 10 - duplicate tool names rejected
+2026-11-13T18:00:43.6751631Z # Subtest: malformed tool names rejected
+2026-11-13T18:00:43.6753208Z ok 11 - malformed tool names rejected
+2026-11-13T18:00:43.6757558Z # Subtest: paginated list is read-only and discards unrelated metadata
+2026-11-13T18:00:43.6758838Z ok 12 - paginated list is read-only and discards unrelated metadata
+2026-11-13T18:00:43.6763533Z # Subtest: repeated cursor is rejected without retry
+2026-11-13T18:00:43.6764635Z ok 13 - repeated cursor is rejected without retry
+2026-11-13T18:00:43.6768885Z # Subtest: duplicate across pages rejected
+2026-11-13T18:00:43.6770678Z ok 14 - duplicate across pages rejected
+2026-11-13T18:00:43.6778667Z # Subtest: authorization failure is not converted to successful zero-tools
+2026-11-13T18:00:43.6781084Z ok 15 - authorization failure is not converted to successful zero-tools
+2026-11-13T18:00:43.6788977Z # Subtest: page and tool limits stop collection
+2026-11-13T18:00:43.6790130Z ok 16 - page and tool limits stop collection
+2026-11-13T18:00:43.6798162Z # Subtest: timeout aborts discovery without calling tools
+2026-11-13T18:00:43.6800215Z ok 17 - timeout aborts discovery without calling tools
+2026-11-13T18:00:43.6808444Z # Subtest: diagnostic functions do not mutate observed registry
+2026-11-13T18:00:43.6810709Z ok 18 - diagnostic functions do not mutate observed registry
+2026-11-13T18:00:43.6818439Z 1..18
+2026-11-13T18:00:43.6819804Z # tests 18
+2026-11-13T18:00:43.6824548Z # pass 18
+2026-11-13T18:00:43.6825347Z # fail 0
+2026-11-13T18:00:43.6826143Z # cancelled 0
+2026-11-13T18:00:43.6826948Z # skipped 0
+2026-11-13T18:00:43.6828533Z # duration_ms 82.494511
