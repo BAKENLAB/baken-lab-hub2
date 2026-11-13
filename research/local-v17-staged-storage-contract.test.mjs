@@ -6,6 +6,7 @@ const parent=readFileSync('research/staged-local-v17-parent-preflight-hook-v1.sq
 const save=readFileSync('research/2026-11-09-atomic-optional-shadow-save-v1.sql','utf8');
 const bridge=readFileSync('automation/optional-atomic-shadow-save.mjs','utf8');
 const engine=readFileSync('automation/local-v17-full-field-independent-shadow.mjs','utf8');
+const postrace=readFileSync('research/staged-local-v17-paired-postrace-audit-readonly.sql','utf8');
 test('staged only, never modifies production frozen or public ranks',()=>{
  assert.match(stage,/RESEARCH STAGE ONLY.*NOT EXECUTED/);
  assert.match(parent,/NOT EXECUTE IN PRODUCTION/);
@@ -78,4 +79,31 @@ test('official save remains canonical and atomic; optional capture cannot block 
  assert.ok(capture>=0 && official>capture);
  assert.match(old,/EXCEPTION WHEN OTHERS THEN[\s\S]*v_shadow_status:='OPTIONAL_CAPTURE_SKIPPED'/);
  assert.match(bridge,/independent_full_field_v17:independentV17/);
+});
+
+test('sidecar guard checks current service lease and READY again, not merely yesterday seal',()=>{
+ assert.match(stage,/FROM public\.lab_prediction_jobs j/);
+ assert.match(stage,/j\.job_status='CLAIMED'/);
+ assert.match(stage,/j\.lease_until>v_now/);
+ assert.match(stage,/j\.claim_token IS NOT NULL/);
+ assert.match(stage,/j\.claimed_by=w\.worker_id AND w\.status='RUNNING'/);
+ assert.match(stage,/FROM public\.official_races r/);
+ assert.match(stage,/r\.prediction_status IN \('PENDING','RETRY'\)/);
+ assert.match(stage,/r\.field_status IN \('READY','BASIC_READY'\)/);
+ assert.match(stage,/v_reason !~ '\^\[A-Z0-9_\]\{1,120\}\$'/);
+});
+test('postrace comparison never invents a FROZEN replay or three finishers',()=>{
+ assert.match(postrace,/^-- READ ONLY/m);
+ assert.match(postrace,/private\.lab_v17_independent_preflight_v1/);
+ assert.match(postrace,/private\.lab_rank_shadow_preflight_v1/);
+ assert.match(postrace,/p\.capture_sha256=v\.original_capture_sha256/);
+ assert.match(postrace,/j\.saved_order IS DISTINCT FROM j\.draft_order/);
+ assert.match(postrace,/j\.frozen_at<j\.captured_at OR j\.frozen_at>=j\.post_time/);
+ assert.match(postrace,/j\.official_result_settled_at<j\.post_time/);
+ assert.match(postrace,/j\.top3_finish_positions<>3 OR j\.top3_distinct_horses<>3/);
+ assert.match(postrace,/THEN 'WAITING_VERIFIED_PODIUM'/);
+ assert.match(postrace,/WHEN j\.status='ABSTAINED' THEN 'RESEARCH_ABSTAINED'/);
+ assert.match(postrace,/newly_captured/);
+ assert.match(postrace,/lost_captured/);
+ assert.doesNotMatch(postrace,/\b(?:INSERT|UPDATE|DELETE|DROP|TRUNCATE)\b/i);
 });
