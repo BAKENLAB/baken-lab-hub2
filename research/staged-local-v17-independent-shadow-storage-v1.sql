@@ -123,6 +123,21 @@ BEGIN
      OR (SELECT count(distinct x->>'horse_no') FROM jsonb_array_elements(v_scores) x)<>v_n
      OR (SELECT count(distinct x->>'rank') FROM jsonb_array_elements(v_scores) x)<>v_n
    THEN RAISE EXCEPTION 'V17_SHADOW_SCORES_INVALID'; END IF;
+   -- No artificial rank order: all scores must be non-increasing, and
+   -- tied ranks 5/6 may not be certified by horse number or evidence count.
+   IF EXISTS(
+     SELECT 1 FROM jsonb_array_elements(v_scores) x
+     JOIN jsonb_array_elements(v_scores) y ON
+       (x->>'rank')::int=(y->>'rank')::int-1
+     WHERE (x->>'research_score_100')::int <
+       (y->>'research_score_100')::int
+   ) OR (
+     (SELECT (x->>'research_score_100')::int FROM jsonb_array_elements(v_scores) x
+       WHERE (x->>'rank')::int=5)
+     =
+     (SELECT (x->>'research_score_100')::int FROM jsonb_array_elements(v_scores) x
+       WHERE (x->>'rank')::int=6)
+   ) THEN RAISE EXCEPTION 'V17_SHADOW_SCORE_ORDER_OR_BOUNDARY_TIE'; END IF;
    SELECT jsonb_agg((x->>'horse_no')::int ORDER BY (x->>'rank')::int)
      INTO v_order FROM jsonb_array_elements(v_scores) x;
    SELECT jsonb_agg(x.value ORDER BY x.ord)
