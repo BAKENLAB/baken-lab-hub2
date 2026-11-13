@@ -30,8 +30,8 @@ const hasLeak=v=>{
  return Object.entries(v).some(([k,x])=>leakKeys.test(k)||hasLeak(x));
 };
 const stop=(reason,more={})=>({
- status:'UNVERIFIED',reason,model:'LOCAL_1_7_INDEPENDENT_SHADOW_V0_2',
- version:'1.7-research-v0.2',production_rank_effect:false,production_eye_effect:false,
+ status:'UNVERIFIED',reason,model:'LOCAL_1_7_INDEPENDENT_SHADOW_V0_3',
+ version:'1.7-research-v0.3',production_rank_effect:false,production_eye_effect:false,
  frozen_modified:false,market_used:false,target_result_used:false,...more
 });
 const scoreBound=n=>Math.min(100,Math.max(0,Math.round(n)));
@@ -285,8 +285,8 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
     weight:1,category:'OFFICIAL_ABILITY_TEST_ONLY_UNCALIBRATED'});
   const base=50;
   const raw=base+contributions.reduce((n,x)=>n+x.signal*x.weight,0);
-  // v0.2 intentionally separates positive finish evidence from contextual
-  // freshness/condition matching; do not compare these 100pt research scores
+  // v0.3 adds narrowly gated independent official corner proof; previously
+  // v0.2 separated positive finish from conditions. Do not compare these scores
   // to v0.1 or production 1.6 scores as if they used a common scale.
   // Provisional score is NOT a probability and not calibrated against 1.6.
   const score=scoreBound(raw);
@@ -354,8 +354,8 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
  const eyeSelected=uniqueLeader?leader:null;
  return {
   status:'READY_FOR_PROSPECTIVE_PAIRED_TEST',
-  model:'LOCAL_1_7_INDEPENDENT_SHADOW_V0_2',
-  version:'1.7-research-v0.2',release_status:'RESEARCH_NOT_DEPLOYED',
+  model:'LOCAL_1_7_INDEPENDENT_SHADOW_V0_3',
+  version:'1.7-research-v0.3',release_status:'RESEARCH_NOT_DEPLOYED',
   observation_at:race.observation_at,
   race_identity:{circuit:'LOCAL',race_date:race.race_date,
    track:race.track,race_no:race.race_no,post_time:race.post_time},
