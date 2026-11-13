@@ -6,8 +6,8 @@
 - The newly created private plugin `plugins_6af64165c8dc819186e9164d78d565b3` is **reported already installed** by plugin management. It must **not** be described as uninstalled. Installation ≠ currently exposed/usable tool connection.
 - Its package uses `.mcp.json` with `mcpServers` pointing to the **same** remote Supabase HTTPS endpoint, and its manifest declares that file as an MCP server.
 - The older `plugins_6ac487e8d5008191aa7fc9d1c76c793a` package also declares a remote MCP server in `.mcp.json`; its metadata was updated to mention 6 tools but the live conversation still exposes 3.
-- **Authoritative product limitation:** OpenAI Help, “Plugins in ChatGPT” (https://help.openai.com/en/articles/20001256-plugins-in-chatgpt), states Desktop-only imported plugins can be marked that way because they declare MCP servers in `mcp.json` or `.mcp.json` **even when the server has a remote HTTPS URL**, and such plugins cannot run in ChatGPT web. OpenAI Help, “Connecting custom MCP servers in ChatGPT” (https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt), states mobile custom MCP connections are not supported.
-- Therefore Chrome's Desktop Site toggle **cannot by itself** make this specific Desktop-only plugin available. The earlier suggestion to repeatedly retry the app-opening prompt was incorrect.
+- **2026-11-14 correction:** The currently fetched official help documents local MCP apps as Desktop-only and custom-MCP connection setup as web-only. It does not establish that every remote HTTPS `.mcp.json` package is Desktop-only. The USER-scoped App binding's actual action snapshot and authenticated `tools/list` have not been inspected. See `research/issue44-local-mcp-discovery/README.md` for observed versus unverified facts.
+- Chrome's Desktop Site toggle alone is not a verified fix. Do not label this remote plugin Desktop-only solely from its filename, or repeatedly reinstall without observing the actual connection.
 - OpenAI supports alternative **Site-hosted** MCP plugin architecture (https://help.openai.com/en/articles/20001547-hosting-a-plugin-with-chatgpt-sites), but a proper Site-owned plugin, authorization, publish and actual tool exposure must be verified independently. Do not treat a plain remote URL in a new `.mcp.json` plugin as this alternative.
 
 ## Impact and safety
@@ -21,4 +21,4 @@
 2. Design a **Site-hosted MCP app/plugin or other officially supported app-backed** connection, with authenticated server-side code, and confirm **mobile** support in the actual product before attempting live protected races. This is a separate architecture; no implementation/connection is claimed here.
 3. If workspace Business/Enterprise/Edu app tools are available, a managing admin can refresh the approved tool list; the user should not be told this is a personal Plus self-service feature.
 
-**Current blocker is client surface/tool availability, not source/server v4 deployment.**
+**Confirmed blocker: the conversation lacks three tool names despite six source registrations. Exact client ingestion/snapshot cause and authenticated `tools/list` remain unverified.**
