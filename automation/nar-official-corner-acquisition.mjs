@@ -12,10 +12,11 @@ import {readNarOfficialPriorCorners} from './nar-prior-corners-official-source.m
 export function prepareLocalOfficialCornerPacket({
   targetRace,officialVerifiedRunners,
   maxPriorRaces=12,timeoutMs=3000,reserveMs=5*60*1000,
-  clock=()=>Date.now(),fetchImpl=fetch
+  clock=()=>Date.now(),fetchImpl=fetch,absoluteDeadlineMs=null
 }) {
   return fetchLocalPriorCornerEvidence({
-    targetRace,runners:officialVerifiedRunners,maxPriorRaces,timeoutMs,reserveMs,clock,
+    targetRace,runners:officialVerifiedRunners,maxPriorRaces,
+    timeoutMs,reserveMs,clock,absoluteDeadlineMs,
     fetchVerifiedRace:({priorRace,signal})=>readNarOfficialPriorCorners({
       priorRace,targetRaceDate:targetRace.raceDate,
       targetPostTime:targetRace.postTime,clock,fetchImpl,signal
