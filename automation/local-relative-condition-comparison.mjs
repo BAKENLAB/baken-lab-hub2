@@ -64,7 +64,9 @@ export function buildLocalRelativeConditionComparison(runners,conditions={},targ
   // semantics; cross-condition/JRA-transfer history is NOT thrown away.
   // No result, odds, popularity or market attributes are ever projected.
   const project=({h,i,resolution,cls})=>({
-      race_date:h.race_date,track:h.track,race_name:h.race_name,
+      race_date:h.race_date,track:h.track,
+      race_no:int(safeNumber(h.race_no))?safeNumber(h.race_no):null,
+      race_name:h.race_name,
       class:cls.class_label,class_provenance:cls.status,
       surface:resolution.surface,surface_provenance:resolution.provenance,
       surface_source_ref:resolution.source_ref,
