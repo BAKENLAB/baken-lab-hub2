@@ -69,8 +69,7 @@ BEGIN
  IF NOT FOUND OR v_prior.race_date<>(v_now AT TIME ZONE 'Asia/Tokyo')::date
    OR v_prior.post_time<=v_now+interval '3 minutes'
    OR v_prior.captured_at>=v_prior.post_time
-   -- Recheck the lease and official READY even for a direct service-role
-   -- invocation. The parent's preflight seal does not keep a lease alive.
+   -- Recheck live lease and official readiness at the exact capture attempt.
    OR NOT EXISTS(
      SELECT 1 FROM public.lab_prediction_jobs j
      JOIN public.lab_worker_runs w ON w.id=j.worker_run_id
@@ -109,104 +108,7 @@ BEGIN
  THEN RAISE EXCEPTION 'V17_SHADOW_NOT_RESEARCH_ONLY'; END IF;
  IF v_status='ABSTAINED' THEN
    v_reason:=p_sidecar->>'reason';
-   IF v_reason IS NULL OR v_reason !~ '^[A-Z0-9_]{1,120}
-   THEN RAISE EXCEPTION 'V17_ABSTENTION_BAD_PROOF'; END IF;
- ELSE
-   IF p_sidecar->>'model'<>'LOCAL_1_7_INDEPENDENT_SHADOW_V0_2'
-     OR p_sidecar->>'version'<>'1.7-research-v0.2'
-     OR p_sidecar->>'rank_source'<>'INDEPENDENT_SCORE_NO_BASELINE_RANK_INPUT'
-     OR p_sidecar->>'verified_history_inputs'<>'ALREADY_VERIFIED_LOCAL_CLAIMED_HISTORY_ONLY'
-     OR p_sidecar->'old_top5' IS DISTINCT FROM v_baseline
-     OR (p_sidecar->>'all_runners_checked')::int IS DISTINCT FROM v_n
-     OR jsonb_typeof(p_sidecar->'score_table')<>'array'
-     OR jsonb_array_length(p_sidecar->'score_table')<>v_n
-     OR jsonb_typeof(p_sidecar->'shadow_top5')<>'array'
-     OR jsonb_array_length(p_sidecar->'shadow_top5')<>5
-   THEN RAISE EXCEPTION 'V17_SHADOW_FIELD_UNVERIFIED'; END IF;
-   v_scores:=p_sidecar->'score_table';
-   IF EXISTS(
-     SELECT 1 FROM jsonb_array_elements(v_scores) x
-     WHERE jsonb_typeof(x)<>'object'
-       OR coalesce(x->>'horse_no','') !~ '^[0-9]{1,2}$'
-       OR coalesce(x->>'rank','') !~ '^[0-9]{1,2}$'
-       OR coalesce(x->>'research_score_100','') !~ '^[0-9]{1,3}$'
-       OR (x->>'horse_no')::int NOT BETWEEN 1 AND 24
-       OR (x->>'rank')::int NOT BETWEEN 1 AND v_n
-       OR (x->>'research_score_100')::int NOT BETWEEN 0 AND 100
-       OR x->>'confidence' NOT IN
-         ('HISTORY_AVAILABLE','LIMITED_HISTORY','ABILITY_TEST_ONLY_UNCALIBRATED')
-       OR (x ?| array['odds','win_odds','popularity','market','result','payouts'])
-       OR NOT EXISTS(
-         SELECT 1 FROM jsonb_array_elements(v_prior.field_athletes) f
-         WHERE f->>'horse_no'=x->>'horse_no')
-   )
-     OR (SELECT count(distinct x->>'horse_no') FROM jsonb_array_elements(v_scores) x)<>v_n
-     OR (SELECT count(distinct x->>'rank') FROM jsonb_array_elements(v_scores) x)<>v_n
-   THEN RAISE EXCEPTION 'V17_SHADOW_SCORES_INVALID'; END IF;
-   -- No artificial rank order: all scores must be non-increasing, and
-   -- tied ranks 5/6 may not be certified by horse number or evidence count.
-   IF EXISTS(
-     SELECT 1 FROM jsonb_array_elements(v_scores) x
-     JOIN jsonb_array_elements(v_scores) y ON
-       (x->>'rank')::int=(y->>'rank')::int-1
-     WHERE (x->>'research_score_100')::int <
-       (y->>'research_score_100')::int
-   ) OR (
-     (SELECT (x->>'research_score_100')::int FROM jsonb_array_elements(v_scores) x
-       WHERE (x->>'rank')::int=5)
-     =
-     (SELECT (x->>'research_score_100')::int FROM jsonb_array_elements(v_scores) x
-       WHERE (x->>'rank')::int=6)
-   ) THEN RAISE EXCEPTION 'V17_SHADOW_SCORE_ORDER_OR_BOUNDARY_TIE'; END IF;
-   SELECT jsonb_agg((x->>'horse_no')::int ORDER BY (x->>'rank')::int)
-     INTO v_order FROM jsonb_array_elements(v_scores) x;
-   SELECT jsonb_agg(x.value ORDER BY x.ord)
-     INTO v_top FROM jsonb_array_elements(v_order)
-     WITH ORDINALITY x(value,ord) WHERE x.ord<=5;
-   IF p_sidecar->'shadow_top5' IS DISTINCT FROM v_top
-      OR (p_sidecar->>'changed_full_field_order')::boolean
-         IS DISTINCT FROM (v_order<>v_prior.draft_order)
-      OR (p_sidecar->>'changed_top5_membership')::boolean
-         IS DISTINCT FROM EXISTS(
-            SELECT 1 FROM jsonb_array_elements(v_top) x
-            WHERE NOT EXISTS(SELECT 1 FROM jsonb_array_elements(v_baseline) y WHERE x.value=y.value)
-         )
-   THEN RAISE EXCEPTION 'V17_SHADOW_ORDER_NOT_SCORE_DERIVED'; END IF;
- END IF;
- v_digest:=encode(extensions.digest(convert_to(
-   jsonb_build_object('parent_seal',v_prior.capture_sha256,
-     'status',v_status,'reason',v_reason,'order',v_order,
-     'scores',v_scores,'old_top5',v_baseline,'new_top5',v_top)::text,
-     'UTF8'),'sha256'),'hex');
- INSERT INTO private.lab_v17_independent_preflight_v1(
-  circuit,race_date,track,race_no,job_id,post_time,
-  original_capture_sha256,model,status,abstention_reason,baseline_top5,
-  shadow_top5,complete_shadow_order,score_table,capture_sha256
- ) VALUES('LOCAL',v_prior.race_date,v_prior.track,v_prior.race_no,p_job_id,
-   v_prior.post_time,v_prior.capture_sha256,
-   'LOCAL_1_7_INDEPENDENT_SHADOW_V0_2',v_status,v_reason,
-   v_baseline,v_top,v_order,v_scores,v_digest)
- ON CONFLICT(circuit,race_date,track,race_no) DO NOTHING
- RETURNING id INTO v_id;
- IF v_id IS NULL THEN
-   SELECT capture_sha256 INTO v_saved
-   FROM private.lab_v17_independent_preflight_v1
-   WHERE circuit='LOCAL' AND race_date=v_prior.race_date
-     AND track=v_prior.track AND race_no=v_prior.race_no;
-   IF v_saved IS DISTINCT FROM v_digest THEN
-     RAISE EXCEPTION 'V17_SHADOW_ALREADY_SEALED_DIFFERENT';
-   END IF;
- END IF;
- RETURN jsonb_build_object('status',
-   CASE WHEN v_id IS NULL THEN 'ALREADY_SEALED_SAME' ELSE 'SEALED_PRE_RACE' END,
-   'capture_sha256',v_digest,'research_only',true,
-   'official_rank_changed',false,'frozen_modified',false);
-END $v17$;
-REVOKE ALL ON FUNCTION private.lab_capture_v17_independent_preflight_v1(uuid,jsonb)
-  FROM PUBLIC,anon,authenticated;
-GRANT EXECUTE ON FUNCTION private.lab_capture_v17_independent_preflight_v1(uuid,jsonb)
-  TO service_role;
- OR
+   IF v_reason IS NULL OR v_reason !~ '^[A-Z0-9_]{1,120}$' OR
      p_sidecar ? 'shadow_top5' OR p_sidecar ? 'score_table'
    THEN RAISE EXCEPTION 'V17_ABSTENTION_BAD_PROOF'; END IF;
  ELSE
