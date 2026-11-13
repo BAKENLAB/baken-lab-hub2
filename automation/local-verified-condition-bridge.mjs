@@ -72,6 +72,15 @@ export function resolveLocalOfficialClassLiteral(name,track=null){
    matches.push(label);
  }
  const unique=[...new Set(matches)];
+ // 佐賀 official named races can embed a group token directly AFTER
+ // a sponsor-series number, e.g. "SAGAリベFEVER14C2-22組".
+ // Require the exact terminal class/group and one unique official grade;
+ // no speculative grading of age-only or mixed classes.
+ if(unique.length===0 && venue==='佐賀'){
+   const m=s.match(/(?:^|[0-9])([ABC][1-4])-(?:[1-9]|[1-9][0-9])組$/u);
+   if(m && listedGrades.length===1 && listedGrades[0]===m[1])
+     return {status:'OFFICIAL_CLASS_LITERAL',class_label:m[1]};
+ }
  if(unique.length!==1)return {status:unique.length?'AMBIGUOUS_CLASS':'CLASS_NOT_EXPLICIT',class_label:null};
  return {status:'OFFICIAL_CLASS_LITERAL',class_label:unique[0]};
 }
