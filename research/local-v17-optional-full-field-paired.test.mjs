@@ -15,6 +15,8 @@ function fixture(){
    {date:'2026-10-15',finish:1},{date:'2026-09-16',finish:2}
   ]:x.horse_no===5?[
    {date:'2026-10-15',finish:10},{date:'2026-09-16',finish:8}
+  ]:x.horse_no<=4?[
+   {date:'2026-10-15',finish:4}
   ]:[{date:'2026-10-15',finish:6}];
   const ctx=records.map((run,i)=>({
    race_date:run.date,track:'園田',class:'C2一3歳以上',
@@ -113,4 +115,21 @@ test('FROZEN-after-post or altered draft cannot create paired independent output
   now:'2026-11-13T10:59:00+09:00'}),null);
  const duplicate=payload();duplicate.runners[0].rank=2;
  assert.equal(buildOptionalSaveLocalShadow({context:ctx,payload:duplicate,now}),null);
+});
+
+test('independent shadow abstains on rank5/rank6 equal-score tie',()=>{
+ const ctx=fixture();
+ for(const x of ctx.relative_condition_evidence.runner_evidence){
+  for(const h of x.context_runs)h.finish=6;
+  for(const h of x.supporting_runs)h.finish=6;
+ }
+ const out=buildOptionalSaveLocalShadow({context:ctx,payload:payload(),now});
+ assert.ok(out);
+ const sidecar=out.preview.independent_full_field_v17;
+ assert.equal(sidecar.status,'ABSTAINED');
+ assert.equal(sidecar.reason,'TOP5_BOUNDARY_SCORE_TIE_NOT_ABILITY_RESOLVED');
+ assert.equal(sidecar.all_runners_checked,10);
+ assert.equal('shadow_top5' in sidecar,false);
+ assert.equal(sidecar.production_rank_effect,false);
+ assert.equal(sidecar.market_used,false);
 });
