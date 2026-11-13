@@ -86,6 +86,35 @@ export function buildLocalClaimedCornerShadow({
    a.past_race.race_no-b.past_race.race_no);
  if(acceptedKeys.size!==enriched.applied||verifiedCornerSources.length!==enriched.applied)
   throw new TypeError('CORNER_SOURCE_PROVENANCE_MISMATCH');
+ // An independently checked official past-result witness must point to
+ // EXACTLY one compact historical race. No positional facts are promoted
+ // by trusting a generic "corner_enriched_prior_runs" count alone.
+ const verifiedCornerWitnesses=verifiedCornerSources.map(e=>{
+  const horse=shadowRunners.find(r=>r.horse_no===e.current_horse_no&&
+    norm(r.horse_name)===e.horse_name);
+  const matches=(horse?.recent_runs??[]).map((run,i)=>({run,i}))
+   .filter(x=>raceKey(x.run)===
+     [e.past_race.race_date,e.past_race.track,e.past_race.race_no].join('/'));
+  if(matches.length!==1||matches[0].run.early_pos!==e.early_pos||
+     matches[0].run.final_turn_pos!==e.final_turn_pos)
+    throw new TypeError('CORNER_WITNESS_COMPACT_RUN_MISMATCH');
+  return {
+   horse_no:e.current_horse_no,horse_name:e.horse_name,
+   evidence_ref:'COMPACT_V1.runners[horse_no='+e.current_horse_no+
+     '].recent_runs['+matches[0].i+']',
+   race_date:e.past_race.race_date,track:e.past_race.track,
+   race_no:e.past_race.race_no,
+   early_pos:e.early_pos,final_turn_pos:e.final_turn_pos,
+   official_source_ref:e.official_source_ref,
+   source_checked_at:e.source_checked_at,
+   verification_scope:'VERIFIED_PRECLAIM_OFFICIAL_PAST_RESULT'
+  };
+ });
+ if(verifiedCornerWitnesses.length!==enriched.applied||
+    new Set(verifiedCornerWitnesses.map(x=>x.evidence_ref)).size!==enriched.applied)
+  throw new TypeError('CORNER_WITNESS_IDENTITY_OR_COUNT_MISMATCH');
+ const researchWithExactWitnesses=researchRelativeComparison?
+   {...researchRelativeComparison,verified_corner_witnesses:verifiedCornerWitnesses}:null;
  return {
   status:enriched.status,source:'NAR_OFFICIAL_PRECLAIM_CORNERS',
   use_for_rank:false,use_for_save_gate:false,market_used:false,
@@ -95,7 +124,7 @@ export function buildLocalClaimedCornerShadow({
   inserted_corner_fields:inserted,verified_corner_sources:verifiedCornerSources,
   field_pace_evidence:pace,
   // Separate research-only lane; not passed to production ability scorer.
-  research_relative_condition_evidence:researchRelativeComparison,
+  research_relative_condition_evidence:researchWithExactWitnesses,
   runners:shadowRunners,reports:audits
  };
 }
