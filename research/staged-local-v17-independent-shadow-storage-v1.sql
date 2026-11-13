@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS private.lab_v17_independent_preflight_v1 (
  captured_at timestamptz NOT NULL DEFAULT clock_timestamp(),
  post_time timestamptz NOT NULL,
  original_capture_sha256 text NOT NULL,
- model text NOT NULL CHECK(model='LOCAL_1_7_INDEPENDENT_SHADOW_V0_2'),
+ model text NOT NULL CHECK(model='LOCAL_1_7_INDEPENDENT_SHADOW_V0_3'),
  status text NOT NULL CHECK(status IN ('FULL_FIELD_PAIRED_RESEARCH_ONLY','ABSTAINED')),
  abstention_reason text,
  baseline_top5 jsonb NOT NULL,
@@ -112,8 +112,8 @@ BEGIN
      p_sidecar ? 'shadow_top5' OR p_sidecar ? 'score_table'
    THEN RAISE EXCEPTION 'V17_ABSTENTION_BAD_PROOF'; END IF;
  ELSE
-   IF p_sidecar->>'model'<>'LOCAL_1_7_INDEPENDENT_SHADOW_V0_2'
-     OR p_sidecar->>'version'<>'1.7-research-v0.2'
+   IF p_sidecar->>'model'<>'LOCAL_1_7_INDEPENDENT_SHADOW_V0_3'
+     OR p_sidecar->>'version'<>'1.7-research-v0.3'
      OR p_sidecar->>'rank_source'<>'INDEPENDENT_SCORE_NO_BASELINE_RANK_INPUT'
      OR p_sidecar->>'verified_history_inputs'<>'ALREADY_VERIFIED_LOCAL_CLAIMED_HISTORY_ONLY'
      OR p_sidecar->'old_top5' IS DISTINCT FROM v_baseline
@@ -184,7 +184,7 @@ BEGIN
   shadow_top5,complete_shadow_order,score_table,capture_sha256
  ) VALUES('LOCAL',v_prior.race_date,v_prior.track,v_prior.race_no,p_job_id,
    v_prior.post_time,v_prior.capture_sha256,
-   'LOCAL_1_7_INDEPENDENT_SHADOW_V0_2',v_status,v_reason,
+   'LOCAL_1_7_INDEPENDENT_SHADOW_V0_3',v_status,v_reason,
    v_baseline,v_top,v_order,v_scores,v_digest)
  ON CONFLICT(circuit,race_date,track,race_no) DO NOTHING
  RETURNING id INTO v_id;
