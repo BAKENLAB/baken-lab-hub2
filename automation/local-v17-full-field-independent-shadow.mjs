@@ -36,8 +36,9 @@ const stop=(reason,more={})=>({
 });
 const scoreBound=n=>Math.min(100,Math.max(0,Math.round(n)));
 const ageDays=(today,day)=>(Date.parse(today+'T00:00:00Z')-Date.parse(day+'T00:00:00Z'))/86400000;
+// Finishing 6th-or-worse is not automatically a positive ability factor.
 const rankWeight=finish=>finish===1?28:finish===2?22:finish===3?16:
- finish<=5?9:finish<=8?2:-3;
+ finish<=5?9:0;
 
 /** Simple, interpretable prior-run signals; NO retrospective calibration. */
 function evaluateRun(h,conditions,horseNo,usedRefs){
@@ -73,16 +74,24 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
    conditions.specialSelection||priorSpecialSelection?
      'SPECIAL_SELECTION_CLASS_COMPARABILITY_UNVERIFIED':
    !sameClass?'CLASS_OR_GROUP_UNVERIFIED':'SAME_OFFICIAL_CLASS';
- const freshness=days<=45?6:days<=120?4:days<=240?2:days<=540?1:0;
- const matchBonus=(surfaceMatch?3:0)+(courseMatch?3:0)+
+ // CRITICAL: an 8th/10th must not receive +15 to +20 points merely
+ // for racing recently on the same course. Those are context facts, not
+ // positive performance. Unknown transfer/class never becomes poor ability.
+ const positivePerformance=h.finish<=5;
+ const freshness=positivePerformance?(days<=45?6:days<=120?4:days<=240?2:
+   days<=540?1:0):0;
+ const matchBonus=positivePerformance?((surfaceMatch?3:0)+(courseMatch?3:0)+
    (distanceDelta!==null&&distanceDelta<=100?5:
-    distanceDelta!==null&&distanceDelta<=300?2:0)+(sameClass?3:0);
+    distanceDelta!==null&&distanceDelta<=300?2:0)+(sameClass?3:0)):0;
+ const independentlyComparablePoor=h.finish>=9&&surfaceMatch&&
+   courseMatch&&distanceDelta!==null&&distanceDelta<=300&&sameClass;
  const classUncertainty=conditions.specialSelection||priorSpecialSelection||
    conditions.target_class===null||!cls||
    priorClass.status==='AMBIGUOUS_CLASS'||(!courseMatch&&!!cls);
  // Positive run can still be useful after a change. Less directly
  // transferable evidence receives a SMALL bonus, NOT a negative.
- const runSignal=rankWeight(h.finish)+freshness+matchBonus;
+ const confirmedPoorOffset=independentlyComparablePoor?3:0;
+ const runSignal=rankWeight(h.finish)+freshness+matchBonus-confirmedPoorOffset;
  return {
   evidence_ref:h.evidence_ref,history_date:h.race_date,age_days:days,
   finish:h.finish,track:h.track,distance:h.distance,
@@ -94,6 +103,11 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
     priorSpecialSelection,
   distance_delta:distanceDelta,
   score_signal:runSignal,
+  performance_band:positivePerformance?'TOP5_POSITIVE_PERFORMANCE':
+    independentlyComparablePoor?'SAME_CONDITION_VERIFIED_DEEP_FINISH':
+      'NEUTRAL_NON_TOP5_OR_CONDITION_UNVERIFIED',
+  contextual_bonus_applied:positivePerformance,
+  same_condition_poor_offset:confirmedPoorOffset,
   finish_proof:h.finish<=3?'WIN_OR_PODIUM':'NO_PODIUM',
   winner_gap:'UNVERIFIED_UNLESS_INDEPENDENTLY_VERIFIED',
   turn_positions:{early:h.early_pos??null,last:h.final_turn_pos??null}
