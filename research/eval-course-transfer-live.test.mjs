@@ -4,20 +4,18 @@ import {buildEvalTransferForJraClaim as evaluate} from '../automation/eval-cours
 function fakeSnapshot(){
  const tracks=['東京','中山','京都','阪神','中京','福島','札幌','函館','新潟','小倉'];
  const targets=[['東京','ダート','',1600]];
- for(const t of tracks)for(const s of ['芝','ダート'])
+ target_loop: for(const t of tracks)for(const s of ['芝','ダート'])
   for(const d of [1200,1400,1600,1800,2000,2200,2400]){
    const k=JSON.stringify([t,s,'',d]);
    if(!targets.some(x=>JSON.stringify(x)===k))targets.push([t,s,'',d]);
-   if(targets.length===82)break;
-   if(targets.length===82)break;
+   if(targets.length===82)break target_loop;
   }
  const sources=[['中山','ダート','',1800]];
- for(const t of tracks)for(const s of ['芝','ダート'])
+ source_loop: for(const t of tracks)for(const s of ['芝','ダート'])
   for(const d of [1200,1400,1600,1800,2000,2200]){
    const k=JSON.stringify([t,s,'',d]);
    if(!sources.some(x=>JSON.stringify(x)===k))sources.push([t,s,'',d]);
-   if(sources.length===30)break;
-   if(sources.length===30)break;
+   if(sources.length===30)break source_loop;
   }
  const pairs=[[0,0,5,133]];
  for(let ti=0;ti<targets.length&&pairs.length<1942;ti++)
