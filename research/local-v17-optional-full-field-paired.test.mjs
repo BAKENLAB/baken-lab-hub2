@@ -54,6 +54,16 @@ test('one as-of official history feeds BOTH baseline and independent 100pt full-
  assert.equal(independent.lost_from_top5.includes(5),true);
  assert.equal(independent.score_table.length,10);
  assert.equal(new Set(independent.score_table.map(x=>x.horse_no)).size,10);
+ assert.equal(independent.historic_corner_source,
+  'NORMAL_CLAIM_HISTORY_NO_SEPARATE_CORNER_CERTIFICATION');
+ const high=independent.score_table.find(h=>h.horse_no===10);
+ const poor=independent.score_table.find(h=>h.horse_no===5);
+ assert.equal(high.top5_positive_runs,2);
+ assert.equal(high.same_class_top5_runs,2);
+ assert.equal(high.strongest_evidence_refs.length,2);
+ assert.equal(poor.top5_positive_runs,0);
+ assert.equal(poor.same_condition_deep_finishes,1);
+ assert.equal(JSON.stringify(independent).includes('popularity'),false);
  assert.equal(independent.production_rank_effect,false);
  assert.equal(independent.production_score_effect,false);
  assert.equal(independent.target_result_used,false);
