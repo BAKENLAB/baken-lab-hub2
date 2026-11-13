@@ -159,6 +159,7 @@ function evaluateRun(h,conditions,horseNo,usedRefs,cornerWitness=null){
    confirmedPoorOffset+cornerBonus;
  return {
   evidence_ref:h.evidence_ref,history_date:h.race_date,age_days:days,
+  historical_race_no:h.race_no??null,
   finish:h.finish,track:h.track,distance:h.distance,
   surface:h.surface??null,class_literal:h.class??null,
   normalized_historical_class:cls??null,
@@ -174,6 +175,7 @@ function evaluateRun(h,conditions,horseNo,usedRefs,cornerWitness=null){
   contextual_bonus_applied:positivePerformance,
   same_condition_poor_offset:confirmedPoorOffset,
   certified_official_corner_source:cornerWitness?.official_source_ref??null,
+  certified_official_corner_checked_at:cornerWitness?.source_checked_at??null,
   corner_verification_status:cornerWitness?
    'EXACT_VERIFIED_PRECLAIM_OFFICIAL_PAST_RESULT':'NOT_INDEPENDENTLY_VERIFIED',
   corner_position_bonus:cornerBonus,
