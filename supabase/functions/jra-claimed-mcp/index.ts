@@ -86,7 +86,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
    const key=String(data?.race?.track??'')+'|'+String(rc?.surface??'')+
      '|'+String(rc?.distance??'')+'|'+turn;
    let cohorts=[];
-   if(PRIVATE_EVAL_PRIORITIES?.scope==='NORMAL_TOP3_ONLY'&&
+   if(PRIVATE_EVAL_PRIORITIES?.scope==='NORMAL_ALL_1942'&&
       data?.stage==='AWAITING_JRA_FULL_DEPTH_COMPARISON'){
      const {data:rows,error:cohortError}=await c
        .from('lab_course_jra_transfer_v1')
