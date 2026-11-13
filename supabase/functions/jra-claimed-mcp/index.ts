@@ -1,6 +1,8 @@
 import {buildOptionalSaveJraShadow,extractOfficialSaveDraft} from "./optional-atomic-shadow-save.mjs";
 import {buildRelativeAbilityRankProposal} from "./relative-ability-rank-proposal.mjs";
 import {buildJraClaimedDraftPreview} from "./jra-relative-draft-adapter.mjs";
+import {buildEvalTransferForJraClaim} from "./eval-course-transfer-live.mjs";
+import {PRIVATE_EVAL_PRIORITIES} from "./eval-course-private-data.mjs";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import {createMcpHandler,McpServer} from "npm:@modelcontextprotocol/server@^2.0.0";
 import {pipeline} from "npm:@supabase/middleware@1";
@@ -72,6 +74,49 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
    data.live_ability_rank_input={status:"FALLBACK_TO_JRA_0_4",
      reason:"OPTIONAL_LIVE_RANK_INPUT_UNAVAILABLE",
      actionable_in_real_prediction:false,save_authorized:false};
+ }
+ // Eval top-3 course links (user-supplied PRIVATE snapshot) + independently
+ // trained JRA cohorts. This feeds the real current full-field rank decision,
+ // not the postrace shadow and NEVER the official FROZEN directly.
+ try{
+   const rc=data?.race?.field_payload?.race??{};
+   const turn=['東京','新潟','中京'].includes(data?.race?.track)?'左':'右';
+   const key=String(data?.race?.track??'')+'|'+String(rc?.surface??'')+
+     '|'+String(rc?.distance??'')+'|'+turn;
+   let cohorts=[];
+   if(PRIVATE_EVAL_PRIORITIES?.scope==='NORMAL_TOP3_ONLY'&&
+      data?.stage==='AWAITING_JRA_FULL_DEPTH_COMPARISON'){
+     const {data:rows,error:cohortError}=await c
+       .from('lab_course_jra_transfer_v1')
+       .select('source_course_key,target_course_key,runners,top3_lift,reliability,condition_precision,training_to')
+       .eq('target_course_key',key).limit(200);
+     if(!cohortError&&Array.isArray(rows))cohorts=rows;
+   }
+   const evalInput=buildEvalTransferForJraClaim({
+     context:data,snapshot:PRIVATE_EVAL_PRIORITIES,
+     ownedTransferStats:cohorts,observedAt:new Date().toISOString()
+   });
+   data.eval_course_transfer_input=evalInput;
+   if(data.live_ability_rank_input &&
+      typeof data.live_ability_rank_input==='object'){
+     data.live_ability_rank_input.eval_course_transfer={
+       status:evalInput.status,
+       mode:'OFFICIAL_JRA_0_4_FULL_FIELD_COURSE_FIT_REVIEW',
+       course_fit_budget_max:evalInput.score_budget_max_per_horse??0,
+       runner_course_budget:evalInput.status==='READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW'?
+         evalInput.runners.map((h:any)=>({
+           horse_no:h.horse_no,
+           review_100pt_budget:h.optional_course_fit_budget_points,
+           evidence_refs:h.confirmed_supporting_run_refs,
+           already_counted_historical_run:true
+         })):[],
+       rule:'Only one optional ability point supported by an independently verified historical podium plus OWN reliable n>=120 cohort; do not double count the same run; no forced ranks; NO market odds or result.'
+     };
+   }
+ }catch{
+   data.eval_course_transfer_input={status:'EVAL_TRANSFER_UNAVAILABLE',
+     reason:'OPTIONAL_COURSE_ADAPTER_FAILED',score_effect:0,
+     market_used:false,target_result_used:false};
  }
  return {content:[{type:"text",text:JSON.stringify(data)}],structuredContent:{context:data}}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
 
