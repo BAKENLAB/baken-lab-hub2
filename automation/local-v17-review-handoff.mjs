@@ -78,6 +78,23 @@ export function buildLocalV17ReviewHandoff({race,comparison,activeRunners,baseli
    positive_performance_runs:runProof.filter(x=>x.contextual_bonus_applied===true).length,
    comparable_class_positive_runs:runProof.filter(x=>
     x.contextual_bonus_applied===true&&x.context_band==='SAME_OFFICIAL_CLASS').length,
+   // Same course/distance proof is explicitly visible rather than hidden
+   // in a generic 100-point total. It is NOT automatic ability promotion:
+   // special selections, class differences, opponent quality and pace remain
+   // questions for manual full-field review.
+   exact_course_distance_podium_runs:runProof.filter(x=>
+    x.finish<=3&&x.age_days<=365&&x.track===race.track&&
+    x.distance===race.distance&&x.surface===race.surface).length,
+   recent_exact_course_distance_podium_runs:runProof.filter(x=>
+    x.finish<=3&&x.age_days<=180&&x.track===race.track&&
+    x.distance===race.distance&&x.surface===race.surface).length,
+   recent_exact_course_distance_win_runs:runProof.filter(x=>
+    x.finish===1&&x.age_days<=180&&x.track===race.track&&
+    x.distance===race.distance&&x.surface===race.surface).length,
+   exact_course_distance_podium_evidence_refs:runProof.filter(x=>
+    x.finish<=3&&x.age_days<=365&&x.track===race.track&&
+    x.distance===race.distance&&x.surface===race.surface)
+    .map(x=>x.evidence_ref),
    official_corner_proofs:verifiedCorners.map(x=>({
     evidence_ref:x.evidence_ref,official_source_ref:x.certified_official_corner_source,
     source_checked_at:x.certified_official_corner_checked_at,
@@ -94,6 +111,26 @@ export function buildLocalV17ReviewHandoff({race,comparison,activeRunners,baseli
    research_only:true
   };
  });
+ // Review ALL baseline outsiders, including rank 7+, not just the new
+ // research rank 6. No auto swaps, no finish-based retroactive promotion.
+ const rank5=scoreRows.find(x=>x.baseline_rank===5);
+ const watch=scoreRows.filter(x=>x.baseline_rank>5&&
+  x.recent_exact_course_distance_podium_runs>
+   (rank5?.recent_exact_course_distance_podium_runs??0))
+  .map(x=>({
+   horse_no:x.horse_no,baseline_rank:x.baseline_rank,
+   rank5_horse_no:rank5.horse_no,
+   rank5_verified_recent_exact_distance_podium:
+    rank5.recent_exact_course_distance_podium_runs,
+   outsider_verified_recent_exact_distance_podium:
+    x.recent_exact_course_distance_podium_runs,
+   outsider_verified_recent_exact_distance_wins:
+    x.recent_exact_course_distance_win_runs,
+   official_history_refs:x.exact_course_distance_podium_evidence_refs,
+   review:'CHECK_OUTSIDER_EXACT_DISTANCE_HISTORY_VS_BASELINE_RANK5',
+   automatic_promotion:false,
+   class_equivalence_and_race_strength_still_need_review:true
+  })).sort((a,b)=>a.baseline_rank-b.baseline_rank);
  return {
   status:'RESEARCH_DRAFT_REVIEWABLE',
   release_status:'RESEARCH_NOT_DEPLOYED',
@@ -105,6 +142,8 @@ export function buildLocalV17ReviewHandoff({race,comparison,activeRunners,baseli
   newly_in_top5:after.slice(0,5).filter(x=>!oldTop.has(x)),
   dropped_from_top5:before.slice(0,5).filter(x=>!newTop.has(x)),
   scored_full_field:scoreRows,
+  baseline_top5_boundary_watch:watch,
+  boundary_watch_alters_official_score:false,
   rank_change_explanations_required:true,
   official_corner_witness_count:scored.official_corner_witness_count,
   official_corner_witness_status:scored.official_corner_witness_status,
