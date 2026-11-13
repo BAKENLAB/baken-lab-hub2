@@ -190,3 +190,51 @@ test('COMPACT_V1 adapter never trusts an after-post time or market-tainted histo
  assert.equal(tainted.status,'ABSTAINED');
  assert.equal(tainted.scorer_reason,'COMPLETE_OFFICIAL_PRE_RACE_PACKET_UNVERIFIED');
 });
+
+test('rank5 versus ALL outsiders exposes fresh exact-distance evidence, no auto swap',()=>{
+ const x=fixture();
+ // Fully synthetic prereace proof: never use later results as evaluator input.
+ x.comparison.runner_evidence[7].context_runs[0].finish=2;
+ x.comparison.runner_evidence[7].supporting_runs[0].finish=2;
+ x.comparison.runner_evidence[8].context_runs[0].finish=1;
+ x.comparison.runner_evidence[8].supporting_runs[0].finish=1;
+ const baseline=structuredClone(x.baseline);
+ const r=handoff(x);
+ assert.equal(r.status,'RESEARCH_DRAFT_REVIEWABLE',JSON.stringify(r));
+ const reviewed=r.baseline_top5_boundary_watch;
+ assert.deepEqual(reviewed.map(h=>h.horse_no),[8,9]);
+ assert.deepEqual(reviewed.map(h=>h.baseline_rank),[8,9]);
+ assert.equal(reviewed.every(h=>h.rank5_horse_no===10),true);
+ assert.equal(reviewed.every(h=>h.automatic_promotion===false),true);
+ assert.equal(reviewed.every(h=>
+  h.official_history_refs.every(ref=>ref.startsWith('COMPACT_V1.runners'))),true);
+ assert.equal(r.boundary_watch_alters_official_score,false);
+ assert.equal(r.production_rank_effect,false);
+ assert.deepEqual(x.baseline,baseline);
+});
+test('different distance, weak finish or absent exact proof cannot trigger boundary alert',()=>{
+ const x=fixture();
+ x.comparison.runner_evidence[7].context_runs[0].finish=1;
+ x.comparison.runner_evidence[7].context_runs[0].distance=1400;
+ x.comparison.runner_evidence[7].supporting_runs[0].finish=1;
+ x.comparison.runner_evidence[7].supporting_runs[0].distance=1400;
+ const r=handoff(x);
+ assert.equal(r.status,'RESEARCH_DRAFT_REVIEWABLE');
+ assert.equal(r.baseline_top5_boundary_watch.some(h=>h.horse_no===8),false);
+ assert.equal(r.baseline_top5_boundary_watch.length,0);
+ const horse8=r.scored_full_field.find(h=>h.horse_no===8);
+ assert.equal(horse8.exact_course_distance_podium_runs,0);
+});
+test('an outsider with verified exact-distance run stays research only even if original rank7+',()=>{
+ const x=fixture();
+ x.comparison.runner_evidence[4].context_runs[0].finish=1;
+ x.comparison.runner_evidence[4].supporting_runs[0].finish=1;
+ const r=handoff(x);
+ assert.equal(r.status,'RESEARCH_DRAFT_REVIEWABLE');
+ const alert=r.baseline_top5_boundary_watch.find(h=>h.horse_no===5);
+ assert.equal(alert.baseline_rank,10);
+ assert.equal(alert.automatic_promotion,false);
+ assert.equal(alert.outsider_verified_recent_exact_distance_wins,1);
+ assert.equal(r.market_used,false);
+ assert.equal(r.target_result_used,false);
+});
