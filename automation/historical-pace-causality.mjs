@@ -5,7 +5,7 @@
  * Produces review hypotheses only; no score, ranking, CLAIM or save.
  */
 const valid=x=>Number.isFinite(x)&&x>0;
-const key=h=>JSON.stringify([h.past_race?.race_date,h.past_race?.track,h.past_race?.race_no]);
+const key=h=>JSON.stringify([h.past_race?.race_date,h.past_race?.track,h.past_race?.race_no,h.past_race?.surface??null,h.past_race?.distance??null]);
 export function reviewHistoricalPaceCausality(packet) {
  if(!packet||!['JRA','LOCAL'].includes(packet.circuit)||
  !Array.isArray(packet.runners)||packet.runners.length===0||
@@ -15,8 +15,10 @@ export function reviewHistoricalPaceCausality(packet) {
  const runners=packet.runners.map(r=>{
   const races=new Map();
   for(const h of r.history){
-   if(!h?.past_race?.race_date||!h.past_race.track||
-     !Number.isInteger(h.past_race.race_no))continue;
+   if(!h?.past_race?.race_date||!/^\d{4}-\d{2}-\d{2}$/.test(h.past_race.race_date)||
+     !Number.isFinite(Date.parse(h.past_race.race_date+'T00:00:00Z'))||
+     (packet.race_date && h.past_race.race_date>=packet.race_date)||
+     !h.past_race.track||!Number.isInteger(h.past_race.race_no))continue;
    const id=key(h),prev=races.get(id)??{positions:null,laps:null,source_refs:[]};
    const p=h.positions,l=h.laps;
    if(Array.isArray(h.lap_lengths))prev.lap_lengths=h.lap_lengths;
