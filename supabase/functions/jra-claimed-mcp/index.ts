@@ -306,11 +306,47 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        p_baseline:shadow?.baseline??null,p_preview:shadow?.preview??null
      });
      if(error||!uuid(data?.prediction_id)||data?.ok!==true)throw Error("SAVE_REJECTED");
+     // Read back the ACTUAL immutable FROZEN row. An RPC receipt by itself
+     // does not prove the 100-point and TOP5 delta reached the production DB.
+     // On readback failure report UNCONFIRMED without retrying any write.
+     let dbVerification="UNCONFIRMED";
+     try{
+       const {data:stored,error:ve}=await c.from("official_predictions")
+         .select("id,status,payload").eq("id",data.prediction_id)
+         .eq("circuit","JRA").maybeSingle();
+       if(!ve&&stored){
+         const saved=stored.payload??{};
+         const original=new Map(savedPayload.runners.map((r:any)=>[r.horse_no,r]));
+         const fullRunners=Array.isArray(saved.runners)&&
+           saved.runners.length===original.size&&
+           saved.runners.every((r:any)=>{
+             const prior:any=original.get(r.horse_no);
+             return prior&&prior.horse_name===r.horse_name&&
+               prior.score===r.score&&prior.rank===r.rank;
+           });
+         const top5=Array.isArray(saved.top5)&&saved.top5.length===5&&
+           saved.top5.every((r:any,i:number)=>
+             r.horse_no===savedPayload.top5[i]?.horse_no&&
+             r.rank===savedPayload.top5[i]?.rank);
+         const stamp=savedPayload.audit?.evidence_rank_bridge;
+         const trace=stamp?
+           saved.audit?.evidence_rank_bridge?.version===stamp.version&&
+           JSON.stringify(saved.audit.evidence_rank_bridge.new_order)===
+             JSON.stringify(stamp.new_order)&&
+           saved.audit.evidence_rank_bridge.per_runner?.length===
+             stamp.per_runner?.length:
+           saved.audit?.evidence_rank_bridge===undefined;
+         dbVerification=stored.status==="FROZEN"&&fullRunners&&top5&&trace&&
+           Array.isArray(saved.bets)&&saved.bets.length===0?
+           "VERIFIED_FROZEN_SCORES_TOP5_AUDIT_EMPTY_BETS":"MISMATCH";
+       }
+     }catch{/* Keep the successful immutable save receipt; never rewrite. */}
      const result={ok:true,prediction_id:data.prediction_id,
        shadow_status:data.shadow_status??"UNKNOWN",
        rank_evidence_bridge:rankBridgeStatus,eval_source_status:evalStatus,
        score_changed_runner_count:rankScoreChanges,
        top5_before:beforeTop5,top5_saved:afterTop5,
+       db_frozen_evidence_verification:dbVerification,
        frozen_payload_had_evidence_provenance:
          savedPayload?.audit?.evidence_rank_bridge?.status==='APPLIED_TO_NEW_PREDICTION'};
      return {content:[{type:"text",text:JSON.stringify(result)}],structuredContent:result};
