@@ -107,3 +107,26 @@ test('postrace comparison never invents a FROZEN replay or three finishers',()=>
  assert.match(postrace,/lost_captured/);
  assert.doesNotMatch(postrace,/\b(?:INSERT|UPDATE|DELETE|DROP|TRUNCATE)\b/i);
 });
+
+test('staged 1.7 corner proofs require original NAR race URL and server timestamp',()=>{
+ assert.match(stage,/V17_SHADOW_OFFICIAL_CORNER_PROVENANCE_INVALID/);
+ assert.match(stage,/x->'verified_corner_proofs'/);
+ assert.match(stage,/x->>'independently_verified_corner_runs'/);
+ assert.match(stage,/x->>'verified_corner_bonus_points'/);
+ assert.match(stage,/historical_evidence_ref/);
+ assert.match(stage,/www\.keiba\.go\.jp\/KeibaWeb\/TodayRaceInfo\/RaceMarkTable/);
+ assert.match(stage,/w->>'source_checked_at'/);
+ assert.match(stage,/v_prior\.captured_at/);
+ assert.match(stage,/w->>'past_race_date'/);
+ assert.match(stage,/w->>'past_race_no'/);
+ assert.match(stage,/w->>'early_pos'/);
+ assert.match(stage,/w->>'final_turn_pos'/);
+ assert.match(stage,/w->>'finish'/);
+ assert.match(stage,/w->>'scoring_bonus'/);
+ assert.match(bridge,/verified_corner_proofs:/);
+});
+test('read-only result comparison refuses duplicate or outsider podium',()=>{
+ assert.match(postrace,/jsonb_array_length\(j\.official_top3\)<>3/);
+ assert.match(postrace,/FROM jsonb_array_elements\(j\.draft_order\) b/);
+ assert.match(postrace,/THEN 'WAITING_VERIFIED_PODIUM'/);
+});
