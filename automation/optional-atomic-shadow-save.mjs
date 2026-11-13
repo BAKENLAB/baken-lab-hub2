@@ -146,8 +146,27 @@ function buildLocalV17FullFieldSidecar({context,comparison,baseline,now}){
   changed_full_field_order:baseline.some((x,i)=>proof.runners[i].horse_no!==x.horse_no),
   newly_selected:newTop.filter(x=>!oldSet.has(x)),
   lost_from_top5:oldTop.filter(x=>!newSet.has(x)),
-  score_table:proof.runners.map(x=>({horse_no:x.horse_no,rank:x.rank,
-   research_score_100:x.score,confidence:x.confidence})),
+  // Give users an inspectable reason why the new independent rank moved,
+  // not just an opaque 100pt number or a blanket "過信禁物" warning.
+  // No odds, payouts, target results, or raw scraped history are propagated.
+  score_table:proof.runners.map(x=>{
+   const audit=proof.ability_evidence_audit.find(a=>a.horse_no===x.horse_no);
+   return {horse_no:x.horse_no,rank:x.rank,
+    research_score_100:x.score,confidence:x.confidence,
+    historical_runs_checked:audit?.evidence_runs_checked??null,
+    historical_runs_used:audit?.evidence_runs_used??null,
+    top5_positive_runs:audit?.runs?.filter(z=>z.contextual_bonus_applied).length??null,
+    same_class_top5_runs:audit?.runs?.filter(z=>
+      z.contextual_bonus_applied&&z.context_band==='SAME_OFFICIAL_CLASS').length??null,
+    same_condition_deep_finishes:audit?.runs?.filter(z=>
+      z.same_condition_poor_offset>0).length??null,
+    strongest_evidence_refs:audit?.score_contributions?.slice(0,2).map(z=>z.ref)??[]
+   };
+  }),
+  historic_corner_source:comparison?.corner_evidence_scope===
+   'VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY'?
+    'INDEPENDENT_VERIFIED_PRECLAIM_CORNER_SNAPSHOT':
+    'NORMAL_CLAIM_HISTORY_NO_SEPARATE_CORNER_CERTIFICATION',
   tie_count:proof.tied_score_runner_count,
   eye_research_candidate:proof.eye_candidate?.horse_no??null,
   verified_history_inputs:'ALREADY_VERIFIED_LOCAL_CLAIMED_HISTORY_ONLY',
