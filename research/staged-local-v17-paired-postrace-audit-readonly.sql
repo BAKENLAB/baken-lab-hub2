@@ -60,6 +60,14 @@ WITH originals AS (
   WHEN j.official_result_settled_at IS NULL
     OR j.official_result_settled_at<j.post_time
     OR j.top3_finish_positions<>3 OR j.top3_distinct_horses<>3
+    -- Three distinct positions/horses are insufficient if the official
+    -- JSON has duplicate rows or an outsider absent from the sealed field.
+    OR jsonb_array_length(j.official_top3)<>3
+    OR EXISTS(
+      SELECT 1 FROM jsonb_array_elements(j.official_top3) x
+      WHERE NOT EXISTS(
+        SELECT 1 FROM jsonb_array_elements(j.draft_order) b
+        WHERE b.value=x.value))
        THEN 'WAITING_VERIFIED_PODIUM'
   ELSE 'PAIRED' END AS audit_status
  FROM joined j
