@@ -75,8 +75,10 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      reason:"OPTIONAL_LIVE_RANK_INPUT_UNAVAILABLE",
      actionable_in_real_prediction:false,save_authorized:false};
  }
- // Eval top-3 course links (user-supplied PRIVATE snapshot) + independently
- // trained JRA cohorts. This feeds the real current full-field rank decision,
+ // ALL 1,942 NORMAL Eval JRA course links (PRIVATE grade/rank only)
+ // plus independently trained JRA cohorts. Full 4-run contents are cross-
+ // linked one-to-one to official pace/corners/final3f/margins before ranking.
+ // This feeds the real current full-field rank decision,
  // not the postrace shadow and NEVER the official FROZEN directly.
  try{
    const rc=data?.race?.field_payload?.race??{};
@@ -102,7 +104,10 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      data.live_ability_rank_input.eval_course_transfer={
        status:evalInput.status,
        mode:'OFFICIAL_JRA_0_4_FULL_FIELD_COURSE_FIT_REVIEW',
+       full_ranked_eval_normal_relations:evalInput.eval_normal_rows??0,
+       historical_pace_detail_matches:evalInput.official_one_to_one_archive_pace_matches??0,
        course_fit_budget_max:evalInput.score_budget_max_per_horse??0,
+       independent_running_content_may_change_full_rank:true,
        runner_course_budget:evalInput.status==='READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW'?
          evalInput.runners.map((h:any)=>({
            horse_no:h.horse_no,
@@ -110,7 +115,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
            evidence_refs:h.confirmed_supporting_run_refs,
            already_counted_historical_run:true
          })):[],
-       rule:'Only one optional ability point supported by an independently verified historical podium plus OWN reliable n>=120 cohort; do not double count the same run; no forced ranks; NO market odds or result.'
+       rule:'Review ALL 1,942 course correlation ranks and each horse actual verified historic race (corners, laps, closing, winning margin, relative class, opponents). One Eval-only course fit point budget max after OWN reliable n>=120 confirmation, but verified independent running quality may justify broader 100-point rank change; never double count the same run. No forced TOP5 or EYE, no odds or postrace result.'
      };
    }
  }catch{
