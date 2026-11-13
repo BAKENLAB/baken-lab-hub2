@@ -35,7 +35,7 @@ function verifiedSnapshot(s){
  if(!s||s.v!=='2026-11-13'||!Array.isArray(s.targets)||
     !Array.isArray(s.sources)||!Array.isArray(s.pairs)||
     s.targets.length!==82||s.sources.length>120||
-    s.pairs.length!==1942)return null;
+    s.pairs.length!==246||s.scope!=='NORMAL_TOP3_ONLY')return null;
  const targetKeys=new Map(),sourceKeys=new Map();
  const init=(arr,store)=>{
   for(let i=0;i<arr.length;i++){
@@ -132,6 +132,12 @@ export function buildEvalTransferForJraClaim({
     prior_date:run.race_date,prior_track:run.track,
     prior_surface:run.surface,prior_distance:Number(run.distance),
     prior_finish:Number(run.finish),
+    prior_early_pos:Number.isInteger(Number(run.early_pos))?
+     Number(run.early_pos):null,
+    prior_winner_margin_seconds:run.margin_to_winner!==null&&
+     Number.isFinite(Number(run.margin_to_winner))?
+     Number(run.margin_to_winner):null,
+    prior_class:typeof run.race_class==='string'?run.race_class:null,
     eval_tier:({5:'S',4:'A',3:'B',2:'C',1:'E'})[relation.tier],
     internal_stats_reliability:stat?.reliability??'NOT_MATCHED',
     internal_stats_n:stat?Number(stat.runners):null,
@@ -159,7 +165,11 @@ export function buildEvalTransferForJraClaim({
  }
  return {status:'READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW',
   source:'USER_SUPPLIED_EVAL_SNAPSHOT_PRIVATE_PLUS_OWN_JRA_2023_25_STATS',
-  snapshot_date:'2026-11-13',target_course:jraSafeCourse(race.track,rc.surface,rc.distance),
+  snapshot_date:'2026-11-13',eval_rows_screened:2141,
+  eval_normal_rows:1942,eval_prioritized_rows:246,
+  eval_reference_rows_excluded:199,
+  eval_remaining_normal_rows_not_loaded:1696,
+  target_course:jraSafeCourse(race.track,rc.surface,rc.distance),
   field_count:evidence.length,runners:evidence,
   score_budget_max_per_horse:1,
   score_budget_is_calibrated_probability:false,
