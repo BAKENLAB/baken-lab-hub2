@@ -210,7 +210,19 @@ function buildLocalV17FullFieldSidecar({context,comparison,baseline,now}){
       z.contextual_bonus_applied&&z.context_band==='SAME_OFFICIAL_CLASS').length??null,
     same_condition_deep_finishes:audit?.runs?.filter(z=>
       z.same_condition_poor_offset>0).length??null,
-    strongest_evidence_refs:audit?.score_contributions?.slice(0,2).map(z=>z.ref)??[]
+    strongest_evidence_refs:audit?.score_contributions?.slice(0,2).map(z=>z.ref)??[],
+    verified_corner_proofs:audit?.runs?.filter(z=>
+      z.corner_verification_status==='EXACT_VERIFIED_PRECLAIM_OFFICIAL_PAST_RESULT')
+      .map(z=>({
+       historical_evidence_ref:z.evidence_ref,
+       past_race_date:z.history_date,past_track:z.track,
+       past_race_no:z.historical_race_no,
+       official_source_ref:z.certified_official_corner_source,
+       source_checked_at:z.certified_official_corner_checked_at,
+       early_pos:z.turn_positions.early,final_turn_pos:z.turn_positions.last,
+       finish:z.finish,corner_reason:z.corner_reason,
+       scoring_bonus:z.corner_position_bonus
+      }))??[]
    };
   }),
   historic_corner_source:proof.official_corner_witness_status===
