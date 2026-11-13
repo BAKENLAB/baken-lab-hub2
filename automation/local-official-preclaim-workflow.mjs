@@ -51,7 +51,8 @@ const verifiedCurrent=({race,snapshot,now})=>{
 export async function runAuthorizedLocalCornerPreclaim({
  race,officialReader,prepareCorners,store,assertAuthorized,
  clock=()=>Date.now(),reserveMs=5*60*1000,
- perHorseDeadlineMs=2500,officialCardTimeoutMs=5000
+ perHorseDeadlineMs=2500,officialCardTimeoutMs=5000,
+ maxOperationMs=75000
 }){
  if(typeof assertAuthorized!=='function')throw new TypeError('AUTHORIZATION_GATE_REQUIRED');
  await assertAuthorized({raceKey:[race?.race_date,race?.track,race?.race_no]});
@@ -65,9 +66,15 @@ export async function runAuthorizedLocalCornerPreclaim({
     reserveMs<180000||reserveMs>900000||
     !Number.isInteger(perHorseDeadlineMs)||perHorseDeadlineMs<200||
     perHorseDeadlineMs>10000||!Number.isInteger(officialCardTimeoutMs)||
-    officialCardTimeoutMs<10||officialCardTimeoutMs>10000)
+    officialCardTimeoutMs<10||officialCardTimeoutMs>10000||
+    !Number.isInteger(maxOperationMs)||maxOperationMs<5000||
+    maxOperationMs>80000)
   throw new TypeError('PRECLAIM_INVALID_OPTIONS');
- const post=Date.parse(race.post_time);
+ const post=Date.parse(race.post_time),operationStop=clock()+maxOperationMs;
+ // The outer authorized MCP caller has an 85s timeout. Keep the entire
+ // official read + authenticated append-only seal within 75s, reserving
+ // time for the store RPC, response and the existing main prediction.
+ const finishReadBy=operationStop-2500;
  if(post-clock()<=reserveMs)return {status:'SKIPPED_DEADLINE',storeWritten:false,readCount:0};
  const ctrl=new AbortController();
  let official,timer;
@@ -86,16 +93,21 @@ export async function runAuthorizedLocalCornerPreclaim({
  if(!active)return {status:'OFFICIAL_FIELD_MISMATCH',storeWritten:false,readCount:0};
  const reports=[],linked=[],witnessRunners=[];let readCount=0;
  for(const runner of active){
-  if(post-clock()<=reserveMs){
+  const postBudget=post-clock()-reserveMs;
+  const operationBudget=finishReadBy-clock();
+  if(postBudget<=0||operationBudget<=0){
    witnessRunners.push({horseNo:runner.horse_no,horseName:runner.horse_name,
     status:'ACTIVE',verifiedRecentRuns:[]});
-   reports.push({horseNo:runner.horse_no,status:'SKIPPED_DEADLINE'});continue;
+   reports.push({horseNo:runner.horse_no,status:
+    postBudget<=0?'SKIPPED_DEADLINE':'SKIPPED_OPERATION_BUDGET'});
+   continue;
   }
   const ref=runner.horse_link_evidence?.horse_ref;
   let history=[];
   if(validHorseRef(ref)&&runner.identity_refs?.includes(ref)){
    const controller=new AbortController();
-   const delay=Math.min(perHorseDeadlineMs,Math.max(1,post-clock()-reserveMs));
+   const delay=Math.min(perHorseDeadlineMs,
+    Math.max(1,Math.min(post-clock()-reserveMs,finishReadBy-clock())));
    const timer=setTimeout(()=>controller.abort(),delay);
    try {
     const raw=await Promise.race([
@@ -132,10 +144,30 @@ export async function runAuthorizedLocalCornerPreclaim({
    raceNo:race.race_no,postTime:race.post_time};
  if(post-clock()<=reserveMs)return {status:'SKIPPED_DEADLINE',storeWritten:false,
    readCount,horseReports:reports};
+ if(finishReadBy-clock()<=0)return {
+  status:'SKIPPED_OPERATION_BUDGET',storeWritten:false,
+  readCount,horseReports:reports
+ };
  let cornerPacket;
  try {
-  cornerPacket=await prepareCorners({targetRace,officialVerifiedRunners:witnessRunners,
-   clock,reserveMs,maxPriorRaces:40,timeoutMs:1500});
+  // Always preserve the same absolute operation deadline even when the
+  // source reader has many race pages or hangs. Only the explicit
+  // authorized preclaim function may initiate these optional reads.
+  const remaining=Math.max(1,Math.min(
+   post-clock()-reserveMs,finishReadBy-clock()));
+  let timeout;
+  try{
+   cornerPacket=await Promise.race([
+    Promise.resolve().then(()=>prepareCorners({
+     targetRace,officialVerifiedRunners:witnessRunners,
+     clock,reserveMs,maxPriorRaces:40,timeoutMs:1500,
+     absoluteDeadlineMs:finishReadBy
+    })),
+    new Promise((_,reject)=>{timeout=setTimeout(
+     ()=>reject(new Error('OPTIONAL_CORNER_CALL_BUDGET_EXHAUSTED')),
+     remaining);})
+   ]);
+  }finally{clearTimeout(timeout);}
  }catch{
   return {status:'OPTIONAL_CORNERS_UNAVAILABLE',storeWritten:false,
    readCount,horseReports:reports};
@@ -147,6 +179,12 @@ export async function runAuthorizedLocalCornerPreclaim({
   verified_prior_run_witnesses:witnessRunners.reduce((n,h)=>n+h.verifiedRecentRuns.length,0),
   missing_official_horse_links:reports.filter(r=>r.status==='OFFICIAL_HORSE_REF_MISSING').length,
   unavailable_or_empty_history:reports.filter(r=>['NO_VERIFIED_PRIOR_RUNS','OPTIONAL_HISTORY_UNAVAILABLE'].includes(r.status)).length
+ };
+ if(post-clock()<=reserveMs)return {
+  status:'SKIPPED_DEADLINE',storeWritten:false,readCount,horseReports:reports
+ };
+ if(operationStop-clock()<=1500)return {
+  status:'SKIPPED_OPERATION_BUDGET',storeWritten:false,readCount,horseReports:reports
  };
  const saved=await stageLocalCornerSnapshot({race,officialRunners:witnessRunners,
   packet:cornerPacket,store,clock});
