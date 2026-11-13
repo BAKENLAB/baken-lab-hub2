@@ -155,3 +155,13 @@ test('official 門別 C4 is a distinct tier and mixed C3/C4/B3B4 is never a sing
  assert.equal(resolveLocalOfficialClassLiteral('B1B2 3歳以上','園田').status,'AMBIGUOUS_CLASS');
  assert.equal(resolveLocalOfficialClassLiteral('C23組','名古屋').class_label,'C23');
 });
+
+test('Saga sponsor-number embedded C2-22組 is official C2; ambiguous or age-only remains unclassified',()=>{
+ assert.deepEqual(resolveLocalOfficialClassLiteral('SAGAリベFEVER14C2-22組','佐賀'),
+  {status:'OFFICIAL_CLASS_LITERAL',class_label:'C2'});
+ assert.deepEqual(resolveLocalOfficialClassLiteral('SAGAリベFEVER14C2-18組','佐賀'),
+  {status:'OFFICIAL_CLASS_LITERAL',class_label:'C2'});
+ assert.equal(resolveLocalOfficialClassLiteral('SAGAリベFEVER14C2-22組','名古屋').class_label,null);
+ assert.equal(resolveLocalOfficialClassLiteral('SAGAリベFEVER14C2-22組 C1-1組','佐賀').status,'AMBIGUOUS_CLASS');
+ assert.equal(resolveLocalOfficialClassLiteral('2歳-5組','佐賀').class_label,null);
+});
