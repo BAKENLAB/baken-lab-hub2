@@ -97,6 +97,16 @@ test('COMPLETE 10-horse chain: exact source-verified corner improves only resear
  assert.deepEqual(research.official_corner_score_counterfactual.negative_point_delta_horses,[]);
  assert.equal(research.score_table.find(x=>x.horse_no===6).independently_verified_corner_runs,1);
  assert.equal(research.score_table.find(x=>x.horse_no===6).verified_corner_bonus_points,3);
+ const horse6=research.score_table.find(x=>x.horse_no===6);
+ assert.equal(horse6.verified_corner_proofs.length,1);
+ assert.equal(horse6.verified_corner_proofs[0].historical_evidence_ref,
+  'COMPACT_V1.runners[horse_no=6].recent_runs[0]');
+ assert.equal(horse6.verified_corner_proofs[0].official_source_ref,
+  officialNarPastResultUrl(pastRace));
+ assert.equal(horse6.verified_corner_proofs[0].source_checked_at,
+  '2026-11-13T11:40:00+09:00');
+ assert.equal(horse6.verified_corner_proofs[0].past_race_no,2);
+ assert.equal(horse6.verified_corner_proofs[0].scoring_bonus,3);
  assert.equal(research.production_rank_effect,false);
  assert.equal(research.eligible_for_official_accuracy_claim,false);
  assert.equal(enriched.preview.frozen_modified,false);
