@@ -143,6 +143,53 @@ BEGIN
      OR (SELECT count(distinct x->>'horse_no') FROM jsonb_array_elements(v_scores) x)<>v_n
      OR (SELECT count(distinct x->>'rank') FROM jsonb_array_elements(v_scores) x)<>v_n
    THEN RAISE EXCEPTION 'V17_SHADOW_SCORES_INVALID'; END IF;
+   -- The client cannot claim a scored official corner without retaining
+   -- exact past-race provenance, as-of time and accountable point totals.
+   IF EXISTS(
+     SELECT 1 FROM jsonb_array_elements(v_scores) x
+     WHERE jsonb_typeof(x->'verified_corner_proofs') IS DISTINCT FROM 'array'
+       OR coalesce((x->>'independently_verified_corner_runs')::int,-1) <>
+          jsonb_array_length(x->'verified_corner_proofs')
+       OR coalesce((x->>'verified_corner_bonus_points')::int,-1) <>
+          coalesce((
+           SELECT sum((w->>'scoring_bonus')::int)
+           FROM jsonb_array_elements(x->'verified_corner_proofs') w
+          ),0)
+       OR EXISTS(
+        SELECT 1 FROM jsonb_array_elements(x->'verified_corner_proofs') w
+        WHERE coalesce(w->>'historical_evidence_ref','') NOT LIKE
+          ('COMPACT_V1.runners[horse_no='||x->>'horse_no'||'].recent_runs[%]')
+          OR coalesce(w->>'scoring_bonus','') NOT IN ('0','2','3')
+          OR coalesce(w->>'past_race_date','') !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+          OR (w->>'past_race_date')::date>=v_prior.race_date
+          OR coalesce(w->>'source_checked_at','') !~
+             '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}'
+          OR (w->>'source_checked_at')::timestamptz>v_prior.captured_at
+          OR coalesce(w->>'past_race_no','') !~ '^[0-9]{1,2}$'
+          OR (w->>'past_race_no')::int NOT BETWEEN 1 AND 24
+          OR coalesce(w->>'early_pos','') !~ '^[0-9]{1,2}$'
+          OR coalesce(w->>'final_turn_pos','') !~ '^[0-9]{1,2}$'
+          OR (w->>'early_pos')::int NOT BETWEEN 1 AND 24
+          OR (w->>'final_turn_pos')::int NOT BETWEEN 1 AND 24
+          OR coalesce(w->>'finish','') !~ '^[0-9]{1,2}$'
+          OR (w->>'finish')::int NOT BETWEEN 1 AND 24
+          OR (w->>'scoring_bonus')::int>0 AND (w->>'finish')::int>3
+          OR w->>'official_source_ref' IS DISTINCT FROM (
+           'https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?'
+           ||'k_babaCode='||(CASE w->>'past_track'
+            WHEN '盛岡' THEN '10' WHEN '水沢' THEN '11'
+            WHEN '浦和' THEN '18' WHEN '船橋' THEN '19'
+            WHEN '大井' THEN '20' WHEN '川崎' THEN '21'
+            WHEN '金沢' THEN '22' WHEN '笠松' THEN '23'
+            WHEN '名古屋' THEN '24' WHEN '園田' THEN '27'
+            WHEN '姫路' THEN '28' WHEN '高知' THEN '31'
+            WHEN '佐賀' THEN '32' WHEN '門別' THEN '36'
+            ELSE 'UNVERIFIED' END)
+           ||'&k_raceDate='||replace(w->>'past_race_date','-','%2F')
+           ||'&k_raceNo='||w->>'past_race_no'
+          )
+       )
+   ) THEN RAISE EXCEPTION 'V17_SHADOW_OFFICIAL_CORNER_PROVENANCE_INVALID'; END IF;
    -- No artificial rank order: all scores must be non-increasing, and
    -- tied ranks 5/6 may not be certified by horse number or evidence count.
    IF EXISTS(
