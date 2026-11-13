@@ -40,8 +40,64 @@ const ageDays=(today,day)=>(Date.parse(today+'T00:00:00Z')-Date.parse(day+'T00:0
 const rankWeight=finish=>finish===1?28:finish===2?22:finish===3?16:
  finish<=5?9:0;
 
+/** Independently authenticated NAR historic result, never a market URL. */
+const NAR_CODES=Object.freeze({
+ '盛岡':'10','水沢':'11','浦和':'18','船橋':'19','大井':'20',
+ '川崎':'21','金沢':'22','笠松':'23','名古屋':'24','園田':'27',
+ '姫路':'28','高知':'31','佐賀':'32','門別':'36'
+});
+const officialCornerUrl=w=>{
+ const code=NAR_CODES[w.track];
+ return code&&isDay(w.race_date)&&nr(w.race_no)?
+  'https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?'+
+  'k_babaCode='+code+'&k_raceDate='+w.race_date.replaceAll('-','%2F')+
+  '&k_raceNo='+w.race_no:null;
+};
+/** The optional official corner lane is NOT proof on its own. Each
+ * accepted historic result must match a distinct, already-authorized
+ * COMPACT run by athlete, historical date/venue/race, official URL,
+ * exact two turn positions and server-verified pre-post capture time.
+ */
+function certifiedCornerByRun(comparison,race){
+ const scope=comparison?.corner_evidence_scope;
+ const witnesses=comparison?.verified_corner_witnesses;
+ if(scope===undefined&&witnesses===undefined)
+  return {status:'NO_INDEPENDENT_CORNER_WITNESSES',byRef:new Map()};
+ if(scope!=='VERIFIED_PRECLAIM_OFFICIAL_HISTORY_ONLY'||
+    !Array.isArray(witnesses)||!witnesses.length||
+    !Number.isInteger(comparison.corner_enriched_prior_runs)||
+    comparison.corner_enriched_prior_runs!==witnesses.length||
+    witnesses.length>100)
+  return {status:'CORNER_WITNESS_SCOPE_OR_COUNT_UNVERIFIED'};
+ const byRef=new Map();
+ const runners=new Map(comparison.runner_evidence.map(r=>[r.horse_no,r]));
+ for(const w of witnesses){
+  const runner=runners.get(w?.horse_no),checked=time(w?.source_checked_at);
+  if(!runner||norm(runner.horse_name)!==norm(w?.horse_name)||
+     typeof w.evidence_ref!=='string'||
+     !validSourceRef(w.evidence_ref,w.horse_no)||byRef.has(w.evidence_ref)||
+     w.verification_scope!=='VERIFIED_PRECLAIM_OFFICIAL_PAST_RESULT'||
+     !Number.isFinite(checked)||checked>time(race.observation_at)||
+     checked>=time(race.post_time)||!isDay(w.race_date)||
+     w.race_date>=race.race_date||
+     !nr(w.early_pos)||!nr(w.final_turn_pos)||!nr(w.race_no)||
+     w.official_source_ref!==officialCornerUrl(w)||
+     !Array.isArray(runner.context_runs))
+   return {status:'CORNER_WITNESS_ASOF_OR_SOURCE_INVALID'};
+  const matched=runner.context_runs.filter(h=>h.evidence_ref===w.evidence_ref);
+  if(matched.length!==1||matched[0].race_date!==w.race_date||
+     matched[0].track!==w.track||matched[0].race_no!==w.race_no||
+     matched[0].early_pos!==w.early_pos||
+     matched[0].final_turn_pos!==w.final_turn_pos)
+   return {status:'CORNER_WITNESS_HISTORIC_IDENTITY_MISMATCH'};
+  byRef.set(w.evidence_ref,w);
+ }
+ return {status:'VERIFIED_PRECLAIM_CORNER_WITNESSES',byRef};
+}
+
+
 /** Simple, interpretable prior-run signals; NO retrospective calibration. */
-function evaluateRun(h,conditions,horseNo,usedRefs){
+function evaluateRun(h,conditions,horseNo,usedRefs,cornerWitness=null){
  if(!h||!validSourceRef(h.evidence_ref,horseNo)||usedRefs.has(h.evidence_ref)||
     !isDay(h.race_date)||h.race_date>=conditions.race_date||hasLeak(h)||
     !norm(h.track)||!Number.isInteger(h.finish)||h.finish<1||h.finish>24||
@@ -91,7 +147,16 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
  // Positive run can still be useful after a change. Less directly
  // transferable evidence receives a SMALL bonus, NOT a negative.
  const confirmedPoorOffset=independentlyComparablePoor?3:0;
- const runSignal=rankWeight(h.finish)+freshness+matchBonus-confirmedPoorOffset;
+ // No guessed pace or "lost but ran strongly" without matched official
+ // result + podium. No bonus for incidental old profile corner columns.
+ const relevantCorner=cornerWitness!==null&&h.finish<=3&&days<=365&&
+   sameClass&&surfaceMatch&&distanceDelta!==null&&distanceDelta<=200;
+ const lateAdvance=relevantCorner&&h.early_pos>=6&&h.final_turn_pos<=4&&
+   h.early_pos-h.final_turn_pos>=3;
+ const heldFront=relevantCorner&&h.early_pos<=3&&h.final_turn_pos<=3;
+ const cornerBonus=lateAdvance?3:heldFront?2:0;
+ const runSignal=rankWeight(h.finish)+freshness+matchBonus-
+   confirmedPoorOffset+cornerBonus;
  return {
   evidence_ref:h.evidence_ref,history_date:h.race_date,age_days:days,
   finish:h.finish,track:h.track,distance:h.distance,
@@ -108,6 +173,13 @@ function evaluateRun(h,conditions,horseNo,usedRefs){
       'NEUTRAL_NON_TOP5_OR_CONDITION_UNVERIFIED',
   contextual_bonus_applied:positivePerformance,
   same_condition_poor_offset:confirmedPoorOffset,
+  certified_official_corner_source:cornerWitness?.official_source_ref??null,
+  corner_verification_status:cornerWitness?
+   'EXACT_VERIFIED_PRECLAIM_OFFICIAL_PAST_RESULT':'NOT_INDEPENDENTLY_VERIFIED',
+  corner_position_bonus:cornerBonus,
+  corner_reason:lateAdvance?'VERIFIED_LATE_CORNER_ADVANCE_PLUS_PODIUM':
+   heldFront?'VERIFIED_FRONT_HELD_PLUS_PODIUM':
+   cornerWitness?'VERIFIED_CORNERS_NO_SCORING_PROOF':'UNVERIFIED',
   finish_proof:h.finish<=3?'WIN_OR_PODIUM':'NO_PODIUM',
   winner_gap:'UNVERIFIED_UNLESS_INDEPENDENTLY_VERIFIED',
   turn_positions:{early:h.early_pos??null,last:h.final_turn_pos??null}
@@ -173,6 +245,9 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
   return stop('COMPLETE_OFFICIAL_PRE_RACE_PACKET_UNVERIFIED');
  const target=resolveLocalOfficialClassLiteral(race.class_name??race.race_name,race.track);
  const target_class=target.class_label??null;
+ const officialCorners=certifiedCornerByRun(comparison,race);
+ if(officialCorners.status.startsWith('CORNER_WITNESS_'))
+  return stop(officialCorners.status);
  // The current entry's selection condition must not be treated as the
  // same ordinary class simply because both titles contain e.g. C2.
  // Special編成 is not a proven downgrade or an equivalent opponent pool.
@@ -189,7 +264,8 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
   const refs=new Set(),proof=[];
   for(const h of r.context_runs){
    const found=evaluateRun(h,{race_date:race.race_date,track:race.track,
-     surface:race.surface,distance:race.distance,target_class,specialSelection},r.horse_no,refs);
+     surface:race.surface,distance:race.distance,target_class,specialSelection},
+     r.horse_no,refs,officialCorners.byRef.get(h.evidence_ref)??null);
    if(!found)return stop('HISTORY_IDENTITY_ASOF_OR_PROVENANCE_UNVERIFIED');
    if(found.age_days<=540)proof.push(found);
   }
@@ -218,6 +294,9 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
    independent_score:score,base_score:base,
    evidence_runs_checked:r.context_runs.length,
    evidence_runs_used:proof.length,
+   independently_verified_corner_runs:proof.filter(x=>
+     x.corner_verification_status==='EXACT_VERIFIED_PRECLAIM_OFFICIAL_PAST_RESULT').length,
+   corner_bonus_points:proof.reduce((n,x)=>n+x.corner_position_bonus,0),
    official_ability_test_used:Boolean(ability && proof.length===0),
    official_ability_evidence:ability,
    comparable_same_venue:proof.filter(x=>x.track===race.track).length,
@@ -289,6 +368,8 @@ export function buildLocalV17IndependentShadow({race,comparison}={}){
     r.evidence_runs_used>=3?'HISTORY_AVAILABLE':'LIMITED_HISTORY'})),
   top5:sorted.slice(0,5).map(x=>x.horse_no),
   ability_evidence_audit:audit,
+  official_corner_witness_status:officialCorners.status,
+  official_corner_witness_count:officialCorners.byRef.size,
   tied_score_runner_count:equalScores.length,
   top5_boundary_score_tie:top5BoundaryTied,
   top5_boundary_confidence:top5BoundaryTied?
