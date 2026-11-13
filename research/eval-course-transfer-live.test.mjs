@@ -17,14 +17,14 @@ function fakeSnapshot(){
    if(!sources.some(x=>JSON.stringify(x)===k))sources.push([t,s,'',d]);
    if(sources.length===30)break source_loop;
   }
- const pairs=[[0,0,5,133]];
- for(let ti=0;ti<targets.length&&pairs.length<1942;ti++)
-  for(let si=0;si<sources.length&&pairs.length<1942;si++)
-   if(ti!==0||si!==0)pairs.push([ti,si,3,100]);
+ const pairs=[];
+ for(let ti=0;ti<targets.length;ti++)
+  for(let si=0;si<3;si++)
+   pairs.push([ti,si,ti===0&&si===0?5:4,100]);
  assert.equal(targets.length,82);
  assert.equal(sources.length,30);
- assert.equal(pairs.length,1942);
- return {v:'2026-11-13',targets,sources,pairs};
+ assert.equal(pairs.length,246);
+ return {v:'2026-11-13',targets,sources,pairs,scope:'NORMAL_TOP3_ONLY'};
 }
 function claimed(){
  return {
