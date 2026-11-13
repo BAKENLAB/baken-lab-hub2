@@ -95,7 +95,7 @@ function dissect(r){
   }
   // "10/29...9着、10/7...7着は近況反証" is one full caution,
   // not a good 9th-place run followed by a risk on only the 7th.
-  if(/\d{1,2}\/\d{1,2}.*\d{1,2}着.*(?:反証|不安材料)/.test(s)&&
+  if(/^\d{1,2}\/\d{1,2}.*\d{1,2}着.*(?:反証|不安材料)/.test(s)&&
      !/(?:を評価|を重視|好走を証明)/.test(s)){
     addRisk(s);continue;
   }
