@@ -1,0 +1,22 @@
+name: Issue44 LOCAL MCP discovery unit checks
+on:
+  push:
+    branches:
+      - research/issue44-local-mcp-discovery-20261114
+    paths:
+      - 'research/issue44-local-mcp-discovery/*.mjs'
+      - 'research/issue44-local-mcp-discovery/observations.json'
+      - '.github/workflows/issue44-local-mcp-discovery.yml'
+permissions:
+  contents: read
+jobs:
+  discovery-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Offline discovery regression tests (no SDK or business-tool execution)
+        run: node --test research/issue44-local-mcp-discovery/discovery.test.mjs

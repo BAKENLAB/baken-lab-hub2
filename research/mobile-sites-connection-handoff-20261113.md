@@ -18,9 +18,7 @@
 - The newer personal plugin `plugins_6af64165c8dc819186e9164d78d565b3`
   has `.mcp.json` only and is **already installed** per Plugin Management,
   but its six tools do not appear in the current mobile conversation.
-- OpenAI's official docs explicitly say plugins declaring `mcp.json` /
-  `.mcp.json` can be **Desktop-only**, even for a remote HTTPS URL.
-  **Reinstalling** or Chrome "Desktop site" alone is not a verified fix.
+- **2026-11-14 correction:** Current official docs establish local MCP apps as Desktop-only and custom-MCP connection setup as web-only. Remote HTTPS `.mcp.json` alone does not establish this plugin's host support. Authenticated `tools/list` and the App's approved action snapshot are unverified. **Reinstalling** or Chrome "Desktop site" alone is not a verified fix.
 - Available ChatGPT Sites construction is through **ChatGPT Web → Work**
   or supported Desktop. No Sites plugin/backend tool is available to the
   present conversation; therefore this agent cannot create/publish the Site here.

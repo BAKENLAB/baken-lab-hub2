@@ -1,0 +1,43 @@
+{
+  "issue": 44,
+  "observed_at_utc": "2026-11-13T17:49:42.907Z",
+  "production": {
+    "edge_version": 29,
+    "source_tools": [
+      "lab_queue_claim_next",
+      "lab_preclaim_official_corners",
+      "lab_claimed_context",
+      "lab_relative_rank_preview",
+      "lab_seal_relative_rank_pair",
+      "lab_save_claimed_prediction"
+    ],
+    "authenticated_tools_list": null
+  },
+  "conversation": {
+    "host": "Codex current tool registry; Android result separately reported in Issue #44",
+    "tools": [
+      "lab_claimed_context",
+      "lab_queue_claim_next",
+      "lab_save_claimed_prediction"
+    ]
+  },
+  "plugin": {
+    "legacy_has_app_binding": true,
+    "legacy_has_remote_binding": true,
+    "direct_has_app_binding": false,
+    "direct_has_remote_binding": true
+  },
+  "site": {
+    "http_status": 401,
+    "authenticated": false,
+    "mcp_initialized": false,
+    "tools_listed": false
+  },
+  "scope": {
+    "android_device_ui_reproduced": false,
+    "claim_calls": 0,
+    "save_calls": 0,
+    "preclaim_calls": 0,
+    "production_configuration_changes": 0
+  }
+}
