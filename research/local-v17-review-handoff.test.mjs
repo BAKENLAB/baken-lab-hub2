@@ -218,6 +218,10 @@ test('different distance, weak finish or absent exact proof cannot trigger bound
  x.comparison.runner_evidence[7].context_runs[0].distance=1400;
  x.comparison.runner_evidence[7].supporting_runs[0].finish=1;
  x.comparison.runner_evidence[7].supporting_runs[0].distance=1400;
+ // Avoid introducing an unrelated rank5/6 tie from horses 4 and 5,
+ // which intentionally receive the same finish-band score.
+ x.comparison.runner_evidence[4].context_runs[0].finish=6;
+ x.comparison.runner_evidence[4].supporting_runs[0].finish=6;
  const r=handoff(x);
  assert.equal(r.status,'RESEARCH_DRAFT_REVIEWABLE');
  assert.equal(r.baseline_top5_boundary_watch.some(h=>h.horse_no===8),false);
