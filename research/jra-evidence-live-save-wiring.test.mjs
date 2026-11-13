@@ -15,6 +15,11 @@ test('JRA official save calls whole-field evidence scorer BEFORE the original gu
  assert.ok(block.includes('JRA_EVIDENCE_EYE_REAUDIT_REQUIRED'));
  assert.ok(block.includes('evidence_rank_bridge'));
  assert.ok(block.includes('score_changed_runner_count'));
+ assert.ok(block.includes('.from("official_predictions")'));
+ assert.ok(block.includes('VERIFIED_FROZEN_SCORES_TOP5_AUDIT_EMPTY_BETS'));
+ assert.ok(block.includes('db_frozen_evidence_verification'));
+ assert.ok(block.indexOf('jra_save_claimed_prediction_with_shadow_v1')<block.indexOf('.from("official_predictions")'));
+
 });
 test('no new CLAIM, postrace write, Cron or direct DB modifications in evidence finalizer',()=>{
  const helper=readFileSync(new URL('../automation/jra-verified-evidence-rank-bridge.mjs',import.meta.url),'utf8');
