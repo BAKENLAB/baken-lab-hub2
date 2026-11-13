@@ -148,3 +148,57 @@ test('saved official profile witness returns truthful verified coverage',async()
  assert.equal(out.coverage.verified_prior_run_witnesses,1);
  assert.equal(out.coverage.missing_official_horse_links,0);
 });
+
+test('one 75s operation clock stops remaining horse history before the outer 85s timeout',async()=>{
+ const start=Date.parse('2026-11-08T09:00:00+09:00');
+ let ms=start;let histories=0,corners=0,writes=0;
+ const refs=Array.from({length:3},(_,i)=>
+  'https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode='+(123456+i));
+ const f=structuredClone(race),card=structuredClone(snapshot);
+ f.field_payload.runners=refs.map((ref,i)=>({
+  horse_no:i+1,horse_name:'架空馬'+(i+1),status:'ACTIVE'
+ }));
+ card.runners=refs.map((ref,i)=>({
+  horse_no:i+1,horse_name:'架空馬'+(i+1),status:'ACTIVE',
+  identity_refs:[ref],horse_link_evidence:{horse_no:i+1,horse_ref:ref}
+ }));
+ const out=await runAuthorizedLocalCornerPreclaim({
+  race:f,clock:()=>ms,maxOperationMs:10000,
+  officialReader:{
+   readRace:async()=>card,
+   readHistory:async runner=>{
+    histories++;
+    ms+=8000; // simulated slow authenticated official horse profile
+    return [{race_date:'2026-11-07',track:'佐賀',race_no:5,
+     horse_no:runner.horse_no,horse_name:runner.horse_name,
+     horse_ref:runner.horse_link_evidence.horse_ref,
+     source:'NAR_OFFICIAL_RESCUE'}];
+   }
+  },
+  assertAuthorized:async()=>{},
+  prepareCorners:async()=>{corners++;throw Error('SHOULD_NOT_READ_CORNERS');},
+  store:{insertIfAbsent:async()=>{writes++;return {inserted:true};}}
+ });
+ assert.equal(out.status,'SKIPPED_OPERATION_BUDGET');
+ assert.equal(out.storeWritten,false);
+ assert.equal(histories,1);
+ assert.equal(corners,0);
+ assert.equal(writes,0);
+ assert.equal(out.horseReports.filter(x=>x.status==='SKIPPED_OPERATION_BUDGET').length,2);
+});
+test('authorized preclaim sends one bounded deadline through official corner acquisition',async()=>{
+ const start=Date.parse('2026-11-08T09:00:00+09:00');
+ let seen=null;
+ const x=make({maxOperationMs:75000,clock:()=>start,
+  prepareCorners:async opts=>{
+   seen={deadline:opts.absoluteDeadlineMs,timeout:opts.timeoutMs,
+     maxPriorRaces:opts.maxPriorRaces};
+   return packet(opts.targetRace);
+  }});
+ const r=await x.run();
+ assert.equal(r.status,'STORED');
+ assert.deepEqual(seen,{
+  deadline:start+75000-2500,timeout:1500,maxPriorRaces:40
+ });
+ assert.equal(x.calls.writes,1);
+});
