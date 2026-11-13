@@ -148,3 +148,31 @@ test('shared official past race is one fetch but counts as evidence for two hors
  assert.equal(first.length,1);
  assert.equal(first[0].links.length,2);
 });
+
+test('shared absolute preclaim deadline stops remaining official race reads even when far before post',async()=>{
+ const start=Date.parse('2026-11-08T07:00:00+09:00');
+ let current=start,attempts=0;
+ const separate=structuredClone(runners);
+ separate[1].verifiedRecentRuns[0].raceDate='2026-11-06';
+ separate[1].verifiedRecentRuns[0].raceNo=4;
+ const got=await fetchLocalPriorCornerEvidence({
+  targetRace:race,runners:separate,clock:()=>current,
+  absoluteDeadlineMs:start+1000,timeoutMs:900,
+  fetchVerifiedRace:async()=>{attempts++;current+=2100;return officialPacket;}
+ });
+ assert.equal(got.planned,2);
+ assert.equal(attempts,1);
+ assert.equal(got.attempted,1);
+ assert.equal(got.operation_budget_exhausted,true);
+ assert.equal(got.sourceReports.filter(x=>x.status==='SKIPPED_OPERATION_BUDGET').length,1);
+ assert.equal(got.claimStarted,false);
+ assert.equal(got.saveAuthorized,false);
+});
+test('invalid optional absolute deadline fails before reading any official races',async()=>{
+ let attempts=0;
+ await assert.rejects(fetchLocalPriorCornerEvidence({
+  targetRace:race,runners,absoluteDeadlineMs:-1,
+  fetchVerifiedRace:async()=>{attempts++;return officialPacket;}
+ }),/INVALID_PREFETCH_OPTIONS/);
+ assert.equal(attempts,0);
+});
