@@ -34,7 +34,7 @@ Deno.test('fixture only: exact roster and structured result/report sections',()=
 Deno.test('LIVE read-only: official JRA archived result and stewards report',async()=>{
  if(Deno.env.get('JRA_INCIDENT_LIVE_PROBE')!=='1'){console.log('LIVE_PROBE_NOT_REQUESTED');return;}
  const receipts:{url:string,status:number,type:string|null}[]=[];
- const acquisitionArgs={targetRace,priorRace,expectedRoster,reportRef,fetchImpl:async(input:RequestInfo|URL,opts?:RequestInit)=>{
+ const acquisitionArgs={targetRace,priorRace:{...priorRace,distance:1200,surface:'芝'},expectedRoster,reportRef,fetchImpl:async(input:RequestInfo|URL,opts?:RequestInit)=>{
   const r=await fetch(input,opts);receipts.push({url:String(input),status:r.status,type:r.headers.get('content-type')});
   if(String(input).includes('pw2fsrp')&&r.ok){
    // Research diagnostic, bounded public report only. Never inspect odds or
@@ -57,6 +57,11 @@ Deno.test('LIVE read-only: official JRA archived result and stewards report',asy
  console.log(JSON.stringify({mode:'ARCHIVE_RESEARCH_ONLY_SYNTHETIC_TARGET',receipts,status:'status' in result?result.status:null,failures:'failures' in result?result.failures:[],packets:packets.map(p=>({source_kind:p.source_kind,status:p.status,roster_ids:p.roster_ids?.length,events:p.events?.map(e=>({horse_no:e.horse_no,horse_id:e.horse_id,kind:e.kind})),unresolved_count:p.unresolved?.length})),rank_effect:'rank_effect' in result?result.rank_effect:null,prediction_saved:false}));
  const report=packets.find(p=>p.source_kind==='REPORT');
  check(result.verified&&!!report,'LIVE_REPORT_UNVERIFIED');
+ const timing='lap_observation' in result?result.lap_observation:null;
+ check(!!timing&&timing.status==='OFFICIAL_RACE_LAPS_VERIFIED','LIVE_SAME_RESPONSE_LAPS');
+ check(JSON.stringify(timing?.lap_seconds)===JSON.stringify([12.4,10.9,11.4,12.1,11.8,13.1]),'LIVE_EXACT_OFFICIAL_LAPS');
+ check(timing?.first_600m_seconds===34.7&&timing.last_600m_seconds===37,'LIVE_LAP_SUMS');
+ console.log(JSON.stringify({same_response_laps:timing,report_verified:!!report}));
  check(!!report?.events?.some(e=>e.horse_id==='2023103702'&&e.kind==='RESTRICTED_PATH'),'LIVE_PRIMARY_VICTIM_MISSING');
  const officialRunners=expectedRoster.map(h=>({status:'ACTIVE',horse_no:h.horseNo,horse_name:h.horseName,horse_ref:h.horseRef}));
  const liveRunners=officialRunners.map(h=>({...h,past_runs:[{race_date:priorRace.raceDate,source_ref:priorRace.sourceRef}]}));
