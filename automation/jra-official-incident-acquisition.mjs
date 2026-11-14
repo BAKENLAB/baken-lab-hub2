@@ -3,7 +3,7 @@
  * already present in NAR archive source. No DB, CLAIM or prediction writes.
  * Caller must provide independently verified prior race/expected roster.
  */
-import {load} from 'npm:cheerio@1.0.0';
+import {load} from 'npm:cheerio@1.0.0/slim';
 import {officialHorseId,officialRaceCore,parseJraStewardsReport} from './jra-official-stewards-incident-link.mjs';
 import {parseJraOfficialIncidents} from './jra-official-incident-evidence.mjs';
 const clean=v=>String(v??'').normalize('NFKC').replace(/\s+/g,' ').trim();
