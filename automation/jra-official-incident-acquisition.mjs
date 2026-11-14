@@ -75,12 +75,15 @@ export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
  const reportLinks=new Map();
  $('a[href],a[onclick],button[onclick],input[onclick]').each((_,el)=>{
   if(!/裁決レポート/.test(clean($(el).text()+' '+($(el).attr('title')??'')+' '+($(el).attr('value')??''))))return;
-  for(const v of [$(el).attr('href'),$(el).attr('onclick')]){
-   if(typeof v!=='string')continue;
-   const candidates=v.match(/(?:https:\/\/www\.jra\.go\.jp)?\/JRADB\/accessS\.html\?CNAME=pw2fsrp[0-9]{22}(?:\/|%2[fF])[0-9A-Fa-f]{2}/g)??[];
-   for(const c of candidates){
-    const u=priorUrl(c,'report');if(u&&officialRaceCore(u,'report')===resultCore)reportLinks.set(officialRaceCore(u,'report')+'|'+u.replace(/%2f/ig,'/'),u);
-   }
+  const href=$(el).attr('href'),onclick=$(el).attr('onclick');
+  // A complete href or an explicitly quoted data literal; no substring
+  // from an arbitrary foreign host, no script execution or URL guessing.
+  const candidates=[href];
+  if(typeof onclick==='string'){
+   for(const m of onclick.matchAll(/(['"])((?:https:\/\/www\.jra\.go\.jp)?\/JRADB\/accessS\.html\?CNAME=pw2fsrp[0-9]{22}(?:\/|%2[fF])[0-9A-Fa-f]{2})\1/g))candidates.push(m[2]);
+  }
+  for(const c of candidates){
+   const u=priorUrl(c,'report');if(u&&officialRaceCore(u,'report')===resultCore)reportLinks.set(officialRaceCore(u,'report')+'|'+u.replace(/%2f/ig,'/'),u);
   }
  });
  const discoveredReport=reportLinks.size===1?[...reportLinks.values()][0]:null;
