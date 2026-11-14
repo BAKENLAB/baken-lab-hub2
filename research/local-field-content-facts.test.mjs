@@ -30,3 +30,30 @@ test('real LOCAL condition omission is resolved only by verified single-surface 
  for(const r of c.runners)r.recent_runs[0].track='盛岡';
  assert.equal(buildLocalFieldContentFacts(c).head_to_head_count,0);
 });
+
+test('verified course transitions and loss-review flags are descriptive, market-free and score-neutral',()=>{
+ const c=ctx();c.race.conditions.going='良';
+ c.runners[0].recent_runs[0].going='稍重';
+ const x=buildLocalFieldContentFacts(c,{transitionStats:[{
+  current_track:'高知',current_distance:1400,current_going:'良',
+  prev_track:'高知',prev_distance:1400,prev_going:'稍重',
+  sample_n:42,wins:7,top3s:19,win_rate:0.1667,top3_rate:0.4524,
+  baseline_win_rate:0.1,baseline_top3_rate:0.3,win_lift_pp:6.67,
+  top3_lift_pp:15.24,avg_popularity:1.1
+ }]});
+ assert.equal(x.course_correlation.status,'VERIFIED_DESCRIPTIVE_TRANSITIONS');
+ assert.equal(x.course_correlation.matched_run_count,1);
+ assert.equal(x.per_runner[0].runs[0].course_transition_evidence.sample_n,42);
+ assert.equal('avg_popularity' in x.per_runner[0].runs[0].course_transition_evidence,false);
+ assert.equal(x.per_runner[0].loss_review_candidate_count,1);
+ assert.deepEqual(x.per_runner[0].loss_review_candidates[0].flags,
+  ['LATE_POSITION_GAIN_OUTSIDE_TOP3','VERIFIED_FINAL3F_SUPPORTS_REVIEW']);
+ assert.equal(x.loss_with_merit_review.automatic_score_effect,0);
+ assert.equal(x.score_effect,0);assert.equal(x.market_used,false);
+});
+
+test('unsupported laps and opponent follow-up stay explicitly unverified',()=>{
+ const x=buildLocalFieldContentFacts(ctx());
+ assert.equal(x.full_race_laps.status,'NOT_VERIFIED');
+ assert.equal(x.opponent_followup_strength.status,'NOT_VERIFIED');
+});
