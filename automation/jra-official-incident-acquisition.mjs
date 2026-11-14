@@ -94,10 +94,20 @@ export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
   report_label_count:$('a,button,input').filter((_,e)=>/裁決レポート/.test(clean($(e).text()+' '+($(e).attr('title')??'')+' '+($(e).attr('value')??'')))).length,
   report_token_count:(html.match(/pw2fsrp[0-9]{22}/g)??[]).length,
   explicit_none_rows:sectionStatus==='EXPLICIT_NONE'?sectionRows.length:0};
- const lapSources=$('th,dt').filter((_,e)=>clean($(e).text())==='ハロンタイム'&&!$(e).closest('nav,footer,[hidden],[aria-hidden="true"]').length).toArray();
- const lapText=lapSources.length===1?clean($(lapSources[0]).next('td,dd').text()):null;
- // Only the verified official timing row, no finish-table or payout values.
- const lapRow=lapText&&/^\d{1,2}\.\d(?:\s*[-－―–]\s*\d{1,2}\.\d)+$/.test(lapText)?lapText:null;
+ const lapSources=$('th,dt,td').filter((_,e)=>clean($(e).text())==='ハロンタイム'&&!$(e).closest('nav,footer,[hidden],[aria-hidden="true"]').length).toArray();
+ let lapText=null;
+ if(lapSources.length===1){
+  const h=$(lapSources[0]);
+  // Read the unique timing-label row, allowing adjacent cells or nested span
+  // separators without ever reading the individual finish/payout tables.
+  const candidates=[clean(h.next('td,dd').text()),...h.next('td,dd').length?[clean(h.nextAll('td,dd').map((_,e)=>$(e).text()).get().join(' '))]:[]];
+  const pattern=/^\d{1,2}\.\d(?:\s*[-－―–]\s*\d{1,2}\.\d)+$/;
+  const valid=[...new Set(candidates.filter(v=>pattern.test(v)))];
+  if(valid.length===1)lapText=valid[0];
+ }
+ const lapRow=lapText;
+ signals.timing_label_count=lapSources.length;
+ signals.timing_row_valid=!!lapRow;
  return {verified:true,runners,sectionStatus,sectionRows,lapRow,discoveredReport,reportLinkStatus:reportLinks.size===1?'VERIFIED_SAME_RACE_LINK':reportLinks.size?'AMBIGUOUS_REPORT_LINK':'REPORT_LINK_NOT_VERIFIED',signals};
 }
 export function extractJraReportIncidentHtml(html,priorRace){
@@ -163,7 +173,9 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
   const course=$('h1,h2,h3,.race_header,.race_header_data,.race_data,.race_head,.race_data_course,span,div').filter((_,e)=>!$(e).closest('table').length).map((_,e)=>clean($(e).text())).get().filter(v=>v.length<=200);
   const escapedDistance=String(distance);
   const meter=new RegExp('(?:^|[^0-9])'+escapedDistance.replace(/(?=\B(?:\d{3})+$)/g,',?')+'\\s*(?:メートル|m)(?=[\\s(（・、]|$)','i');
-  if(!course.some(v=>meter.test(v)&&v.includes(surface)&&/コース/.test(v)))return null;
+  const courseMatched=course.some(v=>meter.test(v)&&v.includes(surface)&&/コース/.test(v));
+  r.signals.course_header_match=courseMatched;
+  if(!courseMatched)return null;
   const laps=r.lapRow.split(/\s*[-－―–]\s*/).map(Number);
   if(laps.length!==Math.ceil(distance/200)||laps.some((n,i)=>!Number.isFinite(n)||n<(i===0?5:8)||n>30))return null;
   const first=distance%200||200,round=n=>Math.round(n*10)/10,sum=arr=>round(arr.reduce((n,v)=>n+v,0));
