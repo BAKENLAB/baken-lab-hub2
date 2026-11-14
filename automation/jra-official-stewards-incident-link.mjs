@@ -23,15 +23,34 @@ export function parseJraStewardsReport({targetRace,priorRace,source,clock=()=>Da
  const events=[],unresolved=[],dedup=new Set();
  for(let i=0;i<source.paragraphs.length;i++){
   const t=norm(source.paragraphs[i]),bad=reason=>unresolved.push({row:i+1,reason});
+  if(/^(?:なお|この件について|裁決委員|審議において|※|[〖【]降着の判断基準)/.test(t))continue;
+  // The report may list additional affected horses in a separate paragraph.
+  // Only explicit numeric lists within the verified historical roster qualify.
+  // "Affected" is not interchangeable with primary interference or severity.
+  const secondary=t.match(/\(\s*その他\s*(.+?)の進路に影響あり\s*\)/);
+  if(secondary){
+   const list=secondary[1].trim();
+   if(!/^\d{1,2}番(?:[、,・\s]*(?:および|及び|並びに|ならびに)?[、,・\s]*\d{1,2}番)*$/.test(list)){
+    bad("SECONDARY_VICTIMS_REQUIRE_REVIEW");
+   }else{
+    const nums=[...new Set([...list.matchAll(/(\d{1,2})番/g)].map(x=>Number(x[1])))];
+    if(nums.some(n=>!roster.has(n)))bad("SECONDARY_VICTIM_ROSTER_MISMATCH");
+    else for(const n of nums){
+     const h=roster.get(n),key=[n,"ADDITIONAL_PATH_IMPACT"].join("|");
+     if(dedup.has(key))continue;dedup.add(key);
+     events.push({...h,kind:"ADDITIONAL_PATH_IMPACT",role:"VICTIM",race_key:priorRace.raceKey,race_date:date,source_ref:source.url,source_checked_at:source.checkedAt,section_row:i+1,certainty:"OFFICIAL_RECORDED_FACT",time_loss_seconds:null,rank_effect:"NONE"});
+    }
+   }
+  }else if(/その他.*進路に影響/.test(t))bad("SECONDARY_VICTIMS_REQUIRE_REVIEW");
   if(!/進路が狭くな/.test(t))continue;
-  if(/^(?:なお|この件について|裁決委員|審議において|※)/.test(t))continue;
+  if(/^(?:これは|この件は)/.test(t))continue;
   // Only literal affected subjects before the first "の進路が狭くな..." clause;
   // secondary clauses and relationships are not guessed.
   const sentence=t.split("。")[0];
   if(/その後|影響で|また.*斜行|控えた|進路が狭くな.*進路が狭くな/.test(sentence)){bad("COMPLEX_MULTI_EVENT_REVIEW_REQUIRED");continue;}
   const m=sentence.match(/^(.+?)の進路が狭くな(?:りました|る事象がありました|った)/);
   if(!m){bad("VICTIM_CLAUSE_UNSUPPORTED");continue;}
-  let clause=m[1].split(/(?:斜行したため|動きにより)[、,\s]*/).at(-1);
+  let clause=m[1].split(/(?:斜行したため|動きにより|先行馬を追い抜いたため)[、,\s]*/).at(-1);
   clause=clause.replace(/^.*?(?:コーナー(?:手前)?で|直線コースで|決勝線手前で|発走後(?:まもなく)?)[、,\s]*/,"").trim();
   const mentions=[...clause.matchAll(/(\d{1,2})番/g)];
   if(!mentions.length){bad("VICTIM_NUMBER_MISSING");continue;}
@@ -46,7 +65,7 @@ export function parseJraStewardsReport({targetRace,priorRace,source,clock=()=>Da
    const key=[h.horse_no,"RESTRICTED_PATH",i].join("|");if(dedup.has(key))continue;dedup.add(key);
    events.push({...h,kind:"RESTRICTED_PATH",role:"VICTIM",race_key:priorRace.raceKey,race_date:date,source_ref:source.url,source_checked_at:source.checkedAt,section_row:i+1,certainty:"OFFICIAL_RECORDED_FACT",time_loss_seconds:null,rank_effect:"NONE"});
   }
-  if(/その他.*進路に影響/.test(t))bad("SECONDARY_VICTIMS_REQUIRE_REVIEW");
+
  }
  return {status:unresolved.length?"PARTIAL_REPORT":"OFFICIAL_REPORT_PARSED",verified:true,race_key:priorRace.raceKey,race_date:date,source_kind:"REPORT",roster_ids:[...roster.values()].map(h=>h.horse_id).filter(Boolean),source_ref:source.url,source_checked_at:source.checkedAt,events,unresolved,absence_is_not_no_incident:true,rank_effect:"NONE"};
 }
