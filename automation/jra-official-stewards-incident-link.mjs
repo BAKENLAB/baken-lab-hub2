@@ -99,16 +99,35 @@ export function attachJraPriorIncidentEvidence({targetRace,officialRunners,liveR
  const runners=[];
  for(const h of liveRunners){
   const o=byNo.get(h.horse_no);if(!o||o.id!==officialHorseId(h.horse_ref)||o.name!==h.horse_name||!Array.isArray(h.past_runs))return fail("LIVE_IDENTITY_MISMATCH");
+  const seenPrior=new Set();
   const history=h.past_runs.slice(0,5).map((run,i)=>{
+   const missing=status=>({run_index:i,race_date:run?.race_date??null,status,events:[],sources:[],absence_is_not_no_incident:true});
    const core=officialRaceCore(run.source_ref,"result");
-   if(!core||core.slice(-8)!==String(run.race_date).replace(/-/g,"")||!(run.race_date<targetRace.raceDate))return {run_index:i,status:"PAST_RACE_UNVERIFIED",events:[]};
-   const matches=packets.filter(p=>p?.verified===true&&["OFFICIAL_INCIDENT_SECTION_PARSED","EXPLICIT_NO_RECORDED_INCIDENTS","PARTIAL_OFFICIAL_INCIDENTS","OFFICIAL_REPORT_PARSED","PARTIAL_REPORT"].includes(p.status)&&p.race_date===run.race_date&&officialRaceCore(p.source_ref,p.source_kind==="REPORT"?"report":"result")===core&&Number.isFinite(Date.parse(p.source_checked_at??""))&&Date.parse(p.source_checked_at)<=now&&Date.parse(p.source_checked_at)<post&&Array.isArray(p.events)&&Array.isArray(p.roster_ids)&&p.roster_ids.filter(x=>x===o.id).length===1);
-   if(!matches.length)return {run_index:i,status:"INCIDENT_SOURCE_OR_HORSE_ID_UNVERIFIED",events:[]};
-   if(new Set(matches.map(p=>p.source_kind)).size!==matches.length)return {run_index:i,status:"DUPLICATE_SOURCE_REVIEW_REQUIRED",events:[]};
+   if(!core||core.slice(-8)!==String(run.race_date).replace(/-/g,"")||!(run.race_date<targetRace.raceDate))return missing("PAST_RACE_UNVERIFIED");
+   if(seenPrior.has(core))return missing("DUPLICATE_HISTORY_RACE");
+   seenPrior.add(core);
+   const matches=packets.filter(p=>p?.verified===true&&["RESULT","REPORT"].includes(p.source_kind)&&["OFFICIAL_INCIDENT_SECTION_PARSED","EXPLICIT_NO_RECORDED_INCIDENTS","PARTIAL_OFFICIAL_INCIDENTS","OFFICIAL_REPORT_PARSED","PARTIAL_REPORT"].includes(p.status)&&p.race_date===run.race_date&&officialRaceCore(p.source_ref,p.source_kind==="REPORT"?"report":"result")===core&&Number.isFinite(Date.parse(p.source_checked_at??""))&&Date.parse(p.source_checked_at)<=now&&Date.parse(p.source_checked_at)<post&&Array.isArray(p.events)&&Array.isArray(p.roster_ids)&&p.roster_ids.filter(x=>x===o.id).length===1);
+   if(!matches.length)return missing("INCIDENT_SOURCE_OR_HORSE_ID_UNVERIFIED");
+   if(new Set(matches.map(p=>p.source_kind)).size!==matches.length)return missing("DUPLICATE_SOURCE_REVIEW_REQUIRED");
    const events=matches.flatMap(p=>p.events.filter(e=>e.certainty==="OFFICIAL_RECORDED_FACT"&&e.horse_id===o.id&&e.race_date===run.race_date&&e.race_key===p.race_key&&e.source_ref===p.source_ref&&e.source_checked_at===p.source_checked_at));
-   return {run_index:i,status:"VERIFIED_SOURCE_REVIEW",partial:matches.some(p=>p.status.startsWith("PARTIAL")),same_incident_double_count_prohibited:true,events,absence_is_not_no_incident:true};
+   return {run_index:i,race_date:run.race_date,race_core:core,status:"VERIFIED_SOURCE_REVIEW",
+    partial:matches.some(p=>p.status.startsWith("PARTIAL")),
+    sources:matches.map(p=>({kind:p.source_kind,status:p.status,source_ref:p.source_ref,source_checked_at:p.source_checked_at})),
+    same_incident_double_count_prohibited:true,events,absence_is_not_no_incident:true};
   });
-  runners.push({horse_no:h.horse_no,horse_id:o.id,history,status:"REVIEW_ONLY"});
+  const coverage={supplied_runs:history.length,not_supplied_slots:5-history.length,
+   verified_source_runs:history.filter(x=>x.status==="VERIFIED_SOURCE_REVIEW").length,
+   result_source_runs:history.filter(x=>x.sources.some(p=>p.kind==="RESULT")).length,
+   report_source_runs:history.filter(x=>x.sources.some(p=>p.kind==="REPORT")).length,
+   partial_runs:history.filter(x=>x.partial===true).length,
+   unverified_runs:history.filter(x=>x.status!=="VERIFIED_SOURCE_REVIEW").length,
+   recorded_event_runs:history.filter(x=>x.events.length>0).length};
+  runners.push({horse_no:h.horse_no,horse_id:o.id,history,coverage,status:"REVIEW_ONLY"});
  }
- return {status:"WHOLE_FIELD_INCIDENT_REVIEW",runners,rank_effect:"NONE",prediction_saved:false,market_used:false,target_result_used:false};
+ const coverage={active_runners:runners.length,reviewed_runners:runners.length};
+ for(const key of ["supplied_runs","not_supplied_slots","verified_source_runs","result_source_runs","report_source_runs","partial_runs","unverified_runs","recorded_event_runs"]){
+  coverage[key]=runners.reduce((n,r)=>n+r.coverage[key],0);
+ }
+ coverage.all_supplied_runs_have_a_source=coverage.supplied_runs>0&&coverage.unverified_runs===0&&runners.every(r=>r.coverage.supplied_runs>0);
+ return {status:"WHOLE_FIELD_INCIDENT_REVIEW",runners,coverage,rank_effect:"NONE",prediction_saved:false,market_used:false,target_result_used:false};
 }
