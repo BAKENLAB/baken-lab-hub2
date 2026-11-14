@@ -173,7 +173,15 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
   // Some JRA result headers use several nested nodes for the course label,
   // distance and surface. Read only a bounded visible course phrase.
   // Join text within the same element (never across unrelated rows).
-  const course=$('h1,h2,h3,li,p,dt,dd,.race_header,.race_header_data,.race_data,.race_head,.race_data_course,span,div').filter((_,e)=>!$(e).closest('table,nav,footer').length).map((_,e)=>clean($(e).text())).get().filter(v=>v.length<=300);
+  const resultTables=$('table').filter((_,t)=>{
+   const hs=$(t).find('th').map((_,h)=>clean($(h).text())).get();
+   return ['着順','馬番','馬名'].every(v=>hs.includes(v));
+  }).toArray();
+  const documentOrder=$('body *').toArray();
+  const resultStart=resultTables.length===1?documentOrder.indexOf(resultTables[0]):-1;
+  if(resultStart<0)return null;
+  const beforeResult=e=>{const n=documentOrder.indexOf(e);return n>=0&&n<resultStart&&!$(e).closest('nav,footer').length;};
+  const course=$('h1,h2,h3,h4,li,p,dt,dd,th,td,.race_header,.race_header_data,.race_data,.race_head,.race_data_course,span,div').filter((_,e)=>beforeResult(e)).map((_,e)=>clean($(e).text())).get().filter(v=>v.length<=300);
   const phrases=new Set();
   for(const v of course){
    for(const m of v.matchAll(/コース\s*[:：]?\s*([0-9]{1,2}(?:,[0-9]{3})|[0-9]{4})\s*(?:メートル|m)\s*\(\s*(芝|ダート)(?:\s*[・,]\s*[^)]{1,18})?\s*\)/gi)){
@@ -182,7 +190,7 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
   }
   // If the header supplies the course via a specifically named metadata
   // element, the explicit course class substitutes only for the label.
-  $('.race_data_course,.race_data .course,.race_header_data .course,.race_head .course').each((_,e)=>{
+  $('.race_data_course,.race_data .course,.race_header_data .course,.race_head .course').filter((_,e)=>beforeResult(e)).each((_,e)=>{
    const v=clean($(e).text());
    const m=v.match(/^(?:コース\s*[:：]?\s*)?([0-9]{1,2}(?:,[0-9]{3})|[0-9]{4})\s*(?:メートル|m)\s*\(\s*(芝|ダート)(?:\s*[・,]\s*[^)]{1,18})?\s*\)$/i);
    if(m&&v.length<=80)phrases.add(Number(m[1].replace(/,/g,''))+'|'+m[2]);
