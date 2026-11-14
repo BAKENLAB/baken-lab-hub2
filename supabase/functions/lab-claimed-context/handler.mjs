@@ -1,11 +1,11 @@
-import {assertLiveClaim,collectClaimedContext,ContextError} from '../../../automation/local-worker-data.mjs';
+import {assertLiveClaim,collectClaimedContext,ContextError,deriveRunningStyleReference} from '../../../automation/local-worker-data.mjs';
 import {createReadOnlyDb} from '../../../automation/local-worker-db.mjs';
 import {createNarOfficialReader} from '../../../automation/nar-official-data.mjs';
 import {historyBeforeRace} from '../../../automation/history-boundary.mjs';
 import {buildLocalFieldPaceEvidence} from '../../../automation/local-field-pace.mjs';
 import {buildLocalRelativeConditionComparison} from '../../../automation/local-relative-condition-comparison.mjs';
 import {buildLocalClaimedCornerShadow} from '../../../automation/local-claimed-corner-shadow.mjs';
-import {buildLocalLiveAbilityInput} from '../../../automation/local-live-ability-input.mjs';
+import {buildLocal16ContentReview,mergeVerifiedLocalCornerFacts} from '../../../automation/local-16-content-review.mjs';
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const keys=['run_id','job_id','claim_token'];
 const select={run:'id,worker_id,status',job:'id,race_date,track,race_no,circuit,job_status,worker_run_id,claim_token,claimed_by,lease_until,attempts,max_attempts',race:'race_date,track,race_no,circuit,race_name,post_time,prediction_status,field_payload',protocol:'protocol_key,version,is_active,content'};
@@ -102,24 +102,25 @@ export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=n
         shadow.research_relative_condition_evidence:null,
     use_for_rank:false,use_for_save_gate:false
    };
+   // Verified factual positions only, never research scores.
+   const merged=mergeVerifiedLocalCornerFacts(runners,shadow,state.race.race_date);
+   const enhanced=merged.runners.map(r=>({...r,running_style_reference:deriveRunningStyleReference(r.recent_runs)}));
+   const pace=buildLocalFieldPaceEvidence(enhanced,context.race.conditions??{});
+   const comparison=buildLocalRelativeConditionComparison(enhanced,context.race.conditions??{},state.race.race_date);
+   output.runners=enhanced;
+   output.field_pace_evidence=pace;
+   output.official_corner_fact_coverage=merged.coverage;
+   if(comparison.status==='READY'&&comparison.rank_effect===false&&comparison.market_used===false&&JSON.stringify(comparison).length<=196608){
+     output.relative_condition_evidence=comparison;
+     output.relative_condition_status='READY';
+   }
   }catch{
    output.official_corner_shadow={status:'OPTIONAL_SHADOW_REJECTED',
     use_for_rank:false,use_for_save_gate:false};
   }
  }
- // 2026-11-14 live full-field scoring input, available to the real
- // official 1.6 rank decision before FROZEN, not a result-time research step.
- // It NEVER mutates save payloads, auth, jobs, scores or existing FROZEN.
- try{
-  const ranked=buildLocalLiveAbilityInput(output,new Date(now).toISOString());
-  output.live_ability_rank_input=JSON.stringify(ranked).length<=98304?
-   ranked:{status:'FALLBACK_TO_LOCAL_1_6',reason:'LIVE_RANK_INPUT_TOO_LARGE',
-    live_rank_input_used:false,save_authorized:false};
- }catch{
-  output.live_ability_rank_input={status:'FALLBACK_TO_LOCAL_1_6',
-   reason:'LIVE_RANK_INPUT_UNAVAILABLE',live_rank_input_used:false,
-   save_authorized:false};
- }
+ // Original LOCAL1.6 scoring; expose verified facts, not experimental scores.
+ output.live_ability_rank_input=buildLocal16ContentReview(output);
  return output;
 }
 function response(status,body){return new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json','cache-control':'no-store'}});}
@@ -148,7 +149,7 @@ export function createHandler({client,serviceKey,now=Date.now,officialFactory=()
       Promise.resolve().then(()=>preclaimLookup({
        race:fresh.race,job:fresh.job,run:fresh.run,
        verifiedRunners:context.runners},now())),
-      new Promise(resolve=>setTimeout(()=>resolve(null),250))
+      new Promise(resolve=>setTimeout(()=>resolve(null),1800))
      ]);
     }catch{preclaimCornerPacket=null;}
    }
