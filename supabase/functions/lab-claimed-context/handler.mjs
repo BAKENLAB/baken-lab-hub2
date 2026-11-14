@@ -6,6 +6,7 @@ import {buildLocalFieldPaceEvidence} from '../../../automation/local-field-pace.
 import {buildLocalRelativeConditionComparison} from '../../../automation/local-relative-condition-comparison.mjs';
 import {buildLocalClaimedCornerShadow} from '../../../automation/local-claimed-corner-shadow.mjs';
 import {buildLocal16ContentReview,mergeVerifiedLocalCornerFacts} from '../../../automation/local-16-content-review.mjs';
+import {buildLocalFieldContentFacts} from '../../../automation/local-field-content-facts.mjs';
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const keys=['run_id','job_id','claim_token'];
 const select={run:'id,worker_id,status',job:'id,race_date,track,race_no,circuit,job_status,worker_run_id,claim_token,claimed_by,lease_until,attempts,max_attempts',race:'race_date,track,race_no,circuit,race_name,post_time,prediction_status,field_payload',protocol:'protocol_key,version,is_active,content'};
@@ -121,6 +122,15 @@ export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=n
  }
  // Original LOCAL1.6 scoring; expose verified facts, not experimental scores.
  output.live_ability_rank_input=buildLocal16ContentReview(output);
+ // Verified whole-field comparative facts for 1.6 scoring, without research ranks.
+ try{
+   const facts=buildLocalFieldContentFacts(output);
+   output.official_past_content=JSON.stringify(facts).length<=196608?facts:{status:'SIZE_LIMIT',score_effect:0};
+ }catch{
+   output.official_past_content={status:'UNAVAILABLE',score_effect:0};
+ }
+ output.live_ability_rank_input.comparison_input='official_past_content';
+ output.live_ability_rank_input.instruction+=' Read official_past_content for all runners and matched historical head-to-heads; if available explicitly include position changes, comparable conditions and same-race time/finish differences in the individual scoring reasons, including unfavorable evidence. Do not assume earlier corners prove race pace or invent unavailable laps.';
  return output;
 }
 function response(status,body){return new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json','cache-control':'no-store'}});}
