@@ -30,3 +30,29 @@ test('new fixed weight rubric refused while conventional LOCAL1.6 is allowed',()
  assert.throws(()=>assertLocal16NoUnauthorizedRubric(v,{audit:{manual_score_breakdown:{maxima:[30,25,20,15,10]}}}),/UNAPPROVED_FIXED_WEIGHT/);
  assert.equal(assertLocal16NoUnauthorizedRubric(v,{audit:{execution_profile:'UNIFIED_LOCAL_ABILITY_V1'}}),true);
 });
+
+test('verified whole-field facts become an equal-depth 100-point evidence contract without a new score',()=>{
+ const {base}=fixture();
+ const facts={status:'VERIFIED_WHOLE_FIELD_FACTS',runner_count:2,
+  head_to_head:[{horse_nos:[1,2]}],
+  per_runner:base.map((r,i)=>({horse_no:r.horse_no,
+   runs:[{evidence_ref:'COMPACT_V1.runners[horse_no='+r.horse_no+'].recent_runs[0]',
+    course_transition_evidence:i===0?{sample_n:20}:null}],
+   loss_review_candidate_count:i===0?1:0}))};
+ const x=buildLocal16ContentReview({runners:base},facts);
+ assert.equal(x.status,'READY_FOR_LOCAL_1_6_FULL_FIELD_REVIEW');
+ assert.equal(x.decision_contract,'REQUIRED_FOR_LOCAL_1_6_100_POINT_REASON');
+ assert.equal(x.equal_depth_runner_count,2);
+ assert.equal(x.per_runner_coverage[0].course_transition_matches,1);
+ assert.equal(x.per_runner_coverage[0].loss_with_merit_review_candidates,1);
+ assert.equal(x.score_or_rank_override,false);
+ assert.equal(x.market_used,false);
+});
+
+test('missing or partial content facts do not masquerade as rank-ready',()=>{
+ const {base}=fixture();
+ const x=buildLocal16ContentReview({runners:base},{status:'UNAVAILABLE'});
+ assert.equal(x.status,'CONTENT_FACTS_REQUIRED');
+ assert.equal(x.official_past_content_required,true);
+ assert.equal(x.save_authorized,false);
+});
