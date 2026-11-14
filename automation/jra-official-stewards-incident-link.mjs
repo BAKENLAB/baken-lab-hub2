@@ -48,7 +48,7 @@ export function parseJraStewardsReport({targetRace,priorRace,source,clock=()=>Da
   }
   if(/その他.*進路に影響/.test(t))bad("SECONDARY_VICTIMS_REQUIRE_REVIEW");
  }
- return {status:unresolved.length?"PARTIAL_REPORT":"OFFICIAL_REPORT_PARSED",verified:true,race_key:priorRace.raceKey,source_ref:source.url,source_checked_at:source.checkedAt,events,unresolved,absence_is_not_no_incident:true,rank_effect:"NONE"};
+ return {status:unresolved.length?"PARTIAL_REPORT":"OFFICIAL_REPORT_PARSED",verified:true,race_key:priorRace.raceKey,race_date:date,source_kind:"REPORT",roster_ids:[...roster.values()].map(h=>h.horse_id).filter(Boolean),source_ref:source.url,source_checked_at:source.checkedAt,events,unresolved,absence_is_not_no_incident:true,rank_effect:"NONE"};
 }
 
 export function attachJraPriorIncidentEvidence({targetRace,officialRunners,liveRunners,packets,clock=()=>Date.now()}={}){
