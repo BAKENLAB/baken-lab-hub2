@@ -90,3 +90,12 @@ test('coverage: no recorded event is not an assertion of an incident-free run',(
  assert.equal(x.coverage.recorded_event_runs,0);
  assert.equal(x.runners[0].history[0].absence_is_not_no_incident,true);
 });
+
+test('actual JRA current card dud00 and historical dud10 resolve the same stable horse ID',()=>{
+ const card='/JRADB/accessU.html?CNAME=pw01dud002024104323/B6';
+ assert.equal(officialHorseId(card),'2024104323');
+ assert.equal(officialHorseId(card.replace('dud00','dud10')),'2024104323');
+ assert.equal(officialHorseId(card.replace('dud00','dud99')),null);
+ const linked=join([report()],[{...live[0],horse_ref:live[0].horse_ref.replace('dud10','dud00')}],[{...current[0],horse_ref:current[0].horse_ref.replace('dud10','dud00')}]);
+ assert.equal(linked.coverage.verified_source_runs,1);
+});
