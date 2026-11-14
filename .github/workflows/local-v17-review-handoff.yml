@@ -1,0 +1,23 @@
+name: LOCAL 1.7 pre-FROZEN review handoff (isolated research)
+on:
+  pull_request:
+    paths:
+      - "automation/local-v17-review-handoff.mjs"
+      - "research/local-v17-review-handoff.test.mjs"
+      - ".github/workflows/local-v17-review-handoff.yml"
+  push:
+    branches:
+      - research/local-v17-prefreeze-rank-review-20261114
+permissions:
+  contents: read
+jobs:
+  review-handoff-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Isolated official-history scoring handoff checks (no network or secrets)
+        run: node --test research/local-v17-review-handoff.test.mjs
