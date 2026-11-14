@@ -21,3 +21,12 @@ test('conflicting conditions, unavailable times and future records never generat
  c=ctx();c.runners[1].recent_runs[0].race_date='2026-11-14';
  assert.equal(buildLocalFieldContentFacts(c).status,'UNVERIFIED_INPUT');
 });
+
+test('real LOCAL condition omission is resolved only by verified single-surface venue capability',()=>{
+ const c=ctx();for(const r of c.runners)delete r.recent_runs[0].surface;
+ const x=buildLocalFieldContentFacts(c);
+ assert.equal(x.head_to_head_count,1);
+ assert.equal(x.per_runner[0].runs[0].surface_provenance,'NAR_OFFICIAL_SINGLE_SURFACE_TRACK_CAPABILITY');
+ for(const r of c.runners)r.recent_runs[0].track='盛岡';
+ assert.equal(buildLocalFieldContentFacts(c).head_to_head_count,0);
+});
