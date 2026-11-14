@@ -19,6 +19,19 @@ function matchHeader(s,prior,includeDate){
  const t=clean(s),[y,m,d]=prior.raceDate.split('-').map(Number);
  return t.includes(prior.track)&&new RegExp('(?:^|[^0-9])'+prior.raceNo+'\\s*(?:R|レース)(?=[^0-9]|$)|第\\s*'+prior.raceNo+'競走','i').test(t)&&(!includeDate||new RegExp(y+'年\\s*0?'+m+'月\\s*0?'+d+'日').test(t));
 }
+
+// Exported pure validation for official DOM fragments; no network or scoring.
+export function matchJraExactCourseFragments(fragments,distance,surface){
+ const rx=/^コース\s*:\s*([0-9]{1,2},[0-9]{3}|[0-9]{4})\s*(?:メートル|m)\s*\(\s*(芝|ダート)(?:\s*・\s*[左右内外直]{1,6})?\s*\)$/;
+ const values=new Set();
+ for(const v of Array.isArray(fragments)?fragments:[]){
+  const m=clean(v).match(rx);
+  if(m)values.add(Number(m[1].replace(/,/g,''))+'|'+m[2]);
+ }
+ const candidates=[...values];
+ return {verified:candidates.length===1&&candidates[0]===distance+'|'+surface,candidates};
+}
+
 export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
  if(typeof html!=='string'||html.length<100||html.length>2_000_000||!Array.isArray(expectedRoster)||!countOk(expectedRoster.length))return fail('BAD_RESULT_INPUT');
  const $=load(html);$('script,style,noscript').remove();
@@ -170,44 +183,15 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
   const distance=priorRace.distance,surface=priorRace.surface;
   if(!Number.isInteger(distance)||distance<1000||distance>4500||!['芝','ダート'].includes(surface)||!r.lapRow)return null;
   const $=load(a.html);$('script,style,noscript,nav,footer,[hidden],[aria-hidden="true"]').remove();
-  // Some JRA result headers use several nested nodes for the course label,
-  // distance and surface. Read only a bounded visible course phrase.
-  // Join text within the same element (never across unrelated rows).
-  const resultTables=$('table').filter((_,t)=>{
-   const hs=$(t).find('th').map((_,h)=>clean($(h).text())).get();
-   return ['着順','馬番','馬名'].every(v=>hs.includes(v));
-  }).toArray();
-  const documentOrder=$('body *').toArray();
-  const resultStart=resultTables.length===1?documentOrder.indexOf(resultTables[0]):-1;
-  if(resultStart<0)return null;
-  const beforeResult=e=>{const n=documentOrder.indexOf(e);return n>=0&&n<resultStart&&!$(e).closest('nav,footer').length;};
-  const course=$('h1,h2,h3,h4,li,p,dt,dd,th,td,.race_header,.race_header_data,.race_data,.race_head,.race_data_course,span,div').filter((_,e)=>beforeResult(e)).map((_,e)=>clean($(e).text())).get().filter(v=>v.length<=300);
-  const phrases=new Set();
-  for(const v of course){
-   for(const m of v.matchAll(/コース\s*[:：]?\s*([0-9]{1,2}(?:,[0-9]{3})|[0-9]{4})\s*(?:メートル|m)\s*\(\s*(芝|ダート)(?:\s*[・,]\s*[^)]{1,18})?\s*\)/gi)){
-    phrases.add(Number(m[1].replace(/,/g,''))+'|'+m[2]);
-   }
-  }
-  // If the header supplies the course via a specifically named metadata
-  // element, the explicit course class substitutes only for the label.
-  $('.race_data_course,.race_data .course,.race_header_data .course,.race_head .course').filter((_,e)=>beforeResult(e)).each((_,e)=>{
-   const v=clean($(e).text());
-   const m=v.match(/^(?:コース\s*[:：]?\s*)?([0-9]{1,2}(?:,[0-9]{3})|[0-9]{4})\s*(?:メートル|m)\s*\(\s*(芝|ダート)(?:\s*[・,]\s*[^)]{1,18})?\s*\)$/i);
-   if(m&&v.length<=80)phrases.add(Number(m[1].replace(/,/g,''))+'|'+m[2]);
-  });
-  const match=phrases.size===1&&phrases.has(distance+'|'+surface);
+  // The archive course label is a standalone visible metadata element.
+  // Its location relative to the finish table varies. Require the full
+  // exact label, independently matched course and unique identity.
+  const fragments=$('h1,h2,h3,h4,li,p,dt,dd,th,td,span,div').map((_,e)=>clean($(e).text())).get().filter(v=>v.length<=100&&/^コース\s*:/.test(v));
+  const identity=matchJraExactCourseFragments(fragments,distance,surface);
+  const match=identity.verified;
   r.signals.course_header_match=match;
-  r.signals.course_identity_candidates=[...phrases].slice(0,8);
-  // Diagnostic only: exact course/distance fragments, never full result text.
-  // No evidence or score is created by this diagnostic.
-  const metadataFragments=new Set();
-  $('h1,h2,h3,h4,li,p,dt,dd,th,td,span,div').each((_,e)=>{
-   const v=clean($(e).text());
-   if(v.length<=100&&(/コース\s*[:：]?\s*[0-9,]+/.test(v)||/^[0-9,]+\s*(?:メートル|m)(?:\s*\([^)]{1,20}\))?$/.test(v)||/^\(?\s*(?:芝|ダート)(?:\s*[・,]\s*[左右内外直]{1,6})?\s*\)?$/.test(v))){
-    if(metadataFragments.size<12)metadataFragments.add(v);
-   }
-  });
-  r.signals.course_metadata_fragments=[...metadataFragments];
+  r.signals.course_identity_candidates=identity.candidates;
+  r.signals.course_metadata_fragments=[...new Set(fragments)].slice(0,12);
   if(!match)return null;
   const laps=r.lapRow.split(/\s*[-－―–]\s*/).map(Number);
   if(laps.length!==Math.ceil(distance/200)||laps.some((n,i)=>!Number.isFinite(n)||n<(i===0?5:8)||n>30))return null;
