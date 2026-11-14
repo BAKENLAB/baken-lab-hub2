@@ -19,6 +19,15 @@ const strings=v=>{if(!Array.isArray(v)||v.length>40||v.some(x=>typeof x!=='strin
 const styleRefs=v=>{const a=strings(v),allowed=new Set(['逃','先','差','追','?']);if(!a.length||a.some(x=>!allowed.has(x))||new Set(a).size!==a.length||(a.includes('?')&&a.length!==1))throw new ContextError('INVALID_OUTPUT');return a;};
 async function rows(q){const {data,error}=await q.abortSignal(AbortSignal.timeout(5000));if(error||!Array.isArray(data))throw new ContextError('CONTEXT_READ_FAILED');return data;}
 async function one(q){const r=await rows(q.limit(2));if(r.length!==1)throw new ContextError('CONTEXT_NOT_UNIQUE');return r[0];}
+async function loadTransitionStats(client,context){
+ const track=context?.race?.track,distance=Number(context?.race?.conditions?.distance);
+ if(typeof track!=='string'||!Number.isFinite(distance))return [];
+ const columns='current_track,current_distance,current_going,prev_track,prev_distance,prev_going,sample_n,wins,top3s,win_rate,top3_rate,baseline_top3_rate,baseline_win_rate,top3_lift_pp,win_lift_pp';
+ const {data,error}=await client.from('lab_link_transition_stats').select(columns)
+  .eq('current_track',track).eq('current_distance',distance).limit(500)
+  .abortSignal(AbortSignal.timeout(1800));
+ return !error&&Array.isArray(data)?data:[];
+}
 export async function loadState(client,input,now){
  const run=await one(client.from('lab_worker_runs').select(select.run).eq('id',input.run_id));
  const job=await one(client.from('lab_prediction_jobs').select(select.job).eq('id',input.job_id));
@@ -30,7 +39,7 @@ export async function loadState(client,input,now){
  return state;
 }
 // Reject unsafe histories at the last boundary; reconstruct only permitted fields.
-export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=null){
+export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=null,transitionStats=[]){
  assertLiveClaim(state,now);
  if(context.claim.job_id!==state.job.id||context.claim.run_id!==state.run.id||context.claim.claim_token!==state.job.claim_token||context.protocol_version!==state.protocol.version||context.field_integrity_checked!==true||['race_date','track','race_no','circuit','post_time'].some(k=>context.race[k]!==state.race[k]))throw new ContextError('CONTEXT_CHANGED');
  if(!Array.isArray(context.runners)||!context.runners.length||context.runners.length>20)throw new ContextError('INVALID_OUTPUT');
@@ -120,17 +129,16 @@ export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=n
     use_for_rank:false,use_for_save_gate:false};
   }
  }
- // Original LOCAL1.6 scoring; expose verified facts, not experimental scores.
- output.live_ability_rank_input=buildLocal16ContentReview(output);
- // Verified whole-field comparative facts for 1.6 scoring, without research ranks.
+ // Verified whole-field facts are built first, then made mandatory evidence for
+ // the original LOCAL1.6 independent 100-point assessment. No automatic score.
+ let facts={status:'UNAVAILABLE',score_effect:0};
  try{
-   const facts=buildLocalFieldContentFacts(output);
-   output.official_past_content=JSON.stringify(facts).length<=196608?facts:{status:'SIZE_LIMIT',score_effect:0};
- }catch{
-   output.official_past_content={status:'UNAVAILABLE',score_effect:0};
- }
+   const candidate=buildLocalFieldContentFacts(output,{transitionStats});
+   facts=JSON.stringify(candidate).length<=196608?candidate:{status:'SIZE_LIMIT',score_effect:0};
+ }catch{/* Unsupported optional evidence remains unavailable. */}
+ output.official_past_content=facts;
+ output.live_ability_rank_input=buildLocal16ContentReview(output,facts);
  output.live_ability_rank_input.comparison_input='official_past_content';
- output.live_ability_rank_input.instruction+=' Read official_past_content for all runners and matched historical head-to-heads; if available explicitly include position changes, comparable conditions and same-race time/finish differences in the individual scoring reasons, including unfavorable evidence. Do not assume earlier corners prove race pace or invent unavailable laps.';
  return output;
 }
 function response(status,body){return new Response(JSON.stringify(body),{status,headers:{'content-type':'application/json','cache-control':'no-store'}});}
@@ -163,7 +171,9 @@ export function createHandler({client,serviceKey,now=Date.now,officialFactory=()
      ]);
     }catch{preclaimCornerPacket=null;}
    }
-   return response(200,{ok:true,context:finalContext(context,fresh,now(),preclaimCornerPacket)});
+   let transitionStats=[];
+   try{transitionStats=await loadTransitionStats(client,context);}catch{transitionStats=[];}
+   return response(200,{ok:true,context:finalContext(context,fresh,now(),preclaimCornerPacket,transitionStats)});
   }catch(e){return response(e instanceof ContextError?409:500,{ok:false,error:e instanceof ContextError?e.code:'CONTEXT_UNAVAILABLE'});}
  };
 }
