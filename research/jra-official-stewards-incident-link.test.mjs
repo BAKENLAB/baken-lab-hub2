@@ -1,0 +1,35 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {officialHorseId,officialRaceCore,parseJraStewardsReport as parse,attachJraPriorIncidentEvidence as attach} from '../automation/jra-official-stewards-incident-link.mjs';
+import {parseJraOfficialIncidents as resultParse} from '../automation/jra-official-incident-evidence.mjs';
+// Regression fixtures: official report dated 2025-07-13 Fukushima 1R plus
+// read-only archived roster refs. Text is a minimal normalized test sentence,
+// not a recorded live fetch. Test timestamps are synthetic, never live evidence.
+const ref='/JRADB/accessS.html?CNAME=pw01sde1003202502060120250713/BF';
+const url='https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw2fsrp1003202502060120250713%2F4A';
+const resultUrl='https://www.jra.go.jp'+ref;
+const names=['リアアーテシアン','エレクトロン','コパノセビリア','リュウノエッセンス','ナンヨーラーク','リオンアンサー','フォトンゲイザー','イイクニパッション','ビップレオン'];
+const refs=['2023103702/53','2023106608/A1','2023101306/7D','2023102830/DF','2023102598/44','2023100328/94','2023106479/22','2023100102/60','2023105996/EF'];
+const roster=names.map((horseName,i)=>({horseNo:i+1,horseName,horseRef:'/JRADB/accessU.html?CNAME=pw01dud10'+refs[i]}));
+const targetRace={raceDate:'2026-11-15',postTime:'2026-11-15T12:00:00+09:00'};
+const clock=()=>Date.parse('2026-11-15T08:00:00+09:00');
+const priorRace={raceDate:'2025-07-13',track:'福島',raceNo:1,raceKey:'20250713_福島_1R',sourceRef:ref};
+const source={raceKey:priorRace.raceKey,raceDate:priorRace.raceDate,track:priorRace.track,raceNo:1,checkedAt:'2026-11-15T07:59:00+09:00',verifiedOfficialResponse:true,fullFieldVerified:true,expectedRunnerCount:9,runners:roster,url,paragraphs:['3コーナーで、1番リアアーテシアンの進路が狭くなる事象がありました。なお、この件についての制裁はありません。']};
+const report=(s={})=>parse({targetRace,priorRace,source:{...source,...s},clock});
+const current=[{horse_no:7,horse_name:names[0],horse_ref:roster[0].horseRef,status:'ACTIVE'}];
+const live=[{...current[0],past_runs:[{race_date:priorRace.raceDate,source_ref:ref}]}];
+const join=(packets,l=live,o=current)=>attach({targetRace,clock,officialRunners:o,liveRunners:l,packets});
+test('stable id ignores official checksum and current number',()=>{assert.equal(officialHorseId(roster[0].horseRef),'2023103702');assert.equal(officialHorseId(roster[0].horseRef.replace('/53','/AA')),'2023103702');assert.equal(officialHorseId('https://evil.example'+roster[0].horseRef),null);});
+test('report/result race identity',()=>{assert.equal(officialRaceCore(ref,'result'),officialRaceCore(url,'report'));assert.equal(officialRaceCore(url,'result'),null);});
+test('no sanction still recorded victim',()=>{const p=report();assert.equal(p.verified,true);assert.equal(p.events.length,1);assert.equal(p.events[0].horse_id,'2023103702');assert.equal(p.events[0].role,'VICTIM');assert.equal(p.events[0].time_loss_seconds,null);});
+test('multiple affected horses, actor not labeled victim',()=>{const p=report({paragraphs:['3コーナーで、3番コパノセビリアが内側に斜行したため、1番リアアーテシアン、2番エレクトロンの進路が狭くなりました。']});assert.deepEqual(p.events.map(e=>e.horse_no),[1,2]);});
+test('number and name disagreement not credited',()=>{assert.equal(report({paragraphs:['3コーナーで、2番リアアーテシアンの進路が狭くなりました。']}).events.length,0);});
+test('unverified report or future checkedAt refused',()=>{assert.equal(report({verifiedOfficialResponse:false}).verified,false);assert.equal(report({checkedAt:'2026-11-15T13:00:00+09:00'}).verified,false);});
+test('mismatched report race refused',()=>assert.equal(report({url:url.replace('20250713','20250714')}).verified,false));
+test('complex secondary mentions not fabricated',()=>{const p=report({paragraphs:['3コーナーで、1番リアアーテシアンの進路が狭くなる事象がありました。(その他5番および9番の進路に影響あり)']});assert.equal(p.status,'PARTIAL_REPORT');assert.deepEqual(p.events.map(e=>e.horse_no),[1]);});
+test('historical join by id not by current number',()=>{const x=join([report()]);assert.equal(x.runners[0].history[0].events[0].horse_no,1);assert.equal(x.runners[0].horse_no,7);assert.equal(x.rank_effect,'NONE');});
+test('missing historical id blocks join',()=>{const p=report({runners:roster.map(h=>({...h,horseRef:null}))});assert.equal(join([p]).runners[0].history[0].status,'INCIDENT_SOURCE_OR_HORSE_ID_UNVERIFIED');});
+test('missing live id blocks all-field result',()=>assert.equal(join([report()],[{...live[0],horse_ref:null}]).status,'LIVE_IDENTITY_MISMATCH'));
+test('only five past runs, no target outcome',()=>{const x=join([report()],[{...live[0],past_runs:Array(6).fill(live[0].past_runs[0])}]);assert.equal(x.runners[0].history.length,5);assert.equal(x.target_result_used,false);});
+test('same incident from multiple source types not two bonuses',()=>{const a=report(),b=resultParse({targetRace,priorRace,clock,source:{...source,url:resultUrl,sectionStatus:'PRESENT',sectionRows:['リアアーテシアン号は、発進不良〔出遅れ〕。']}});assert.equal(b.verified,true);const x=join([a,b]);assert.equal(x.runners[0].history[0].events.length,2);assert.equal(x.runners[0].history[0].same_incident_double_count_prohibited,true);assert.equal(x.rank_effect,'NONE');});
+test('duplicate source ambiguous',()=>assert.equal(join([report(),report()]).runners[0].history[0].status,'DUPLICATE_SOURCE_REVIEW_REQUIRED'));
