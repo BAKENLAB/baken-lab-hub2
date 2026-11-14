@@ -2,7 +2,7 @@
  * Research-only archive smoke. Target is a synthetic cutoff, not an actual
  * race and never used for FROZEN. Public official source, no DB or secrets.
  */
-import {acquireJraIncidentPackets,extractJraResultIncidentHtml,extractJraReportIncidentHtml} from '../automation/jra-official-incident-acquisition.mjs';
+import {matchJraExactCourseFragments,acquireJraIncidentPackets,extractJraResultIncidentHtml,extractJraReportIncidentHtml} from '../automation/jra-official-incident-acquisition.mjs';
 import {attachJraPriorIncidentEvidence} from '../automation/jra-official-stewards-incident-link.mjs';
 import {runJraIncidentBatch,planJraIncidentBatch} from '../automation/jra-incident-batch-research.mjs';
 import cohort from './jra-incident-kyoto3-20261115-research-fixture.json' with {type:'json'};
@@ -112,4 +112,15 @@ Deno.test('LIVE bounded whole-field coverage: Kyoto3 2026-11-15, six independent
  check('coverage' in review&&review.coverage.active_runners===10&&review.coverage.supplied_runs===17,'COHORT_DENOMINATOR');
  check('coverage' in review&&review.coverage.verified_source_runs>0,'COHORT_NO_VERIFIED_INCIDENT_SOURCE');
  check(x.attempted_prior_races===6&&x.rank_effect==='NONE'&&x.prediction_saved===false,'COHORT_SCOPE');
+});
+
+
+Deno.test('exact archived course label independently matches and fails closed on conflicts',()=>{
+ const exact='コース:1,200メートル(芝・右)';
+ check(matchJraExactCourseFragments([exact,exact],1200,'芝').verified,'EXACT_ARCHIVE_LABEL');
+ check(!matchJraExactCourseFragments([exact],1400,'芝').verified,'WRONG_DISTANCE');
+ check(!matchJraExactCourseFragments([exact],1200,'ダート').verified,'WRONG_SURFACE');
+ check(!matchJraExactCourseFragments([exact,'コース:1,400メートル(芝・右)'],1200,'芝').verified,'CONFLICTING_COURSE');
+ check(!matchJraExactCourseFragments(['別レース '+exact],1200,'芝').verified,'NO_EMBEDDED_LABEL');
+ check(!matchJraExactCourseFragments([],1200,'芝').verified,'MISSING_COURSE');
 });
