@@ -1,3 +1,4 @@
+import {resolveLocalHistoricalSurface} from './local-verified-condition-bridge.mjs';
 /**
  * LOCAL1.6 factual pre-race whole-field content comparisons.
  * Only accepts authenticated, already identity/as-of validated COMPACT_V1.
@@ -28,13 +29,14 @@ export function buildLocalFieldContentFacts(ctx){
  const per=rs.map(r=>{
    const runs=r.recent_runs.map((h,i)=>{
     const finish=num(h.finish),early=num(h.early_pos),last=num(h.final_turn_pos),f3=num(h.final3f);
+    const resolved=resolveLocalHistoricalSurface(h);
     const x={evidence_ref:ref(r.horse_no,i),race_date:h.race_date,track:h.track,race_no:h.race_no,
-      race_name:h.race_name??null,distance:num(h.distance),surface:h.surface??null,going:h.going??null,
+      race_name:h.race_name??null,distance:num(h.distance),surface:resolved.surface,surface_provenance:resolved.provenance,surface_source_ref:resolved.source_ref,going:h.going??null,
       finish:int(finish)?finish:null,raw_margin:h.margin??null,elapsed_seconds:elapsed(h.time_raw),
       early_pos:int(early)?early:null,final_turn_pos:int(last)?last:null,
       final3f_seconds:f3!==null&&f3>=25&&f3<=90?f3:null,
       current_track:h.track===ctx.race.track,current_distance:num(h.distance)===num(cond.distance)&&num(cond.distance)!==null,
-      current_surface:typeof h.surface==='string'&&h.surface===cond.surface,
+      current_surface:resolved.surface!==null&&resolved.surface===cond.surface,
       current_going:typeof h.going==='string'&&h.going===cond.going};
     x.first_to_final_corner_gain=x.early_pos!==null&&x.final_turn_pos!==null?x.early_pos-x.final_turn_pos:null;
     x.final_corner_to_finish_gain=x.final_turn_pos!==null&&x.finish!==null?x.final_turn_pos-x.finish:null;
