@@ -94,7 +94,11 @@ export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
   report_label_count:$('a,button,input').filter((_,e)=>/裁決レポート/.test(clean($(e).text()+' '+($(e).attr('title')??'')+' '+($(e).attr('value')??'')))).length,
   report_token_count:(html.match(/pw2fsrp[0-9]{22}/g)??[]).length,
   explicit_none_rows:sectionStatus==='EXPLICIT_NONE'?sectionRows.length:0};
- return {verified:true,runners,sectionStatus,sectionRows,discoveredReport,reportLinkStatus:reportLinks.size===1?'VERIFIED_SAME_RACE_LINK':reportLinks.size?'AMBIGUOUS_REPORT_LINK':'REPORT_LINK_NOT_VERIFIED',signals};
+ const lapSources=$('th,dt').filter((_,e)=>clean($(e).text())==='ハロンタイム'&&!$(e).closest('nav,footer,[hidden],[aria-hidden="true"]').length).toArray();
+ const lapText=lapSources.length===1?clean($(lapSources[0]).next('td,dd').text()):null;
+ // Only the verified official timing row, no finish-table or payout values.
+ const lapRow=lapText&&/^\d{1,2}\.\d(?:\s*[-－―–]\s*\d{1,2}\.\d)+$/.test(lapText)?lapText:null;
+ return {verified:true,runners,sectionStatus,sectionRows,lapRow,discoveredReport,reportLinkStatus:reportLinks.size===1?'VERIFIED_SAME_RACE_LINK':reportLinks.size?'AMBIGUOUS_REPORT_LINK':'REPORT_LINK_NOT_VERIFIED',signals};
 }
 export function extractJraReportIncidentHtml(html,priorRace){
  if(typeof html!=='string'||html.length<100||html.length>2_000_000)return fail('BAD_REPORT_INPUT');
@@ -149,6 +153,22 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
  if(!r.verified)return r;
  if(!reportUrl&&r.discoveredReport)reportUrl=r.discoveredReport;
  const common={raceDate:priorRace.raceDate,track:priorRace.track,raceNo:priorRace.raceNo,raceKey:priorRace.raceKey,verifiedOfficialResponse:true,fullFieldVerified:true,expectedRunnerCount:expectedRoster.length,runners:r.runners};
+ // Research-only same-response timing observation, not individual section
+ // timing. Require the independently supplied race distance and surface;
+ // the official result headline must independently contain both.
+ const lapObservation=(()=>{
+  const distance=priorRace.distance,surface=priorRace.surface;
+  if(!Number.isInteger(distance)||distance<1000||distance>4500||!['芝','ダート'].includes(surface)||!r.lapRow)return null;
+  const $=load(a.html);$('script,style,noscript,nav,footer,[hidden],[aria-hidden="true"]').remove();
+  const course=$('h1,h2,h3,.race_header,.race_header_data,.race_data,.race_head,.race_data_course,span,div').filter((_,e)=>!$(e).closest('table').length).map((_,e)=>clean($(e).text())).get().filter(v=>v.length<=200);
+  const escapedDistance=String(distance);
+  const meter=new RegExp('(?:^|[^0-9])'+escapedDistance.replace(/(?=\B(?:\d{3})+$)/g,',?')+'\\s*(?:メートル|m)(?=[\\s(（・、]|$)','i');
+  if(!course.some(v=>meter.test(v)&&v.includes(surface)&&/コース/.test(v)))return null;
+  const laps=r.lapRow.split(/\s*[-－―–]\s*/).map(Number);
+  if(laps.length!==Math.ceil(distance/200)||laps.some((n,i)=>!Number.isFinite(n)||n<(i===0?5:8)||n>30))return null;
+  const first=distance%200||200,round=n=>Math.round(n*10)/10,sum=arr=>round(arr.reduce((n,v)=>n+v,0));
+  return {status:'OFFICIAL_RACE_LAPS_VERIFIED',verified:true,source_ref:url,source_checked_at:a.checkedAt,race_date:priorRace.raceDate,track:priorRace.track,race_no:priorRace.raceNo,surface,distance,lap_seconds:laps,segment_distances_m:[first,...Array(laps.length-1).fill(200)],first_600m_seconds:first===200?sum(laps.slice(0,3)):null,last_600m_seconds:sum(laps.slice(-3)),scope:'SAME_VERIFIED_RESULT_HTML_RACE_WIDE',market_used:false,rank_effect:'NONE'};
+ })();
  const result=parseJraOfficialIncidents({targetRace,priorRace,source:{...common,url,checkedAt:a.checkedAt,sectionStatus:r.sectionStatus,sectionRows:r.sectionRows},clock});
  if(result.verified)packets.push(result);else failures.push(result.status);
  if(reportUrl){
@@ -159,5 +179,5 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
   }catch{failures.push('OFFICIAL_REPORT_FETCH_UNAVAILABLE');}
  }else failures.push(r.reportLinkStatus??'REPORT_LINK_NOT_VERIFIED');
  if(clock()+reserveMs>=post)return fail('PRECLAIM_DEADLINE');
- return {status:packets.length?'INCIDENT_ACQUISITION_REVIEW_ONLY':'INCIDENT_SOURCES_UNAVAILABLE',verified:packets.length>0,packets,failures,source_structure:r.signals,rank_effect:'NONE',market_used:false,prediction_saved:false};
+ return {status:packets.length?'INCIDENT_ACQUISITION_REVIEW_ONLY':'INCIDENT_SOURCES_UNAVAILABLE',verified:packets.length>0,packets,failures,source_structure:r.signals,lap_observation:lapObservation,rank_effect:'NONE',market_used:false,prediction_saved:false};
 }
