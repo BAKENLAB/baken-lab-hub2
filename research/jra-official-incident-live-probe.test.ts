@@ -77,6 +77,11 @@ Deno.test('literal report link from same verified result; never invent checksum'
  check(ok.verified&&'discoveredReport' in ok&&ok.discoveredReport===reportRef,'REPORT_LINK_DISCOVERY');
  const wrong=extractJraResultIncidentHtml(html.replace('</body>',link.replace('20250713','20250714')+'</body>'),priorRace,expectedRoster);
  check(wrong.verified&&'discoveredReport' in wrong&&wrong.discoveredReport===null,'WRONG_RACE_REPORT_LINK');
+ const foreign=extractJraResultIncidentHtml(html.replace('</body>',link.replace('https://www.jra.go.jp','https://example.invalid')+'</body>'),priorRace,expectedRoster);
+ check(foreign.verified&&'discoveredReport' in foreign&&foreign.discoveredReport===null,'FOREIGN_REPORT_HOST');
+ const popupLink='<a href="#" onclick="window.open(\''+reportRef+'\')">裁決レポート</a>';
+ const popup=extractJraResultIncidentHtml(html.replace('</body>',popupLink+'</body>'),priorRace,expectedRoster);
+ check(popup.verified&&'discoveredReport' in popup&&popup.discoveredReport===reportRef,'QUOTED_POPUP_REFERENCE');
 });
 Deno.test('LIVE bounded whole-field coverage: Kyoto3 2026-11-15, three independently verified prior rosters',async()=>{
  if(Deno.env.get('JRA_INCIDENT_LIVE_PROBE')!=='1')return;
