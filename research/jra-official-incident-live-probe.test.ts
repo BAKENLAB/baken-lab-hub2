@@ -24,9 +24,10 @@ Deno.test('fixture only: exact roster and structured result/report sections',()=
 Deno.test('LIVE read-only: official JRA archived result and stewards report',async()=>{
  if(Deno.env.get('JRA_INCIDENT_LIVE_PROBE')!=='1'){console.log('LIVE_PROBE_NOT_REQUESTED');return;}
  const receipts:{url:string,status:number,type:string|null}[]=[];
- const result=await acquireJraIncidentPackets({targetRace,priorRace,expectedRoster,reportRef,fetchImpl:async(input:RequestInfo|URL,opts?:RequestInit)=>{
+ const acquisitionArgs={targetRace,priorRace,expectedRoster,reportRef,fetchImpl:async(input:RequestInfo|URL,opts?:RequestInit)=>{
   const r=await fetch(input,opts);receipts.push({url:String(input),status:r.status,type:r.headers.get('content-type')});return r;
- }});
+ }};
+ const result=await acquireJraIncidentPackets(acquisitionArgs);
  type Event={horse_no:number,horse_id:string|null,kind:string};
  type Packet={source_kind:string,status:string,roster_ids?:string[],events?:Event[],unresolved?:unknown[]};
  const packets:Packet[]='packets' in result&&Array.isArray(result.packets)?result.packets as Packet[]:[];
