@@ -89,13 +89,19 @@ Deno.test('LIVE bounded whole-field coverage: Kyoto3 2026-11-15, six independent
  if(Date.now()+reserveMs>=Date.parse(cohort.targetRace.postTime)){
   console.log(JSON.stringify({cohort_scope:'KYOTO3_20261115',status:'NOT_RUN_AFTER_OR_NEAR_POST'}));return;
  }
- const args={...cohort,reserveMs,maxRaces:6,acquire:acquireJraIncidentPackets};
+ const diagnostics:unknown[]=[];
+ const args={...cohort,reserveMs,maxRaces:6,acquire:async(input:Parameters<typeof acquireJraIncidentPackets>[0])=>{
+  const x=await acquireJraIncidentPackets(input);
+  diagnostics.push({source:input?.priorRace?.sourceRef,status:'status' in x?x.status:null,structure:'source_structure' in x?x.source_structure:null});
+  return x;
+ }};
  const plan=planJraIncidentBatch(args);
  check('expected_runs' in plan&&plan.expected_runs===17,'COHORT_EXPECTED_RUNS');
  check('ready_prior_races' in plan&&plan.ready_prior_races===6,'COHORT_PRIOR_ROSTERS');
  const x=await runJraIncidentBatch(args);
  if(!('incident_review' in x))throw Error('COHORT_BATCH_NOT_RUN');
  const review=x.incident_review;
+ console.log(JSON.stringify({cohort_structure:diagnostics}));
  console.log(JSON.stringify({cohort_scope:'KYOTO3_20261115_PREPOST_RESEARCH_ONLY',attempted_prior_races:x.attempted_prior_races,receipts:x.receipts,coverage:'coverage' in review?review.coverage:null,rank_effect:x.rank_effect,prediction_saved:x.prediction_saved}));
  check('coverage' in review&&review.coverage.active_runners===10&&review.coverage.supplied_runs===17,'COHORT_DENOMINATOR');
  check('coverage' in review&&review.coverage.verified_source_runs>0,'COHORT_NO_VERIFIED_INCIDENT_SOURCE');
