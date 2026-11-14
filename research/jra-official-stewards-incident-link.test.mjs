@@ -53,3 +53,40 @@ test('self-evasion wrong horse identity or ambiguous external cause never credit
  const q=report({paragraphs:['2番エレクトロンが接触した。']});
  assert.equal(q.events.length,0);assert.equal(q.status,'PARTIAL_REPORT');
 });
+
+test('coverage: same prior race is not counted repeatedly',()=>{
+ const x=join([report()],[{...live[0],past_runs:Array(5).fill(live[0].past_runs[0])}]);
+ assert.equal(x.coverage.supplied_runs,5);
+ assert.equal(x.coverage.verified_source_runs,1);
+ assert.equal(x.coverage.unverified_runs,4);
+ assert.equal(x.runners[0].history[1].status,'DUPLICATE_HISTORY_RACE');
+ assert.equal(x.coverage.all_supplied_runs_have_a_source,false);
+});
+test('coverage: a partial official result remains partial when the report parses',()=>{
+ const a=report(),b=resultParse({targetRace,priorRace,clock,source:{...source,url:resultUrl,sectionStatus:'PRESENT',sectionRows:['照合できない記載']}});
+ assert.equal(b.status,'PARTIAL_OFFICIAL_INCIDENTS');
+ const x=join([a,b]);
+ assert.equal(x.coverage.verified_source_runs,1);
+ assert.equal(x.coverage.result_source_runs,1);
+ assert.equal(x.coverage.report_source_runs,1);
+ assert.equal(x.coverage.partial_runs,1);
+ assert.equal(x.runners[0].history[0].sources.length,2);
+ assert.equal(x.rank_effect,'NONE');
+});
+test('coverage: horses with no supplied history are not reported as complete',()=>{
+ const other={horse_no:8,horse_name:names[1],horse_ref:roster[1].horseRef,status:'ACTIVE'};
+ const x=join([report()],[live[0],{...other,past_runs:[]}],[current[0],other]);
+ assert.equal(x.coverage.active_runners,2);
+ assert.equal(x.coverage.reviewed_runners,2);
+ assert.equal(x.coverage.supplied_runs,1);
+ assert.equal(x.coverage.not_supplied_slots,9);
+ assert.equal(x.coverage.all_supplied_runs_have_a_source,false);
+ assert.equal(x.runners[1].coverage.verified_source_runs,0);
+});
+test('coverage: no recorded event is not an assertion of an incident-free run',()=>{
+ const other={horse_no:8,horse_name:names[1],horse_ref:roster[1].horseRef,status:'ACTIVE'};
+ const x=join([report()],[{...other,past_runs:live[0].past_runs}],[other]);
+ assert.equal(x.coverage.verified_source_runs,1);
+ assert.equal(x.coverage.recorded_event_runs,0);
+ assert.equal(x.runners[0].history[0].absence_is_not_no_incident,true);
+});
