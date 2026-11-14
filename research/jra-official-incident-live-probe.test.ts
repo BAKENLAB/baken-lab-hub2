@@ -4,6 +4,8 @@
  */
 import {acquireJraIncidentPackets,extractJraResultIncidentHtml,extractJraReportIncidentHtml} from '../automation/jra-official-incident-acquisition.mjs';
 import {attachJraPriorIncidentEvidence} from '../automation/jra-official-stewards-incident-link.mjs';
+import {runJraIncidentBatch,planJraIncidentBatch} from '../automation/jra-incident-batch-research.mjs';
+import cohort from './jra-incident-kyoto3-20261115-research-fixture.json' with {type:'json'};
 const priorRace={raceDate:'2025-07-13',track:'福島',raceNo:1,raceKey:'20250713_福島_1R',sourceRef:'/JRADB/accessS.html?CNAME=pw01sde1003202502060120250713/BF'};
 const reportRef='https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw2fsrp1003202502060120250713%2F4A';
 const names=['リアアーテシアン','エレクトロン','コパノセビリア','リュウノエッセンス','ナンヨーラーク','リオンアンサー','フォトンゲイザー','イイクニパッション','ビップレオン'];
@@ -66,4 +68,31 @@ Deno.test('LIVE read-only: official JRA archived result and stewards report',asy
  check('coverage' in joined&&joined.coverage?.verified_source_runs===9&&joined.coverage?.report_source_runs===9,'LIVE_COVERAGE_SOURCES');
  check('coverage' in joined&&joined.coverage?.not_supplied_slots===36,'LIVE_COVERAGE_MUST_NOT_CLAIM_FIVE_RUNS');
  if('coverage' in joined)console.log(JSON.stringify({archive_coverage:joined.coverage,scope:'NINE_HORSES_ONE_VERIFIED_ARCHIVE_RACE_EACH'}));
+});
+
+
+Deno.test('literal report link from same verified result; never invent checksum',()=>{
+ const link='<a href="'+reportRef+'">裁決レポート</a>';
+ const ok=extractJraResultIncidentHtml(html.replace('</body>',link+'</body>'),priorRace,expectedRoster);
+ check(ok.verified&&'discoveredReport' in ok&&ok.discoveredReport===reportRef,'REPORT_LINK_DISCOVERY');
+ const wrong=extractJraResultIncidentHtml(html.replace('</body>',link.replace('20250713','20250714')+'</body>'),priorRace,expectedRoster);
+ check(wrong.verified&&'discoveredReport' in wrong&&wrong.discoveredReport===null,'WRONG_RACE_REPORT_LINK');
+});
+Deno.test('LIVE bounded whole-field coverage: Kyoto3 2026-11-15, three independently verified prior rosters',async()=>{
+ if(Deno.env.get('JRA_INCIDENT_LIVE_PROBE')!=='1')return;
+ const reserveMs=180000;
+ if(Date.now()+reserveMs>=Date.parse(cohort.targetRace.postTime)){
+  console.log(JSON.stringify({cohort_scope:'KYOTO3_20261115',status:'NOT_RUN_AFTER_OR_NEAR_POST'}));return;
+ }
+ const args={...cohort,reserveMs,maxRaces:3,acquire:acquireJraIncidentPackets};
+ const plan=planJraIncidentBatch(args);
+ check('expected_runs' in plan&&plan.expected_runs===17,'COHORT_EXPECTED_RUNS');
+ check('ready_prior_races' in plan&&plan.ready_prior_races===3,'COHORT_PRIOR_ROSTERS');
+ const x=await runJraIncidentBatch(args);
+ if(!('incident_review' in x))throw Error('COHORT_BATCH_NOT_RUN');
+ const review=x.incident_review;
+ console.log(JSON.stringify({cohort_scope:'KYOTO3_20261115_PREPOST_RESEARCH_ONLY',attempted_prior_races:x.attempted_prior_races,receipts:x.receipts,coverage:'coverage' in review?review.coverage:null,rank_effect:x.rank_effect,prediction_saved:x.prediction_saved}));
+ check('coverage' in review&&review.coverage.active_runners===10&&review.coverage.supplied_runs===17,'COHORT_DENOMINATOR');
+ check('coverage' in review&&review.coverage.verified_source_runs>0,'COHORT_NO_VERIFIED_INCIDENT_SOURCE');
+ check(x.attempted_prior_races===3&&x.rank_effect==='NONE'&&x.prediction_saved===false,'COHORT_SCOPE');
 });
