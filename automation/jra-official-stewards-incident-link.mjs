@@ -42,7 +42,23 @@ export function parseJraStewardsReport({targetRace,priorRace,source,clock=()=>Da
     }
    }
   }else if(/その他.*進路に影響/.test(t))bad("SECONDARY_VICTIMS_REQUIRE_REVIEW");
-  if(!/進路が狭くな/.test(t))continue;
+  // Distinguish a rider's difficulty caused by that horse's own evasion
+  // from interference by another horse. Never credit the former as a victim.
+  if(/追いづらくな/.test(t)&&/逃避/.test(t)){
+   const self=t.match(/(?:^|直線コースで|コーナーで|発走後)[、,\s]*(\d{1,2})番(.+?)の騎手.+?追いづらくなる.+?同馬が(?:内側|外側)(?:に|へ)逃避しようとしたことによる/);
+   const h=self?roster.get(Number(self[1])):null;
+   if(!h||norm(self[2])!==h.horse_name||/他馬の影響|他の馬の影響|被害馬/.test(t)){
+    bad("SELF_EVASION_IDENTITY_OR_CAUSE_UNVERIFIED");
+   }else{
+    const key=[h.horse_no,"SELF_EVASION"].join("|");
+    if(!dedup.has(key)){dedup.add(key);events.push({...h,kind:"SELF_EVASION",role:"SELF",race_key:priorRace.raceKey,race_date:date,source_ref:source.url,source_checked_at:source.checkedAt,section_row:i+1,certainty:"OFFICIAL_RECORDED_FACT",time_loss_seconds:null,rank_effect:"NONE"});}
+   }
+   continue;
+  }
+  if(!/進路が狭くな/.test(t)){
+   if(!secondary&&/妨害|追いづら|逃避|不利|斜行|接触|つまず/.test(t)&&!/^(?:これは|この件は)/.test(t))bad("OTHER_INCIDENT_REVIEW_REQUIRED");
+   continue;
+  }
   if(/^(?:これは|この件は)/.test(t))continue;
   // Only literal affected subjects before the first "の進路が狭くな..." clause;
   // secondary clauses and relationships are not guessed.
