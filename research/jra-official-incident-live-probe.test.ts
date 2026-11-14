@@ -21,6 +21,10 @@ Deno.test('fixture only: exact roster and structured result/report sections',()=
  const popup=reportHtml.replace('<h1>福島 1R 裁決レポート</h1>','<div class="race-title"><span>福島 1Ｒ 裁決レポート</span></div>');
  check(extractJraReportIncidentHtml(popup,priorRace).verified,'FIXTURE_POPUP_HEADER');
  check(!extractJraReportIncidentHtml(popup.replace('福島 1Ｒ','福島 11Ｒ'),priorRace).verified,'POPUP_WRONG_RACE');
+ const br=popup.replace(/<p>/g,'').replace(/<\/p>/g,'<br>').replace('</div>','</div><br>');
+ const brResult=extractJraReportIncidentHtml(br,priorRace);
+ check(brResult.verified&&'paragraphs' in brResult&&brResult.paragraphs.length===2,'FIXTURE_BR_DELIMITED_REPORT');
+ check(!extractJraReportIncidentHtml(br.replace('福島 1Ｒ','福島 11Ｒ'),priorRace).verified,'BR_WRONG_RACE');
 
  check(!extractJraResultIncidentHtml(html.replace('2025年7月13日','2025年7月14日'),priorRace,expectedRoster).verified,'DATE_MISMATCH');
  check(!extractJraResultIncidentHtml(html,priorRace,expectedRoster.slice(0,8)).verified,'INCOMPLETE_ROSTER');
