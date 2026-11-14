@@ -39,3 +39,17 @@ test('duplicate source ambiguous',()=>assert.equal(join([report(),report()]).run
 test('separate paragraph additional affected horses using archived roster',()=>{const p=report({paragraphs:['3コーナーで、1番リアアーテシアンの進路が狭くなる事象がありました。','(その他5番および9番の進路に影響あり)','なお、この件についての制裁はありません。']});assert.deepEqual(p.events.map(e=>[e.horse_id,e.kind]),[['2023103702','RESTRICTED_PATH'],['2023102598','ADDITIONAL_PATH_IMPACT'],['2023105996','ADDITIONAL_PATH_IMPACT']]);});
 test('secondary unknown number retained as unresolved',()=>{const p=report({paragraphs:['(その他5番および18番の進路に影響あり)']});assert.equal(p.events.length,0);assert.equal(p.status,'PARTIAL_REPORT');});
 test('secondary repeated mention deduplicated',()=>{const p=report({paragraphs:['(その他5番および9番の進路に影響あり)','(その他5番の進路に影響あり)']});assert.equal(p.events.length,2);});
+
+
+test('own evasion is explicitly self-caused, not external victim or score credit',()=>{
+ const p=report({paragraphs:['最後の直線コースで、2番エレクトロンの騎手が追いづらくなる状況がありましたが、これは同馬が内側に逃避しようとしたことによるものでした。']});
+ assert.equal(p.events.length,1);assert.equal(p.events[0].horse_id,'2023106608');
+ assert.equal(p.events[0].kind,'SELF_EVASION');assert.equal(p.events[0].role,'SELF');
+ assert.equal(p.events[0].rank_effect,'NONE');assert.equal(p.events[0].time_loss_seconds,null);
+});
+test('self-evasion wrong horse identity or ambiguous external cause never credited',()=>{
+ const p=report({paragraphs:['最後の直線コースで、1番エレクトロンの騎手が追いづらくなる状況がありましたが、これは同馬が内側に逃避しようとしたことによるものでした。']});
+ assert.equal(p.events.length,0);assert.equal(p.status,'PARTIAL_REPORT');
+ const q=report({paragraphs:['2番エレクトロンが接触した。']});
+ assert.equal(q.events.length,0);assert.equal(q.status,'PARTIAL_REPORT');
+});
