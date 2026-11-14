@@ -83,21 +83,21 @@ Deno.test('literal report link from same verified result; never invent checksum'
  const popup=extractJraResultIncidentHtml(html.replace('</body>',popupLink+'</body>'),priorRace,expectedRoster);
  check(popup.verified&&'discoveredReport' in popup&&popup.discoveredReport===reportRef,'QUOTED_POPUP_REFERENCE');
 });
-Deno.test('LIVE bounded whole-field coverage: Kyoto3 2026-11-15, three independently verified prior rosters',async()=>{
+Deno.test('LIVE bounded whole-field coverage: Kyoto3 2026-11-15, six independently verified prior rosters',async()=>{
  if(Deno.env.get('JRA_INCIDENT_LIVE_PROBE')!=='1')return;
  const reserveMs=180000;
  if(Date.now()+reserveMs>=Date.parse(cohort.targetRace.postTime)){
   console.log(JSON.stringify({cohort_scope:'KYOTO3_20261115',status:'NOT_RUN_AFTER_OR_NEAR_POST'}));return;
  }
- const args={...cohort,reserveMs,maxRaces:3,acquire:acquireJraIncidentPackets};
+ const args={...cohort,reserveMs,maxRaces:6,acquire:acquireJraIncidentPackets};
  const plan=planJraIncidentBatch(args);
  check('expected_runs' in plan&&plan.expected_runs===17,'COHORT_EXPECTED_RUNS');
- check('ready_prior_races' in plan&&plan.ready_prior_races===3,'COHORT_PRIOR_ROSTERS');
+ check('ready_prior_races' in plan&&plan.ready_prior_races===6,'COHORT_PRIOR_ROSTERS');
  const x=await runJraIncidentBatch(args);
  if(!('incident_review' in x))throw Error('COHORT_BATCH_NOT_RUN');
  const review=x.incident_review;
  console.log(JSON.stringify({cohort_scope:'KYOTO3_20261115_PREPOST_RESEARCH_ONLY',attempted_prior_races:x.attempted_prior_races,receipts:x.receipts,coverage:'coverage' in review?review.coverage:null,rank_effect:x.rank_effect,prediction_saved:x.prediction_saved}));
  check('coverage' in review&&review.coverage.active_runners===10&&review.coverage.supplied_runs===17,'COHORT_DENOMINATOR');
  check('coverage' in review&&review.coverage.verified_source_runs>0,'COHORT_NO_VERIFIED_INCIDENT_SOURCE');
- check(x.attempted_prior_races===3&&x.rank_effect==='NONE'&&x.prediction_saved===false,'COHORT_SCOPE');
+ check(x.attempted_prior_races===6&&x.rank_effect==='NONE'&&x.prediction_saved===false,'COHORT_SCOPE');
 });
