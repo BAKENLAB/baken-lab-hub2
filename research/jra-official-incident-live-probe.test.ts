@@ -18,6 +18,10 @@ Deno.test('fixture only: exact roster and structured result/report sections',()=
  check(a.verified&&'runners' in a&&a.runners.length===9&&a.sectionRows.length===1,'FIXTURE_RESULT');
  const b=extractJraReportIncidentHtml(reportHtml,priorRace);
  check(b.verified&&'paragraphs' in b&&b.paragraphs.length===2,'FIXTURE_REPORT');
+ const popup=reportHtml.replace('<h1>福島 1R 裁決レポート</h1>','<div class="race-title"><span>福島 1Ｒ 裁決レポート</span></div>');
+ check(extractJraReportIncidentHtml(popup,priorRace).verified,'FIXTURE_POPUP_HEADER');
+ check(!extractJraReportIncidentHtml(popup.replace('福島 1Ｒ','福島 11Ｒ'),priorRace).verified,'POPUP_WRONG_RACE');
+
  check(!extractJraResultIncidentHtml(html.replace('2025年7月13日','2025年7月14日'),priorRace,expectedRoster).verified,'DATE_MISMATCH');
  check(!extractJraResultIncidentHtml(html,priorRace,expectedRoster.slice(0,8)).verified,'INCOMPLETE_ROSTER');
 });
@@ -25,7 +29,20 @@ Deno.test('LIVE read-only: official JRA archived result and stewards report',asy
  if(Deno.env.get('JRA_INCIDENT_LIVE_PROBE')!=='1'){console.log('LIVE_PROBE_NOT_REQUESTED');return;}
  const receipts:{url:string,status:number,type:string|null}[]=[];
  const acquisitionArgs={targetRace,priorRace,expectedRoster,reportRef,fetchImpl:async(input:RequestInfo|URL,opts?:RequestInit)=>{
-  const r=await fetch(input,opts);receipts.push({url:String(input),status:r.status,type:r.headers.get('content-type')});return r;
+  const r=await fetch(input,opts);receipts.push({url:String(input),status:r.status,type:r.headers.get('content-type')});
+  if(String(input).includes('pw2fsrp')&&r.ok){
+   // Research diagnostic, bounded public report only. Never inspect odds or
+   // dump the result page; log structural hints and charset, not HTML.
+   const blob=await r.clone().arrayBuffer();
+   if(blob.byteLength<=2000000){
+    const bytes=new Uint8Array(blob),ascii=new TextDecoder('windows-1252').decode(bytes.slice(0,8192));
+    const declared=ascii.match(/charset\s*=\s*["']?([\w-]+)/i)?.[1]??null;
+    const enc=/utf-8/i.test(declared??'')?'utf-8':/euc-jp/i.test(declared??'')?'euc-jp':'shift_jis';
+    const decoded=new TextDecoder(enc).decode(bytes);
+    console.log(JSON.stringify({report_structure:{bytes:bytes.length,declared,encoding:enc,has_report_title:decoded.includes('裁決レポート'),has_venue:decoded.includes('福島'),p_tags:(decoded.match(/<p(?:\s|>)/gi)??[]).length,br_tags:(decoded.match(/<br(?:\s|\/?\s*>)/gi)??[]).length,title:decoded.match(/<title[^>]*>([^<]{0,100})<\/title>/i)?.[1]??null}}));
+   }
+  }
+  return r;
  }};
  const result=await acquireJraIncidentPackets(acquisitionArgs);
  type Event={horse_no:number,horse_id:string|null,kind:string};
