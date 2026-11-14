@@ -88,7 +88,7 @@ export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
  });
  const discoveredReport=reportLinks.size===1?[...reportLinks.values()][0]:null;
  // Count structural signals, never collect result or market text in diagnostics.
- const signals={timing_label_count:0,timing_row_valid:false,course_header_match:false,course_identity_candidates:[],incident_heading_count:headings.length,
+ const signals={timing_label_count:0,timing_row_valid:false,course_header_match:false,course_identity_candidates:[],course_metadata_fragments:[],incident_heading_count:headings.length,
   literal_incident_label_count:$('h1,h2,h3,h4,h5,h6,dt,div,span,strong,b,p,th').filter((_,e)=>clean($(e).text())==='競走中の出来事等'&&!$(e).closest('nav,footer,[hidden],[aria-hidden="true"]').length).length,
   incident_neighbor_tags:headings.slice(0,2).map(e=>({heading:e.tagName,next:$(e).next().get(0)?.tagName??null,parent:$(e).parent().get(0)?.tagName??null,parent_next:$(e).parent().next().get(0)?.tagName??null})),
   report_label_count:$('a,button,input').filter((_,e)=>/裁決レポート/.test(clean($(e).text()+' '+($(e).attr('title')??'')+' '+($(e).attr('value')??'')))).length,
@@ -190,6 +190,16 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
   const match=phrases.size===1&&phrases.has(distance+'|'+surface);
   r.signals.course_header_match=match;
   r.signals.course_identity_candidates=[...phrases].slice(0,8);
+  // Diagnostic only: exact course/distance fragments, never full result text.
+  // No evidence or score is created by this diagnostic.
+  const metadataFragments=new Set();
+  $('h1,h2,h3,h4,li,p,dt,dd,th,td,span,div').each((_,e)=>{
+   const v=clean($(e).text());
+   if(v.length<=100&&(/コース\s*[:：]?\s*[0-9,]+/.test(v)||/^[0-9,]+\s*(?:メートル|m)(?:\s*\([^)]{1,20}\))?$/.test(v)||/^\(?\s*(?:芝|ダート)(?:\s*[・,]\s*[左右内外直]{1,6})?\s*\)?$/.test(v))){
+    if(metadataFragments.size<12)metadataFragments.add(v);
+   }
+  });
+  r.signals.course_metadata_fragments=[...metadataFragments];
   if(!match)return null;
   const laps=r.lapRow.split(/\s*[-－―–]\s*/).map(Number);
   if(laps.length!==Math.ceil(distance/200)||laps.some((n,i)=>!Number.isFinite(n)||n<(i===0?5:8)||n>30))return null;
