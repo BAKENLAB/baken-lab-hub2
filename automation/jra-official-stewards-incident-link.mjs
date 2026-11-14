@@ -124,7 +124,7 @@ export function attachJraPriorIncidentEvidence({targetRace,officialRunners,liveR
    recorded_event_runs:history.filter(x=>x.events.length>0).length};
   runners.push({horse_no:h.horse_no,horse_id:o.id,history,coverage,status:"REVIEW_ONLY"});
  }
- const coverage={active_runners:runners.length,reviewed_runners:runners.length};
+ const coverage={active_runners:runners.length,reviewed_runners:runners.length,supplied_runs:0,not_supplied_slots:0,verified_source_runs:0,result_source_runs:0,report_source_runs:0,partial_runs:0,unverified_runs:0,recorded_event_runs:0,all_supplied_runs_have_a_source:false};
  for(const key of ["supplied_runs","not_supplied_slots","verified_source_runs","result_source_runs","report_source_runs","partial_runs","unverified_runs","recorded_event_runs"]){
   coverage[key]=runners.reduce((n,r)=>n+r.coverage[key],0);
  }
