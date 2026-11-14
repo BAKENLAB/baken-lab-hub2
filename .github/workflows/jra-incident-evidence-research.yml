@@ -28,4 +28,4 @@ jobs:
       - name: HTML fixture and bounded public archive probe (no database access)
         env:
           JRA_INCIDENT_LIVE_PROBE: '1'
-        run: deno test --allow-env=JRA_INCIDENT_LIVE_PROBE,NODE_V8_COVERAGE,UNDICI_NO_FG --allow-net=www.jra.go.jp research/jra-official-incident-live-probe.test.ts
+        run: deno test --allow-env=JRA_INCIDENT_LIVE_PROBE --allow-net=www.jra.go.jp research/jra-official-incident-live-probe.test.ts
