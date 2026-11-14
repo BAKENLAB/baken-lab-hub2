@@ -75,7 +75,60 @@ export function extractJraReportIncidentHtml(html,priorRace){
  if(typeof html!=='string'||html.length<100||html.length>2_000_000)return fail('BAD_REPORT_INPUT');
  const $=load(html);$('script,style,noscript').remove();
  const headings=$('h1,h2,h3,h4,title').map((_,e)=>clean($(e).text())).get();
- if(!matchHeader(headings.join(' '),priorRace,false)||!headings.some(s=>s.includes('裁決レポート')))return fail('REPORT_HEADER_UNVERIFIED');
+ // Archived JRA popup reports also use non-heading containers. The
+ // fallback accepts ONLY a complete, exact venue/race/report-title string
+ // in a small visible element; never an arbitrary body-text match.
+ const exactTitle=new RegExp('^'+priorRace.track+'\\s*'+priorRace.raceNo+'\\s*(?:R|レース)\\s*裁決レポート
+ const paras=$('body p').map((_,e)=>clean($(e).text())).get().filter(Boolean);
+ // Refuse flattened body fallback or instructional boilerplate.
+ const paragraphs=paras.filter(s=>/^\d{1,2}番|^(?:発走後|最後の直線|決勝線手前|[1-4]コーナー|これは|この件は|また)|進路に影響あり/.test(s)&&!/^※|^裁決委員|^審議において/.test(s));
+ if(!paragraphs.length||paragraphs.length>100)return fail('REPORT_PARAGRAPHS_UNAVAILABLE');
+ return {verified:true,paragraphs};
+}
+async function readOfficial(url,{fetchImpl,clock,post,reserveMs,timeoutMs}){
+ if(clock()+reserveMs>=post)throw Error('DEADLINE');
+ const r=await fetchImpl(url,{method:'GET',redirect:'error',cache:'no-store',signal:AbortSignal.timeout(timeoutMs),headers:{Accept:'text/html,application/xhtml+xml','Accept-Language':'ja-JP,ja;q=0.9'}});
+ if(!r?.ok||r.url!==url||!r.body)throw Error('HTTP_OR_URL_REJECTED');
+ const type=r.headers.get('content-type')??'';
+ if(!/text\/html|application\/xhtml\+xml/i.test(type)||Number(r.headers.get('content-length')??0)>2_000_000)throw Error('CONTENT_REJECTED');
+ const reader=r.body.getReader(),chunks=[];let size=0;
+ try{while(true){const x=await reader.read();if(x.done)break;size+=x.value.byteLength;if(size>2_000_000)throw Error('HTML_OVERSIZE');chunks.push(x.value);}}finally{await reader.cancel();}
+ if(size<100||clock()+reserveMs>=post)throw Error('HTML_OR_DEADLINE_REJECTED');
+ const bytes=new Uint8Array(size);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.byteLength;}
+ const charset=/utf-8/i.test(type)?'utf-8':/euc-jp/i.test(type)?'euc-jp':'shift_jis';
+ return {html:new TextDecoder(charset).decode(bytes),checkedAt:new Date(clock()).toISOString()};
+}
+export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRoster,reportRef,fetchImpl=fetch,clock=()=>Date.now(),reserveMs=180000,timeoutMs=9000}={}){
+ const now=clock(),post=Date.parse(targetRace?.postTime??'');
+ if(!Number.isFinite(post)||!Number.isFinite(now)||!Number.isInteger(reserveMs)||reserveMs<180000||!Number.isInteger(timeoutMs)||timeoutMs<500||timeoutMs>15000||now+reserveMs>=post||!(priorRace?.raceDate<targetRace?.raceDate))return fail('PRECLAIM_DEADLINE_OR_DATE');
+ const url=priorUrl(priorRace.sourceRef,'result');
+ if(!url)return fail('RESULT_URL_UNVERIFIED');
+ const reportUrl=reportRef?priorUrl(reportRef,'report'):null;
+ if(reportRef&&(!reportUrl||officialRaceCore(reportUrl,'report')!==officialRaceCore(url,'result')))return fail('REPORT_URL_UNVERIFIED');
+ const cfg={fetchImpl,clock,post,reserveMs,timeoutMs},packets=[],failures=[];
+ let a,r;
+ try{a=await readOfficial(url,cfg);r=extractJraResultIncidentHtml(a.html,priorRace,expectedRoster);}catch(e){return fail('OFFICIAL_RESULT_FETCH_UNAVAILABLE');}
+ if(!r.verified)return r;
+ const common={raceDate:priorRace.raceDate,track:priorRace.track,raceNo:priorRace.raceNo,raceKey:priorRace.raceKey,verifiedOfficialResponse:true,fullFieldVerified:true,expectedRunnerCount:expectedRoster.length,runners:r.runners};
+ const result=parseJraOfficialIncidents({targetRace,priorRace,source:{...common,url,checkedAt:a.checkedAt,sectionStatus:r.sectionStatus,sectionRows:r.sectionRows},clock});
+ if(result.verified)packets.push(result);else failures.push(result.status);
+ if(reportUrl){
+  try{
+   const report=await readOfficial(reportUrl,cfg),body=extractJraReportIncidentHtml(report.html,priorRace);
+   if(body.verified){const p=parseJraStewardsReport({targetRace,priorRace,source:{...common,url:reportUrl,checkedAt:report.checkedAt,paragraphs:body.paragraphs},clock});if(p.verified)packets.push(p);else failures.push(p.status);}
+   else failures.push(body.status);
+  }catch{failures.push('OFFICIAL_REPORT_FETCH_UNAVAILABLE');}
+ }else failures.push('REPORT_LINK_NOT_SUPPLIED');
+ if(clock()+reserveMs>=post)return fail('PRECLAIM_DEADLINE');
+ return {status:packets.length?'INCIDENT_ACQUISITION_REVIEW_ONLY':'INCIDENT_SOURCES_UNAVAILABLE',verified:packets.length>0,packets,failures,rank_effect:'NONE',market_used:false,prediction_saved:false};
+}
+,'i');
+ const popupHeadings=$('body div,body p,body span,body strong,body b,body th,body td').filter((_,e)=>{
+  const v=clean($(e).text());
+  return v.length<=70&&exactTitle.test(v)&&!$(e).closest('nav,footer,[hidden],[aria-hidden="true"]').length;
+ }).map((_,e)=>clean($(e).text())).get();
+ const semantic=matchHeader(headings.join(' '),priorRace,false)&&headings.some(s=>s.includes('裁決レポート'));
+ if(!semantic&&!popupHeadings.length)return fail('REPORT_HEADER_UNVERIFIED');
  const paras=$('body p').map((_,e)=>clean($(e).text())).get().filter(Boolean);
  // Refuse flattened body fallback or instructional boilerplate.
  const paragraphs=paras.filter(s=>/^\d{1,2}番|^(?:発走後|最後の直線|決勝線手前|[1-4]コーナー|これは|この件は|また)|進路に影響あり/.test(s)&&!/^※|^裁決委員|^審議において/.test(s));
