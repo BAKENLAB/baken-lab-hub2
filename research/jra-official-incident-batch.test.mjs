@@ -39,3 +39,22 @@ test('unavailable source receipt preserves bounded reason codes without claiming
  assert.equal(x.incident_review.coverage.verified_source_runs,0);
  assert.deepEqual(x.receipts[0].failures,['INCIDENT_SECTION_UNAVAILABLE','REPORT_LINK_NOT_VERIFIED']);
 });
+
+const timing={status:'OFFICIAL_RACE_LAPS_VERIFIED',verified:true,scope:'SAME_VERIFIED_RESULT_HTML_RACE_WIDE',source_ref:url,source_checked_at:checked,race_date:prior.race_date,track:'福島',race_no:1,surface:'芝',distance:1200,lap_seconds:[12.4,10.9,11.4,12.1,11.8,13.1],segment_distances_m:[200,200,200,200,200,200],first_600m_seconds:34.7,last_600m_seconds:37,market_used:false,rank_effect:'NONE'};
+const timingArgs={...args,priorRaceInputs:[{...pi,priorRace:{...pi.priorRace,distance:1200,surface:'芝'}}]};
+test('verified race-wide timing survives absent incident section with independent coverage',async()=>{
+ const x=await batch({...timingArgs,acquire:async()=>({verified:false,status:'INCIDENT_SOURCES_UNAVAILABLE',lap_observation:timing})});
+ assert.equal(x.incident_review.coverage.verified_source_runs,0);
+ assert.equal(x.lap_coverage.verified_distinct_races,1);
+ assert.equal(x.lap_coverage.linked_prior_runs,2);
+ assert.equal(x.lap_coverage.supplied_prior_runs,2);
+ assert.deepEqual(x.lap_packets[0].lap_seconds,timing.lap_seconds);
+ assert.equal(x.rank_effect,'NONE');assert.equal(x.prediction_saved,false);
+});
+test('wrong source/course, invalid segments or future timing is not counted',async()=>{
+ for(const p of [{...timing,source_ref:url.replace('20250713','20250714')},{...timing,surface:'ダート'},{...timing,segment_distances_m:[100,200,200,200,200,200]},{...timing,last_600m_seconds:36},{...timing,source_checked_at:'2026-11-15T08:01:00+09:00'}]){
+  const x=await batch({...timingArgs,acquire:async()=>({verified:false,lap_observation:p})});
+  assert.equal(x.lap_coverage.verified_distinct_races,0);
+  assert.equal(x.lap_coverage.linked_prior_runs,0);
+ }
+});
