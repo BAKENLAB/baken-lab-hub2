@@ -62,4 +62,8 @@ Deno.test('LIVE read-only: official JRA archived result and stewards report',asy
  const joined=attachJraPriorIncidentEvidence(args);
  check(joined.runners.length===9&&!!joined.runners[0]?.history[0]?.events?.some((e:Event)=>e.horse_id==='2023103702'),'ARCHIVED_ID_LINK_UNVERIFIED');
  check(joined.rank_effect==='NONE','UNSAFE_RANK_EFFECT');
+ check('coverage' in joined&&joined.coverage?.active_runners===9,'LIVE_COVERAGE_ROSTER');
+ check('coverage' in joined&&joined.coverage?.verified_source_runs===9&&joined.coverage?.report_source_runs===9,'LIVE_COVERAGE_SOURCES');
+ check('coverage' in joined&&joined.coverage?.not_supplied_slots===36,'LIVE_COVERAGE_MUST_NOT_CLAIM_FIVE_RUNS');
+ if('coverage' in joined)console.log(JSON.stringify({archive_coverage:joined.coverage,scope:'NINE_HORSES_ONE_VERIFIED_ARCHIVE_RACE_EACH'}));
 });
