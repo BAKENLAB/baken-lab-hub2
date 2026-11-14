@@ -97,7 +97,7 @@ Deno.test('LIVE bounded whole-field coverage: Kyoto3 2026-11-15, six independent
  const diagnostics:unknown[]=[];
  const args={...cohort,reserveMs,maxRaces:6,acquire:async(input:Parameters<typeof acquireJraIncidentPackets>[0])=>{
   const x=await acquireJraIncidentPackets(input);
-  diagnostics.push({source:input?.priorRace?.sourceRef,status:'status' in x?x.status:null,structure:'source_structure' in x?x.source_structure:null});
+  diagnostics.push({attempt:diagnostics.length+1,status:'status' in x?x.status:null,structure:'source_structure' in x?x.source_structure:null});
   return x;
  }};
  const plan=planJraIncidentBatch(args);
