@@ -69,7 +69,22 @@ export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
    sectionStatus=sectionRows.every(s=>/^(?:なし|該当なし|特になし|特記事項なし)[。.]?$/.test(s))?'EXPLICIT_NONE':'PRESENT';
   }
  }
- return {verified:true,runners,sectionStatus,sectionRows};
+ // Only links literally present in the verified result DOM. Never construct
+ // a report checksum or use a different race's link.
+ const resultCore=officialRaceCore(priorRace.sourceRef,'result');
+ const reportLinks=new Map();
+ $('a[href],a[onclick],button[onclick],input[onclick]').each((_,el)=>{
+  if(!/裁決レポート/.test(clean($(el).text()+' '+($(el).attr('title')??'')+' '+($(el).attr('value')??''))))return;
+  for(const v of [$(el).attr('href'),$(el).attr('onclick')]){
+   if(typeof v!=='string')continue;
+   const candidates=v.match(/(?:https:\/\/www\.jra\.go\.jp)?\/JRADB\/accessS\.html\?CNAME=pw2fsrp[0-9]{22}(?:\/|%2[fF])[0-9A-Fa-f]{2}/g)??[];
+   for(const c of candidates){
+    const u=priorUrl(c,'report');if(u&&officialRaceCore(u,'report')===resultCore)reportLinks.set(officialRaceCore(u,'report')+'|'+u.replace(/%2f/ig,'/'),u);
+   }
+  }
+ });
+ const discoveredReport=reportLinks.size===1?[...reportLinks.values()][0]:null;
+ return {verified:true,runners,sectionStatus,sectionRows,discoveredReport,reportLinkStatus:reportLinks.size===1?'VERIFIED_SAME_RACE_LINK':reportLinks.size?'AMBIGUOUS_REPORT_LINK':'REPORT_LINK_NOT_VERIFIED'};
 }
 export function extractJraReportIncidentHtml(html,priorRace){
  if(typeof html!=='string'||html.length<100||html.length>2_000_000)return fail('BAD_REPORT_INPUT');
@@ -116,12 +131,13 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
  if(!Number.isFinite(post)||!Number.isFinite(now)||!Number.isInteger(reserveMs)||reserveMs<180000||!Number.isInteger(timeoutMs)||timeoutMs<500||timeoutMs>15000||now+reserveMs>=post||!(priorRace?.raceDate<targetRace?.raceDate))return fail('PRECLAIM_DEADLINE_OR_DATE');
  const url=priorUrl(priorRace.sourceRef,'result');
  if(!url)return fail('RESULT_URL_UNVERIFIED');
- const reportUrl=reportRef?priorUrl(reportRef,'report'):null;
+ let reportUrl=reportRef?priorUrl(reportRef,'report'):null;
  if(reportRef&&(!reportUrl||officialRaceCore(reportUrl,'report')!==officialRaceCore(url,'result')))return fail('REPORT_URL_UNVERIFIED');
  const cfg={fetchImpl,clock,post,reserveMs,timeoutMs},packets=[],failures=[];
  let a,r;
  try{a=await readOfficial(url,cfg);r=extractJraResultIncidentHtml(a.html,priorRace,expectedRoster);}catch(e){return fail('OFFICIAL_RESULT_FETCH_UNAVAILABLE');}
  if(!r.verified)return r;
+ if(!reportUrl&&r.discoveredReport)reportUrl=r.discoveredReport;
  const common={raceDate:priorRace.raceDate,track:priorRace.track,raceNo:priorRace.raceNo,raceKey:priorRace.raceKey,verifiedOfficialResponse:true,fullFieldVerified:true,expectedRunnerCount:expectedRoster.length,runners:r.runners};
  const result=parseJraOfficialIncidents({targetRace,priorRace,source:{...common,url,checkedAt:a.checkedAt,sectionStatus:r.sectionStatus,sectionRows:r.sectionRows},clock});
  if(result.verified)packets.push(result);else failures.push(result.status);
@@ -131,7 +147,7 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
    if(body.verified){const p=parseJraStewardsReport({targetRace,priorRace,source:{...common,url:reportUrl,checkedAt:report.checkedAt,paragraphs:body.paragraphs},clock});if(p.verified)packets.push(p);else failures.push(p.status);}
    else failures.push(body.status);
   }catch{failures.push('OFFICIAL_REPORT_FETCH_UNAVAILABLE');}
- }else failures.push('REPORT_LINK_NOT_SUPPLIED');
+ }else failures.push(r.reportLinkStatus??'REPORT_LINK_NOT_VERIFIED');
  if(clock()+reserveMs>=post)return fail('PRECLAIM_DEADLINE');
  return {status:packets.length?'INCIDENT_ACQUISITION_REVIEW_ONLY':'INCIDENT_SOURCES_UNAVAILABLE',verified:packets.length>0,packets,failures,rank_effect:'NONE',market_used:false,prediction_saved:false};
 }
