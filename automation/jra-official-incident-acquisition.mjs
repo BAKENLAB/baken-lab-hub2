@@ -88,7 +88,7 @@ export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
  });
  const discoveredReport=reportLinks.size===1?[...reportLinks.values()][0]:null;
  // Count structural signals, never collect result or market text in diagnostics.
- const signals={incident_heading_count:headings.length,
+ const signals={timing_label_count:0,timing_row_valid:false,course_header_match:false,incident_heading_count:headings.length,
   literal_incident_label_count:$('h1,h2,h3,h4,h5,h6,dt,div,span,strong,b,p,th').filter((_,e)=>clean($(e).text())==='競走中の出来事等'&&!$(e).closest('nav,footer,[hidden],[aria-hidden="true"]').length).length,
   incident_neighbor_tags:headings.slice(0,2).map(e=>({heading:e.tagName,next:$(e).next().get(0)?.tagName??null,parent:$(e).parent().get(0)?.tagName??null,parent_next:$(e).parent().next().get(0)?.tagName??null})),
   report_label_count:$('a,button,input').filter((_,e)=>/裁決レポート/.test(clean($(e).text()+' '+($(e).attr('title')??'')+' '+($(e).attr('value')??'')))).length,
