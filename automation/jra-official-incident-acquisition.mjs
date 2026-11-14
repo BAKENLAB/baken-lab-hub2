@@ -50,7 +50,7 @@ export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
     expectedRoster.some(h=>!officialHorseId(h.horseRef))||
     new Set(expectedKeys).size!==expectedKeys.length||
     actualKeys.some(k=>!expectedKeys.includes(k)))return fail('FULL_ROSTER_ID_MISMATCH');
- const headings=$('h2,h3,h4,h5,h6,dt').filter((_,e)=>clean($(e).text())==='競走中の出来事等').toArray();
+ const headings=$('h2,h3,h4,h5,h6,dt').filter((_,e)=>clean($(e).text())==='競走中の出来事等'&&!$(e).closest('nav,footer,[hidden],[aria-hidden="true"]').length).toArray();
  let sectionStatus='MISSING',sectionRows=[];
  if(headings.length===1){
   const h=$(headings[0]),choices=[h.next(),h.parent().next()].filter(x=>x.length);
@@ -87,7 +87,14 @@ export function extractJraResultIncidentHtml(html,priorRace,expectedRoster){
   }
  });
  const discoveredReport=reportLinks.size===1?[...reportLinks.values()][0]:null;
- return {verified:true,runners,sectionStatus,sectionRows,discoveredReport,reportLinkStatus:reportLinks.size===1?'VERIFIED_SAME_RACE_LINK':reportLinks.size?'AMBIGUOUS_REPORT_LINK':'REPORT_LINK_NOT_VERIFIED'};
+ // Count structural signals, never collect result or market text in diagnostics.
+ const signals={incident_heading_count:headings.length,
+  literal_incident_label_count:$('h1,h2,h3,h4,h5,h6,dt,div,span,strong,b,p,th').filter((_,e)=>clean($(e).text())==='競走中の出来事等'&&!$(e).closest('nav,footer,[hidden],[aria-hidden="true"]').length).length,
+  incident_neighbor_tags:headings.slice(0,2).map(e=>({heading:e.tagName,next:$(e).next().get(0)?.tagName??null,parent:$(e).parent().get(0)?.tagName??null,parent_next:$(e).parent().next().get(0)?.tagName??null})),
+  report_label_count:$('a,button,input').filter((_,e)=>/裁決レポート/.test(clean($(e).text()+' '+($(e).attr('title')??'')+' '+($(e).attr('value')??'')))).length,
+  report_token_count:(html.match(/pw2fsrp[0-9]{22}/g)??[]).length,
+  explicit_none_rows:sectionStatus==='EXPLICIT_NONE'?sectionRows.length:0};
+ return {verified:true,runners,sectionStatus,sectionRows,discoveredReport,reportLinkStatus:reportLinks.size===1?'VERIFIED_SAME_RACE_LINK':reportLinks.size?'AMBIGUOUS_REPORT_LINK':'REPORT_LINK_NOT_VERIFIED',signals};
 }
 export function extractJraReportIncidentHtml(html,priorRace){
  if(typeof html!=='string'||html.length<100||html.length>2_000_000)return fail('BAD_REPORT_INPUT');
@@ -152,5 +159,5 @@ export async function acquireJraIncidentPackets({targetRace,priorRace,expectedRo
   }catch{failures.push('OFFICIAL_REPORT_FETCH_UNAVAILABLE');}
  }else failures.push(r.reportLinkStatus??'REPORT_LINK_NOT_VERIFIED');
  if(clock()+reserveMs>=post)return fail('PRECLAIM_DEADLINE');
- return {status:packets.length?'INCIDENT_ACQUISITION_REVIEW_ONLY':'INCIDENT_SOURCES_UNAVAILABLE',verified:packets.length>0,packets,failures,rank_effect:'NONE',market_used:false,prediction_saved:false};
+ return {status:packets.length?'INCIDENT_ACQUISITION_REVIEW_ONLY':'INCIDENT_SOURCES_UNAVAILABLE',verified:packets.length>0,packets,failures,source_structure:r.signals,rank_effect:'NONE',market_used:false,prediction_saved:false};
 }
