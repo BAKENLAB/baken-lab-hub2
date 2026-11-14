@@ -49,19 +49,42 @@ export function planJraIncidentBatch({targetRace,officialRunners,liveRunners,pri
  }
  return {status:'RESEARCH_BATCH_PLANNED',items,missing,expected_runs:expectedRuns,duplicate_runs:duplicates,unique_prior_races:items.length,ready_prior_races:items.filter(x=>x.status==='READY_FOR_RESEARCH_FETCH').length,rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false};
 }
+// A missing incident section must not discard independently verified timing.
+function acceptLap(p,item,targetRace,now){
+ const prior=item.priorRace,checked=ts(p?.source_checked_at),post=ts(targetRace.postTime);
+ if(p?.status!=='OFFICIAL_RACE_LAPS_VERIFIED'||p.verified!==true||p.scope!=='SAME_VERIFIED_RESULT_HTML_RACE_WIDE'||
+ p.market_used!==false||p.rank_effect!=='NONE'||officialRaceCore(p.source_ref,'result')!==item.race_core||
+ p.race_date!==prior.raceDate||p.track!==prior.track||p.race_no!==prior.raceNo||
+ !Number.isInteger(prior.distance)||prior.distance<1000||prior.distance>4500||!['芝','ダート'].includes(prior.surface)||
+ p.distance!==prior.distance||p.surface!==prior.surface||checked===null||checked>now||checked>=post||checked<Date.parse(prior.raceDate+'T00:00:00+09:00'))return null;
+ const laps=p.lap_seconds,lengths=p.segment_distances_m,first=prior.distance%200||200;
+ if(!Array.isArray(laps)||laps.length!==Math.ceil(prior.distance/200)||
+ laps.some((n,i)=>typeof n!=='number'||!Number.isFinite(n)||n<(i===0?5:8)||n>30)||
+ !Array.isArray(lengths)||lengths.length!==laps.length||lengths.some((n,i)=>n!==(i===0?first:200)))return null;
+ const sum=a=>Math.round(a.reduce((n,v)=>n+v,0)*10)/10;
+ if(p.first_600m_seconds!==(first===200?sum(laps.slice(0,3)):null)||p.last_600m_seconds!==sum(laps.slice(-3)))return null;
+ return {status:p.status,verified:true,scope:p.scope,source_ref:p.source_ref,source_checked_at:p.source_checked_at,
+ race_date:p.race_date,track:p.track,race_no:p.race_no,surface:p.surface,distance:p.distance,
+ lap_seconds:[...laps],segment_distances_m:[...lengths],first_600m_seconds:p.first_600m_seconds,last_600m_seconds:p.last_600m_seconds,
+ market_used:false,rank_effect:'NONE'};
+}
+
 export async function runJraIncidentBatch({targetRace,officialRunners,liveRunners,priorRaceInputs,acquire,clock=()=>Date.now(),reserveMs=180000,maxRaces=8}={}){
  if(typeof acquire!=='function'||!Number.isInteger(maxRaces)||maxRaces<1||maxRaces>12)return fail('INVALID_RESEARCH_BATCH_LIMIT');
  const plan=planJraIncidentBatch({targetRace,officialRunners,liveRunners,priorRaceInputs,clock,reserveMs});
  if(plan.status!=='RESEARCH_BATCH_PLANNED')return plan;
- const packets=[],receipts=[];let attempted=0;
+ const packets=[],receipts=[],lapPackets=[];let attempted=0,lapLinkedRuns=0;
  for(const item of plan.items){
-  const receipt={race_core:item.race_core,linked_runs:item.links.length};
+  const receipt={race_core:item.race_core,linked_runs:item.links.length,lap_status:'NOT_ATTEMPTED'};
   if(item.status!=='READY_FOR_RESEARCH_FETCH'){receipts.push({...receipt,status:item.status});continue;}
   if(attempted>=maxRaces){receipts.push({...receipt,status:'BATCH_LIMIT'});continue;}
   if(clock()+reserveMs>=ts(targetRace.postTime)){receipts.push({...receipt,status:'DEADLINE'});continue;}
   attempted++;
   try{
    const x=await acquire({targetRace,priorRace:item.priorRace,expectedRoster:item.expectedRoster,reportRef:item.reportRef,clock,reserveMs});
+   const timing=acceptLap(x?.lap_observation,item,targetRace,clock());
+   if(timing){lapPackets.push(timing);lapLinkedRuns+=item.links.length;}
+   receipt.lap_status=timing?'VERIFIED_RACE_WIDE_LAPS':'LAPS_UNVERIFIED_OR_UNAVAILABLE';
    if(x?.verified===true&&Array.isArray(x.packets)){
     const accepted=x.packets.filter(p=>p?.verified===true&&['RESULT','REPORT'].includes(p.source_kind)&&officialRaceCore(p.source_ref,p.source_kind==='REPORT'?'report':'result')===item.race_core&&p.race_date===item.priorRace.raceDate);
     packets.push(...accepted);
@@ -70,5 +93,5 @@ export async function runJraIncidentBatch({targetRace,officialRunners,liveRunner
   }catch{receipts.push({...receipt,status:'SOURCE_UNAVAILABLE'});}
  }
  const industry=attachJraPriorIncidentEvidence({targetRace,officialRunners,liveRunners,packets,clock});
- return {status:'RESEARCH_BATCH_COMPLETE',plan,receipts,attempted_prior_races:attempted,incident_review:industry,rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false};
+ return {status:'RESEARCH_BATCH_COMPLETE',plan,receipts,attempted_prior_races:attempted,incident_review:industry,lap_packets:lapPackets,lap_coverage:{verified_distinct_races:lapPackets.length,linked_prior_runs:lapLinkedRuns,supplied_prior_runs:plan.expected_runs},rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false};
 }
