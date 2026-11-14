@@ -58,6 +58,7 @@ Deno.test('LIVE read-only: official JRA archived result and stewards report',asy
  const report=packets.find(p=>p.source_kind==='REPORT');
  check(result.verified&&!!report,'LIVE_REPORT_UNVERIFIED');
  const timing='lap_observation' in result?result.lap_observation:null;
+ console.log(JSON.stringify({archive_timing_structure:'source_structure' in result?result.source_structure:null,lap_status:timing?.status??null}));
  check(!!timing&&timing.status==='OFFICIAL_RACE_LAPS_VERIFIED','LIVE_SAME_RESPONSE_LAPS');
  check(JSON.stringify(timing?.lap_seconds)===JSON.stringify([12.4,10.9,11.4,12.1,11.8,13.1]),'LIVE_EXACT_OFFICIAL_LAPS');
  check(timing?.first_600m_seconds===34.7&&timing.last_600m_seconds===37,'LIVE_LAP_SUMS');
