@@ -66,7 +66,7 @@ export async function runJraIncidentBatch({targetRace,officialRunners,liveRunner
     const accepted=x.packets.filter(p=>p?.verified===true&&['RESULT','REPORT'].includes(p.source_kind)&&officialRaceCore(p.source_ref,p.source_kind==='REPORT'?'report':'result')===item.race_core&&p.race_date===item.priorRace.raceDate);
     packets.push(...accepted);
     receipts.push({...receipt,status:accepted.length?'SOURCE_REVIEW_AVAILABLE':'PACKET_UNVERIFIED',accepted_sources:accepted.length,failures:x.failures??[]});
-   }else receipts.push({...receipt,status:x?.status??'SOURCE_UNAVAILABLE'});
+   }else receipts.push({...receipt,status:x?.status??'SOURCE_UNAVAILABLE',failures:Array.isArray(x?.failures)?x.failures.filter(v=>typeof v==='string'&&/^[A-Z0-9_]{1,100}$/.test(v)).slice(0,12):[]});
   }catch{receipts.push({...receipt,status:'SOURCE_UNAVAILABLE'});}
  }
  const industry=attachJraPriorIncidentEvidence({targetRace,officialRunners,liveRunners,packets,clock});
