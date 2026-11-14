@@ -33,3 +33,9 @@ test('post deadline and wrong-race response do not count as verified',async()=>{
  assert.equal(x.incident_review.coverage.verified_source_runs,0);
  assert.equal(x.receipts[0].status,'PACKET_UNVERIFIED');
 });
+
+test('unavailable source receipt preserves bounded reason codes without claiming coverage',async()=>{
+ const x=await batch({...args,acquire:async()=>({verified:false,status:'INCIDENT_SOURCES_UNAVAILABLE',failures:['INCIDENT_SECTION_UNAVAILABLE','REPORT_LINK_NOT_VERIFIED','<html>not a status</html>']})});
+ assert.equal(x.incident_review.coverage.verified_source_runs,0);
+ assert.deepEqual(x.receipts[0].failures,['INCIDENT_SECTION_UNAVAILABLE','REPORT_LINK_NOT_VERIFIED']);
+});
