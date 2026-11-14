@@ -33,7 +33,8 @@ function getRuns(r){
   const section=head.slice(m.index,dates[i+1]?.index??head.length);
   const dm=m[0].match(/(?:20\d{2}[-/])?(\d{1,2})[-/](\d{1,2})$/);
   let part=section.slice(m[0].length);
-  let place=part.match(/(\d{1,2})着|勝ち|勝利/);
+  // 「未勝利」はクラス名であり、勝利実績ではない。明示着順を優先する。
+  let place=part.match(/(\d{1,2})着/)||part.match(/(?<!未)勝利|勝ち(?!切り)/);
   if(!dm)return null;
   // Official note sometimes says "9/23と8/26の園田C3三でともに3着".
   // Two independent results are stated explicitly in that wording.
@@ -87,6 +88,12 @@ function dissect(r){
   if(/^(?:直近|前走|休み明け).*?(?:なし|不安|反証|未実証)|^近走.*?なし|^ただし/.test(s)){
     addRisk(s);continue;
   }
+  // A date-led list of explicit poor results ending in a caution is one
+  // risk, not a strength followed by a caution at its final comma.
+  if(/^\d{1,2}\/\d{1,2}/.test(s)&&/反証|不安材料|近況低調|順位は低い/.test(s)&&
+    !/評価|重視|好走|勝ち切|強み|期待|通用|優位|上積み|可能性/.test(s)){
+    addRisk(s);continue;
+  }
   // Separate a witnessed ability claim from its counter-evidence.
   // Previous versions misclassified the *whole sentence* as a risk:
   // "上級組で2着・3着の証拠あり、中央大敗は反証"
@@ -127,7 +134,7 @@ function dissect(r){
   match=s.match(/^(.+?)(?:、|，)?(?:ただし|一方で|一方|しかし)[、，]?\s*(.+)$/);
   if(match){addGood(match[1]);addRisk(match[2]);continue;}
   // A single documented caution must not be rebranded as positive evidence.
-  if(/^(ただし|一方|反証|不安|未検証|未確認)|反証|近況低調|未検証|未確認|勝ち切り証拠は不足|連対不足|角通過順は未確認|前回\d+着/.test(s)){
+  if(/^(ただし|一方|反証|不安|未検証|未確認)|反証|近況低調|未検証|未確認|検証できない|確認できない|勝ち切り証拠は不足|連対不足|角通過順は未確認|前回\d+着/.test(s)){
    addRisk(s);continue;
   }
   if(/今回|評価|重視|実績|強み|好走|連対|勝ち|勝利|接近|安定|力|クラス|条件|通用|優位|再現性|現級|上昇材料|実証|掲示板|素地|上級|水準/.test(s)){
