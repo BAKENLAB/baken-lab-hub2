@@ -1,4 +1,5 @@
 /** Stage 1 read-only JRA incident evidence. Caller must independently verify response, identity and full-field roster. No automatic scoring, claims, writes or target results. */
+import {officialHorseId} from "./jra-official-stewards-incident-link.mjs";
 export function parseJraOfficialIncidents({targetRace,priorRace,source,clock=()=>Date.now()}={}){
  const fail=status=>({status,verified:false,events:[],unresolved:[],absence_is_not_no_incident:true,rank_effect:"NONE",market_used:false,target_result_used:false});
  const norm=v=>String(v??"").normalize("NFKC").replace(/\s+/g," ").trim();
@@ -11,7 +12,7 @@ export function parseJraOfficialIncidents({targetRace,priorRace,source,clock=()=
  const roster=source.runners;
  if(!Array.isArray(roster)||roster.length<1||roster.length>24||roster.length!==source.expectedRunnerCount)return fail("FULL_FIELD_REQUIRED");
  const byNo=new Map(),byName=new Map();
- for(const h of roster){const n=h.horseNo,name=norm(h.horseName);if(!Number.isInteger(n)||n<1||n>24||!name||byNo.has(n)||byName.has(name))return fail("AMBIGUOUS_RUNNER_IDENTITY");const v={horse_no:n,horse_name:name,horse_id:typeof h.horseId==="string"&&h.horseId.trim()?h.horseId:null};byNo.set(n,v);byName.set(name,v);}
+ for(const h of roster){const n=h.horseNo,name=norm(h.horseName);if(!Number.isInteger(n)||n<1||n>24||!name||byNo.has(n)||byName.has(name))return fail("AMBIGUOUS_RUNNER_IDENTITY");const v={horse_no:n,horse_name:name,horse_id:officialHorseId(h.horseRef)};byNo.set(n,v);byName.set(name,v);}
  if(!["PRESENT","EXPLICIT_NONE"].includes(source.sectionStatus))return fail("INCIDENT_SECTION_UNAVAILABLE");
  const rows=source.sectionRows,none=/^(?:なし|該当なし|特になし|特記事項なし)[。.]?$/;
  if(!Array.isArray(rows)||!rows.length||rows.length>100||rows.some(x=>typeof x!=="string"||x.length>1500))return fail("INCIDENT_SECTION_INVALID");
@@ -40,7 +41,7 @@ export function parseJraOfficialIncidents({targetRace,priorRace,source,clock=()=
   if(/登録服色|負担重量.*(?:超過|変更)|騎手変更|出走制限|出走停止|調教再審査|騎乗停止/.test(t)&&!/斜行|妨害|影響を受け|発進不良|競走中止/.test(t)){nonPerformance.push({row:i+1,official_text:raw,classification:"ADMINISTRATIVE_OR_RESTRICTION_NO_ABILITY_CREDIT"});continue;}
   unknown("UNCLASSIFIED_OR_UNVERIFIED_SUBJECT");
  }
- return {status:unresolved.length?"PARTIAL_OFFICIAL_INCIDENTS":source.sectionStatus==="EXPLICIT_NONE"?"EXPLICIT_NO_RECORDED_INCIDENTS":"OFFICIAL_INCIDENT_SECTION_PARSED",verified:true,race_key:priorRace.raceKey,source_ref:source.url,source_checked_at:source.checkedAt,events,unresolved,non_performance:nonPerformance,recorded_event_count:events.length,absence_is_not_no_incident:true,rank_effect:"NONE",market_used:false,target_result_used:false};
+ return {status:unresolved.length?"PARTIAL_OFFICIAL_INCIDENTS":source.sectionStatus==="EXPLICIT_NONE"?"EXPLICIT_NO_RECORDED_INCIDENTS":"OFFICIAL_INCIDENT_SECTION_PARSED",verified:true,race_key:priorRace.raceKey,race_date:priorRace.raceDate,source_kind:"RESULT",roster_ids:[...byNo.values()].map(h=>h.horse_id).filter(Boolean),source_ref:source.url,source_checked_at:source.checkedAt,events,unresolved,non_performance:nonPerformance,recorded_event_count:events.length,absence_is_not_no_incident:true,rank_effect:"NONE",market_used:false,target_result_used:false};
 }
 
 export function extractJraIncidentSection(document){
