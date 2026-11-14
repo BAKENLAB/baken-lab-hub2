@@ -1,7 +1,7 @@
 /** Research-only. No production writes / scoring. Source and full-roster verification must be supplied by the trusted acquisition layer. */
 export function officialHorseId(ref){
  if(typeof ref!=="string")return null;
- const m=ref.match(/^(?:https:\/\/(?:www\.jra\.go\.jp|jra\.jp|own\.jra\.jp|app\.jra\.jp|sp\.jra\.jp))?\/JRADB\/accessU\.html\?CNAME=[ps]w01dud10(\d{10})(?:\/|%2[fF])[A-Fa-f0-9]{2}$/);
+ const m=ref.match(/^(?:https:\/\/(?:www\.jra\.go\.jp|jra\.jp|own\.jra\.jp|app\.jra\.jp|sp\.jra\.jp))?\/JRADB\/accessU\.html\?CNAME=[ps]w01dud(?:00|10)(\d{10})(?:\/|%2[fF])[A-Fa-f0-9]{2}$/);
  return m?.[1]??null;
 }
 
