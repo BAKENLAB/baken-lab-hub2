@@ -82,9 +82,19 @@ export function extractJraReportIncidentHtml(html,priorRace){
  }).map((_,e)=>clean($(e).text())).get();
  const semantic=matchHeader(headings.join(' '),priorRace,false)&&headings.some(s=>s.includes('裁決レポート'));
  if(!semantic&&!popupHeadings.length)return fail('REPORT_HEADER_UNVERIFIED');
+ // Historic official report pages use BR-delimited prose, not P nodes.
+ // Split the DOM at real line boundaries without reinterpreting the text.
  const paras=$('body p').map((_,e)=>clean($(e).text())).get().filter(Boolean);
+ if(!paras.length){
+  const body=$('body').clone();
+  body.find('nav,footer,script,style,noscript,button,[hidden],[aria-hidden="true"]').remove();
+  body.find('br').each((_,el)=>{$(el).replaceWith('\n');});
+  for(const line of body.text().split(/\n+/).map(clean).filter(Boolean)){
+   if(line.length<=2000)paras.push(line);
+  }
+ }
  // Refuse flattened body fallback or instructional boilerplate.
- const paragraphs=paras.filter(s=>/^\d{1,2}番|^(?:発走後|最後の直線|決勝線手前|[1-4]コーナー|これは|この件は|また)|進路に影響あり/.test(s)&&!/^※|^裁決委員|^審議において/.test(s));
+ const paragraphs=paras.filter(s=>/^\d{1,2}番|^(?:発走後|最後の直線|決勝線手前|[1-4]コーナー|これは|この件は|また)|進路に影響あり|追いづら|逃避|進路が狭くな/.test(s)&&!/^※|^裁決委員|^審議において/.test(s));
  if(!paragraphs.length||paragraphs.length>100)return fail('REPORT_PARAGRAPHS_UNAVAILABLE');
  return {verified:true,paragraphs};
 }
