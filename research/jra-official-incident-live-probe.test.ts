@@ -15,25 +15,29 @@ const reportHtml='<html><head><title>裁決レポート</title></head><body><h1>
 const check=(yes:boolean,msg:string)=>{if(!yes)throw Error(msg);};
 Deno.test('fixture only: exact roster and structured result/report sections',()=>{
  const a=extractJraResultIncidentHtml(html,priorRace,expectedRoster);
- check(a.verified&&a.runners.length===9&&a.sectionRows.length===1,'FIXTURE_RESULT');
+ check(a.verified&&'runners' in a&&a.runners.length===9&&a.sectionRows.length===1,'FIXTURE_RESULT');
  const b=extractJraReportIncidentHtml(reportHtml,priorRace);
- check(b.verified&&b.paragraphs.length===2,'FIXTURE_REPORT');
+ check(b.verified&&'paragraphs' in b&&b.paragraphs.length===2,'FIXTURE_REPORT');
  check(!extractJraResultIncidentHtml(html.replace('2025年7月13日','2025年7月14日'),priorRace,expectedRoster).verified,'DATE_MISMATCH');
  check(!extractJraResultIncidentHtml(html,priorRace,expectedRoster.slice(0,8)).verified,'INCOMPLETE_ROSTER');
 });
 Deno.test('LIVE read-only: official JRA archived result and stewards report',async()=>{
  if(Deno.env.get('JRA_INCIDENT_LIVE_PROBE')!=='1'){console.log('LIVE_PROBE_NOT_REQUESTED');return;}
  const receipts:{url:string,status:number,type:string|null}[]=[];
- const result=await acquireJraIncidentPackets({targetRace,priorRace,expectedRoster,reportRef,fetchImpl:async(url:string,opts:RequestInit)=>{
-  const r=await fetch(url,opts);receipts.push({url,status:r.status,type:r.headers.get('content-type')});return r;
+ const result=await acquireJraIncidentPackets({targetRace,priorRace,expectedRoster,reportRef,fetchImpl:async(input:RequestInfo|URL,opts?:RequestInit)=>{
+  const r=await fetch(input,opts);receipts.push({url:String(input),status:r.status,type:r.headers.get('content-type')});return r;
  }});
- console.log(JSON.stringify({mode:'ARCHIVE_RESEARCH_ONLY_SYNTHETIC_TARGET',receipts,status:result.status,failures:result.failures??[],packets:result.packets?.map(p=>({source_kind:p.source_kind,status:p.status,roster_ids:p.roster_ids?.length,events:p.events?.map(e=>({horse_no:e.horse_no,horse_id:e.horse_id,kind:e.kind})),unresolved_count:p.unresolved?.length})),rank_effect:result.rank_effect,prediction_saved:false}));
- const report=result.packets?.find(p=>p.source_kind==='REPORT');
+ type Event={horse_no:number,horse_id:string|null,kind:string};
+ type Packet={source_kind:string,status:string,roster_ids?:string[],events?:Event[],unresolved?:unknown[]};
+ const packets:Packet[]='packets' in result&&Array.isArray(result.packets)?result.packets as Packet[]:[];
+ console.log(JSON.stringify({mode:'ARCHIVE_RESEARCH_ONLY_SYNTHETIC_TARGET',receipts,status:'status' in result?result.status:null,failures:'failures' in result?result.failures:[],packets:packets.map(p=>({source_kind:p.source_kind,status:p.status,roster_ids:p.roster_ids?.length,events:p.events?.map(e=>({horse_no:e.horse_no,horse_id:e.horse_id,kind:e.kind})),unresolved_count:p.unresolved?.length})),rank_effect:'rank_effect' in result?result.rank_effect:null,prediction_saved:false}));
+ const report=packets.find(p=>p.source_kind==='REPORT');
  check(result.verified&&!!report,'LIVE_REPORT_UNVERIFIED');
- check(report.events.some(e=>e.horse_id==='2023103702'&&e.kind==='RESTRICTED_PATH'),'LIVE_PRIMARY_VICTIM_MISSING');
+ check(!!report?.events?.some(e=>e.horse_id==='2023103702'&&e.kind==='RESTRICTED_PATH'),'LIVE_PRIMARY_VICTIM_MISSING');
  const officialRunners=expectedRoster.map(h=>({status:'ACTIVE',horse_no:h.horseNo,horse_name:h.horseName,horse_ref:h.horseRef}));
  const liveRunners=officialRunners.map(h=>({...h,past_runs:[{race_date:priorRace.raceDate,source_ref:priorRace.sourceRef}]}));
- const joined=attachJraPriorIncidentEvidence({targetRace,officialRunners,liveRunners,packets:result.packets});
- check(joined.runners.length===9&&joined.runners[0].history[0].events.some(e=>e.horse_id==='2023103702'),'ARCHIVED_ID_LINK_UNVERIFIED');
+ const args={targetRace,officialRunners,liveRunners,packets,clock:()=>Date.now()};
+ const joined=attachJraPriorIncidentEvidence(args);
+ check(joined.runners.length===9&&!!joined.runners[0]?.history[0]?.events?.some((e:Event)=>e.horse_id==='2023103702'),'ARCHIVED_ID_LINK_UNVERIFIED');
  check(joined.rank_effect==='NONE','UNSAFE_RANK_EFFECT');
 });
