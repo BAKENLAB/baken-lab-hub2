@@ -38,20 +38,35 @@ export function mergeVerifiedLocalCornerFacts(original,shadow,targetDate){
  if(linked!==sources.size||linked!==shadow.applied_prior_runs)throw Error('CORNER_COVERAGE_MISMATCH');
  return {runners,coverage:{verified_corner_runs:linked,horses_with_new_verified_corner_facts:covered.size,active_horses:runners.length,automatic_score_effect:0}};
 }
-export function buildLocal16ContentReview(context){
+export function buildLocal16ContentReview(context,facts=null){
  const runners=context.runners;
- const per=runners.map(r=>({horse_no:r.horse_no,horse_name:r.horse_name,
-  verified_history_runs:r.recent_runs.length,
-  corner_runs:r.recent_runs.filter(h=>pos(h.early_pos)&&pos(h.final_turn_pos)).length,
-  last3f_runs:r.recent_runs.filter(h=>has(h.final3f)).length,
-  raw_margin_runs:r.recent_runs.filter(h=>has(h.margin)).length,
-  official_history_refs:r.recent_runs.map((_,i)=>'COMPACT_V1.runners[horse_no='+r.horse_no+'].recent_runs['+i+']')}));
- return {status:'READY_FOR_LOCAL_1_6_FULL_FIELD_REVIEW',
+ const factByNo=new Map(Array.isArray(facts?.per_runner)?facts.per_runner.map(r=>[r.horse_no,r]):[]);
+ const factsReady=facts?.status==='VERIFIED_WHOLE_FIELD_FACTS'&&facts?.runner_count===runners.length&&factByNo.size===runners.length;
+ const per=runners.map(r=>{
+  const f=factByNo.get(r.horse_no);
+  const refs=r.recent_runs.map((_,i)=>'COMPACT_V1.runners[horse_no='+r.horse_no+'].recent_runs['+i+']');
+  return {horse_no:r.horse_no,horse_name:r.horse_name,
+   verified_history_runs:r.recent_runs.length,
+   corner_runs:r.recent_runs.filter(h=>pos(h.early_pos)&&pos(h.final_turn_pos)).length,
+   last3f_runs:r.recent_runs.filter(h=>has(h.final3f)).length,
+   raw_margin_runs:r.recent_runs.filter(h=>has(h.margin)).length,
+   official_history_refs:refs,
+   content_fact_refs:factsReady?f.runs.map(x=>x.evidence_ref):[],
+   head_to_head_count:factsReady?facts.head_to_head.filter(x=>x.horse_nos.includes(r.horse_no)).length:0,
+   course_transition_matches:factsReady?f.runs.filter(x=>x.course_transition_evidence).length:0,
+   loss_with_merit_review_candidates:factsReady?f.loss_review_candidate_count:0,
+   scoring_reason_contract:'CITE_MATERIAL_FAVORABLE_AND_UNFAVORABLE_VERIFIED_FACTS_OR_EXPLICIT_MISSING_LIMITATION'};
+ });
+ return {status:factsReady?'READY_FOR_LOCAL_1_6_FULL_FIELD_REVIEW':'CONTENT_FACTS_REQUIRED',
   effective_mode:'LOCAL_1_6_ORIGINAL_PROTOCOL_VERIFIED_CONTENT',
   action:'USE_VERIFIED_FACTS_IN_INDEPENDENT_100_POINT_SCORING_BEFORE_TOP5_EYE',
-  instruction:'Compare every ACTIVE horse equally using original LOCAL_MAIN 1.6. Do not substitute an experimental score or fixed 30/25/20/15/10 rubric. Review actual corners, finish, raw margin, last3f, class, course, distance, going, weight, transfer and same-race opponents from official as-of facts; never treat NAR preceding-horse margins as winner seconds, or infer unavailable laps, incidents or opponent quality. Independently assign 100-point score and grade, document individual material and limitations, then rank all horses, fix TOP5, and independently review all outsiders under the established 17-item EYE gate. No automatic boost.',
+  decision_contract:'REQUIRED_FOR_LOCAL_1_6_100_POINT_REASON',
+  instruction:'Compare every ACTIVE horse equally using original LOCAL_MAIN 1.6. Do not substitute an experimental score or fixed 30/25/20/15/10 rubric. Before fixing ranks, read official_past_content for every runner and cite material favorable and unfavorable facts or an explicit missing-data limitation in that runner scoring reason. Review actual corners, finish, raw margin, last3f, class, course transition evidence, distance, going, weight and verified same-race opponents; treat loss_with_merit entries only as review candidates. Never infer unavailable laps, incidents, opponent follow-up quality, or winner seconds. Independently assign 100-point score and grade, then rank all horses, fix TOP5, and independently review all outsiders under the established 17-item EYE gate. No automatic boost.',
   score_or_rank_override:false,research_model_adopted:false,full_field_count:runners.length,
-  per_runner_coverage:per,full_race_laps_available:false,market_used:false,target_result_used:false,save_authorized:false};
+  equal_depth_required:true,equal_depth_runner_count:per.length,
+  official_past_content_required:true,per_runner_coverage:per,
+  full_race_laps_available:false,opponent_followup_available:false,
+  market_used:false,target_result_used:false,save_authorized:false};
 }
 export function assertLocal16NoUnauthorizedRubric(protocol,payload){
  const x=payload?.audit?.manual_score_breakdown;
