@@ -40,3 +40,18 @@ test('winner, unknown individual performance and wrong prior identity are not lo
  assert.equal(one(args([ev()],{...run,early_pos:null,final_turn_pos:null,final3f:null})).review_for_merit,false);
  assert.equal(one(args([ev()],{...run,historical_source_ref:ref.replace('20250713','20250714')})).status,'PRIOR_IDENTITY_UNVERIFIED');
 });
+
+test('missing incident source retains separately verified historical laps and observable positions',()=>{
+ const a=args();a.incidentReview.runners[0].history=[];
+ const v=one(a);assert.equal(v.status,'INCIDENT_SOURCE_UNVERIFIED');
+ assert.equal(v.incident_source_verified,false);assert.equal(v.review_for_merit,false);
+ assert.equal(v.race_lap_observation.race_first_600m,34);
+ assert.equal(v.positions.gain_after_corner,2);
+ assert.equal(v.loss_cause,'UNPROVEN');assert.equal(v.auto_score_effect,0);
+ const x=review(a);assert.equal(x.coverage.joined_runs,0);assert.equal(x.coverage.lap_joined_runs,1);
+});
+test('wrong or absent timing never creates incident evidence or a merit finding',()=>{
+ const a=args();a.incidentReview.runners[0].history=[];a.lapPackets=[{...lap,source_ref:url.replace('20250713','20250714')}];
+ const v=one(a);assert.equal(v.race_lap_observation,null);assert.equal(v.incident_source_verified,false);
+ assert.equal(v.review_for_merit,false);assert.deepEqual(v.incident_kinds,[]);
+});
