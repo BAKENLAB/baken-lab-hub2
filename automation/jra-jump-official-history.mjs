@@ -95,5 +95,32 @@ export function makeJraResultCollector({load,fetcher=fetch,maxRequests=240,expec
   }
   return {rows:verifyCalendar(refs,expected.meetings,from,to),source_ref:expected.source_ref,from,to};
  }
- return {calendar,async result(cname,asOf){const r=resultIdentity(cname);need(r&&r.race_date<asOf,'ASOF_RESULT');const {html,...proof}=await read(cname,false,true);return {...parseResultPage(load,html,cname),official_proof:{...proof,parser_version:'JUMP_RESULT_V2'}}},requests:()=>requests};
+ async function resultWithLinks(cname,asOf){
+  const r=resultIdentity(cname);need(r&&r.race_date<asOf,'ASOF_RESULT');
+  const {html,...proof}=await read(cname,false,true);
+  const result={...parseResultPage(load,html,cname),official_proof:{...proof,parser_version:'JUMP_RESULT_V2'}};
+  const normalized=html.replace(/%2f/gi,'/').replace(/\\\//g,'/');
+  const links=unique([...normalized.matchAll(/pw01sde(?:01|10)\d+\/[0-9A-F]{2}/gi)].map(x=>x[0])).map(resultIdentity).filter(x=>x&&x.race_date===r.race_date);
+  return {result,links};
+ }
+ async function dayFromSeed({date,asOf,seed,meetings}){
+  const first=resultIdentity(seed);
+  need(first&&first.race_date===date&&date<asOf&&Array.isArray(meetings)&&meetings.length>0&&meetings.every(m=>m.date===date),'DAY_SEED');
+  const expected=new Set(meetings.flatMap(m=>m.race_nos.map(no=>[date,m.track,no].join('|'))));
+  need(expected.size>0&&expected.has(identity(first)),'DAY_EXPECTED');
+  const pending=new Map([[identity(first),first]]),done=new Map();
+  while(pending.size){
+   const [k,x]=pending.entries().next().value;pending.delete(k);
+   if(done.has(k))continue;
+   const {result,links}=await resultWithLinks(x.cname,asOf);
+   need(identity(result)===k,'DAY_RESULT_ID');
+   done.set(k,result);
+   for(const link of links){const k2=identity(link);if(expected.has(k2)&&!done.has(k2)&&!pending.has(k2))pending.set(k2,link)}
+  }
+  need(done.size===expected.size,'DAY_LINK_COVERAGE_'+done.size+'_OF_'+expected.size);
+  const rows=[...done.values()].sort((a,b)=>identity(a).localeCompare(identity(b)));
+  need(rows.every(r=>expected.has(identity(r))),'DAY_UNEXPECTED');
+  return {date,rows};
+ }
+ return {calendar,dayFromSeed,async result(cname,asOf){return (await resultWithLinks(cname,asOf)).result},requests:()=>requests};
 }
