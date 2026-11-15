@@ -49,7 +49,7 @@ BEGIN
  IF NOT rejected THEN RAISE EXCEPTION 'cutoff accepted';END IF;
  UPDATE public.official_races SET post_time=tm WHERE race_date=d AND track='福島' AND race_no=5;
  pred:=public.jra_jump_save_claimed_prediction_v1(j,tok,v,payload);
- IF NOT EXISTS(SELECT 1 FROM public.official_predictions WHERE id=pred AND status='FROZEN' AND frozen_at<tm AND payload->'bets'='[]') OR NOT EXISTS(SELECT 1 FROM public.jra_prediction_jobs WHERE id=j AND job_status='DONE') OR NOT EXISTS(SELECT 1 FROM public.official_races WHERE race_date=d AND track='福島' AND race_no=5 AND prediction_status='FROZEN') THEN RAISE EXCEPTION 'receipt mismatch';END IF;
+ IF NOT EXISTS(SELECT 1 FROM public.official_predictions p WHERE p.id=pred AND p.status='FROZEN' AND p.frozen_at<tm AND p.payload->'bets'='[]') OR NOT EXISTS(SELECT 1 FROM public.jra_prediction_jobs WHERE id=j AND job_status='DONE') OR NOT EXISTS(SELECT 1 FROM public.official_races WHERE race_date=d AND track='福島' AND race_no=5 AND prediction_status='FROZEN') THEN RAISE EXCEPTION 'receipt mismatch';END IF;
  rejected:=false;BEGIN PERFORM public.jra_jump_save_claimed_prediction_v1(j,tok,v,payload);EXCEPTION WHEN OTHERS THEN IF SQLERRM NOT LIKE '%JRA_SAVE_STALE_CLAIM%' THEN RAISE;END IF;rejected:=true;END;
  IF NOT rejected THEN RAISE EXCEPTION 'rewrite accepted';END IF;
  IF baseline IS DISTINCT FROM (SELECT jsonb_agg(to_jsonb(p) order by track) FROM public.official_predictions p WHERE id<>pred) THEN RAISE EXCEPTION 'sentinels changed';END IF;
