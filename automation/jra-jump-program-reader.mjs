@@ -40,11 +40,12 @@ export function parseProgramDay(load,html,date){
 export async function readProgramDay({load,date,asOf,fetcher=fetch}){
  need(/^\d{4}-\d{2}-\d{2}$/.test(date)&&date<asOf,'PROGRAM_ASOF');
  const [y,m,d]=date.split('-');
- const url='https://www.jra.go.jp/keiba/calendar'+y+'/'+y+'/'+m+'/'+m+d+'.html';
+ const url='https://www.jra.go.jp/keiba/calendar'+y+'/'+y+'/'+Number(m)+'/'+m+d+'.html';
  const res=await fetcher(url,{redirect:'error',headers:{'Accept-Language':'ja','Cache-Control':'no-cache'},signal:AbortSignal.timeout(20000)});
  need(res.ok,'PROGRAM_HTTP');
  const bytes=new Uint8Array(await res.arrayBuffer());need(bytes.length>500&&bytes.length<4000000,'PROGRAM_BYTES');
  const utf=new TextDecoder().decode(bytes),sjis=new TextDecoder('shift_jis').decode(bytes);
  const html=utf.includes('競馬番組')?utf:sjis;
- return {date,source_ref:url,meetings:parseProgramDay(load,html,date),planned_only:true};
+ const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');
+ return {date,source_ref:url,meetings:parseProgramDay(load,html,date),planned_only:true,html_sha256:hash,fetched_at:new Date().toISOString()};
 }
