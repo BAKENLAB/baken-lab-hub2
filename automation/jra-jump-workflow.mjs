@@ -44,7 +44,7 @@ export function buildJumpContext(raw, evidence){
  return {race:{...rc,circuit:'JRA',race_key:key,race_date:race.race_date,track:race.track,post_time:race.post_time,field_status:race.field_status,prediction_status:race.prediction_status},claim:{status:'CLAIMED',worker_id:job.claimed_by,job_id:job.id,race_key:key,lease_until:job.lease_until},official:{...proof,race_key:key,checked_at:proof.verified_at},entries,history,existing_prediction:false};
 }
 export function createJumpWorkflow(ports){
- for(const k of ['authorize','protocolActive','fetchOfficialProof','publishVerified','claimNext','readClaimBundle','getVerifiedHistory','saveClaimed','readReceipt','clock'])need(typeof ports[k]==='function','PORT_'+k);
+ for(const k of ['authorize','protocolActive','fetchOfficialProof','publishVerified','claimNext','readClaimBundle','getVerifiedHistory','saveClaimed','readReceipt','clock','digest'])need(typeof ports[k]==='function','PORT_'+k);
  const gate=async()=>{await ports.authorize();need(await ports.protocolActive(activeVersion)===true,'PROTOCOL_INACTIVE')};
  const clock=()=>ports.clock();
  async function load(job_id){
@@ -54,7 +54,8 @@ export function createJumpWorkflow(ports){
   const ctx=buildJumpContext(raw,evidence);
   const plan=prepareJump(ctx,clock());
   // Bind to server-owned evidence and claim generation; do not expose claim_token.
-  const snapshot=canonical({race:ctx.race,official:ctx.official,history:ctx.history,rows:plan.rows,claimed_at:raw.job.claimed_at,worker_run_id:raw.job.worker_run_id});
+  const snapshot=await ports.digest(canonical({race:ctx.race,official:ctx.official,history:ctx.history,rows:plan.rows,claimed_at:raw.job.claimed_at,worker_run_id:raw.job.worker_run_id,claim_token:raw.job.claim_token}));
+  need(/^[a-f0-9]{64}$/.test(snapshot),'REVIEW_DIGEST');
   return {raw,ctx,plan,snapshot};
  }
  return {
@@ -72,7 +73,7 @@ export function createJumpWorkflow(ports){
    const payload=finalizeJump(x.ctx,clock(),review);
    // SQL lock checks expected token and cutoff again; no client-supplied payload accepted.
    const id=await ports.saveClaimed({job_id,expected_claim_token:x.raw.job.claim_token,protocol_version:VERSION,payload});
-   const confirmation=await ports.readReceipt(id);
+   const confirmation=await ports.readReceipt(id,job_id);
    need(confirmation?.id===id&&confirmation.status==='FROZEN'&&confirmation.job_status==='DONE'&&confirmation.protocol_version===VERSION&&confirmation.race_key===x.ctx.race.race_key&&Date.parse(confirmation.frozen_at)<Date.parse(x.ctx.race.post_time)&&canonical(confirmation.payload)===canonical(payload),'RECEIPT_UNCONFIRMED');
    return {id,confirmed:true,race_key:confirmation.race_key,frozen_at:confirmation.frozen_at};
   }
