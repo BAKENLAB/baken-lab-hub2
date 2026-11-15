@@ -12,8 +12,10 @@ jobs:
     timeout-minutes: 4
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.5.6
       - name: Historical official program and one result only
-        run: deno run --node-modules-dir=auto --allow-net=www.jra.go.jp --allow-read automation/jra-jump-official-smoke.mjs
+        run: deno run --node-modules-dir=auto --allow-net=www.jra.go.jp --allow-env=NODE_V8_COVERAGE --allow-read automation/jra-jump-official-smoke.mjs
