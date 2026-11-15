@@ -11,13 +11,24 @@ export function parseProgramDay(load,html,date){
  $('table').each((_,t)=>{
   const tbl=$(t),head=clean(tbl.find('th').text());
   if(!head.includes('レース番号')||!head.includes('発走時刻'))return;
-  const caption=[tbl.find('caption').first().text(),tbl.prev().text(),tbl.parent().prev().text(),tbl.parent().find('h2,h3,h4,h5').first().text(),tbl.find('thead').text()].map(clean);
-  const names=[...new Set(caption.flatMap(s=>[...s.matchAll(/\d+回(札幌|函館|福島|新潟|東京|中山|中京|京都|阪神|小倉)\d+日/g)].map(m=>m[1])))];
+  const matchTracks=x=>[...new Set([...clean(x).replace(/\s/g,'').matchAll(/\d+回(札幌|函館|福島|新潟|東京|中山|中京|京都|阪神|小倉)\d+日/g)].map(m=>m[1]))];
+  let names=matchTracks(tbl.find('caption').first().text()+' '+tbl.find('thead').text());
+  // The meeting heading can be outside the table's immediate wrapper.
+  // Search backwards locally; never infer track by table position.
+  let node=tbl;
+  for(let level=0;names.length===0&&level<5;level++){
+   for(const el of node.prevAll().toArray().slice(0,8)){
+    const hits=matchTracks($(el).text());
+    if(hits.length){names=hits;break}
+   }
+   node=node.parent();
+   if(!node.length||node.is('body,html'))break;
+  }
   need(names.length===1&&tracks.includes(names[0]),'PROGRAM_TRACK');
   const race_nos=[];
   tbl.find('tr').each((_,row)=>{
    const cell=clean($(row).children('td,th').first().text());
-   const m=cell.match(/^(\d{1,2})\s*レース$/);
+   const m=cell.match(/^(\d{1,2})\s*(?:レース|R)?$/i);
    if(m)race_nos.push(Number(m[1]));
   });
   need(race_nos.length>0&&race_nos.every((n,i)=>n===i+1&&n<=12),'PROGRAM_ROWS');
