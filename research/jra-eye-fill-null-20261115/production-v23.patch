@@ -1,0 +1,60 @@
+--- jra-claimed-mcp/index.ts
++++ jra-claimed-mcp/index.ts
+@@ -1,3 +1,4 @@
++import { applyEyeFillNull, eyeFillInstructions } from "./jra-eye-fill-null.mjs";
+ import { safeEyeAdditionalAudit } from "./jra-eye-additional-audit.mjs";
+ import {buildOptionalSaveJraShadow,extractOfficialSaveDraft} from "./optional-atomic-shadow-save.mjs";
+ import {buildRelativeAbilityRankProposal} from "./relative-ability-rank-proposal.mjs";
+@@ -131,6 +132,7 @@
+  }
+  // BEGIN OPTIONAL EYE AUDIT
+  data.eye_additional_audit=safeEyeAdditionalAudit(data,new Date().toISOString());
++ data.eye_fill_instructions=eyeFillInstructions();
+  // END OPTIONAL EYE AUDIT
+  return {content:[{type:"text",text:JSON.stringify(data)}],structuredContent:{context:data}}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
+ 
+@@ -229,7 +231,12 @@
+      const result=buildJraVerifiedEvidenceRankBridge({
+        context,evalInput,payload,observedAt:new Date().toISOString()
+      });
+-     const output={...result,job_id,eval_status:evalInput.status,
++     // BEGIN EYE FILL PREVIEW
++     const fill=result.status==='READY_FOR_OFFICIAL_SAVE'&&result.proposed_payload?
++       applyEyeFillNull({context,payload:result.proposed_payload,observedAt:new Date().toISOString()}):null;
++     const previewResult=fill?{...result,proposed_payload:fill.payload,eye_fill_status:fill.status}:result;
++     // END EYE FILL PREVIEW
++     const output={...previewResult,job_id,eval_status:evalInput.status,
+        official_saved:false,save_authorized:false,
+        use_proposal_only_after_eye_reaudited:true};
+      return {content:[{type:"text",text:JSON.stringify(output)}],structuredContent:output};
+@@ -251,6 +258,7 @@
+    try{
+      await auth();
+      const c=admin(),observedAt=new Date().toISOString();
++     let eyeFillContext:any=null;
+      let savedPayload:any=payload,rankBridgeStatus="NOT_READY",
+        rankScoreChanges=0,beforeTop5:any=null,afterTop5:any=null,
+        evalStatus="OPTIONAL_UNAVAILABLE";
+@@ -261,6 +269,7 @@
+        const {data:context,error:ce}=await c.rpc("jra_claimed_context",
+          {p_job_id:job_id}).abortSignal(AbortSignal.timeout(12000));
+        if(!ce&&context){
++         eyeFillContext=context;
+          const evalInput=await loadEvalForClaim(context,c);
+          evalStatus=evalInput?.status??"OPTIONAL_UNAVAILABLE";
+          if(evalStatus==='READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW'){
+@@ -299,6 +308,14 @@
+        if(String(err(e)).startsWith('JRA_EVIDENCE_'))throw e;
+        rankBridgeStatus="OPTIONAL_SOURCE_UNAVAILABLE";
+      }
++     // BEGIN EYE FILL SAVE
++     if(eyeFillContext){
++       savedPayload=applyEyeFillNull({context:eyeFillContext,payload:savedPayload,
++         observedAt:new Date().toISOString()}).payload;
++     }else if(savedPayload.audit?.eye_fill_review||savedPayload.audit?.eye_fill_applied){
++       throw Error("JRA_EYE_FILL_CONTEXT_UNAVAILABLE");
++     }
++     // END EYE FILL SAVE
+      let shadow=null;
+      try{
+        if(extractOfficialSaveDraft(savedPayload,"JRA")){

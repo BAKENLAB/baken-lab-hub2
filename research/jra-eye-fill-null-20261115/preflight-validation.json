@@ -1,0 +1,28 @@
+{
+  "status": "PASS_BOUNDED_PREFLIGHT_NOT_END_TO_END",
+  "race": {
+    "date": "2026-11-15",
+    "track": "福島",
+    "race_no": 7,
+    "post_time": "2026-11-15T04:00:00+00:00"
+  },
+  "captured_at": "2026-11-15T01:40:18.994166+00:00",
+  "input_sha256": "a8b322ed7ac03ace8b1641b405625bb6db9d55ad4470986ec48e434525a740f6",
+  "source": "Current production normalized merged four-history SELECT; same expression as claimed_context. No job CLAIM and no prediction generated.",
+  "active_verified_count": 16,
+  "feature_review_count": 16,
+  "source_asof_before_post": true,
+  "final_rank_available": false,
+  "candidate_selection_performed": false,
+  "formal_audits_performed": false,
+  "existing_eye_records_preserved": 121,
+  "rank_changes": 0,
+  "top5_changes": 0,
+  "db_writes": 0,
+  "limits": [
+    "This is not an authorized CLAIM context or save test.",
+    "No final live ranking or completed qualitative audit was supplied; no EYE was selected.",
+    "User-reported 105R rates cannot be reproduced without the corresponding locked input/evaluation artifacts.",
+    "15 previously available immutable inputs cannot establish whole-105R formal audit performance."
+  ]
+}

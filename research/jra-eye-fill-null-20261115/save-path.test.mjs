@@ -1,0 +1,19 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {fixture} from './fixture.mjs';
+import {applyEyeFillNull} from '../../automation/jra-eye-fill-null.mjs';
+const root=new URL('./',import.meta.url),baseline=readFileSync(new URL('baseline-v23.ts',root),'utf8'),candidate=readFileSync(new URL('candidate-index.ts',root),'utf8');
+const hook=candidate.split('// BEGIN EYE FILL SAVE\n')[1].split('// END EYE FILL SAVE')[0];
+const previewHook=candidate.split('// BEGIN EYE FILL PREVIEW\n')[1].split('// END EYE FILL PREVIEW')[0];
+const prepare=new Function('applyEyeFillNull','eyeFillContext','savedPayload',hook+';return savedPayload;');
+const time='2026-11-15T04:00:00Z';
+// Inject only the clock in the exact extracted production hook; DB is isolated.
+const fixedApply=args=>applyEyeFillNull({...args,observedAt:time});
+test('actual pre-save hook fills before unchanged guarded RPC',()=>{const f=fixture();let writes=0;const out=prepare(fixedApply,f.context,f.payload);const guardedRpc=p=>{writes++;return p};const stored=guardedRpc(out);assert.equal(stored.eye.horse_no,6);assert.equal(writes,1);assert.deepEqual(stored.runners,f.payload.runners);assert.deepEqual(stored.top5,f.payload.top5)});
+test('actual hook rejects invalid audit before any mock FROZEN write',()=>{const f=fixture();f.payload.audit.eye_fill_review.comparisons=[];let writes=0;assert.throws(()=>{const p=prepare(fixedApply,f.context,f.payload);writes++;return p},/PAIR_COVERAGE/);assert.equal(writes,0)});
+test('unavailable context never silently applies requested fill',()=>{const f=fixture();assert.throws(()=>prepare(fixedApply,null,f.payload),/CONTEXT_UNAVAILABLE/)});
+test('existing EYE never replaced by pre-save hook',()=>{const f=fixture();f.payload.eye={...f.payload.runners[7]};assert.equal(prepare(fixedApply,f.context,f.payload),f.payload)});
+test('actual preview hook uses rank-finalized proposed payload',()=>{const f=fixture();const run=new Function('applyEyeFillNull','context','result',previewHook+';return previewResult;');const x=run(fixedApply,f.context,{status:'READY_FOR_OFFICIAL_SAVE',proposed_payload:f.payload});assert.equal(x.proposed_payload.eye.horse_no,6);assert.deepEqual(x.proposed_payload.runners,f.payload.runners)});
+test('TOP5 re-audit requirement is not bypassed by preview fill',()=>{const f=fixture();const run=new Function('applyEyeFillNull','context','result',previewHook+';return previewResult;');const result={status:'EYE_REAUDIT_REQUIRED',proposed_payload:f.payload};assert.equal(run(fixedApply,f.context,result),result)});
+test('whole-field rank bridge source and original save RPC invocation stay unchanged',()=>{const before=baseline.slice(baseline.indexOf('const {data,error}=await c.rpc("jra_save_claimed_prediction_with_shadow_v1"'));const after=candidate.slice(candidate.indexOf('const {data,error}=await c.rpc("jra_save_claimed_prediction_with_shadow_v1"'));assert.equal(after,before);assert.equal((candidate.match(/\.rpc\(/g)||[]).length,(baseline.match(/\.rpc\(/g)||[]).length);assert.ok(candidate.indexOf('// BEGIN EYE FILL SAVE')<candidate.indexOf('const {data,error}=await c.rpc("jra_save_claimed_prediction_with_shadow_v1"'))});
+test('removing exact fill additions restores v23 source',()=>{let s=candidate.replace('import { applyEyeFillNull, eyeFillInstructions } from "./jra-eye-fill-null.mjs";\n','').replace(' data.eye_fill_instructions=eyeFillInstructions();\n','').replace(/^ *\/\/ BEGIN EYE FILL PREVIEW\n[\s\S]*?^ *\/\/ END EYE FILL PREVIEW\n/gm,'').replace('const output={...previewResult,job_id,eval_status:evalInput.status,','const output={...result,job_id,eval_status:evalInput.status,').replace('     let eyeFillContext:any=null;\n','').replace('         eyeFillContext=context;\n','').replace(/^ *\/\/ BEGIN EYE FILL SAVE\n[\s\S]*?^ *\/\/ END EYE FILL SAVE\n/gm,'');assert.equal(s,baseline)});
