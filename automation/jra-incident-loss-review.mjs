@@ -9,7 +9,7 @@ const validPos=x=>Number.isInteger(x)&&x>=1&&x<=24;
 const time=x=>typeof x==='string'&&Number.isFinite(Date.parse(x))?Date.parse(x):null;
 const finite=x=>typeof x==='number'&&Number.isFinite(x);
 const reject=status=>({status,runners:[],rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false});
-export function buildJraIncidentLossReview({targetRace,officialRunners,incidentReview,deepHistory,lapPackets=[],clock=()=>Date.now()}={}){
+export function buildJraIncidentLossReview({targetRace,officialRunners,incidentReview,deepHistory,lapPackets=[],opponentReview=null,clock=()=>Date.now()}={}){
  const now=clock(),post=time(targetRace?.postTime);
  if(!Number.isFinite(now)||post===null||now>=post||!targetRace?.raceDate||
  !Array.isArray(officialRunners)||!officialRunners.length||officialRunners.length>24||
@@ -28,6 +28,16 @@ export function buildJraIncidentLossReview({targetRace,officialRunners,incidentR
  const index=rows=>new Map(rows.map(r=>[r.horse_no,r]));
  const inc=index(incidentReview.runners),deep=index(deepHistory.runner_history);
  if(inc.size!==nos.size||deep.size!==nos.size)return reject('DUPLICATE_RUNNER');
+ // Opponent observations are optional and never an assertion of a weak
+ // field when the archive is incomplete. Validate target and cutoff.
+ const opponentReady=opponentReview?.status==='RESEARCH_WHOLE_FIELD_OPPONENT_FOLLOWUP_REVIEW'&&
+ opponentReview.verified===true&&opponentReview.market_used===false&&opponentReview.target_result_used===false&&
+ opponentReview.prediction_saved===false&&opponentReview.rank_effect==='NONE'&&opponentReview.target_race_date===targetRace.raceDate&&
+ time(opponentReview.as_of)!==null&&time(opponentReview.as_of)<=now&&time(opponentReview.as_of)<post&&
+ Array.isArray(opponentReview.runners)&&opponentReview.runners.length===nos.size&&
+ new Set(opponentReview.runners.map(h=>h.horse_no)).size===nos.size&&
+ opponentReview.runners.every(h=>byNo.get(h.horse_no)===h.horse_id&&Array.isArray(h.history));
+ const opponents=opponentReady?index(opponentReview.runners):new Map();
  const runners=[];
  for(const h of officialRunners){
   const i=inc.get(h.horse_no),d=deep.get(h.horse_no),id=byNo.get(h.horse_no);
@@ -56,6 +66,29 @@ export function buildJraIncidentLossReview({targetRace,officialRunners,incidentR
    const lap=sameLaps.length===1?joinVerifiedJraCornerAndRaceLaps({targetRace,pastRun:run,officialRaceLaps:sameLaps[0],clock}):null;
    const matched=lap?.status==='EVIDENCE_ONLY_MATCHED'?lap.observation:null;
    const section=finite(run.final3f)&&run.final3f>=25&&run.final3f<=65?run.final3f:null;
+   const priorOpponents=(opponents.get(h.horse_no)?.history??[]).filter(x=>x.status==='STORED_OPPONENT_FOLLOWUP_REVIEW'&&
+    x.race_core===key&&x.race_date===run.race_date&&officialRaceCore(x.source_ref,'result')===key);
+   let opponentObservation=null;
+   if(priorOpponents.length===1){
+    const p=priorOpponents[0],rows=p.opponents;
+    if(Array.isArray(rows)&&rows.length===p.observed_opponents&&new Set(rows.map(v=>v.horse_id)).size===rows.length&&
+     Number.isInteger(p.missing_prior_active_results)&&p.missing_prior_active_results>=0&&
+     rows.every(v=>typeof v.horse_id==='string'&&/^\d{10}$/.test(v.horse_id)&&v.horse_id!==id&&validPos(v.prior_finish)&&
+      Array.isArray(v.later_observations)&&v.later_observations.every(o=>o.horse_id===v.horse_id&&
+       o.race_date>run.race_date&&o.race_date<targetRace.raceDate&&validPos(o.finish)&&
+       time(o.settled_at)!==null&&time(o.settled_at)<=time(opponentReview.as_of)&&
+       /^[a-f0-9]{64}$/.test(o.card_digest??''))&&
+      new Set(v.later_observations.map(o=>[o.race_date,o.track,o.race_no].join('|'))).size===v.later_observations.length)){
+      const observations=rows.flatMap(v=>v.later_observations);
+      opponentObservation={scope:'STORED_OFFICIAL_CARD_RESULT_ASOF',as_of:opponentReview.as_of,observed_opponents:rows.length,
+       missing_prior_active_results:p.missing_prior_active_results,
+       opponents_with_observed_later_results:rows.filter(v=>v.later_observations.length>0).length,
+       observed_later_starts:observations.length,observed_later_wins:observations.filter(v=>v.finish===1).length,
+       observed_later_top3:observations.filter(v=>v.finish<=3).length,
+       opponents:rows.map(v=>({horse_id:v.horse_id,prior_finish:v.prior_finish,later_observations:v.later_observations.map(o=>({horse_id:o.horse_id,race_date:o.race_date,track:o.track,race_no:o.race_no,class_name:o.class_name,finish:o.finish,settled_at:o.settled_at,card_digest:o.card_digest}))})),
+       absence_is_not_no_later_run:true,automatic_score_effect:0};
+    }
+   }
    // No guessed winner gap, time loss, causal pace, or automatic ranking.
    const assessment=!incidentVerified?'INCIDENT_SOURCE_UNVERIFIED':stopped?'STOP_OR_HEALTH_REVIEW_NO_ABILITY_CREDIT':
     primary&&!self&&!actor?'EXTERNAL_PRIMARY_REVIEW':
@@ -64,7 +97,7 @@ export function buildJraIncidentLossReview({targetRace,officialRunners,incidentR
     self||actor?'OWN_BEHAVIOR_OR_ACTOR_RISK_REVIEW':'NO_RECORDED_EVENT_IN_AVAILABLE_SOURCES';
    return {run_index:idx,race_date:run.race_date,race_core:key,status:incidentVerified?'VERIFIED_CONTENT_REVIEW':'INCIDENT_SOURCE_UNVERIFIED',assessment,incident_source_verified:incidentVerified,
     finish:validPos(run.finish)?run.finish:null,reported_margin:run.margin_source_value??run.margin_to_winner??null,margin_basis:run.margin_basis??'UNSPECIFIED',
-    positions,runner_last_3f:section,race_lap_observation:matched,incident_kinds:kinds,incident_sources:sources,
+    positions,runner_last_3f:section,race_lap_observation:matched,opponent_followup_observation:opponentObservation,incident_kinds:kinds,incident_sources:sources,
     incomplete_incident_source:!incidentVerified||link?.partial===true,loss_cause:'UNPROVEN',time_loss_seconds:null,
     review_for_merit:incidentVerified&&primary&&!self&&!actor&&!stopped&&validPos(run.finish)&&run.finish>1&&(positions!==null||section!==null),
     auto_score_effect:0,absence_is_not_no_incident:true};
@@ -72,5 +105,5 @@ export function buildJraIncidentLossReview({targetRace,officialRunners,incidentR
   runners.push({horse_no:h.horse_no,horse_id:id,horse_name:h.horse_name,reviews,unmatched_incident_history:i.history.filter(x=>x.status!=='VERIFIED_SOURCE_REVIEW').length});
  }
  const rows=runners.flatMap(r=>r.reviews);
- return {status:'RESEARCH_WHOLE_FIELD_LOSS_REVIEW',runners,coverage:{active_runners:runners.length,supplied_runs:rows.length,joined_runs:rows.filter(x=>x.status==='VERIFIED_CONTENT_REVIEW').length,lap_joined_runs:rows.filter(x=>x.race_lap_observation).length,merit_review_runs:rows.filter(x=>x.review_for_merit).length},rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false};
+ return {status:'RESEARCH_WHOLE_FIELD_LOSS_REVIEW',runners,coverage:{active_runners:runners.length,supplied_runs:rows.length,joined_runs:rows.filter(x=>x.status==='VERIFIED_CONTENT_REVIEW').length,lap_joined_runs:rows.filter(x=>x.race_lap_observation).length,opponent_joined_runs:rows.filter(x=>x.opponent_followup_observation).length,merit_review_runs:rows.filter(x=>x.review_for_merit).length},rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false};
 }
