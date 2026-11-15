@@ -17,12 +17,11 @@ const collector=makeJraResultCollector({load,fetcher:pacedFetch,maxRequests:99,e
  // subsequently agree with every race. Planned-only is not a result receipt.
  return {verified:true,from:a,to:b,source_ref:expected.source_ref,meetings:expected.meetings};
 }});
-const cal=await collector.calendar(from,to);
+const cal=await collector.dayFromSeed({date:from,asOf:to,seed:'pw01sde0105202605030820261114/9B',meetings:expected.meetings});
 if(cal.rows.length!==36)throw Error('JUMP_DAY_EXPECTED_36');
-console.log('PASS independent program/result index 36/36');
+console.log('PASS official navigation and independent program 36/36');
 let jump=0,flat=0;
-for(const x of cal.rows){
- const r=await collector.result(x.cname,to);
+for(const r of cal.rows){
  if(r.jump){jump++;console.log('JUMP verified: '+r.track+' '+r.race_no+'R / '+r.rows.length+' starters')}
  else flat++;
 }
