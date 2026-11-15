@@ -43,3 +43,12 @@ Compare the current production bundle SHA with the v23 backup immediately before
 Normal operation: authorized CLAIM -> context includes instructions -> evaluate all runners and current EYE normally -> if eye=null and short turf, perform the additional review and record it -> existing rank preview -> if membership changed finish existing independent EYE re-audit first -> preview again with valid final whole-field review -> inspect filled eye/grade/reasons and audit -> unchanged guarded save MCP. Never use research/preflight input as a substitute for a fresh authorized CLAIM. Respect lease and post-minus-three-minutes.
 
 A real authorized CLAIM/preview/save confirmation must be reported separately. No new CLAIM or FROZEN is created solely to claim a successful test.
+
+## Actual production outcome
+MCP v24 deployed at 2026-11-15 10:48:39 JST. The v23 baseline hash and exact original source were compared before upload; all ten deployed files matched the submitted bundle on readback. Actual paths are preview READY proposed_payload and the real pre-save handler after existing ranking. No DB/protocol/guard change occurred.
+
+The expired CLAIM read returned expected CONTEXT_UNAVAILABLE; this verifies runtime loading and continued denial, NOT successful valid-context execution. A SELECT found zero valid JRA_QUEUE_RESCUE CLAIMs. Actual formal live fill and production save are still UNVERIFIED; zero predictions were saved by this change. A future evaluator must submit a real audit through a normally authorized CLAIM. No unfinished audit is auto-marked complete.
+
+Standalone Deno typecheck was unavailable. Node's --check (including its strip-types flag) rejected the existing TypeScript annotation syntax, so this is SKIP, not a candidate TypeScript test PASS. The plain JS modules and extracted production hook tests passed, deployment accepted the bundle, and the MCP loaded it for the denial smoke.
+
+Before deployment, local exported baseline had one extra final newline from file materialization. That was corrected and exact equality against production confirmed before upload; the eight hook tests were rerun after this normalization, not counted twice. The public patch remains only the intended insertions.
