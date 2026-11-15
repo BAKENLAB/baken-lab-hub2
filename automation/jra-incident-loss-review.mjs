@@ -96,7 +96,7 @@ export function buildJraIncidentLossReview({targetRace,officialRunners,incidentR
     secondary?'SECONDARY_IMPACT_REVIEW':
     self||actor?'OWN_BEHAVIOR_OR_ACTOR_RISK_REVIEW':'NO_RECORDED_EVENT_IN_AVAILABLE_SOURCES';
    return {run_index:idx,race_date:run.race_date,race_core:key,status:incidentVerified?'VERIFIED_CONTENT_REVIEW':'INCIDENT_SOURCE_UNVERIFIED',assessment,incident_source_verified:incidentVerified,
-    finish:validPos(run.finish)?run.finish:null,reported_margin:run.margin_source_value??run.margin_to_winner??null,margin_basis:run.margin_basis??'UNSPECIFIED',
+    track:run.track??null,surface:run.surface??null,distance:run.distance??null,historical_source_ref:run.historical_source_ref,finish:validPos(run.finish)?run.finish:null,reported_margin:run.margin_source_value??run.margin_to_winner??null,margin_basis:run.margin_basis??'UNSPECIFIED',
     positions,runner_last_3f:section,race_lap_observation:matched,opponent_followup_observation:opponentObservation,incident_kinds:kinds,incident_sources:sources,
     incomplete_incident_source:!incidentVerified||link?.partial===true,loss_cause:'UNPROVEN',time_loss_seconds:null,
     review_for_merit:incidentVerified&&primary&&!self&&!actor&&!stopped&&validPos(run.finish)&&run.finish>1&&(positions!==null||section!==null),
@@ -104,6 +104,31 @@ export function buildJraIncidentLossReview({targetRace,officialRunners,incidentR
   });
   runners.push({horse_no:h.horse_no,horse_id:id,horse_name:h.horse_name,reviews,unmatched_incident_history:i.history.filter(x=>x.status!=='VERIFIED_SOURCE_REVIEW').length});
  }
+ // Direct comparisons are factual prior finishes of current runners.
+ // Same verified race core AND same literal result token/course are required.
+ // A better finish does not on its own establish a current reversal.
+ const groups=new Map();
+ for(const h of runners)for(const v of h.reviews){
+  if(!v.race_core||!v.historical_source_ref||!validPos(v.finish))continue;
+  const k=[v.race_core,v.track,v.surface,v.distance].join('|');
+  if(!groups.has(k))groups.set(k,[]);
+  groups.get(k).push({horse_no:h.horse_no,horse_id:h.horse_id,...v});
+ }
+ const direct=[];
+ for(const group of groups.values()){
+  if(group.length<2||new Set(group.map(v=>v.horse_id)).size!==group.length)continue;
+  let tokens;
+  try{tokens=new Set(group.map(v=>new URL(v.historical_source_ref,'https://www.jra.go.jp').searchParams.get('CNAME')))}catch{continue;}
+  if(tokens.size!==1)continue;
+  for(let i=0;i<group.length;i++)for(let j=i+1;j<group.length;j++){
+   const a=group[i],b=group[j];
+   direct.push({race_core:a.race_core,race_date:a.race_date,track:a.track,surface:a.surface,distance:a.distance,
+    source_ref:a.historical_source_ref,horse_a:{horse_no:a.horse_no,horse_id:a.horse_id,finish:a.finish},
+    horse_b:{horse_no:b.horse_no,horse_id:b.horse_id,finish:b.finish},
+    earlier_finisher:a.finish===b.finish?null:a.finish<b.finish?a.horse_no:b.horse_no,
+    finish_tie:a.finish===b.finish,scope:'MATCHED_PRIOR_SNAPSHOT_FINISH_ORDER',reversal_possible:'NOT_ESTABLISHED',auto_score_effect:0});
+  }
+ }
  const rows=runners.flatMap(r=>r.reviews);
- return {status:'RESEARCH_WHOLE_FIELD_LOSS_REVIEW',runners,coverage:{active_runners:runners.length,supplied_runs:rows.length,joined_runs:rows.filter(x=>x.status==='VERIFIED_CONTENT_REVIEW').length,lap_joined_runs:rows.filter(x=>x.race_lap_observation).length,opponent_joined_runs:rows.filter(x=>x.opponent_followup_observation).length,merit_review_runs:rows.filter(x=>x.review_for_merit).length},rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false};
+ return {status:'RESEARCH_WHOLE_FIELD_LOSS_REVIEW',runners,direct_comparisons:direct,coverage:{active_runners:runners.length,supplied_runs:rows.length,joined_runs:rows.filter(x=>x.status==='VERIFIED_CONTENT_REVIEW').length,lap_joined_runs:rows.filter(x=>x.race_lap_observation).length,opponent_joined_runs:rows.filter(x=>x.opponent_followup_observation).length,direct_comparison_pairs:direct.length,merit_review_runs:rows.filter(x=>x.review_for_merit).length},rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false};
 }
