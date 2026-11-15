@@ -41,11 +41,10 @@ export function buildJraIncidentLossReview({targetRace,officialRunners,incidentR
      key.slice(-8)!==run.race_date.replace(/-/g,''))return unavailable('PRIOR_IDENTITY_UNVERIFIED');
    if(seen.has(key))return unavailable('DUPLICATE_PRIOR_RACE');seen.add(key);
    const links=i.history.filter(x=>x.race_core===key&&x.race_date===run.race_date&&x.status==='VERIFIED_SOURCE_REVIEW');
-   if(links.length!==1)return unavailable('INCIDENT_SOURCE_UNVERIFIED');
-   const link=links[0];
-   const sources=Array.isArray(link.sources)?link.sources.filter(s=>['RESULT','REPORT'].includes(s.kind)&&officialRaceCore(s.source_ref,s.kind==='REPORT'?'report':'result')===key&&time(s.source_checked_at)!==null&&time(s.source_checked_at)<=now&&time(s.source_checked_at)<post):[];
-   if(!sources.length||!Array.isArray(link.events))return unavailable('INCIDENT_SOURCE_UNVERIFIED');
-   const events=link.events.filter(e=>e.horse_id===id&&e.race_date===run.race_date&&e.certainty==='OFFICIAL_RECORDED_FACT'&&sources.some(s=>s.source_ref===e.source_ref&&s.source_checked_at===e.source_checked_at));
+   const link=links.length===1?links[0]:null;
+   const sources=Array.isArray(link?.sources)?link.sources.filter(s=>['RESULT','REPORT'].includes(s.kind)&&officialRaceCore(s.source_ref,s.kind==='REPORT'?'report':'result')===key&&time(s.source_checked_at)!==null&&time(s.source_checked_at)<=now&&time(s.source_checked_at)<post):[];
+   const incidentVerified=sources.length>0&&Array.isArray(link?.events);
+   const events=(incidentVerified?link.events:[]).filter(e=>e.horse_id===id&&e.race_date===run.race_date&&e.certainty==='OFFICIAL_RECORDED_FACT'&&sources.some(s=>s.source_ref===e.source_ref&&s.source_checked_at===e.source_checked_at));
    const kinds=[...new Set(events.map(e=>e.kind))];
    const primary=events.some(e=>e.role==='VICTIM'&&['RESTRICTED_PATH','INTERFERENCE_VICTIM','OTHER_HORSE_IMPACT'].includes(e.kind));
    const secondary=events.some(e=>e.role==='VICTIM'&&e.kind==='ADDITIONAL_PATH_IMPACT');
@@ -58,16 +57,16 @@ export function buildJraIncidentLossReview({targetRace,officialRunners,incidentR
    const matched=lap?.status==='EVIDENCE_ONLY_MATCHED'?lap.observation:null;
    const section=finite(run.final3f)&&run.final3f>=25&&run.final3f<=65?run.final3f:null;
    // No guessed winner gap, time loss, causal pace, or automatic ranking.
-   const assessment=stopped?'STOP_OR_HEALTH_REVIEW_NO_ABILITY_CREDIT':
+   const assessment=!incidentVerified?'INCIDENT_SOURCE_UNVERIFIED':stopped?'STOP_OR_HEALTH_REVIEW_NO_ABILITY_CREDIT':
     primary&&!self&&!actor?'EXTERNAL_PRIMARY_REVIEW':
     primary?'MIXED_EXTERNAL_AND_OWN_RISK_REVIEW':
     secondary?'SECONDARY_IMPACT_REVIEW':
     self||actor?'OWN_BEHAVIOR_OR_ACTOR_RISK_REVIEW':'NO_RECORDED_EVENT_IN_AVAILABLE_SOURCES';
-   return {run_index:idx,race_date:run.race_date,race_core:key,status:'VERIFIED_CONTENT_REVIEW',assessment,
+   return {run_index:idx,race_date:run.race_date,race_core:key,status:incidentVerified?'VERIFIED_CONTENT_REVIEW':'INCIDENT_SOURCE_UNVERIFIED',assessment,incident_source_verified:incidentVerified,
     finish:validPos(run.finish)?run.finish:null,reported_margin:run.margin_source_value??run.margin_to_winner??null,margin_basis:run.margin_basis??'UNSPECIFIED',
     positions,runner_last_3f:section,race_lap_observation:matched,incident_kinds:kinds,incident_sources:sources,
-    incomplete_incident_source:link.partial===true,loss_cause:'UNPROVEN',time_loss_seconds:null,
-    review_for_merit:primary&&!self&&!actor&&!stopped&&validPos(run.finish)&&run.finish>1&&(positions!==null||section!==null),
+    incomplete_incident_source:!incidentVerified||link?.partial===true,loss_cause:'UNPROVEN',time_loss_seconds:null,
+    review_for_merit:incidentVerified&&primary&&!self&&!actor&&!stopped&&validPos(run.finish)&&run.finish>1&&(positions!==null||section!==null),
     auto_score_effect:0,absence_is_not_no_incident:true};
   });
   runners.push({horse_no:h.horse_no,horse_id:id,horse_name:h.horse_name,reviews,unmatched_incident_history:i.history.filter(x=>x.status!=='VERIFIED_SOURCE_REVIEW').length});
