@@ -36,3 +36,8 @@ Before deployment reread the Edge version/hash and abort on concurrent changes. 
 `node research/jra-eye-turf-audit-20261115/integration.test.mjs` (requires matching local production export as above).
 
 `compare.mjs` requires the private read-only comparison-input.json export and writes comparison-results.json. The private export is not committed. Results cannot reconstruct missing historical inputs or serve as forward validation.
+
+## Actual deployment result
+The optional evidence-only patch was deployed as `jra-claimed-mcp` v23 at 2026-11-15 09:27:30 JST after confirming the v22 bundle was unchanged. All nine read-back files matched the submitted bundle exactly. Authentication, save guards and prior files were preserved. See deployment-record.json. Automatic EYE selection remains disabled.
+
+The available CLAIM expired at 09:27:21 JST before the smoke read; the MCP returned CONTEXT_UNAVAILABLE. A subsequent SELECT found no valid JRA_QUEUE_RESCUE CLAIM. Thus successful live CLAIM/preview execution is UNVERIFIED. No CLAIM was created and no prediction was saved for testing. This is not a completed end-to-end evaluation or demonstrated precision gain. The next normally authorized live CLAIM must verify the optional packet and qualitative audit before describing the operational flow as fully verified.
