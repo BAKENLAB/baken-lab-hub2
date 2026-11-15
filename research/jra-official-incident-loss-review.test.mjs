@@ -55,3 +55,30 @@ test('wrong or absent timing never creates incident evidence or a merit finding'
  const v=one(a);assert.equal(v.race_lap_observation,null);assert.equal(v.incident_source_verified,false);
  assert.equal(v.review_for_merit,false);assert.deepEqual(v.incident_kinds,[]);
 });
+
+
+const opponentRow={horse_id:'2023106608',prior_finish:3,later_observations:[{horse_id:'2023106608',race_date:'2025-08-03',track:'新潟',race_no:2,class_name:'未勝利',finish:1,settled_at:'2025-08-03T11:00:00+09:00',card_digest:'a'.repeat(64)}]};
+const withOpponents=(a=args())=>({...a,opponentReview:{status:'RESEARCH_WHOLE_FIELD_OPPONENT_FOLLOWUP_REVIEW',verified:true,as_of:checked,target_race_date:targetRace.raceDate,market_used:false,target_result_used:false,prediction_saved:false,rank_effect:'NONE',runners:[{horse_no:h.horse_no,horse_id:id,history:[{status:'STORED_OPPONENT_FOLLOWUP_REVIEW',race_core:core,race_date:run.race_date,source_ref:ref,observed_opponents:1,missing_prior_active_results:3,opponents:[structuredClone(opponentRow)]}]}]}});
+test('same historical race retains independently verified incident, laps and opponent results',()=>{
+ const a=withOpponents(),before=JSON.stringify(a),x=review(a),v=x.runners[0].reviews[0];
+ assert.equal(x.coverage.opponent_joined_runs,1);assert.equal(x.coverage.lap_joined_runs,1);
+ assert.equal(v.opponent_followup_observation.observed_later_wins,1);
+ assert.equal(v.opponent_followup_observation.missing_prior_active_results,3);
+ assert.equal(v.opponent_followup_observation.absence_is_not_no_later_run,true);
+ assert.equal(v.auto_score_effect,0);assert.equal(x.rank_effect,'NONE');assert.equal(JSON.stringify(a),before);
+ a.incidentReview.runners[0].history=[];assert.equal(one(a).opponent_followup_observation.observed_later_starts,1);
+});
+test('wrong horse, late cutoff, wrong race or future subsequent result cannot become opponent evidence',()=>{
+ for(const change of [
+  x=>{x.as_of='2026-11-15T13:00:00+09:00';},
+  x=>{x.runners[0].horse_id='2023000000';},
+  x=>{x.runners[0].history[0].race_core=core.replace('20250713','20250714');},
+  x=>{x.runners[0].history[0].opponents[0].later_observations[0].race_date=targetRace.raceDate;},
+  x=>{x.runners[0].history[0].opponents[0].later_observations[0].horse_id=id;},
+  x=>{x.runners[0].history[0].opponents[0].later_observations[0].settled_at='2026-11-15T09:00:00+09:00';}
+ ]){
+  const a=withOpponents();change(a.opponentReview);const v=one(a);
+  assert.equal(v.opponent_followup_observation,null);assert.equal(v.auto_score_effect,0);
+  assert.equal(v.race_lap_observation.race_first_600m,34);
+ }
+});
