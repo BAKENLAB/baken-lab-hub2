@@ -1,0 +1,586 @@
+{
+  "status": "PARTIAL_ASOF_RESEARCH_NOT_MODEL_APPROVAL",
+  "window": [
+    "2026-10-17",
+    "2026-11-14"
+  ],
+  "frozen_races": 236,
+  "result_matched_races": 236,
+  "immutable_input_snapshots": 20,
+  "eligible_at_frozen": 15,
+  "excluded_snapshots": [
+    {
+      "race": "2026-10-24/京都/6",
+      "reason": "NOT_PROVEN_AVAILABLE_AT_FROZEN"
+    },
+    {
+      "race": "2026-10-24/京都/7",
+      "reason": "NOT_PROVEN_AVAILABLE_AT_FROZEN"
+    },
+    {
+      "race": "2026-10-24/新潟/6",
+      "reason": "NOT_PROVEN_AVAILABLE_AT_FROZEN"
+    },
+    {
+      "race": "2026-10-24/新潟/7",
+      "reason": "NOT_PROVEN_AVAILABLE_AT_FROZEN"
+    },
+    {
+      "race": "2026-10-24/東京/7",
+      "reason": "NOT_PROVEN_AVAILABLE_AT_FROZEN"
+    }
+  ],
+  "unavailable_other_frozen": 221,
+  "frozen_input_not_exact_claim_context": true,
+  "identity_basis": "Archived horse_code present, race/horse_no/exact name matched; target FROZEN lacks full archived horse-ID binding",
+  "provided_research_rates_independently_reproduced": false,
+  "baseline_all_races": {
+    "turf_le1400": {
+      "races": 39,
+      "selected": 27,
+      "wins": 1,
+      "top3": 4,
+      "win_rate": 0.037037037037037035,
+      "top3_rate": 0.14814814814814814
+    },
+    "turf_1401_1800": {
+      "races": 45,
+      "selected": 22,
+      "wins": 0,
+      "top3": 3,
+      "win_rate": 0,
+      "top3_rate": 0.13636363636363635
+    },
+    "turf_gt1800": {
+      "races": 39,
+      "selected": 22,
+      "wins": 4,
+      "top3": 6,
+      "win_rate": 0.18181818181818182,
+      "top3_rate": 0.2727272727272727
+    },
+    "dirt": {
+      "races": 113,
+      "selected": 50,
+      "wins": 7,
+      "top3": 14,
+      "win_rate": 0.14,
+      "top3_rate": 0.28
+    },
+    "unknown": {
+      "races": 0,
+      "selected": 0,
+      "wins": 0,
+      "top3": 0,
+      "win_rate": null,
+      "top3_rate": null
+    }
+  },
+  "comparison": {
+    "replacement_raw": {
+      "warning": "UNAUDITED_CANDIDATE_COMPARISON_NOT_FORMAL_EYE_PERFORMANCE",
+      "by_segment": {
+        "turf_le1400": {
+          "races": 4,
+          "old": {
+            "selected": 3,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          },
+          "candidate_only": {
+            "selected": 4,
+            "wins": 3,
+            "top3": 3,
+            "win_rate": 0.75,
+            "top3_rate": 0.75
+          }
+        },
+        "turf_1401_1800": {
+          "races": 3,
+          "old": {
+            "selected": 2,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          },
+          "candidate_only": {
+            "selected": 2,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          }
+        },
+        "turf_gt1800": {
+          "races": 2,
+          "old": {
+            "selected": 2,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          },
+          "candidate_only": {
+            "selected": 2,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          }
+        },
+        "dirt": {
+          "races": 6,
+          "old": {
+            "selected": 4,
+            "wins": 0,
+            "top3": 1,
+            "win_rate": 0,
+            "top3_rate": 0.25
+          },
+          "candidate_only": {
+            "selected": 4,
+            "wins": 0,
+            "top3": 1,
+            "win_rate": 0,
+            "top3_rate": 0.25
+          }
+        },
+        "unknown": {
+          "races": 0,
+          "old": {
+            "selected": 0,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": null,
+            "top3_rate": null
+          },
+          "candidate_only": {
+            "selected": 0,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": null,
+            "top3_rate": null
+          }
+        }
+      },
+      "new_captures": [
+        {
+          "race": "2026-10-24/京都/10",
+          "horse_no": 2,
+          "finish": 1
+        },
+        {
+          "race": "2026-10-24/新潟/12",
+          "horse_no": 8,
+          "finish": 1
+        },
+        {
+          "race": "2026-10-24/東京/9",
+          "horse_no": 11,
+          "finish": 1
+        }
+      ],
+      "lost_existing_good_horses": [],
+      "lost_race_top3_hits": 0,
+      "dirt_changes": 0,
+      "rank_changes": 0,
+      "top5_changes": 0
+    },
+    "fill_null_raw": {
+      "warning": "UNAUDITED_CANDIDATE_COMPARISON_NOT_FORMAL_EYE_PERFORMANCE",
+      "by_segment": {
+        "turf_le1400": {
+          "races": 4,
+          "old": {
+            "selected": 3,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          },
+          "candidate_only": {
+            "selected": 4,
+            "wins": 1,
+            "top3": 1,
+            "win_rate": 0.25,
+            "top3_rate": 0.25
+          }
+        },
+        "turf_1401_1800": {
+          "races": 3,
+          "old": {
+            "selected": 2,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          },
+          "candidate_only": {
+            "selected": 2,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          }
+        },
+        "turf_gt1800": {
+          "races": 2,
+          "old": {
+            "selected": 2,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          },
+          "candidate_only": {
+            "selected": 2,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": 0,
+            "top3_rate": 0
+          }
+        },
+        "dirt": {
+          "races": 6,
+          "old": {
+            "selected": 4,
+            "wins": 0,
+            "top3": 1,
+            "win_rate": 0,
+            "top3_rate": 0.25
+          },
+          "candidate_only": {
+            "selected": 4,
+            "wins": 0,
+            "top3": 1,
+            "win_rate": 0,
+            "top3_rate": 0.25
+          }
+        },
+        "unknown": {
+          "races": 0,
+          "old": {
+            "selected": 0,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": null,
+            "top3_rate": null
+          },
+          "candidate_only": {
+            "selected": 0,
+            "wins": 0,
+            "top3": 0,
+            "win_rate": null,
+            "top3_rate": null
+          }
+        }
+      },
+      "new_captures": [
+        {
+          "race": "2026-10-24/京都/10",
+          "horse_no": 2,
+          "finish": 1
+        }
+      ],
+      "lost_existing_good_horses": [],
+      "lost_race_top3_hits": 0,
+      "dirt_changes": 0,
+      "rank_changes": 0,
+      "top5_changes": 0
+    }
+  },
+  "per_race": [
+    {
+      "race": "2026-10-24/京都/8",
+      "surface": "芝",
+      "distance": 1800,
+      "current_eye": null,
+      "candidate": null,
+      "replacement_raw": null,
+      "fill_null_raw": null,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/京都/9",
+      "surface": "ダート",
+      "distance": 1400,
+      "current_eye": 7,
+      "candidate": null,
+      "replacement_raw": 7,
+      "fill_null_raw": 7,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/京都/10",
+      "surface": "芝",
+      "distance": 1400,
+      "current_eye": null,
+      "candidate": 2,
+      "replacement_raw": 2,
+      "fill_null_raw": 2,
+      "candidates": [
+        {
+          "horse_no": 2,
+          "horse_name": "アスミル",
+          "rank": 6,
+          "mean_early_position": 3,
+          "front_good_count": 3,
+          "stamina_good_count": 2
+        }
+      ],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/京都/11",
+      "surface": "芝",
+      "distance": 1800,
+      "current_eye": 16,
+      "candidate": 3,
+      "replacement_raw": 3,
+      "fill_null_raw": 16,
+      "candidates": [
+        {
+          "horse_no": 3,
+          "horse_name": "コルレオニス",
+          "rank": 9,
+          "mean_early_position": 2.5,
+          "front_good_count": 2,
+          "stamina_good_count": 1
+        },
+        {
+          "horse_no": 15,
+          "horse_name": "タガノエルピーダ",
+          "rank": 10,
+          "mean_early_position": 2.5,
+          "front_good_count": 1,
+          "stamina_good_count": 0
+        }
+      ],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/京都/12",
+      "surface": "ダート",
+      "distance": 1900,
+      "current_eye": null,
+      "candidate": null,
+      "replacement_raw": null,
+      "fill_null_raw": null,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/新潟/8",
+      "surface": "ダート",
+      "distance": 1800,
+      "current_eye": null,
+      "candidate": null,
+      "replacement_raw": null,
+      "fill_null_raw": null,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/新潟/9",
+      "surface": "芝",
+      "distance": 1000,
+      "current_eye": 9,
+      "candidate": null,
+      "replacement_raw": 9,
+      "fill_null_raw": 9,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/新潟/10",
+      "surface": "ダート",
+      "distance": 1800,
+      "current_eye": 15,
+      "candidate": null,
+      "replacement_raw": 15,
+      "fill_null_raw": 15,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/新潟/11",
+      "surface": "芝",
+      "distance": 2000,
+      "current_eye": 9,
+      "candidate": 9,
+      "replacement_raw": 9,
+      "fill_null_raw": 9,
+      "candidates": [
+        {
+          "horse_no": 9,
+          "horse_name": "ハニーコム",
+          "rank": 6,
+          "mean_early_position": 5,
+          "front_good_count": 1,
+          "stamina_good_count": 2
+        },
+        {
+          "horse_no": 11,
+          "horse_name": "マイネルフーガ",
+          "rank": 8,
+          "mean_early_position": 4.5,
+          "front_good_count": 2,
+          "stamina_good_count": 2
+        },
+        {
+          "horse_no": 5,
+          "horse_name": "アラタマフェーヴル",
+          "rank": 7,
+          "mean_early_position": 3.25,
+          "front_good_count": 3,
+          "stamina_good_count": 1
+        },
+        {
+          "horse_no": 8,
+          "horse_name": "シンゼンカガ",
+          "rank": 12,
+          "mean_early_position": 7.25,
+          "front_good_count": 0,
+          "stamina_good_count": 1
+        }
+      ],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/新潟/12",
+      "surface": "芝",
+      "distance": 1400,
+      "current_eye": 13,
+      "candidate": 8,
+      "replacement_raw": 8,
+      "fill_null_raw": 13,
+      "candidates": [
+        {
+          "horse_no": 8,
+          "horse_name": "スピリットサージ",
+          "rank": 12,
+          "mean_early_position": 5,
+          "front_good_count": 1,
+          "stamina_good_count": 1
+        }
+      ],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/東京/8",
+      "surface": "芝",
+      "distance": 2000,
+      "current_eye": 1,
+      "candidate": 11,
+      "replacement_raw": 1,
+      "fill_null_raw": 1,
+      "candidates": [
+        {
+          "horse_no": 11,
+          "horse_name": "マテンロウオリジン",
+          "rank": 8,
+          "mean_early_position": 3.75,
+          "front_good_count": 1,
+          "stamina_good_count": 3
+        },
+        {
+          "horse_no": 9,
+          "horse_name": "バルドル",
+          "rank": 9,
+          "mean_early_position": 4.25,
+          "front_good_count": 0,
+          "stamina_good_count": 2
+        },
+        {
+          "horse_no": 6,
+          "horse_name": "グランフルス",
+          "rank": 11,
+          "mean_early_position": 11.25,
+          "front_good_count": 0,
+          "stamina_good_count": 2
+        }
+      ],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/東京/9",
+      "surface": "芝",
+      "distance": 1400,
+      "current_eye": 13,
+      "candidate": 11,
+      "replacement_raw": 11,
+      "fill_null_raw": 13,
+      "candidates": [
+        {
+          "horse_no": 11,
+          "horse_name": "レオアジャイル",
+          "rank": 9,
+          "mean_early_position": 2.25,
+          "front_good_count": 2,
+          "stamina_good_count": 1
+        },
+        {
+          "horse_no": 7,
+          "horse_name": "エールトゥヘヴン",
+          "rank": 11,
+          "mean_early_position": 2.75,
+          "front_good_count": 1,
+          "stamina_good_count": 2
+        }
+      ],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/東京/10",
+      "surface": "ダート",
+      "distance": 1600,
+      "current_eye": 1,
+      "candidate": null,
+      "replacement_raw": 1,
+      "fill_null_raw": 1,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/東京/11",
+      "surface": "芝",
+      "distance": 1600,
+      "current_eye": 12,
+      "candidate": null,
+      "replacement_raw": 12,
+      "fill_null_raw": 12,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    },
+    {
+      "race": "2026-10-24/東京/12",
+      "surface": "ダート",
+      "distance": 1400,
+      "current_eye": 7,
+      "candidate": null,
+      "replacement_raw": 7,
+      "fill_null_raw": 7,
+      "candidates": [],
+      "formal_audit": "NOT_PERFORMED_COUNTERFACTUALLY"
+    }
+  ],
+  "deployment_decision": {
+    "automatic_eye_selection": "NO",
+    "optional_audit_evidence": "TEST_REQUIRED",
+    "preserve_existing_eye": true,
+    "dirt_unchanged": true,
+    "rank_top5_unchanged": true
+  },
+  "limitations": [
+    "Only 2026-10-24 immutable pre-race inputs were located; other dates not reconstructed from latest data.",
+    "Snapshots captured after FROZEN excluded even if before post time.",
+    "Candidate extraction is not the required two-independent-factor formal audit.",
+    "No forward holdout validation.",
+    "No original research extraction code/horse-level list was supplied."
+  ]
+}

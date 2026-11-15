@@ -1,0 +1,28 @@
+--- jra-claimed-mcp/index.ts
++++ jra-claimed-mcp/index.ts
+@@ -1,3 +1,4 @@
++import { safeEyeAdditionalAudit } from "./jra-eye-additional-audit.mjs";
+ import {buildOptionalSaveJraShadow,extractOfficialSaveDraft} from "./optional-atomic-shadow-save.mjs";
+ import {buildRelativeAbilityRankProposal} from "./relative-ability-rank-proposal.mjs";
+ import {buildJraClaimedDraftPreview} from "./jra-relative-draft-adapter.mjs";
+@@ -128,6 +129,9 @@
+      reason:'OPTIONAL_COURSE_ADAPTER_FAILED',score_effect:0,
+      market_used:false,target_result_used:false};
+  }
++ // BEGIN OPTIONAL EYE AUDIT
++ data.eye_additional_audit=safeEyeAdditionalAudit(data,new Date().toISOString());
++ // END OPTIONAL EYE AUDIT
+  return {content:[{type:"text",text:JSON.stringify(data)}],structuredContent:{context:data}}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
+ 
+  // Second-pass preview after the model/human has ranked ALL runners once.
+@@ -158,6 +162,10 @@
+        production_protocol_unmodified:true,
+        official_saved:false,save_authorized:false,
+        application:"PRE_FROZEN_ALTERNATIVE_RANK_PROPOSAL_ONLY"};
++     // BEGIN OPTIONAL EYE AUDIT
++     const eyeReview=safeEyeAdditionalAudit(data,new Date().toISOString(),baseline);
++     Object.assign(output,{eye_additional_audit:eyeReview});
++     // END OPTIONAL EYE AUDIT
+      return {content:[{type:"text",text:JSON.stringify(output)}],structuredContent:output};
+    }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
+  });
