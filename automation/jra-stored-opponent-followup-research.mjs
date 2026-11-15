@@ -125,14 +125,14 @@ export function attachStoredJraOpponentFollowups({index,officialRunners,liveRunn
    const x=reused.get(core);
    if(!x.verified||!x.runners.some(r=>r.horse_id===o.id))return missing('PRIOR_HORSE_RESULT_NOT_OBSERVED');
    const opponents=x.runners.filter(r=>r.horse_id!==o.id);
-   return {run_index:i,status:'STORED_OPPONENT_FOLLOWUP_REVIEW',prior_race:x.prior_race,
+   return {run_index:i,status:'STORED_OPPONENT_FOLLOWUP_REVIEW',prior_race:x.prior_race,race_core:core,race_date:run.race_date,source_ref:run.source_ref,
     observed_opponents:opponents.length,missing_prior_active_results:x.prior_missing_active_results,
     opponents_with_observed_later_results:opponents.filter(r=>r.later_observations.length).length,opponents,
     absence_is_not_no_later_run:true,automatic_score_effect:0};
   });
   runners.push({horse_no:h.horse_no,horse_id:o.id,history});
  }
- return {status:'RESEARCH_WHOLE_FIELD_OPPONENT_FOLLOWUP_REVIEW',verified:true,runners,coverage:{
+ return {status:'RESEARCH_WHOLE_FIELD_OPPONENT_FOLLOWUP_REVIEW',verified:true,as_of:index.asOf,target_race_date:index.targetRaceDate,runners,coverage:{
    reviewed_horses:runners.length,supplied_runs:runners.reduce((n,h)=>n+h.history.length,0),
    linked_prior_runs:runners.reduce((n,h)=>n+h.history.filter(r=>r.status==='STORED_OPPONENT_FOLLOWUP_REVIEW').length,0)},
    rank_effect:'NONE',market_used:false,target_result_used:false,prediction_saved:false};
