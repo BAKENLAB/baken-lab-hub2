@@ -1,0 +1,47 @@
+name: JRA JUMP isolated regression
+on:
+  push:
+    branches: [research/jra-jump-01-hub-integration]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: fixture_only
+          POSTGRES_DB: jump_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d jump_ci" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: fixture_only
+      PGDATABASE: jump_ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Native JUMP and current HUB regression
+        run: |
+          node --test automation/jra-jump-k2-adapter.test.mjs automation/jra-jump-workflow.test.mjs automation/jra-jump-hub-integration.test.mjs automation/hub-partial-visibility.test.mjs automation/hub-local-v16.test.mjs
+          node --check automation/jra-jump-official-history.mjs
+          node --check automation/jra-jump-history-reader.mjs
+          node --check automation/jra-jump-mcp-registration.mjs
+      - name: Compile candidate SQL in disposable database
+        run: |
+          test "$PGHOST" = "127.0.0.1"
+          test "$PGDATABASE" = "jump_ci"
+          psql -v ON_ERROR_STOP=1 -f research/jump/postgres-fixture-schema.sql
+          psql -v ON_ERROR_STOP=1 -f research/jump/guarded-db-draft.sql
+      - name: Real transaction integration and rejection guards
+        run: psql -v ON_ERROR_STOP=1 -f research/jump/postgres-fixture-test.sql
