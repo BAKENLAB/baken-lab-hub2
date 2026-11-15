@@ -15,6 +15,7 @@ export const PROTOCOLS = Object.freeze({
   'JRA_REBUILD_0.3_FLAT_HISTORY_20261004': Object.freeze({eyeFields:['reason'], legacy:false, top5OptionalGrade:true, runnerOptionalGrade:true}),
   'JRA_REBUILD_0.3_FLAT_HISTORY_EYE_ALLCLASS_20261004': Object.freeze({eyeFields:['concrete_upside_reason','reason'], legacy:false, top5OptionalGrade:true, runnerOptionalGrade:true}),
   'JRA_REBUILD_0.4_CONTENT_EVIDENCE_20261023': Object.freeze({eyeFields:['concrete_upside_reason','reason','comment'], legacy:false}),
+  'JRA_JUMP_0.1_K2_20261115': Object.freeze({eyeFields:['concrete_upside_reason','reason'], legacy:false}),
   // Existing API adapter for chappy_predictions, separate from official protocols.
   CHAT_PRE_RACE_LEGACY: Object.freeze({eyeFields:['reason','comment'], legacy:true})
 });
