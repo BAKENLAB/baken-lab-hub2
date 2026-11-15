@@ -14,8 +14,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: denoland/setup-deno@v2
+      - uses: actions/setup-node@v4
         with:
-          deno-version: v2.5.6
+          node-version: '22'
+      - name: Prepare isolated parser dependency
+        run: |
+          mkdir -p "$RUNNER_TEMP/jump-smoke"
+          npm install --prefix "$RUNNER_TEMP/jump-smoke" --ignore-scripts --no-audit --no-fund --save-exact cheerio@1.0.0
+          cp automation/jra-jump-official-smoke.mjs automation/jra-jump-program-reader.mjs automation/jra-jump-official-history.mjs "$RUNNER_TEMP/jump-smoke/"
+          sed -i "s|npm:cheerio@1.0.0|cheerio|" "$RUNNER_TEMP/jump-smoke/jra-jump-official-smoke.mjs"
       - name: Historical official program and one result only
-        run: deno run --node-modules-dir=auto --allow-net=www.jra.go.jp --allow-env=NODE_V8_COVERAGE --allow-read automation/jra-jump-official-smoke.mjs
+        run: |
+          cd "$RUNNER_TEMP/jump-smoke"
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node jra-jump-official-smoke.mjs
