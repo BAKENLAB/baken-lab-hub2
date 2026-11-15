@@ -28,7 +28,8 @@ DECLARE
   v_key text;
 BEGIN
   IF current_user <> 'service_role' THEN RAISE EXCEPTION 'JUMP_SERVICE_ROLE_REQUIRED'; END IF;
-  IF jsonb_typeof(p_proof) <> 'object' THEN RAISE EXCEPTION 'JRA_VERIFIED_PROOF_REQUIRED'; END IF;
+  IF (SELECT count(*) FROM public.lab_prediction_protocols WHERE protocol_key='JRA_JUMP' AND is_active=true)<>1 OR NOT EXISTS(SELECT 1 FROM public.lab_prediction_protocols WHERE protocol_key='JRA_JUMP' AND version='JRA_JUMP_0.1_K2_20261115' AND is_active=true) THEN RAISE EXCEPTION 'JUMP_PROTOCOL_INACTIVE'; END IF;
+  IF jsonb_typeof(p_proof) IS DISTINCT FROM 'object' THEN RAISE EXCEPTION 'JRA_VERIFIED_PROOF_REQUIRED'; END IF;
   v_date := (p_proof->>'race_date')::date;
   v_track := p_proof->>'track';
   v_no := (p_proof->>'race_no')::integer;
@@ -37,7 +38,8 @@ BEGIN
   v_checked := (p_proof->>'checked_at')::timestamptz;
   v_post := (p_proof->>'post_time')::timestamptz;
   v_runners := p_proof->'runners';
-  IF v_date < (v_now AT TIME ZONE 'Asia/Tokyo')::date
+  IF v_date IS NULL OR v_track IS NULL OR v_no IS NULL OR v_cname IS NULL OR v_hash IS NULL OR v_checked IS NULL OR v_post IS NULL OR v_runners IS NULL
+     OR v_date < (v_now AT TIME ZONE 'Asia/Tokyo')::date
      OR v_date > (v_now AT TIME ZONE 'Asia/Tokyo')::date + 4
      OR v_track NOT IN ('東京','京都','新潟','中山','阪神','中京','小倉','福島','札幌','函館')
      OR v_no NOT BETWEEN 1 AND 12
@@ -132,6 +134,8 @@ BEGIN
       'verified',true,'basis','JRA_OFFICIAL_CARD_FULL_NUMBERED_FIELD_V1',
       'html_sha256',v_hash,'verified_at',v_checked,
       'active_count',v_active,'runner_count',v_count));
+  v_now:=clock_timestamp();
+  IF v_post<=v_now+interval '3 minutes' THEN RAISE EXCEPTION 'JUMP_PUBLISH_CUTOFF'; END IF;
   INSERT INTO public.official_races(
     race_date,track,race_no,circuit,race_name,post_time,source,field_payload,
     field_status,field_fetched_at,updated_at)
@@ -177,6 +181,7 @@ DECLARE
   v_queued integer := 0;
 BEGIN
   IF current_user <> 'service_role' THEN RAISE EXCEPTION 'JUMP_SERVICE_ROLE_REQUIRED'; END IF;
+  IF (SELECT count(*) FROM public.lab_prediction_protocols WHERE protocol_key='JRA_JUMP' AND is_active=true)<>1 OR NOT EXISTS(SELECT 1 FROM public.lab_prediction_protocols WHERE protocol_key='JRA_JUMP' AND version='JRA_JUMP_0.1_K2_20261115' AND is_active=true) THEN RAISE EXCEPTION 'JUMP_PROTOCOL_INACTIVE'; END IF;
   -- Serialize only the interactive "next" action; never touch Cron.
   PERFORM pg_catalog.pg_advisory_xact_lock(20261017, 12701);
   v_now := clock_timestamp();
@@ -286,7 +291,7 @@ BEGIN
 END
 $function$;
 
-CREATE OR REPLACE FUNCTION public.jra_jump_save_claimed_prediction_v1(p_job_id uuid, p_protocol_version text, p_payload jsonb)
+CREATE OR REPLACE FUNCTION public.jra_jump_save_claimed_prediction_v1(p_job_id uuid, p_expected_claim_token uuid, p_protocol_version text, p_payload jsonb)
  RETURNS uuid
  LANGUAGE plpgsql
  SECURITY INVOKER
@@ -296,7 +301,7 @@ declare j public.jra_prediction_jobs; w public.jra_prediction_worker_runs; r pub
 begin
   IF current_user <> 'service_role' THEN RAISE EXCEPTION 'JUMP_SERVICE_ROLE_REQUIRED'; END IF;
   select * into j from public.jra_prediction_jobs where id=p_job_id for update;
-  if not found or j.job_status<>'CLAIMED' or j.lease_until<=v_now then raise exception 'JRA_SAVE_STALE_CLAIM'; end if;
+  if not found or j.job_status<>'CLAIMED' or j.lease_until<=v_now or p_expected_claim_token is null or j.claim_token is distinct from p_expected_claim_token then raise exception 'JRA_SAVE_STALE_CLAIM'; end if;
   select * into w from public.jra_prediction_worker_runs where id=j.worker_run_id for update;
   if not found or w.status<>'RUNNING' or w.worker_id<>'JRA_JUMP_QUEUE' or j.claimed_by<>w.worker_id then raise exception 'JRA_SAVE_RUN_INVALID'; end if;
   select * into r from public.official_races where (race_date,track,race_no,circuit)=(j.race_date,j.track,j.race_no,'JRA') for update;
@@ -399,6 +404,6 @@ REVOKE ALL ON FUNCTION public.jra_jump_publish_verified_card_v1(jsonb) FROM PUBL
 GRANT EXECUTE ON FUNCTION public.jra_jump_publish_verified_card_v1(jsonb) TO service_role;
 REVOKE ALL ON FUNCTION public.jra_jump_manual_claim_next_v1() FROM PUBLIC,anon,authenticated;
 GRANT EXECUTE ON FUNCTION public.jra_jump_manual_claim_next_v1() TO service_role;
-REVOKE ALL ON FUNCTION public.jra_jump_save_claimed_prediction_v1(uuid,text,jsonb) FROM PUBLIC,anon,authenticated;
-GRANT EXECUTE ON FUNCTION public.jra_jump_save_claimed_prediction_v1(uuid,text,jsonb) TO service_role;
+REVOKE ALL ON FUNCTION public.jra_jump_save_claimed_prediction_v1(uuid,uuid,text,jsonb) FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION public.jra_jump_save_claimed_prediction_v1(uuid,uuid,text,jsonb) TO service_role;
 COMMIT;
