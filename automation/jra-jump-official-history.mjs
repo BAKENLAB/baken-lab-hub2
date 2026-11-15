@@ -34,7 +34,12 @@ export function parseResultPage(load,html,ref){
  const distance=Number(course.replaceAll(',','').match(/(\d+)\s*メートル/)?.[1]);
  need(title&&course&&Number.isInteger(distance)&&distance>0,'RESULT_CONDITIONS');
  const jump=/障害|ジャンプ|J[・.･]?G[ⅠⅡⅢI123]/i.test(title+' '+cls+' '+course);
- if(!jump){need(/芝|ダート/.test(course),'RESULT_SURFACE');return {...expected,jump:false,source_ref:ref}}
+ if(!jump){
+  need(/芝|ダート/.test(course),'RESULT_SURFACE');
+  const t=$('table.basic.narrow-xy.striped').first(),places=t.find('tbody tr .place').toArray().map(el=>clean($(el).text()));
+  need(t.length&&places.length>=2&&places.some(x=>x==='1'),'FLAT_FINAL_RESULT');
+  return {...expected,jump:false,source_ref:ref};
+ }
  const class_name=/未勝利/.test(title+' '+cls)?'未勝利':/オープン|ジャンプ|大障害|J[・.･]?G/i.test(title+' '+cls)?'オープン':null;
  need(class_name,'RESULT_CLASS');
  const table=$('table.basic.narrow-xy.striped').first(),rows=table.find('tbody tr').toArray();
@@ -51,20 +56,24 @@ export function parseResultPage(load,html,ref){
   return {horse_id,horse_no,jockey,finish,result_status,final_turn_pos,secs};
  });
  need(new Set(all.map(r=>r.horse_no)).size===all.length&&new Set(all.map(r=>r.horse_id)).size===all.length,'RESULT_DUPLICATE');
+ need(all.map(r=>r.horse_no).sort((a,b)=>a-b).every((n,i)=>n===i+1),'RESULT_NUMBER_COVERAGE');
  const winners=all.filter(r=>r.finish===1);need(winners.length>=1,'RESULT_WINNER');
  const win=Math.min(...winners.map(r=>r.secs));
  const field_size=all.length;
- return {...expected,jump:true,class_name,distance,source_ref:ref,rows:all.filter(r=>r.result_status!=='NOT_STARTED').map(r=>{need(r.finish===null||r.secs>=win,'RESULT_NEGATIVE_GAP');return {...r,field_size,verified:true,race_type:'障害',race_date:expected.race_date,track:expected.track,class_name,distance,source_ref:ref,gap_seconds:r.secs===null?null:Math.round((r.secs-win)*10)/10}})};
+ return {...expected,jump:true,class_name,distance,source_ref:ref,registered_count:all.length,not_started_count:all.filter(r=>r.result_status==='NOT_STARTED').length,rows:all.filter(r=>r.result_status!=='NOT_STARTED').map(r=>{need(r.finish===null||r.secs>=win,'RESULT_NEGATIVE_GAP');return {...r,field_size,verified:true,race_type:'障害',race_date:expected.race_date,track:expected.track,class_name,distance,source_ref:ref,gap_seconds:r.secs===null?null:Math.round((r.secs-win)*10)/10}})};
 }
 export function makeJraResultCollector({load,fetcher=fetch,maxRequests=240,expectedMeetingsReader}){
  need(typeof load==='function'&&typeof expectedMeetingsReader==='function','CALENDAR_DEPENDENCIES');
  let requests=0;
- async function read(cname,post=true){
+ async function read(cname,post=true,withProof=false){
   need(++requests<=maxRequests,'REQUEST_BUDGET');
   need(/^pw01(?:skl|srl|sde)[0-9A-Za-z]+\/[0-9A-F]{2}$/i.test(cname),'SOURCE_REF');
-  const res=await fetcher(post?BASE:BASE+'?CNAME='+encodeURIComponent(cname),{method:post?'POST':'GET',...(post?{body:'cname='+encodeURIComponent(cname)}:{}),headers:{'Content-Type':'application/x-www-form-urlencoded','Accept-Language':'ja','Cache-Control':'no-cache'},redirect:'error'});
+  const res=await fetcher(post?BASE:BASE+'?CNAME='+encodeURIComponent(cname),{method:post?'POST':'GET',...(post?{body:'cname='+encodeURIComponent(cname)}:{}),headers:{'Content-Type':'application/x-www-form-urlencoded','Accept-Language':'ja','Cache-Control':'no-cache'},redirect:'error',signal:AbortSignal.timeout(20000)});
   need(res.ok,'OFFICIAL_HTTP');const bytes=new Uint8Array(await res.arrayBuffer());need(bytes.length>400&&bytes.length<4000000,'OFFICIAL_PAGE_SIZE');
-  return new TextDecoder('shift_jis').decode(bytes);
+  const html=new TextDecoder('shift_jis').decode(bytes);
+  if(!withProof)return html;
+  const digest=new Uint8Array(await crypto.subtle.digest('SHA-256',bytes));
+  return {html,html_sha256:Array.from(digest,x=>x.toString(16).padStart(2,'0')).join(''),fetched_at:new Date().toISOString(),source_url:BASE+'?CNAME='+encodeURIComponent(cname)};
  }
  const unique=x=>[...new Set(x)];
  async function calendar(from,to){
@@ -86,5 +95,5 @@ export function makeJraResultCollector({load,fetcher=fetch,maxRequests=240,expec
   }
   return {rows:verifyCalendar(refs,expected.meetings,from,to),source_ref:expected.source_ref,from,to};
  }
- return {calendar,async result(cname,asOf){const r=resultIdentity(cname);need(r&&r.race_date<asOf,'ASOF_RESULT');return parseResultPage(load,await read(cname,false),cname)},requests:()=>requests};
+ return {calendar,async result(cname,asOf){const r=resultIdentity(cname);need(r&&r.race_date<asOf,'ASOF_RESULT');const {html,...proof}=await read(cname,false,true);return {...parseResultPage(load,html,cname),official_proof:{...proof,parser_version:'JUMP_RESULT_V2'}}},requests:()=>requests};
 }
