@@ -1,0 +1,19 @@
+name: JRA JUMP official source smoke
+on:
+  push:
+    branches: [research/jra-jump-01-hub-integration]
+    paths: ['automation/jra-jump-official-smoke.mjs','automation/jra-jump-program-reader.mjs','automation/jra-jump-official-history.mjs','.github/workflows/jra-jump-source-smoke.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  official-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.5.6
+      - name: Historical official program and one result only
+        run: deno run --allow-net=www.jra.go.jp --allow-read automation/jra-jump-official-smoke.mjs
