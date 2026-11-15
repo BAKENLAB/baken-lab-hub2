@@ -1,0 +1,39 @@
+name: JRA JUMP missing history verified acquisition
+on:
+  push:
+    branches: [research/jra-jump-01-hub-integration]
+    paths: ['.github/workflows/jra-jump-missing-history.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: jump-missing-history-readonly
+  cancel-in-progress: false
+jobs:
+  verified-days:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare isolated dependency and read-only scripts
+        run: |
+          mkdir -p "$RUNNER_TEMP/jump-period"
+          npm install --prefix "$RUNNER_TEMP/jump-period" --ignore-scripts --no-audit --no-fund --save-exact cheerio@1.0.0
+          cp automation/jra-jump-missing-period-audit.mjs automation/jra-jump-program-reader.mjs automation/jra-jump-official-history.mjs automation/jra-jump-verified-cache.mjs research/jump/missing-history-seeds-20261115.mjs "$RUNNER_TEMP/jump-period/"
+      - name: Acquire and independently verify each historical day
+        run: |
+          cd "$RUNNER_TEMP/jump-period"
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node jra-jump-missing-period-audit.mjs
+      - name: Retain verified daily evidence and explicit incomplete index
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jump-missing-history-evidence
+          path: ${{ runner.temp }}/jump-period/jump-history-evidence/
+          if-no-files-found: error
+          retention-days: 60
