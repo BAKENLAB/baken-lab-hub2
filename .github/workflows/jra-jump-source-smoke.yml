@@ -2,14 +2,14 @@ name: JRA JUMP official source smoke
 on:
   push:
     branches: [research/jra-jump-01-hub-integration]
-    paths: ['automation/jra-jump-official-smoke.mjs','automation/jra-jump-program-reader.mjs','automation/jra-jump-official-history.mjs','.github/workflows/jra-jump-source-smoke.yml']
+    paths: ['automation/jra-jump-official-day-audit.mjs','automation/jra-jump-official-smoke.mjs','automation/jra-jump-program-reader.mjs','automation/jra-jump-official-history.mjs','.github/workflows/jra-jump-source-smoke.yml']
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   official-readonly:
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,9 +21,14 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/jump-smoke"
           npm install --prefix "$RUNNER_TEMP/jump-smoke" --ignore-scripts --no-audit --no-fund --save-exact cheerio@1.0.0
-          cp automation/jra-jump-official-smoke.mjs automation/jra-jump-program-reader.mjs automation/jra-jump-official-history.mjs "$RUNNER_TEMP/jump-smoke/"
+          cp automation/jra-jump-official-smoke.mjs automation/jra-jump-program-reader.mjs automation/jra-jump-official-history.mjs automation/jra-jump-official-day-audit.mjs "$RUNNER_TEMP/jump-smoke/"
           sed -i "s|npm:cheerio@1.0.0|cheerio|" "$RUNNER_TEMP/jump-smoke/jra-jump-official-smoke.mjs"
       - name: Historical official program and one result only
         run: |
           cd "$RUNNER_TEMP/jump-smoke"
           env -i PATH="$PATH" HOME="$RUNNER_TEMP" node jra-jump-official-smoke.mjs
+
+      - name: Single previous day completeness audit
+        run: |
+          cd "$RUNNER_TEMP/jump-smoke"
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node jra-jump-official-day-audit.mjs
