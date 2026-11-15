@@ -48,3 +48,6 @@ jobs:
           psql -v ON_ERROR_STOP=1 -f research/jump/history-cache-draft.sql
       - name: Real transaction integration and rejection guards
         run: psql -v ON_ERROR_STOP=1 -f research/jump/postgres-fixture-test.sql
+
+      - name: Cache persistence and role isolation
+        run: psql -v ON_ERROR_STOP=1 -f research/jump/history-cache-fixture-test.sql
