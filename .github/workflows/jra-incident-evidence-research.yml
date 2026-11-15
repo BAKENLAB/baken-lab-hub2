@@ -1,0 +1,31 @@
+name: JRA incident evidence isolated research
+on:
+  push:
+    branches: [feature/jra-official-incident-evidence-20261115]
+  pull_request:
+    paths:
+      - 'automation/jra-official-incident-*.mjs'
+      - 'automation/jra-official-stewards-incident-link.mjs'
+      - 'research/jra-official-incident-*.test.*'
+      - 'research/jra-official-stewards-incident-link.test.mjs'
+      - '.github/workflows/jra-incident-evidence-research.yml'
+permissions:
+  contents: read
+jobs:
+  isolated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Isolated incident parser and identity tests
+        run: node --test research/jra-official-incident-evidence.test.mjs research/jra-official-stewards-incident-link.test.mjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: HTML fixture and bounded public archive probe (no database access)
+        env:
+          JRA_INCIDENT_LIVE_PROBE: '1'
+        run: deno test --allow-env=JRA_INCIDENT_LIVE_PROBE --allow-net=www.jra.go.jp research/jra-official-incident-live-probe.test.ts
