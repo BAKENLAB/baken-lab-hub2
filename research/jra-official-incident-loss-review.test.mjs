@@ -82,3 +82,20 @@ test('wrong horse, late cutoff, wrong race or future subsequent result cannot be
   assert.equal(v.race_lap_observation.race_first_600m,34);
  }
 });
+
+
+test('direct comparison matches exact historical identity across the full current field',()=>{
+ const a=args(),second={...h,horse_no:8,horse_name:'試験B',horse_ref:'/JRADB/accessU.html?CNAME=pw01dud102023106608/A1'};
+ a.officialRunners.push(second);
+ a.deepHistory.runner_history.push({horse_no:8,horse_name:second.horse_name,past_runs:[{...run,finish:2}]});
+ a.incidentReview.runners.push({horse_no:8,horse_id:'2023106608',history:[]});
+ const x=review(a);assert.equal(x.coverage.active_runners,2);assert.equal(x.coverage.direct_comparison_pairs,1);
+ assert.equal(x.direct_comparisons[0].earlier_finisher,8);
+ assert.equal(x.direct_comparisons[0].reversal_possible,'NOT_ESTABLISHED');
+ assert.equal(x.direct_comparisons[0].auto_score_effect,0);
+ a.deepHistory.runner_history[1].past_runs[0].historical_source_ref=ref.replace('/BF','/AA');
+ assert.equal(review(a).coverage.direct_comparison_pairs,0);
+ a.deepHistory.runner_history[1].past_runs[0].historical_source_ref=ref;
+ a.deepHistory.runner_history[1].past_runs[0].distance=1400;
+ assert.equal(review(a).coverage.direct_comparison_pairs,0);
+});
