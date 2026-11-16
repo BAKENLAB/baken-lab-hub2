@@ -290,3 +290,34 @@ test('display proxy preserves partial flag but no EYE audit when abstained',asyn
  const v=displayPrediction({payload:{...kan8,eye:null,audit:{...kan8.audit,partial_coverage:true}}});
  assert.deepEqual(v.payload.audit,{partial_coverage:true});
 });
+
+
+test('current audited LOCAL note leads with the recorded judgment rather than five runs',()=>{
+ const r={horse_no:6,rank:1,reason:'10/30大井稍重1200m C3一二勝利1:14.4・上がり37.4、10/6良1200m C3一等勝利1:14.3。9/17不良1200m5着0.7差、9/3良5着0.4差、8/17重8着。近2走の同距離連勝を評価するがC2再昇級と重馬場での再現性が課題。 個別不利・全ラップ・対戦相手後続実績は未確認。 通過順未取得。'};
+ const p={runners:[r],top5:[r],eye:null},snap=JSON.stringify(p);
+ assert.match(rank.headline(r,p,{}),/^近2走の同距離連勝を評価/);
+ const detail=rank.comment(r,p,{});
+ assert.match(detail,/根拠：10\/30大井稍重1200m.*10\/6良1200m/);
+ assert.match(detail,/注意：C2再昇級と重馬場/);
+ assert.doesNotMatch(detail,/個別不利|全ラップ|通過順未取得|8\/17/);
+ assert.equal(JSON.stringify(p),snap);
+});
+test('current EYE uses two recorded current factors and separates the contrary finish',()=>{
+ const r={horse_no:6,rank:6,reason:'10/20不良1500m7着。 個別不利・全ラップ・相手後続未確認。'};
+ const eye={horse_no:6,rank:6,reason:'11/4 C1三から今回C1七への組替わり。 前走57kgから54kgへ3kg軽減。 10/20不良1500m7着'};
+ const p={runners:[r],top5:[],eye,audit:{eye_positive_factor_audit:[{horse_no:6,positive_factors:[{reason:'11/4 C1三から今回C1七への組替わり。',current_relevance:true},{reason:'前走57kgから54kgへ3kg軽減。',current_relevance:true},{reason:'除外される古い因子',current_relevance:false}]}],eye_candidate_audit:[{horse_no:6,eye_case:true,finish_path:'条件好転で巻き返せれば浮上',risk:'10/20不良1500m7着'}]}};
+ const snap=JSON.stringify(p),head=rank.headline(eye,p,{}),detail=rank.comment(eye,p,{});
+ assert.match(head,/C1三から今回C1七/);
+ assert.match(head,/57→54kg/);
+ assert.doesNotMatch(head,/7着|古い因子/);
+ assert.match(detail,/期待する走り：条件好転/);
+ assert.match(detail,/注意：10\/20不良1500m7着/);
+ assert.equal(JSON.stringify(p),snap);
+});
+test('missing narrative is not converted into unrecorded praise',()=>{
+ const r={horse_no:2,rank:3,reason:'11/3金沢1500m7着。 個別不利・全ラップ・相手後続未確認。'};
+ const p={runners:[r],top5:[r]};
+ assert.equal(rank.headline(r,p,{}),'評価の決め手は原文で確認');
+ assert.match(rank.comment(r,p,{}),/保存された評価理由：11\/3金沢1500m7着/);
+ assert.doesNotMatch(rank.comment(r,p,{}),/勝ち負け|期待|全ラップ/);
+});
