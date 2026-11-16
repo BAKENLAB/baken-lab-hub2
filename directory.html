@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b0f"><title>LAB DIRECTORY｜BAKEN LAB</title>
+<style>
+:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--bg:#090b0f;--panel:#101519;--line:#2b343a;--text:#f6f7f9;--muted:#9da7b4;--accent:#c8ff4d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);min-width:320px}main{max-width:760px;margin:auto;padding:22px 16px 40px}a{color:var(--muted);text-decoration:none}header{display:flex;justify-content:space-between;gap:10px;font-size:12px}.brand{color:var(--accent);font-weight:900;letter-spacing:.1em}h1{font-size:32px;letter-spacing:-.04em;margin:28px 0 6px}p{color:var(--muted);line-height:1.65;font-size:13px}.tag{font-size:11px;color:var(--accent);letter-spacing:.12em;font-weight:800}.panel{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:16px;margin-top:18px}.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}button,select,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#171e25;color:var(--text);padding:12px;border-radius:10px}button[aria-pressed=true]{background:var(--accent);color:#172000;font-weight:800}label{display:block;color:var(--muted);font-size:12px;margin:6px 0}input,select{width:100%;padding:13px 12px;font-size:16px;background:#0a0f13;color:var(--text);border:1px solid #46505a;border-radius:9px}input:focus,select:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.meta{font-size:12px;color:var(--muted);line-height:1.65}.results{list-style:none;padding:0;margin:10px 0}.results li{display:grid;gap:6px;grid-template-columns:minmax(0,1fr) auto;align-items:center;border-top:1px solid var(--line);padding:14px 0}.horse{font-size:17px;font-weight:800;overflow-wrap:anywhere}.details{color:var(--muted);font-size:12px;margin-top:5px}.trainer{background:transparent;border:0;text-align:left;color:var(--accent);padding:5px 0;font-size:13px;text-decoration:underline}.age{color:var(--muted);font-size:12px;white-space:nowrap}#count{font-size:13px;color:var(--accent)}#more{width:100%}footer{color:var(--muted);font-size:11px;margin-top:30px} [hidden]{display:none!important}
+</style></head><body><main>
+<header><span class="brand">BAKEN LAB｜LAB HUB</span><a href="/">← HUBへ戻る</a></header>
+<h1>LAB DIRECTORY</h1><div class="tag">JRA / BETA</div><p>馬を知る。人を知る。競馬がもっと好きになる。</p>
+<section class="panel"><div class="modes"><button id="byTrainer" aria-pressed="true">調教師から探す</button><button id="byHorse" aria-pressed="false">馬名から探す</button></div>
+<div id="trainerBox"><label for="trainer">調教師を選択</label><select id="trainer" disabled><option value="">読み込み中…</option></select></div>
+<div id="horseBox" hidden><label for="horse">馬名（一部でも検索できます）</label><input id="horse" type="search" maxlength="60" placeholder="例：カムニャック" disabled autocomplete="off"></div>
+<p class="meta" id="coverage" aria-live="polite">データを読み込んでいます…</p>
+<p class="meta">直近90日間のHUB出馬表で確認できた最後の所属です。現役登録・全管理馬の一覧ではありません。年齢は確認日当時。転厩・引退は未反映の場合があります。</p></section>
+<section class="panel"><div id="count" aria-live="polite">読み込み中…</div><ul class="results" id="results"></ul><button id="more" hidden>さらに表示</button><button id="retry" hidden>再読み込み</button></section>
+<footer>BAKEN LAB｜馬券に、理由を。</footer></main><script>
+const $=id=>document.getElementById(id), norm=v=>String(v??'').normalize('NFKC').replace(/[\s　]/g,'').toLowerCase();
+let horses=[],mode='trainer',limit=50;
+function node(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+function setMode(m){mode=m;limit=50;$('byTrainer').setAttribute('aria-pressed',String(m==='trainer'));$('byHorse').setAttribute('aria-pressed',String(m==='horse'));$('trainerBox').hidden=m!=='trainer';$('horseBox').hidden=m!=='horse';render();}
+function render(){
+ const t=$('trainer').value,q=norm($('horse').value);const rows=mode==='trainer'?(t?horses.filter(h=>h.trainer===t):[]):q?horses.filter(h=>norm(h.name).includes(q)):[];
+ $('results').replaceChildren();$('more').hidden=rows.length<=limit;
+ $('count').textContent=!horses.length?'検索データなし':mode==='trainer'&&!t?'調教師を選んでください':mode==='horse'&&!q?'馬名を入力してください':rows.length+'頭（'+Math.min(rows.length,limit)+'頭表示）';
+ if(horses.length&&((mode==='trainer'&&t)||(mode==='horse'&&q))&&!rows.length)$('count').textContent='該当馬が見つかりません（HUB収録範囲内）';
+ for(const h of rows.slice(0,limit)){
+  const li=node('li'),left=node('div'),name=node('div','horse',h.name),link=node('button','trainer',h.trainer);
+  link.type='button';link.addEventListener('click',()=>{$('trainer').value=h.trainer;setMode('trainer');$('trainer').focus();});
+  left.append(name,link,node('div','details','出馬表確認：'+h.date+' '+h.track));li.append(left,node('span','age',h.age||'年齢未確認'));$('results').append(li);
+ }
+}
+$('byTrainer').onclick=()=>setMode('trainer');$('byHorse').onclick=()=>setMode('horse');$('trainer').onchange=()=>{limit=50;render()};$('horse').oninput=()=>{limit=50;render()};$('more').onclick=()=>{limit+=50;render()};$('retry').onclick=load;
+async function load(){
+ $('retry').hidden=true;$('trainer').disabled=true;$('horse').disabled=true;$('coverage').textContent='データを読み込んでいます…';
+ try{
+  const r=await fetch('/api/lab-directory',{cache:'no-store'});if(r.status===401)throw Error('ログインが必要です。HUBから開き直してください。');
+  const data=await r.json();if(!r.ok||!data.ok||!Array.isArray(data.horses))throw Error('データが取得できませんでした。');
+  horses=data.horses.filter(h=>typeof h.name==='string'&&typeof h.trainer==='string'&&typeof h.date==='string');const trainers=[...new Set(horses.map(h=>h.trainer))].sort((a,b)=>a.localeCompare(b,'ja'));$('trainer').replaceChildren(new Option('調教師を選ぶ',''),...trainers.map(t=>new Option(t,t)));$('trainer').disabled=false;$('horse').disabled=false;
+  $('coverage').textContent='収録：'+horses.length.toLocaleString('ja-JP')+'頭 / '+trainers.length+'調教師　'+(data.observed_from||'—')+'〜'+(data.observed_to||'—');render();
+ }catch(e){horses=[];$('results').replaceChildren();$('more').hidden=true;$('count').textContent=e.message||'読込エラー';$('coverage').textContent='取得できていません。';$('retry').hidden=false;}
+}load();
+</script></body></html>
