@@ -1,0 +1,35 @@
+✔ Official horse ID handles 00 vs 10 prefix without name-only join (2.008357ms)
+✔ Official source ref whitelist rejects non-JRA (0.220941ms)
+✔ Exact tuple matched but not promoted to frozen attestation (0.959994ms)
+✔ Ambiguous source rejected (0.219514ms)
+✔ Reject horse_id (0.54042ms)
+✔ Reject name (0.372776ms)
+✔ Reject horse_no (0.232681ms)
+✔ Reject finish (0.148798ms)
+✔ Reject final3f (0.359807ms)
+✔ Reject field (0.374529ms)
+✔ Reject cutoff (0.506485ms)
+✔ Reject date (0.313407ms)
+✔ Missing race type is not inferred from turf (0.37104ms)
+✔ Cross-source conflicting race types rejected (0.302835ms)
+✔ Incomplete final3f field not accepted (0.237674ms)
+✔ 15 budgets sum100 and 38 unique acquisition routes (0.21554ms)
+✔ Missing is [0,100], no redistribution or fake zero score (2.029644ms)
+✔ Atomic reuse suppressed; no repeated finish bonus (0.36ms)
+✔ Predeclared same-race cap (0.447035ms)
+✔ Overlapping intervals cannot generate independent rank (0.294691ms)
+✔ Disjoint intervals rank independently (0.140468ms)
+✔ Old rank/score/odds cannot change proposed claims (1.523224ms)
+✔ Unknown latest cannot fall back to older Mineta style (1.809042ms)
+✔ EYE cannot be auto selected from partial intervals/reconstruction (0.483237ms)
+✔ EYE null remains valid, not converted to rank6 selection (0.196049ms)
+✔ Future Eval cache never used (0.374028ms)
+✔ Incomplete Eval counts rejected; D never fabricated (0.274844ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 29.326347

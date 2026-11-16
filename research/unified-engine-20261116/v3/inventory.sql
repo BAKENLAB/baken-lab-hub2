@@ -1,0 +1,17 @@
+-- READ ONLY source coverage inventory, no predictions or target outcomes.
+select now() observed_at,
+ (select count(*) from public.jra_lab_races) archive_races,
+ (select count(*) from public.jra_lab_runs) archive_runs,
+ (select min(race_date) from public.jra_lab_races) archive_first_date,
+ (select max(race_date) from public.jra_lab_races) archive_last_date,
+ (select count(*) from public.jra_lab_races where race_type is not null) race_type_present,
+ (select count(*) from public.jra_lab_races where halon_times is not null) laps_present,
+ (select count(*) from public.jra_lab_races where course_layout is not null) layout_present,
+ (select count(*) from public.jra_lab_runs where horse_ref is not null) horse_ref_present,
+ (select count(*) from public.jra_lab_runs where final3f_rank is not null) relative3f_present,
+ (select min(created_at) from public.jra_lab_races) archive_created_min,
+ (select max(created_at) from public.jra_lab_races) archive_created_max,
+ (select min(source_checked_at) from public.jra_lab_races) archive_checked_min,
+ (select max(source_checked_at) from public.jra_lab_races) archive_checked_max,
+ (select max(updated_at) from public.jra_lab_races) archive_updated_max,
+ (select count(*) from public.horse_runs where track in ('東京','京都','阪神','中山','中京','新潟','福島','札幌','函館','小倉')) horse_runs_jra_track_rows;
