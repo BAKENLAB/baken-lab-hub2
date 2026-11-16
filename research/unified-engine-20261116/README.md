@@ -89,3 +89,9 @@ node research/unified-engine-20261116/run.mjs --inputs locked-inputs.json --resu
 ### 保存方式の更新
 
 46R明細は一括保存を中止し、`restoration/batches/` に5R単位（最後は1R）の10チェックポイントとして保存した。各CSVはGitHubで閲覧でき、全元データ・全監査項目はJSONコンテナから復元可能。`restoration/restore-batches.py` の欠落・重複・ハッシュ検証4件もPASS。各段階のcommitと復元手順は同フォルダのREADME／checkpoints.jsonを参照。
+
+## 第2版（みねた14項目）
+
+`mineta-integration-spec.md` @0558fe3に基づく第2版を `v2/` に実装。原子的根拠＋mechanism＋共有実走の依存性監査、全TOP5外の正式研究EYEへ拡張した。37＋6＝43 PASS／0 FAIL、保存済み46R・623頭を1組最大5Rの10コミットで検証。38項目×623頭＝23,674件を記録した。
+
+配点未承認と資料欠損のため、新エンジンの点数・順位・EYE変動、捕捉増減は未測定。旧87→92は基準の再現のみ。詳細・カバレッジ・チェックポイントは `v2/README.md` と `v2/validation/summary.json` を参照。本番変更なし。

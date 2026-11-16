@@ -1,0 +1,18 @@
+import {readFileSync,writeFileSync} from 'node:fs';import {gunzipSync} from 'node:zlib';import {verifyBatch} from './verify-batch.mjs';import {VERSION,SPEC_COMMIT} from './conditions.mjs';
+const dir=new URL('validation/',import.meta.url),checks=[],reports=[],locks=[],raceIds=new Set(),styles={FRONT:0,SEMI:0,MID:0,REAR:0,UNKNOWN:0},coverage={};
+for(let no=1;no<=10;no++){checks.push(verifyBatch(no));const stem='batch-'+String(no).padStart(2,'0'),read=ext=>JSON.parse(readFileSync(new URL(stem+ext,dir)));const r=read('.summary.json'),l=read('.selection-lock.json');reports.push(r);locks.push(l);
+ for(const x of l.race_results){if(raceIds.has(x.race_id))throw Error('DUPLICATE_RACE');raceIds.add(x.race_id);for(const [k,n] of Object.entries(x.recorded_style_counts))styles[k]+=n;}
+ for(const [id,c] of Object.entries(r.condition_coverage)){const a=coverage[id]??={rows:0,observed_matched:0,available:0};for(const k of Object.keys(a))a[k]+=c[k];}
+ const box=read('.audit.payload.json'),p=JSON.parse(gunzipSync(Buffer.from(box.data,'base64')));if(p.audit.length!==r.horses*38)throw Error('AUDIT_COUNT');
+}
+const horses=reports.reduce((n,r)=>n+r.horses,0),auditItems=reports.reduce((n,r)=>n+r.audit_items,0);if(raceIds.size!==46||horses!==623||auditItems!==23674)throw Error('COHORT_INCOMPLETE');
+const legacy={};for(const field of ['old_captures','captures','new_captures','lost_captures','leader_wins','leader_top3','condition_eligible_horses','score_changed_horses','rank_changed_horses','eye_changed_races'])legacy[field]=reports.reduce((n,r)=>n+r.legacy_reference[field],0);
+const log=(name)=>readFileSync(new URL(name,import.meta.url),'utf8');const stats=(name)=>{const text=log(name),pass=Number(text.match(/ℹ pass (\d+)/)?.[1]),fail=Number(text.match(/ℹ fail (\d+)/)?.[1]);if(!Number.isFinite(pass)||fail!==0)throw Error('TEST_ARTIFACT_NOT_PASS');return {pass,fail}};const unit=stats('test-results.txt'),pipeline=stats('batch-test-results.txt');
+const summary={version:VERSION,spec_commit:SPEC_COMMIT,status:'SPEC_IMPLEMENTED_REAL_SCORING_AND_FORMAL_EYE_BLOCKED',batches:10,races:46,horses,audit_items:auditItems,mineta_items:14*horses,legacy_reference:legacy,
+ recorded_corner_style_counts:styles,verified_latest_flat_styles:reports.reduce((n,r)=>n+r.style_coverage,0),condition_coverage:coverage,
+ v2_metrics:{score_changed_horses:null,rank_changed_horses:null,eye_changed_races:null,new_captures:null,lost_captures:null},
+ ablation:{strict_prior_race_score:null,atomic_mechanism_score:null,status:'BLOCKED_APPROVED_RUBRIC_ABSENT'},
+ baseline_coverage_pool_horses:locks.reduce((n,l)=>n+l.race_results.reduce((s,r)=>s+r.baseline_outside_pool.length,0),0),required_pair_reviews:locks.reduce((n,l)=>n+l.race_results.reduce((s,r)=>s+r.required_pair_count,0),0),actual_formal_pair_reviews:0,
+ provenance:{classification:'PREPOST_RECONSTRUCTION_NOT_IMMUTABLE_FROZEN_INPUT',source_after_freeze_horses:605,source_inside_three_minute_cutoff_horses:9,historical_race_type_missing:true,full_career_unavailable:true,independent_holdout:false},
+ tests:{spec_unit_pass:unit.pass,spec_unit_fail:unit.fail,batch_pipeline_unit_pass:pipeline.pass,batch_pipeline_unit_fail:pipeline.fail,checkpoint_integrity_pass:checks.length},checks,production_changed:false};
+writeFileSync(new URL('summary.json',dir),JSON.stringify(summary,null,2)+'\n');writeFileSync(new URL('integrity-results.txt',dir),checks.map(c=>JSON.stringify(c)).join('\n')+'\n');console.log(JSON.stringify({races:46,horses,audit_items:auditItems,recorded_styles:styles,legacy_reference:legacy,verified_styles:summary.verified_latest_flat_styles,pool_horses:summary.baseline_coverage_pool_horses,pairs_required:summary.required_pair_reviews}));

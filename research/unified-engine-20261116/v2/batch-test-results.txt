@@ -1,9 +1,9 @@
-✔ pure Node ZIP reader validates hashes and reads at most five races (9.734327ms)
-✔ result member is requested separately and matches field size (8.384965ms)
-✔ only declared archive roles can be read (0.706309ms)
-✔ first batch selection lock, evidence hashes and all38 audit entries verify (148.313774ms)
-✔ saved source is missing race type, no verification flag was invented (5.176509ms)
-✔ existing checkpoint is immutable and rerun requires a separate output directory (1.708104ms)
+✔ pure Node ZIP reader validates hashes and reads at most five races (9.988345ms)
+✔ result member is requested separately and matches field size (7.754761ms)
+✔ only declared archive roles can be read (0.828714ms)
+✔ first batch selection lock, evidence hashes and all38 audit entries verify (76.814645ms)
+✔ saved source is missing race type, no verification flag was invented (6.010555ms)
+✔ existing checkpoint is immutable and rerun requires a separate output directory (1.977801ms)
 ℹ tests 6
 ℹ suites 0
 ℹ pass 6
@@ -11,4 +11,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 186.332716
+ℹ duration_ms 115.57804
