@@ -1,0 +1,7 @@
+{
+  "original_lock_sha256": "be09ced893def5cbc32e4d0b0e781e9fdda339f01b5edb61d6fdc235c6c09937",
+  "original_lock_bytes": 405923,
+  "decision_location": "batch-10.audit.payload.json -> decision",
+  "restore": "JSON.stringify(payload.decision,null,2) + newline; compare original_lock_sha256 before using labels",
+  "code_freeze_commit": "c1f32f04663295aeb5b072d8279cde5fff63e799"
+}
