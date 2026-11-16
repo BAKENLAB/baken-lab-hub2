@@ -1,0 +1,242 @@
+{
+  "version": "BAKEN_UNIFIED_RESEARCH_ENGINE_0.2_20261116",
+  "batch": 6,
+  "source_archive_sha256": "2e9e4cd9a9d1cd2ecae667f7c136bffd20aacb9e5a7c871fb33be316ca3426e7",
+  "source_member_sha256": "cdeeae34e605185dfacab52ac9324ea57df0dfba799d40ac632487ccb06497ad",
+  "selection_lock_sha256": "0b62f084959bd37fe6c11fbb8fe1a29fb99d9f512dabff24f2b75aef1fd29773",
+  "races": 5,
+  "horses": 57,
+  "audit_items": 2166,
+  "mineta_items": 798,
+  "style_coverage": 0,
+  "confirmed_shortage": "Stored histories lack race_type and independently certified prior source hashes; source flags are NOT auto-promoted.",
+  "v2_metrics": {
+    "score_changed_horses": null,
+    "rank_changed_horses": null,
+    "eye_changed_races": null,
+    "new_captures": null,
+    "lost_captures": null
+  },
+  "v2_status": "BLOCKED_SCORING_FORMAL_EYE_NOT_PERFORMED",
+  "dependency_ablation": {
+    "atomic_score": null,
+    "strict_score": null,
+    "status": "BLOCKED_APPROVED_RUBRIC_ABSENT"
+  },
+  "legacy_reference": {
+    "method": "USER_LEGACY_FRONT_RESEARCH_RECONSTRUCTION_NOT_FORMAL_EYE",
+    "races": 5,
+    "horses": 57,
+    "old_captures": 12,
+    "captures": 12,
+    "new_captures": 0,
+    "lost_captures": 0,
+    "leader_wins": 2,
+    "leader_top3": 5,
+    "condition_eligible_horses": 9,
+    "score_changed_horses": 6,
+    "rank_changed_horses": 8,
+    "eye_changed_races": 0,
+    "new_capture_horses": [],
+    "lost_capture_horses": []
+  },
+  "condition_coverage": {
+    "recent_form": {
+      "rows": 57,
+      "observed_matched": 53,
+      "available": 57
+    },
+    "same_class": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "near_distance": {
+      "rows": 57,
+      "observed_matched": 55,
+      "available": 57
+    },
+    "same_track": {
+      "rows": 57,
+      "observed_matched": 28,
+      "available": 57
+    },
+    "relative_early": {
+      "rows": 57,
+      "observed_matched": 16,
+      "available": 57
+    },
+    "front_hold": {
+      "rows": 57,
+      "observed_matched": 18,
+      "available": 57
+    },
+    "long_turf": {
+      "rows": 57,
+      "observed_matched": 17,
+      "available": 57
+    },
+    "position_gain": {
+      "rows": 57,
+      "observed_matched": 11,
+      "available": 57
+    },
+    "eval_course": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "incident": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "rival_followup": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "race_pace": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "last3f": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "stamina": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "distance_change": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "going_weather": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "carried_weight": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "body_weight": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "equipment": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "sex_age": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "jockey_trainer": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "draw_geometry": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "training": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "bloodline": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T01": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T02": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T03": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T04": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T05": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T06": {
+      "rows": 57,
+      "observed_matched": 14,
+      "available": 0
+    },
+    "mineta_T07": {
+      "rows": 57,
+      "observed_matched": 13,
+      "available": 0
+    },
+    "mineta_T08": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T09": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T10": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T11": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T12": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T13": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    },
+    "mineta_T14": {
+      "rows": 57,
+      "observed_matched": 0,
+      "available": 0
+    }
+  },
+  "events": [
+    "FEATURES_READ",
+    "SELECTION_LOCK_WRITTEN",
+    "LABELS_READ",
+    "MEASUREMENT_WRITTEN"
+  ],
+  "production_changed": false
+}
