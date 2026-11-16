@@ -1,0 +1,4 @@
+import {readFileSync,writeFileSync} from 'node:fs';import {gzipSync,gunzipSync} from 'node:zlib';import {sha} from '../v3/enrich.mjs';
+export function encode(path,value){const raw=Buffer.from(JSON.stringify(value));const p={format:'BAKEN_V4_GZIP_BASE64_V1',sha256:sha(raw),data:gzipSync(raw).toString('base64')};writeFileSync(path,JSON.stringify(p)+'\n',{flag:'wx'});return p;}
+export function decode(path){const p=JSON.parse(readFileSync(path));if(p.format!=='BAKEN_V4_GZIP_BASE64_V1')throw Error('V4_FORMAT');const raw=gunzipSync(Buffer.from(p.data,'base64'));if(sha(raw)!==p.sha256)throw Error('V4_HASH');return {...JSON.parse(raw),packet_sha256:p.sha256};}
+if(process.argv[2]==='pack'){const raw=JSON.parse(readFileSync(process.argv[3]));encode(process.argv[4],raw);console.log(JSON.stringify({path:process.argv[4]}));}
