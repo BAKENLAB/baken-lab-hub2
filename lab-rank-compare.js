@@ -213,7 +213,7 @@ function auditedEyeNote(r,p){
  if(!factors.length&&!(rr&&saved&&saved!==rawText(rr)))return null;
  // With absent audit, preserve the actual saved EYE text instead of re-parsing
  // a date-leading condition change into a finish or "summary failed."
- if(!factors.length&&!modernAudit(rawText(rr)))return null;
+ if(!modernAudit(rawText(rr)))return null;
  const head=factors.length?[...new Set(factors.map(x=>human(x.reason)))].join('。')+'。':saved;
  const lines=[head,eyeHistory(r,p,candidate)];
  if(candidate?.finish_path)lines.push('期待する走り：'+sentence(candidate.finish_path));
