@@ -160,7 +160,75 @@ function eyeSelection(r,p){
  return null; // existing narrative parser is retained for older explicit evidence notes
 }
 
+
+// Current whole-field audit notes have a stable, separately stored technical suffix.
+// Never turn a race result or a missing-data notice into a selection rationale.
+function modernSource(r,p){
+ const full=(p?.runners||[]).find(x=>Number(x.horse_no)===Number(r.horse_no))||r;
+ return rawText(full);
+}
+function modernAudit(raw){
+ return /(?:個別不利・全ラップ|通過順・個別不利・全ラップ|全ラップ・対戦相手後続実績)/.test(raw);
+}
+function human(s){
+ return String(s||'').trim().replace(/前走(\d+(?:\.\d+)?)kgから(\d+(?:\.\d+)?)kgへ(?:\d+(?:\.\d+)?kg)?軽減/g,'前走より斤量が軽くなる（$1→$2kg）')
+ .replace(/(\d+(?:\.\d+)?)kgから(\d+(?:\.\d+)?)kgへ軽減/g,'斤量が軽くなる（$1→$2kg）')
+ .replace(/同場/g,'同じ競馬場').replace(/現級/g,'今回と同じクラス').replace(/当地/g,'今回の競馬場')
+ .replace(/湿馬場/g,'水分の多い馬場').replace(/再現性/g,'同じ走りができるか')
+ .replace(/留保/g,'慎重に判断したい').replace(/反証/g,'不安材料')
+ .replace(/組替わり/g,'組の変更').replace(/組強化/g,'相手強化')
+ .replace(/(?:。|、|・|\s)+$/,'');
+}
+function sentence(s){return human(s).replace(/[。]+$/,'')+'。';}
+function modernNote(r,p){
+ const raw=modernSource(r,p);
+ if(!modernAudit(raw))return null;
+ if(isSelectedEye(r,p)){
+  const n=Number(r.horse_no),a=p?.audit||{};
+  const cand=(a.eye_candidate_audit||[]).find(x=>Number(x.horse_no)===n&&x.eye_case===true);
+  const group=(a.eye_positive_factor_audit||[]).find(x=>Number(x.horse_no)===n);
+  const factors=(group?.positive_factors||[]).filter(x=>x?.current_relevance===true&&typeof x.reason==='string'&&x.reason.trim());
+  if(!factors.length)return null;
+  const texts=[...new Set(factors.map(x=>human(x.reason)))];
+  const head=texts.map(x=>x.replace(/[。]+$/,'')).join('。')+'。';
+  const lines=[head];
+  if(cand?.finish_path)lines.push('期待する走り：'+sentence(cand.finish_path));
+  if(cand?.risk)lines.push('注意：'+sentence(cand.risk));
+  return {head,detail:lines.join('\n')};
+ }
+ // Keep only the original assessment before the common audit suffix.
+ const body=raw.split(/(?:通過順・)?個別不利・全ラップ/)[0].trim();
+ const clauses=body.split('。').map(x=>x.trim()).filter(Boolean);
+ const last=clauses[clauses.length-1]||'';
+ const riskPattern=/未確認|未取得|未経験|未検証|課題|不安|信頼度を抑|慎重|留保|根拠不足|根拠には不足|に注意|に懸念|に乏|実績なし|履歴なし|履歴がない/;
+ const evaluation=/を(?:最上位に)?評価|を重視|を上位視|を最重要視|を優先|安定性|同距離安定|近況上昇|連勝|条件緩和|組の変更|組替わり|距離戻り/;
+ const boundaries=last.split(/(?:するが|だが|も(?=[^、。]*(?:課題|不安|未確認|留保))|ただし|一方で|[、，])/).map(x=>x.trim()).filter(Boolean);
+ // Prefer the author's explicit judgment. A result by itself is not a verdict.
+ let reason=boundaries.filter(x=>evaluation.test(x)&&!riskPattern.test(x)&&!/^\d{1,2}[-/]\d{1,2}/.test(x)).pop()||'';
+ if(!reason){
+  reason=clauses.slice().reverse().find(x=>!/^(\d{1,2}[-/]\d{1,2})/.test(x)&&evaluation.test(x)&&!riskPattern.test(x))||'';
+ }
+ const risks=boundaries.filter(x=>riskPattern.test(x)&&!/^個別不利|^コース遷移/.test(x));
+ const risk=risks.length?risks.join('、'):'';
+ // If the author has not written a clear judgment, expose that fact instead of
+ // manufacturing an upbeat explanation from a win or finish position.
+ const head=reason?sentence(reason):'評価の決め手は原文で確認';
+ let lines=[head];
+ if(reason){
+  const proof=body.replace(last,'').trim();
+  const first=proof.split('。')[0]||'';
+  // Copy at most two complete evidence clauses; no re-parsing of finish ranks.
+  const evidence=first.split(/、(?=(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2}(?!\d))/).slice(0,2).join('、').replace(/。$/,'');
+  if(evidence&&evidence!==reason)lines.push('根拠：'+sentence(evidence));
+  if(risk)lines.push('注意：'+sentence(risk));
+ }else{
+  lines.push('保存された評価理由：'+body);
+ }
+ return {head,detail:lines.join('\n')};
+}
+
 function headline(r,p,race){
+ const modern=modernNote(r,p);if(modern)return modern.head;
  const eye=eyeSelection(r,p);if(eye)return compact(eye.head,400);
  const source=rawText(r);
  if(!source)return '上位評価の理由が保存されていません';
@@ -195,6 +263,7 @@ function headline(r,p,race){
  return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
+ const modern=modernNote(r,p);if(modern)return modern.detail;
  const eye=eyeSelection(r,p);if(eye)return eye.detail;
  if(!rawText(r))return '【評価理由】保存された評価理由がありません。';
  const isEye=!!p?.eye&&Number(p.eye.horse_no)===Number(r.horse_no)&&
