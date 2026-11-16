@@ -9,7 +9,7 @@ export function styleOf(corners){if(!corners?.length)return 'UNKNOWN';const m=Ma
 export function frontShare(styles){const n=styles.length,f=styles.filter(x=>x==='FRONT').length,u=styles.filter(x=>x==='UNKNOWN').length;if(!n)return {status:'UNKNOWN',matched:null};return {status:(f+u)*10<3*n?'CONFIRMED_BELOW_30':f*10>=3*n?'CONFIRMED_NOT_BELOW_30':'UNKNOWN_STRADDLES_30',matched:(f+u)*10<3*n?true:f*10>=3*n?false:null,front:f,unknown:u,active:n,lower:f/n,upper:(f+u)/n,hypothesis_threshold:'<30%',example_only_thresholds:['<40%','>50%']};}
 export function rejectOutcomeFields(input){forbidMarketsOrTargetResults(input);const visit=(x)=>{if(!x||typeof x!=='object')return;for(const [k,v] of Object.entries(x)){if(/^(target_actual_position|target_position|target_finish|current_actual_position|target_corners)$/i.test(k))throw Error('V2_TARGET_OUTCOME_FORBIDDEN');visit(v)}};visit(input);if(input.race&&['finish','corner_positions','early_pos','final_turn_pos'].some(k=>k in input.race))throw Error('V2_TARGET_OUTCOME_FORBIDDEN');}
 const asofCutoff=input=>Math.min(Date.parse(input.captured_at),Date.parse(input.race.post_time)-1);
-const availableSource=(s,input)=>sourceOK(s,asofCutoff(input));
+const availableSource=(s,input)=>Number.isFinite(asofCutoff(input))&&sourceOK(s,asofCutoff(input));
 export const atomicFact=(horse,run,field,value,verified)=>({id:'atom:'+digest([horse,run?.race_date,run?.track,run?.source_ref??run?.source?.ref,field,value]).slice(0,24),horse_id:horse,prior_key:run?[horse,run.race_date,run.track,run.source_ref??run.source?.ref].join('/'):'CURRENT_CONDITION',field,value,verified,source_ref:run?.source_ref??run?.source?.ref??null});
 const fact=atomicFact;
 const cornerFacts=(horse,run,cs,verified)=>run&&cs?cs.map((value,i)=>fact(horse,run,'corner['+i+']',value,verified)):[];
@@ -35,7 +35,7 @@ function roiTransition(pattern,input){
  return {status:'AVAILABLE',matched:pattern.prior.roi_percent<=70&&pattern.current.roi_percent>=90,primary_definition:'prior <=70%, current >=90%',alternative_definition:'prior <60%, current >=90%',alternative_match:pattern.prior.roi_percent<60&&pattern.current.roi_percent>=90,n_prior:pattern.prior.n,n_current:pattern.current.n,train_to:pattern.train_to};
 }
 export function buildMinetaFacts(input){
- rejectOutcomeFields(input);const active=input.roster.filter(h=>h.status==='ACTIVE');if(!active.length||new Set(active.map(h=>h.horse_no)).size!==active.length)throw Error('V2_ACTIVE_FIELD');
+ rejectOutcomeFields(input);if(!input?.race||!/^\d{4}-\d{2}-\d{2}$/.test(input.race.race_date)||!Number.isFinite(Date.parse(input.captured_at))||!Number.isFinite(Date.parse(input.race.post_time))||!Array.isArray(input.history)||!Array.isArray(input.roster))throw Error('V2_BAD_CONTEXT_CUTOFF');const active=input.roster.filter(h=>h.status==='ACTIVE');if(!active.length||new Set(active.map(h=>h.horse_no)).size!==active.length)throw Error('V2_ACTIVE_FIELD');
  const view=new Map(active.map(h=>[h.horse_id,priorView(input,h)])),byNo=new Map(active.map(h=>[h.horse_no,h]));const share=frontShare(active.map(h=>view.get(h.horse_id).style)),out=new Map();
  for(const h of active){
   const v=view.get(h.horse_id),r=v.observed,cs=v.corners,rows={};const set=(id,status,matched,value,evidence=[],missing=[])=>{rows['mineta_'+id]={status,matched,value,evidence,missing,automatic_points:false}};
