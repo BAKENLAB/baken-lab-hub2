@@ -18,3 +18,13 @@ Evalは既存接続器同様、競馬場・芝ダート・距離で一意なcata
 
 実装/結果/未完成項目は [VALIDATION.md](VALIDATION.md)。最新出力は `validation/type-repaired/`、初回固定試験は `validation/current/` に保持。集計と全623頭・全捕捉変化は `analysis/final/`。
 全100点能力採点や厳密発走前正式EYEが完成したとは扱わない。枠効果/騎手効果等は未採点。現状は未確定幅付き研究意思決定値、能力点はnullのまま。本番採用不可。
+
+
+集計を再現する場合は上書きを避けて別の出力先を使用する。
+
+```sh
+node research/unified-engine-20261116/v4/analyze.mjs --output-dir /tmp/v4-fresh-analysis
+node research/unified-engine-20261116/v4/package-analysis.mjs --analysis-dir /tmp/v4-fresh-analysis
+```
+
+capture-changes/blockersは圧縮payloadをGitに保存。SHA-256を検証してdecode(...).rowsで取り出す。未圧縮の同内容ファイルは集計CLIから別出力先へ生成できる。
