@@ -321,3 +321,22 @@ test('missing narrative is not converted into unrecorded praise',()=>{
  assert.match(rank.comment(r,p,{}),/保存された評価理由：11\/3金沢1500m7着/);
  assert.doesNotMatch(rank.comment(r,p,{}),/勝ち負け|期待|全ラップ/);
 });
+
+
+test('real Oi 8R: selected EYE has specific historical witness as well as condition changes',()=>{
+ const r={horse_no:2,rank:7,reason:'10/5当地良1600m C2十五等5着で⑧に0.6秒先着、10/26不良1600m C2十一等9着で⑤⑭に後着。8/13不良1600m3歳4着、9月2走6着。今回C2十三十四へ組替わり、54→52kg軽減が材料。 個別不利・全ラップ・相手後続未確認。 通過順未取得。'};
+ const eye={horse_no:2,rank:7,reason:'C2十一十二十三からC2十三十四への組替わり。 54kgから52kgへ軽減。 前走不良9着で⑤⑭に後着'};
+ const p={runners:[r],top5:[],eye,audit:{eye_positive_factor_audit:[{horse_no:2,positive_factors:[{category:'class_change',reason:'C2十一十二十三からC2十三十四への組替わり。',current_relevance:true},{category:'weight_change',reason:'54kgから52kgへ軽減。',current_relevance:true}]}],eye_candidate_audit:[{horse_no:2,eye_case:true,hidden_evidence:'10/5同距離現級5着で⑧に先着',finish_path:'軽減で同距離の内容を上回れば浮上',risk:'前走不良9着で⑤⑭に後着'}]}};
+ const before=JSON.stringify(p),detail=rank.comment(eye,p,{});
+ assert.match(detail,/根拠となる過去走：10\/5.*1600m.*5着で⑧に0.6秒先着/);
+ assert.match(detail,/54→52kg/);
+ assert.match(detail,/注意：前走不良9着/);
+ assert.match(detail,/能力の裏付けとは別/);
+ assert.doesNotMatch(detail,/評価理由の要約に失敗|具体的なレース結果の記載なし/);
+ assert.equal(JSON.stringify(p),before);
+ const stripped={...p,audit:{}},fallback=rank.comment(eye,stripped,{});
+ assert.match(fallback,/参考過去走：10\/5.*5着で⑧に0.6秒先着/);
+ assert.match(fallback,/54kgから52kgへ軽減/);
+ assert.match(fallback,/選出との結び付きは未記載/);
+ assert.doesNotMatch(fallback,/評価理由の要約に失敗|記載なし/);
+});
