@@ -28,3 +28,7 @@ node research/unified-engine-20261116/v4/package-analysis.mjs --analysis-dir /tm
 ```
 
 capture-changes/blockersは圧縮payloadをGitに保存。SHA-256を検証してdecode(...).rowsで取り出す。未圧縮の同内容ファイルは集計CLIから別出力先へ生成できる。
+
+
+採点の同一再実行には、同じ承認済みprivate Eval cacheが必要。cacheなし実行はEval未適用の別試験で、保存済み結果を再現したとは扱わない。保存済みlockからの再集計・全頭分析はprivate cacheなしで再現でき、別出力先の16ファイルSHA-256一致を確認した。
+archiveのrun-level作成/更新時計もSELECTで確認し、すべて最初の対象発走より前だった（source-time-verification.json）。これは元immutable入力の存在証明ではない。
