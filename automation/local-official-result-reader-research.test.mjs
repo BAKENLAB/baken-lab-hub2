@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createLocalResearchOfficialResultReader} from './local-official-result-reader-research.mjs';
+import {normalizeNarPastResult} from './local-full-result-evidence-research.mjs';
+const target={date:'2025-12-01',cutoff:'2025-12-01T02:00:00Z',post:'2025-12-01T03:00:00Z'};
+const now=Date.parse('2025-12-01T01:00:00Z');
+const job={priorRace:{raceDate:'2025-11-25',track:'高知',raceNo:2},url:'https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=31&k_raceDate=2025%2F11%2F25&k_raceNo=2'};
+const parseTable=()=>({heading:'2025年11月25日 高知 第2競走 競走成績',headers:['着順','馬番','馬名','タイム'],rows:[{cells:['1','1','テストA','1:32.0']},{cells:['2','2','テストB','1:32.5']}]});
+const response=(url,overrides={})=>({ok:true,url,redirected:false,headers:{get:k=>k==='content-type'?'text/html':null},body:new Response('<html>fixture</html>').body,...overrides});
+const make=(overrides={})=>createLocalResearchOfficialResultReader({target,parseTable,normalizeResult:normalizeNarPastResult,fetchImpl:async url=>response(url),clock:()=>now,perPageMs:50,...overrides});
+test('bounded reader feeds normalizer without pretending full roster',async()=>{const p=await make()(job,{deadlineMs:now+1000});assert.equal(p.records[1].winner_gap_seconds,0.5);assert.equal(p.roster_status,'UNVERIFIED_OR_PARTIAL');assert.equal(p.rank_authorized,false)});
+test('reject wrong source, target date and deadline',async()=>{await assert.rejects(make()({...job,url:'https://example.com'},{deadlineMs:now+1000}),/SOURCE_RACE_MISMATCH/);await assert.rejects(make()({...job,priorRace:{...job.priorRace,raceDate:target.date}},{deadlineMs:now+1000}),/NOT_VERIFIED_PAST_RACE/);await assert.rejects(make()(job,{deadlineMs:now}),/SOURCE_DEADLINE/)});
+test('reject redirect, denied response and non HTML',async()=>{for(const [override,pattern] of [[{redirected:true},/UNEXPECTED_SOURCE_URL/],[{ok:false},/OFFICIAL_RESULT_UNAVAILABLE/],[{headers:{get:()=> 'application/json'}},/NOT_HTML/]])await assert.rejects(make({fetchImpl:async url=>response(url,override)})(job,{deadlineMs:now+1000}),pattern)});
+test('enforce actual content size and stalled source timeout',async()=>{await assert.rejects(make({byteLimit:128,fetchImpl:async url=>response(url,{body:new Response(new Uint8Array(129)).body})})(job,{deadlineMs:now+1000}),/RESULT_TOO_LARGE/);await assert.rejects(make({perPageMs:10,fetchImpl:()=>new Promise(()=>{})})(job,{deadlineMs:now+1000}),/SOURCE_TIMEOUT/)});
