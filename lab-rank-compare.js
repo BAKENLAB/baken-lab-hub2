@@ -89,7 +89,7 @@ function dissect(r){
    if(!text||(/^過去走は複数/.test(text)&&!/\d{1,2}着/.test(text)))continue;
    if(cautionIntro){risks.push(text);continue;}
    // Split at a true risk clause, not at every comma between race records.
-   let pair=text.match(/^(.+?)[、，]\s*(.+(?:反証|未検証|未実証|未確認|未知|不安|大敗|低調|不足).*)$/);
+   let pair=text.match(/^(.+?)[、，]\s*(.+(?:反証|未検証|未実証|未確認|未知|不安|大敗|低調|不足|課題).*)$/);
    if(pair&&!riskWords.test(pair[1])&&!/^\s*\d{1,2}[-/]\d{1,2}/.test(pair[1])){
     if(positiveWords.test(pair[1]))strengths.push(compact(pair[1]));
     risks.push(compact(pair[2]));continue;
@@ -108,7 +108,60 @@ function dissect(r){
  }
  return {reason:plain(reason),risk:plain(risks[0]||'')};
 }
+// EYE must use the saved selection decision, not a fresh inference from finish positions.
+function isSelectedEye(r,p){
+ return !!p?.eye&&Number(p.eye.horse_no)===Number(r.horse_no)&&
+  !(p?.top5||[]).some(x=>Number(x.horse_no)===Number(r.horse_no));
+}
+function eyeSelection(r,p){
+ if(!isSelectedEye(r,p))return null;
+ const n=Number(r.horse_no),a=p?.audit||{};
+ const candidate=(Array.isArray(a.eye_candidate_audit)?a.eye_candidate_audit:[])
+  .find(x=>Number(x.horse_no)===n&&x.eye_case===true);
+ const group=(Array.isArray(a.eye_positive_factor_audit)?a.eye_positive_factor_audit:[])
+  .find(x=>Number(x.horse_no)===n);
+ const factors=[...new Set((Array.isArray(group?.positive_factors)?group.positive_factors:[])
+  .filter(x=>x?.current_relevance===true&&typeof x.reason==='string'&&x.reason.trim())
+  .map(x=>compact(x.reason,400)))];
+ const saved=rawText(p.eye);
+ if(factors.length){
+  const lines=['【EYEに選んだ理由】'+factors.join('。')+'。'];
+  if(candidate?.hidden_evidence)lines.push('【根拠となる過去走・材料】'+compact(candidate.hidden_evidence,400)+'。');
+  if(candidate?.finish_path)lines.push('【今回の好走条件】'+compact(candidate.finish_path,350)+'。');
+  if(candidate?.risk)lines.push('【不安・未確認】'+compact(candidate.risk,350)+'。');
+  if(saved&&!candidate)lines.push('【保存された補足・原文】'+saved);
+  return {head:factors.join('。'),detail:lines.join('\n')};
+ }
+ // Older payloads may contain only a separate saved EYE reason. Preserve it;
+ // a date-leading class or weight change is not a mere historical result.
+ const rr=(Array.isArray(p.runners)?p.runners:[]).find(x=>Number(x.horse_no)===n);
+ const independent=saved&&rr&&saved!==rawText(rr);
+ if(independent){
+  const parts=saved.split('。').map(x=>x.trim()).filter(Boolean);
+  const condition=parts.filter(x=>/(?:組替わり|組み替わり|相手緩和|条件好転|斤量軽減|kg(?:へ|に)?(?:\s*\d+kg)?軽減|kg減少|距離短縮|距離延長)/.test(x)&&
+   !/未確認|未検証|根拠不足|不安|不明|逆効果|効果は限定|可能性なし/.test(x));
+  const head=condition.length?condition.join('。'):'監査済みの肯定材料を表示できません。保存された選出理由の原文を確認';
+  const lines=['【EYEに選んだ理由】'+head+'。'];
+  const rest=parts.filter(x=>!condition.includes(x));
+  if(rest.length)lines.push('【保存された補足・原文】'+rest.join('。')+'。');
+  return {head,detail:lines.join('\n')};
+ }
+ // Legacy combined notes: retain the existing explicit rationale only. A
+ // generic list of poor finishes is never a positive EYE selection reason.
+ const legacy=saved?{...r,reason:saved}:r;
+ const finding=dissect(legacy),runs=getRuns(legacy);
+ if(!finding.reason||/出走記録を参照/.test(finding.reason)){
+  const head='保存された肯定材料を判別できません。選出理由の原文を確認';
+  const lines=['【EYEに選んだ理由】'+head+'。'];
+  if(saved)lines.push('【保存理由の原文】'+saved);
+  if(runs.length)lines.push('【参考過去走】'+runs.slice(0,2).map(formatRun).join('、')+'。');
+  return {head,detail:lines.join('\n')};
+ }
+ return null; // existing narrative parser is retained for older explicit evidence notes
+}
+
 function headline(r,p,race){
+ const eye=eyeSelection(r,p);if(eye)return compact(eye.head,400);
  const source=rawText(r);
  if(!source)return '上位評価の理由が保存されていません';
  const finding=dissect(r),runs=getRuns(r);
@@ -142,6 +195,7 @@ function headline(r,p,race){
  return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
+ const eye=eyeSelection(r,p);if(eye)return eye.detail;
  if(!rawText(r))return '【評価理由】保存された評価理由がありません。';
  const isEye=!!p?.eye&&Number(p.eye.horse_no)===Number(r.horse_no)&&
    !(p?.top5||[]).some(x=>Number(x.horse_no)===Number(r.horse_no));
