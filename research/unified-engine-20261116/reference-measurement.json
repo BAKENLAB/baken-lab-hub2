@@ -1,0 +1,42 @@
+{
+  "status": "UNMEASURED",
+  "reference": {
+    "surface": "芝",
+    "races": 46,
+    "horses": 623,
+    "good_horse_captures": 92,
+    "old_captures": 87,
+    "new_captures": 5,
+    "lost_captures": 0,
+    "leader_wins": 8,
+    "leader_top3": 21,
+    "period": [
+      "2026-10-17",
+      "2026-11-15"
+    ],
+    "evidence_status": "USER_REFERENCE_NOT_INDEPENDENTLY_VERIFIED",
+    "capture_definition": "TOP5_OR_EYE_TOP3_UNIQUE",
+    "required": [
+      "locked per-race pre-freeze inputs with stable horse IDs",
+      "before predictions and item-level 100-point scorecard",
+      "official final results",
+      "race membership and horse lists for old87/new92 captures",
+      "original Mineta research and approved scoring weights",
+      "private Eval input provenance (not proprietary rows in public Git)"
+    ]
+  },
+  "reason": "REFERENCE_COHORT_ARTIFACTS_NOT_FOUND",
+  "real_races_measured": 0,
+  "metrics": {
+    "condition_matches": null,
+    "score_changed_horses": null,
+    "rank_changed_horses": null,
+    "eye_changed_races": null,
+    "new_captures": null,
+    "lost_captures": null,
+    "baseline_captures": null,
+    "after_captures": null
+  },
+  "inference_uses_results": false,
+  "production_changed": false
+}
