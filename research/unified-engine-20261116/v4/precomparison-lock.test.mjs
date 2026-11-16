@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {decode} from './packet.mjs';
+test('Missing-result-name comparison fix did not change first frozen predictions',()=>{const root=new URL('validation/',import.meta.url),before=decode(new URL('precomparison-lock.payload.json',root)).decision,after=decode(new URL('current/batch-01.payload.json',root)).decision;assert.deepEqual(before.decisions,after.decisions);for(const f of ['policy.json','scoring.mjs','eye.mjs'])assert.equal(before.code_hashes[f],after.code_hashes[f]);});
