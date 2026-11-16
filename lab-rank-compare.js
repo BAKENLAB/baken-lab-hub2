@@ -180,6 +180,49 @@ function human(s){
  .replace(/(?:。|、|・|\s)+$/,'');
 }
 function sentence(s){return human(s).replace(/[。]+$/,'')+'。';}
+
+/* The selected EYE's full runner note and its own audit are distinct sources.
+   Never infer a positive past performance from a negative finish. */
+function eyeHistory(r,p,candidate){
+ const n=Number(r.horse_no);
+ const runner=(Array.isArray(p?.runners)?p.runners:[]).find(x=>Number(x.horse_no)===n);
+ const hidden=typeof candidate?.hidden_evidence==='string'?candidate.hidden_evidence.trim():'';
+ const raw=rawText(runner);
+ const past=raw.split(/(?:通過順・)?個別不利・全ラップ/)[0]
+   .split('。').flatMap(s=>s.split(/、(?=(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2}(?!\d))/))
+   .map(s=>s.trim()).filter(s=>/^(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2}(?!\d)/.test(s)&&/(?:\d{1,2}着|(?<!未)勝利|勝ち)/.test(s));
+ // Explicit hidden evidence, when supplied, is the saved reason. Otherwise show
+ // recorded history as reference only, without asserting that it justifies EYE.
+ const match=hidden.match(/(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2}(?!\d)/);
+ if(match){
+   const date=match[0].replace(/^20\d{2}[-/]/,'').replace(/-/g,'/');
+   const witness=past.find(s=>s.replace(/^20\d{2}[-/]/,'').replace(/-/g,'/').startsWith(date)&&/(?:\d{1,2}着|(?<!未)勝利|勝ち)/.test(s));
+   if(witness)return '根拠となる過去走：'+sentence(witness);
+ }
+ if(hidden&&match&&/(?:\d{1,2}着|(?<!未)勝利|勝ち|先着|上がり|通過順)/.test(hidden))return '根拠となる過去走：'+sentence(hidden);
+ if(past.length)return '参考過去走：'+sentence(past.slice(0,2).join('、'))+'（選出との結び付きは未記載）';
+ return '過去走の具体的な根拠は保存理由から確認できません。';
+}
+function auditedEyeNote(r,p){
+ if(!isSelectedEye(r,p))return null;
+ const a=p?.audit||{},n=Number(r.horse_no);
+ const candidate=(Array.isArray(a.eye_candidate_audit)?a.eye_candidate_audit:[]).find(x=>Number(x.horse_no)===n&&x.eye_case===true);
+ const group=(Array.isArray(a.eye_positive_factor_audit)?a.eye_positive_factor_audit:[]).find(x=>Number(x.horse_no)===n);
+ const factors=(Array.isArray(group?.positive_factors)?group.positive_factors:[]).filter(x=>x?.current_relevance===true&&typeof x.reason==='string'&&x.reason.trim());
+ const saved=rawText(p.eye),rr=(Array.isArray(p.runners)?p.runners:[]).find(x=>Number(x.horse_no)===n);
+ if(!factors.length&&!(rr&&saved&&saved!==rawText(rr)))return null;
+ // With absent audit, preserve the actual saved EYE text instead of re-parsing
+ // a date-leading condition change into a finish or "summary failed."
+ if(!factors.length&&!modernAudit(rawText(rr)))return null;
+ const head=factors.length?[...new Set(factors.map(x=>human(x.reason)))].join('。')+'。':saved;
+ const lines=[head,eyeHistory(r,p,candidate)];
+ if(candidate?.finish_path)lines.push('期待する走り：'+sentence(candidate.finish_path));
+ if(candidate?.risk)lines.push('注意：'+sentence(candidate.risk));
+ // A pair of condition changes is not proof of ability.
+ if(factors.length&&factors.every(x=>['class_change','weight_change','jockey_change','going_change','track_change','distance_change','draw','layoff_preparation'].includes(x.category)))lines.push('条件の変化を評価した選出。能力の裏付けとは別に判断が必要。');
+ return {head,detail:lines.join('\n')};
+}
+
 function modernNote(r,p){
  const raw=modernSource(r,p);
  if(!modernAudit(raw))return null;
@@ -228,6 +271,7 @@ function modernNote(r,p){
 }
 
 function headline(r,p,race){
+ const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.head;
  const modern=modernNote(r,p);if(modern)return modern.head;
  const eye=eyeSelection(r,p);if(eye)return compact(eye.head,400);
  const source=rawText(r);
@@ -263,6 +307,7 @@ function headline(r,p,race){
  return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
+ const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.detail;
  const modern=modernNote(r,p);if(modern)return modern.detail;
  const eye=eyeSelection(r,p);if(eye)return eye.detail;
  if(!rawText(r))return '【評価理由】保存された評価理由がありません。';
