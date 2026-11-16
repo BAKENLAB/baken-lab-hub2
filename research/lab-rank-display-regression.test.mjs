@@ -238,3 +238,55 @@ test('different class or year never becomes same-condition comparison',()=>{
  assert.doesNotMatch(rank.comparison(first,{top5:[first,second]},{}),/同条件の記録を比較/);
  assert.doesNotMatch(rank.comparison(first,{top5:[first,third]},{}),/同条件の記録を比較/);
 });
+
+
+// Actual Kanazawa 8R (2026-11-16): both positive conditions must survive
+// the display proxy, and the seventh place must stay in the risk section.
+const mystic={horse_no:6,horse_name:'ミスティックパワー',rank:6,grade:'C',reason:'11/4 C1三1400m6着、⑨と同時計で②に先着、上がり39.6。9/22 C1四1400m7着。10/20不良1500m7着で⑨に後着。今回C1七への組替わりと57→54kg軽減に注目。'};
+const eye8={horse_no:6,rank:6,horse_name:mystic.horse_name,reason:'11/4 C1三から今回C1七への組替わり。 前走57kgから54kgへ3kg軽減。 10/20不良1500m7着'};
+const kan8={runners:[mystic],top5:[],eye:eye8,audit:{partial_coverage:false,
+ eye_positive_factor_audit:[{horse_no:6,positive_factors:[
+ {category:'class_change',reason:'11/4 C1三から今回C1七への組替わり。',current_relevance:true,evidence_refs:['verified source']},
+ {category:'weight_change',reason:'前走57kgから54kgへ3kg軽減。',current_relevance:true},
+ {category:'old',reason:'古い材料',current_relevance:false}]},
+ {horse_no:2,positive_factors:[{reason:'別の馬の理由',current_relevance:true}]}],
+ eye_candidate_audit:[{horse_no:6,eye_case:true,hidden_evidence:'11/4 C1三1400mで②⑨に先着',finish_path:'斤量減で11/4の同距離内容を上回れば上位争い',risk:'10/20不良1500m7着',review_checks:{private:'large'}},
+ {horse_no:2,eye_case:false,risk:'別の馬の不安'}]}};
+test('Kanazawa 8 EYE: saved factors and risk are separate, both card and rank read the same decision',async()=>{
+ const {displayPrediction}=await import('../api/hub-data.js');
+ const p={payload:kan8,integrity:{saved:kan8,version:1}},before=JSON.stringify(p);
+ const view=displayPrediction(p),a=view.payload.audit;
+ assert.equal(a.eye_positive_factor_audit.length,1);
+ assert.equal(a.eye_positive_factor_audit[0].positive_factors.length,2);
+ assert.equal(a.eye_candidate_audit.length,1);
+ assert.equal(a.eye_candidate_audit[0].review_checks,undefined);
+ assert.equal(view.integrity.saved,undefined);
+ for(const r of [mystic,{...mystic,...eye8}]){
+  const detail=rank.comment(r,view.payload,{track:'金沢'});
+  assert.match(detail,/^【EYEに選んだ理由】11\/4 C1三から今回C1七への組替わり。前走57kgから54kgへ3kg軽減。/);
+  assert.match(detail,/【根拠となる過去走・材料】11\/4 C1三1400mで②⑨に先着/);
+  assert.match(detail,/【不安・未確認】10\/20不良1500m7着/);
+  assert.doesNotMatch(detail.split('\n')[0],/7着|出走記録を参照/);
+  assert.doesNotMatch(detail,/別の馬|古い材料/);
+ }
+ assert.equal(JSON.stringify(p),before);
+});
+test('Kanazawa 8 older stripped API: preserve two explicit conditions, no losing finish as selection reason',()=>{
+ const p={...kan8,audit:{partial_coverage:false}};
+ const got=rank.comment({...mystic,...eye8},p,{track:'金沢'});
+ assert.match(got,/組替わり。前走57kgから54kgへ3kg軽減/);
+ assert.match(got,/【保存された補足・原文】10\/20不良1500m7着/);
+ assert.doesNotMatch(got.split('\n')[0],/7着|出走記録を参照/);
+});
+test('EYE with only poor past result cannot claim this as the selection reason',()=>{
+ const r={horse_no:7,rank:7,reason:'10/20金沢1500m7着。'};
+ const p={runners:[r],top5:[],eye:r},got=rank.comment(r,p,{});
+ assert.match(got,/^【EYEに選んだ理由】保存された肯定材料を判別できません/);
+ assert.match(got,/【参考過去走】10\/20金沢1500m・7着/);
+ assert.doesNotMatch(got.split('\n')[0],/7着|出走記録を参照/);
+});
+test('display proxy preserves partial flag but no EYE audit when abstained',async()=>{
+ const {displayPrediction}=await import('../api/hub-data.js');
+ const v=displayPrediction({payload:{...kan8,eye:null,audit:{...kan8.audit,partial_coverage:true}}});
+ assert.deepEqual(v.payload.audit,{partial_coverage:true});
+});

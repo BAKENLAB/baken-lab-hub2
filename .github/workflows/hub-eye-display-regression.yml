@@ -1,0 +1,23 @@
+name: HUB EYE display regression
+on:
+  push:
+    branches: [main, 'fix/eye-saved-factors-display-20261116']
+  pull_request:
+    paths:
+      - 'lab-rank-compare.js'
+      - 'api/hub-data.js'
+      - 'today.html'
+      - 'result.html'
+      - 'research/lab-rank-display-regression.test.mjs'
+      - '.github/workflows/hub-eye-display-regression.yml'
+permissions:
+  contents: read
+jobs:
+  display-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test research/lab-rank-display-regression.test.mjs automation/hub-local-v16.test.mjs automation/hub-partial-visibility.test.mjs

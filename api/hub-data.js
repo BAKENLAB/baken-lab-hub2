@@ -7,6 +7,39 @@ export const config = { runtime: 'edge' };
 const allowed = new Set(['health','updates','lab_next','lab_jockey','lab_blood','lab_course','list','prediction','market','results']);
 const head = { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' };
 
+// A tiny authenticated view of the actual selected EYE's saved evidence.
+// Never ship the full audit, other candidates or duplicate raw receipts.
+export function displayPrediction(p) {
+  if (!p || typeof p !== 'object') return p;
+  const result = { ...p };
+  if (p.payload && typeof p.payload === 'object') {
+    const { audit, ...rest } = p.payload;
+    if (audit && typeof audit === 'object') {
+      const view = { partial_coverage: audit.partial_coverage === true };
+      const n = Number(rest.eye?.horse_no);
+      if (Number.isInteger(n) && n > 0 && !(Array.isArray(rest.top5)?rest.top5:[]).some(x=>Number(x.horse_no)===n)) {
+        const group = (Array.isArray(audit.eye_positive_factor_audit)?audit.eye_positive_factor_audit:[])
+          .find(x=>Number(x.horse_no)===n);
+        const candidate = (Array.isArray(audit.eye_candidate_audit)?audit.eye_candidate_audit:[])
+          .find(x=>Number(x.horse_no)===n&&x.eye_case===true);
+        const safe = x=>typeof x==='string'?x.slice(0,800):'';
+        if (group) view.eye_positive_factor_audit = [{horse_no:n,positive_factors:
+          (Array.isArray(group.positive_factors)?group.positive_factors:[])
+            .filter(x=>x?.current_relevance===true&&typeof x.reason==='string'&&x.reason.trim())
+            .map(x=>({category:safe(x.category),reason:safe(x.reason),current_relevance:true}))}];
+        if (candidate) view.eye_candidate_audit = [{horse_no:n,eye_case:true,
+          hidden_evidence:safe(candidate.hidden_evidence),finish_path:safe(candidate.finish_path),risk:safe(candidate.risk)}];
+      }
+      result.payload={...rest,audit:view};
+    } else result.payload={...rest};
+  }
+  if (p.integrity && typeof p.integrity === 'object') {
+    const { saved, ...receipt } = p.integrity;
+    result.integrity = receipt;
+  }
+  return result;
+}
+
 export default async function handler(request) {
   if (request.method !== 'GET') return new Response('Method not allowed', { status: 405, headers: { ...head, Allow: 'GET' } });
   const secret = process.env.LAB_HUB_SESSION_SECRET;
@@ -30,29 +63,14 @@ export default async function handler(request) {
     // 'list' duplicates each complete saved prediction in predictions[] AND races[].prediction.
     // LOCAL's 17-item EYE audit contains tens of KB per race. Once many races are
     // frozen, the uncompressed JSON crosses the original 5 MB response guard.
-    // The large audit is never rendered by TODAY / RESULT, so omit it ONLY from
-    // this authenticated DISPLAY response. The official saved payload is untouched.
+    // Keep only a compact view of the selected EYE evidence in TODAY / RESULT.
+    // The official saved payload is untouched.
     const isDisplayCollection = response.ok && (action === 'list' || action === 'results');
     const sourceMax = isDisplayCollection ? 16000000 : 5000000;
     if (data.length > sourceMax) return new Response(JSON.stringify({ok:false,error:'response_too_large'}), { status: 502, headers: { ...head, 'Content-Type': 'application/json; charset=utf-8' } });
     let outbound = data;
     if (isDisplayCollection) {
       const body = JSON.parse(data);
-      const displayPrediction = p => {
-        if (!p || typeof p !== 'object') return p;
-        const result = { ...p };
-        if (p.payload && typeof p.payload === 'object') {
-          const { audit, ...rest } = p.payload;
-          // Preserve the sole audit flag used in the TODAY UI.
-          result.payload = { ...rest, ...(audit && typeof audit === 'object'
-            ? { audit: { partial_coverage: audit.partial_coverage === true } } : {}) };
-        }
-        if (p.integrity && typeof p.integrity === 'object') {
-          const { saved, ...receipt } = p.integrity;
-          result.integrity = receipt; // Omit redundant full-payload snapshot in view only.
-        }
-        return result;
-      };
       if (action === 'list') {
         if (Array.isArray(body.predictions)) body.predictions = body.predictions.map(displayPrediction);
         if (Array.isArray(body.races)) body.races = body.races.map(r =>
