@@ -1,0 +1,23 @@
+✔ 623 stable feature rows cover 46 races and match official/frozen names (2.297865ms)
+✔ provided SQL is preserved as read-only, not silently replaced with a 41-race variant (0.501929ms)
+✔ independent JavaScript reproduces every SQL score, rank, dense rank and selection (1.468705ms)
+✔ legacy aggregate is measured as old87/new92, new5/lost0 (0.153051ms)
+✔ score/rank/EYE changes are measured independently of captures (0.165467ms)
+✔ all 623 horses receive all 25 item audit records (9.713968ms)
+✔ missing item-level scorecard and unperformed formal EYE audit are never fabricated (1.145104ms)
+✔ stored timestamps show pre-post reconstruction but not pre-freeze certification (1.486682ms)
+✔ lossless compressed audit decodes to every original audit field (215.475674ms)
+✔ snapshot file hashes and byte lengths are exact (6.925002ms)
+✔ target outcomes cannot enter a feature row (18.044077ms)
+✔ changing results cannot change prediction output (24.895451ms)
+✔ SQL expected outputs are ignored by the independent predictor (19.009445ms)
+✔ exact rational early-position ratios preserve mathematical ties (0.731867ms)
+✔ bad identity, after-post sources and duplicate labels stop the replay (31.959995ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 344.235861

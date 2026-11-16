@@ -3,7 +3,7 @@ import {validateInput,sourceOK,digest,fail,finite,meaningful,setEqual,verifyReco
 const keys=CONDITIONS.map(c=>c.id);
 const matched=(runs,p)=>runs.filter(p);
 const close=(r,margin)=>r.finish===1||(finite(r.margin_to_winner)&&r.margin_to_winner>=0&&r.margin_to_winner<=margin);
-function collect(input,v){
+export function collectConditionFacts(input,v){
  const out=new Map();const early=[];
  for(const horse of v.active){const runs=v.byHorse.get(horse.horse_id),pos=runs.filter(r=>r.early_pos!==null);early.push({id:horse.horse_id,n:pos.length,sum:pos.reduce((a,r)=>a+r.early_pos,0)});}
  const eligible=early.filter(r=>r.n>=2).sort((a,b)=>a.sum*b.n-b.sum*a.n);let dense=0,prev=null;const denseById=new Map();
@@ -73,7 +73,7 @@ function selectEye(input,rows,facts){
  return {status:'FORMALLY_REVIEWED_FILL',horse_id:id,audits:review.runners,accepted_positives:positives.get(id),comparisons:review.comparisons,reason:review.reason};
 }
 export function evaluateRace(input){
- const v=validateInput(input),facts=collect(input,v),rubric_status=rubricStatus(input,v);const audit=[],scores=[];let scoringReady=rubric_status==='READY';
+ const v=validateInput(input),facts=collectConditionFacts(input,v),rubric_status=rubricStatus(input,v);const audit=[],scores=[];let scoringReady=rubric_status==='READY';
  const reviews=Array.isArray(input.reviews)?input.reviews:[];
  if(rubric_status==='READY'&&!setEqual(reviews.map(r=>r.horse_id),v.active.map(r=>r.horse_id)))scoringReady=false;
  for(const horse of v.active){

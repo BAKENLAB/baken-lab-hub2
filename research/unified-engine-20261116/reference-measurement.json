@@ -1,42 +1,34 @@
 {
-  "status": "UNMEASURED",
-  "reference": {
-    "surface": "芝",
+  "status": "LEGACY_REFERENCE_REPRODUCED_FORMAL_ENGINE_UNMEASURED",
+  "legacy": {
     "races": 46,
     "horses": 623,
-    "good_horse_captures": 92,
     "old_captures": 87,
+    "captures": 92,
     "new_captures": 5,
     "lost_captures": 0,
+    "score_changed_horses": 37,
+    "rank_changed_horses": 50,
+    "eye_changed_races": 10,
+    "condition_eligible_horses": 68,
     "leader_wins": 8,
-    "leader_top3": 21,
-    "period": [
-      "2026-10-17",
-      "2026-11-15"
+    "leader_top3": 21
+  },
+  "formal_engine": {
+    "audit_horses": 623,
+    "audit_items": 15575,
+    "condition_matches": 2035,
+    "scoring": "BLOCKED_NO_APPROVED_RUBRIC",
+    "eye": "NOT_PERFORMED"
+  },
+  "provenance": {
+    "history_sources_after_frozen": 605,
+    "history_sources_inside_three_minute_cutoff": 9,
+    "all_sources_before_post": true,
+    "fully_prefreeze_races": [
+      "2026-11-08/京都/12"
     ],
-    "evidence_status": "USER_REFERENCE_NOT_INDEPENDENTLY_VERIFIED",
-    "capture_definition": "TOP5_OR_EYE_TOP3_UNIQUE",
-    "required": [
-      "locked per-race pre-freeze inputs with stable horse IDs",
-      "before predictions and item-level 100-point scorecard",
-      "official final results",
-      "race membership and horse lists for old87/new92 captures",
-      "original Mineta research and approved scoring weights",
-      "private Eval input provenance (not proprietary rows in public Git)"
-    ]
+    "not_an_immutable_historical_snapshot": true
   },
-  "reason": "REFERENCE_COHORT_ARTIFACTS_NOT_FOUND",
-  "real_races_measured": 0,
-  "metrics": {
-    "condition_matches": null,
-    "score_changed_horses": null,
-    "rank_changed_horses": null,
-    "eye_changed_races": null,
-    "new_captures": null,
-    "lost_captures": null,
-    "baseline_captures": null,
-    "after_captures": null
-  },
-  "inference_uses_results": false,
-  "production_changed": false
+  "note": "No parameters adjusted to force92; exact user SQL + independent JS replay matched all623 rows"
 }
