@@ -1,5 +1,6 @@
 import {CONDITIONS} from '../catalog.mjs';
 import {MINETA} from '../v2/conditions.mjs';
+import {styleOf,frontShare} from '../v2/features.mjs';
 export const ROUTES=Object.freeze([...CONDITIONS.filter(c=>c.id!=='mineta'),...MINETA].map(c=>({id:c.id,source:c.source??'VERIFIED_SUPPLEMENTAL_ARTIFACT_REQUIRED',retrieval:c.id.startsWith('mineta_')?'V3 identity-anchored flat history + full target roster; licensed/market exclusions remain explicit':({eval_course:'Licensed NORMAL snapshot, count+asof+exact layout gate',incident:'Official incident source; explicit text, cutoff and hash required',rival_followup:'Direct archived prior opponents -> official followup before target; separate locked export required',training:'Official/authorized training artifact with identity/asof/hash',bloodline:'Official pedigree artifact with identity/asof/hash'}[c.id]??'Version-matched live/card attributes + unique official archive race CNAME and horse ID'),scoring_connected:['recent_form','relative_early','near_distance','same_track','last3f'].includes(c.id),status:'RESOLVER_REGISTERED_NOT_ALL_MATERIAL_ACQUIRED'})));
 if(ROUTES.length!==38||new Set(ROUTES.map(x=>x.id)).size!==38)throw Error('ROUTE_COUNT');
 const yes=x=>x!==null&&x!==undefined&&x!=='';
@@ -35,9 +36,11 @@ export function auditHorse(r,facts,raceFacts,{evalFact=null,baseline=false}={}){
  record('jockey_trainer',yes(a.jockey)&&yes(a.trainer),{jockey:a.jockey,trainer:a.trainer},null,'Names never imply preference or ability points.');
  record('draw_geometry',false,null,null,yes(a.draw)?'Official draw acquired; first-turn/start-surface effect source missing.':'Draw and verified course geometry missing.');
  record('training',false,null,null,'Verified training artifact absent.');record('bloodline',false,null,null,'Identity-anchored verified pedigree source absent.');
- record('mineta_T01',latest?.match_status==='MATCHED'&&latest.evaluation_eligible&&latest.positions_verified&&latest.baseline.early_pos>=1,{early:latest?.baseline.early_pos,field:latest?.baseline.field_size},null,'Latest history only: never replace unknown latest with an older favorable run.');
- record('mineta_T02',raceFacts.latestComplete,raceFacts.frontShare,null,'Whole ACTIVE roster latest flat running styles required.');
- record('mineta_T03',raceFacts.latestComplete,{literal_previous:raceFacts.styles.get(r.horse_no-1)??null,literal_next:raceFacts.styles.get(r.horse_no+1)??null},raceFacts.latestComplete?raceFacts.styles.get(r.horse_no-1)==='FRONT'&&raceFacts.styles.get(r.horse_no+1)==='FRONT':null,'Literal horse numbers only; missing adjacent number is not a replacement neighbor.');
+ const currentStyle=raceFacts.styles.get(r.horse_no)??'UNKNOWN';
+ record('mineta_T01',currentStyle!=='UNKNOWN',{style:currentStyle,min_corner:currentStyle!=='UNKNOWN'?Math.min(...latest.baseline.corner_positions):null},currentStyle!=='UNKNOWN'?currentStyle==='FRONT':null,'V2 styleOf: minimum ALL verified latest-flat corners, not early-position mean.');
+ record('mineta_T02',raceFacts.frontShare.unknown<raceFacts.frontShare.active,raceFacts.frontShare,raceFacts.frontShare.matched,'V2 frontShare bounds retained; unknown horses remain in denominator.');
+ const left=raceFacts.styles.get(r.horse_no-1),right=raceFacts.styles.get(r.horse_no+1),noTwo=left===undefined||right===undefined,known=![currentStyle,left,right].includes('UNKNOWN');
+ record('mineta_T03',noTwo||known,{literal_previous:left??null,literal_next:right??null,current_style:currentStyle},noTwo?false:known?currentStyle!=='FRONT'&&left==='FRONT'&&right==='FRONT':null,'Literal numbers, non-front subject; cancelled/missing neighbors never skipped.');
  record('mineta_T04',false,null,null,'Adjacent front runners are insufficient without verified draw/geometry.');
  record('mineta_T05',false,null,null,'Pre-target training-only payout cohort absent; ROI unavailable, no finish proxy presented as ROI.');
  record('mineta_T06',latest?.match_status==='MATCHED'&&latest.evaluation_eligible,{delta:latest?r.conditions.distance-latest.baseline.distance:null},latest?.match_status==='MATCHED'&&latest.evaluation_eligible?r.conditions.distance<latest.baseline.distance:null,'Shortening observed, not proof of positional reproduction.');
@@ -50,5 +53,13 @@ export function auditHorse(r,facts,raceFacts,{evalFact=null,baseline=false}={}){
  if(h.length<facts.priors.length)for(const row of out)if(needsWholeWindow.has(row.id)&&row.decision==='NOT_MATCHED'){row.decision='UNKNOWN';row.reason='NO_POSITIVE_IN_CONFIRMED_SUBSET; remaining stored priors unresolved';}
  if(out.length!==38)throw Error('AUDIT_COUNT');return out.map(x=>({...x,horse_no:r.horse_no,source_mode:baseline?'BASELINE_WITHOUT_ARCHIVE_MATCH':'IDENTITY_ANCHORED_RECONSTRUCTION',formal_audit_performed:false,history_scope:'STORED_LATEST_UP_TO_4_NOT_FULL_CAREER'}));
 }
-export function wholeRace(rows,facts){const early=new Map(),styles=new Map();for(const r of rows){const f=facts.get(r.horse_no),h=f.priors.filter(p=>p.match_status==='MATCHED'&&p.flat&&p.evaluation_eligible&&p.positions_verified&&p.baseline.early_pos>=1&&p.baseline.early_pos<=p.baseline.field_size&&p.baseline.field_size>0);if(h.length>=2)early.set(r.horse_no,h.reduce((s,p)=>s+p.baseline.early_pos/p.baseline.field_size,0)/h.length);const p=f.priors[0];if(p?.match_status==='MATCHED'&&p.evaluation_eligible&&p.positions_verified&&p.baseline.early_pos>=1)styles.set(r.horse_no,p.baseline.early_pos<=3?'FRONT':'OTHER');}
- const sorted=[...new Set(early.values())].sort((a,b)=>a-b),earlyRanks=new Map([...early].map(([no,v])=>[no,sorted.indexOf(v)+1]));return {early,earlyRanks,styles,earlyComplete:early.size===rows.length,latestComplete:styles.size===rows.length,frontShare:styles.size===rows.length?[...styles.values()].filter(s=>s==='FRONT').length/rows.length:null};}
+export function wholeRace(rows,facts){
+ const early=new Map(),styles=new Map();
+ for(const r of rows){const f=facts.get(r.horse_no),h=f.priors.filter(p=>p.match_status==='MATCHED'&&p.evaluation_eligible&&p.positions_verified&&p.baseline.early_pos>=1&&p.baseline.early_pos<=p.baseline.field_size&&p.baseline.field_size>0);
+  if(h.length>=2)early.set(r.horse_no,h.reduce((s,p)=>s+p.baseline.early_pos/p.baseline.field_size,0)/h.length);
+  const p=f.priors[0],corners=p?.baseline.corner_positions;
+  styles.set(r.horse_no,p?.match_status==='MATCHED'&&p.evaluation_eligible&&p.positions_verified&&Array.isArray(corners)&&corners.length>0&&corners.every(v=>Number.isInteger(v)&&v>=1&&v<=p.baseline.field_size)?styleOf(corners):'UNKNOWN');
+ }
+ const sorted=[...new Set(early.values())].sort((a,b)=>a-b),earlyRanks=new Map([...early].map(([no,v])=>[no,sorted.indexOf(v)+1]));
+ return {early,earlyRanks,styles,earlyComplete:early.size===rows.length,latestComplete:[...styles.values()].every(s=>s!=='UNKNOWN'),frontShare:frontShare([...styles.values()])};
+}
