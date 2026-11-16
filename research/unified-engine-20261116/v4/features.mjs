@@ -1,10 +1,10 @@
-import {enrichHorse,readPacket,sha} from '../v3/enrich.mjs';import {horseId} from '../v3/query.mjs';import {rivalsForHorse} from '../v3/supplemental.mjs';import {decode} from './packet.mjs';import {verifyEvalCache} from '../v3/eval.mjs';import {forbidMarketsOrTargetResults} from '../input.mjs';
+import {enrichHorse,readPacket,sha} from '../v3/enrich.mjs';import {horseId} from '../v3/query.mjs';import {rivalsForHorse} from '../v3/supplemental.mjs';import {decode} from './packet.mjs';import {deriveExclusiveFlat} from './type-repair.mjs';import {verifyEvalCache} from '../v3/eval.mjs';import {forbidMarketsOrTargetResults} from '../input.mjs';
 export const pick=r=>{const out=Object.fromEntries(['race_date','track','race_no','horse_no','horse_name','horse_ref','conditions','post_time','frozen_at','source_checked_at','history_updated_at','past_runs'].map(k=>[k,r[k]]));forbidMarketsOrTargetResults(out);return out;};
 export const mean=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
 export const num=x=>x!==null&&x!==undefined&&x!==''&&Number.isFinite(Number(x))?Number(x):null;
 export const age=(r,p)=>(Date.parse(r.race_date)-Date.parse(p.race_date))/86400000;
 export function recover(r,base,extra){
- const f=enrichHorse(r,base.rows),excluded=[];const priors=[...f.priors];
+ const raw=enrichHorse(r,base.rows),f={...raw,priors:raw.priors.map(deriveExclusiveFlat)},excluded=[];const priors=[...f.priors];
  for(const x of extra.rows.filter(x=>x.race_key===[r.race_date,r.track,r.race_no].join('/')&&x.horse_no===r.horse_no)){
   if(x.horse_id!==horseId(r.horse_ref)||horseId(x.horse_ref)!==x.horse_id||x.archive_horse_name!==r.horse_name||x.race_type!=='平地'||x.race_date>=r.race_date||age(r,x)>540||![x.source_checked_at,x.created_at,x.updated_at].every(t=>Number.isFinite(Date.parse(t))&&Date.parse(t)<Date.parse(r.post_time))||!Number.isInteger(x.finish)||x.finish<1||x.finish>x.field_size)throw Error('V4_ARCHIVE_IDENTITY_ASOF');
   const original=f.priors.filter(p=>p.baseline.race_date===x.race_date&&p.baseline.track===x.track&&p.baseline.source_ref?.includes(x.source_ref));

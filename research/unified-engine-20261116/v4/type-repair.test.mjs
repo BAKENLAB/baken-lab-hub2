@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {deriveExclusiveFlat} from './type-repair.mjs';
+const sample=cls=>({match_status:'MATCHED',flat:false,baseline:{race_date:'2026-08-01',finish:2,field_size:12},archive:{race_type:null,class_name:cls,full_field:true,field_rows:12,field_size:12,field_final3f_count:12,final3f:34,final3f_rank:2,calculated_final3f_rank:2}});
+for(const cls of ['1勝クラス','2勝クラス','3勝クラス'])test('Official flat-exclusive condition '+cls+' supports research derivation',()=>{const p=sample(cls),x=deriveExclusiveFlat(p);assert.equal(x.evaluation_eligible,true);assert.equal(x.flat,true);assert.equal(x.relative3f_verified,true);assert.equal(p.flat,false);assert.equal(p.archive.race_type,null);assert.equal(x.strict_frozen_input_proven,false);});
+for(const cls of ['未勝利','オープン','新馬',null])test('No unknown-type inference for '+cls,()=>{const p=sample(cls);assert.equal(deriveExclusiveFlat(p),p);});
+test('Explicit obstacle type or tuple conflict never overwritten',()=>{const p=sample('1勝クラス');p.archive.race_type='障害';assert.equal(deriveExclusiveFlat(p),p);p.archive.race_type=null;p.match_status='CONFLICT';assert.equal(deriveExclusiveFlat(p),p);});
+test('2026-only rule does not silently recertify earlier years',()=>{const p=sample('1勝クラス');p.baseline.race_date='2025-08-01';assert.equal(deriveExclusiveFlat(p),p);});
+test('Missing or invalid finish does not become good performance',()=>{const p=sample('1勝クラス');p.baseline.finish=null;assert.equal(deriveExclusiveFlat(p).evaluation_eligible,false);});

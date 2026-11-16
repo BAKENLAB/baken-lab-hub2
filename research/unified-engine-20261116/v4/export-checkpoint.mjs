@@ -1,0 +1,5 @@
+import {readFileSync,writeFileSync,existsSync} from 'node:fs';import {resolve} from 'node:path';import {sha} from '../v3/enrich.mjs';
+const n=Number(process.argv[2]),base='research/unified-engine-20261116/v4',dir=base+'/validation/current',stem='batch-'+String(n).padStart(2,'0'),lock=readFileSync(dir+'/'+stem+'.lock.json');
+const mp=dir+'/'+stem+'.lock-manifest.json',manifest={decision_sha256:sha(lock),restore:'JSON.stringify(payload.decision)+newline',scoring_policy_commit:'61d05aa38962628830515bfc6061b9d2ea0f84e7',scoring_functions_commit:'6adfd280ebdd1f198986af93c53bdcc4640d3de6',measurement_commit:'11a8a8a878ccbb31f943b2a4bf33092ecc997ed5'};
+const txt=JSON.stringify(manifest,null,2)+'\n';if(existsSync(mp)){if(readFileSync(mp,'utf8')!==txt)throw Error('MANIFEST_CONFLICT');}else writeFileSync(mp,txt,{flag:'wx'});
+const paths=[dir+'/'+stem+'.payload.json',dir+'/'+stem+'.summary.json',dir+'/'+stem+'.comparison.csv',mp],elements=paths.map(p=>({path:p,mode:'100644',type:'blob',content:readFileSync(p,'utf8')})),out='/tmp/v4-elements-'+n+'.json',s=JSON.stringify(elements);writeFileSync(out,s);console.log(JSON.stringify({path:out,chars:s.length}));
