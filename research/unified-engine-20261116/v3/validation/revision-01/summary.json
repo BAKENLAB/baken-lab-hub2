@@ -1,0 +1,592 @@
+{
+  "version": "BAKEN_UNIFIED_RESEARCH_ENGINE_0.3",
+  "spec_commit": "07ca810100f2fa180a5b3a036f2eaf61f21842db",
+  "races": 46,
+  "horses": 623,
+  "audit_items": 23674,
+  "prior_rows": 2462,
+  "matched_priors": 1739,
+  "conflicting_priors": 77,
+  "missing_priors": 646,
+  "confirmed_flat_priors": 896,
+  "verified_relative3f": 859,
+  "post_archive_prior_rows": 339,
+  "rival_followup_observations": 4777,
+  "strict_asof_attested": 0,
+  "current_history_after_reference_freeze": 605,
+  "verified_acquisition": {
+    "before_observational_available": 4361,
+    "after_available": 9857,
+    "total": 23674,
+    "before_observational_rate": 0.18421052631578946,
+    "after_acquisition_rate": 0.41636394356678214,
+    "after_excluded": 3115,
+    "after_available_among_nonexcluded": 0.4794493895617491,
+    "warning": "V2 observational and V3 cross-source gates differ; not an apples-to-apples quality/accuracy improvement claim."
+  },
+  "decision_rate": {
+    "matched": 1704,
+    "not_matched": 507,
+    "rate": 0.09339359635042663,
+    "nonexcluded_rate": 0.10754414125200643,
+    "unknown": 18348
+  },
+  "coverage": {
+    "recent_form": {
+      "rows": 623,
+      "before_available": 623,
+      "before_matched": 572,
+      "after_available": 506,
+      "after_matched": 354,
+      "after_not_matched": 2,
+      "after_unknown": 267,
+      "after_excluded": 0
+    },
+    "same_class": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 506,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "near_distance": {
+      "rows": 623,
+      "before_available": 623,
+      "before_matched": 545,
+      "after_available": 506,
+      "after_matched": 301,
+      "after_not_matched": 3,
+      "after_unknown": 319,
+      "after_excluded": 0
+    },
+    "same_track": {
+      "rows": 623,
+      "before_available": 623,
+      "before_matched": 316,
+      "after_available": 506,
+      "after_matched": 73,
+      "after_not_matched": 11,
+      "after_unknown": 539,
+      "after_excluded": 0
+    },
+    "relative_early": {
+      "rows": 623,
+      "before_available": 623,
+      "before_matched": 154,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "front_hold": {
+      "rows": 623,
+      "before_available": 623,
+      "before_matched": 165,
+      "after_available": 505,
+      "after_matched": 120,
+      "after_not_matched": 6,
+      "after_unknown": 497,
+      "after_excluded": 0
+    },
+    "long_turf": {
+      "rows": 623,
+      "before_available": 623,
+      "before_matched": 129,
+      "after_available": 506,
+      "after_matched": 249,
+      "after_not_matched": 8,
+      "after_unknown": 366,
+      "after_excluded": 0
+    },
+    "position_gain": {
+      "rows": 623,
+      "before_available": 623,
+      "before_matched": 154,
+      "after_available": 505,
+      "after_matched": 248,
+      "after_not_matched": 4,
+      "after_unknown": 371,
+      "after_excluded": 0
+    },
+    "eval_course": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "incident": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "rival_followup": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 482,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "race_pace": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 499,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "last3f": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 492,
+      "after_matched": 213,
+      "after_not_matched": 7,
+      "after_unknown": 403,
+      "after_excluded": 0
+    },
+    "stamina": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "distance_change": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 169,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "going_weather": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 562,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "carried_weight": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 623,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "body_weight": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 621,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "equipment": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 63,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "sex_age": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 623,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "jockey_trainer": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 623,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "draw_geometry": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "training": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "bloodline": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "mineta_T01": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 168,
+      "after_matched": 54,
+      "after_not_matched": 114,
+      "after_unknown": 455,
+      "after_excluded": 0
+    },
+    "mineta_T02": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 594,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "mineta_T03": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 106,
+      "after_matched": 1,
+      "after_not_matched": 105,
+      "after_unknown": 517,
+      "after_excluded": 0
+    },
+    "mineta_T04": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "mineta_T05": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "mineta_T06": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 158,
+      "after_available": 169,
+      "after_matched": 42,
+      "after_not_matched": 127,
+      "after_unknown": 454,
+      "after_excluded": 0
+    },
+    "mineta_T07": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 188,
+      "after_available": 169,
+      "after_matched": 49,
+      "after_not_matched": 120,
+      "after_unknown": 454,
+      "after_excluded": 0
+    },
+    "mineta_T08": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "mineta_T09": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 354,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 623,
+      "after_excluded": 0
+    },
+    "mineta_T10": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 0,
+      "after_excluded": 623
+    },
+    "mineta_T11": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 0,
+      "after_excluded": 623
+    },
+    "mineta_T12": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 0,
+      "after_excluded": 623
+    },
+    "mineta_T13": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 0,
+      "after_excluded": 623
+    },
+    "mineta_T14": {
+      "rows": 623,
+      "before_available": 0,
+      "before_matched": 0,
+      "after_available": 0,
+      "after_matched": 0,
+      "after_not_matched": 0,
+      "after_unknown": 0,
+      "after_excluded": 623
+    }
+  },
+  "draft_scoring": {
+    "status": "UNAPPROVED_DEVELOPMENT_SIMULATION",
+    "partially_scored_horses": 505,
+    "definitively_scored_horses": 0,
+    "definitively_ranked_horses": 0,
+    "score_changed_horses": null,
+    "rank_changed_horses": null,
+    "eye_changed_races": null,
+    "new_captures": null,
+    "lost_captures": null,
+    "formal_eye_reviews": 0,
+    "reason": "Unknown effect rules/provenance can change scores and ranks; formal whole-field EYE review not performed.",
+    "duplicate_atom_suppressed": 414,
+    "shared_race_capped": 4,
+    "cap_ablation": [
+      {
+        "cap": 15,
+        "partial_lower_bound_sum": 6644.056870849293,
+        "changed_partial_lower_bound_from_primary": 224,
+        "definitive_rank_changes": null,
+        "independent_test": false,
+        "chosen_by_outcome": false
+      },
+      {
+        "cap": 25,
+        "partial_lower_bound_sum": 7567.443604850045,
+        "changed_partial_lower_bound_from_primary": 0,
+        "definitive_rank_changes": null,
+        "independent_test": false,
+        "chosen_by_outcome": false
+      },
+      {
+        "cap": 40,
+        "partial_lower_bound_sum": 7568.905067570331,
+        "changed_partial_lower_bound_from_primary": 4,
+        "definitive_rank_changes": null,
+        "independent_test": false,
+        "chosen_by_outcome": false
+      }
+    ]
+  },
+  "legacy_reference": {
+    "old_captures": 87,
+    "captures": 92,
+    "new_captures": 5,
+    "lost_captures": 0,
+    "leader_wins": 8,
+    "leader_top3": 21,
+    "condition_eligible_horses": 68,
+    "score_changed_horses": 37,
+    "rank_changed_horses": 50,
+    "eye_changed_races": 10
+  },
+  "legacy_reference_status": "SIMPLIFIED_PREVIOUS_RESEARCH_NOT_FORMAL_EYE_NOT_V3_PERFORMANCE",
+  "unknown_reasons": {
+    "All ACTIVE horses require >=2 confirmed flat early positions.": 623,
+    "EVAL_ACQUIRED_AFTER_TARGET": 401,
+    "No explicit official incident text with pre-target provenance.": 623,
+    "Same/longer distance result alone does not establish sustained long-spurt mechanism.": 623,
+    "Distance delta observed; reproducibility needs full context.": 454,
+    "Null equipment is unknown, not no equipment.": 560,
+    "Official draw acquired; first-turn/start-surface effect source missing.": 623,
+    "Verified training artifact absent.": 623,
+    "Identity-anchored verified pedigree source absent.": 623,
+    "V2 styleOf: minimum ALL verified latest-flat corners, not early-position mean.": 455,
+    "Adjacent front runners are insufficient without verified draw/geometry.": 623,
+    "Pre-target training-only payout cohort absent; ROI unavailable, no finish proxy presented as ROI.": 623,
+    "Shortening observed, not proof of positional reproduction.": 454,
+    "Extension observed, stamina and positional suitability audited separately.": 454,
+    "Latest4 histories are not full career: first surface switch unknown.": 623,
+    "Burden comparison available; strength/reproduction not automatically positive.": 269,
+    "Literal numbers, non-front subject; cancelled/missing neighbors never skipped.": 517,
+    "REQUIRED_VERIFIED_MATERIAL_MISSING": 780,
+    "Class labels require explicit normalization/equivalence map; no class hierarchy inferred.": 117,
+    "Descriptive only, no causal improvement assumed.": 118,
+    "Direct prior opponents and first archived flat followups before target; descriptive, not causal or complete future coverage.": 141,
+    "Official complete field/laps acquired; target causal pace interpretation remains unknown.": 124,
+    "EXACT_LAYOUT_COURSE_PAIR_UNAVAILABLE": 77,
+    "TARGET_LAYOUT_NOT_VERIFIED": 145,
+    "V2 frontShare bounds retained; unknown horses remain in denominator.": 29
+  },
+  "batches": [
+    {
+      "batch": 1,
+      "races": 5,
+      "horses": 63,
+      "matched_priors": 199,
+      "conflicting_priors": 7,
+      "missing_priors": 45,
+      "confirmed_flat_priors": 105
+    },
+    {
+      "batch": 2,
+      "races": 5,
+      "horses": 71,
+      "matched_priors": 183,
+      "conflicting_priors": 11,
+      "missing_priors": 83,
+      "confirmed_flat_priors": 95
+    },
+    {
+      "batch": 3,
+      "races": 5,
+      "horses": 71,
+      "matched_priors": 208,
+      "conflicting_priors": 7,
+      "missing_priors": 65,
+      "confirmed_flat_priors": 118
+    },
+    {
+      "batch": 4,
+      "races": 5,
+      "horses": 52,
+      "matched_priors": 150,
+      "conflicting_priors": 5,
+      "missing_priors": 49,
+      "confirmed_flat_priors": 73
+    },
+    {
+      "batch": 5,
+      "races": 5,
+      "horses": 69,
+      "matched_priors": 203,
+      "conflicting_priors": 8,
+      "missing_priors": 65,
+      "confirmed_flat_priors": 92
+    },
+    {
+      "batch": 6,
+      "races": 5,
+      "horses": 57,
+      "matched_priors": 167,
+      "conflicting_priors": 9,
+      "missing_priors": 52,
+      "confirmed_flat_priors": 81
+    },
+    {
+      "batch": 7,
+      "races": 5,
+      "horses": 74,
+      "matched_priors": 193,
+      "conflicting_priors": 15,
+      "missing_priors": 88,
+      "confirmed_flat_priors": 99
+    },
+    {
+      "batch": 8,
+      "races": 5,
+      "horses": 79,
+      "matched_priors": 199,
+      "conflicting_priors": 7,
+      "missing_priors": 107,
+      "confirmed_flat_priors": 89
+    },
+    {
+      "batch": 9,
+      "races": 5,
+      "horses": 75,
+      "matched_priors": 213,
+      "conflicting_priors": 7,
+      "missing_priors": 77,
+      "confirmed_flat_priors": 120
+    },
+    {
+      "batch": 10,
+      "races": 1,
+      "horses": 12,
+      "matched_priors": 24,
+      "conflicting_priors": 1,
+      "missing_priors": 15,
+      "confirmed_flat_priors": 24
+    }
+  ],
+  "production_changed": false,
+  "save_authorized": false,
+  "independent_holdout": false
+}
