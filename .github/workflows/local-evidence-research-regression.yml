@@ -1,0 +1,23 @@
+name: LOCAL evidence research regression
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'automation/local-*-research*.mjs'
+      - '.github/workflows/local-evidence-research-regression.yml'
+permissions:
+  contents: read
+jobs:
+  local-research-tests:
+    if: github.head_ref == 'research/local-full-result-evidence-20261116' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Native Node research tests
+        run: |
+          node --version
+          node --test automation/local-full-result-evidence-research.test.mjs automation/local-race-timing-corner-research.test.mjs automation/local-field-evidence-plan-research.test.mjs automation/local-official-result-reader-research.test.mjs
