@@ -20,4 +20,4 @@ jobs:
       - name: Native Node research tests
         run: |
           node --version
-          node --test automation/local-full-result-evidence-research.test.mjs automation/local-race-timing-corner-research.test.mjs automation/local-field-evidence-plan-research.test.mjs automation/local-official-result-reader-research.test.mjs
+          node --test automation/local-full-result-evidence-research.test.mjs automation/local-race-timing-corner-research.test.mjs automation/local-field-evidence-plan-research.test.mjs automation/local-official-result-reader-research.test.mjs automation/local-16-extended-review-research.test.mjs
