@@ -1,0 +1,148 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 7,
+  "races": 5,
+  "horses": 74,
+  "supported": 67,
+  "unrated": 7,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 3,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 9,
+  "strong_captures": 10,
+  "v4_captures": 8,
+  "diagnostic_captures": 9,
+  "diagnostic_top5_hits": 9,
+  "diagnostic_eye_hits": 0,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-11-14/京都/8",
+          "horse_no": 8,
+          "horse_name": "マディソンガール",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-14/京都/10",
+          "horse_no": 2,
+          "horse_name": "レクスノヴァス",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-14/京都/12",
+          "horse_no": 13,
+          "horse_name": "ダンデノン",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-14/東京/10",
+          "horse_no": 10,
+          "horse_name": "トライアンフパス",
+          "finish": 1
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-08/京都/12",
+          "horse_no": 5,
+          "horse_name": "キシャール",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-08/京都/12",
+          "horse_no": 18,
+          "horse_name": "フロンティエール",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-14/京都/10",
+          "horse_no": 13,
+          "horse_name": "ジャスティンビスタ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-14/東京/10",
+          "horse_no": 15,
+          "horse_name": "グーテンベルク",
+          "finish": 2
+        }
+      ]
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-11-14/京都/8",
+          "horse_no": 8,
+          "horse_name": "マディソンガール",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-14/京都/10",
+          "horse_no": 2,
+          "horse_name": "レクスノヴァス",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-14/東京/10",
+          "horse_no": 10,
+          "horse_name": "トライアンフパス",
+          "finish": 1
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-08/京都/12",
+          "horse_no": 5,
+          "horse_name": "キシャール",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-08/京都/12",
+          "horse_no": 18,
+          "horse_name": "フロンティエール",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-14/京都/10",
+          "horse_no": 13,
+          "horse_name": "ジャスティンビスタ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-14/東京/10",
+          "horse_no": 15,
+          "horse_name": "グーテンベルク",
+          "finish": 2
+        }
+      ]
+    },
+    "v4": {
+      "new": [
+        {
+          "race_id": "2026-11-14/京都/10",
+          "horse_no": 2,
+          "horse_name": "レクスノヴァス",
+          "finish": 3
+        }
+      ],
+      "lost": []
+    }
+  },
+  "credited_micro": 1988926636,
+  "debited_micro": 1988926636,
+  "pair_comparisons": 249,
+  "permutation_verified_horses": 74,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "b53dcc95bd709541ba62b488223e7ebf983bc6ad8132c997d0a08eba6582a52e",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}
