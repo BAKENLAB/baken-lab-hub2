@@ -1,0 +1,148 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 2,
+  "races": 5,
+  "horses": 71,
+  "supported": 61,
+  "unrated": 10,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 4,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 7,
+  "strong_captures": 8,
+  "v4_captures": 5,
+  "diagnostic_captures": 8,
+  "diagnostic_top5_hits": 7,
+  "diagnostic_eye_hits": 1,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-10-24/東京/8",
+          "horse_no": 11,
+          "horse_name": "マテンロウオリジン",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-10-24/東京/9",
+          "horse_no": 11,
+          "horse_name": "レオアジャイル",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-25/京都/8",
+          "horse_no": 3,
+          "horse_name": "ルージュスプリヤ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-25/京都/8",
+          "horse_no": 10,
+          "horse_name": "タマモブラウンタイ",
+          "finish": 3
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-10-24/東京/8",
+          "horse_no": 5,
+          "horse_name": "アートバーゼル",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-10-25/京都/11",
+          "horse_no": 9,
+          "horse_name": "ゴーイントゥスカイ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-25/京都/11",
+          "horse_no": 10,
+          "horse_name": "ダノンヒストリー",
+          "finish": 3
+        }
+      ]
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-10-24/東京/8",
+          "horse_no": 11,
+          "horse_name": "マテンロウオリジン",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-10-24/東京/9",
+          "horse_no": 11,
+          "horse_name": "レオアジャイル",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-25/京都/8",
+          "horse_no": 3,
+          "horse_name": "ルージュスプリヤ",
+          "finish": 1
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-10-24/東京/8",
+          "horse_no": 5,
+          "horse_name": "アートバーゼル",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-10-25/京都/11",
+          "horse_no": 9,
+          "horse_name": "ゴーイントゥスカイ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-25/京都/11",
+          "horse_no": 10,
+          "horse_name": "ダノンヒストリー",
+          "finish": 3
+        }
+      ]
+    },
+    "v4": {
+      "new": [
+        {
+          "race_id": "2026-10-24/東京/8",
+          "horse_no": 11,
+          "horse_name": "マテンロウオリジン",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-10-25/京都/7",
+          "horse_no": 2,
+          "horse_name": "ダイチノナポリ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-10-25/京都/8",
+          "horse_no": 3,
+          "horse_name": "ルージュスプリヤ",
+          "finish": 1
+        }
+      ],
+      "lost": []
+    }
+  },
+  "credited_micro": 1838556608,
+  "debited_micro": 1838556608,
+  "pair_comparisons": 218,
+  "permutation_verified_horses": 71,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "52815053394bbd094f6ebd73885b5a53e0c1ac4eadf88fb188888976ed4105b9",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}
