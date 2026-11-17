@@ -1,0 +1,118 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 6,
+  "races": 5,
+  "horses": 57,
+  "supported": 54,
+  "unrated": 3,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 5,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 12,
+  "strong_captures": 12,
+  "v4_captures": 8,
+  "diagnostic_captures": 9,
+  "diagnostic_top5_hits": 8,
+  "diagnostic_eye_hits": 1,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-11-07/福島/7",
+          "horse_no": 4,
+          "horse_name": "グレイシエーション",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-07/京都/9",
+          "horse_no": 9,
+          "horse_name": "ランスオブヒーロー",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-07/福島/7",
+          "horse_no": 9,
+          "horse_name": "フロムレイブン",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-07/福島/7",
+          "horse_no": 10,
+          "horse_name": "キャナルクルーズ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-08/京都/10",
+          "horse_no": 2,
+          "horse_name": "スライビングロード",
+          "finish": 3
+        }
+      ]
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-11-07/福島/7",
+          "horse_no": 4,
+          "horse_name": "グレイシエーション",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-07/京都/9",
+          "horse_no": 9,
+          "horse_name": "ランスオブヒーロー",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-07/福島/7",
+          "horse_no": 9,
+          "horse_name": "フロムレイブン",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-07/福島/7",
+          "horse_no": 10,
+          "horse_name": "キャナルクルーズ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-08/京都/10",
+          "horse_no": 2,
+          "horse_name": "スライビングロード",
+          "finish": 3
+        }
+      ]
+    },
+    "v4": {
+      "new": [
+        {
+          "race_id": "2026-11-07/福島/7",
+          "horse_no": 4,
+          "horse_name": "グレイシエーション",
+          "finish": 2
+        }
+      ],
+      "lost": []
+    }
+  },
+  "credited_micro": 1654094530,
+  "debited_micro": 1654094530,
+  "pair_comparisons": 100,
+  "permutation_verified_horses": 57,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "c4b138c23cfe0ffce7178436652935927150f876e43b7d4d310a29e9fd065d89",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}
