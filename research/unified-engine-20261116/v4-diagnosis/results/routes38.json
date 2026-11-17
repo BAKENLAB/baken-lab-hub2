@@ -1,0 +1,344 @@
+[
+  {
+    "id": "recent_form",
+    "rows": 623,
+    "available": 577,
+    "matched": 464,
+    "declared_scoring_item": "comparable_form",
+    "actual_dependency_note": "近走15点は比較可能な最新1走の連続品質。監査の好走Booleanそのものではない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "same_class",
+    "rows": 623,
+    "available": 577,
+    "matched": 0,
+    "declared_scoring_item": "class",
+    "actual_dependency_note": "クラス8点は経験クラスのordinal露出差。SAME_CLASS_CLOSEを直接採点していない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "near_distance",
+    "rows": 623,
+    "available": 577,
+    "matched": 398,
+    "declared_scoring_item": "distance_stamina",
+    "actual_dependency_note": "近距離条件は近走の抽出等に利用。距離10点自体は同等以上距離の成績。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "same_track",
+    "rows": 623,
+    "available": 577,
+    "matched": 159,
+    "declared_scoring_item": "course_affinity",
+    "actual_dependency_note": "コース10点のうち自競馬場部分8点。全枠除去はEvalも消すので純効果ではない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "relative_early",
+    "rows": 623,
+    "available": 70,
+    "matched": 18,
+    "declared_scoring_item": "early_reproduction",
+    "actual_dependency_note": "監査は全ACTIVE内dense_rank。採点8点は馬ごとの過去前半位置平均で、今回field dense_rankを数値利用していない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "front_hold",
+    "rows": 623,
+    "available": 577,
+    "matched": 201,
+    "declared_scoring_item": "projected_pace",
+    "actual_dependency_note": "先行して好走というBooleanは数値式へ直接渡らず、ラップ条件下進出proxyとは同義でない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "long_turf",
+    "rows": 623,
+    "available": 577,
+    "matched": 338,
+    "declared_scoring_item": "distance_stamina",
+    "actual_dependency_note": "距離10点の同等以上距離抽出と関連。近走/安定性と同じ着順atomは抑制される。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "position_gain",
+    "rows": 623,
+    "available": 577,
+    "matched": 349,
+    "declared_scoring_item": "sustained_effort",
+    "actual_dependency_note": "進出は持続proxyとEYEで共有するが、前半→最終と中間→最終では範囲が違う。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "eval_course",
+    "rows": 623,
+    "available": 185,
+    "matched": 0,
+    "declared_scoring_item": "course_affinity",
+    "actual_dependency_note": "コース10点内の2点component。単独除去で識別する。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "incident",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "公式不利原文未接続、数値利用なし。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "rival_followup",
+    "rows": 623,
+    "available": 482,
+    "matched": 0,
+    "declared_scoring_item": "rival_followup",
+    "actual_dependency_note": "直接相手の次走平均成績。対象馬が相手に先着したことや因果的強さを必須にしていない露出proxy。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "race_pace",
+    "rows": 623,
+    "available": 574,
+    "matched": 0,
+    "declared_scoring_item": "projected_pace",
+    "actual_dependency_note": "展開点ではfirst600/last600でscenario抽出。持続点ではラップの存在/形式チェックであり数値の良否を直接加点していない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "last3f",
+    "rows": 623,
+    "available": 570,
+    "matched": 307,
+    "declared_scoring_item": "relative_last3f",
+    "actual_dependency_note": "数値点は確認走の相対上がり平均、EYEは今回同馬場±200mの上がり3位内。別経路。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "stamina",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": "sustained_effort",
+    "actual_dependency_note": "正式な持続力証拠なし。位置取りproxyの加点をスタミナ確認済みと呼ばない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "distance_change",
+    "rows": 623,
+    "available": 195,
+    "matched": 0,
+    "declared_scoring_item": "distance_stamina",
+    "actual_dependency_note": "短縮/延長deltaは監査値。数値式は今回距離との比較で、delta自体の評価式ではない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "going_weather",
+    "rows": 623,
+    "available": 562,
+    "matched": 0,
+    "declared_scoring_item": "going_weather",
+    "actual_dependency_note": "同じgoingの着順品質のみ。weatherの独立効果は使っていない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "carried_weight",
+    "rows": 623,
+    "available": 623,
+    "matched": 0,
+    "declared_scoring_item": "weight_sex_age",
+    "actual_dependency_note": "過去好走時との斤量差3点に利用。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "body_weight",
+    "rows": 623,
+    "available": 621,
+    "matched": 0,
+    "declared_scoring_item": "body_equipment_rest",
+    "actual_dependency_note": "自馬体重平均との差と休養間隔の仮説2点。健康状態の確認ではない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "equipment",
+    "rows": 623,
+    "available": 63,
+    "matched": 0,
+    "declared_scoring_item": "body_equipment_rest",
+    "actual_dependency_note": "馬具の数値効果は未使用。関連枠が加点されても馬具の寄与ではない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "sex_age",
+    "rows": 623,
+    "available": 623,
+    "matched": 0,
+    "declared_scoring_item": "weight_sex_age",
+    "actual_dependency_note": "性齢の数値効果は未使用。関連枠の斤量差と混同しない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "jockey_trainer",
+    "rows": 623,
+    "available": 623,
+    "matched": 0,
+    "declared_scoring_item": "jockey_trainer",
+    "actual_dependency_note": "情報はあるが数値式はnull。理論の有効性は未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "draw_geometry",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": "draw_geometry",
+    "actual_dependency_note": "枠データはあるが形状効果の数値式はnull。理論の有効性は未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "training",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "未接続、効果未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "bloodline",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "未接続、効果未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T01",
+    "rows": 623,
+    "available": 194,
+    "matched": 63,
+    "declared_scoring_item": "early_reproduction",
+    "actual_dependency_note": "実際の固有依存はlatest min-corner→styles→frontShare→projected_pace。scoring_itemラベルのearly_reproductionは多走前半平均で同じ指標ではない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T02",
+    "rows": 623,
+    "available": 623,
+    "matched": 0,
+    "declared_scoring_item": "projected_pace",
+    "actual_dependency_note": "frontShareはprojected_paceだけでscenario選択に利用。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T03",
+    "rows": 623,
+    "available": 114,
+    "matched": 1,
+    "declared_scoring_item": "draw_geometry",
+    "actual_dependency_note": "隣馬条件は監査のみ。枠点がnullなので数値効果なし。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T04",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": "draw_geometry",
+    "actual_dependency_note": "コース形状不足、数値効果なし。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T05",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "ROI資料不足、効果未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T06",
+    "rows": 623,
+    "available": 195,
+    "matched": 50,
+    "declared_scoring_item": "distance_stamina",
+    "actual_dependency_note": "短縮の監査値は保持。距離の共通信号と純効果を分けられない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T07",
+    "rows": 623,
+    "available": 195,
+    "matched": 56,
+    "declared_scoring_item": "distance_stamina",
+    "actual_dependency_note": "延長の監査値は保持。距離の共通信号と純効果を分けられない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T08",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "全キャリア不足、初馬場条件は効果未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T09",
+    "rows": 623,
+    "available": 464,
+    "matched": 0,
+    "declared_scoring_item": "weight_sex_age",
+    "actual_dependency_note": "斤量差と共有。みねた固有効果ではない。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T10",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "市場使用禁止のため無効。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T11",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "非公開AIなし。効果未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T12",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "非公開指標なし。効果未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T13",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "非公開指標なし。効果未検証。",
+    "pure_condition_effect_identified": false
+  },
+  {
+    "id": "mineta_T14",
+    "rows": 623,
+    "available": 0,
+    "matched": 0,
+    "declared_scoring_item": null,
+    "actual_dependency_note": "統合工程。追加加点しない。",
+    "pure_condition_effect_identified": false
+  }
+]
