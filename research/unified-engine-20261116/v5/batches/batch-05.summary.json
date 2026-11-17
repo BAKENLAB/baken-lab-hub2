@@ -1,0 +1,137 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 5,
+  "races": 5,
+  "horses": 69,
+  "supported": 62,
+  "unrated": 7,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 2,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 9,
+  "strong_captures": 9,
+  "v4_captures": 9,
+  "diagnostic_captures": 9,
+  "diagnostic_top5_hits": 9,
+  "diagnostic_eye_hits": 0,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-11-01/京都/11",
+          "horse_no": 8,
+          "horse_name": "スマートワイス",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-01/東京/9",
+          "horse_no": 14,
+          "horse_name": "ウフドゥウフ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-01/東京/11",
+          "horse_no": 10,
+          "horse_name": "ネブラディスク",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-01/京都/11",
+          "horse_no": 7,
+          "horse_name": "レザベーション",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-01/東京/8",
+          "horse_no": 2,
+          "horse_name": "プレイザリード",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-01/東京/11",
+          "horse_no": 17,
+          "horse_name": "ダノンデサイル",
+          "finish": 1
+        }
+      ]
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-11-01/京都/11",
+          "horse_no": 8,
+          "horse_name": "スマートワイス",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-01/東京/9",
+          "horse_no": 14,
+          "horse_name": "ウフドゥウフ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-01/東京/11",
+          "horse_no": 10,
+          "horse_name": "ネブラディスク",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-01/京都/11",
+          "horse_no": 7,
+          "horse_name": "レザベーション",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-01/東京/8",
+          "horse_no": 2,
+          "horse_name": "プレイザリード",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-01/東京/11",
+          "horse_no": 17,
+          "horse_name": "ダノンデサイル",
+          "finish": 1
+        }
+      ]
+    },
+    "v4": {
+      "new": [
+        {
+          "race_id": "2026-11-07/京都/12",
+          "horse_no": 16,
+          "horse_name": "プレスバーン",
+          "finish": 1
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-01/東京/8",
+          "horse_no": 2,
+          "horse_name": "プレイザリード",
+          "finish": 3
+        }
+      ]
+    }
+  },
+  "credited_micro": 1787668854,
+  "debited_micro": 1787668854,
+  "pair_comparisons": 199,
+  "permutation_verified_horses": 69,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "a2b8248c6e635a5c83805b92bbf9bace4c400f6c766bf854b1eef4510d040c93",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}
