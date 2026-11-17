@@ -12,7 +12,7 @@ export function apportion(total,items){
  return out.sort((a,b)=>order(a.id,b.id)).map(({remainder,...x})=>x);
 }
 export function validateFact(f,cutoff){
- if(!f||!f.race_id||!f.horse_id||!f.measurement||!f.source||!f.observed_at||f.value===null||f.value===undefined||!Number.isFinite(Date.parse(f.observed_at))||!Number.isFinite(Date.parse(cutoff))||Date.parse(f.observed_at)>=Date.parse(cutoff)||!Number.isFinite(Date.parse(f.race_date))||f.race_date>=cutoff.slice(0,10))throw Error('FACT_IDENTITY_TIME_VALUE');
+ if(!f||!f.race_id||!f.horse_id||!f.measurement||!f.source||!f.observed_at||f.value===null||f.value===undefined||!Number.isFinite(Date.parse(f.observed_at))||!Number.isFinite(Date.parse(cutoff))||Date.parse(f.observed_at)>=Date.parse(cutoff)||!Number.isFinite(Date.parse(f.race_date))||(f.kind==='CURRENT_ENTRY'?f.race_date!==cutoff.slice(0,10):f.race_date>=cutoff.slice(0,10)))throw Error('FACT_IDENTITY_TIME_VALUE');
  if(/odds|popularity|market|target_finish|target_result/i.test(f.measurement))throw Error('FORBIDDEN_MEASUREMENT');
  if(f.verified!==true)throw Error('FACT_UNVERIFIED');const inspect=x=>{if(x&&typeof x==='object')for(const[k,v]of Object.entries(x)){if(/odds|popularity|market|target_finish|target_result/i.test(k))throw Error('FORBIDDEN_MEASUREMENT');inspect(v);}};inspect(f.value);const identity={race_id:f.race_id,horse_id:f.horse_id,measurement:f.measurement};
  return {...f,id:digest(identity),identity};

@@ -26,3 +26,9 @@ A. Standalone allocator + permutation/conservation tests; commit.
 B. Evidence adapter, EYE validator,46-source audit + integration tests; freeze hashes and commit before outcome comparison.
 C. Replay batches1..10, max5R each; create decision hash lock before reading labels; checkpoint every batch. Compare old87/strengthened92/V4 78 by horse, with missing-result status retained.
 D. Aggregate, source/scope verification, Draft PR update. New chronological holdout required before any promotion. No production/main/DB/FROZEN/Cron/deploy/paid API changes.
+
+### Provenance implementation details fixed before replay
+
+Current entry weight/body facts are the only same-date facts permitted, with CURRENT_ENTRY kind and pre-post source time; prior race facts must be strictly earlier dates. Composite corner observations decompose into exact corner indexes; body proxy uses actual saved body observations. Numeric units remain stored V4 units. Context/gating conditions are not extra additive slices. Eval preserves the pre-existing reconstructed cache limitation (original rowwise unverified), not a claim of official original verification.
+
+Same-race validator supplies a frozen stratified Fisher-z conditional linear-equivalence diagnostic and hash-bound documented design, not causal independence proof. Multivariate supports are unimplemented/rejected; absence of nonlinear-dependence proof is a remaining limitation and actual cohort has no supplied certificates. No cohort same-root pair will be auto-approved based on this synthetic unit-test pathway. New chronological independence evidence and review are required before practical use.
