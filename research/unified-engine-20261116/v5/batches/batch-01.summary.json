@@ -1,0 +1,131 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 1,
+  "races": 5,
+  "horses": 63,
+  "supported": 61,
+  "unrated": 2,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 4,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 10,
+  "strong_captures": 11,
+  "v4_captures": 10,
+  "diagnostic_captures": 10,
+  "diagnostic_top5_hits": 9,
+  "diagnostic_eye_hits": 1,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-10-24/京都/10",
+          "horse_no": 2,
+          "horse_name": "アスミル",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-24/京都/11",
+          "horse_no": 15,
+          "horse_name": "タガノエルピーダ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-10-24/新潟/11",
+          "horse_no": 5,
+          "horse_name": "アラタマフェーヴル",
+          "finish": 1
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-10-24/京都/8",
+          "horse_no": 5,
+          "horse_name": "キーウェーブ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-10-24/京都/10",
+          "horse_no": 4,
+          "horse_name": "サンタンカ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-10-24/新潟/7",
+          "horse_no": 12,
+          "horse_name": "メイショウハンター",
+          "finish": 3
+        }
+      ]
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-10-24/京都/11",
+          "horse_no": 15,
+          "horse_name": "タガノエルピーダ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-10-24/新潟/11",
+          "horse_no": 5,
+          "horse_name": "アラタマフェーヴル",
+          "finish": 1
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-10-24/京都/8",
+          "horse_no": 5,
+          "horse_name": "キーウェーブ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-10-24/京都/10",
+          "horse_no": 4,
+          "horse_name": "サンタンカ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-10-24/新潟/7",
+          "horse_no": 12,
+          "horse_name": "メイショウハンター",
+          "finish": 3
+        }
+      ]
+    },
+    "v4": {
+      "new": [
+        {
+          "race_id": "2026-10-24/京都/10",
+          "horse_no": 8,
+          "horse_name": "アンダースコア",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-10-24/京都/10",
+          "horse_no": 4,
+          "horse_name": "サンタンカ",
+          "finish": 3
+        }
+      ]
+    }
+  },
+  "credited_micro": 1760212821,
+  "debited_micro": 1760212821,
+  "pair_comparisons": 145,
+  "permutation_verified_horses": 63,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "380adc17005d5077199c2cfe27100007d01335bff0a7a1e6f3e72ad7706d7996",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}
