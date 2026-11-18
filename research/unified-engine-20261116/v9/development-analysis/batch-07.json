@@ -1,0 +1,1554 @@
+{
+  "batch": 7,
+  "race_ids": [
+    "2026-11-08/京都/12",
+    "2026-11-14/京都/8",
+    "2026-11-14/京都/10",
+    "2026-11-14/京都/12",
+    "2026-11-14/東京/10"
+  ],
+  "v8_lock_sha256": "4bbdccaf695dd2a7d01f655640c32ed76035788cb6c5cd62bf5288c5498030bf",
+  "rows": [
+    {
+      "group": "LOST30",
+      "race_id": "2026-11-08/京都/12",
+      "horse_no": 5,
+      "horse_name": "キシャール",
+      "supported": true,
+      "legacy_common_rank": 2,
+      "v7_diagnostic_rank": 6,
+      "rank_change_common": 4,
+      "conditional_pattern": "RANK_CHANGE_SENSITIVE",
+      "requested_micro": 41088878,
+      "after_shared_atom_micro": 33971232,
+      "credited_micro": 33971232,
+      "shared_atom_reduction_micro": 7117646,
+      "later_cap_reduction_micro": 0,
+      "unknown_budget": 33,
+      "boundary_gap_micro": 364836,
+      "within_v7_boundary_axes": [
+        {
+          "axis": "consistency_recency",
+          "horse_points": 0,
+          "cutoff_points": 1.57901,
+          "cutoff_advantage_micro": 1579010,
+          "unknown_budget": 10
+        },
+        {
+          "axis": "relative_last3f",
+          "horse_points": 1.617647,
+          "cutoff_points": 3.117647,
+          "cutoff_advantage_micro": 1500000,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "class",
+          "horse_points": 3,
+          "cutoff_points": 4,
+          "cutoff_advantage_micro": 1000000,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "weight_sex_age",
+          "horse_points": 0.9,
+          "cutoff_points": 1.5,
+          "cutoff_advantage_micro": 600000,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "course_affinity",
+          "horse_points": 1.283423,
+          "cutoff_points": 1.666469,
+          "cutoff_advantage_micro": 383046,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "going_weather",
+          "horse_points": 0.481283,
+          "cutoff_points": 0.624926,
+          "cutoff_advantage_micro": 143643,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "body_equipment_rest",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "draw_geometry",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 4
+        },
+        {
+          "axis": "jockey_trainer",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "projected_pace",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 8
+        },
+        {
+          "axis": "sustained_effort",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 5
+        },
+        {
+          "axis": "distance_stamina",
+          "horse_points": 3.654143,
+          "cutoff_points": 3.18694,
+          "cutoff_advantage_micro": -467203,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "rival_followup",
+          "horse_points": 5.196233,
+          "cutoff_points": 3.876266,
+          "cutoff_advantage_micro": -1319967,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "comparable_form",
+          "horse_points": 11.250268,
+          "cutoff_points": 9.73383,
+          "cutoff_advantage_micro": -1516438,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "early_reproduction",
+          "horse_points": 6.588235,
+          "cutoff_points": 5.05098,
+          "cutoff_advantage_micro": -1537255,
+          "unknown_budget": 0
+        }
+      ],
+      "eye_status": "TWO_DISTINCT_VERIFIED_MECHANISMS_NOT_ESTABLISHED",
+      "original_allocation": [
+        {
+          "axis": "body_equipment_rest",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "class",
+          "requested_micro": 3000000,
+          "after_shared_atom_micro": 3000000,
+          "credited_micro": 3000000,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "comparable_form",
+          "requested_micro": 13433823,
+          "after_shared_atom_micro": 11250268,
+          "credited_micro": 11250268,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "consistency_recency",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 10000000
+        },
+        {
+          "axis": "course_affinity",
+          "requested_micro": 2823529,
+          "after_shared_atom_micro": 1283423,
+          "credited_micro": 1283423,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "distance_stamina",
+          "requested_micro": 6470588,
+          "after_shared_atom_micro": 3654143,
+          "credited_micro": 3654143,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "draw_geometry",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 4000000
+        },
+        {
+          "axis": "early_reproduction",
+          "requested_micro": 6588235,
+          "after_shared_atom_micro": 6588235,
+          "credited_micro": 6588235,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "going_weather",
+          "requested_micro": 1058823,
+          "after_shared_atom_micro": 481283,
+          "credited_micro": 481283,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "jockey_trainer",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "projected_pace",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "relative_last3f",
+          "requested_micro": 1617647,
+          "after_shared_atom_micro": 1617647,
+          "credited_micro": 1617647,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "rival_followup",
+          "requested_micro": 5196233,
+          "after_shared_atom_micro": 5196233,
+          "credited_micro": 5196233,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "sustained_effort",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 5000000
+        },
+        {
+          "axis": "weight_sex_age",
+          "requested_micro": 900000,
+          "after_shared_atom_micro": 900000,
+          "credited_micro": 900000,
+          "unknown_cap_micro": 0
+        }
+      ],
+      "causal_identification": false,
+      "development_only": true
+    },
+    {
+      "group": "LOST30",
+      "race_id": "2026-11-08/京都/12",
+      "horse_no": 18,
+      "horse_name": "フロンティエール",
+      "supported": true,
+      "legacy_common_rank": 4,
+      "v7_diagnostic_rank": 8,
+      "rank_change_common": 4,
+      "conditional_pattern": "RANK_CHANGE_SENSITIVE",
+      "requested_micro": 37534999,
+      "after_shared_atom_micro": 30647499,
+      "credited_micro": 30647499,
+      "shared_atom_reduction_micro": 6887500,
+      "later_cap_reduction_micro": 0,
+      "unknown_budget": 41,
+      "boundary_gap_micro": 3688569,
+      "within_v7_boundary_axes": [
+        {
+          "axis": "early_reproduction",
+          "horse_points": 2.666666,
+          "cutoff_points": 5.05098,
+          "cutoff_advantage_micro": 2384314,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "course_affinity",
+          "horse_points": 0,
+          "cutoff_points": 1.666469,
+          "cutoff_advantage_micro": 1666469,
+          "unknown_budget": 10
+        },
+        {
+          "axis": "consistency_recency",
+          "horse_points": 0,
+          "cutoff_points": 1.57901,
+          "cutoff_advantage_micro": 1579010,
+          "unknown_budget": 10
+        },
+        {
+          "axis": "comparable_form",
+          "horse_points": 8.999322,
+          "cutoff_points": 9.73383,
+          "cutoff_advantage_micro": 734508,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "body_equipment_rest",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "class",
+          "horse_points": 4,
+          "cutoff_points": 4,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "draw_geometry",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 4
+        },
+        {
+          "axis": "jockey_trainer",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "projected_pace",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 8
+        },
+        {
+          "axis": "sustained_effort",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 5
+        },
+        {
+          "axis": "weight_sex_age",
+          "horse_points": 1.5,
+          "cutoff_points": 1.5,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "relative_last3f",
+          "horse_points": 3.5,
+          "cutoff_points": 3.117647,
+          "cutoff_advantage_micro": -382353,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "horse_points": 3.781619,
+          "cutoff_points": 3.18694,
+          "cutoff_advantage_micro": -594679,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "going_weather",
+          "horse_points": 1.439892,
+          "cutoff_points": 0.624926,
+          "cutoff_advantage_micro": -814966,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "rival_followup",
+          "horse_points": 4.76,
+          "cutoff_points": 3.876266,
+          "cutoff_advantage_micro": -883734,
+          "unknown_budget": 0
+        }
+      ],
+      "eye_status": "MULTIPLE_MECHANISMS_SAME_RACE_WITHOUT_INDEPENDENCE_PROOF",
+      "original_allocation": [
+        {
+          "axis": "body_equipment_rest",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "class",
+          "requested_micro": 4000000,
+          "after_shared_atom_micro": 4000000,
+          "credited_micro": 4000000,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "comparable_form",
+          "requested_micro": 11875000,
+          "after_shared_atom_micro": 8999322,
+          "credited_micro": 8999322,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "consistency_recency",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 10000000
+        },
+        {
+          "axis": "course_affinity",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 10000000
+        },
+        {
+          "axis": "distance_stamina",
+          "requested_micro": 7333333,
+          "after_shared_atom_micro": 3781619,
+          "credited_micro": 3781619,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "draw_geometry",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 4000000
+        },
+        {
+          "axis": "early_reproduction",
+          "requested_micro": 2666666,
+          "after_shared_atom_micro": 2666666,
+          "credited_micro": 2666666,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "going_weather",
+          "requested_micro": 1900000,
+          "after_shared_atom_micro": 1439892,
+          "credited_micro": 1439892,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "jockey_trainer",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "projected_pace",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "relative_last3f",
+          "requested_micro": 3500000,
+          "after_shared_atom_micro": 3500000,
+          "credited_micro": 3500000,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "rival_followup",
+          "requested_micro": 4760000,
+          "after_shared_atom_micro": 4760000,
+          "credited_micro": 4760000,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "sustained_effort",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 5000000
+        },
+        {
+          "axis": "weight_sex_age",
+          "requested_micro": 1500000,
+          "after_shared_atom_micro": 1500000,
+          "credited_micro": 1500000,
+          "unknown_cap_micro": 0
+        }
+      ],
+      "causal_identification": false,
+      "development_only": true
+    },
+    {
+      "group": "NEW21",
+      "race_id": "2026-11-14/京都/8",
+      "horse_no": 8,
+      "horse_name": "マディソンガール",
+      "supported": true,
+      "legacy_common_rank": 5,
+      "v7_diagnostic_rank": 2,
+      "rank_change_common": -3,
+      "conditional_pattern": "REFILL_GAIN_WITH_LEGACY_RULES",
+      "requested_micro": 44955198,
+      "after_shared_atom_micro": 36871865,
+      "credited_micro": 36871865,
+      "shared_atom_reduction_micro": 8083333,
+      "later_cap_reduction_micro": 0,
+      "unknown_budget": 24,
+      "boundary_gap_micro": -14287017,
+      "within_v7_boundary_axes": [
+        {
+          "axis": "comparable_form",
+          "horse_points": 4.044118,
+          "cutoff_points": 7.343354,
+          "cutoff_advantage_micro": 3299236,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "class",
+          "horse_points": 3,
+          "cutoff_points": 4,
+          "cutoff_advantage_micro": 1000000,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "relative_last3f",
+          "horse_points": 3.432539,
+          "cutoff_points": 4.375,
+          "cutoff_advantage_micro": 942461,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "consistency_recency",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 10
+        },
+        {
+          "axis": "draw_geometry",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 4
+        },
+        {
+          "axis": "jockey_trainer",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "projected_pace",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 8
+        },
+        {
+          "axis": "weight_sex_age",
+          "horse_points": 1.5,
+          "cutoff_points": 1.5,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "going_weather",
+          "horse_points": 1.119237,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": -1119237,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "horse_points": 3.730789,
+          "cutoff_points": 2.531646,
+          "cutoff_advantage_micro": -1199143,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "body_equipment_rest",
+          "horse_points": 1.447569,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": -1447569,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "rival_followup",
+          "horse_points": 4.217948,
+          "cutoff_points": 1.234848,
+          "cutoff_advantage_micro": -2983100,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "sustained_effort",
+          "horse_points": 3,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": -3000000,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "early_reproduction",
+          "horse_points": 4.190476,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": -4190476,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "course_affinity",
+          "horse_points": 7.189189,
+          "cutoff_points": 1.6,
+          "cutoff_advantage_micro": -5589189,
+          "unknown_budget": 0
+        }
+      ],
+      "eye_status": "MULTIPLE_MECHANISMS_SAME_RACE_WITHOUT_INDEPENDENCE_PROOF",
+      "original_allocation": [
+        {
+          "axis": "body_equipment_rest",
+          "requested_micro": 1447569,
+          "after_shared_atom_micro": 1447569,
+          "credited_micro": 1447569,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "class",
+          "requested_micro": 3000000,
+          "after_shared_atom_micro": 3000000,
+          "credited_micro": 3000000,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "comparable_form",
+          "requested_micro": 5500000,
+          "after_shared_atom_micro": 4044118,
+          "credited_micro": 4044118,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "consistency_recency",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 10000000
+        },
+        {
+          "axis": "course_affinity",
+          "requested_micro": 10000000,
+          "after_shared_atom_micro": 7189189,
+          "credited_micro": 7189189,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "requested_micro": 6666666,
+          "after_shared_atom_micro": 3730789,
+          "credited_micro": 3730789,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "draw_geometry",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 4000000
+        },
+        {
+          "axis": "early_reproduction",
+          "requested_micro": 4190476,
+          "after_shared_atom_micro": 4190476,
+          "credited_micro": 4190476,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "going_weather",
+          "requested_micro": 2000000,
+          "after_shared_atom_micro": 1119237,
+          "credited_micro": 1119237,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "jockey_trainer",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "projected_pace",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "relative_last3f",
+          "requested_micro": 3432539,
+          "after_shared_atom_micro": 3432539,
+          "credited_micro": 3432539,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "rival_followup",
+          "requested_micro": 4217948,
+          "after_shared_atom_micro": 4217948,
+          "credited_micro": 4217948,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "sustained_effort",
+          "requested_micro": 3000000,
+          "after_shared_atom_micro": 3000000,
+          "credited_micro": 3000000,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "weight_sex_age",
+          "requested_micro": 1500000,
+          "after_shared_atom_micro": 1500000,
+          "credited_micro": 1500000,
+          "unknown_cap_micro": 0
+        }
+      ],
+      "causal_identification": false,
+      "development_only": true
+    },
+    {
+      "group": "NEW21",
+      "race_id": "2026-11-14/京都/10",
+      "horse_no": 2,
+      "horse_name": "レクスノヴァス",
+      "supported": true,
+      "legacy_common_rank": 6,
+      "v7_diagnostic_rank": 3,
+      "rank_change_common": -3,
+      "conditional_pattern": "RANK_CHANGE_GAIN_SENSITIVE",
+      "requested_micro": 48250684,
+      "after_shared_atom_micro": 33393542,
+      "credited_micro": 33393542,
+      "shared_atom_reduction_micro": 14857142,
+      "later_cap_reduction_micro": 0,
+      "unknown_budget": 33,
+      "boundary_gap_micro": -3941296,
+      "within_v7_boundary_axes": [
+        {
+          "axis": "early_reproduction",
+          "horse_points": 3.857142,
+          "cutoff_points": 7.6,
+          "cutoff_advantage_micro": 3742858,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "rival_followup",
+          "horse_points": 0,
+          "cutoff_points": 2.634539,
+          "cutoff_advantage_micro": 2634539,
+          "unknown_budget": 7
+        },
+        {
+          "axis": "consistency_recency",
+          "horse_points": 0,
+          "cutoff_points": 2.134308,
+          "cutoff_advantage_micro": 2134308,
+          "unknown_budget": 10
+        },
+        {
+          "axis": "weight_sex_age",
+          "horse_points": 1.5,
+          "cutoff_points": 1.8,
+          "cutoff_advantage_micro": 300000,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "sustained_effort",
+          "horse_points": 2.572115,
+          "cutoff_points": 2.578125,
+          "cutoff_advantage_micro": 6010,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "body_equipment_rest",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "class",
+          "horse_points": 2,
+          "cutoff_points": 2,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "draw_geometry",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 4
+        },
+        {
+          "axis": "jockey_trainer",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "projected_pace",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 8
+        },
+        {
+          "axis": "going_weather",
+          "horse_points": 1.215326,
+          "cutoff_points": 0.925369,
+          "cutoff_advantage_micro": -289957,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "horse_points": 4.051088,
+          "cutoff_points": 3.155967,
+          "cutoff_advantage_micro": -895121,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "relative_last3f",
+          "horse_points": 4.017857,
+          "cutoff_points": 0.940563,
+          "cutoff_advantage_micro": -3077294,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "comparable_form",
+          "horse_points": 8.939143,
+          "cutoff_points": 5.083375,
+          "cutoff_advantage_micro": -3855768,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "course_affinity",
+          "horse_points": 5.240871,
+          "cutoff_points": 0.6,
+          "cutoff_advantage_micro": -4640871,
+          "unknown_budget": 0
+        }
+      ],
+      "eye_status": "MULTIPLE_MECHANISMS_SAME_RACE_WITHOUT_INDEPENDENCE_PROOF",
+      "original_allocation": [
+        {
+          "axis": "body_equipment_rest",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "class",
+          "requested_micro": 2000000,
+          "after_shared_atom_micro": 2000000,
+          "credited_micro": 2000000,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "comparable_form",
+          "requested_micro": 12803571,
+          "after_shared_atom_micro": 8939143,
+          "credited_micro": 8939143,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "consistency_recency",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 10000000
+        },
+        {
+          "axis": "course_affinity",
+          "requested_micro": 9428571,
+          "after_shared_atom_micro": 5240871,
+          "credited_micro": 5240871,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "requested_micro": 9285714,
+          "after_shared_atom_micro": 4051088,
+          "credited_micro": 4051088,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "draw_geometry",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 4000000
+        },
+        {
+          "axis": "early_reproduction",
+          "requested_micro": 3857142,
+          "after_shared_atom_micro": 3857142,
+          "credited_micro": 3857142,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "going_weather",
+          "requested_micro": 2785714,
+          "after_shared_atom_micro": 1215326,
+          "credited_micro": 1215326,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "jockey_trainer",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "projected_pace",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "relative_last3f",
+          "requested_micro": 4017857,
+          "after_shared_atom_micro": 4017857,
+          "credited_micro": 4017857,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "rival_followup",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 7000000
+        },
+        {
+          "axis": "sustained_effort",
+          "requested_micro": 2572115,
+          "after_shared_atom_micro": 2572115,
+          "credited_micro": 2572115,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "weight_sex_age",
+          "requested_micro": 1500000,
+          "after_shared_atom_micro": 1500000,
+          "credited_micro": 1500000,
+          "unknown_cap_micro": 0
+        }
+      ],
+      "causal_identification": false,
+      "development_only": true
+    },
+    {
+      "group": "LOST30",
+      "race_id": "2026-11-14/京都/10",
+      "horse_no": 13,
+      "horse_name": "ジャスティンビスタ",
+      "supported": false,
+      "legacy_common_rank": null,
+      "v7_diagnostic_rank": null,
+      "rank_change_common": null,
+      "conditional_pattern": "UNSUPPORTED_EXCLUSION",
+      "requested_micro": 0,
+      "after_shared_atom_micro": 0,
+      "credited_micro": 0,
+      "shared_atom_reduction_micro": 0,
+      "later_cap_reduction_micro": 0,
+      "unknown_budget": 100,
+      "boundary_gap_micro": null,
+      "within_v7_boundary_axes": [],
+      "eye_status": "UNSUPPORTED_NO_RANK_OR_FORMAL_EYE",
+      "original_allocation": [
+        {
+          "axis": "body_equipment_rest",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "class",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "comparable_form",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 15000000
+        },
+        {
+          "axis": "consistency_recency",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 10000000
+        },
+        {
+          "axis": "course_affinity",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 10000000
+        },
+        {
+          "axis": "distance_stamina",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 10000000
+        },
+        {
+          "axis": "draw_geometry",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 4000000
+        },
+        {
+          "axis": "early_reproduction",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "going_weather",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 3000000
+        },
+        {
+          "axis": "jockey_trainer",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "projected_pace",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "relative_last3f",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 5000000
+        },
+        {
+          "axis": "rival_followup",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 7000000
+        },
+        {
+          "axis": "sustained_effort",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 5000000
+        },
+        {
+          "axis": "weight_sex_age",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 3000000
+        }
+      ],
+      "causal_identification": false,
+      "development_only": true
+    },
+    {
+      "group": "NEW21",
+      "race_id": "2026-11-14/東京/10",
+      "horse_no": 10,
+      "horse_name": "トライアンフパス",
+      "supported": true,
+      "legacy_common_rank": 8,
+      "v7_diagnostic_rank": 2,
+      "rank_change_common": -6,
+      "conditional_pattern": "RANK_CHANGE_GAIN_SENSITIVE",
+      "requested_micro": 55801377,
+      "after_shared_atom_micro": 42781116,
+      "credited_micro": 42781116,
+      "shared_atom_reduction_micro": 13020261,
+      "later_cap_reduction_micro": 0,
+      "unknown_budget": 21,
+      "boundary_gap_micro": -4924515,
+      "within_v7_boundary_axes": [
+        {
+          "axis": "sustained_effort",
+          "horse_points": 0,
+          "cutoff_points": 2.5,
+          "cutoff_advantage_micro": 2500000,
+          "unknown_budget": 5
+        },
+        {
+          "axis": "early_reproduction",
+          "horse_points": 4.25641,
+          "cutoff_points": 5.2,
+          "cutoff_advantage_micro": 943590,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "horse_points": 4.456272,
+          "cutoff_points": 4.99909,
+          "cutoff_advantage_micro": 542818,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "weight_sex_age",
+          "horse_points": 1.1,
+          "cutoff_points": 1.4,
+          "cutoff_advantage_micro": 300000,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "going_weather",
+          "horse_points": 1.336881,
+          "cutoff_points": 1.620565,
+          "cutoff_advantage_micro": 283684,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "consistency_recency",
+          "horse_points": 2.750481,
+          "cutoff_points": 2.983497,
+          "cutoff_advantage_micro": 233016,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "body_equipment_rest",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "draw_geometry",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 4
+        },
+        {
+          "axis": "jockey_trainer",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "projected_pace",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 8
+        },
+        {
+          "axis": "rival_followup",
+          "horse_points": 4.434893,
+          "cutoff_points": 3.458333,
+          "cutoff_advantage_micro": -976560,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "comparable_form",
+          "horse_points": 12.289917,
+          "cutoff_points": 11.24095,
+          "cutoff_advantage_micro": -1048967,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "class",
+          "horse_points": 1.333333,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": -1333333,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "relative_last3f",
+          "horse_points": 4.302884,
+          "cutoff_points": 2.854166,
+          "cutoff_advantage_micro": -1448718,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "course_affinity",
+          "horse_points": 6.520045,
+          "cutoff_points": 1.6,
+          "cutoff_advantage_micro": -4920045,
+          "unknown_budget": 0
+        }
+      ],
+      "eye_status": "ELIGIBLE_OTHER_CANDIDATE_PREFERRED",
+      "original_allocation": [
+        {
+          "axis": "body_equipment_rest",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "class",
+          "requested_micro": 1333333,
+          "after_shared_atom_micro": 1333333,
+          "credited_micro": 1333333,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "comparable_form",
+          "requested_micro": 14625000,
+          "after_shared_atom_micro": 12289917,
+          "credited_micro": 12289917,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "consistency_recency",
+          "requested_micro": 5457191,
+          "after_shared_atom_micro": 2750481,
+          "credited_micro": 2750481,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "course_affinity",
+          "requested_micro": 10000000,
+          "after_shared_atom_micro": 6520045,
+          "credited_micro": 6520045,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "requested_micro": 7916666,
+          "after_shared_atom_micro": 4456272,
+          "credited_micro": 4456272,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "draw_geometry",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 4000000
+        },
+        {
+          "axis": "early_reproduction",
+          "requested_micro": 4256410,
+          "after_shared_atom_micro": 4256410,
+          "credited_micro": 4256410,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "going_weather",
+          "requested_micro": 2375000,
+          "after_shared_atom_micro": 1336881,
+          "credited_micro": 1336881,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "jockey_trainer",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "projected_pace",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "relative_last3f",
+          "requested_micro": 4302884,
+          "after_shared_atom_micro": 4302884,
+          "credited_micro": 4302884,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "rival_followup",
+          "requested_micro": 4434893,
+          "after_shared_atom_micro": 4434893,
+          "credited_micro": 4434893,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "sustained_effort",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 5000000
+        },
+        {
+          "axis": "weight_sex_age",
+          "requested_micro": 1100000,
+          "after_shared_atom_micro": 1100000,
+          "credited_micro": 1100000,
+          "unknown_cap_micro": 0
+        }
+      ],
+      "causal_identification": false,
+      "development_only": true
+    },
+    {
+      "group": "LOST30",
+      "race_id": "2026-11-14/東京/10",
+      "horse_no": 15,
+      "horse_name": "グーテンベルク",
+      "supported": true,
+      "legacy_common_rank": 7,
+      "v7_diagnostic_rank": 11,
+      "rank_change_common": 4,
+      "conditional_pattern": "EYE_BUNDLE_CHANGE_SENSITIVE",
+      "requested_micro": 41764624,
+      "after_shared_atom_micro": 30767498,
+      "credited_micro": 30767498,
+      "shared_atom_reduction_micro": 10997126,
+      "later_cap_reduction_micro": 0,
+      "unknown_budget": 21,
+      "boundary_gap_micro": 7089103,
+      "within_v7_boundary_axes": [
+        {
+          "axis": "comparable_form",
+          "horse_points": 5.535978,
+          "cutoff_points": 11.24095,
+          "cutoff_advantage_micro": 5704972,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "horse_points": 2.101223,
+          "cutoff_points": 4.99909,
+          "cutoff_advantage_micro": 2897867,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "sustained_effort",
+          "horse_points": 0,
+          "cutoff_points": 2.5,
+          "cutoff_advantage_micro": 2500000,
+          "unknown_budget": 5
+        },
+        {
+          "axis": "consistency_recency",
+          "horse_points": 1.629473,
+          "cutoff_points": 2.983497,
+          "cutoff_advantage_micro": 1354024,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "going_weather",
+          "horse_points": 0.65034,
+          "cutoff_points": 1.620565,
+          "cutoff_advantage_micro": 970225,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "early_reproduction",
+          "horse_points": 4.51282,
+          "cutoff_points": 5.2,
+          "cutoff_advantage_micro": 687180,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "body_equipment_rest",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "draw_geometry",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 4
+        },
+        {
+          "axis": "jockey_trainer",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 2
+        },
+        {
+          "axis": "projected_pace",
+          "horse_points": 0,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": 0,
+          "unknown_budget": 8
+        },
+        {
+          "axis": "weight_sex_age",
+          "horse_points": 1.5,
+          "cutoff_points": 1.4,
+          "cutoff_advantage_micro": -100000,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "rival_followup",
+          "horse_points": 3.583762,
+          "cutoff_points": 3.458333,
+          "cutoff_advantage_micro": -125429,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "relative_last3f",
+          "horse_points": 3.17094,
+          "cutoff_points": 2.854166,
+          "cutoff_advantage_micro": -316774,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "course_affinity",
+          "horse_points": 4.082962,
+          "cutoff_points": 1.6,
+          "cutoff_advantage_micro": -2482962,
+          "unknown_budget": 0
+        },
+        {
+          "axis": "class",
+          "horse_points": 4,
+          "cutoff_points": 0,
+          "cutoff_advantage_micro": -4000000,
+          "unknown_budget": 0
+        }
+      ],
+      "eye_status": "TWO_DISTINCT_VERIFIED_MECHANISMS_NOT_ESTABLISHED",
+      "original_allocation": [
+        {
+          "axis": "body_equipment_rest",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "class",
+          "requested_micro": 4000000,
+          "after_shared_atom_micro": 4000000,
+          "credited_micro": 4000000,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "comparable_form",
+          "requested_micro": 7500000,
+          "after_shared_atom_micro": 5535978,
+          "credited_micro": 5535978,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "consistency_recency",
+          "requested_micro": 4015337,
+          "after_shared_atom_micro": 1629473,
+          "credited_micro": 1629473,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "course_affinity",
+          "requested_micro": 6984615,
+          "after_shared_atom_micro": 4082962,
+          "credited_micro": 4082962,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "distance_stamina",
+          "requested_micro": 4894586,
+          "after_shared_atom_micro": 2101223,
+          "credited_micro": 2101223,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "draw_geometry",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 4000000
+        },
+        {
+          "axis": "early_reproduction",
+          "requested_micro": 4512820,
+          "after_shared_atom_micro": 4512820,
+          "credited_micro": 4512820,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "going_weather",
+          "requested_micro": 1602564,
+          "after_shared_atom_micro": 650340,
+          "credited_micro": 650340,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "jockey_trainer",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 2000000
+        },
+        {
+          "axis": "projected_pace",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 8000000
+        },
+        {
+          "axis": "relative_last3f",
+          "requested_micro": 3170940,
+          "after_shared_atom_micro": 3170940,
+          "credited_micro": 3170940,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "rival_followup",
+          "requested_micro": 3583762,
+          "after_shared_atom_micro": 3583762,
+          "credited_micro": 3583762,
+          "unknown_cap_micro": 0
+        },
+        {
+          "axis": "sustained_effort",
+          "requested_micro": 0,
+          "after_shared_atom_micro": 0,
+          "credited_micro": 0,
+          "unknown_cap_micro": 5000000
+        },
+        {
+          "axis": "weight_sex_age",
+          "requested_micro": 1500000,
+          "after_shared_atom_micro": 1500000,
+          "credited_micro": 1500000,
+          "unknown_cap_micro": 0
+        }
+      ],
+      "causal_identification": false,
+      "development_only": true
+    }
+  ],
+  "production_allowed": false,
+  "independent_future_validation": false
+}
