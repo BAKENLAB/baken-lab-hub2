@@ -8,6 +8,7 @@ const html=({clock='1:35.6',lapRows=1,distance=1400}={})=>`<!doctype html>
 <table><tr><th>着順</th><th>枠番</th><th>馬番</th><th>馬名</th><th>タイム</th></tr>
 <tr><td>1</td><td>1</td><td>5</td><td><a href="/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=112233">架空テスト馬</a></td><td>${clock}</td></tr>
 <tr><td>2</td><td>2</td><td>6</td><td><a href="/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=445566">架空対戦馬</a></td><td>1:36.6</td></tr></table>
+<h2>全馬コーナー通過順</h2>
 <table><tr><th>1角</th><td>5,6</td></tr><tr><th>4角</th><td>6,5</td></tr></table>
 ${Array.from({length:lapRows},()=>'<table><tr><th>ハロンタイム</th>'+row.map(x=>'<td>'+x+'</td>').join('')+'</tr></table>').join('')}
 </body>`;
