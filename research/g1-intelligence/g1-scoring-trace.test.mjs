@@ -7,7 +7,7 @@ const testCase=()=>{
  const rows=orig.map((x,i)=>({horse_no:x.horse_no,score_before:x.score,score_after:changed[i].score,
   applied_delta:changed[i].score-x.score,
   verified_run_refs:i===5?["JRA_CLAIMED_CONTEXT.runner_history[horse_no=6].past_runs[0]"]:[]}));
- return {context:{stage:"AWAITING_JRA_FULL_DEPTH_COMPARISON",race:{race_date:"2026-11-22"},
+ return {observedAt:"2026-11-21T04:00:00+09:00",context:{stage:"AWAITING_JRA_FULL_DEPTH_COMPARISON",race:{race_date:"2026-11-22",post_time:"2026-11-22T15:40:00+09:00"},
   runner_history:orig.map(x=>({horse_no:x.horse_no,past_runs:[{race_date:"2026-09-01"}]}))},
   originalPayload:{runners:orig},
   rankPreview:{status:"READY_FOR_OFFICIAL_SAVE",proposed_payload:{runners:changed,top5:changed.slice(0,5),
@@ -68,4 +68,13 @@ test("no automatic rank change after an EYE re-audit required preview",()=>{
 test("non-G1 is skipped without score effects",()=>{
  const x=testCase();x.g1Audit.status="SKIPPED_NON_G1";
  const r=reconcileG1ScoringTrace(x);assert.equal(r.status,"SKIPPED_NON_G1");
+});
+
+test("rejects post-time scoring inspection even if other audit status is spoofed",()=>{
+ const x=testCase();x.observedAt="2026-11-22T16:00:00+09:00";
+ assert.equal(reconcileG1ScoringTrace(x).reason,"NOT_BEFORE_OFFICIAL_POST_TIME");
+});
+test("rejects scoring trace without a trustworthy observation time",()=>{
+ const x=testCase();delete x.observedAt;
+ assert.equal(reconcileG1ScoringTrace(x).reason,"NOT_BEFORE_OFFICIAL_POST_TIME");
 });
