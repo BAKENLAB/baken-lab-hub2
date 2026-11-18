@@ -2,7 +2,7 @@ name: JRA G1 Intelligence read-only audit
 on:
   push:
     paths:
-      - 'supabase/functions/jra-claimed-mcp/g1-intelligence-audit.mjs'
+      - 'supabase/functions/jra-claimed-mcp/**'
       - 'research/g1-intelligence/**'
       - '.github/workflows/g1-intelligence-audit.yml'
   pull_request:
@@ -21,4 +21,4 @@ jobs:
         with:
           node-version: '22'
       - name: Run read-only G1 coverage tests
-        run: node --test research/g1-intelligence/g1-intelligence-audit.test.mjs
+        run: node --test research/g1-intelligence/*.test.mjs
