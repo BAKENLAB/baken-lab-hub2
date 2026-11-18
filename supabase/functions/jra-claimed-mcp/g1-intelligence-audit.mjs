@@ -6,7 +6,7 @@ function norm(v){return String(v??"").normalize("NFKC").trim();}
 
 function asDate(s){const t=Date.parse(s??"");return Number.isFinite(t)?t:NaN;}
 
-function number(v){const n=Number(v);return Number.isFinite(n)?n:null;}
+function number(v){if(v===null||v===undefined||v===''||(typeof v==='string'&&!v.trim()))return null;const n=Number(v);return Number.isFinite(n)?n:null;}
 
 function isG1Race(context){
  const r=context?.race??{},d=r.field_payload?.race??{};
