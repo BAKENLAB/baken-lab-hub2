@@ -2,7 +2,7 @@
 
 ## 現在の本番経路と変更範囲
 - 本番 Supabase: `qjlvsndiqjfsfjinilig`。
-- JRA正規MCP Edge Function: `jra-claimed-mcp` **v32 / ACTIVE**。
+- JRA正規MCP Edge Function: `jra-claimed-mcp` **v33 / ACTIVE**。
 - 正規 `jra_claimed_context` の読み取り専用応答に `g1_intelligence` を付与。
 - 正規 `jra_evidence_rank_preview` の読み取り専用応答に `g1_intelligence` と `g1_scoring_trace` を付与。
 - 既存100点採点・Evalペース補正 `jra-verified-evidence-rank-bridge.mjs`、EYE判定、`jra_save_claimed_prediction`、正規RPC・FROZEN・Cron等は変更していない。
@@ -35,8 +35,8 @@
 - `research/g1-intelligence/g1-intelligence-audit.test.mjs`：GⅠ対象判定、発走前時刻、全頭一致、未来走排除等。
 - `research/g1-intelligence/g1-scoring-trace.test.mjs`：元点数と補正点数の照合、証拠不在の加点拒否、同一参照重複、未来履歴、対象馬数、TOP5不一致、非GⅠスキップ等。
 - GitHub workflow: `node --test research/g1-intelligence/*.test.mjs`。
-- CI確認：GitHub Actions run `44373056298` success（両テストファイルを対象）。
-- 2026-11-19本番 v32 を再取得：ACTIVE・15ソースファイル・監査付与位置あり・既存保存関数保持。
+- CI確認：GitHub Actions run `44373640038` **22 PASS / 0 FAIL**（両テストファイルを対象）。
+- 2026-11-19本番 v33 を再取得：ACTIVE・15ソースファイル・監査付与位置あり・既存保存関数保持。
 
 ## マイルCS直前の残作業
 - 2026/11/22 JRA公式出馬表、READY、未保存、有効CLAIMを確認する。
@@ -45,3 +45,9 @@
 - **本番保存は正規CLAIMと発走前条件が満たされた場合だけ。** FROZENを直接書き換えない。
 - 次段階で、監査の新しい根拠がHUBの採点に反映され得るか、元から評価されていた材料と独立に、未来レースで比較する。まだ「GⅠ採点強化で順位改善」を主張しない。
 
+
+### 2026-11-19の追加hardening
+- v32 → v33: `g1_scoring_trace` で独立の `observedAt < post_time` 検査を必須化。実際の当該レースが発走済みでなく、検査時刻が未指定でも機能を拒否。
+- 既存の `jra_save_claimed_prediction` ハンドラーは v31 → v32 → v33 更新のいずれもバイト同一。
+- GⅠ監査+スコア整合性ユニットテスト合計 **22 PASS / 0 FAIL**（CI 44373640038）。
+- **実マイルCS全頭データのCLAIM実行テストは未完了**。2026/11/22のREADY待ち。
