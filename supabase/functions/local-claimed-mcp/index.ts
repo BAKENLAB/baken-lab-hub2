@@ -115,6 +115,8 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
    const output={
     race_date,track,race_no,status:String(result.status||"UNKNOWN"),
     stored:result.stored===true,linked_prior_runs:Number(result.linked_prior_runs)||0,
+    verified_race_lap_sets:Number(result.verified_race_lap_sets)||0,
+    verified_opponent_followups:Number(result.verified_opponent_followups)||0,
     read_count:Number(result.read_count)||0,
     verified_profile_horses:Number(result.verified_profile_horses)||0,
     claim_started:false,prediction_saved:false,
