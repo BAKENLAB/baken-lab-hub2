@@ -1,0 +1,17 @@
+✔ raw JSON bytes including whitespace/CRLF preserved without changing ranks or grades (5.454079ms)
+✔ same record and existing session never overwritten (1.987746ms)
+✔ visible judgement text remains exact, not converted into a synthetic evaluator (3.119856ms)
+✔ unknown outcome kind and credentials refused without rewriting originals (1.193657ms)
+✔ local recording timestamp never labeled generation/prestart proof (1.819581ms)
+✔ incomplete or merely file-complete records cannot assert real comparison (3.670481ms)
+✔ known development context stays excluded and hash is not proof of input use (6.193558ms)
+✔ tampered local bytes detected; no claim of filesystem WORM security (1.214337ms)
+✔ invalid JSON errors never echo the raw input value (6.494194ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1991.020437
