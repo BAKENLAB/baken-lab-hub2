@@ -110,6 +110,22 @@
     {
       "schema": "private",
       "name": "jra_relative_pace_summary_v1"
+    },
+    {
+      "schema": "private",
+      "name": "jra_flat_past_runs"
+    },
+    {
+      "schema": "private",
+      "name": "jra_horse_key"
+    },
+    {
+      "schema": "private",
+      "name": "jra_missing_id_review_v1"
+    },
+    {
+      "schema": "private",
+      "name": "jra_time_seconds"
     }
   ],
   "history": [
@@ -218,6 +234,34 @@
       "bytes": 2677,
       "acquisition": "SUPABASE_MCP_READ_ONLY",
       "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_flat_past_runs.sql.txt",
+      "sha256": "93c46f9d1fcc369ea043c120907519679f9964f87219edfcd56d31acea55117c",
+      "bytes": 1466,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_horse_key.sql.txt",
+      "sha256": "8e33c5306367689d721f1d00aceb9b7c3f4fea5e2e6ecca5a378a6b1aedba4b6",
+      "bytes": 251,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_missing_id_review_v1.sql.txt",
+      "sha256": "4be9d8c8ab5eca94a6267df75200590717bc26058d03a1c3fe39da98a3212ea6",
+      "bytes": 2229,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_time_seconds.sql.txt",
+      "sha256": "aeac81d6d38a2c6b659a3470dbe6883d22b6285209f570976c7060a0deeebe0c",
+      "bytes": 441,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
     }
   ],
   "referenced_sql_symbols": [
@@ -264,5 +308,17 @@
     "npm:@supabase/supabase-js@2",
     "npm:zod@^4.3.6",
     "npm:cheerio@1.0.0"
+  ],
+  "training_relations": [
+    {
+      "name": "private.jra_base_core_stats_v1",
+      "relkind": "r",
+      "contents_snapshot_recovered": false
+    },
+    {
+      "name": "private.jra_base_core_fallback_stats_v1",
+      "relkind": "r",
+      "contents_snapshot_recovered": false
+    }
   ]
 }

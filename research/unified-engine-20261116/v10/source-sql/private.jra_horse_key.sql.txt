@@ -1,0 +1,8 @@
+CREATE OR REPLACE FUNCTION private.jra_horse_key(p_ref text)
+ RETURNS text
+ LANGUAGE sql
+ IMMUTABLE
+ SET search_path TO 'pg_catalog', 'public', 'private'
+AS $function$
+  select substring(coalesce(p_ref,'') from 'dud(?:00|10)([0-9]{10})/');
+$function$
