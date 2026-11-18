@@ -53,3 +53,26 @@ test("gated only for authorized LOCAL1.6 protocol, not legacy profiles",()=>{
  assert.match(save,/protocol_version==="CHAPPY_LOCAL_1\.6_EYE_FACTOR_COUNT_20261013"/);
  assert.equal((save.match(/auditLocalEyeOmissions\(\{/g)||[]).length,1);
 });
+
+test("read-only MCP preflight exposes missing official source refs before the first save",()=>{
+ const from=source.indexOf('s.registerTool("lab_eye_coverage_preflight"');
+ const to=source.indexOf('s.registerTool("lab_relative_rank_preview"',from);
+ const tool=source.slice(from,to);
+ assert.ok(from>=0&&to>from);
+ assert.match(tool,/readOnlyHint:true/);
+ assert.match(tool,/const reviewed=auditLocalEyeOmissions/);
+ assert.match(tool,/save_authorized:false/);
+ assert.match(tool,/frozen_modified:false/);
+ assert.match(tool,/structuredContent:result/);
+ assert.doesNotMatch(tool,/c\.rpc\(|update\(|\.insert\(|\.upsert\(/i);
+});
+test("preflight uses current authorized CLAIM on both sides of official context read",()=>{
+ const from=source.indexOf('s.registerTool("lab_eye_coverage_preflight"');
+ const to=source.indexOf('s.registerTool("lab_relative_rank_preview"',from);
+ const tool=source.slice(from,to);
+ assert.match(tool,/await auth\(\)/);
+ assert.match(tool,/prior=await claim\(c,job_id\)/);
+ assert.match(tool,/const after=await claim\(c,job_id\)/);
+ assert.match(tool,/after\.j\.claim_token!==prior\.j\.claim_token/);
+ assert.match(tool,/assertLocal16EvidenceHandoffForSave/);
+});
