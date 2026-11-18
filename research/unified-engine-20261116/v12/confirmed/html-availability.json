@@ -1,0 +1,94 @@
+{
+  "columns_search_scope": "USER_SCHEMAS_HTML_GZIP_AND_JRA_ARCHIVE_BODY_NAMES_LIMIT100",
+  "matching_columns": [
+    {
+      "schema_name": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "html_sha256",
+      "data_type": "text"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "html_bytes",
+      "data_type": "integer"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "draw",
+      "data_type": "smallint"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "body_weight",
+      "data_type": "integer"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "body_weight_diff",
+      "data_type": "integer"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "time_raw",
+      "data_type": "text"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "body_weight",
+      "data_type": "integer"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "body_weight_diff",
+      "data_type": "integer"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "body_weight",
+      "data_type": "integer"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "body_weight_diff",
+      "data_type": "integer"
+    },
+    {
+      "schema_name": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "draw",
+      "data_type": "smallint"
+    }
+  ],
+  "storage_buckets_seen": [],
+  "latest_metadata_sample": [
+    {
+      "race_key": "20261115_京都_12R",
+      "cname": "pw01dde0108202605041220261115/01",
+      "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202605041220261115%2F01",
+      "fetched_at": "2026-11-15 07:06:04.843+00",
+      "recorded_at": "2026-11-15 07:06:05.229499+00",
+      "html_sha256": "af683c907ea6c517076eea3e3e8df7db54faa986fc3d30bba45a14dd4bba4e0a",
+      "html_bytes": 238114,
+      "extractor_version": "jra-live-v17-provenance",
+      "status_basis": "UNVERIFIED_HTML_CAPTURE",
+      "official_status_verified": false
+    }
+  ],
+  "source_current_jra_live_version": 31,
+  "source_hash_representation": "DECODED_HTML_STRING_REENCODED_AS_UTF8",
+  "manual_verified_card_hash_representation": "RAW_HTTP_RESPONSE_BYTES_IN_MCP_V29",
+  "representations_not_interchangeable": true,
+  "body_reader_found_in_examined_scope": false,
+  "global_body_absence_proven": false,
+  "original_body_downloaded": false,
+  "production_allowed": false
+}

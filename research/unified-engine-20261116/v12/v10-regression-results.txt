@@ -1,0 +1,27 @@
+✔ v29-shaped synthetic context projects all six ACTIVE horses without modifying input (5.331662ms)
+✔ current attrs and observed history values map to existing r/f slots (1.611414ms)
+✔ archive detail flags alone never promote histories or identity/position/timing verification (0.764619ms)
+✔ all15 existing claim slots stay null rather than assigning zero ability points (0.919042ms)
+✔ missing values remain null; final turn not inferred from pos_change (1.462175ms)
+✔ ambiguous archive and raw history details are not merged (0.870853ms)
+✔ detail finish mismatch prevents cross-race detail attribution (0.615249ms)
+✔ corner conflict is explicit; projection does not choose a preferred position (0.551898ms)
+✔ non-positional text and incomplete laps stay unparsed (0.742123ms)
+✔ unknown status blocks field; explicit cancellations stay outside ACTIVE projections (1.313871ms)
+✔ duplicate number, missing ACTIVE history and wrong name fail closed (0.771376ms)
+✔ missing current horse identity stays null and never becomes a verified prior identity (1.479807ms)
+✔ different current/card attributes remain null rather than silently selecting one (0.518932ms)
+✔ odds/popularity and BASE_CORE ranks cannot influence projected feature slots (3.120014ms)
+✔ target results refused; same-day/null finishes never count as eligible observations (1.098071ms)
+✔ most recent maximum five observation candidates; no fake history to reach five (11.170125ms)
+✔ original response exact bytes hash retained only if actual matching response text supplied (2.94415ms)
+✔ caller times after post fail; official verified=true does not establish cryptographic witness (2.24407ms)
+✔ local historical16-horse shape (origin unverified) is development-only, never a new future comparison (3.895309ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 54.505511

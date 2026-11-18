@@ -1,0 +1,63 @@
+{
+  "definition_confirmed": true,
+  "source": "CURRENT_SUPABASE_PG_GET_FUNCTIONDEF_NOT_RPC_EXECUTION",
+  "functions": [
+    {
+      "name": "jra_claim_prediction_jobs",
+      "sha256": "5649f0b6a78be49ecdd44f41c3860e40f768eab87801a12affcff3b6bff5dfa7",
+      "security_definer": false,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "name": "jra_manual_claim_next_v1",
+      "sha256": "a61e694f072674a39a84ba16d6fdcc3b6e93e78f3c9dd9ea3ba0b37570e8150a",
+      "security_definer": false,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "name": "jra_manual_readiness_v1",
+      "sha256": "7091b0b9ffd16d3671a3c7ac836d4c79fb6b614b172300cf1b487191eb4c175b",
+      "security_definer": false,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    }
+  ],
+  "field_statuses": [
+    "BASIC_READY",
+    "READY"
+  ],
+  "paths": {
+    "manual_new_claim": {
+      "checks_field_status": true,
+      "window_minutes": [
+        3,
+        70
+      ],
+      "requires_live_runner_exists": true,
+      "excludes_official_prediction": true,
+      "excludes_chappy_prediction": true
+    },
+    "manual_resume": {
+      "checks_field_status": false,
+      "requires_live_runner_exists": false,
+      "excludes_official_prediction": true,
+      "excludes_chappy_prediction": false,
+      "requires_live_claim_and_run": true
+    },
+    "generic_claim": {
+      "checks_field_status": false,
+      "checks_obstacle": false,
+      "window_minutes": [
+        3,
+        70
+      ],
+      "has_global_attempts_cleanup": true
+    },
+    "readiness_counter": {
+      "checks_field_status": true,
+      "excludes_chappy_prediction": false
+    }
+  },
+  "body_or_identity_verification_implied_by_ready": false,
+  "server_ready_receipt_connected": false,
+  "production_allowed": false
+}
