@@ -57,3 +57,11 @@ test("fingerprint does not change fixed EYE omission and official save gates",()
  assert.match(index,/auditLocalEyeOmissions/);
  assert.equal((index.match(/lab_queue_save_prediction_with_shadow_v1/g)||[]).length,1);
 });
+
+test("live v38 criterion trace remains intact",()=>{
+ const trace=readFileSync(new URL("supabase/functions/local-claimed-mcp/local16-criterion-trace-preflight.mjs",root),"utf8");
+ assert.match(index,/auditLocal16CriterionTrace/);
+ assert.match(index,/criterion_trace_status:trace\.status/);
+ assert.match(trace,/LOCAL16_SCORING_TRACE_V1/);
+ assert.match(trace,/score_certified:false/);
+});
