@@ -137,3 +137,33 @@ test('not even an EYE-positive factor may use invented COMPACT reference',()=>{
  assert.equal(r.code,'LOCAL_EVIDENCE_ASSERTION_MISMATCH');
  assert.ok(r.issues.some(v=>v.code==='EYE_FACTOR_NOT_VERIFIED'));
 });
+
+test('same race course means track + distance + SURFACE, not just numeric distance',()=>{
+ const x=sample(),check=x.payload.audit.eye_candidate_audit[0].review_checks;
+ x.verifiedRunners[5].recent_runs[0].surface='ダート';
+ check.same_condition_history={status:'CHECKED',finding:'笠松1400mの履歴あり',
+  evidence_refs:[ref(6)]};
+ const r=auditLocal16EvidenceQuality({...x,officialPreRace:{
+  official_context_verified:true,track:'笠松',distance:1400,surface:'芝'
+ }});
+ assert.equal(r.code,'LOCAL_EVIDENCE_ASSERTION_MISMATCH');
+ assert.ok(r.issues.some(v=>v.code==='SAME_CONDITION_NOT_VERIFIED'));
+});
+test('outdated EYE factors remain diagnostic, never count toward two current positives',()=>{
+ const x=sample(),c=x.payload.audit.eye_candidate_audit[0];
+ for(const category of ['margins','same_condition_history']){
+  c.review_checks[category]={status:'CHECKED',finding:'過去走は確認、今回は不適合',
+   evidence_refs:[ref(6)]};
+ }
+ x.payload.audit.eye_positive_factor_audit[0].positive_factors=
+  ['margins','same_condition_history'].map(category=>({
+   category,reason:'今回は古い材料 '+category,
+   evidence_refs:[ref(6)],current_relevance:false
+  }));
+ x.payload.eye={horse_no:6,horse_name:'正式馬6',reason:'テスト用EYE'};
+ const r=auditLocal16EvidenceQuality(x);
+ assert.equal(r.code,'LOCAL_EVIDENCE_ASSERTION_MISMATCH');
+ assert.ok(r.issues.some(v=>v.code==='EYE_WITHOUT_TWO_CURRENT_FACTORS'));
+ assert.equal(r.metrics.non_current_positive_factors,2);
+ assert.equal(r.metrics.current_positive_factors,0);
+});
