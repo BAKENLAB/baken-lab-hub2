@@ -8,7 +8,9 @@ on:
       - 'automation/local16-criterion-trace-preflight.test.mjs'
       - 'automation/local16-optional-trace-save-gate.mjs'
       - 'automation/local16-optional-trace-save-gate.test.mjs'
+      - 'automation/local16-save-integrity-wiring.test.mjs'
       - 'supabase/functions/lab-claimed-context/**'
+      - 'supabase/functions/local-claimed-mcp/**'
       - '.github/workflows/local16-scoring-criteria.yml'
 permissions:
   contents: read
@@ -22,4 +24,4 @@ jobs:
         with:
           node-version: '22'
       - name: Criterion inputs and as-of contract
-        run: node --test automation/local16-live-scoring-criteria.test.mjs automation/local16-criterion-trace-preflight.test.mjs automation/local16-optional-trace-save-gate.test.mjs
+        run: node --test automation/local16-live-scoring-criteria.test.mjs automation/local16-criterion-trace-preflight.test.mjs automation/local16-optional-trace-save-gate.test.mjs automation/local16-save-integrity-wiring.test.mjs
