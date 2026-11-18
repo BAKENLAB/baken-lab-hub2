@@ -33,7 +33,9 @@ function getRuns(r){
   const section=head.slice(m.index,dates[i+1]?.index??head.length);
   const dm=m[0].match(/(?:20\d{2}[-/])?(\d{1,2})[-/](\d{1,2})$/);
   let part=section.slice(m[0].length);
-  let place=part.match(/(\d{1,2})着|勝ち|勝利/);
+  // "2歳未勝利" is a race class, not a winning result. Require that
+  // a victory marker is not immediately preceded by 未.
+  let place=part.match(/(\d{1,2})着|(?<!未)勝ち|(?<!未)勝利/);
   if(!dm)return null;
   // Official note sometimes says "9/23と8/26の園田C3三でともに3着".
   // Two independent results are stated explicitly in that wording.
@@ -83,6 +85,18 @@ function dissect(r){
  const addRisk=s=>{const t=compact(s);if(t)cautions.push(t)};
  for(const s of analysis){
   if(/^未取得|^推測で補わない|^推測加点しない/.test(s))continue;
+  // Unsupported opponent-level claims cannot form the positive headline.
+  if(/(?:検証できない|検証できていない|裏付けがない|証明できない)/.test(s)
+    && !/(?:評価|重視|勝利|連対を確認)/.test(s)){
+    addRisk(s);continue;
+  }
+  // A sequence of dated poor finishes labelled "counter-evidence"
+  // must remain a single risk, including its *first* negative run.
+  if(/^\d{1,2}\/\d{1,2}/.test(s) &&
+    /(?:反証|不安材料|低調|苦戦)/.test(s) &&
+    !/(?:好走を評価|実績を評価|強みと評価)/.test(s)){
+    addRisk(s);continue;
+  }
   // A caution-only sentence must not promote its opening half to a strength.
   if(/^(?:直近|前走|休み明け).*?(?:なし|不安|反証|未実証)|^近走.*?なし|^ただし/.test(s)){
     addRisk(s);continue;
