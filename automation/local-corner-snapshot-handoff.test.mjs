@@ -39,3 +39,34 @@ test('post-start cannot add a snapshot',async()=>{
  const a=await stageLocalCornerSnapshot({race,officialRunners,packet:preclaim,store,clock:()=>Date.parse(post)+1});
  assert.equal(a.inserted,false);assert.equal(store.get(),null);
 });
+
+
+test('two official result pages and peer ID are retained only with both verified witnesses',async()=>{
+ const later={raceDate:'2026-11-09',track:'園田',raceNo:4};
+ const laterSource='https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=27&k_raceDate=2026%2F11%2F09&k_raceNo=4';
+ const secondRef='https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=987654321';
+ const second={horseNo:6,horseName:'SYNTHETIC_B',status:'ACTIVE',verifiedRecentRuns:[
+  {raceDate:later.raceDate,track:later.track,raceNo:later.raceNo,pastHorseNo:7,
+   horseRef:secondRef,identityVerifiedBy:'OFFICIAL_HORSE_REF',source:'NAR_OFFICIAL_RESCUE'}]};
+ const secondEvidence={...entry,horseNo:6,horseName:'SYNTHETIC_B',horseRef:secondRef,
+  pastRace:later,pastHorseNo:7,sourceRef:laterSource};
+ const peer={horseNo:5,horseName:'SYNTHETIC',priorRace:past,
+  sourceRef,sourceCheckedAt,peerOfficialHorseId:'55555555',peerName:'PEER',
+  peerPriorFinish:2,followupRace:later,followupSourceRef:laterSource,
+  followupCheckedAt:sourceCheckedAt,peerFollowupFinish:1,
+  identityMethod:'EXACT_NAR_OFFICIAL_HORSE_ID_TWO_RESULT_PAGES',
+  rankingEffect:'NONE_UNTIL_REVIEWED'};
+ const packet={...preclaim,linkedRunEvidence:2,evidence:[entry,secondEvidence],opponentFollowups:[peer]};
+ const store=makeStore();
+ const r=await stageLocalCornerSnapshot({race,officialRunners:[...officialRunners,second],
+  packet,store,clock:()=>now});
+ assert.equal(r.status,'STORED');
+ assert.equal(store.get().evidence.packet.opponentFollowups.length,1);
+ const after=await lookupLocalCornerSnapshot({race,officialRunners:[...officialRunners,second],store,clock:()=>now+1000});
+ assert.equal(after.opponentFollowups.length,1);
+ const broken={...packet,opponentFollowups:[{...peer,peerFollowupFinish:99}]};
+ const store2=makeStore();
+ await stageLocalCornerSnapshot({race,officialRunners:[...officialRunners,second],packet:broken,store:store2,clock:()=>now});
+ assert.equal(store2.get().evidence.packet.evidence.length,2);
+ assert.equal(store2.get().evidence.packet.opponentFollowups.length,0);
+});
