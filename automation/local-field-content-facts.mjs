@@ -101,9 +101,18 @@ export function buildLocalFieldContentFacts(ctx,{transitionStats=[]}={}){
  }
  const courseCount=per.reduce((n,r)=>n+r.runs.filter(x=>x.course_transition_evidence).length,0);
  const lossCount=per.reduce((n,r)=>n+r.loss_review_candidate_count,0);
+ // Verified race-wide 200m laps only. Never convert to individual horse splits.
+ const lapEvidence=ctx?.official_lap_evidence;
+ const verifiedLaps=lapEvidence?.status==='VERIFIED_PAST_RACE_LAPS'&&
+   lapEvidence.horse_specific_sectionals===false&&
+   lapEvidence.rank_effect===false&&lapEvidence.score_effect===0&&
+   Array.isArray(lapEvidence.prior_races)?lapEvidence.prior_races:[];
  return {status:'VERIFIED_WHOLE_FIELD_FACTS',runner_count:rs.length,
   per_runner:per,head_to_head:direct,head_to_head_count:direct.length,
-  full_race_laps:{status:'NOT_VERIFIED',reason:'NO_VERIFIED_OFFICIAL_SECTIONAL_LAP_SOURCE_IN_CURRENT_PIPELINE'},
+  full_race_laps:verifiedLaps.length?
+   {status:'VERIFIED_RACE_LEVEL_PARTIAL',prior_race_count:verifiedLaps.length,
+    per_horse_splits:false,score_effect:0,source:'AUTHENTICATED_PRECLAIM_OFFICIAL_RESULT'}:
+   {status:'NOT_VERIFIED',reason:'NO_VERIFIED_OFFICIAL_SECTIONAL_LAP_SOURCE_IN_CURRENT_PIPELINE'},
   opponent_followup_strength:{status:'NOT_VERIFIED',reason:'NO_SAFE_OFFICIAL_HORSE_ID_FOLLOWUP_JOIN_IN_CURRENT_PIPELINE'},
   course_correlation:{status:courseCount?'VERIFIED_DESCRIPTIVE_TRANSITIONS':'NOT_AVAILABLE',
     matched_run_count:courseCount,market_fields_used:false,automatic_score_effect:0},
