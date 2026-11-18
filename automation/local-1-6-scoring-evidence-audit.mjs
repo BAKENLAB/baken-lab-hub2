@@ -24,11 +24,16 @@ const supportedRef=(ref,no,h)=> {
 };
 const sum=x=>x.reduce((n,v)=>n+v,0);
 const error=(code,issues=[],metrics={})=>({ok:false,code,issues,metrics});
-function scoreTrace(r,h){
+function scoreTrace(r,h,approvedScoringPolicy){
  const l=r?.score_ledger;
  if(!obj(l)||!Number.isFinite(l.base_score)||!Array.isArray(l.components)||
   !clean(l.scorer_version)||!clean(l.scoring_policy_ref))
   return 'SCORE_LEDGER_MISSING_OR_UNATTESTED';
+ if(!obj(approvedScoringPolicy)||!clean(approvedScoringPolicy.version)||
+    !clean(approvedScoringPolicy.policy_ref)||
+    l.scorer_version!==approvedScoringPolicy.version||
+    l.scoring_policy_ref!==approvedScoringPolicy.policy_ref)
+  return 'SCORE_POLICY_NOT_CERTIFIED';
  if(!Number.isFinite(r.score)||r.score<0||r.score>100||
    l.components.some(v=>!obj(v)||!clean(v.rule_id)||
      !Number.isFinite(v.points)||!Array.isArray(v.evidence_refs)||
@@ -40,7 +45,8 @@ function scoreTrace(r,h){
  return null;
 }
 export function auditLocal16EvidenceQuality({
- payload,verifiedRunners,strictScoreTrace=false,targetDate=null
+ payload,verifiedRunners,strictScoreTrace=false,targetDate=null,
+ approvedScoringPolicy=null
 }={}){
  if(!obj(payload)||!Array.isArray(payload.runners)||!Array.isArray(verifiedRunners)||
   !obj(payload.audit))return error('LOCAL_AUDIT_INPUT_INVALID');
@@ -59,7 +65,7 @@ export function auditLocal16EvidenceQuality({
    if(!date(past?.race_date)||(targetDate!==null&&past.race_date>=targetDate))
     return error('LOCAL_AUDIT_HISTORY_ASOF_INVALID',[{horse_no:r.horse_no}]);
   }
-  const sc=scoreTrace(r,h);
+  const sc=scoreTrace(r,h,approvedScoringPolicy);
   if(sc)scoring.push({horse_no:r.horse_no,code:sc});
  }
  const candidates=payload.audit.eye_candidate_audit;
