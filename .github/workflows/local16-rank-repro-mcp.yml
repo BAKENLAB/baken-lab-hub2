@@ -1,0 +1,28 @@
+name: LOCAL1.6 MCP read-only rank provenance safety
+on:
+  push:
+    branches: [feature/local16-rank-preflight-mcp-20261119]
+  pull_request:
+    paths:
+      - "supabase/functions/local-claimed-mcp/**"
+      - "automation/local16-rank-reproducibility-audit.mjs"
+      - "research/local16-rank-repro-mcp.test.mjs"
+      - ".github/workflows/local16-rank-repro-mcp.yml"
+permissions:
+  contents: read
+jobs:
+  safe-rank-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Read-only official MCP audit and earlier drift regression
+        run: node --test research/local16-rank-repro-mcp.test.mjs research/local16-rank-reproducibility-audit.test.mjs research/local-eye-omission-preflight.test.mjs research/local-eye-omission-integration.test.mjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Production MCP full Deno import/type verification
+        run: deno check --config supabase/functions/local-claimed-mcp/deno.json --node-modules-dir=auto supabase/functions/local-claimed-mcp/index.ts
