@@ -10,6 +10,7 @@ const ref=(n,i)=>"COMPACT_V1.runners[horse_no="+n+"].recent_runs["+i+"]";
 const pattern=/^COMPACT_V1\.runners\[horse_no=(\d+)\]\.recent_runs\[(\d+)\]$/;
 const fail=(code,extra={})=>({ok:false,status:"UNVERIFIED",code,rank_effect:false,eye_effect:false,frozen_effect:false,...extra});
 const goodRef=(r,n,h)=>{const m=typeof r==="string"?r.match(pattern):null;return !!(m&&Number(m[1])===n&&Number(m[2])<h.recent_runs.length);};
+/** @param {{race?:any,verifiedRunners?:any[],payload?:any,observationAt?:string,maxAgeDays?:number}} [input] */
 export function auditLocalEyeOmissions({race,verifiedRunners,payload,observationAt,maxAgeDays=90}={}){
  if(!race||!payload||!Array.isArray(payload.runners)||!Array.isArray(verifiedRunners)||
  verifiedRunners.length<5||payload.runners.length!==verifiedRunners.length||
