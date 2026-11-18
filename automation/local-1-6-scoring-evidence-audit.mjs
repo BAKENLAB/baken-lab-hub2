@@ -88,6 +88,9 @@ export function auditLocal16EvidenceQuality({
     !Array.isArray(refs))
     issues.push({horse_no:c.horse_no,criterion:k,code:'INVALID_CHECK_SCHEMA'});
    else if(v.status==='CHECKED'&&
+     (refs.length>64||new Set(refs).size!==refs.length))
+    issues.push({horse_no:c.horse_no,criterion:k,code:'CHECKED_DUPLICATE_OR_EXCESS_EVIDENCE_REFS'});
+   else if(v.status==='CHECKED'&&
      (!refs.length||refs.some(x=>!supportedRef(x,c.horse_no,h))))
     issues.push({horse_no:c.horse_no,criterion:k,code:'CHECKED_WITHOUT_VERIFIED_RUN'});
    else if(v.status==='MISSING'&&refs.length)
@@ -145,6 +148,7 @@ export function auditLocal16EvidenceQuality({
    const c=byCandidate.get(row.horse_no),check=c?.review_checks?.[f.category];
    if(!CHECKS.includes(f.category)||seen.has(f.category)||!bool(f.current_relevance)||
       !Array.isArray(f.evidence_refs)||f.evidence_refs.length===0||
+      f.evidence_refs.length>64||new Set(f.evidence_refs).size!==f.evidence_refs.length||
       !f.evidence_refs.every(ref=>supportedRef(ref,row.horse_no,hByNo.get(row.horse_no))&&
         check?.evidence_refs?.includes(ref))||check?.status!=='CHECKED')
      issues.push({horse_no:row.horse_no,criterion:f.category,code:'EYE_FACTOR_NOT_VERIFIED'});
