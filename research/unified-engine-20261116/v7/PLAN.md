@@ -1,0 +1,13 @@
+# V7: missing-six-point source audit and prospective-validation preparation
+
+Baseline b3ef1173537941881141b5085077d54ceb4342c2, Draft PR51 research branch. No scoring formula, cap, raw unit, rank, EYE selection or production path is changed. Known46R/623 are development data, not holdout.
+
+## Pre-comparison decisions
+
+1. Audit existing V2/V3/V4 definitions, source-controlled JRA MCP, existing Eval bridge, LAB COURSE and LAB JOCKEY. A proposed budget, acquired name/draw, or unrelated2-point bridge is not an approved evaluator. Approval outside these accessible artifacts remains unverified. The saved production inventory names a verified-draw module whose source is absent in this branch; do not infer its behavior or current deployed version.
+2. Preserve4/2-point unknowns if no approved formula is found. No effect coefficient is estimated or introduced. Do not copy LOCAL JOCKEY beta into JRA. Separate geometry measurements, interpretation and numeric rule.
+3. Re-open the8 priority horse cases selected by V6's identity/time/value checks and missing2025 classification. Original official body is required for recovery; abbreviations or absence of 障害 are not proof. No expansion of2026 normative rule to2025 without period evidence.
+4. One ordinary-route request to existing official class URL returned URLError/PermissionError. No HTML was obtained. Do not retry, bypass the proxy/network, or call Supabase again after its previous unresponsive SELECT. Saved structured data can be audited; current official originals/live DB remain unverified.
+5. Implement research-only holdout registration and pre-race input-seal guards: reject observed development races, post-deadline data, historical future dates, target outcomes and markets; detect tampering, require a new output file. Local hashes/clock checks alone do not prove trusted historical availability. No prediction evaluation, trusted-time attestation, database writer, scheduler or official save is implemented. Activation stays blocked by missing formulas/protocol/receipt requirements.
+6. Freeze new code/source evidence before V7 comparison. Review46R in10 groups <=5R, reuse unchanged V6 scores/intervals and selections explicitly as inherited comparison. Check protected hashes and conservation; no meaningless full rerun of old tests. Lock each V7 audit before reading comparator outcome rows. Commit each group.
+7. Report implementation/verification/unimplemented separately. Capture83 is inherited V5/V6 diagnostic projection, not V7 improvement or official forecast. No outcome-fitting,92 forcing, invented values, production/main/DB/FROZEN/Cron/deploy/paid API changes.

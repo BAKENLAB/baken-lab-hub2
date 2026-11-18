@@ -1,0 +1,462 @@
+{
+  "base_commit": "b3ef1173537941881141b5085077d54ceb4342c2",
+  "formula_approval_status": "NO_APPROVED_4_OR2_POINT_FORMULA_FOUND_IN_ACCESSIBLE_SCOPED_SOURCES",
+  "approval_outside_accessible_repo": "UNVERIFIED",
+  "production_current_deployment": "UNVERIFIED_NOT_REQUERIED",
+  "source_files": [
+    {
+      "path": "research/unified-engine-20261116/v2/rubric-proposal.json",
+      "git_blob_sha": "f7df5be97557e03056ce5e9117bb8a8f546b69c0",
+      "line_evidence": [
+        {
+          "line": 3,
+          "text": "  \"status\":\"BLOCKED_UNAPPROVED_NO_INVENTED_WEIGHTS\","
+        },
+        {
+          "line": 4,
+          "text": "  \"approved\":false,"
+        }
+      ],
+      "read_method": "PINNED_LOCAL_RESEARCH_SOURCE"
+    },
+    {
+      "path": "research/unified-engine-20261116/v3/rubric.mjs",
+      "git_blob_sha": "efdf957ae61c5201f35d5bd338121c25be810529",
+      "line_evidence": [
+        {
+          "line": 1,
+          "text": "// Unapproved, pre-outcome development proposal. Never used by production/V2."
+        },
+        {
+          "line": 3,
+          "text": " ['comparable_form',15],['consistency_recency',10],['early_reproduction',8],['projected_pace',8],['draw_geometry',4],['distance_stamina',10],['course_affinity',10],['class',8],['rival_followup',7],['relative_last3f',5],['sustained_effort',5],['going_weather',3],['weight_sex_age',3],['body_equipment_rest',2],['jockey_trainer',2]"
+        },
+        {
+          "line": 5,
+          "text": "export const POLICY=Object.freeze({status:'UNAPPROVED_DEVELOPMENT_SIMULATION',missing:'INTERVAL_NO_REDISTRIBUTION',dependency_caps:[15,25,40],primary_cap:25,independent_holdout:false});"
+        },
+        {
+          "line": 22,
+          "text": " put('draw_geometry',null,[],'Draw presence alone is not a verified geometry effect.');"
+        },
+        {
+          "line": 27,
+          "text": " put('class',null,[],'Verified class labels acquired; ordered cross-class scoring map not approved.');"
+        },
+        {
+          "line": 32,
+          "text": " for(const id of ['going_weather','weight_sex_age','body_equipment_rest','jockey_trainer'])put(id,null,[],'Attribute acquisition is not an effect estimate; independently trained/reviewed effect rule missing.');"
+        }
+      ],
+      "read_method": "PINNED_LOCAL_RESEARCH_SOURCE"
+    },
+    {
+      "path": "research/unified-engine-20261116/v3/routes.mjs",
+      "git_blob_sha": "da9ff5306c51764e657dae9111f4b85362135545",
+      "line_evidence": [
+        {
+          "line": 36,
+          "text": " record('jockey_trainer',yes(a.jockey)&&yes(a.trainer),{jockey:a.jockey,trainer:a.trainer},null,'Names never imply preference or ability points.');"
+        },
+        {
+          "line": 37,
+          "text": " record('draw_geometry',false,null,null,yes(a.draw)?'Official draw acquired; first-turn/start-surface effect source missing.':'Draw and verified course geometry missing.');"
+        },
+        {
+          "line": 44,
+          "text": " record('mineta_T04',false,null,null,'Adjacent front runners are insufficient without verified draw/geometry.');"
+        },
+        {
+          "line": 51,
+          "text": " for(const [kind,id] of Object.entries({incident:'incident',geometry:'draw_geometry',training:'training',pedigree:'bloodline',sustained_effort:'stamina'})){const material=facts.supplemental?.[kind];if(material){const row=out.find(x=>x.id===id);row.acquisition='AVAILABLE';row.value=material;row.decision='UNKNOWN';row.reason='VERIFIED_IDENTITY_ASOF_CONTENT; interpretation/scoring/formal review NOT auto-certified';}}"
+        }
+      ],
+      "read_method": "PINNED_LOCAL_RESEARCH_SOURCE"
+    },
+    {
+      "path": "research/unified-engine-20261116/v3/enrichment-template.sql",
+      "git_blob_sha": "a2a1e765ba5de7a153aad56b3178e951d3a67fce",
+      "line_evidence": [
+        {
+          "line": 7,
+          "text": " jsonb_build_object('draw',lr.draw,'sex_age',lr.sex_age,'weight_carried',lr.weight_carried,'body_weight',lr.body_weight,'body_weight_diff',lr.body_weight_diff,'equipment',lr.equipment,'jockey',lr.jockey,'trainer',lr.trainer) live_attributes"
+        },
+        {
+          "line": 19,
+          "text": " i.live_runner_id is not null as baseline_live_version_matched,i.live_attributes,"
+        },
+        {
+          "line": 26,
+          "text": " select jsonb_build_object('horse_no',x->'horse_no','horse_name',x->'horse_name','horse_ref',x->'horse_ref','draw',x->'draw','sex_age',x->'sex_age','weight_carried',x->'weight_carried','body_weight',x->'body_weight','body_weight_diff',x->'body_weight_diff','equipment',x->'equipment','jockey',x->'jockey','trainer',x->'trainer','going',r.field_payload->'race'->'going','weather',r.field_payload->'race'->'weather','layout',r.field_payload->'race'->'course_layout') data,r.field_fetched_at"
+        }
+      ],
+      "read_method": "PINNED_LOCAL_RESEARCH_SOURCE"
+    },
+    {
+      "path": "research/unified-engine-20261116/v3/supplemental.mjs",
+      "git_blob_sha": "59831f45f869dd126b1f642109df7561b5ff54f1",
+      "line_evidence": [
+        {
+          "line": 2,
+          "text": "const KINDS=new Set(['incident','geometry','training','pedigree','full_career','payout_cohort','sustained_effort']);"
+        }
+      ],
+      "read_method": "PINNED_LOCAL_RESEARCH_SOURCE"
+    },
+    {
+      "path": "research/unified-engine-20261116/v4/scoring.mjs",
+      "git_blob_sha": "7ca4c343b47badd2561b746bacec6d8e0e057e7a",
+      "line_evidence": [
+        {
+          "line": 16,
+          "text": " put('draw_geometry',null,[],'Official draw alone does not establish first-turn or start-surface effect.');"
+        },
+        {
+          "line": 32,
+          "text": " put('jockey_trainer',null,[],'Names acquired but no identity-anchored pre-target performance estimator; no name preference or invented coefficient.');"
+        }
+      ],
+      "read_method": "PINNED_LOCAL_RESEARCH_SOURCE"
+    },
+    {
+      "path": "research/unified-engine-20261116/v4/policy.json",
+      "git_blob_sha": "82ceadd2725cafeac880d63369311eddc35c518c",
+      "line_evidence": [
+        {
+          "line": 3,
+          "text": "  \"status\": \"UNAPPROVED_DEVELOPMENT_RECONSTRUCTION\","
+        },
+        {
+          "line": 4,
+          "text": "  \"weights\": {\"comparable_form\":15,\"consistency_recency\":10,\"early_reproduction\":8,\"projected_pace\":8,\"draw_geometry\":4,\"distance_stamina\":10,\"course_affinity\":10,\"class\":8,\"rival_followup\":7,\"relative_last3f\":5,\"sustained_effort\":5,\"going_weather\":3,\"weight_sex_age\":3,\"body_equipment_rest\":2,\"jockey_trainer\":2},"
+        }
+      ],
+      "read_method": "PINNED_LOCAL_RESEARCH_SOURCE"
+    },
+    {
+      "path": "research/unified-engine-20261116/mineta-integration-spec.md",
+      "git_blob_sha": "82acb8ec1c4d817aa01663bf67bb117470862950",
+      "line_evidence": [
+        {
+          "line": 6,
+          "text": "- T03 sandwich: nonfront with literal horse numbers n-1 and n+1 both FRONT and ACTIVE. Missing/cancelled neighbor does not become next active. Check gate/start reproduction, geometry; not automatic bonus."
+        },
+        {
+          "line": 7,
+          "text": "- T04 adjacent fronts and inside/outside geometry: first corner distance, start surface, draw, and reproduction; no unconditional outside/inside bonus."
+        },
+        {
+          "line": 16,
+          "text": "Scoring currently validates externally supplied review item points, not an autonomous scoring rule. Keep approved rubric absent as BLOCKED; propose independently versioned rubric before observing target outcomes. Preserve ability vs current scenario vs market separation. Use atomic evidence fact + mechanism + shared prior-race provenance; suppress same fact/mechanism twice across research names, but allow different justified dimensions with cap and explicit dependence audit. Same prior race alone is not proof of independent EYE factors, nor automatic reason to suppress independent score facts."
+        },
+        {
+          "line": 19,
+          "text": "Tests: four style boundaries and rally; unknown invalid corners; <30 boundary and unknown share; cancelled neighbor; conditional geometry; ROI/placement distinction; no future target positions; surface history missing; duplicated same fact across Eval/Mineta/own; distinct facts from shared race flagged; independent EYE positives with current relevance, non-front EYE, no EYE if evidence insufficient. Evaluate 46R/623 fixed cohort in saved 5R chunks, target outcomes physically separate until selection locked. Compare old 87 and simplified front 92 (8 leader wins/21 top3) without forcing target. "
+        }
+      ],
+      "read_method": "GITHUB_MCP_PINNED_CONTENT"
+    },
+    {
+      "path": "research/unified-engine-20261116/inventory.json",
+      "git_blob_sha": "4e47a36c984537db94f5fa20b5681e5cce9a3dbf",
+      "line_evidence": [
+        {
+          "line": 100,
+          "text": "  \"production_bundle_files\": ["
+        },
+        {
+          "line": 114,
+          "text": "      \"name\": \"jra-verified-draw.mjs\","
+        }
+      ],
+      "read_method": "PINNED_LOCAL_RESEARCH_SOURCE"
+    },
+    {
+      "path": "research/unified-engine-20261116/v3-data-rubric-spec.md",
+      "git_blob_sha": "2ad5046372d527c2cf803dd4055219eeb71f0d16",
+      "line_evidence": [
+        {
+          "line": 1,
+          "text": "# V3 research specification — NOT approved"
+        },
+        {
+          "line": 10,
+          "text": "- distance change, going/weather, carried weight, body weight, equipment, sex/age, jockey/trainer, draw: official field payload/live runner fields with timestamp and provenance. Course geometry: verified layout/first turn/start surface, no guessed distance. Training and pedigree require separate verified source; no invented values."
+        },
+        {
+          "line": 11,
+          "text": "- Mineta T01–04: certified latest flat including all corners, style uncertainty bounds and literal adjacent active numbers, geometry. T05 payout unavailable in verified archive schema; placement-rate proxy separate, no ROI claim. T06–07 distance change with evidence-based projection, T08 complete career history or unknown, T09 shared burden and reproduction facts. T10–13 excluded market/proprietary, T14 not independently scored."
+        },
+        {
+          "line": 12,
+          "text": "## Draft 100 point allocation — not approved or calibrated"
+        },
+        {
+          "line": 14,
+          "text": "Scenario 20: normalized early/position reproducibility 8, projected pace suitability 8, draw/geometry 4."
+        },
+        {
+          "line": 18,
+          "text": "Current condition 10: going/weather 3, weight/sex-age 3, body/equipment/rest 2, jockey/trainer 2."
+        }
+      ],
+      "read_method": "GITHUB_MCP_PINNED_CONTENT"
+    },
+    {
+      "path": "automation/jra-verified-evidence-rank-bridge.mjs",
+      "git_blob_sha": "b5ae38f35ebc916ef5658e08ddf8dd7198a42b89",
+      "line_evidence": [
+        {
+          "line": 57,
+          "text": "  delta:Math.min(2,Number(supporting.length>0)+Number(pace.length>0)),"
+        }
+      ],
+      "read_method": "GITHUB_MCP_PINNED_CONTENT"
+    },
+    {
+      "path": "automation/relative-ability-rank-proposal.mjs",
+      "git_blob_sha": "ab02955745a47f0b1f74e37cb1937f6cf956b5c7",
+      "line_evidence": [],
+      "read_method": "GITHUB_MCP_PINNED_CONTENT"
+    },
+    {
+      "path": "automation/eval-course-transfer-live.mjs",
+      "git_blob_sha": "2f953324a2914d723556af62d20753d46a250333",
+      "line_evidence": [
+        {
+          "line": 24,
+          "text": " status:'EVAL_TRANSFER_UNAVAILABLE',reason,score_effect:0,"
+        },
+        {
+          "line": 291,
+          "text": "  score_budget_max_per_horse:1,"
+        },
+        {
+          "line": 292,
+          "text": "  score_budget_is_calibrated_probability:false,"
+        }
+      ],
+      "read_method": "GITHUB_MCP_PINNED_CONTENT"
+    },
+    {
+      "path": "supabase/functions/jra-claimed-mcp/index.ts",
+      "git_blob_sha": "a1c347dc1af42b4652418fba6a8e912f4841fe6f",
+      "line_evidence": [
+        {
+          "line": 114,
+          "text": "       course_fit_budget_max:evalInput.score_budget_max_per_horse??0,"
+        },
+        {
+          "line": 128,
+          "text": "     reason:'OPTIONAL_COURSE_ADAPTER_FAILED',score_effect:0,"
+        },
+        {
+          "line": 458,
+          "text": "       const drawStr=clean(rowObj.find(\"td.waku\").first().text());"
+        },
+        {
+          "line": 459,
+          "text": "       if(!/^[1-8]$/.test(drawStr))throw Error(\"JRA_DRAW_MISSING_\"+horseNo);"
+        },
+        {
+          "line": 460,
+          "text": "       const statusCells=clean(rowObj.find(\"td.num,td.horse .name_line,td.jockey\").text());"
+        },
+        {
+          "line": 465,
+          "text": "       if(/cancel|scratched|except|withdraw/i.test(rowClass) && status===\"ACTIVE\"){"
+        },
+        {
+          "line": 468,
+          "text": "       const jockey=clean(rowObj.find(\"td.jockey p.jockey\").first().text());"
+        },
+        {
+          "line": 469,
+          "text": "       const weightText=clean(rowObj.find(\"td.jockey p.weight\").first().text());"
+        },
+        {
+          "line": 472,
+          "text": "       if(status===\"ACTIVE\"&&(!jockey||weight===null||weight<45||weight>70)){"
+        },
+        {
+          "line": 475,
+          "text": "       runners.push({horse_no:horseNo,horse_name:horseName,draw:Number(drawStr),"
+        },
+        {
+          "line": 476,
+          "text": "         status,jockey:jockey||null,weight_carried:weight});"
+        }
+      ],
+      "read_method": "GITHUB_MCP_PINNED_CONTENT"
+    },
+    {
+      "path": "course.html",
+      "git_blob_sha": "5d40729c98f1ad4da5bb0dd4117774f2ff360462",
+      "line_evidence": [
+        {
+          "line": 46,
+          "text": "      <div class=\"independent\"><b>LAB RANKとは独立。</b> 現在このデータはTODAYの順位・評価・LAB 🧪 EYEには反映していません。</div>"
+        },
+        {
+          "line": 106,
+          "text": "        $('#footnote').textContent='※中央版はJRAのコース移行データを読み取り専用で表示しています。LAB RANK・LAB EYE・予想順位には反映していません。';"
+        }
+      ],
+      "read_method": "GITHUB_MCP_PINNED_CONTENT"
+    },
+    {
+      "path": "jockey.html",
+      "git_blob_sha": "8c135bac10997329c436fe1288ddfb7cbd748881",
+      "line_evidence": [
+        {
+          "line": 7,
+          "text": "<title>LAB JOCKEY｜BAKEN LAB</title>"
+        },
+        {
+          "line": 21,
+          "text": ".jockey-card{margin-top:12px;border:1px solid rgba(255,207,87,.25);border-radius:15px;background:linear-gradient(180deg,rgba(255,207,87,.05),rgba(255,207,87,.015));padding:12px}.jockey-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.jockey-name{font-size:15px;font-weight:1000}.caption{color:#7f8996;font-size:7px}.grade{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:56px;height:50px;border-radius:11px;border:1px solid rgba(255,207,87,.35);background:rgba(255,207,87,.08);color:var(--accent);font-size:16px;font-weight:1000}.grade"
+        },
+        {
+          "line": 37,
+          "text": "  <div class=\"kicker\">BAKEN LAB｜LAB JOCKEY</div>"
+        },
+        {
+          "line": 40,
+          "text": "  <div class=\"rule\"><b>LAB RANKとは独立。</b> 現在この騎手評価はTODAY順位・TOP5・LAB 🧪 EYEには反映していません。人気・オッズも評価に使用しません。</div>"
+        },
+        {
+          "line": 44,
+          "text": "  <h2>🏇 LAB JOCKEYって何を見るの？</h2>"
+        },
+        {
+          "line": 53,
+          "text": "    <div class=\"guide-row\"><span class=\"guide-no\">②</span><div class=\"guide-copy\"><b>JOCKEY LIFTを見る。</b><br>＋なら、馬の事前基準より実着順を上へ持ってきた傾向。</div></div>"
+        },
+        {
+          "line": 61,
+          "text": "    <div class=\"readme-item\"><b>JOCKEY LIFT</b><span>馬の事前基準より、実際の着順を平均で何着ぶん上げたか。</span></div>"
+        },
+        {
+          "line": 77,
+          "text": "<div class=\"search\"><input id=\"jockeyName\" maxlength=\"100\" placeholder=\"名字・名前の一部でもOK　例：深澤\"><button id=\"jockeyBtn\">この騎手を見る</button></div>"
+        },
+        {
+          "line": 80,
+          "text": "<div id=\"main\"><div class=\"loading\">LAB JOCKEYを準備中…</div></div>"
+        },
+        {
+          "line": 82,
+          "text": "<div class=\"foot\">JOCKEY LIFT βは地方競馬アーカイブから132,800件の評価可能騎乗を作成。馬の基準は対象レース以前の過去走だけを使用し、評価する騎手自身の過去騎乗を除外。着順は頭数差を補正しています。人気・オッズは不使用。主評価は「競馬場 × 芝/ダート × 距離」、馬場は補足です。</div>"
+        },
+        {
+          "line": 86,
+          "text": "  <section class=\"dev\"><div style=\"font-size:34px\">🏇</div><h2>LAB JOCKEY｜中央版</h2><p>JRA騎手版は開発中です。地方版をそのまま流用せず、JRA専用の競馬場・芝/ダート・距離・クラス構造で検証してから公開します。</p><span class=\"badge\">COMING SOON / 開発中</span></section>"
+        },
+        {
+          "line": 89,
+          "text": "<footer><span>BAKEN LAB｜馬券ラボ</span><span>LAB JOCKEY</span></footer>"
+        },
+        {
+          "line": 105,
+          "text": "  const tracks=uniq(options.map(x=>x.track)).filter(Boolean);fill($('#track'),tracks,v=>v,first?localStorage.getItem('jockey_track'):$('#track').value);"
+        },
+        {
+          "line": 109,
+          "text": "  localStorage.setItem('jockey_track',t);"
+        },
+        {
+          "line": 111,
+          "text": "function jockeyDetail(x,going){"
+        },
+        {
+          "line": 113,
+          "text": "  if(!x.found)return `<div class=\"empty\">「${esc(x.jockey_name)}」はこの条件でJOCKEY LIFTを作れるデータがありませんでした。</div>`;"
+        },
+        {
+          "line": 115,
+          "text": "  return `<section class=\"jockey-card\">"
+        },
+        {
+          "line": 116,
+          "text": "    <div class=\"jockey-head\"><div><div class=\"caption\">JOCKEY LIFT β｜今回条件</div><div class=\"jockey-name\">${esc(x.jockey_name)}</div></div><span class=\"grade ${gc}\">${esc(x.grade)}<small>${esc(gradeWord(x.grade))}</small></span></div>"
+        },
+        {
+          "line": 119,
+          "text": "      <div class=\"metric\"><small>JOCKEY LIFT</small><em>馬の事前基準 → 実着順</em><b class=\"${Number(x.raw_lift_places)>=0?'plus':'minus'}\">${sign2(x.raw_lift_places)}着</b></div>"
+        },
+        {
+          "line": 129,
+          "text": "function jockeyMatches(d){"
+        },
+        {
+          "line": 130,
+          "text": "  const q=String(d.jockey_query||'').trim(),matches=Array.isArray(d.jockey_matches)?d.jockey_matches:[],selected=d.selected_jockey;"
+        },
+        {
+          "line": 132,
+          "text": "  return `<section class=\"matches\"><div class=\"matches-title\">「${esc(q)}」の検索候補</div><div class=\"matches-note\">${matches.length}人見つかりました。見たい騎手をタップしてください。</div><div class=\"match-list\">${matches.map(x=>`<button class=\"match-btn\" type=\"button\" data-jockey=\"${esc(x.jockey_name)}\"><b>${esc(x.jockey_name)}</b>　${esc(x.sample_n)}騎乗</button>`).join('')}</div></section>`;"
+        },
+        {
+          "line": 135,
+          "text": "  return `<article class=\"card\"><span class=\"rank\">${i+1}</span><div><div class=\"name\">${esc(x.jockey_name)}</div><div class=\"meta\">平均LIFT <b>${sign2(x.raw_lift_places)}着</b> ｜ ${esc(x.sample_n)}騎乗 ｜ 信頼度 ${esc(x.confidence)}</div>${going&&Number(x.going_sample_n)>0?`<div class=\"going-mini\">${esc(going)}：平均 ${sign2(x.going_raw_lift_places)}着 / ${x.going_sample_n}騎乗</div>`:''}</div><div class=\"side\"><div class=\"lift ${Number(x.relative_lift_places)>=0?'plus':'minus'}\">${sign2(x.relative_lift_places)}着</div><div class=\"sample\">他騎手比 / 評価 ${esc(x.grade)}</div></div></article>`;"
+        },
+        {
+          "line": 138,
+          "text": "  const b=d.baseline||{},g=d.going_baseline||{},rows=(d.top_jockeys||[]).slice(0,8);"
+        },
+        {
+          "line": 140,
+          "text": "    <section class=\"summary\"><div class=\"summary-title\">${esc(d.track)}・${esc(d.surface)}${esc(d.distance)}m</div><div class=\"stats\"><div class=\"stat\"><small>評価できた騎乗</small><strong class=\"accent\">${esc(b.evaluated_rides||0)}件</strong></div><div class=\"stat\"><small>見るもの</small><strong style=\"font-size:11px\">馬の基準 → 実着順</strong></div><div class=\"stat\"><small>${esc(d.going||'馬場')}の評価対象</small><strong>${esc(g.evaluated_rides||0)}件</strong></div></div><div class=\"basis\"><b>検索前は、この条件でJOCKEY LIFTを計算できた騎乗数だけを表示。</b><br>下のランキングは「3着に何回来たか」ではなく、各馬の事前基準に対して騎手が実着順をどれだけ上げたかで比較します。</div></section>"
+        },
+        {
+          "line": 141,
+          "text": "    ${jockeyMatches(d)}"
+        },
+        {
+          "line": 142,
+          "text": "    ${jockeyDetail(d.selected_jockey,d.going)}"
+        },
+        {
+          "line": 143,
+          "text": "    <section class=\"section\"><div class=\"section-head\"><div class=\"section-title\">🏇 JOCKEY LIFT ランキング</div><div class=\"section-note\">馬をどこまで持ってきたか</div></div><div class=\"section-help\"><b>単純な勝率・3着内率ランキングではありません。</b><br>各騎乗の前に、その馬の過去走から事前基準を作り、実着順との差を集計。ランキング順位は少数騎乗を補正した「他騎手比」で並べています。β版なので、まだLAB RANKには反映しません。</div><div class=\"list\">${rows.length?rows.map((x,i)=>card(x,i,d.going)).join(''):'<div class=\"empty\">条件を満たす騎手データがありません。</div>'}</div></section>`;"
+        },
+        {
+          "line": 145,
+          "text": "async function loadOptions(){try{const u=new URL(API);u.searchParams.set('action','lab_jockey');const r=await fetch(u,{cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'条件読込失敗');options=Array.isArray(d.conditions)?d.conditions:[];refill(true);await load()}catch(e){$('#main').innerHTML=`<div class=\"error\">読み込みエラー：${esc(e?.message||e)}</div>`}}"
+        },
+        {
+          "line": 146,
+          "text": "async function load(){if(loading)return;loading=true;$('#main').innerHTML='<div class=\"loading\">騎手データを集計中…</div>';try{const u=new URL(API);u.searchParams.set('action','lab_jockey');u.searchParams.set('track',$('#track').value);u.searchParams.set('surface',$('#surface').value);u.searchParams.set('distance',$('#distance').value);u.searchParams.set('going',$('#going').value);u.searchParams.set('min_sample','25');const j=$('#jockeyName').value.trim();if(j)u.searchParams.set('jockey',j);const r=await fetch(u,{cache:'no-store'}),d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'集計失敗');rende"
+        },
+        {
+          "line": 149,
+          "text": "$('#track').addEventListener('change',()=>{refill();load()});$('#surface').addEventListener('change',()=>{refill();load()});$('#distance').addEventListener('change',()=>{refill();load()});$('#going').addEventListener('change',load);$('#jockeyBtn').addEventListener('click',load);$('#jockeyName').addEventListener('keydown',e=>{if(e.key==='Enter')load()});$('#main').addEventListener('click',e=>{const b=e.target.closest('[data-jockey]');if(!b)return;$('#jockeyName').value=b.dataset.jockey||'';load()});"
+        }
+      ],
+      "read_method": "GITHUB_MCP_PINNED_CONTENT"
+    }
+  ],
+  "source_resolution_notes": [
+    {
+      "path": "research/unified-engine-20261116/mineta-integration-spec.md",
+      "local_blob_differed": true,
+      "resolution": "PINNED_GITHUB_CONTENT_USED_LOCAL_FILE_NOT_CHANGED"
+    }
+  ],
+  "production_inventory_only": [
+    {
+      "name": "jra-verified-draw.mjs",
+      "historical_hash": "4df6abd84ab1e117a7287552fde963a8203d8eb159ceedc1383b0c9110ffc09c",
+      "branch_source_present": false,
+      "behavior": "UNVERIFIED_DO_NOT_INFER_SCORING"
+    }
+  ],
+  "original_mineta_library_files": "NOT_AVAILABLE_IN_RESEARCH_INPUTS",
+  "network_access": {
+    "official_class_page": "URLError/PermissionError",
+    "body_obtained": false,
+    "attempts": 1,
+    "supabase_retried": false,
+    "bypass": false
+  }
+}
