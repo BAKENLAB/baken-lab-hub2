@@ -8,7 +8,7 @@ const date=s=>typeof s==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(s);
 const num=x=>typeof x==="number"&&Number.isFinite(x)?x:typeof x==="string"&&/^\d+(?:\.\d+)?$/.test(x.trim())?Number(x):null;
 const ref=(n,i)=>"COMPACT_V1.runners[horse_no="+n+"].recent_runs["+i+"]";
 const pattern=/^COMPACT_V1\.runners\[horse_no=(\d+)\]\.recent_runs\[(\d+)\]$/;
-const fail=(code,extra={})=>({ok:false,status:"UNVERIFIED",code,rank_effect:false,eye_effect:false,frozen_effect:false,...extra});
+const fail=(code,extra={})=>({ok:false,status:"UNVERIFIED",code,missing_count:0,missing:[],rank_effect:false,eye_effect:false,frozen_effect:false,...extra});
 const goodRef=(r,n,h)=>{const m=typeof r==="string"?r.match(pattern):null;return !!(m&&Number(m[1])===n&&Number(m[2])<h.recent_runs.length);};
 /** @param {{race?:any,verifiedRunners?:any[],payload?:any,observationAt?:string,maxAgeDays?:number}} [input] */
 export function auditLocalEyeOmissions({race,verifiedRunners,payload,observationAt,maxAgeDays=90}={}){
