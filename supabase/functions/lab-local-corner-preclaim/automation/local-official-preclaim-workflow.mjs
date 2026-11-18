@@ -190,5 +190,7 @@ export async function runAuthorizedLocalCornerPreclaim({
   packet:cornerPacket,store,clock});
  return {status:saved.status,storeWritten:!!saved.inserted,
   readCount,horseReports:reports,coverage,linkedRunEvidence:cornerPacket?.linkedRunEvidence||0,
+  verifiedRaceLapSets:saved.verifiedRaceLapSets??0,
+  verifiedOpponentFollowups:saved.verifiedOpponentFollowups??0,
   claimStarted:false,predictionSaved:false};
 }
