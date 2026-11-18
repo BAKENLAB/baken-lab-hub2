@@ -46,7 +46,7 @@ function scoreTrace(r,h,approvedScoringPolicy){
 }
 export function auditLocal16EvidenceQuality({
  payload,verifiedRunners,strictScoreTrace=false,targetDate=null,
- approvedScoringPolicy=null
+ approvedScoringPolicy=null,officialPreRace=null
 }={}){
  if(!obj(payload)||!Array.isArray(payload.runners)||!Array.isArray(verifiedRunners)||
   !obj(payload.audit))return error('LOCAL_AUDIT_INPUT_INVALID');
@@ -104,16 +104,17 @@ export function auditLocal16EvidenceQuality({
      gaps.push({horse_no:c.horse_no,criterion:'previous_jockey',
        code:'CHANGE_NOT_INDEPENDENTLY_VERIFIED'});
    // A same-condition claim must point to an actual same-track same-distance run.
-   if(k==='same_condition_history'&&v.status==='CHECKED'){
+   if(k==='same_condition_history'&&v.status==='CHECKED'&&
+    officialPreRace?.official_context_verified===true){
     const verified=refs.some(ref=>{
      const i=Number(ref?.match(refPattern)?.[2]);
      const x=h?.recent_runs?.[i];
-     return x&&x.track===payload.audit?.race_track&&
-       x.distance===payload.audit?.race_distance;
+     return x&&x.track===officialPreRace.track&&
+       x.distance===officialPreRace.distance;
     });
     // Only enforce this check when certified current race conditions were
     // explicitly provided. Do not infer them from textual race labels.
-    if(clean(payload.audit?.race_track)&&Number.isInteger(payload.audit?.race_distance)&&!verified)
+    if(clean(officialPreRace.track)&&Number.isInteger(officialPreRace.distance)&&!verified)
      issues.push({horse_no:c.horse_no,criterion:k,code:'SAME_CONDITION_NOT_VERIFIED'});
    }
   }
