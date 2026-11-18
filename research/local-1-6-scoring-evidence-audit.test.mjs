@@ -191,3 +191,23 @@ test('independent directly supplied matching surface eliminates missingness gap'
  assert.equal(r.ok,true);
  assert.equal(r.gaps.some(g=>g.code==='SURFACE_NOT_DIRECTLY_VERIFIED_IN_HISTORY'),false);
 });
+
+test('duplicate COMPACT refs are blocked before the LOCAL MCP guard (real 11/18 failure class)',()=>{
+ const x=sample(),check=x.payload.audit.eye_candidate_audit[0].review_checks;
+ check.current_suitability={status:'CHECKED',finding:'過去走の比較事実',
+  evidence_refs:[ref(6),ref(6)]};
+ const r=auditLocal16EvidenceQuality(x);
+ assert.equal(r.code,'LOCAL_EVIDENCE_ASSERTION_MISMATCH');
+ assert.ok(r.issues.some(v=>v.code==='CHECKED_DUPLICATE_OR_EXCESS_EVIDENCE_REFS'));
+});
+test('duplicate EYE positive factor refs cannot inflate apparent verification',()=>{
+ const x=sample(),check=x.payload.audit.eye_candidate_audit[0].review_checks;
+ check.margins={status:'CHECKED',finding:'過去走着差確認',evidence_refs:[ref(6)]};
+ x.payload.audit.eye_positive_factor_audit[0].positive_factors=[{
+  category:'margins',reason:'出典複製は認めない',
+  current_relevance:true,evidence_refs:[ref(6),ref(6)]
+ }];
+ const r=auditLocal16EvidenceQuality(x);
+ assert.equal(r.code,'LOCAL_EVIDENCE_ASSERTION_MISMATCH');
+ assert.ok(r.issues.some(v=>v.code==='EYE_FACTOR_NOT_VERIFIED'));
+});
