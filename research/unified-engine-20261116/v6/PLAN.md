@@ -1,0 +1,16 @@
+# V6: evidence recovery, uncertainty certification, EYE proof audit
+
+Research only, based on V5 commit5eef8e4f143d23523a031f924833a6cd3321ab0a. No new theory, raw scoring unit, axis weight or tuned threshold. Known46R are development data, not chronological holdout.
+
+1. Re-open every candidate for all46 unrecovered horses from the fixed V3 cross-source packet and V4 separate-archive packet, preserving horse/race references, actual values, source clocks, source disagreement and explicit classification. The 2026-only classification rule is not extended to2025. A shorter class string/absence of 障害 is not an official flat certificate. A recovery gate accepts only exact identity, explicit flat, consistent values, official source and all clocks strictly before post; new proof cannot overwrite an unresolved conflict. No proof supplied -> no fill.
+2. V5 allocator and all scalar units remain byte-identical. Reallocate the frozen claims to verify permutation and conservation. Distinguish supported points, conditional fixed-window rubric bounds, open-history bounds and strict formal capability. A changed adopted history window invalidates a claim that the old supported total is a true unconditional lower bound.
+3. Tighten only uncertainty upper bounds, not scores: fixed class formula has an analytic maximum given target class. For components whose observations must belong to the fixed adopted race roots, an integer max-flow relaxation bounds incremental unknown credit by each remaining25-point root budget. Free/new-root possibilities remain unconstrained. This is a certificate upper bound, not a scoring flow or imputed observation. Apply it only as FIXED_ADOPTED_WINDOW; open-history uncertainty keeps conservative bounds. Never infer new ability points from a bound.
+4. Report partial pair order, exact rank intervals, guaranteed/possible TOP5 membership and every boundary reversal. Separate exact supported-point ties from information-driven overlap. No new arbitrary 'close ability' coefficient. Genuine equal/close ability cannot be inferred from incomplete information.
+5. Review all623 and every possible outside-TOP5 horse. Revalidate each positive against source, age (existing540-day admission), same surface/distance±200 and exact primitive observations. Same-race Fisher-z linear equivalence alone is insufficient to prove general independence; reject it for formal admission. No new same-root proof is presumed. Formal EYE requires identified TOP5 and strict prepost input attestation; diagnostic EYE is separate and may be null.
+6. Freeze mechanics/tests before V6 outcome comparison. Replay max5R at a time, hash-lock decisions first, then compare87/92/78/83. Commit every batch. Capture changes are reported by horse, never fitted.
+
+## Environment boundary
+
+2026-11-18: a Supabase SELECT schema request was unresponsive and interrupted. No result obtained, no write requested. Do not repeat that route. Current DB verification is UNVERIFIED. Continue fixed-packet source audit and prepare narrowly scoped SELECT-only follow-up SQL. No secret values, production changes, main, DB writes, FROZEN, Cron, deployments or paid APIs.
+
+V6 may not complete the100-point engine if evidence or an already-declared scoring function is unavailable. Record zero recovery/certification honestly rather than manufacturing completeness.
