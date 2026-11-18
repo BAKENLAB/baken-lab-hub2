@@ -1,0 +1,24 @@
+name: LOCAL EYE omission safety gate
+on:
+  push:
+    branches: [fix/local-eye-omission-gate-20261118]
+  pull_request:
+    paths:
+      - "automation/local-eye-omission-preflight.mjs"
+      - "research/local-eye-omission-preflight.test.mjs"
+      - ".github/workflows/local-eye-omission-safety.yml"
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax audit
+        run: node --check automation/local-eye-omission-preflight.mjs
+      - name: Test direct evidence and fail-closed rules
+        run: node --test research/local-eye-omission-preflight.test.mjs
