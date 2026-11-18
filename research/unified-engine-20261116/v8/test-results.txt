@@ -1,0 +1,20 @@
+✔ Legacy existing EYE is retained outside TOP5, not replaced once inside (1.543536ms)
+✔ Excluded nonnull original EYE never authorizes a new legacy fill (0.172071ms)
+✔ Legacy null EYE uses exact keep/ratio/original-rank sorting (0.226035ms)
+✔ Legacy selector invariant to row order and rational-equivalent ties (1.77863ms)
+✔ V7 frozen audit picks at most one eligible common horse, not rank6 default (0.507408ms)
+✔ V7 tied best evidence abstains without rank tie-break (0.169546ms)
+✔ Selection rejects unknown/duplicate candidates and EYE overlap (0.345885ms)
+✔ Both contrast orders telescope and interaction is not double-counted (0.234655ms)
+✔ Observable history equality is not proof of original model-input equivalence (0.969562ms)
+✔ Unsupported horse never receives a cutoff gap or last-place rank (0.484923ms)
+✔ Within-V7 boundary gaps sum exactly without subtracting incomparable legacy scores (0.352129ms)
+✔ First actual5R replay matches both endpoints without changing physical field or eligibility (194.934197ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 221.935298
