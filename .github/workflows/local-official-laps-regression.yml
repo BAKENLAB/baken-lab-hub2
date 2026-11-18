@@ -4,6 +4,7 @@ on:
     paths:
       - 'automation/nar-official-lap-evidence.*'
       - 'automation/local-lap-claimed-bridge.*'
+      - 'automation/local-opponent-followup-claimed-bridge.*'
       - 'automation/local-corner-snapshot-handoff.mjs'
       - 'automation/local-corner-snapshot-handoff.test.mjs'
       - 'automation/local-field-content-facts.mjs'
@@ -23,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Official as-of prior race lap and horse-link tests
-        run: node --test automation/nar-official-lap-evidence.test.mjs automation/local-lap-claimed-bridge.test.mjs automation/local-corner-snapshot-handoff.test.mjs
+        run: node --test automation/nar-official-lap-evidence.test.mjs automation/local-lap-claimed-bridge.test.mjs automation/local-corner-snapshot-handoff.test.mjs automation/local-opponent-followup-claimed-bridge.test.mjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
