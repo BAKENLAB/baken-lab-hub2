@@ -103,7 +103,7 @@ export async function fetchLocalPriorCornerEvidence({
  const plan=planLocalPriorCornerFetches({targetRace,runners,maxPriorRaces});
  const post=at(targetRace.postTime);
  if(post===null)throw new TypeError('INVALID_POST_TIME');
- const reports=[],gathered=[],raceLaps=[];
+ const reports=[],gathered=[],raceLaps=[],observedRaces=[];
  for(const work of plan){
   const postBudget=post-clock()-reserveMs;
   const operationBudget=absoluteDeadlineMs===null?
@@ -156,6 +156,17 @@ export async function fetchLocalPriorCornerEvidence({
      raw.officialRaceLaps.sourceCheckedAt===packet.source_checked_at &&
      JSON.stringify(raw.officialRaceLaps.pastRace)===JSON.stringify(work.priorRace))
      raceLaps.push(raw.officialRaceLaps);
+   // Captured from this same official result HTML; no extra network fetch.
+   if(linkedRunners>0&&Array.isArray(raw?.officialFinishers)&&
+      raw.officialFinishers.length<=24 &&
+      raw.officialFinishers.every(h=>Number.isInteger(h.horseNo)&&
+       Number.isInteger(h.finish)&&h.finish>=1&&h.finish<=24&&
+       /^[0-9]{1,30}$/.test(h.officialHorseId??'')&&
+       !!normalizedHorseName(h.horseName)) &&
+      new Set(raw.officialFinishers.map(h=>h.officialHorseId)).size===raw.officialFinishers.length)
+     observedRaces.push({priorRace:work.priorRace,
+       sourceRef:packet.source_ref,sourceCheckedAt:packet.source_checked_at,
+       finishers:raw.officialFinishers});
    reports.push({priorRace:work.priorRace,
      status:identityRejected?'VERIFIED_WITH_IDENTITY_REJECTIONS':'VERIFIED',
      linkedRunners,identityRejected});
@@ -163,12 +174,52 @@ export async function fetchLocalPriorCornerEvidence({
    reports.push({priorRace:work.priorRace,status:'OPTIONAL_SOURCE_UNAVAILABLE'});
   }
  }
+ // Any opponent follow-up requires TWO separately verified official result
+ // pages fetched strictly before this target: a prior common race and a
+ // LATER race in which the SAME official horse ID appeared. No name joins.
+ const opponentFollowups=[],seenPeerLinks=new Set();
+ for(const base of observedRaces){
+  const linked=gathered.filter(x=>key(x.pastRace)===key(base.priorRace)&&x.sourceRef===base.sourceRef);
+  for(const self of linked){
+   let myId=null;
+   try{myId=new URL(self.horseRef).searchParams.get('k_lineageLoginCode')}catch{}
+   const myResult=base.finishers.find(x=>x.horseNo===self.pastHorseNo&&
+     normalizedHorseName(x.horseName)===normalizedHorseName(self.horseName)&&
+     x.officialHorseId===myId);
+   if(!myResult)continue;
+   for(const peer of base.finishers){
+    if(peer.finish>3||peer.officialHorseId===myId)continue;
+    for(const later of observedRaces){
+     if(later.priorRace.raceDate<=base.priorRace.raceDate||
+        later.priorRace.raceDate>=targetRace.raceDate)continue;
+     const matched=later.finishers.filter(x=>x.officialHorseId===peer.officialHorseId&&
+       normalizedHorseName(x.horseName)===normalizedHorseName(peer.horseName));
+     if(matched.length!==1)continue;
+     const unique=[self.horseNo,key(base.priorRace),peer.officialHorseId,key(later.priorRace)].join('|');
+     if(seenPeerLinks.has(unique))continue;
+     seenPeerLinks.add(unique);
+     opponentFollowups.push({horseNo:self.horseNo,horseName:self.horseName,
+      priorRace:base.priorRace,sourceRef:base.sourceRef,sourceCheckedAt:base.sourceCheckedAt,
+      peerOfficialHorseId:peer.officialHorseId,peerName:peer.horseName,
+      peerPriorFinish:peer.finish,followupRace:later.priorRace,
+      followupSourceRef:later.sourceRef,followupCheckedAt:later.sourceCheckedAt,
+      peerFollowupFinish:matched[0].finish,
+      identityMethod:'EXACT_NAR_OFFICIAL_HORSE_ID_TWO_RESULT_PAGES',
+      rankingEffect:'NONE_UNTIL_REVIEWED'});
+     if(opponentFollowups.length>=80)break;
+    }
+    if(opponentFollowups.length>=80)break;
+   }
+   if(opponentFollowups.length>=80)break;
+  }
+  if(opponentFollowups.length>=80)break;
+ }
  return {status:'PREFETCH_ONLY',raceDate:targetRace.raceDate,
   raceTrack:targetRace.track,raceNo:targetRace.raceNo,
   planned:plan.length,attempted:reports.filter(x=>
    !['SKIPPED_PRE_RACE_BUDGET','SKIPPED_OPERATION_BUDGET'].includes(x.status)).length,
   operation_budget_exhausted:reports.some(x=>x.status==='SKIPPED_OPERATION_BUDGET'),
-  linkedRunEvidence:gathered.length,sourceReports:reports,evidence:gathered,officialRaceLaps:raceLaps,
+  linkedRunEvidence:gathered.length,sourceReports:reports,evidence:gathered,officialRaceLaps:raceLaps,opponentFollowups,
   claimStarted:false,saveAuthorized:false,
   targetResultUsed:false,marketUsed:false,rankChanged:false};
 }
