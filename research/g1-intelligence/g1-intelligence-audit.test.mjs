@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildG1IntelligenceAudit } from './g1-intelligence-audit.mjs';
+import { buildG1IntelligenceAudit } from '../../supabase/functions/jra-claimed-mcp/g1-intelligence-audit.mjs';
 
 const context = () => ({
   stage: 'AWAITING_JRA_FULL_DEPTH_COMPARISON',
