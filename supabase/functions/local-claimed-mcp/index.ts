@@ -11,8 +11,9 @@ import {assertLocalSaveDuringTransition} from "./local-eye.mjs";
 import {assertLocal16NoUnauthorizedRubric} from "./local-16-content-review.mjs";
 import {assertLocal16EvidenceHandoffForSave} from "./local-16-evidence-save-gate.mjs";
 import {auditLocalEyeOmissions} from "./local-eye-omission-preflight.mjs";
-import {auditLocal16RankStability} from "./local16-rank-reproducibility-audit.mjs";
+import {auditLocal16RankStability,canonicalLocal16Input} from "./local16-rank-reproducibility-audit.mjs";
 import {auditLocal16CriterionTrace} from "./local16-criterion-trace-preflight.mjs";
+import {verifyOptionalLocal16TraceForSave} from "./local16-optional-trace-save-gate.mjs";
 const WORKERS=new Map([["LOCAL_QUEUE_RESCUE","RESCUE"],["LOCAL_QUEUE_KANTO","関東"],["LOCAL_QUEUE_WEST","西日本"],["LOCAL_QUEUE_CHUBU","中部"],["LOCAL_QUEUE_HOKKAIDO_TOHOKU","北海道東北"]]);
 const uuid=(x:string)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const err=(e:unknown)=>publicError(e);
@@ -239,9 +240,15 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      });
      const criteria=data.context.local16_scoring_criteria;
      const trace=auditLocal16CriterionTrace({context:data.context,draft:inspected});
+     const canonical=canonicalLocal16Input(data.context.race,data.context.runners);
+     const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(canonical));
+     const source_input_sha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
      const result={...check,claim_verified:true,save_authorized:false,
+       source_input_sha256,source_input_fingerprint_type:"LOCAL16_VERIFIED_CONTEXT_PROJECTION_SHA256_V1",
+       input_fingerprint_is_official_signature:false,
+       certified_numeric_scorer:"NOT_AVAILABLE",
        criterion_trace_status:trace.status,criterion_trace_code:trace.code,
-       criterion_trace_counts:trace.counts??null,
+       criterion_trace_counts:("counts" in trace?trace.counts:null),
        criterion_trace_score_certified:false,criterion_trace_point_effect_proven:false,
        official_scoring_criteria_status:criteria?.status??"UNAVAILABLE",
        official_checks:criteria?.original_checks??null,
@@ -356,6 +363,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  // Context outages are reported but must not silently turn into an
  // invented "no positives" decision or destroy the existing save path.
  let eye_coverage_status="CONTEXT_UNVERIFIED",eye_coverage_missing=0;
+ let traceVerificationContext=null;
  if(protocol_version==="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013"){
    const a=await claim(c,job_id),{u,k}=admin();
    let officialContext=null;
@@ -377,6 +385,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      const b=await claim(c,job_id);
      if(b.j.claim_token!==a.j.claim_token || b.r.id!==a.r.id)
        throw Error("CLAIM_CHANGED");
+     traceVerificationContext=officialContext;
      const review=auditLocalEyeOmissions({
        race:officialContext.race,
        verifiedRunners:officialContext.runners,payload,
@@ -393,6 +402,11 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        throw Error("LOCAL_EYE_FACTOR_INDEPENDENCE_REQUIRED");
    }
  }
+ const traceCheck=verifyOptionalLocal16TraceForSave({
+  protocolVersion:protocol_version,payload,
+  officialContext:traceVerificationContext,
+  auditTrace:auditLocal16CriterionTrace
+ });
  let shadow=null;
  // No optional evidence fetch may prevent the official save; use a strict timeout.
  try{
@@ -426,6 +440,6 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  if(data?.ok!==true||!uuid(data.prediction_id)||
    typeof data.already_saved!=="boolean")throw Error("SAVE_RESULT_INVALID");
  const result={ok:true,prediction_id:data.prediction_id,
-   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing};
+   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing,scoring_trace_status:traceCheck.status};
  return {content:[{type:"text",text:JSON.stringify(result)}],structuredContent:result}}catch(e){const code=(e instanceof Error)?e.message:"";if(c && TERMINAL_EYE_CODES.has(code)){try{await closeFailedClaim(c,job_id,code);}catch{return {isError:true,content:[{type:"text",text:"QUEUE_STATE_UNAVAILABLE"}]};}}return {isError:true,content:[{type:"text",text:err(e)}]}}});
  return s});return handler.fetch(req)}));
