@@ -1,0 +1,116 @@
+{
+  "base_commit": "72ef929cf8ac2003c2a6d8dd04d0c08dce1a8aae",
+  "audit_created_at": "2026-11-18T06:50:00.174Z",
+  "source_entries": [
+    {
+      "path": "automation/jra-verified-evidence-rank-bridge.mjs",
+      "local_copy": "research/unified-engine-20261116/v9/sources/jra-verified-evidence-rank-bridge.mjs",
+      "local_working_copy_same": false,
+      "github_blob": "b5ae38f35ebc916ef5658e08ddf8dd7198a42b89",
+      "sha256": "ebb38f70cae3445788a1c82dfa26c4b97a4a75ee6d650cdadb1e41e8a818664d",
+      "bytes": 11248,
+      "retrieved_for_v9_at": "2026-11-18T06:50:00.174Z",
+      "source_content_time": "UNKNOWN_UNLESS_STATED_IN_SOURCE",
+      "git_content_identity": "EXACT_BASE_COMMIT_BLOB",
+      "url": "https://github.com/BAKENLAB/baken-lab-hub2/blob/72ef929cf8ac2003c2a6d8dd04d0c08dce1a8aae/research/unified-engine-20261116/v9/sources/jra-verified-evidence-rank-bridge.mjs"
+    },
+    {
+      "path": "automation/relative-ability-rank-proposal.mjs",
+      "local_copy": "research/unified-engine-20261116/v9/sources/relative-ability-rank-proposal.mjs",
+      "local_working_copy_same": false,
+      "github_blob": "ab02955745a47f0b1f74e37cb1937f6cf956b5c7",
+      "sha256": "c42102d118b2bb4b3cf758e0e9b922fa694d29de9811b272dc7216b350c7b76b",
+      "bytes": 22678,
+      "retrieved_for_v9_at": "2026-11-18T06:50:00.174Z",
+      "source_content_time": "UNKNOWN_UNLESS_STATED_IN_SOURCE",
+      "git_content_identity": "EXACT_BASE_COMMIT_BLOB",
+      "url": "https://github.com/BAKENLAB/baken-lab-hub2/blob/72ef929cf8ac2003c2a6d8dd04d0c08dce1a8aae/research/unified-engine-20261116/v9/sources/relative-ability-rank-proposal.mjs"
+    },
+    {
+      "path": "research/unified-engine-20261116/inventory.json",
+      "local_copy": "research/unified-engine-20261116/inventory.json",
+      "local_working_copy_same": true,
+      "github_blob": "4e47a36c984537db94f5fa20b5681e5cce9a3dbf",
+      "sha256": "0ef5d7760fadab4dabdef4fb11a8f69d1412b4e386b7a40cd4423e129486930b",
+      "bytes": 6249,
+      "retrieved_for_v9_at": "2026-11-18T06:50:00.174Z",
+      "source_content_time": "UNKNOWN_UNLESS_STATED_IN_SOURCE",
+      "git_content_identity": "EXACT_BASE_COMMIT_BLOB",
+      "url": "https://github.com/BAKENLAB/baken-lab-hub2/blob/72ef929cf8ac2003c2a6d8dd04d0c08dce1a8aae/research/unified-engine-20261116/inventory.json"
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/replay.mjs",
+      "local_copy": "research/unified-engine-20261116/restoration/replay.mjs",
+      "local_working_copy_same": true,
+      "github_blob": "93a6792ced5182f3ff7be6b9608093cc70677402",
+      "sha256": "635e46892b67ecd6e84ba4591182a8e44386d99829fd00bf30c84b6e29972d5e",
+      "bytes": 6756,
+      "retrieved_for_v9_at": "2026-11-18T06:50:00.174Z",
+      "source_content_time": "UNKNOWN_UNLESS_STATED_IN_SOURCE",
+      "git_content_identity": "EXACT_BASE_COMMIT_BLOB",
+      "url": "https://github.com/BAKENLAB/baken-lab-hub2/blob/72ef929cf8ac2003c2a6d8dd04d0c08dce1a8aae/research/unified-engine-20261116/restoration/replay.mjs"
+    }
+  ],
+  "restoration_manifest_checks": [
+    {
+      "path": "research/unified-engine-20261116/restoration/user-original-readonly.sql",
+      "manifest_sha256": "313a193f9e08f0de7ba55d5968ac7ea43f53bd16357db1258ce815feea987df5",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/features-readonly.sql",
+      "manifest_sha256": "404dc097371744a366580953cc6fc2aac6a4f041aced543d32d60e879c89498e",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/results-readonly.sql",
+      "manifest_sha256": "46a7e032168aedb51ac4903e575f5caa3eed96ecc8d9ed2a199086d00d51668c",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/cohort-input.json",
+      "manifest_sha256": "c4c028253b1844af5eda480073157d09c8ded493bd8da5eb1527867024d555e7",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/official-results.json",
+      "manifest_sha256": "a22f1df64ea5d70f457d515b777d0d7f2b793993b323c401e3ffa35ec706ee69",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/race-times.json",
+      "manifest_sha256": "cc8ce611909a83ee685fb228a5c9ea62d00bbf364b7d959e9f9b53bd29638098",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/measurement.json",
+      "manifest_sha256": "b8c4c39b9bc86205a25e6cac396444137d030eca97f6d7d4fcbe66548a0ac20e",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/horse-comparison.json",
+      "manifest_sha256": "2451f872cc1fb3ece79fcadab9fda3c528a758da3237c61e089a59d0f4736928",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/horse-comparison.csv",
+      "manifest_sha256": "0050d2bb32d7844768e822ae0fc84bab0bb92607390739fb30b4044191bb779b",
+      "matches": true
+    },
+    {
+      "path": "research/unified-engine-20261116/restoration/all-horse-25-item-audit.json.gz",
+      "manifest_sha256": "ac4645e98e87e5f186c641ec847bb43c6f8d642ba979c05fd3e316aa949189cf",
+      "matches": true
+    }
+  ],
+  "original_source_acquired_at": "2026-11-16T07:56:59.854Z",
+  "original_input_archive_classification": "FIXED_NOW_PREPOST_RESEARCH_RECONSTRUCTION_NOT_FROZEN_INPUT_ARCHIVE",
+  "recovered_original_base_evaluator": false,
+  "recovered_original_frozen_input": false,
+  "recovered_original_input_hash": false,
+  "original_evaluator_version_per_prediction": "UNRESOLVED",
+  "recovered_legacy_uplift_replay": true,
+  "current_related_code_not_historical_equivalence": true,
+  "scope": "CURRENT_BRANCH_TREE_AND_EXISTING_LOCAL_RESEARCH_TEXT_SEARCH_NOT_ALL_REMOTE_HISTORY",
+  "production_access": false
+}
