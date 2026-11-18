@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {validateOfficialNarRaceLaps as build,checkStoredOfficialNarLaps as check} from './nar-official-lap-evidence.mjs';
+const b={past:{raceDate:'2026-10-30',track:'園田',raceNo:2},targetDate:'2026-11-19',targetPostTime:'2026-11-19T12:00:00+09:00',sourceUrl:'https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=27&k_raceDate=2026%2F10%2F30&k_raceNo=2',sourceCheckedAt:'2026-11-19T07:00:00+09:00',distance:1400,winnerTime:'1:35.6',halonTimes:[13.7,12.5,14.3,14.2,13.4,14.1,13.4]};
+test('full past race lap grid and winning clock',()=>{const p=build(b);assert.equal(p.segment_count,7);assert.equal(p.winner_time_seconds,95.6);assert.equal(p.segments.at(-1).to_m,1400);assert.equal(p.individual_horse_sectionals,false);assert.equal(check(p,{targetDate:b.targetDate,targetPostTime:b.targetPostTime,now:Date.parse(b.sourceCheckedAt)+1000}),true)});
+test('reject after start or unrecognized official source',()=>{assert.throws(()=>build({...b,sourceCheckedAt:b.targetPostTime}),/NOT_PROSPECTIVE/);assert.throws(()=>build({...b,sourceUrl:b.sourceUrl+'&bet=10'}),/SOURCE_MISMATCH/)});
+test('reject unbalanced segment clock, grid, post-start target',()=>{assert.throws(()=>build({...b,winnerTime:'1:34.0'}),/SECTION_TOTAL_NOT_WINNER_TIME/);assert.throws(()=>build({...b,halonTimes:b.halonTimes.slice(1)}),/SECTION_GRID_INVALID/);assert.throws(()=>build({...b,targetDate:'2026-10-20'}),/RACE_IDENTITY_INVALID/)});
+test('short initial segment for 820m',()=>{const p=build({...b,distance:820,halonTimes:[2.2,11.7,11.2,12.2,12.4],winnerTime:'0:49.7'});assert.equal(p.segments[0].distance_m,20);assert.equal(p.segments.at(-1).to_m,820)});
+test('tampering on stored packet detected',()=>{const p=build(b);p.segments[2].seconds+=1;assert.throws(()=>check(p,{targetDate:b.targetDate,targetPostTime:b.targetPostTime,now:Date.parse(b.sourceCheckedAt)+1000}),/NAR_LAPS_/)});
