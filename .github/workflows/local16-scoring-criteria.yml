@@ -4,6 +4,8 @@ on:
     paths:
       - 'automation/local16-live-scoring-criteria.mjs'
       - 'automation/local16-live-scoring-criteria.test.mjs'
+      - 'automation/local16-criterion-trace-preflight.mjs'
+      - 'automation/local16-criterion-trace-preflight.test.mjs'
       - 'supabase/functions/lab-claimed-context/**'
       - '.github/workflows/local16-scoring-criteria.yml'
 permissions:
@@ -18,4 +20,4 @@ jobs:
         with:
           node-version: '22'
       - name: Criterion inputs and as-of contract
-        run: node --test automation/local16-live-scoring-criteria.test.mjs
+        run: node --test automation/local16-live-scoring-criteria.test.mjs automation/local16-criterion-trace-preflight.test.mjs
