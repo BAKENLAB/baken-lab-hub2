@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: '22'
       - name: Node syntax
-        run: node --check automation/local-eye-omission-preflight.mjs
+        run: node --check automation/local-eye-omission-preflight.mjs && node --check automation/local16-drift-sentinel.mjs
       - name: Prestart evidence and edge integration
-        run: node --test research/local-eye-omission-preflight.test.mjs research/local-eye-omission-integration.test.mjs
+        run: node --test research/local-eye-omission-preflight.test.mjs research/local-eye-omission-integration.test.mjs research/local16-drift-sentinel.test.mjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
