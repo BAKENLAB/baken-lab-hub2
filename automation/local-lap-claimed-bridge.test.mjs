@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {validateOfficialNarRaceLaps} from './nar-official-lap-evidence.mjs';
+import {projectOfficialLapContext} from './local-lap-claimed-bridge.mjs';
+const race={race_date:'2026-11-19',track:'園田',race_no:5,post_time:'2026-11-19T12:00:00+09:00'};
+const pastRace={raceDate:'2026-10-30',track:'園田',raceNo:2};
+const url='https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=27&k_raceDate=2026%2F10%2F30&k_raceNo=2';
+const when='2026-11-19T07:00:00+09:00';
+const packet=validateOfficialNarRaceLaps({past:pastRace,targetDate:race.race_date,targetPostTime:race.post_time,sourceUrl:url,sourceCheckedAt:when,distance:1400,winnerTime:'1:35.6',halonTimes:[13.7,12.5,14.3,14.2,13.4,14.1,13.4]});
+const runners=[{horse_no:5,horse_name:'SYNTHETIC',recent_runs:[{race_date:'2026-10-30',track:'園田',race_no:2}]}];
+const cornerSources=[{current_horse_no:5,past_race:{race_date:'2026-10-30',track:'園田',race_no:2},official_source_ref:url,source_checked_at:when,verification_scope:'PRECLAIM_OFFICIAL_PAST_RESULT'}];
+const run=(extra={})=>projectOfficialLapContext({race,runners,cornerSources,packets:[packet],now:Date.parse(when)+1000,...extra});
+test('official race split shown only for witnessed horse and prior race',()=>{const x=run();assert.equal(x.status,'VERIFIED_PAST_RACE_LAPS');assert.equal(x.race_laps_count,1);assert.equal(x.horse_specific_sectionals,false);assert.equal(x.score_effect,0);assert.equal(x.prior_races[0].linked_runners[0].run_ref,'COMPACT_V1.runners[horse_no=5].recent_runs[0]')});
+test('different horse or race cannot see the split',()=>{assert.equal(run({cornerSources:[{...cornerSources[0],current_horse_no:9}]}).race_laps_count,0);assert.equal(run({runners:[{...runners[0],recent_runs:[{...runners[0].recent_runs[0],race_no:3}]}]}).race_laps_count,0)});
+test('source mismatch or later observation rejects all laps',()=>{assert.equal(run({cornerSources:[{...cornerSources[0],official_source_ref:'https://invalid.com'}]}).race_laps_count,0);assert.equal(run({now:Date.parse(race.post_time)+1}).status,'PRE_RACE_CONTEXT_REQUIRED')});
+test('tampering stored lap prevents use in claimed scorer',()=>{const bad=structuredClone(packet);bad.segments[1].seconds+=0.1;assert.equal(run({packets:[bad]}).race_laps_count,0)});
