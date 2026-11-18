@@ -31,3 +31,13 @@ The official opponent entire later career (not merely pages fetched for the curr
 
 ## Current observable counters
 The explicit authorized one-race preclaim MCP response now returns `verified_race_lap_sets` and `verified_opponent_followups`. Zero means *none were actually written*, not an inferred score of zero. The entire pipeline still lacks a verified live next-race preclaim/CLAIM/FROZEN example.
+
+
+## Independent real-public-page verification — 2026-11-19 07:30 JST
+GitHub Actions **LOCAL one-page real official NAR HTML smoke** completed SUCCESS (source-provided logs; no live NAR preclaim):
+- Official 2026-11-12 Sonoda 2R: 9 participant horse numbers, 9 stable NAR horse IDs, 4 corner passage rows, 7 race-level 200m segments. The verified segment sum reconciles with the official winner clock.
+- Two different official result pages: Sonoda 2026-10-30 **3R** and 2026-11-12 **2R**: each has 9 stable horse IDs; **5 exact official horse IDs appear on both pages**, of which **2 have different recorded finishing positions**. This is real identity continuity, **not** automatic causal opponent-strength scoring.
+- Earlier arbitrary historical pair 11/05 Sonoda 2R → 11/12 Sonoda 2R had 0 repeated IDs, correctly treated as no evidence rather than joining by horse name.
+- The smoke job fetches explicitly fixed historical PUBLIC URLs once, prints aggregate counts only, and performs no current-race CLAIM, prediction save, FROZEN rewrite, auto betting, or DB updates.
+- On 2026-11-19 at 07:32 JST, official_races showed 36 entries across Kasamatsu/Sonoda/Oi with 5 READY and 0 FROZEN. **0 official preclaim snapshots** existed for 2026-11-19. Consequently, no score/rank improvement can be claimed yet.
+- **Authorization boundary**: The production `lab_preclaim_official_corners` tool requires an explicitly user-requested exact JST date, track, and race number. Generic `continue` does not supply these. Do not weaken this constraint or start unauthorized background/Cron jobs.
