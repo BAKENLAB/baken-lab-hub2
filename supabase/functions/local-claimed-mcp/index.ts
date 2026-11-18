@@ -11,7 +11,7 @@ import {assertLocalSaveDuringTransition} from "./local-eye.mjs";
 import {assertLocal16NoUnauthorizedRubric} from "./local-16-content-review.mjs";
 import {assertLocal16EvidenceHandoffForSave} from "./local-16-evidence-save-gate.mjs";
 import {auditLocalEyeOmissions} from "./local-eye-omission-preflight.mjs";
-import {auditLocal16RankStability} from "./local16-rank-reproducibility-audit.mjs";
+import {auditLocal16RankStability,canonicalLocal16Input} from "./local16-rank-reproducibility-audit.mjs";
 const WORKERS=new Map([["LOCAL_QUEUE_RESCUE","RESCUE"],["LOCAL_QUEUE_KANTO","関東"],["LOCAL_QUEUE_WEST","西日本"],["LOCAL_QUEUE_CHUBU","中部"],["LOCAL_QUEUE_HOKKAIDO_TOHOKU","北海道東北"]]);
 const uuid=(x:string)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const err=(e:unknown)=>publicError(e);
@@ -237,7 +237,15 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        approvedScoringPolicy:null
      });
      const criteria=data.context.local16_scoring_criteria;
+     // Canonical, prestart verified-context fingerprint for same-input replay.
+     // This is NOT an official document signature and NOT score certification.
+     const canonical=canonicalLocal16Input(data.context.race,data.context.runners);
+     const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(canonical));
+     const source_input_sha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
      const result={...check,claim_verified:true,save_authorized:false,
+       source_input_sha256,source_input_fingerprint_type:"LOCAL16_VERIFIED_CONTEXT_PROJECTION_SHA256_V1",
+       input_fingerprint_is_official_signature:false,
+       certified_numeric_scorer:"NOT_AVAILABLE",
        official_scoring_criteria_status:criteria?.status??"UNAVAILABLE",
        official_checks:criteria?.original_checks??null,
        official_transfer_checks:criteria?.transfer_checks??null,
