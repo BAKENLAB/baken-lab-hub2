@@ -1,0 +1,50 @@
+[
+  {
+    "schema_name": "private",
+    "proname": "jra_live_locked_2025_score_packet_v1",
+    "arguments": "p_date date, p_track text, p_race_no integer",
+    "returns": "jsonb"
+  },
+  {
+    "schema_name": "private",
+    "proname": "jra_model_segment",
+    "arguments": "class_name text, race_name text",
+    "returns": "text"
+  },
+  {
+    "schema_name": "private",
+    "proname": "jra_segmented_diagnosis_score",
+    "arguments": "segment text, today_ability numeric, win_power numeric, top3_stability numeric, pace_fit numeric, change_score numeric, class_delta smallint, days_since_last integer",
+    "returns": "numeric"
+  },
+  {
+    "schema_name": "public",
+    "proname": "jra_claim_prediction_jobs",
+    "arguments": "p_run_id uuid, p_limit integer, p_lease_seconds integer",
+    "returns": "SETOF jra_prediction_jobs"
+  },
+  {
+    "schema_name": "public",
+    "proname": "jra_enqueue_prediction_jobs",
+    "arguments": "p_race_date date",
+    "returns": "integer"
+  },
+  {
+    "schema_name": "public",
+    "proname": "jra_finish_prediction_job",
+    "arguments": "p_job_id uuid, p_outcome text, p_error text, p_retry_seconds integer",
+    "returns": "text"
+  },
+  {
+    "schema_name": "public",
+    "proname": "jra_save_claimed_prediction",
+    "arguments": "p_job_id uuid, p_protocol_version text, p_payload jsonb",
+    "returns": "uuid"
+  },
+  {
+    "schema_name": "public",
+    "proname": "jra_save_claimed_prediction_with_shadow_v1",
+    "arguments": "p_job_id uuid, p_protocol_version text, p_payload jsonb, p_baseline jsonb, p_preview jsonb",
+    "returns": "jsonb"
+  }
+]

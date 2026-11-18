@@ -1,0 +1,1 @@
+select table_schema,table_name,column_name,data_type from information_schema.columns where table_schema not in ('pg_catalog','information_schema') and (table_name ilike '%html%' or table_name ilike '%archive%' or table_name ilike '%input%snapshot%') order by table_schema,table_name,ordinal_position limit 160;

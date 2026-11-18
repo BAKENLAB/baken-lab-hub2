@@ -1,0 +1,25 @@
+{
+  "recorded_at": "2026-11-18T17:59:02.288Z",
+  "base": "4c333bed1ad5b5e281fdd4851b196625b8f45d8b",
+  "jra_live": {
+    "version": 31,
+    "bundle": "607a90bb0f991345e8e816656c3a3f3f5dd2ba88a8b93f23f566e6fc76704ee7"
+  },
+  "jra_mcp": {
+    "version": 29,
+    "bundle": "9017c9cc7c0a06396372645d54c8d42bcb14885f063b068d519f31d650576561"
+  },
+  "source_only_or_historical_diagnostic": true,
+  "claims_executed": 0,
+  "database_writes": 0,
+  "query_count": 17,
+  "source_reference_hashes": {
+    "sources/jra-live-v31-index.ts.txt": "a49d097d4a7db707d1ffe850875a7cf2bff17b7c63923c80b0f311b2a449424d",
+    "sources/jra_claim_prediction_jobs.sql.txt": "5649f0b6a78be49ecdd44f41c3860e40f768eab87801a12affcff3b6bff5dfa7",
+    "sources/jra_live_locked_2025_feature_packet_v1.sql.txt": "69e201752131dcede0fac343200f56cbead72c14a679e25abfa161c673dbdc3d",
+    "sources/jra_live_locked_2025_score_packet_v1.sql.txt": "3fb9891a2a6e02310ddc50229eb89bcb6abd6c568f9aa564360486fe6dd46093",
+    "sources/jra_manual_claim_next_v1.sql.txt": "a61e694f072674a39a84ba16d6fdcc3b6e93e78f3c9dd9ea3ba0b37570e8150a",
+    "sources/jra_manual_readiness_v1.sql.txt": "7091b0b9ffd16d3671a3c7ac836d4c79fb6b614b172300cf1b487191eb4c175b",
+    "sources/jra_segmented_diagnosis_score.sql.txt": "ab73027c64e0e9aa3f19bc9531487d2d524c062215920516e68bbe88d4fb3a9b"
+  }
+}
