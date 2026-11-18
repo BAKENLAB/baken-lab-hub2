@@ -51,3 +51,15 @@ test('never fabricates missing pre-race trainer or equipment evidence',()=>{
     assert.ok(x.external_pre_race_checks_required.includes('EQUIPMENT_CHANGE'));
   }
 });
+
+test('missing margin and last3f are not treated as zero or verified evidence',()=>{
+  const c=context();
+  c.runner_history[0].past_runs.push({
+    race_date:'2026-09-02',finish:8,margin_seconds:null,final3f:null,corner_positions:null
+  });
+  const r=buildG1IntelligenceAudit(c,opts);
+  assert.equal(r.status,'READY_READ_ONLY_REVIEW');
+  assert.equal(r.per_runner[0].prior_close_losses_to_review,0);
+  assert.equal(r.per_runner[0].prior_final3f_runs,1);
+  assert.equal(r.per_runner[0].prior_corner_runs,1);
+});
