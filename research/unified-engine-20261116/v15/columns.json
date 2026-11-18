@@ -1,0 +1,191 @@
+[
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "id",
+    "data_type": "uuid",
+    "column_default": "gen_random_uuid()"
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "circuit",
+    "data_type": "text",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "race_date",
+    "data_type": "date",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "track",
+    "data_type": "text",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "race_no",
+    "data_type": "integer",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "job_id",
+    "data_type": "uuid",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "post_time",
+    "data_type": "timestamp with time zone",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "captured_at",
+    "data_type": "timestamp with time zone",
+    "column_default": "clock_timestamp()"
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "protocol_version",
+    "data_type": "text",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "proposal_model",
+    "data_type": "text",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "proposal_status",
+    "data_type": "text",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "field_athletes",
+    "data_type": "jsonb",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "draft_order",
+    "data_type": "jsonb",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "proposed_order",
+    "data_type": "jsonb",
+    "column_default": null
+  },
+  {
+    "table_schema": "private",
+    "table_name": "lab_rank_shadow_preflight_v1",
+    "column_name": "capture_sha256",
+    "data_type": "text",
+    "column_default": null
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "id",
+    "data_type": "uuid",
+    "column_default": "gen_random_uuid()"
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "race_date",
+    "data_type": "date",
+    "column_default": null
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "track",
+    "data_type": "text",
+    "column_default": null
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "race_no",
+    "data_type": "integer",
+    "column_default": null
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "circuit",
+    "data_type": "text",
+    "column_default": "'LOCAL'::text"
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "protocol_version",
+    "data_type": "text",
+    "column_default": "'CHAPPY_DIRECT_1'::text"
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "model_label",
+    "data_type": "text",
+    "column_default": "'GPT-5.6 Sol'::text"
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "source",
+    "data_type": "text",
+    "column_default": "'CHATGPT'::text"
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "status",
+    "data_type": "text",
+    "column_default": "'FROZEN'::text"
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "payload",
+    "data_type": "jsonb",
+    "column_default": "'{}'::jsonb"
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "predicted_at",
+    "data_type": "timestamp with time zone",
+    "column_default": "now()"
+  },
+  {
+    "table_schema": "public",
+    "table_name": "official_predictions",
+    "column_name": "frozen_at",
+    "data_type": "timestamp with time zone",
+    "column_default": "now()"
+  }
+]

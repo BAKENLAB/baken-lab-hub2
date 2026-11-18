@@ -1,0 +1,31 @@
+{
+  "recorded_at": "2026-11-18T21:01:41.618836+00:00",
+  "method": "SUPABASE_MCP_READ_ONLY_PG_GET_FUNCTIONDEF",
+  "functions": [
+    {
+      "function": "jra_save_claimed_prediction",
+      "path": "sources/jra_save_claimed_prediction.sql.txt",
+      "sha256": "86a6293c96c5665713ac195d585a7fb9bce67fa2defaf242b8fd37106be7cba5",
+      "security_definer": true,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "function": "jra_save_claimed_prediction_with_shadow_v1",
+      "path": "sources/jra_save_claimed_prediction_with_shadow_v1.sql.txt",
+      "sha256": "3873cf3581c22aae562b66d35b07a909da25a27acdfc0d5b7039cc0f87d9578a",
+      "security_definer": false,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "function": "lab_capture_rank_shadow_preflight_v1",
+      "path": "sources/lab_capture_rank_shadow_preflight_v1.sql.txt",
+      "sha256": "280cb4907b695936273e94650fca02b7c0b412896b3561e722ca51bb22454350",
+      "security_definer": true,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    }
+  ],
+  "source_obtained": true,
+  "retry_count": 0,
+  "functions_invoked": false,
+  "database_writes": 0
+}
