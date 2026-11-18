@@ -219,9 +219,37 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
    } catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
  });
  s.registerTool("lab_save_claimed_prediction",{description:"Save a completed BAKEN LAB LOCAL prediction only for the currently live claim. Uses the production guarded save RPC; no direct table writes.",inputSchema:z.object({job_id:z.string().uuid(),protocol_version:z.string().min(1).max(100),payload:z.object({runners:z.array(z.unknown()).min(1),top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),audit:z.record(z.string(),z.unknown())}).strict()}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async({job_id,protocol_version,payload})=>{let c:any=null;try{const user=await auth();c=admin().c;await claim(c,job_id);const original_payload=structuredClone(payload);payload=normalizePairEvidence(payload);assertLocal16NoUnauthorizedRubric(protocol_version,payload);assertLocalSaveDuringTransition({circuit:"LOCAL",protocol_version,payload});
- // Pre-FROZEN omission gate is added in this staged source only. It is
- // deliberately NOT deployed until official-context round trips and
- // false-positive handling have passed independent tests.
+ // Prospective quality gate, performed only during an authorized pre-start
+ // LOCAL1.6 CLAIM. A rejected input never touches the FROZEN DB writer.
+ // Fetching official claim context is mandatory when this staged gate is
+ // enabled; do NOT silently reinterpret missing context as "no EYE".
+ if(protocol_version==="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013"){
+   const prior=await claim(c,job_id),{u,k}=admin();
+   const response=await fetch(u+"/functions/v1/lab-claimed-context",{
+     method:"POST",headers:{"content-type":"application/json",
+       authorization:"Bearer "+k,apikey:k},
+     body:JSON.stringify({run_id:prior.r.id,job_id:prior.j.id,
+       claim_token:prior.j.claim_token}),
+     signal:AbortSignal.timeout(3000)
+   }).catch(()=>null);
+   if(!response?.ok)throw Error("LOCAL_EYE_COVERAGE_CONTEXT_UNVERIFIED");
+   const contextResponse=await response.json().catch(()=>null);
+   if(contextResponse?.ok!==true||!contextResponse.context?.race||
+      !Array.isArray(contextResponse.context.runners)||
+      contextResponse.context.field_integrity_checked!==true)
+     throw Error("LOCAL_EYE_COVERAGE_CONTEXT_UNVERIFIED");
+   const validated=await claim(c,job_id);
+   if(validated.r.id!==prior.r.id||
+      validated.j.claim_token!==prior.j.claim_token)
+     throw Error("CLAIM_CHANGED");
+   const preflight=auditLocalEyeOmissions({
+     race:contextResponse.context.race,
+     verifiedRunners:contextResponse.context.runners,
+     payload,observationAt:new Date().toISOString()
+   });
+   if(preflight.status!=="READY")
+     throw Error("LOCAL_EYE_COVERAGE_REVIEW_REQUIRED");
+ }
  let shadow=null;
  // No optional evidence fetch may prevent the official save; use a strict timeout.
  try{
