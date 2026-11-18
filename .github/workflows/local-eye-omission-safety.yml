@@ -1,0 +1,30 @@
+name: LOCAL EYE omission safety gate
+on:
+  push:
+    branches: [fix/local-eye-omission-gate-20261118]
+  pull_request:
+    paths:
+      - "automation/local-eye-omission-preflight.mjs"
+      - "research/local-eye-omission-*.test.mjs"
+      - ".github/workflows/local-eye-omission-safety.yml"
+      - "supabase/functions/local-claimed-mcp/**"
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Node syntax
+        run: node --check automation/local-eye-omission-preflight.mjs && node --check automation/local16-drift-sentinel.mjs
+      - name: Prestart evidence and edge integration
+        run: node --test research/local-eye-omission-preflight.test.mjs research/local-eye-omission-integration.test.mjs research/local16-drift-sentinel.test.mjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Check complete staged production-edge import graph
+        run: deno check --config supabase/functions/local-claimed-mcp/deno.json --node-modules-dir=auto supabase/functions/local-claimed-mcp/index.ts
