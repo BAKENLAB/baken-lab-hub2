@@ -91,6 +91,8 @@ Deno.serve(async req=>{
    unavailable_or_empty_profiles:coverage?.unavailable_or_empty_history??0,
    missing_official_horse_links:coverage?.missing_official_horse_links??0,
    linked_prior_runs:result.linkedRunEvidence??0,
+   verified_race_lap_sets:result.verifiedRaceLapSets??0,
+   verified_opponent_followups:result.verifiedOpponentFollowups??0,
    stored:Boolean(result.storeWritten),
    claim_started:false,prediction_saved:false});
  }catch{
