@@ -11,7 +11,8 @@ const isDate=x=>typeof x==='string'&&Number.isFinite(Date.parse(x));
 export function examineNewLocalSave({
  payload,protocolVersion,verifiedRunners,postTime,now,
  previousGuardRejected=false,deployedValidatorVersion=19,
- officialPreRace=null,strictScoreTrace=false
+ officialPreRace=null,strictScoreTrace=false,
+ approvedScoringPolicy=null
 }={}){
  if(previousGuardRejected)return {ok:false,code:'PREVIOUS_GUARD_REJECTION_NO_RESUBMIT'};
  if(!isDate(postTime)||!isDate(now)||Date.parse(postTime)<=Date.parse(now)+180000)
@@ -41,7 +42,9 @@ export function examineNewLocalSave({
  // strictScoreTrace is deliberately opt-in until a certified 1.6 scorer can
  // emit its actual point contributions; do not synthesize them from rankings.
  const quality=auditLocal16EvidenceQuality({
-  payload,verifiedRunners,strictScoreTrace,targetDate:officialPreRace?.race_date??null
+  payload,verifiedRunners,strictScoreTrace,
+  approvedScoringPolicy,officialPreRace,
+  targetDate:officialPreRace?.race_date??null
  });
  if(!quality.ok)return {ok:false,code:quality.code,
   issues:quality.issues,metrics:quality.metrics};
