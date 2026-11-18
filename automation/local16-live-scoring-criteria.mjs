@@ -62,11 +62,20 @@ export function buildLocal16LiveScoringCriteria({context,protocolContent,facts,r
      h.recent_runs.some((_,j)=>x.run_ref===
       "COMPACT_V1.runners[horse_no="+h.horse_no+"].recent_runs["+j+"]"))?
      ["COMPACT_V1.official_lap_evidence.prior_races["+i+"]"]:[]):[];
-  const forms=[hist,[...orders,...lapRefs],klass,dist,venue,going,[...own("draw"),...past(r=>present(r.early_pos))],weight,jockey,date,[...own("body_weight"),...own("body_weight_diff"),...own("equipment")],[],[...hist,...orders,...lapRefs,...head]];
+  const peerEvidence=context.official_opponent_followup;
+  const followRows=peerEvidence?.status==="VERIFIED_PARTIAL_FOLLOWUP"&&
+   peerEvidence?.score_effect===0&&peerEvidence?.rank_effect===false&&
+   Array.isArray(peerEvidence.rows)?peerEvidence.rows:[];
+  const followRefs=followRows.flatMap((r,i)=>
+   r.horse_no===h.horse_no&&typeof r.original_run_ref==="string"&&
+   h.recent_runs.some((_,j)=>r.original_run_ref===
+    "COMPACT_V1.runners[horse_no="+h.horse_no+"].recent_runs["+j+"]")?
+   ["COMPACT_V1.official_opponent_followup.rows["+i+"]"]:[]);
+  const forms=[[...hist,...followRefs],[...orders,...lapRefs],[...klass,...followRefs],dist,venue,going,[...own("draw"),...past(r=>present(r.early_pos))],weight,jockey,date,[...own("body_weight"),...own("body_weight_diff"),...own("equipment")],[],[...hist,...orders,...lapRefs,...followRefs,...head]];
   const transferForms=[klass,[...hist,...orders],klass,dist,[...venue,...orders],weight,date];
   const entry=(name,refs,limitations)=>({criterion:name,evidence_refs:[...new Set(refs)],data_state:refs.length?"VERIFIED_INPUT_AVAILABLE":"MISSING_INPUT",evaluation_state:"NOT_SCORED",limitations});
   const caveats=[
-   "Historical results and recorded margins do not establish opponent quality alone",
+   "Race-wide verified later finishes by original opponents may be available; never equate different class and conditions automatically",
    "Passage/final3f may be partial; verified race-level laps do NOT establish each horse's own split or interference",
    "Different regions and class labels must not be automatically equated",
    "Distance change is not an automatic bonus or penalty",
@@ -85,7 +94,7 @@ export function buildLocal16LiveScoringCriteria({context,protocolContent,facts,r
    transfer_review:transfer.map((name,i)=>entry(name,transferForms[i],"First confirm transfer applicability and compare actual verified class and conditions")),
    direct_opponent_pairs:pair.length,verified_history_runs:runs.length,
    full_laps:lapRefs.length?"VERIFIED_RACE_LEVEL_PARTIAL":"NOT_VERIFIED",
-   opponent_followup:"NOT_VERIFIED",
+   opponent_followup:followRefs.length?"VERIFIED_PARTIAL_FOLLOWUP":"NOT_VERIFIED",
    ranking_justification:"INDEPENDENT_HUMAN_OR_MODEL_ASSESSMENT_REQUIRED"});
  }
  return {status:"READY_FOR_INDEPENDENT_100_POINT_SCORING",schema:"LOCAL16_OFFICIAL_CRITERIA_INPUT_V1",
