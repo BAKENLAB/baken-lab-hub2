@@ -1,0 +1,28 @@
+name: LOCAL1.6 evidence audit safety (targeted)
+on:
+  pull_request:
+    paths:
+      - "automation/local-1-6-scoring-evidence-audit.mjs"
+      - "automation/local-guarded-save-readiness.mjs"
+      - "research/local-1-6-scoring-evidence-audit.test.mjs"
+      - ".github/workflows/local16-audit-safety.yml"
+  push:
+    branches:
+      - fix/local16-evidence-score-audit-20261118
+permissions:
+  contents: read
+jobs:
+  strict-evidence-and-legacy-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Syntax check new audit and old save gate
+        run: |
+          node --check automation/local-1-6-scoring-evidence-audit.mjs
+          node --check automation/local-guarded-save-readiness.mjs
+      - name: Regression test read-only evidence semantics and existing v19 preflight
+        run: node --test research/local-1-6-scoring-evidence-audit.test.mjs research/local-guarded-save-readiness.test.mjs
