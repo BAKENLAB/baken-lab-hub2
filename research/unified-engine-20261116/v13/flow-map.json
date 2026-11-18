@@ -1,0 +1,46 @@
+{
+  "base_commit": "5f7fea3f18cf737f4db3ee53632e273773753334",
+  "basis": "V12_CONFIRMED_MCP_V29_SOURCES_NOT_NEW_PRODUCTION_READ",
+  "source_hashes": {
+    "v10/source-edge/index.ts.txt": "66e2e5d6303e2b6b7dd75318f98d6dcb5e066a344c79314513e2510f73f4de2f",
+    "v10/source-edge/jra-verified-evidence-rank-bridge.mjs.txt": "ebb38f70cae3445788a1c82dfa26c4b97a4a75ee6d650cdadb1e41e8a818664d",
+    "v12/confirmed/protocol-recovery.json": "b09f86eca173847e1895a1e96c132a490ef79a6998b52b4d99216e7ec2295650",
+    "v12/confirmed/ready-source-contract.json": "c1327b0d496901c7eee1c0f407e336c492ffce5ce0ba929be208f229d5e3b838",
+    "v12/readiness.json": "13beab715393ab8492904ae11eef0fa6eda68d57b7ef76a6050598da76439816"
+  },
+  "stages": [
+    {
+      "stage": "CLAIM/context",
+      "owner": "SERVER_CODE",
+      "behavior": "Existing auth, READY path, lease, history4 and BASE_CORE candidate. Research cannot create an extra claim."
+    },
+    {
+      "stage": "whole-field evaluation",
+      "owner": "CHATGPT_VISIBLE_DECISION_AND_AUDIT",
+      "behavior": "Manual independent assessment, grade/reasons, whole-field comparisons and initial TOP5/EYE audit; no recovered deterministic original100 generator."
+    },
+    {
+      "stage": "evidence preview",
+      "owner": "SERVER_CODE_PLUS_CHATGPT_REAUDIT",
+      "behavior": "Code validates evidence deltas; TOP5 membership change requires explicit new EYE audit."
+    },
+    {
+      "stage": "pre-save refresh",
+      "owner": "SERVER_CODE",
+      "behavior": "Reloads claimed context, scopes ACTIVE field, reloads Eval/OWN transfer evidence. These auxiliary inputs must also be accounted for."
+    },
+    {
+      "stage": "EYE complement",
+      "owner": "SERVER_CODE_WITH_EXPLICIT_AUDIT_REQUEST",
+      "behavior": "Existing EYE retained; null-fill only after supplied formal review passes. Do not describe this as automatic audit completion."
+    },
+    {
+      "stage": "guarded save/readback",
+      "owner": "SERVER_CODE",
+      "behavior": "Normal save RPC/FROZEN/receipt/readback unchanged. Actual final payload may differ from submitted draft through existing documented transformations."
+    }
+  ],
+  "legacy_mode": "OBSERVED_EXISTING_FORMAL_WORKFLOW_NOT_SYNTHETIC_EVALUATOR",
+  "requires_capture_of_pre_save_auxiliary_inputs": true,
+  "production_changed": false
+}
