@@ -14,7 +14,7 @@ const iso=(x)=>typeof x==='string' && /^\d{4}-\d{2}-\d{2}$/.test(x);
 
 /** Optional, only if official HTML has one unambiguous distance, winning time
  * and a literal ハロンタイム row. Missing/ambiguous values stay unavailable. */
-function extractOfficialRaceLapFields($){
+export function extractOfficialRaceLapFields($){
  const norm=x=>String(x??'').normalize('NFKC').replace(/\s+/g,'').trim();
  const body=norm($('body').text());
  // Race-header distance, not later horse records or payouts.
