@@ -1,0 +1,48 @@
+// Official status is the only authority for excluding a runner from scoring.
+// Preserve the complete official card, including cancellations, for audit.
+const fail=c=>{throw Error("JRA_EVIDENCE_ACTIVE_FIELD_"+c)};
+const norm=s=>String(s??"").normalize("NFKC").trim();
+export function scopeVerifiedActiveField(ctx){
+ const card=ctx?.race?.field_payload,official=card?.runners;
+ if(!Array.isArray(official))fail("CARD_MISSING");
+ if(official.every(r=>r.status==="ACTIVE"))return ctx;
+ const proof=card.official_status_verification;
+ if(ctx.stage!=="AWAITING_JRA_FULL_DEPTH_COMPARISON"||proof?.verified!==true||proof.basis!=="JRA_OFFICIAL_CARD_FULL_NUMBERED_FIELD_V1"||!/^[a-f0-9]{64}$/.test(proof.html_sha256??"")||!Number.isFinite(Date.parse(proof.verified_at))||Date.parse(proof.verified_at)>=Date.parse(ctx.race.post_time)||proof.runner_count!==official.length)fail("PROOF");
+ const all=new Map(),active=new Set();
+ for(const r of official){
+  if(!Number.isInteger(r.horse_no)||!norm(r.horse_name)||all.has(r.horse_no)||!["ACTIVE","CANCELLED","EXCLUDED"].includes(r.status))fail("IDENTITY");
+  all.set(r.horse_no,norm(r.horse_name));if(r.status==="ACTIVE")active.add(r.horse_no);
+ }
+ if(active.size!==proof.active_count||active.size<6||active.size>=all.size)fail("COUNT");
+ const take=(arr,label,full=true)=>{
+  if(!Array.isArray(arr))fail(label);
+  const seen=new Set();
+  for(const h of arr){if(!all.has(h.horse_no)||seen.has(h.horse_no)||norm(h.horse_name)!==all.get(h.horse_no))fail(label+"_IDENTITY");seen.add(h.horse_no)}
+  const kept=arr.filter(h=>active.has(h.horse_no));
+  if(full&&kept.length!==active.size)fail(label+"_COVERAGE");
+  return kept;
+ };
+ const candidates=take(ctx.candidates,"CANDIDATES").slice().sort((a,b)=>a.base_rank-b.base_rank).map((r,i)=>({...r,base_rank:i+1}));
+ const history=take(ctx.runner_history,"HISTORY");
+ const content=take(ctx.runner_content_evidence,"CONTENT");
+ const older=take(ctx.older_course_evidence,"OLDER");
+ const pace=ctx.field_pace_evidence,paceRows=take(pace?.runners,"PACE");
+ const rel=ctx.relative_condition_evidence,relRows=take(rel?.runner_evidence,"RELATIVE");
+ if(!Array.isArray(rel.comparisons)||rel.comparisons.some(x=>!all.has(x.a_horse_no)||!all.has(x.b_horse_no)||x.a_horse_no===x.b_horse_no))fail("PAIR_IDENTITY");
+ const comparisons=rel.comparisons.filter(x=>active.has(x.a_horse_no)&&active.has(x.b_horse_no));
+ const names=ctx.older_name_only_review;
+ const nameRows=Array.isArray(names?.candidates)?names.candidates.filter(r=>active.has(r.horse_no)):[];
+ return {...ctx,candidates,runner_history:history,runner_content_evidence:content,older_course_evidence:older,
+ field_pace_evidence:{...pace,runners:paceRows,runner_count:active.size,runners_with_position:paceRows.filter(x=>x.prior_position_runs>0).length,front_style_contenders:paceRows.filter(x=>x.repeated_front_evidence===true).length},
+ relative_condition_evidence:{...rel,runner_evidence:relRows,runner_count:active.size,comparisons,comparison_count:comparisons.length},
+ older_name_only_review:{...names,candidates:nameRows},
+ active_field_scope:{basis:proof.basis,official_html_sha256:proof.html_sha256,registered_count:all.size,active_count:active.size,active_horse_nos:[...active],excluded_horse_nos:official.filter(r=>r.status!=="ACTIVE").map(r=>r.horse_no)}};
+}
+export function assertScopedActivePayload(ctx,payload){
+ if(!ctx?.active_field_scope)return;
+ const card=ctx.race.field_payload.runners.filter(r=>r.status==="ACTIVE"),byNo=new Map(card.map(r=>[r.horse_no,norm(r.horse_name)])),r=payload?.runners;
+ if(!Array.isArray(r)||r.length!==card.length||new Set(r.map(x=>x.horse_no)).size!==card.length||new Set(r.map(x=>x.rank)).size!==card.length||r.some(x=>byNo.get(x.horse_no)!==norm(x.horse_name)||!Number.isInteger(x.rank)||x.rank<1||x.rank>card.length||!Number.isInteger(x.score)||x.score<0||x.score>100||x.status!=="ACTIVE"))fail("PAYLOAD_COVERAGE");
+ const top=r.slice().sort((a,b)=>a.rank-b.rank).slice(0,5);
+ if(!Array.isArray(payload.top5)||payload.top5.length!==5||top.some((x,i)=>x.horse_no!==payload.top5[i].horse_no||x.rank!==payload.top5[i].rank||x.score!==payload.top5[i].score))fail("TOP5");
+ if(payload.eye!==null&&!r.some(x=>x.horse_no===payload.eye?.horse_no&&x.rank>5))fail("EYE");
+}
