@@ -204,7 +204,9 @@ export async function stageLocalCornerSnapshot({
  try {
   const result=await store.insertIfAbsent(row);
   return {status:result?.inserted?'STORED':'ALREADY_STORED',
-   inserted:Boolean(result?.inserted),rosterDigest:row.official_roster_digest};
+   inserted:Boolean(result?.inserted),rosterDigest:row.official_roster_digest,
+   verifiedRaceLapSets:result?.inserted?payload.officialRaceLaps.length:0,
+   verifiedOpponentFollowups:result?.inserted?payload.opponentFollowups.length:0};
  }catch{
   return {status:'OPTIONAL_STORE_FAILED',inserted:false};
  }
