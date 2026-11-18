@@ -110,7 +110,8 @@ export function auditLocal16EvidenceQuality({
      const i=Number(ref?.match(refPattern)?.[2]);
      const x=h?.recent_runs?.[i];
      return x&&x.track===officialPreRace.track&&
-       x.distance===officialPreRace.distance;
+       x.distance===officialPreRace.distance&&
+       (!clean(officialPreRace.surface)||x.surface===officialPreRace.surface);
     });
     // Only enforce this check when certified current race conditions were
     // explicitly provided. Do not infer them from textual race labels.
@@ -120,10 +121,12 @@ export function auditLocal16EvidenceQuality({
   }
  }
  const byCandidate=new Map(candidates.map(c=>[c.horse_no,c]));
+ const factorCoverage=[];
  for(const row of factors){
   if(!Array.isArray(row.positive_factors))
    return error('LOCAL_AUDIT_EYE_FACTOR_SCHEMA',[{horse_no:row.horse_no}]);
   const seen=new Set();
+  let current=0,nonCurrent=0;
   for(const f of row.positive_factors){
    const c=byCandidate.get(row.horse_no),check=c?.review_checks?.[f.category];
    if(!CHECKS.includes(f.category)||seen.has(f.category)||!bool(f.current_relevance)||
@@ -132,12 +135,25 @@ export function auditLocal16EvidenceQuality({
         check?.evidence_refs?.includes(ref))||check?.status!=='CHECKED')
      issues.push({horse_no:row.horse_no,criterion:f.category,code:'EYE_FACTOR_NOT_VERIFIED'});
    seen.add(f.category);
+   if(f.current_relevance===true)current++;
+   else if(f.current_relevance===false)nonCurrent++;
   }
+  factorCoverage.push({horse_no:row.horse_no,current,nonCurrent});
+ }
+ // Only currently applicable factors count toward a formal EYE. Retain
+ // older positive diagnostics in the audit without counting them as current.
+ if(obj(payload.eye)){
+  const selected=factorCoverage.find(f=>f.horse_no===payload.eye.horse_no);
+  if(!selected||selected.current<2)
+   issues.push({horse_no:payload.eye.horse_no??null,criterion:'eye',
+    code:'EYE_WITHOUT_TWO_CURRENT_FACTORS'});
  }
  const metrics={total_runners:payload.runners.length,eye_candidates:candidates.length,
   verified_checks:candidates.reduce((n,c)=>n+CHECKS.filter(k=>c.review_checks[k].status==='CHECKED').length,0),
   missing_checks:candidates.reduce((n,c)=>n+CHECKS.filter(k=>c.review_checks[k].status==='MISSING').length,0),
   missing_score_traces:scoring.length,
+  current_positive_factors:factorCoverage.reduce((n,x)=>n+x.current,0),
+  non_current_positive_factors:factorCoverage.reduce((n,x)=>n+x.nonCurrent,0),
   scoped_gaps:gaps.length};
  if(issues.length)return error('LOCAL_EVIDENCE_ASSERTION_MISMATCH',issues,metrics);
  if(strictScoreTrace&&scoring.length)
