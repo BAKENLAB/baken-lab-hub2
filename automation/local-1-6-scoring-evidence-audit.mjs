@@ -106,17 +106,31 @@ export function auditLocal16EvidenceQuality({
    // A same-condition claim must point to an actual same-track same-distance run.
    if(k==='same_condition_history'&&v.status==='CHECKED'&&
     officialPreRace?.official_context_verified===true){
-    const verified=refs.some(ref=>{
+    const sameTrackDistance=refs.flatMap(ref=>{
      const i=Number(ref?.match(refPattern)?.[2]);
      const x=h?.recent_runs?.[i];
      return x&&x.track===officialPreRace.track&&
-       x.distance===officialPreRace.distance&&
-       (!clean(officialPreRace.surface)||x.surface===officialPreRace.surface);
+      x.distance===officialPreRace.distance?[x]:[];
     });
-    // Only enforce this check when certified current race conditions were
-    // explicitly provided. Do not infer them from textual race labels.
-    if(clean(officialPreRace.track)&&Number.isInteger(officialPreRace.distance)&&!verified)
-     issues.push({horse_no:c.horse_no,criterion:k,code:'SAME_CONDITION_NOT_VERIFIED'});
+    // Older LOCAL COMPACT history often omits surface. Absence is not
+    // evidence of a different surface, nor proof of a matching one.
+    // Reject a proved contradiction; keep unreported surfaces as a
+    // scoped provenance gap without inventing verified race conditions.
+    const sameSurface=sameTrackDistance.some(x=>
+      x.surface===officialPreRace.surface);
+    const allContradict=clean(officialPreRace.surface)&&
+      sameTrackDistance.length>0&&
+      sameTrackDistance.every(x=>clean(x.surface)&&
+        x.surface!==officialPreRace.surface);
+    if(clean(officialPreRace.track)&&
+       Number.isInteger(officialPreRace.distance)){
+     if(!sameTrackDistance.length||allContradict)
+      issues.push({horse_no:c.horse_no,criterion:k,
+        code:'SAME_CONDITION_NOT_VERIFIED'});
+     else if(clean(officialPreRace.surface)&&!sameSurface)
+      gaps.push({horse_no:c.horse_no,criterion:k,
+        code:'SURFACE_NOT_DIRECTLY_VERIFIED_IN_HISTORY'});
+    }
    }
   }
  }
