@@ -43,6 +43,10 @@ jobs:
           cp research/staged-jra-claimed-mcp-ability-v14.ts .jra-mcp-ci/index.ts
           cp automation/jra-relative-draft-adapter.mjs .jra-mcp-ci/jra-relative-draft-adapter.mjs
           cp automation/optional-atomic-shadow-save.mjs .jra-mcp-ci/optional-atomic-shadow-save.mjs
+          # The shared optional shadow imports the dormant LOCAL 1.7 module even
+          # when invoked from JRA. Deno requires all static imports in the bundle.
+          cp automation/local-v17-full-field-independent-shadow.mjs .jra-mcp-ci/local-v17-full-field-independent-shadow.mjs
+          cp automation/hyogo-official-ability-evidence.mjs .jra-mcp-ci/hyogo-official-ability-evidence.mjs
           cp automation/relative-ability-rank-proposal.mjs .jra-mcp-ci/relative-ability-rank-proposal.mjs
           cp automation/local-verified-condition-bridge.mjs .jra-mcp-ci/local-verified-condition-bridge.mjs
           deno check .jra-mcp-ci/index.ts
