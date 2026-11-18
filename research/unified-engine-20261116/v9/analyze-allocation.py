@@ -17,7 +17,7 @@ for n in range(1,11):
 dump(out/'horse51.json',rows)
 cols=[k for k in rows[0] if k not in ['within_v7_boundary_axes','original_allocation']]
 with (out/'horse51.csv').open('x') as f:
- w=csv.DictWriter(f,fieldnames=cols,extrasaction='ignore');w.writeheader();w.writerows(rows)
+ w=csv.DictWriter(f,fieldnames=cols,extrasaction='ignore',lineterminator='\n');w.writeheader();w.writerows(rows)
 summary={'source_sha256':hashlib.sha256(src.read_bytes()).hexdigest(),'horses':len(rows),'groups':{},'changes_to_scoring':False,'allocation_loss_is_not_recoverable_ability':True,'cannot_identify_legacy_to_v7_causal_axis_effect':True,'independent_future_validation':False}
 for group in ['LOST30','NEW21']:
  hs=[h for h in rows if h['group']==group];rated=[h for h in hs if h['supported']];axes=[]
