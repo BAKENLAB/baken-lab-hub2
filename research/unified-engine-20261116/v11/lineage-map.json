@@ -40,7 +40,9 @@
           "line": 225,
           "text": "'history_policy',jsonb_build_object("
         }
-      ]
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION public.jra_claimed_context(p_job_id uuid)",
+      "output_signature": "RETURNS jsonb"
     },
     {
       "function": "jra_live_base_candidate_v1",
@@ -68,14 +70,18 @@
           "line": 170,
           "text": "left join eye_candidates e on e.live_runner_id=r.live_runner_id"
         }
-      ]
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION public.jra_live_base_candidate_v1(p_race_date date, p_track text, p_race_no integer)",
+      "output_signature": "RETURNS TABLE(live_runner_id uuid, live_race_id uuid, horse_no integer, horse_name text, jockey text, segment text, recent_n4 integer, recent_top3_count4 integer, recent_avg_margin4 numeric, margin_band text, base_rate numeric, base_rank integer, same_class_close4 integer, near_distance_close4 integer, same_track_close4 integer, residual_fit_count integer, new_eye boolean, new_eye_reasons jsonb, data_status text, model_version text)"
     },
     {
       "function": "jra_class_level",
       "path": "../v10/source-sql/private.jra_class_level.sql.txt",
       "sha256": "34624f5eb55fe4801e81680f1bea588dbf97f7c8eb8ab9c04d2d3246b3b2ecc0",
       "lineage": "Class-level scalar; no identity/original body/time evidence.",
-      "anchors": []
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_class_level(label text)",
+      "output_signature": "RETURNS smallint"
     },
     {
       "function": "jra_merged_flat_history_v2",
@@ -91,14 +97,18 @@
           "line": 72,
           "text": "select distinct on (prior_date)"
         }
-      ]
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_merged_flat_history_v2(p_horse_name text, p_horse_ref text, p_race_date date, p_live_past_runs jsonb, p_limit integer DEFAULT 20)",
+      "output_signature": "RETURNS TABLE(rn integer, prior_date date, prior_track text, prior_surface text, prior_distance integer, finish integer, field_size integer, margin_to_winner numeric, weight_carried numeric, jockey text, early_pos numeric, pos_change numeric, prior_class text, source_kind text)"
     },
     {
       "function": "jra_model_segment",
       "path": "../v10/source-sql/private.jra_model_segment.sql.txt",
       "sha256": "e2050ea34bf688d784fbf351f412fbede36c4cdbf787f76725c23d4c7d9b47a6",
       "lineage": "Segment scalar; not an independent100-point model.",
-      "anchors": []
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_model_segment(class_name text, race_name text)",
+      "output_signature": "RETURNS text"
     },
     {
       "function": "jra_older_course_evidence_v1",
@@ -114,7 +124,9 @@
           "line": 31,
           "text": "SELECT jsonb_agg(jsonb_build_object("
         }
-      ]
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_older_course_evidence_v1(p_race_date date, p_track text, p_race_no integer)",
+      "output_signature": "RETURNS jsonb"
     },
     {
       "function": "jra_optional_content_evidence_v3",
@@ -154,7 +166,9 @@
           "line": 44,
           "text": "'corner_positions', CASE WHEN ev.archive_matches=1 THEN ev.corner_positions END,"
         }
-      ]
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_optional_content_evidence_v3(p_race_date date, p_track text, p_race_no integer)",
+      "output_signature": "RETURNS jsonb"
     },
     {
       "function": "jra_relative_condition_comparison_v1",
@@ -194,7 +208,9 @@
           "line": 113,
           "text": "RETURN jsonb_build_object('status','OPTIONAL_COMPARISON_FAILED','rank_effect',false,'market_used',false);"
         }
-      ]
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_relative_condition_comparison_v1(p_history jsonb, p_target_date date, p_surface text, p_distance integer)",
+      "output_signature": "RETURNS jsonb"
     },
     {
       "function": "jra_relative_pace_summary_v1",
@@ -210,21 +226,27 @@
           "line": 45,
           "text": "'runners',(SELECT coalesce(jsonb_agg(jsonb_build_object("
         }
-      ]
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_relative_pace_summary_v1(p_history jsonb, p_surface text, p_distance integer)",
+      "output_signature": "RETURNS jsonb"
     },
     {
       "function": "jra_flat_past_runs",
       "path": "../v10/source-sql/private.jra_flat_past_runs.sql.txt",
       "sha256": "93c46f9d1fcc369ea043c120907519679f9964f87219edfcd56d31acea55117c",
       "lineage": "Filters non-competitive/obstacle rows; raw JSON fields may survive here but downstream merged projection removes provenance.",
-      "anchors": []
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_flat_past_runs(p_runs jsonb)",
+      "output_signature": "RETURNS jsonb"
     },
     {
       "function": "jra_horse_key",
       "path": "../v10/source-sql/private.jra_horse_key.sql.txt",
       "sha256": "8e33c5306367689d721f1d00aceb9b7c3f4fea5e2e6ecca5a378a6b1aedba4b6",
       "lineage": "Extracts horse-key scalar for comparison; no official body or clocks.",
-      "anchors": []
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_horse_key(p_ref text)",
+      "output_signature": "RETURNS text"
     },
     {
       "function": "jra_missing_id_review_v1",
@@ -248,14 +270,18 @@
           "line": 45,
           "text": "'allow_as_scoring_evidence',false"
         }
-      ]
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_missing_id_review_v1(p_race_date date, p_track text, p_race_no integer, p_asof timestamp with time zone)",
+      "output_signature": "RETURNS jsonb"
     },
     {
       "function": "jra_time_seconds",
       "path": "../v10/source-sql/private.jra_time_seconds.sql.txt",
       "sha256": "aeac81d6d38a2c6b659a3470dbe6883d22b6285209f570976c7060a0deeebe0c",
       "lineage": "Converts time scalar; no lineage output.",
-      "anchors": []
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_time_seconds(p_time text)",
+      "output_signature": "RETURNS numeric"
     }
   ],
   "current_production_rechecked": false
