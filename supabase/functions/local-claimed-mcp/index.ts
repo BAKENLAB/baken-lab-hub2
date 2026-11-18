@@ -11,6 +11,7 @@ import {assertLocalSaveDuringTransition} from "./local-eye.mjs";
 import {assertLocal16NoUnauthorizedRubric} from "./local-16-content-review.mjs";
 import {assertLocal16EvidenceHandoffForSave} from "./local-16-evidence-save-gate.mjs";
 import {auditLocalEyeOmissions} from "./local-eye-omission-preflight.mjs";
+import {auditLocal16RankStability} from "./local16-rank-reproducibility-audit.mjs";
 const WORKERS=new Map([["LOCAL_QUEUE_RESCUE","RESCUE"],["LOCAL_QUEUE_KANTO","関東"],["LOCAL_QUEUE_WEST","西日本"],["LOCAL_QUEUE_CHUBU","中部"],["LOCAL_QUEUE_HOKKAIDO_TOHOKU","北海道東北"]]);
 const uuid=(x:string)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const err=(e:unknown)=>publicError(e);
@@ -121,7 +122,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      structuredContent:output};
   }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
  });
- s.registerTool("lab_claimed_context",{description:"Get verified full-field context for a live authorized LOCAL claim. Use original LOCAL1.6 independent 100-point all-horse assessment. official_past_content and live_ability_rank_input are required evidence: cite material favorable and unfavorable verified facts or explicit limitations for every ACTIVE runner before fixing rank/TOP5, then independently re-audit every outsider for EYE. Course-transition aggregates and loss-with-merit flags are descriptive only; never invent full laps, incidents or opponent follow-up quality. Never substitute research scores or the unapproved 30/25/20/15/10 rubric, use odds/results, or alter existing FROZEN. Read-only.",inputSchema:z.object({job_id:z.string().uuid()}),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:true}},async({job_id})=>{try{await auth();const {u,k,c}=admin(),a=await claim(c,job_id);const res=await fetch(u+"/functions/v1/lab-claimed-context",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+k,apikey:k},body:JSON.stringify({run_id:a.r.id,job_id:a.j.id,claim_token:a.j.claim_token}),signal:AbortSignal.timeout(30000)});const o=await res.json().catch(()=>null);if(!res.ok||o?.ok!==true||!o?.context)throw Error(o?.error||"CONTEXT_UNAVAILABLE");const b=await claim(c,job_id);if(b.r.id!==a.r.id||b.j.claim_token!==a.j.claim_token)throw Error("CLAIM_CHANGED");return {content:[{type:"text",text:JSON.stringify(o.context)}]}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
+ s.registerTool("lab_claimed_context",{description:"Get verified full-field context for a live authorized LOCAL claim. Use original LOCAL1.6 independent 100-point all-horse assessment. official_past_content, live_ability_rank_input and local16_scoring_criteria are required inputs: review the official 13 criteria and 7 transfer checks for EVERY ACTIVE horse, cite favorable and unfavorable verified facts or explicit limitations before independently assigning 100 points, fixing rank/TOP5 and auditing EYE. If local16_scoring_criteria is NOT_READY, diagnose missing official evidence first, then independently re-audit every outsider for EYE. Course-transition aggregates and loss-with-merit flags are descriptive only; never invent full laps, incidents or opponent follow-up quality. Never substitute research scores or the unapproved 30/25/20/15/10 rubric, use odds/results, or alter existing FROZEN. Read-only.",inputSchema:z.object({job_id:z.string().uuid()}),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:true}},async({job_id})=>{try{await auth();const {u,k,c}=admin(),a=await claim(c,job_id);const res=await fetch(u+"/functions/v1/lab-claimed-context",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+k,apikey:k},body:JSON.stringify({run_id:a.r.id,job_id:a.j.id,claim_token:a.j.claim_token}),signal:AbortSignal.timeout(30000)});const o=await res.json().catch(()=>null);if(!res.ok||o?.ok!==true||!o?.context)throw Error(o?.error||"CONTEXT_UNAVAILABLE");const b=await claim(c,job_id);if(b.r.id!==a.r.id||b.j.claim_token!==a.j.claim_token)throw Error("CLAIM_CHANGED");return {content:[{type:"text",text:JSON.stringify(o.context)}]}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
 
 
  // The caller can inspect exactly WHICH official run is missing BEFORE it
@@ -175,6 +176,74 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      const result={...reviewed,claim_verified:true,
        save_authorized:false,production_rank_changed:false,
        production_eye_changed:false,frozen_modified:false};
+     return {content:[{type:"text",text:JSON.stringify(result)}],
+       structuredContent:result};
+   }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
+ });
+
+
+ // Pure read-only, prospective rank provenance check. It explicitly reports
+ // that no certified LOCAL1.6 numeric scorer is registered; never promotes
+ // research scoring, changes an EYE, saves a draft or edits a FROZEN record.
+ s.registerTool("lab_rank_repro_preflight",{
+   description:"Read-only LOCAL1.6 scorer-provenance and rank consistency preview for a live official CLAIM. Checks all-horse identity, cited past-run evidence, 5th/6th score margin, optional repeated-draft disagreements, and 13-criterion input availability; it does NOT certify unapproved scores or save predictions.",
+   inputSchema:z.object({
+     job_id:z.string().uuid(),
+     protocol_version:z.string().min(1).max(100),
+     payload:z.object({
+       runners:z.array(z.unknown()).min(1),
+       top5:z.array(z.unknown()).min(1),
+       eye:z.unknown().nullable(),
+       bets:z.array(z.unknown()),
+       summary:z.unknown(),
+       bet_strategy:z.string(),
+       audit:z.record(z.string(),z.unknown())
+     }).strict(),
+     repeat_payload:z.object({
+       runners:z.array(z.unknown()).min(1)
+     }).passthrough().optional()
+   }).strict(),
+   annotations:{readOnlyHint:true,destructiveHint:false,
+     idempotentHint:true,openWorldHint:false}
+ },async({job_id,protocol_version,payload,repeat_payload})=>{
+   try{
+     await auth();
+     if(protocol_version!=="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013")
+       throw Error("LOCAL16_RANK_PROTOCOL_MISMATCH");
+     const inspected=normalizePairEvidence(structuredClone(payload));
+     assertLocal16NoUnauthorizedRubric(protocol_version,inspected);
+     assertLocalSaveDuringTransition({circuit:"LOCAL",protocol_version,payload:inspected});
+     assertLocal16EvidenceHandoffForSave({protocol_version,payload:inspected});
+     const {u,k,c}=admin(),first=await claim(c,job_id);
+     const response=await fetch(u+"/functions/v1/lab-claimed-context",{
+       method:"POST",headers:{"content-type":"application/json",
+         authorization:"Bearer "+k,apikey:k},
+       body:JSON.stringify({run_id:first.r.id,job_id:first.j.id,
+         claim_token:first.j.claim_token}),
+       signal:AbortSignal.timeout(30000)
+     });
+     const data=await response.json().catch(()=>null);
+     if(!response.ok||data?.ok!==true||!data.context?.race||
+        !Array.isArray(data.context.runners)||
+        data.context.field_integrity_checked!==true)
+       throw Error("LOCAL16_RANK_CONTEXT_UNVERIFIED");
+     const second=await claim(c,job_id);
+     if(second.r.id!==first.r.id||second.j.claim_token!==first.j.claim_token)
+       throw Error("CLAIM_CHANGED");
+     const check=auditLocal16RankStability({
+       race:data.context.race,verifiedRunners:data.context.runners,
+       draft:inspected,repeatDraft:repeat_payload??null,
+       observationAt:new Date().toISOString(),
+       approvedScoringPolicy:null
+     });
+     const criteria=data.context.local16_scoring_criteria;
+     const result={...check,claim_verified:true,save_authorized:false,
+       official_scoring_criteria_status:criteria?.status??"UNAVAILABLE",
+       official_checks:criteria?.original_checks??null,
+       official_transfer_checks:criteria?.transfer_checks??null,
+       official_score_computed:criteria?.score_computed===true,
+       production_rank_changed:false,production_eye_changed:false,
+       frozen_modified:false};
      return {content:[{type:"text",text:JSON.stringify(result)}],
        structuredContent:result};
    }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
