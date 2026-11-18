@@ -51,7 +51,10 @@ function validateRefs(no,refs,h){
   return m&&Number(m[1])===no&&Number(m[2])<h.recent_runs.length;
  });
 }
-function certScore(r,h,approved){
+// Deliberately EMPTY until a real independently reproducible LOCAL1.6 scorer is approved.
+// A caller-supplied boolean/label can never authenticate a scorer implementation.
+const VERIFIED_LOCAL16_SCORERS=Object.freeze({});
+function ledgerMathConsistent(r,h,approved){
  const ledger=r.score_ledger;
  // This is NOT cryptographic certification. External policy identity remains
  // untrusted until connected to a separately approved scorer implementation.
@@ -69,6 +72,10 @@ function certScore(r,h,approved){
   total+=c.points;
  }
  return Math.abs(total-r.score)<0.000001;
+}
+function certScore(r,h,approved){
+ return ledgerMathConsistent(r,h,approved)&&
+   VERIFIED_LOCAL16_SCORERS[approved.version]===approved.policy_ref;
 }
 /**
  * Input is strictly as-of-before-post; official results are never supplied.
@@ -149,6 +156,7 @@ export function auditLocal16RankStability({
    (h.recent_runs.length>0&&p.evidence_refs.length<1))
    return fail("RUNNER_SCORE_SOURCE_MISMATCH",[r.horse_no]);
  }
+ const mathReconciled=ranked.filter(r=>ledgerMathConsistent(r,hmap.get(r.horse_no),approvedScoringPolicy));
  const scored=ranked.filter(r=>certScore(r,hmap.get(r.horse_no),approvedScoringPolicy));
  const complete=scored.length===ranked.length;
  const narrow=ranked.length>=6?{
@@ -181,12 +189,14 @@ export function auditLocal16RankStability({
   same_input_replay_checked:mismatches!==null,
   rank_reproducible:mismatches===false&&complete,
   ranked_horses:ranked.length,certified_score_count:scored.length,
+  ledger_math_reconciled_count:mathReconciled.length,
   missing_score_provenance_horses:ranked.filter(r=>!scored.includes(r)).map(r=>r.horse_no),
   boundary:narrow,
   scorer_policy:approvedScoringPolicy?.version??null,
   score_certified:complete,
   limits:["Current LOCAL1.6 protocol has no approved numeric point-allocation formula",
   "A descending score order proves sorting, not the original point calculation",
+  "A caller-provided approval flag is not an independent scorer implementation registry",
   "A single draft cannot prove identical-input reproducibility"],
   rank_changed:false,eye_changed:false,frozen_modified:false,
   market_used:false,target_result_used:false
