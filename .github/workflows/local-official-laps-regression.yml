@@ -28,4 +28,4 @@ jobs:
         with:
           deno-version: v2.x
       - name: Official HTML lap extraction and ambiguity rejection
-        run: deno test --node-modules-dir=auto --allow-net supabase/functions/lab-local-corner-preclaim/automation/nar-prior-corners-official-source.test.mjs
+        run: deno test --node-modules-dir=auto --allow-net --allow-env supabase/functions/lab-local-corner-preclaim/automation/nar-prior-corners-official-source.test.mjs
