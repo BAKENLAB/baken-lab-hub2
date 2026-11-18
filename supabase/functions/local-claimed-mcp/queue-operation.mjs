@@ -1,7 +1,7 @@
 export const WORKER_REGIONS=Object.freeze({LOCAL_QUEUE_WEST:'西日本',LOCAL_QUEUE_KANTO:'関東',LOCAL_QUEUE_CHUBU:'中部',LOCAL_QUEUE_HOKKAIDO_TOHOKU:'北海道東北',LOCAL_QUEUE_RESCUE:'RESCUE'});
 const uuid=x=>typeof x==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const codes=new Set(['WORKER_NOT_ALLOWED','QUEUE_START_FAILED','QUEUE_STATE_UNAVAILABLE','FORBIDDEN','AUTHORIZATION_NOT_CONFIGURED','SERVER_CONFIGURATION_ERROR','CLAIM_UNAVAILABLE','CLAIM_CHANGED','CONTEXT_UNAVAILABLE','CONTEXT_CHANGED','SAVE_REJECTED','SAVE_RESULT_INVALID','SAVE_RETRY_MISMATCH']);
-export const publicError=e=>codes.has(e?.message)||(/^(?:LOCAL_EYE_|LOCAL_16_EVIDENCE_)[A-Z_]{3,48}$/.test(e?.message??''))?e.message:'OPERATION_FAILED';
+export const publicError=e=>codes.has(e?.message)||(/^(?:LOCAL_EYE_|LOCAL_16_EVIDENCE_|LOCAL_16_TRACE_)[A-Z_]{3,48}$/.test(e?.message??''))?e.message:'OPERATION_FAILED';
 export async function bounded(fn,ms=14000){let timer;try{return await Promise.race([Promise.resolve().then(fn),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('OPERATION_FAILED')),ms);})]);}finally{clearTimeout(timer);}}
 export async function queueNext(input,{client,now=Date.now,timeoutMs=14000}){
  if(!input||Object.keys(input).length!==1||!Object.hasOwn(WORKER_REGIONS,input.worker_id))throw Error('WORKER_NOT_ALLOWED');
