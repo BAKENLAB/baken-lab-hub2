@@ -247,7 +247,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        input_fingerprint_is_official_signature:false,
        certified_numeric_scorer:"NOT_AVAILABLE",
        criterion_trace_status:trace.status,criterion_trace_code:trace.code,
-       criterion_trace_counts:trace.counts??null,
+       criterion_trace_counts:("counts" in trace?trace.counts:null),
        criterion_trace_score_certified:false,criterion_trace_point_effect_proven:false,
        official_scoring_criteria_status:criteria?.status??"UNAVAILABLE",
        official_checks:criteria?.original_checks??null,
