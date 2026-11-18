@@ -167,3 +167,27 @@ test('outdated EYE factors remain diagnostic, never count toward two current pos
  assert.equal(r.metrics.non_current_positive_factors,2);
  assert.equal(r.metrics.current_positive_factors,0);
 });
+
+test('LOCAL COMPACT can lack surface; track/distance matches but provenance stays scoped missing',()=>{
+ const x=sample(),check=x.payload.audit.eye_candidate_audit[0].review_checks;
+ // Ordinary local historical records give track/distance without a surface field.
+ check.same_condition_history={status:'CHECKED',finding:'笠松1400mを確認、歴史surface欠落',
+  evidence_refs:[ref(6)]};
+ const r=auditLocal16EvidenceQuality({...x,officialPreRace:{
+  official_context_verified:true,track:'笠松',distance:1400,surface:'ダート'
+ }});
+ assert.equal(r.ok,true);
+ assert.ok(r.gaps.some(g=>g.criterion==='same_condition_history'&&
+  g.code==='SURFACE_NOT_DIRECTLY_VERIFIED_IN_HISTORY'));
+});
+test('independent directly supplied matching surface eliminates missingness gap',()=>{
+ const x=sample(),check=x.payload.audit.eye_candidate_audit[0].review_checks;
+ x.verifiedRunners[5].recent_runs[0].surface='ダート';
+ check.same_condition_history={status:'CHECKED',finding:'笠松ダート1400m',
+  evidence_refs:[ref(6)]};
+ const r=auditLocal16EvidenceQuality({...x,officialPreRace:{
+  official_context_verified:true,track:'笠松',distance:1400,surface:'ダート'
+ }});
+ assert.equal(r.ok,true);
+ assert.equal(r.gaps.some(g=>g.code==='SURFACE_NOT_DIRECTLY_VERIFIED_IN_HISTORY'),false);
+});
