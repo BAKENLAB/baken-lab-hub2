@@ -1,0 +1,36 @@
+name: LOCAL1.6 rank provenance and deterministic replay audit
+on:
+  push:
+    branches: [fix/local16-rank-stability-audit-20261119]
+    paths:
+      - "automation/local-1-6-scoring-evidence-audit.mjs"
+      - "automation/local16-rank-reproducibility-audit.mjs"
+      - "research/local-1-6-scoring-evidence-audit.test.mjs"
+      - "research/local16-rank-reproducibility-audit.test.mjs"
+      - ".github/workflows/local16-rank-reproducibility.yml"
+  pull_request:
+    paths:
+      - "automation/local-1-6-scoring-evidence-audit.mjs"
+      - "automation/local16-rank-reproducibility-audit.mjs"
+      - "research/local-1-6-scoring-evidence-audit.test.mjs"
+      - "research/local16-rank-reproducibility-audit.test.mjs"
+      - ".github/workflows/local16-rank-reproducibility.yml"
+permissions:
+  contents: read
+jobs:
+  verify-no-score-fabrication:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check syntax
+        run: |
+          node --check automation/local-1-6-scoring-evidence-audit.mjs
+          node --check automation/local16-rank-reproducibility-audit.mjs
+      - name: Audit certified provenance and no post-start evidence
+        run: node --test research/local-1-6-scoring-evidence-audit.test.mjs research/local16-rank-reproducibility-audit.test.mjs
+      - name: Preserve existing LOCAL prefreeze safety checks
+        run: node --test research/local-eye-omission-preflight.test.mjs research/local-eye-omission-integration.test.mjs research/local16-drift-sentinel.test.mjs
