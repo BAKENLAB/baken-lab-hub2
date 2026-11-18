@@ -49,12 +49,34 @@ export function buildLocal16LiveScoringCriteria({context,protocolContent,facts,r
   const date=past(r=>present(r.race_date));
   const pair=facts.head_to_head?.filter(p=>p.horse_nos?.includes(h.horse_no))??[];
   const head=pair.flatMap(p=>p.refs??[]);
-  const forms=[hist,orders,klass,dist,venue,going,[...own("draw"),...past(r=>present(r.early_pos))],weight,jockey,date,[...own("body_weight"),...own("body_weight_diff"),...own("equipment")],[],[...hist,...orders,...head]];
+  // Only authenticated NAR race-level official 200m splits corroborated by
+  // a current horse's exact official prior-race witness, never horse splits.
+  const lapRecords=context.official_lap_evidence?.status==="VERIFIED_PAST_RACE_LAPS"&&
+   context.official_lap_evidence?.horse_specific_sectionals===false&&
+   context.official_lap_evidence?.score_effect===0&&
+   context.official_lap_evidence?.rank_effect===false?
+   context.official_lap_evidence.prior_races:[];
+  const lapRefs=Array.isArray(lapRecords)?lapRecords.flatMap((p,i)=>
+   p?.linked_runners?.some(x=>x.horse_no===h.horse_no&&
+     typeof x.run_ref==="string"&&
+     h.recent_runs.some((_,j)=>x.run_ref===
+      "COMPACT_V1.runners[horse_no="+h.horse_no+"].recent_runs["+j+"]"))?
+     ["COMPACT_V1.official_lap_evidence.prior_races["+i+"]"]:[]):[];
+  const peerEvidence=context.official_opponent_followup;
+  const followRows=peerEvidence?.status==="VERIFIED_PARTIAL_FOLLOWUP"&&
+   peerEvidence?.score_effect===0&&peerEvidence?.rank_effect===false&&
+   Array.isArray(peerEvidence.rows)?peerEvidence.rows:[];
+  const followRefs=followRows.flatMap((r,i)=>
+   r.horse_no===h.horse_no&&typeof r.original_run_ref==="string"&&
+   h.recent_runs.some((_,j)=>r.original_run_ref===
+    "COMPACT_V1.runners[horse_no="+h.horse_no+"].recent_runs["+j+"]")?
+   ["COMPACT_V1.official_opponent_followup.rows["+i+"]"]:[]);
+  const forms=[[...hist,...followRefs],[...orders,...lapRefs],[...klass,...followRefs],dist,venue,going,[...own("draw"),...past(r=>present(r.early_pos))],weight,jockey,date,[...own("body_weight"),...own("body_weight_diff"),...own("equipment")],[],[...hist,...orders,...lapRefs,...followRefs,...head]];
   const transferForms=[klass,[...hist,...orders],klass,dist,[...venue,...orders],weight,date];
   const entry=(name,refs,limitations)=>({criterion:name,evidence_refs:[...new Set(refs)],data_state:refs.length?"VERIFIED_INPUT_AVAILABLE":"MISSING_INPUT",evaluation_state:"NOT_SCORED",limitations});
   const caveats=[
-   "Historical results and recorded margins do not establish opponent quality alone",
-   "Passage/final3f may be partial; full sectionals and actual interference are not verified",
+   "Race-wide verified later finishes by original opponents may be available; never equate different class and conditions automatically",
+   "Passage/final3f may be partial; verified race-level laps do NOT establish each horse's own split or interference",
    "Different regions and class labels must not be automatically equated",
    "Distance change is not an automatic bonus or penalty",
    "Venue and same-condition repeatability must be assessed separately",
@@ -71,7 +93,8 @@ export function buildLocal16LiveScoringCriteria({context,protocolContent,facts,r
    criteria:required.map((name,i)=>entry(name,forms[i],caveats[i])),
    transfer_review:transfer.map((name,i)=>entry(name,transferForms[i],"First confirm transfer applicability and compare actual verified class and conditions")),
    direct_opponent_pairs:pair.length,verified_history_runs:runs.length,
-   full_laps:"NOT_VERIFIED",opponent_followup:"NOT_VERIFIED",
+   full_laps:lapRefs.length?"VERIFIED_RACE_LEVEL_PARTIAL":"NOT_VERIFIED",
+   opponent_followup:followRefs.length?"VERIFIED_PARTIAL_FOLLOWUP":"NOT_VERIFIED",
    ranking_justification:"INDEPENDENT_HUMAN_OR_MODEL_ASSESSMENT_REQUIRED"});
  }
  return {status:"READY_FOR_INDEPENDENT_100_POINT_SCORING",schema:"LOCAL16_OFFICIAL_CRITERIA_INPUT_V1",

@@ -5,6 +5,7 @@
  */
 import {createHash} from 'node:crypto';
 import {officialNarPastResultUrl} from './nar-prior-corners.mjs';
+import {checkStoredOfficialNarLaps} from './nar-official-lap-evidence.mjs';
 
 const norm=x=>String(x??'').normalize('NFKC').replace(/\s+/g,'').trim();
 const finiteTime=x=>typeof x==='string'&&Number.isFinite(Date.parse(x))?Date.parse(x):null;
@@ -54,6 +55,60 @@ function identityRef(ref){
     [...u.searchParams.keys()].every(k=>k==='k_lineageLoginCode'||k==='k_activeCode');
  }catch{return false;}
 }
+
+/** Ignore optional laps that cannot be proven by the same identity-linked
+ * corner packet. Never downgrade an otherwise authentic corner snapshot. */
+function sourceBoundLaps(laps,evidence,target,at){
+ if(!Array.isArray(laps)||laps.length>40)return [];
+ const out=[],seen=new Set();
+ for(const p of laps){try{
+  checkStoredOfficialNarLaps(p,{targetDate:target.raceDate,targetPostTime:target.postTime,now:at});
+  const r=p.pastRace,k=[r.raceDate,r.track,r.raceNo].join('|');
+  if(seen.has(k)||!evidence.some(e=>e.pastRace.raceDate===r.raceDate&&
+   e.pastRace.track===r.track&&e.pastRace.raceNo===r.raceNo&&
+   e.sourceRef===p.sourceRef&&e.sourceCheckedAt===p.sourceCheckedAt))continue;
+  seen.add(k);out.push(p);
+ }catch{/* Unverified race splits remain unavailable, not zero or inferred. */}}
+ return out;
+}
+
+
+/** Two distinct source-attested pre-target pages, joined only by exact NAR
+ * official horse ID. Original field horse must have the independent official
+ * corner witness for the first race; second page needs a verified witness too.
+ * Invalid peers never compromise the original validated corner snapshot. */
+function sourceBoundOpponentFollowups(rows,evidence,target,at){
+ if(!Array.isArray(rows)||rows.length>80)return [];
+ const result=[],seen=new Set(),post=finiteTime(target.postTime);
+ for(const p of rows){try{
+  const a=p?.priorRace,b=p?.followupRace;
+  if(!a||!b||!date(a.raceDate)||!date(b.raceDate)||
+    a.raceDate>=b.raceDate||b.raceDate>=target.raceDate||
+    !int(a.raceNo,1,14)||!int(b.raceNo,1,14)||
+    p.sourceRef!==officialNarPastResultUrl(a)||
+    p.followupSourceRef!==officialNarPastResultUrl(b)||
+    !int(p.horseNo)||!norm(p.horseName)||!norm(p.peerName)||
+    !/^[0-9]{1,30}$/.test(p.peerOfficialHorseId??'')||
+    !int(p.peerPriorFinish)||p.peerPriorFinish>3||
+    !int(p.peerFollowupFinish)||
+    p.identityMethod!=='EXACT_NAR_OFFICIAL_HORSE_ID_TWO_RESULT_PAGES'||
+    p.rankingEffect!=='NONE_UNTIL_REVIEWED')continue;
+  const t1=finiteTime(p.sourceCheckedAt),t2=finiteTime(p.followupCheckedAt);
+  if(t1===null||t2===null||t1>at||t2>at||t1>=post||t2>=post||
+     !evidence.some(e=>e.horseNo===p.horseNo&&norm(e.horseName)===norm(p.horseName)&&
+       e.pastRace.raceDate===a.raceDate&&e.pastRace.track===a.track&&
+       e.pastRace.raceNo===a.raceNo&&e.sourceRef===p.sourceRef&&
+       e.sourceCheckedAt===p.sourceCheckedAt)||
+     !evidence.some(e=>e.pastRace.raceDate===b.raceDate&&e.pastRace.track===b.track&&
+       e.pastRace.raceNo===b.raceNo&&e.sourceRef===p.followupSourceRef&&
+       e.sourceCheckedAt===p.followupCheckedAt))continue;
+  const k=[p.horseNo,a.raceDate,a.track,a.raceNo,p.peerOfficialHorseId,b.raceDate,b.track,b.raceNo].join('|');
+  if(seen.has(k))continue;seen.add(k);
+  result.push(p);
+ }catch{/* Skip unverifiable optional peer records. */}}
+ return result;
+}
+
 function sanitizePacket(packet,race,roster,witnesses,now){
  if(packet?.status!=='PREFETCH_ONLY'||packet.raceDate!==race.raceDate||
     packet.raceTrack!==race.track||packet.raceNo!==race.raceNo||
@@ -104,12 +159,14 @@ function sanitizePacket(packet,race,roster,witnesses,now){
   });
  }
  if(evidence.length!==packet.linkedRunEvidence)throw Error('CORNER_EVIDENCE_COUNT_MISMATCH');
+ const officialRaceLaps=sourceBoundLaps(packet.officialRaceLaps,evidence,race,now);
+ const opponentFollowups=sourceBoundOpponentFollowups(packet.opponentFollowups,evidence,race,now);
  evidence.sort((a,b)=>a.horseNo-b.horseNo||
    b.pastRace.raceDate.localeCompare(a.pastRace.raceDate)||
    a.pastRace.raceNo-b.pastRace.raceNo);
  return {
   status:'PREFETCH_ONLY',raceDate:race.raceDate,raceTrack:race.track,raceNo:race.raceNo,
-  linkedRunEvidence:evidence.length,evidence,
+  linkedRunEvidence:evidence.length,evidence,officialRaceLaps,opponentFollowups,
   claimStarted:false,saveAuthorized:false,targetResultUsed:false,
   marketUsed:false,rankChanged:false
  };
@@ -142,7 +199,7 @@ export async function stageLocalCornerSnapshot({
   source_status:'PARTIAL',active_runner_count:active.length,
   official_roster_digest:digest({race:target,roster:active}),
   payload_digest:digest(evidence),evidence,
-  data_quality:{linkedPriorRuns:payload.linkedRunEvidence,officialRosterCount:active.length}
+  data_quality:{linkedPriorRuns:payload.linkedRunEvidence,officialRosterCount:active.length,verifiedPastRaceLapSets:payload.officialRaceLaps.length,verifiedPeerFollowups:payload.opponentFollowups.length}
  };
  try {
   const result=await store.insertIfAbsent(row);
@@ -211,5 +268,8 @@ export async function lookupLocalCornerSnapshot({
        !when||when>asOf||when>=post||e.rankingEffect!=='NONE_UNTIL_REVIEWED'||
        e.source!=='NAR_OFFICIAL_PAST_RACE_RESULT';
     }))return null;
- return structuredClone(packet);
+ const checked=structuredClone(packet);
+ checked.officialRaceLaps=sourceBoundLaps(checked.officialRaceLaps,checked.evidence,target,asOf);
+ checked.opponentFollowups=sourceBoundOpponentFollowups(checked.opponentFollowups,checked.evidence,target,asOf);
+ return checked;
 }

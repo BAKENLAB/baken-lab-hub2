@@ -1,0 +1,24 @@
+name: LOCAL one-page real official NAR HTML smoke
+on:
+  pull_request:
+    paths:
+      - 'automation/local-real-nar-html-smoke.mjs'
+      - 'automation/local-real-nar-opponent-id-continuity.mjs'
+      - 'supabase/functions/lab-local-corner-preclaim/automation/nar-prior-corners-official-source.mjs'
+      - '.github/workflows/local-real-nar-smoke.yml'
+permissions:
+  contents: read
+jobs:
+  source-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Read exactly one past public NAR race and validate official lap clock
+        run: deno run --node-modules-dir=auto --allow-net=www.keiba.go.jp,registry.npmjs.org --allow-env automation/local-real-nar-html-smoke.mjs
+
+      - name: Independently re-observe exact NAR horse IDs on two past race pages
+        run: deno run --node-modules-dir=auto --allow-net=www.keiba.go.jp,registry.npmjs.org --allow-env automation/local-real-nar-opponent-id-continuity.mjs
