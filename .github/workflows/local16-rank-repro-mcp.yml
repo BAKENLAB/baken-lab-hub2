@@ -7,6 +7,7 @@ on:
       - "supabase/functions/local-claimed-mcp/**"
       - "automation/local16-rank-reproducibility-audit.mjs"
       - "research/local16-rank-repro-mcp.test.mjs"
+      - "research/local16-input-fingerprint.test.mjs"
       - ".github/workflows/local16-rank-repro-mcp.yml"
 permissions:
   contents: read
@@ -20,7 +21,7 @@ jobs:
         with:
           node-version: '22'
       - name: Read-only official MCP audit and earlier drift regression
-        run: node --test research/local16-rank-repro-mcp.test.mjs research/local16-rank-reproducibility-audit.test.mjs research/local-eye-omission-preflight.test.mjs research/local-eye-omission-integration.test.mjs
+        run: node --test research/local16-rank-repro-mcp.test.mjs research/local16-rank-reproducibility-audit.test.mjs research/local16-input-fingerprint.test.mjs research/local-eye-omission-preflight.test.mjs research/local-eye-omission-integration.test.mjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
