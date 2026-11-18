@@ -7,6 +7,7 @@ import {buildLocalRelativeConditionComparison} from '../../../automation/local-r
 import {buildLocalClaimedCornerShadow} from '../../../automation/local-claimed-corner-shadow.mjs';
 import {buildLocal16ContentReview,mergeVerifiedLocalCornerFacts} from '../../../automation/local-16-content-review.mjs';
 import {buildLocal16LiveScoringCriteria} from '../../../automation/local16-live-scoring-criteria.mjs';
+import {projectOfficialLapContext} from '../../../automation/local-lap-claimed-bridge.mjs';
 import {buildLocalFieldContentFacts} from '../../../automation/local-field-content-facts.mjs';
 import {collectStableClaimContext} from '../../../automation/local-stable-claim-context.mjs';
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -136,6 +137,20 @@ export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=n
    output.runners=enhanced;
    output.field_pace_evidence=pace;
    output.official_corner_fact_coverage=merged.coverage;
+   // The same authenticated pre-CLAIM snapshot carries optional race-level
+   // sectionals verified against official winner time. Never horse splits.
+   // This context is source evidence only; zero automatic score/rank effect.
+   try{
+    const laps=projectOfficialLapContext({
+     race:state.race,runners:output.runners,
+     cornerSources:shadow.verified_corner_sources,
+     packets:preclaimCornerPacket?.officialRaceLaps??[],now
+    });
+    output.official_lap_evidence=JSON.stringify(laps).length<=131072?
+      laps:{status:'SOURCE_SIZE_LIMIT',prior_races:[],race_laps_count:0,
+        score_effect:0,rank_effect:false,horse_specific_sectionals:false};
+   }catch{/* Existing official CLAIM and 1.6 scoring remain available. */}
+
    if(comparison.status==='READY'&&comparison.rank_effect===false&&comparison.market_used===false&&JSON.stringify(comparison).length<=196608){
      output.relative_condition_evidence=comparison;
      output.relative_condition_status='READY';
