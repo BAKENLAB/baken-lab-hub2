@@ -270,8 +270,49 @@ function modernNote(r,p){
  return {head,detail:lines.join('\n')};
 }
 
+
+/*
+ * LOCAL1.6 verified-comment presentation only.  The live FROZEN reason may
+ * contain an evidence-led assessment followed by an identical run recap and
+ * an unhelpful "no proof of a top-two" disclaimer.  Neither the displayed
+ * rank nor the signed FROZEN payload is changed here.
+ */
+function verifiedLocalNote(r,p){
+ if(isSelectedEye(r,p))return null;
+ const source=modernSource(r,p);
+ if(!/次走歴|次歴/.test(source))return null;
+ const firstPart=source.split(/。(?=(?:直近公式実走|直近公式歴|直近)[\s:：])/)[0];
+ if(firstPart===source)return null;
+ const clauses=firstPart.split('。').map(x=>x.trim()).filter(Boolean);
+ if(!clauses.length)return null;
+ const isGenericNoProof=s=>/(?:連対|2着以内|上位3着内|3着内)(?:の)?(?:裏付け|実証|証拠)(?:は|が)?(?:ない|不足|未確認|未実証)|(?:3着内まだなし|上位好走の実証なし)/.test(s);
+ const fact=human(clauses[0]);
+ const judgment=clauses.slice(1)
+  .map(s=>s.split(/(?:だが|するが|ただし|一方で|しかし|けれども)/)[0].trim())
+  .find(s=>s.length>=12&&/(?:強み|を評価|を重視|を上位視|実績を評価|近況上昇|複数好走)/.test(s)
+    &&!/未確認|未実証|不明|不安/.test(s))||'';
+ const head=human(judgment||fact);
+ const details=['【'+(Number(r.rank)>=1&&Number(r.rank)<=5?'この順位にした理由':'評価した理由')+'】'+sentence(head)];
+ if(head!==fact)details.push('【根拠となる過去走】'+sentence(fact));
+ const cautions=[];
+ for(const clause of clauses.slice(1)){
+  if(isGenericNoProof(clause))continue;
+  const segments=clause.split(/(?:だが|するが|ただし|一方で|しかし|けれども)/);
+  const risk=segments.length>1?segments.slice(1).join('、').trim():clause.trim();
+  if(!/(?:不明|未検証|未確認|反証|懸念|課題|大敗|休養|不安|上位実績なし)/.test(risk))continue;
+  if(isGenericNoProof(risk))continue;
+  // No vague filler; keep an identifiable event, condition or concrete risk.
+  if(!/(?:\d{1,2}[-/]\d{1,2}|\d+着|大井|金沢|中央|距離|馬場|相手|クラス|現級|休養|転入|斤量|上がり)/.test(risk))continue;
+  const nice=human(risk);
+  if(nice&&nice!==head&&!cautions.includes(nice))cautions.push(nice);
+ }
+ if(cautions.length)details.push('【注意点】'+sentence(cautions[0]));
+ return {head,detail:details.join('\n')};
+}
+
 function headline(r,p,race){
  const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.head;
+ const verified=verifiedLocalNote(r,p);if(verified)return verified.head;
  const modern=modernNote(r,p);if(modern)return modern.head;
  const eye=eyeSelection(r,p);if(eye)return compact(eye.head,400);
  const source=rawText(r);
@@ -308,6 +349,7 @@ function headline(r,p,race){
 }
 function comment(r,p,race){
  const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.detail;
+ const verified=verifiedLocalNote(r,p);if(verified)return verified.detail;
  const modern=modernNote(r,p);if(modern)return modern.detail;
  const eye=eyeSelection(r,p);if(eye)return eye.detail;
  if(!rawText(r))return '【評価理由】保存された評価理由がありません。';
