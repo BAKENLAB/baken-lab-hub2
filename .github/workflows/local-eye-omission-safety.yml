@@ -27,4 +27,4 @@ jobs:
         with:
           deno-version: v2.x
       - name: Check complete staged production-edge import graph
-        run: deno check supabase/functions/local-claimed-mcp/index.ts
+        run: deno check --config supabase/functions/local-claimed-mcp/deno.json --node-modules-dir=auto supabase/functions/local-claimed-mcp/index.ts
