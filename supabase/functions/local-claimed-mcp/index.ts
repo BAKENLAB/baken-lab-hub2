@@ -12,6 +12,7 @@ import {assertLocal16NoUnauthorizedRubric} from "./local-16-content-review.mjs";
 import {assertLocal16EvidenceHandoffForSave} from "./local-16-evidence-save-gate.mjs";
 import {auditLocalEyeOmissions} from "./local-eye-omission-preflight.mjs";
 import {auditLocal16RankStability,canonicalLocal16Input} from "./local16-rank-reproducibility-audit.mjs";
+import {auditLocal16CriterionTrace} from "./local16-criterion-trace-preflight.mjs";
 const WORKERS=new Map([["LOCAL_QUEUE_RESCUE","RESCUE"],["LOCAL_QUEUE_KANTO","関東"],["LOCAL_QUEUE_WEST","西日本"],["LOCAL_QUEUE_CHUBU","中部"],["LOCAL_QUEUE_HOKKAIDO_TOHOKU","北海道東北"]]);
 const uuid=(x:string)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const err=(e:unknown)=>publicError(e);
@@ -186,7 +187,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  // that no certified LOCAL1.6 numeric scorer is registered; never promotes
  // research scoring, changes an EYE, saves a draft or edits a FROZEN record.
  s.registerTool("lab_rank_repro_preflight",{
-   description:"Read-only LOCAL1.6 scorer-provenance and rank consistency preview for a live official CLAIM. Checks all-horse identity, cited past-run evidence, 5th/6th score margin, optional repeated-draft disagreements, and 13-criterion input availability; it does NOT certify unapproved scores or save predictions.",
+   description:"Read-only LOCAL1.6 scorer-provenance and rank consistency preview for a live official CLAIM. Checks all-horse identity, cited past-run evidence, 5th/6th score margin, optional repeated-draft disagreements, and optional trace of all 13+7 judgments against verified source refs; it does NOT certify point arithmetic or save predictions.",
    inputSchema:z.object({
      job_id:z.string().uuid(),
      protocol_version:z.string().min(1).max(100),
@@ -237,8 +238,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        approvedScoringPolicy:null
      });
      const criteria=data.context.local16_scoring_criteria;
-     // Canonical, prestart verified-context fingerprint for same-input replay.
-     // This is NOT an official document signature and NOT score certification.
+     const trace=auditLocal16CriterionTrace({context:data.context,draft:inspected});
      const canonical=canonicalLocal16Input(data.context.race,data.context.runners);
      const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(canonical));
      const source_input_sha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
@@ -246,6 +246,9 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        source_input_sha256,source_input_fingerprint_type:"LOCAL16_VERIFIED_CONTEXT_PROJECTION_SHA256_V1",
        input_fingerprint_is_official_signature:false,
        certified_numeric_scorer:"NOT_AVAILABLE",
+       criterion_trace_status:trace.status,criterion_trace_code:trace.code,
+       criterion_trace_counts:trace.counts??null,
+       criterion_trace_score_certified:false,criterion_trace_point_effect_proven:false,
        official_scoring_criteria_status:criteria?.status??"UNAVAILABLE",
        official_checks:criteria?.original_checks??null,
        official_transfer_checks:criteria?.transfer_checks??null,
