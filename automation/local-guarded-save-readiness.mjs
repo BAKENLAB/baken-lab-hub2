@@ -6,11 +6,13 @@
 import {testLocalPayloadBeforeOfficialMcp} from './local-production-v19-guard-parity.mjs';
 import {checkLocalEyeTextBeforeSave} from './local-eye-market-safety-audit.mjs';
 import {auditLocalEyePositiveFactorCoverage} from './local-eye-factor-coverage-shadow.mjs';
+import {auditLocal16EvidenceQuality} from './local-1-6-scoring-evidence-audit.mjs';
 const isDate=x=>typeof x==='string'&&Number.isFinite(Date.parse(x));
 export function examineNewLocalSave({
  payload,protocolVersion,verifiedRunners,postTime,now,
  previousGuardRejected=false,deployedValidatorVersion=19,
- officialPreRace=null
+ officialPreRace=null,strictScoreTrace=false,
+ approvedScoringPolicy=null
 }={}){
  if(previousGuardRejected)return {ok:false,code:'PREVIOUS_GUARD_REJECTION_NO_RESUBMIT'};
  if(!isDate(postTime)||!isDate(now)||Date.parse(postTime)<=Date.parse(now)+180000)
@@ -36,6 +38,16 @@ export function examineNewLocalSave({
   payload,protocolVersion,currentDeployedMcpVersion:deployedValidatorVersion
  });
  if(!v19.ok)return {ok:false,code:v19.code};
+ // Second-layer semantic evidence and scoring audit. No payload rewriting.
+ // strictScoreTrace is deliberately opt-in until a certified 1.6 scorer can
+ // emit its actual point contributions; do not synthesize them from rankings.
+ const quality=auditLocal16EvidenceQuality({
+  payload,verifiedRunners,strictScoreTrace,
+  approvedScoringPolicy,officialPreRace,
+  targetDate:officialPreRace?.race_date??null
+ });
+ if(!quality.ok)return {ok:false,code:quality.code,
+  issues:quality.issues,metrics:quality.metrics};
  // Optional STRICTLY PRE-RACE independent evidence check.
  // Never changes the original payload, promotes an EYE, or supplies a new save attempt.
  // When an officially verifiable recent podium is omitted from positive-factor
@@ -54,5 +66,10 @@ export function examineNewLocalSave({
     unreported_run_count:coverage.missing_positive_evidence_runs,
     eye_auto_promoted:false};
  }
- return {ok:true,code:'PRE_SUBMIT_V19_PARITY_PASS',scanned_runner_count:verifiedRunners.length};
+ return {ok:true,code:'PRE_SUBMIT_V19_PARITY_PASS',
+  scanned_runner_count:verifiedRunners.length,
+  quality:{score_trace_verified:quality.scoreTraceVerified,
+   score_trace_issues:quality.scoreTraceIssues,
+   evidence_gaps:quality.metrics.scoped_gaps,
+   missing_checks:quality.metrics.missing_checks}};
 }
