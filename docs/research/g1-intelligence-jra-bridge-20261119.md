@@ -9,3 +9,16 @@
 - This is **Phase 1 only** (coverage/monitor): score_delta=0, ranks/EYE unchanged; use it to identify relevant evidence for HUB's existing 100-point criteria. Future Phase 2 scoring must be separate, fully reproduced with controls against double counting and tested on held-out pre-race FROZEN pairs.
 - Tests: `node --test research/g1-intelligence/g1-intelligence-audit.test.mjs`
 - On 2026/11/19 initial status, 2026/11/22 JRA queue had 0 jobs/CLAIM; an end-to-end live GⅠ CLAIM test remains pending. Do not fabricate readiness or call save for that date.
+
+## Production deployment — phase 1
+
+- Updated 2026/11/19 (JST): Supabase production `qjlvsndiqjfsfjinilig` Edge Function `jra-claimed-mcp` **v29 -> v30**. Deployment returned `ACTIVE`; after deployment, a read-only `jra_queue_status` succeeded.
+- Original 13 source files are preserved byte-for-byte except the `index.ts` insertion below. The new 14th source file is `g1-intelligence-audit.mjs`, identical to `supabase/functions/jra-claimed-mcp/g1-intelligence-audit.mjs` in this PR.
+- In `index.ts`, at top add `import {buildG1IntelligenceAudit} from "./g1-intelligence-audit.mjs";`.
+- In `jra_claimed_context` after existing `data.eval_course_transfer_input` optional try/catch, before `// BEGIN OPTIONAL EYE AUDIT`, add:
+  `data.g1_intelligence=buildG1IntelligenceAudit(data,{observedAt:new Date().toISOString()});`
+- In `jra_evidence_rank_preview`, add to returned `output`:
+  `g1_intelligence:buildG1IntelligenceAudit(context,{observedAt:new Date().toISOString(),payload})`
+- **No change whatsoever** to `jra_save_claimed_prediction` handler, scoring bridge, EYE filling, guarded FROZEN save RPC, JWT/OAuth controls, odds handling, or scheduler. Audit runs only on official pre-race context and has no authority to save or alter score.
+- Actual live GⅠ end-to-end with authorized CLAIM: **PENDING**, because 11/22 schedule had zero READY/CLAIM jobs at deployment.
+- Unit tests were verified against six cases in an isolated JS runner before deployment; GitHub Action covers eight regression cases.
