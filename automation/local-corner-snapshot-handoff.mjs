@@ -5,6 +5,7 @@
  */
 import {createHash} from 'node:crypto';
 import {officialNarPastResultUrl} from './nar-prior-corners.mjs';
+import {checkStoredOfficialNarLaps} from './nar-official-lap-evidence.mjs';
 
 const norm=x=>String(x??'').normalize('NFKC').replace(/\s+/g,'').trim();
 const finiteTime=x=>typeof x==='string'&&Number.isFinite(Date.parse(x))?Date.parse(x):null;
@@ -54,6 +55,23 @@ function identityRef(ref){
     [...u.searchParams.keys()].every(k=>k==='k_lineageLoginCode'||k==='k_activeCode');
  }catch{return false;}
 }
+
+/** Ignore optional laps that cannot be proven by the same identity-linked
+ * corner packet. Never downgrade an otherwise authentic corner snapshot. */
+function sourceBoundLaps(laps,evidence,target,at){
+ if(!Array.isArray(laps)||laps.length>40)return [];
+ const out=[],seen=new Set();
+ for(const p of laps){try{
+  checkStoredOfficialNarLaps(p,{targetDate:target.raceDate,targetPostTime:target.postTime,now:at});
+  const r=p.pastRace,k=[r.raceDate,r.track,r.raceNo].join('|');
+  if(seen.has(k)||!evidence.some(e=>e.pastRace.raceDate===r.raceDate&&
+   e.pastRace.track===r.track&&e.pastRace.raceNo===r.raceNo&&
+   e.sourceRef===p.sourceRef&&e.sourceCheckedAt===p.sourceCheckedAt))continue;
+  seen.add(k);out.push(p);
+ }catch{/* Unverified race splits remain unavailable, not zero or inferred. */}}
+ return out;
+}
+
 function sanitizePacket(packet,race,roster,witnesses,now){
  if(packet?.status!=='PREFETCH_ONLY'||packet.raceDate!==race.raceDate||
     packet.raceTrack!==race.track||packet.raceNo!==race.raceNo||
@@ -104,12 +122,13 @@ function sanitizePacket(packet,race,roster,witnesses,now){
   });
  }
  if(evidence.length!==packet.linkedRunEvidence)throw Error('CORNER_EVIDENCE_COUNT_MISMATCH');
+ const officialRaceLaps=sourceBoundLaps(packet.officialRaceLaps,evidence,race,now);
  evidence.sort((a,b)=>a.horseNo-b.horseNo||
    b.pastRace.raceDate.localeCompare(a.pastRace.raceDate)||
    a.pastRace.raceNo-b.pastRace.raceNo);
  return {
   status:'PREFETCH_ONLY',raceDate:race.raceDate,raceTrack:race.track,raceNo:race.raceNo,
-  linkedRunEvidence:evidence.length,evidence,
+  linkedRunEvidence:evidence.length,evidence,officialRaceLaps,
   claimStarted:false,saveAuthorized:false,targetResultUsed:false,
   marketUsed:false,rankChanged:false
  };
@@ -142,7 +161,7 @@ export async function stageLocalCornerSnapshot({
   source_status:'PARTIAL',active_runner_count:active.length,
   official_roster_digest:digest({race:target,roster:active}),
   payload_digest:digest(evidence),evidence,
-  data_quality:{linkedPriorRuns:payload.linkedRunEvidence,officialRosterCount:active.length}
+  data_quality:{linkedPriorRuns:payload.linkedRunEvidence,officialRosterCount:active.length,verifiedPastRaceLapSets:payload.officialRaceLaps.length}
  };
  try {
   const result=await store.insertIfAbsent(row);
@@ -211,5 +230,7 @@ export async function lookupLocalCornerSnapshot({
        !when||when>asOf||when>=post||e.rankingEffect!=='NONE_UNTIL_REVIEWED'||
        e.source!=='NAR_OFFICIAL_PAST_RACE_RESULT';
     }))return null;
- return structuredClone(packet);
+ const checked=structuredClone(packet);
+ checked.officialRaceLaps=sourceBoundLaps(checked.officialRaceLaps,checked.evidence,target,asOf);
+ return checked;
 }
