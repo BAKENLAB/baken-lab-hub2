@@ -5,20 +5,26 @@ on:
   pull_request:
     paths:
       - "automation/local-eye-omission-preflight.mjs"
-      - "research/local-eye-omission-preflight.test.mjs"
+      - "research/local-eye-omission-*.test.mjs"
       - ".github/workflows/local-eye-omission-safety.yml"
+      - "supabase/functions/local-claimed-mcp/**"
 permissions:
   contents: read
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Syntax audit
+      - name: Node syntax
         run: node --check automation/local-eye-omission-preflight.mjs
-      - name: Test direct evidence and fail-closed rules
-        run: node --test research/local-eye-omission-preflight.test.mjs
+      - name: Prestart evidence and edge integration
+        run: node --test research/local-eye-omission-preflight.test.mjs research/local-eye-omission-integration.test.mjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Check complete staged production-edge import graph
+        run: deno check supabase/functions/local-claimed-mcp/index.ts
