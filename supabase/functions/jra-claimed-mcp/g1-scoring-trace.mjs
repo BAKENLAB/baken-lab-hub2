@@ -10,7 +10,7 @@ const isNo=x=>Number.isInteger(x)&&x>=1&&x<=24;
 const n=x=>Number.isInteger(x)&&x>=0&&x<=100;
 const norm=x=>String(x??"").normalize("NFKC").trim();
 const runRef=(horseNo,index)=>"JRA_CLAIMED_CONTEXT.runner_history[horse_no="+horseNo+"].past_runs["+index+"]";
-export function reconcileG1ScoringTrace({context,originalPayload,rankPreview,g1Audit}={}){
+export function reconcileG1ScoringTrace({context,originalPayload,rankPreview,g1Audit,observedAt}={}){
  if(g1Audit?.status==="SKIPPED_NON_G1")
   return {version:"JRA_G1_SCORE_TRACE_V1",status:"SKIPPED_NON_G1",score_delta_from_g1:0,
     save_authorized:false,frozen_modified:false};
@@ -19,6 +19,9 @@ export function reconcileG1ScoringTrace({context,originalPayload,rankPreview,g1A
  if(context?.stage!=="AWAITING_JRA_FULL_DEPTH_COMPARISON"||
     !/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(context?.race?.race_date??""))
   return fail("UNVERIFIED_OFFICIAL_PRE_RACE_CONTEXT");
+ const now=Date.parse(observedAt??""),post=Date.parse(context?.race?.post_time??"");
+ if(!Number.isFinite(now)||!Number.isFinite(post)||now>=post)
+  return fail("NOT_BEFORE_OFFICIAL_POST_TIME");
  const original=originalPayload?.runners,changed=rankPreview?.proposed_payload?.runners,
   auditRows=rankPreview?.proposed_payload?.audit?.evidence_rank_bridge?.per_runner;
  if(!["READY_FOR_OFFICIAL_SAVE","EYE_REAUDIT_REQUIRED"].includes(rankPreview?.status))
