@@ -8,9 +8,11 @@ export function buildLocal16LiveScoringCriteria({context,protocolContent,facts,r
  const skip=(reason)=>({status:"NOT_READY",reason,source:"OFFICIALLY_VERIFIED_PRE_RACE_ONLY",score_computed:false,score_effect:0,rank_effect:false,save_authorized:false});
  const required=protocolContent?.runner_review?.required_checks;
  const transfer=protocolContent?.transfer_audit?.checks;
+ const expected=["近5走を基本とした着順・着差","通過順・位置取り・上がり・不利","クラス実績と昇級/降級/クラス戻り","距離実績・距離延長短縮・距離戻り","競馬場実績・同条件実績","馬場適性","枠順・1角までの距離・脚質・同型馬","斤量・減量騎手","騎手/騎手替わり","休み明け・叩き何走目","馬体重・馬具（取得できる場合）","当日馬場傾向（取得できる場合）","今回条件で実際に走れる具体的な勝ち筋/好走筋"];
+ const trExpected=["転入前の最高到達クラス","着順だけでなく着差・位置取り・走破内容","今回の地方クラスとの能力差","距離変更","小回り・先行力への適応可能性","斤量変化","初戦ゆえの不確実性"];
  if(context?.context_format!=="COMPACT_V1"||context?.race?.circuit!=="LOCAL"||context?.field_integrity_checked!==true||
  context?.protocol_version!=="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013"||
- !Array.isArray(required)||required.length!==13||!Array.isArray(transfer)||transfer.length!==7)
+ JSON.stringify(required)!==JSON.stringify(expected)||JSON.stringify(transfer)!==JSON.stringify(trExpected))
  return skip("OFFICIAL_PROTOCOL_UNAVAILABLE_OR_CHANGED");
  if(facts?.status!=="VERIFIED_WHOLE_FIELD_FACTS"||facts.market_used!==false||facts.target_result_used!==false||
  review?.status!=="READY_FOR_LOCAL_1_6_FULL_FIELD_REVIEW"||review.score_or_rank_override!==false)
