@@ -8,6 +8,7 @@ import {buildLocalClaimedCornerShadow} from '../../../automation/local-claimed-c
 import {buildLocal16ContentReview,mergeVerifiedLocalCornerFacts} from '../../../automation/local-16-content-review.mjs';
 import {buildLocal16LiveScoringCriteria} from '../../../automation/local16-live-scoring-criteria.mjs';
 import {projectOfficialLapContext} from '../../../automation/local-lap-claimed-bridge.mjs';
+import {projectOfficialOpponentFollowups} from '../../../automation/local-opponent-followup-claimed-bridge.mjs';
 import {buildLocalFieldContentFacts} from '../../../automation/local-field-content-facts.mjs';
 import {collectStableClaimContext} from '../../../automation/local-stable-claim-context.mjs';
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -150,6 +151,19 @@ export function finalContext(context,state,now=Date.now(),preclaimCornerPacket=n
       laps:{status:'SOURCE_SIZE_LIMIT',prior_races:[],race_laps_count:0,
         score_effect:0,rank_effect:false,horse_specific_sectionals:false};
    }catch{/* Existing official CLAIM and 1.6 scoring remain available. */}
+   // Opponents' later races are strictly prior to THIS target and joined by
+   // the same official horse ID on two separate source-attested past pages.
+   try{
+    const peers=projectOfficialOpponentFollowups({
+     race:state.race,runners:output.runners,
+     cornerSources:shadow.verified_corner_sources,
+     packet:preclaimCornerPacket?.opponentFollowups??[],now
+    });
+    output.official_opponent_followup=JSON.stringify(peers).length<=65536?
+     peers:{status:'SOURCE_SIZE_LIMIT',rows:[],followup_count:0,
+       score_effect:0,rank_effect:false};
+   }catch{/* Optional evidence never blocks a legitimate official save. */}
+
 
    if(comparison.status==='READY'&&comparison.rank_effect===false&&comparison.market_used===false&&JSON.stringify(comparison).length<=196608){
      output.relative_condition_evidence=comparison;
