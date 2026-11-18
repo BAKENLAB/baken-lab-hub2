@@ -1,0 +1,21 @@
+name: LOCAL16 scoring-criteria bridge
+on:
+  pull_request:
+    paths:
+      - 'automation/local16-live-scoring-criteria.mjs'
+      - 'automation/local16-live-scoring-criteria.test.mjs'
+      - 'supabase/functions/lab-claimed-context/**'
+      - '.github/workflows/local16-scoring-criteria.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Criterion inputs and as-of contract
+        run: node --test automation/local16-live-scoring-criteria.test.mjs
