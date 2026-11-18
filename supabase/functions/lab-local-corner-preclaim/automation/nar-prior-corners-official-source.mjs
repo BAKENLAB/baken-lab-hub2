@@ -77,7 +77,20 @@ export function extractNarPriorCornerHtml(html,priorRace) {
    if(cells.length<4 || !/^\d{1,2}$/.test(cells[0]) || !/^\d{1,2}$/.test(cells[2]))continue;
    const no=Number(cells[2]);
    if(no<1||no>24||!cells[3])continue;
-   resultRows.push({horseNo:no,horseName:cells[3]});
+   // Stable horse ID must be explicitly linked by the official result row;
+   // neither the name nor a previous horse number can substitute for identity.
+   const refs=$(tr).find('a[href]').map((_,a)=>$(a).attr('href')).get()
+    .map(href=>{try{
+     const u=new URL(href,'https://www.keiba.go.jp');
+     if(u.protocol!=='https:'||u.hostname!=='www.keiba.go.jp'||
+       u.pathname!=='/KeibaWeb/DataRoom/HorseMarkInfo'||
+       u.searchParams.getAll('k_lineageLoginCode').length!==1||
+       !/^[0-9]{1,30}$/.test(u.searchParams.get('k_lineageLoginCode')??'')||
+       [...u.searchParams.keys()].some(k=>!['k_lineageLoginCode','k_activeCode'].includes(k)))return null;
+     return u.searchParams.get('k_lineageLoginCode');
+    }catch{return null;}}).filter(Boolean);
+   resultRows.push({horseNo:no,horseName:cells[3],finish:Number(cells[0]),
+    officialHorseId:refs.length===1?refs[0]:null});
   }
  });
  const horseNumbers=[...new Set(resultRows.map(x=>x.horseNo))];
@@ -93,7 +106,11 @@ export function extractNarPriorCornerHtml(html,priorRace) {
  // Preserve official past-result horse names for a second identity cross-check.
  // Horse numbers alone are not identity evidence across different races.
  const officialHorseNames=Object.fromEntries(resultRows.map(x=>[String(x.horseNo),x.horseName]));
- return {raceHeaderText,cornerRows,knownHorseNos:horseNumbers,officialHorseNames};
+ const officialFinishers=resultRows.filter(r=>
+   Number.isInteger(r.finish)&&r.finish>=1&&r.finish<=24&&r.officialHorseId)
+   .map(({horseNo,horseName,finish,officialHorseId})=>
+     ({horseNo,horseName,finish,officialHorseId}));
+ return {raceHeaderText,cornerRows,knownHorseNos:horseNumbers,officialHorseNames,officialFinishers};
 }
 
 export async function readNarOfficialPriorCorners({
