@@ -211,3 +211,20 @@ test('duplicate EYE positive factor refs cannot inflate apparent verification',(
  assert.equal(r.code,'LOCAL_EVIDENCE_ASSERTION_MISMATCH');
  assert.ok(r.issues.some(v=>v.code==='EYE_FACTOR_NOT_VERIFIED'));
 });
+
+test('CHECKED passing order cannot cite history with no actual turn positions',()=>{
+ const x=sample(),check=x.payload.audit.eye_candidate_audit[0].review_checks;
+ check.passing_order={status:'CHECKED',finding:'通過順確認',evidence_refs:[ref(6)]};
+ const r=auditLocal16EvidenceQuality(x);
+ assert.equal(r.code,'LOCAL_EVIDENCE_ASSERTION_MISMATCH');
+ assert.ok(r.issues.some(z=>z.criterion==='passing_order'&&z.code==='CHECKED_WITHOUT_CATEGORY_SPECIFIC_FACT'));
+});
+test('CHECKED margin and final section cannot borrow a run with missing metric',()=>{
+ const x=sample(),check=x.payload.audit.eye_candidate_audit[0].review_checks;
+ check.margins={status:'CHECKED',finding:'着差確認',evidence_refs:[ref(6)]};
+ check.final_section={status:'CHECKED',finding:'上がり確認',evidence_refs:[ref(6)]};
+ const r=auditLocal16EvidenceQuality(x);
+ assert.equal(r.code,'LOCAL_EVIDENCE_ASSERTION_MISMATCH');
+ assert.ok(r.issues.some(z=>z.criterion==='margins'&&z.code==='CHECKED_WITHOUT_CATEGORY_SPECIFIC_FACT'));
+ assert.ok(r.issues.some(z=>z.criterion==='final_section'&&z.code==='CHECKED_WITHOUT_CATEGORY_SPECIFIC_FACT'));
+});
