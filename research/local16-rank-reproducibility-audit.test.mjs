@@ -125,12 +125,13 @@ test("standalone policy attestation arithmetic only accepted when explicit appro
  x.approvedScoringPolicy={version:"TEST_VERIFIED_IMPLEMENTATION",
   policy_ref:"APPROVED_TEST_POLICY",implementation_verified:true,policy_approved:true};
  let s=auditLocal16RankStability(x);
- assert.equal(s.score_certified,true);
- assert.equal(s.status,"SOURCE_RECONCILED");
+ assert.equal(s.score_certified,false,"no real LOCAL1.6 scorer is independently approved");
+ assert.equal(s.ledger_math_reconciled_count,8);
+ assert.equal(s.status,"SCORER_PROVENANCE_UNVERIFIED");
  assert.equal(s.rank_reproducible,false,"one sample cannot prove repeatability");
  x.repeatDraft=structuredClone(x.draft);
  s=auditLocal16RankStability(x);
- assert.equal(s.rank_reproducible,true);
+ assert.equal(s.rank_reproducible,false,"matching replays alone cannot certify an unapproved scorer");
 });
 test("tampered points do not reconcile even with a claimed policy identity",()=>{
  const x=fixture();
@@ -141,7 +142,8 @@ test("tampered points do not reconcile even with a claimed policy identity",()=>
  x.draft.runners[0].score_ledger.components[0].points+=5;
  x.approvedScoringPolicy={version:"T",policy_ref:"APPROVED_TEST",implementation_verified:true,policy_approved:true};
  const z=auditLocal16RankStability(x);
- assert.equal(z.certified_score_count,7);
+ assert.equal(z.certified_score_count,0);
+ assert.equal(z.ledger_math_reconciled_count,7);
  assert.equal(z.score_certified,false);
 });
 test("actual Nov 17 / Nov 18 Oi score gaps trigger a same-track drift warning",()=>{
