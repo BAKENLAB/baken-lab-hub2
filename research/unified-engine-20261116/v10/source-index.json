@@ -1,0 +1,268 @@
+{
+  "read_at": "2026-11-18T12:06:39.291Z",
+  "edge": {
+    "slug": "jra-claimed-mcp",
+    "version": 29,
+    "status": "ACTIVE",
+    "bundle_sha256": "9017c9cc7c0a06396372645d54c8d42bcb14885f063b068d519f31d650576561",
+    "updated_at": "2026-11-15T05:16:15.466Z"
+  },
+  "dependency_names": [
+    {
+      "name": "index.ts",
+      "source_saved": true,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "jra-eye-fill-null.mjs",
+      "source_saved": false,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "jra-eye-additional-audit.mjs",
+      "source_saved": false,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "jra-verified-draw.mjs",
+      "source_saved": false,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "jra-official-cancel-number.mjs",
+      "source_saved": false,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "optional-atomic-shadow-save.mjs",
+      "source_saved": false,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "jra-relative-draft-adapter.mjs",
+      "source_saved": false,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "relative-ability-rank-proposal.mjs",
+      "source_saved": false,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "local-verified-condition-bridge.mjs",
+      "source_saved": false,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "eval-course-transfer-live.mjs",
+      "source_saved": true,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "jra-active-field-scope.mjs",
+      "source_saved": true,
+      "private_data_not_republished": false
+    },
+    {
+      "name": "eval-course-private-data.mjs",
+      "source_saved": false,
+      "private_data_not_republished": true
+    },
+    {
+      "name": "jra-verified-evidence-rank-bridge.mjs",
+      "source_saved": true,
+      "private_data_not_republished": false
+    }
+  ],
+  "sql_functions": [
+    {
+      "schema": "public",
+      "name": "jra_claimed_context"
+    },
+    {
+      "schema": "public",
+      "name": "jra_live_base_candidate_v1"
+    },
+    {
+      "schema": "private",
+      "name": "jra_class_level"
+    },
+    {
+      "schema": "private",
+      "name": "jra_merged_flat_history_v2"
+    },
+    {
+      "schema": "private",
+      "name": "jra_model_segment"
+    },
+    {
+      "schema": "private",
+      "name": "jra_older_course_evidence_v1"
+    },
+    {
+      "schema": "private",
+      "name": "jra_optional_content_evidence_v3"
+    },
+    {
+      "schema": "private",
+      "name": "jra_relative_condition_comparison_v1"
+    },
+    {
+      "schema": "private",
+      "name": "jra_relative_pace_summary_v1"
+    }
+  ],
+  "history": [
+    {
+      "sha": "5f891a8081b53c41aa8a85cdb2dc5a0d471648b2",
+      "date": "2026-11-13T22:57:57Z",
+      "message": "fix: EYE re-audit only if TOP5 membership changes, not harmless order-only switches"
+    },
+    {
+      "sha": "a96e3baafcfd3106ee9d9eb76883ba60f3fc2a59",
+      "date": "2026-11-13T22:53:25Z",
+      "message": "feat: directly apply verified Eval and official pace evidence to new JRA 100pt scores, all-field rank and TOP5 with provenance"
+    }
+  ],
+  "historical_per_prediction_equivalence": false,
+  "original_independent100_evaluator_recovered": false,
+  "no_database_write": true,
+  "sources": [
+    {
+      "path": "source-edge/index.ts.txt",
+      "sha256": "66e2e5d6303e2b6b7dd75318f98d6dcb5e066a344c79314513e2510f73f4de2f",
+      "bytes": 33521,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-edge/eval-course-transfer-live.mjs.txt",
+      "sha256": "e2c283cebce58a78dea8a61ee4fb53d21979f258739158e90e35593bfad3184f",
+      "bytes": 14990,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-edge/jra-active-field-scope.mjs.txt",
+      "sha256": "fa5af61700d43206ab0029c29a1198f3cf8276fa591f3620879604a8c7b3b507",
+      "bytes": 4248,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-edge/jra-verified-evidence-rank-bridge.mjs.txt",
+      "sha256": "ebb38f70cae3445788a1c82dfa26c4b97a4a75ee6d650cdadb1e41e8a818664d",
+      "bytes": 11248,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/public.jra_claimed_context.sql.txt",
+      "sha256": "dd2ff0b693bcd1423998737b15e98914837c8859316c90a9fe9bbf50f0df161a",
+      "bytes": 9186,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/public.jra_live_base_candidate_v1.sql.txt",
+      "sha256": "dfb125e52844ae0f1a637816efb9bf774e6e072eb7078000025701cd686a72c9",
+      "bytes": 5559,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_class_level.sql.txt",
+      "sha256": "34624f5eb55fe4801e81680f1bea588dbf97f7c8eb8ab9c04d2d3246b3b2ecc0",
+      "bytes": 711,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_merged_flat_history_v2.sql.txt",
+      "sha256": "5e86e0a4a5ad933d7d8b7b26919018364c7353d4a55609759779d0eff75de830",
+      "bytes": 3813,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_model_segment.sql.txt",
+      "sha256": "e2050ea34bf688d784fbf351f412fbede36c4cdbf787f76725c23d4c7d9b47a6",
+      "bytes": 790,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_older_course_evidence_v1.sql.txt",
+      "sha256": "4cc9302649c2056da63df8f614ecaa77727baf9e9fd8d6f675be5ba063a8b4a4",
+      "bytes": 2489,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_optional_content_evidence_v3.sql.txt",
+      "sha256": "b514071f20ce52c584155c6d41a25ca6d9b2c98854fad152c13d44b97eb18a7a",
+      "bytes": 4576,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_relative_condition_comparison_v1.sql.txt",
+      "sha256": "38cf74b3bfd927aa87ac496151186e3b1cbdb088f9f3de5a51b5750a031e8cf5",
+      "bytes": 5405,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    },
+    {
+      "path": "source-sql/private.jra_relative_pace_summary_v1.sql.txt",
+      "sha256": "3d3cef990ba31f8f4d87726f910fa65db70a7bef1e47b6d56d3d0e989df7f1ed",
+      "bytes": 2677,
+      "acquisition": "SUPABASE_MCP_READ_ONLY",
+      "original_text_preserved": true
+    }
+  ],
+  "referenced_sql_symbols": [
+    "jra_base_core_fallback_stats_v1",
+    "jra_base_core_stats_v1",
+    "jra_claimed_context",
+    "jra_class_level",
+    "jra_flat_past_runs",
+    "jra_horse_key",
+    "jra_lab_races",
+    "jra_lab_runs",
+    "jra_live_base_candidate_v1",
+    "jra_live_races",
+    "jra_live_runners",
+    "jra_merged_flat_history_v2",
+    "jra_missing_id_review_v1",
+    "jra_model_segment",
+    "jra_older_course_evidence_v1",
+    "jra_optional_content_evidence_v3",
+    "jra_prediction_jobs",
+    "jra_prediction_worker_runs",
+    "jra_relative_condition_comparison_v1",
+    "jra_relative_pace_summary_v1",
+    "jra_time_seconds",
+    "lab_prediction_protocols",
+    "official_races"
+  ],
+  "dependency_completeness": "PARTIAL_CURRENT_SOURCES_NOT_HISTORICAL_EXECUTION_CLOSURE",
+  "external_imports": [
+    "./jra-eye-fill-null.mjs",
+    "./jra-verified-draw.mjs",
+    "./jra-official-cancel-number.mjs",
+    "./jra-eye-additional-audit.mjs",
+    "./optional-atomic-shadow-save.mjs",
+    "./relative-ability-rank-proposal.mjs",
+    "./jra-relative-draft-adapter.mjs",
+    "./eval-course-transfer-live.mjs",
+    "./jra-active-field-scope.mjs",
+    "./eval-course-private-data.mjs",
+    "./jra-verified-evidence-rank-bridge.mjs",
+    "npm:@modelcontextprotocol/server@^2.0.0",
+    "npm:@supabase/middleware@1",
+    "npm:@supabase/server@1",
+    "npm:@supabase/supabase-js@2",
+    "npm:zod@^4.3.6",
+    "npm:cheerio@1.0.0"
+  ]
+}
