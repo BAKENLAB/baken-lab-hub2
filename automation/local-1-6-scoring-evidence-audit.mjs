@@ -97,6 +97,23 @@ export function auditLocal16EvidenceQuality({
     issues.push({horse_no:c.horse_no,criterion:k,code:'MISSING_HAS_INVENTED_EVIDENCE'});
    else if(v.status==='MISSING')
     gaps.push({horse_no:c.horse_no,criterion:k,code:'NOT_VERIFIED'});
+   if(v.status==='CHECKED'&&Array.isArray(refs)&&refs.length>0){
+    const runs=refs.flatMap(ref=>{
+     const m=typeof ref==='string'?ref.match(refPattern):null;
+     return m&&Number(m[1])===c.horse_no&&
+       h?.recent_runs?.[Number(m[2])]?[h.recent_runs[Number(m[2])]]:[];
+    });
+    const concrete=(k==='passing_order'?runs.some(x=>
+      Number.isInteger(x.early_pos)||Number.isInteger(x.final_turn_pos)):
+     k==='final_section'?runs.some(x=>
+      (typeof x.final3f==='number'&&Number.isFinite(x.final3f))||
+      clean(x.final3f)):
+     k==='margins'?runs.some(x=>Number.isFinite(x.margin)||clean(x.margin)):
+     true);
+    if(!concrete)
+     issues.push({horse_no:c.horse_no,criterion:k,
+      code:'CHECKED_WITHOUT_CATEGORY_SPECIFIC_FACT'});
+   }
    // A date/interval is not proof of training condition. Keep this distinct.
    if(k==='layoff_preparation'&&v.status==='CHECKED'&&
       /(?:調教|仕上がり|追い切り).{0,8}(?:未確認|不明|未取得)/.test(v.finding))
