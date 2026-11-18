@@ -1,0 +1,29 @@
+name: LOCAL verified HUB comment safety
+on:
+  push:
+    branches:
+      - fix/local-evidence-comment-20261118
+    paths:
+      - "lab-rank-compare.js"
+      - "research/local-verified-comment.test.mjs"
+      - ".github/workflows/local-verified-comment.yml"
+  pull_request:
+    paths:
+      - "lab-rank-compare.js"
+      - "research/local-verified-comment.test.mjs"
+      - ".github/workflows/local-verified-comment.yml"
+permissions:
+  contents: read
+jobs:
+  verify-comments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate browser helper syntax
+        run: node --check lab-rank-compare.js
+      - name: Test live LOCAL comments, regression and immutability
+        run: node --test research/local-verified-comment.test.mjs
