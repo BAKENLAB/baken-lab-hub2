@@ -46,9 +46,13 @@
       (hasRanks && rankedFirst.length !== 1) ||
       (markedNo !== null && rankedNo !== null && markedNo !== rankedNo)
       ? null : (rankedNo ?? markedNo);
+    const nonFinishers = Array.isArray(row.result?.non_finishers) ? row.result.non_finishers : [];
+    const favoriteExcluded = favorite !== null && [...list, ...nonFinishers].some(r => horse(r.horse_no ?? r.number ?? r.no) === favorite && excluded(r));
     const eye = payload.eye;
     const eyeValid = eye === null || (eye && typeof eye === 'object' && !Array.isArray(eye) && ids.includes(horse(eye.horse_no)) && !top.includes(horse(eye.horse_no)));
-    return { finishes, top, favorite, eye: eye === null ? null : horse(eye?.horse_no), eyeValid: !!eyeValid };
+    const eyeNo = eye === null ? null : horse(eye?.horse_no);
+    const eyeExcluded = eyeNo !== null && [...list, ...nonFinishers].some(r => horse(r.horse_no ?? r.number ?? r.no) === eyeNo && excluded(r));
+    return { finishes, top, favorite, favoriteExcluded, eye: eyeNo, eyeExcluded, eyeValid: !!eyeValid };
   }
   function aggregate(rows, { date, circuit = 'ALL' } = {}) {
     const metrics = { win: { hits: 0, total: 0, complete: true }, place: { hits: 0, total: 0, complete: true }, top5: { hits: 0, total: 0, complete: true }, eye: { hits: 0, total: 0, complete: true } };
@@ -60,16 +64,16 @@
       const data = frequencies.get(key(row)) === 1 ? inspect(row) : null;
       if (!data) { skipped++; continue; }
       matched++;
-      metrics.win.total++; metrics.place.total++;
       if (data.favorite === null) metrics.win.complete = metrics.place.complete = false;
-      else {
+      else if (!data.favoriteExcluded) {
+        metrics.win.total++; metrics.place.total++;
         metrics.win.hits += Number(data.finishes.some(f => f.no === data.favorite && f.finish === 1));
         metrics.place.hits += Number(data.finishes.some(f => f.no === data.favorite));
       }
       metrics.top5.total += data.finishes.length;
       metrics.top5.hits += data.finishes.filter(f => data.top.includes(f.no)).length;
       if (!data.eyeValid) metrics.eye.complete = false;
-      else if (data.eye !== null) { metrics.eye.total++; metrics.eye.hits += Number(data.finishes.some(f => f.no === data.eye)); }
+      else if (data.eye !== null && !data.eyeExcluded) { metrics.eye.total++; metrics.eye.hits += Number(data.finishes.some(f => f.no === data.eye)); }
     }
     return { matched, skipped, metrics };
   }
@@ -81,7 +85,7 @@
       const percentage = valid ? `${(100 * m.hits / m.total).toFixed(1)}%` : (phase === 'loading' ? '読み込み中' : phase === 'error' ? '取得できませんでした' : name === 'eye' && summary?.matched && m?.complete ? '照合済みレースで選出なし' : '照合できるデータを待っています');
       return `<article class="daily-stat ${name === 'eye' ? 'daily-eye' : ''}"><h3>${label}</h3><div class="daily-value ${valid ? '' : 'daily-waiting'}">${value}</div><p>${percentage}</p></article>`;
     });
-    return `<h2 class="daily-heading">当日の予想成績</h2><div class="daily-grid">${cards.join('')}</div><p class="daily-note">FROZEN予想と確定結果の照合済み ${summary?.matched || 0}レース。同着は実際の3着以内頭数で集計します。</p>`;
+    return `<h2 class="daily-heading">当日の予想成績</h2><div class="daily-grid">${cards.join('')}</div><p class="daily-note">FROZEN予想と確定結果の照合済み ${summary?.matched || 0}レース。出走取消・競走除外の◎やEYEは各的中率の分母に含めません。同着は実際の3着以内頭数で集計します.</p>`;
   }
   const api = { aggregate, render };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
