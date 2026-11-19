@@ -14,6 +14,7 @@ import {auditLocalEyeOmissions} from "./local-eye-omission-preflight.mjs";
 import {auditLocal16RankStability,canonicalLocal16Input} from "./local16-rank-reproducibility-audit.mjs";
 import {auditLocal16CriterionTrace} from "./local16-criterion-trace-preflight.mjs";
 import {auditLocal16PreFreezeBoundary,auditLocal16HonmeiChallenge} from "./local16-pre-freeze-boundary-proof.mjs";
+import {auditLocal16FullFieldPairwise} from "./local16-full-field-pairwise-proof.mjs";
 const WORKERS=new Map([["LOCAL_QUEUE_RESCUE","RESCUE"],["LOCAL_QUEUE_KANTO","関東"],["LOCAL_QUEUE_WEST","西日本"],["LOCAL_QUEUE_CHUBU","中部"],["LOCAL_QUEUE_HOKKAIDO_TOHOKU","北海道東北"]]);
 const uuid=(x:string)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const err=(e:unknown)=>publicError(e);
@@ -250,10 +251,20 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        draft:inspected,observationAt:new Date().toISOString(),
        comparisons:inspected.audit?.local16_honmei_comparisons??null
      });
+     // 11/16 parity: make every verified prior same-race comparison explicitly
+     // accountable to its pre-rank decision, not merely present as raw data.
+     // Missing proof is reported, never silently treated as evidence of usage.
+     const fullFieldProof=auditLocal16FullFieldPairwise({
+       race:data.context.race,verifiedRunners:data.context.runners,
+       facts:data.context.official_past_content,draft:inspected,
+       observationAt:new Date().toISOString(),
+       pairwiseTrace:inspected.audit?.local16_full_field_pairwise_trace??null
+     });
      const canonical=canonicalLocal16Input(data.context.race,data.context.runners);
      const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(canonical));
      const source_input_sha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
      const result={...check,boundary_proof:boundaryProof,
+       full_field_pairwise_proof:fullFieldProof,
        honmei_challenge:honmeiChallenge,
        claim_verified:true,save_authorized:false,
        source_input_sha256,source_input_fingerprint_type:"LOCAL16_VERIFIED_CONTEXT_PROJECTION_SHA256_V1",
