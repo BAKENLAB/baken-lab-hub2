@@ -86,7 +86,12 @@
 .guide-close-btn:hover{background:#34452a}
 @media(max-width:540px){.guide{margin-bottom:14px}.guide>summary{gap:9px;padding:13px 12px}.guide-summary-copy strong{font-size:12px}.guide-summary-copy small{font-size:9px}.guide-toggle{font-size:10px}.guide-body{padding:0 12px 13px}.guide-item{padding:14px 1px 12px}.guide-heading{font-size:12px}.guide-item p{font-size:11px}.guide-footer{justify-content:stretch}.guide-close-btn{width:100%;min-height:42px}}
 </style>
-<style>.live-controls{display:flex;align-items:center;flex-wrap:wrap;gap:9px;padding:12px;margin:0 0 16px;background:#141d22;border:1px solid #33433e;border-radius:12px}.live-controls label{font-weight:850;font-size:12px;display:flex;align-items:center;gap:7px}.live-controls input{color:#fff;background:#1d262c;border:1px solid #536166;border-radius:8px;padding:7px}.live-controls button,.live-controls a{font-size:11px;font-weight:900;color:#c8ff4d;text-decoration:none;background:#283923;border:1px solid #566c43;border-radius:9px;padding:8px 10px}.live-controls small{flex-basis:100%;font-size:10px;color:#a5b7bb}</style></head>
+<style>.live-controls{display:flex;align-items:center;flex-wrap:wrap;gap:9px;padding:12px;margin:0 0 16px;background:#141d22;border:1px solid #33433e;border-radius:12px}.live-controls label{font-weight:850;font-size:12px;display:flex;align-items:center;gap:7px}.live-controls input{color:#fff;background:#1d262c;border:1px solid #536166;border-radius:8px;padding:7px}.live-controls button,.live-controls a{font-size:11px;font-weight:900;color:#c8ff4d;text-decoration:none;background:#283923;border:1px solid #566c43;border-radius:9px;padding:8px 10px}.live-controls small{flex-basis:100%;font-size:10px;color:#a5b7bb}</style><style>
+.win5-day-buttons{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.live-controls .win5-day-buttons button{padding:7px 9px;border-radius:8px;border:1px solid #384c42;background:#141e1a;color:#b6ccbd;font-weight:850;white-space:nowrap}
+.live-controls .win5-day-buttons button.active{border-color:#a9d65b;background:#2b3a22;color:#d4ff8c}
+.live-controls small a{color:#c8ff4d;text-decoration:underline;text-underline-offset:3px}
+</style></head>
 <body>
 <header class="topbar"><div class="topin"><div class="brand"><div class="mark">5</div><div><strong>BAKEN LAB</strong><small>馬券に、理由を。</small></div></div><div class="topright"><span>LAB HUB / NEW CONTENT</span><span class="chip">HUB連携・閲覧専用</span></div></div></header>
 <main class="container">
@@ -244,16 +249,56 @@ const liveJstFull=x=>{
  if(!Number.isFinite(d.getTime()))return '—';
  return new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(d);
 };
-let loadingLab5=false;
-function liveCandidateRaces(rows){
- const all=(Array.isArray(rows)?rows:[])
- .filter(r=>r?.circuit==='JRA'&&Number(r.race_no)>=9&&Number(r.race_no)<=11&&r.field_status!=='DISPLAY_ONLY_UNVERIFIED')
- .map(r=>({...r,postMs:Date.parse(r.post_time)}))
- .filter(r=>Number.isFinite(r.postMs))
- .filter(r=>{const t=liveJstTime(r.postMs);return t>='14:00'&&t<'16:00'})
- .sort((a,b)=>b.postMs-a.postMs||String(b.track).localeCompare(String(a.track),'ja'));
- return all.slice(0,5).sort((a,b)=>a.postMs-b.postMs||String(a.track).localeCompare(String(b.track),'ja'));
+
+// 2026-11-20 JRA公表WIN5対象日程・指定レースを照合（表示専用）。
+// 資料: https://www.jra.go.jp/kouza/win5/info/racelist.html
+// 時刻・レース名: JRA公式出馬表およびJRA-VAN/netkeiba WIN5対象一覧。
+// 未登録日を時刻順で推定しない。公式変更時はこの表示台帳を更新する。
+const WIN5_TARGET_SCHEDULE=Object.freeze({
+ '2026-11-21':{label:'11/21（土）',cutoff:'14:20',legs:[
+  ['京都',9,'秋明菊賞','14:25'],
+  ['福島',10,'福島放送賞','14:45'],
+  ['京都',10,'比叡ステークス','15:00'],
+  ['福島',11,'福島記念（GⅢ）','15:20'],
+  ['京都',11,'シトリンステークス','15:40']
+ ]},
+ '2026-11-22':{label:'11/22（日）',cutoff:'14:20',legs:[
+  ['京都',9,'花見小路特別','14:25'],
+  ['東京',10,'秋色ステークス','14:45'],
+  ['京都',10,'西陣ステークス','15:00'],
+  ['東京',11,'霜月ステークス','15:20'],
+  ['京都',11,'マイルチャンピオンシップ（GⅠ）','15:40']
+ ]},
+ '2026-11-23':{label:'11/23（月祝）',cutoff:'14:15',legs:[
+  ['東京',9,'レジェンドジョッキーカップ','14:20'],
+  ['福島',10,'五色沼特別','14:40'],
+  ['東京',10,'レジェンドトレーナーカップ','14:55'],
+  ['福島',11,'奥羽ステークス','15:15'],
+  ['東京',11,'東京スポーツ杯2歳ステークス（GⅡ）','15:30']
+ ]}
+});
+const win5DateTime=(date,hm)=>Date.parse(date+'T'+hm+':00+09:00');
+function nextRegisteredWin5Date(){
+ const now=liveJstDate();
+ return Object.keys(WIN5_TARGET_SCHEDULE).find(d=>d>=now)||now;
 }
+function win5RaceCandidates(date,hubRaces,hubPredictions=[]){
+ const calendar=WIN5_TARGET_SCHEDULE[date];
+ if(!calendar)return [];
+ const rows=Array.isArray(hubRaces)?hubRaces:[];
+ const predicted=Array.isArray(hubPredictions)?hubPredictions:[];
+ return calendar.legs.map(([track,raceNo,raceName,hm],index)=>{
+  // 既存のHUBデータを競馬場・日付・番号の完全一致でのみ紐付ける。
+  const hub=rows.find(x=>x?.race_date===date&&x?.circuit==='JRA'&&x?.track===track&&Number(x.race_no)===raceNo);
+  const p=hub?.prediction??predicted.find(x=>x?.race_date===date&&x?.circuit==='JRA'&&x?.track===track&&Number(x.race_no)===raceNo)??null;
+  const postMs=win5DateTime(date,hm);
+  return {key:date+'|'+track+'|'+raceNo+'|JRA',race_date:date,circuit:'JRA',
+   track,race_no:raceNo,race_name:raceName,post_time:new Date(postMs).toISOString(),
+   postMs,win5_leg:index+1,prediction:p};
+ });
+}
+
+let loadingLab5=false;
 function liveRace(r){
  const p=r.prediction;
  const ready=p?.status==='FROZEN'&&!p?.data_error&&Array.isArray(p?.payload?.top5)&&p.payload.top5.length===5;
@@ -263,10 +308,40 @@ function liveRace(r){
   const raw=rr.win_odds;const odds=raw===undefined||raw===null||raw===''?null:Number(raw);
   return [Number(h.horse_no),String(h.horse_name||rr.horse_name||'馬名未取得'),String(rr.jockey||'—'),Number.isFinite(odds)&&odds>0?odds:null];
  }):[];
- return {key:r.track+'|'+r.race_no,track:r.track,no:Number(r.race_no),name:r.race_name||'レース名未確認',
+ return {key:r.key,track:r.track,no:Number(r.race_no),name:r.race_name||'レース名未確認',
  time:liveJstTime(r.postMs),frozen:liveJstFull(p?.frozen_at),horses,ready,
  oddsNote:p?.market_captured_at?'単勝オッズ取得 '+liveJstFull(p.market_captured_at):'単勝オッズ未取得'};
 }
+
+function showWin5Schedule(date,found){
+ const previous=RACES.slice(),oldSelections=selections.map(x=>new Set(x));
+ const fresh=found.map(liveRace);
+ RACES.splice(0,RACES.length,...fresh);
+ selections.splice(0,selections.length,...fresh.map((r,i)=>
+  previous[i]?.key===r.key
+   ?new Set([...oldSelections[i]].filter(j=>previous[i]?.horses?.[j]?.[0]===r.horses?.[j]?.[0]))
+   :new Set()));
+ lab5SelectedDate=date;
+ publishedLegs=fresh.filter(r=>r.ready).length;
+ const official=WIN5_TARGET_SCHEDULE[date];
+ deadlineMs=official?win5DateTime(date,official.cutoff):0;
+ document.querySelector('.deadline-values .stat-value').textContent=official?official.cutoff:'未登録';
+ $('published-count').innerHTML=publishedLegs+' / 5 <span style="font-size:12px">公開済み</span>';
+ $('published-note').textContent=official?'WIN5対象5R登録済み｜FROZEN '+publishedLegs+'/5':'この日付のWIN5対象レースはまだ登録していません';
+ $('countdown-note').textContent=official
+  ?(publishedLegs===5?'5レース分のFROZENが揃ったため残り時間を表示しています。公式の発売状況を確認してください。':'5レース目の予想反映後から、締切までの残り時間が動きます。')
+  :'WIN5の対象日程・締切時刻が未登録です。';
+ const prog=document.querySelector('.progress-note');
+ if(prog)prog.innerHTML='<strong>WIN5対象レースを先行登録</strong><span>'
+  +(official?'レース名と発走時刻のみ先に表示。予想はHUBの正規FROZENが済んだレースから順次反映します。':'公式対象レースを確認でき次第登録します。')
+  +'</span>';
+ const pill=document.querySelector('.demo-pill');
+ if(pill)pill.textContent=official?date+' ｜ WIN5対象レース登録済み':date+' ｜ WIN5対象未登録';
+ renderRaces();update();countdownRender();
+ const buttons=document.querySelectorAll('[data-win5-day]');
+ for(const button of buttons)button.classList.toggle('active',button.dataset.win5Day===date);
+}
+
 async function loadLiveLab5(){
  if(loadingLab5)return;
  const date=document.getElementById('lab5-date')?.value||liveJstDate();
@@ -280,45 +355,37 @@ async function loadLiveLab5(){
   if(!response.ok)throw Error('HTTP '+response.status);
   const data=await response.json();if(data?.ok!==true)throw Error('HUB情報取得エラー');
   if(document.getElementById('lab5-date')?.value!==date)return;
-  const found=liveCandidateRaces(data.races);
-  const next=found.map(liveRace);
-  const before=RACES.slice(),old=selections.map(x=>new Set(x));
-  RACES.splice(0,RACES.length,...next);
-  selections.splice(0,selections.length,...next.map((r,i)=>
-   before[i]?.key===r.key?new Set([...old[i]].filter(j=>before[i]?.horses?.[j]?.[0]===r.horses?.[j]?.[0])):new Set()));
-  lab5SelectedDate=date;publishedLegs=next.filter(r=>r.ready).length;
-  const first=found.length===5?Math.min(...found.map(r=>r.postMs)):null;
-  deadlineMs=first?first-300000:0;
-  document.querySelector('.deadline-values .stat-value').textContent=first?liveJstTime(deadlineMs):'確認中';
-  $('published-count').innerHTML=publishedLegs+' / 5 <span style="font-size:12px">公開済み</span>';
-  $('published-note').textContent=found.length===5?'HUBの確定済み順位を表示中':'WIN5候補の公式発走時刻を確認中（'+found.length+'/5候補）';
-  $('countdown-note').textContent=publishedLegs===5?'5レース揃った時点以降、公式発売締切の目安まで残り時間を表示':'5レース目の確定・反映待ち。時計はまだ動きません。';
-  const prog=document.querySelector('.progress-note');
-  if(prog)prog.innerHTML='<strong>HUBの予想を順次表示</strong><span>5レース目の確定が締切直前になる場合があります。正式な対象レースと発売締切は必ずJRA公式でご確認ください。</span>';
-  const pill=document.querySelector('.demo-pill');
-  if(pill)pill.textContent=date+' ｜ HUB読取データ';
-  renderRaces();update();countdownRender();
-  if(status)status.textContent='HUB確認 '+liveJstFull(Date.now())+' ／ '+(found.length===5?'5対象レース候補を表示':'対象レースの登録待ち')+' ※対象判定は暫定';
- }catch(err){if(status)status.textContent='取得できませんでした（'+String(err?.message||err).slice(0,70)+'）。もう一度更新してください。'}
- finally{loadingLab5=false}
+  const found=win5RaceCandidates(date,data.races,data.predictions);
+  showWin5Schedule(date,found);
+  if(status)status.textContent='HUB確認 '+liveJstFull(Date.now())+' ／ '+(found.length===5?'JRA公表の5レースを表示':'対象日程は未登録')+' ｜ 保存済みFROZENのみ反映';
+ }catch(err){if(status)status.textContent='HUBの予想取得に失敗しました（'+String(err?.message||err).slice(0,70)+'）。対象レース枠は表示中です。';}
+ finally{loadingLab5=false;if(document.getElementById('lab5-date')?.value!==date)queueMicrotask(loadLiveLab5)}
 }
 function setupLiveLab5(){
  RACES.splice(0);selections.splice(0);publishedLegs=0;deadlineMs=0;
  document.querySelector('.topright .chip').textContent='HUB連携・閲覧専用';
  const note=document.querySelector('.guide-demo-note');
- if(note)note.innerHTML='<h3 class="guide-heading guide-heading-muted">HUB連携について</h3><p>当日のHUB発走前FROZEN順位を読み取り専用で表示します。WIN5対象レースの選定は暫定的です。正式な対象レースと締切時刻は必ずJRA公式で確認してください。オッズは取得できたもののみ更新時刻と一緒に表示します。</p>';
+ if(note)note.innerHTML='<h3 class="guide-heading guide-heading-muted">HUB連携について</h3><p>当日のHUB発走前FROZEN順位を読み取り専用で表示します。2026年11月21〜23日のWIN5対象レースはJRA公表日程を照合して先行登録しています。開催変更時や購入時はJRA公式情報をご確認ください。オッズは取得できたもののみ更新時刻と一緒に表示します。</p>';
  document.querySelector('.pagefoot').textContent='© BAKEN LAB｜LAB 5 / HUB READ ONLY｜予想順位とFROZENは変更しません';
  const ctl=document.createElement('div');ctl.className='live-controls';
- ctl.innerHTML='<label>対象日 <input id="lab5-date" type="date"></label><button id="lab5-refresh" type="button">HUBを更新</button><small id="lab5-live-status">HUBの情報を確認中…</small>';
+ ctl.innerHTML='<label>対象日 <input id="lab5-date" type="date"></label><div class="win5-day-buttons" aria-label="今週のWIN5発売日"><button type="button" data-win5-day="2026-11-21">11/21（土）</button><button type="button" data-win5-day="2026-11-22">11/22（日）</button><button type="button" data-win5-day="2026-11-23">11/23（月祝）</button></div><button id="lab5-refresh" type="button">HUBを更新</button><small id="lab5-live-status">JRA公表の対象レースを先行表示します。<a href="https://www.jra.go.jp/kouza/win5/info/racelist.html" target="_blank" rel="noopener noreferrer">公式対象レース一覧</a></small>';
  document.querySelector('#board .board-head').after(ctl);
- $('lab5-date').value=liveJstDate();lab5SelectedDate=liveJstDate();
+ $('lab5-date').value=nextRegisteredWin5Date();lab5SelectedDate=$('lab5-date').value;
  $('lab5-refresh').addEventListener('click',loadLiveLab5);
+ document.querySelectorAll('[data-win5-day]').forEach(button=>button.addEventListener('click',()=>{
+  const date=button.dataset.win5Day;
+  if($('lab5-date').value===date)return;
+  $('lab5-date').value=date;
+  $('lab5-date').dispatchEvent(new Event('change'));
+ }));
  $('lab5-date').addEventListener('change',()=>{
-   RACES.splice(0);selections.splice(0);publishedLegs=0;deadlineMs=0;
-   renderRaces();update();countdownRender();loadLiveLab5();
+  const date=$('lab5-date').value;
+  showWin5Schedule(date,win5RaceCandidates(date,[]));
+  loadLiveLab5();
  });
  setInterval(()=>{if(!document.hidden)loadLiveLab5()},60000);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadLiveLab5()});
+ showWin5Schedule($('lab5-date').value,win5RaceCandidates($('lab5-date').value,[]));
  loadLiveLab5();
 }
 setupLiveLab5();
