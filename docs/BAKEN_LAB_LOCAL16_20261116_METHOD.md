@@ -45,7 +45,15 @@
 
 「LOCAL1.6は docs/BAKEN_LAB_LOCAL16_20261116_METHOD.md の順で発走前評価する。16日原本は research/local16-20261116-frozen-anchors.json の30R・323頭のimmutable FROZEN。全ACTIVE馬の過去走→同一過去レース直接対戦・走破時計・級・馬場・展開の肯定/反証→各馬100点・TOP5→EYE17項目→正規CLAIM保存/receipt。公式データと順位の結び付けが不足したら診断に明記。人気・オッズ・対象結果・発走後保存・既存FROZEN変更は禁止。」
 
-## 6. 本番へ昇格する条件
+## 6. チャット切り替えに依存しない取り出し方法
+
+- 研究ブランチの正規LOCAL MCP「lab_claimed_context」は、有効なライブCLAIMを確認した後、race・runners・公式過去走のcontextに「local16_method_contract」を付けて返す。版は LOCAL16_20261116_PRE_RANK_METHOD_V1。
+- この追加フィールドはサーバーの固定コードから付与される。チャットの引き継ぎ文が不十分でも、**正規CLAIM contextを受け取った時に手順の参照先と比較順序が見える**。
+- 同じ参照版を「lab_rank_repro_preflight」結果の reference_method_version に返す。検証は読み取り専用。
+- 任意の local16_full_field_pairwise_trace が提供された場合のみ、研究ブランチの正規LOCAL保存ツールは新しい公式CLAIM contextとの一致を検査して既存の正規保存RPCへ渡す。合格しないtraceを「記録済み」と偽らない。traceを渡さない旧版入力は元の保存経路。
+- **研究ブランチ上の接続は本番公開や全レース永続保存の実証ではない。** 本番接続・初回実レース・receipt照合が済むまでステータスを未完了とする。
+
+## 7. 本番へ昇格する条件
 
 - 対応研究PR #68は、live CLAIMのプリフライトに直接対戦と順位判断の証拠監査を追加するが、自動採点変更・本番保存の変更はしない。
 - 既存のFROZEN/EYEの安全性、正規CLAIM contextとの出典整合、発走前の実入力、エラー時の保存救済、正規保存receiptを確認後にだけ本番導入を判断。
