@@ -1,5 +1,8 @@
 const assert = require('node:assert/strict');
-const {aggregate, render} = require('../../result-summary.js');
+const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const browserModule={exports:{}};
+vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../../result-summary.js'),'utf8'),{module:browserModule,globalThis:{}});
+const {aggregate,render}=browserModule.exports;
 const date='2026-10-12', options={date};
 function fixture(){const identity={race_date:date,circuit:'JRA',track:'東京',race_no:7};return {...identity,settled_at:'2026-10-12T04:20:00Z',prediction:{...identity,status:'FROZEN',payload:{runners:Array.from({length:7},(_,i)=>({horse_no:i+1,horse_name:'horse'+(i+1),rank:i+1})),top5:[1,2,3,4,5].map(horse_no=>({horse_no,mark:horse_no===1?'◎':'△'})),eye:{horse_no:6}}},result:{finishers:[{horse_no:1,finish:1},{horse_no:6,finish:2},{horse_no:7,finish:3},{horse_no:2,finish:4}]}};}
 let count=0;function test(name,run){run();count++;console.log('PASS',name);}
