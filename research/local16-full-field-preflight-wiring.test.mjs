@@ -22,7 +22,14 @@ test("full-field pre-rank proof runs on verified live CLAIM read-only route",()=
  assert.match(tool,/full_field_pairwise_proof:fullFieldProof/);
  assert.match(tool,/save_authorized:false/);
  assert.doesNotMatch(tool,/\.rpc\(|UPDATE official_predictions|\.upsert\(/);
- assert.doesNotMatch(save,/auditLocal16FullFieldPairwise/);
+ assert.match(save,/const pairwiseTrace=payload.audit\?\.local16_full_field_pairwise_trace/);
+ assert.match(save,/if\(pairwiseTrace!==undefined && !officialContext\)/);
+ assert.match(save,/const proof=auditLocal16FullFieldPairwise/);
+ assert.match(save,/facts:officialContext.official_past_content/);
+ assert.match(save,/pairwise_trace_status=proof.status/);
+ assert.match(save,/p_payload:payload,p_original_payload:original_payload/);
+ assert.match(save,/lab_queue_save_prediction_with_shadow_v1/);
+
 });
 test("no change to original LOCAL1.6 FROZEN save guard",()=>{
  assert.match(save,/assertLocal16EvidenceHandoffForSave/);
