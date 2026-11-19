@@ -1,0 +1,23 @@
+name: Result daily settled favorite scratch regression
+on:
+  push:
+    branches:
+      - fix/daily-honmei-scratch-metrics-20261119
+  pull_request:
+    paths:
+      - 'result-summary.js'
+      - 'research/result-daily-summary/aggregation.test.cjs'
+      - '.github/workflows/result-daily-scratch-metrics.yml'
+permissions:
+  contents: read
+jobs:
+  summary-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Result summary and cancellation exclusion
+        run: node research/result-daily-summary/aggregation.test.cjs
