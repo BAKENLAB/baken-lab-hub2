@@ -88,7 +88,7 @@
 </style>
 <style>.live-controls{display:flex;align-items:center;flex-wrap:wrap;gap:9px;padding:12px;margin:0 0 16px;background:#141d22;border:1px solid #33433e;border-radius:12px}.live-controls label{font-weight:850;font-size:12px;display:flex;align-items:center;gap:7px}.live-controls input{color:#fff;background:#1d262c;border:1px solid #536166;border-radius:8px;padding:7px}.live-controls button,.live-controls a{font-size:11px;font-weight:900;color:#c8ff4d;text-decoration:none;background:#283923;border:1px solid #566c43;border-radius:9px;padding:8px 10px}.live-controls small{flex-basis:100%;font-size:10px;color:#a5b7bb}</style></head>
 <body>
-<header class="topbar"><div class="topin"><div class="brand"><div class="mark">5</div><div><strong>BAKEN LAB</strong><small>馬券に、理由を。</small></div></div><div class="topright"><span>LAB HUB / NEW CONTENT</span><span class="chip">試作・過去検証デモ</span></div></div></header>
+<header class="topbar"><div class="topin"><div class="brand"><div class="mark">5</div><div><strong>BAKEN LAB</strong><small>馬券に、理由を。</small></div></div><div class="topright"><span>LAB HUB / NEW CONTENT</span><span class="chip">HUB連携・閲覧専用</span></div></div></header>
 <main class="container">
 <section class="hero"><div><div class="eyebrow">WIN5 SELECTION BOARD</div><h1>LAB <span>5</span><span style="color:#7f8d95;font-size:clamp(19px,3.2vw,30px);letter-spacing:-.03em;margin-left:13px">/ WIN5</span></h1><p><b style="color:#fff">HUBの上位5頭を、5レースまとめて。</b> レースを行き来せず、馬番・馬名・ジョッキー・オッズを一画面で比較。自分で選び、点数と金額をその場で確認できるWIN5専用ボード。</p></div><div class="hero-art" aria-hidden="true"><span>5</span></div></section>
 <details class="guide" id="usage-guide">
@@ -121,24 +121,23 @@
       <p>LAB 5は購入判断を助ける選択メモです。<strong>実際の投票は行わず、的中や利益を保証しません。</strong> 時計は目安として扱い、正式な発売締切・購入可否はJRA側でもご確認ください。</p>
     </div>
     <div class="guide-item guide-demo-note">
-      <h3 class="guide-heading guide-heading-muted"><span aria-hidden="true">i</span> 現在のページは操作デモです</h3>
-      <p>2026年11月15日の保存済み順位を表示しています。カウントダウンは仮想時間で、本物のWIN5締切とは連動していません。過去オッズは未取得のため「—」表示です。</p>
+      <h3 class="guide-heading guide-heading-muted"><span aria-hidden="true">i</span> HUBデータ連携について</h3>
+      <p>正規FROZENとして保存された上位5頭を順次表示します。対象レースの自動判定と締切時刻は暫定のため、正式なWIN5対象・発売締切は必ずJRA公式でご確認ください。</p>
     </div>
     <div class="guide-footer"><button type="button" id="usage-guide-close" class="guide-close-btn">説明を閉じる <span aria-hidden="true">↑</span></button></div>
   </div>
 </details>
 <section class="history" aria-label="過去の捕捉実績"><div class="section-head"><div><div class="kicker">HISTORICAL / 過去検証</div><h2>WIN5勝ち馬5頭を、HUBの上位5頭内で全捕捉した3日間</h2></div><span class="help-note">※実購入・的中実績ではありません</span></div><div class="history-grid"><div class="history-item"><small>2026.10.18｜秋華賞</small><strong>59,940円</strong><span class="hit">WIN5 5/5 捕捉</span></div><div class="history-item"><small>2026.10.25｜菊花賞</small><strong>8,523,370円</strong><span class="hit">WIN5 5/5 捕捉</span></div><div class="history-item"><small>2026.11.15｜エリザベス女王杯</small><strong>11,091,670円</strong><span class="hit">WIN5 5/5 捕捉</span></div></div><p class="history-foot">各日のWIN5発売締切より前に保存されたFROZEN順位と公式確定結果を照合。金額はその日の公式WIN5払戻額（100円あたり）であり、BAKEN LABが実際に購入・払戻を受けた金額ではありません。上位5頭を全レース購入すると最大3,125点・312,500円になり、的中や利益を保証しません。</p></section>
-<section id="board" aria-label="5レース比較ボード"><div class="board-head"><div><h2>対象5レース｜一括比較</h2><p>馬名の行をタップして候補を選択。順位はHUBの保存時点のまま表示。</p></div><div class="demo-pill"><span class="dot"></span>2026/11/15 保存データで表示中</div></div>
+<section id="board" aria-label="5レース比較ボード"><div class="board-head"><div><h2>対象5レース｜一括比較</h2><p>馬名の行をタップして候補を選択。順位はHUBの保存時点のまま表示。</p></div><div class="demo-pill"><span class="dot"></span>HUB情報を確認中</div></div>
 <div class="status-grid status-grid-updated">
-  <div class="stat"><div class="stat-label">HUB FROZEN / 公開状況</div><div class="stat-value good" id="published-count">5 / 5 <span style="font-size:12px">公開済み</span></div><div class="stat-sub" id="published-note">11月15日の実際の保存済みデータ</div><div class="stage-controls" aria-label="試作版の公開状況を切り替える"><span>表示テスト：</span><button type="button" data-stage="1">1/5</button><button type="button" data-stage="4">4/5</button><button type="button" data-stage="5" class="active">5/5</button></div></div>
-  <div class="stat deadline-stat"><div class="stat-label">WIN5発売締切の目安 <span class="demotag">カウントダウン体験</span></div>
-    <div class="deadline-values"><div><div class="deadline-label">締切時刻</div><div class="stat-value">14:40</div></div>
-      <div class="deadline-div"><div class="deadline-label">残り時間（時:分:秒） <span class="demo-red">DEMO</span></div><div id="countdown-clock" class="countdown-clock" aria-live="off">00:04:01</div></div></div>
-    <div class="deadline-foot"><span id="countdown-note">5/5反映後の締切までを再現する仮想タイマー。実際の時刻ではありません。</span><button id="countdown-reset" class="reset-timer" type="button">4分01秒から再生</button></div>
+  <div class="stat"><div class="stat-label">HUB FROZEN / 公開状況</div><div class="stat-value good" id="published-count">0 / 5 <span style="font-size:12px">公開済み</span></div><div class="stat-sub" id="published-note">HUB予想の公開状況を確認中</div></div>
+  <div class="stat deadline-stat"><div class="stat-label">WIN5発売締切の目安 </div>
+    <div class="deadline-values"><div><div class="deadline-label">締切時刻</div><div class="stat-value">確認中</div></div>
+      <div class="deadline-div"><div class="deadline-label">残り時間（時:分:秒） </div><div id="countdown-clock" class="countdown-clock" aria-live="off">5レース目の反映待ち</div></div></div>
+    <div class="deadline-foot"><span id="countdown-note">5レースが揃うと発売締切の目安までの残り時間を表示します。</span></div>
   </div>
 </div>
-<div class="progress-note"><strong>予想は順次公開！</strong><span>13:49 東京10R → 14:17 京都10R → 14:19 福島11R → 14:19 東京11R → 14:35 京都11R（5/5完成）</span></div>
-<div class="timebar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb7b2" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6l3 2"></path></svg><div><strong>このページは11月15日の過去データを使った操作デモです。</strong><br><span>カウントダウンは5/5完成時から開始する仕組みを再現しています。本番では当日のJRA正式締切時刻から残り時間を算出します。過去オッズは未取得なので「—」です。</span></div></div>
+<div class="progress-note"><strong>予想は順次公開！</strong><span>HUBでFROZEN保存された順に、対象レースの上位5頭が反映されます。</span></div>
 <div class="toolbar"><span class="hint">ここで一括選択 → 下へ進みながら各馬のチェックを調整 → 最後に買い目を確認</span><div class="buttons"><button class="action primary" id="quick-one">各レース1位</button><button class="action" id="quick-three">上位3頭</button><button class="action" id="quick-five">上位5頭</button><button class="action warn" id="clear-all">全解除</button></div></div>
 <div id="races" class="races"></div>
 </section>
@@ -149,61 +148,29 @@
 <div class="dock" aria-live="polite"><div class="dock-in"><div class="dock-summary"><div><div class="dock-label">選択点数</div><div class="dock-number" id="count">0<span style="font-size:12px;color:#90a18d"> 点</span></div></div><div><div class="dock-label">100円／点</div><div class="dock-number" id="price">¥0</div></div></div><div class="dock-btns"><a href="#review" class="dock-btn subtle">最後の確認へ ↓</a></div><div class="sr-only" id="combination">0 × 0 × 0 × 0 × 0</div><div class="sr-only" id="warning">未選択のレースがあります</div></div></div>
 <script>
 'use strict';
-// 2026-11-15 正規FROZEN (発走前) + official_races.field_payload.runners との読取専用照合。
-// 意図的にオッズは null。これは本番LIVE連携ではなく、操作性を確認する静的デモ。
-const RACES=[
- {track:'東京',no:10,name:'ユートピアステークス',time:'14:45',frozen:'13:49:25',horses:[
-  [11,'ファムクラジューズ','横山 武史'],[1,'ガジュノリ','田辺 裕信'],[9,'タイセイプランセス','石橋 脩'],[8,'クリニクラウン','木幡 初也'],[10,'ハニーコム','長浜 鴻緒']]},
- {track:'京都',no:10,name:'花背特別',time:'15:01',frozen:'14:17:11',horses:[
-  [8,'セイントホース','菱田 裕二'],[9,'タイセイドラード','西村 淳也'],[3,'ダディーズトリップ','横山 典弘'],[4,'テーオーライマン','松山 弘平'],[2,'ユーヴェリア','国分 恭介']]},
- {track:'福島',no:11,name:'福島民友カップ',time:'15:10',frozen:'14:19:01',horses:[
-  [6,'シュラザック','国分 優作'],[1,'ワイドブリザード','鮫島 克駿'],[7,'ゴッドブルービー','角田 大和'],[14,'ドバイブルース','石川 裕紀人'],[4,'スナークラファエロ','富田 暁']]},
- {track:'東京',no:11,name:'オーロカップ',time:'15:20',frozen:'14:19:48',horses:[
-  [5,'マイネルチケット','横山 武史'],[15,'エコロアルバ','大野 拓弥'],[4,'サンダーストラック','A.プーシャン'],[17,'タガノアラリア','原 優介'],[10,'セフィロ','横山 和生']]},
- {track:'京都',no:11,name:'エリザベス女王杯',time:'15:40',frozen:'14:35:59',horses:[
-  [16,'アクアヴァーナル','松山 弘平'],[7,'カムニャック','川田 将雅'],[6,'ヴーレヴー','吉田 隼人'],[11,'ジュウリョクピエロ','今村 聖奈'],[15,'ラフターラインズ','武 豊']]}
-];
-const selections=RACES.map(()=>new Set());
-const lab5Demo=new URLSearchParams(location.search).has('demo');
+// 本番はHUBの保存済みFROZENを読み取る。初期表示に過去の馬を混在させない。
+const RACES=[];
+const selections=[];
 let lab5SelectedDate='';
 const $=id=>document.getElementById(id);
 const yen=n=>'¥'+Number(n).toLocaleString('ja-JP');
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-// 実際の本番での反映はHUBのFROZENをレースごとに読み取り専用取得する。
-// この試作の「表示テスト」だけ、1/5・4/5・5/5の段階を仮想的に再現する。
-let publishedLegs=5;
-let demoDeadlineMs=Date.now()+241000;
-let countdownTimer=null;
+let publishedLegs=0,deadlineMs=0;
 function countdownRender(){
  const clock=$('countdown-clock');
- if(!lab5Demo && publishedLegs===5 && !demoDeadlineMs){clock.textContent='発売締切の確認待ち';clock.classList.add('pending');return;}
  if(publishedLegs!==5){clock.textContent='5レース目の反映待ち';clock.classList.remove('end');clock.classList.add('pending');return}
+ if(!deadlineMs){clock.textContent='締切時刻の確認待ち';clock.classList.add('pending');return}
  clock.classList.remove('pending');
- const seconds=Math.max(0,Math.ceil((demoDeadlineMs-Date.now())/1000));
- if(seconds<=0){clock.textContent='発売終了';clock.classList.add('end');return}
+ const sec=Math.max(0,Math.ceil((deadlineMs-Date.now())/1000));
+ if(sec===0){clock.textContent='発売終了（目安）';clock.classList.add('end');return}
  clock.classList.remove('end');
- const hours=Math.floor(seconds/3600),minutes=Math.floor(seconds%3600/60);
- clock.textContent=`${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
-}
-function restartCountdown(){if(lab5Demo){demoDeadlineMs=Date.now()+241000;countdownRender()}}
-function setStage(num){
- if(!lab5Demo)return;
- const previous=publishedLegs;publishedLegs=num;
- // 未公開分は選択できず、一旦テストを戻した場合は未公開分の選択も消す。
- RACES.forEach((_,i)=>{if(i>=num)selections[i].clear()});
- if(previous<5 && num===5)restartCountdown();
- $('published-count').innerHTML=`${num} / 5 <span style="font-size:12px">${num===5?'公開済み':'公開済み'}</span>`;
- $('published-note').textContent=num===5?'すべてのレースを確認できます':'先に公開されたレースから選べます';
- $('countdown-note').textContent=num===5?'5/5反映後の仮想残り時間。実際の締切とは連動しません。':'全5レースの予想が揃った時点から、締切までの残り時間を表示します。';
- document.querySelectorAll('[data-stage]').forEach(b=>b.classList.toggle('active',Number(b.dataset.stage)===num));
- $('countdown-reset').disabled=num<5;
- renderRaces();update();countdownRender();
+ clock.textContent=[Math.floor(sec/3600),Math.floor(sec%3600/60),sec%60].map(n=>String(n).padStart(2,'0')).join(':');
 }
 function renderRaces(){
  if(!RACES.length){$('races').innerHTML='<div class="empty" style="grid-column:1/-1;padding:20px">WIN5対象レースとHUB予想の登録を確認中です。公式対象レースはJRAでもご確認ください。</div>';return}
  $('races').innerHTML=RACES.map((r,i)=>{
-  const head=`<div class="race-head"><div class="leg-number">${i+1}<small>LEG</small></div><div class="race-title"><div class="meta">${escapeHTML(r.track)} ${r.no}R · ${(lab5Demo?i<publishedLegs:r.ready)?'FROZEN '+r.frozen:'予想準備中'}</div><h3>${escapeHTML(r.name)}</h3></div><div class="race-time"><strong>${r.time}</strong><small>発走予定</small></div></div>`;
-  if(!(lab5Demo?i<publishedLegs:r.ready))return `<article class="race waiting" id="leg-${i}">${head}<div class="waiting-copy"><strong>このレースはまだ公開されていません</strong>HUBで予想がFROZEN保存されると、ここに上位5頭が表示されます。</div></article>`;
+  const head=`<div class="race-head"><div class="leg-number">${i+1}<small>LEG</small></div><div class="race-title"><div class="meta">${escapeHTML(r.track)} ${r.no}R · ${r.ready?'FROZEN '+r.frozen:'予想準備中'}</div><h3>${escapeHTML(r.name)}</h3></div><div class="race-time"><strong>${r.time}</strong><small>発走予定</small></div></div>`;
+  if(!r.ready)return `<article class="race waiting" id="leg-${i}">${head}<div class="waiting-copy"><strong>このレースはまだ公開されていません</strong>HUBで予想がFROZEN保存されると、ここに上位5頭が表示されます。</div></article>`;
   return `<article class="race" id="leg-${i}">${head}<div class="ranks-title"><div>順位</div><div>馬番</div><div>馬名</div><div>騎手</div><div style="text-align:right">単勝</div><div>選択</div></div><div class="rank-list">${r.horses.map((h,j)=>`<label class="runner" for="h-${i}-${j}"><span class="rank-no">${j+1}</span><span class="number">${h[0]}</span><span class="name">${escapeHTML(h[1])}</span><span class="jockey">${escapeHTML(h[2])}</span><span class="odds" title="${escapeHTML(r.oddsNote||'オッズ未取得')}">${h[3]==null?'—':Number(h[3]).toFixed(1)}</span><input type="checkbox" id="h-${i}-${j}" aria-label="${escapeHTML(r.track)}${r.no}R、${escapeHTML(h[1])}を選択"></label>`).join('')}</div><div class="race-actions"><small id="headcount-${i}">0/5頭 選択</small></div></article>`;
  }).join('');
 }
@@ -229,13 +196,13 @@ function update(){
  });
  $('review-legs').innerHTML=RACES.map((r,i)=>{
   const numbers=[...selections[i]].sort((a,b)=>a-b);
-  return `<div class="review-leg"><div class="review-leg-head"><strong>${i+1}R目｜${escapeHTML(r.track)} ${r.no}R · ${escapeHTML(r.name)}</strong><span><small>${(lab5Demo?i>=publishedLegs:!r.ready)?'未公開':numbers.length+'頭選択'}</small>　<a class="review-edit" href="#leg-${i}">編集 ↑</a></span></div><div class="review-horses">${(lab5Demo?i>=publishedLegs:!r.ready)?'<span class="review-empty">HUB予想公開待ち</span>':numbers.length?numbers.map(rank=>{const h=r.horses[rank];return `<span class="review-horse"><b>${h[0]}</b><span>${escapeHTML(h[1])}<small>HUB ${rank+1}位</small></span></span>`}).join(''):'<span class="review-empty">まだ選ばれていません</span>'}</div></div>`;
+  return `<div class="review-leg"><div class="review-leg-head"><strong>${i+1}R目｜${escapeHTML(r.track)} ${r.no}R · ${escapeHTML(r.name)}</strong><span><small>${!r.ready?'未公開':numbers.length+'頭選択'}</small>　<a class="review-edit" href="#leg-${i}">編集 ↑</a></span></div><div class="review-horses">${!r.ready?'<span class="review-empty">HUB予想公開待ち</span>':numbers.length?numbers.map(rank=>{const h=r.horses[rank];return `<span class="review-horse"><b>${h[0]}</b><span>${escapeHTML(h[1])}<small>HUB ${rank+1}位</small></span></span>`}).join(''):'<span class="review-empty">まだ選ばれていません</span>'}</div></div>`;
  }).join('');
 }
-function setAll(limit){RACES.forEach((r,i)=>{if(lab5Demo?i>=publishedLegs:!r.ready)return;selections[i].clear();for(let j=0;j<limit;j++)selections[i].add(j)});update()}
+function setAll(limit){RACES.forEach((r,i)=>{if(!r.ready)return;selections[i].clear();for(let j=0;j<limit;j++)selections[i].add(j)});update()}
 function copySelection(){
  const ct=selections.map(s=>s.size).reduce((a,b)=>a*b,1);
- const lines=[`LAB 5｜WIN5選択メモ（${lab5Demo?'2026/11/15過去デモ':lab5SelectedDate}）`,...RACES.map((r,i)=>`${i+1}R目 ${r.track}${r.no}R ${r.name}: ${[...selections[i]].sort((a,b)=>a-b).map(j=>`${r.horses[j][0]} ${r.horses[j][1]}`).join('、')}`),`計 ${ct}点 / ${yen(ct*100)}（100円/点）`,'※これは試作の選択メモであり、実際の購入ではありません。'];
+ const lines=[`LAB 5｜WIN5選択メモ（${lab5SelectedDate}）`,...RACES.map((r,i)=>`${i+1}R目 ${r.track}${r.no}R ${r.name}: ${[...selections[i]].sort((a,b)=>a-b).map(j=>`${r.horses[j][0]} ${r.horses[j][1]}`).join('、')}`),`計 ${ct}点 / ${yen(ct*100)}（100円/点）`,'※これは選択メモであり、実際の購入ではありません。'];
  const s=lines.join('\n');
  if(navigator.clipboard?.writeText){navigator.clipboard.writeText(s).then(()=>{const b=$('copy');b.textContent='コピーしました ✓';setTimeout(()=>b.textContent='選択馬番・馬名をコピー',1600)}).catch(()=>window.prompt('コピーして使ってください',s))}
  else window.prompt('コピーして使ってください',s);
@@ -251,7 +218,7 @@ $('usage-guide-close').addEventListener('click',()=>{
 $('races').addEventListener('change',e=>{
  if(!e.target.matches('input[type=checkbox]'))return;
  const m=e.target.id.match(/^h-(\d+)-(\d+)$/);if(!m)return;
- const i=Number(m[1]),j=Number(m[2]);if(i>=publishedLegs)return;
+ const i=Number(m[1]),j=Number(m[2]);if(!RACES[i]?.ready)return;
  if(e.target.checked)selections[i].add(j);else selections[i].delete(j);
  update();
 });
@@ -260,8 +227,6 @@ $('quick-three').addEventListener('click',()=>setAll(3));
 $('quick-five').addEventListener('click',()=>setAll(5));
 $('clear-all').addEventListener('click',()=>setAll(0));
 $('copy').addEventListener('click',copySelection);
-$('countdown-reset').addEventListener('click',restartCountdown);
-document.querySelectorAll('[data-stage]').forEach(b=>b.addEventListener('click',()=>setStage(Number(b.dataset.stage))));
 document.addEventListener('visibilitychange',countdownRender);
 
 const liveJstDate=()=>{
@@ -303,7 +268,7 @@ function liveRace(r){
  oddsNote:p?.market_captured_at?'単勝オッズ取得 '+liveJstFull(p.market_captured_at):'単勝オッズ未取得'};
 }
 async function loadLiveLab5(){
- if(lab5Demo||loadingLab5)return;
+ if(loadingLab5)return;
  const date=document.getElementById('lab5-date')?.value||liveJstDate();
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;
  loadingLab5=true;
@@ -323,8 +288,8 @@ async function loadLiveLab5(){
    before[i]?.key===r.key?new Set([...old[i]].filter(j=>before[i]?.horses?.[j]?.[0]===r.horses?.[j]?.[0])):new Set()));
   lab5SelectedDate=date;publishedLegs=next.filter(r=>r.ready).length;
   const first=found.length===5?Math.min(...found.map(r=>r.postMs)):null;
-  demoDeadlineMs=first?first-300000:0;
-  document.querySelector('.deadline-values .stat-value').textContent=first?liveJstTime(demoDeadlineMs):'確認中';
+  deadlineMs=first?first-300000:0;
+  document.querySelector('.deadline-values .stat-value').textContent=first?liveJstTime(deadlineMs):'確認中';
   $('published-count').innerHTML=publishedLegs+' / 5 <span style="font-size:12px">公開済み</span>';
   $('published-note').textContent=found.length===5?'HUBの確定済み順位を表示中':'WIN5候補の公式発走時刻を確認中（'+found.length+'/5候補）';
   $('countdown-note').textContent=publishedLegs===5?'5レース揃った時点以降、公式発売締切の目安まで残り時間を表示':'5レース目の確定・反映待ち。時計はまだ動きません。';
@@ -338,21 +303,18 @@ async function loadLiveLab5(){
  finally{loadingLab5=false}
 }
 function setupLiveLab5(){
- if(lab5Demo){document.querySelector('.topright .chip').textContent='11/15 操作デモ';return}
- RACES.splice(0);selections.splice(0);publishedLegs=0;demoDeadlineMs=0;
- document.querySelector('.stage-controls')?.remove();$('countdown-reset')?.remove();
- document.querySelector('.demotag')?.remove();document.querySelector('.demo-red')?.remove();
+ RACES.splice(0);selections.splice(0);publishedLegs=0;deadlineMs=0;
  document.querySelector('.topright .chip').textContent='HUB連携・閲覧専用';
  const note=document.querySelector('.guide-demo-note');
  if(note)note.innerHTML='<h3 class="guide-heading guide-heading-muted">HUB連携について</h3><p>当日のHUB発走前FROZEN順位を読み取り専用で表示します。WIN5対象レースの選定は暫定的です。正式な対象レースと締切時刻は必ずJRA公式で確認してください。オッズは取得できたもののみ更新時刻と一緒に表示します。</p>';
  document.querySelector('.pagefoot').textContent='© BAKEN LAB｜LAB 5 / HUB READ ONLY｜予想順位とFROZENは変更しません';
  const ctl=document.createElement('div');ctl.className='live-controls';
- ctl.innerHTML='<label>対象日 <input id="lab5-date" type="date"></label><button id="lab5-refresh" type="button">HUBを更新</button><a href="/lab5.html?demo=1">11/15デモ</a><small id="lab5-live-status">HUBの情報を確認中…</small>';
+ ctl.innerHTML='<label>対象日 <input id="lab5-date" type="date"></label><button id="lab5-refresh" type="button">HUBを更新</button><small id="lab5-live-status">HUBの情報を確認中…</small>';
  document.querySelector('#board .board-head').after(ctl);
  $('lab5-date').value=liveJstDate();lab5SelectedDate=liveJstDate();
  $('lab5-refresh').addEventListener('click',loadLiveLab5);
  $('lab5-date').addEventListener('change',()=>{
-   RACES.splice(0);selections.splice(0);publishedLegs=0;demoDeadlineMs=0;
+   RACES.splice(0);selections.splice(0);publishedLegs=0;deadlineMs=0;
    renderRaces();update();countdownRender();loadLiveLab5();
  });
  setInterval(()=>{if(!document.hidden)loadLiveLab5()},60000);
@@ -361,7 +323,7 @@ function setupLiveLab5(){
 }
 setupLiveLab5();
 
-renderRaces();update();countdownRender();countdownTimer=setInterval(countdownRender,250);
+renderRaces();update();countdownRender();setInterval(countdownRender,250);
 </script>
 </body>
 </html>
