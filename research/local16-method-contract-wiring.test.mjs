@@ -29,10 +29,10 @@ test("every authorized claimed-context tool reply includes static method referen
 });
 test("pre-save method proof is official source-gated; no trace means old protected path",()=>{
  assert.match(edge,/reference_method_version:LOCAL16_METHOD_CONTRACT.version/);
- assert.match(save,/const pairwiseTrace=payload.audit\?\.local16_full_field_pairwise_trace/);
+ assert.match(save,/const pairwiseTrace=payload.audit.local16_full_field_pairwise_trace/);
  assert.match(save,/if\(!traceVerificationContext\)/);
- assert.match(save,/if\(pairwiseTrace!==undefined\)\{/);
- assert.match(save,/facts:officialContext.official_past_content/);
+ assert.match(save,/if\(payload\?\.audit\?\.local16_full_field_pairwise_trace!==undefined\)\{/);
+ assert.match(save,/facts:traceVerificationContext.official_past_content/);
  assert.match(save,/p_payload:payload,p_original_payload:original_payload/);
  assert.match(save,/lab_queue_save_prediction_with_shadow_v1/);
  assert.doesNotMatch(save,/UPDATE official_predictions|delete\(\)|\.upsert\(/);
