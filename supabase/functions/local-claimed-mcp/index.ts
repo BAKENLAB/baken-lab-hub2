@@ -386,6 +386,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  // Context outages are reported but must not silently turn into an
  // invented "no positives" decision or destroy the existing save path.
  let eye_coverage_status="CONTEXT_UNVERIFIED",eye_coverage_missing=0;
+ let pairwise_trace_status="ABSENT";
  if(protocol_version==="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013"){
    const a=await claim(c,job_id),{u,k}=admin();
    let officialContext=null;
@@ -403,10 +404,33 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
         o.context.race?.race_date && Array.isArray(o.context.runners))
        officialContext=o.context;
    }catch{/* Unavailable optional context is not proof of zero positives. */}
+   const pairwiseTrace=payload.audit?.local16_full_field_pairwise_trace;
+   // Prospective opt-in only: an unverified trace can never claim to record
+   // 11/16-style pre-rank comparisons in the official immutable FROZEN.
+   // A normal claim without this optional trace retains the existing save path.
+   if(pairwiseTrace!==undefined && !officialContext)
+     throw Error("LOCAL16_PAIRWISE_CONTEXT_UNVERIFIED");
+   if(pairwiseTrace!==undefined &&
+      (!Array.isArray(pairwiseTrace)||JSON.stringify(pairwiseTrace).length>81920))
+     throw Error("LOCAL16_PAIRWISE_TRACE_SHAPE_INVALID");
    if(officialContext){
      const b=await claim(c,job_id);
      if(b.j.claim_token!==a.j.claim_token || b.r.id!==a.r.id)
        throw Error("CLAIM_CHANGED");
+     if(pairwiseTrace!==undefined){
+       const proof=auditLocal16FullFieldPairwise({
+         race:officialContext.race,
+         verifiedRunners:officialContext.runners,
+         facts:officialContext.official_past_content,
+         draft:payload,observationAt:new Date().toISOString(),
+         pairwiseTrace
+       });
+       if(proof.status!=="DOCUMENTED_UNCERTIFIED" &&
+          !(proof.status==="OBSERVED" && proof.code==="NO_VERIFIED_DIRECT_PAIRS" &&
+            pairwiseTrace.length===0))
+         throw Error("LOCAL16_PAIRWISE_TRACE_UNVERIFIED");
+       pairwise_trace_status=proof.status;
+     }
      const review=auditLocalEyeOmissions({
        race:officialContext.race,
        verifiedRunners:officialContext.runners,payload,
@@ -456,6 +480,6 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  if(data?.ok!==true||!uuid(data.prediction_id)||
    typeof data.already_saved!=="boolean")throw Error("SAVE_RESULT_INVALID");
  const result={ok:true,prediction_id:data.prediction_id,
-   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing};
+   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing,pairwise_trace_status};
  return {content:[{type:"text",text:JSON.stringify(result)}],structuredContent:result}}catch(e){const code=(e instanceof Error)?e.message:"";if(c && TERMINAL_EYE_CODES.has(code)){try{await closeFailedClaim(c,job_id,code);}catch{return {isError:true,content:[{type:"text",text:"QUEUE_STATE_UNAVAILABLE"}]};}}return {isError:true,content:[{type:"text",text:err(e)}]}}});
  return s});return handler.fetch(req)}));
