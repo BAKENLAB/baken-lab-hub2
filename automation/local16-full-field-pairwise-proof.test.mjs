@@ -17,7 +17,7 @@ function fixture(){
   horse_no:h.horse_no,horse_name:h.horse_name,rank:i+1,score:96-i*3})),
   audit:{protocol_version:protocol}};
  const pairwiseTrace=[{race_date:"2026-11-16",track:"大井",race_no:3,
-   horse_nos:[1,2],evidence_refs,
+   horse_nos:[1,2],evidence_refs:[...evidence_refs],
    rank_impact:"SUPPORTS_SAVED_ORDER",
    rank_rationale:"公式の同一レース直接対戦で1番が2番に先着。ただし今回の全条件を別途比較した。"}];
  return {race:{race_date:"2026-11-20",track:"大井",race_no:10,
