@@ -13,6 +13,7 @@ import {assertLocal16EvidenceHandoffForSave} from "./local-16-evidence-save-gate
 import {auditLocalEyeOmissions} from "./local-eye-omission-preflight.mjs";
 import {auditLocal16RankStability,canonicalLocal16Input} from "./local16-rank-reproducibility-audit.mjs";
 import {auditLocal16CriterionTrace} from "./local16-criterion-trace-preflight.mjs";
+import {verifyOptionalLocal16TraceForSave} from "./local16-optional-trace-save-gate.mjs";
 import {auditLocal16PreFreezeBoundary,auditLocal16HonmeiChallenge} from "./local16-pre-freeze-boundary-proof.mjs";
 import {auditLocal16FullFieldPairwise} from "./local16-full-field-pairwise-proof.mjs";
 import {LOCAL16_METHOD_CONTRACT} from "./local16-method-reference.mjs";
@@ -117,6 +118,8 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
    const output={
     race_date,track,race_no,status:String(result.status||"UNKNOWN"),
     stored:result.stored===true,linked_prior_runs:Number(result.linked_prior_runs)||0,
+    verified_race_lap_sets:Number(result.verified_race_lap_sets)||0,
+    verified_opponent_followups:Number(result.verified_opponent_followups)||0,
     read_count:Number(result.read_count)||0,
     verified_profile_horses:Number(result.verified_profile_horses)||0,
     claim_started:false,prediction_saved:false,
@@ -126,7 +129,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      structuredContent:output};
   }catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
  });
- s.registerTool("lab_claimed_context",{description:"Get verified full-field context for a live authorized LOCAL claim. Use original LOCAL1.6 independent 100-point all-horse assessment. official_past_content, live_ability_rank_input and local16_scoring_criteria are required inputs: review the official 13 criteria and 7 transfer checks for EVERY ACTIVE horse, cite favorable and unfavorable verified facts or explicit limitations before independently assigning 100 points, fixing rank/TOP5 and auditing EYE. If local16_scoring_criteria is NOT_READY, diagnose missing official evidence first, then independently re-audit every outsider for EYE. Course-transition aggregates and loss-with-merit flags are descriptive only; never invent full laps, incidents or opponent follow-up quality. Never substitute research scores or the unapproved 30/25/20/15/10 rubric, use odds/results, or alter existing FROZEN. Read-only.",inputSchema:z.object({job_id:z.string().uuid()}),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:true}},async({job_id})=>{try{await auth();const {u,k,c}=admin(),a=await claim(c,job_id);const res=await fetch(u+"/functions/v1/lab-claimed-context",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+k,apikey:k},body:JSON.stringify({run_id:a.r.id,job_id:a.j.id,claim_token:a.j.claim_token}),signal:AbortSignal.timeout(30000)});const o=await res.json().catch(()=>null);if(!res.ok||o?.ok!==true||!o?.context)throw Error(o?.error||"CONTEXT_UNAVAILABLE");const b=await claim(c,job_id);if(b.r.id!==a.r.id||b.j.claim_token!==a.j.claim_token)throw Error("CLAIM_CHANGED");return {content:[{type:"text",text:JSON.stringify({...o.context,local16_method_contract:LOCAL16_METHOD_CONTRACT})}]}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
+ s.registerTool("lab_claimed_context",{description:"Get verified full-field context for a live authorized LOCAL claim. Included local16_method_contract=LOCAL16_20261116_PRE_RANK_METHOD_V1 fixes whole-field historical opponent comparison BEFORE rank; never claim that verified evidence alone altered a score. Use original LOCAL1.6 independent 100-point all-horse assessment. official_past_content, live_ability_rank_input and local16_scoring_criteria are required inputs: review the official 13 criteria and 7 transfer checks for EVERY ACTIVE horse, cite favorable and unfavorable verified facts or explicit limitations before independently assigning 100 points, fixing rank/TOP5 and auditing EYE. If local16_scoring_criteria is NOT_READY, diagnose missing official evidence first, then independently re-audit every outsider for EYE. Course-transition aggregates and loss-with-merit flags are descriptive only; never invent full laps, incidents or opponent follow-up quality. Never substitute research scores or the unapproved 30/25/20/15/10 rubric, use odds/results, or alter existing FROZEN. Read-only.",inputSchema:z.object({job_id:z.string().uuid()}),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:true}},async({job_id})=>{try{await auth();const {u,k,c}=admin(),a=await claim(c,job_id);const res=await fetch(u+"/functions/v1/lab-claimed-context",{method:"POST",headers:{"content-type":"application/json",authorization:"Bearer "+k,apikey:k},body:JSON.stringify({run_id:a.r.id,job_id:a.j.id,claim_token:a.j.claim_token}),signal:AbortSignal.timeout(30000)});const o=await res.json().catch(()=>null);if(!res.ok||o?.ok!==true||!o?.context)throw Error(o?.error||"CONTEXT_UNAVAILABLE");const b=await claim(c,job_id);if(b.r.id!==a.r.id||b.j.claim_token!==a.j.claim_token)throw Error("CLAIM_CHANGED");return {content:[{type:"text",text:JSON.stringify({...o.context,local16_method_contract:LOCAL16_METHOD_CONTRACT})}]}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
 
 
  // The caller can inspect exactly WHICH official run is missing BEFORE it
@@ -252,9 +255,6 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        draft:inspected,observationAt:new Date().toISOString(),
        comparisons:inspected.audit?.local16_honmei_comparisons??null
      });
-     // 11/16 parity: make every verified prior same-race comparison explicitly
-     // accountable to its pre-rank decision, not merely present as raw data.
-     // Missing proof is reported, never silently treated as evidence of usage.
      const fullFieldProof=auditLocal16FullFieldPairwise({
        race:data.context.race,verifiedRunners:data.context.runners,
        facts:data.context.official_past_content,draft:inspected,
@@ -264,11 +264,9 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      const canonical=canonicalLocal16Input(data.context.race,data.context.runners);
      const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(canonical));
      const source_input_sha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
-     const result={...check,boundary_proof:boundaryProof,
+     const result={...check,claim_verified:true,save_authorized:false,
        reference_method_version:LOCAL16_METHOD_CONTRACT.version,
-       full_field_pairwise_proof:fullFieldProof,
-       honmei_challenge:honmeiChallenge,
-       claim_verified:true,save_authorized:false,
+       boundary_proof:boundaryProof,honmei_challenge:honmeiChallenge,full_field_pairwise_proof:fullFieldProof,
        source_input_sha256,source_input_fingerprint_type:"LOCAL16_VERIFIED_CONTEXT_PROJECTION_SHA256_V1",
        input_fingerprint_is_official_signature:false,
        certified_numeric_scorer:"NOT_AVAILABLE",
@@ -382,13 +380,13 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      return {content:[{type:"text",text:JSON.stringify(receipt)}],structuredContent:receipt};
    } catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
  });
- s.registerTool("lab_save_claimed_prediction",{description:"Save a completed BAKEN LAB LOCAL prediction only for the currently live claim. Uses the production guarded save RPC; no direct table writes.",inputSchema:z.object({job_id:z.string().uuid(),protocol_version:z.string().min(1).max(100),payload:z.object({runners:z.array(z.unknown()).min(1),top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),audit:z.record(z.string(),z.unknown())}).strict()}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async({job_id,protocol_version,payload})=>{let c:any=null;try{const user=await auth();c=admin().c;await claim(c,job_id);const original_payload=structuredClone(payload);payload=normalizePairEvidence(payload);assertLocal16NoUnauthorizedRubric(protocol_version,payload);assertLocalSaveDuringTransition({circuit:"LOCAL",protocol_version,payload});assertLocal16EvidenceHandoffForSave({protocol_version,payload});
+ s.registerTool("lab_save_claimed_prediction",{description:"Save a completed BAKEN LAB LOCAL prediction only for the currently live official CLAIM, through the guarded RPC. LOCAL1.6 may attach audit.local16_scoring_trace: for every ACTIVE horse, cite and judge all original 13 scoring criteria and 7 transfer checks (index, judgment, reason, evidence_refs), with score_reason plus the exact official score/rank. Use read-only lab_rank_repro_preflight first; save revalidates an attached trace against fresh verified context and persists it with FROZEN. Trace absent: ordinary guarded save remains available. A validated trace does NOT certify numeric score arithmetic. Never use market odds, target results, or unapproved scoring weights.",inputSchema:z.object({job_id:z.string().uuid(),protocol_version:z.string().min(1).max(100),payload:z.object({runners:z.array(z.unknown()).min(1),top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),audit:z.record(z.string(),z.unknown())}).strict()}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async({job_id,protocol_version,payload})=>{let c:any=null;try{const user=await auth();c=admin().c;await claim(c,job_id);const original_payload=structuredClone(payload);payload=normalizePairEvidence(payload);assertLocal16NoUnauthorizedRubric(protocol_version,payload);assertLocalSaveDuringTransition({circuit:"LOCAL",protocol_version,payload});assertLocal16EvidenceHandoffForSave({protocol_version,payload});
  // Evidence-coverage review is performed from a verified official CLAIM.
  // It never promotes an EYE, changes rank/score, or reads target results.
  // Context outages are reported but must not silently turn into an
  // invented "no positives" decision or destroy the existing save path.
  let eye_coverage_status="CONTEXT_UNVERIFIED",eye_coverage_missing=0;
- let pairwise_trace_status="ABSENT";
+ let traceVerificationContext=null;
  if(protocol_version==="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013"){
    const a=await claim(c,job_id),{u,k}=admin();
    let officialContext=null;
@@ -406,33 +404,11 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
         o.context.race?.race_date && Array.isArray(o.context.runners))
        officialContext=o.context;
    }catch{/* Unavailable optional context is not proof of zero positives. */}
-   const pairwiseTrace=payload.audit?.local16_full_field_pairwise_trace;
-   // Prospective opt-in only: an unverified trace can never claim to record
-   // 11/16-style pre-rank comparisons in the official immutable FROZEN.
-   // A normal claim without this optional trace retains the existing save path.
-   if(pairwiseTrace!==undefined && !officialContext)
-     throw Error("LOCAL16_PAIRWISE_CONTEXT_UNVERIFIED");
-   if(pairwiseTrace!==undefined &&
-      (!Array.isArray(pairwiseTrace)||JSON.stringify(pairwiseTrace).length>81920))
-     throw Error("LOCAL16_PAIRWISE_TRACE_SHAPE_INVALID");
    if(officialContext){
      const b=await claim(c,job_id);
      if(b.j.claim_token!==a.j.claim_token || b.r.id!==a.r.id)
        throw Error("CLAIM_CHANGED");
-     if(pairwiseTrace!==undefined){
-       const proof=auditLocal16FullFieldPairwise({
-         race:officialContext.race,
-         verifiedRunners:officialContext.runners,
-         facts:officialContext.official_past_content,
-         draft:payload,observationAt:new Date().toISOString(),
-         pairwiseTrace
-       });
-       if(proof.status!=="DOCUMENTED_UNCERTIFIED" &&
-          !(proof.status==="OBSERVED" && proof.code==="NO_VERIFIED_DIRECT_PAIRS" &&
-            pairwiseTrace.length===0))
-         throw Error("LOCAL16_PAIRWISE_TRACE_UNVERIFIED");
-       pairwise_trace_status=proof.status;
-     }
+     traceVerificationContext=officialContext;
      const review=auditLocalEyeOmissions({
        race:officialContext.race,
        verifiedRunners:officialContext.runners,payload,
@@ -448,6 +424,30 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      if(review.code==="EYE_FACTOR_SHARED_SINGLE_RUN_NOT_INDEPENDENT")
        throw Error("LOCAL_EYE_FACTOR_INDEPENDENCE_REQUIRED");
    }
+ }
+ const traceCheck=verifyOptionalLocal16TraceForSave({
+  protocolVersion:protocol_version,payload,
+  officialContext:traceVerificationContext,
+  auditTrace:auditLocal16CriterionTrace
+ });
+ let pairwise_trace_status="NOT_PROVIDED";
+ if(payload?.audit?.local16_full_field_pairwise_trace!==undefined){
+   const pairwiseTrace=payload.audit.local16_full_field_pairwise_trace;
+   if(!Array.isArray(pairwiseTrace)||JSON.stringify(pairwiseTrace).length>81920)
+     throw Error("LOCAL16_PAIRWISE_TRACE_SHAPE_INVALID");
+   if(!traceVerificationContext)
+     throw Error("LOCAL16_PAIRWISE_CONTEXT_UNVERIFIED");
+   const proof=auditLocal16FullFieldPairwise({
+     race:traceVerificationContext.race,
+     verifiedRunners:traceVerificationContext.runners,
+     facts:traceVerificationContext.official_past_content,
+     draft:payload,observationAt:new Date().toISOString(),
+     pairwiseTrace
+   });
+   if(proof.status!=="DOCUMENTED_UNCERTIFIED" &&
+      !(proof.status==="OBSERVED"&&proof.code==="NO_VERIFIED_DIRECT_PAIRS"&&pairwiseTrace.length===0))
+     throw Error("LOCAL16_PAIRWISE_TRACE_UNVERIFIED");
+   pairwise_trace_status=proof.status;
  }
  let shadow=null;
  // No optional evidence fetch may prevent the official save; use a strict timeout.
@@ -482,6 +482,6 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  if(data?.ok!==true||!uuid(data.prediction_id)||
    typeof data.already_saved!=="boolean")throw Error("SAVE_RESULT_INVALID");
  const result={ok:true,prediction_id:data.prediction_id,
-   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing,pairwise_trace_status};
+   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing,scoring_trace_status:traceCheck.status,pairwise_trace_status};
  return {content:[{type:"text",text:JSON.stringify(result)}],structuredContent:result}}catch(e){const code=(e instanceof Error)?e.message:"";if(c && TERMINAL_EYE_CODES.has(code)){try{await closeFailedClaim(c,job_id,code);}catch{return {isError:true,content:[{type:"text",text:"QUEUE_STATE_UNAVAILABLE"}]};}}return {isError:true,content:[{type:"text",text:err(e)}]}}});
  return s});return handler.fetch(req)}));
