@@ -23,7 +23,7 @@ test("full-field pre-rank proof runs on verified live CLAIM read-only route",()=
  assert.match(tool,/save_authorized:false/);
  assert.doesNotMatch(tool,/\.rpc\(|UPDATE official_predictions|\.upsert\(/);
  assert.match(save,/const pairwiseTrace=payload.audit\?\.local16_full_field_pairwise_trace/);
- assert.match(save,/if\(pairwiseTrace!==undefined && !officialContext\)/);
+ assert.match(save,/if\(!traceVerificationContext\)/);
  assert.match(save,/const proof=auditLocal16FullFieldPairwise/);
  assert.match(save,/facts:officialContext.official_past_content/);
  assert.match(save,/pairwise_trace_status=proof.status/);
