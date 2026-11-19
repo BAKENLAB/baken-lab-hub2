@@ -131,7 +131,7 @@
 <section id="board" aria-label="5レース比較ボード"><div class="board-head"><div><h2>対象5レース｜一括比較</h2><p>馬名の行をタップして候補を選択。順位はHUBの保存時点のまま表示。</p></div><div class="demo-pill"><span class="dot"></span>2026/11/15 保存データで表示中</div></div>
 <div class="status-grid status-grid-updated">
   <div class="stat"><div class="stat-label">HUB FROZEN / 公開状況</div><div class="stat-value good" id="published-count">5 / 5 <span style="font-size:12px">公開済み</span></div><div class="stat-sub" id="published-note">11月15日の実際の保存済みデータ</div><div class="stage-controls" aria-label="試作版の公開状況を切り替える"><span>表示テスト：</span><button type="button" data-stage="1">1/5</button><button type="button" data-stage="4">4/5</button><button type="button" data-stage="5" class="active">5/5</button></div></div>
-  <div class="stat deadline-stat"><div class="stat-label">WIN5発売締切 <span class="demotag">カウントダウン体験</span></div>
+  <div class="stat deadline-stat"><div class="stat-label">WIN5発売締切の目安 <span class="demotag">カウントダウン体験</span></div>
     <div class="deadline-values"><div><div class="deadline-label">締切時刻</div><div class="stat-value">14:40</div></div>
       <div class="deadline-div"><div class="deadline-label">残り時間（時:分:秒） <span class="demo-red">DEMO</span></div><div id="countdown-clock" class="countdown-clock" aria-live="off">00:04:01</div></div></div>
     <div class="deadline-foot"><span id="countdown-note">5/5反映後の締切までを再現する仮想タイマー。実際の時刻ではありません。</span><button id="countdown-reset" class="reset-timer" type="button">4分01秒から再生</button></div>
@@ -314,6 +314,7 @@ async function loadLiveLab5(){
   if(response.status===401||response.status===403){location.replace('/login.html?next='+encodeURIComponent(location.pathname+location.search));return}
   if(!response.ok)throw Error('HTTP '+response.status);
   const data=await response.json();if(data?.ok!==true)throw Error('HUB情報取得エラー');
+  if(document.getElementById('lab5-date')?.value!==date)return;
   const found=liveCandidateRaces(data.races);
   const next=found.map(liveRace);
   const before=RACES.slice(),old=selections.map(x=>new Set(x));
