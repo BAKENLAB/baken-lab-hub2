@@ -34,6 +34,7 @@ const recentPodiums = (horse, race) => horse.recent_runs.filter(run => {
 /** The 5/6 comparison is mandatory for a narrow gap in this diagnostic.
  * No arbitrary score coefficients and no approval to publish are produced.
  */
+/** @param {{race?:any,verifiedRunners?:any[],draft?:any,observationAt?:string,comparison?:any}} [args] */
 export function auditLocal16PreFreezeBoundary({
   race, verifiedRunners, draft, observationAt, comparison = null
 } = {}) {
