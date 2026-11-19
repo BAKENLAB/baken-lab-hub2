@@ -4,6 +4,7 @@ on:
     paths:
       - 'automation/local16-pre-freeze-boundary-proof.mjs'
       - 'automation/local16-pre-freeze-boundary-proof.test.mjs'
+      - 'automation/local16-honmei-challenge.test.mjs'
       - 'supabase/functions/local-claimed-mcp/index.ts'
       - 'supabase/functions/local-claimed-mcp/local16-pre-freeze-boundary-proof.mjs'
       - 'research/local16-boundary-preflight-wiring.test.mjs'
@@ -23,4 +24,4 @@ jobs:
         with:
           node-version: '22'
       - name: Boundary pre-freeze evidence checks
-        run: node --test automation/local16-pre-freeze-boundary-proof.test.mjs research/local16-boundary-preflight-wiring.test.mjs
+        run: node --test automation/local16-pre-freeze-boundary-proof.test.mjs automation/local16-honmei-challenge.test.mjs research/local16-boundary-preflight-wiring.test.mjs
