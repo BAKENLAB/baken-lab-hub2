@@ -108,3 +108,67 @@ export function auditLocal16PreFreezeBoundary({
     {boundary:clues,review_documented:true,
      explanation:"Two-sided evidence is recorded, but 100-point arithmetic is not independently certified."});
 }
+
+
+/**
+ * Rank-1 qualitative challenge against credible TOP5 runners. The count of
+ * same-track/distance podiums is ONLY a review trigger, never a score weight.
+ * No proposed favorite or score is generated.
+ * @param {{race?:any,verifiedRunners?:any[],draft?:any,observationAt?:string,comparisons?:any[]}} [args]
+ */
+export function auditLocal16HonmeiChallenge({
+  race,verifiedRunners,draft,observationAt,comparisons=null
+}={}) {
+ const base=auditLocal16PreFreezeBoundary({
+   race,verifiedRunners,draft,observationAt,comparison:null
+ });
+ if(base.status==="INVALID")
+   return verdict("INVALID",base.code,{review_scope:"HONMEI_TOP5"});
+ const ranked=[...draft.runners].sort((a,b)=>a.rank-b.rank);
+ const byNo=new Map(verifiedRunners.map(h=>[h.horse_no,h]));
+ const ace=ranked[0],aceHistory=byNo.get(ace.horse_no);
+ const acePodiums=recentPodiums(aceHistory,race);
+ const flagged=ranked.slice(1,5).filter(r=>{
+   const podiums=recentPodiums(byNo.get(r.horse_no),race);
+   return (ace.score-r.score<=4) || (acePodiums===0 && podiums>0);
+ }).map(r=>({
+   horse_no:r.horse_no,rank:r.rank,score:r.score,score_gap:ace.score-r.score,
+   same_venue_distance_podiums_120d:recentPodiums(byNo.get(r.horse_no),race),
+   reason:ace.score-r.score<=4?"CLOSE_SCORE":"ACE_LACKS_RECENT_SAME_CONDITION_PODIUM"
+ }));
+ const scope={ace_horse_no:ace.horse_no,ace_score:ace.score,
+   ace_same_venue_distance_podiums_120d:acePodiums,
+   challengers:flagged};
+ if(flagged.length===0)
+   return verdict("OBSERVED","NO_SPECIFIC_HONMEI_CHALLENGE_SIGNAL",
+     {review_scope:"HONMEI_TOP5",scope});
+ if(!Array.isArray(comparisons) || comparisons.length!==flagged.length)
+   return verdict("REVIEW_REQUIRED","HONMEI_TWO_SIDED_REVIEW_MISSING",
+     {review_scope:"HONMEI_TOP5",scope});
+ const matches=new Set();
+ for(const x of comparisons){
+   const challenged=flagged.find(y=>y.horse_no===x?.challenger_horse_no);
+   const challenger=challenged&&byNo.get(challenged.horse_no);
+   if(!challenged||matches.has(challenged.horse_no)||
+      !["KEEP_HONMEI","REVISE_DRAFT","UNDECIDED"].includes(x.conclusion)||
+      !text(x.honmei_advantage_reason)||
+      !text(x.challenger_counter_case_reason)||
+      forbidden.test(x.honmei_advantage_reason)||
+      forbidden.test(x.challenger_counter_case_reason)||
+      !Array.isArray(x.honmei_evidence_refs)||!Array.isArray(x.challenger_evidence_refs)||
+      !x.honmei_evidence_refs.length||!x.challenger_evidence_refs.length||
+      x.honmei_evidence_refs.length>5||x.challenger_evidence_refs.length>5||
+      x.honmei_evidence_refs.some(ref=>!reference(ref,aceHistory))||
+      x.challenger_evidence_refs.some(ref=>!reference(ref,challenger)))
+     return verdict("INVALID","HONMEI_CHALLENGE_UNSUPPORTED",
+       {review_scope:"HONMEI_TOP5",scope});
+   matches.add(challenged.horse_no);
+   if(x.conclusion!=="KEEP_HONMEI")
+     return verdict("REVIEW_REQUIRED","HONMEI_RANK_UNRESOLVED",
+       {review_scope:"HONMEI_TOP5",scope,review_documented:true});
+ }
+ return verdict("PROOF_DOCUMENTED_UNCERTIFIED",
+   "HONMEI_CHALLENGERS_REFERENCES_RECORDED",
+   {review_scope:"HONMEI_TOP5",scope,review_documented:true,
+    explanation:"Every flagged challenger reviewed with separate official evidence; numeric LOCAL1.6 score is still uncertified."});
+}
