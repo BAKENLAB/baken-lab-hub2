@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b0f">
+<title>LAB 5｜WIN5選択ボード｜BAKEN LAB HUB</title>
+<style>
+:root{color-scheme:dark;--bg:#090b0f;--panel:#12161d;--panel2:#171d25;--ink:#f4f7f5;--muted:#99a5ae;--soft:#67747e;--lime:#c8ff4d;--gold:#f8d36a;--line:#2c343d;--warn:#ffb260;--red:#f47b7b;--cyan:#7be0d6;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;color:var(--ink);background:radial-gradient(circle at 85% -7%,rgba(200,255,77,.11),transparent 38%),radial-gradient(circle at 0% 35%,rgba(45,67,80,.15),transparent 39%),var(--bg);font-size:14px;line-height:1.55}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,textarea:focus-visible{outline:3px solid var(--lime);outline-offset:3px}a{color:inherit}.container{max-width:1270px;margin:auto;padding:0 22px 125px}
+.topbar{border-bottom:1px solid #222930;background:rgba(9,11,15,.87)}.topin{max-width:1270px;margin:auto;min-height:68px;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:13px}.mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid #62753f;border-radius:12px;background:#1c291b;color:var(--lime);font-size:25px;font-weight:950;box-shadow:0 0 22px rgba(200,255,77,.12)}.brand strong{display:block;font-size:13px;letter-spacing:.15em}.brand small{display:block;color:#8a969d;font-weight:750;font-size:10px;letter-spacing:.11em}.topright{display:flex;align-items:center;gap:12px;color:#909ba4;font-size:11px;font-weight:750}.topright .chip{border:1px solid #506035;color:var(--lime);border-radius:999px;padding:4px 10px;font-size:10px;white-space:nowrap}
+.hero{padding:36px 0 24px;display:flex;justify-content:space-between;gap:20px;align-items:flex-end}.eyebrow{font-weight:950;font-size:10px;letter-spacing:.24em;color:var(--lime)}h1{font-size:clamp(50px,8.2vw,86px);line-height:.95;letter-spacing:-.075em;margin:10px 0 14px;font-weight:1000}h1 span{color:var(--lime)}.hero p{max-width:710px;color:#bdc6cb;font-size:14px;margin:0;line-height:1.85}.hero .hero-art{flex:0 0 auto;width:154px;height:154px;border:1px solid #3f5030;border-radius:28px;background:radial-gradient(circle at center,rgba(200,255,77,.19),rgba(200,255,77,.015) 64%);display:grid;place-items:center;transform:rotate(-6deg)}.hero-art span{font-size:80px;font-weight:1000;letter-spacing:-.1em;color:var(--lime);filter:drop-shadow(0 7px 18px rgba(200,255,77,.25))}
+.alert-strip{border-radius:15px;border:1px solid rgba(248,211,106,.31);background:linear-gradient(90deg,rgba(248,211,106,.105),rgba(248,211,106,.018));padding:15px 19px;display:grid;grid-template-columns:auto 1fr;gap:15px;margin-bottom:17px}.alert-ico{width:32px;height:32px;border-radius:50%;background:rgba(248,211,106,.15);display:grid;place-items:center;color:var(--gold);font-size:19px;font-weight:900}.alert-strip strong{color:#ffdf8e}.alert-strip p{margin:3px 0 0;font-size:12px;color:#bbc2c7;line-height:1.75}
+.history{border:1px solid var(--line);background:linear-gradient(115deg,#171c22,#101419);border-radius:18px;padding:18px;margin-bottom:24px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.section-head .kicker{font-size:10px;font-weight:900;color:#9aacb8;letter-spacing:.13em}.section-head h2{font-size:16px;margin:2px 0 0}.help-note{font-size:11px;color:#808d96}.history-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}.history-item{border:1px solid #344030;border-radius:12px;padding:13px 12px;background:linear-gradient(180deg,rgba(200,255,77,.06),rgba(200,255,77,.02))}.history-item small{font-size:11px;color:#b7c1b9}.history-item strong{display:block;font-size:clamp(18px,2.8vw,28px);line-height:1.3;color:var(--lime);margin-top:4px;white-space:nowrap}.history-item .hit{display:block;color:#b7cbc1;font-weight:850;font-size:10px;margin-top:5px}.history-foot{font-size:10px;line-height:1.8;color:#8f9ba3;margin:12px 2px 0}
+.board-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-top:29px;margin-bottom:14px}.board-head h2{margin:0;font-size:23px;letter-spacing:-.03em}.board-head p{margin:5px 0 0;font-size:12px;color:#9da9b4}.demo-pill{display:flex;align-items:center;gap:8px;border-radius:999px;background:rgba(123,224,214,.08);border:1px solid rgba(123,224,214,.36);padding:8px 12px;color:var(--cyan);font-size:11px;font-weight:900}.demo-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+.status-grid{display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:10px;margin-bottom:16px}.stat{border:1px solid var(--line);border-radius:14px;background:#11171e;padding:14px 16px}.stat-label{font-size:10px;font-weight:850;color:#8997a1;letter-spacing:.04em}.stat-value{font-size:26px;font-weight:1000;line-height:1.3;margin-top:4px;letter-spacing:-.025em}.stat-value.good{color:var(--lime)}.stat-value.warning{color:var(--gold)}.stat-sub{font-size:10px;color:#9ba6ae;margin-top:3px}.timebar{border:1px solid rgba(244,123,123,.33);border-radius:13px;background:rgba(244,123,123,.055);padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:22px}.timebar svg{flex:0 0 auto}.timebar strong{color:#ffb7b2}.timebar span{font-size:11px;color:#aeb6bf}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:14px 0}.toolbar .hint{font-size:11px;color:#8e9aa3}.buttons{display:flex;gap:7px;flex-wrap:wrap}.action{border:1px solid #3a464f;background:#171e24;color:#dae2e6;font-size:11px;font-weight:850;border-radius:9px;padding:8px 12px}.action:hover{border-color:#8fa94d}.action.primary{border-color:#678a38;background:#263b1f;color:var(--lime)}.action.warn{color:#dda3a3}.action:active{transform:translateY(1px)}
+.races{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.race{border-radius:18px;overflow:hidden;border:1px solid #303a44;background:linear-gradient(145deg,#141b23,#11161c);min-width:0}.race-head{display:flex;gap:13px;align-items:center;padding:16px 16px 14px;border-bottom:1px solid #28323b}.leg-number{min-width:46px;width:46px;height:54px;border-radius:11px;display:grid;place-items:center;background:#252f24;color:var(--lime);font-size:29px;font-weight:1000;line-height:1;letter-spacing:-.06em}.leg-number small{display:block;color:#adc78e;font-size:8px;letter-spacing:.09em;margin-top:-4px}.race-title{flex:1;min-width:0}.race-title .meta{color:#98a4af;font-size:11px;font-weight:850}.race-title h3{font-size:clamp(14px,1.6vw,18px);line-height:1.4;margin:3px 0 0;font-weight:950}.race-time{text-align:right;white-space:nowrap}.race-time strong{font-weight:1000;font-size:20px}.race-time small{display:block;color:#8a97a2;font-size:10px}.ranks-title{display:grid;grid-template-columns:30px 36px minmax(0,1.4fr) minmax(0,.92fr) 52px 25px;gap:7px;padding:12px 15px 8px;font-size:9px;font-weight:850;letter-spacing:.03em;color:#7e8d99}.rank-list{padding:0 10px}.runner{min-width:0;width:100%;display:grid;grid-template-columns:30px 36px minmax(0,1.4fr) minmax(0,.92fr) 52px 25px;gap:7px;align-items:center;padding:11px 5px;border-top:1px solid #273038;cursor:pointer;transition:background .12s,border-color .12s;border-radius:7px}.runner:hover{background:rgba(200,255,77,.045)}.runner.selected{background:rgba(200,255,77,.10);outline:1px solid rgba(200,255,77,.29)}.rank-no{font-weight:1000;font-size:14px;text-align:center;color:#a8b3bb}.runner:nth-child(1) .rank-no{color:var(--lime)}.runner:nth-child(2) .rank-no{color:#d4e0e5}.runner:nth-child(3) .rank-no{color:#e2b886}.number{width:32px;height:32px;border-radius:9px;border:1px solid #59636a;background:#242e36;display:grid;place-items:center;font-weight:1000;font-size:16px;color:#fff}.runner .name{font-weight:930;font-size:12px;line-height:1.42;min-width:0;overflow-wrap:anywhere}.runner .jockey{font-size:10px;color:#aeb9c1;min-width:0;overflow-wrap:anywhere}.runner .odds{text-align:right;color:#a4b0b9;font-size:12px;font-weight:850}.runner input{width:20px;height:20px;accent-color:var(--lime);cursor:pointer;margin:0;justify-self:center}.race-actions{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:10px 15px 13px;border-top:1px solid #27313a;margin-top:9px}.race-actions small{color:#8896a1;font-size:10px}.race-actions .buttons .action{padding:6px 10px;font-size:10px}.race:nth-child(5){grid-column:1 / -1}.race:nth-child(5) .rank-list{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}.race:nth-child(5) .runner:nth-child(2){border-top:1px solid #273038}
+.notice{margin-top:23px;padding:18px 20px;border-radius:15px;border:1px solid #343e43;background:#11171b}.notice h3{margin:0 0 8px;font-size:14px}.notice p{margin:0;color:#9aa7af;font-size:12px;line-height:1.9}.notice p+p{margin-top:5px}.pagefoot{font-size:10px;color:#626d74;margin:18px 0 8px;text-align:center}
+.dock{position:fixed;left:0;right:0;bottom:0;background:rgba(13,17,22,.95);border-top:1px solid #40503a;backdrop-filter:blur(16px);z-index:30;box-shadow:0 -10px 35px rgba(0,0,0,.37)}.dock-in{max-width:1270px;min-height:87px;margin:auto;display:flex;justify-content:space-between;gap:15px;align-items:center;padding:11px 22px max(12px,env(safe-area-inset-bottom))}.dock-summary{display:flex;gap:26px;align-items:center;flex-wrap:wrap}.dock-label{font-size:10px;color:#94a3a4;font-weight:850}.dock-number{font-size:28px;color:var(--lime);font-weight:1000;line-height:1.2;letter-spacing:-.04em}.dock-note{font-size:10px;color:#9da8ae}.dock-note.alert{color:var(--warn)}.dock-btns{display:flex;gap:9px}.dock-btn{border:1px solid #6a8939;border-radius:11px;background:#c8ff4d;color:#14220b;font-weight:1000;padding:14px 20px;font-size:12px}.dock-btn:disabled{opacity:.5;cursor:not-allowed}.dock-btn.subtle{background:#19211c;color:#d1e3c0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1100px){.races{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.container{padding:0 15px 125px}.topin{padding:12px 15px}.hero{padding-top:27px}.hero-art{width:95px!important;height:95px!important;border-radius:20px!important}.hero-art span{font-size:51px}.races{grid-template-columns:1fr}.race:nth-child(5){grid-column:auto}.race:nth-child(5) .rank-list{display:block}.dock-summary{gap:14px}}
+@media(max-width:540px){.hero{padding:26px 0 18px}.hero-art{display:none!important}.hero p{font-size:12px}.alert-strip{padding:13px;gap:10px}.history{padding:14px}.history-grid{grid-template-columns:1fr 1fr;gap:8px}.history-item:nth-child(3){grid-column:1 / -1}.history-item strong{font-size:20px}.history-foot{font-size:9px}.status-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.stat{padding:11px 8px;border-radius:10px}.stat-label{font-size:9px}.stat-value{font-size:21px}.stat-sub{font-size:9px}.timebar{padding:12px;align-items:flex-start}.ranks-title{grid-template-columns:25px 31px minmax(0,1.5fr) minmax(0,.85fr) 38px 20px;gap:5px;padding:10px 10px 5px}.rank-list{padding:0 6px}.runner{grid-template-columns:25px 31px minmax(0,1.5fr) minmax(0,.85fr) 38px 20px;gap:5px;padding:11px 4px}.runner .name{font-size:11px}.runner .jockey{font-size:9px}.number{width:29px;height:29px;font-size:14px}.runner input{height:18px;width:18px}.ranks-title{font-size:8px}.race-head{padding:12px}.race-time strong{font-size:18px}.race-title h3{font-size:15px}.dock-in{min-height:90px;padding:9px 11px max(9px,env(safe-area-inset-bottom))}.dock-number{font-size:22px}.dock-summary{gap:9px}.dock-label{font-size:9px}.dock-note{font-size:9px;max-width:125px;line-height:1.3}.dock-btns{gap:6px}.dock-btn{padding:11px 12px;font-size:10px}.topright span:not(.chip){display:none}}
+@media(max-width:370px){.dock-note{max-width:100px}.race-time strong{font-size:15px}.race-head{gap:8px}.leg-number{width:38px;min-width:38px;height:48px;font-size:26px}.runner .jockey{font-size:8.5px}.runner .name{font-size:10.5px}.race-actions{padding:10px}.race-actions small{font-size:9px}}
+
+/* LAB 5：相対時刻の動作デモ。過去データの値とは明確に分離 */
+.countdown-demo{margin:-8px 0 24px;padding:15px 17px;border-radius:14px;border:1px solid rgba(200,255,77,.34);background:linear-gradient(115deg,rgba(200,255,77,.09),rgba(200,255,77,.025))}.countdown-row{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.countdown-heading{color:#c8ff4d;font-size:11px;font-weight:1000;letter-spacing:.06em}.countdown-clock{font-size:34px;font-weight:1000;line-height:1.3;font-variant-numeric:tabular-nums;letter-spacing:.03em}.countdown-clock.end{color:#ff8b8b;font-size:23px}.countdown-explain{margin:5px 0 11px;font-size:11px;color:#aeb9c1;line-height:1.7}.countdown-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.countdown-demo button{padding:8px 13px;border-radius:9px;border:1px solid #6b923b;background:#293a22;color:var(--lime);font-size:11px;font-weight:900}.countdown-demo button.secondary{border-color:#4a565d;background:#182028;color:#b9c5cc}
+
+/* WIN5締切表示と残り時間をひとつのパネルにまとめる */
+.status-grid.status-grid-updated{grid-template-columns:1fr 1.7fr}
+.deadline-stat{border-color:rgba(248,211,106,.35);background:linear-gradient(110deg,#1d211e,#11171e)}
+.deadline-values{display:grid;grid-template-columns:1fr 1.12fr;align-items:end;gap:12px;margin-top:9px}
+.deadline-div{padding-left:15px;border-left:1px solid #444d4a}
+.deadline-label{font-size:10px;font-weight:850;color:#aebabb}
+.deadline-values .stat-value{font-size:32px}
+.deadline-stat .countdown-clock{white-space:nowrap;font-size:32px;line-height:1.18;color:var(--gold);font-variant-numeric:tabular-nums;font-weight:1000;letter-spacing:.015em}
+.deadline-stat .countdown-clock.end{font-size:19px;color:#ff8b8b;padding:8px 0}
+.demotag{font-size:9px;font-weight:850;color:#ffca71;margin-left:6px}
+.demo-red{color:#ff8585;font-size:9px;font-weight:950}
+.timer-options{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.deadline-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;color:#9da9a5;font-size:9px}
+.reset-timer{border:1px solid #6a854a;border-radius:7px;background:#202f20;color:var(--lime);font-size:10px;font-weight:900;padding:6px 8px;white-space:nowrap}
+.progress-note{display:flex;gap:9px;align-items:baseline;border-radius:11px;background:rgba(200,255,77,.045);border:1px solid rgba(200,255,77,.16);margin:-3px 0 15px;padding:10px 13px;font-size:11px;color:#b6c3c1}
+.progress-note strong{flex:0 0 auto;color:var(--lime)}
+@media(max-width:540px){.status-grid.status-grid-updated{grid-template-columns:1fr;gap:7px}.deadline-stat{padding:10px!important}.deadline-values{gap:7px}.deadline-div{padding-left:9px}.deadline-label{font-size:9px}.deadline-values .stat-value{font-size:24px}.deadline-stat .countdown-clock{font-size:clamp(24px,7vw,34px)}.deadline-foot{font-size:8px;flex-wrap:wrap}.progress-note{display:block;font-size:10px}.progress-note strong{display:block;margin-bottom:4px}.demotag{display:none}}
+
+/* v4: レースを上から順に確認し、最下部で買い目を一覧できる */
+.races,.race:nth-child(5){grid-template-columns:1fr;max-width:900px;margin-left:auto;margin-right:auto}
+.race:nth-child(5){grid-column:auto}.race:nth-child(5) .rank-list{display:block}
+.race-actions{justify-content:flex-end;margin-top:0;padding:9px 17px 12px}.race-actions small{font-size:11px;color:var(--lime);font-weight:850}
+.race.waiting{opacity:.65;border-style:dashed}.waiting-copy{padding:28px 18px;text-align:center;color:#a2adb5;font-size:12px;line-height:1.85}.waiting-copy strong{display:block;color:#f3d997;margin-bottom:5px}
+.stage-controls{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:11px;color:#98a6a7;font-size:9px;font-weight:900}.stage-controls button{border:1px solid #42503d;border-radius:7px;background:#1c2720;color:#b8c5b3;padding:4px 9px;font-size:10px;font-weight:900}.stage-controls button.active{color:var(--lime);border-color:#8bac51;background:#293d25}
+.deadline-stat .countdown-clock.pending{font-size:clamp(13px,1.7vw,17px);line-height:1.4;color:#c4d0d8;letter-spacing:0;white-space:normal}
+.review{max-width:900px;margin:28px auto 22px;padding:22px;border:1px solid #708d43;border-radius:20px;background:linear-gradient(155deg,#17251a,#11181b 35%,#11171c);scroll-margin-top:18px}
+.review-heading{display:flex;gap:12px;flex-wrap:wrap;align-items:start;justify-content:space-between;margin-bottom:17px}.review h2{font-size:clamp(21px,3vw,29px);line-height:1.4;margin:5px 0}.review-heading p{font-size:11px;color:#9fadb2;margin:0}.review-readonly{padding:5px 9px;border:1px solid #49534c;border-radius:99px;color:#b1bfab;font-size:10px;font-weight:800}
+.review-legs{display:grid;gap:8px}.review-leg{border:1px solid #344339;background:rgba(8,12,13,.38);border-radius:12px;padding:13px 14px}.review-leg-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}.review-leg-head strong{font-size:13px}.review-leg-head small{color:#a4b2ac;font-size:10px}.review-leg-head .review-edit{color:#bfe783;text-decoration:none;font-size:10px;font-weight:900;white-space:nowrap}
+.review-horses{display:flex;flex-wrap:wrap;gap:6px}.review-horse{display:flex;gap:7px;align-items:center;border:1px solid #4b6a3b;background:rgba(200,255,77,.07);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;line-height:1.35}.review-horse b{color:var(--lime);font-size:16px;white-space:nowrap}.review-horse small{display:block;color:#9daeb4;font-size:9px;font-weight:650}.review-empty{font-size:11px;color:#89979c}
+.review-totals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:17px}.review-totals>div{padding:12px;border:1px solid #41523f;border-radius:10px;background:#19241d;min-width:0}.review-totals small{display:block;font-size:9px;color:#abb9ac}.review-totals strong{display:block;font-size:clamp(13px,2.7vw,21px);color:var(--lime);font-weight:1000;line-height:1.3;margin-top:5px;overflow-wrap:anywhere}
+.review-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px;flex-wrap:wrap}.review-bottom p{margin:0;color:#c8d2bc;font-size:11px}.review-copy{border:1px solid #b9e36d;background:var(--lime);color:#17210c;font-size:12px;font-weight:950;border-radius:10px;padding:13px 17px}.review-copy:disabled{opacity:.4;cursor:not-allowed}.review-disclaimer{font-size:10px;color:#8c9b99;margin-top:12px}
+.dock .dock-btn.subtle{text-decoration:none;display:block;border-color:#4b693c;color:var(--lime);padding:10px 15px;font-size:11px}.dock-in{min-height:65px}.dock-number{font-size:24px}
+@media(max-width:540px){.review{padding:14px 11px}.review-legs{gap:7px}.review-leg{padding:11px 10px}.review-totals{grid-template-columns:repeat(3,minmax(0,1fr))}.review-totals>div{padding:9px 7px}.review-totals strong{font-size:clamp(12px,4vw,16px)}.review-horse{padding:6px 8px;font-size:10px}.review-horse b{font-size:15px}.dock-in{min-height:68px}.dock-number{font-size:20px}.stage-controls button{padding:5px 9px}}
+
+/* v5: 上部の統合ガイドを開閉式にし、項目の見出しを色分け */
+.guide{margin:2px 0 20px;border:1px solid rgba(248,211,106,.42);border-radius:15px;background:linear-gradient(110deg,rgba(248,211,106,.085),rgba(20,26,31,.9) 70%);overflow:hidden;scroll-margin-top:12px}
+.guide>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:16px 18px;min-height:72px;user-select:none}
+.guide>summary::-webkit-details-marker{display:none}
+.guide>summary:focus-visible{outline:2px solid var(--lime);outline-offset:-4px;border-radius:12px}
+.guide-alert{flex:0 0 auto;display:grid;place-items:center;height:32px;width:32px;border:1px solid #957337;border-radius:50%;background:rgba(248,211,106,.1);font-size:18px;font-weight:1000;color:var(--gold)}
+.guide-summary-copy{display:block;flex:1;min-width:0}
+.guide-summary-copy strong{display:block;font-size:14px;color:#ffdf93;line-height:1.4}
+.guide-summary-copy small{display:block;margin-top:4px;font-size:11px;color:#aeb9bd;font-weight:600;line-height:1.5}
+.guide-toggle{display:flex;align-items:center;gap:5px;color:var(--gold);font-size:11px;white-space:nowrap;font-weight:900}
+.guide-chevron{display:inline-block;font-size:18px;transition:transform .15s ease}
+.guide[open] .guide-chevron{transform:rotate(180deg)}.guide-close-label{display:none}.guide[open] .guide-open-label{display:none}.guide[open] .guide-close-label{display:inline}
+.guide-body{padding:0 18px 16px;border-top:1px solid rgba(248,211,106,.19);background:#11171b}
+.guide-item{padding:17px 0 14px;border-bottom:1px solid #2c343d}
+.guide-heading{display:flex;align-items:center;gap:7px;margin:0 0 9px;font-size:13px;font-weight:950;letter-spacing:.01em}
+.guide-heading>span{display:inline-flex;justify-content:center;align-items:center;width:21px;height:21px;border-radius:6px;background:currentColor;font-size:15px;font-weight:900}
+.guide-heading>span::first-letter{color:#10151a}
+.guide-heading-gold{color:#ffd078}.guide-heading-lime{color:#c8ff4d}.guide-heading-cyan{color:#7be0d6}.guide-heading-red{color:#ffa09c}.guide-heading-muted{color:#a5b4c2}
+.guide-heading>span{background:rgba(255,255,255,.07);border:1px solid currentColor}
+.guide-item p{color:#c0c9cd;font-size:12px;line-height:1.85;margin:0}
+.guide-item p+p{margin-top:7px}.guide-item strong{color:#f4f7f5}
+.guide-demo-note{border-bottom:0}.guide-demo-note p{color:#a7b3bd}
+.guide-footer{display:flex;justify-content:flex-end;border-top:1px solid #2c343d;padding-top:15px}
+.guide-close-btn{min-width:150px;border:1px solid #8b975e;background:#273321;border-radius:9px;color:var(--lime);font-size:12px;font-weight:900;padding:11px 20px}
+.guide-close-btn:hover{background:#34452a}
+@media(max-width:540px){.guide{margin-bottom:14px}.guide>summary{gap:9px;padding:13px 12px}.guide-summary-copy strong{font-size:12px}.guide-summary-copy small{font-size:9px}.guide-toggle{font-size:10px}.guide-body{padding:0 12px 13px}.guide-item{padding:14px 1px 12px}.guide-heading{font-size:12px}.guide-item p{font-size:11px}.guide-footer{justify-content:stretch}.guide-close-btn{width:100%;min-height:42px}}
+</style>
+<style>.live-controls{display:flex;align-items:center;flex-wrap:wrap;gap:9px;padding:12px;margin:0 0 16px;background:#141d22;border:1px solid #33433e;border-radius:12px}.live-controls label{font-weight:850;font-size:12px;display:flex;align-items:center;gap:7px}.live-controls input{color:#fff;background:#1d262c;border:1px solid #536166;border-radius:8px;padding:7px}.live-controls button,.live-controls a{font-size:11px;font-weight:900;color:#c8ff4d;text-decoration:none;background:#283923;border:1px solid #566c43;border-radius:9px;padding:8px 10px}.live-controls small{flex-basis:100%;font-size:10px;color:#a5b7bb}</style></head>
+<body>
+<header class="topbar"><div class="topin"><div class="brand"><div class="mark">5</div><div><strong>BAKEN LAB</strong><small>馬券に、理由を。</small></div></div><div class="topright"><span>LAB HUB / NEW CONTENT</span><span class="chip">試作・過去検証デモ</span></div></div></header>
+<main class="container">
+<section class="hero"><div><div class="eyebrow">WIN5 SELECTION BOARD</div><h1>LAB <span>5</span><span style="color:#7f8d95;font-size:clamp(19px,3.2vw,30px);letter-spacing:-.03em;margin-left:13px">/ WIN5</span></h1><p><b style="color:#fff">HUBの上位5頭を、5レースまとめて。</b> レースを行き来せず、馬番・馬名・ジョッキー・オッズを一画面で比較。自分で選び、点数と金額をその場で確認できるWIN5専用ボード。</p></div><div class="hero-art" aria-hidden="true"><span>5</span></div></section>
+<details class="guide" id="usage-guide">
+  <summary id="usage-guide-trigger">
+    <span class="guide-alert" aria-hidden="true">!</span>
+    <span class="guide-summary-copy">
+      <strong>お読みください｜LAB 5の使い方・締切について</strong>
+      <small>5レース目の反映と残り時間・順位・オッズ・購入時の注意</small>
+    </span>
+    <span class="guide-toggle" aria-hidden="true"><span class="guide-open-label">説明を見る</span><span class="guide-close-label">表示中</span><span class="guide-chevron">⌄</span></span>
+  </summary>
+  <div class="guide-body">
+    <div class="guide-item">
+      <h3 class="guide-heading guide-heading-gold"><span aria-hidden="true">◷</span> カウントダウンと予想反映時間</h3>
+      <p>HUBは公式情報の確認・全頭評価・正規保存を優先しているため、<strong>5レース目の予想が揃うのはWIN5の発売締切直前になる場合があります。</strong> システムの受付・確認工程によるもので、早めに順位を確定できるとは限りません。</p>
+      <p>上部の時計は、<strong>対象5レースすべての予想が揃った後に表示が始まり、WIN5発売締切まで減っていく残り時間</strong>です。5レース目が揃うまでは「5レース目の反映待ち」と表示します。時計は予想反映からの経過時間ではありません。</p>
+    </div>
+    <div class="guide-item">
+      <h3 class="guide-heading guide-heading-lime"><span aria-hidden="true">✓</span> 順位の見方と馬の選び方</h3>
+      <p>各レースには、<strong>HUBで発走前に確定・FROZEN保存された上位5頭</strong>を掲載します。予想はレースごとに順次反映されるため、揃ったレースから先に選べます。</p>
+      <p>馬の行をタップして選択し、5レース分を上から順番に確認してください。ページの一番下に、選んだ馬番・馬名・点数・金額がまとめて表示されます。LAB 5側で予想順位を付け替えることはありません。</p>
+    </div>
+    <div class="guide-item">
+      <h3 class="guide-heading guide-heading-cyan"><span aria-hidden="true">↗</span> オッズについて</h3>
+      <p>単勝オッズは判断時の参考情報で、<strong>HUBの順位付けには使用しません。</strong> オッズは変動するため、本番では取得時刻を併記し、未取得や更新遅れがある場合はその旨を表示します。</p>
+    </div>
+    <div class="guide-item">
+      <h3 class="guide-heading guide-heading-red"><span aria-hidden="true">!</span> 購入点数・発売締切への注意</h3>
+      <p>選択する馬を増やすと点数と購入金額は掛け算で増えます。<strong>5レースで5頭ずつ選ぶと3,125点・312,500円（各100円）</strong>です。無理な購入は控え、必ず購入金額をご確認ください。</p>
+      <p>LAB 5は購入判断を助ける選択メモです。<strong>実際の投票は行わず、的中や利益を保証しません。</strong> 時計は目安として扱い、正式な発売締切・購入可否はJRA側でもご確認ください。</p>
+    </div>
+    <div class="guide-item guide-demo-note">
+      <h3 class="guide-heading guide-heading-muted"><span aria-hidden="true">i</span> 現在のページは操作デモです</h3>
+      <p>2026年11月15日の保存済み順位を表示しています。カウントダウンは仮想時間で、本物のWIN5締切とは連動していません。過去オッズは未取得のため「—」表示です。</p>
+    </div>
+    <div class="guide-footer"><button type="button" id="usage-guide-close" class="guide-close-btn">説明を閉じる <span aria-hidden="true">↑</span></button></div>
+  </div>
+</details>
+<section class="history" aria-label="過去の捕捉実績"><div class="section-head"><div><div class="kicker">HISTORICAL / 過去検証</div><h2>WIN5勝ち馬5頭を、HUBの上位5頭内で全捕捉した3日間</h2></div><span class="help-note">※実購入・的中実績ではありません</span></div><div class="history-grid"><div class="history-item"><small>2026.10.18｜秋華賞</small><strong>59,940円</strong><span class="hit">WIN5 5/5 捕捉</span></div><div class="history-item"><small>2026.10.25｜菊花賞</small><strong>8,523,370円</strong><span class="hit">WIN5 5/5 捕捉</span></div><div class="history-item"><small>2026.11.15｜エリザベス女王杯</small><strong>11,091,670円</strong><span class="hit">WIN5 5/5 捕捉</span></div></div><p class="history-foot">各日のWIN5発売締切より前に保存されたFROZEN順位と公式確定結果を照合。金額はその日の公式WIN5払戻額（100円あたり）であり、BAKEN LABが実際に購入・払戻を受けた金額ではありません。上位5頭を全レース購入すると最大3,125点・312,500円になり、的中や利益を保証しません。</p></section>
+<section id="board" aria-label="5レース比較ボード"><div class="board-head"><div><h2>対象5レース｜一括比較</h2><p>馬名の行をタップして候補を選択。順位はHUBの保存時点のまま表示。</p></div><div class="demo-pill"><span class="dot"></span>2026/11/15 保存データで表示中</div></div>
+<div class="status-grid status-grid-updated">
+  <div class="stat"><div class="stat-label">HUB FROZEN / 公開状況</div><div class="stat-value good" id="published-count">5 / 5 <span style="font-size:12px">公開済み</span></div><div class="stat-sub" id="published-note">11月15日の実際の保存済みデータ</div><div class="stage-controls" aria-label="試作版の公開状況を切り替える"><span>表示テスト：</span><button type="button" data-stage="1">1/5</button><button type="button" data-stage="4">4/5</button><button type="button" data-stage="5" class="active">5/5</button></div></div>
+  <div class="stat deadline-stat"><div class="stat-label">WIN5発売締切 <span class="demotag">カウントダウン体験</span></div>
+    <div class="deadline-values"><div><div class="deadline-label">締切時刻</div><div class="stat-value">14:40</div></div>
+      <div class="deadline-div"><div class="deadline-label">残り時間（時:分:秒） <span class="demo-red">DEMO</span></div><div id="countdown-clock" class="countdown-clock" aria-live="off">00:04:01</div></div></div>
+    <div class="deadline-foot"><span id="countdown-note">5/5反映後の締切までを再現する仮想タイマー。実際の時刻ではありません。</span><button id="countdown-reset" class="reset-timer" type="button">4分01秒から再生</button></div>
+  </div>
+</div>
+<div class="progress-note"><strong>予想は順次公開！</strong><span>13:49 東京10R → 14:17 京都10R → 14:19 福島11R → 14:19 東京11R → 14:35 京都11R（5/5完成）</span></div>
+<div class="timebar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb7b2" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6l3 2"></path></svg><div><strong>このページは11月15日の過去データを使った操作デモです。</strong><br><span>カウントダウンは5/5完成時から開始する仕組みを再現しています。本番では当日のJRA正式締切時刻から残り時間を算出します。過去オッズは未取得なので「—」です。</span></div></div>
+<div class="toolbar"><span class="hint">ここで一括選択 → 下へ進みながら各馬のチェックを調整 → 最後に買い目を確認</span><div class="buttons"><button class="action primary" id="quick-one">各レース1位</button><button class="action" id="quick-three">上位3頭</button><button class="action" id="quick-five">上位5頭</button><button class="action warn" id="clear-all">全解除</button></div></div>
+<div id="races" class="races"></div>
+</section>
+
+<section id="review" class="review" aria-label="最後の選択馬確認"><div class="review-heading"><div><span class="eyebrow">YOUR SELECTION / 最終チェック</span><h2>選んだ馬を、ここで一気に確認。</h2><p>上からWIN5の1〜5レース目。馬番・馬名を見ながら確認できます。</p></div><span class="review-readonly">購入機能なし・選択メモ</span></div><div id="review-legs" class="review-legs"></div><div class="review-totals"><div><small>選択頭数</small><strong id="review-combination">0 × 0 × 0 × 0 × 0</strong></div><div><small>買い目点数</small><strong id="review-count">0点</strong></div><div><small>100円ずつの場合</small><strong id="review-price">¥0</strong></div></div><div class="review-bottom"><p id="review-warning">5レースすべてで1頭以上選んでください。</p><button id="copy" class="review-copy" type="button" disabled>選択馬番・馬名をコピー</button></div><div class="review-disclaimer">※これは選択メモであり、馬券の購入・投票は行いません。最終的な買い目と発売状況はJRA側で確認してください。</div></section>
+<div class="pagefoot">© BAKEN LAB｜LAB 5 PROTOTYPE • READ-ONLY / DEMO • 本番予想・既存FROZENに変更なし</div>
+</main>
+<div class="dock" aria-live="polite"><div class="dock-in"><div class="dock-summary"><div><div class="dock-label">選択点数</div><div class="dock-number" id="count">0<span style="font-size:12px;color:#90a18d"> 点</span></div></div><div><div class="dock-label">100円／点</div><div class="dock-number" id="price">¥0</div></div></div><div class="dock-btns"><a href="#review" class="dock-btn subtle">最後の確認へ ↓</a></div><div class="sr-only" id="combination">0 × 0 × 0 × 0 × 0</div><div class="sr-only" id="warning">未選択のレースがあります</div></div></div>
+<script>
+'use strict';
+// 2026-11-15 正規FROZEN (発走前) + official_races.field_payload.runners との読取専用照合。
+// 意図的にオッズは null。これは本番LIVE連携ではなく、操作性を確認する静的デモ。
+const RACES=[
+ {track:'東京',no:10,name:'ユートピアステークス',time:'14:45',frozen:'13:49:25',horses:[
+  [11,'ファムクラジューズ','横山 武史'],[1,'ガジュノリ','田辺 裕信'],[9,'タイセイプランセス','石橋 脩'],[8,'クリニクラウン','木幡 初也'],[10,'ハニーコム','長浜 鴻緒']]},
+ {track:'京都',no:10,name:'花背特別',time:'15:01',frozen:'14:17:11',horses:[
+  [8,'セイントホース','菱田 裕二'],[9,'タイセイドラード','西村 淳也'],[3,'ダディーズトリップ','横山 典弘'],[4,'テーオーライマン','松山 弘平'],[2,'ユーヴェリア','国分 恭介']]},
+ {track:'福島',no:11,name:'福島民友カップ',time:'15:10',frozen:'14:19:01',horses:[
+  [6,'シュラザック','国分 優作'],[1,'ワイドブリザード','鮫島 克駿'],[7,'ゴッドブルービー','角田 大和'],[14,'ドバイブルース','石川 裕紀人'],[4,'スナークラファエロ','富田 暁']]},
+ {track:'東京',no:11,name:'オーロカップ',time:'15:20',frozen:'14:19:48',horses:[
+  [5,'マイネルチケット','横山 武史'],[15,'エコロアルバ','大野 拓弥'],[4,'サンダーストラック','A.プーシャン'],[17,'タガノアラリア','原 優介'],[10,'セフィロ','横山 和生']]},
+ {track:'京都',no:11,name:'エリザベス女王杯',time:'15:40',frozen:'14:35:59',horses:[
+  [16,'アクアヴァーナル','松山 弘平'],[7,'カムニャック','川田 将雅'],[6,'ヴーレヴー','吉田 隼人'],[11,'ジュウリョクピエロ','今村 聖奈'],[15,'ラフターラインズ','武 豊']]}
+];
+const selections=RACES.map(()=>new Set());
+const lab5Demo=new URLSearchParams(location.search).has('demo');
+let lab5SelectedDate='';
+const $=id=>document.getElementById(id);
+const yen=n=>'¥'+Number(n).toLocaleString('ja-JP');
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+// 実際の本番での反映はHUBのFROZENをレースごとに読み取り専用取得する。
+// この試作の「表示テスト」だけ、1/5・4/5・5/5の段階を仮想的に再現する。
+let publishedLegs=5;
+let demoDeadlineMs=Date.now()+241000;
+let countdownTimer=null;
+function countdownRender(){
+ const clock=$('countdown-clock');
+ if(!lab5Demo && publishedLegs===5 && !demoDeadlineMs){clock.textContent='発売締切の確認待ち';clock.classList.add('pending');return;}
+ if(publishedLegs!==5){clock.textContent='5レース目の反映待ち';clock.classList.remove('end');clock.classList.add('pending');return}
+ clock.classList.remove('pending');
+ const seconds=Math.max(0,Math.ceil((demoDeadlineMs-Date.now())/1000));
+ if(seconds<=0){clock.textContent='発売終了';clock.classList.add('end');return}
+ clock.classList.remove('end');
+ const hours=Math.floor(seconds/3600),minutes=Math.floor(seconds%3600/60);
+ clock.textContent=`${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
+}
+function restartCountdown(){if(lab5Demo){demoDeadlineMs=Date.now()+241000;countdownRender()}}
+function setStage(num){
+ if(!lab5Demo)return;
+ const previous=publishedLegs;publishedLegs=num;
+ // 未公開分は選択できず、一旦テストを戻した場合は未公開分の選択も消す。
+ RACES.forEach((_,i)=>{if(i>=num)selections[i].clear()});
+ if(previous<5 && num===5)restartCountdown();
+ $('published-count').innerHTML=`${num} / 5 <span style="font-size:12px">${num===5?'公開済み':'公開済み'}</span>`;
+ $('published-note').textContent=num===5?'すべてのレースを確認できます':'先に公開されたレースから選べます';
+ $('countdown-note').textContent=num===5?'5/5反映後の仮想残り時間。実際の締切とは連動しません。':'全5レースの予想が揃った時点から、締切までの残り時間を表示します。';
+ document.querySelectorAll('[data-stage]').forEach(b=>b.classList.toggle('active',Number(b.dataset.stage)===num));
+ $('countdown-reset').disabled=num<5;
+ renderRaces();update();countdownRender();
+}
+function renderRaces(){
+ if(!RACES.length){$('races').innerHTML='<div class="empty" style="grid-column:1/-1;padding:20px">WIN5対象レースとHUB予想の登録を確認中です。公式対象レースはJRAでもご確認ください。</div>';return}
+ $('races').innerHTML=RACES.map((r,i)=>{
+  const head=`<div class="race-head"><div class="leg-number">${i+1}<small>LEG</small></div><div class="race-title"><div class="meta">${escapeHTML(r.track)} ${r.no}R · ${(lab5Demo?i<publishedLegs:r.ready)?'FROZEN '+r.frozen:'予想準備中'}</div><h3>${escapeHTML(r.name)}</h3></div><div class="race-time"><strong>${r.time}</strong><small>発走予定</small></div></div>`;
+  if(!(lab5Demo?i<publishedLegs:r.ready))return `<article class="race waiting" id="leg-${i}">${head}<div class="waiting-copy"><strong>このレースはまだ公開されていません</strong>HUBで予想がFROZEN保存されると、ここに上位5頭が表示されます。</div></article>`;
+  return `<article class="race" id="leg-${i}">${head}<div class="ranks-title"><div>順位</div><div>馬番</div><div>馬名</div><div>騎手</div><div style="text-align:right">単勝</div><div>選択</div></div><div class="rank-list">${r.horses.map((h,j)=>`<label class="runner" for="h-${i}-${j}"><span class="rank-no">${j+1}</span><span class="number">${h[0]}</span><span class="name">${escapeHTML(h[1])}</span><span class="jockey">${escapeHTML(h[2])}</span><span class="odds" title="${escapeHTML(r.oddsNote||'オッズ未取得')}">${h[3]==null?'—':Number(h[3]).toFixed(1)}</span><input type="checkbox" id="h-${i}-${j}" aria-label="${escapeHTML(r.track)}${r.no}R、${escapeHTML(h[1])}を選択"></label>`).join('')}</div><div class="race-actions"><small id="headcount-${i}">0/5頭 選択</small></div></article>`;
+ }).join('');
+}
+function update(){
+ const totals=selections.map(s=>s.size),allFilled=publishedLegs===5&&totals.every(n=>n>0);
+ const count=allFilled?totals.reduce((a,b)=>a*b,1):0;
+ $('count').innerHTML=count.toLocaleString('ja-JP')+'<span style="font-size:12px;color:#90a18d"> 点</span>';
+ $('price').textContent=yen(count*100);
+ $('combination').textContent=totals.join(' × ');
+ let warning=allFilled?'点数と購入額を必ず確認':(publishedLegs<5?`残り${5-publishedLegs}レースの予想公開待ち`:`未選択のレースが${totals.filter(x=>x===0).length}つあります`);
+ let color='#a9b6bb';
+ if(count>500){warning='高額注意：500点超。選択頭数を確認';color='#ff8787'}
+ else if(count>100){warning='点数が多め。無理な購入は控えて';color='#ffb260'}
+ $('warning').textContent=warning;$('warning').style.color=color;
+ $('review-warning').textContent=warning;$('review-warning').style.color=color;
+ $('copy').disabled=!allFilled;
+ $('review-count').textContent=count.toLocaleString('ja-JP')+'点';
+ $('review-price').textContent=yen(count*100);
+ $('review-combination').textContent=totals.join(' × ');
+ RACES.forEach((r,i)=>{
+  const c=$('headcount-'+i);if(c)c.textContent=`${totals[i]}/5頭 選択`;
+  r.horses.forEach((_,rank)=>{const input=$('h-'+i+'-'+rank);if(!input)return;input.checked=selections[i].has(rank);input.closest('.runner').classList.toggle('selected',input.checked)});
+ });
+ $('review-legs').innerHTML=RACES.map((r,i)=>{
+  const numbers=[...selections[i]].sort((a,b)=>a-b);
+  return `<div class="review-leg"><div class="review-leg-head"><strong>${i+1}R目｜${escapeHTML(r.track)} ${r.no}R · ${escapeHTML(r.name)}</strong><span><small>${(lab5Demo?i>=publishedLegs:!r.ready)?'未公開':numbers.length+'頭選択'}</small>　<a class="review-edit" href="#leg-${i}">編集 ↑</a></span></div><div class="review-horses">${(lab5Demo?i>=publishedLegs:!r.ready)?'<span class="review-empty">HUB予想公開待ち</span>':numbers.length?numbers.map(rank=>{const h=r.horses[rank];return `<span class="review-horse"><b>${h[0]}</b><span>${escapeHTML(h[1])}<small>HUB ${rank+1}位</small></span></span>`}).join(''):'<span class="review-empty">まだ選ばれていません</span>'}</div></div>`;
+ }).join('');
+}
+function setAll(limit){RACES.forEach((r,i)=>{if(lab5Demo?i>=publishedLegs:!r.ready)return;selections[i].clear();for(let j=0;j<limit;j++)selections[i].add(j)});update()}
+function copySelection(){
+ const ct=selections.map(s=>s.size).reduce((a,b)=>a*b,1);
+ const lines=[`LAB 5｜WIN5選択メモ（${lab5Demo?'2026/11/15過去デモ':lab5SelectedDate}）`,...RACES.map((r,i)=>`${i+1}R目 ${r.track}${r.no}R ${r.name}: ${[...selections[i]].sort((a,b)=>a-b).map(j=>`${r.horses[j][0]} ${r.horses[j][1]}`).join('、')}`),`計 ${ct}点 / ${yen(ct*100)}（100円/点）`,'※これは試作の選択メモであり、実際の購入ではありません。'];
+ const s=lines.join('\n');
+ if(navigator.clipboard?.writeText){navigator.clipboard.writeText(s).then(()=>{const b=$('copy');b.textContent='コピーしました ✓';setTimeout(()=>b.textContent='選択馬番・馬名をコピー',1600)}).catch(()=>window.prompt('コピーして使ってください',s))}
+ else window.prompt('コピーして使ってください',s);
+}
+
+// ガイド末尾の「説明を閉じる」で折りたたみ、見出しへ戻る。
+$('usage-guide-close').addEventListener('click',()=>{
+ const guide=$('usage-guide');
+ guide.open=false;
+ $('usage-guide-trigger').focus({preventScroll:true});
+ guide.scrollIntoView({behavior:'smooth',block:'start'});
+});
+$('races').addEventListener('change',e=>{
+ if(!e.target.matches('input[type=checkbox]'))return;
+ const m=e.target.id.match(/^h-(\d+)-(\d+)$/);if(!m)return;
+ const i=Number(m[1]),j=Number(m[2]);if(i>=publishedLegs)return;
+ if(e.target.checked)selections[i].add(j);else selections[i].delete(j);
+ update();
+});
+$('quick-one').addEventListener('click',()=>setAll(1));
+$('quick-three').addEventListener('click',()=>setAll(3));
+$('quick-five').addEventListener('click',()=>setAll(5));
+$('clear-all').addEventListener('click',()=>setAll(0));
+$('copy').addEventListener('click',copySelection);
+$('countdown-reset').addEventListener('click',restartCountdown);
+document.querySelectorAll('[data-stage]').forEach(b=>b.addEventListener('click',()=>setStage(Number(b.dataset.stage))));
+document.addEventListener('visibilitychange',countdownRender);
+
+const liveJstDate=()=>{
+ const parts=new Intl.DateTimeFormat('en-US',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Tokyo'}).formatToParts(new Date());
+ const v=k=>parts.find(p=>p.type===k)?.value||'';
+ return v('year')+'-'+v('month')+'-'+v('day');
+};
+const liveJstTime=x=>{
+ const d=new Date(x);
+ if(!Number.isFinite(d.getTime()))return '—';
+ return new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',hour12:false}).format(d);
+};
+const liveJstFull=x=>{
+ const d=new Date(x);
+ if(!Number.isFinite(d.getTime()))return '—';
+ return new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(d);
+};
+let loadingLab5=false;
+function liveCandidateRaces(rows){
+ const all=(Array.isArray(rows)?rows:[])
+ .filter(r=>r?.circuit==='JRA'&&Number(r.race_no)>=9&&Number(r.race_no)<=11&&r.field_status!=='DISPLAY_ONLY_UNVERIFIED')
+ .map(r=>({...r,postMs:Date.parse(r.post_time)}))
+ .filter(r=>Number.isFinite(r.postMs))
+ .filter(r=>{const t=liveJstTime(r.postMs);return t>='14:00'&&t<'16:00'})
+ .sort((a,b)=>b.postMs-a.postMs||String(b.track).localeCompare(String(a.track),'ja'));
+ return all.slice(0,5).sort((a,b)=>a.postMs-b.postMs||String(a.track).localeCompare(String(b.track),'ja'));
+}
+function liveRace(r){
+ const p=r.prediction;
+ const ready=p?.status==='FROZEN'&&!p?.data_error&&Array.isArray(p?.payload?.top5)&&p.payload.top5.length===5;
+ const all=Array.isArray(p?.payload?.runners)?p.payload.runners:[];
+ const horses=ready?p.payload.top5.map(h=>{
+  const rr=all.find(x=>Number(x.horse_no)===Number(h.horse_no))||{};
+  const raw=rr.win_odds;const odds=raw===undefined||raw===null||raw===''?null:Number(raw);
+  return [Number(h.horse_no),String(h.horse_name||rr.horse_name||'馬名未取得'),String(rr.jockey||'—'),Number.isFinite(odds)&&odds>0?odds:null];
+ }):[];
+ return {key:r.track+'|'+r.race_no,track:r.track,no:Number(r.race_no),name:r.race_name||'レース名未確認',
+ time:liveJstTime(r.postMs),frozen:liveJstFull(p?.frozen_at),horses,ready,
+ oddsNote:p?.market_captured_at?'単勝オッズ取得 '+liveJstFull(p.market_captured_at):'単勝オッズ未取得'};
+}
+async function loadLiveLab5(){
+ if(lab5Demo||loadingLab5)return;
+ const date=document.getElementById('lab5-date')?.value||liveJstDate();
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;
+ loadingLab5=true;
+ const status=document.getElementById('lab5-live-status');
+ if(status)status.textContent='HUBを確認中…';
+ try{
+  const response=await fetch('/api/hub-data?action=list&date='+encodeURIComponent(date),{cache:'no-store',credentials:'same-origin'});
+  if(response.status===401||response.status===403){location.replace('/login.html?next='+encodeURIComponent(location.pathname+location.search));return}
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const data=await response.json();if(data?.ok!==true)throw Error('HUB情報取得エラー');
+  const found=liveCandidateRaces(data.races);
+  const next=found.map(liveRace);
+  const before=RACES.slice(),old=selections.map(x=>new Set(x));
+  RACES.splice(0,RACES.length,...next);
+  selections.splice(0,selections.length,...next.map((r,i)=>
+   before[i]?.key===r.key?new Set([...old[i]].filter(j=>before[i]?.horses?.[j]?.[0]===r.horses?.[j]?.[0])):new Set()));
+  lab5SelectedDate=date;publishedLegs=next.filter(r=>r.ready).length;
+  const first=found.length===5?Math.min(...found.map(r=>r.postMs)):null;
+  demoDeadlineMs=first?first-300000:0;
+  document.querySelector('.deadline-values .stat-value').textContent=first?liveJstTime(demoDeadlineMs):'確認中';
+  $('published-count').innerHTML=publishedLegs+' / 5 <span style="font-size:12px">公開済み</span>';
+  $('published-note').textContent=found.length===5?'HUBの確定済み順位を表示中':'WIN5候補の公式発走時刻を確認中（'+found.length+'/5候補）';
+  $('countdown-note').textContent=publishedLegs===5?'5レース揃った時点以降、公式発売締切の目安まで残り時間を表示':'5レース目の確定・反映待ち。時計はまだ動きません。';
+  const prog=document.querySelector('.progress-note');
+  if(prog)prog.innerHTML='<strong>HUBの予想を順次表示</strong><span>5レース目の確定が締切直前になる場合があります。正式な対象レースと発売締切は必ずJRA公式でご確認ください。</span>';
+  const pill=document.querySelector('.demo-pill');
+  if(pill)pill.textContent=date+' ｜ HUB読取データ';
+  renderRaces();update();countdownRender();
+  if(status)status.textContent='HUB確認 '+liveJstFull(Date.now())+' ／ '+(found.length===5?'5対象レース候補を表示':'対象レースの登録待ち')+' ※対象判定は暫定';
+ }catch(err){if(status)status.textContent='取得できませんでした（'+String(err?.message||err).slice(0,70)+'）。もう一度更新してください。'}
+ finally{loadingLab5=false}
+}
+function setupLiveLab5(){
+ if(lab5Demo){document.querySelector('.topright .chip').textContent='11/15 操作デモ';return}
+ RACES.splice(0);selections.splice(0);publishedLegs=0;demoDeadlineMs=0;
+ document.querySelector('.stage-controls')?.remove();$('countdown-reset')?.remove();
+ document.querySelector('.demotag')?.remove();document.querySelector('.demo-red')?.remove();
+ document.querySelector('.topright .chip').textContent='HUB連携・閲覧専用';
+ const note=document.querySelector('.guide-demo-note');
+ if(note)note.innerHTML='<h3 class="guide-heading guide-heading-muted">HUB連携について</h3><p>当日のHUB発走前FROZEN順位を読み取り専用で表示します。WIN5対象レースの選定は暫定的です。正式な対象レースと締切時刻は必ずJRA公式で確認してください。オッズは取得できたもののみ更新時刻と一緒に表示します。</p>';
+ document.querySelector('.pagefoot').textContent='© BAKEN LAB｜LAB 5 / HUB READ ONLY｜予想順位とFROZENは変更しません';
+ const ctl=document.createElement('div');ctl.className='live-controls';
+ ctl.innerHTML='<label>対象日 <input id="lab5-date" type="date"></label><button id="lab5-refresh" type="button">HUBを更新</button><a href="/lab5.html?demo=1">11/15デモ</a><small id="lab5-live-status">HUBの情報を確認中…</small>';
+ document.querySelector('#board .board-head').after(ctl);
+ $('lab5-date').value=liveJstDate();lab5SelectedDate=liveJstDate();
+ $('lab5-refresh').addEventListener('click',loadLiveLab5);
+ $('lab5-date').addEventListener('change',()=>{
+   RACES.splice(0);selections.splice(0);publishedLegs=0;demoDeadlineMs=0;
+   renderRaces();update();countdownRender();loadLiveLab5();
+ });
+ setInterval(()=>{if(!document.hidden)loadLiveLab5()},60000);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadLiveLab5()});
+ loadLiveLab5();
+}
+setupLiveLab5();
+
+renderRaces();update();countdownRender();countdownTimer=setInterval(countdownRender,250);
+</script>
+</body>
+</html>
