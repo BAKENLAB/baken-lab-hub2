@@ -24,7 +24,7 @@ Deno.serve(async req=>{
  const {race_date,track,race_no}=body;
  const today=new Date(Date.now()+9*3600000).toISOString().slice(0,10);
  if(!/^20\d{2}-\d{2}-\d{2}$/.test(race_date)||race_date!==today||
-   !["福島","京都"].includes(track)||!Number.isInteger(race_no)||race_no<1||race_no>12)
+   !["札幌","函館","福島","新潟","東京","中山","中京","京都","阪神","小倉"].includes(track)||!Number.isInteger(race_no)||race_no<1||race_no>12)
    return respond({ok:false,error:"OUT_OF_SCOPE"},400);
  const db=createClient(url,adminKey,{auth:{persistSession:false,autoRefreshToken:false}});
  const [r,q,p,protos]=await Promise.all([
