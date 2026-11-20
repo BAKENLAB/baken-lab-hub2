@@ -1,0 +1,21 @@
+// Only explicit current official numbered-card frame evidence; no horse-number inference.
+export function readOfficialDraw(cell,state,horseNo){
+  const fail=(code)=>{throw Error(code+"_"+horseNo)};
+  if(cell===null){
+    if(state.remaining<=0||!Number.isInteger(state.frame))fail("JRA_DRAW_MISSING");
+    state.remaining--;return state.frame;
+  }
+  if(state.remaining!==0)fail("JRA_DRAW_ROWSPAN_OVERLAP");
+  const t=String(cell.text??"").normalize("NFKC").trim();
+  const src=String(cell.src??"");
+  const fromText=/^[1-8]$/.test(t)?Number(t):null;
+  const image=src.match(/^\/JRADB\/img\/waku\/([1-8])\.png(?:\?.*)?$/);
+  const fromImage=image?Number(image[1]):null;
+  if((t&&fromText===null)||(src&&fromImage===null))fail("JRA_DRAW_UNRECOGNIZED");
+  if(fromText!==null&&fromImage!==null&&fromText!==fromImage)fail("JRA_DRAW_CONFLICT");
+  const frame=fromText??fromImage;
+  if(frame===null)fail("JRA_DRAW_MISSING");
+  const rawSpan=String(cell.rowspan??"1");
+  if(!/^[1-4]$/.test(rawSpan))fail("JRA_DRAW_ROWSPAN_INVALID");
+  state.frame=frame;state.remaining=Number(rawSpan)-1;return frame;
+}
