@@ -1,0 +1,27 @@
+name: JRA JUMP archived 20-day artifact target comparison
+on:
+  push:
+    branches: [feature/jra-jump-staged-readonly-20261121]
+    paths:
+      - ".github/workflows/jra-jump-20day-artifact-audit.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  compare-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Download existing 2026-11-15 isolated official evidence artifact using repo permission
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 43671546952 --repo BAKENLAB/baken-lab-hub2 --name jump-missing-history-evidence --dir "$RUNNER_TEMP/jump-evidence"
+          test -s "$RUNNER_TEMP/jump-evidence/coverage-index.json"
+      - name: Verify every source digest, as-of and exactly 20 historical dates, then match 26 current horse IDs
+        run: node automation/jra-jump-20day-artifact-audit.mjs "$RUNNER_TEMP/jump-evidence"
