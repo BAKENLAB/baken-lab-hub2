@@ -44,7 +44,7 @@ export function inventoryJumpArchive({race,liveRunners=[],rows=[]}={}){
    exact_id_anchored_jumps:results.reduce((s,x)=>s+x.exact_id_anchored_jumps,0),
    name_only_ref_missing_jumps:results.reduce((s,x)=>s+x.name_only_ref_missing_jumps,0),
    full_history_verified:false,as_of_date:day,
-   recent_archive_last_date:"2026-09-13",
+   latest_observed_archived_jump_date:rows.map(x=>x?.jra_lab_races?.race_date).filter(x=>x<day).sort().at(-1)??null,
    runners:results
  };
 }
