@@ -1,0 +1,16 @@
+{
+  "project_id": "qjlvsndiqjfsfjinilig",
+  "query": "SELECT now(),count(*),min(created_at),max(created_at),max(updated_at) FROM public.jra_lab_runs",
+  "result": {
+    "observed_at": "2026-11-16 23:41:01.815763+00",
+    "archive_run_rows": 415234,
+    "run_created_min": "2026-09-18 17:48:28.436521+00",
+    "run_created_max": "2026-09-22 22:21:57.725311+00",
+    "run_updated_max": "2026-09-22 22:21:57.67+00"
+  },
+  "earliest_cohort_date": "2026-10-24",
+  "all_archive_run_recorded_timestamps_before_earliest_target": true,
+  "proves_immutable_original_input": false,
+  "operation": "READ_ONLY",
+  "reason": "Run-level as well as race-level stored clocks checked; clocks are not immutable historical content attestation."
+}

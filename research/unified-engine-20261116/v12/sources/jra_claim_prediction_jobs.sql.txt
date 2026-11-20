@@ -1,0 +1,37 @@
+CREATE OR REPLACE FUNCTION public.jra_claim_prediction_jobs(p_run_id uuid, p_limit integer DEFAULT 1, p_lease_seconds integer DEFAULT 900)
+ RETURNS SETOF jra_prediction_jobs
+ LANGUAGE plpgsql
+ SET search_path TO 'pg_catalog'
+AS $function$
+declare v_run public.jra_prediction_worker_runs; v_job public.jra_prediction_jobs; v_now timestamptz; v_count integer:=0;
+begin
+  if p_limit is null or p_limit not between 1 and 6 or p_lease_seconds is null or p_lease_seconds not between 60 and 900 then raise exception 'invalid claim limits'; end if;
+  select * into v_run from public.jra_prediction_worker_runs where id=p_run_id for update;
+  if not found or v_run.status<>'RUNNING' or v_run.worker_id<>'JRA_QUEUE_RESCUE' then raise exception 'JRA_RUN_NOT_RUNNING'; end if;
+  v_now:=clock_timestamp();
+
+  with exhausted as (
+    select j.id from public.jra_prediction_jobs j
+    where j.attempts>=j.max_attempts and (j.job_status in ('QUEUED','RETRY') or (j.job_status='CLAIMED' and j.lease_until<=v_now))
+    for update of j skip locked
+  )
+  update public.jra_prediction_jobs j set job_status='DEAD',last_error='MAX_ATTEMPTS_EXCEEDED',claimed_by=null,claimed_at=null,lease_until=null,claim_token=null,worker_run_id=null,updated_at=v_now
+  from exhausted e where j.id=e.id;
+
+  for v_job in
+    select j.* from public.jra_prediction_jobs j
+    join public.official_races r on (r.race_date,r.track,r.race_no)=(j.race_date,j.track,j.race_no) and r.circuit='JRA'
+    where r.prediction_status in ('PENDING','RETRY') and r.post_time>=v_now+interval '3 minutes' and r.post_time<=v_now+interval '70 minutes'
+      and j.next_attempt_at<=v_now and j.attempts<j.max_attempts
+      and (j.job_status in ('QUEUED','RETRY') or (j.job_status='CLAIMED' and j.lease_until<=v_now))
+      and not exists(select 1 from public.official_predictions p where (p.race_date,p.track,p.race_no)=(j.race_date,j.track,j.race_no))
+    order by r.post_time,j.track,j.race_no
+    limit p_limit for update of j skip locked
+  loop
+    update public.jra_prediction_jobs set job_status='CLAIMED',attempts=attempts+1,claimed_by=v_run.worker_id,claimed_at=v_now,
+      lease_until=v_now+make_interval(secs=>p_lease_seconds),claim_token=gen_random_uuid(),worker_run_id=p_run_id,updated_at=v_now
+    where id=v_job.id returning * into v_job;
+    v_count:=v_count+1; return next v_job;
+  end loop;
+  update public.jra_prediction_worker_runs set claimed_count=claimed_count+v_count where id=p_run_id;
+end $function$

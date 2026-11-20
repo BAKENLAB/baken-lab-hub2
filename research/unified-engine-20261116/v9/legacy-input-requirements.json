@@ -1,0 +1,21 @@
+{
+  "scope": "Legacy +5 research replay is recovered, original base evaluation is not recovered",
+  "full_pair_ready": false,
+  "required_for_uplift_replay": [
+    {"field":"race_date/track/race_no/post_time/conditions.surface/conditions.distance", "existing_development_material":"PRESENT_RECONSTRUCTED", "future_requirement":"Same signed pre-post common context"},
+    {"field":"all ACTIVE horse_no/horse_name/horse_id and official identity proof", "existing_development_material":"ROSTER_PRESENT_ORIGINAL_CONTEXT_NOT_PROVEN", "future_requirement":"Complete roster in common input and attested roster hash"},
+    {"field":"past_runs.race_date/early_pos/field_size/surface/distance/finish/margin_to_winner", "existing_development_material":"PRESENT_DIFFERENT_HISTORY_WINDOWS", "future_requirement":"One frozen history corpus shared by both arms; no live refill"},
+    {"field":"source_checked_at/history_updated_at and original evidence bodies", "existing_development_material":"ROW_TIMES_PRESENT_NOT_FULL_ORIGINAL_BODIES", "future_requirement":"Trusted pre-post provenance and body hash receipts"},
+    {"field":"rank_before/score_before", "existing_development_material":"SAVED_OUTPUT_PRESENT_BASE_EVALUATOR_UNKNOWN", "future_requirement":"Original base evaluator output from exactly the common input"},
+    {"field":"combined reason/comment/evidence_summary", "existing_development_material":"SAVED_TEXT_PRESENT", "future_requirement":"Original base decision text, not retrospective rewrites; keyword check is not formal dedup proof"},
+    {"field":"eye_before plus original selection/audit", "existing_development_material":"NUMBER_PRESENT_ORIGINAL_AUDIT_UNRESOLVED", "future_requirement":"Original EYE policy/version and actual audit evidence"}
+  ],
+  "missing_for_complete_recovery": [
+    "Original per-prediction base scorer/prompt/model and full dependency/configuration version",
+    "Original exact input JSON/string and contemporaneous hash bound to each prediction",
+    "Immutable lookup/training/Eval inputs as of that prediction",
+    "Original qualitative decisions, scoring provenance and EYE audit sufficient for deterministic reproduction"
+  ],
+  "not_substitutes": ["BASE_CORE candidate rank", "current related rank bridge code", "saved final score as newly computed score", "post-hoc hash as original input hash", "legacy simplified EYE as formal independent two-factor audit"],
+  "production_allowed": false
+}

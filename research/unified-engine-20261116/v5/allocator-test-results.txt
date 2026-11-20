@@ -1,0 +1,20 @@
+✔ 200 axes/facts/atom permutations have byte-identical allocation (104.212011ms)
+✔ Exact integer conservation and root limits for overlapping components (0.508562ms)
+✔ Partial overlap preserves unused fact slice without double crediting shared fact (0.927516ms)
+✔ Zero claim cannot reserve a fact budget (0.462615ms)
+✔ Multi-root debit is fractional attribution, never full credit on everyroot (1.644523ms)
+✔ One capped root does not erase valid attribution on another root (0.500055ms)
+✔ Duplicate descriptions aggregate exactly once; conflict refuses (1.263098ms)
+✔ Different observations within one race remain distinct facts (0.453438ms)
+✔ Future or ambiguous provenance is rejected, never repaired by score (0.672013ms)
+✔ Odds and nested market/target result fields are rejected (0.550971ms)
+✔ Unknown cap remains interval and gives no ability rank or invented neutral (0.324599ms)
+✔ Same-date current entry facts need explicit kind and pre-post observation time (0.398426ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 128.576066

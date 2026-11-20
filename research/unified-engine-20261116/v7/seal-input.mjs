@@ -1,0 +1,2 @@
+import{readFileSync,writeFileSync}from'node:fs';import{sealInput}from'./holdout.mjs';
+const args=process.argv.slice(2);if(args.length!==3)throw Error('USAGE: seal-input.mjs context.json registration.json NEW-output.json');const [input,registration,output]=args,context=JSON.parse(readFileSync(input)),reg=JSON.parse(readFileSync(registration)),seal=sealInput(context,reg);writeFileSync(output,JSON.stringify(seal,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({output,race_id:seal.race_id,mode:seal.mode,authorized_to_save:false}));

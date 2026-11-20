@@ -1,0 +1,45 @@
+✔ T01 style FRONT (1.748296ms)
+✔ T01 style SEMI (0.153779ms)
+✔ T01 style MID (0.106971ms)
+✔ T01 style REAR (0.088716ms)
+✔ late-rally and fading fronts both use min corners, separately record advance (27.136283ms)
+✔ unknown and invalid full corners stay unknown, no early-only fallback (3.105039ms)
+✔ latest explicit obstacle skipped but unknown newer race blocks certified style (9.164619ms)
+✔ T02 strict <30 boundary and unknown bounds (0.311491ms)
+✔ T03 cancelled/missing literal neighbor is never replaced by next ACTIVE horse (1.561868ms)
+✔ T03 sandwich pattern requires current nonfront and both literal fronts (2.656162ms)
+✔ T04 geometry is conditional, no unconditional inside/outside bonus (7.841799ms)
+✔ T05 ROI <=70 and alternative <60 remain separate (5.495663ms)
+✔ T05 own place-rate proxy never becomes ROI (1.437193ms)
+✔ T05 missing payouts, insufficient n/span and future training never qualify (7.677816ms)
+✔ post-cutoff geometry/ROI evidence withheld even if export created after race (1.101202ms)
+✔ T06 shortening recorded, never predicts target actual position (2.217248ms)
+✔ T07 extension does not invent stamina or automatic points (1.784232ms)
+✔ T08 four visible runs cannot prove debut; complete bound history can (5.569068ms)
+✔ T09 descriptive gain is not a proven cause (1.112543ms)
+✔ T10–13 disabled/unavailable; T14 is no extra bonus (6.407548ms)
+✔ same fact/mechanism across Eval/Mineta/own is suppressed (1.490767ms)
+✔ distinct facts from shared race need declared dependence audit and cap (2.542192ms)
+✔ different research names cannot re-label same atom as independent mechanisms (0.190569ms)
+✔ missing shared-race dependence and undeclared cap are blocked, not scored (0.112402ms)
+✔ formal research EYE supports non-front, long/dirt, rank8 without rank6 preference (1.379378ms)
+✔ old EYE is not automatically preserved or declared audited (0.45762ms)
+✔ current relevance and two distinct mechanisms required (0.556057ms)
+✔ same prior race does not prove EYE independence; distinct atoms plus explicit audit can (0.487962ms)
+✔ no sufficient candidate permits audited null (0.225184ms)
+✔ missing runner or pair review prevents formal selection (0.388589ms)
+✔ V2 registers 14 subconditions; approved rubric absent stays BLOCKED (10.508577ms)
+✔ own early and Mineta first-corner use same atom identity, not duplicate bonuses (4.504515ms)
+✔ approved synthetic future-date rubric reaches independent 100-point engine and new EYE entrypoint (12.898515ms)
+✔ rank-ready V2 engine accepts explicit full EYE review; no front or baseline preservation gate (40.296316ms)
+✔ rubric frozen after holdout start or using future development data is blocked (17.308196ms)
+✔ invalid capture cutoff cannot implicitly validate source timestamps (0.568342ms)
+✔ strict file entrypoint locks selection before result access and refuses overwrite (30.281292ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 226.903251

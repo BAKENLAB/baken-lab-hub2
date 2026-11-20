@@ -1,0 +1,1 @@
+select n.nspname as schema_name,p.proname,pg_get_function_identity_arguments(p.oid) as arguments,pg_get_function_result(p.oid) as returns from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in ('public','private') and p.proname like 'jra_%' and p.proname ~* '(rank|score|model|predict|snapshot)' order by n.nspname,p.proname limit 150;

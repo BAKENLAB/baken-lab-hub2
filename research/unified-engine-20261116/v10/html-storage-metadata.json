@@ -1,0 +1,81 @@
+{
+  "recorded_at": "2026-11-18T12:18:27.035Z",
+  "scope": "INFORMATION_SCHEMA_COLUMNS_TABLE_NAME_ILIKE_JRA_HTML_LIMIT60_ONLY",
+  "rows": [
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "id",
+      "data_type": "bigint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "race_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "cname",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "source_url",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "fetched_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "recorded_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "html_sha256",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "html_bytes",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "extractor_version",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "status_basis",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "official_status_verified",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "runner_count",
+      "data_type": "integer"
+    }
+  ],
+  "body_rows_read": 0,
+  "proves_body_absence_globally": false,
+  "regular_input_binding_verified": false
+}

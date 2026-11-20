@@ -1,0 +1,29 @@
+✔ valid synthetic contract binds context/claim/source/body and does not count real evidence (9.086474ms)
+✔ synthetic issuer/parser cannot be reused for FUTURE (0.985637ms)
+✔ forged signature rejected before trusting READY flags (0.876561ms)
+✔ context text modification or different preregistration rejected (2.966046ms)
+✔ other job/run, unready, frozen race and stopped worker rejected (4.610194ms)
+✔ lease expiry, post3 deadline and gate change during read rejected (4.857554ms)
+✔ old/reversed receipts and missing READY contract rejected (2.821655ms)
+✔ missing official bytes, body hash mismatch and missing body ref reject entry only (3.750371ms)
+✔ missing prior IDs/horse ID/flat proof and archive ambiguity stay unpromoted (5.150122ms)
+✔ source clock/body fetch mismatch, late update and future history rejected (7.471929ms)
+✔ wrong original race reference and unpinned extractor rejected (2.272563ms)
+✔ original body horse/finish mismatch rejected even when envelope is signed (1.462913ms)
+✔ current ACTIVE roster hash, UNKNOWN status, missing identity and duplicates blocked (2.252446ms)
+✔ history slot changes and duplicate slots cannot inflate proof counts (3.037756ms)
+✔ partial missing proof does not erase another accepted research history (1.906791ms)
+✔ safe wrapper is fail-open for unavailable research evidence and never mutates context (1.780086ms)
+✔ secret fields and target results prohibited; missing scalar facts remain missing (2.248897ms)
+✔ synthetic verified=false facts cannot enter unchanged V5 allocator as real facts (1.5427ms)
+✔ V5 shared-atom budget and processing order invariance maintained in explicit synthetic simulation (17.139741ms)
+✔ merely corroborating or missing source lineage never upgrades original history evidence (1.741155ms)
+✔ target obstacle or unconfirmed target segment cannot pass the research gate (1.293028ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91.253319

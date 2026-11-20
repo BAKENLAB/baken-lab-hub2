@@ -1,0 +1,154 @@
+{
+  "version": "BAKEN_UNIFIED_RESEARCH_ENGINE_0.1_20261116",
+  "branch": "research/unified-lab-engine-20261116",
+  "base_commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+  "production_read": {
+    "name": "jra-claimed-mcp",
+    "version": 29,
+    "hash": "9017c9cc7c0a06396372645d54c8d42bcb14885f063b068d519f31d650576561",
+    "read_only": true
+  },
+  "scope": "JRA first research; LOCAL not connected",
+  "mineta": {
+    "status": "AWAITING_USER_ATTACHMENTS",
+    "files": [
+      "BAKEN_LAB_FRONT_RUNNER_みねた予想理論_総合研究レポート_20261115.pdf",
+      "BAKEN_LAB_FRONT_RUNNER_理論別評価条件_20261115.xlsx"
+    ],
+    "github_code_search": "0 exact-name hits, incomplete search not proof of global absence",
+    "drive_search": "みねた and Mineta yielded no results"
+  },
+  "eval": {
+    "public_adapter": "automation/eval-course-transfer-live.mjs",
+    "private_snapshot": "NOT_COPIED_OR_REPUBLISHED",
+    "point_policy": "Existing bounded annotation is not an independent 100-point rubric"
+  },
+  "limitations": [
+    "25 known item slots, not a claim to possess every Mineta condition",
+    "Existing base_rate is a training-cohort top3 probability, NOT a justified 100-point ability grade",
+    "Scores require explicit pre-race locked 100-point item policy; no default weights",
+    "Production is v29, later than PR49 v24. New research files do not replace production modules."
+  ],
+  "sources": [
+    {
+      "path": "lab-rank-compare.js",
+      "commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+      "sha256": "eea5b8e3b7be9a954357914fda2e42f1d8ab13697e0aa497de333ae3e059255a",
+      "functions": []
+    },
+    {
+      "path": "automation/jra-eye-additional-audit.mjs",
+      "commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+      "sha256": "878d500fffd3e580db85d5814adaa7508dbd7d9bfb1ec662bb78c17e1de9acb1",
+      "functions": [
+        "export function buildEyeAdditionalAudit({race,runnerHistory,observedAt,finalizedRanking=null}){",
+        "export function reviewClaimContext(context,observedAt,finalizedRanking=null){",
+        "export function safeEyeAdditionalAudit(context,observedAt,ranking=null){"
+      ]
+    },
+    {
+      "path": "automation/jra-eye-fill-null.mjs",
+      "commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+      "sha256": "acbd3eba2f96574d28c2ece6eaa3e988336d95ac64ef8a7c678a35753dba3b9f",
+      "functions": [
+        "export function eyeFillInstructions(){return {version:EYE_FILL_VERSION,mode:'FILL_NULL_ONLY',scope:'TURF_LE_1800',preserve_existing_eye:true,rank_effect:false,top5_effect:false,",
+        "export function applyEyeFillNull({context,payload,observedAt}){"
+      ]
+    },
+    {
+      "path": "automation/jra-verified-evidence-rank-bridge.mjs",
+      "commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+      "sha256": "ebb38f70cae3445788a1c82dfa26c4b97a4a75ee6d650cdadb1e41e8a818664d",
+      "functions": [
+        "export function buildJraVerifiedEvidenceRankBridge({context,evalInput,payload,observedAt}={}){",
+        "export function verifyJraBridgeAlreadyApplied({context,evalInput,payload,observedAt}={}){"
+      ]
+    },
+    {
+      "path": "automation/eval-course-transfer-live.mjs",
+      "commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+      "sha256": "e2c283cebce58a78dea8a61ee4fb53d21979f258739158e90e35593bfad3184f",
+      "functions": [
+        "export function buildEvalTransferForJraClaim({"
+      ]
+    },
+    {
+      "path": "automation/historical-pace-causality.mjs",
+      "commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+      "sha256": "74fb49f7df6593aac10fc55685c6532af550c9eba10dd6429f441a4468574d39",
+      "functions": [
+        "export function reviewHistoricalPaceCausality(packet) {"
+      ]
+    },
+    {
+      "path": "automation/jra-verified-corner-relative-shadow.mjs",
+      "commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+      "sha256": "09090b692ef59978b6b1e670029d0c94ee6aaf208eacbe53a2a5a56f1a165361",
+      "functions": [
+        "export function buildJraRecordedCornerResearchOverlay({"
+      ]
+    },
+    {
+      "path": "automation/verified-rival-followup-audit.mjs",
+      "commit": "3c23745f17befd49560ffe0020d934a2fb714547",
+      "sha256": "c7d44b66f3d889f4d18558a64ba14ea8a9828c58a3c838149be5e2d29b1882e9",
+      "functions": [
+        "export function auditVerifiedRivalFollowUps({"
+      ]
+    }
+  ],
+  "production_bundle_files": [
+    {
+      "name": "index.ts",
+      "sha256": "66e2e5d6303e2b6b7dd75318f98d6dcb5e066a344c79314513e2510f73f4de2f"
+    },
+    {
+      "name": "jra-eye-fill-null.mjs",
+      "sha256": "acbd3eba2f96574d28c2ece6eaa3e988336d95ac64ef8a7c678a35753dba3b9f"
+    },
+    {
+      "name": "jra-eye-additional-audit.mjs",
+      "sha256": "878d500fffd3e580db85d5814adaa7508dbd7d9bfb1ec662bb78c17e1de9acb1"
+    },
+    {
+      "name": "jra-verified-draw.mjs",
+      "sha256": "4df6abd84ab1e117a7287552fde963a8203d8eb159ceedc1383b0c9110ffc09c"
+    },
+    {
+      "name": "jra-official-cancel-number.mjs",
+      "sha256": "b6717da96a35cc42c1077b22e8ea4d7bc4880cf676291d41b81febfefc385ab4"
+    },
+    {
+      "name": "optional-atomic-shadow-save.mjs",
+      "sha256": "fa4460fa00ced8b370ae7367ee25f200082306589558ba7f2bbd1f05513d44c7"
+    },
+    {
+      "name": "jra-relative-draft-adapter.mjs",
+      "sha256": "c0bfdeb4e06b0195ff161102495c585131bae6bbdfd03c264c3e3ccbb205ad12"
+    },
+    {
+      "name": "relative-ability-rank-proposal.mjs",
+      "sha256": "34f796356176bc9e9d323c59c9085ddb74aead326b368c889b4552bae0e4b486"
+    },
+    {
+      "name": "local-verified-condition-bridge.mjs",
+      "sha256": "238178fe2bf49a4e6655aa86fc354803ef09e2138f42086d5fbd95a429ed8000"
+    },
+    {
+      "name": "eval-course-transfer-live.mjs",
+      "sha256": "e2c283cebce58a78dea8a61ee4fb53d21979f258739158e90e35593bfad3184f"
+    },
+    {
+      "name": "jra-active-field-scope.mjs",
+      "sha256": "fa5af61700d43206ab0029c29a1198f3cf8276fa591f3620879604a8c7b3b507"
+    },
+    {
+      "name": "eval-course-private-data.mjs",
+      "sha256": "a51d6c51033e3358c6ebbcce55b351ff06788562904e11e6ba2dbd339042605c"
+    },
+    {
+      "name": "jra-verified-evidence-rank-bridge.mjs",
+      "sha256": "ebb38f70cae3445788a1c82dfa26c4b97a4a75ee6d650cdadb1e41e8a818664d"
+    }
+  ]
+}

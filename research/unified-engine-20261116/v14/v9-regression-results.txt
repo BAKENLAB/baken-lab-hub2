@@ -1,0 +1,32 @@
+✔ canonical object key order stable; array order and original bytes remain significant (7.05235ms)
+✔ valid registration/input/source witness yields same raw bytes and roster for both arms (9.424684ms)
+✔ missing original evaluator blocks pair instead of substituting uplift replay (5.371936ms)
+✔ evaluator code changes after preregistration rejected (3.053653ms)
+✔ registration cannot be changed after signed receipt (1.485776ms)
+✔ forged input receipt signature rejected (2.50702ms)
+✔ locally asserted timestamp cannot replace signed input receipt (2.317001ms)
+✔ registration must precede input witness (1.541352ms)
+✔ input receipt at post time and recording after post both rejected (2.670507ms)
+✔ changed source HTML bytes rejected without assuming digest proves official truth (1.325289ms)
+✔ all46 known development races excluded from future pair without using results (44.476689ms)
+✔ nested markets and target outcomes cannot enter evaluation input (11.076368ms)
+✔ historical finish is accepted as history only, not a target result (1.976801ms)
+✔ duplicate IDs, duplicate numbers and nonACTIVE runner rejected (4.761706ms)
+✔ dropping one ACTIVE runner invalidates signed full roster binding (1.267042ms)
+✔ post-lock input bytes or lock post_time manipulation rejected (3.839114ms)
+✔ decision after post cannot be backfilled by ordinary local clock fields (5.320682ms)
+✔ no decision witness means no comparison success (4.098604ms)
+✔ persist preserves exact original JSON and refuses overwriting snapshot directory (8.370943ms)
+✔ post-run output or comparison hash edits refused by storage (5.442597ms)
+✔ same-day and future-dated history cannot masquerade as pre-race evidence (2.098499ms)
+✔ arm roster/hash/version mismatch cannot produce comparison record (6.76133ms)
+✔ malformed ranks/TOP5 and EYE membership rejected without fabricating replacements (9.556237ms)
+✔ race identifier aliases and post-time date mismatch cannot evade development registry (2.819667ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 164.261145

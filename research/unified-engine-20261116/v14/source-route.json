@@ -1,0 +1,141 @@
+{
+  "source_version": 33,
+  "bundle": "e229535dd96e82e2b81da0859bf3e9c8808ffbc79e641237d7e2e39cba9db0c8",
+  "stages": [
+    {
+      "id": "auth",
+      "anchor": "auth()",
+      "source_lines": [
+        48,
+        160,
+        198,
+        233,
+        269,
+        399,
+        426,
+        447
+      ],
+      "kind": "READ_AUTH",
+      "description": "Allowed-user/OAuth checks before tools; no authentication changes.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "initial_context",
+      "anchor": "s.registerTool(\"jra_claimed_context\"",
+      "source_lines": [
+        48
+      ],
+      "kind": "READ",
+      "description": "Guarded DB context -> ACTIVE scope -> relative proposal -> Eval/OWN evidence -> annotated context text.",
+      "raw_initial_context_text_exposed": true
+    },
+    {
+      "id": "relative_preview",
+      "anchor": "s.registerTool(\"jra_relative_rank_preview\"",
+      "source_lines": [
+        147
+      ],
+      "kind": "READ",
+      "description": "Fresh context -> relative comparison -> G1 coverage output; not raw provenance capture.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "evidence_preview",
+      "anchor": "s.registerTool(\"jra_evidence_rank_preview\"",
+      "source_lines": [
+        221
+      ],
+      "kind": "READ",
+      "description": "Fresh context + scoped payload + private Eval + OWN cohorts -> rank bridge -> EYE -> G1 coverage/trace.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "pre_save_context",
+      "anchor": "AbortSignal.timeout(12000)",
+      "source_lines": [
+        280
+      ],
+      "kind": "READ_IN_SAVE",
+      "description": "Another context read for normal save; raw/scoped objects not returned to caller.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "eval_own_reload",
+      "anchor": "const evalInput=await loadEvalForClaim(context,c);",
+      "source_lines": [
+        238,
+        284
+      ],
+      "kind": "READ",
+      "description": "Target-course cohorts query and static private snapshot reused in multiple paths; returned material is derived.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "bridge",
+      "anchor": "verifyJraBridgeAlreadyApplied",
+      "source_lines": [
+        13,
+        288
+      ],
+      "kind": "TRANSFORM_VALIDATE",
+      "description": "Already-applied path rebuilds scores/ranks/references; not full raw-context/verified_proof equality.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "eye_fill",
+      "anchor": "savedPayload=applyEyeFillNull",
+      "source_lines": [
+        324
+      ],
+      "kind": "TRANSFORM_VALIDATE",
+      "description": "Uses refreshed context and supplied formal review; no automatic audit completion.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "optional_shadow",
+      "anchor": "AbortSignal.timeout(2200)",
+      "source_lines": [
+        335
+      ],
+      "kind": "READ_IN_SAVE",
+      "description": "Additional fresh context -> draft baseline/preview; backend storage details unconfirmed after SQL timeout.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "save_rpc",
+      "anchor": "jra_save_claimed_prediction_with_shadow_v1",
+      "source_lines": [
+        341
+      ],
+      "kind": "WRITE_NOT_CALLED",
+      "description": "Normal guarded write; arguments include savedPayload + optional baseline/preview, not full raw Eval inputs.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "readback",
+      "anchor": ".select(\"id,status,payload\")",
+      "source_lines": [
+        352
+      ],
+      "kind": "READ_INTERNAL",
+      "description": "Actual FROZEN read internally; caller receives summary, not the full row.",
+      "raw_initial_context_text_exposed": false
+    },
+    {
+      "id": "seal_pair",
+      "anchor": "s.registerTool(\"jra_seal_relative_rank_pair\"",
+      "source_lines": [
+        185
+      ],
+      "kind": "WRITE_NOT_CALLED",
+      "description": "Opt-in rank pair calls capture RPC; annotations are not read-only. Forbidden in this task.",
+      "raw_initial_context_text_exposed": false
+    }
+  ],
+  "raw_additional_inputs_exposed_in_examined_edge_responses": false,
+  "backend_storage_source_confirmed": false,
+  "backend_source_read_status": "ABORTED_NO_RESULT_NO_RETRY",
+  "no_tools_invoked_except_source_get": true,
+  "strict_input_equality_proven": false,
+  "production_changed": false
+}

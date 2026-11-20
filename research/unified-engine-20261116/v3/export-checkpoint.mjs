@@ -1,0 +1,10 @@
+import {readFileSync,writeFileSync,existsSync} from 'node:fs';import {resolve} from 'node:path';import {fileURLToPath} from 'node:url';import {sha} from './enrich.mjs';
+const n=Number(process.argv[2]);if(!Number.isInteger(n)||n<1||n>10)throw Error('BATCH');
+const get=k=>process.argv.includes(k)?process.argv[process.argv.indexOf(k)+1]:null;
+const base=fileURLToPath(new URL('./',import.meta.url)),dir=resolve(get('--validation-dir')??base+'validation/revision-01'),stem='batch-'+String(n).padStart(2,'0'),freeze=get('--freeze-commit');if(!/^[a-f0-9]{40}$/.test(freeze??''))throw Error('FREEZE_COMMIT_REQUIRED');
+const lock=readFileSync(dir+'/'+stem+'.lock.json'),manifest={original_lock_sha256:sha(lock),original_lock_bytes:lock.length,decision_location:stem+'.audit.payload.json -> decision',restore:'JSON.stringify(payload.decision,null,2) + newline; compare original_lock_sha256 before using labels',code_freeze_commit:freeze};
+const mp=dir+'/'+stem+'.lock-manifest.json',text=JSON.stringify(manifest,null,2)+'\n';if(existsSync(mp)){if(readFileSync(mp,'utf8')!==text)throw Error('MANIFEST_EXISTS_CONFLICT');}else writeFileSync(mp,text,{flag:'wx'});
+const files=[dir+'/'+stem+'.audit.payload.json',dir+'/'+stem+'.summary.json',mp];
+const elements=files.map(path=>({path:path.slice(path.indexOf('/research/')+1),mode:'100644',type:'blob',content:readFileSync(path,'utf8')}));
+if(elements.some(e=>!e.path.startsWith('research/unified-engine-20261116/v3/')))throw Error('RESEARCH_SCOPE');
+const output=get('--output');if(!output)throw Error('OUTPUT_REQUIRED');const bytes=JSON.stringify(elements);writeFileSync(output,bytes);console.log(JSON.stringify({path:output,bytes:bytes.length}));

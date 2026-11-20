@@ -1,0 +1,13 @@
+// Read one known archive member with Node standard libraries; no subprocess.
+import {readFileSync} from 'node:fs';import {inflateRawSync} from 'node:zlib';import {createHash} from 'node:crypto';
+const sha=x=>createHash('sha256').update(x).digest('hex');
+export function readBatch(path,role){
+ if(!['features','labels'].includes(role))throw Error('BATCH_ROLE');const doc=JSON.parse(readFileSync(path));if(doc.format!=='BAKEN_RESEARCH_BATCH_ZIP_BASE64_V1'||doc.races>5)throw Error('BATCH_FORMAT');const zip=Buffer.from(doc.archive_base64,'base64');if(sha(zip)!==doc.archive_sha256)throw Error('ARCHIVE_HASH');
+ let eocd=-1;for(let i=zip.length-22;i>=Math.max(0,zip.length-65557);i--)if(zip.readUInt32LE(i)===0x06054b50){eocd=i;break;}if(eocd<0)throw Error('ZIP_DIRECTORY');
+ const count=zip.readUInt16LE(eocd+10),entries=new Map();let offset=zip.readUInt32LE(eocd+16);
+ if(count!==5)throw Error('ZIP_EXPECTED_MEMBER_COUNT');
+ for(let i=0;i<count;i++){if(zip.readUInt32LE(offset)!==0x02014b50)throw Error('ZIP_ENTRY');const flags=zip.readUInt16LE(offset+8),method=zip.readUInt16LE(offset+10),size=zip.readUInt32LE(offset+20),rawSize=zip.readUInt32LE(offset+24),n=zip.readUInt16LE(offset+28),extra=zip.readUInt16LE(offset+30),comment=zip.readUInt16LE(offset+32),local=zip.readUInt32LE(offset+42),name=zip.toString('utf8',offset+46,offset+46+n);if(flags&1||entries.has(name)||!['features.json','official-results.json','comparison.csv','all-25-item-audit.json','manifest.json'].includes(name)||rawSize>16*1024*1024)throw Error('ZIP_UNSAFE_MEMBER');entries.set(name,{method,size,rawSize,local});offset+=46+n+extra+comment;}
+ const member=name=>{const e=entries.get(name);if(!e||zip.readUInt32LE(e.local)!==0x04034b50)throw Error('ZIP_LOCAL');const start=e.local+30+zip.readUInt16LE(e.local+26)+zip.readUInt16LE(e.local+28);if(start+e.size>zip.length)throw Error('ZIP_BOUNDARY');const compressed=zip.subarray(start,start+e.size),raw=e.method===8?inflateRawSync(compressed,{maxOutputLength:16*1024*1024}):e.method===0?compressed:null;if(!raw||raw.length!==e.rawSize)throw Error('ZIP_SIZE');return raw;};
+ const name=role==='features'?'features.json':'official-results.json',manifest=JSON.parse(member('manifest.json')),expected=manifest.files.find(f=>f.path===name),raw=member(name);if(!expected||sha(raw)!==expected.sha256||raw.length!==expected.bytes)throw Error('MEMBER_HASH');
+ const rows=JSON.parse(raw).rows,ids=new Set(rows.map(r=>[r.race_date,r.track,r.race_no].join('/')));if(ids.size!==doc.races||ids.size>5||rows.length!==doc.horses)throw Error('BATCH_COUNTS');return {rows,archive_sha256:doc.archive_sha256,member_sha256:expected.sha256};
+}

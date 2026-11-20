@@ -1,0 +1,287 @@
+{
+  "version": "V8_FIXED_OUTPUT_COMPARISON",
+  "races": 46,
+  "physical_active_horses": 623,
+  "common_candidate_horses": 577,
+  "excluded_candidate_horses": 46,
+  "common_pool_min": 7,
+  "case_metrics": {
+    "L_FULL": {
+      "captures": 92,
+      "top5_hits": 83,
+      "eye_exclusive_hits": 9,
+      "selected_horses": 265,
+      "eye_races": 35,
+      "underfilled_top5_races": 0
+    },
+    "L_MASK_NO_REFILL": {
+      "captures": 85,
+      "top5_hits": 76,
+      "eye_exclusive_hits": 9,
+      "selected_horses": 248,
+      "eye_races": 32,
+      "underfilled_top5_races": 10
+    },
+    "C_LL": {
+      "captures": 87,
+      "top5_hits": 78,
+      "eye_exclusive_hits": 9,
+      "selected_horses": 259,
+      "eye_races": 29,
+      "underfilled_top5_races": 0
+    },
+    "C_VL": {
+      "captures": 77,
+      "top5_hits": 73,
+      "eye_exclusive_hits": 4,
+      "selected_horses": 248,
+      "eye_races": 18,
+      "underfilled_top5_races": 0
+    },
+    "C_LV": {
+      "captures": 85,
+      "top5_hits": 78,
+      "eye_exclusive_hits": 7,
+      "selected_horses": 262,
+      "eye_races": 32,
+      "underfilled_top5_races": 0
+    },
+    "C_VV": {
+      "captures": 83,
+      "top5_hits": 73,
+      "eye_exclusive_hits": 10,
+      "selected_horses": 262,
+      "eye_races": 32,
+      "underfilled_top5_races": 0
+    }
+  },
+  "contrasts": {
+    "direct_exclusion": -7,
+    "common_refill": 2,
+    "rank_then_eye": {
+      "rank": -10,
+      "eye": 6
+    },
+    "eye_then_rank": {
+      "eye": -2,
+      "rank": -2
+    },
+    "interaction": 8,
+    "total": -9
+  },
+  "full_field_supported_subset": {
+    "name": "ALL_PHYSICAL_RUNNERS_SUPPORTED",
+    "races": 21,
+    "cells": {
+      "L_FULL": {
+        "captures": 46,
+        "top5_hits": 41,
+        "eye_exclusive_hits": 5,
+        "selected_horses": 120,
+        "eye_races": 15,
+        "underfilled_top5_races": 0
+      },
+      "L_MASK_NO_REFILL": {
+        "captures": 46,
+        "top5_hits": 41,
+        "eye_exclusive_hits": 5,
+        "selected_horses": 120,
+        "eye_races": 15,
+        "underfilled_top5_races": 0
+      },
+      "C_LL": {
+        "captures": 46,
+        "top5_hits": 41,
+        "eye_exclusive_hits": 5,
+        "selected_horses": 120,
+        "eye_races": 15,
+        "underfilled_top5_races": 0
+      },
+      "C_VL": {
+        "captures": 39,
+        "top5_hits": 36,
+        "eye_exclusive_hits": 3,
+        "selected_horses": 113,
+        "eye_races": 8,
+        "underfilled_top5_races": 0
+      },
+      "C_LV": {
+        "captures": 46,
+        "top5_hits": 41,
+        "eye_exclusive_hits": 5,
+        "selected_horses": 121,
+        "eye_races": 16,
+        "underfilled_top5_races": 0
+      },
+      "C_VV": {
+        "captures": 44,
+        "top5_hits": 36,
+        "eye_exclusive_hits": 8,
+        "selected_horses": 122,
+        "eye_races": 17,
+        "underfilled_top5_races": 0
+      }
+    },
+    "contrasts": {
+      "direct_exclusion": 0,
+      "common_refill": 0,
+      "rank_then_eye": {
+        "rank": -7,
+        "eye": 5
+      },
+      "eye_then_rank": {
+        "eye": 0,
+        "rank": -2
+      },
+      "interaction": 5,
+      "total": -2
+    }
+  },
+  "mixed_support_subset": {
+    "name": "SOME_PHYSICAL_RUNNERS_UNSUPPORTED",
+    "races": 25,
+    "cells": {
+      "L_FULL": {
+        "captures": 46,
+        "top5_hits": 42,
+        "eye_exclusive_hits": 4,
+        "selected_horses": 145,
+        "eye_races": 20,
+        "underfilled_top5_races": 0
+      },
+      "L_MASK_NO_REFILL": {
+        "captures": 39,
+        "top5_hits": 35,
+        "eye_exclusive_hits": 4,
+        "selected_horses": 128,
+        "eye_races": 17,
+        "underfilled_top5_races": 10
+      },
+      "C_LL": {
+        "captures": 41,
+        "top5_hits": 37,
+        "eye_exclusive_hits": 4,
+        "selected_horses": 139,
+        "eye_races": 14,
+        "underfilled_top5_races": 0
+      },
+      "C_VL": {
+        "captures": 38,
+        "top5_hits": 37,
+        "eye_exclusive_hits": 1,
+        "selected_horses": 135,
+        "eye_races": 10,
+        "underfilled_top5_races": 0
+      },
+      "C_LV": {
+        "captures": 39,
+        "top5_hits": 37,
+        "eye_exclusive_hits": 2,
+        "selected_horses": 141,
+        "eye_races": 16,
+        "underfilled_top5_races": 0
+      },
+      "C_VV": {
+        "captures": 39,
+        "top5_hits": 37,
+        "eye_exclusive_hits": 2,
+        "selected_horses": 140,
+        "eye_races": 15,
+        "underfilled_top5_races": 0
+      }
+    },
+    "contrasts": {
+      "direct_exclusion": -7,
+      "common_refill": 2,
+      "rank_then_eye": {
+        "rank": -3,
+        "eye": 1
+      },
+      "eye_then_rank": {
+        "eye": -2,
+        "rank": 0
+      },
+      "interaction": 3,
+      "total": -7
+    }
+  },
+  "source_comparability": {
+    "raw_prior_count": 2462,
+    "adopted_prior_count": 1568,
+    "shared_observable_prior_count": 1309,
+    "raw_not_adopted_count": 1153,
+    "v7_not_identical_to_raw_history_count": 259,
+    "observable_equal_history_horses": 39,
+    "observable_equal_history_full_races": 0,
+    "shared_early_full_coverage_races": 4,
+    "raw_live_before_post": 623,
+    "raw_live_at_or_before_original_frozen": 18,
+    "history_at_or_before_original_frozen": 18,
+    "adopted_history_clocks_before_original_frozen": 577,
+    "strict_same_input_proven_horses": 0,
+    "strict_same_input_proven_races": 0,
+    "raw_prior_histogram": {
+      "2": 7,
+      "3": 16,
+      "4": 600
+    },
+    "adopted_prior_histogram": {
+      "0": 46,
+      "1": 99,
+      "2": 156,
+      "3": 173,
+      "4": 107,
+      "5": 42
+    },
+    "warning": "Same observable core histories omit legacy base-model provenance, class/full-field ranks/rivals/Eval and do not establish identical model input."
+  },
+  "lost30": {
+    "count": 30,
+    "unsupported": 7,
+    "supported": 23,
+    "selection_paths": {
+      "LEGACY_TOP5": 28,
+      "LEGACY_EYE": 2
+    },
+    "conditional_patterns": {
+      "RANK_CHANGE_SENSITIVE": 20,
+      "UNSUPPORTED_EXCLUSION": 7,
+      "EYE_BUNDLE_CHANGE_SENSITIVE": 2,
+      "ONLY_COMBINATION_LOST": 1
+    },
+    "eye_status": {
+      "TWO_DISTINCT_VERIFIED_MECHANISMS_NOT_ESTABLISHED": 11,
+      "ELIGIBLE_OTHER_CANDIDATE_PREFERRED": 2,
+      "UNSUPPORTED_NO_RANK_OR_FORMAL_EYE": 7,
+      "MULTIPLE_MECHANISMS_SAME_RACE_WITHOUT_INDEPENDENCE_PROOF": 10
+    },
+    "common_rank_direction": {
+      "DOWN": 23,
+      "UNRANKED": 7
+    }
+  },
+  "new21": {
+    "count": 21,
+    "selection_paths": {
+      "V7_TOP5": 17,
+      "V7_EYE": 4
+    },
+    "conditional_patterns": {
+      "RANK_CHANGE_GAIN_SENSITIVE": 13,
+      "EYE_BUNDLE_CHANGE_GAIN_SENSITIVE": 4,
+      "EITHER_SUBSTITUTION_CAN_GAIN": 2,
+      "REFILL_GAIN_WITH_LEGACY_RULES": 2
+    },
+    "common_rank_direction": {
+      "UP": 18,
+      "DOWN": 1,
+      "SAME": 2
+    }
+  },
+  "new_scoring_or_coefficients": false,
+  "allocation_algorithm_changed": false,
+  "formal_causal_effect_identified": false,
+  "independent_holdout": false,
+  "formal_prediction_generated": false,
+  "production_allowed": false
+}

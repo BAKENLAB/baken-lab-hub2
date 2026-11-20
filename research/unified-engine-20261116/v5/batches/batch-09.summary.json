@@ -1,0 +1,106 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 9,
+  "races": 5,
+  "horses": 75,
+  "supported": 72,
+  "unrated": 3,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 5,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 10,
+  "strong_captures": 10,
+  "v4_captures": 7,
+  "diagnostic_captures": 8,
+  "diagnostic_top5_hits": 6,
+  "diagnostic_eye_hits": 2,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-11-15/東京/12",
+          "horse_no": 2,
+          "horse_name": "エリュグレイス",
+          "finish": 3
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-15/東京/11",
+          "horse_no": 10,
+          "horse_name": "セフィロ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-15/東京/11",
+          "horse_no": 15,
+          "horse_name": "エコロアルバ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-15/東京/12",
+          "horse_no": 1,
+          "horse_name": "プラウディッツ",
+          "finish": 1
+        }
+      ]
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-11-15/東京/12",
+          "horse_no": 2,
+          "horse_name": "エリュグレイス",
+          "finish": 3
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-15/東京/11",
+          "horse_no": 10,
+          "horse_name": "セフィロ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-15/東京/11",
+          "horse_no": 15,
+          "horse_name": "エコロアルバ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-15/東京/12",
+          "horse_no": 1,
+          "horse_name": "プラウディッツ",
+          "finish": 1
+        }
+      ]
+    },
+    "v4": {
+      "new": [
+        {
+          "race_id": "2026-11-15/東京/8",
+          "horse_no": 8,
+          "horse_name": "マイネルアズーロ",
+          "finish": 2
+        }
+      ],
+      "lost": []
+    }
+  },
+  "credited_micro": 2166381853,
+  "debited_micro": 2166381853,
+  "pair_comparisons": 247,
+  "permutation_verified_horses": 75,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "ba545b89940a47be088b74aad4b2fdfa72d7c56263fa954b1a4bd29773e51275",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}

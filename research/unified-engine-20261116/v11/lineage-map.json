@@ -1,0 +1,288 @@
+{
+  "basis_commit": "8faa3e02511f5dfb77f9ba82d6eb9e53943ca51b",
+  "basis": "V10_SAVED_SOURCE_NOT_NEW_LIVE_READ",
+  "functions": [
+    {
+      "function": "jra_claimed_context",
+      "path": "../v10/source-sql/public.jra_claimed_context.sql.txt",
+      "sha256": "dd2ff0b693bcd1423998737b15e98914837c8859316c90a9fe9bbf50f0df161a",
+      "lineage": "JSON field enumeration retains scalar history, excludes source_ref and does not emit prior run/race/horse IDs or row clocks. Card current horse_ref is separate. Claim/worker/prepost guards precede reads; READY provenance needs upstream verification.",
+      "anchors": [
+        {
+          "line": 26,
+          "text": "if not found or j.job_status<>'CLAIMED' or j.lease_until<=clock_timestamp() then"
+        },
+        {
+          "line": 35,
+          "text": "if not found or r.post_time<=clock_timestamp()+interval '3 minutes'"
+        },
+        {
+          "line": 52,
+          "text": "select coalesce(jsonb_agg(jsonb_build_object("
+        },
+        {
+          "line": 57,
+          "text": "select jsonb_agg(jsonb_build_object("
+        },
+        {
+          "line": 160,
+          "text": "and v_review->>'allow_as_scoring_evidence'='false'"
+        },
+        {
+          "line": 206,
+          "text": "return jsonb_build_object("
+        },
+        {
+          "line": 208,
+          "text": "'race',jsonb_build_object("
+        },
+        {
+          "line": 225,
+          "text": "'history_policy',jsonb_build_object("
+        }
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION public.jra_claimed_context(p_job_id uuid)",
+      "output_signature": "RETURNS jsonb"
+    },
+    {
+      "function": "jra_live_base_candidate_v1",
+      "path": "../v10/source-sql/public.jra_live_base_candidate_v1.sql.txt",
+      "sha256": "dfb125e52844ae0f1a637816efb9bf774e6e072eb7078000025701cd686a72c9",
+      "lineage": "Emits current live_runner_id/live_race_id and base_rate/base_rank, not historical IDs or original100-point scores.",
+      "anchors": [
+        {
+          "line": 2,
+          "text": "RETURNS TABLE(live_runner_id uuid, live_race_id uuid, horse_no integer, horse_name text, jockey text, segment text, recent_n4 integer, recent_top3_count4 integer, recent_avg_margin4 numeric, margin_band text, base_rate numeric, base_rank integer, same_class_close4 integer, near_distance_close4 integer, same_track_close4 integer, residual_fit_count integer, new_eye boolean, new_eye_reasons jsonb, data_status text, model_version text)"
+        },
+        {
+          "line": 28,
+          "text": "lr.id as live_runner_id,"
+        },
+        {
+          "line": 129,
+          "text": "r.live_runner_id,"
+        },
+        {
+          "line": 143,
+          "text": "r.live_runner_id,"
+        },
+        {
+          "line": 170,
+          "text": "left join eye_candidates e on e.live_runner_id=r.live_runner_id"
+        }
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION public.jra_live_base_candidate_v1(p_race_date date, p_track text, p_race_no integer)",
+      "output_signature": "RETURNS TABLE(live_runner_id uuid, live_race_id uuid, horse_no integer, horse_name text, jockey text, segment text, recent_n4 integer, recent_top3_count4 integer, recent_avg_margin4 numeric, margin_band text, base_rate numeric, base_rank integer, same_class_close4 integer, near_distance_close4 integer, same_track_close4 integer, residual_fit_count integer, new_eye boolean, new_eye_reasons jsonb, data_status text, model_version text)"
+    },
+    {
+      "function": "jra_class_level",
+      "path": "../v10/source-sql/private.jra_class_level.sql.txt",
+      "sha256": "34624f5eb55fe4801e81680f1bea588dbf97f7c8eb8ab9c04d2d3246b3b2ecc0",
+      "lineage": "Class-level scalar; no identity/original body/time evidence.",
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_class_level(label text)",
+      "output_signature": "RETURNS smallint"
+    },
+    {
+      "function": "jra_merged_flat_history_v2",
+      "path": "../v10/source-sql/private.jra_merged_flat_history_v2.sql.txt",
+      "sha256": "5e86e0a4a5ad933d7d8b7b26919018364c7353d4a55609759779d0eff75de830",
+      "lineage": "DB join sees run/race/horse refs but RETURNS TABLE and union select omit IDs/source refs/timestamps. distinct on prior_date merges sources; unique original row lineage is not exposed.",
+      "anchors": [
+        {
+          "line": 2,
+          "text": "RETURNS TABLE(rn integer, prior_date date, prior_track text, prior_surface text, prior_distance integer, finish integer, field_size integer, margin_to_winner numeric, weight_carried numeric, jockey text, early_pos numeric, pos_change numeric, prior_class text, source_kind text)"
+        },
+        {
+          "line": 72,
+          "text": "select distinct on (prior_date)"
+        }
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_merged_flat_history_v2(p_horse_name text, p_horse_ref text, p_race_date date, p_live_past_runs jsonb, p_limit integer DEFAULT 20)",
+      "output_signature": "RETURNS TABLE(rn integer, prior_date date, prior_track text, prior_surface text, prior_distance integer, finish integer, field_size integer, margin_to_winner numeric, weight_carried numeric, jockey text, early_pos numeric, pos_change numeric, prior_class text, source_kind text)"
+    },
+    {
+      "function": "jra_model_segment",
+      "path": "../v10/source-sql/private.jra_model_segment.sql.txt",
+      "sha256": "e2050ea34bf688d784fbf351f412fbede36c4cdbf787f76725c23d4c7d9b47a6",
+      "lineage": "Segment scalar; not an independent100-point model.",
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_model_segment(class_name text, race_name text)",
+      "output_signature": "RETURNS text"
+    },
+    {
+      "function": "jra_older_course_evidence_v1",
+      "path": "../v10/source-sql/private.jra_older_course_evidence_v1.sql.txt",
+      "sha256": "4cc9302649c2056da63df8f614ecaa77727baf9e9fd8d6f675be5ba063a8b4a4",
+      "lineage": "Aggregated older-course performance summaries are not original prior identity/body evidence.",
+      "anchors": [
+        {
+          "line": 25,
+          "text": "SELECT coalesce(jsonb_agg(jsonb_build_object("
+        },
+        {
+          "line": 31,
+          "text": "SELECT jsonb_agg(jsonb_build_object("
+        }
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_older_course_evidence_v1(p_race_date date, p_track text, p_race_no integer)",
+      "output_signature": "RETURNS jsonb"
+    },
+    {
+      "function": "jra_optional_content_evidence_v3",
+      "path": "../v10/source-sql/private.jra_optional_content_evidence_v3.sql.txt",
+      "sha256": "b514071f20ce52c584155c6d41a25ca6d9b2c98854fad152c13d44b97eb18a7a",
+      "lineage": "Archive matching checks names/non-null horse refs but aggregate COUNT/MAX/bool_and loses original row IDs/source refs/clock/body. JSON detail flags cannot reverse this.",
+      "anchors": [
+        {
+          "line": 8,
+          "text": "jsonb_build_object("
+        },
+        {
+          "line": 12,
+          "text": "SELECT jsonb_agg(jsonb_build_object("
+        },
+        {
+          "line": 26,
+          "text": "'detail_available',ev.archive_matches=1,"
+        },
+        {
+          "line": 27,
+          "text": "'archive_match_count', ev.archive_matches,"
+        },
+        {
+          "line": 29,
+          "text": "WHEN ev.archive_matches=1 THEN ev.final3f"
+        },
+        {
+          "line": 34,
+          "text": "WHEN ev.archive_matches=1 AND ev.final3f IS NOT NULL THEN 'VERIFIED_ARCHIVE'"
+        },
+        {
+          "line": 43,
+          "text": "'final3f_rank', CASE WHEN ev.archive_matches=1 THEN ev.final3f_rank END,"
+        },
+        {
+          "line": 44,
+          "text": "'corner_positions', CASE WHEN ev.archive_matches=1 THEN ev.corner_positions END,"
+        }
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_optional_content_evidence_v3(p_race_date date, p_track text, p_race_no integer)",
+      "output_signature": "RETURNS jsonb"
+    },
+    {
+      "function": "jra_relative_condition_comparison_v1",
+      "path": "../v10/source-sql/private.jra_relative_condition_comparison_v1.sql.txt",
+      "sha256": "38cf74b3bfd927aa87ac496151186e3b1cbdb088f9f3de5a51b5750a031e8cf5",
+      "lineage": "Consumes stripped history; relative evidence and pair comparisons cannot restore original archive lineage.",
+      "anchors": [
+        {
+          "line": 18,
+          "text": "RETURN jsonb_build_object('status','CONDITIONS_OR_ROSTER_UNAVAILABLE','rank_effect',false,'market_used',false);"
+        },
+        {
+          "line": 30,
+          "text": "RETURN jsonb_build_object('status','UNVERIFIED_ROSTER','rank_effect',false,'market_used',false);"
+        },
+        {
+          "line": 40,
+          "text": "RETURN jsonb_build_object('status','HISTORICAL_ASOF_REJECTED','rank_effect',false,'market_used',false);"
+        },
+        {
+          "line": 65,
+          "text": "COALESCE(jsonb_agg(jsonb_build_object("
+        },
+        {
+          "line": 74,
+          "text": "SELECT COALESCE(jsonb_agg(jsonb_build_object("
+        },
+        {
+          "line": 90,
+          "text": "SELECT COALESCE(jsonb_agg(jsonb_build_object("
+        },
+        {
+          "line": 103,
+          "text": "RETURN jsonb_build_object("
+        },
+        {
+          "line": 113,
+          "text": "RETURN jsonb_build_object('status','OPTIONAL_COMPARISON_FAILED','rank_effect',false,'market_used',false);"
+        }
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_relative_condition_comparison_v1(p_history jsonb, p_target_date date, p_surface text, p_distance integer)",
+      "output_signature": "RETURNS jsonb"
+    },
+    {
+      "function": "jra_relative_pace_summary_v1",
+      "path": "../v10/source-sql/private.jra_relative_pace_summary_v1.sql.txt",
+      "sha256": "3d3cef990ba31f8f4d87726f910fa65db70a7bef1e47b6d56d3d0e989df7f1ed",
+      "lineage": "Consumes already stripped history; returns field pace summaries without recovering origin IDs.",
+      "anchors": [
+        {
+          "line": 39,
+          "text": "SELECT jsonb_build_object("
+        },
+        {
+          "line": 45,
+          "text": "'runners',(SELECT coalesce(jsonb_agg(jsonb_build_object("
+        }
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_relative_pace_summary_v1(p_history jsonb, p_surface text, p_distance integer)",
+      "output_signature": "RETURNS jsonb"
+    },
+    {
+      "function": "jra_flat_past_runs",
+      "path": "../v10/source-sql/private.jra_flat_past_runs.sql.txt",
+      "sha256": "93c46f9d1fcc369ea043c120907519679f9964f87219edfcd56d31acea55117c",
+      "lineage": "Filters non-competitive/obstacle rows; raw JSON fields may survive here but downstream merged projection removes provenance.",
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_flat_past_runs(p_runs jsonb)",
+      "output_signature": "RETURNS jsonb"
+    },
+    {
+      "function": "jra_horse_key",
+      "path": "../v10/source-sql/private.jra_horse_key.sql.txt",
+      "sha256": "8e33c5306367689d721f1d00aceb9b7c3f4fea5e2e6ecca5a378a6b1aedba4b6",
+      "lineage": "Extracts horse-key scalar for comparison; no official body or clocks.",
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_horse_key(p_ref text)",
+      "output_signature": "RETURNS text"
+    },
+    {
+      "function": "jra_missing_id_review_v1",
+      "path": "../v10/source-sql/private.jra_missing_id_review_v1.sql.txt",
+      "sha256": "4be9d8c8ab5eca94a6267df75200590717bc26058d03a1c3fe39da98a3212ea6",
+      "lineage": "Name-only candidate references include archive times, but explicitly unverified identity / allow_as_scoring_evidence=false. Not promotion evidence.",
+      "anchors": [
+        {
+          "line": 29,
+          "text": "SELECT jsonb_build_object("
+        },
+        {
+          "line": 33,
+          "text": "'allow_as_scoring_evidence',false,'score_effect',0,"
+        },
+        {
+          "line": 37,
+          "text": "SELECT jsonb_agg(jsonb_build_object("
+        },
+        {
+          "line": 45,
+          "text": "'allow_as_scoring_evidence',false"
+        }
+      ],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_missing_id_review_v1(p_race_date date, p_track text, p_race_no integer, p_asof timestamp with time zone)",
+      "output_signature": "RETURNS jsonb"
+    },
+    {
+      "function": "jra_time_seconds",
+      "path": "../v10/source-sql/private.jra_time_seconds.sql.txt",
+      "sha256": "aeac81d6d38a2c6b659a3470dbe6883d22b6285209f570976c7060a0deeebe0c",
+      "lineage": "Converts time scalar; no lineage output.",
+      "anchors": [],
+      "input_signature": "CREATE OR REPLACE FUNCTION private.jra_time_seconds(p_time text)",
+      "output_signature": "RETURNS numeric"
+    }
+  ],
+  "current_production_rechecked": false
+}

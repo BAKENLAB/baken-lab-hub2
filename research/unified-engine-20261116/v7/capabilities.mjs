@@ -1,0 +1,7 @@
+export const APPROVED_FORMULA_IDS=Object.freeze({draw_geometry:Object.freeze([]),jockey_trainer:Object.freeze([])});
+export function evaluateCapability(axis,material={}){
+ if(!Object.hasOwn(APPROVED_FORMULA_IDS,axis))throw Error('UNKNOWN_AXIS');
+ const identityFields=axis==='draw_geometry'?['draw']:['jockey','trainer'],has=x=>x!==null&&x!==undefined&&x!=='';
+ return {axis,proposed_cap:axis==='draw_geometry'?4:2,identity_fields_present:identityFields.every(k=>has(material[k])),approved_formula_id:null,formula_approval_verified:false,numeric_rule_implemented:false,point:null,unit:null,status:'BLOCKED_NO_APPROVED_CONNECTED_FORMULA_IN_AUDITED_SOURCES',reason:axis==='draw_geometry'?'Draw/layout are observations, not a verified numeric geometry-effect rule.':'Names or LOCAL beta lift do not establish an approved JRA rider/trainer effect rule.',production_allowed:false};
+}
+export function materialAudit(r,f){const a=f.attrs;return {horse_no:r.horse_no,horse_name:r.horse_name,source_checked_at:r.source_checked_at,history_updated_at:r.history_updated_at,draw:a.draw??null,jockey:a.jockey??null,trainer:a.trainer??null,layout:a.layout??null,turn:r.conditions.turn??null,course_text:r.conditions.course_text??null,first_turn_distance_m:r.conditions.first_turn_distance_m??null,start_surface:r.conditions.start_surface??null,geometry_proof:null,jra_rider_effect_model:null,jra_trainer_effect_model:null,draw_capability:evaluateCapability('draw_geometry',a),jockey_capability:evaluateCapability('jockey_trainer',a),strict_original_input_proven:false};}

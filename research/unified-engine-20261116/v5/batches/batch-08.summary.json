@@ -1,0 +1,149 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 8,
+  "races": 5,
+  "horses": 79,
+  "supported": 73,
+  "unrated": 6,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 2,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 9,
+  "strong_captures": 10,
+  "v4_captures": 7,
+  "diagnostic_captures": 6,
+  "diagnostic_top5_hits": 5,
+  "diagnostic_eye_hits": 1,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-11-14/福島/9",
+          "horse_no": 1,
+          "horse_name": "ライフイズカラフル",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-15/京都/12",
+          "horse_no": 14,
+          "horse_name": "スパークリシャール",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-14/福島/9",
+          "horse_no": 2,
+          "horse_name": "サンヴィクトワール",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-15/京都/11",
+          "horse_no": 7,
+          "horse_name": "カムニャック",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-15/京都/11",
+          "horse_no": 15,
+          "horse_name": "ラフターラインズ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-15/京都/11",
+          "horse_no": 16,
+          "horse_name": "アクアヴァーナル",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-15/京都/12",
+          "horse_no": 4,
+          "horse_name": "マトラコーニッシュ",
+          "finish": 3
+        }
+      ]
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-11-15/京都/12",
+          "horse_no": 14,
+          "horse_name": "スパークリシャール",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-14/福島/9",
+          "horse_no": 2,
+          "horse_name": "サンヴィクトワール",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-15/京都/11",
+          "horse_no": 7,
+          "horse_name": "カムニャック",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-15/京都/11",
+          "horse_no": 15,
+          "horse_name": "ラフターラインズ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-11-15/京都/11",
+          "horse_no": 16,
+          "horse_name": "アクアヴァーナル",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-15/京都/12",
+          "horse_no": 4,
+          "horse_name": "マトラコーニッシュ",
+          "finish": 3
+        }
+      ]
+    },
+    "v4": {
+      "new": [
+        {
+          "race_id": "2026-11-15/京都/7",
+          "horse_no": 17,
+          "horse_name": "ルーチェブリラーレ",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-11-15/京都/12",
+          "horse_no": 4,
+          "horse_name": "マトラコーニッシュ",
+          "finish": 3
+        },
+        {
+          "race_id": "2026-11-15/京都/12",
+          "horse_no": 16,
+          "horse_name": "アイスグリーン",
+          "finish": 1
+        }
+      ]
+    }
+  },
+  "credited_micro": 2122074457,
+  "debited_micro": 2122074457,
+  "pair_comparisons": 277,
+  "permutation_verified_horses": 79,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "32c7cee642156f2771efdec1433820512ebaae29f60e7d5a7fc866ad8994e8ff",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}

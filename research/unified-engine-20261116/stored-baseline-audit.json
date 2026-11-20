@@ -1,0 +1,32 @@
+{
+  "period": [
+    "2026-10-17",
+    "2026-11-15"
+  ],
+  "query_scope": "READ_ONLY_OFFICIAL_FROZEN_JOIN_OFFICIAL_SETTLED_RESULTS",
+  "rows": [
+    {
+      "cohort": "ALL_TURF",
+      "races": 139,
+      "horses": 1865,
+      "saved_prediction_captures": "274",
+      "leader_wins": "30",
+      "leader_top3": "71",
+      "invalid_freeze_times": 0,
+      "unsettled_timing": 0
+    },
+    {
+      "cohort": "TURF_LE1800",
+      "races": 94,
+      "horses": 1290,
+      "saved_prediction_captures": "185",
+      "leader_wins": "22",
+      "leader_top3": "53",
+      "invalid_freeze_times": 0,
+      "unsettled_timing": 0
+    }
+  ],
+  "reference_cohort_identified": false,
+  "warning": "ALL_TURF and TURF_LE1800 are independent aggregate scopes, not the requested 46-race cohort. Do not tune exclusions to get 92.",
+  "asof_input_coverage": "Only 20 Oct24 archived inputs found earlier; 15 pre-freeze, not a full 46-race canonical input set."
+}

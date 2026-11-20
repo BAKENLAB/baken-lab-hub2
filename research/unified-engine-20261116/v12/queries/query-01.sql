@@ -1,0 +1,1 @@
+select n.nspname as schema_name,p.proname,p.prosecdef,p.proacl::text,pg_get_functiondef(p.oid) as definition from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in ('public','private') and p.proname in ('jra_manual_readiness_v1','jra_manual_claim_next_v1','jra_claim_prediction_jobs') order by p.proname limit 4;

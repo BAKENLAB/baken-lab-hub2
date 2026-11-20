@@ -1,0 +1,57 @@
+# 馬別比較：消失30頭・新規21頭
+
+境界差はV7内だけの比較。旧得点との減算は禁止。全て研究仮順位であり正式順位ではない。
+
+|区分|レース|馬番・馬名|共通旧順位→V7仮順位|条件付き分類|詳細|
+|---|---|---|---|---|---|
+|LOST30|2026-10-24/京都/8|5 キーウェーブ|5 → 7|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-10-24-京都-8-5.md)|
+|LOST30|2026-10-24/京都/10|4 サンタンカ|4 → 9|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-10-24-京都-10-4.md)|
+|NEW21|2026-10-24/京都/11|15 タガノエルピーダ|10 → 5|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-24-京都-11-15.md)|
+|LOST30|2026-10-24/新潟/7|12 メイショウハンター|5 → 10|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-10-24-新潟-7-12.md)|
+|NEW21|2026-10-24/新潟/11|5 アラタマフェーヴル|6 → 1|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-24-新潟-11-5.md)|
+|LOST30|2026-10-24/東京/8|5 アートバーゼル|None → None|UNSUPPORTED_EXCLUSION|[詳細](reports/LOST30/2026-10-24-東京-8-5.md)|
+|NEW21|2026-10-24/東京/8|11 マテンロウオリジン|7 → 3|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-24-東京-8-11.md)|
+|NEW21|2026-10-24/東京/9|11 レオアジャイル|7 → 4|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-24-東京-9-11.md)|
+|NEW21|2026-10-25/京都/8|3 ルージュスプリヤ|8 → 2|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-25-京都-8-3.md)|
+|LOST30|2026-10-25/京都/11|9 ゴーイントゥスカイ|None → None|UNSUPPORTED_EXCLUSION|[詳細](reports/LOST30/2026-10-25-京都-11-9.md)|
+|LOST30|2026-10-25/京都/11|10 ダノンヒストリー|3 → 6|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-10-25-京都-11-10.md)|
+|LOST30|2026-10-25/新潟/9|13 ルージュリリック|6 → 9|EYE_BUNDLE_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-10-25-新潟-9-13.md)|
+|NEW21|2026-10-25/新潟/10|8 ハートメテオ|6 → 8|EYE_BUNDLE_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-25-新潟-10-8.md)|
+|NEW21|2026-10-25/東京/10|7 エバーグルーヴ|6 → 6|EYE_BUNDLE_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-25-東京-10-7.md)|
+|NEW21|2026-10-31/京都/12|11 タイムレスキス|11 → 3|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-31-京都-12-11.md)|
+|NEW21|2026-10-31/京都/9|1 ダノンカゼルタ|7 → 3|EITHER_SUBSTITUTION_CAN_GAIN|[詳細](reports/NEW21/2026-10-31-京都-9-1.md)|
+|LOST30|2026-10-31/京都/9|7 カムアップローゼス|5 → 8|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-10-31-京都-9-7.md)|
+|LOST30|2026-10-31/東京/7|5 ランザワールド|2 → 9|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-10-31-東京-7-5.md)|
+|NEW21|2026-10-31/東京/7|10 ディヒターリーベ|7 → 5|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-10-31-東京-7-10.md)|
+|LOST30|2026-10-31/東京/12|7 ラヴェニュー|None → None|UNSUPPORTED_EXCLUSION|[詳細](reports/LOST30/2026-10-31-東京-12-7.md)|
+|NEW21|2026-11-01/京都/10|3 ディヴァインスター|6 → 1|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-11-01-京都-10-3.md)|
+|NEW21|2026-11-01/京都/10|6 ダカラフェスティヴ|8 → 5|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-11-01-京都-10-6.md)|
+|LOST30|2026-11-01/京都/11|7 レザベーション|None → None|UNSUPPORTED_EXCLUSION|[詳細](reports/LOST30/2026-11-01-京都-11-7.md)|
+|NEW21|2026-11-01/京都/11|8 スマートワイス|6 → 3|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-11-01-京都-11-8.md)|
+|LOST30|2026-11-01/東京/8|2 プレイザリード|5 → 6|ONLY_COMBINATION_LOST|[詳細](reports/LOST30/2026-11-01-東京-8-2.md)|
+|NEW21|2026-11-01/東京/9|14 ウフドゥウフ|10 → 3|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-11-01-東京-9-14.md)|
+|NEW21|2026-11-01/東京/11|10 ネブラディスク|13 → 2|EITHER_SUBSTITUTION_CAN_GAIN|[詳細](reports/NEW21/2026-11-01-東京-11-10.md)|
+|LOST30|2026-11-01/東京/11|17 ダノンデサイル|2 → 9|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-01-東京-11-17.md)|
+|LOST30|2026-11-07/京都/9|9 ランスオブヒーロー|5 → 8|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-07-京都-9-9.md)|
+|NEW21|2026-11-07/福島/7|4 グレイシエーション|5 → 2|REFILL_GAIN_WITH_LEGACY_RULES|[詳細](reports/NEW21/2026-11-07-福島-7-4.md)|
+|LOST30|2026-11-07/福島/7|9 フロムレイブン|1 → 12|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-07-福島-7-9.md)|
+|LOST30|2026-11-07/福島/7|10 キャナルクルーズ|None → None|UNSUPPORTED_EXCLUSION|[詳細](reports/LOST30/2026-11-07-福島-7-10.md)|
+|LOST30|2026-11-08/京都/10|2 スライビングロード|5 → 7|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-08-京都-10-2.md)|
+|LOST30|2026-11-08/京都/12|5 キシャール|2 → 6|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-08-京都-12-5.md)|
+|LOST30|2026-11-08/京都/12|18 フロンティエール|4 → 8|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-08-京都-12-18.md)|
+|NEW21|2026-11-14/京都/8|8 マディソンガール|5 → 2|REFILL_GAIN_WITH_LEGACY_RULES|[詳細](reports/NEW21/2026-11-14-京都-8-8.md)|
+|NEW21|2026-11-14/京都/10|2 レクスノヴァス|6 → 3|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-11-14-京都-10-2.md)|
+|LOST30|2026-11-14/京都/10|13 ジャスティンビスタ|None → None|UNSUPPORTED_EXCLUSION|[詳細](reports/LOST30/2026-11-14-京都-10-13.md)|
+|NEW21|2026-11-14/東京/10|10 トライアンフパス|8 → 2|RANK_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-11-14-東京-10-10.md)|
+|LOST30|2026-11-14/東京/10|15 グーテンベルク|7 → 11|EYE_BUNDLE_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-14-東京-10-15.md)|
+|LOST30|2026-11-14/福島/9|2 サンヴィクトワール|1 → 8|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-14-福島-9-2.md)|
+|LOST30|2026-11-15/京都/11|7 カムニャック|None → None|UNSUPPORTED_EXCLUSION|[詳細](reports/LOST30/2026-11-15-京都-11-7.md)|
+|LOST30|2026-11-15/京都/11|15 ラフターラインズ|4 → 7|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-15-京都-11-15.md)|
+|LOST30|2026-11-15/京都/11|16 アクアヴァーナル|1 → 10|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-15-京都-11-16.md)|
+|LOST30|2026-11-15/京都/12|4 マトラコーニッシュ|4 → 7|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-15-京都-12-4.md)|
+|NEW21|2026-11-15/京都/12|14 スパークリシャール|10 → 10|EYE_BUNDLE_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-11-15-京都-12-14.md)|
+|LOST30|2026-11-15/東京/11|10 セフィロ|5 → 11|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-15-東京-11-10.md)|
+|LOST30|2026-11-15/東京/11|15 エコロアルバ|2 → 9|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-15-東京-11-15.md)|
+|LOST30|2026-11-15/東京/12|1 プラウディッツ|3 → 14|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-15-東京-12-1.md)|
+|NEW21|2026-11-15/東京/12|2 エリュグレイス|14 → 9|EYE_BUNDLE_CHANGE_GAIN_SENSITIVE|[詳細](reports/NEW21/2026-11-15-東京-12-2.md)|
+|LOST30|2026-11-15/福島/9|1 ジャスパートレノ|4 → 7|RANK_CHANGE_SENSITIVE|[詳細](reports/LOST30/2026-11-15-福島-9-1.md)|

@@ -1,0 +1,39 @@
+{
+  "version": "JRA_REBUILD_0.4_CONTENT_EVIDENCE_20261023",
+  "created_at": "2026-10-23 10:07:49.112992+00",
+  "updated_at": "2026-10-23 10:07:49.112992+00",
+  "ranking": {
+    "validated_core": "BASE_CORE_0.1",
+    "versioned_mode": "CONTENT_EVIDENCE_OPTIONAL_0.4",
+    "training_period": "2025",
+    "validation_period": "2026-01..08",
+    "candidate_function": "public.jra_live_base_candidate_v1",
+    "unsupported_segments": "Do not force a ranking when candidate data_status is unsupported or no flat history.",
+    "candidate_model_version": "JRA_BASE_CORE_0.1_AB",
+    "content_evaluation_contract": {
+      "comments": "optional; missing cannot lower score or block",
+      "base_core": "BASE_CORE_0.1_UNCHANGED",
+      "selection": "compare every runner independently on prior as-of race content, course surface distance, winner gaps, positional work, pace and opponent quality with verified facts only; relative evidence must be assessed against all rivals, not one fixed bump",
+      "market_data": "no market odds or popularity in ability evaluation",
+      "rank_effect": "Manual whole-field ranking may deviate from baseline candidate when race-specific comparative evidence is explicitly stated",
+      "claim_context": "Use runner_history and optional runner_content_evidence if present; if absent continue normally; an authorized read-only diagnostic may supply historic content but is never mandatory",
+      "ranking_guard": "no automatic rank6 promotion; do not blindly promote all small-margin finishers, compare with displaced top5 and protect strong form",
+      "source_cutoff": "only events demonstrably known before this race start",
+      "history_window": "use four verified merged runs; add older factual racing evidence only where source and as-of are certain",
+      "incident_guard": "never infer an unverified break, interference, or wide trip",
+      "surface_switch": "first turf or dirt is uncertainty, not zero ability or guaranteed uplift",
+      "full_runner_first": true,
+      "when_optional_unavailable": "CONTINUE_BASE_CORE_NO_PENALTY"
+    }
+  },
+  "cohort_protocol_counts": [
+    {
+      "recorded_protocol_version": "JRA_REBUILD_0.4_CONTENT_EVIDENCE_20261023",
+      "predictions": 46
+    }
+  ],
+  "content_for_all_historical_frozen_proven": false,
+  "reason": "Same recorded version is confirmed, but current protocol row contents are not an immutable historical content snapshot.",
+  "independent100_numeric_rule_in_protocol": false,
+  "full_input_to_points_evaluator_recovered": false
+}

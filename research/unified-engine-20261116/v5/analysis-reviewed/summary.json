@@ -1,0 +1,50 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "races": 46,
+  "horses": 623,
+  "scored_horses": 577,
+  "unrated_horses": 46,
+  "actual_input_fills": 0,
+  "unresolved_top5_races": 46,
+  "definitive_top5_races": 0,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "diagnostic_eye_races": 32,
+  "diagnostic_captures": 83,
+  "diagnostic_top5_hits": 73,
+  "diagnostic_eye_hits": 10,
+  "old_captures": 87,
+  "strong_captures": 92,
+  "v4_captures": 78,
+  "turnover_counts": {
+    "old87": {
+      "new": 25,
+      "lost": 29
+    },
+    "strong92": {
+      "new": 21,
+      "lost": 30
+    },
+    "v4": {
+      "new": 9,
+      "lost": 4
+    }
+  },
+  "credited_micro": 17039483648,
+  "debited_micro": 17039483648,
+  "pair_comparisons": 1737,
+  "permutation_verified_horses": 623,
+  "permutation_verified_races": 46,
+  "evidence_facts": 15590,
+  "same_race_test_certificates_supplied": 0,
+  "same_race_positive_pairs_rejected": 441,
+  "unrated_failure_codes_overlapping": {
+    "MISSING_VERIFIED_RACE": 39,
+    "FLAT_STATUS_UNKNOWN": 43,
+    "SOURCE_DISAGREEMENT": 6
+  },
+  "independent_holdout": false,
+  "strict_prepost_input_proven": false,
+  "production_allowed": false,
+  "coefficient_tuning_performed": false
+}

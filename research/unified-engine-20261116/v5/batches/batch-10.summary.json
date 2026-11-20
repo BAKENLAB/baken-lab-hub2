@@ -1,0 +1,61 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 10,
+  "races": 1,
+  "horses": 12,
+  "supported": 11,
+  "unrated": 1,
+  "unresolved_top5_races": 1,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 0,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 3,
+  "strong_captures": 3,
+  "v4_captures": 2,
+  "diagnostic_captures": 2,
+  "diagnostic_top5_hits": 2,
+  "diagnostic_eye_hits": 0,
+  "turnover": {
+    "old87": {
+      "new": [],
+      "lost": [
+        {
+          "race_id": "2026-11-15/福島/9",
+          "horse_no": 1,
+          "horse_name": "ジャスパートレノ",
+          "finish": 1
+        }
+      ]
+    },
+    "strong92": {
+      "new": [],
+      "lost": [
+        {
+          "race_id": "2026-11-15/福島/9",
+          "horse_no": 1,
+          "horse_name": "ジャスパートレノ",
+          "finish": 1
+        }
+      ]
+    },
+    "v4": {
+      "new": [],
+      "lost": []
+    }
+  },
+  "credited_micro": 301581310,
+  "debited_micro": 301581310,
+  "pair_comparisons": 21,
+  "permutation_verified_horses": 12,
+  "permutation_verified_races": 1,
+  "actual_input_fills": 0,
+  "lock_sha256": "c53aa380639c769a8bbda1ebca7e4cdf7d50747922ef91f16ab6a79f530c684a",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}

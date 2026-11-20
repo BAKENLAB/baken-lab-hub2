@@ -1,0 +1,135 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 4,
+  "races": 5,
+  "horses": 52,
+  "supported": 47,
+  "unrated": 5,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 3,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 10,
+  "strong_captures": 10,
+  "v4_captures": 11,
+  "diagnostic_captures": 11,
+  "diagnostic_top5_hits": 10,
+  "diagnostic_eye_hits": 1,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-10-31/京都/9",
+          "horse_no": 1,
+          "horse_name": "ダノンカゼルタ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-10-31/東京/7",
+          "horse_no": 10,
+          "horse_name": "ディヒターリーベ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-01/京都/10",
+          "horse_no": 3,
+          "horse_name": "ディヴァインスター",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-01/京都/10",
+          "horse_no": 6,
+          "horse_name": "ダカラフェスティヴ",
+          "finish": 3
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-10-31/京都/9",
+          "horse_no": 7,
+          "horse_name": "カムアップローゼス",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-31/東京/7",
+          "horse_no": 5,
+          "horse_name": "ランザワールド",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-31/東京/12",
+          "horse_no": 7,
+          "horse_name": "ラヴェニュー",
+          "finish": 1
+        }
+      ]
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-10-31/京都/9",
+          "horse_no": 1,
+          "horse_name": "ダノンカゼルタ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-10-31/東京/7",
+          "horse_no": 10,
+          "horse_name": "ディヒターリーベ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-01/京都/10",
+          "horse_no": 3,
+          "horse_name": "ディヴァインスター",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-11-01/京都/10",
+          "horse_no": 6,
+          "horse_name": "ダカラフェスティヴ",
+          "finish": 3
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-10-31/京都/9",
+          "horse_no": 7,
+          "horse_name": "カムアップローゼス",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-31/東京/7",
+          "horse_no": 5,
+          "horse_name": "ランザワールド",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-31/東京/12",
+          "horse_no": 7,
+          "horse_name": "ラヴェニュー",
+          "finish": 1
+        }
+      ]
+    },
+    "v4": {
+      "new": [],
+      "lost": []
+    }
+  },
+  "credited_micro": 1431849615,
+  "debited_micro": 1431849615,
+  "pair_comparisons": 62,
+  "permutation_verified_horses": 52,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "2e095153c6dae13c8a547578514f2f1249d6f597c43ed5ab05f1f6603c554da1",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}

@@ -1,0 +1,219 @@
+{
+  "label": "SYNTHETIC_ENGINE_ACCEPTANCE_ONLY_NOT_46R_STUDY",
+  "horse_count": 8,
+  "audit_item_count": 200,
+  "scoring_status": "EVALUATED_RESEARCH_ONLY",
+  "eye": {
+    "status": "FORMALLY_REVIEWED_FILL",
+    "horse_id": "SYNTHETIC-6",
+    "audits": [
+      {
+        "horse_id": "SYNTHETIC-5",
+        "reason": "今回の条件と異なる過去走の証拠を比較した架空監査。",
+        "risks": [
+          "競合する先行馬がいるため位置取りの再現性は未確定。"
+        ],
+        "missing": [
+          "当日の未取得情報は推測で補完していない。"
+        ],
+        "positives": [
+          {
+            "criterion": "near_distance",
+            "evidence_ids": [
+              "run:9189c8f1a876062755f01860"
+            ],
+            "reason": "別の日の同馬場近距離競走で終点の競争力を確認。",
+            "independence_reason": "進出とは別競走の着差を根拠とする独立の観察。"
+          },
+          {
+            "criterion": "position_gain",
+            "evidence_ids": [
+              "run:83308eae427f55a299e9f1e4"
+            ],
+            "reason": "別の実走で道中の位置進出を確認した架空監査。",
+            "independence_reason": "近距離の着差と別の競走を根拠としている。"
+          }
+        ]
+      },
+      {
+        "horse_id": "SYNTHETIC-6",
+        "reason": "今回の条件と異なる過去走の証拠を比較した架空監査。",
+        "risks": [
+          "競合する先行馬がいるため位置取りの再現性は未確定。"
+        ],
+        "missing": [
+          "当日の未取得情報は推測で補完していない。"
+        ],
+        "positives": [
+          {
+            "criterion": "near_distance",
+            "evidence_ids": [
+              "run:567ba992eb42c34efe6bf7fb"
+            ],
+            "reason": "別の日の同馬場近距離競走で終点の競争力を確認。",
+            "independence_reason": "進出とは別競走の着差を根拠とする独立の観察。"
+          },
+          {
+            "criterion": "position_gain",
+            "evidence_ids": [
+              "run:77c7a17fed60c4989f4a9818"
+            ],
+            "reason": "別の実走で道中の位置進出を確認した架空監査。",
+            "independence_reason": "近距離の着差と別の競走を根拠としている。"
+          }
+        ]
+      },
+      {
+        "horse_id": "SYNTHETIC-7",
+        "reason": "今回の条件と異なる過去走の証拠を比較した架空監査。",
+        "risks": [
+          "競合する先行馬がいるため位置取りの再現性は未確定。"
+        ],
+        "missing": [
+          "当日の未取得情報は推測で補完していない。"
+        ],
+        "positives": [
+          {
+            "criterion": "near_distance",
+            "evidence_ids": [
+              "run:8335dad7c8085d2b8355e6d8"
+            ],
+            "reason": "別の日の同馬場近距離競走で終点の競争力を確認。",
+            "independence_reason": "進出とは別競走の着差を根拠とする独立の観察。"
+          },
+          {
+            "criterion": "position_gain",
+            "evidence_ids": [
+              "run:9364c33825420f999c89cdd2"
+            ],
+            "reason": "別の実走で道中の位置進出を確認した架空監査。",
+            "independence_reason": "近距離の着差と別の競走を根拠としている。"
+          }
+        ]
+      }
+    ],
+    "accepted_positives": [
+      {
+        "criterion": "near_distance",
+        "evidence_ids": [
+          "run:567ba992eb42c34efe6bf7fb"
+        ],
+        "reason": "別の日の同馬場近距離競走で終点の競争力を確認。",
+        "independence_reason": "進出とは別競走の着差を根拠とする独立の観察。"
+      },
+      {
+        "criterion": "position_gain",
+        "evidence_ids": [
+          "run:77c7a17fed60c4989f4a9818"
+        ],
+        "reason": "別の実走で道中の位置進出を確認した架空監査。",
+        "independence_reason": "近距離の着差と別の競走を根拠としている。"
+      }
+    ],
+    "comparisons": [
+      {
+        "a": "SYNTHETIC-5",
+        "b": "SYNTHETIC-6",
+        "reason": "各候補の条件適合とリスクを独立に比較した架空監査。"
+      },
+      {
+        "a": "SYNTHETIC-5",
+        "b": "SYNTHETIC-7",
+        "reason": "各候補の条件適合とリスクを独立に比較した架空監査。"
+      },
+      {
+        "a": "SYNTHETIC-6",
+        "b": "SYNTHETIC-7",
+        "reason": "各候補の条件適合とリスクを独立に比較した架空監査。"
+      }
+    ],
+    "reason": "位置取りと異なる競走の近距離競争力を比較した架空選出。"
+  },
+  "comparison": {
+    "status": "MEASURED_SUPPLIED_COHORT",
+    "reference": {
+      "surface": "芝",
+      "races": 46,
+      "horses": 623,
+      "good_horse_captures": 92,
+      "old_captures": 87,
+      "new_captures": 5,
+      "lost_captures": 0,
+      "leader_wins": 8,
+      "leader_top3": 21,
+      "period": [
+        "2026-10-17",
+        "2026-11-15"
+      ],
+      "evidence_status": "USER_REFERENCE_NOT_INDEPENDENTLY_VERIFIED",
+      "capture_definition": "TOP5_OR_EYE_TOP3_UNIQUE",
+      "required": [
+        "locked per-race pre-freeze inputs with stable horse IDs",
+        "before predictions and item-level 100-point scorecard",
+        "official final results",
+        "race membership and horse lists for old87/new92 captures",
+        "original Mineta research and approved scoring weights",
+        "private Eval input provenance (not proprietary rows in public Git)"
+      ]
+    },
+    "real_races_measured": 0,
+    "cohort_races": 1,
+    "cohort_horses": 8,
+    "synthetic": true,
+    "capture_definition": "TOP5_OR_EYE_TOP3_UNIQUE",
+    "reference_cohort_membership_verified": false,
+    "reference_46_623_92_verified": false,
+    "metrics": {
+      "condition_matches": 46,
+      "score_changed_horses": 7,
+      "rank_changed_horses": 8,
+      "eye_changed_races": 1,
+      "new_captures": 2,
+      "lost_captures": 1,
+      "baseline_captures": 1,
+      "after_captures": 2
+    },
+    "new_capture_horses": [
+      {
+        "race": "2026-11-15/東京/8",
+        "horse_id": "SYNTHETIC-8"
+      },
+      {
+        "race": "2026-11-15/東京/8",
+        "horse_id": "SYNTHETIC-6"
+      }
+    ],
+    "lost_capture_horses": [
+      {
+        "race": "2026-11-15/東京/8",
+        "horse_id": "SYNTHETIC-5"
+      }
+    ],
+    "lost_existing_good_eye_horses": [],
+    "races": [
+      {
+        "race_id": "2026-11-15/東京/8",
+        "horses": 8,
+        "baseline_captures": 1,
+        "after_captures": 2,
+        "new_ids": [
+          "SYNTHETIC-8",
+          "SYNTHETIC-6"
+        ],
+        "lost_ids": [
+          "SYNTHETIC-5"
+        ],
+        "race_hit_preserved": true,
+        "eye_audit_status": "FORMALLY_REVIEWED_FILL",
+        "turf_or_dirt": "芝",
+        "distance": 1600,
+        "inference_sha256": "c254dc46fdcc4eb9a5db28041c0d7c29d4c469bc281751249931a943eb4cde54",
+        "official_result_sha256": "3960e0b9c7729231aca1176ecb6c5f35aad0b866e92636d4cd2edcc3d935cfdb"
+      }
+    ],
+    "unmeasured": [],
+    "independent_future_validation": false,
+    "inference_uses_results": false,
+    "production_changed": false
+  }
+}

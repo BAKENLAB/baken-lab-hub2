@@ -1,0 +1,2 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+const n=Number(process.argv[2]);if(!Number.isInteger(n)||n<1||n>10)throw Error('BATCH');const stem='batch-'+String(n).padStart(2,'0'),base='research/unified-engine-20261116/v4-diagnosis/batches/',paths=['lock.payload.json','payload.json','summary.json'].map(s=>base+stem+'.'+s),s=JSON.stringify(paths.map(p=>({path:p,mode:'100644',type:'blob',content:readFileSync(p,'utf8')}))),out='/tmp/diagnosis-elements-'+n+'.json';writeFileSync(out,s);console.log(JSON.stringify({path:out,chars:s.length}));

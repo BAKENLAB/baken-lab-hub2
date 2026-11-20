@@ -1,0 +1,36 @@
+{
+  "results": [
+    {
+      "script": "v9/paired-input.test.mjs",
+      "exit_code": 0,
+      "tail": "7452ms)\n\u2714 persist preserves exact original JSON and refuses overwriting snapshot directory (10.622433ms)\n\u2714 post-run output or comparison hash edits refused by storage (8.374638ms)\n\u2714 same-day and future-dated history cannot masquerade as pre-race evidence (5.307315ms)\n\u2714 arm roster/hash/version mismatch cannot produce comparison record (10.637538ms)\n\u2714 malformed ranks/TOP5 and EYE membership rejected without fabricating replacements (10.015888ms)\n\u2714 race identifier aliases and post-time date mismatch cannot evade development registry (3.112051ms)\n\u2139 tests 24\n\u2139 suites 0\n\u2139 pass 24\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 255.492082\n"
+    },
+    {
+      "script": "v10/projection.test.mjs",
+      "exit_code": 0,
+      "tail": "ture slots (3.922117ms)\n\u2714 target results refused; same-day/null finishes never count as eligible observations (2.092018ms)\n\u2714 most recent maximum five observation candidates; no fake history to reach five (17.124629ms)\n\u2714 original response exact bytes hash retained only if actual matching response text supplied (2.194123ms)\n\u2714 caller times after post fail; official verified=true does not establish cryptographic witness (0.865218ms)\n\u2714 local historical16-horse shape (origin unverified) is development-only, never a new future comparison (2.561415ms)\n\u2139 tests 19\n\u2139 suites 0\n\u2139 pass 19\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 62.242946\n"
+    },
+    {
+      "script": "v11/evidence-contract.test.mjs",
+      "exit_code": 0,
+      "tail": "ch evidence and never mutates context (1.476922ms)\n\u2714 secret fields and target results prohibited; missing scalar facts remain missing (1.800599ms)\n\u2714 synthetic verified=false facts cannot enter unchanged V5 allocator as real facts (1.546713ms)\n\u2714 V5 shared-atom budget and processing order invariance maintained in explicit synthetic simulation (14.046289ms)\n\u2714 merely corroborating or missing source lineage never upgrades original history evidence (1.550046ms)\n\u2714 target obstacle or unconfirmed target segment cannot pass the research gate (1.174722ms)\n\u2139 tests 21\n\u2139 suites 0\n\u2139 pass 21\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 80.81279\n"
+    },
+    {
+      "script": "v12/check-real-observations.mjs",
+      "exit_code": 0,
+      "tail": "PASS V9-V11 saved artifacts unchanged\nPASS22 acquisition queries are SELECT-only; source reference hashes match\nPASS READY path differences and effective privilege checks retained\nPASS actual archive reference resolves, but does not become authorized CLAIM evidence\nPASS8 stored manual point vectors reconcile to FROZEN through existing bridge only\nPASS actual HTML metadata/body limitations remain explicit\n{\"checks\":6,\"pass\":6,\"fail\":0,\"new_real_comparisons\":0,\"production_allowed\":false}\n"
+    },
+    {
+      "script": "v13/record-archive.test.mjs",
+      "exit_code": 0,
+      "tail": " not converted into a synthetic evaluator (1.841965ms)\n\u2714 unknown outcome kind and credentials refused without rewriting originals (1.175026ms)\n\u2714 local recording timestamp never labeled generation/prestart proof (1.845317ms)\n\u2714 incomplete or merely file-complete records cannot assert real comparison (3.823266ms)\n\u2714 known development context stays excluded and hash is not proof of input use (1.538442ms)\n\u2714 tampered local bytes detected; no claim of filesystem WORM security (2.053708ms)\n\u2714 invalid JSON errors never echo the raw input value (1.168575ms)\n\u2139 tests 9\n\u2139 suites 0\n\u2139 pass 9\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 36.220883\n"
+    },
+    {
+      "script": "v14/archive-observation.test.mjs",
+      "exit_code": 0,
+      "tail": "\u2714 V13 original context flows unchanged into V10 observational slots, never formal scoring (14.811382ms)\n\u2714 post-capture hash changes refused (2.731605ms)\n\u2714 receipt/FROZEN IDs are only recorded consistency, not authenticated linkage (5.306868ms)\n\u2714 normal submission/FROZEN differences require trace, not rewrite or forced equality (5.442969ms)\n\u2714 invalid/race-mismatched frozen record cannot be declared matching (5.780561ms)\n\u2139 tests 5\n\u2139 suites 0\n\u2139 pass 5\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 46.064235\n"
+    }
+  ],
+  "protected_files": 208,
+  "changed": []
+}

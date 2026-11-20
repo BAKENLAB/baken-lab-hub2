@@ -1,0 +1,43 @@
+{
+  "batch": 4,
+  "races": 5,
+  "horses": 52,
+  "common_candidates": 47,
+  "excluded_candidates": 5,
+  "full_field_supported_races": 2,
+  "observable_equal_history_horses": 4,
+  "full_field_shared_early_coverage_races": 1,
+  "strict_same_input_proven_races": 0,
+  "case_totals": {
+    "L_FULL": 10,
+    "L_MASK_NO_REFILL": 9,
+    "C_LL": 9,
+    "C_VL": 10,
+    "C_LV": 10,
+    "C_VV": 11
+  },
+  "path_contrasts": {
+    "direct_exclusion": -1,
+    "common_refill": 0,
+    "rank_then_eye": {
+      "rank": 1,
+      "eye": 1
+    },
+    "eye_then_rank": {
+      "eye": 1,
+      "rank": 1
+    },
+    "interaction": 0,
+    "total": 1
+  },
+  "lost": 3,
+  "gained": 4,
+  "decision_sha256": "3e28ed5fe0194ed830762f5a83efab4ca661f6f6e9f33b986dca34f6178df6e1",
+  "source_lock_sha256": "cb28c1e731b1202dc6e5eeacc6fcc4d69f94eb97c997879ff3cddd053a649cb0",
+  "events": [
+    "LEGACY_FEATURES_AND_PROTECTED_RANK_REVIEW_LOCKS_READ",
+    "SIX_CASE_SELECTIONS_LOCK_WRITTEN",
+    "OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}

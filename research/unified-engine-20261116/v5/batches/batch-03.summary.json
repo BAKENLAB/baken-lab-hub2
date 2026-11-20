@@ -1,0 +1,92 @@
+{
+  "version": "V5_DETERMINISTIC_ALLOCATION_RESEARCH",
+  "batch": 3,
+  "races": 5,
+  "horses": 71,
+  "supported": 69,
+  "unrated": 2,
+  "unresolved_top5_races": 5,
+  "definitive_top5_races": 0,
+  "diagnostic_eye_races": 4,
+  "definitive_eye_races": 0,
+  "strict_formal_eyes": 0,
+  "old_captures": 8,
+  "strong_captures": 9,
+  "v4_captures": 11,
+  "diagnostic_captures": 11,
+  "diagnostic_top5_hits": 8,
+  "diagnostic_eye_hits": 3,
+  "turnover": {
+    "old87": {
+      "new": [
+        {
+          "race_id": "2026-10-25/新潟/10",
+          "horse_no": 8,
+          "horse_name": "ハートメテオ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-25/東京/10",
+          "horse_no": 7,
+          "horse_name": "エバーグルーヴ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-10-31/京都/12",
+          "horse_no": 11,
+          "horse_name": "タイムレスキス",
+          "finish": 2
+        }
+      ],
+      "lost": []
+    },
+    "strong92": {
+      "new": [
+        {
+          "race_id": "2026-10-25/新潟/10",
+          "horse_no": 8,
+          "horse_name": "ハートメテオ",
+          "finish": 1
+        },
+        {
+          "race_id": "2026-10-25/東京/10",
+          "horse_no": 7,
+          "horse_name": "エバーグルーヴ",
+          "finish": 2
+        },
+        {
+          "race_id": "2026-10-31/京都/12",
+          "horse_no": 11,
+          "horse_name": "タイムレスキス",
+          "finish": 2
+        }
+      ],
+      "lost": [
+        {
+          "race_id": "2026-10-25/新潟/9",
+          "horse_no": 13,
+          "horse_name": "ルージュリリック",
+          "finish": 3
+        }
+      ]
+    },
+    "v4": {
+      "new": [],
+      "lost": []
+    }
+  },
+  "credited_micro": 1988136964,
+  "debited_micro": 1988136964,
+  "pair_comparisons": 219,
+  "permutation_verified_horses": 71,
+  "permutation_verified_races": 5,
+  "actual_input_fills": 0,
+  "lock_sha256": "684f408b749b057d98a5ba12a6618539da6261388e19d950dd8de86f5da36bd3",
+  "source_lock_sha256": "5bc8a79d58e9063534153819ebe72bdb299959905bfb9c6464026a65c404a4b8",
+  "events": [
+    "FIXED_RECONSTRUCTION_INPUT_READ",
+    "V5_DECISION_LOCK_WRITTEN",
+    "COMPARATOR_AND_OUTCOME_LABELS_READ"
+  ],
+  "production_allowed": false
+}

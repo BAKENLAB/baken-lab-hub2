@@ -1,0 +1,327 @@
+{
+  "trial": "type-repaired",
+  "races": 46,
+  "horses": 623,
+  "audit_items": 23674,
+  "supported": 577,
+  "unrated": 46,
+  "eval_matched": 185,
+  "eval_scored": 143,
+  "research_eyes": 31,
+  "strict_formal_eyes": 0,
+  "definitive_ability_scores": 0,
+  "definitive_ability_ranks": 0,
+  "old_captures": 87,
+  "enhanced_captures": 92,
+  "v4_research_captures": 78,
+  "new_vs_old": 22,
+  "lost_vs_old": 31,
+  "new_vs_92": 18,
+  "lost_vs_92": 32,
+  "score_changed": 577,
+  "rank_changed": 510,
+  "eye_changed": 39,
+  "supported_score_not_complete_ability_score": true,
+  "comparative_scale_warning": "Old score versus V4 supported lower bound are different score definitions; difference is not an inferred ability decline.",
+  "unverified_result_rows": 143,
+  "full_field_supported_races": 21,
+  "pairwise_reviews": 1737,
+  "eval_reasons": {
+    "CACHE_AFTER_TARGET": 401,
+    "NO_CONFIRMED_FLAT_HISTORY": 16,
+    "UNIQUE_CATALOG_TUPLE_NOT_DOM_GEOMETRY_CERTIFICATION": 185,
+    "PAIR_NOT_IN_NORMAL_CATALOG": 17,
+    "AMBIGUOUS_LAYOUT": 4
+  },
+  "factor_points": {
+    "comparable_form": {
+      "nonzero_horses": 567,
+      "known_components_horses": 577,
+      "unknown_horses": 46,
+      "points_sum": 5237.037756361283
+    },
+    "consistency_recency": {
+      "nonzero_horses": 322,
+      "known_components_horses": 322,
+      "unknown_horses": 301,
+      "points_sum": 1429.3109106797706
+    },
+    "early_reproduction": {
+      "nonzero_horses": 474,
+      "known_components_horses": 476,
+      "unknown_horses": 147,
+      "points_sum": 2112.934176052706
+    },
+    "projected_pace": {
+      "nonzero_horses": 14,
+      "known_components_horses": 14,
+      "unknown_horses": 609,
+      "points_sum": 53.27537348272642
+    },
+    "draw_geometry": {
+      "nonzero_horses": 0,
+      "known_components_horses": 0,
+      "unknown_horses": 623,
+      "points_sum": 0
+    },
+    "distance_stamina": {
+      "nonzero_horses": 10,
+      "known_components_horses": 450,
+      "unknown_horses": 173,
+      "points_sum": 51.432743726861375
+    },
+    "course_affinity": {
+      "nonzero_horses": 159,
+      "known_components_horses": 325,
+      "unknown_horses": 563,
+      "points_sum": 333.5947483888662
+    },
+    "class": {
+      "nonzero_horses": 555,
+      "known_components_horses": 577,
+      "unknown_horses": 46,
+      "points_sum": 1905.0122010342607
+    },
+    "rival_followup": {
+      "nonzero_horses": 424,
+      "known_components_horses": 432,
+      "unknown_horses": 191,
+      "points_sum": 1483.4600005202208
+    },
+    "relative_last3f": {
+      "nonzero_horses": 506,
+      "known_components_horses": 570,
+      "unknown_horses": 53,
+      "points_sum": 1336.7117251304285
+    },
+    "sustained_effort": {
+      "nonzero_horses": 225,
+      "known_components_horses": 281,
+      "unknown_horses": 342,
+      "points_sum": 541.9709504236002
+    },
+    "going_weather": {
+      "nonzero_horses": 18,
+      "known_components_horses": 396,
+      "unknown_horses": 227,
+      "points_sum": 33.833521870286575
+    },
+    "weight_sex_age": {
+      "nonzero_horses": 261,
+      "known_components_horses": 464,
+      "unknown_horses": 159,
+      "points_sum": 354.85759566603514
+    },
+    "body_equipment_rest": {
+      "nonzero_horses": 119,
+      "known_components_horses": 195,
+      "unknown_horses": 428,
+      "points_sum": 176.65336755591733
+    },
+    "jockey_trainer": {
+      "nonzero_horses": 0,
+      "known_components_horses": 0,
+      "unknown_horses": 623,
+      "points_sum": 0
+    }
+  },
+  "coverage": {
+    "recent_form": {
+      "available": 577,
+      "matched": 464,
+      "associated_budget_nonzero_not_direct_condition_effect": 567
+    },
+    "same_class": {
+      "available": 577,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 555
+    },
+    "near_distance": {
+      "available": 577,
+      "matched": 398,
+      "associated_budget_nonzero_not_direct_condition_effect": 10
+    },
+    "same_track": {
+      "available": 577,
+      "matched": 159,
+      "associated_budget_nonzero_not_direct_condition_effect": 159
+    },
+    "relative_early": {
+      "available": 70,
+      "matched": 18,
+      "associated_budget_nonzero_not_direct_condition_effect": 474
+    },
+    "front_hold": {
+      "available": 577,
+      "matched": 201,
+      "associated_budget_nonzero_not_direct_condition_effect": 14
+    },
+    "long_turf": {
+      "available": 577,
+      "matched": 338,
+      "associated_budget_nonzero_not_direct_condition_effect": 10
+    },
+    "position_gain": {
+      "available": 577,
+      "matched": 349,
+      "associated_budget_nonzero_not_direct_condition_effect": 225
+    },
+    "eval_course": {
+      "available": 185,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 159
+    },
+    "incident": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "rival_followup": {
+      "available": 482,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 424
+    },
+    "race_pace": {
+      "available": 574,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 14
+    },
+    "last3f": {
+      "available": 570,
+      "matched": 307,
+      "associated_budget_nonzero_not_direct_condition_effect": 506
+    },
+    "stamina": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 225
+    },
+    "distance_change": {
+      "available": 195,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 10
+    },
+    "going_weather": {
+      "available": 562,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 18
+    },
+    "carried_weight": {
+      "available": 623,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 261
+    },
+    "body_weight": {
+      "available": 621,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 119
+    },
+    "equipment": {
+      "available": 63,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 119
+    },
+    "sex_age": {
+      "available": 623,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 261
+    },
+    "jockey_trainer": {
+      "available": 623,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "draw_geometry": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "training": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "bloodline": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T01": {
+      "available": 194,
+      "matched": 63,
+      "associated_budget_nonzero_not_direct_condition_effect": 474
+    },
+    "mineta_T02": {
+      "available": 623,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 14
+    },
+    "mineta_T03": {
+      "available": 114,
+      "matched": 1,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T04": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T05": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T06": {
+      "available": 195,
+      "matched": 50,
+      "associated_budget_nonzero_not_direct_condition_effect": 10
+    },
+    "mineta_T07": {
+      "available": 195,
+      "matched": 56,
+      "associated_budget_nonzero_not_direct_condition_effect": 10
+    },
+    "mineta_T08": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T09": {
+      "available": 464,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 261
+    },
+    "mineta_T10": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T11": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T12": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T13": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    },
+    "mineta_T14": {
+      "available": 0,
+      "matched": 0,
+      "associated_budget_nonzero_not_direct_condition_effect": 0
+    }
+  },
+  "full_field_supported_subset": {
+    "races": 21,
+    "old_captures": 42,
+    "enhanced_captures": 46,
+    "v4_captures": 44,
+    "ability_scores_still_partial": true
+  }
+}

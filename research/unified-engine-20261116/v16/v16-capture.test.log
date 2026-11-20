@@ -1,0 +1,27 @@
+✔ default OFF never inspects producer, gate, clock or sink (2.921949ms)
+✔ OFF does not serialize a circular input (0.203231ms)
+✔ records values without changing normal-process inputs; later mutation cannot change record (5.067954ms)
+✔ distinct actual inputs remain distinct hashes, never force equality (0.819726ms)
+✔ chain rejects tampering, truncation at front, reorder and cross-attempt splice (1.026646ms)
+✔ sink exceptions fail open, do not reveal original error or retry (0.447812ms)
+✔ hash/producer failure does not throw into normal path (0.318756ms)
+✔ timeout aborts sink, no sink reattempt (19.830152ms)
+✔ lease and race cutoff refused before producer or sink (0.846917ms)
+✔ unready and missing attempt identity refused (1.139545ms)
+✔ secret key and nested tokens rejected without logging payload (0.852469ms)
+✔ accessors, prototype tricks, cycles and non-JSON are refused (1.584713ms)
+✔ size, count and total bytes bounded (0.75636ms)
+✔ receipt only records ordinary response, cannot save or duplicate FROZEN (0.458732ms)
+✔ simulated normal one-save flow continues after capture failure with unchanged payload (0.589433ms)
+✔ concurrent observation does not create two equal event IDs (0.653415ms)
+✔ candidate contains observation only; reversing hooks reproduces exact v33 source (2.158298ms)
+✔ complete equal observations do not fake real proof; missing or changed save input refuses alignment (2.935522ms)
+✔ escaped secret key inside response JSON is also refused (0.766793ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 55.761643

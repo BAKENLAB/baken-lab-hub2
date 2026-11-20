@@ -1,0 +1,205 @@
+[
+  {
+    "version": "JRA_REBUILD_0.4_CONTENT_EVIDENCE_20261023",
+    "is_active": true,
+    "created_at": "2026-10-23 10:07:49.112992+00",
+    "updated_at": "2026-10-23 10:07:49.112992+00",
+    "content": {
+      "eye": {
+        "rule": "After TOP5 is frozen, independently re-audit every runner outside TOP5 and select at most one horse with the strongest concrete race-specific case to outperform its frozen ability rank today. Never auto-select rank 6. Popularity, odds, market data, external tipsters, and named-jockey preferences are prohibited. Return null when no candidate has sufficient concrete evidence.",
+        "scope": "ALL_SUPPORTED_FLAT_CLASSES",
+        "rank_effect": false,
+        "no_candidate": "eye=null",
+        "required_audit": [
+          "outside_top5_reaudited",
+          "eye_pool_checked",
+          "rank6_auto_selected=false",
+          "concrete_upside_reason"
+        ],
+        "selection_pool": "ALL_RUNNERS_OUTSIDE_TOP5",
+        "maiden_component": "MAIDEN_RESIDUAL_EYE_0.1 may be used as supplemental evidence in MAIDEN but is not a gate for other supported classes.",
+        "validated_evidence": "Historical 2026-01..08 check found one-per-race outside-TOP5 candidate top3 rates across MAIDEN, CLASS1, CLASS2_3 and OPEN_GRADED; time-split stability confirmed, with OPEN_GRADED treated more cautiously."
+      },
+      "goal": "Freeze pre-race JRA ability ranking using only validated components; keep market data separate.",
+      "name": "BAKEN LAB JRA MAIN / REBUILD 0.3",
+      "scope": "JRA flat races only; obstacle races unsupported",
+      "output": {
+        "bets": [],
+        "bet_strategy": "SUSPENDED_FOR_ABILITY_STABILITY",
+        "top_level_keys": [
+          "runners",
+          "top5",
+          "eye",
+          "bets",
+          "summary",
+          "bet_strategy",
+          "audit"
+        ]
+      },
+      "ranking": {
+        "validated_core": "BASE_CORE_0.1",
+        "versioned_mode": "CONTENT_EVIDENCE_OPTIONAL_0.4",
+        "training_period": "2025",
+        "validation_period": "2026-01..08",
+        "candidate_function": "public.jra_live_base_candidate_v1",
+        "unsupported_segments": "Do not force a ranking when candidate data_status is unsupported or no flat history.",
+        "candidate_model_version": "JRA_BASE_CORE_0.1_AB",
+        "content_evaluation_contract": {
+          "comments": "optional; missing cannot lower score or block",
+          "base_core": "BASE_CORE_0.1_UNCHANGED",
+          "selection": "compare every runner independently on prior as-of race content, course surface distance, winner gaps, positional work, pace and opponent quality with verified facts only; relative evidence must be assessed against all rivals, not one fixed bump",
+          "market_data": "no market odds or popularity in ability evaluation",
+          "rank_effect": "Manual whole-field ranking may deviate from baseline candidate when race-specific comparative evidence is explicitly stated",
+          "claim_context": "Use runner_history and optional runner_content_evidence if present; if absent continue normally; an authorized read-only diagnostic may supply historic content but is never mandatory",
+          "ranking_guard": "no automatic rank6 promotion; do not blindly promote all small-margin finishers, compare with displaced top5 and protect strong form",
+          "source_cutoff": "only events demonstrably known before this race start",
+          "history_window": "use four verified merged runs; add older factual racing evidence only where source and as-of are certain",
+          "incident_guard": "never infer an unverified break, interference, or wide trip",
+          "surface_switch": "first turf or dirt is uncertainty, not zero ability or guaranteed uplift",
+          "full_runner_first": true,
+          "when_optional_unavailable": "CONTINUE_BASE_CORE_NO_PENALTY"
+        }
+      },
+      "rejected": [
+        "BASE_CONTEXT_0.2",
+        "STYLE_MULTIPLY_0.1",
+        "STYLE_TIEBREAK_0.1",
+        "THIN_MULTI_TRANSFER_0.1",
+        "BOOST_EYE_0.1.1"
+      ],
+      "principles": {
+        "no_posthoc": true,
+        "missing_data": "Do not infer unavailable facts; mark missing.",
+        "market_separation": true,
+        "independent_evaluation": "Do not use external tipster rankings or named-jockey preferences as ranking rules."
+      },
+      "change_policy": "Content-aware full-runner comparison in new races only. No formula-based boost without evidence. Legacy BASE_CORE_0.1 remains the statistically validated baseline; content assessment is experimental until monitored. Existing FROZEN unchanged.",
+      "diagnostic_only": [
+        "COURSE_TRANSFER_0.2_COARSE",
+        "COURSE_STYLE_0.1"
+      ],
+      "research_status": "LIVE_FORWARD_ONLY_EXPERIMENTAL_20261023"
+    }
+  },
+  {
+    "version": "JRA_REBUILD_0.3_FLAT_HISTORY_EYE_ALLCLASS_20261004",
+    "is_active": false,
+    "created_at": "2026-10-04 02:57:01.312222+00",
+    "updated_at": "2026-10-23 10:07:49.124779+00",
+    "content": {
+      "eye": {
+        "rule": "After TOP5 is frozen, independently re-audit every runner outside TOP5 and select at most one horse with the strongest concrete race-specific case to outperform its frozen ability rank today. Never auto-select rank 6. Popularity, odds, market data, external tipsters, and named-jockey preferences are prohibited. Return null when no candidate has sufficient concrete evidence.",
+        "scope": "ALL_SUPPORTED_FLAT_CLASSES",
+        "rank_effect": false,
+        "no_candidate": "eye=null",
+        "required_audit": [
+          "outside_top5_reaudited",
+          "eye_pool_checked",
+          "rank6_auto_selected=false",
+          "concrete_upside_reason"
+        ],
+        "selection_pool": "ALL_RUNNERS_OUTSIDE_TOP5",
+        "maiden_component": "MAIDEN_RESIDUAL_EYE_0.1 may be used as supplemental evidence in MAIDEN but is not a gate for other supported classes.",
+        "validated_evidence": "Historical 2026-01..08 check found one-per-race outside-TOP5 candidate top3 rates across MAIDEN, CLASS1, CLASS2_3 and OPEN_GRADED; time-split stability confirmed, with OPEN_GRADED treated more cautiously."
+      },
+      "goal": "Freeze pre-race JRA ability ranking using only validated components; keep market data separate.",
+      "name": "BAKEN LAB JRA MAIN / REBUILD 0.3",
+      "scope": "JRA flat races only; obstacle races unsupported",
+      "output": {
+        "bets": [],
+        "bet_strategy": "SUSPENDED_FOR_ABILITY_STABILITY",
+        "top_level_keys": [
+          "runners",
+          "top5",
+          "eye",
+          "bets",
+          "summary",
+          "bet_strategy",
+          "audit"
+        ]
+      },
+      "ranking": {
+        "validated_core": "BASE_CORE_0.1",
+        "training_period": "2025",
+        "validation_period": "2026-01..08",
+        "candidate_function": "public.jra_live_base_candidate_v1",
+        "unsupported_segments": "Do not force a ranking when candidate data_status is unsupported or no flat history.",
+        "candidate_model_version": "JRA_BASE_CORE_0.1_AB"
+      },
+      "rejected": [
+        "BASE_CONTEXT_0.2",
+        "STYLE_MULTIPLY_0.1",
+        "STYLE_TIEBREAK_0.1",
+        "THIN_MULTI_TRANSFER_0.1",
+        "BOOST_EYE_0.1.1"
+      ],
+      "principles": {
+        "no_posthoc": true,
+        "missing_data": "Do not infer unavailable facts; mark missing.",
+        "market_separation": true,
+        "independent_evaluation": "Do not use external tipster rankings or named-jockey preferences as ranking rules."
+      },
+      "change_policy": "Only validated components may affect ranking. Diagnostic or rejected components cannot affect rank until separately validated.",
+      "diagnostic_only": [
+        "COURSE_TRANSFER_0.2_COARSE",
+        "COURSE_STYLE_0.1"
+      ]
+    }
+  },
+  {
+    "version": "JRA_REBUILD_0.3_FLAT_HISTORY_20261004",
+    "is_active": false,
+    "created_at": "2026-10-03 17:04:28.69048+00",
+    "updated_at": "2026-10-03 17:04:28.69048+00",
+    "content": {
+      "eye": {
+        "rule": "BASE rank>=6 and residual_fit_count>=2; select by residual evidence without popularity/odds or named-jockey exclusions.",
+        "scope": "MAIDEN only",
+        "rank_effect": false,
+        "validated_candidate": "MAIDEN_RESIDUAL_EYE_0.1"
+      },
+      "goal": "Freeze pre-race JRA ability ranking using only validated components; keep market data separate.",
+      "name": "BAKEN LAB JRA MAIN / REBUILD 0.3",
+      "scope": "JRA flat races only; obstacle races unsupported",
+      "output": {
+        "bets": [],
+        "bet_strategy": "SUSPENDED_FOR_ABILITY_STABILITY",
+        "top_level_keys": [
+          "runners",
+          "top5",
+          "eye",
+          "bets",
+          "summary",
+          "bet_strategy",
+          "audit"
+        ]
+      },
+      "ranking": {
+        "validated_core": "BASE_CORE_0.1",
+        "training_period": "2025",
+        "validation_period": "2026-01..08",
+        "candidate_function": "public.jra_live_base_candidate_v1",
+        "unsupported_segments": "Do not force a ranking when candidate data_status is unsupported or no flat history.",
+        "candidate_model_version": "JRA_BASE_CORE_0.1_AB"
+      },
+      "rejected": [
+        "BASE_CONTEXT_0.2",
+        "STYLE_MULTIPLY_0.1",
+        "STYLE_TIEBREAK_0.1",
+        "THIN_MULTI_TRANSFER_0.1",
+        "BOOST_EYE_0.1.1"
+      ],
+      "principles": {
+        "no_posthoc": true,
+        "missing_data": "Do not infer unavailable facts; mark missing.",
+        "market_separation": true,
+        "independent_evaluation": "Do not use external tipster rankings or named-jockey preferences as ranking rules."
+      },
+      "change_policy": "Only validated components may affect ranking. Diagnostic or rejected components cannot affect rank until separately validated.",
+      "diagnostic_only": [
+        "COURSE_TRANSFER_0.2_COARSE",
+        "COURSE_STYLE_0.1"
+      ]
+    }
+  }
+]

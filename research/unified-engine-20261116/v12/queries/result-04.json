@@ -1,0 +1,100 @@
+[
+  {
+    "kind": "table",
+    "schema_name": "private",
+    "name": "jra_model_transition_snapshots",
+    "rls": true,
+    "acl": null
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_html_evidence",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_live_diagnosis_snapshot_entries",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_live_diagnosis_snapshots",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_live_rank_entries",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_live_rank_snapshot_entries",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_live_rank_snapshots",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_prediction_worker_runs",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_rank_beta_entries",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_rank_beta_validation_entries",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "public",
+    "name": "jra_rank_beta_validation_summary",
+    "rls": true,
+    "acl": "{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "storage",
+    "name": "buckets",
+    "rls": true,
+    "acl": "{supabase_storage_admin=a*r*w*d*D*x*t*m*/supabase_storage_admin,service_role=arwdDxtm/supabase_storage_admin,authenticated=arwdDxtm/supabase_storage_admin,anon=arwdDxtm/supabase_storage_admin,postgres=a*r*w*d*D*x*t*m*/supabase_storage_admin}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "storage",
+    "name": "buckets_analytics",
+    "rls": true,
+    "acl": "{supabase_storage_admin=arwdDxtm/supabase_storage_admin,service_role=arwdDxtm/supabase_storage_admin,authenticated=arwdDxtm/supabase_storage_admin,anon=arwdDxtm/supabase_storage_admin}"
+  },
+  {
+    "kind": "table",
+    "schema_name": "storage",
+    "name": "buckets_vectors",
+    "rls": true,
+    "acl": "{supabase_storage_admin=arwdDxtm/supabase_storage_admin,service_role=r/supabase_storage_admin,authenticated=r/supabase_storage_admin,anon=r/supabase_storage_admin}"
+  }
+]

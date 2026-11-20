@@ -1,0 +1,15 @@
+import {POLICY} from '../v4/scoring.mjs';
+export const AXIS_NAMES={comparable_form:'比較可能な近走成績',consistency_recency:'安定性・近時性',early_reproduction:'正規化先行位置',projected_pace:'展開・ラップ適応仮説',draw_geometry:'枠・コース形状',distance_stamina:'距離実績',course_affinity:'同競馬場・Eval共通枠',class:'クラス経験',rival_followup:'直接対戦相手の次走',relative_last3f:'相対上がり',sustained_effort:'持続位置取りproxy',going_weather:'馬場適性',weight_sex_age:'斤量差',body_equipment_rest:'馬体・休養proxy',jockey_trainer:'騎手・調教師'};
+const cases=[{id:'baseline',mode:'structural',drop:[],label:'固定V4再現'}];
+for(const axis of Object.keys(POLICY.weights))for(const mode of ['frozen','structural'])cases.push({id:`${mode}__without_${axis}`,mode,drop:[axis],label:AXIS_NAMES[axis]+'を外す'});
+for(const mode of ['frozen','structural'])cases.push({id:`${mode}__without_eval_component`,mode,drop:[],evalOff:true,label:'Eval2点componentのみ除外'});
+for(const mode of ['frozen','structural'])cases.push({id:`${mode}__without_lap_family`,mode,drop:['projected_pace','sustained_effort'],label:'ラップ依存2軸を除外（EYE進出は保持）'});
+cases.push({id:'mineta_unique_frontshare_off',mode:'structural',drop:['projected_pace'],label:'みねた固有のfrontShare→展開ルート除外',identifiability:'UNIQUE_TRACKABLE_ROUTE_ONLY'});
+for(const mode of ['frozen','structural'])cases.push({id:`${mode}__mineta_shared_numeric_off`,mode,drop:['early_reproduction','projected_pace','distance_stamina','weight_sex_age'],label:'みねたと共有する数値信号群を除外',identifiability:'SHARED_WITH_BASE_AND_OWN_NOT_PURE_MINETA_EFFECT'});
+cases.push({id:'mineta_shared_full_channel_off',mode:'structural',drop:['early_reproduction','projected_pace','distance_stamina','weight_sex_age'],withhold:['distance_performance','positional_progress'],label:'共有数値信号と共有EYEmechanismを除外',identifiability:'SHARED_WITH_BASE_AND_OWN_NOT_PURE_MINETA_EFFECT'});
+cases.push({id:'last3f_full_channel_off',mode:'structural',drop:['relative_last3f'],withhold:['relative_finishing_speed'],label:'上がりの数値点＋EYE根拠を除外'});
+cases.push({id:'distance_full_channel_off',mode:'structural',drop:['distance_stamina'],withhold:['distance_performance'],label:'距離数値点＋近距離好走EYE根拠を除外',identifiability:'RELATED_NOT_IDENTICAL_DISTANCE_DEFINITIONS'});
+for(const mechanism of ['relative_finishing_speed','distance_performance','positional_progress'])cases.push({id:'eye_only_without_'+mechanism,mode:'structural',drop:[],withhold:[mechanism],label:'EYE '+mechanism+'根拠だけ除外'});
+for(const [id,guard] of [['diagnostic_duplicates_off',{duplicateGuard:false}],['diagnostic_shared_cap_off',{raceCap:false}],['diagnostic_both_allocation_guards_off',{duplicateGuard:false,raceCap:false}],['diagnostic_zero_credit_not_reserved',{reserveZero:false}],['diagnostic_reverse_axis_order',{reverse:true}]])cases.push({id,mode:'guard_diagnostic',drop:[],guard,label:'診断限定 '+id,not_prediction_candidate:true});
+export const SCENARIOS=Object.freeze(cases.map(c=>Object.freeze(c)));
+if(SCENARIOS.length!==49||new Set(SCENARIOS.map(x=>x.id)).size!==49)throw Error('SCENARIO_REGISTRY');

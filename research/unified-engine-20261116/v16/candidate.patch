@@ -1,0 +1,163 @@
+--- v33/index.ts
++++ v16-research/candidate-index.ts
+@@ -1,3 +1,4 @@
++import {createResearchCapture} from "./capture.mjs"; // V16 RESEARCH ONLY
+ import {reconcileG1ScoringTrace} from "./g1-scoring-trace.mjs";
+ import {buildG1IntelligenceAudit} from "./g1-intelligence-audit.mjs";
+ import { applyEyeFillNull, eyeFillInstructions } from "./jra-eye-fill-null.mjs";
+@@ -22,7 +23,8 @@
+ const uuid=(x:string)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
+ const err=(e:unknown)=>e instanceof Error?e.message:"UNAVAILABLE";
+ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",errors:{detailed:false}})],async(req,{supabase})=>{
+- const handler=createMcpHandler(()=>{const s=new McpServer({name:"BAKEN JRA Claimed Context",version:"0.1.0"});
++ const handler=createMcpHandler(()=>{const researchCapture=createResearchCapture(); // V16 DEFAULT OFF: no sink/gate binding
++const s=new McpServer({name:"BAKEN JRA Claimed Context",version:"0.1.0"});
+  const admin=()=>{const u=Deno.env.get("SUPABASE_URL")??"",k=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")??"";if(!u||!k)throw Error("SERVER_CONFIGURATION_ERROR");return createClient(u,k,{auth:{persistSession:false,autoRefreshToken:false}})};
+  const auth=async()=>{const a=Deno.env.get("LOCAL_MCP_ALLOWED_USER_ID")??"";if(!uuid(a))throw Error("AUTHORIZATION_NOT_CONFIGURED");const {data:{user},error}=await supabase.auth.getUser();if(error||!user||user.id!==a)throw Error("FORBIDDEN")};
+ 
+@@ -40,12 +42,21 @@
+        .eq('target_course_key',key).limit(200);
+      if(!error&&Array.isArray(rows))cohorts=rows;
+    }
++ // V16 OBSERVE eval_materials
++ if(researchCapture.enabled) await researchCapture.observe("eval_materials",()=>({context:data,ownedTransferStats:cohorts,snapshot:PRIVATE_EVAL_PRIORITIES}));
++
+    return buildEvalTransferForJraClaim({
+      context:data,snapshot:PRIVATE_EVAL_PRIORITIES,
+      ownedTransferStats:cohorts,observedAt:new Date().toISOString()
+    });
+  };
+- s.registerTool("jra_claimed_context",{description:"Get verified JRA CLAIM context with live_ability_rank_input for the real pre-race JRA0.4 full-field decision. Review all ranks (not just 5/6) and use official historical proof to update official 100-point ranks and TOP5 when justified BEFORE save. Never use odds, target result, or rewrite FROZEN. Read-only.",inputSchema:z.object({job_id:z.string().uuid()}),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async({job_id})=>{try{await auth();const c=admin();const {data:raw,error}=await c.rpc("jra_claimed_context",{p_job_id:job_id});if(error||!raw)throw Error("CONTEXT_UNAVAILABLE");const data=scopeVerifiedActiveField(raw);
++ s.registerTool("jra_claimed_context",{description:"Get verified JRA CLAIM context with live_ability_rank_input for the real pre-race JRA0.4 full-field decision. Review all ranks (not just 5/6) and use official historical proof to update official 100-point ranks and TOP5 when justified BEFORE save. Never use odds, target result, or rewrite FROZEN. Read-only.",inputSchema:z.object({job_id:z.string().uuid()}),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async({job_id})=>{try{await auth();const c=admin();const {data:raw,error}=await c.rpc("jra_claimed_context",{p_job_id:job_id});if(error||!raw)throw Error("CONTEXT_UNAVAILABLE");
++ // V16 OBSERVE initial_raw
++ if(researchCapture.enabled) await researchCapture.observe("initial_raw",()=>(raw));
++const data=scopeVerifiedActiveField(raw);
++ // V16 OBSERVE initial_scoped
++ if(researchCapture.enabled) await researchCapture.observe("initial_scoped",()=>(data));
++
+  // Post-CLAIM, before save: generate an explicit alternative ranking, never
+  // change the official baseline or bypass the existing save gate.
+  try {
+@@ -139,6 +150,9 @@
+  data.eye_additional_audit=safeEyeAdditionalAudit(data,new Date().toISOString());
+  data.eye_fill_instructions=eyeFillInstructions();
+  // END OPTIONAL EYE AUDIT
++ // V16 OBSERVE initial_response
++ if(researchCapture.enabled) await researchCapture.observe("initial_response",()=>({text:JSON.stringify(data)}));
++
+  return {content:[{type:"text",text:JSON.stringify(data)}],structuredContent:{context:data}}}catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}});
+ 
+  // Second-pass preview after the model/human has ranked ALL runners once.
+@@ -234,15 +248,33 @@
+      const c=admin();
+      const {data:raw,error}=await c.rpc("jra_claimed_context",{p_job_id:job_id});
+      if(error||!raw)throw Error("OFFICIAL_CLAIM_CONTEXT_UNAVAILABLE");
++ // V16 OBSERVE preview_raw
++ if(researchCapture.enabled) await researchCapture.observe("preview_raw",()=>(raw));
++
+      const context=scopeVerifiedActiveField(raw);assertScopedActivePayload(context,payload);
++ // V16 OBSERVE preview_scoped
++ if(researchCapture.enabled) await researchCapture.observe("preview_scoped",()=>(context));
++
+      const evalInput=await loadEvalForClaim(context,c);
++ // V16 OBSERVE bridge_before
++ if(researchCapture.enabled) await researchCapture.observe("bridge_before",()=>({context,evalInput,payload}));
++
+      const result=buildJraVerifiedEvidenceRankBridge({
+        context,evalInput,payload,observedAt:new Date().toISOString()
+      });
++ // V16 OBSERVE bridge_after
++ if(researchCapture.enabled) await researchCapture.observe("bridge_after",()=>(result));
++
+      // BEGIN EYE FILL PREVIEW
++ // V16 OBSERVE eye_before
++ if(researchCapture.enabled) await researchCapture.observe("eye_before",()=>(result));
++
+      const fill=result.status==='READY_FOR_OFFICIAL_SAVE'&&result.proposed_payload?
+        applyEyeFillNull({context,payload:result.proposed_payload,observedAt:new Date().toISOString()}):null;
+      const previewResult=fill?{...result,proposed_payload:fill.payload,eye_fill_status:fill.status}:result;
++ // V16 OBSERVE eye_after
++ if(researchCapture.enabled) await researchCapture.observe("eye_after",()=>(previewResult));
++
+      // END EYE FILL PREVIEW
+      const g1Audit=buildG1IntelligenceAudit(context,{observedAt:new Date().toISOString(),payload});
+   const g1ScoreTrace=reconcileG1ScoringTrace({context,originalPayload:payload,rankPreview:previewResult,g1Audit,observedAt:new Date().toISOString()});
+@@ -268,6 +300,9 @@
+    try{
+      await auth();
+      const c=admin(),observedAt=new Date().toISOString();
++ // V16 OBSERVE submitted_payload
++ if(researchCapture.enabled) await researchCapture.observe("submitted_payload",()=>(payload));
++
+      let eyeFillContext:any=null;
+      let savedPayload:any=payload,rankBridgeStatus="NOT_READY",
+        rankScoreChanges=0,beforeTop5:any=null,afterTop5:any=null,
+@@ -279,10 +314,19 @@
+        const {data:raw,error:ce}=await c.rpc("jra_claimed_context",
+          {p_job_id:job_id}).abortSignal(AbortSignal.timeout(12000));
+        if(!ce&&raw){
++ // V16 OBSERVE save_raw
++ if(researchCapture.enabled) await researchCapture.observe("save_raw",()=>(raw));
++
+          const context=scopeVerifiedActiveField(raw);assertScopedActivePayload(context,payload);
++ // V16 OBSERVE save_scoped
++ if(researchCapture.enabled) await researchCapture.observe("save_scoped",()=>(context));
++
+          eyeFillContext=context;
+          const evalInput=await loadEvalForClaim(context,c);
+          evalStatus=evalInput?.status??"OPTIONAL_UNAVAILABLE";
++ // V16 OBSERVE bridge_before
++ if(researchCapture.enabled) await researchCapture.observe("bridge_before",()=>({context,evalInput,payload}));
++
+          if(evalStatus==='READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW'){
+            if(payload.audit?.evidence_rank_bridge?.version==='JRA_EVAL_1942_PACE_SCORE_V1'){
+              const verified=verifyJraBridgeAlreadyApplied({
+@@ -319,13 +363,22 @@
+        if(String(err(e)).startsWith('JRA_EVIDENCE_'))throw e;
+        rankBridgeStatus="OPTIONAL_SOURCE_UNAVAILABLE";
+      }
++ // V16 OBSERVE bridge_after
++ if(researchCapture.enabled) await researchCapture.observe("bridge_after",()=>({payload:savedPayload,status:rankBridgeStatus}));
++
+      // BEGIN EYE FILL SAVE
++ // V16 OBSERVE eye_before
++ if(researchCapture.enabled) await researchCapture.observe("eye_before",()=>({context:eyeFillContext,payload:savedPayload}));
++
+      if(eyeFillContext){
+        savedPayload=applyEyeFillNull({context:eyeFillContext,payload:savedPayload,
+          observedAt:new Date().toISOString()}).payload;
+      }else if(savedPayload.audit?.eye_fill_review||savedPayload.audit?.eye_fill_applied){
+        throw Error("JRA_EYE_FILL_CONTEXT_UNAVAILABLE");
+      }
++ // V16 OBSERVE eye_after
++ if(researchCapture.enabled) await researchCapture.observe("eye_after",()=>(savedPayload));
++
+      // END EYE FILL SAVE
+      if(eyeFillContext?.active_field_scope){assertScopedActivePayload(eyeFillContext,savedPayload);savedPayload={...savedPayload,audit:{...savedPayload.audit,active_field_scope:eyeFillContext.active_field_scope}};}
+      let shadow=null;
+@@ -333,16 +386,25 @@
+        if(extractOfficialSaveDraft(savedPayload,"JRA")){
+          const {data:context,error:ce}=await c.rpc("jra_claimed_context",
+            {p_job_id:job_id}).abortSignal(AbortSignal.timeout(2200));
++ // V16 OBSERVE shadow_raw
++ if(researchCapture.enabled) await researchCapture.observe("shadow_raw",()=>({context,error_present:!!ce}));
++
+          if(!ce&&context)shadow=buildOptionalSaveJraShadow({
+            context:scopeVerifiedActiveField(context),payload:savedPayload,now:new Date().toISOString()
+          });
+        }
+      }catch{/* Keep core save available; optional paired proof is best effort. */}
++ // V16 OBSERVE final_payload
++ if(researchCapture.enabled) await researchCapture.observe("final_payload",()=>(savedPayload));
++
+      const {data,error}=await c.rpc("jra_save_claimed_prediction_with_shadow_v1",{
+        p_job_id:job_id,p_protocol_version:protocol_version,p_payload:savedPayload,
+        p_baseline:shadow?.baseline??null,p_preview:shadow?.preview??null
+      });
+      if(error||!uuid(data?.prediction_id)||data?.ok!==true)throw Error("SAVE_REJECTED");
++ // V16 OBSERVE receipt
++ if(researchCapture.enabled) await researchCapture.observe("receipt",()=>(data));
++
+      // Read back the ACTUAL immutable FROZEN row. An RPC receipt by itself
+      // does not prove the 100-point and TOP5 delta reached the production DB.
+      // On readback failure report UNCONFIRMED without retrying any write.

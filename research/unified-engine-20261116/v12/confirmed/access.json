@@ -1,0 +1,58 @@
+[
+  {
+    "kind": "function",
+    "name": "jra_claim_prediction_jobs",
+    "anon_allowed": false,
+    "authenticated_allowed": false,
+    "service_role_allowed": true,
+    "security_definer": false
+  },
+  {
+    "kind": "function",
+    "name": "jra_claimed_context",
+    "anon_allowed": false,
+    "authenticated_allowed": false,
+    "service_role_allowed": true,
+    "security_definer": true
+  },
+  {
+    "kind": "function",
+    "name": "jra_manual_claim_next_v1",
+    "anon_allowed": false,
+    "authenticated_allowed": false,
+    "service_role_allowed": true,
+    "security_definer": false
+  },
+  {
+    "kind": "function",
+    "name": "jra_manual_readiness_v1",
+    "anon_allowed": false,
+    "authenticated_allowed": false,
+    "service_role_allowed": true,
+    "security_definer": false
+  },
+  {
+    "kind": "table",
+    "name": "jra_html_evidence",
+    "anon_allowed": false,
+    "authenticated_allowed": false,
+    "service_role_allowed": true,
+    "rls": true
+  },
+  {
+    "kind": "table",
+    "name": "jra_lab_races",
+    "anon_allowed": false,
+    "authenticated_allowed": false,
+    "service_role_allowed": true,
+    "rls": true
+  },
+  {
+    "kind": "table",
+    "name": "jra_lab_runs",
+    "anon_allowed": false,
+    "authenticated_allowed": false,
+    "service_role_allowed": true,
+    "rls": true
+  }
+]

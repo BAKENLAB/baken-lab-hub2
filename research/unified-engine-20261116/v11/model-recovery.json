@@ -1,0 +1,20 @@
+{
+  "path": "research/staged-jra-claimed-mcp-ability-v14.ts",
+  "commit": "8faa3e02511f5dfb77f9ba82d6eb9e53943ca51b",
+  "github_blob": "5f82266f2590d4043ad849a50170ce72627fc8c6",
+  "sha256": "333adf0728eeb8e2e1ed710907c2b88efe9a59f254b40032a87f35b73a07f81c",
+  "read_at": "2026-11-18T17:11:52.998902+00:00",
+  "findings": [
+    {
+      "line": 112,
+      "text": "s.registerTool(\"jra_save_claimed_prediction\",{description:\"Save a completed BAKEN LAB JRA prediction only for the currently live JRA claim through the guarded JRA save RPC.\",inputSchema:z.object({job_id:z.string().uuid(),protocol_version:z.string().min(1).max(100),payload:z.object({runners:z.array(z.unknown()).min(1),top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),audit:z.record(z.string(),z.unknown())}).strict()}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:false,openWorldHint:false}},async({job_id,protocol_version,payload})=>{try{await auth();const c=admin();"
+    },
+    {
+      "line": 125,
+      "text": "p_job_id:job_id,p_protocol_version:protocol_version,p_payload:payload,"
+    }
+  ],
+  "recovered_original_independent100_scorer": false,
+  "reason": "Older MCP accepts a completed payload from caller and forwards it to guarded save; no raw-input-to-independent100 evaluator is established.",
+  "global_absence_proven": false
+}

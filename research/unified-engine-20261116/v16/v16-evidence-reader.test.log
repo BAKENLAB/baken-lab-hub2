@@ -1,0 +1,17 @@
+✔ default reader is disconnected and never grants scoring proof (1.255939ms)
+✔ fixed read operation binds exact original context; synthetic proof never real (7.748879ms)
+✔ expired read never calls source (0.541863ms)
+✔ different job or changed bytes rejected (1.118029ms)
+✔ permission error stops; no fallback route or private error leaked (0.7351ms)
+✔ source ambiguity, missing body and source clock mismatch never become facts (4.750917ms)
+✔ fake signature cannot attest READY or source selection (1.564212ms)
+✔ synthetic issuer cannot be relabeled as FUTURE (1.988039ms)
+✔ hanging source aborted without retry (10.910974ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37.219411

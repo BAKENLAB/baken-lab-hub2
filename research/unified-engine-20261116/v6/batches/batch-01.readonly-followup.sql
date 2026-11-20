@@ -1,0 +1,6 @@
+-- SELECT ONLY. Prepared, not executed. One fixed cohort group <=5 target races.
+with p as (select * from jsonb_to_recordset($v6$[{"race_key":"2026-10-24/京都/10","horse_no":9,"horse_name":"ハンデンドレイク","horse_id":"2023106194","target_date":"2026-10-24","post_time":"2026-10-24 05:50:00+00"},{"race_key":"2026-10-24/京都/11","horse_no":7,"horse_name":"アスクカムオンモア","horse_id":"2021105236","target_date":"2026-10-24","post_time":"2026-10-24 06:30:00+00"}]$v6$::jsonb) as p(race_key text,horse_no int,horse_name text,horse_id text,target_date date,post_time timestamptz))
+select p.*,a.id race_id,s.id run_id,a.race_date,a.track,a.race_no,a.race_type,a.class_name,a.surface,a.distance,a.field_size,a.source_ref,a.source_checked_at,a.created_at,a.updated_at,s.horse_name,s.horse_ref,s.finish,s.final3f,
+(a.source_checked_at<p.post_time and a.created_at<p.post_time and a.updated_at<p.post_time) as source_asof_ok
+from p join public.jra_lab_runs s on substring(s.horse_ref from 'pw01dud[0-9]{2}([0-9]{10})/')=p.horse_id and s.horse_name=p.horse_name and s.record_role='full_runner' join public.jra_lab_races a on a.id=s.race_id and a.race_date<p.target_date and a.race_date>=p.target_date-540
+order by p.race_key,p.horse_no,a.race_date desc,a.id,s.id;

@@ -1,0 +1,21 @@
+{
+  "schema": "V9_RESEARCH_READINESS_V1",
+  "common_context_contract_implemented": true,
+  "exact_input_bytes_and_active_roster_binding_implemented": true,
+  "signature_receipt_verification_implemented": true,
+  "trusted_real_authority_configured": false,
+  "original_legacy_base_evaluator_recovered": false,
+  "historical_original_input_and_hash_recovered": false,
+  "legacy_uplift_replay_recovered": true,
+  "integrated_future_common_context_feature_projection_connected": false,
+  "full_pair_ready": false,
+  "real_future_pairs_executed": 0,
+  "existing46r_counted_as_future": 0,
+  "blockers": [
+    "Original legacy base evaluator, complete dependencies and version bound to common input are not recovered",
+    "The integrated V5/V7 historical input loader is tied to research exports; a future-context feature projection must be verified, not invented",
+    "No trusted real pre-post input/decision witness authority configured; test signatures are synthetic only",
+    "No new eligible official input plus matching full ACTIVE roster/body evidence is available in this task"
+  ],
+  "production_allowed": false
+}
