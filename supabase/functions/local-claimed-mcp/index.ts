@@ -17,6 +17,7 @@ import {verifyOptionalLocal16TraceForSave} from "./local16-optional-trace-save-g
 import {auditLocal16PreFreezeBoundary,auditLocal16HonmeiChallenge} from "./local16-pre-freeze-boundary-proof.mjs";
 import {auditLocal16FullFieldPairwise} from "./local16-full-field-pairwise-proof.mjs";
 import {LOCAL16_METHOD_CONTRACT} from "./local16-method-reference.mjs";
+import {auditLocal16HandoffProvenance} from "./local16-handoff-provenance.mjs";
 const WORKERS=new Map([["LOCAL_QUEUE_RESCUE","RESCUE"],["LOCAL_QUEUE_KANTO","関東"],["LOCAL_QUEUE_WEST","西日本"],["LOCAL_QUEUE_CHUBU","中部"],["LOCAL_QUEUE_HOKKAIDO_TOHOKU","北海道東北"]]);
 const uuid=(x:string)=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const err=(e:unknown)=>publicError(e);
@@ -245,6 +246,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      });
      const criteria=data.context.local16_scoring_criteria;
      const trace=auditLocal16CriterionTrace({context:data.context,draft:inspected});
+     const sourceHandoff=auditLocal16HandoffProvenance({context:data.context,draft:inspected});
      const boundaryProof=auditLocal16PreFreezeBoundary({
        race:data.context.race,verifiedRunners:data.context.runners,
        draft:inspected,observationAt:new Date().toISOString(),
@@ -266,6 +268,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      const source_input_sha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
      const result={...check,claim_verified:true,save_authorized:false,
        reference_method_version:LOCAL16_METHOD_CONTRACT.version,
+       source_handoff_audit:sourceHandoff,
        boundary_proof:boundaryProof,honmei_challenge:honmeiChallenge,full_field_pairwise_proof:fullFieldProof,
        source_input_sha256,source_input_fingerprint_type:"LOCAL16_VERIFIED_CONTEXT_PROJECTION_SHA256_V1",
        input_fingerprint_is_official_signature:false,
@@ -430,6 +433,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
   officialContext:traceVerificationContext,
   auditTrace:auditLocal16CriterionTrace
  });
+ const sourceHandoff=auditLocal16HandoffProvenance({context:traceVerificationContext,draft:payload});
  let pairwise_trace_status="NOT_PROVIDED";
  if(payload?.audit?.local16_full_field_pairwise_trace!==undefined){
    const pairwiseTrace=payload.audit.local16_full_field_pairwise_trace;
@@ -482,6 +486,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  if(data?.ok!==true||!uuid(data.prediction_id)||
    typeof data.already_saved!=="boolean")throw Error("SAVE_RESULT_INVALID");
  const result={ok:true,prediction_id:data.prediction_id,
-   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing,scoring_trace_status:traceCheck.status,pairwise_trace_status};
+   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing,scoring_trace_status:traceCheck.status,pairwise_trace_status,
+   source_handoff_audit:sourceHandoff};
  return {content:[{type:"text",text:JSON.stringify(result)}],structuredContent:result}}catch(e){const code=(e instanceof Error)?e.message:"";if(c && TERMINAL_EYE_CODES.has(code)){try{await closeFailedClaim(c,job_id,code);}catch{return {isError:true,content:[{type:"text",text:"QUEUE_STATE_UNAVAILABLE"}]};}}return {isError:true,content:[{type:"text",text:err(e)}]}}});
  return s});return handler.fetch(req)}));
