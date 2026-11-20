@@ -4,7 +4,7 @@ import {assessJraJumpReadiness as run,K2_VERSION} from "../supabase/functions/jr
 import {VERSION as ADAPTER_VERSION} from "./jra-jump-k2-adapter.mjs";
 test("preflight protocol matches isolated real K2 adapter",()=>assert.equal(K2_VERSION,ADAPTER_VERSION));
 const horses=(n=13,j=9)=>Array.from({length:n},(_,i)=>({
- horse_no:i+1,horse_name:"Runner "+(i+1),horse_ref:"horse"+(i+1),
+ horse_no:i+1,horse_name:"Runner "+(i+1),horse_ref:"pw01dud00"+(i<3?"2018":"2023")+"1000"+String(i+1).padStart(2,"0")+"/AA",
  past_runs:Array.from({length:4},(_,k)=>({race_class:i<j?"障害未勝利":"平地未勝利"}))
 }));
 const race={race_type:"障害",surface:"障害",race_date:"2026-11-21",track:"福島",race_no:4,distance:2770,field_size:13};
@@ -49,4 +49,19 @@ test("all mutation and market claims remain false",()=>{
 test("cancellation or incomplete fetch remains unready",()=>{
  const s=run({...good,liveRunners:horses(11)});
  assert(s.reasons.includes("FIELD_IDENTITY_INCOMPLETE"));
+});
+
+test("real 2018-born obstacle horse requires birth-to-race annual calendar",()=>{
+ const s=run(good);
+ assert.equal(s.observed.earliest_runner_birth_year,2018);
+ assert.equal(s.observed.required_annual_calendar_windows,9);
+ assert.equal(s.observed.official_result_coverage_required_from,"2018-01-01");
+ assert.equal(s.observed.jockey_complete_year_required_from,"2025-11-21");
+ assert.equal(s.observed.historical_full_calendar_certified,false);
+});
+test("unsupported horse identity never produces a fabricated birth-year certificate",()=>{
+ const h=horses();h[0].horse_ref="INVALID";
+ const s=run({...good,liveRunners:h});
+ assert(s.reasons.includes("HORSE_BIRTH_YEAR_UNVERIFIED"));
+ assert.equal(s.observed.required_annual_calendar_windows,null);
 });
