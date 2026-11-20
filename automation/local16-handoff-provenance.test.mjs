@@ -40,6 +40,7 @@ test("no claimed source and no saved audit is a distinct non-positive state",()=
  assert.equal(r.status,"NO_PRECLAIM_CORNER_EVIDENCE_IN_CONTEXT");
  assert.equal(r.source_corner_count,0);
  assert.equal(r.followup_source_count,5);
+ assert.equal(r.review_required,true);
 });
 test("optional criterion trace never certifies arithmetic by self-labeling",()=>{
  const draft={...saved(1),audit:{...saved(1).audit,local16_scoring_trace:{score_certified:true}}};
