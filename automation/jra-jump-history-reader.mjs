@@ -6,7 +6,7 @@ const need=(b,c)=>{if(!b)throw Error('JUMP_'+c)};
 const id=s=>String(s??'').match(/pw01dud\d{2}(\d{10})/)?.[1]??null;
 const clean=s=>String(s??'').normalize('NFKC').replace(/[\s▲△◇☆★]/g,'');
 const raceKey=r=>[r.race_date,r.track,r.race_no].join('|');
-export function makeJumpHistoryReader({calendarReader,resultReader,maxResults=20000}){
+export function makeJumpHistoryReader({calendarReader,resultReader,maxResults=20000,maxTotalResults=35000,maxYears=12}){
  need(typeof calendarReader==='function'&&typeof resultReader==='function','HISTORY_DEPENDENCIES');
  return async raw=>{
   const r=raw?.race,day=r?.race_date;
@@ -19,11 +19,38 @@ export function makeJumpHistoryReader({calendarReader,resultReader,maxResults=20
   const years=horses.map(h=>Number(h.horse_id.slice(0,4)));
   need(years.every(y=>y>=1986&&y<=Number(day.slice(0,4))),'HORSE_BIRTH_YEAR');
   const from=[since,...years.map(y=>y+'-01-01')].sort()[0];
-  const calendar=await calendarReader(from,day);
-  need(calendar?.from===from&&calendar.to===day&&calendar.source_ref&&Array.isArray(calendar.rows)&&calendar.rows.length>0&&calendar.rows.length<=maxResults,'HISTORY_CALENDAR');
-  const expected=new Set(calendar.rows.map(r=>raceKey(r)));
-  need(expected.size===calendar.rows.length&&calendar.rows.every(x=>x.race_date>=from&&x.race_date<day&&resultIdentity(x.cname)&&raceKey(resultIdentity(x.cname))===raceKey(x)),'HISTORY_CALENDAR_SCOPE');
-  const out=horses.map(h=>({horse_no:h.horse_no,horse_name:h.horse_name,horse_id:h.horse_id,profile_verified:true,profile_complete:true,as_of_date:day,profile_source:calendar.source_ref,runs:[],jockey:{name:h.jockey,verified:true,complete_365day_schedule:true,as_of_date:day,source_ref:calendar.source_ref,starts:[]}}));
+  // Each verified year is an independent bounded official calendar witness.
+  // A single 2018-to-2026 request exceeds the collector request budget and
+  // may exceed the previous 20,000-race limit. Never shorten the horizon.
+  const startYear=Number(from.slice(0,4)),endYear=Number(day.slice(0,4));
+  need(endYear>=startYear&&endYear-startYear+1<=maxYears,'HISTORY_YEAR_LIMIT');
+  const windows=[];
+  for(let y=startYear;y<=endYear;y++){
+   const a=y===startYear?from:y+'-01-01';
+   const b=y===endYear?day:(y+1)+'-01-01';
+   if(a<b)windows.push({from:a,to:b});
+  }
+  need(windows.length>0&&windows[0].from===from&&windows.at(-1).to===day,'HISTORY_WINDOWS');
+  const allRows=[],sources=[];
+  for(const w of windows){
+   const calendar=await calendarReader(w.from,w.to);
+   need(calendar?.from===w.from&&calendar.to===w.to&&
+     typeof calendar.source_ref==='string'&&calendar.source_ref.trim()&&
+     Array.isArray(calendar.rows)&&calendar.rows.length<=maxResults,'HISTORY_CALENDAR');
+   // A witnessed year may have no races in synthetic fixtures or a genuinely
+   // non-racing period. Missing witness and missing data always cause refusal.
+   need(calendar.rows.every(x=>x.race_date>=w.from&&x.race_date<w.to&&
+     resultIdentity(x.cname)&&raceKey(resultIdentity(x.cname))===raceKey(x)),
+     'HISTORY_CALENDAR_SCOPE');
+   allRows.push(...calendar.rows);
+   sources.push({from:w.from,to:w.to,source_ref:calendar.source_ref,count:calendar.rows.length});
+   need(allRows.length<=maxTotalResults,'HISTORY_TOTAL_BUDGET');
+  }
+  need(allRows.length>0,'HISTORY_CALENDAR_EMPTY');
+  const expected=new Set(allRows.map(x=>raceKey(x)));
+  need(expected.size===allRows.length,'HISTORY_CALENDAR_DUPLICATE');
+  const calendar={rows:allRows,source_ref:sources.map(x=>x.source_ref).join(' | '),sources};
+  const out=horses.map(h=>({horse_no:h.horse_no,horse_name:h.horse_name,horse_id:h.horse_id,profile_verified:true,profile_complete:true,as_of_date:day,profile_source:calendar.source_ref,calendar_sources:sources,runs:[],jockey:{name:h.jockey,verified:true,complete_365day_schedule:true,as_of_date:day,source_ref:calendar.source_ref,starts:[]}}));
   for(const x of calendar.rows){
    const res=await resultReader(x.cname,day);
    need(res&&raceKey(res)===raceKey(x)&&res.source_ref===x.cname&&typeof res.jump==='boolean','HISTORY_RESULT_ID');
