@@ -1,0 +1,23 @@
+name: LOCAL16 source handoff provenance safety
+on:
+  pull_request:
+    paths:
+      - "supabase/functions/local-claimed-mcp/index.ts"
+      - "supabase/functions/local-claimed-mcp/local16-handoff-provenance.mjs"
+      - "automation/local16-handoff-provenance.test.mjs"
+      - ".github/workflows/local16-handoff-provenance.yml"
+  workflow_dispatch:
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Pure warning regression tests
+        run: node --test automation/local16-handoff-provenance.test.mjs
+      - name: Syntax check (no network or data writes)
+        run: node --check supabase/functions/local-claimed-mcp/local16-handoff-provenance.mjs
