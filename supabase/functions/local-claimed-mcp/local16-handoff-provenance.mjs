@@ -34,5 +34,5 @@ export function auditLocal16HandoffProvenance({context,draft}={}){
   return {...base,...extra,status:"SOURCE_RECORDED_EFFECT_UNCERTIFIED"};
  if(documented!==null&&documented>0)
   return {...base,...extra,status:"AUDIT_SOURCE_NOT_RECONFIRMED",review_required:true};
- return {...base,...extra,status:"NO_PRECLAIM_CORNER_EVIDENCE_IN_CONTEXT"};
+ return {...base,...extra,status:"NO_PRECLAIM_CORNER_EVIDENCE_IN_CONTEXT",review_required:true};
 }
