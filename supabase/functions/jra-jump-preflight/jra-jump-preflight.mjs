@@ -20,6 +20,23 @@ export function assessJraJumpReadiness({race,queue,liveRunners=[],official,proto
  const jumpCards=liveRunners.filter(r=>cardRuns(r).some(x=>String(x?.race_class??"").startsWith("障害"))).length;
  const zeroCardJump=liveRunners.filter(r=>!cardRuns(r).some(x=>String(x?.race_class??"").startsWith("障害"))).map(r=>r.horse_no);
  const reviewedRecent=liveRunners.filter(r=>Array.isArray(r.past_runs)).length;
+ // Exact official horse IDs encode the birth year. This is a coverage PLAN,
+ // never a verified result-history certificate or a prediction input.
+ const years=liveRunners.map(h=>({
+   horse_no:h.horse_no,
+   birth_year:Number(String(h.horse_ref??"").match(/pw01dud[0-9]{2}([0-9]{4})/)?.[1]??NaN)
+ }));
+ const dayYear=Number(String(race?.race_date??"").slice(0,4));
+ const allBirthsVerified=years.length===race?.field_size&&years.every(h=>
+   Number.isInteger(h.birth_year)&&h.birth_year>=1986&&h.birth_year<=dayYear);
+ if(!allBirthsVerified)reasons.push("HORSE_BIRTH_YEAR_UNVERIFIED");
+ const oldest=allBirthsVerified?Math.min(...years.map(x=>x.birth_year)):null;
+ const requiredYearWindows=oldest===null?null:dayYear-oldest+1;
+ if(requiredYearWindows!==null&&requiredYearWindows>12)
+   reasons.push("BIRTH_TO_ASOF_HISTORY_EXCEEDS_ANNUAL_BOUND");
+ const asOf=String(race?.race_date??"");
+ const parsed=Date.parse(asOf);
+ const last365start=Number.isFinite(parsed)?new Date(parsed-365*86400000).toISOString().slice(0,10):null;
  const fieldReady=official?.field_status==="BASIC_READY"||official?.field_status==="READY";
  const officialProof=fieldReady&&official?.field_payload?.race?.race_type==="障害"&&official?.field_payload?.race?.surface==="障害"&&
  official?.field_payload?.official_status_verification?.verified===true;
@@ -35,6 +52,12 @@ export function assessJraJumpReadiness({race,queue,liveRunners=[],official,proto
  observed.no_obstacle_run_in_recent_card_horse_nos=zeroCardJump;
  observed.current_official_obstacle_ready=Boolean(officialProof);
  observed.active_k2_protocol_count=protocol.length;
+ observed.birth_year_evidence=allBirthsVerified?years:null;
+ observed.earliest_runner_birth_year=oldest;
+ observed.required_annual_calendar_windows=requiredYearWindows;
+ observed.official_result_coverage_required_from=oldest===null?null:oldest+"-01-01";
+ observed.jockey_complete_year_required_from=last365start;
+ observed.historical_full_calendar_certified=false;
  return {
    version:K2_VERSION,scope:"JRA_JUMP_ONLY",mode:"PROTECTED_READONLY_PREFLIGHT",
    date:race?.race_date??null,track:race?.track??null,race_no:race?.race_no??null,
