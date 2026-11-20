@@ -1,6 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {assessJraJumpReadiness as run,K2_VERSION} from "../supabase/functions/jra-jump-preflight/jra-jump-preflight.mjs";
+import {VERSION as ADAPTER_VERSION} from "./jra-jump-k2-adapter.mjs";
+test("preflight protocol matches isolated real K2 adapter",()=>assert.equal(K2_VERSION,ADAPTER_VERSION));
 const horses=(n=13,j=9)=>Array.from({length:n},(_,i)=>({
  horse_no:i+1,horse_name:"Runner "+(i+1),horse_ref:"horse"+(i+1),
  past_runs:Array.from({length:4},(_,k)=>({race_class:i<j?"障害未勝利":"平地未勝利"}))
