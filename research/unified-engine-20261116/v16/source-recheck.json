@@ -1,0 +1,97 @@
+{
+  "edge_version": 33,
+  "bundle": "e229535dd96e82e2b81da0859bf3e9c8808ffbc79e641237d7e2e39cba9db0c8",
+  "bundle_unchanged": true,
+  "files": [
+    {
+      "file": "index.ts",
+      "sha256": "18f2b9ea8520b244f28ccb6c54b5a8f740dc8f30d17c2c0d8ed0d50bde18377d",
+      "unchanged": true
+    },
+    {
+      "file": "g1-scoring-trace.mjs",
+      "sha256": "75074f736fc9a3dbb6f7e31445a091ba270bd5a7dbb992933df4148568111deb",
+      "unchanged": true
+    },
+    {
+      "file": "g1-intelligence-audit.mjs",
+      "sha256": "2f9da2556a3507c9674f96d6db4537dea46993b0c6f63f1cf9534bf64c9d7682",
+      "unchanged": true
+    },
+    {
+      "file": "jra-eye-fill-null.mjs",
+      "sha256": "acbd3eba2f96574d28c2ece6eaa3e988336d95ac64ef8a7c678a35753dba3b9f",
+      "unchanged": true
+    },
+    {
+      "file": "jra-eye-additional-audit.mjs",
+      "sha256": "878d500fffd3e580db85d5814adaa7508dbd7d9bfb1ec662bb78c17e1de9acb1",
+      "unchanged": true
+    },
+    {
+      "file": "jra-verified-draw.mjs",
+      "sha256": "4df6abd84ab1e117a7287552fde963a8203d8eb159ceedc1383b0c9110ffc09c",
+      "unchanged": true
+    },
+    {
+      "file": "jra-official-cancel-number.mjs",
+      "sha256": "b6717da96a35cc42c1077b22e8ea4d7bc4880cf676291d41b81febfefc385ab4",
+      "unchanged": true
+    },
+    {
+      "file": "optional-atomic-shadow-save.mjs",
+      "sha256": "fa4460fa00ced8b370ae7367ee25f200082306589558ba7f2bbd1f05513d44c7",
+      "unchanged": true
+    },
+    {
+      "file": "jra-relative-draft-adapter.mjs",
+      "sha256": "c0bfdeb4e06b0195ff161102495c585131bae6bbdfd03c264c3e3ccbb205ad12",
+      "unchanged": true
+    },
+    {
+      "file": "relative-ability-rank-proposal.mjs",
+      "sha256": "34f796356176bc9e9d323c59c9085ddb74aead326b368c889b4552bae0e4b486",
+      "unchanged": true
+    },
+    {
+      "file": "eval-course-transfer-live.mjs",
+      "sha256": "e2c283cebce58a78dea8a61ee4fb53d21979f258739158e90e35593bfad3184f",
+      "unchanged": true
+    },
+    {
+      "file": "jra-active-field-scope.mjs",
+      "sha256": "fa5af61700d43206ab0029c29a1198f3cf8276fa591f3620879604a8c7b3b507",
+      "unchanged": true
+    },
+    {
+      "file": "jra-verified-evidence-rank-bridge.mjs",
+      "sha256": "ebb38f70cae3445788a1c82dfa26c4b97a4a75ee6d650cdadb1e41e8a818664d",
+      "unchanged": true
+    }
+  ],
+  "db_functions": [
+    {
+      "function": "jra_save_claimed_prediction",
+      "sha256": "86a6293c96c5665713ac195d585a7fb9bce67fa2defaf242b8fd37106be7cba5",
+      "unchanged": true,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "security_definer": true
+    },
+    {
+      "function": "jra_save_claimed_prediction_with_shadow_v1",
+      "sha256": "3873cf3581c22aae562b66d35b07a909da25a27acdfc0d5b7039cc0f87d9578a",
+      "unchanged": true,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "security_definer": false
+    },
+    {
+      "function": "lab_capture_rank_shadow_preflight_v1",
+      "sha256": "280cb4907b695936273e94650fca02b7c0b412896b3561e722ca51bb22454350",
+      "unchanged": true,
+      "acl": "{postgres=X/postgres,service_role=X/postgres}",
+      "security_definer": true
+    }
+  ],
+  "method": "READ_ONLY_SOURCE_METADATA",
+  "functions_invoked": false
+}

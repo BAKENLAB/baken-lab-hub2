@@ -1,0 +1,122 @@
+[
+  {
+    "stage": "initial_raw",
+    "anchor": "const data=scopeVerifiedActiveField(raw);",
+    "value": "raw",
+    "position": "before"
+  },
+  {
+    "stage": "initial_scoped",
+    "anchor": "const data=scopeVerifiedActiveField(raw);",
+    "value": "data",
+    "position": "after"
+  },
+  {
+    "stage": "eval_materials",
+    "anchor": "\n   return buildEvalTransferForJraClaim({",
+    "value": "{context:data,ownedTransferStats:cohorts,snapshot:PRIVATE_EVAL_PRIORITIES}",
+    "position": "before"
+  },
+  {
+    "stage": "initial_response",
+    "anchor": "\n return {content:[{type:\"text\",text:JSON.stringify(data)}],structuredContent:{context:data}}",
+    "value": "{text:JSON.stringify(data)}",
+    "position": "before"
+  },
+  {
+    "stage": "preview_raw",
+    "anchor": "\n     const context=scopeVerifiedActiveField(raw);assertScopedActivePayload(context,payload);",
+    "value": "raw",
+    "position": "before"
+  },
+  {
+    "stage": "preview_scoped",
+    "anchor": "\n     const context=scopeVerifiedActiveField(raw);assertScopedActivePayload(context,payload);",
+    "value": "context",
+    "position": "after"
+  },
+  {
+    "stage": "bridge_before",
+    "anchor": "\n     const result=buildJraVerifiedEvidenceRankBridge({",
+    "value": "{context,evalInput,payload}",
+    "position": "before"
+  },
+  {
+    "stage": "bridge_after",
+    "anchor": "\n     // BEGIN EYE FILL PREVIEW",
+    "value": "result",
+    "position": "before"
+  },
+  {
+    "stage": "eye_before",
+    "anchor": "\n     const fill=result.status===",
+    "value": "result",
+    "position": "before"
+  },
+  {
+    "stage": "eye_after",
+    "anchor": "\n     // END EYE FILL PREVIEW",
+    "value": "previewResult",
+    "position": "before"
+  },
+  {
+    "stage": "submitted_payload",
+    "anchor": "\n     let eyeFillContext:any=null;",
+    "value": "payload",
+    "position": "before"
+  },
+  {
+    "stage": "save_raw",
+    "anchor": "\n         const context=scopeVerifiedActiveField(raw);assertScopedActivePayload(context,payload);",
+    "value": "raw",
+    "position": "before"
+  },
+  {
+    "stage": "save_scoped",
+    "anchor": "\n         const context=scopeVerifiedActiveField(raw);assertScopedActivePayload(context,payload);",
+    "value": "context",
+    "position": "after"
+  },
+  {
+    "stage": "bridge_before",
+    "anchor": "\n         if(evalStatus==='READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW'){",
+    "value": "{context,evalInput,payload}",
+    "position": "before"
+  },
+  {
+    "stage": "bridge_after",
+    "anchor": "\n     // BEGIN EYE FILL SAVE",
+    "value": "{payload:savedPayload,status:rankBridgeStatus}",
+    "position": "before"
+  },
+  {
+    "stage": "eye_before",
+    "anchor": "\n     if(eyeFillContext){",
+    "value": "{context:eyeFillContext,payload:savedPayload}",
+    "position": "before"
+  },
+  {
+    "stage": "eye_after",
+    "anchor": "\n     // END EYE FILL SAVE",
+    "value": "savedPayload",
+    "position": "before"
+  },
+  {
+    "stage": "shadow_raw",
+    "anchor": "\n         if(!ce&&context)shadow=buildOptionalSaveJraShadow({",
+    "value": "{context,error_present:!!ce}",
+    "position": "before"
+  },
+  {
+    "stage": "final_payload",
+    "anchor": "\n     const {data,error}=await c.rpc(\"jra_save_claimed_prediction_with_shadow_v1\",{",
+    "value": "savedPayload",
+    "position": "before"
+  },
+  {
+    "stage": "receipt",
+    "anchor": "\n     if(error||!uuid(data?.prediction_id)||data?.ok!==true)throw Error(\"SAVE_REJECTED\");",
+    "value": "data",
+    "position": "after"
+  }
+]
