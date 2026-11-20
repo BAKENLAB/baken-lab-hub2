@@ -1,0 +1,22 @@
+name: JRA JUMP staged read-only preflight
+on:
+  push:
+    branches: [feature/jra-jump-staged-readonly-20261121]
+  pull_request:
+    paths:
+      - "supabase/functions/jra-jump-preflight/**"
+      - "automation/jra-jump-preflight.test.mjs"
+      - ".github/workflows/jra-jump-preflight.yml"
+permissions:
+  contents: read
+jobs:
+  no-effect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test automation/jra-jump-preflight.test.mjs
+      - run: node --check supabase/functions/jra-jump-preflight/jra-jump-preflight.mjs
