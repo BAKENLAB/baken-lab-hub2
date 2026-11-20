@@ -1,0 +1,37 @@
+name: LOCAL16 fifth-sixth proof regression
+on:
+  pull_request:
+    paths:
+      - 'automation/local16-pre-freeze-boundary-proof.mjs'
+      - 'automation/local16-full-field-pairwise-proof.mjs'
+      - 'automation/local16-full-field-pairwise-proof.test.mjs'
+      - 'docs/BAKEN_LAB_LOCAL16_20261116_METHOD.md'
+      - 'research/local16-20261116-frozen-anchors.json'
+      - 'research/local16-20261116-baseline.test.mjs research/local16-method-contract-wiring.test.mjs'
+      - 'automation/local16-method-reference.mjs'
+      - 'supabase/functions/local-claimed-mcp/local16-method-reference.mjs'
+      - 'research/local16-method-contract-wiring.test.mjs'
+      - 'research/local16-full-field-preflight-wiring.test.mjs research/local16-20261116-baseline.test.mjs'
+      - 'supabase/functions/local-claimed-mcp/local16-full-field-pairwise-proof.mjs'
+      - 'automation/local16-pre-freeze-boundary-proof.test.mjs'
+      - 'automation/local16-honmei-challenge.test.mjs'
+      - 'supabase/functions/local-claimed-mcp/index.ts'
+      - 'supabase/functions/local-claimed-mcp/local16-pre-freeze-boundary-proof.mjs'
+      - 'research/local16-boundary-preflight-wiring.test.mjs'
+      - '.github/workflows/local16-boundary-proof.yml'
+  push:
+    branches:
+      - fix/local16-boundary-proof-20261119
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Boundary pre-freeze evidence checks
+        run: node --test automation/local16-pre-freeze-boundary-proof.test.mjs automation/local16-honmei-challenge.test.mjs automation/local16-full-field-pairwise-proof.test.mjs research/local16-boundary-preflight-wiring.test.mjs research/local16-full-field-preflight-wiring.test.mjs
