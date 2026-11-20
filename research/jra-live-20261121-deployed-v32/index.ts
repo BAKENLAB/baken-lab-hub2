@@ -1,0 +1,535 @@
+
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "jsr:@supabase/supabase-js@2";
+import { load } from "npm:cheerio@1.0.0";
+import { authorizeCron } from "./cron-auth.mjs";
+import { dbTimeFetch } from "./db-time.mjs";
+import { fetchCancellationNumber } from "./jra-official-cancel-number.mjs";
+import { readOfficialDraw } from "./jra-verified-draw.mjs";
+import { checkRepairRows, describeRepairMismatch } from "./jra-capture-repair-identity.mjs";
+import { readRepairPostTime, compareRepairPostTime } from "./jra-repair-post-time.mjs";
+
+const BASE="https://www.jra.go.jp";
+const TRACKS={"01":"札幌","02":"函館","03":"福島","04":"新潟","05":"東京","06":"中山","07":"中京","08":"京都","09":"阪神","10":"小倉"};
+const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{"Content-Type":"application/json"}});
+
+const decode=(bytes)=>{
+  try{return new TextDecoder("shift_jis").decode(bytes)}
+  catch{return new TextDecoder().decode(bytes)}
+};
+const clean=(v)=>String(v??"").replace(/\s+/g," ").trim();
+const parseCourseLayout=(value)=>{
+  const normalized=clean(value).normalize("NFKC");
+  const hasOuter=normalized.includes("外");
+  const hasInner=normalized.includes("内");
+  if(hasOuter&&hasInner) return "OUTER_INNER";
+  if(hasOuter) return "OUTER";
+  if(hasInner) return "INNER";
+  if(normalized.includes("直線")) return "STRAIGHT";
+  return null;
+};
+const uniq=(xs)=>[...new Set(xs)];
+const parseDraw=($,row)=>{
+  const direct=Number(clean($(row).find("td.waku").first().text()));
+  if(Number.isInteger(direct)&&direct>=1&&direct<=8) return direct;
+  const html=$(row).html()??"";
+  const m=html.match(/(?:^|[\s"'=_-])waku[_-]?([1-8])(?:[\s"'<>_-]|$)/i)
+    ?? html.match(/waku[^0-9]{0,8}([1-8])/i);
+  return m?Number(m[1]):null;
+};
+const drawFromField=(horseNo,fieldSize)=>{
+  if(!Number.isInteger(horseNo)||!Number.isInteger(fieldSize)||horseNo<1||fieldSize<1) return null;
+  if(fieldSize<=8) return horseNo<=fieldSize?horseNo:null;
+  const base=Math.floor(fieldSize/8);
+  const extra=fieldSize%8;
+  let upper=0;
+  for(let frame=1;frame<=8;frame++){
+    upper+=base+(frame>8-extra?1:0);
+    if(horseNo<=upper) return frame;
+  }
+  return null;
+};
+
+const fetchCard=async(cname)=>{
+  const res=await fetch(BASE+"/JRADB/accessD.html?CNAME="+encodeURIComponent(cname),{
+    headers:{
+      "User-Agent":"Mozilla/5.0 (Linux; Android 16; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36",
+      "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language":"ja-JP,ja;q=0.9,en;q=0.7",
+      "Referer":"https://www.jra.go.jp/",
+      "Cache-Control":"no-cache"
+    },
+    redirect:"follow"
+  });
+  if(!res.ok) throw new Error("JRA HTTP "+res.status);
+  return decode(new Uint8Array(await res.arrayBuffer()));
+};
+
+const parseCname=(cname)=>{
+  const m=String(cname).match(/^pw01dde01(\d{2})(\d{4})(\d{2})(\d{2})(\d{2})(\d{8})\/([0-9A-F]{2})$/i);
+  if(!m) return null;
+  const track=TRACKS[m[1]];
+  if(!track) return null;
+  return {
+    track_code:m[1],
+    track,
+    race_no:Number(m[5]),
+    race_date:m[6].slice(0,4)+"-"+m[6].slice(4,6)+"-"+m[6].slice(6,8)
+  };
+};
+
+const cardLinks=(html)=>{
+  const $=load(html);
+  const found=[];
+  $("a").each((_,a)=>{
+    const s=($(a).attr("href")??"")+" "+($(a).attr("onclick")??"");
+    const m=s.match(/pw01dde[^"'<>\s&]+\/[0-9A-Fa-f]{2}/g);
+    if(m) found.push(...m);
+  });
+  return uniq(found);
+};
+
+const parsePast=(raw,ref)=>{
+  const text=clean(raw).normalize("NFKC");
+  if(!text) return null;
+  const date=text.match(/^(\d{4})年(\d{1,2})月(\d{1,2})日/);
+  const finish=text.match(/\s(\d+)着\s/);
+  const field=text.match(/\s(\d+)頭(\d+)番(\d+)番人気\s/);
+  const course=text.match(/\s(\d{3,4})(芝|ダ|障)\s/);
+  const time=text.match(/\s(\d+:\d{2}\.\d)\s/);
+  const final3f=text.match(/3F\s*([0-9]+\.[0-9])/);
+  const bw=text.match(/\s(\d{3})kg(?:\s|$)/);
+  const goingMatch=text.match(/\s(良|稍重|重|不良)\s/);
+  const margin=text.match(/\(([+\-]?[0-9]+(?:\.[0-9]+)?)\)\s*$/);
+  const track=date ? clean(text.slice(date[0].length)).split(" ")[0] : null;
+  return {
+    raw:text,
+    source_ref:ref||null,
+    race_date:date ? date[1]+"-"+String(date[2]).padStart(2,"0")+"-"+String(date[3]).padStart(2,"0") : null,
+    track,
+    finish:finish?Number(finish[1]):null,
+    field_size:field?Number(field[1]):null,
+    horse_no:field?Number(field[2]):null,
+    popularity:field?Number(field[3]):null,
+    distance:course?Number(course[1]):null,
+    surface:course ? (course[2]==="ダ"?"ダート":course[2]==="芝"?"芝":"障害") : null,
+    time_raw:time?time[1]:null,
+    going:goingMatch?goingMatch[1]:null,
+    body_weight:bw?Number(bw[1]):null,
+    final3f:final3f?Number(final3f[1]):null,
+    margin_to_winner:margin?Number(margin[1]):null
+  };
+};
+
+const parseCard=(html,cname,cancelledNumbers=new Map(),strictRepair=false)=>{
+  const meta=parseCname(cname);
+  if(!meta) throw new Error("invalid cname");
+  const $=load(html);
+  const raceName=clean($(".race_name").first().text());
+  const courseText=clean($(".race_title .cell.course").first().text());
+  const className=clean($(".race_title .cell.class").first().text());
+  const pageText=clean($("body").text());
+  const distanceMatch=courseText.replaceAll(",","").match(/(\d+)\s*メートル/);
+  const isObstacle=raceName.includes("障害")||raceName.includes("ジャンプ")||className.includes("障害")||courseText.includes("障害");
+  let surface=null;
+  if(isObstacle) surface="障害";
+  else if(courseText.includes("ダート")) surface="ダート";
+  else if(courseText.includes("芝")) surface="芝";
+  let turn=null;
+  if(courseText.includes("・右")) turn="右";
+  else if(courseText.includes("・左")) turn="左";
+  else if(courseText.includes("・直線")) turn="直線";
+  const weather=clean($(".race_header .weather .txt").first().text())||null;
+  let going=null;
+  if(surface==="芝") going=clean($(".race_header .turf .txt").first().text())||null;
+  else if(surface==="ダート") going=clean($(".race_header .durt .txt").first().text())||null;
+  const post=pageText.match(/発走時刻[:：]?\s*([0-9]{1,2}時[0-9]{2}分)/);
+
+  const runners=[];
+  const table=strictRepair?$("#syutsuba table.basic.narrow-xy").first():null;
+  const frameState={frame:null,remaining:0};
+  let strictPost=null;
+  if(strictRepair){
+    const dt=clean($(".race_header .date_line .cell.date").first().text()).normalize("NFKC").match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+    const actualDate=dt?[dt[1],dt[2].padStart(2,"0"),dt[3].padStart(2,"0")].join("-"):null;
+    const raceImage=$(".race_title .race_number img").first().attr("src")??"";
+    if(meta.track!=="京都"||![10,11].includes(meta.race_no)||meta.race_date!=="2026-11-15"||actualDate!==meta.race_date||!raceImage.endsWith("/race_num_"+meta.race_no+".png")||!table?.length)throw Error("JRA_REPAIR_CARD_IDENTITY");
+    strictPost=readRepairPostTime(clean(table.find(".race_header .cell.time strong").first().text()));
+  }
+  const rowSet=strictRepair?table.find("tbody tr"):$("table.basic.narrow-xy tbody tr");
+  rowSet.each((_,row)=>{
+    const numberText=clean($(row).find("td.num").first().text()).normalize("NFKC");
+    let horseNo=Number(numberText);
+    const horseCell=$(row).find("td.horse").first();
+    const horseLink=horseCell.find("a[href*='accessU']").first();
+    const horseName=clean(horseLink.text());
+    if(numberText==="取消"&&cancelledNumbers.has(horseName)) horseNo=cancelledNumbers.get(horseName);
+    if(!Number.isInteger(horseNo)||horseNo<1||!horseName){if(strictRepair)throw Error("JRA_REPAIR_ROW_UNVERIFIED");return;}
+    const frameCell=$(row).children("td.waku").first();
+    const verifiedDraw=strictRepair?readOfficialDraw(frameCell.length?{text:clean(frameCell.text()),src:frameCell.find("img").first().attr("src"),rowspan:frameCell.attr("rowspan")}:null,frameState,horseNo):null;
+
+    const horseText=clean(horseCell.text()).normalize("NFKC");
+    const jockeyText=clean($(row).find("td.jockey").first().text()).normalize("NFKC");
+    const odds=horseText.match(/(\d+(?:\.\d+)?)\s*\((\d+)番人気\)/);
+    const bw=horseText.match(/(\d{3})kg\s*\(([+\-]?\d+)\)/);
+    const sexWeightJockey=jockeyText.match(/^([牡牝騸せん]+\d+)\/[^ ]+\s+([0-9]+(?:\.[0-9]+)?)kg\s+(.+)$/);
+    const explicitJockey=clean($(row).find("td.jockey p.jockey").first().text()).normalize("NFKC");
+    const explicitWeight=clean($(row).find("td.jockey p.weight").first().text()).normalize("NFKC").match(/^([0-9]+(?:\.[0-9]+)?)\s*kg$/);
+    const trainerText=clean(horseCell.find(".trainer").first().text()) ||
+      (horseText.match(/([^ ]+(?:\s[^ ]+)?)\((美浦|栗東)\)/)?.[1] ?? "");
+
+    const equipment=$(row).find("img")
+      .map((__,img)=>$(img).attr("alt")??$(img).attr("title")??"")
+      .get()
+      .map((x)=>clean(String(x)))
+      .filter((x)=>/(ブリンカー|チーク|メンコ|シャドーロール|ホライゾネット)/.test(x))
+      .filter((x,i,a)=>x&&a.indexOf(x)===i)
+      .join(" / ") || null;
+
+    const pastRuns=[];
+    for(const cls of ["p1","p2","p3","p4"]){
+      const cell=$(row).find("td.past."+cls).first();
+      if(!cell.length) continue;
+      const raw=clean(cell.text());
+      const ref=cell.find("a[href*='accessS']").first().attr("href")??null;
+      const parsed=parsePast(raw,ref);
+      if(parsed){
+        const priorClass=clean(cell.find(".race_line .name").first().text());
+        const priorClassDetail=clean(cell.find(".race_line .r_class").first().text());
+        const priorJockey=clean(cell.find(".info_line1 .jockey").first().text());
+        const priorWeightRaw=clean(cell.find(".info_line1 .weight").first().text()).normalize("NFKC");
+        const priorWeight=Number(priorWeightRaw.replace(/[^0-9.]/g,""));
+        const corners=cell.find(".corner_list li").map((__,li)=>{
+          const n=Number(clean($(li).text()));
+          return Number.isFinite(n)?n:null;
+        }).get().filter((n)=>n!=null);
+        parsed.race_class=priorClass||null;
+        parsed.race_class_detail=priorClassDetail||null;
+        parsed.jockey=priorJockey||null;
+        parsed.weight_carried=Number.isFinite(priorWeight)?priorWeight:null;
+        parsed.corner_positions=corners;
+        parsed.early_pos=corners.length?corners[0]:null;
+        parsed.final_turn_pos=corners.length?corners[corners.length-1]:null;
+        parsed.pos_change=corners.length>1?corners[0]-corners[corners.length-1]:0;
+        pastRuns.push(parsed);
+      }
+    }
+
+    runners.push({
+      horse_no:horseNo,
+      draw:strictRepair?verifiedDraw:parseDraw($,row),
+      horse_name:horseName,
+      horse_ref:horseLink.attr("href")??null,
+      sex_age:sexWeightJockey?.[1]??null,
+      weight_carried:explicitWeight?Number(explicitWeight[1]):sexWeightJockey?Number(sexWeightJockey[2]):null,
+      jockey:explicitJockey||(sexWeightJockey?.[3]??null),
+      trainer:trainerText||null,
+      body_weight:bw?Number(bw[1]):null,
+      body_weight_diff:bw?Number(bw[2]):null,
+      win_odds:odds?Number(odds[1]):null,
+      popularity:odds?Number(odds[2]):null,
+      equipment,
+      past_runs:pastRuns
+    });
+  });
+
+  if(strictRepair&&(frameState.remaining!==0||runners.length!==rowSet.length||runners.some(r=>r.draw==null)))throw Error("JRA_REPAIR_FIELD_NOT_COMPLETE");
+  if(!strictRepair)for(const runner of runners){
+    if(runner.draw==null) runner.draw=drawFromField(runner.horse_no,runners.length);
+  }
+
+  return {
+    race:{
+      race_key:meta.race_date.replaceAll("-","")+"_"+meta.track+"_"+meta.race_no+"R",
+      cname,
+      race_date:meta.race_date,
+      track:meta.track,
+      race_no:meta.race_no,
+      race_name:raceName||null,
+      race_type:isObstacle?"障害":"平地",
+      class_name:className||null,
+      surface,
+      distance:distanceMatch?Number(distanceMatch[1]):null,
+      going,
+      weather,
+      turn,
+      course_text:courseText||null,
+      course_layout:parseCourseLayout(courseText),
+      post_time:strictRepair?strictPost:(post?.[1]??null),
+      field_size:runners.length,
+      source_checked_at:new Date().toISOString(),
+      updated_at:new Date().toISOString()
+    },
+    runners
+  };
+};
+
+Deno.serve(async(req)=>{
+  if(req.method!=="POST") return json({ok:false},405);
+  let body:any; try{body=await req.json()}catch{return json({ok:false,error:"INVALID_JSON"},400)}
+  const authorization=await authorizeCron(req,body,Deno.env.get("JRA_CRON_TOKEN_SHA256"));
+  if(!authorization.ok)return json({ok:false,error:authorization.error},authorization.status);
+  const url=Deno.env.get("SUPABASE_URL");
+  const key=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if(!url||!key) return json({ok:false,error:"config"},500);
+  const db=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false},global:{fetch:dbTimeFetch(key)}});
+  const action=String(body.action??"");
+
+  if(action==="discover"){
+    const nowJst=new Date(Date.now()+9*60*60*1000).toISOString().slice(0,10);
+    const seedResult=await db.from("jra_live_seeds")
+      .select("*").eq("active",true).gte("race_date",nowJst)
+      .order("race_date",{ascending:true}).limit(1).maybeSingle();
+    if(seedResult.error) return json({ok:false,stage:"discover.seed_read",error:seedResult.error.message},500);
+    // One-day authenticated JRA official bootstrap. The EXISTING discover
+    // endpoint still enforces the existing JRA cron-token/JWT guard.
+    // Never writes official_predictions, CLAIM, FROZEN, READY, or Cron.
+    let selectedSeed=seedResult.data;
+    if(!selectedSeed && nowJst==="2026-11-21"){
+      const seedCname="pw01dde0103202603050120261121/FF";
+      const identity=parseCname(seedCname);
+      if(identity?.race_date!=="2026-11-21"||identity.track!=="福島"||
+         identity.race_no!==1||identity.track_code!=="03")
+        return json({ok:false,error:"RESCUE_SEED_IDENTITY_INVALID"},422);
+      let firstProof;
+      try{firstProof=await fetchCard(seedCname);}
+      catch{return json({ok:false,error:"OFFICIAL_SEED_SOURCE_UNAVAILABLE"},503);}
+      const proofText=clean(load(firstProof)("body").text()).normalize("NFKC");
+      if(!proofText.includes("2026年11月21日")||
+         !proofText.includes("3回福島5日")||
+         !proofText.includes("1レース")||
+         !proofText.includes("出馬表")||
+         !proofText.includes("馬番")||
+         !proofText.includes("馬名"))
+        return json({ok:false,error:"OFFICIAL_SEED_SOURCE_IDENTITY_UNVERIFIED"},422);
+      const registration=await db.from("jra_live_seeds").upsert({
+        race_date:"2026-11-21",seed_cname:seedCname,
+        source:"JRA_OFFICIAL_CARD_VERIFIED_BOOTSTRAP_20261121_FUKUSHIMA1",
+        active:true,updated_at:new Date().toISOString()
+      },{onConflict:"seed_cname",ignoreDuplicates:true});
+      if(registration.error)
+        return json({ok:false,error:"GUARDED_SEED_REGISTRATION_FAILED"},503);
+      const check=await db.from("jra_live_seeds").select("*")
+        .eq("race_date","2026-11-21").eq("seed_cname",seedCname)
+        .eq("active",true).maybeSingle();
+      if(check.error||!check.data)
+        return json({ok:false,error:"SEED_READBACK_FAILED"},503);
+      selectedSeed=check.data;
+    }
+    if(!selectedSeed) return json({ok:true,done:true,message:"no seed"});
+
+    const targetDate=selectedSeed.race_date;
+    const firstHtml=await fetchCard(selectedSeed.seed_cname);
+    const firstLinks=uniq([selectedSeed.seed_cname,...cardLinks(firstHtml)]);
+
+    // Current JRA pages may expose the other venue only as a link to one
+    // representative race (not always race 1). Pick one representative
+    // CNAME per venue first, then crawl each representative page to recover
+    // the full race list for every venue on the target date.
+    const repByTrack=new Map();
+    for(const c of firstLinks){
+      const m=parseCname(c);
+      if(!m||m.race_date!==targetDate) continue;
+      if(!repByTrack.has(m.track_code)) repByTrack.set(m.track_code,c);
+    }
+    const meetingSeeds=[...repByTrack.values()];
+
+    const pages=await Promise.all(meetingSeeds.map(fetchCard));
+    const discovered=uniq([...meetingSeeds,...pages.flatMap(cardLinks)])
+      .map((c)=>({c,meta:parseCname(c)}))
+      .filter((x)=>x.meta&&x.meta.race_date===targetDate);
+
+    // Keep only one canonical CNAME for each venue/race number so the queue
+    // does not process alternate page variants for the same race.
+    const byRace=new Map();
+    for(const x of discovered){
+      const key=x.meta.track_code+"_"+x.meta.race_no;
+      if(!byRace.has(key)) byRace.set(key,x);
+    }
+    const allLinks=[...byRace.values()];
+
+    const rows=allLinks.map((x)=>({
+      cname:x.c,
+      race_date:x.meta.race_date,
+      track_code:x.meta.track_code,
+      track:x.meta.track,
+      race_no:x.meta.race_no,
+      status:"pending",
+      updated_at:new Date().toISOString()
+    }));
+    if(rows.length){
+      const q=await db.from("jra_live_queue").upsert(rows,{onConflict:"cname",ignoreDuplicates:true});
+      if(q.error) return json({ok:false,error:q.error.message},500);
+    }
+
+    // A navigation link for a future date can be any race number. One
+    // representative seed per future date is enough because the next
+    // discover run will fan out across all venues and races.
+    const futureByDate=new Map();
+    for(const c of uniq([...firstLinks,...pages.flatMap(cardLinks)])){
+      const m=parseCname(c);
+      if(!m||m.race_date<=targetDate) continue;
+      if(!futureByDate.has(m.race_date)) futureByDate.set(m.race_date,c);
+    }
+    const futureSeeds=[...futureByDate.entries()].map(([race_date,seed_cname])=>({
+      race_date,
+      seed_cname,
+      source:"JRA公式出馬表navigation",
+      active:true,
+      updated_at:new Date().toISOString()
+    }));
+    if(futureSeeds.length){
+      await db.from("jra_live_seeds").upsert(futureSeeds,{onConflict:"seed_cname",ignoreDuplicates:true});
+    }
+
+    return json({
+      ok:true,
+      race_date:targetDate,
+      meetings:meetingSeeds.map((c)=>parseCname(c)),
+      queued:rows.length,
+      future_seeds:futureSeeds.map((s)=>s.race_date)
+    });
+  }
+
+  if(action==="sync_batch"){
+    const batchSize=Math.max(1,Math.min(5,Number(body.batch_size)||4));
+    const pending=await db.from("jra_live_queue").select("*")
+      .in("status",["pending","error"]).lt("attempts",3)
+      .order("race_date",{ascending:true}).order("track_code",{ascending:true}).order("race_no",{ascending:true})
+      .limit(batchSize);
+    if(pending.error) return json({ok:false,error:pending.error.message},500);
+    const done=[]; const failed=[];
+    // Narrow one-day capture remediation, using the existing already-active authenticated sync.
+    // No official publication, prediction write, or schedule change. Only absent official rows.
+    const repairJobs=[];
+    const today=new Date(Date.now()+9*3600000).toISOString().slice(0,10);
+    const getRepair=async(raceNo)=>{
+      if(today!=="2026-11-15")return null;
+      const key={race_date:today,track:"京都",race_no:raceNo};
+      const [q,r,o,p,j]=await Promise.all([
+        db.from("jra_live_queue").select("*").match(key).maybeSingle(),
+        db.from("jra_live_races").select("*").match(key).maybeSingle(),
+        db.from("official_races").select("race_no").match(key).maybeSingle(),
+        db.from("official_predictions").select("race_no").match(key).maybeSingle(),
+        db.from("jra_prediction_jobs").select("id").match(key).maybeSingle()
+      ]);
+      if([q,r,o,p,j].some(x=>x.error)||!q.data||!r.data||o.data||p.data||j.data||q.data.status!=="done")return null;
+      const m=String(r.data.post_time??"").match(/^(\d{1,2})時(\d{2})分$/);
+      if(!m||Date.parse(today+"T"+m[1].padStart(2,"0")+":"+m[2]+":00+09:00")<=Date.now()+300000)return null;
+      const old=await db.from("jra_live_runners").select("horse_no,horse_name,horse_ref,draw,jockey,weight_carried").eq("live_race_id",r.data.id);
+      if(old.error||!old.data||old.data.length!==Number(r.data.field_size))return null;
+      const needed=raceNo===10?old.data.length===9:raceNo===11?old.data.length===18&&old.data.some(x=>/\s\d{3}\s[A-Z]$/.test(x.jockey??"")):false;
+      if(!needed)return null;
+      return {job:q.data,oldRace:r.data,oldRows:old.data};
+    };
+    // Alternate when only one capture slot is available; neither repair can starve the other.
+    const repairOrder=new Date().getUTCMinutes()%2===0?[11,10]:[10,11];
+    for(const n of repairOrder){
+      if(repairJobs.length>=batchSize)break;
+      const candidate=await getRepair(n);
+      if(candidate)repairJobs.push(candidate);
+    }
+    const work=[...repairJobs.map(repair=>({job:repair.job,repair})),...(pending.data??[]).slice(0,Math.max(0,batchSize-repairJobs.length)).map(job=>({job,repair:null}))];
+    for(const {job,repair} of work){
+      if(!repair)await db.from("jra_live_queue").update({
+        status:"processing",attempts:Number(job.attempts||0)+1,updated_at:new Date().toISOString()
+      }).eq("cname",job.cname);
+      try{
+        const html=await fetchCard(job.cname);
+        const fetchedAt=new Date().toISOString();
+        const cancellationNumbers=new Map();
+        if(job.race_date==="2026-11-15"&&job.track==="京都"&&job.race_no===10){
+          const $=load(html);
+          const cancelled=$("#syutsuba table.basic.narrow-xy").first().find("tbody tr").toArray().filter(row=>clean($(row).children("td.num").first().text())==="取消");
+          for(const row of cancelled){
+            const name=clean($(row).children("td.horse").first().find("a[href*='accessU']").first().text());
+            if(!name)throw Error("JRA_CANCEL_NAME_MISSING");
+            cancellationNumbers.set(name,await fetchCancellationNumber(load,{date:job.race_date,track:job.track,raceNo:job.race_no,horseName:name}));
+          }
+        }
+        const parsed=parseCard(html,job.cname,cancellationNumbers,Boolean(repair));
+        if(repair){
+          const postMatches=compareRepairPostTime({date:job.race_date,track:job.track,raceNo:job.race_no,previous:repair.oldRace.post_time,current:parsed.race.post_time,now:Date.now()});
+          // Require all prior captured identities and exact numeric weights to survive,
+          // and allow only an independently confirmed cancelled row as a new identity.
+          if(!checkRepairRows(parsed.runners,repair.oldRows,cancellationNumbers,job.race_no)||
+             parsed.race.race_name!==repair.oldRace.race_name||parsed.race.surface!==repair.oldRace.surface||
+             Number(parsed.race.distance)!==Number(repair.oldRace.distance)||!postMatches){
+            console.warn("JRA_CAPTURE_REPAIR_DIFF",JSON.stringify({...describeRepairMismatch(parsed.runners,repair.oldRows,cancellationNumbers,job.race_no),raceFields:{name:parsed.race.race_name===repair.oldRace.race_name,surface:parsed.race.surface===repair.oldRace.surface,distance:Number(parsed.race.distance)===Number(repair.oldRace.distance),post:parsed.race.post_time===repair.oldRace.post_time},postTime:{previous:repair.oldRace.post_time,current:parsed.race.post_time}}));
+            throw Error("JRA_CAPTURE_REPAIR_IDENTITY_CHECK_FAILED");
+          }
+          const still=await getRepair(job.race_no);
+          if(!still||still.oldRace.id!==repair.oldRace.id||still.oldRace.post_time!==repair.oldRace.post_time||!compareRepairPostTime({date:job.race_date,track:job.track,raceNo:job.race_no,previous:still.oldRace.post_time,current:parsed.race.post_time,now:Date.now()}))throw Error("JRA_CAPTURE_REPAIR_STATE_CHANGED");
+          if(parsed.race.post_time!==repair.oldRace.post_time)console.info("JRA_VERIFIED_CAPTURE_TIME_CORRECTION",parsed.race.race_key,repair.oldRace.post_time,parsed.race.post_time);
+        }
+        const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(html));
+        const htmlSha256=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
+        if(
+          parsed.runners.length===0 ||
+          !parsed.race.surface ||
+          !Number.isFinite(Number(parsed.race.distance))
+        ) {
+          throw new Error("JRA card content unavailable");
+        }
+        const raceUp=await db.from("jra_live_races")
+          .upsert(parsed.race,{onConflict:"race_key"}).select("id").single();
+        if(raceUp.error||!raceUp.data?.id) throw raceUp.error??new Error("race upsert");
+        const raceId=raceUp.data.id;
+        const runners=parsed.runners.map((r)=>({
+          live_race_id:raceId,...r,
+          source_checked_at:new Date().toISOString(),
+          updated_at:new Date().toISOString()
+        }));
+        if(runners.length){
+          const ru=await db.from("jra_live_runners").upsert(runners,{onConflict:"live_race_id,horse_no"});
+          if(ru.error) throw ru.error;
+        }
+        // Capture-only recovery: do not publish unsupported ACTIVE state to official_races.
+        // Restore publishing only after current-status extraction has been separately verified.
+        // Provenance capture is independent of prediction status; never infer ACTIVE.
+        // Failure here is logged but cannot regress the existing JRA queue flow.
+        const ev=await db.from("jra_html_evidence").upsert({
+          race_key:parsed.race.race_key,cname:job.cname,
+          source_url:BASE+"/JRADB/accessD.html?CNAME="+encodeURIComponent(job.cname),
+          fetched_at:fetchedAt,html_sha256:htmlSha256,
+          html_bytes:new TextEncoder().encode(html).length,
+          extractor_version:"jra-live-v17-provenance",
+          status_basis:"UNVERIFIED_HTML_CAPTURE",official_status_verified:false,
+          runner_count:parsed.runners.length
+        },{onConflict:"race_key,html_sha256",ignoreDuplicates:true});
+        if(ev.error) console.error("JRA_HTML_EVIDENCE_SAVE_FAILED",ev.error.message);
+        else console.info("JRA_HTML_EVIDENCE_SAVED",parsed.race.race_key,htmlSha256);
+        if(!repair)await db.from("jra_live_queue").update({
+          status:"done",last_error:null,updated_at:new Date().toISOString()
+        }).eq("cname",job.cname);
+        done.push({race_key:parsed.race.race_key,runners:runners.length,evidence_saved:!ev.error});
+      }catch(e){
+        const msg=String(e).slice(0,800);
+        failed.push({cname:job.cname,error:msg});
+        if(repair)console.warn("JRA_CAPTURE_REPAIR_REJECTED",job.race_no,msg.slice(0,120));
+        const transient=msg.includes("JRA card content unavailable");
+        if(!repair)await db.from("jra_live_queue").update({
+          status:transient?"pending":"error",
+          attempts:transient?Number(job.attempts||0):Number(job.attempts||0)+1,
+          last_error:msg,
+          updated_at:new Date().toISOString()
+        }).eq("cname",job.cname);
+      }
+    }
+    return json({ok:failed.length===0,done,failed});
+  }
+
+  if(action==="status"){
+    const [races,runners,queue,seeds]=await Promise.all([
+      db.from("jra_live_races").select("id",{count:"exact",head:true}),
+      db.from("jra_live_runners").select("id",{count:"exact",head:true}),
+      db.from("jra_live_queue").select("status"),
+      db.from("jra_live_seeds").select("race_date,seed_cname,active").order("race_date")
+    ]);
+    const qc={}; for(const r of queue.data??[]) qc[r.status]=(qc[r.status]??0)+1;
+    return json({ok:true,races:races.count??0,runners:runners.count??0,queue:qc,seeds:seeds.data??[]});
+  }
+
+  return json({ok:false,error:"unsupported"},400);
+});
+
