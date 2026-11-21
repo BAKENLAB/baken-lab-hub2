@@ -1,0 +1,50 @@
+{
+  "mcp": {
+    "version": 39,
+    "bundle_sha256": "2601ff8de87dd7a061716c7274546efc0d984ce93d2d37abf2d10768dca2e7ad"
+  },
+  "functions": [
+    {
+      "schema": "public",
+      "proname": "jra_claimed_context",
+      "definition_md5": "b57c32a1a1ad49df5399b983a7f69e04"
+    },
+    {
+      "schema": "public",
+      "proname": "jra_live_base_candidate_v1",
+      "definition_md5": "fd0cc9a8f166aa39f9eaea6e8400cd8c"
+    },
+    {
+      "schema": "public",
+      "proname": "jra_save_claimed_prediction",
+      "definition_md5": "414e8593edb1ca0865c361f0bf5712cd"
+    }
+  ],
+  "historical_arithmetic": [
+    {
+      "race_date": "2026-11-14",
+      "review_rows": 435,
+      "arithmetic_checkable": 0,
+      "arithmetic_matches": 0,
+      "arithmetic_mismatches": 0
+    },
+    {
+      "race_date": "2026-11-15",
+      "review_rows": 96,
+      "arithmetic_checkable": 0,
+      "arithmetic_matches": 0,
+      "arithmetic_mismatches": 0
+    },
+    {
+      "race_date": "2026-11-21",
+      "review_rows": 194,
+      "arithmetic_checkable": 194,
+      "arithmetic_matches": 194,
+      "arithmetic_mismatches": 0
+    }
+  ],
+  "production_writes": 0,
+  "claims": 0,
+  "real_race_saves": 0,
+  "approved_formula_recovered": false
+}

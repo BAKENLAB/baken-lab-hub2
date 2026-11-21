@@ -1,0 +1,216 @@
+{
+  "schema": "PR83_DECLARED_LEDGER_REPLAY_V1",
+  "scope": "HISTORICAL_RECORDED_NUMERIC_AUDIT_ONLY",
+  "races": 13,
+  "runners": 194,
+  "replays_per_race": 2,
+  "score_match_races": 13,
+  "rank_match_races": 13,
+  "raw_pre_race_context_available": false,
+  "approved_factor_points_generator_available": false,
+  "full_ability_formula_reproduced": false,
+  "future_real_races_verified": 0,
+  "production_allowed": false,
+  "unresolved": [
+    "PRE_RACE_ORIGINAL_INPUT",
+    "APPROVED_BASE_AND_FACTOR_POINTS_GENERATOR",
+    "TRUSTED_SOURCE_ID_BODY_AND_FETCH_CLOCK_RESOLVER"
+  ],
+  "per_race": [
+    {
+      "prediction_id": "2b4d4476-218f-4d43-b858-e136b9ba7ac3",
+      "race": [
+        "2026-11-21",
+        "福島",
+        6
+      ],
+      "input_sha256": "f7ea7e5161fd74ca48baa01e92ee96b1bc1fd058de3e7e5df8ad7ef1566730c6",
+      "result_sha256": "da1e54092dd020246a063df5d08ff79e8ff6bcb192ba6075b5b8f1ee3a7f41e9",
+      "runner_count": 15,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "1c6cecd7-32b7-487e-9ab4-c8e2d1c69245",
+      "race": [
+        "2026-11-21",
+        "福島",
+        7
+      ],
+      "input_sha256": "b9e9452398e57ed2a6d6f07fab99fa54ad427ab9976374d440cbf51b52b82d48",
+      "result_sha256": "19474d04dab67fe7cdc7399f106dd5fc115b9e0cb08d014920684b2d7d491978",
+      "runner_count": 16,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "3f919078-5efc-47f3-a6ea-b18e1f041aba",
+      "race": [
+        "2026-11-21",
+        "京都",
+        7
+      ],
+      "input_sha256": "7f3749195d9e84a79d54071ad676b530c58d476968f25e526fde0d3c61bc1d24",
+      "result_sha256": "04bbc489e0147574ca8b50c156ccb9c0873ee237f45170a31a5724c181a49660",
+      "runner_count": 16,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "d0883c8b-55c6-471a-9763-d87a75d6fd84",
+      "race": [
+        "2026-11-21",
+        "福島",
+        8
+      ],
+      "input_sha256": "ae783417129bf7ebd2e5179073998704c8ae648cd396c9b1fb3ced8db4fe6bb4",
+      "result_sha256": "4cfb8fe00d6c9ac6d9a199a28e8c213a2f537e4e988a7257ff3d233a8f1feabb",
+      "runner_count": 16,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "291d09bb-688c-40d0-b021-2906dbed7987",
+      "race": [
+        "2026-11-21",
+        "京都",
+        8
+      ],
+      "input_sha256": "f25f609b26ef920e0f3494722b88314c34d2c03a559be1aaf7925c8ff9bb76f9",
+      "result_sha256": "2819982fb59a3788d40402387df79223422cb466e7d98214a05c70e0ac9f9fc3",
+      "runner_count": 15,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "75b9dd1a-9229-4c85-970b-8613cc1cf8c1",
+      "race": [
+        "2026-11-21",
+        "福島",
+        9
+      ],
+      "input_sha256": "daa47a1268428c5208595c98472b5e8b6949ce5604d538d29e62ad28fc7e7678",
+      "result_sha256": "f7b7b8eef956445885cd445bd66ca617a1db86b897e6d609c07edce8c032302a",
+      "runner_count": 16,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "b1f17296-1d57-4cf6-8d3b-2a20a5194dbc",
+      "race": [
+        "2026-11-21",
+        "京都",
+        9
+      ],
+      "input_sha256": "ef46c8fac75f6f96628e60bc5d8383312935c8f9e903312bb58069804c44891b",
+      "result_sha256": "39b36d6e7ac4ae4862dde2252760ed4def89a9fc76d942ff5ccb83ce79d63fdc",
+      "runner_count": 8,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "496e4299-fa7f-494b-b27c-6c7b6d86e7a8",
+      "race": [
+        "2026-11-21",
+        "福島",
+        10
+      ],
+      "input_sha256": "a6b66378ee7e8d39d3ce9dd4923f20168fe09bdb9239f5bba20e2da2061180b9",
+      "result_sha256": "2c0dadfe21c2807a28f7a3b212b5503fe7adae24b9c8a3aa459dba944302f74e",
+      "runner_count": 16,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "147e5017-99ce-4c45-814f-132c1a4ff4c5",
+      "race": [
+        "2026-11-21",
+        "京都",
+        10
+      ],
+      "input_sha256": "c337935e21021e50a67d19dda2a34728d6637d861df8063f672f5c7973f0485d",
+      "result_sha256": "051a26596bf0358b4c60258af6b5a8a3a5c8657db74f469236f2d5e7935a9fac",
+      "runner_count": 15,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "65400bf1-4b52-4250-8d86-db7a00fd435a",
+      "race": [
+        "2026-11-21",
+        "福島",
+        11
+      ],
+      "input_sha256": "eaa936fcab6b496e4f93ea6f1e56ba774148931eb5ebbb0f136dc338f0750954",
+      "result_sha256": "ee5755a8362c1145ed1fbdbff3f240e976c56a75044ba618a60a331b577e7946",
+      "runner_count": 16,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "fa2d25af-990f-4ce1-ac4c-1b58e39acd7c",
+      "race": [
+        "2026-11-21",
+        "京都",
+        11
+      ],
+      "input_sha256": "875897b628158627188c77354893773470fac98e06724e264e0961fe5d0549f0",
+      "result_sha256": "3709cacc283a2030461b59ae5580622642e1061874c6751cb30e78267fb66358",
+      "runner_count": 16,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "68dc625f-f7a4-4e8f-959b-2892101de548",
+      "race": [
+        "2026-11-21",
+        "福島",
+        12
+      ],
+      "input_sha256": "463b2e3b03b8dc16af2dfbdec8eb93e106ca936dd0029631559a4516a3c5f47c",
+      "result_sha256": "0964028964085da084a4ac05f825900cc0a93689c1d0bd48c4d119c8de4ac08b",
+      "runner_count": 16,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    },
+    {
+      "prediction_id": "f69cb6a6-44f4-4677-a8fa-3017e0987ee2",
+      "race": [
+        "2026-11-21",
+        "京都",
+        12
+      ],
+      "input_sha256": "10abe74bac1dd3618b6aabc66060c92df117c5b8e6c9cd02bb061b76febbc314",
+      "result_sha256": "d764efafd9c8075058f2c9c9a7190f1f2c04f2a2b47f7de70ae6ec18e4a867f0",
+      "runner_count": 13,
+      "scores_match": true,
+      "ranks_match": true,
+      "component_order_invariant": true,
+      "tie_policy": "DEPLOYED_BRIDGE_SCORE_DESC_THEN_RECORDED_PREBRIDGE_RANK_THEN_HORSE_NO"
+    }
+  ]
+}
