@@ -351,10 +351,14 @@ function naturalRankProse(r,p,race){
  const compatible=runs.filter(isComparable);
  const podium=compatible.filter(x=>x.finish<=3);
  const strongest=podium.slice(0,2);
- const latest=runs[0];
+ const chronology=[...runs].sort((a,b)=>{
+  const score=x=>(x.year||2026)*372+Number(x.date.split('/')[0])*31+Number(x.date.split('/')[1]);
+  return score(b)-score(a);
+ });
+ const latest=chronology[0];
  const pos=/通過\s*([1-3])\s+([1-3])/.test(source)||
   /(?:1角|序盤)[1-3]番手→(?:最終角|4角)[1-3]番手/.test(source);
- const gains=/複数レースで中盤の位置進出|位置を押し上げる再現性|(?:\d+番手→(?:最終角)?[1-9]\d?番手).*(?:実証|確認)|\d+ポジション進出/.test(source);
+ const gains=/複数レースで中盤の位置進出|位置を押し上げる再現性|\d+ポジション進出/.test(source);
  const stable=/連続好走|近2走連続|最近の.*(?:好走|連対)|近走で.*(?:安定|好走)/.test(source);
  let lead='';
  if(strongest.length>=2){
@@ -364,8 +368,13 @@ function naturalRankProse(r,p,race){
   lead=readableRun(strongest[0])+'した実績があり、'+
    (jra?'芝の短距離で力を出した走り':'今回に近い条件で力を出した走り')+'が評価材料になる';
  }else if(compatible.length){
-  const best=compatible.reduce((a,b)=>a.finish<=b.finish?a:b);
-  lead=readableRun(best)+'が確認できる一方、今回に近い条件での3着以内は保存走歴から確認できない';
+  const board=compatible.filter(x=>x.finish<=5).slice(0,2);
+  if(board.length===2){
+   lead=readableRun(board[0])+'、'+readableRun(board[1])+'と、今回に近い条件で掲示板には載っている';
+  }else{
+   const best=compatible.reduce((a,b)=>a.finish<=b.finish?a:b);
+   lead=readableRun(best)+'が確認できる一方、今回に近い条件での3着以内は保存走歴から確認できない';
+  }
  }else if(runs.length){
   lead=readableRun(runs[0])+'という走歴はあるが、今回と近い条件での好走実績は保存資料から確認できない';
  }else{
@@ -375,8 +384,8 @@ function naturalRankProse(r,p,race){
  if(gains)strength='道中で順位を上げた記録もあり、追い上げる走りを評価した';
  else if(pos)strength='前で運んだ記録もあり、位置取りの面を評価した';
  else if(stable&&strongest.length)strength='最近の好走が続いている点を重視した';
- else if(strongest.length)strength='この実走結果を重視した';
- else strength='資料から確認できた材料の範囲で慎重に評価した';
+ else if(strongest.length)strength='過去の好走内容を重視した';
+ else strength='上位争いの実績が限られる点も考えて慎重に評価した';
  const head=sentenceEnd(lead)+' '+sentenceEnd(strength.replace(/した$/,'して')+'、'+displayRank+'とした');
  let caution='';
  const riskSentence=source.split('。').map(x=>x.trim()).find(x=>
@@ -396,8 +405,15 @@ function naturalRankProse(r,p,race){
  let contrast='';
  if(rank<=5&&gap!==null&&peerName){
   const relation=rank===1?'2位':rank===5?'6位':(rank-1)+'位';
-  contrast=relation+'の'+peerName+'との差は評価点で'+gap+'点'+
-   (gap<=4?'と小さく、明確な能力差を断定するものではない':'だが、この点差だけで実力差を断定するものではない');
+  const peerRaw=rawText(samePeer),peerRuns=getRuns({reason:peerRaw});
+  const peerMatch=peerRuns.find(x=>x.finish<=3&&(!raceDistance||!x.distance||Math.abs(x.distance-raceDistance)<=200)&&(!jra||/芝/.test(x.raw||'')));
+  if(gap<=4&&peerMatch){
+   contrast=relation+'の'+peerName+'にも'+readableRun(peerMatch)+'の実績があり、評価点は'+gap+'点差と接近している';
+  }else if(gap<=4){
+   contrast=relation+'の'+peerName+'とは評価点で'+gap+'点差の僅差となっている';
+  }else{
+   contrast=relation+'の'+peerName+'との評価点差は'+gap+'点だが、項目別の点差の内訳までは保存されていない';
+  }
  }
  const paragraphs=[head];
  if(caution)paragraphs.push(sentenceEnd(caution));
