@@ -18,4 +18,5 @@ jobs:
         with:
           node-version: "22"
       - run: node --check research/jra-full-depth-guard/jra-full-depth-save-gate.mjs
-      - run: node --test research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs research/jra-full-depth-guard/jra-deployed-contract.test.mjs
+      - run: node --check research/jra-full-depth-guard/jra-asof-detail-handoff.mjs
+      - run: node --test research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs research/jra-full-depth-guard/jra-deployed-contract.test.mjs research/jra-full-depth-guard/jra-asof-detail-handoff.test.mjs
