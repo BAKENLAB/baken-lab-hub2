@@ -1,0 +1,21 @@
+name: JRA v34 debut-safe claim gateway regression
+on:
+  push:
+    branches: [fix/jra-claim-skip-debuts-20261121]
+  pull_request:
+    paths:
+      - "research/jra-claim-20261121-deployed-v34/**"
+      - "automation/jra-v34-debut-claim-contract.test.mjs"
+      - ".github/workflows/jra-v34-debut-claim.yml"
+permissions:
+  contents: read
+jobs:
+  verify-no-untrusted-claim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test automation/jra-v34-debut-claim-contract.test.mjs
