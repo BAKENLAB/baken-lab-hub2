@@ -2,7 +2,7 @@
    This file never scores, writes a prediction, invents prior race evidence
    or changes the pre-race FROZEN order. */
 (function(window){'use strict';
-const venues=/(船橋|園田|笠松|盛岡|門別|高知|佐賀|名古屋|大井|川崎|浦和|水沢|金沢|東京|京都|阪神|中山|中京|新潟|小倉|札幌|函館)/;
+const venues=/(船橋|園田|笠松|盛岡|門別|高知|佐賀|名古屋|大井|川崎|浦和|水沢|金沢|東京|京都|阪神|中山|中京|新潟|福島|小倉|札幌|函館)/;
 function rawText(r){
  return String(r?.reason||r?.comment||r?.short_reason||'').trim();
 }
@@ -329,7 +329,8 @@ function jraEvidenceProse(r,p,race){
  const rank=Number(r?.rank),src=modernSource(r,p);
  if(!Number.isInteger(rank)||rank<1||!src)return null;
  if(p?.audit?.official_past_content_audit?.status==='VERIFIED_WHOLE_FIELD_FACTS')return null;
- const match=src.match(/今回[^。]{0,145}?(芝|ダート|ダ)(\d{3,4})\s*m(?:±(\d{2,3})m)?/);
+ const match=src.match(/今回[^。]{0,145}?(芝|ダート|ダ)(\d{3,4})\s*m(?:±(\d{2,3})m)?/)||
+  src.match(/(?:^|。)\s*(芝|ダート|ダ)(\d{3,4})\s*m近傍の実(?:走|績)/);
  if(!match)return null; // Legacy documents use their own evidence reader.
  const targetSurface=match[1]==='芝'?'芝':'ダート',distance=Number(match[2]);
  const window=match[3]?Number(match[3]):300;
@@ -403,8 +404,9 @@ function jraEvidenceProse(r,p,race){
     'にも'+format(peerBest)+'の実績がある。';
   }
   if(scoreGap!==null){
-   rival+=(rival?' ':'')+'保存評価点では'+scoreGap+'点差'+
-    (scoreGap<=4?'と僅差。':'だが、項目ごとの点差の内訳までは確認できない。');
+   rival+=(rival?' ':'')+(scoreGap===0?
+    '評価点は同点で、順位の違いを生んだ採点内訳までは保存情報から確認できない。':
+    '保存評価点では'+scoreGap+'点差'+(scoreGap<=4?'と僅差。':'だが、項目ごとの点差の内訳までは確認できない。'));
   }
  }
  const head=core+' '+detail;
