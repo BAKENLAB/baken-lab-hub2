@@ -25,25 +25,25 @@ const payload={runners:base,top5:base.slice(0,5),eye:null,audit};
 test('first rank explains saved choice before one concrete race and score comparison',()=>{
  const snapshot=JSON.stringify(payload);
  const text=rank.comment(base[0],payload,{track:'高知'});
- assert.match(text,/^【この順位の理由】.*近2走連続3着内を重視/);
- assert.match(text,/【近い順位の馬と比較】◎1位 94点 ／ ○2位 89点（5点差）/);
- assert.match(text,/【実際の根拠】11\/08高知C3-14 1600m2着/);
+ assert.match(text,/^高知の1600mで2着/);
+ assert.match(text,/2位のソックスとの評価点差は5点/);
+ assert.match(text,/高知の1400mで3着/);
  assert.doesNotMatch(text,/実ラップ未検証|直近3走：/);
  assert.equal(JSON.stringify(payload),snapshot);
 });
 
 test('rank 2 and rank 3 keep the individual reason, not a generic date list',()=>{
- assert.match(rank.headline(base[1],payload,{}),/位置を押し上げる再現性/);
+ assert.match(rank.headline(base[1],payload,{}),/道中で位置を上げる走り/);
  const three=rank.comment(base[2],payload,{});
- assert.match(three,/中盤の位置進出/);
- assert.match(three,/▲3位 85点 ／ ○2位 89点（4点差）/);
+ assert.match(three,/道中で位置を上げる走り/);
+ assert.match(three,/2位のソックスにも高知の1400mで3着/);
  assert.doesNotMatch(three,/順位差の採点内訳は保存記録だけでは特定できません/);
 });
 
 test('rank 5 explains the TOP5 boundary against rank 6, not rank 4',()=>{
  const fifth=rank.comment(base[4],payload,{});
- assert.match(fifth,/△5位 78点 ／ 6位 76点（2点差）/);
- assert.match(fifth,/僅かに上位とした/);
+ assert.match(fifth,/6位のフウリンカザン/);
+ assert.match(fifth,/2点差/);
  assert.doesNotMatch(fifth,/☆4位 82点/);
 });
 
@@ -65,7 +65,7 @@ test('legacy, unrated and EYE comments still use established handlers',()=>{
 test('TODAY and RESULT use the revised reason helper and readable text',()=>{
  for(const name of ['today.html','result.html']){
   const html=readFileSync(new URL('../'+name,import.meta.url),'utf8');
-  assert.match(html,/lab-rank-compare\.js\?v=20261121-decision-first-v1/);
+  assert.match(html,/lab-rank-compare\.js\?v=20261121-natural-prose-v1/);
   assert.match(html,/\.runner-headline\{[^}]*font-size:12px/);
  }
 });

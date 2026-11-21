@@ -312,6 +312,117 @@ function verifiedLocalNote(r,p){
 
 
 /* Display-only decision view for verified recent FROZEN. No re-scoring. */
+
+/*
+ * 2026-11-21: natural Japanese prose on the visible RANK card.
+ * Strictly a display transformation of existing pre-race FROZEN evidence.
+ * Never present a score gap or a historical finish as proof of factor weights.
+ */
+function naturalRankProse(r,p,race){
+ const raw=modernSource(r,p),rank=Number(r?.rank);
+ if(!raw||!Number.isInteger(rank)||rank<1||isSelectedEye(r,p))return null;
+ const audit=p?.audit||{};
+ const local=audit.official_past_content_audit?.status==='VERIFIED_WHOLE_FIELD_FACTS';
+ const match=raw.match(/芝(\d{3,4})m±(\d{2,3})mの実走\d+走/);
+ const jra=!!match&&!local;
+ if(!local&&!jra)return null;
+ const sentenceEnd=s=>String(s||'').trim().replace(/[。]+$/,'')+'。';
+ const scoreOf=x=>x?.score===null||x?.score===undefined?null:
+  (Number.isFinite(Number(x.score))?Number(x.score):null);
+ const displayRank=rank<=5?rank+'位':'全頭中'+rank+'位';
+ const samePeer=(Array.isArray(p?.runners)?p.runners:[]).find(x=>
+  Number(x.rank)===(rank===1?2:rank===5?6:rank-1));
+ const gap=samePeer&&scoreOf(r)!==null&&scoreOf(samePeer)!==null?
+  Math.abs(scoreOf(r)-scoreOf(samePeer)):null;
+ const source=local?raw.split(/(?:直近3走|最近3走|過去3走|公式過去3走)\s*[：:]/)[0]:raw;
+ const runs=getRuns({reason:source}).slice(0,9);
+ const raceDistance=match?Number(match[1]):
+  Number(String(source).match(/(?:高知|佐賀|名古屋|船橋|川崎|大井|園田|笠松|金沢|盛岡|水沢|門別)(?:ファイナル[^。]{0,30})?[^。]{0,40}?[ダ芝](\d{3,4})m/)?.[1]||0);
+ function isComparable(t){
+  if(raceDistance&&t.distance&&Math.abs(t.distance-raceDistance)>200)return false;
+  return !jra||/芝/.test(t.raw||'');
+ }
+ function readableRun(x){
+  if(!x)return '';
+  const surface=/芝/.test(x.raw||'')?'芝':/ダート|ダ(?=\d)/.test(x.raw||'')?'ダート':'';
+  const venue=x.track?x.track+'の':'';
+  return venue+surface+(x.distance?x.distance+'m':'')+'で'+x.finish+'着';
+ }
+ const compatible=runs.filter(isComparable);
+ const podium=compatible.filter(x=>x.finish<=3);
+ const strongest=podium.slice(0,2);
+ const chronology=[...runs].sort((a,b)=>{
+  const score=x=>(x.year||2026)*372+Number(x.date.split('/')[0])*31+Number(x.date.split('/')[1]);
+  return score(b)-score(a);
+ });
+ const latest=chronology[0];
+ const pos=/通過\s*([1-3])\s+([1-3])/.test(source)||
+  /(?:1角|序盤)[1-3]番手→(?:最終角|4角)[1-3]番手/.test(source);
+ const gains=/複数レースで中盤の位置進出|位置を押し上げる再現性|\d+ポジション進出/.test(source);
+ const stable=/連続好走|近2走連続|最近の.*(?:好走|連対)|近走で.*(?:安定|好走)/.test(source);
+ let lead='';
+ if(strongest.length>=2){
+  lead=readableRun(strongest[0])+'、'+readableRun(strongest[1])+
+   'と、'+(jra?'芝の短距離':'今回に近い条件')+'で好走した記録がある';
+ }else if(strongest.length===1){
+  lead=readableRun(strongest[0])+'しており、'+
+   (jra?'今回の芝の短距離':'今回に近い条件')+'でも好走できた経験がある';
+ }else if(compatible.length){
+  const board=compatible.filter(x=>x.finish<=5).slice(0,2);
+  if(board.length===2){
+   lead=readableRun(board[0])+'、'+readableRun(board[1])+'と、今回に近い条件で掲示板には載っている';
+  }else{
+   const best=compatible.reduce((a,b)=>a.finish<=b.finish?a:b);
+   lead=readableRun(best)+'が確認できる一方、今回に近い条件での3着以内は保存走歴から確認できない';
+  }
+ }else if(runs.length){
+  lead=readableRun(runs[0])+'という走歴はあるが、今回と近い条件での好走実績は保存資料から確認できない';
+ }else{
+  return null; // Keep existing safe evidence view if the note cannot be parsed.
+ }
+ let strength='';
+ if(gains)strength='道中で位置を上げる走りも重視し';
+ else if(pos)strength='前で運んだ記録も踏まえ';
+ else if(stable&&strongest.length)strength='最近の好調さを重視し';
+ else if(strongest.length)strength='こうした実走内容を根拠に';
+ else strength='勝ち切る裏付けが乏しい点も考慮し';
+ const head=sentenceEnd(lead)+' '+sentenceEnd(strength+'、'+displayRank+'に置いた');
+ let caution='';
+ const riskSentence=source.split('。').map(x=>x.trim()).find(x=>
+  /(?:ただし|一方|反証|課題|不安|大敗|未確認|未実証|休養|不安定|後着)/.test(x)&&
+  !/^(?:高知|佐賀).*?全頭独立評価/.test(x));
+ if(latest&&latest.finish>=5&&
+   (!strongest.length||strongest[0]!==latest)){
+   caution='ただし、直近の'+readableRun(latest)+'という結果は不安材料になる';
+ }else if(/逃げ確定とはしない/.test(source)){
+   caution='ただし、先頭で運んだ過去の走りが今回も再現するとは限らない';
+ }else if(jra&&/ダート/.test(latest?.raw||'')&&podium.length){
+   caution='ただし、芝に戻って同じ力を発揮できるかは確実ではない';
+ }else if(riskSentence&&/(?:休養|転入|延長|初戦|未確認|不安定)/.test(riskSentence)){
+   caution='ただし、'+riskSentence.replace(/^(?:ただし|一方)[、，\s]*/,'').replace(/[。]+$/,'');
+ }
+ const peerName=samePeer?.horse_name;
+ let contrast='';
+ if(rank<=5&&gap!==null&&peerName){
+  const relation=rank===1?'2位':rank===5?'6位':(rank-1)+'位';
+  const peerRaw=rawText(samePeer),peerRuns=getRuns({reason:peerRaw});
+  const peerMatch=peerRuns.find(x=>x.finish<=3&&(!raceDistance||!x.distance||Math.abs(x.distance-raceDistance)<=200)&&(!jra||/芝/.test(x.raw||'')));
+  if(gap<=4&&peerMatch){
+   contrast=relation+'の'+peerName+'にも'+readableRun(peerMatch)+'の実績があり、評価点は'+gap+'点差と接近している';
+  }else if(gap<=4){
+   contrast=relation+'の'+peerName+'とは評価点で'+gap+'点差の僅差となっている';
+  }else{
+   contrast=relation+'の'+peerName+'との評価点差は'+gap+'点だが、項目別の点差の内訳までは保存されていない';
+  }
+ }
+ const paragraphs=[head];
+ if(caution)paragraphs.push(sentenceEnd(caution));
+ if(contrast)paragraphs.push(sentenceEnd(contrast));
+ // All source-derived limits remain available in the saved FROZEN; do not
+ // silently rewrite the score or claim per-factor causal contributions.
+ return {head,detail:paragraphs.join('\n')};
+}
+
 function decisionFirst(r,p){
  const rank=Number(r?.rank),src=modernSource(r,p),audit=p?.audit||{};
  if(!Number.isInteger(rank)||rank<1||!src||isSelectedEye(r,p))return null;
@@ -368,6 +479,7 @@ function decisionFirst(r,p){
 }
 
 function headline(r,p,race){
+ const natural=naturalRankProse(r,p,race);if(natural)return natural.head;
  const decision=decisionFirst(r,p);if(decision)return decision.head;
  const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.head;
  const verified=verifiedLocalNote(r,p);if(verified)return verified.head;
@@ -406,6 +518,7 @@ function headline(r,p,race){
  return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
+ const natural=naturalRankProse(r,p,race);if(natural)return natural.detail;
  const decision=decisionFirst(r,p);if(decision)return decision.detail;
  const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.detail;
  const verified=verifiedLocalNote(r,p);if(verified)return verified.detail;
