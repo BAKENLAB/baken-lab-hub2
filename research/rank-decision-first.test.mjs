@@ -65,7 +65,7 @@ test('legacy, unrated and EYE comments still use established handlers',()=>{
 test('TODAY and RESULT use the revised reason helper and readable text',()=>{
  for(const name of ['today.html','result.html']){
   const html=readFileSync(new URL('../'+name,import.meta.url),'utf8');
-  assert.match(html,/lab-rank-compare\.js\?v=20261121-natural-prose-v1/);
+  assert.match(html,/lab-rank-compare\.js\?v=20261121-jra-all-surfaces-v2/);
   assert.match(html,/\.runner-headline\{[^}]*font-size:12px/);
  }
 });
