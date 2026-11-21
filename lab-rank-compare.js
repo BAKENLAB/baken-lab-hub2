@@ -319,10 +319,10 @@ function decisionFirst(r,p){
  const jra=!local&&/(?:基礎\d+点に|Eval1,942|Eval1942)/.test(src);
  if(!local&&!jra)return null;
  const marker=n=>({1:'◎',2:'○',3:'▲',4:'☆',5:'△'})[n]||'';
- const clean=s=>human(String(s||'').trim()).replace(/。+$/,'');
+ const clean=s=>String(s||'').trim().replace(/現級/g,'今回のクラス').replace(/反証/g,'不安材料').replace(/。+$/,'');
  const cut=(s,n=100)=>compact(clean(s),n);
  const rows=Array.isArray(p?.runners)?p.runners:[];
- const peer=rows.find(x=>Number(x.rank)===(rank===1?2:rank-1));
+ const peer=rows.find(x=>Number(x.rank)===(rank===1?2:rank===5?6:rank-1));
  const score=x=>x?.score===null||x?.score===undefined?null:
   Number.isFinite(Number(x.score))?Number(x.score):null;
  const ownScore=score(r),peerScore=score(peer);
@@ -335,7 +335,7 @@ function decisionFirst(r,p){
  const recent=parts.filter(s=>!generic(s));
  const hasDate=s=>/(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2}/.test(s);
  const evidence=recent.filter(s=>hasDate(s)&&/(?:\d{1,2}着|勝ち|先着|上がり|番手|差)/.test(s))
-  .slice(0,2).map(s=>cut(s,82)).join('。');
+  .slice(0,1).map(s=>cut(s,90)).join('。');
  let why='';
  if(local){
   const recorded=rank===1?audit.honmei_review?.reason:rank===5?audit.boundary_review?.reason:'';
@@ -345,9 +345,9 @@ function decisionFirst(r,p){
   if(!why){
    const judgment=recent.find(s=>!hasDate(s)&&/(?:重視|優先|評価|上位|現在性|再現性|強み|適性|安定|勝ち筋)/.test(s)&&
     !/(?:未確認の|推測加点しない|未検証の)/.test(s))||
-    recent.find(s=>/(?:を重視|を優先|を評価|再現性が強い|上位とした|勝ち筋|首位材料)/.test(s));
+    recent.find(s=>/(?:を重視|を優先|を評価|再現性が強い|上位とした|勝ち筋|首位材料|格の裏付け|位置進出|進出が確認できる|実証される)/.test(s));
    if(judgment){
-    const natural=judgment.match(/(?:今回|近走|同距離|現級|現在性|再現性|先行|末脚|コーナー)[^。]{9,}/);
+    const natural=judgment.match(/(?:今回|近走|同距離|現級|現在性|再現性|先行|末脚|コーナー|中盤|位置進出)[^。]{9,}/);
     why=cut(natural?natural[0]:judgment,116);
    }
   }
@@ -356,9 +356,10 @@ function decisionFirst(r,p){
   why=matched?'近い距離での接戦実績を評価（'+matched[0]+'）':
    '現級・距離・着差・通過順の確認済み材料を評価';
  }
- if(!why)why='順位差の採点内訳は保存記録だけでは特定できません';
+ if(!why){const first=recent.find(s=>hasDate(s)&&/(?:\d{1,2}着|勝ち|先着|上がり|番手)/.test(s));why=first?'保存理由の先頭に挙げられた実績：'+cut(first,96):'順位を決めた要因の内訳は保存理由だけでは特定できません';}
+ const course=src.match(/(京都|東京|福島|中山|阪神|中京|新潟|小倉|札幌|函館)(?:同系|同場同距離)(\d+)走を確認/);
  const risk=local?recent.find(s=>/(?:ただし|一方|課題|不安|反証|未証明|休養|大敗|適性.*未確認)/.test(s)):
-   src.match(/(?:同系|同場同距離)\d+走を確認/)?.[0];
+   course&&Number(course[2])===0?course[1]+'で照合できた同系コース走歴は0件':'';
  const lines=['【この順位の理由】'+sentence(why)];
  if(compare)lines.push('【近い順位の馬と比較】'+compare+'。');
  if(evidence)lines.push('【実際の根拠】'+sentence(evidence));
