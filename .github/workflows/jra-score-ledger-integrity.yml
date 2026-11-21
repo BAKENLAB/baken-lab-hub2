@@ -1,0 +1,25 @@
+name: JRA declared-score ledger integrity
+on:
+  pull_request:
+    paths:
+      - 'automation/jra-score-ledger/**'
+      - 'tests/jra-score-ledger.test.mjs'
+      - 'research/jra-scoring-integrity-20261121/**'
+      - '.github/workflows/jra-score-ledger-integrity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Ledger tests with synthetic save and real historical arithmetic only
+        run: node tests/jra-score-ledger.test.mjs
+      - name: Existing full-depth, handoff, save-contract and bridge regressions
+        run: |
+          node research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs
+          node research/jra-full-depth-guard/jra-asof-detail-handoff.test.mjs
+          node research/jra-full-depth-guard/jra-deployed-contract.test.mjs
+          node research/jra-verified-evidence-rank-bridge.test.mjs
