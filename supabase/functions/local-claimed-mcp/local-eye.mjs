@@ -19,7 +19,8 @@ const sorted = v => [...v].sort((a,b)=>a-b);
 const sameSet = (a,b) => Array.isArray(a) && a.every(integer) && new Set(a).size===a.length
   && JSON.stringify(sorted(a))===JSON.stringify(sorted(b));
 const marketKey = /odds|popularity|market|人気|オッズ|単勝|市場/i;
-const marketText = /odds|popularity|人気|オッズ|高配当|市場情報/i;
+// Official race sponsor names such as オッズパーク杯 are not market evidence; other odds/popularity mentions remain blocked.
+const marketText = /odds|popularity|人気|オッズ(?!パーク(?:杯|賞|協賛))|高配当|市場情報/i;
 const rankOnly = /(?:6|６)位だから|TOP5(?:の)?次点|能力順位(?:だけ|のみ)|rank\s*={1,3}\s*6|(?:配列|候補)(?:の)?先頭/i;
 function noMarket(value) {
   if(typeof value==='string' && marketText.test(value))bad('MARKET_EVIDENCE');
