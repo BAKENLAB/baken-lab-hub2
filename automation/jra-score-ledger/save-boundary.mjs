@@ -3,6 +3,7 @@ import {collectDeclaredLedger,sha} from './declared-ledger.mjs';
 import {checkDeclaredLedger} from './independent-check.mjs';
 export class IntegrityRefusal extends Error{constructor(code){super('JRA_SCORE_LEDGER_'+code);this.code=code;}}
 export async function guardedLedgerSave({payload,context,now,leaseUntil,registry,existingSave}){
+ const inputHash=sha({payload,context});
  const clock=()=>Date.parse(typeof now==='function'?now():now);
  const time=clock(),post=Date.parse(context?.race?.post_time),lease=Date.parse(leaseUntil);
  if(!Number.isFinite(time)||!Number.isFinite(post)||!Number.isFinite(lease)||time>=lease||time>=post-180000)throw new IntegrityRefusal('DEADLINE');
@@ -23,5 +24,6 @@ export async function guardedLedgerSave({payload,context,now,leaseUntil,registry
  if(!expected||expected.status!=='VERIFIED'||sha(expected.ledger)!==sha(ledger))throw new IntegrityRefusal('INDEPENDENT_ENGINE_MISMATCH');
  // No field, score, rank, grade, comment, EYE or audit is rewritten by the gate.
  if(clock()>=lease||clock()>=post-180000)throw new IntegrityRefusal('DEADLINE');
+ if(sha({payload,context})!==inputHash)throw new IntegrityRefusal('INPUT_CHANGED_DURING_VERIFICATION');
  return existingSave(payload);
 }

@@ -4,6 +4,8 @@ on:
     paths:
       - 'automation/jra-score-ledger/**'
       - 'tests/jra-score-ledger.test.mjs'
+      - 'tests/jra-score-ledger-postgres.sql'
+      - 'sql/jra_score_ledger_validator_candidate_v1.sql'
       - 'research/jra-scoring-integrity-20261121/**'
       - '.github/workflows/jra-score-ledger-integrity.yml'
   workflow_dispatch:
@@ -23,3 +25,30 @@ jobs:
           node research/jra-full-depth-guard/jra-asof-detail-handoff.test.mjs
           node research/jra-full-depth-guard/jra-deployed-contract.test.mjs
           node research/jra-verified-evidence-rank-bridge.test.mjs
+
+  isolated-postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: ephemeral_ci_only
+          POSTGRES_DB: ledger_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: PostgreSQL candidate creation, fixture save/refusal and rollback
+        env:
+          PGHOST: localhost
+          PGPORT: '5432'
+          PGUSER: postgres
+          PGDATABASE: ledger_test
+          PGPASSWORD: ephemeral_ci_only
+        run: psql -X -v ON_ERROR_STOP=1 -f tests/jra-score-ledger-postgres.sql
