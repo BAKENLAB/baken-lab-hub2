@@ -51,7 +51,8 @@ test('JRA shows frozen 78 points despite old intermediate 77-point string',()=>{
  const first={horse_no:6,rank:1,score:81,reason:'08-29札幌芝2000m2勝クラス2着0.2差。今回京都良芝2000m 2勝クラスとの近距離4走・0.7秒以内3走。基礎46点に根拠別効果+35点で81点。Eval1,942相関を確認。'};
  const second={horse_no:1,rank:2,score:78,reason:'08-30中京芝2200m2勝クラス3着0.2差。今回京都良芝2000m 2勝クラスとの近距離4走・0.7秒以内4走。基礎39点に根拠別効果+38点で77点。Eval1,942相関を確認。【補正】最終78点。'};
  const got=rank.comment(second,{runners:[first,second],top5:[first,second]}, {});
- assert.match(got,/○2位 78点 ／ ◎1位 81点/);
+ assert.match(got,/前走は中京芝2200mで3着/);
+ assert.match(got,/保存評価点では3点差/); // 81 - final saved 78, never the intermediate 77
  assert.doesNotMatch(got,/77点|基礎39点/);
 });
 
@@ -65,7 +66,7 @@ test('legacy, unrated and EYE comments still use established handlers',()=>{
 test('TODAY and RESULT use the revised reason helper and readable text',()=>{
  for(const name of ['today.html','result.html']){
   const html=readFileSync(new URL('../'+name,import.meta.url),'utf8');
-  assert.match(html,/lab-rank-compare\.js\?v=20261121-natural-prose-v1/);
+  assert.match(html,/lab-rank-compare\.js\?v=20261121-jra-all-surfaces-v2/);
   assert.match(html,/\.runner-headline\{[^}]*font-size:12px/);
  }
 });

@@ -79,6 +79,6 @@ test('non-verified legacy and independently selected EYE retain existing behavio
 test('the two HUB pages load the natural-voice helper in a fresh cache version',()=>{
  for(const path of ['today.html','result.html']){
   const h=readFileSync(new URL('../'+path,import.meta.url),'utf8');
-  assert.match(h,/lab-rank-compare\.js\?v=20261121-natural-prose-v1/);
+  assert.match(h,/lab-rank-compare\.js\?v=20261121-jra-all-surfaces-v2/);
  }
 });
