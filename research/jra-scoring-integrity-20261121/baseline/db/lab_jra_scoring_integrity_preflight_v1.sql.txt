@@ -1,0 +1,47 @@
+CREATE OR REPLACE FUNCTION public.lab_jra_scoring_integrity_preflight_v1(p_payload jsonb)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ STABLE
+ SET search_path TO 'pg_catalog'
+AS $function$
+declare a jsonb; x jsonb; e text[]:=array[]::text[]; n int:=0; n_active int:=0; n_scored int:=0; n_top int:=0; method text; num text; seen int[]:=array[]::int[]; score numeric; prev_score numeric:=null; expected_rank int:=0;
+begin
+if jsonb_typeof(p_payload) is distinct from 'object' then return jsonb_build_object('ok',false,'errors',array['PAYLOAD_NOT_OBJECT'],'mode','ADVISORY_ONLY'); end if;
+a:=p_payload->'audit';
+if jsonb_typeof(a) is distinct from 'object' then return jsonb_build_object('ok',false,'errors',array['AUDIT_MISSING'],'mode','ADVISORY_ONLY'); end if;
+method:=coalesce(a->>'score_method','');
+if method='' then e:=array_append(e,'SCORE_METHOD_MISSING'); end if;
+if method ~* '^(INDEPENDENT_|INDEPENDENT100:|Independent bounded)' then e:=array_append(e,'ADHOC_SCORING_FORMULA_DETECTED'); end if;
+if a->'full_depth_comparison' is distinct from 'true'::jsonb then e:=array_append(e,'FULL_DEPTH_BOOLEAN_REQUIRED'); end if;
+if a->'official_full_field_verified' is distinct from 'true'::jsonb then e:=array_append(e,'OFFICIAL_FULL_FIELD_NOT_VERIFIED'); end if;
+if jsonb_typeof(p_payload->'runners') is distinct from 'array' then return jsonb_build_object('ok',false,'errors',array_append(e,'RUNNERS_NOT_ARRAY'),'mode','ADVISORY_ONLY'); end if;
+n:=jsonb_array_length(p_payload->'runners');
+for x in select value from jsonb_array_elements(p_payload->'runners') loop
+  num:=coalesce(x->>'horse_no','');
+  if num !~ '^[0-9]+$' then e:=array_append(e,'INVALID_HORSE_NO'); continue; end if;
+  if num::int=any(seen) then e:=array_append(e,'DUPLICATE_HORSE_NO'); end if;
+  seen:=array_append(seen,num::int);
+  if coalesce(x->>'status','ACTIVE')='CANCELLED' then continue; end if;
+  n_active:=n_active+1;
+  if coalesce(x->>'score','') !~ '^[0-9]+(\.[0-9]+)?$' or coalesce(x->>'rank','') !~ '^[0-9]+$' then
+    e:=array_append(e,'RUNNER_SCORE_OR_RANK_MISSING');continue;
+  end if;
+  score:=(x->>'score')::numeric;
+  if score<0 or score>100 then e:=array_append(e,'SCORE_OUT_OF_RANGE'); end if;
+  n_scored:=n_scored+1;
+  expected_rank:=expected_rank+1;
+  if (x->>'rank')::int<>expected_rank then e:=array_append(e,'RUNNER_RANK_ORDER_MISMATCH'); end if;
+  if prev_score is not null and score>prev_score then e:=array_append(e,'RUNNER_SCORE_ORDER_MISMATCH'); end if;
+  prev_score:=score;
+end loop;
+if jsonb_typeof(p_payload->'top5') is distinct from 'array' then e:=array_append(e,'TOP5_NOT_ARRAY');
+else
+n_top:=jsonb_array_length(p_payload->'top5');
+if n_top<>least(n_active,5) then e:=array_append(e,'TOP5_COUNT_MISMATCH'); end if;
+for x in select value from jsonb_array_elements(p_payload->'top5') loop
+ if not exists(select 1 from jsonb_array_elements(p_payload->'runners') r where r->'horse_no'=x->'horse_no' and r->'score'=x->'score' and r->'rank'=x->'rank') then e:=array_append(e,'TOP5_SCORE_RANK_MISMATCH'); end if;
+end loop;
+end if;
+return jsonb_build_object('ok',cardinality(e)=0,'errors',e,'mode','ADVISORY_ONLY','runners',n,'active',n_active,'scored',n_scored,'score_method',method,'note','Passing does not prove provenance or per-factor recomputation');
+end $function$
+

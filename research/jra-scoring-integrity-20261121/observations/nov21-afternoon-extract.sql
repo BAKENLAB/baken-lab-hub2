@@ -1,0 +1,1 @@
+select id,race_date,track,race_no,post_time,frozen_at,protocol_version,payload from public.official_predictions where circuit='JRA' and status='FROZEN' and race_date='2026-11-21' and payload->'audit' ? 'runner_history_checked' order by frozen_at
