@@ -318,6 +318,102 @@ function verifiedLocalNote(r,p){
  * Strictly a display transformation of existing pre-race FROZEN evidence.
  * Never present a score gap or a historical finish as proof of factor weights.
  */
+
+/*
+ * Prose for all JRA evidence formats (turf AND dirt, maiden through feature).
+ * Read-only view of the official pre-race FROZEN; never re-score the payload.
+ * In particular a point gap is not evidence of individual factor contribution.
+ */
+function jraEvidenceProse(r,p,race){
+ if(isSelectedEye(r,p))return null;
+ const rank=Number(r?.rank),src=modernSource(r,p);
+ if(!Number.isInteger(rank)||rank<1||!src)return null;
+ if(p?.audit?.official_past_content_audit?.status==='VERIFIED_WHOLE_FIELD_FACTS')return null;
+ const match=src.match(/今回[^。]{0,145}?(芝|ダート|ダ)(\d{3,4})\s*m(?:±(\d{2,3})m)?/);
+ if(!match)return null; // Legacy documents use their own evidence reader.
+ const targetSurface=match[1]==='芝'?'芝':'ダート',distance=Number(match[2]);
+ const window=match[3]?Number(match[3]):300;
+ const isTurf=x=>/芝(?:\d{3,4}m|\s)/.test(x.raw||'');
+ const isDirt=x=>/ダート\d{3,4}m|ダ\d{3,4}m/.test(x.raw||'');
+ const validSurface=x=>targetSurface==='芝'?isTurf(x):isDirt(x);
+ const isComparable=x=>x.distance&&Math.abs(x.distance-distance)<=window&&validSurface(x);
+ const monthDay=x=>{const parts=x.date.split('/').map(Number);return (x.year||2026)*10000+parts[0]*100+parts[1];};
+ const all=getRuns({reason:src}).sort((a,b)=>monthDay(b)-monthDay(a));
+ if(!all.length)return null;
+ const relevant=all.filter(isComparable),recent=all[0],top3=relevant.filter(x=>x.finish<=3);
+ const isSameCourse=x=>x&&x.track===race?.track&&x.distance===distance&&validSurface(x);
+ const format=x=>x?(x.track||'競馬場未記録')+(isTurf(x)?'芝':isDirt(x)?'ダート':'')+
+  (x.distance?x.distance+'m':'')+'で'+x.finish+'着':'';
+ const cleanSentence=s=>String(s||'').trim().replace(/。+$/,'')+'。';
+ const ranks=Array.isArray(p?.runners)?p.runners:[];
+ const selectedPeer=ranks.find(x=>Number(x.rank)===(rank===1?2:rank===5?6:rank-1));
+ const ownScore=Number(r.score),peerScore=Number(selectedPeer?.score);
+ const scoreGap=Number.isFinite(ownScore)&&Number.isFinite(peerScore)&&selectedPeer?.score!=null&&r.score!=null?
+  Math.abs(ownScore-peerScore):null;
+ const ordinal=rank<=5?rank+'位':'全頭中'+rank+'位';
+ let core='',detail='',caution='';
+ if(top3.length>=2){
+  core=format(top3[0])+'、'+format(top3[1])+'と、'+
+   (targetSurface==='芝'?'芝':'ダート')+'の近い距離で複数の好走を記録している。';
+  detail='こうした実績の重なりを評価し、'+ordinal+'に置いた。';
+ }else if(top3.length===1){
+  const best=top3[0];
+  core=(best===recent?'前走は':'過去に')+format(best)+'と好走。';
+  const prior=all[1];
+  if(best===recent&&prior&&isSameCourse(best)&&isSameCourse(prior)&&prior.finish>=best.finish+2){
+   detail='2走前の同条件'+prior.finish+'着から前走では'+best.finish+
+    '着まで着順を上げており、この直近の良化を材料に'+ordinal+'とした。';
+  }else if(isSameCourse(best)){
+   detail='今回と同じ競馬場・距離で力を出したことを評価して'+ordinal+'とした。';
+  }else{
+   detail='今回に近い条件で好走したことを材料に'+ordinal+'とした。';
+  }
+ }else if(relevant.length){
+  const sorted=[...relevant].sort((a,b)=>a.finish-b.finish);
+  const best=sorted[0];
+  core=(isSameCourse(best)?'今回と同じ'+(race?.track||'競馬場')+'の':'今回に近い')+
+   (targetSurface==='芝'?'芝':'ダート')+distance+
+   'mの条件で、これまでの最高着順は'+best.finish+'着。';
+  const leadPosition=src.match(/(?:先行)?3番手以内([1-9]\d*)走/);
+  detail=leadPosition?'前で運んだ走りは確認できるが、上位入線の実績はまだ足りず'+ordinal+'の評価とした。':
+   '今回に近い条件で3着以内の裏付けがなく、慎重な'+ordinal+'評価としている。';
+ }else{
+  core='今回の'+(race?.track||'')+(targetSurface==='芝'?'芝':'ダート')+
+   distance+'mに近い条件での好走は、保存走歴から確認できない。';
+  detail=all.length?format(recent)+'などの出走歴はあるが、条件適性は未確認として'+ordinal+'とした。':
+   '今回条件での能力を断定できないため、暫定的な'+ordinal+'となっている。';
+ }
+ if(recent&&recent.finish>=5&&!(top3.length&&top3[0]===recent)){
+  caution='直近の'+format(recent)+'という結果は、不安材料として残る。';
+ }else if(/前走からの間隔が短く反動は未確認/.test(src)){
+  caution='前走からの間隔が短く、反動がないかは確認できていない。';
+ }else if(/過去走は1走で再現性に留保|比較可能な実走は1走のみ|近傍の証拠1走/.test(src)){
+  caution='比較に使える過去走が限られ、次も同じ走りができるかはまだ分からない。';
+ }else if(recent&&!validSurface(recent)&&top3.length){
+  caution='直近は別の馬場種別を走っており、今回の条件への適性には注意したい。';
+ }
+ let rival='';
+ if(selectedPeer&&rank<=5){
+  const peerRuns=getRuns({reason:rawText(selectedPeer)})
+   .sort((a,b)=>monthDay(b)-monthDay(a));
+  const peerBest=peerRuns.find(isComparable);
+  const name=selectedPeer.horse_name||'隣の順位の馬';
+  if(peerBest&&peerBest.finish<=3){
+   rival=(rank===1?'2位':rank===5?'6位':(rank-1)+'位')+'の'+name+
+    'にも'+format(peerBest)+'の実績がある。';
+  }
+  if(scoreGap!==null){
+   rival+=(rival?' ':'')+'保存評価点では'+scoreGap+'点差'+
+    (scoreGap<=4?'と僅差。':'だが、項目ごとの点差の内訳までは確認できない。');
+  }
+ }
+ const head=core+' '+detail;
+ const description=[head];
+ if(caution)description.push(caution);
+ if(rival)description.push(rival);
+ return {head,detail:description.join('\n')};
+}
+
 function naturalRankProse(r,p,race){
  const raw=modernSource(r,p),rank=Number(r?.rank);
  if(!raw||!Number.isInteger(rank)||rank<1||isSelectedEye(r,p))return null;
@@ -479,6 +575,7 @@ function decisionFirst(r,p){
 }
 
 function headline(r,p,race){
+ const jraProse=jraEvidenceProse(r,p,race);if(jraProse)return jraProse.head;
  const natural=naturalRankProse(r,p,race);if(natural)return natural.head;
  const decision=decisionFirst(r,p);if(decision)return decision.head;
  const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.head;
@@ -518,6 +615,7 @@ function headline(r,p,race){
  return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
+ const jraProse=jraEvidenceProse(r,p,race);if(jraProse)return jraProse.detail;
  const natural=naturalRankProse(r,p,race);if(natural)return natural.detail;
  const decision=decisionFirst(r,p);if(decision)return decision.detail;
  const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.detail;
