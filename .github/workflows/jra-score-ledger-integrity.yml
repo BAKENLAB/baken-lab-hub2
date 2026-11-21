@@ -66,11 +66,12 @@ jobs:
             psql -X -qAt -v ON_ERROR_STOP=1 -f "$replay"
           done
           node tests/jra-legacy-replay-check.mjs
+          node tests/jra-legacy-replay-check.mjs cohorts
       - name: Preserve isolated reconstruction decisions and comparison
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: jra-legacy-readonly-replay
           path: |
             /tmp/jra-replay-output-*.json
-            /tmp/jra-legacy-replay-comparison.json
+            /tmp/jra-legacy-replay-*comparison.json
           retention-days: 7

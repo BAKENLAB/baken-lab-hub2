@@ -1,5 +1,5 @@
 // Creates scripts for an ephemeral PostgreSQL service; never opens a connection.
-import fs from 'node:fs';import {legacyReadonlyQuery,validateLegacyReplayInput} from '../automation/jra-score-ledger/legacy-readonly-replay.mjs';
+import fs from 'node:fs';import {legacyReadonlyQuery,validateLegacyReplayInput,validateReplayCohorts} from '../automation/jra-score-ledger/legacy-readonly-replay.mjs';
 const root='research/jra-scoring-integrity-20261121/final-connection/';
 const query=legacyReadonlyQuery(fs.readFileSync(root+'source/refresh_jra_live_rank_beta.sql','utf8'));
 const files=fs.readdirSync(root+'batches').filter(f=>/^input-\d+\.json$/.test(f)).sort();
@@ -7,6 +7,8 @@ for(const file of files){
  const input=JSON.parse(fs.readFileSync(root+'batches/'+file)),n=file.match(/\d+/)[0];validateLegacyReplayInput(input);
  const races=new Set(input.rows.map(x=>x.live_race_id));if(races.size>5)throw Error('BATCH_EXCEEDS_FIVE_RACES');
  fs.writeFileSync('/tmp/jra-replay-'+n+'.csv','"'+JSON.stringify(input).replaceAll('"','""')+'"\n');
+ const cohortPacket=JSON.parse(fs.readFileSync(root+'batches/cohorts-'+n+'.json'));validateReplayCohorts(cohortPacket,input);
+ fs.writeFileSync('/tmp/jra-replay-cohorts-'+n+'.csv','\"'+JSON.stringify(cohortPacket).replaceAll('\"','\"\"')+'\"\n');
  const ddl=`\\set ON_ERROR_STOP on
 BEGIN;
 DO $$ BEGIN IF current_database()<>'ledger_test' THEN RAISE EXCEPTION 'EPHEMERAL_DATABASE_ONLY'; END IF; END $$;
@@ -27,5 +29,12 @@ ROLLBACK;
 DO $$ BEGIN IF to_regclass('pg_temp.jra_live_runners') IS NOT NULL THEN RAISE EXCEPTION 'ROLLBACK_FAILED'; END IF; END $$;
 `;
  fs.writeFileSync('/tmp/jra-replay-'+n+'.sql',ddl);
+ const cohortDDL=`CREATE TEMP TABLE cohort_packet(doc jsonb);
+\\copy cohort_packet FROM '/tmp/jra-replay-cohorts-${n}.csv' WITH (FORMAT csv)
+CREATE TEMP TABLE replay_transition_cohorts AS SELECT (r->>'live_runner_id')::uuid live_runner_id,(r->>'n')::numeric n,(r->>'wins')::numeric wins,(r->>'top3s')::numeric top3s FROM cohort_packet CROSS JOIN LATERAL jsonb_array_elements(doc->'transition') r;
+CREATE TEMP TABLE replay_jockey_cohorts AS SELECT (r->>'live_runner_id')::uuid live_runner_id,(r->>'n')::numeric n,(r->>'wins')::numeric wins,(r->>'top3s')::numeric top3s FROM cohort_packet CROSS JOIN LATERAL jsonb_array_elements(doc->'jockey') r;
+`;
+ const augmented=ddl.replace('CREATE TEMP TABLE packet(doc jsonb);',cohortDDL+'CREATE TEMP TABLE packet(doc jsonb);').replaceAll(query,legacyReadonlyQuery(fs.readFileSync(root+'source/refresh_jra_live_rank_beta.sql','utf8'),{cohorts:true})).replaceAll('jra-replay-output-'+n,'jra-replay-output-cohorts-'+n);
+ fs.writeFileSync('/tmp/jra-replay-'+n+'-cohorts.sql',augmented);
 }
 console.log('Prepared isolated readonly SELECT replay batches:',files.length);
