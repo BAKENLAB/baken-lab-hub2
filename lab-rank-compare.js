@@ -310,7 +310,64 @@ function verifiedLocalNote(r,p){
  return {head,detail:details.join('\n')};
 }
 
+
+/* Display-only decision view for verified recent FROZEN. No re-scoring. */
+function decisionFirst(r,p){
+ const rank=Number(r?.rank),src=modernSource(r,p),audit=p?.audit||{};
+ if(!Number.isInteger(rank)||rank<1||!src||isSelectedEye(r,p))return null;
+ const local=audit.official_past_content_audit?.status==='VERIFIED_WHOLE_FIELD_FACTS';
+ const jra=!local&&/(?:基礎\d+点に|Eval1,942|Eval1942)/.test(src);
+ if(!local&&!jra)return null;
+ const marker=n=>({1:'◎',2:'○',3:'▲',4:'☆',5:'△'})[n]||'';
+ const clean=s=>human(String(s||'').trim()).replace(/。+$/,'');
+ const cut=(s,n=100)=>compact(clean(s),n);
+ const rows=Array.isArray(p?.runners)?p.runners:[];
+ const peer=rows.find(x=>Number(x.rank)===(rank===1?2:rank-1));
+ const score=x=>x?.score===null||x?.score===undefined?null:
+  Number.isFinite(Number(x.score))?Number(x.score):null;
+ const ownScore=score(r),peerScore=score(peer);
+ const compare=peer&&rank<=5&&ownScore!==null&&peerScore!==null?
+  marker(rank)+rank+'位 '+ownScore+'点 ／ '+marker(Number(peer.rank))+
+  Number(peer.rank)+'位 '+peerScore+'点（'+Math.abs(ownScore-peerScore)+'点差）':'';
+ const body=local?src.split(/(?:公式過去3走|直近3走|最近3走|過去3走|近3走|公式過去走|近走3走|直近)\s*[：:]/)[0]:src;
+ const parts=body.split('。').map(x=>x.trim()).filter(Boolean);
+ const generic=s=>/^(?:高知|佐賀).*?(?:全頭独立評価|全頭独立能力評価|独立評価)$/.test(s);
+ const recent=parts.filter(s=>!generic(s));
+ const hasDate=s=>/(?:20\d{2}[-/])?\d{1,2}[-/]\d{1,2}/.test(s);
+ const evidence=recent.filter(s=>hasDate(s)&&/(?:\d{1,2}着|勝ち|先着|上がり|番手|差)/.test(s))
+  .slice(0,2).map(s=>cut(s,82)).join('。');
+ let why='';
+ if(local){
+  const recorded=rank===1?audit.honmei_review?.reason:rank===5?audit.boundary_review?.reason:'';
+  const segments=String(recorded||'').split('。').map(s=>s.trim()).filter(Boolean);
+  const final=segments.length?segments[segments.length-1]:'';
+  if(final&&/(?:優先|評価|重視|上位|本命|現在性|再現性|比較|差)/.test(final))why=cut(final,116);
+  if(!why){
+   const judgment=recent.find(s=>!hasDate(s)&&/(?:重視|優先|評価|上位|現在性|再現性|強み|適性|安定|勝ち筋)/.test(s)&&
+    !/(?:未確認の|推測加点しない|未検証の)/.test(s))||
+    recent.find(s=>/(?:を重視|を優先|を評価|再現性が強い|上位とした|勝ち筋|首位材料)/.test(s));
+   if(judgment){
+    const natural=judgment.match(/(?:今回|近走|同距離|現級|現在性|再現性|先行|末脚|コーナー)[^。]{9,}/);
+    why=cut(natural?natural[0]:judgment,116);
+   }
+  }
+ }else{
+  const matched=src.match(/近距離\d+走・\d+(?:\.\d+)?秒以内\d+走/);
+  why=matched?'近い距離での接戦実績を評価（'+matched[0]+'）':
+   '現級・距離・着差・通過順の確認済み材料を評価';
+ }
+ if(!why)why='順位差の採点内訳は保存記録だけでは特定できません';
+ const risk=local?recent.find(s=>/(?:ただし|一方|課題|不安|反証|未証明|休養|大敗|適性.*未確認)/.test(s)):
+   src.match(/(?:同系|同場同距離)\d+走を確認/)?.[0];
+ const lines=['【この順位の理由】'+sentence(why)];
+ if(compare)lines.push('【近い順位の馬と比較】'+compare+'。');
+ if(evidence)lines.push('【実際の根拠】'+sentence(evidence));
+ if(risk&&cut(risk,92)!==why&&!why.includes(cut(risk,92)))lines.push('【注意点】'+sentence(cut(risk,92)));
+ return {head:why,detail:lines.join('\n')};
+}
+
 function headline(r,p,race){
+ const decision=decisionFirst(r,p);if(decision)return decision.head;
  const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.head;
  const verified=verifiedLocalNote(r,p);if(verified)return verified.head;
  const modern=modernNote(r,p);if(modern)return modern.head;
@@ -348,6 +405,7 @@ function headline(r,p,race){
  return '評価理由の要約に失敗。詳細で保存済みの原文を確認';
 }
 function comment(r,p,race){
+ const decision=decisionFirst(r,p);if(decision)return decision.detail;
  const auditEye=auditedEyeNote(r,p);if(auditEye)return auditEye.detail;
  const verified=verifiedLocalNote(r,p);if(verified)return verified.detail;
  const modern=modernNote(r,p);if(modern)return modern.detail;
