@@ -1,0 +1,21 @@
+name: JRA full depth production guard regression
+on:
+  push:
+    branches: [fix/jra-full-depth-required-20261121]
+  pull_request:
+    paths:
+      - "research/jra-full-depth-guard/**"
+      - ".github/workflows/jra-full-depth-guard.yml"
+permissions:
+  contents: read
+jobs:
+  all-horse-source-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --check research/jra-full-depth-guard/jra-full-depth-save-gate.mjs
+      - run: node --test research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs
