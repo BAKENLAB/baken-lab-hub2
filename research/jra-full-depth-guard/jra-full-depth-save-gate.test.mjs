@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {inspectJraFullDepthSave} from "../research/jra-full-depth-guard/jra-full-depth-save-gate.mjs";
+import {inspectJraFullDepthSave} from "./jra-full-depth-save-gate.mjs";
 const source=()=>{const priorDate="2026-11-01";
  const rows=Array.from({length:6},(_,i)=>({horse_no:i+1,horse_name:"馬"+(i+1),past_runs:[{
   source_ref:"/JRADB/accessS.html?CNAME=pw01sde"+i,
