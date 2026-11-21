@@ -5,6 +5,7 @@ on:
       - 'automation/jra-score-ledger/**'
       - 'tests/jra-score-ledger.test.mjs'
       - 'tests/jra-score-ledger-postgres.sql'
+      - 'tests/jra-core*'
       - 'sql/jra_score_ledger_validator_candidate_v1.sql'
       - 'research/jra-scoring-integrity-20261121/**'
       - '.github/workflows/jra-score-ledger-integrity.yml'
@@ -19,6 +20,8 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Ledger tests with synthetic save and real historical arithmetic only
         run: node tests/jra-score-ledger.test.mjs
+      - name: Recovered rules and factor evidence authenticity
+        run: node tests/jra-core-connection.test.mjs
       - name: Existing full-depth, handoff, save-contract and bridge regressions
         run: |
           node research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs
@@ -51,4 +54,7 @@ jobs:
           PGUSER: postgres
           PGDATABASE: ledger_test
           PGPASSWORD: ephemeral_ci_only
-        run: psql -X -v ON_ERROR_STOP=1 -f tests/jra-score-ledger-postgres.sql
+        run: |
+          psql -X -v ON_ERROR_STOP=1 -f tests/jra-score-ledger-postgres.sql
+          node tests/jra-core-postgres-vectors.mjs /tmp/jra-core-vectors.json
+          psql -X -v ON_ERROR_STOP=1 -f tests/jra-core-postgres.sql

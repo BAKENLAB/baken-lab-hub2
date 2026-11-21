@@ -1,0 +1,32 @@
+[
+  {
+    "source": "research/unified-engine-20261116/v11/evidence-contract.mjs",
+    "source_sha256": "ddda4ff52ba3f66918dc172de5fdf834592744a3ea14692a623330180c272726",
+    "destination": "automation/jra-score-ledger/evidence/contract.mjs",
+    "destination_sha256": "be206e94ee3d0e8fe4b7db8ff38445681509ff7887c934090176e171210e7fae",
+    "changes": "Import paths only; transitive research runners not imported",
+    "github_source_commit": "d4cf1d0baf5284cf04e82b6356a5c9cb9153f190",
+    "github_blob_sha": "0a27004df23bc8fe516f224b3875af0f740bafd1",
+    "github_source_matches": true
+  },
+  {
+    "source": "research/unified-engine-20261116/v16/evidence-reader.mjs",
+    "source_sha256": "a18a442fedc6c9935e16d0d1ad24c92848debf7a7488a6f25b6998a68482cc1f",
+    "destination": "automation/jra-score-ledger/evidence/reader.mjs",
+    "destination_sha256": "b2c03a2a1a094afbc59e8cc1701cb65445ab5f3fbb9d3d187c4c652846aa72b5",
+    "changes": "Import paths only; transitive research runners not imported",
+    "github_source_commit": "d4cf1d0baf5284cf04e82b6356a5c9cb9153f190",
+    "github_blob_sha": "66aa1f64fa6b30b9ea06402e9a6643ac93348761",
+    "github_source_matches": true
+  },
+  {
+    "source": "research/unified-engine-20261116/v16/synthetic-fixture.mjs",
+    "source_sha256": "4f3a8b4463efe0e691e7832b0678961e1852c68350186e1964ee2760d87a94ea",
+    "destination": "automation/jra-score-ledger/evidence/synthetic-fixture.mjs",
+    "destination_sha256": "2ce4596cbc2b25388b6f021e64976d616d28a6530118566b3153aefa6831b672",
+    "changes": "Import paths adjusted; unused V5 allocator import removed. Synthetic fixture only.",
+    "github_source_commit": "d4cf1d0baf5284cf04e82b6356a5c9cb9153f190",
+    "github_blob_sha": "c3b19689e590750301fc2ee50378468ae486c1be",
+    "github_source_matches": true
+  }
+]
