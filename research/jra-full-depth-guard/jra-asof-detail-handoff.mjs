@@ -17,7 +17,7 @@ export function restoreJraClaimedRunDetails(ctx){
   if(!rich||rich.horse_name.normalize("NFKC").trim()!==String(h.horse_name).normalize("NFKC").trim())refuse("HORSE_NAME");
   if(!Array.isArray(h.past_runs)||!Array.isArray(rich.history)||h.past_runs.length!==rich.history.length)refuse("RUN_COVERAGE");
   const past_runs=h.past_runs.map((p,i)=>{
-   const a=rich.history[i],close=(v,w)=>typeof v==="number"&&typeof w==="number"&&Math.abs(v-w)<0.00001;
+   const a=rich.history[i],close=(v,w)=>(v==null&&w==null)||(typeof v==="number"&&typeof w==="number"&&Math.abs(v-w)<0.00001);
    const isLive=a?.source_kind==="LIVE"&&a?.raw_history_match_count===1;
    const isArchive=a?.source_kind==="DB"&&a?.detail_available===true&&a?.archive_full_field===true&&a?.archive_match_count===1;
    if(!a||!(isLive||isArchive)||a.base_facts_available!==true||
