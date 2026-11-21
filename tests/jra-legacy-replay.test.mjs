@@ -1,0 +1,12 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+import {legacyReadonlyQuery,validateLegacyReplayInput} from '../automation/jra-score-ledger/legacy-readonly-replay.mjs';
+const root='research/jra-scoring-integrity-20261121/final-connection/';
+const sample=()=>JSON.parse(fs.readFileSync(root+'batches/input-01.json'));
+const source=fs.readFileSync(root+'source/refresh_jra_live_rank_beta.sql','utf8');
+test('extracts pinned original scoring CTE without mutation/production dependencies',()=>{const q=legacyReadonlyQuery(source);assert(!/\b(truncate|insert|update|delete)\b|public\./i.test(q));assert(q.includes('pg_temp.jra_live_runners'));assert(q.includes('round(s.score::numeric,2) AS legacy_score'));});
+test('source drift is rejected instead of replaying unreviewed changed coefficients',()=>assert.throws(()=>legacyReadonlyQuery(source+'\n'),/SOURCE_DRIFT/));
+test('real reconstruction is explicitly not immutable original or verified official evidence',()=>{const r=validateLegacyReplayInput(sample());assert(r.runners>0);assert.equal(r.production_allowed,false);assert.equal(r.official_evidence_verified,false);});
+test('missing field size remains null, not inferred from finishing position',()=>{const x=sample();x.rows[0].past_runs[0].field_size=null;assert.equal(validateLegacyReplayInput(x).production_allowed,false);assert.equal(x.rows[0].past_runs[0].field_size,null);});
+test('future source/update time or target-date history is refused',()=>{for(const mutate of [x=>x.rows[0].updated_at=x.rows[0].post_time,x=>x.rows[0].source_checked_at=x.rows[0].post_time,x=>x.rows[0].past_runs[0].race_date=x.rows[0].race_date]){const x=sample();mutate(x);assert.throws(()=>validateLegacyReplayInput(x));}});
+test('horse ID mismatch and duplicate current runner rejected',()=>{const x=sample();x.rows[0].live_horse_ref='OTHER';assert.throws(()=>validateLegacyReplayInput(x),/IDENTITY/);const y=sample();y.rows.push(y.rows[0]);assert.throws(()=>validateLegacyReplayInput(y),/DUPLICATE/);});
+test('market/raw fields and current-result labels cannot enter replay input',()=>{for(const mutate of [x=>x.rows[0].past_runs[0].popularity=1,x=>x.rows[0].past_runs[0].raw='odds',x=>x.rows[0].target_results={}]){const x=sample();mutate(x);assert.throws(()=>validateLegacyReplayInput(x));}});

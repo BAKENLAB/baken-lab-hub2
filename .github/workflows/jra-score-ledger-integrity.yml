@@ -6,6 +6,7 @@ on:
       - 'tests/jra-score-ledger.test.mjs'
       - 'tests/jra-score-ledger-postgres.sql'
       - 'tests/jra-core*'
+      - 'tests/jra-legacy*'
       - 'sql/jra_score_ledger_validator_candidate_v1.sql'
       - 'research/jra-scoring-integrity-20261121/**'
       - '.github/workflows/jra-score-ledger-integrity.yml'
@@ -22,6 +23,8 @@ jobs:
         run: node tests/jra-score-ledger.test.mjs
       - name: Recovered rules and factor evidence authenticity
         run: node tests/jra-core-connection.test.mjs
+      - name: Recovered legacy readonly replay safety
+        run: node tests/jra-legacy-replay.test.mjs
       - name: Existing full-depth, handoff, save-contract and bridge regressions
         run: |
           node research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs
@@ -58,3 +61,16 @@ jobs:
           psql -X -v ON_ERROR_STOP=1 -f tests/jra-score-ledger-postgres.sql
           node tests/jra-core-postgres-vectors.mjs /tmp/jra-core-vectors.json
           psql -X -v ON_ERROR_STOP=1 -f tests/jra-core-postgres.sql
+          node tests/jra-legacy-replay-prepare.mjs
+          for replay in /tmp/jra-replay-*.sql; do
+            psql -X -qAt -v ON_ERROR_STOP=1 -f "$replay"
+          done
+          node tests/jra-legacy-replay-check.mjs
+      - name: Preserve isolated reconstruction decisions and comparison
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: jra-legacy-readonly-replay
+          path: |
+            /tmp/jra-replay-output-*.json
+            /tmp/jra-legacy-replay-comparison.json
+          retention-days: 7
