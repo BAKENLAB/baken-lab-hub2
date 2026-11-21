@@ -1,0 +1,3353 @@
+{
+  "schema": "JRA_CORE_RECOVERY_COMPARISON_V1",
+  "historical_races": 13,
+  "historical_horses": 194,
+  "historical_complete_five_axis_inputs": 0,
+  "historical_official_formula_reproduced": false,
+  "historical_approved_rubric_regression": "UNVERIFIED_MISSING_FIVE_AXIS_INPUT_AND_PROVENANCE",
+  "synthetic_vectors": 80,
+  "synthetic_proposal_accepted": 48,
+  "synthetic_proposal_rejected": 32,
+  "synthetic_value_changes": 24,
+  "synthetic_vectors_are_accuracy_evidence": false,
+  "future_race_comparisons": 0,
+  "production_allowed": false,
+  "vectors": [
+    {
+      "segment": "NEW",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 120,
+      "recovered": 57.23,
+      "proposed": 57,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 121,
+      "recovered": 50.23,
+      "proposed": 50,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 120,
+      "recovered": 57.833333333333336,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 121,
+      "recovered": 50.833333333333336,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 120,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 121,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 120,
+      "recovered": 2,
+      "proposed": 2,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 121,
+      "recovered": -5,
+      "proposed": 0,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 120,
+      "recovered": 100,
+      "proposed": 100,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "NEW",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 121,
+      "recovered": 93,
+      "proposed": 93,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 120,
+      "recovered": 54.755,
+      "proposed": 55,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 121,
+      "recovered": 47.755,
+      "proposed": 48,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 120,
+      "recovered": 56.71619718309859,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 121,
+      "recovered": 49.71619718309859,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 120,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 121,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 120,
+      "recovered": 2,
+      "proposed": 2,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 121,
+      "recovered": -5,
+      "proposed": 0,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 120,
+      "recovered": 100,
+      "proposed": 100,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "MAIDEN",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 121,
+      "recovered": 93,
+      "proposed": 93,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 120,
+      "recovered": 54.953,
+      "proposed": 55,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 121,
+      "recovered": 47.953,
+      "proposed": 48,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 120,
+      "recovered": 62.69776119402985,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 121,
+      "recovered": 55.69776119402985,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 120,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 121,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 120,
+      "recovered": 2,
+      "proposed": 2,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 121,
+      "recovered": -5,
+      "proposed": 0,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 120,
+      "recovered": 100,
+      "proposed": 100,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "CLASS1",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 121,
+      "recovered": 93,
+      "proposed": 93,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 120,
+      "recovered": 56.438,
+      "proposed": 56,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 121,
+      "recovered": 49.438,
+      "proposed": 49,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 120,
+      "recovered": 63.53030303030303,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 121,
+      "recovered": 56.53030303030303,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 120,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 121,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 120,
+      "recovered": 2,
+      "proposed": 2,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 121,
+      "recovered": -5,
+      "proposed": 0,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 120,
+      "recovered": 100,
+      "proposed": 100,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "CLASS2_3",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 121,
+      "recovered": 93,
+      "proposed": 93,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 120,
+      "recovered": 57.725,
+      "proposed": 58,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 121,
+      "recovered": 50.725,
+      "proposed": 51,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 120,
+      "recovered": 64.38846153846154,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 121,
+      "recovered": 57.38846153846154,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 120,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 121,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 120,
+      "recovered": 2,
+      "proposed": 2,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 121,
+      "recovered": -5,
+      "proposed": 0,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 120,
+      "recovered": 100,
+      "proposed": 100,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "OPEN_GRADED",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 121,
+      "recovered": 93,
+      "proposed": 93,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 120,
+      "recovered": 58.22,
+      "proposed": 58,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 121,
+      "recovered": 51.22,
+      "proposed": 51,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 120,
+      "recovered": 65.50357142857143,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 121,
+      "recovered": 58.503571428571426,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 120,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 121,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 120,
+      "recovered": 2,
+      "proposed": 2,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 121,
+      "recovered": -5,
+      "proposed": 0,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 120,
+      "recovered": 100,
+      "proposed": 100,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "STANDARD",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 121,
+      "recovered": 93,
+      "proposed": 93,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 120,
+      "recovered": 58.22,
+      "proposed": 58,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 121,
+      "recovered": 51.22,
+      "proposed": 51,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 120,
+      "recovered": 65.50357142857143,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 121,
+      "recovered": 58.503571428571426,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 120,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 121,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 120,
+      "recovered": 2,
+      "proposed": 2,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 121,
+      "recovered": -5,
+      "proposed": 0,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 120,
+      "recovered": 100,
+      "proposed": 100,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": "UNKNOWN",
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 121,
+      "recovered": 93,
+      "proposed": 93,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": null,
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 120,
+      "recovered": 58.22,
+      "proposed": 58,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": null,
+      "inputs": [
+        "70.1",
+        "60.2",
+        "50.3",
+        "40.4",
+        "30.5"
+      ],
+      "days_since_last": 121,
+      "recovered": 51.22,
+      "proposed": 51,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": null,
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 120,
+      "recovered": 65.50357142857143,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": null,
+      "inputs": [
+        "80",
+        null,
+        "65.55",
+        null,
+        "0.2"
+      ],
+      "days_since_last": 121,
+      "recovered": 58.503571428571426,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": null,
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 120,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": null,
+      "inputs": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "days_since_last": 121,
+      "recovered": null,
+      "proposed": null,
+      "accepted": false,
+      "changed": false
+    },
+    {
+      "segment": null,
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 120,
+      "recovered": 2,
+      "proposed": 2,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": null,
+      "inputs": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "days_since_last": 121,
+      "recovered": -5,
+      "proposed": 0,
+      "accepted": true,
+      "changed": true
+    },
+    {
+      "segment": null,
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 120,
+      "recovered": 100,
+      "proposed": 100,
+      "accepted": true,
+      "changed": false
+    },
+    {
+      "segment": null,
+      "inputs": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      "days_since_last": 121,
+      "recovered": 93,
+      "proposed": 93,
+      "accepted": true,
+      "changed": false
+    }
+  ],
+  "missing_by_horse": [
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/6",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 16,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/7",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 16,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/7",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 16,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/8",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/8",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 16,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/9",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/9",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/9",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/9",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/9",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/9",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/9",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/9",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/9",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 16,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/10",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/10",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 16,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/11",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 16,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/11",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 16,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 15,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/福島/12",
+      "horse_no": 14,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 6,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 1,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 11,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 12,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 7,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 10,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 8,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 13,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 4,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 3,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 5,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 2,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    },
+    {
+      "race": "2026-11-21/京都/12",
+      "horse_no": 9,
+      "missing_axes": [
+        "today_ability",
+        "win_power",
+        "top3_stability",
+        "pace_fit",
+        "change_score"
+      ]
+    }
+  ]
+}

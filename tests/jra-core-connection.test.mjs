@@ -41,3 +41,9 @@ test('new proposal rejects missing axes instead of legacy null renormalization',
 test('new rounding and clamp are declared differences, never attributed to old SQL',async()=>{const {proposedAggregate}=await import('../automation/jra-score-ledger/proposed-aggregate.mjs');assert.equal(proposedAggregate({axes:axes('80.5')}).score,81);assert.equal(proposedAggregate({axes:axes('2'),class_delta:1,days_since_last:121}).score,0);});
 test('new tie order is deterministic and labelled research, no rank to grade conversion',async()=>{const {proposedOrder}=await import('../automation/jra-score-ledger/proposed-aggregate.mjs');const rows=[3,1,2].map(horse_no=>({horse_no,axes:axes('80')}));const a=proposedOrder(rows);assert.deepEqual(a,proposedOrder([...rows].reverse()));assert.deepEqual(a.map(x=>x.horse_no),[1,2,3]);assert(a.every(x=>x.formal_rank===null&&x.rounded_score_tie&&!('grade' in x)));});
 test('new proposal rejects duplicate horses and cannot repair out-of-range scores',async()=>{const {proposedOrder,proposedAggregate}=await import('../automation/jra-score-ledger/proposed-aggregate.mjs');assert.throws(()=>proposedOrder([{horse_no:1},{horse_no:1}]),/FIELD_INVALID/);assert.throws(()=>proposedAggregate({axes:axes('101')}),/FIVE_COMPLETE/);});
+
+test('recovered internal order retains insufficient-last then exact-score/status/horse tie rules',async()=>{
+ const {recoveredInternalOrder}=await import('../automation/jra-score-ledger/recovered-diagnosis.mjs');
+ const rows=[{horse_no:1,data_status:'DATA_INSUFFICIENT',axes:axes('100')},{horse_no:3,data_status:'REFERENCE',axes:axes('80')},{horse_no:2,data_status:'RANKED',axes:axes('80')}];
+ const a=recoveredInternalOrder(rows);assert.deepEqual(a.map(x=>x.horse_no),[2,3,1]);assert.deepEqual(a,recoveredInternalOrder([...rows].reverse()));assert(a.every(x=>x.formal_rank===null));
+});
