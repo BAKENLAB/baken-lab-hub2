@@ -10,6 +10,7 @@ on:
       - 'result.html'
       - 'research/lab-rank-display-regression.test.mjs'
       - 'research/rank-decision-first.test.mjs'
+      - 'research/rank-natural-prose.test.mjs'
       - '.github/workflows/hub-eye-display-regression.yml'
 permissions:
   contents: read
@@ -21,4 +22,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --check lab-rank-compare.js && node --test research/rank-decision-first.test.mjs research/lab-rank-display-regression.test.mjs automation/hub-local-v16.test.mjs automation/hub-partial-visibility.test.mjs
+      - run: node --check lab-rank-compare.js && node --test research/rank-natural-prose.test.mjs research/rank-decision-first.test.mjs research/lab-rank-display-regression.test.mjs automation/hub-local-v16.test.mjs automation/hub-partial-visibility.test.mjs
