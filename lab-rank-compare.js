@@ -329,6 +329,13 @@ function jraEvidenceProse(r,p,race){
  const rank=Number(r?.rank),src=modernSource(r,p);
  if(!Number.isInteger(rank)||rank<1||!src)return null;
  if(p?.audit?.official_past_content_audit?.status==='VERIFIED_WHOLE_FIELD_FACTS')return null;
+ // Do not reinterpret legacy LOCAL comments as JRA, even if their text has
+ // '今回...ダート1400m'. Older LOCAL payloads may lack a full audit object.
+ const jraVenue=/^(?:東京|中山|京都|阪神|中京|新潟|福島|小倉|札幌|函館)$/;
+ const localVenue=/^(?:佐賀|高知|名古屋|笠松|園田|大井|川崎|船橋|金沢|盛岡|水沢|門別|浦和)$/;
+ if(localVenue.test(String(race?.track||'')))return null;
+ if(!jraVenue.test(String(race?.track||''))&&
+  !/(?:Eval1,942|Eval1942|基礎\d+点|芝\d{3,4}m±\d+m|ダート\d{3,4}m±\d+m)/.test(src))return null;
  const match=src.match(/今回[^。]{0,145}?(芝|ダート|ダ)(\d{3,4})\s*m(?:±(\d{2,3})m)?/)||
   src.match(/(?:^|。)\s*(芝|ダート|ダ)(\d{3,4})\s*m近傍の実(?:走|績)/);
  if(!match)return null; // Legacy documents use their own evidence reader.
@@ -398,7 +405,7 @@ function jraEvidenceProse(r,p,race){
   const peerRuns=getRuns({reason:rawText(selectedPeer)})
    .sort((a,b)=>monthDay(b)-monthDay(a));
   const peerBest=peerRuns.find(isComparable);
-  const name=selectedPeer.horse_name||'隣の順位の馬';
+  const name=selectedPeer.horse_name||(Number(selectedPeer.rank)+'位馬');
   if(peerBest&&peerBest.finish<=3){
    rival=(rank===1?'2位':rank===5?'6位':(rank-1)+'位')+'の'+name+
     'にも'+format(peerBest)+'の実績がある。';
