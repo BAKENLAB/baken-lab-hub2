@@ -25,6 +25,7 @@ export function validateLegacyReplayInput(input){
   if(!validDate(r.race_date)||!r.live_runner_id||!r.live_race_id||!Number.isInteger(r.horse_no)||r.horse_no<1||r.horse_no>24||r.card_horse_ref!==r.live_horse_ref||!r.live_horse_ref)throw Error('IDENTITY_OR_RACE');
   const k=r.live_race_id+'/'+r.horse_no;if(seen.has(k))throw Error('DUPLICATE_RUNNER');seen.add(k);
   if(!Number.isFinite(Date.parse(r.post_time))||!Number.isFinite(Date.parse(r.source_checked_at))||!Number.isFinite(Date.parse(r.updated_at))||Date.parse(r.source_checked_at)>=Date.parse(r.post_time)||Date.parse(r.updated_at)>=Date.parse(r.post_time))throw Error('SOURCE_TIME_NOT_PRESTART');
+  if(!Number.isFinite(Date.parse(r.frozen_at))||Date.parse(r.frozen_at)>=Date.parse(r.post_time))throw Error('COMPARATOR_NOT_PRESTART_FROZEN');
   if(!Array.isArray(r.past_runs)||r.past_runs.length>5)throw Error('HISTORY_SHAPE');
   for(const h of r.past_runs){
    if(!validDate(h.race_date)||h.race_date>=r.race_date)throw Error('NON_PRIOR_HISTORY');
