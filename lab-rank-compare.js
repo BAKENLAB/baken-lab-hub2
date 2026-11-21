@@ -360,10 +360,10 @@ function decisionFirst(r,p){
  const course=src.match(/(京都|東京|福島|中山|阪神|中京|新潟|小倉|札幌|函館)(?:同系|同場同距離)(\d+)走を確認/);
  const risk=local?recent.find(s=>/(?:ただし|一方|課題|不安|反証|未証明|休養|大敗|適性.*未確認)/.test(s)):
    course&&Number(course[2])===0?course[1]+'で照合できた同系コース走歴は0件':'';
- const lines=['【この順位の理由】'+sentence(why)];
+ const lines=['【この順位の理由】'+clean(why)+'。'];
  if(compare)lines.push('【近い順位の馬と比較】'+compare+'。');
- if(evidence)lines.push('【実際の根拠】'+sentence(evidence));
- if(risk&&cut(risk,92)!==why&&!why.includes(cut(risk,92)))lines.push('【注意点】'+sentence(cut(risk,92)));
+ if(evidence&&!clean(why).includes(evidence.slice(0,24)))lines.push('【実際の根拠】'+clean(evidence)+'。');
+ if(risk&&cut(risk,92)!==why&&!why.includes(cut(risk,92)))lines.push('【注意点】'+clean(cut(risk,92))+'。');
  return {head:why,detail:lines.join('\n')};
 }
 
