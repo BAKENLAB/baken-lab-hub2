@@ -58,3 +58,18 @@ test("removed market, raw and original source URL not reintroduced",()=>{
  const p=r.runner_history[0].past_runs[0];
  for(const key of ["popularity","win_odds","raw","source_ref"])assert.equal(Object.hasOwn(p,key),false);
 });
+
+test("paired null historical finishes and margins are accepted only as missing, never invented",()=>{
+ const x=fixture(),p=x.runner_history[0].past_runs[0],a=x.runner_content_evidence[0].history[0];
+ p.finish=null;p.margin_to_winner=null;
+ Object.assign(a,{source_kind:"DB",raw_history_match_count:0,finish:null,margin_to_winner:null,
+   detail_available:true,archive_full_field:true,archive_match_count:1});
+ const y=restoreJraClaimedRunDetails(x).runner_history[0].past_runs[0];
+ assert.equal(y.finish,null);assert.equal(y.margin_to_winner,null);
+ assert.equal(y.final3f,34.7); // Evidence is retained, but no missing finish or margin is backfilled
+ const z=fixture(),zp=z.runner_history[0].past_runs[0],za=z.runner_content_evidence[0].history[0];
+ zp.margin_to_winner=null;
+ assert.throws(()=>restoreJraClaimedRunDetails(z),/JRA_ASOF_DETAIL_HANDOFF_RUN_IDENTITY/);
+ za.margin_to_winner=null;zp.margin_to_winner=0.2;za.margin_to_winner=null;
+ assert.throws(()=>restoreJraClaimedRunDetails(z),/JRA_ASOF_DETAIL_HANDOFF_RUN_IDENTITY/);
+});
