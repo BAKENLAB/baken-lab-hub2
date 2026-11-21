@@ -21,3 +21,9 @@ At approximately 11:23 JST, before 福島6R's 11:30 claim opening:
 After 11:30 JST, call the existing `jra_queue_claim_next` MCP to claim 福島6R and perform the full independent 100pt historical score, complete field TOP5 / EYE audit, source-verified evidence rank preview, guarded official save, and DB receipt check. No tools should claim or save before eligibility.
 
 This branch is an archive of what was **already deployed** and should remain DRAFT. It is not a request to merge an alternate production entrypoint that lacks the associated production function's private dependencies.
+
+## Additional verifications
+- GitHub Actions regression: workflow `JRA v34 debut-safe claim gateway regression` two successful runs, including run `44855847767`.
+- Production read-only post-deploy SQL at 11:26 JST: official BASIC_READY 22, immutable pre-post empty-bets FROZEN 7, active claims 0, and at exactly 11:30 JST v2-eligible predicted next race count 1.
+- 福島6R official preclaim source snapshot with all 15 horse IDs and 59 genuine historical rows archived as `fukushima6-preclaim-official-evidence.json` (not a prediction or claim). It must be used only to review as-of evidence; after real CLAIM, the official claimed context is authoritative.
+- Draft PR #77 (archive only) is https://github.com/BAKENLAB/baken-lab-hub2/pull/77.
