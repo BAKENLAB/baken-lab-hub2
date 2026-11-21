@@ -363,10 +363,10 @@ function naturalRankProse(r,p,race){
  let lead='';
  if(strongest.length>=2){
   lead=readableRun(strongest[0])+'、'+readableRun(strongest[1])+
-   'と、'+(jra?'今回に近い芝の距離':'今回に近い条件')+'で好走している';
+   'と、'+(jra?'芝の短距離':'今回に近い条件')+'で好走した記録がある';
  }else if(strongest.length===1){
-  lead=readableRun(strongest[0])+'した実績があり、'+
-   (jra?'芝の短距離で力を出した走り':'今回に近い条件で力を出した走り')+'が評価材料になる';
+  lead=readableRun(strongest[0])+'しており、'+
+   (jra?'今回の芝の短距離':'今回に近い条件')+'でも好走できた経験がある';
  }else if(compatible.length){
   const board=compatible.filter(x=>x.finish<=5).slice(0,2);
   if(board.length===2){
@@ -381,12 +381,12 @@ function naturalRankProse(r,p,race){
   return null; // Keep existing safe evidence view if the note cannot be parsed.
  }
  let strength='';
- if(gains)strength='道中で順位を上げた記録もあり、追い上げる走りを評価した';
- else if(pos)strength='前で運んだ記録もあり、位置取りの面を評価した';
- else if(stable&&strongest.length)strength='最近の好走が続いている点を重視した';
- else if(strongest.length)strength='過去の好走内容を重視した';
- else strength='上位争いの実績が限られる点も考えて慎重に評価した';
- const head=sentenceEnd(lead)+' '+sentenceEnd(strength.replace(/した$/,'して')+'、'+displayRank+'とした');
+ if(gains)strength='道中で位置を上げる走りも重視し';
+ else if(pos)strength='前で運んだ記録も踏まえ';
+ else if(stable&&strongest.length)strength='最近の好調さを重視し';
+ else if(strongest.length)strength='こうした実走内容を根拠に';
+ else strength='勝ち切る裏付けが乏しい点も考慮し';
+ const head=sentenceEnd(lead)+' '+sentenceEnd(strength+'、'+displayRank+'に置いた');
  let caution='';
  const riskSentence=source.split('。').map(x=>x.trim()).find(x=>
   /(?:ただし|一方|反証|課題|不安|大敗|未確認|未実証|休養|不安定|後着)/.test(x)&&
