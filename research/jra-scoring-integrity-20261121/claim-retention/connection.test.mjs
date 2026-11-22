@@ -19,7 +19,7 @@ test('independent submission observer flags missing method and incomplete deep-a
   assert.equal(r.fixedScoring.ok,false);
   assert.equal(r.fixedScoring.reason,'TRUSTED_FIXED_SCORE_CONTRACT_MISSING');
   assert.equal(r.factToPoints.ok,false);
-  assert.ok(r.findings.some(f=>f.code==='FACT_TO_POINTS_SOURCE_SCORER_UNAVAILABLE'));
+  assert.ok(r.findings.some(f=>f.code==='FACT_TO_POINTS_SIGNED_V11_PROVIDER_UNAVAILABLE'));
   assert.ok(r.findings.some(x=>x.code==='SCORE_METHOD_MISSING'));
   assert.ok(r.findings.some(x=>x.code==='FULL_DEPTH_COMPARISON_UNDECLARED'));
   const matched=structuredClone(missing);
