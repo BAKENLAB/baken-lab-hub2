@@ -52,7 +52,9 @@ test('same horse, running order and past run retrieval permutations preserve exa
  const replay=buildPreRaceFactualMatrix(shuffled);
  assert.equal(replay.fact_matrix_sha256,original.fact_matrix_sha256);
  assert.deepEqual(replay.rows,original.rows);
- assert.deepEqual(replay.input_receipts.source_snapshots_sha256,original.input_receipts.source_snapshots_sha256);
+ // Changing the raw source array order legitimately changes the capture
+ // receipt, even though the canonical semantic fact matrix is unchanged.
+ assert.notDeepEqual(replay.input_receipts.source_snapshots_sha256,original.input_receipts.source_snapshots_sha256);
 });
 test('changed historical 3f or target going changes digest but cannot implicitly award points',()=>{
  const old=buildPreRaceFactualMatrix(input);
