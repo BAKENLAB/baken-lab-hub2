@@ -18,6 +18,7 @@ on:
       - 'tests/jra-v42-rebase-reversibility.test.mjs'
       - 'tests/jra-r1-asof-history-readiness.test.mjs'
       - 'tests/jra-signed-source-score-bridge.test.mjs'
+      - 'tests/jra-full-prestart-evidence-snapshot.test.mjs'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
@@ -56,6 +57,8 @@ jobs:
         run: node tests/jra-r1-asof-history-readiness.test.mjs
       - name: Signed V11 source to deterministic research points (synthetic signer only)
         run: node tests/jra-signed-source-score-bridge.test.mjs
+      - name: Actual all-race Nov23 pre-start source observations and run identity checks
+        run: node tests/jra-full-prestart-evidence-snapshot.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
       - name: Byte retention candidate and actual November22 morning ledger replay
