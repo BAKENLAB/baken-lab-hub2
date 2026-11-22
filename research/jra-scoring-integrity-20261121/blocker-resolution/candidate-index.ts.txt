@@ -3,6 +3,7 @@ import {captureCardObservation} from "./jra-card-observation.mjs";
 import {reconcileG1ScoringTrace} from "./g1-scoring-trace.mjs";
 import {inspectJraFullDepthSave} from "./jra-full-depth-save-gate.mjs";
 import {inspectScoreMethodContinuity} from "./jra-score-method-continuity.mjs";
+import {inspectClaimedBaseParity} from "./jra-claimed-base-parity.mjs";
 import {restoreJraClaimedRunDetails} from "./jra-asof-detail-handoff.mjs";
 import {buildG1IntelligenceAudit} from "./g1-intelligence-audit.mjs";
 import { applyEyeFillNull, eyeFillInstructions } from "./jra-eye-fill-null.mjs";
@@ -283,6 +284,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      const c=admin(),observedAt=new Date().toISOString();
      let eyeFillContext:any=null;
      let fullDepthProof:any=null;
+     let baseParityProof:any=null;
      let savedPayload:any=payload,rankBridgeStatus="NOT_READY",
        rankScoreChanges=0,beforeTop5:any=null,afterTop5:any=null,
        evalStatus="OPTIONAL_UNAVAILABLE";
@@ -318,6 +320,13 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
          if(fullDepthProof.ok!==true)
            throw Error("JRA_FULL_DEPTH_REVIEW_REQUIRED_"+fullDepthProof.reason+
              (fullDepthProof.horse_no?"_HORSE_"+fullDepthProof.horse_no:""));
+         // Research-only: freeze the claimed-context base-rate arithmetic,
+         // before any optional Eval bridge changes submitted final scores.
+         baseParityProof=inspectClaimedBaseParity({context,payload:reviewedDraft,
+           serverPinnedBasePolicy:Deno.env.get("JRA_RESEARCH_BASE_POLICY_ID")});
+         if(!baseParityProof.ok)
+           throw Error("JRA_FULL_DEPTH_BASE_PARITY_"+baseParityProof.reason+
+             (baseParityProof.horse_no?"_HORSE_"+baseParityProof.horse_no:""));
          if(evalStatus==='READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW'){
            if(payload.audit?.evidence_rank_bridge?.version==='JRA_EVAL_1942_PACE_SCORE_V1'){
              const verified=verifyJraBridgeAlreadyApplied({
@@ -357,6 +366,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        rankBridgeStatus="OPTIONAL_SOURCE_UNAVAILABLE";
      }
      if(fullDepthProof?.ok!==true)throw Error("JRA_FULL_DEPTH_REVIEW_NOT_VERIFIED");
+     if(baseParityProof?.ok!==true)throw Error("JRA_FULL_DEPTH_BASE_PARITY_NOT_VERIFIED");
      // A deep numeric audit is not a reproducible scorer. Refuse any new
      // research candidate save unless the operator pins the exact method.
      // Never accept a method pin from the submitted prediction.
@@ -367,7 +377,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        throw Error("JRA_METHOD_CONTINUITY_"+methodContinuity.reason);
      // This marker does NOT certify the source-to-100 point generator.
      savedPayload={...savedPayload,audit:{...savedPayload.audit,
-       research_method_continuity:methodContinuity}};
+       research_method_continuity:methodContinuity,research_base_parity:baseParityProof}};
      // BEGIN EYE FILL SAVE
      if(eyeFillContext){
        savedPayload=applyEyeFillNull({context:eyeFillContext,payload:savedPayload,
