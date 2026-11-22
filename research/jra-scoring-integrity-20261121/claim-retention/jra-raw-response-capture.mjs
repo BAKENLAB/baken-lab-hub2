@@ -25,7 +25,8 @@ export function captureRawJraCardResponse({
 }={}){
  const match=typeof cname==='string'?cname.match(cn):null;
  if(!match||!tracks[match[1]])reject('CNAME_INVALID');
- const expectedRace=match[2]+'-'+match[3]+'-'+match[4]+'/'+tracks[match[1]]+'/'+Number(match[5]);
+ const d=match[6]; // jra-live v32 parseCname: race date is FINAL 8-digit CNAME group
+ const expectedRace=d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8)+'/'+tracks[match[1]]+'/'+Number(match[5]);
  if(expectedRace!==raceId)reject('CNAME_RACE_BINDING');
  let address,finalUrl;
  try{address=new URL(sourceUrl);finalUrl=new URL(actualResponseUrl);}
