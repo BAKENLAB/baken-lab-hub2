@@ -6,6 +6,7 @@
 import {safeVerifyEvidence} from '../../../automation/jra-score-ledger/evidence/contract.mjs';
 import {resolveFactorEvidence} from '../../../automation/jra-score-ledger/evidence/factor-resolver.mjs';
 import {generateResearchSourcePoints} from './source-to-points-scorer.candidate.mjs';
+import {compareGeneratedResearchScores} from './source-to-points-compare.candidate.mjs';
 
 const fail=(reason,extra={})=>({
   ok:false,reason,...extra,
@@ -31,7 +32,7 @@ function scalar(facts,name){
 }
 // No direct user-supplied "selectedRuns", "proof flags" or source-ref shortcuts.
 // Every generated row must descend from the checked signed envelope and body.
-export function scoreVerifiedV11ResearchPacket({packet,trust,policy}={}){
+export function scoreVerifiedV11ResearchPacket({packet,trust,policy,payload}={}){
  const proof=safeVerifyEvidence(packet,trust);
  if(proof.status==='RESEARCH_EVIDENCE_UNAVAILABLE')
    return fail('SIGNED_OR_GATE_VERIFICATION_FAILED',{detail:proof.code});
@@ -136,8 +137,15 @@ export function scoreVerifiedV11ResearchPacket({packet,trust,policy}={}){
  }catch(e){
    return fail('SOURCE_POINT_GENERATOR_REJECTED',{detail:String(e?.message??e)});
  }
+ const comparison=payload===undefined?null:compareGeneratedResearchScores({generated,payload});
+ if(comparison && !comparison.ok)
+   return fail('SIGNED_FACT_TO_POINTS_SUBMISSION_MISMATCH',{detail:comparison.reason,
+     horse_no:comparison.horse_no??null});
  return {
    ok:true,reason:'SIGNED_V11_SOURCE_TO_SYNTHETIC_RESEARCH_POINTS_ONLY',
+   submitted_points_verified:comparison?.ok===true,
+   submitted_payload_present:payload!==undefined,
+   submitted_comparison:comparison,
    issuer_scope:proof.scope,source_status:proof.status,
    verified_history_slots:proof.accepted.length,
    bound_factors:bindings.bindings.length,
