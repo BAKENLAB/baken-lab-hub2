@@ -63,6 +63,8 @@ test('same full fact snapshot and exactly same policy generates identical full p
  assert.equal(a.formal_score_verified,false);
  assert.equal(a.original_scorer_recovered,false);
  assert.equal(a.production_allowed,false);
+ assert.equal(a.full_factor_coverage,false);
+ assert.deepEqual(a.unconnected_factor_categories,['pace','opponent','race_shape','eval']);
 });
 test('semantic input reordering does not change generated points, ranks or evidence hash',()=>{
  const x=fixture(),before=generateResearchSourcePoints(x);
