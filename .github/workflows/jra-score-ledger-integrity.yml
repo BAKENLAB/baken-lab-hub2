@@ -11,6 +11,7 @@ on:
       - 'tests/jra-eval-integration.test.mjs'
       - 'tests/jra-candidate-runtime.test.mjs'
       - 'tests/jra-fixed-score-contract.test.mjs'
+      - 'tests/jra-base30-38-replay.test.mjs'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
@@ -33,6 +34,8 @@ jobs:
         run: node tests/jra-candidate-runtime.test.mjs
       - name: Unapproved fact-to-score replay fails closed without original evidence
         run: node tests/jra-fixed-score-contract.test.mjs
+      - name: Recovered base-30/38 parity against 450 pre-race FROZEN scores (read-only comparison)
+        run: node tests/jra-base30-38-replay.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
       - name: Byte retention candidate and actual November22 morning ledger replay
