@@ -24,6 +24,14 @@ Isolated Node and PostgreSQL CI SUCCESS: [GitHub Actions run 45084979239](https:
 - Actual full-field Nov23 as-of research input observations fixed before first post: 23 flat races, 345 horses, 995 past runs (983 final 3f, 979 corner, 563 archive details, **0 signed raw-body/run-ID binding triples**). The original bytes are **not** within those snapshots, and they do not authorize any model.
 - Current v42 research rebase, synthetic handler transport and PG rollback CI, but **not** live source-to-score.
 
+## DB identity correction (additional tested wiring)
+
+The isolated SQL `live-archive.candidate.sql` declares `private.jra_live_card_archive_v1.race_id UUID`, whereas a CNAME-derived official identifier is the string `YYYY-MM-DD/track/race_no`. They are NOT interchangeable. To avoid a production-only PostgreSQL type failure, the `authorized-byte-retention-candidate.mjs` now **requires** a separately supplied, syntactically valid `job.live_race_id` (the UUID returned by the existing JRA race upsert), stores that in the private `race_id` column and separately retains the validated `raceKey` in the document metadata.
+
+It refuses an absent/malformed UUID before trying the writer. The private archived-document receipt must reproduce **both** the UUID and the original CNAME-derived `raceKey` on read-back. The offline test `tests/jra-raw-retention-boundary.test.mjs` covers this correction.
+
+The updated full CI succeeded: [GitHub Actions run 45085167207](https://github.com/BAKENLAB/baken-lab-hub2/actions/runs/45085167207) (isolated Node and PostgreSQL jobs). No production schemas were created or modified.
+
 ## Release blockers and non-actions
 
 1. Secure, authorized source capture must preserve original response bytes **at the time of actual fetch**, with a reviewed private storage design. The current v32 fetch returns decoded text only; this PR does not patch or deploy it.
