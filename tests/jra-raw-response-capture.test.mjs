@@ -6,7 +6,8 @@ import {captureRawJraCardResponse,checkRawJraCapture} from
 import {createLiveArchive} from
  '../research/jra-scoring-integrity-20261121/claim-retention/live-archive.mjs';
 
-const cname='pw01dde01'+'03'+'2026'+'11'+'23'+'01'+'00000000'+'/AA';
+// Actual live race-key shape, confirmed against 2026-11-23 Fukushima 1R.
+const cname='pw01dde0103202603060120261123/EC';
 const sourceUrl='https://www.jra.go.jp/JRADB/accessD.html?CNAME='+encodeURIComponent(cname);
 // A byte pair valid in Shift-JIS, representing 'あ' (different from UTF-8).
 const raw=Buffer.concat([Buffer.from('<html><body>horse:'),
@@ -30,6 +31,17 @@ test('preserves original Shift-JIS bytes and separately hashes UTF8 of decoded H
  assert.equal(x.capture.issuer_signature_verified,false);
  assert.equal(x.capture.original_source_issuer_authenticated,false);
  assert.equal(x.capture.authorized_claim_bound,false);
+});
+test('actual Tokyo R1 CNAME layout binds race date to final 8 digits rather than internal year/month/day fields',()=>{
+ const tokyoCname='pw01dde0105202605060120261123/E2';
+ const tokyo={...args(),cname:tokyoCname,
+  sourceUrl:'https://www.jra.go.jp/JRADB/accessD.html?CNAME='+encodeURIComponent(tokyoCname),
+  actualResponseUrl:'https://www.jra.go.jp/JRADB/accessD.html?CNAME='+encodeURIComponent(tokyoCname),
+  raceId:'2026-11-23/東京/1',
+  postTime:'2026-11-23T10:00:00+09:00'};
+ const packet=captureRawJraCardResponse(tokyo);
+ assert.equal(packet.capture.raceId,'2026-11-23/東京/1');
+ assert.equal(checkRawJraCapture(packet).ok,true);
 });
 test('aborting untrusted URLs, redirect aliases, inconsistent CNAME and post-start capture',()=>{
  const x=args();x.actualResponseUrl='https://example.com/JRADB/accessD.html?CNAME='+encodeURIComponent(cname);
