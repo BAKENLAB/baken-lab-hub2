@@ -41,6 +41,12 @@ export function checkFixedScoreContract({payload,selected}={}){
        !integer(review[0].base_score)||!integer(review[0].score_after)||
        !integer(runner[0].score))
       return fail('REPLAY_NUMERIC_INPUT_INVALID',{horse_no:computed.horse_no});
+    const baseProof=selected.serverBaseProofs?.filter(x=>
+      x.horse_no===computed.horse_no && x.base_score===computed.base_score &&
+      x.policy_sha256===contract.policy_sha256 &&
+      sha(x.input_sha256) && x.generated_by_pinned_scorer===true);
+    if(baseProof?.length!==1)
+      return fail('BASE_SCORE_GENERATOR_PROOF_MISSING',{horse_no:computed.horse_no});
     // No fallback CLAIMED_CONTEXT_RUN surrogate may impersonate an archived original.
     // Every factor must carry its independently checked original-body hash and
     // match the exact official run and horse ID in the selected snapshot.
