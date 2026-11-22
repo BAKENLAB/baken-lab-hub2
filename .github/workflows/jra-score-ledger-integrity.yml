@@ -15,6 +15,7 @@ on:
       - 'tests/jra-base30-38-replay.test.mjs'
       - 'tests/jra-prerace-basecore-audit.test.mjs'
       - 'tests/jra-archive-raw-bytes-integrity.test.mjs'
+      - 'tests/jra-v42-rebase-reversibility.test.mjs'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
@@ -45,6 +46,8 @@ jobs:
         run: node tests/jra-prerace-basecore-audit.test.mjs
       - name: Original history body binary SHA and private archive receipt integrity
         run: node tests/jra-archive-raw-bytes-integrity.test.mjs
+      - name: Current JRA v42 isolated rebase exact reversible diff and gates
+        run: node tests/jra-v42-rebase-reversibility.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
       - name: Byte retention candidate and actual November22 morning ledger replay
