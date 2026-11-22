@@ -162,6 +162,9 @@ export function generateResearchSourcePoints({context,selectedRuns,policy}={}){
    input_sha256:digest(inputSignature),policy_sha256:digest(normalizedPolicy),
    research_only:true,production_allowed:false,formal_score_verified:false,
    official_issuer_verified:false,original_scorer_recovered:false,
+   unconnected_factor_categories:['pace','opponent','race_shape','eval'],
+   unconnected_factor_status:'NO_APPROVED_OFFICIAL_SOURCE_AND_POINT_RULE',
+   full_factor_coverage:false,
    runners,source_runs_used:usedProof.size,
    reason:'DETERMINISTIC_RESEARCH_CANDIDATE_NOT_FORMAL_100_POINT_ENGINE'};
 }
