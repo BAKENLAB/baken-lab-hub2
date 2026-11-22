@@ -1,7 +1,7 @@
 import { collectDeclaredLedger } from '../../../automation/jra-score-ledger/declared-ledger.mjs';
 import { checkDeclaredLedger } from '../../../automation/jra-score-ledger/independent-check.mjs';
 import { checkFixedScoreContract } from './fixed-score-contract.candidate.mjs';
-import { compareResearchGeneratedToDeclared } from './source-to-points-compare.candidate.mjs';
+import { scoreVerifiedV11ResearchPacket } from './signed-source-score-bridge.mjs';
 
 // Bound IDs and checklist must originate from the server's selected snapshot / protocol.
 export function auditSubmission(payload, selected) {
@@ -10,14 +10,19 @@ export function auditSubmission(payload, selected) {
   const findings = [...arithmetic.errors];
   const fixedScoring = checkFixedScoreContract({payload,selected});
   if (!fixedScoring.ok) findings.push({code:fixedScoring.reason});
-  // Explicitly require a separate scorer with selected original-body identity.
-  // Missing trusted policy/provider is not silently replaced by submitted scores.
-  const factToPoints = compareResearchGeneratedToDeclared({
-    context:selected?.scorerContext,
-    selectedRuns:selected?.scorerSelectedRuns,
-    policy:selected?.scorerPolicy,
-    payload
-  });
+  // Only a server-scoped signed V11 packet may feed the deterministic
+  // source-to-points comparison. Detached caller-asserted verified flags,
+  // hand-authored scorerContext and selectedRuns are NOT a trust boundary.
+  const factToPoints = selected?.signedSourcePacket &&
+    selected?.signedSourceTrust && selected?.scorerPolicy
+      ? scoreVerifiedV11ResearchPacket({
+          packet:selected.signedSourcePacket,
+          trust:selected.signedSourceTrust,
+          policy:selected.scorerPolicy,
+          payload
+        })
+      : {ok:false,reason:'SIGNED_V11_PROVIDER_UNAVAILABLE',
+         formal_scoring_allowed:false,production_allowed:false};
   if (!factToPoints.ok) findings.push({code:'FACT_TO_POINTS_'+factToPoints.reason});
   // Even a matching packet is only an integrity cross-check, never a
   // certification that JRA original bytes, CLAIM, or a scorer are authentic.
