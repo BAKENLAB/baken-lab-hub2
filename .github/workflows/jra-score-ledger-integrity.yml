@@ -16,6 +16,7 @@ on:
       - 'tests/jra-prerace-basecore-audit.test.mjs'
       - 'tests/jra-archive-raw-bytes-integrity.test.mjs'
       - 'tests/jra-v42-rebase-reversibility.test.mjs'
+      - 'tests/jra-r1-asof-history-readiness.test.mjs'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
@@ -48,6 +49,8 @@ jobs:
         run: node tests/jra-archive-raw-bytes-integrity.test.mjs
       - name: Current JRA v42 isolated rebase exact reversible diff and gates
         run: node tests/jra-v42-rebase-reversibility.test.mjs
+      - name: Actual first-race as-of source features and absent original issuer proof
+        run: node tests/jra-r1-asof-history-readiness.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
       - name: Byte retention candidate and actual November22 morning ledger replay
