@@ -1,0 +1,72 @@
+{
+  "record_type": "TRANSCRIBED_READONLY_TOOL_RESULTS_BEFORE_PAUSE_NOT_RAW_SIGNED_PACKET",
+  "per_call_timestamps": null,
+  "prior_target": {
+    "race_date": "2026-11-21",
+    "track": "東京",
+    "race_no": 1,
+    "queue_rows": 0,
+    "official_races_rows": 0,
+    "live_races_rows": 0,
+    "official_meeting_absence_proven": false
+  },
+  "correct_target": {
+    "race_date": "2026-11-22",
+    "track": "東京",
+    "race_no": 1,
+    "cname": "pw01dde0105202605050120261122/B2",
+    "queue_status": "done",
+    "field_status": "BASIC_READY",
+    "prediction_status": "PENDING",
+    "prediction_jobs_at_read_time": 0,
+    "frozen_at_read_time": 0,
+    "post_time": "2026-11-22T00:50:00+00:00"
+  },
+  "dry_run_result": {
+    "ok": true,
+    "published": false,
+    "reason": "DRY_RUN_VERIFIED_HTML_ONLY",
+    "race_date": "2026-11-22",
+    "track": "東京",
+    "race_no": 1,
+    "runner_count": 16,
+    "statuses": {
+      "active": 16,
+      "cancelled": 0,
+      "excluded": 0
+    },
+    "live_capture_status": "done"
+  },
+  "http_status_numeric_returned": false,
+  "actual_original_body_returned": false,
+  "actual_signed_history_receipts_verified": 0,
+  "source": {
+    "live_version": 32,
+    "live_bundle_sha256": "22ed544f9f24942e8a474afb3f0cf1e336806ac59017bc69f2686f5db396dd7e",
+    "queue_generation_excerpt": [
+      {
+        "line": 278,
+        "text": "if(action===\"discover\"){"
+      },
+      {
+        "line": 361,
+        "text": "const q=await db.from(\"jra_live_queue\").upsert(rows,{onConflict:\"cname\",ignoreDuplicates:true});"
+      },
+      {
+        "line": 491,
+        "text": "const ev=await db.from(\"jra_html_evidence\").upsert({"
+      },
+      {
+        "line": 503,
+        "text": "status:\"done\",last_error:null,updated_at:new Date().toISOString()"
+      }
+    ],
+    "mcp_version": 39,
+    "mcp_bundle_sha256": "2601ff8de87dd7a061716c7274546efc0d984ce93d2d37abf2d10768dca2e7ad"
+  },
+  "root_cause": "Previous probe selected a target absent from the registered queue; no queue or CLAIM was generated to satisfy it.",
+  "code_defect": "Original handler conflates a database query error with a genuinely missing queue row.",
+  "production_writes": 0,
+  "new_claims": 0,
+  "formal_saves": 0
+}

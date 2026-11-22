@@ -7,6 +7,7 @@ on:
       - 'tests/jra-score-ledger-postgres.sql'
       - 'tests/jra-core*'
       - 'tests/jra-legacy*'
+      - 'tests/jra-blocker-resolution.test.mjs'
       - 'sql/jra_score_ledger_validator_candidate_v1.sql'
       - 'research/jra-scoring-integrity-20261121/**'
       - '.github/workflows/jra-score-ledger-integrity.yml'
@@ -25,6 +26,8 @@ jobs:
         run: node tests/jra-core-connection.test.mjs
       - name: Recovered legacy readonly replay safety
         run: node tests/jra-legacy-replay.test.mjs
+      - name: Queue target diagnostics and default-off observation export
+        run: node tests/jra-blocker-resolution.test.mjs
       - name: Existing full-depth, handoff, save-contract and bridge regressions
         run: |
           node research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs
