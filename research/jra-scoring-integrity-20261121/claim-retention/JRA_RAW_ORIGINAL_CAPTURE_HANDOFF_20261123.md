@@ -28,9 +28,9 @@ Isolated Node and PostgreSQL CI SUCCESS: [GitHub Actions run 45084979239](https:
 
 The isolated SQL `live-archive.candidate.sql` declares `private.jra_live_card_archive_v1.race_id UUID`, whereas a CNAME-derived official identifier is the string `YYYY-MM-DD/track/race_no`. They are NOT interchangeable. To avoid a production-only PostgreSQL type failure, the `authorized-byte-retention-candidate.mjs` now **requires** a separately supplied, syntactically valid `job.live_race_id` (the UUID returned by the existing JRA race upsert), stores that in the private `race_id` column and separately retains the validated `raceKey` in the document metadata.
 
-It refuses an absent/malformed UUID before trying the writer. The private archived-document receipt must reproduce **both** the UUID and the original CNAME-derived `raceKey` on read-back. The offline test `tests/jra-raw-retention-boundary.test.mjs` covers this correction.
+It refuses an absent/malformed UUID before trying the writer. In addition, a **server-owned `loadTrustedRaceIdentity` lookup** must independently match the UUID, CNAME, race date, track, number and official post time. A syntactically valid UUID from a different race is refused, as is a missing trusted lookup or an altered official post time. The private archived-document receipt must reproduce **both** the UUID and the original CNAME-derived `raceKey` on read-back. The offline test `tests/jra-raw-retention-boundary.test.mjs` covers this correction. The lookup is an injected synthetic fixture here, **not a deployed DB or issuer connection**.
 
-The updated full CI succeeded: [GitHub Actions run 45085167207](https://github.com/BAKENLAB/baken-lab-hub2/actions/runs/45085167207) (isolated Node and PostgreSQL jobs). No production schemas were created or modified.
+The UUID/schema code CI succeeded: [GitHub Actions run 45085167207](https://github.com/BAKENLAB/baken-lab-hub2/actions/runs/45085167207) (isolated Node and PostgreSQL jobs). No production schemas were created or modified.
 
 ## Release blockers and non-actions
 
