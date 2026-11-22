@@ -76,7 +76,9 @@ AS $function$
       prior_date,prior_track,prior_surface,prior_distance,
       finish,field_size,margin_to_winner,weight_carried,jockey,
       early_pos,pos_change,prior_class,source_kind,
-      selected_run_id,selected_race_id,selected_horse_id,selected_source_ref
+      case when count(*) over (partition by prior_date,source_priority)=1
+        then selected_run_id end as selected_run_id,
+      selected_race_id,selected_horse_id,selected_source_ref
     from (
       select * from live_rows
       union all

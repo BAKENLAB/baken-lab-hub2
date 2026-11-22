@@ -23,4 +23,24 @@ DO $$ DECLARE r record; BEGIN
  SELECT * INTO STRICT r FROM private.jra_research_selected_history_v1('fixture','2019100606','2026-11-01','[{"race_date":"2026-10-01"}]');
  IF r.source_kind <> 'LIVE' OR r.selected_run_id IS NOT NULL THEN RAISE EXCEPTION 'archive substituted'; END IF;
 END $$;
+INSERT INTO public.jra_lab_runs
+ SELECT '00000000-0000-0000-0000-000000000003',race_id,horse_name,horse_ref,record_role,
+ finish,time_raw,weight_carried,jockey,early_pos,pos_change,source_ref FROM public.jra_lab_runs;
+DO $$ DECLARE r record; BEGIN
+ SELECT * INTO STRICT r FROM private.jra_research_selected_history_v1('fixture','2019100606','2026-11-01','[]');
+ IF r.selected_run_id IS NOT NULL THEN RAISE EXCEPTION 'duplicate provenance promoted'; END IF;
+END $$;
+CREATE TABLE public.jra_prediction_jobs(id uuid);
+CREATE TABLE public.jra_prediction_worker_runs(id uuid);
+CREATE TABLE public.official_races(id uuid);
+DO $$ BEGIN
+ IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname='service_role') THEN CREATE ROLE service_role; END IF;
+END $$;
+\ir claimed-context.candidate.sql
+DO $$ BEGIN
+ IF has_function_privilege('anon','public.jra_research_claimed_context_v1(uuid)','EXECUTE')
+ OR has_function_privilege('authenticated','public.jra_research_claimed_context_v1(uuid)','EXECUTE')
+ OR NOT has_function_privilege('service_role','public.jra_research_claimed_context_v1(uuid)','EXECUTE')
+ THEN RAISE EXCEPTION 'invalid RPC grants'; END IF;
+END $$;
 ROLLBACK;
