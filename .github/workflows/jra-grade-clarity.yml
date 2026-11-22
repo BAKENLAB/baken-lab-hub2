@@ -1,0 +1,24 @@
+name: JRA grade clarity (display-only)
+on:
+  push:
+    paths:
+      - 'today.html'
+      - 'tests/today-grade-clarity.test.mjs'
+      - '.github/workflows/jra-grade-clarity.yml'
+  pull_request:
+    paths:
+      - 'today.html'
+      - 'tests/today-grade-clarity.test.mjs'
+      - '.github/workflows/jra-grade-clarity.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run readability regression tests
+        run: node --test tests/today-grade-clarity.test.mjs
