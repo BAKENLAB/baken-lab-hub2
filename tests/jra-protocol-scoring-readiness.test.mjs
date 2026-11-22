@@ -13,7 +13,7 @@ function read(name,expectedSha){
 const protocol=read('jra-active-protocol-asof-20261123-readonly.json',
  '4774d5c516e01a0025c88b941b23d9eb7a4c2df0');
 const historic=read('jra-method-drift-nov15-21-22-readonly.json',
- ''); // replaced with exact Git SHA before CI
+ 'c9c3ee0a7c755124ab73015fbe6096bdae311cca');
 test('actual pinned active JRA protocol permits manual deviations but has no approved factor-coefficient engine',()=>{
  const x=inspectActualJraScoringProtocol(protocol);
  assert.equal(x.reason,'VALIDATED_BASE_PLUS_OPTIONAL_MANUAL_OVERLAY_NO_FIXED_FACTOR_WEIGHTS');
