@@ -89,3 +89,41 @@ test('cannot spoof verified source by setting flags in a caller selected run arr
  assert.equal(y.generated.runners[0].source_run_count,1);
  assert.notEqual(y.generated.runners[0].effects[0].run_id,'FAKE');
 });
+
+test('signed source-generated rank and signed factor points must match submitted full 100-point record',()=>{
+ const x=sample();
+ const baseline=scoreVerifiedV11ResearchPacket(x);
+ assert.equal(baseline.ok,true);
+ const payload={
+   runners:baseline.generated.runners.map(r=>({
+     horse_no:r.horse_no,horse_name:r.horse_name,
+     score:r.research_score,rank:r.research_rank
+   })),
+   audit:{runner_history_checked:baseline.generated.runners.map(r=>({
+     horse_no:r.horse_no,base_score:r.base_score,
+     score_after:r.research_score,rank_after:r.research_rank,
+     evidence_effects:structuredClone(r.effects)
+   }))}
+ };
+ const matched=scoreVerifiedV11ResearchPacket({...x,payload});
+ assert.equal(matched.ok,true,JSON.stringify(matched));
+ assert.equal(matched.submitted_points_verified,true);
+ assert.equal(matched.submitted_comparison.checked_horses,1);
+ assert.equal(matched.production_allowed,false);
+ const mispoint=structuredClone(payload);
+ mispoint.audit.runner_history_checked[0].evidence_effects[0].points+=1;
+ const p=scoreVerifiedV11ResearchPacket({...x,payload:mispoint});
+ assert.equal(p.ok,false);
+ assert.equal(p.reason,'SIGNED_FACT_TO_POINTS_SUBMISSION_MISMATCH');
+ assert.equal(p.detail,'REPLAY_FACTOR_POINTS_OR_PROVENANCE_MISMATCH');
+ const misrank=structuredClone(payload);
+ misrank.runners[0].rank=2;
+ const rank=scoreVerifiedV11ResearchPacket({...x,payload:misrank});
+ assert.equal(rank.ok,false);
+ assert.equal(rank.detail,'REPLAY_RANK_MISMATCH');
+ const wrongBodyHash=structuredClone(payload);
+ wrongBodyHash.audit.runner_history_checked[0].evidence_effects[0].original_sha256='e'.repeat(64);
+ const y=scoreVerifiedV11ResearchPacket({...x,payload:wrongBodyHash});
+ assert.equal(y.ok,false);
+ assert.equal(y.detail,'REPLAY_FACTOR_POINTS_OR_PROVENANCE_MISMATCH');
+});
