@@ -52,6 +52,17 @@ test('raw-byte and decoded-text mutations are independently detected',()=>{
  z.capture.decoded_utf8_sha256='0'.repeat(64);
  assert.equal(checkRawJraCapture(z).reason,'DECODED_SOURCE_HASH_MISMATCH');
 });
+test('archive read never trusts modified race/URL/as-of metadata even when raw digest is intact',()=>{
+ const badUrl=captureRawJraCardResponse(args());
+ badUrl.capture.actualResponseUrl='https://example.invalid/JRADB/accessD.html?CNAME='+encodeURIComponent(cname);
+ assert.equal(checkRawJraCapture(badUrl).reason,'RAW_CAPTURE_RECHECK_FAILED');
+ const badRace=captureRawJraCardResponse(args());
+ badRace.capture.raceId='2026-11-23/東京/1';
+ assert.equal(checkRawJraCapture(badRace).reason,'RAW_CAPTURE_RECHECK_FAILED');
+ const expired=captureRawJraCardResponse(args());
+ expired.capture.fetchedAt='2026-11-23T09:44:30+09:00';
+ assert.equal(checkRawJraCapture(expired).reason,'RAW_CAPTURE_RECHECK_FAILED');
+});
 test('isolated private archive retains full original bytes, rejects tampering on reading',async()=>{
  const rows=[];
  const archive=createLiveArchive({
