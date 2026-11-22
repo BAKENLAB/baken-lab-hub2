@@ -1,6 +1,7 @@
 import { collectDeclaredLedger } from '../../../automation/jra-score-ledger/declared-ledger.mjs';
 import { checkDeclaredLedger } from '../../../automation/jra-score-ledger/independent-check.mjs';
 import { checkFixedScoreContract } from './fixed-score-contract.candidate.mjs';
+import { compareResearchGeneratedToDeclared } from './source-to-points-compare.candidate.mjs';
 
 // Bound IDs and checklist must originate from the server's selected snapshot / protocol.
 export function auditSubmission(payload, selected) {
@@ -9,6 +10,15 @@ export function auditSubmission(payload, selected) {
   const findings = [...arithmetic.errors];
   const fixedScoring = checkFixedScoreContract({payload,selected});
   if (!fixedScoring.ok) findings.push({code:fixedScoring.reason});
+  // Explicitly require a separate scorer with selected original-body identity.
+  // Missing trusted policy/provider is not silently replaced by submitted scores.
+  const factToPoints = compareResearchGeneratedToDeclared({
+    context:selected?.scorerContext,
+    selectedRuns:selected?.scorerSelectedRuns,
+    policy:selected?.scorerPolicy,
+    payload
+  });
+  if (!factToPoints.ok) findings.push({code:'FACT_TO_POINTS_'+factToPoints.reason});
   // Even a matching packet is only an integrity cross-check, never a
   // certification that JRA original bytes, CLAIM, or a scorer are authentic.
   // The payload's numeric components can be internally consistent while its
@@ -43,5 +53,5 @@ export function auditSubmission(payload, selected) {
       typeof rows[0].review_checks?.[k]?.reason === 'string' && rows[0].review_checks[k].reason.trim()))
       findings.push({code:'EYE_REVIEW_INCOMPLETE',horse_no:runner.horse_no});
   }
-  return {arithmeticOK:arithmetic.ok, fixedScoring, findings, formalScoringAllowed:false};
+  return {arithmeticOK:arithmetic.ok, fixedScoring, factToPoints, findings, formalScoringAllowed:false};
 }
