@@ -52,6 +52,17 @@ export function checkFixedScoreContract({payload,selected}={}){
         factor.rule_sha256!==contract.policy_sha256||
         factor.verified_by_source_reader!==true)
         return fail('FACTOR_ORIGINAL_AND_RULE_PROOF_MISSING',{horse_no:computed.horse_no});
+      if(factor.source_ref.startsWith('CLAIMED_CONTEXT_RUN:'))
+        return fail('SURROGATE_CLAIMED_CONTEXT_REF_NOT_IMMUTABLE',{horse_no:computed.horse_no});
+      const grounded=selected.verifiedSourceFacts?.filter(x=>
+        x.horse_no===computed.horse_no &&
+        x.horse_id===factor.horse_id &&
+        x.run_id===factor.run_id &&
+        x.source_ref===factor.source_ref &&
+        x.original_sha256===factor.original_sha256 &&
+        x.verified_by_official_reader===true);
+      if(grounded?.length!==1)
+        return fail('FACTOR_NOT_BOUND_TO_SELECTED_OFFICIAL_RUN',{horse_no:computed.horse_no});
       const id=key(factor);
       if(hashes.has(id))return fail('DUPLICATE_REPLAY_FACTOR',{horse_no:computed.horse_no});
       hashes.add(id);
@@ -64,6 +75,10 @@ export function checkFixedScoreContract({payload,selected}={}){
       computed.factors.reduce((n,x)=>n+x.points,0)));
     if(!integer(expected)||expected!==review[0].score_after)
       return fail('BASE_AND_FACT_POINTS_NOT_REPRODUCED',{horse_no:computed.horse_no});
+    // This check covers the unbridged core only. A separately approved Eval
+    // bridge must be verified by the existing independent ledger check.
+    if(runner[0].score!==expected && selected.separateBridgeValidated!==true)
+      return fail('FINAL_SCORE_NOT_REPRODUCED_OR_BRIDGE_UNVERIFIED',{horse_no:computed.horse_no});
     checks.push({horse_no:computed.horse_no,score_before_bridge:expected,score_after_submission:runner[0].score});
   }
   // A conforming packet only proves that two score records agree. It does
