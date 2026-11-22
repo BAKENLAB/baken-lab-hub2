@@ -83,6 +83,7 @@ jobs:
           PGDATABASE: ledger_test
           PGPASSWORD: ephemeral_ci_only
         run: |
+          psql -X -v ON_ERROR_STOP=1 -f research/jra-scoring-integrity-20261121/claim-retention/selected-history.test.sql
           psql -X -v ON_ERROR_STOP=1 -f tests/jra-score-ledger-postgres.sql
           node tests/jra-core-postgres-vectors.mjs /tmp/jra-core-vectors.json
           psql -X -v ON_ERROR_STOP=1 -f tests/jra-core-postgres.sql

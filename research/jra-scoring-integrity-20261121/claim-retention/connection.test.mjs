@@ -32,6 +32,12 @@ test('reopens exact retained bytes; only scoped and timely selection can record 
       leaseUntil:new Date(now+10000).toISOString(),saveCutoff:new Date(now+9000).toISOString(),
       observedAt:new Date(now-1000).toISOString(),rows:[{documentId,sourceRef:r.source_ref,
         raceId:r.race_id,runId:r.run_id,horseId:r.horse_id}]};
+    const selectedRow={source_kind:'DB',selected_run_id:r.run_id,selected_horse_id:r.horse_id,
+      selected_source_ref:r.source_ref,selected_race_id:r.race_id};
+    selection.rows=[store.selectedDocument(selectedRow,selection.observedAt)];
+    assert.equal(selection.rows[0].documentId,documentId);
+    assert.throws(()=>store.selectedDocument({...selectedRow,source_kind:'LIVE'},selection.observedAt));
+    assert.throws(()=>store.selectedDocument(selectedRow,'2000-01-01T00:00:00Z'));
     const observe=createClaimObserver({store,resolveCheckedSelection:async()=>selection,now:()=>now});
     for(const {payload} of races){
       const request={context,jobId,payload};
@@ -39,6 +45,9 @@ test('reopens exact retained bytes; only scoped and timely selection can record 
       assert.equal(decision.submittedPayloadHash,sha(payload));
       assert.deepEqual(decision.reviews.map(h=>h.base_score),payload.audit.runner_history_checked.map(h=>h.base_score));
       assert.equal(decision.formalScoringAllowed,false);
+      assert.equal(decision.submissionAudit.arithmeticOK,true);
+      assert.ok(decision.submissionAudit.findings.some(f=>f.code==="FACTOR_PROOF_UNVERIFIED"));
+      assert.equal(decision.submissionAudit.findings.filter(f=>f.code==="EYE_REVIEW_INCOMPLETE").length,payload.runners.length-5);
     }
     const args={context,jobId,payload:races[0].payload};
     await assert.rejects(observe({...args,context:{different:true}}),/CLAIM_SCOPE/);

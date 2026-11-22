@@ -1,3 +1,4 @@
+import { auditSubmission } from './submission-audit.mjs';
 import { sha } from '../../../automation/jra-score-ledger/declared-ledger.mjs';
 
 // The private adapter must resolve selections from the same checked RPC snapshot.
@@ -40,7 +41,11 @@ export function createClaimObserver({ store, resolveCheckedSelection, now = Date
     }
     if (now() >= deadline) throw Error('CLAIM_EXPIRED');
     signal?.throwIfAborted();
+    const audit = auditSubmission(payload, selected);
+    if (now() >= deadline) throw Error('CLAIM_EXPIRED');
     return store.putDecision({ jobId, contextHash: digest, observedAt: selected.observedAt,
+      submissionAudit:audit, submittedRanks:payload.runners.map(({horse_no,rank,score})=>({horse_no,rank,score})),
+      top5:payload.top5.map(r=>r.horse_no),eye:payload.eye?.horse_no??null,eyeReviews:payload.audit.eye_review??null,
       submittedPayloadHash: sha(payload), reviews: reviews.map(r => ({
         horse_no:r.horse_no, base_score:r.base_score, reason:r.reason,
         evidence_effects:r.evidence_effects, source_refs:r.source_refs,
