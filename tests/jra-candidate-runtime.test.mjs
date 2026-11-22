@@ -56,7 +56,9 @@ async function execute(x,{denied=false,saveError=false,methodContract='SYNTHETIC
    export const load=()=>{throw Error('NETWORK_HTML_PATH_UNTESTED')};`);
   globalThis.Deno={env:{get:key=>({LOCAL_MCP_ALLOWED_USER_ID:user,SUPABASE_URL:'http://127.0.0.1:1',SUPABASE_SERVICE_ROLE_KEY:'SYNTHETIC_NOT_A_KEY',JRA_RESEARCH_SCORE_METHOD_CONTRACT:methodContract,JRA_RESEARCH_BASE_POLICY_ID:basePolicy})[key]},serve:fn=>{globalThis.__runtime.handler=fn;}};
   globalThis.Date=class extends RealDate {constructor(...a){super(...(a.length?a:[time]));}static now(){return RealDate.parse(time);}};
-  let source=readFileSync(new URL('blocker-resolution/candidate-index.ts.txt',root),'utf8');
+  const candidateIndex=process.env.JRA_TEST_V42_REBASE==='1'
+    ?'v42-rebase/candidate-index.ts.txt':'blocker-resolution/candidate-index.ts.txt';
+  let source=readFileSync(new URL(candidateIndex,root),'utf8');
   source=source.replace(/^import "jsr:[^\n]+\n/gm,'').replace(/from "npm:[^"]+"/g,'from "./transport.mjs"');
   writeFileSync(join(dir,'index.mjs'),stripTypeScriptTypes(source));
   await import(pathToFileURL(join(dir,'index.mjs')));
