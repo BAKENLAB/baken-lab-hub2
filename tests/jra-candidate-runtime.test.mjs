@@ -26,6 +26,13 @@ async function execute(x,{denied=false,saveError=false,methodContract='SYNTHETIC
  try{
   for(const name of readdirSync(new URL('baseline/mcp/',root)).filter(n=>n.endsWith('.mjs.txt')))
    writeFileSync(join(dir,name.slice(0,-4)),readFileSync(new URL('baseline/mcp/'+name,root)));
+  if(process.env.JRA_TEST_V42_REBASE==='1'){
+    const bundle=JSON.parse(readFileSync(new URL('v42-rebase/offline-helper-bundle.json',root),'utf8'));
+    assert.equal(bundle.source_version,42);
+    for(const [name,code] of Object.entries(bundle.files))
+      writeFileSync(join(dir,name),code);
+    // Private Eval data, network, and LOCAL services remain explicit synthetic doubles.
+  }
   writeFileSync(join(dir,'eval-course-transfer-live.mjs'),readFileSync(new URL('integration-validation/eval-course-transfer-candidate.mjs',root)));
   const courses=[['東京','芝','',1800]];
   for(const track of ['札幌','函館','福島','新潟','中山','中京','京都','阪神','小倉'])for(let d=1000;d<=3600;d+=100)courses.push([track,'芝','',d]);
