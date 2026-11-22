@@ -68,5 +68,10 @@
   "code_defect": "Original handler conflates a database query error with a genuinely missing queue row.",
   "production_writes": 0,
   "new_claims": 0,
-  "formal_saves": 0
+  "formal_saves": 0,
+  "hash_semantics_source_verified": {
+    "jra_live_v32": "SHA256(TextEncoder.UTF8(decoded_HTML)); decoded length",
+    "jra_claimed_mcp_v39": "SHA256(raw_HTTP_response_bytes); raw length",
+    "same_real_body_compared": false
+  }
 }

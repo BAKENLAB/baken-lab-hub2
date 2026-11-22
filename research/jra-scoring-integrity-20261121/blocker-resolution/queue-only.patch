@@ -1,0 +1,19 @@
+--- jra-claimed-mcp/index.ts
++++ jra-claimed-mcp/index.ts
+@@ -1,3 +1,4 @@
++import {readOfficialQueueCname} from "./jra-official-queue-read.mjs";
+ import {reconcileG1ScoringTrace} from "./g1-scoring-trace.mjs";
+ import {inspectJraFullDepthSave} from "./jra-full-depth-save-gate.mjs";
+ import {restoreJraClaimedRunDetails} from "./jra-asof-detail-handoff.mjs";
+@@ -491,9 +492,8 @@
+      await auth();
+      const c=admin();
+      const {data:queue,error:qerr}=await c.from("jra_live_queue")
+-       .select("cname,status").eq("race_date",race_date).eq("track",track).eq("race_no",race_no).maybeSingle();
+-     if(qerr||!queue?.cname) throw Error("JRA_OFFICIAL_QUEUE_MISSING");
+-     const cname=String(queue.cname);
++       .select("race_date,track,race_no,cname,status").eq("race_date",race_date).eq("track",track).eq("race_no",race_no).maybeSingle();
++     const cname=readOfficialQueueCname({queue,error:qerr,target:{race_date,track,race_no}});
+      const response=await fetch("https://www.jra.go.jp/JRADB/accessD.html?CNAME="+encodeURIComponent(cname),{
+        headers:{"User-Agent":"Mozilla/5.0 (Linux; Android 16; Mobile) AppleWebKit/537.36 Chrome/140.0 Mobile Safari/537.36",
+          "Accept-Language":"ja-JP,ja;q=0.9","Cache-Control":"no-cache"},redirect:"follow"
