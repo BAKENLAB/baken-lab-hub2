@@ -6,6 +6,17 @@ export function auditSubmission(payload, selected) {
   const ledger = collectDeclaredLedger({payload});
   const arithmetic = checkDeclaredLedger({ledger,payload,officialActive:selected.activeRunners});
   const findings = [...arithmetic.errors];
+  // The payload's numeric components can be internally consistent while its
+  // score-generation method disappears or changes. Only server-owned policy
+  // may pin a trusted method; never accept a claimed pin from the payload.
+  const declaredMethod = payload?.audit?.score_method;
+  if (typeof declaredMethod !== 'string' || !declaredMethod.trim())
+    findings.push({code:'SCORE_METHOD_MISSING'});
+  else if (typeof selected.trustedScoreMethod !== 'string' ||
+      !selected.trustedScoreMethod.trim() || declaredMethod !== selected.trustedScoreMethod)
+    findings.push({code:'SCORE_METHOD_UNPINNED_OR_DRIFTED'});
+  if (payload?.audit?.full_depth_comparison !== true)
+    findings.push({code:'FULL_DEPTH_COMPARISON_UNDECLARED'});
   if (!Array.isArray(selected.activeRunners)) findings.push({code:'ACTIVE_FIELD_UNVERIFIED'});
   for (const runner of ledger.runners) {
     for (const effect of runner.components) {
