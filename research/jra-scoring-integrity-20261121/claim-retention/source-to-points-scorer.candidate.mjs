@@ -3,13 +3,14 @@
 // A snapshot supplied by an approved future reader must bind every horse/run
 // to original source bytes. Never invoke this on production predictions.
 // This does not claim the unrecorded historical subjective scorer is recovered.
-import {createHash} from 'node:crypto';
+import {sha as canonicalSha} from '../../../automation/jra-score-ledger/declared-ledger.mjs';
 import {calculateRecoveredBase30_38} from './recovered-base30-38-readonly.mjs';
 const fail=code=>{throw Error('RESEARCH_SCORER_'+code)};
 const isText=x=>typeof x==='string'&&x.trim().length>0;
 const isInt=x=>typeof x==='number'&&Number.isSafeInteger(x);
 const finite=x=>typeof x==='number'&&Number.isFinite(x);
-const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
+const digest=x=>canonicalSha(x);
+const lex=(a,b)=>a<b?-1:a>b?1:0;
 const SHA=/^[a-f0-9]{64}$/;
 const allowed={
  margin:'numeric',last3f:'numeric',distance:'numeric',corners:'numeric',
@@ -89,6 +90,8 @@ function targetFromContext(context){
 }
 export function generateResearchSourcePoints({context,selectedRuns,policy}={}){
  const approved=compilePolicy(policy),target=targetFromContext(context);
+ const orderedRules=approved.rules.slice().sort((a,b)=>lex(a.kind,b.kind));
+ const orderedRows=context?.runner_history?.slice().sort((a,b)=>a.horse_no-b.horse_no);
  if(!Array.isArray(context?.runner_history)||!Array.isArray(context?.candidates)||
     !Array.isArray(selectedRuns)||!context.runner_history.length||
     context.runner_history.length!==context.candidates.length)
@@ -104,7 +107,7 @@ export function generateResearchSourcePoints({context,selectedRuns,policy}={}){
   if(proofs.has(key))fail('DUPLICATE_SELECTED_RUN_PROOF');
   proofs.set(key,item);
  }
- for(const row of context.runner_history){
+ for(const row of orderedRows){
   const no=row.horse_no,base=context.candidates.filter(x=>x.horse_no===no);
   if(!isInt(no)||no<1||no>24||seen.has(no)||base.length!==1||
      !Array.isArray(row.past_runs)||!row.past_runs.length)
@@ -114,7 +117,7 @@ export function generateResearchSourcePoints({context,selectedRuns,policy}={}){
   if(!finite(baseRate)||baseRate<0||baseRate>1)fail('CLAIM_BASE_RATE_MISSING');
   const baseScore=calculateRecoveredBase30_38(String(baseRate));
   const effects=[],facts=[],perRunnerRuns=new Set();
-  for(const run of row.past_runs){
+  for(const run of row.past_runs.slice().sort((a,b)=>lex(a.run_id,b.run_id))){
    if(!isText(run.run_id)||!isText(run.horse_id)||
       !isText(run.source_ref)||!SHA.test(run.original_sha256)||
       !isText(run.race_date)||dateDays(run.race_date)>=dateDays(target.race_date))
@@ -124,7 +127,7 @@ export function generateResearchSourcePoints({context,selectedRuns,policy}={}){
       proof.original_sha256!==run.original_sha256)fail('EXACT_SELECTED_RUN_MISMATCH');
    const usedKey=JSON.stringify([no,run.run_id]);if(perRunnerRuns.has(usedKey))fail('DUPLICATE_RUN');
    perRunnerRuns.add(usedKey);usedProof.add(usedKey);
-   for(const rule of approved.rules){
+   for(const rule of orderedRules){
     const measured=measure(rule.kind,run,target);
     const computed=factorValue(rule,measured);
     facts.push({horse_no:no,run_id:run.run_id,kind:rule.kind,
@@ -143,14 +146,20 @@ export function generateResearchSourcePoints({context,selectedRuns,policy}={}){
  runners.sort((a,b)=>b.research_score-a.research_score||
   a.base_rank-b.base_rank||a.horse_no-b.horse_no);
  runners.forEach((r,i)=>r.research_rank=i+1);
+ const normalizedPolicy={...policy,rules:orderedRules};
  const inputSignature={
-  policy,context:{race:target,runner_history:context.runner_history,
-   candidates:context.candidates.map(x=>({horse_no:x.horse_no,base_rate:x.base_rate,base_rank:x.base_rank}))},
-  selectedRuns
+  policy:normalizedPolicy,
+  context:{race:target,runner_history:orderedRows.map(row=>({
+   ...row,past_runs:row.past_runs.slice().sort((a,b)=>lex(a.run_id,b.run_id))
+  })),candidates:context.candidates.map(x=>({
+   horse_no:x.horse_no,base_rate:x.base_rate,base_rank:x.base_rank
+  })).sort((a,b)=>a.horse_no-b.horse_no)},
+  selectedRuns:selectedRuns.slice().sort((a,b)=>
+   a.horse_no-b.horse_no||lex(a.run_id,b.run_id))
  };
  return {schema:'JRA_UNAPPROVED_FACT_TO_POINT_REPLAY_V1',
    classification:'ISOLATED_UNAPPROVED_DETERMINISTIC_RESEARCH',
-   input_sha256:digest(inputSignature),policy_sha256:digest(policy),
+   input_sha256:digest(inputSignature),policy_sha256:digest(normalizedPolicy),
    research_only:true,production_allowed:false,formal_score_verified:false,
    official_issuer_verified:false,original_scorer_recovered:false,
    runners,source_runs_used:usedProof.size,
