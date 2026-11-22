@@ -29,7 +29,7 @@ DB adapterは環境変数が隔離PGの固定値と一致しないと拒否。`l
 
 初回Actions run [44977303763](https://github.com/BAKENLAB/baken-lab-hub2/actions/runs/44977303763) SUCCESS。
 実SQLの返却receipt、payload全文一致、FROZEN、DONE・lease解除、worker完了数、重複拒否、grade欠落、TOP5不一致、根拠欠落、期限切れ、発走3分前、protocol不一致、worker不整合、既存予想保護、任意shadow失敗時の通常保存、ROLLBACK後オブジェクト消失を確認。
-後続の実ハンドラー→PG連続実行は別runで確認し、最終結果JSONへ記録する。
+後続の実ハンドラー→PG連続実行も [44977695306](https://github.com/BAKENLAB/baken-lab-hub2/actions/runs/44977695306) SUCCESS。Nodeは既存115＋追加9＝124 PASS/0 FAIL。実SQL23 assertionとPG adapter経由5ケースもPASS（同じNodeケースの別環境実行を新規件数へ二重計上しない）。最終結果は `results.json`。
 
 ## 採点式と同一入力比較
 
