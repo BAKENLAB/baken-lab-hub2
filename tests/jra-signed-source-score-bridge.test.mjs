@@ -127,3 +127,39 @@ test('signed source-generated rank and signed factor points must match submitted
  assert.equal(y.ok,false);
  assert.equal(y.detail,'REPLAY_FACTOR_POINTS_OR_PROVENANCE_MISMATCH');
 });
+
+test('independent submission audit rejects fake trusted flags; signed data is necessary but not sufficient',async()=>{
+ const {auditSubmission}=await import(
+  '../research/jra-scoring-integrity-20261121/claim-retention/submission-audit.mjs');
+ const x=sample(),generated=scoreVerifiedV11ResearchPacket(x).generated;
+ const payload={
+  runners:generated.runners.map(r=>({horse_no:r.horse_no,
+   horse_name:r.horse_name,score:r.research_score,rank:r.research_rank,
+   reason:'合成の証拠テストであり本番予想ではない'})),
+  top5:generated.runners,
+  audit:{score_method:'V11_SYNTHETIC_POINTS_TEST_ONLY',
+   full_depth_comparison:true,runner_history_checked:generated.runners.map(r=>({
+    horse_no:r.horse_no,base_score:r.base_score,
+    score_after:r.research_score,rank_after:r.research_rank,
+    evidence_effects:structuredClone(r.effects)
+   }))}
+ };
+ const untrusted={
+  activeRunners:payload.runners,rows:[],
+  factorBindings:[],eyeChecklist:[],
+  trustedScoreMethod:'V11_SYNTHETIC_POINTS_TEST_ONLY',
+  scorerContext:{},scorerSelectedRuns:[{original_bytes_verified:true,
+   verified_before_post:true}],scorerPolicy:x.policy
+ };
+ const denied=auditSubmission(payload,untrusted);
+ assert.equal(denied.factToPoints.ok,false);
+ assert.equal(denied.factToPoints.reason,'SIGNED_V11_PROVIDER_UNAVAILABLE');
+ assert.equal(denied.formalScoringAllowed,false);
+ const signed=auditSubmission(payload,{
+  ...untrusted,signedSourcePacket:x.packet,signedSourceTrust:x.trust
+ });
+ assert.equal(signed.factToPoints.ok,true,JSON.stringify(signed.factToPoints));
+ assert.equal(signed.factToPoints.submitted_points_verified,true);
+ assert.equal(signed.formalScoringAllowed,false);
+ assert.ok(signed.findings.length>0,'synthetic source parity alone is not entire production authorization');
+});
