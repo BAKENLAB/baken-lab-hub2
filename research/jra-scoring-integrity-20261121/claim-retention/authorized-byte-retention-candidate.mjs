@@ -16,7 +16,8 @@ function sameCapture(a,b){
   a.fetchedAt===b.fetchedAt&&a.postTime===b.postTime;
 }
 export async function captureRetainAndRecheck({
- job,rawBytes,responseUrl,officialPostTime,observedAt,archive
+ job,rawBytes,responseUrl,officialPostTime,observedAt,archive,
+ loadTrustedRaceIdentity
 }={}){
  if(!archive||typeof archive.retain!=='function'||
     typeof archive.readPrivateArchive!=='function')
@@ -26,6 +27,26 @@ export async function captureRetainAndRecheck({
     typeof job.live_race_id!=='string'||
     !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(job.live_race_id))
    return reject('JOB_OR_RACE_IDENTITY_INVALID');
+ // The UUID may be valid but belong to ANOTHER race. Require a server-owned
+ // lookup binding the UUID, JRA CNAME, date, track, number and official post.
+ // Never accept those values solely because the caller included them.
+ if(typeof loadTrustedRaceIdentity!=='function')
+   return reject('TRUSTED_RACE_LOOKUP_DISCONNECTED');
+ let registered;
+ try{
+   registered=await loadTrustedRaceIdentity(Object.freeze({
+     live_race_id:job.live_race_id,
+     race_key:job.race_date+'/'+job.track+'/'+job.race_no
+   }));
+ }catch(e){return reject('TRUSTED_RACE_LOOKUP_FAILED',{detail:String(e?.message??e)});}
+ if(registered?.id!==job.live_race_id||
+   registered?.cname!==job.cname||
+   registered?.race_date!==job.race_date||
+   registered?.track!==job.track||
+   registered?.race_no!==job.race_no||
+   !Number.isFinite(Date.parse(registered?.post_time_iso))||
+   Date.parse(registered.post_time_iso)!==Date.parse(officialPostTime))
+   return reject('TRUSTED_RACE_UUID_OR_POST_TIME_MISMATCH');
  // This is exactly the URL the existing JRA live fetch uses. The final URL
  // must match independently so a redirected login page is not retained.
  const sourceUrl='https://www.jra.go.jp/JRADB/accessD.html?CNAME='+
