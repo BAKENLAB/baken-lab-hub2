@@ -1,11 +1,16 @@
 import { collectDeclaredLedger } from '../../../automation/jra-score-ledger/declared-ledger.mjs';
 import { checkDeclaredLedger } from '../../../automation/jra-score-ledger/independent-check.mjs';
+import { checkFixedScoreContract } from './fixed-score-contract.candidate.mjs';
 
 // Bound IDs and checklist must originate from the server's selected snapshot / protocol.
 export function auditSubmission(payload, selected) {
   const ledger = collectDeclaredLedger({payload});
   const arithmetic = checkDeclaredLedger({ledger,payload,officialActive:selected.activeRunners});
   const findings = [...arithmetic.errors];
+  const fixedScoring = checkFixedScoreContract({payload,selected});
+  if (!fixedScoring.ok) findings.push({code:fixedScoring.reason});
+  // Even a matching packet is only an integrity cross-check, never a
+  // certification that JRA original bytes, CLAIM, or a scorer are authentic.
   // The payload's numeric components can be internally consistent while its
   // score-generation method disappears or changes. Only server-owned policy
   // may pin a trusted method; never accept a claimed pin from the payload.
@@ -38,5 +43,5 @@ export function auditSubmission(payload, selected) {
       typeof rows[0].review_checks?.[k]?.reason === 'string' && rows[0].review_checks[k].reason.trim()))
       findings.push({code:'EYE_REVIEW_INCOMPLETE',horse_no:runner.horse_no});
   }
-  return {arithmeticOK:arithmetic.ok, findings, formalScoringAllowed:false};
+  return {arithmeticOK:arithmetic.ok, fixedScoring, findings, formalScoringAllowed:false};
 }
