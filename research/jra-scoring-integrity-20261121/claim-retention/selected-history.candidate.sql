@@ -1,6 +1,6 @@
 -- Isolated proposal: replace the selection inside a gated context, never rerun alongside it.
 CREATE FUNCTION private.jra_research_selected_history_v1(p_horse_name text, p_horse_ref text, p_race_date date, p_live_past_runs jsonb, p_limit integer DEFAULT 20)
- RETURNS TABLE(rn integer, prior_date date, prior_track text, prior_surface text, prior_distance integer, finish integer, field_size integer, margin_to_winner numeric, weight_carried numeric, jockey text, early_pos numeric, pos_change numeric, prior_class text, source_kind text, selected_run_id uuid, selected_race_id uuid, selected_horse_id text, selected_source_ref text, selection_tied boolean)
+ RETURNS TABLE(rn integer, prior_date date, prior_track text, prior_surface text, prior_distance integer, finish integer, field_size integer, margin_to_winner numeric, weight_carried numeric, jockey text, early_pos numeric, pos_change numeric, prior_class text, source_kind text, selected_run_id uuid, selected_race_id uuid, selected_horse_id text, selected_source_ref text, selection_tied boolean, live_input jsonb)
  LANGUAGE sql
  STABLE
  SET search_path TO 'pg_catalog', 'public', 'private'
@@ -28,7 +28,7 @@ AS $function$
       r.class_name as prior_class,
       'DB'::text as source_kind,
       2 as source_priority, case when private.jra_horse_key(p_horse_ref)=private.jra_horse_key(x.horse_ref) then x.id end as selected_run_id, x.race_id as selected_race_id,
-      private.jra_horse_key(x.horse_ref)::text as selected_horse_id, x.source_ref as selected_source_ref
+      private.jra_horse_key(x.horse_ref)::text as selected_horse_id, x.source_ref as selected_source_ref, null::jsonb as live_input
     from public.jra_lab_runs x
     join public.jra_lab_races r on r.id=x.race_id
     where x.horse_name=p_horse_name
@@ -63,7 +63,7 @@ AS $function$
       ) as prior_class,
       'LIVE'::text as source_kind,
       1 as source_priority, null::uuid as selected_run_id, null::uuid as selected_race_id,
-      null::text as selected_horse_id, null::text as selected_source_ref
+      null::text as selected_horse_id, null::text as selected_source_ref, p.run as live_input
     from jsonb_array_elements(
       private.jra_flat_past_runs(coalesce(p_live_past_runs,'[]'::jsonb))
     ) p(run)
@@ -79,7 +79,7 @@ AS $function$
       case when count(*) over (partition by prior_date,source_priority)=1
         then selected_run_id end as selected_run_id,
       count(*) over (partition by prior_date,source_priority)>1 as selection_tied,
-      selected_race_id,selected_horse_id,selected_source_ref
+      selected_race_id,selected_horse_id,selected_source_ref,live_input
     from (
       select * from live_rows
       union all
@@ -98,7 +98,7 @@ AS $function$
     o.rn,o.prior_date,o.prior_track,o.prior_surface,o.prior_distance,
     o.finish,o.field_size,o.margin_to_winner,o.weight_carried,o.jockey,
     o.early_pos,o.pos_change,o.prior_class,o.source_kind,
-    o.selected_run_id,o.selected_race_id,o.selected_horse_id,o.selected_source_ref,o.selection_tied
+    o.selected_run_id,o.selected_race_id,o.selected_horse_id,o.selected_source_ref,o.selection_tied,o.live_input
   from ordered o
   order by o.rn
   limit greatest(1,least(coalesce(p_limit,20),50));

@@ -70,3 +70,24 @@ test('a tied winning priority discards candidate history and skips proof lookup'
   assert.equal(result.context, legacy);
   assert.deepEqual(result.accepted, []);
 });
+
+test('LIVE evidence requires the exact capture, horse ID, parsed run and as-of time', async () => {
+  const {createLiveWriter, verifyLiveSlot} = await import('./live-evidence.mjs');
+  const ref='/JRADB/accessU.html?CNAME=pw01dud002019100606/AA';
+  const run={race_date:'2026-08-30',finish:1};
+  const at='2026-11-22T00:00:00Z';
+  const runner={horse_no:1,horse_ref:ref,past_runs:[run],source_checked_at:at};
+  const doc=await createLiveWriter({retain:x=>x})({
+    capture:{bytes:Uint8Array.of(1,2),at},raceId:'race',cname:'pw01dde0123/AA',runners:[runner]
+  });
+  const args={contextHash:'fixture',jobId:'fixture',horseNo:1,observedAt:at,
+    leaseUntil:'2026-11-22T01:00:00Z',saveCutoff:'2026-11-22T01:00:00Z',
+    slot:{source_kind:'LIVE',live_race_id:'race',horse_ref:ref,source_checked_at:at,live_input:run}};
+  const deps={readAuthorized:async()=>[{document:doc}],verifyReceipt:async()=>true,
+    parsePinnedCard:async()=>[runner],now:()=>Date.parse(at)};
+  assert.ok(await verifyLiveSlot(args,deps));
+  assert.equal(await verifyLiveSlot(args,{...deps,verifyReceipt:async()=>false}),null);
+  assert.equal(await verifyLiveSlot(args,{...deps,parsePinnedCard:async()=>[{...runner,past_runs:[{...run,finish:2}]}]}),null);
+  assert.equal(await verifyLiveSlot({...args,observedAt:'2026-11-21T00:00:00Z'},deps),null);
+  assert.equal(await verifyLiveSlot(args,{...deps,readAuthorized:async()=>[{document:doc},{document:doc}]}),null);
+});

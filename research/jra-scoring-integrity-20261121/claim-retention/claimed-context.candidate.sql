@@ -74,7 +74,8 @@ begin
         'source_kind',h.source_kind,
         '_selected',jsonb_build_object('source_kind',h.source_kind,'selected_run_id',h.selected_run_id,
           'selected_race_id',h.selected_race_id,'selected_horse_id',h.selected_horse_id,
-          'selected_source_ref',h.selected_source_ref,'selection_tied',h.selection_tied)
+          'selected_source_ref',h.selected_source_ref,'selection_tied',h.selection_tied,'live_input',h.live_input,
+          'live_race_id',rr.id,'horse_ref',lr.horse_ref,'source_checked_at',lr.source_checked_at)
       ) order by h.rn)
       from private.jra_research_selected_history_v1(
         lr.horse_name,lr.horse_ref,rr.race_date,lr.past_runs,4
