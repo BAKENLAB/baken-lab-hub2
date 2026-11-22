@@ -1,0 +1,54 @@
+--- a/index.ts
++++ b/index.ts
+@@ -34,7 +34,7 @@
+   catch { return new TextDecoder().decode(bytes); }
+ };
+ 
+-const fetchHtml = async (url, init = {}) => {
++const fetchHtml = async (url, init = {}, onBody = null) => {
+   const response = await fetch(url, {
+     ...init,
+     headers: {
+@@ -48,7 +48,11 @@
+   if (!response.ok) {
+     throw new Error("JRA HTTP " + response.status + " " + url);
+   }
+-  return decodeShiftJis(bytes);
++  const html = decodeShiftJis(bytes);
++  if (onBody && response.url === url && bytes.length <= 512 * 1024) {
++    onBody({rawBytes:bytes, decodedText:html, sourceUrl:url, fetchedAt:new Date().toISOString()});
++  }
++  return html;
+ };
+ 
+ const postAccessS = async (cname) =>
+@@ -284,8 +288,11 @@
+ };
+ 
+ const processOneRace = async (db, job) => {
++  const writer = globalThis.__jraResearchHistoryWriter;
++  let observation = null;
+   const resultHtml = await fetchHtml(
+-    BASE + "/JRADB/accessS.html?CNAME=" + encodeURIComponent(job.result_cname)
++    BASE + "/JRADB/accessS.html?CNAME=" + encodeURIComponent(job.result_cname),
++    {}, typeof writer === "function" ? body => { observation = body; } : null
+   );
+   const parsed = await parseResultPage(resultHtml, job);
+ 
+@@ -364,6 +371,16 @@
+         onConflict: "race_id,horse_name,record_role",
+       });
+     if (runnersUpsert.error) throw runnersUpsert.error;
++    if (observation) {
++      const signal = AbortSignal.timeout(75);
++      try {
++        await Promise.race([
++          writer({...observation, raceId, sourceRef:job.result_cname, extractorId:"jra-backfill-v27",
++            parsedRefs:parsed.runners.map(r=>({horse_name:r.horse_name,horse_ref:r.horse_ref})), signal}),
++          new Promise(resolve=>signal.addEventListener("abort",()=>resolve(null),{once:true}))
++        ]);
++      } catch { /* Optional archive cannot fail the regular acquisition. */ }
++    }
+   }
+ 
+   const queueUpdate = await db

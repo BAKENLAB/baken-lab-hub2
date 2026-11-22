@@ -35,6 +35,7 @@ jobs:
       - name: Byte retention candidate and actual November22 morning ledger replay
         run: |
           node tests/jra-final-provider.test.mjs
+          node research/jra-scoring-integrity-20261121/claim-retention/connection.test.mjs
           node research/jra-scoring-integrity-20261121/final-provider/replay-morning.mjs
       - name: Ledger tests with synthetic save and real historical arithmetic only
         run: node tests/jra-score-ledger.test.mjs
