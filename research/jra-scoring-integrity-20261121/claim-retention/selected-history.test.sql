@@ -28,7 +28,7 @@ INSERT INTO public.jra_lab_runs
  finish,time_raw,weight_carried,jockey,early_pos,pos_change,source_ref FROM public.jra_lab_runs;
 DO $$ DECLARE r record; BEGIN
  SELECT * INTO STRICT r FROM private.jra_research_selected_history_v1('fixture','2019100606','2026-11-01','[]');
- IF r.selected_run_id IS NOT NULL THEN RAISE EXCEPTION 'duplicate provenance promoted'; END IF;
+ IF r.selected_run_id IS NOT NULL OR r.selection_tied IS DISTINCT FROM true THEN RAISE EXCEPTION 'duplicate provenance promoted'; END IF;
 END $$;
 CREATE TABLE public.jra_prediction_jobs(id uuid);
 CREATE TABLE public.jra_prediction_worker_runs(id uuid);

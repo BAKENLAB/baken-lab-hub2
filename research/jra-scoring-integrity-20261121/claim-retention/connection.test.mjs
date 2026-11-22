@@ -58,3 +58,15 @@ test('reopens exact retained bytes; only scoped and timely selection can record 
     await assert.rejects(observe(args),/EXPIRED/);
   } finally {store.close();rmSync(dir,{recursive:true,force:true});}
 });
+
+test('a tied winning priority discards candidate history and skips proof lookup', async () => {
+  const { loadCheckedContext } = await import('./checked-context.mjs');
+  const legacy = { runner_history: [{ horse_no: 1, past_runs: [{finish: 2}] }] };
+  const candidate = { _research_selection: { rows: [{ runs: [{ selection_tied: true }] }] } };
+  const result = await loadCheckedContext({
+    readCandidate: async () => candidate,
+    readLegacy: async () => legacy
+  }, { authorizedRead: () => assert.fail('proof lookup must be skipped') });
+  assert.equal(result.context, legacy);
+  assert.deepEqual(result.accepted, []);
+});

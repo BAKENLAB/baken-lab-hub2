@@ -1,6 +1,6 @@
 -- Isolated proposal: replace the selection inside a gated context, never rerun alongside it.
 CREATE FUNCTION private.jra_research_selected_history_v1(p_horse_name text, p_horse_ref text, p_race_date date, p_live_past_runs jsonb, p_limit integer DEFAULT 20)
- RETURNS TABLE(rn integer, prior_date date, prior_track text, prior_surface text, prior_distance integer, finish integer, field_size integer, margin_to_winner numeric, weight_carried numeric, jockey text, early_pos numeric, pos_change numeric, prior_class text, source_kind text, selected_run_id uuid, selected_race_id uuid, selected_horse_id text, selected_source_ref text)
+ RETURNS TABLE(rn integer, prior_date date, prior_track text, prior_surface text, prior_distance integer, finish integer, field_size integer, margin_to_winner numeric, weight_carried numeric, jockey text, early_pos numeric, pos_change numeric, prior_class text, source_kind text, selected_run_id uuid, selected_race_id uuid, selected_horse_id text, selected_source_ref text, selection_tied boolean)
  LANGUAGE sql
  STABLE
  SET search_path TO 'pg_catalog', 'public', 'private'
@@ -78,6 +78,7 @@ AS $function$
       early_pos,pos_change,prior_class,source_kind,
       case when count(*) over (partition by prior_date,source_priority)=1
         then selected_run_id end as selected_run_id,
+      count(*) over (partition by prior_date,source_priority)>1 as selection_tied,
       selected_race_id,selected_horse_id,selected_source_ref
     from (
       select * from live_rows
@@ -97,7 +98,7 @@ AS $function$
     o.rn,o.prior_date,o.prior_track,o.prior_surface,o.prior_distance,
     o.finish,o.field_size,o.margin_to_winner,o.weight_carried,o.jockey,
     o.early_pos,o.pos_change,o.prior_class,o.source_kind,
-    o.selected_run_id,o.selected_race_id,o.selected_horse_id,o.selected_source_ref
+    o.selected_run_id,o.selected_race_id,o.selected_horse_id,o.selected_source_ref,o.selection_tied
   from ordered o
   order by o.rn
   limit greatest(1,least(coalesce(p_limit,20),50));

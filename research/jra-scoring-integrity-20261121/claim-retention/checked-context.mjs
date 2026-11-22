@@ -5,6 +5,9 @@ export async function checkSelectedContext(raw, dependencies) {
   const { _research_selection: selection, ...context } = raw;
   const contextText = JSON.stringify(context);
   if (!selection || !Array.isArray(selection.rows)) return { context, accepted: [] };
+  if (selection.rows.some(horse => horse.runs?.some(run => run.selection_tied))) {
+    return { context, accepted: [], status: 'LEGACY_CONTEXT_REQUIRED' };
+  }
   const proof = await readOfficialEvidence({
     contextText, job_id: context.job_id,
     lease_until: selection.lease_until, post_time: context.race.post_time
@@ -18,4 +21,14 @@ export async function checkSelectedContext(raw, dependencies) {
       entry.facts.every(fact => Date.parse(fact.observed_at) <= Date.parse(selection.observed_at));
   });
   return { context, accepted, status: proof.status };
+}
+
+// Both readers must be server-bound to the same authenticated job.
+export async function loadCheckedContext({ readCandidate, readLegacy }, dependencies) {
+  if (!readCandidate) return { context: await readLegacy(), accepted: [] };
+  const checked = await checkSelectedContext(await readCandidate(), dependencies);
+  if (checked.status === 'LEGACY_CONTEXT_REQUIRED') {
+    return { context: await readLegacy(), accepted: [], status: checked.status };
+  }
+  return checked;
 }
