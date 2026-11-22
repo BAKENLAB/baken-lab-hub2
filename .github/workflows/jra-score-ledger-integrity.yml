@@ -11,6 +11,7 @@ on:
       - 'tests/jra-eval-integration.test.mjs'
       - 'tests/jra-candidate-runtime.test.mjs'
       - 'tests/jra-remaining-blockers.test.mjs'
+      - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
       - 'sql/jra_score_ledger_validator_candidate_v1.sql'
       - 'research/jra-scoring-integrity-20261121/**'
@@ -31,6 +32,10 @@ jobs:
         run: node tests/jra-candidate-runtime.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
+      - name: Byte retention candidate and actual November22 morning ledger replay
+        run: |
+          node tests/jra-final-provider.test.mjs
+          node research/jra-scoring-integrity-20261121/final-provider/replay-morning.mjs
       - name: Ledger tests with synthetic save and real historical arithmetic only
         run: node tests/jra-score-ledger.test.mjs
       - name: Recovered rules and factor evidence authenticity
