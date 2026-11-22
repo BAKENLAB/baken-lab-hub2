@@ -13,6 +13,7 @@ on:
       - 'tests/jra-fixed-score-contract.test.mjs'
       - 'tests/jra-source-to-points-scorer.test.mjs'
       - 'tests/jra-base30-38-replay.test.mjs'
+      - 'tests/jra-prerace-basecore-audit.test.mjs'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
@@ -39,6 +40,8 @@ jobs:
         run: node tests/jra-source-to-points-scorer.test.mjs
       - name: Recovered base-30/38 parity against 450 pre-race FROZEN scores (read-only comparison)
         run: node tests/jra-base30-38-replay.test.mjs
+      - name: Today's source-derived BASE_CORE observation and field/rank continuity (read-only)
+        run: node tests/jra-prerace-basecore-audit.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
       - name: Byte retention candidate and actual November22 morning ledger replay
