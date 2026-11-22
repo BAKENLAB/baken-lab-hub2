@@ -37,6 +37,8 @@ jobs:
           node-version: '24'
       - name: Complete candidate handlers with explicitly substituted transport
         run: node tests/jra-candidate-runtime.test.mjs
+      - name: Current v42 rebased handler using isolated claim, guard and synthetic save/readback
+        run: JRA_TEST_V42_REBASE=1 node tests/jra-candidate-runtime.test.mjs
       - name: Unapproved fact-to-score replay fails closed without original evidence
         run: node tests/jra-fixed-score-contract.test.mjs
       - name: Deterministic original-fact-to-points research generator (no production policy)
@@ -117,6 +119,7 @@ jobs:
           node tests/jra-legacy-replay-check.mjs cohorts
           psql -X -v ON_ERROR_STOP=1 -f tests/jra-real-save-postgres.sql
           JRA_TEST_REAL_PG=1 node tests/jra-candidate-runtime.test.mjs
+          JRA_TEST_REAL_PG=1 JRA_TEST_V42_REBASE=1 node tests/jra-candidate-runtime.test.mjs
       - name: Preserve isolated reconstruction decisions and comparison
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
