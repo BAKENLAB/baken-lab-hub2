@@ -3,13 +3,14 @@
 // NOT an HTTP/OAuth/Deno/prod-provider certification. SQL is tested separately in PG17.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {saveInIsolatedPostgres} from './jra-real-save-adapter.mjs';
 import {stripTypeScriptTypes} from 'node:module';
 import {mkdtempSync,readFileSync,writeFileSync,readdirSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 const root=new URL('../research/jra-scoring-integrity-20261121/',import.meta.url);
-const time='2026-11-22T00:00:00Z',job='00000000-0000-4000-8000-000000000001',user='00000000-0000-4000-8000-000000000002';
+const time=process.env.JRA_TEST_REAL_PG==='1'?new Date().toISOString():'2026-11-22T00:00:00Z',job='00000000-0000-4000-8000-000000000001',user='00000000-0000-4000-8000-000000000002';
 function fixture(){
  const rows=Array.from({length:6},(_,i)=>({horse_no:i+1,horse_name:'馬'+(i+1),past_runs:[{source_ref:'/JRADB/accessS.html?CNAME=synthetic'+i,race_date:'2026-11-01',track:'東京',surface:'芝',distance:1800,race_class:'未勝利',margin_to_winner:0.3,corner_positions:[7,6,4,4],final3f:35.2,going:'良',finish:4}]}));
  const runners=rows.map((h,i)=>({horse_no:h.horse_no,horse_name:h.horse_name,rank:6-i,score:38+i*5,grade:'B',reason:'テスト専用の確認済み項目として合成した根拠記述であり実馬評価ではありません。',status:'ACTIVE'}));
@@ -17,6 +18,7 @@ function fixture(){
  const reason='前走芝1800m4着0.3秒差、通過順7-6-4-4・上がり35.2秒、着順のみでなく位置上昇と脚を確認して相対比較した結果を採点した。';
  const payload={runners,top5:[...runners].sort((a,b)=>a.rank-b.rank).slice(0,5),eye:null,bets:[],summary:'SYNTHETIC_ONLY',bet_strategy:'SUSPENDED_FOR_ABILITY_STABILITY',audit:{protocol_version:'SYNTHETIC_PROTOCOL',validated_core:'BASE_CORE_0.1',all_runners_checked:true,outside_top5_reaudited:true,eye_pool_checked:[1],rank6_auto_selected:false,market_used_for_ranking:false,market_used_for_eye:false,target_result_used:false,market_fields_excluded:true,eval_normal_relations_checked:1942,runner_history_checked:rows.map((h,i)=>({horse_no:h.horse_no,history_count:1,rank_before:i+1,rank_after:6-i,score_after:38+i*5,base_score:30+i*5,reason,source_refs:[h.past_runs[0].source_ref],evidence_effects:['margin','corners','last3f','class','distance','going'].map((kind,j)=>({kind,source_ref:h.past_runs[0].source_ref,points:[2,1,1,1,1,2][j]}))})),rank_review_before_eval:{review_scope:'ALL_6_ACTIVE',base_core_order:[1,2,3,4,5,6],independent_reassessment_order:[6,5,4,3,2,1],reason}}};
  payload.audit.eye_fill_review={version:'JRA_TURF_SHORT_FILL_NULL_20261115',baseline_eye:null,protocol_version:'SYNTHETIC_PROTOCOL',race:{race_date:context.race.race_date,track:'東京',race_no:1,post_time:context.race.post_time},evaluated_at:time,all_runners:runners.map(({horse_no,horse_name,rank,reason})=>({horse_no,horse_name,rank,reason})),outside_top5:[{horse_no:1,horse_name:'馬1',rank:6,positive_factors:[],risks:['合成例では独立肯定因子が足りない'],missing:[],decision_reason:'独立した肯定根拠二件を満たさず未選出',concrete_upside_reason:'合成例に選出を支持する十分な根拠なし'}],comparisons:[],selection_reason:'TOP5外は一頭のみで独立二因子不足により未選出',selected_horse_no:null};
+ context.race.race_date=new Date(Date.parse(time)+9*3600000).toISOString().slice(0,10);context.race.post_time=new Date(Date.parse(time)+30*60000).toISOString();payload.audit.eye_fill_review.race={race_date:context.race.race_date,track:'東京',race_no:1,post_time:context.race.post_time};
  return {context,payload};
 }
 async function execute(x,{denied=false,saveError=false}={}){
@@ -39,10 +41,11 @@ async function execute(x,{denied=false,saveError=false}={}){
    if(name==='jra_claimed_context')data=structuredClone(x.context);
    else if(name==='jra_save_claimed_prediction_with_shadow_v1'){
     if(saveError)error={message:'SIMULATED_SQL_REJECTION'};
+    else if(process.env.JRA_TEST_REAL_PG==='1'){const saved=saveInIsolatedPostgres(args,x.context);stored=saved.stored;data=saved.receipt;}
     else {stored={id:job,status:'FROZEN',payload:structuredClone(args.p_payload)};data={ok:true,prediction_id:job,shadow_status:'NOT_PROVIDED'};}
    }else throw Error('FORBIDDEN_RPC_'+name);
    const value={data,error};return {then:resolve=>Promise.resolve(value).then(resolve),abortSignal:async()=>value};
-  },from(table){if(table==='lab_course_jra_transfer_v1'){const q={select:()=>q,eq:()=>q,limit:async()=>({data:[],error:null})};return q;}if(table!=='official_predictions')throw Error('FORBIDDEN_TABLE_'+table);const q={select:()=>q,eq:()=>q,maybeSingle:async()=>({data:stored,error:null})};return q;}};
+  },from(table){if(table==='lab_course_jra_transfer_v1'){const q={select:()=>q,eq:()=>q,limit:async()=>({data:x.ownedTransferStats??[],error:null})};return q;}if(table!=='official_predictions')throw Error('FORBIDDEN_TABLE_'+table);const q={select:()=>q,eq:()=>q,maybeSingle:async()=>({data:stored,error:null})};return q;}};
   globalThis.__runtime={c,tools:new Map(),handler:null};
   writeFileSync(join(dir,'transport.mjs'),`const h=globalThis.__runtime;
    export class McpServer {registerTool(name,schema,fn){h.tools.set(name,fn)}}
@@ -83,4 +86,14 @@ test('whole candidate auth refusal makes no RPC calls; SQL rejection never retri
 test('actual whole candidate EYE audit omission refuses before save',async()=>{
  const x=fixture();x.payload.audit.eye_fill_review.outside_top5=[];
  const r=await execute(x);assert.equal(r.result.isError,true);assert.ok(!r.calls.includes('jra_save_claimed_prediction_with_shadow_v1'));
+});
+
+test('actual whole candidate producer +1 reaches save/readback without changing ranks or grades',async()=>{
+ const x=fixture();for(const h of x.context.runner_history)h.past_runs[0].finish=2;
+ for(const h of x.context.runner_content_evidence)h.history[0].finish=2;
+ x.ownedTransferStats=[{source_course_key:'東京|芝|1800|左',target_course_key:'東京|芝|1800|左',reliability:'HIGH',runners:200,top3_lift:1.2,condition_precision:'COARSE_NO_INNER_OUTER',training_to:'2025-12-31'}];
+ const r=await execute(x);assert.equal(r.result.isError,undefined,JSON.stringify(r.result));
+ assert.equal(r.result.structuredContent.score_changed_runner_count,6);
+ for(const h of x.payload.runners){const after=r.stored.payload.runners.find(a=>a.horse_no===h.horse_no);assert.equal(after.score,h.score+1);assert.equal(after.rank,h.rank);assert.equal(after.grade,h.grade);}
+ assert.equal(r.stored.payload.eye,null);
 });

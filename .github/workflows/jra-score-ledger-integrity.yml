@@ -10,7 +10,7 @@ on:
       - 'tests/jra-blocker-resolution.test.mjs'
       - 'tests/jra-eval-integration.test.mjs'
       - 'tests/jra-candidate-runtime.test.mjs'
-      - 'tests/jra-real-save-postgres.sql'
+      - 'tests/jra-real-save*'
       - 'sql/jra_score_ledger_validator_candidate_v1.sql'
       - 'research/jra-scoring-integrity-20261121/**'
       - '.github/workflows/jra-score-ledger-integrity.yml'
@@ -63,6 +63,9 @@ jobs:
           --health-retries 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
       - name: PostgreSQL candidate creation, fixture save/refusal and rollback
         env:
           PGHOST: localhost
@@ -81,6 +84,7 @@ jobs:
           node tests/jra-legacy-replay-check.mjs
           node tests/jra-legacy-replay-check.mjs cohorts
           psql -X -v ON_ERROR_STOP=1 -f tests/jra-real-save-postgres.sql
+          JRA_TEST_REAL_PG=1 node tests/jra-candidate-runtime.test.mjs
       - name: Preserve isolated reconstruction decisions and comparison
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
