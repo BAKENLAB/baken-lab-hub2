@@ -2,7 +2,7 @@
   "source_version": 39,
   "source_bundle_sha256": "2601ff8de87dd7a061716c7274546efc0d984ce93d2d37abf2d10768dca2e7ad",
   "source_snapshot_sha256": "6431b7b9ef14ab79121e6937b5296acb7e1521f61edcad147ed53a899a0c3a39",
-  "candidate_sha256": "c335a7c8e5245205788648e09a750dbb6f98941add7f99410b5ccef09026933e",
+  "candidate_sha256": "b41c706092f4257a16f33b725f2c5ef09c31f06b7d632079657d4876d3ceb67d",
   "source_text_normalization": "trimEnd + LF",
   "default_export_enabled": false,
   "deploy_file_mapping": {
@@ -21,5 +21,7 @@
   "observed_production_mcp_version_at_20261123": 42,
   "candidate_based_on_version": 39,
   "requires_runtime_rebase_and_reaudit": true,
-  "deployment_allowed": false
+  "deployment_allowed": false,
+  "prospective_claimed_base_policy_id": "JRA_RESEARCH_BASE_30PLUS38_V1",
+  "base_policy_is_approved_full_score_engine": false
 }
