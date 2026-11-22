@@ -80,9 +80,18 @@ export function checkRawJraCapture(packet){
   if(raw.toString('base64')!==c.bytes||HASH(raw)!==c.rawHash||
     raw.length!==c.original_byte_length)
    return {ok:false,reason:'RAW_BYTE_HASH_MISMATCH'};
-  const decoded=new TextDecoder('shift_jis').decode(raw);
-  if(decoded!==packet.decoded_html||
-    HASH(Buffer.from(decoded,'utf8'))!==c.decoded_utf8_sha256)
+  // Revalidate the entire capture metadata as well as bytes on read. A
+  // hash alone does not protect a claimed race ID, URL or as-of cutoff.
+  const replay=captureRawJraCardResponse({
+    cname:c.cname,sourceUrl:c.sourceUrl,
+    actualResponseUrl:c.actualResponseUrl,
+    rawBytes:raw,fetchedAt:c.fetchedAt,postTime:c.postTime,raceId:c.raceId
+  });
+  if(replay.decoded_html!==packet.decoded_html||
+    replay.capture.decoded_utf8_sha256!==c.decoded_utf8_sha256||
+    replay.capture.decoded_utf8_length!==c.decoded_utf8_length||
+    c.original_hash_domain!==replay.capture.original_hash_domain||
+    c.parsed_hash_domain!==replay.capture.parsed_hash_domain)
    return {ok:false,reason:'DECODED_SOURCE_HASH_MISMATCH'};
   return {ok:true,reason:'UNSIGNED_RAW_AND_DECODED_DOMAINS_MATCH',
     raw_sha256:c.rawHash,decoded_utf8_sha256:c.decoded_utf8_sha256,
