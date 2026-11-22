@@ -91,3 +91,23 @@ test('LIVE evidence requires the exact capture, horse ID, parsed run and as-of t
   assert.equal(await verifyLiveSlot({...args,observedAt:'2026-11-21T00:00:00Z'},deps),null);
   assert.equal(await verifyLiveSlot(args,{...deps,readAuthorized:async()=>[{document:doc},{document:doc}]}),null);
 });
+
+test('broker signs exact private document and slot, rejects changed claim and expired read', async () => {
+  const {generateKeyPairSync}=await import('node:crypto');
+  const {createLiveReadBroker,createLiveReceiptVerifier}=await import('./live-receipt.mjs');
+  const {privateKey,publicKey}=generateKeyPairSync('ed25519');
+  const request={jobId:'fixture',contextHash:'ctx',raceId:'r',horseId:'h',historyHash:'hash'};
+  let now=10, expiresAt=20;
+  const broker=createLiveReadBroker({
+    authorizeExactSlot:async r=>r===request?{expiresAt,lookup:{raceId:r.raceId}}:null,
+    readPrivateArchive:async()=>[{bytes:'AQI='}], issuer:'fixture',signingKey:privateKey,now:()=>now
+  });
+  const verify=createLiveReceiptVerifier({authorities:{fixture:publicKey},now:()=>now});
+  const [packet]=await broker(request);
+  assert.equal(verify(packet,request),true);
+  assert.equal(verify({...packet,document:{bytes:'AwQ='}},request),false);
+  assert.equal(verify(packet,{...request,jobId:'other'}),false);
+  now=expiresAt;
+  assert.equal(verify(packet,request),false);
+  assert.deepEqual(await broker(request),[]);
+});
