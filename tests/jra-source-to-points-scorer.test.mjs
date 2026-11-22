@@ -64,6 +64,17 @@ test('same full fact snapshot and exactly same policy generates identical full p
  assert.equal(a.original_scorer_recovered,false);
  assert.equal(a.production_allowed,false);
 });
+test('semantic input reordering does not change generated points, ranks or evidence hash',()=>{
+ const x=fixture(),before=generateResearchSourcePoints(x);
+ const shuffled=fixture();
+ shuffled.context.runner_history.reverse();
+ shuffled.context.runner_history[1].past_runs.reverse();
+ shuffled.context.candidates.reverse();
+ shuffled.selectedRuns.reverse();
+ shuffled.policy.rules.reverse();
+ const after=generateResearchSourcePoints(shuffled);
+ assert.deepEqual(after,before);
+});
 test('one changed official fact with same identity creates a different non-hidden point result',()=>{
  const x=fixture(),before=generateResearchSourcePoints(x);
  x.context.runner_history[0].past_runs[0].margin_to_winner=1.3;
