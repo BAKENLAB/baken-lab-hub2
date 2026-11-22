@@ -16,6 +16,8 @@ test('independent submission observer flags missing method and incomplete deep-a
   const missing=races[0].payload;
   const r=auditSubmission(missing,{rows:[],activeRunners:missing.runners,eyeChecklist:[]});
   assert.equal(r.formalScoringAllowed,false);
+  assert.equal(r.fixedScoring.ok,false);
+  assert.equal(r.fixedScoring.reason,'TRUSTED_FIXED_SCORE_CONTRACT_MISSING');
   assert.ok(r.findings.some(x=>x.code==='SCORE_METHOD_MISSING'));
   assert.ok(r.findings.some(x=>x.code==='FULL_DEPTH_COMPARISON_UNDECLARED'));
   const matched=structuredClone(missing);
