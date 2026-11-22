@@ -1,0 +1,18 @@
+[
+  [
+    "import {inspectJraFullDepthSave} from \"./jra-full-depth-save-gate.mjs\";",
+    "import {inspectJraFullDepthSave} from \"./jra-full-depth-save-gate.mjs\";\nimport {inspectScoreMethodContinuity} from \"./jra-score-method-continuity.mjs\";\nimport {inspectClaimedBaseParity} from \"./jra-claimed-base-parity.mjs\";"
+  ],
+  [
+    "     let fullDepthProof:any=null;",
+    "     let fullDepthProof:any=null;\n     let baseParityProof:any=null;"
+  ],
+  [
+    "         if(fullDepthProof.ok!==true)\n           throw Error(\"JRA_FULL_DEPTH_REVIEW_REQUIRED_\"+fullDepthProof.reason+\n             (fullDepthProof.horse_no?\"_HORSE_\"+fullDepthProof.horse_no:\"\"));",
+    "         if(fullDepthProof.ok!==true)\n           throw Error(\"JRA_FULL_DEPTH_REVIEW_REQUIRED_\"+fullDepthProof.reason+\n             (fullDepthProof.horse_no?\"_HORSE_\"+fullDepthProof.horse_no:\"\"));\n         // Research gate: SAME auth-CLAIM context, before optional Eval re-rank.\n         baseParityProof=inspectClaimedBaseParity({context,payload:reviewedDraft,\n           serverPinnedBasePolicy:Deno.env.get(\"JRA_RESEARCH_BASE_POLICY_ID\")});\n         if(!baseParityProof.ok)\n           throw Error(\"JRA_FULL_DEPTH_BASE_PARITY_\"+baseParityProof.reason+\n             (baseParityProof.horse_no?\"_HORSE_\"+baseParityProof.horse_no:\"\"));"
+  ],
+  [
+    "     if(fullDepthProof?.ok!==true)throw Error(\"JRA_FULL_DEPTH_REVIEW_NOT_VERIFIED\");",
+    "     if(fullDepthProof?.ok!==true)throw Error(\"JRA_FULL_DEPTH_REVIEW_NOT_VERIFIED\");\n     if(baseParityProof?.ok!==true)throw Error(\"JRA_FULL_DEPTH_BASE_PARITY_NOT_VERIFIED\");\n     // Method identity is pinned server-side, never trusted to the submitted payload.\n     const methodContinuity=inspectScoreMethodContinuity({\n       payload:savedPayload,approvedMethod:Deno.env.get(\"JRA_RESEARCH_SCORE_METHOD_CONTRACT\")\n     });\n     if(!methodContinuity.ok)\n       throw Error(\"JRA_METHOD_CONTINUITY_\"+methodContinuity.reason);\n     savedPayload={...savedPayload,audit:{...savedPayload.audit,\n       research_method_continuity:methodContinuity,research_base_parity:baseParityProof}};"
+  ]
+]
