@@ -14,9 +14,9 @@ export function createHistoryWriter({store, readPersistedRuns}) {
       if (matches.length !== 1) throw Error('AMBIGUOUS_ARCHIVE_IDENTITY');
       const row = matches[0];
       if (!row.run_id || !row.horse_id) throw Error('ARCHIVE_IDENTITY_INCOMPLETE');
-      const identity = JSON.stringify([row.race_id, row.run_id, row.horse_id]);
-      if (usedRuns.has(identity)) throw Error('DUPLICATE_ARCHIVE_IDENTITY');
-      usedRuns.add(identity);
+      // run_id identifies one persisted result row even if its horse fields drift.
+      if (usedRuns.has(row.run_id)) throw Error('DUPLICATE_ARCHIVE_IDENTITY');
+      usedRuns.add(row.run_id);
       return row;
     });
     if (usedRuns.size !== rows.length) throw Error('ARCHIVE_FIELD_MISMATCH');
