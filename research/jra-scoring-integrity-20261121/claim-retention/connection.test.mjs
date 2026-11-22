@@ -11,6 +11,25 @@ const json = file => JSON.parse(readFileSync(new URL(file, import.meta.url)));
 const archived = json('../remaining-blockers/archive-lineage.json').rows[0].exact_archive_candidates[0];
 const races = [1,2].flatMap(i=>json('../final-provider/morning-20261122-part-'+i+'.json').rows);
 
+test('independent submission observer flags missing method and incomplete deep-analysis declaration',async()=>{
+  const {auditSubmission}=await import('./submission-audit.mjs');
+  const missing=races[0].payload;
+  const r=auditSubmission(missing,{rows:[],activeRunners:missing.runners,eyeChecklist:[]});
+  assert.equal(r.formalScoringAllowed,false);
+  assert.ok(r.findings.some(x=>x.code==='SCORE_METHOD_MISSING'));
+  assert.ok(r.findings.some(x=>x.code==='FULL_DEPTH_COMPARISON_UNDECLARED'));
+  const matched=structuredClone(missing);
+  matched.audit.score_method='RESEARCH_TEST_ONLY_PIN';
+  matched.audit.full_depth_comparison=true;
+  const ok=auditSubmission(matched,{rows:[],activeRunners:matched.runners,
+    trustedScoreMethod:'RESEARCH_TEST_ONLY_PIN',eyeChecklist:[]});
+  assert.ok(!ok.findings.some(x=>x.code==='SCORE_METHOD_MISSING'||x.code==='SCORE_METHOD_UNPINNED_OR_DRIFTED'||x.code==='FULL_DEPTH_COMPARISON_UNDECLARED'));
+  const drift=auditSubmission(matched,{rows:[],activeRunners:matched.runners,
+    trustedScoreMethod:'ANOTHER_METHOD',eyeChecklist:[]});
+  assert.ok(drift.findings.some(x=>x.code==='SCORE_METHOD_UNPINNED_OR_DRIFTED'));
+  assert.equal(drift.formalScoringAllowed,false);
+});
+
 test('official acquisition rejects duplicate and incomplete persisted-run identities before retention', async () => {
   const a = { race_id:'fixture-race', source_ref:'fixture-source',
     horse_name:'Alpha', horse_ref:'ref-alpha', horse_id:'horse-alpha', run_id:'run-alpha' };
