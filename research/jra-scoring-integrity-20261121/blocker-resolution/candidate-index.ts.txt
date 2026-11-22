@@ -2,6 +2,7 @@ import {readOfficialQueueCname} from "./jra-official-queue-read.mjs";
 import {captureCardObservation} from "./jra-card-observation.mjs";
 import {reconcileG1ScoringTrace} from "./g1-scoring-trace.mjs";
 import {inspectJraFullDepthSave} from "./jra-full-depth-save-gate.mjs";
+import {inspectScoreMethodContinuity} from "./jra-score-method-continuity.mjs";
 import {restoreJraClaimedRunDetails} from "./jra-asof-detail-handoff.mjs";
 import {buildG1IntelligenceAudit} from "./g1-intelligence-audit.mjs";
 import { applyEyeFillNull, eyeFillInstructions } from "./jra-eye-fill-null.mjs";
@@ -356,6 +357,17 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        rankBridgeStatus="OPTIONAL_SOURCE_UNAVAILABLE";
      }
      if(fullDepthProof?.ok!==true)throw Error("JRA_FULL_DEPTH_REVIEW_NOT_VERIFIED");
+     // A deep numeric audit is not a reproducible scorer. Refuse any new
+     // research candidate save unless the operator pins the exact method.
+     // Never accept a method pin from the submitted prediction.
+     const methodContinuity=inspectScoreMethodContinuity({
+       payload:savedPayload,approvedMethod:Deno.env.get("JRA_RESEARCH_SCORE_METHOD_CONTRACT")
+     });
+     if(!methodContinuity.ok)
+       throw Error("JRA_METHOD_CONTINUITY_"+methodContinuity.reason);
+     // This marker does NOT certify the source-to-100 point generator.
+     savedPayload={...savedPayload,audit:{...savedPayload.audit,
+       research_method_continuity:methodContinuity}};
      // BEGIN EYE FILL SAVE
      if(eyeFillContext){
        savedPayload=applyEyeFillNull({context:eyeFillContext,payload:savedPayload,
