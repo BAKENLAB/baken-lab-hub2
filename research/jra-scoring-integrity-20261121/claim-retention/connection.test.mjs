@@ -11,6 +11,38 @@ const json = file => JSON.parse(readFileSync(new URL(file, import.meta.url)));
 const archived = json('../remaining-blockers/archive-lineage.json').rows[0].exact_archive_candidates[0];
 const races = [1,2].flatMap(i=>json('../final-provider/morning-20261122-part-'+i+'.json').rows);
 
+test('official acquisition rejects duplicate and incomplete persisted-run identities before retention', async () => {
+  const a = { race_id:'fixture-race', source_ref:'fixture-source',
+    horse_name:'Alpha', horse_ref:'ref-alpha', horse_id:'horse-alpha', run_id:'run-alpha' };
+  const b = { race_id:'fixture-race', source_ref:'fixture-source',
+    horse_name:'Beta', horse_ref:'ref-beta', horse_id:'horse-beta', run_id:'run-beta' };
+  let persisted = [a,b];
+  let retained = 0;
+  const writer = createHistoryWriter({
+    store:{ retain: async () => { retained++; return 'research-id'; } },
+    readPersistedRuns: async () => persisted
+  });
+  const parsedRefs = [a,b].map(({horse_name,horse_ref}) => ({horse_name,horse_ref}));
+  const submission = { rawBytes:Uint8Array.of(1), decodedText:'fixture',
+    sourceRef:'fixture-source', raceId:'fixture-race',
+    sourceUrl:'https://www.jra.go.jp/JRADB/accessS.html?CNAME=fixture',
+    fetchedAt:'2026-11-22T00:00:00Z', extractorId:'fixture', parsedRefs };
+  // Prior implementation silently retained [Alpha,Alpha] against [Alpha,Beta].
+  await assert.rejects(writer({...submission,parsedRefs:[parsedRefs[0],parsedRefs[0]]}),
+    /DUPLICATE_ARCHIVE_IDENTITY/);
+  assert.equal(retained,0);
+  // Two apparent horses cannot share the same persisted run UUID.
+  persisted = [a,{...b,run_id:a.run_id}];
+  await assert.rejects(writer(submission),/DUPLICATE_ARCHIVE_IDENTITY/);
+  assert.equal(retained,0);
+  persisted = [a,{...b,run_id:null}];
+  await assert.rejects(writer(submission),/ARCHIVE_IDENTITY_INCOMPLETE/);
+  assert.equal(retained,0);
+  persisted = [a,b];
+  assert.equal(await writer(submission),'research-id');
+  assert.equal(retained,1);
+});
+
 test('reopens exact retained bytes; only scoped and timely selection can record submitted decisions', async () => {
   const dir = mkdtempSync(join(tmpdir(),'jra-proof-'));
   const path = join(dir,'private.sqlite');
