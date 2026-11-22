@@ -10,6 +10,7 @@ on:
       - 'tests/jra-blocker-resolution.test.mjs'
       - 'tests/jra-eval-integration.test.mjs'
       - 'tests/jra-candidate-runtime.test.mjs'
+      - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-real-save*'
       - 'sql/jra_score_ledger_validator_candidate_v1.sql'
       - 'research/jra-scoring-integrity-20261121/**'
@@ -28,6 +29,8 @@ jobs:
           node-version: '24'
       - name: Complete candidate handlers with explicitly substituted transport
         run: node tests/jra-candidate-runtime.test.mjs
+      - name: Real archived identity joins do not impersonate signed claim evidence
+        run: node tests/jra-remaining-blockers.test.mjs
       - name: Ledger tests with synthetic save and real historical arithmetic only
         run: node tests/jra-score-ledger.test.mjs
       - name: Recovered rules and factor evidence authenticity

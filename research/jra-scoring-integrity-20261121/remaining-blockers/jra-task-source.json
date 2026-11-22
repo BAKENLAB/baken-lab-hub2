@@ -1,0 +1,38 @@
+[
+  {
+    "id": "6af780b6ced88191b7f7902fdb142e4a",
+    "team_id": null,
+    "title": "11/14 JRA 実戦順位改善",
+    "prompt": "【BAKEN LAB｜2026/11/14 JRA実戦順位改善】土曜東京・京都・福島の公式開催と実時刻JST、Supabase本番 qjlvsndiqjfsfjinilig のJRA台帳、公式BASIC_READY/READY、ACTIVE全馬、未FROZEN、発走時刻、正規CLAIMをその実行時点で確認する。目的はLOCALで見つかった『保存理由や過去走に根拠があるのに5位以下へ低評価した馬』の弱点をJRAにも実際の予想で正すこと。JRA0.4本番プロトコルは証明済み過去走からの全頭比較による基準順位変更を認める。毎回、過去の公式通過順・区間ラップ・上がり・着差・同条件好走・相手クラス／その後の実績・敗因／負けて強し・今回展開を発走前as-ofの証拠だけで全ACTIVE馬同じ深さで評価。TOP5確定前に旧5位と6位以下全頭を必ず再比較し、具体的に逆転すべき証拠があれば新しい正式100点評価・TOP5を実際に変更する。市場・人気・オッズ・外部印を能力評価に使わない。証拠不足は推測しない。新馬・障害・対象外を保存しない。正規BAKEN_JRA_MCPのJRA queue CLAIM→claimed context→必要なら順位プレビュー→JRA0.4全頭採点・TOP5＋独立EYE監査→正規保存→本番DONE/FROZEN/receipt/bets=[]再照合まで行い、可能な後続レースも継続。2026-11-14 06:24時点このチャットでJRA MCPは jra_claimed_context と jra_save_claimed_prediction の2ツールしか見えず、サーバー本体 jra-claimed-mcp v15 には jra_queue_claim_next,jra_queue_status,jra_relative_rank_preview,jra_seal_relative_rank_pair 等も登録されている。毎回ツール再発見し、正規CLAIMが使えないなら保存やDB変更を試みず、実行不能理由・必要なプラグイン『ツールを更新』を報告し、他の合法な改善調査を進める。既存FROZENの変更、発走後保存、期限切れCLAIM、明示拒否payload再送、直接DB書換、認証・READYゲート迂回、Cron再開、有料APIは絶対禁止。研究PRを作って終わらず、実際にFROZENされた新順位とその変更の馬番・根拠・点数を報告する。正規保存できなければ『未実施』と明示する。\n【本番反映済み・2026/11/14朝】Supabaseの jra-claimed-mcp はv16 ACTIVE、jra_claimed_context の返答に live_ability_rank_input が追加された。status=READY_FOR_OFFICIAL_RANK_DECISIONなら candidate_full_order,rank_changes,rank_evidence_by_horse を正式JRA0.4の新規全頭100点順位決定に実際に取り込み、根拠のある上下入れ替えはFROZENのTOP5へ反映。BASE_CORE候補や研究順位を盲目的にそのまま保存せず、全馬の同場・距離・上がり・ラップ・相手レベル・展開の発走前証拠と照合。FALLBACKは従来JRA0.4。正規CLAIMツールが利用不可ならDB直書き等で代用せず停止。既存FROZENと保存ゲートは厳守。\n【Eval Sign 統合・2026/11/14 朝 本番投入】正規 JRA MCP `jra-claimed-mcp` v18 が ACTIVE。正規 `jra_claimed_context` が発走前の有効CLAIMから取得できれば、新設 `eval_course_transfer_input` と `live_ability_rank_input.eval_course_transfer` を確認して、JRA0.4の全頭独立100点・TOP5正式判断に実際に使用する。外部Evalの通常82コース×優先上位3条件=246組、11/13以前のレースへの同スナップショット適用禁止はサーバー内非公開の方向情報のみ。参考14コース除外。BAKEN LAB独自2023-2025の course-transfer n>=120・MEDIUM/HIGH・top3_lift>=1.08 と一致し、当該馬の365日以内の公式過去走1〜3着が確認できたときだけ最大1点ぶんの同一走のコース適性評価予算を認める。倍率をオッズ・勝率・点数へ直乗算しない。既存の過去走の加点と二重計上しない。全頭に同じ条件を適用、根拠があれば正式TOP5順位を変える。検証なしの自動昇格なし。商用再配布・生データ表示はしない。LOCAL現場はEvalの対象コース外なので同表を直接加点せず、既存LOCAL独立評価を継続。実際のFROZEN保存・receipt・DB照合がなければ『実戦反映未確認』と報告。",
+    "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Asia/Tokyo:20261114T084000\nRRULE:FREQ=HOURLY;COUNT=9\nEND:VEVENT",
+    "timing_mode": "exact_schedule",
+    "display_schedule": null,
+    "is_enabled": false,
+    "conversation_id": "6af73dc2-cd84-83ee-ac69-717142d560b4",
+    "is_self_owned_automation": false,
+    "default_timezone": "Asia/Tokyo",
+    "next_run_time": null,
+    "last_run_time": null,
+    "updated_at": "2026-11-13T22:19:06.805185+00:00",
+    "environment_selection": "inherited",
+    "environments": null
+  },
+  {
+    "id": "Automation_912a9dc4dea081919e1e9f408a376d39",
+    "team_id": null,
+    "title": "11/7 JRA全場FROZEN巡回",
+    "prompt": "【BAKEN LAB｜2026-11-07 JRA全場正規FROZEN・再発防止巡回】実行時のJST、本番Supabase qjlvsndiqjfsfjiniligで公式開催を確認し、東京・京都・福島（公式確認の上）JRA全場を対象。JRA公認出馬表・全頭・近走・公式取消・BASIC_READY/READY・post_time・既存FROZEN・JRA worker RUNNING/lease を独立照合。**正規CLAIMは既存の専用サーバ関数 public.jra_manual_claim_next_v1()（発走3～70分前、当日、平地、未保存、READY、正規リース発行のゲート付き）を正規操作として利用する場合に限定**。この関数以外のジョブ直接INSERT/UPDATE/DELETEは禁止。既存MCPのjra_claimed_context(job_id)で全馬履歴と現在材料を読み込み、現行JRA本番モデル（DBのactiveを実確認）で全ACTIVE馬の独立比較、TOP5◎○▲☆△、EYEの全頭監査。新馬と障害は現行除外ルールを守り、対象外を未保存失敗として数えない。人気・オッズは能力評価に使わない。bets=[]、bet_strategy=SUSPENDED_FOR_ABILITY_STABILITY。保存は正規BAKEN_JRA_MCPのjra_save_claimed_predictionだけ、保存後に本番DB FROZEN/receipt/全頭/TOP5/EYE/空betsを照合する。発走後、リース失効、出走取消不一致、根拠不足、保存拒否済み同一入力の再送、ゲート迂回、直接DB更新、Cron再開、研究モデル本番投入は厳禁。押下時点の対象レースを発走順に、成功1Rで終わらず正規CLAIM可能な後続に連続処理。対象・保存数・未保存理由と次に可能なCLAIM時刻を報告。\n【新設の読み取り専用診断】public.lab_race_readiness_audit_v1('2026-11-07') でJRA各レースのREADY・jra_live_runner_count・正規CLAIM/JOB/発走時刻を発走順に確認。LOCAL向けpreflightはJRAに誤用しない。予想保存は現行JRA公式MCPの厳密な正規経路のみ。タイムウィンドウに入らないレースは未保存のまま次回候補に記録。失敗したら次の未保存対象へ進み、公式発走後に保存しない。\n【JRA0.4新規保存前プリフライト】新しい正規JRA予想payloadを完成させた後、必ず読み取り専用 SELECT public.lab_jra_save_preflight_v1(protocol_version,payload) を実際の保存予定データに対して実行し、ok=trueかつ全頭/公式取消/entry_count_verified/active_count_verified/取消馬のnull順位/market_used_for_ranking=false/market_used_for_eye=false/TOP5=5/空betsを確認してから正規JRA MCP保存。ok=falseならエラー名称と証拠を調査し、拒否済み同一入力の再送禁止。これは補助診断で、正規CLAIMや本番セーフティゲートに代替しない。取消馬は公式取消とaudit.cancelled_runner_nosに一致する場合だけ順位なしとする。",
+    "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Asia/Tokyo:20261107T082500\nRRULE:FREQ=HOURLY;COUNT=10\nEND:VEVENT",
+    "timing_mode": "exact_schedule",
+    "display_schedule": null,
+    "is_enabled": false,
+    "conversation_id": "6aee61fc-2854-83ec-895c-4375ee988fcd",
+    "is_self_owned_automation": false,
+    "default_timezone": "Asia/Tokyo",
+    "next_run_time": null,
+    "last_run_time": "2026-11-07T06:29:49.273971+00:00",
+    "updated_at": "2026-11-07T06:30:52.553787+00:00",
+    "environment_selection": "inherited",
+    "environments": null
+  }
+]
