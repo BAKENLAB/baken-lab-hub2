@@ -95,6 +95,40 @@ test('candidate refuses missing method declaration, method drift, and missing fu
 });
 
 
+
+test('all 65 real Nov15/21/22 FROZEN method and depth audit records expose historical continuity drift',async()=>{
+ const source=readFileSync(new URL('../research/jra-scoring-integrity-20261121/baseline/mcp/jra-score-method-continuity.mjs.txt',import.meta.url),'utf8');
+ const {inspectScoreMethodContinuity}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+ const saved=JSON.parse(readFileSync(new URL('../research/jra-scoring-integrity-20261121/observations/jra-method-drift-nov15-21-22-readonly.json',import.meta.url)));
+ assert.equal(saved.classification,'READONLY_HISTORICAL_FROZEN_AUDIT_FIELDS_NOT_SOURCE_AUTHENTICITY_PROOF');
+ assert.equal(saved.rows.length,65);
+ const byDay={};
+ for(const r of saved.rows){
+   assert.equal(typeof r.frozen_jst,'string');
+   const payload={audit:{score_method:r.declared_method,
+     full_depth_comparison:r.legacy_depth_true===true}};
+   const decision=inspectScoreMethodContinuity({payload,
+     approvedMethod:'MANUAL_WHOLE_FIELD_EVIDENCE_ASSESSMENT'});
+   const out=byDay[r.race_date]??{total:0,absentMethod:0,acceptedDeclarationOnly:0};
+   out.total++;
+   out.absentMethod+=Number(decision.reason==='SCORE_METHOD_MISSING');
+   out.acceptedDeclarationOnly+=Number(decision.ok);
+   byDay[r.race_date]=out;
+   if(r.race_date==='2026-11-22'){
+     assert.equal(decision.ok,false);
+     assert.equal(decision.reason,'SCORE_METHOD_MISSING');
+     assert.equal(r.claimed_source_review_ok,true);
+   }
+   if(decision.ok){assert.equal(decision.score_reproduced,false);
+     assert.equal(decision.formal_scoring_allowed,false);}
+ }
+ assert.deepEqual(byDay,{
+   '2026-11-15':{total:27,absentMethod:0,acceptedDeclarationOnly:26},
+   '2026-11-21':{total:20,absentMethod:0,acceptedDeclarationOnly:0},
+   '2026-11-22':{total:18,absentMethod:18,acceptedDeclarationOnly:0}
+ });
+});
+
 test('actual Nov22 morning FROZEN cannot pass research method-continuity gate by claiming full-depth alone',async()=>{
  const source=readFileSync(new URL('../research/jra-scoring-integrity-20261121/baseline/mcp/jra-score-method-continuity.mjs.txt',import.meta.url),'utf8');
  const {inspectScoreMethodContinuity}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
