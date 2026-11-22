@@ -34,5 +34,13 @@
   [
     "return {content:[{type:\"text\",text:JSON.stringify(preview)}],structuredContent:preview};",
     "if(include_evidence){\n         const observation=await captureCardObservation({requested:true,enabled:researchExportEnabled,bytes,proof,source_url:\"https://www.jra.go.jp/JRADB/accessD.html?CNAME=\"+encodeURIComponent(cname),response_url:response.url,fetched_at:researchFetchedAt,identities:researchIdentities});\n         const researchPreview={...preview,research_card_export:observation};\n         return {content:[{type:\"text\",text:JSON.stringify(researchPreview)}],structuredContent:researchPreview};\n       }\n       return {content:[{type:\"text\",text:JSON.stringify(preview)}],structuredContent:preview};"
+  ],
+  [
+    "import {inspectJraFullDepthSave} from \"./jra-full-depth-save-gate.mjs\";",
+    "import {inspectJraFullDepthSave} from \"./jra-full-depth-save-gate.mjs\";\nimport {inspectScoreMethodContinuity} from \"./jra-score-method-continuity.mjs\";"
+  ],
+  [
+    "     if(fullDepthProof?.ok!==true)throw Error(\"JRA_FULL_DEPTH_REVIEW_NOT_VERIFIED\");",
+    "     if(fullDepthProof?.ok!==true)throw Error(\"JRA_FULL_DEPTH_REVIEW_NOT_VERIFIED\");\n     // A deep numeric audit is not a reproducible scorer. Refuse any new\n     // research candidate save unless the operator pins the exact method.\n     // Never accept a method pin from the submitted prediction.\n     const methodContinuity=inspectScoreMethodContinuity({\n       payload:savedPayload,approvedMethod:Deno.env.get(\"JRA_RESEARCH_SCORE_METHOD_CONTRACT\")\n     });\n     if(!methodContinuity.ok)\n       throw Error(\"JRA_METHOD_CONTINUITY_\"+methodContinuity.reason);\n     // This marker does NOT certify the source-to-100 point generator.\n     savedPayload={...savedPayload,audit:{...savedPayload.audit,\n       research_method_continuity:methodContinuity}};"
   ]
 ]
