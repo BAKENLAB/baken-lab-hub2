@@ -16,12 +16,12 @@ function fixture(){
  const runners=rows.map((h,i)=>({horse_no:h.horse_no,horse_name:h.horse_name,rank:6-i,score:38+i*5,grade:'B',reason:'テスト専用の確認済み項目として合成した根拠記述であり実馬評価ではありません。',status:'ACTIVE'}));
  const context={job_id:job,protocol_version:'SYNTHETIC_PROTOCOL',stage:'AWAITING_JRA_FULL_DEPTH_COMPARISON',race:{race_date:'2026-11-22',track:'東京',race_no:1,post_time:'2026-11-22T02:00:00Z',field_payload:{official_status_verification:{verified:true,fixture_only:true},race:{race_type:'平地',surface:'芝',distance:1800},runners}},runner_history:rows,candidates:rows.map((h,i)=>({horse_no:h.horse_no,horse_name:h.horse_name,base_rank:i+1,base_rate:0.6})),runner_content_status:'READY',runner_content_evidence:rows.map(h=>({horse_no:h.horse_no,horse_name:h.horse_name,history:h.past_runs.map(p=>({source_kind:'LIVE',base_facts_available:true,raw_history_match_count:1,prior_date:p.race_date,prior_track:p.track,prior_surface:p.surface,prior_distance:p.distance,finish:p.finish,margin_to_winner:p.margin_to_winner,live_corner_positions:[7,6,4,4],final3f:35.2,final3f_source:'LIVE_PAST_RUN_FALLBACK',live_going:'良',field_size:12}))}))};
  const reason='前走芝1800m4着0.3秒差、通過順7-6-4-4・上がり35.2秒、着順のみでなく位置上昇と脚を確認して相対比較した結果を採点した。';
- const payload={runners,top5:[...runners].sort((a,b)=>a.rank-b.rank).slice(0,5),eye:null,bets:[],summary:'SYNTHETIC_ONLY',bet_strategy:'SUSPENDED_FOR_ABILITY_STABILITY',audit:{protocol_version:'SYNTHETIC_PROTOCOL',validated_core:'BASE_CORE_0.1',all_runners_checked:true,outside_top5_reaudited:true,eye_pool_checked:[1],rank6_auto_selected:false,market_used_for_ranking:false,market_used_for_eye:false,target_result_used:false,market_fields_excluded:true,eval_normal_relations_checked:1942,runner_history_checked:rows.map((h,i)=>({horse_no:h.horse_no,history_count:1,rank_before:i+1,rank_after:6-i,score_after:38+i*5,base_score:30+i*5,reason,source_refs:[h.past_runs[0].source_ref],evidence_effects:['margin','corners','last3f','class','distance','going'].map((kind,j)=>({kind,source_ref:h.past_runs[0].source_ref,points:[2,1,1,1,1,2][j]}))})),rank_review_before_eval:{review_scope:'ALL_6_ACTIVE',base_core_order:[1,2,3,4,5,6],independent_reassessment_order:[6,5,4,3,2,1],reason}}};
+ const payload={runners,top5:[...runners].sort((a,b)=>a.rank-b.rank).slice(0,5),eye:null,bets:[],summary:'SYNTHETIC_ONLY',bet_strategy:'SUSPENDED_FOR_ABILITY_STABILITY',audit:{protocol_version:'SYNTHETIC_PROTOCOL',validated_core:'BASE_CORE_0.1',score_method:'SYNTHETIC_SCORE_CONTRACT_TEST_ONLY',full_depth_comparison:true,all_runners_checked:true,outside_top5_reaudited:true,eye_pool_checked:[1],rank6_auto_selected:false,market_used_for_ranking:false,market_used_for_eye:false,target_result_used:false,market_fields_excluded:true,eval_normal_relations_checked:1942,runner_history_checked:rows.map((h,i)=>({horse_no:h.horse_no,history_count:1,rank_before:i+1,rank_after:6-i,score_after:38+i*5,base_score:30+i*5,reason,source_refs:[h.past_runs[0].source_ref],evidence_effects:['margin','corners','last3f','class','distance','going'].map((kind,j)=>({kind,source_ref:h.past_runs[0].source_ref,points:[2,1,1,1,1,2][j]}))})),rank_review_before_eval:{review_scope:'ALL_6_ACTIVE',base_core_order:[1,2,3,4,5,6],independent_reassessment_order:[6,5,4,3,2,1],reason}}};
  payload.audit.eye_fill_review={version:'JRA_TURF_SHORT_FILL_NULL_20261115',baseline_eye:null,protocol_version:'SYNTHETIC_PROTOCOL',race:{race_date:context.race.race_date,track:'東京',race_no:1,post_time:context.race.post_time},evaluated_at:time,all_runners:runners.map(({horse_no,horse_name,rank,reason})=>({horse_no,horse_name,rank,reason})),outside_top5:[{horse_no:1,horse_name:'馬1',rank:6,positive_factors:[],risks:['合成例では独立肯定因子が足りない'],missing:[],decision_reason:'独立した肯定根拠二件を満たさず未選出',concrete_upside_reason:'合成例に選出を支持する十分な根拠なし'}],comparisons:[],selection_reason:'TOP5外は一頭のみで独立二因子不足により未選出',selected_horse_no:null};
  context.race.race_date=new Date(Date.parse(time)+9*3600000).toISOString().slice(0,10);context.race.post_time=new Date(Date.parse(time)+30*60000).toISOString();payload.audit.eye_fill_review.race={race_date:context.race.race_date,track:'東京',race_no:1,post_time:context.race.post_time};
  return {context,payload};
 }
-async function execute(x,{denied=false,saveError=false}={}){
+async function execute(x,{denied=false,saveError=false,methodContract='SYNTHETIC_SCORE_CONTRACT_TEST_ONLY'}={}){
  const dir=mkdtempSync(join(tmpdir(),'jra-runtime-')),calls=[],RealDate=Date;
  try{
   for(const name of readdirSync(new URL('baseline/mcp/',root)).filter(n=>n.endsWith('.mjs.txt')))
@@ -54,7 +54,7 @@ async function execute(x,{denied=false,saveError=false}={}){
    export const withOAuthProtectedResource=()=>null,withSupabase=()=>null,createClient=()=>h.c;
    const chain=new Proxy(()=>chain,{get:()=>chain,apply:()=>chain}); export const z=chain;
    export const load=()=>{throw Error('NETWORK_HTML_PATH_UNTESTED')};`);
-  globalThis.Deno={env:{get:key=>({LOCAL_MCP_ALLOWED_USER_ID:user,SUPABASE_URL:'http://127.0.0.1:1',SUPABASE_SERVICE_ROLE_KEY:'SYNTHETIC_NOT_A_KEY'})[key]},serve:fn=>{globalThis.__runtime.handler=fn;}};
+  globalThis.Deno={env:{get:key=>({LOCAL_MCP_ALLOWED_USER_ID:user,SUPABASE_URL:'http://127.0.0.1:1',SUPABASE_SERVICE_ROLE_KEY:'SYNTHETIC_NOT_A_KEY',JRA_RESEARCH_SCORE_METHOD_CONTRACT:methodContract})[key]},serve:fn=>{globalThis.__runtime.handler=fn;}};
   globalThis.Date=class extends RealDate {constructor(...a){super(...(a.length?a:[time]));}static now(){return RealDate.parse(time);}};
   let source=readFileSync(new URL('blocker-resolution/candidate-index.ts.txt',root),'utf8');
   source=source.replace(/^import "jsr:[^\n]+\n/gm,'').replace(/from "npm:[^"]+"/g,'from "./transport.mjs"');
@@ -74,6 +74,26 @@ test('complete candidate index executes full-depth -> actual bridge -> null EYE 
  assert.deepEqual(fields(r.stored.payload.runners),fields(x.payload.runners));assert.deepEqual(x,before);
  assert.equal(r.calls.filter(n=>n==='jra_save_claimed_prediction_with_shadow_v1').length,1);assert.ok(r.toolCount>=6);
 });
+
+test('candidate refuses missing method declaration, method drift, and missing full-depth declaration before save',async()=>{
+ const noMethod=fixture();delete noMethod.payload.audit.score_method;
+ const a=await execute(noMethod);
+ assert.equal(a.result.isError,true);assert.equal(a.stored,undefined);
+ assert.ok(!a.calls.includes('jra_save_claimed_prediction_with_shadow_v1'));
+ const drift=fixture();drift.payload.audit.score_method='UNREVIEWED_NEW_METHOD';
+ const b=await execute(drift);
+ assert.equal(b.result.isError,true);assert.equal(b.stored,undefined);
+ assert.ok(!b.calls.includes('jra_save_claimed_prediction_with_shadow_v1'));
+ const noFullDepth=fixture();delete noFullDepth.payload.audit.full_depth_comparison;
+ const c=await execute(noFullDepth);
+ assert.equal(c.result.isError,true);assert.equal(c.stored,undefined);
+ assert.ok(!c.calls.includes('jra_save_claimed_prediction_with_shadow_v1'));
+ // Explicitly clear the server-only pin: the request's claimed method cannot authorize itself.
+ const unapproved=await execute(fixture(),{methodContract:''});
+ assert.equal(unapproved.result.isError,true);assert.equal(unapproved.stored,undefined);
+ assert.ok(!unapproved.calls.includes('jra_save_claimed_prediction_with_shadow_v1'));
+});
+
 test('whole candidate rejects missing full-depth audit before any save',async()=>{
  const x=fixture();delete x.payload.audit.runner_history_checked;
  const r=await execute(x);assert.equal(r.result.isError,true);assert.equal(r.stored,undefined);assert.ok(!r.calls.includes('jra_save_claimed_prediction_with_shadow_v1'));
