@@ -10,10 +10,12 @@ function vector(xs){
  return xs.map(x=>[x.kind,x.source_ref,x.points,x.run_id,x.horse_id,x.original_sha256])
   .sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b)));
 }
-export function compareResearchGeneratedToDeclared({context,selectedRuns,policy,payload}={}){
- let model;
- try{model=generateResearchSourcePoints({context,selectedRuns,policy});}
- catch(e){return neg('SOURCE_SCORER_UNAVAILABLE',{detail:String(e?.message??e)});}
+export function compareGeneratedResearchScores({generated,payload}={}){
+ const model=generated;
+ if(model?.classification!=='ISOLATED_UNAPPROVED_DETERMINISTIC_RESEARCH'||
+   model.production_allowed!==false||
+   !Array.isArray(model.runners)||!model.runners.length)
+   return neg('DETERMINISTIC_GENERATOR_PACKET_INVALID');
  const submitted=payload?.runners,reviews=payload?.audit?.runner_history_checked;
  if(!Array.isArray(submitted)||!Array.isArray(reviews)||
     submitted.length!==model.runners.length||reviews.length!==model.runners.length)
@@ -46,4 +48,11 @@ export function compareResearchGeneratedToDeclared({context,selectedRuns,policy,
   canonical_issuer_verified:false,
   score_contract_approved:false
  };
+}
+
+export function compareResearchGeneratedToDeclared({context,selectedRuns,policy,payload}={}){
+ let generated;
+ try{generated=generateResearchSourcePoints({context,selectedRuns,policy});}
+ catch(e){return neg('SOURCE_SCORER_UNAVAILABLE',{detail:String(e?.message??e)});}
+ return compareGeneratedResearchScores({generated,payload});
 }
