@@ -94,6 +94,20 @@ test('candidate refuses missing method declaration, method drift, and missing fu
  assert.ok(!unapproved.calls.includes('jra_save_claimed_prediction_with_shadow_v1'));
 });
 
+
+test('actual Nov22 morning FROZEN cannot pass research method-continuity gate by claiming full-depth alone',async()=>{
+ const source=readFileSync(new URL('../research/jra-scoring-integrity-20261121/baseline/mcp/jra-score-method-continuity.mjs.txt',import.meta.url),'utf8');
+ const {inspectScoreMethodContinuity}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+ const archived=[1,2].flatMap(i=>JSON.parse(readFileSync(new URL('../research/jra-scoring-integrity-20261121/final-provider/morning-20261122-part-'+i+'.json',import.meta.url))).rows);
+ assert.equal(archived.length,6,'real archived morning fixture must remain six frozen races');
+ for(const frozen of archived){
+   assert.equal(frozen.payload.audit.full_depth_source_review.ok,true,'historically claimed full-depth review');
+   const decision=inspectScoreMethodContinuity({payload:frozen.payload,approvedMethod:'RESEARCH_PIN_ONLY'});
+   assert.equal(decision.ok,false,JSON.stringify({track:frozen.track,race_no:frozen.race_no,decision}));
+   assert.equal(decision.reason,'SCORE_METHOD_MISSING');
+ }
+});
+
 test('whole candidate rejects missing full-depth audit before any save',async()=>{
  const x=fixture();delete x.payload.audit.runner_history_checked;
  const r=await execute(x);assert.equal(r.result.isError,true);assert.equal(r.stored,undefined);assert.ok(!r.calls.includes('jra_save_claimed_prediction_with_shadow_v1'));
