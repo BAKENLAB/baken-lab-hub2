@@ -12,7 +12,12 @@ function args(){return {
   live_race_id:'00000000-0000-4000-8000-000000000001'},
  rawBytes:Buffer.from(body),responseUrl:url,
  officialPostTime:'2026-11-23T09:45:00+09:00',
- observedAt:'2026-11-23T08:39:00+09:00'
+ observedAt:'2026-11-23T08:39:00+09:00',
+ loadTrustedRaceIdentity:async()=>({
+   id:'00000000-0000-4000-8000-000000000001',
+   cname:cn,race_date:'2026-11-23',track:'福島',race_no:1,
+   post_time_iso:'2026-11-23T09:45:00+09:00'
+ })
 };}
 function createArchive(){
  const held=[];
@@ -53,11 +58,29 @@ test('invalid final URL, post-start timestamp, race ID or absent archive never r
   const {archive,held}=createArchive(),x=args();mutate(x);
   const out=await captureRetainAndRecheck({...x,archive});
   assert.equal(out.ok,false);
-  assert.ok(['RAW_SOURCE_REFUSED','JOB_OR_RACE_IDENTITY_INVALID'].includes(out.reason));
+  assert.ok(['RAW_SOURCE_REFUSED','JOB_OR_RACE_IDENTITY_INVALID',
+   'TRUSTED_RACE_UUID_OR_POST_TIME_MISMATCH'].includes(out.reason));
   assert.equal(held.length,0);
  }
  const noArchive=await captureRetainAndRecheck(args());
  assert.equal(noArchive.reason,'AUTHORIZED_PRIVATE_ARCHIVE_DISCONNECTED');
+});
+test('syntactically valid wrong UUID and spoofed post time refuse before first archive write',async()=>{
+ const x=createArchive(),bad=args();
+ bad.job.live_race_id='00000000-0000-4000-8000-000000000002';
+ const mismatch=await captureRetainAndRecheck({...bad,archive:x.archive});
+ assert.equal(mismatch.reason,'TRUSTED_RACE_UUID_OR_POST_TIME_MISMATCH');
+ assert.equal(x.held.length,0);
+ const y=createArchive(),changed=args();
+ changed.officialPostTime='2026-11-23T09:55:00+09:00';
+ const time=await captureRetainAndRecheck({...changed,archive:y.archive});
+ assert.equal(time.reason,'TRUSTED_RACE_UUID_OR_POST_TIME_MISMATCH');
+ assert.equal(y.held.length,0);
+ const z=createArchive(),unavailable=args();
+ delete unavailable.loadTrustedRaceIdentity;
+ assert.equal((await captureRetainAndRecheck({...unavailable,archive:z.archive})).reason,
+   'TRUSTED_RACE_LOOKUP_DISCONNECTED');
+ assert.equal(z.held.length,0);
 });
 test('retained original tampering is rejected at immediate read-back',async()=>{
  const x=createArchive();
