@@ -8,6 +8,9 @@ on:
       - 'tests/jra-core*'
       - 'tests/jra-legacy*'
       - 'tests/jra-blocker-resolution.test.mjs'
+      - 'tests/jra-eval-integration.test.mjs'
+      - 'tests/jra-candidate-runtime.test.mjs'
+      - 'tests/jra-real-save-postgres.sql'
       - 'sql/jra_score_ledger_validator_candidate_v1.sql'
       - 'research/jra-scoring-integrity-20261121/**'
       - '.github/workflows/jra-score-ledger-integrity.yml'
@@ -20,6 +23,11 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - name: Complete candidate handlers with explicitly substituted transport
+        run: node tests/jra-candidate-runtime.test.mjs
       - name: Ledger tests with synthetic save and real historical arithmetic only
         run: node tests/jra-score-ledger.test.mjs
       - name: Recovered rules and factor evidence authenticity
@@ -28,6 +36,8 @@ jobs:
         run: node tests/jra-legacy-replay.test.mjs
       - name: Queue target diagnostics and default-off observation export
         run: node tests/jra-blocker-resolution.test.mjs
+      - name: Actual Eval producer to actual bridge integration (synthetic private-cache replacement)
+        run: node tests/jra-eval-integration.test.mjs
       - name: Existing full-depth, handoff, save-contract and bridge regressions
         run: |
           node research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs
@@ -70,6 +80,7 @@ jobs:
           done
           node tests/jra-legacy-replay-check.mjs
           node tests/jra-legacy-replay-check.mjs cohorts
+          psql -X -v ON_ERROR_STOP=1 -f tests/jra-real-save-postgres.sql
       - name: Preserve isolated reconstruction decisions and comparison
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

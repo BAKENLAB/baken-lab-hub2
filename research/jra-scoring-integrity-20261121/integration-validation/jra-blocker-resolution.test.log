@@ -1,0 +1,25 @@
+✔ valid exact queue target returns unchanged CNAME, independent of READY status (2.784029ms)
+✔ database error distinguished from missing row without leaking private error fields (0.480304ms)
+✔ missing queue or missing CNAME retain existing missing error (0.1955ms)
+✔ wrong date, track or race is refused without selecting another race (0.166687ms)
+✔ default OFF does not read byte input or invoke any producer (0.59449ms)
+✔ synthetic byte export roundtrips SHA-256 but is never signed/CLAIM-bound/scoring evidence (7.01462ms)
+✔ byte/hash mismatch fails export open for normal caller (1.005228ms)
+✔ oversize and unknown source host never export bytes (0.445629ms)
+✔ inconsistent clock or horse mapping refuses export (1.787202ms)
+✔ extra metadata fields are not serialized into research response (1.060649ms)
+✔ candidate changes reverse exactly to v39 snapshot; other tools/save gates unchanged (1.089025ms)
+✔ unsigned observation cannot enter the existing signed factor resolver (5.066241ms)
+✔ 194-horse factor comparison keeps submitted/current versus computed/legacy axes separate (62.978584ms)
+✔ current base/effect/bridge ledger retains the saved Kyoto12 #1 values (31.503575ms)
+✔ comparison refuses conflicting saved FROZEN sources instead of choosing one silently (63.782805ms)
+✔ raw Shift-JIS and decoded UTF-8 hashes have separate explicit domains (10.87836ms)
+✔ unknown hash domain cannot be repaired by trying multiple encodings (0.360044ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 200.210616

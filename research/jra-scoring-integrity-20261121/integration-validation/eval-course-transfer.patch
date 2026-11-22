@@ -1,0 +1,15 @@
+--- baseline/eval-course-transfer-live.mjs
++++ candidate/eval-course-transfer-live.mjs
+@@ -245,6 +245,12 @@
+     internal_stats_n:stat?Number(stat.runners):null,
+     source_period_ended:'2025-12-31',
+     direction_corrobated:credible,
++    // Research candidate: bridge contract aliases, same existing credible predicate.
++    // No new weight/threshold; false remains false. Not official raw-body proof.
++    bounded_eval_point_budget_eligible:credible,
++    independently_corrobated_direction:credible,
++    independent_JRA_training_reliability:stat?.reliability??'NOT_MATCHED',
++    independent_JRA_training_n:stat?Number(stat.runners):null,
+     // No raw Eval ratio or data table is emitted.
+     agreement:credible?'EVAL_S_A_AND_INTERNAL_RELIABLE_POSITIVE':
+      'CORRELATION_NOT_VALIDATED_FOR_100PT',
