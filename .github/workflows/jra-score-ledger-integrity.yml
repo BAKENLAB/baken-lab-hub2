@@ -21,6 +21,7 @@ on:
       - 'tests/jra-full-prestart-evidence-snapshot.test.mjs'
       - 'tests/jra-raw-response-capture.test.mjs'
       - 'tests/jra-raw-retention-boundary.test.mjs'
+      - 'tests/jra-prerace-fact-matrix.test.mjs'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
@@ -65,6 +66,8 @@ jobs:
         run: node tests/jra-raw-response-capture.test.mjs
       - name: JRA raw-byte capture to private archive and immediate readback (isolated)
         run: node tests/jra-raw-retention-boundary.test.mjs
+      - name: Full real pre-race 995-run deterministic fact matrix (unweighted)
+        run: node tests/jra-prerace-fact-matrix.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
       - name: Byte retention candidate and actual November22 morning ledger replay
