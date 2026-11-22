@@ -98,3 +98,39 @@ test('no later target result, missing score fact or duplicate selected run',()=>
  const z=fixture();z.selectedRuns.push(structuredClone(z.selectedRuns[0]));
  assert.throws(()=>generateResearchSourcePoints(z),/DUPLICATE_SELECTED_RUN_PROOF/);
 });
+
+// The comparison is independent of caller-supplied review scores. It must
+// reject effects that differ from the deterministic re-computation.
+test('source-to-points comparator checks every effect, base, rank and final score',async()=>{
+ const {compareResearchGeneratedToDeclared}=await import(
+  '../research/jra-scoring-integrity-20261121/claim-retention/source-to-points-compare.candidate.mjs');
+ const x=fixture(),computed=generateResearchSourcePoints(x);
+ const payload={runners:computed.runners.map(r=>({horse_no:r.horse_no,
+    horse_name:r.horse_name,rank:r.research_rank,score:r.research_score})),
+  audit:{runner_history_checked:computed.runners.map(r=>({horse_no:r.horse_no,
+    base_score:r.base_score,score_after:r.research_score,rank_after:r.research_rank,
+    evidence_effects:structuredClone(r.effects)}))}};
+ const valid=compareResearchGeneratedToDeclared({...x,payload});
+ assert.equal(valid.ok,true,JSON.stringify(valid));
+ assert.equal(valid.checked_horses,2);
+ assert.equal(valid.formal_scoring_allowed,false);
+ assert.equal(valid.official_original_verified,false);
+ const diff=structuredClone(payload);diff.audit.runner_history_checked[0].evidence_effects[0].points++;
+ assert.equal(compareResearchGeneratedToDeclared({...x,payload:diff}).reason,
+  'REPLAY_FACTOR_POINTS_OR_PROVENANCE_MISMATCH');
+ const fake=structuredClone(payload);fake.audit.runner_history_checked[0].evidence_effects[0].original_sha256='f'.repeat(64);
+ assert.equal(compareResearchGeneratedToDeclared({...x,payload:fake}).reason,
+  'REPLAY_FACTOR_POINTS_OR_PROVENANCE_MISMATCH');
+ const base=structuredClone(payload);base.audit.runner_history_checked[0].base_score++;
+ assert.equal(compareResearchGeneratedToDeclared({...x,payload:base}).reason,
+  'REPLAY_BASE_MISMATCH');
+ const score=structuredClone(payload);score.runners[0].score++;
+ assert.equal(compareResearchGeneratedToDeclared({...x,payload:score}).reason,
+  'REPLAY_FINAL_SCORE_MISMATCH');
+ const rank=structuredClone(payload);rank.runners[0].rank=2;
+ assert.equal(compareResearchGeneratedToDeclared({...x,payload:rank}).reason,
+  'REPLAY_RANK_MISMATCH');
+ const unavailable=compareResearchGeneratedToDeclared({context:x.context,selectedRuns:[],policy:x.policy,payload});
+ assert.equal(unavailable.ok,false);
+ assert.equal(unavailable.formal_scoring_allowed,false);
+});
