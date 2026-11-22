@@ -10,6 +10,7 @@ on:
       - 'tests/jra-blocker-resolution.test.mjs'
       - 'tests/jra-eval-integration.test.mjs'
       - 'tests/jra-candidate-runtime.test.mjs'
+      - 'tests/jra-fixed-score-contract.test.mjs'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
@@ -30,6 +31,8 @@ jobs:
           node-version: '24'
       - name: Complete candidate handlers with explicitly substituted transport
         run: node tests/jra-candidate-runtime.test.mjs
+      - name: Unapproved fact-to-score replay fails closed without original evidence
+        run: node tests/jra-fixed-score-contract.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
       - name: Byte retention candidate and actual November22 morning ledger replay
