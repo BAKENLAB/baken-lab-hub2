@@ -1,0 +1,27 @@
+{
+  "source_version": 39,
+  "source_bundle_sha256": "2601ff8de87dd7a061716c7274546efc0d984ce93d2d37abf2d10768dca2e7ad",
+  "source_snapshot_sha256": "6431b7b9ef14ab79121e6937b5296acb7e1521f61edcad147ed53a899a0c3a39",
+  "candidate_sha256": "b41c706092f4257a16f33b725f2c5ef09c31f06b7d632079657d4876d3ceb67d",
+  "source_text_normalization": "trimEnd + LF",
+  "default_export_enabled": false,
+  "deploy_file_mapping": {
+    "jra-official-queue-read.mjs": "automation/jra-score-ledger/official-queue-read.mjs",
+    "jra-card-observation.mjs": "automation/jra-score-ledger/card-observation.mjs"
+  },
+  "helper_sha256": {
+    "automation/jra-score-ledger/official-queue-read.mjs": "efc874284485a2da7dd969a655e89923f40f8c6dc906b1018f47f995233c7df0",
+    "automation/jra-score-ledger/card-observation.mjs": "b0a1571d2eddb3f920e1cc56c35725ac567497bfb1f622d46976faa8d60eb03b"
+  },
+  "deployed": false,
+  "official_scoring_provider_completed": false,
+  "research_method_continuity_gate": true,
+  "trusted_method_pin_required": true,
+  "fixed_fact_to_score_generator_verified": false,
+  "observed_production_mcp_version_at_20261123": 42,
+  "candidate_based_on_version": 39,
+  "requires_runtime_rebase_and_reaudit": true,
+  "deployment_allowed": false,
+  "prospective_claimed_base_policy_id": "JRA_RESEARCH_BASE_30PLUS38_V1",
+  "base_policy_is_approved_full_score_engine": false
+}

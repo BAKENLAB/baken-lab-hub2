@@ -1,0 +1,120 @@
+--- jra-claimed-mcp/index.ts
++++ jra-claimed-mcp/index.ts
+@@ -1,5 +1,9 @@
++import {readOfficialQueueCname} from "./jra-official-queue-read.mjs";
++import {captureCardObservation} from "./jra-card-observation.mjs";
+ import {reconcileG1ScoringTrace} from "./g1-scoring-trace.mjs";
+ import {inspectJraFullDepthSave} from "./jra-full-depth-save-gate.mjs";
++import {inspectScoreMethodContinuity} from "./jra-score-method-continuity.mjs";
++import {inspectClaimedBaseParity} from "./jra-claimed-base-parity.mjs";
+ import {restoreJraClaimedRunDetails} from "./jra-asof-detail-handoff.mjs";
+ import {buildG1IntelligenceAudit} from "./g1-intelligence-audit.mjs";
+ import { applyEyeFillNull, eyeFillInstructions } from "./jra-eye-fill-null.mjs";
+@@ -280,6 +284,7 @@
+      const c=admin(),observedAt=new Date().toISOString();
+      let eyeFillContext:any=null;
+      let fullDepthProof:any=null;
++     let baseParityProof:any=null;
+      let savedPayload:any=payload,rankBridgeStatus="NOT_READY",
+        rankScoreChanges=0,beforeTop5:any=null,afterTop5:any=null,
+        evalStatus="OPTIONAL_UNAVAILABLE";
+@@ -315,6 +320,13 @@
+          if(fullDepthProof.ok!==true)
+            throw Error("JRA_FULL_DEPTH_REVIEW_REQUIRED_"+fullDepthProof.reason+
+              (fullDepthProof.horse_no?"_HORSE_"+fullDepthProof.horse_no:""));
++         // Research-only: freeze the claimed-context base-rate arithmetic,
++         // before any optional Eval bridge changes submitted final scores.
++         baseParityProof=inspectClaimedBaseParity({context,payload:reviewedDraft,
++           serverPinnedBasePolicy:Deno.env.get("JRA_RESEARCH_BASE_POLICY_ID")});
++         if(!baseParityProof.ok)
++           throw Error("JRA_FULL_DEPTH_BASE_PARITY_"+baseParityProof.reason+
++             (baseParityProof.horse_no?"_HORSE_"+baseParityProof.horse_no:""));
+          if(evalStatus==='READY_FOR_OFFICIAL_WHOLE_FIELD_COURSE_REVIEW'){
+            if(payload.audit?.evidence_rank_bridge?.version==='JRA_EVAL_1942_PACE_SCORE_V1'){
+              const verified=verifyJraBridgeAlreadyApplied({
+@@ -354,6 +366,18 @@
+        rankBridgeStatus="OPTIONAL_SOURCE_UNAVAILABLE";
+      }
+      if(fullDepthProof?.ok!==true)throw Error("JRA_FULL_DEPTH_REVIEW_NOT_VERIFIED");
++     if(baseParityProof?.ok!==true)throw Error("JRA_FULL_DEPTH_BASE_PARITY_NOT_VERIFIED");
++     // A deep numeric audit is not a reproducible scorer. Refuse any new
++     // research candidate save unless the operator pins the exact method.
++     // Never accept a method pin from the submitted prediction.
++     const methodContinuity=inspectScoreMethodContinuity({
++       payload:savedPayload,approvedMethod:Deno.env.get("JRA_RESEARCH_SCORE_METHOD_CONTRACT")
++     });
++     if(!methodContinuity.ok)
++       throw Error("JRA_METHOD_CONTINUITY_"+methodContinuity.reason);
++     // This marker does NOT certify the source-to-100 point generator.
++     savedPayload={...savedPayload,audit:{...savedPayload.audit,
++       research_method_continuity:methodContinuity,research_base_parity:baseParityProof}};
+      // BEGIN EYE FILL SAVE
+      if(eyeFillContext){
+        savedPayload=applyEyeFillNull({context:eyeFillContext,payload:savedPayload,
+@@ -483,23 +507,26 @@
+      race_date:z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+      track:z.enum(["東京","京都","新潟","中山","阪神","中京","小倉","福島","札幌","函館"]),
+      race_no:z.number().int().min(1).max(12),
+-     dry_run:z.boolean().default(true)
++     dry_run:z.boolean().default(true),
++     include_evidence:z.boolean().default(false)
+    }).strict(),
+    annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:true,openWorldHint:false}
+- },async({race_date,track,race_no,dry_run})=>{
++ },async({race_date,track,race_no,dry_run,include_evidence})=>{
+    try {
+      await auth();
++     if(include_evidence&&!dry_run)throw Error("JRA_RESEARCH_EXPORT_REQUIRES_DRY_RUN");
++     const researchExportEnabled=include_evidence&&Deno.env.get("JRA_RESEARCH_CARD_EXPORT_ENABLED")==="1";
+      const c=admin();
+      const {data:queue,error:qerr}=await c.from("jra_live_queue")
+-       .select("cname,status").eq("race_date",race_date).eq("track",track).eq("race_no",race_no).maybeSingle();
+-     if(qerr||!queue?.cname) throw Error("JRA_OFFICIAL_QUEUE_MISSING");
+-     const cname=String(queue.cname);
++       .select("race_date,track,race_no,cname,status").eq("race_date",race_date).eq("track",track).eq("race_no",race_no).maybeSingle();
++     const cname=readOfficialQueueCname({queue,error:qerr,target:{race_date,track,race_no}});
+      const response=await fetch("https://www.jra.go.jp/JRADB/accessD.html?CNAME="+encodeURIComponent(cname),{
+        headers:{"User-Agent":"Mozilla/5.0 (Linux; Android 16; Mobile) AppleWebKit/537.36 Chrome/140.0 Mobile Safari/537.36",
+          "Accept-Language":"ja-JP,ja;q=0.9","Cache-Control":"no-cache"},redirect:"follow"
+      });
+      if(!response.ok)throw Error("JRA_OFFICIAL_HTTP_"+response.status);
+      const bytes=new Uint8Array(await response.arrayBuffer());
++     const researchFetchedAt=researchExportEnabled?new Date().toISOString():null;
+      const html=new TextDecoder("shift_jis").decode(bytes);
+      const $=load(html);
+      const clean=(value:unknown)=>String(value??"").normalize("NFKC").replace(/\s+/g," ").trim();
+@@ -528,6 +555,7 @@
+      if(hh<8||hh>19||mm>59)throw Error("JRA_INVALID_POST_TIME");
+      const postTime=race_date+"T"+String(hh).padStart(2,"0")+":"+String(mm).padStart(2,"0")+":00+09:00";
+      const runners: Array<Record<string,unknown>>=[];
++     const researchIdentities: Array<Record<string,unknown>>=[];
+      let waiting=0;
+      const frameState={frame:null,remaining:0};
+      for(const row of tableRows){
+@@ -557,7 +585,13 @@
+        if(status==="ACTIVE"&&(!jockey||weight===null||weight<45||weight>70)){
+          throw Error("JRA_ACTIVE_ENTRY_DETAIL_INCOMPLETE_"+horseNo);
+        }
+-       runners.push({horse_no:horseNo,horse_name:horseName,draw,
++       if(researchExportEnabled){
++         const href=rowObj.find("td.horse .name_line .name a[href*='accessU']").first().attr("href")??null;
++         let horseId=null;
++       try {horseId=new URL(href??"","https://www.jra.go.jp").searchParams.get("CNAME")?.match(/^pw01dud\d{2}(\d{10})\/[A-Fa-f0-9]+$/)?.[1]??null;}catch{}
++       researchIdentities.push({horse_no:horseNo,horse_name:horseName,horse_ref:href,horse_id:horseId});
++     }
++     runners.push({horse_no:horseNo,horse_name:horseName,draw,
+          status,jockey:jockey||null,weight_carried:weight});
+      }
+      if(waiting>0){
+@@ -585,6 +619,11 @@
+            excluded:runners.filter(x=>x.status==="EXCLUDED").length},
+          live_capture_status:queue.status,
+          note:"DB live-runner agreement and atomic publisher guards checked only on real publish"};
++       if(include_evidence){
++         const observation=await captureCardObservation({requested:true,enabled:researchExportEnabled,bytes,proof,source_url:"https://www.jra.go.jp/JRADB/accessD.html?CNAME="+encodeURIComponent(cname),response_url:response.url,fetched_at:researchFetchedAt,identities:researchIdentities});
++         const researchPreview={...preview,research_card_export:observation};
++         return {content:[{type:"text",text:JSON.stringify(researchPreview)}],structuredContent:researchPreview};
++       }
+        return {content:[{type:"text",text:JSON.stringify(preview)}],structuredContent:preview};
+      }
+      const {data,error}=await c.rpc("jra_publish_verified_card_v1",{p_proof:proof});

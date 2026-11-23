@@ -1,0 +1,22 @@
+{
+  "source_mcp_version": 42,
+  "source_baseline_git_blob_sha1": "f463b7ba3c110da61a2807d2aabca578cf17ff19",
+  "candidate_git_blob_sha1": "63a47a4f7c88473f7100e2210b1db4774d05b9bf",
+  "source_file": "baseline-index.ts.txt",
+  "candidate_file": "candidate-index.ts.txt",
+  "change_count": 4,
+  "added_helpers": [
+    "jra-score-method-continuity.mjs",
+    "jra-claimed-base-parity.mjs"
+  ],
+  "source_of_helpers": "previously isolated PR83 v39 candidate",
+  "expected_production_mcp_version": 42,
+  "baseline_reversible": true,
+  "source_to_factor_rule_connected": false,
+  "authenticated_official_original_body_reader_connected": false,
+  "official_score_engine_approved": false,
+  "production_allowed": false,
+  "deployed": false,
+  "rollout_approved": false,
+  "risk": "Default absent method/base policy pin refuses every attempted prediction; DO NOT DEPLOY before proof and approval."
+}

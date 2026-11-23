@@ -1,0 +1,1320 @@
+{
+  "retrieved_at": "2026-11-22T02:57:27.736Z",
+  "edges": [
+    {
+      "slug": "jra-live",
+      "version": 32,
+      "bundle_sha256": "22ed544f9f24942e8a474afb3f0cf1e336806ac59017bc69f2686f5db396dd7e"
+    },
+    {
+      "slug": "jra-backfill",
+      "version": 27,
+      "bundle_sha256": "48b2d393f105ff285a7bba1817e8c3259984e6c88c1395d73454b04c904b0f6e"
+    }
+  ],
+  "scoring_function_search": [
+    {
+      "schema": "private",
+      "proname": "jra_live_locked_2025_score_packet_v1",
+      "args": "p_date date, p_track text, p_race_no integer",
+      "source_md5": "a051bf5584cfc9cfffaadb55275f7f19",
+      "base_score_context": "k',trial_rank,\n   'base_rate',round(old_rate,6),\n   'research_score_100',round(new_rate*100,2),\n   'base_score_100',round(old_rate*100,2),\n   'learned_delta_100',round((new_rate-old_rate)*100,2),\n   'evidence_flags',jsonb_build_object(\n    'close46',source->'near_close46',\n    'near_podium',source->'recent_near_top3',\n    'same_class_close',source-"
+    }
+  ],
+  "diagnosis_snapshots_for_target_dates": [],
+  "jra_preclaim_snapshots": [],
+  "html_and_snapshot_tables": [
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v1"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v2"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_validation_evidence_v1"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots"
+    }
+  ],
+  "schema": [
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v1",
+      "column_name": "target_run_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v1",
+      "column_name": "target_course_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v1",
+      "column_name": "source_course_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v1",
+      "column_name": "target_top3",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v2",
+      "column_name": "target_run_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v2",
+      "column_name": "target_course_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v2",
+      "column_name": "source_course_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_train_evidence_v2",
+      "column_name": "target_top3",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_validation_evidence_v1",
+      "column_name": "target_run_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_validation_evidence_v1",
+      "column_name": "target_course_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_validation_evidence_v1",
+      "column_name": "source_course_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_course_transfer_validation_evidence_v1",
+      "column_name": "target_top3",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "id",
+      "data_type": "bigint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "race_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "cname",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "source_url",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "fetched_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "recorded_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "html_sha256",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "html_bytes",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "extractor_version",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "status_basis",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "official_status_verified",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_html_evidence",
+      "column_name": "runner_count",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "race_key",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "race_date",
+      "data_type": "date"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "track",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "race_no",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "race_name",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "surface",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "distance",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "going",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "class_name",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "field_size",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "source_kind",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "source_ref",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "source_checked_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "full_field",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "archive_complete",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "weather",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "turn",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "halon_times",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "race_final3f",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "race_type",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "course_text",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_races",
+      "column_name": "course_layout",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "race_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "horse_no",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "horse_name",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "draw",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "sex_age",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "weight_carried",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "jockey",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "trainer",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "body_weight",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "body_weight_diff",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "finish",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "popularity",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "win_odds",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "final3f",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "corner_positions",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "margin",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "lab_mark",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "lab_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "lab_grade",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "lab_eye",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "reason",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "record_role",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "source_kind",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "source_ref",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "time_raw",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "early_pos",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "final_turn_pos",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "pos_change",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "is_top3",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "final3f_rank",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "final3f_quality",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "horse_ref",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "jockey_ref",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "trainer_ref",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "jockey_mark",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_lab_runs",
+      "column_name": "equipment",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "live_race_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "horse_no",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "horse_name",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "horse_ref",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "sex_age",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "weight_carried",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "jockey",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "trainer",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "body_weight",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "body_weight_diff",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "win_odds",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "popularity",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "equipment",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "past_runs",
+      "data_type": "jsonb"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "source_checked_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_runners",
+      "column_name": "draw",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "race_date",
+      "data_type": "date"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "track",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "race_no",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "frozen_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "protocol_version",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "score_method",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "validated_core",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "method_class",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "full_depth_claimed",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "lab_jra_score_method_drift_audit_v1",
+      "column_name": "evidence_bridge_status",
+      "data_type": "text"
+    }
+  ],
+  "snapshot_columns": [
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "id",
+      "data_type": "bigint"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "captured_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "model_version",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "race_date",
+      "data_type": "date"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "track",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "race_no",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "horse_no",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "horse_name",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "internal_order",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "diagnosis_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "jra_model_transition_snapshots",
+      "column_name": "diagnosis_grade",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "circuit",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "race_date",
+      "data_type": "date"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "track",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "race_no",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "official_post_time",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "captured_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "as_of",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "source_kind",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "source_version",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "source_status",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "active_runner_count",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "official_roster_digest",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "payload_digest",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "evidence",
+      "data_type": "jsonb"
+    },
+    {
+      "table_schema": "private",
+      "table_name": "lab_preclaim_evidence_snapshots_v1",
+      "column_name": "data_quality",
+      "data_type": "jsonb"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "snapshot_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "live_runner_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "horse_no",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "horse_name",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "diagnosis_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "diagnosis_grade",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "data_status",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "today_ability_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "win_power_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "top3_stability_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "pace_fit_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "change_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "internal_order",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "running_style",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "pace_pressure",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "lab_eye",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "lab_eye_reason",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "win_path",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "boost_flags",
+      "data_type": "jsonb"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "risk_flags",
+      "data_type": "jsonb"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "diagnostics",
+      "data_type": "jsonb"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "market_win_odds",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "market_popularity",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshot_entries",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "live_race_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "race_date",
+      "data_type": "date"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "track",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "race_no",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "snapshot_kind",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "model_version",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "runner_count",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_diagnosis_snapshots",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "snapshot_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "live_runner_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "horse_no",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "horse_name",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "jockey",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "history_n",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "available_components",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "lab_score",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "overall_grade",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "strong_count",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "position_confidence",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "data_status",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "lab_eye",
+      "data_type": "boolean"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "lab_eye_trigger_count",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "lab_eye_reason",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "components",
+      "data_type": "jsonb"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "market_win_odds",
+      "data_type": "numeric"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "market_popularity",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "body_weight",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "body_weight_diff",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshot_entries",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "live_race_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "race_date",
+      "data_type": "date"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "track",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "race_no",
+      "data_type": "smallint"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "snapshot_kind",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "model_version",
+      "data_type": "text"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "runner_count",
+      "data_type": "integer"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "source_checked_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_schema": "public",
+      "table_name": "jra_live_rank_snapshots",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    }
+  ]
+}

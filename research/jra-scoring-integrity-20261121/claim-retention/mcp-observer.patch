@@ -1,0 +1,19 @@
+--- a/index.ts
++++ b/index.ts
+@@ -293,6 +293,16 @@
+          {p_job_id:job_id}).abortSignal(AbortSignal.timeout(12000));
+        if(!ce&&raw){
+          const context=restoreJraClaimedRunDetails(scopeVerifiedActiveField(raw));assertScopedActivePayload(context,payload);
++         const observer=(globalThis as any).__jraResearchClaimObserver;
++         if(typeof observer==="function"){
++           const signal=AbortSignal.timeout(75);
++           try {
++             await Promise.race([
++               observer({jobId:job_id,context:structuredClone(raw),payload:structuredClone(payload),signal}),
++               new Promise(resolve=>signal.addEventListener("abort",()=>resolve(null),{once:true}))
++             ]);
++           } catch { /* Optional observation; preserve the original save path. */ }
++         }
+          eyeFillContext=context;
+          const evalInput=await loadEvalForClaim(context,c);
+          evalStatus=evalInput?.status??"OPTIONAL_UNAVAILABLE";

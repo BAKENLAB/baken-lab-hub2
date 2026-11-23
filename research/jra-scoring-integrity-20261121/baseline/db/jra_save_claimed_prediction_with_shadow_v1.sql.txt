@@ -1,0 +1,31 @@
+CREATE OR REPLACE FUNCTION public.jra_save_claimed_prediction_with_shadow_v1(p_job_id uuid, p_protocol_version text, p_payload jsonb, p_baseline jsonb DEFAULT NULL::jsonb, p_preview jsonb DEFAULT NULL::jsonb)
+ RETURNS jsonb
+ LANGUAGE plpgsql
+ SET search_path TO 'pg_catalog', 'public', 'private'
+ SET lock_timeout TO '5s'
+AS $function$
+DECLARE
+ v_prediction_id uuid;
+ v_receipt jsonb;
+ v_shadow_status text:='NOT_PROVIDED';
+BEGIN
+ -- Must use same JRA job -> worker lock order as original save.
+ IF p_baseline IS NOT NULL AND p_preview IS NOT NULL THEN
+  BEGIN
+   IF NOT private.lab_shadow_draft_equals_save_v1('JRA',p_payload,p_baseline) THEN
+     RAISE EXCEPTION 'SHADOW_DRAFT_NOT_SAVED_PAYLOAD';
+   END IF;
+   v_receipt:=public.lab_capture_rank_shadow_preflight_v1('JRA',p_job_id,p_baseline,p_preview);
+   v_shadow_status:=coalesce(v_receipt->>'status','UNVERIFIED_RECEIPT');
+  EXCEPTION WHEN OTHERS THEN
+   v_shadow_status:='OPTIONAL_CAPTURE_SKIPPED';
+   -- Subtransaction rolls back all failed shadow attempts.
+  END;
+ END IF;
+ -- ORIGINAL guard: atomic with optional shadow. Failure rolls back both.
+ v_prediction_id:=public.jra_save_claimed_prediction(p_job_id,p_protocol_version,p_payload);
+ IF v_prediction_id IS NULL THEN RAISE EXCEPTION 'SAVE_REJECTED'; END IF;
+ RETURN jsonb_build_object('ok',true,'prediction_id',v_prediction_id,
+   'shadow_status',v_shadow_status,'official_saved',true);
+END $function$
+

@@ -1,0 +1,33 @@
+{
+  "mcp_version": 39,
+  "mcp_bundle_sha256": "2601ff8de87dd7a061716c7274546efc0d984ce93d2d37abf2d10768dca2e7ad",
+  "read_only_probe": {
+    "tool": "jra_official_publish_card",
+    "args": {
+      "dry_run": true,
+      "race_date": "2026-11-21",
+      "track": "東京",
+      "race_no": 1
+    },
+    "observed_error": "JRA_OFFICIAL_QUEUE_MISSING",
+    "official_html_fetch_reached": false,
+    "retries": 0
+  },
+  "source_findings": {
+    "core_history_source": "private.jra_merged_flat_history_v2",
+    "core_return_has_run_id": false,
+    "core_return_has_race_id": false,
+    "core_return_has_original_body": false,
+    "claimed_context_removes_source_ref": true,
+    "content_enrichment": "private.jra_optional_content_evidence_v3",
+    "content_return_has_original_body": false,
+    "dry_run_route_returns_original_bytes": false,
+    "dry_run_route_returns_signature": false,
+    "dry_run_route_returns_html_sha256": false
+  },
+  "actual_signed_official_snapshots_verified": 0,
+  "production_writes": 0,
+  "claims": 0,
+  "official_saves": 0,
+  "reason": "Current source selection discards lineage; existing dry-run returns aggregate only. No authorized body/receipt provider was obtained. No alternate route or new permission was used."
+}

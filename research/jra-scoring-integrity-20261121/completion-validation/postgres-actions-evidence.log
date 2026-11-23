@@ -1,0 +1,10 @@
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7847820Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS valid fixture save and exact payload preservation
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7856290Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal engine no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7859066Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal sum no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7863608Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal missing_ledger no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7866168Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal top5 no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7869212Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal missing_source no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7871499Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal rank no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7874387Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS anon/authenticated execute denied
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7879968Z ROLLBACK
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T22:15:54.7883858Z psql:tests/jra-score-ledger-postgres.sql:64: NOTICE:  PASS rollback removed all test objects

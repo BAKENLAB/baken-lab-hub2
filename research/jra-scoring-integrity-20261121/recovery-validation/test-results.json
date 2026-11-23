@@ -1,0 +1,39 @@
+{
+  "stage": "LOCAL_RECHECK_NOT_POST_GITHUB_INTEGRATION",
+  "results": [
+    {
+      "script": "tests/jra-score-ledger.test.mjs",
+      "exit_code": 0,
+      "tests": 29,
+      "fail": 0
+    },
+    {
+      "script": "research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs",
+      "exit_code": 0,
+      "tests": 11,
+      "fail": 0
+    },
+    {
+      "script": "research/jra-full-depth-guard/jra-asof-detail-handoff.test.mjs",
+      "exit_code": 0,
+      "tests": 6,
+      "fail": 0
+    },
+    {
+      "script": "research/jra-full-depth-guard/jra-deployed-contract.test.mjs",
+      "exit_code": 0,
+      "tests": 6,
+      "fail": 0
+    },
+    {
+      "script": "research/jra-verified-evidence-rank-bridge.test.mjs",
+      "exit_code": 0,
+      "tests": 6,
+      "fail": 0
+    }
+  ],
+  "tests": 58,
+  "fail": 0,
+  "original_artifacts_checked": 76,
+  "original_artifact_mismatch": []
+}

@@ -1,0 +1,48 @@
+{
+  "suites": [
+    {
+      "file": "tests/jra-score-ledger.test.mjs",
+      "pass": 31,
+      "fail": 0
+    },
+    {
+      "file": "tests/jra-core-connection.test.mjs",
+      "pass": 27,
+      "fail": 0
+    },
+    {
+      "file": "tests/jra-legacy-replay.test.mjs",
+      "pass": 11,
+      "fail": 0
+    },
+    {
+      "file": "tests/jra-blocker-resolution.test.mjs",
+      "pass": 17,
+      "fail": 0
+    },
+    {
+      "file": "research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs",
+      "pass": 11,
+      "fail": 0
+    },
+    {
+      "file": "research/jra-full-depth-guard/jra-asof-detail-handoff.test.mjs",
+      "pass": 6,
+      "fail": 0
+    },
+    {
+      "file": "research/jra-full-depth-guard/jra-deployed-contract.test.mjs",
+      "pass": 6,
+      "fail": 0
+    },
+    {
+      "file": "research/jra-verified-evidence-rank-bridge.test.mjs",
+      "pass": 6,
+      "fail": 0
+    }
+  ],
+  "pass": 115,
+  "fail": 0,
+  "actual_official_body_signature_verified": 0,
+  "actual_candidate_mcp_runtime_tested": false
+}

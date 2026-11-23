@@ -1,0 +1,13 @@
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6054163Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS valid fixture save and exact payload preservation
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6059464Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal engine no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6061052Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal sum no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6062752Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal missing_ledger no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6063443Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal top5 no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6065389Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal missing_source no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6066268Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS refusal rank no partial write
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6067891Z psql:tests/jra-score-ledger-postgres.sql:58: NOTICE:  PASS anon/authenticated execute denied
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:21.6074578Z psql:tests/jra-score-ledger-postgres.sql:64: NOTICE:  PASS rollback removed all test objects
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:22.7835450Z psql:tests/jra-core-postgres.sql:28: NOTICE:  PASS 80 exact-rational port versus recovered PostgreSQL function vectors
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:22.7840467Z psql:tests/jra-core-postgres.sql:30: NOTICE:  PASS recovered function rollback
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:23.4135220Z PASS legacy replay history_only 13 races 194 runners; two executions identical; independent arithmetic; no formal predictions
+isolated-postgres	PostgreSQL candidate creation, fixture save/refusal and rollback	2026-11-21T23:11:23.5314892Z PASS legacy replay cohorts 13 races 194 runners; two executions identical; independent arithmetic; no formal predictions

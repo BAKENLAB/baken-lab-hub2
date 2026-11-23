@@ -1,0 +1,71 @@
+✔ valid declared ledger arithmetic passes but never claims approved engine/provenance (4.759864ms)
+✔ collector preserves payload, grades, ranks, EYE and input comment bytes (1.132321ms)
+✔ does not infer missing base or +1 from a textual reason (0.99149ms)
+✔ missing review stays unverified (0.427759ms)
+✔ duplicate review refused (0.724464ms)
+✔ arbitrary +1 without a ledger component refused (0.364054ms)
+✔ valid source-separated +1 bridge reconciles final score independently (0.71694ms)
+✔ bridge missing one horse is not treated as zero (0.485519ms)
+✔ capping is existing 0..100, not redistributed ability (0.788295ms)
+✔ negative impacts are included, missing numbers never become 0 (0.840496ms)
+✔ numeric strings, NaN and fractions refused under existing integer-impact contract (0.762429ms)
+✔ same kind and source cannot be counted twice (0.287894ms)
+✔ unbound and market-derived sources cannot obtain arithmetic PASS (0.802263ms)
+✔ rank gap, duplicated horse and descending-score violation refused (2.110549ms)
+✔ TOP5 duplicates and mismatched numeric score refused (0.615338ms)
+✔ EYE=null is valid; EYE in TOP5 or wrong grade is not (0.62659ms)
+✔ letter grades cannot be derived from numeric rank (0.346833ms)
+✔ official ACTIVE coverage is not taken from self-declared payload status (0.166203ms)
+✔ unconfigured approved engine refuses save even when arithmetic is valid (0.990548ms)
+✔ client-selected engine ID cannot replace server registry (0.541523ms)
+✔ synthetic registry cannot silently enter production (0.723702ms)
+✔ unknown status, expired lease and post-minus-3 cutoff refuse before any save (0.361565ms)
+✔ evidence missing/forged or incomplete roster refuses despite shape PASS (0.661367ms)
+✔ independent recomputation disagreement refuses without rewriting payload (0.756193ms)
+✔ expiry during verification is rechecked before save (0.958354ms)
+✔ isolated mock success calls regular save once with exactly original payload object (2.336756ms)
+✔ save failure is never automatically retried (0.589834ms)
+✔ real Kyoto12 #1 trace is 39+38=77, bridge +1=78, not an inferred correction (10.559256ms)
+✔ all 13 real saved-race ledgers reproduce without target results or score changes (53.02383ms)
+✖ resolver cannot mutate original context before save (2.008456ms)
+✖ recompute cannot mutate reason while preserving collected numeric ledger (0.957341ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 29
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 108.71792
+
+✖ failing tests:
+
+test at tests/jra-score-ledger.test.mjs:39:1
+✖ resolver cannot mutate original context before save (2.008456ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async refused (file:///workspace/pr83-final-push/tests/jra-score-ledger.test.mjs:8:49)
+      at async TestContext.<anonymous> (file:///workspace/pr83-final-push/tests/jra-score-ledger.test.mjs:39:308)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: [Function (anonymous)],
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/jra-score-ledger.test.mjs:40:1
+✖ recompute cannot mutate reason while preserving collected numeric ledger (0.957341ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async refused (file:///workspace/pr83-final-push/tests/jra-score-ledger.test.mjs:8:49)
+      at async TestContext.<anonymous> (file:///workspace/pr83-final-push/tests/jra-score-ledger.test.mjs:40:296)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: [Function (anonymous)],
+    operator: 'rejects',
+    diff: 'simple'
+  }

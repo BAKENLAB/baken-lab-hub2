@@ -1,0 +1,15 @@
+✔ complete candidate index executes full-depth -> actual bridge -> null EYE -> save/readback through synthetic transport (197.725765ms)
+✔ whole candidate rejects missing full-depth audit before any save (50.609311ms)
+✔ whole candidate auth refusal makes no RPC calls; SQL rejection never retries save (73.922172ms)
+✔ actual whole candidate EYE audit omission refuses before save (36.526636ms)
+✔ actual whole candidate producer +1 reaches save/readback without changing ranks or grades (50.063959ms)
+(node:6804) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 419.068669

@@ -1,0 +1,160 @@
+name: JRA declared-score ledger integrity
+on:
+  pull_request:
+    paths:
+      - 'automation/jra-score-ledger/**'
+      - 'tests/jra-score-ledger.test.mjs'
+      - 'tests/jra-score-ledger-postgres.sql'
+      - 'tests/jra-core*'
+      - 'tests/jra-legacy*'
+      - 'tests/jra-blocker-resolution.test.mjs'
+      - 'tests/jra-eval-integration.test.mjs'
+      - 'tests/jra-candidate-runtime.test.mjs'
+      - 'tests/jra-fixed-score-contract.test.mjs'
+      - 'tests/jra-source-to-points-scorer.test.mjs'
+      - 'tests/jra-base30-38-replay.test.mjs'
+      - 'tests/jra-prerace-basecore-audit.test.mjs'
+      - 'tests/jra-archive-raw-bytes-integrity.test.mjs'
+      - 'tests/jra-v42-rebase-reversibility.test.mjs'
+      - 'tests/jra-r1-asof-history-readiness.test.mjs'
+      - 'tests/jra-signed-source-score-bridge.test.mjs'
+      - 'tests/jra-full-prestart-evidence-snapshot.test.mjs'
+      - 'tests/jra-raw-response-capture.test.mjs'
+      - 'tests/jra-raw-retention-boundary.test.mjs'
+      - 'tests/jra-prerace-fact-matrix.test.mjs'
+      - 'tests/jra-protocol-scoring-readiness.test.mjs'
+      - 'tests/jra-baseline-only-separate-path.test.mjs'
+      - 'tests/jra-win-evidence-review.test.mjs'
+      - 'research/jra-scoring-integrity-20261121/claim-next-clock/**'
+      - 'tests/jra-remaining-blockers.test.mjs'
+      - 'tests/jra-final-provider.test.mjs'
+      - 'tests/jra-real-save*'
+      - 'sql/jra_score_ledger_validator_candidate_v1.sql'
+      - 'research/jra-scoring-integrity-20261121/**'
+      - '.github/workflows/jra-score-ledger-integrity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - name: Complete candidate handlers with explicitly substituted transport
+        run: node tests/jra-candidate-runtime.test.mjs
+      - name: Current v42 rebased handler using isolated claim, guard and synthetic save/readback
+        run: JRA_TEST_V42_REBASE=1 node tests/jra-candidate-runtime.test.mjs
+      - name: Unapproved fact-to-score replay fails closed without original evidence
+        run: node tests/jra-fixed-score-contract.test.mjs
+      - name: Deterministic original-fact-to-points research generator (no production policy)
+        run: node tests/jra-source-to-points-scorer.test.mjs
+      - name: Recovered base-30/38 parity against 450 pre-race FROZEN scores (read-only comparison)
+        run: node tests/jra-base30-38-replay.test.mjs
+      - name: Today's source-derived BASE_CORE observation and field/rank continuity (read-only)
+        run: node tests/jra-prerace-basecore-audit.test.mjs
+      - name: Original history body binary SHA and private archive receipt integrity
+        run: node tests/jra-archive-raw-bytes-integrity.test.mjs
+      - name: Current JRA v42 isolated rebase exact reversible diff and gates
+        run: node tests/jra-v42-rebase-reversibility.test.mjs
+      - name: Actual first-race as-of source features and absent original issuer proof
+        run: node tests/jra-r1-asof-history-readiness.test.mjs
+      - name: Signed V11 source to deterministic research points (synthetic signer only)
+        run: node tests/jra-signed-source-score-bridge.test.mjs
+      - name: Actual all-race Nov23 pre-start source observations and run identity checks
+        run: node tests/jra-full-prestart-evidence-snapshot.test.mjs
+      - name: JRA raw response bytes versus decoded text and private-archive integrity
+        run: node tests/jra-raw-response-capture.test.mjs
+      - name: JRA raw-byte capture to private archive and immediate readback (isolated)
+        run: node tests/jra-raw-retention-boundary.test.mjs
+      - name: Full real pre-race 995-run deterministic fact matrix (unweighted)
+        run: node tests/jra-prerace-fact-matrix.test.mjs
+      - name: Actual operator protocol versus 65 FROZEN score-rule provenance claims
+        run: node tests/jra-protocol-scoring-readiness.test.mjs
+      - name: Separate JRA0.4 baseline-only provenance preview against all 23 real races (no save)
+        run: node tests/jra-baseline-only-separate-path.test.mjs
+      - name: Pre-race WIN challenger gate stays review-only; no rank or scoring mutations
+        run: node tests/jra-win-evidence-review.test.mjs
+      - name: Real archived identity joins do not impersonate signed claim evidence
+        run: node tests/jra-remaining-blockers.test.mjs
+      - name: Byte retention candidate and actual November22 morning ledger replay
+        run: |
+          node tests/jra-final-provider.test.mjs
+          node research/jra-scoring-integrity-20261121/claim-retention/connection.test.mjs
+          node research/jra-scoring-integrity-20261121/final-provider/replay-morning.mjs
+      - name: Ledger tests with synthetic save and real historical arithmetic only
+        run: node tests/jra-score-ledger.test.mjs
+      - name: Recovered rules and factor evidence authenticity
+        run: node tests/jra-core-connection.test.mjs
+      - name: Recovered legacy readonly replay safety
+        run: node tests/jra-legacy-replay.test.mjs
+      - name: Queue target diagnostics and default-off observation export
+        run: node tests/jra-blocker-resolution.test.mjs
+      - name: Actual Eval producer to actual bridge integration (synthetic private-cache replacement)
+        run: node tests/jra-eval-integration.test.mjs
+      - name: Existing full-depth, handoff, save-contract and bridge regressions
+        run: |
+          node research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs
+          node research/jra-full-depth-guard/jra-asof-detail-handoff.test.mjs
+          node research/jra-full-depth-guard/jra-deployed-contract.test.mjs
+          node research/jra-verified-evidence-rank-bridge.test.mjs
+
+  isolated-postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: ephemeral_ci_only
+          POSTGRES_DB: ledger_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - name: PostgreSQL candidate creation, fixture save/refusal and rollback
+        env:
+          PGHOST: localhost
+          PGPORT: '5432'
+          PGUSER: postgres
+          PGDATABASE: ledger_test
+          PGPASSWORD: ephemeral_ci_only
+        run: |
+          # One ephemeral DB verifies the exact claim function with full guards
+          # and the first-call timestamp race, then is discarded.
+          createdb jra_claim_clock_test
+          psql -X -v ON_ERROR_STOP=1 -d jra_claim_clock_test -f research/jra-scoring-integrity-20261121/claim-next-clock/claim-next-clock-isolated.test.sql
+          dropdb jra_claim_clock_test
+          psql -X -v ON_ERROR_STOP=1 -f research/jra-scoring-integrity-20261121/claim-retention/selected-history.test.sql
+          psql -X -v ON_ERROR_STOP=1 -f research/jra-scoring-integrity-20261121/claim-retention/live-archive.test.sql
+          psql -X -v ON_ERROR_STOP=1 -f tests/jra-score-ledger-postgres.sql
+          node tests/jra-core-postgres-vectors.mjs /tmp/jra-core-vectors.json
+          psql -X -v ON_ERROR_STOP=1 -f tests/jra-core-postgres.sql
+          node tests/jra-legacy-replay-prepare.mjs
+          for replay in /tmp/jra-replay-*.sql; do
+            psql -X -qAt -v ON_ERROR_STOP=1 -f "$replay"
+          done
+          node tests/jra-legacy-replay-check.mjs
+          node tests/jra-legacy-replay-check.mjs cohorts
+          psql -X -v ON_ERROR_STOP=1 -f tests/jra-real-save-postgres.sql
+          JRA_TEST_REAL_PG=1 node tests/jra-candidate-runtime.test.mjs
+          JRA_TEST_REAL_PG=1 JRA_TEST_V42_REBASE=1 node tests/jra-candidate-runtime.test.mjs
+      - name: Preserve isolated reconstruction decisions and comparison
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: jra-legacy-readonly-replay
+          path: |
+            /tmp/jra-replay-output-*.json
+            /tmp/jra-legacy-replay-*comparison.json
+          retention-days: 7

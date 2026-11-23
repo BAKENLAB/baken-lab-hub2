@@ -1,0 +1,38 @@
+{
+  "validated_code_commit": "c3461cde9c402d9762b2fb55139e7a9b62cf5e9d",
+  "actions_url": "https://github.com/BAKENLAB/baken-lab-hub2/actions/runs/44977695306",
+  "actions_conclusion": "success",
+  "node_unique_tests": {
+    "pass": 124,
+    "fail": 0,
+    "preserved_existing": 115,
+    "new": 9
+  },
+  "postgres17": {
+    "actual_archived_save_sql_assertions": 23,
+    "pass": true,
+    "candidate_save_handler_with_actual_pg_adapter": {
+      "tests": 5,
+      "pass": 5,
+      "fail": 0,
+      "new_test_count_added_again": 0
+    },
+    "rollback_verified": true,
+    "fixtures_not_production_rows": true
+  },
+  "boundaries_substituted": [
+    "OAuth middleware",
+    "MCP SDK transport",
+    "Zod schema front door",
+    "Supabase PostgREST client",
+    "private Eval cache (synthetic schema fixture)",
+    "official claimed context (fixture)",
+    "unused LOCAL helper (throws if invoked)"
+  ],
+  "real_provider_verified_histories": 0,
+  "current_100pt_facts_to_points_engine_recovered": false,
+  "actual_future_races_compared": 0,
+  "production_allowed": false,
+  "production_changes": [],
+  "protected_source_diff_outside_test_research_workflow": []
+}

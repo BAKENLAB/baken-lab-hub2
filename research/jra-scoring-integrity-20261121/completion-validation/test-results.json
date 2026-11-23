@@ -1,0 +1,27 @@
+{
+  "implementation_commit": "1dfc2b7d8b0c8e944edf4701b69933d52d6c91aa",
+  "actions_run": 44955803716,
+  "actions_conclusion": "success",
+  "node_tests": {
+    "pass": 60,
+    "fail": 0,
+    "previous": 58,
+    "additional": 2
+  },
+  "postgres": {
+    "version": "17.12",
+    "assertion_groups_pass": 9,
+    "fail": 0,
+    "production_dependencies": "fixture table and save function; not real CLAIM/READY/FROZEN",
+    "real_candidate_function_loaded": true
+  },
+  "historical_replay": {
+    "races": 13,
+    "horses": 194,
+    "score_matches": 194,
+    "rank_match_races": 13,
+    "full_formula_reproduced": false
+  },
+  "production_connected": false,
+  "real_race_comparisons": 0
+}

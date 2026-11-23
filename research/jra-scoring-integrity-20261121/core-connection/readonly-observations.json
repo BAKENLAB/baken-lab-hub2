@@ -1,0 +1,69 @@
+{
+  "checked_mcp_version": 39,
+  "checked_mcp_bundle_sha256": "2601ff8de87dd7a061716c7274546efc0d984ce93d2d37abf2d10768dca2e7ad",
+  "diagnosis_live_and_rebuild_rows": [],
+  "diagnosis_snapshots": [],
+  "evidence_tables": [
+    {
+      "nspname": "private",
+      "relname": "jra_model_transition_snapshots"
+    },
+    {
+      "nspname": "private",
+      "relname": "lab_preclaim_evidence_snapshots_v1"
+    },
+    {
+      "nspname": "public",
+      "relname": "jra_html_evidence"
+    },
+    {
+      "nspname": "public",
+      "relname": "jra_live_diagnosis_snapshot_entries"
+    },
+    {
+      "nspname": "public",
+      "relname": "jra_live_diagnosis_snapshots"
+    },
+    {
+      "nspname": "public",
+      "relname": "jra_live_rank_snapshot_entries"
+    },
+    {
+      "nspname": "public",
+      "relname": "jra_live_rank_snapshots"
+    }
+  ],
+  "evidence_reader_functions": [
+    {
+      "nspname": "private",
+      "proname": "lab_preclaim_snapshot_immutable_v1"
+    },
+    {
+      "nspname": "public",
+      "proname": "lab_preclaim_local_corner_insert_v1"
+    },
+    {
+      "nspname": "public",
+      "proname": "lab_preclaim_local_corner_read_v1"
+    }
+  ],
+  "jra_named_storage_buckets": [],
+  "lookup_limits": "No JRA-named buckets or body tables/readers found within searched catalogs; not proof that no external private archive exists.",
+  "jra_task_summaries": [
+    {
+      "title": "11/14 JRA 実戦順位改善",
+      "has_fixed_point_rule": false
+    },
+    {
+      "title": "11/7 JRA全場FROZEN巡回",
+      "has_fixed_point_rule": false
+    },
+    {
+      "title": "11/1 JRA＋LOCAL FROZEN巡回",
+      "has_fixed_point_rule": false
+    }
+  ],
+  "production_writes": 0,
+  "claims": 0,
+  "formal_saves": 0
+}

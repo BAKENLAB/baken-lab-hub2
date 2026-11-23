@@ -1,0 +1,19 @@
+✔ extracts pinned original scoring CTE without mutation/production dependencies (5.81597ms)
+✔ source drift is rejected instead of replaying unreviewed changed coefficients (0.633264ms)
+✔ real reconstruction is explicitly not immutable original or verified official evidence (6.451321ms)
+✔ missing field size remains null, not inferred from finishing position (4.390622ms)
+✔ future source/update time or target-date history is refused (10.134167ms)
+✔ horse ID mismatch and duplicate current runner rejected (9.098864ms)
+✔ market/raw fields and current-result labels cannot enter replay input (2.629219ms)
+✔ cohort inputs reuse coefficients but replace daily scans with exact precomputed sums (0.342527ms)
+✔ real date-filtered cohorts remain reconstruction data and cannot authenticate official source (2.410013ms)
+✔ cohort future date, duplicate ID or impossible counts are rejected (11.088011ms)
+✔ comparison requires a prestart FROZEN clock; missing or poststart records rejected (3.538352ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 72.297651

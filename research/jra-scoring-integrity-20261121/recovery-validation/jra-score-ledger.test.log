@@ -1,0 +1,37 @@
+✔ valid declared ledger arithmetic passes but never claims approved engine/provenance (4.76024ms)
+✔ collector preserves payload, grades, ranks, EYE and input comment bytes (0.488563ms)
+✔ does not infer missing base or +1 from a textual reason (0.756868ms)
+✔ missing review stays unverified (0.403142ms)
+✔ duplicate review refused (0.693054ms)
+✔ arbitrary +1 without a ledger component refused (0.336299ms)
+✔ valid source-separated +1 bridge reconciles final score independently (0.802736ms)
+✔ bridge missing one horse is not treated as zero (0.323855ms)
+✔ capping is existing 0..100, not redistributed ability (0.470251ms)
+✔ negative impacts are included, missing numbers never become 0 (0.958806ms)
+✔ numeric strings, NaN and fractions refused under existing integer-impact contract (2.523054ms)
+✔ same kind and source cannot be counted twice (1.437774ms)
+✔ unbound and market-derived sources cannot obtain arithmetic PASS (0.862636ms)
+✔ rank gap, duplicated horse and descending-score violation refused (5.151437ms)
+✔ TOP5 duplicates and mismatched numeric score refused (0.324489ms)
+✔ EYE=null is valid; EYE in TOP5 or wrong grade is not (0.578244ms)
+✔ letter grades cannot be derived from numeric rank (0.784032ms)
+✔ official ACTIVE coverage is not taken from self-declared payload status (0.240591ms)
+✔ unconfigured approved engine refuses save even when arithmetic is valid (2.146105ms)
+✔ client-selected engine ID cannot replace server registry (0.587579ms)
+✔ synthetic registry cannot silently enter production (0.726803ms)
+✔ unknown status, expired lease and post-minus-3 cutoff refuse before any save (0.32948ms)
+✔ evidence missing/forged or incomplete roster refuses despite shape PASS (0.899566ms)
+✔ independent recomputation disagreement refuses without rewriting payload (1.088645ms)
+✔ expiry during verification is rechecked before save (0.764495ms)
+✔ isolated mock success calls regular save once with exactly original payload object (0.983135ms)
+✔ save failure is never automatically retried (1.504948ms)
+✔ real Kyoto12 #1 trace is 39+38=77, bridge +1=78, not an inferred correction (14.128226ms)
+✔ all 13 real saved-race ledgers reproduce without target results or score changes (69.764003ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 127.78126

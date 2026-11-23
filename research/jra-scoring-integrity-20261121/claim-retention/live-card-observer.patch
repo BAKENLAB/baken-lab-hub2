@@ -1,0 +1,25 @@
+--- a/index.ts
++++ b/index.ts
+@@ -53,1 +53,1 @@
+-const fetchCard=async(cname)=>{
++const fetchCard=async(cname,onBody=null)=>{
+@@ -65,1 +65,3 @@
+-  return decode(new Uint8Array(await res.arrayBuffer()));
++  const bytes=new Uint8Array(await res.arrayBuffer());
++  if(onBody && res.url===BASE+"/JRADB/accessD.html?CNAME="+encodeURIComponent(cname)) onBody(bytes,new Date().toISOString());
++  return decode(bytes);
+@@ -438,1 +440,3 @@
+-        const html=await fetchCard(job.cname);
++        const writer=(globalThis as any).__jraResearchLiveWriter;
++        let capture=null;
++        const html=await fetchCard(job.cname,typeof writer==="function" ? (bytes,at)=>{capture={bytes,at};} : null);
+@@ -486,0 +491,9 @@
++        if(capture){
++          const signal=AbortSignal.timeout(75);
++          try {
++            await Promise.race([
++              writer({capture,raceId,cname:job.cname,runners:structuredClone(runners),signal}),
++              new Promise(resolve=>signal.addEventListener("abort",()=>resolve(null),{once:true}))
++            ]);
++          } catch { /* Optional retention never changes queue processing. */ }
++        }

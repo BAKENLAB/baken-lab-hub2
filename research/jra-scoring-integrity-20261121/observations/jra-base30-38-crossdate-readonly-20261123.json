@@ -1,0 +1,4512 @@
+{
+  "classification": "READONLY_POSTRACE_BASE_RATE_COMPARISON_NOT_AUTHENTICATED_PRE_RACE_SNAPSHOT",
+  "source": "public.official_predictions frozen audit vs public.jra_live_base_candidate_v1 queried 2026-11-23",
+  "race_dates": [
+    "2026-11-21",
+    "2026-11-22"
+  ],
+  "formula": "round(30+38*current_base_rate)",
+  "note": "Past rate is computed NOW, not proven identical to the one available at historical frozen_at. Use for drift diagnosis only, not hindsight score correction.",
+  "rows": [
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 1,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 2,
+      "declared_base": 39,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 3,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 4,
+      "declared_base": 35,
+      "current_base_rate": "0.137755",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 5,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 6,
+      "declared_base": 49,
+      "current_base_rate": "0.489002",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 7,
+      "declared_base": 39,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 8,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 9,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 10,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 11,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 12,
+      "declared_base": 39,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 13,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 14,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 6,
+      "horse_no": 15,
+      "declared_base": 35,
+      "current_base_rate": "0.137755",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 12:04:04.764639"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 1,
+      "declared_base": 48,
+      "current_base_rate": "0.464664",
+      "current_formula_base": 48,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 2,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 3,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 4,
+      "declared_base": 48,
+      "current_base_rate": "0.483013",
+      "current_formula_base": 48,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 5,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 6,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 7,
+      "declared_base": 44,
+      "current_base_rate": "0.379689",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 8,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 9,
+      "declared_base": 48,
+      "current_base_rate": "0.483013",
+      "current_formula_base": 48,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 10,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 11,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 12,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 13,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 14,
+      "declared_base": 48,
+      "current_base_rate": "0.464664",
+      "current_formula_base": 48,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 15,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 7,
+      "horse_no": 16,
+      "declared_base": 43,
+      "current_base_rate": "0.354949",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-21 12:40:27.697837"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 1,
+      "declared_base": 39,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 2,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 3,
+      "declared_base": 39,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 4,
+      "declared_base": 39,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 5,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 6,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 7,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 8,
+      "declared_base": 35,
+      "current_base_rate": "0.137755",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 9,
+      "declared_base": 31,
+      "current_base_rate": "0.036660",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 10,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 11,
+      "declared_base": 39,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 12,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 13,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 14,
+      "declared_base": 31,
+      "current_base_rate": "0.036660",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 15,
+      "declared_base": 49,
+      "current_base_rate": "0.489002",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 16,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:41:22.432304"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 1,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 2,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 3,
+      "declared_base": 48,
+      "current_base_rate": "0.472362",
+      "current_formula_base": 48,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 4,
+      "declared_base": 37,
+      "current_base_rate": "0.186424",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 5,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 6,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 7,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 8,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 9,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 10,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 11,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 12,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 13,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 14,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 15,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 8,
+      "horse_no": 16,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-21 12:41:37.760257"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 1,
+      "declared_base": 36,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 2,
+      "declared_base": 45,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 3,
+      "declared_base": 34,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 4,
+      "declared_base": 45,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 5,
+      "declared_base": 46,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 6,
+      "declared_base": 43,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 7,
+      "declared_base": 45,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 8,
+      "declared_base": 31,
+      "current_base_rate": "0.039275",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 9,
+      "declared_base": 36,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 10,
+      "declared_base": 37,
+      "current_base_rate": "0.189189",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 11,
+      "declared_base": 37,
+      "current_base_rate": "0.189189",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 12,
+      "declared_base": 45,
+      "current_base_rate": "0.406364",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 13,
+      "declared_base": 40,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 14,
+      "declared_base": 46,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 15,
+      "declared_base": 37,
+      "current_base_rate": "0.189189",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 12:47:42.971626"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 1,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 2,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 3,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 4,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 5,
+      "declared_base": 37,
+      "current_base_rate": "0.186424",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 6,
+      "declared_base": 49,
+      "current_base_rate": "0.489002",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 7,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 8,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 9,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 10,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 11,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 12,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 13,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 14,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 15,
+      "declared_base": 48,
+      "current_base_rate": "0.472362",
+      "current_formula_base": 48,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 9,
+      "horse_no": 16,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 13:01:57.643435"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 1,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 13:18:53.360667"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 2,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 13:18:53.360667"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 3,
+      "declared_base": 49,
+      "current_base_rate": "0.489002",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-21 13:18:53.360667"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 4,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 13:18:53.360667"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 5,
+      "declared_base": 31,
+      "current_base_rate": "0.036660",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-21 13:18:53.360667"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 6,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 13:18:53.360667"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 7,
+      "declared_base": 48,
+      "current_base_rate": "0.472362",
+      "current_formula_base": 48,
+      "frozen_jst": "2026-11-21 13:18:53.360667"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 8,
+      "declared_base": 31,
+      "current_base_rate": "0.036660",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-21 13:18:53.360667"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 1,
+      "declared_base": 46,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 2,
+      "declared_base": 36,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 3,
+      "declared_base": 40,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 4,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 5,
+      "declared_base": 31,
+      "current_base_rate": "0.039275",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 6,
+      "declared_base": 45,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 7,
+      "declared_base": 46,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 8,
+      "declared_base": 34,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 9,
+      "declared_base": 36,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 10,
+      "declared_base": 34,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 11,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 12,
+      "declared_base": 34,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 13,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 14,
+      "declared_base": 45,
+      "current_base_rate": "0.406364",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 15,
+      "declared_base": 37,
+      "current_base_rate": "0.189189",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 10,
+      "horse_no": 16,
+      "declared_base": 43,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-21 14:00:15.520259"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 1,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 2,
+      "declared_base": 46,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 3,
+      "declared_base": 36,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 4,
+      "declared_base": 34,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 5,
+      "declared_base": 43,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 6,
+      "declared_base": 43,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 7,
+      "declared_base": 40,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 8,
+      "declared_base": 34,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 9,
+      "declared_base": 43,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 10,
+      "declared_base": 34,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 11,
+      "declared_base": 35,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 12,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 13,
+      "declared_base": 46,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 14,
+      "declared_base": 39,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 15,
+      "declared_base": 39,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 14:01:11.039164"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 1,
+      "declared_base": 40,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 2,
+      "declared_base": 38,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 3,
+      "declared_base": 37,
+      "current_base_rate": "0.181452",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 4,
+      "declared_base": 35,
+      "current_base_rate": "0.131343",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 5,
+      "declared_base": 38,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 6,
+      "declared_base": 36,
+      "current_base_rate": "0.160920",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 7,
+      "declared_base": 33,
+      "current_base_rate": "0.082051",
+      "current_formula_base": 33,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 8,
+      "declared_base": 38,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 9,
+      "declared_base": 37,
+      "current_base_rate": "0.181452",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 10,
+      "declared_base": 40,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 11,
+      "declared_base": 39,
+      "current_base_rate": "0.231920",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 12,
+      "declared_base": 33,
+      "current_base_rate": "0.082051",
+      "current_formula_base": 33,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 13,
+      "declared_base": 41,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 14,
+      "declared_base": 37,
+      "current_base_rate": "0.181452",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 15,
+      "declared_base": 40,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 11,
+      "horse_no": 16,
+      "declared_base": 39,
+      "current_base_rate": "0.231920",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 14:11:19.414924"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 1,
+      "declared_base": 41,
+      "current_base_rate": "0.285714",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 2,
+      "declared_base": 37,
+      "current_base_rate": "0.181452",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 3,
+      "declared_base": 38,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 4,
+      "declared_base": 33,
+      "current_base_rate": "0.082051",
+      "current_formula_base": 33,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 5,
+      "declared_base": 35,
+      "current_base_rate": "0.131343",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 6,
+      "declared_base": 35,
+      "current_base_rate": "0.131343",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 7,
+      "declared_base": 33,
+      "current_base_rate": "0.082051",
+      "current_formula_base": 33,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 8,
+      "declared_base": 36,
+      "current_base_rate": "0.160920",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 9,
+      "declared_base": 40,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 10,
+      "declared_base": 47,
+      "current_base_rate": "0.444444",
+      "current_formula_base": 47,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 11,
+      "declared_base": 39,
+      "current_base_rate": "0.233680",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 12,
+      "declared_base": 41,
+      "current_base_rate": "0.285714",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 13,
+      "declared_base": 33,
+      "current_base_rate": "0.082051",
+      "current_formula_base": 33,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 14,
+      "declared_base": 47,
+      "current_base_rate": "0.439791",
+      "current_formula_base": 47,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 15,
+      "declared_base": 33,
+      "current_base_rate": "0.082051",
+      "current_formula_base": 33,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 16,
+      "declared_base": 41,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-21 14:53:51.929602"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 1,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 2,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 3,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 4,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 5,
+      "declared_base": 45,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 6,
+      "declared_base": 37,
+      "current_base_rate": "0.186424",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 7,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 8,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 9,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 10,
+      "declared_base": 39,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 11,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 12,
+      "declared_base": 37,
+      "current_base_rate": "0.186424",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 13,
+      "declared_base": 42,
+      "current_base_rate": "0.310231",
+      "current_formula_base": 42,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 14,
+      "declared_base": 34,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 15,
+      "declared_base": 37,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "福島",
+      "race_no": 12,
+      "horse_no": 16,
+      "declared_base": 37,
+      "current_base_rate": "0.186424",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 14:55:11.214436"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 1,
+      "declared_base": 39,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 2,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 3,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 4,
+      "declared_base": 37,
+      "current_base_rate": "0.189189",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 5,
+      "declared_base": 34,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 6,
+      "declared_base": 46,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 7,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 8,
+      "declared_base": 35,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 9,
+      "declared_base": 37,
+      "current_base_rate": "0.187139",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 10,
+      "declared_base": 45,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 11,
+      "declared_base": 39,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 12,
+      "declared_base": 40,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-21",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 13,
+      "declared_base": 38,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-21 15:27:58.814994"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 1,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 2,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 3,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 4,
+      "declared_base": 49,
+      "current_base_rate": "0.493997",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 5,
+      "declared_base": 41,
+      "current_base_rate": "0.295341",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 6,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 7,
+      "declared_base": 44,
+      "current_base_rate": "0.379689",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 8,
+      "declared_base": 41,
+      "current_base_rate": "0.295341",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 9,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 10,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 11,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 12,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 13,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 14,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 15,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 1,
+      "horse_no": 16,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:33:39.23543"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 1,
+      "declared_base": 44,
+      "current_base_rate": "0.379689",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 2,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 3,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 4,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 5,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 6,
+      "declared_base": 41,
+      "current_base_rate": "0.295341",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 7,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 8,
+      "declared_base": 44,
+      "current_base_rate": "0.379689",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 9,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 10,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 11,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 1,
+      "horse_no": 12,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:34:52.311953"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 1,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 2,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 3,
+      "declared_base": 43,
+      "current_base_rate": "0.354949",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 4,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 5,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 6,
+      "declared_base": 41,
+      "current_base_rate": "0.295341",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 7,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 8,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 9,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 10,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 11,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 12,
+      "declared_base": 48,
+      "current_base_rate": "0.483013",
+      "current_formula_base": 48,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 2,
+      "horse_no": 13,
+      "declared_base": 44,
+      "current_base_rate": "0.379689",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 09:36:59.840151"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 1,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 2,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 3,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 4,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 5,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 6,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 7,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 8,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 9,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 10,
+      "declared_base": 53,
+      "current_base_rate": "0.594427",
+      "current_formula_base": 53,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 11,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 12,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 2,
+      "horse_no": 13,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:37:55.576955"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 1,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 2,
+      "declared_base": 43,
+      "current_base_rate": "0.354949",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 3,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 4,
+      "declared_base": 53,
+      "current_base_rate": "0.594427",
+      "current_formula_base": 53,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 5,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 6,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 7,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 8,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 9,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 10,
+      "declared_base": 43,
+      "current_base_rate": "0.354949",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 11,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 12,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 13,
+      "declared_base": 44,
+      "current_base_rate": "0.379689",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 14,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 15,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 16,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 17,
+      "declared_base": 43,
+      "current_base_rate": "0.354949",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 3,
+      "horse_no": 18,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 09:40:49.516908"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 1,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 2,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 3,
+      "declared_base": 35,
+      "current_base_rate": "0.143044",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 4,
+      "declared_base": 39,
+      "current_base_rate": "0.230656",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 5,
+      "declared_base": 54,
+      "current_base_rate": "0.643678",
+      "current_formula_base": 54,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 6,
+      "declared_base": 41,
+      "current_base_rate": "0.295341",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 7,
+      "declared_base": 43,
+      "current_base_rate": "0.354949",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 8,
+      "declared_base": 43,
+      "current_base_rate": "0.354949",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 3,
+      "horse_no": 9,
+      "declared_base": 32,
+      "current_base_rate": "0.062784",
+      "current_formula_base": 32,
+      "frozen_jst": "2026-11-22 10:02:30.252723"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 1,
+      "declared_base": 44,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 2,
+      "declared_base": 44,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 3,
+      "declared_base": 44,
+      "current_base_rate": "0.186424",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 4,
+      "declared_base": 44,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 5,
+      "declared_base": 44,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 6,
+      "declared_base": 44,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 7,
+      "declared_base": 44,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 8,
+      "declared_base": 44,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 9,
+      "declared_base": 44,
+      "current_base_rate": "0.363914",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 10,
+      "declared_base": 44,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 11,
+      "declared_base": 44,
+      "current_base_rate": "0.036660",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 12,
+      "declared_base": 44,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 13,
+      "declared_base": 44,
+      "current_base_rate": "0.036660",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 14,
+      "declared_base": 44,
+      "current_base_rate": "0.186424",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 15,
+      "declared_base": 44,
+      "current_base_rate": "0.489002",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 7,
+      "horse_no": 16,
+      "declared_base": 44,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 12:54:46.665997"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 1,
+      "declared_base": 44,
+      "current_base_rate": "0.489002",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 2,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 3,
+      "declared_base": 44,
+      "current_base_rate": "0.489002",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 4,
+      "declared_base": 44,
+      "current_base_rate": "0.489002",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 5,
+      "declared_base": 44,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 6,
+      "declared_base": 44,
+      "current_base_rate": "0.249322",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 7,
+      "declared_base": 44,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 8,
+      "declared_base": 44,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 9,
+      "declared_base": 44,
+      "current_base_rate": "0.363914",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 10,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 11,
+      "declared_base": 44,
+      "current_base_rate": "0.036660",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 12,
+      "declared_base": 44,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 13,
+      "declared_base": 44,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 14,
+      "declared_base": 44,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 15,
+      "declared_base": 44,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 16,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 17,
+      "declared_base": 44,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 7,
+      "horse_no": 18,
+      "declared_base": 44,
+      "current_base_rate": "0.101460",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 12:55:49.906326"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 1,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 2,
+      "declared_base": 43,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 3,
+      "declared_base": 43,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 4,
+      "declared_base": 43,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 5,
+      "declared_base": 43,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 6,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 7,
+      "declared_base": 43,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 8,
+      "declared_base": 43,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 9,
+      "declared_base": 43,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 10,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 11,
+      "declared_base": 43,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 12,
+      "declared_base": 43,
+      "current_base_rate": "0.511401",
+      "current_formula_base": 49,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 13,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 14,
+      "declared_base": 43,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 15,
+      "declared_base": 43,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 8,
+      "horse_no": 16,
+      "declared_base": 43,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:01:03.32563"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 1,
+      "declared_base": 43,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 2,
+      "declared_base": 43,
+      "current_base_rate": "0.406364",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 3,
+      "declared_base": 43,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 4,
+      "declared_base": 43,
+      "current_base_rate": "0.406364",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 5,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 6,
+      "declared_base": 43,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 7,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 8,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 9,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 8,
+      "horse_no": 10,
+      "declared_base": 43,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:01:57.027464"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 1,
+      "declared_base": 44,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 2,
+      "declared_base": 44,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 3,
+      "declared_base": 44,
+      "current_base_rate": "0.235126",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 4,
+      "declared_base": 44,
+      "current_base_rate": "0.398295",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 5,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 6,
+      "declared_base": 44,
+      "current_base_rate": "0.180316",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 7,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 8,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 9,
+      "horse_no": 9,
+      "declared_base": 44,
+      "current_base_rate": "0.358209",
+      "current_formula_base": 44,
+      "frozen_jst": "2026-11-22 13:02:48.780294"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 1,
+      "declared_base": 43,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 2,
+      "declared_base": 43,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 3,
+      "declared_base": 43,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 4,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 5,
+      "declared_base": 43,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 6,
+      "declared_base": 43,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 7,
+      "declared_base": 43,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 8,
+      "declared_base": 43,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 9,
+      "declared_base": 43,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 10,
+      "declared_base": 43,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 11,
+      "declared_base": 43,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 12,
+      "declared_base": 43,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 13,
+      "declared_base": 43,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 9,
+      "horse_no": 14,
+      "declared_base": 43,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 13:32:19.85792"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 1,
+      "declared_base": 44,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 2,
+      "declared_base": 44,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 3,
+      "declared_base": 44,
+      "current_base_rate": "0.516556",
+      "current_formula_base": 50,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 4,
+      "declared_base": 44,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 5,
+      "declared_base": 44,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 6,
+      "declared_base": 44,
+      "current_base_rate": "0.516556",
+      "current_formula_base": 50,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 7,
+      "declared_base": 44,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 8,
+      "declared_base": 44,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 9,
+      "declared_base": 44,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 10,
+      "declared_base": 44,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 11,
+      "declared_base": 44,
+      "current_base_rate": "0.108986",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 12,
+      "declared_base": 44,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 13,
+      "declared_base": 44,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 14,
+      "declared_base": 44,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 10,
+      "horse_no": 15,
+      "declared_base": 44,
+      "current_base_rate": "0.516556",
+      "current_formula_base": 50,
+      "frozen_jst": "2026-11-22 13:35:55.20701"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 1,
+      "declared_base": 40,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 2,
+      "declared_base": 40,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 3,
+      "declared_base": 40,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 4,
+      "declared_base": 40,
+      "current_base_rate": "0.399142",
+      "current_formula_base": 45,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 5,
+      "declared_base": 40,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 6,
+      "declared_base": 40,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 7,
+      "declared_base": 40,
+      "current_base_rate": "0.148664",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 8,
+      "declared_base": 40,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 9,
+      "declared_base": 40,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 10,
+      "declared_base": 40,
+      "current_base_rate": "0.291157",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 11,
+      "declared_base": 40,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 12,
+      "declared_base": 40,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 13,
+      "declared_base": 40,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 10,
+      "horse_no": 14,
+      "declared_base": 40,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 13:55:49.422692"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 1,
+      "declared_base": 40,
+      "current_base_rate": "0.444444",
+      "current_formula_base": 47,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 2,
+      "declared_base": 40,
+      "current_base_rate": "0.233680",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 3,
+      "declared_base": 40,
+      "current_base_rate": "0.160920",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 4,
+      "declared_base": 40,
+      "current_base_rate": "0.131343",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 5,
+      "declared_base": 40,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 6,
+      "declared_base": 40,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 7,
+      "declared_base": 40,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 8,
+      "declared_base": 40,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 9,
+      "declared_base": 40,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 10,
+      "declared_base": 40,
+      "current_base_rate": "0.131343",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 11,
+      "declared_base": 40,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 12,
+      "declared_base": 40,
+      "current_base_rate": "0.218487",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 13,
+      "declared_base": 40,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 14,
+      "declared_base": 40,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 15,
+      "declared_base": 40,
+      "current_base_rate": "0.131343",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 11,
+      "horse_no": 16,
+      "declared_base": 40,
+      "current_base_rate": "0.181452",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 14:11:01.891625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 1,
+      "declared_base": 39,
+      "current_base_rate": "0.444444",
+      "current_formula_base": 47,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 2,
+      "declared_base": 39,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 3,
+      "declared_base": 39,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 4,
+      "declared_base": 39,
+      "current_base_rate": "0.160920",
+      "current_formula_base": 36,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 5,
+      "declared_base": 39,
+      "current_base_rate": "0.231920",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 6,
+      "declared_base": 39,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 7,
+      "declared_base": 39,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 8,
+      "declared_base": 39,
+      "current_base_rate": "0.444444",
+      "current_formula_base": 47,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 9,
+      "declared_base": 39,
+      "current_base_rate": "0.131343",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 10,
+      "declared_base": 39,
+      "current_base_rate": "0.181452",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 11,
+      "declared_base": 39,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 12,
+      "declared_base": 39,
+      "current_base_rate": "0.444444",
+      "current_formula_base": 47,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 13,
+      "declared_base": 39,
+      "current_base_rate": "0.231920",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 14,
+      "declared_base": 39,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 15,
+      "declared_base": 39,
+      "current_base_rate": "0.252874",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 16,
+      "declared_base": 39,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 17,
+      "declared_base": 39,
+      "current_base_rate": "0.302128",
+      "current_formula_base": 41,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 11,
+      "horse_no": 18,
+      "declared_base": 39,
+      "current_base_rate": "0.231920",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 14:16:18.837742"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 1,
+      "declared_base": 30,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 2,
+      "declared_base": 30,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 3,
+      "declared_base": 30,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 4,
+      "declared_base": 30,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 5,
+      "declared_base": 30,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 6,
+      "declared_base": 30,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 7,
+      "declared_base": 30,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 8,
+      "declared_base": 30,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 9,
+      "declared_base": 30,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 10,
+      "declared_base": 30,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 11,
+      "declared_base": 30,
+      "current_base_rate": "0.108986",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 12,
+      "declared_base": 30,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 13,
+      "declared_base": 30,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 14,
+      "declared_base": 30,
+      "current_base_rate": "0.039275",
+      "current_formula_base": 31,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 15,
+      "declared_base": 30,
+      "current_base_rate": "0.189189",
+      "current_formula_base": 37,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "東京",
+      "race_no": 12,
+      "horse_no": 16,
+      "declared_base": 30,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 15:48:42.9756"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 1,
+      "declared_base": 30,
+      "current_base_rate": "0.099370",
+      "current_formula_base": 34,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 2,
+      "declared_base": 30,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 3,
+      "declared_base": 30,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 4,
+      "declared_base": 30,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 5,
+      "declared_base": 30,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 6,
+      "declared_base": 30,
+      "current_base_rate": "0.246883",
+      "current_formula_base": 39,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 7,
+      "declared_base": 30,
+      "current_base_rate": "0.142703",
+      "current_formula_base": 35,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 8,
+      "declared_base": 30,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 9,
+      "declared_base": 30,
+      "current_base_rate": "0.335484",
+      "current_formula_base": 43,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 10,
+      "declared_base": 30,
+      "current_base_rate": "0.200142",
+      "current_formula_base": 38,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 11,
+      "declared_base": 30,
+      "current_base_rate": "0.410862",
+      "current_formula_base": 46,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 12,
+      "declared_base": 30,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    },
+    {
+      "race_date": "2026-11-22",
+      "track": "京都",
+      "race_no": 12,
+      "horse_no": 13,
+      "declared_base": 30,
+      "current_base_rate": "0.273772",
+      "current_formula_base": 40,
+      "frozen_jst": "2026-11-22 15:49:31.846625"
+    }
+  ]
+}

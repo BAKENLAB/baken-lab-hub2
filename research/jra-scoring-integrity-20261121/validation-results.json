@@ -1,0 +1,27 @@
+[
+  {
+    "script": "tests/jra-score-ledger.test.mjs",
+    "exit_code": 0,
+    "tail": "ridge +1=78, not an inferred correction (11.297359ms)\n\u2714 all 13 real saved-race ledgers reproduce without target results or score changes (93.6827ms)\n\u2139 tests 29\n\u2139 suites 0\n\u2139 pass 29\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 184.061621\n"
+  },
+  {
+    "script": "research/jra-full-depth-guard/jra-full-depth-save-gate.test.mjs",
+    "exit_code": 0,
+    "tail": "539ms)\n\u2714 unsupported opponent claim is rejected instead of hallucinated (1.884092ms)\n\u2714 missing verified Eval source blocks official save (0.276602ms)\n\u2139 tests 11\n\u2139 suites 0\n\u2139 pass 11\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 28.902668\n"
+  },
+  {
+    "script": "research/jra-full-depth-guard/jra-asof-detail-handoff.test.mjs",
+    "exit_code": 0,
+    "tail": "riginal source URL not reintroduced (0.614162ms)\n\u2714 paired null historical finishes and margins are accepted only as missing, never invented (0.752185ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 23.61527\n"
+  },
+  {
+    "script": "research/jra-full-depth-guard/jra-deployed-contract.test.mjs",
+    "exit_code": 0,
+    "tail": "ets a separately verified prebridge draft (0.190182ms)\n\u2714 new official prediction still saves with original guarded atomic RPC and readback (0.170651ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 12.851957\n"
+  },
+  {
+    "script": "research/jra-verified-evidence-rank-bridge.test.mjs",
+    "exit_code": 0,
+    "tail": "e or missing full history cannot auto-write anything (0.229309ms)\n\u2714 horse identity mismatch is refused, no market or results in any output (0.172282ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 23.942785\n"
+  }
+]
