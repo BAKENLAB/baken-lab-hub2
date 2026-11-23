@@ -24,6 +24,7 @@ on:
       - 'tests/jra-prerace-fact-matrix.test.mjs'
       - 'tests/jra-protocol-scoring-readiness.test.mjs'
       - 'tests/jra-baseline-only-separate-path.test.mjs'
+      - 'tests/jra-win-evidence-review.test.mjs'
       - 'research/jra-scoring-integrity-20261121/claim-next-clock/**'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
@@ -75,6 +76,8 @@ jobs:
         run: node tests/jra-protocol-scoring-readiness.test.mjs
       - name: Separate JRA0.4 baseline-only provenance preview against all 23 real races (no save)
         run: node tests/jra-baseline-only-separate-path.test.mjs
+      - name: Pre-race WIN challenger gate stays review-only; no rank or scoring mutations
+        run: node tests/jra-win-evidence-review.test.mjs
       - name: Real archived identity joins do not impersonate signed claim evidence
         run: node tests/jra-remaining-blockers.test.mjs
       - name: Byte retention candidate and actual November22 morning ledger replay
