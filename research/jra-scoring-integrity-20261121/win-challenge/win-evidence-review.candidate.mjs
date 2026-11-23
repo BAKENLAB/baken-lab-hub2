@@ -31,23 +31,27 @@ function inspectHorse(race, horse, history) {
       front=corner.length >= 2 && corner.at(-1) <= 3;
     return {source_ref:p.source_ref || 'CLAIMED_CONTEXT_RUN:' + horse.horse_no + ':' + i,
       date:p.prior_date,days,exactCourse,nearDistance,close,front,
-      finishing_margin:finite(p.margin_to_winner) ? p.margin_to_winner : null};
+      finishing_margin:finite(p.margin_to_winner) ? p.margin_to_winner : null,
+      finish:Number.isInteger(p.finish)?p.finish:null};
   });
   material.sort((a,b)=>a.days-b.days);
   const recent=material.filter(p=>p.days<=70),
     nearClose=recent.filter(p=>p.nearDistance && p.close),
     exactClose=material.filter(p=>p.days<=120 && p.exactCourse && p.close),
     frontClose=recent.filter(p=>p.nearDistance && p.close && p.front),
+    recentExactPodium=recent.filter(p=>p.exactCourse && p.finish!==null && p.finish<=3 &&
+      p.finishing_margin!==null && p.finishing_margin<=0.5),
     latest=material[0];
   return {horse_no:horse.horse_no,horse_name:horse.horse_name,official_rank:horse.rank,
     official_score:horse.score,history_count:material.length,
     recent_near_close_count:nearClose.length,
     exact_course_close_count:exactClose.length,
     front_close_count:frontClose.length,
+    recent_exact_podium_count:recentExactPodium.length,
     latest_near_bad:!!(latest && latest.days<=70 && latest.nearDistance &&
       latest.finishing_margin!==null && latest.finishing_margin>1.5),
     decisive_win_proof:false, // A win is never guaranteed from prior race results.
-    evidence_refs:[...new Set([...nearClose,...exactClose,...frontClose].map(x=>x.source_ref))],
+    evidence_refs:[...new Set([...nearClose,...exactClose,...frontClose,...recentExactPodium].map(x=>x.source_ref))],
     evidence_missing:material.length===0};
 }
 /** Fail closed if pre-race lineage or complete field evidence cannot be checked. */
@@ -72,6 +76,7 @@ export function inspectResearchWinChallenge({race,top5,historyByHorse,marketExcl
   }
   const top=reviewed[0],others=reviewed.slice(1),gap=top.official_score-reviewed[1].official_score;
   const challengers=others.filter(h=>
+    (h.recent_exact_podium_count>0 && top.recent_exact_podium_count===0) ||
     h.exact_course_close_count>top.exact_course_close_count ||
     (h.recent_near_close_count>top.recent_near_close_count &&
      top.latest_near_bad && !h.latest_near_bad)
