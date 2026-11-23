@@ -42,3 +42,23 @@ All **87** runner historical reference groups recorded in this cohort are `CLAIM
 Keep the previously configured **11/23 JRA scoring-anomaly audit** separate from the existing JRA results monitor. Notify only on new certified results or new verified anomalies, distinguish model choice from structural arithmetic defects, and preserve all existing FROZEN.
 
 **Finding:** production storage integrity (87/87) verified; source-to-factor and factor-weight validity unproved; history-volume bias is a high-priority research hypothesis. Current next ordinary eligible JRA intake is Tokyo 4R at **10:20 JST** (11:30 scheduled post), pending fresh official eligibility/CLAIM checks.
+
+
+## As-of results-blind robustness shadow: sum vs mean per-history effects
+
+READ-ONLY sensitivity test on the six already-FROZEN races, calculated using ONLY the originally saved manual review stage before the Eval bridge:
+- Original: `manual_score = clamp(base_score + SUM(points for each of all reviewed prior runs))`; the draft `rank_after` records this order.
+- Shadow: `research_shadow_score = clamp(base_score + round(SUM(points)/number_of_prior_runs))`; ties use `base_rank` then `horse_no`. This is an **unapproved research contrast**, NOT the correct historical operator model, NOT a formal rank, and NOT a replacement save.
+- **5 of 6** races change at least one TOP5 member; **4 of 6** change the draft ◎. This is meaningful model fragility and should be included in the existing 11/23 scoring-anomaly investigation once official results are final.
+- Eval bridge (+1 verified adjustment to four horses) is not applied to either manual-stage comparison. Never compare this shadow directly to final FROZEN rank without adding or explicitly excluding the same later Eval effects.
+
+| Race | Original manual TOP5 before Eval | Research mean-effect TOP5 | Entered / exited TOP5 |
+|---|---|---|---|
+| 東京1 | 12-4-7-13-9 | 7-12-4-9-10 | 10 / 13 |
+| 東京2 | 1-7-12-6-16 | 1-12-7-3-16 | 3 / 6 |
+| 東京3 | 3-2-8-7-10 | 2-10-8-3-9 | 9 / 7 |
+| 福島1 | 12-5-10-13-3 | 5-12-13-10-1 | 1 / 3 |
+| 福島2 | 5-11-7-4-10 | 5-11-4-7-6 | 6 / 10 |
+| 福島3 | 9-11-12-5-8 | 11-9-12-5-8 | none |
+
+**Do not promote mean-effect shadow to official scoring.** The evidence establishes sensitivity to historical run counts, not which formula predicts correctly, and neither formula has an approved operator factor-weight policy. Preserve all six existing FROZEN exactly as recorded.
