@@ -7,9 +7,9 @@ const top5=[11,3,12,1,6].map((horse_no,i)=>({
  horse_no,horse_name:'fixture-'+horse_no,rank:i+1,score:70-i
 }));
 function previous({date='2026-11-07',track='福島',dist=1200,margin=.4,
- surface='芝',corners=[3,2]}={}) {
+ surface='芝',corners=[3,2],finish=2}={}) {
  return {prior_date:date,prior_track:track,prior_surface:surface,
-  prior_distance:dist,margin_to_winner:margin,
+  prior_distance:dist,margin_to_winner:margin,finish,
   live_corner_positions:corners,source_ref:'FIXTURE:'+date+':'+track+':'+dist};
 }
 function fixture(){
@@ -82,4 +82,22 @@ test('a prior race row lacking same-surface/near-distance does not count as win 
  assert.equal(x.ok,true);
  assert.equal(x.per_top5[1].recent_near_close_count,0);
  assert.equal(x.per_top5[1].exact_course_close_count,0);
+});
+
+test('recent same-track/distance 2nd with 0.1 gap challenges 7th with 0.7 gap, even with equal close-run counts',()=>{
+ const d=fixture();
+ // Both technically have one recent close run. Only the challenger has a
+ // relevant same-course podium; this must not disappear in a binary count.
+ d.historyByHorse[11][0]=previous({margin:.7,finish:7});
+ d.historyByHorse[3][0]=previous({margin:.1,finish:2});
+ const x=inspectResearchWinChallenge(d);
+ assert.equal(x.ok,true);
+ assert.equal(x.per_top5[0].exact_course_close_count,1);
+ assert.equal(x.per_top5[1].exact_course_close_count,1);
+ assert.equal(x.per_top5[0].recent_exact_podium_count,0);
+ assert.equal(x.per_top5[1].recent_exact_podium_count,1);
+ assert.deepEqual(x.challenge_candidate_horse_nos,[3]);
+ assert.equal(x.current_official_honmei,11);
+ assert.equal(x.ranking_changed,false);
+ assert.equal(x.official_save_allowed,false);
 });
