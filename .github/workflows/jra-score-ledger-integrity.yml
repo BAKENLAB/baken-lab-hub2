@@ -23,6 +23,7 @@ on:
       - 'tests/jra-raw-retention-boundary.test.mjs'
       - 'tests/jra-prerace-fact-matrix.test.mjs'
       - 'tests/jra-protocol-scoring-readiness.test.mjs'
+      - 'research/jra-scoring-integrity-20261121/claim-next-clock/**'
       - 'tests/jra-remaining-blockers.test.mjs'
       - 'tests/jra-final-provider.test.mjs'
       - 'tests/jra-real-save*'
@@ -124,6 +125,11 @@ jobs:
           PGDATABASE: ledger_test
           PGPASSWORD: ephemeral_ci_only
         run: |
+          # One ephemeral DB verifies the exact claim function with full guards
+          # and the first-call timestamp race, then is discarded.
+          createdb jra_claim_clock_test
+          psql -X -v ON_ERROR_STOP=1 -d jra_claim_clock_test -f research/jra-scoring-integrity-20261121/claim-next-clock/claim-next-clock-isolated.test.sql
+          dropdb jra_claim_clock_test
           psql -X -v ON_ERROR_STOP=1 -f research/jra-scoring-integrity-20261121/claim-retention/selected-history.test.sql
           psql -X -v ON_ERROR_STOP=1 -f research/jra-scoring-integrity-20261121/claim-retention/live-archive.test.sql
           psql -X -v ON_ERROR_STOP=1 -f tests/jra-score-ledger-postgres.sql
