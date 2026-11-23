@@ -1,4 +1,4 @@
-# JRA 2026-11-23 first 4 real FROZEN — immutable-status handoff
+# JRA 2026-11-23 first 5 real FROZEN — immutable-status handoff
 
 Source: **READ ONLY** public.official_predictions immediately after four authorized `jra_save_claimed_prediction` MCP operations. This file is a research audit note, not a prediction save/deployment.
 
@@ -8,10 +8,11 @@ Source: **READ ONLY** public.official_predictions immediately after four authori
 | 東京 | 1 | 09:27:12 | 13 | 12,4,7,13,9 | `3fe74e69-4749-4096-a502-3bb9475395ba` |
 | 福島 | 2 | 09:28:06 | 15 | 5,11,7,4,10 | `edc0789c-20fb-492f-8829-b6489e86280b` |
 | 東京 | 2 | 09:28:17 | 17 | 1,7,12,6,16 | `5af61057-87e6-4325-afa4-4ab0dbd74192` |
+| 福島 | 3 | 09:36:00 | 15 | 9,11,12,5,8 | `0c6d0274-dc37-46a9-8785-f15e60e995bd` |
 
 ## What has and has NOT been verified
 
-- All four writes returned `db_frozen_evidence_verification=VERIFIED_FROZEN_SCORES_TOP5_AUDIT_EMPTY_BETS` from the official JRA MCP read-back, and reappeared as `status=FROZEN` in production SELECT. Job/lease, READY and before-post safeguards were applied by the standard RPC. No existing FROZEN was modified.
+- All five writes returned `db_frozen_evidence_verification=VERIFIED_FROZEN_SCORES_TOP5_AUDIT_EMPTY_BETS` from the official JRA MCP read-back, and reappeared as `status=FROZEN` in production SELECT. Job/lease, READY and before-post safeguards were applied by the standard RPC. No existing FROZEN was modified.
 - Scores are `JRA_REBUILD_0.4_MANUAL_ASOF_EVIDENCE_REVIEW_NOT_CERTIFIED_DETERMINISTIC`, based on currently returned JRA CLAIM feature observations, manual effect weights with factual per-run source pointers, full-field reassessment and Eval evidence preview. Do **not** interpret these as a recovered or validated fixed numeric source→score policy. Original official byte-issuer signatures were not independently verified; archive source refs use claim-context surrogate identities.
 - Each prediction explicitly stores `manual_score_weighting_caveat`, `fixed_operator_scoring_policy_approved=false`, `official_original_body_sha256_verified=false`. Bets are `[]`; strict `bet_strategy=SUSPENDED_FOR_ABILITY_STABILITY`.
 - The first Fukushima R1 save attempt was refused by standard RPC due solely to the **bet_strategy fixed string mismatch**, not the evidence preview: unrecognized Japanese strategy text vs mandatory `SUSPENDED_FOR_ABILITY_STABILITY`. The actual underlying `public.jra_save_claimed_prediction` definition was inspected READ-ONLY. After exact cause identification and same existing valid CLAIM/time guard recheck, the corrected input saved successfully. Do not replay an unchanged refused payload.
@@ -20,9 +21,9 @@ Source: **READ ONLY** public.official_predictions immediately after four authori
 
 ## Next eligible race window (observed in official_races)
 
-- Fukushima 3R: **2026-11-23 09:35 JST** first ordinary claim eligibility (70 minutes before scheduled post).
-- Tokyo 3R: **09:50 JST**.
+- Fukushima 3R: CLAIM at 09:35 JST, 15 horses/60 previous runs and official FROZEN saved as fifth prediction.
+- Tokyo 3R: **09:50 JST** first ordinary claim eligibility (70 minutes before 11:00 post). Pre-claim field check: 11 ACTIVE horses, 24 historical runs, turf 2000m, all BASE_CORE-ranked.
 - These are scheduled eligibility thresholds, **not a promise of successful CLAIM or FROZEN**. Always re-check actual clock, READY, unsaved, official post, valid fresh CLAIM and guard. Do not use expired leases, bypass restrictions, change old FROZEN or restart Cron.
 - Support LOCAL separately; do not let JRA work displace LOCAL.
 
-Status: **4/23 JRA flat races official FROZEN confirmed; 19 remain unsaved at this point.** No ongoing background work promised.
+Status: **5/23 JRA flat races official FROZEN confirmed; 18 remain unsaved at this point.** No ongoing background work promised.
