@@ -383,7 +383,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
      return {content:[{type:"text",text:JSON.stringify(receipt)}],structuredContent:receipt};
    } catch(e){return {isError:true,content:[{type:"text",text:err(e)}]}}
  });
- s.registerTool("lab_save_claimed_prediction",{description:"Save a completed BAKEN LAB LOCAL prediction only for the currently live official CLAIM, through the guarded RPC. LOCAL1.6 may attach audit.local16_scoring_trace: for every ACTIVE horse, cite and judge all original 13 scoring criteria and 7 transfer checks (index, judgment, reason, evidence_refs), with score_reason plus the exact official score/rank. Use read-only lab_rank_repro_preflight first; save revalidates an attached trace against fresh verified context and persists it with FROZEN. Trace absent: ordinary guarded save remains available. A validated trace does NOT certify numeric score arithmetic. Never use market odds, target results, or unapproved scoring weights.",inputSchema:z.object({job_id:z.string().uuid(),protocol_version:z.string().min(1).max(100),payload:z.object({runners:z.array(z.unknown()).min(1),top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),audit:z.record(z.string(),z.unknown())}).strict()}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async({job_id,protocol_version,payload})=>{let c:any=null;try{const user=await auth();c=admin().c;await claim(c,job_id);const original_payload=structuredClone(payload);payload=normalizePairEvidence(payload);assertLocal16NoUnauthorizedRubric(protocol_version,payload);assertLocalSaveDuringTransition({circuit:"LOCAL",protocol_version,payload});assertLocal16EvidenceHandoffForSave({protocol_version,payload});
+ s.registerTool("lab_save_claimed_prediction",{description:"Save a completed BAKEN LAB LOCAL prediction only for the currently live official CLAIM, through the guarded RPC. LOCAL1.6 must attach audit.local16_scoring_trace: for every ACTIVE horse, cite and judge all original 13 scoring criteria and 7 transfer checks (index, judgment, reason, evidence_refs), with score_reason plus the exact official score/rank. Use read-only lab_rank_repro_preflight first; save revalidates an attached trace against fresh verified context and persists it with FROZEN. Trace absent: LOCAL1.6 save is refused. Also require official opponent trace and triggered boundary/honmei challenger evidence. A validated trace does NOT certify numeric score arithmetic. Never use market odds, target results, or unapproved scoring weights.",inputSchema:z.object({job_id:z.string().uuid(),protocol_version:z.string().min(1).max(100),payload:z.object({runners:z.array(z.unknown()).min(1),top5:z.array(z.unknown()).min(1),eye:z.unknown().nullable(),bets:z.array(z.unknown()),summary:z.unknown(),bet_strategy:z.string(),audit:z.record(z.string(),z.unknown())}).strict()}),annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async({job_id,protocol_version,payload})=>{let c:any=null;try{const user=await auth();c=admin().c;await claim(c,job_id);const original_payload=structuredClone(payload);payload=normalizePairEvidence(payload);assertLocal16NoUnauthorizedRubric(protocol_version,payload);assertLocalSaveDuringTransition({circuit:"LOCAL",protocol_version,payload});assertLocal16EvidenceHandoffForSave({protocol_version,payload});
  // Evidence-coverage review is performed from a verified official CLAIM.
  // It never promotes an EYE, changes rank/score, or reads target results.
  // Context outages are reported but must not silently turn into an
@@ -428,12 +428,17 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
        throw Error("LOCAL_EYE_FACTOR_INDEPENDENCE_REQUIRED");
    }
  }
+ // LOCAL1.6 requires official as-of context; no points, weights, or rankings change.
+ if(protocol_version==="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013" && !traceVerificationContext)
+   throw Error("LOCAL_16_TRACE_CONTEXT_REQUIRED");
  const traceCheck=verifyOptionalLocal16TraceForSave({
   protocolVersion:protocol_version,payload,
   officialContext:traceVerificationContext,
   auditTrace:auditLocal16CriterionTrace
  });
  const sourceHandoff=auditLocal16HandoffProvenance({context:traceVerificationContext,draft:payload});
+ if(protocol_version==="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013" && traceCheck.validated!==true)
+   throw Error("LOCAL_16_TRACE_REQUIRED");
  let pairwise_trace_status="NOT_PROVIDED";
  if(payload?.audit?.local16_full_field_pairwise_trace!==undefined){
    const pairwiseTrace=payload.audit.local16_full_field_pairwise_trace;
@@ -452,6 +457,28 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
       !(proof.status==="OBSERVED"&&proof.code==="NO_VERIFIED_DIRECT_PAIRS"&&pairwiseTrace.length===0))
      throw Error("LOCAL16_PAIRWISE_TRACE_UNVERIFIED");
    pairwise_trace_status=proof.status;
+ }
+ let local16_boundary_status="NOT_APPLICABLE",local16_honmei_status="NOT_APPLICABLE";
+ if(protocol_version==="CHAPPY_LOCAL_1.6_EYE_FACTOR_COUNT_20261013"){
+   if(pairwise_trace_status==="NOT_PROVIDED")
+     throw Error("LOCAL_16_TRACE_PAIRWISE_REQUIRED");
+   const observedAt=new Date().toISOString();
+   const boundary=auditLocal16PreFreezeBoundary({
+     race:traceVerificationContext.race,verifiedRunners:traceVerificationContext.runners,
+     draft:payload,observationAt:observedAt,
+     comparison:payload.audit?.local16_boundary_comparison??null
+   });
+   if(!["OBSERVED","PROOF_DOCUMENTED_UNCERTIFIED"].includes(boundary.status))
+     throw Error("LOCAL_16_TRACE_BOUNDARY_REVIEW_REQUIRED");
+   const honmei=auditLocal16HonmeiChallenge({
+     race:traceVerificationContext.race,verifiedRunners:traceVerificationContext.runners,
+     draft:payload,observationAt:observedAt,
+     comparisons:payload.audit?.local16_honmei_comparisons??null
+   });
+   if(!["OBSERVED","PROOF_DOCUMENTED_UNCERTIFIED"].includes(honmei.status))
+     throw Error("LOCAL_16_TRACE_HONMEI_REVIEW_REQUIRED");
+   local16_boundary_status=boundary.status;
+   local16_honmei_status=honmei.status;
  }
  let shadow=null;
  // No optional evidence fetch may prevent the official save; use a strict timeout.
@@ -486,7 +513,7 @@ Deno.serve(pipeline([withOAuthProtectedResource(),withSupabase({auth:"user",erro
  if(data?.ok!==true||!uuid(data.prediction_id)||
    typeof data.already_saved!=="boolean")throw Error("SAVE_RESULT_INVALID");
  const result={ok:true,prediction_id:data.prediction_id,
-   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing,scoring_trace_status:traceCheck.status,pairwise_trace_status,
+   already_saved:data.already_saved,shadow_status:data.shadow_status??"UNKNOWN",eye_coverage_status,eye_coverage_missing,scoring_trace_status:traceCheck.status,pairwise_trace_status,local16_boundary_status,local16_honmei_status,scoring_math_certified:false,
    source_handoff_audit:sourceHandoff};
  return {content:[{type:"text",text:JSON.stringify(result)}],structuredContent:result}}catch(e){const code=(e instanceof Error)?e.message:"";if(c && TERMINAL_EYE_CODES.has(code)){try{await closeFailedClaim(c,job_id,code);}catch{return {isError:true,content:[{type:"text",text:"QUEUE_STATE_UNAVAILABLE"}]};}}return {isError:true,content:[{type:"text",text:err(e)}]}}});
  return s});return handler.fetch(req)}));
