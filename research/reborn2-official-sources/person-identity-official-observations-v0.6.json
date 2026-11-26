@@ -1,0 +1,242 @@
+{
+  "version": "0.6.0",
+  "acceptance_commit": "6f0593ccdb8d276b2a2fc0182d04e774414fa45d",
+  "observed_date_jst": "2026-11-27",
+  "observed_at": null,
+  "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+  "person_profiles": [
+    {
+      "issuer": "NAR",
+      "role": "jockey",
+      "registration_id": "60458",
+      "name": "戸崎 圭太",
+      "birth": "1980-07-08",
+      "affiliation": "JRA",
+      "registration_status": "active",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=60458",
+      "stage": "OFFICIAL_PROFILE_BODY_OBSERVED",
+      "effective_from": null,
+      "effective_to": null,
+      "publication_at": null,
+      "raw_sha256": null
+    },
+    {
+      "issuer": "NAR",
+      "role": "jockey",
+      "registration_id": "30943",
+      "name": "戸崎 圭太",
+      "birth": "1980-07-08",
+      "affiliation": "大井",
+      "registration_status": "retired",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=30943",
+      "stage": "OFFICIAL_PROFILE_BODY_OBSERVED",
+      "effective_from": null,
+      "effective_to": null,
+      "publication_at": null,
+      "raw_sha256": null
+    },
+    {
+      "issuer": "NAR",
+      "role": "jockey",
+      "registration_id": "60419",
+      "name": "松山 弘平",
+      "birth": "1990-03-01",
+      "affiliation": "JRA",
+      "registration_status": "active",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=60419",
+      "stage": "OFFICIAL_PROFILE_BODY_OBSERVED",
+      "effective_from": null,
+      "effective_to": null,
+      "publication_at": null,
+      "raw_sha256": null
+    },
+    {
+      "issuer": "NAR",
+      "role": "trainer",
+      "registration_id": "40397",
+      "name": "田中 博康",
+      "birth": "1985-12-05",
+      "affiliation": "JRA",
+      "registration_status": "active",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=40397",
+      "stage": "OFFICIAL_PROFILE_BODY_OBSERVED",
+      "effective_from": null,
+      "effective_to": null,
+      "publication_at": null,
+      "raw_sha256": null
+    }
+  ],
+  "person_link_candidate": {
+    "ids": [
+      "NAR:jockey:30943",
+      "NAR:jockey:60458"
+    ],
+    "status": "CORROBORATED_SAME_PERSON_DIFFERENT_REGISTRATIONS",
+    "evidence": [
+      "matching full name, birth date and local debut date in two NAR official profile bodies",
+      "JRA official biography corroborates 1998 Oi debut and 2013 transfer to JRA"
+    ],
+    "jra_biography": "https://www.jra.go.jp/special/wasj_cp2019_sc/",
+    "exact_effective_date": null,
+    "rule": "retain both registration keys and affiliation periods; no automatic equivalence of license scope, statistics or arbitrary historical joins"
+  },
+  "jra_native_person_route": {
+    "jockey": "https://www.jra.go.jp/datafile/meikan/jockey.html",
+    "trainer": "https://www.jra.go.jp/datafile/meikan/trainer.html",
+    "status": "DIRECTORY_BODY_OBSERVED; individual stable native key not retrieved; rendered navigation required",
+    "note": "# anchors are not person IDs; do not substitute NAR IDs for JRA native IDs"
+  },
+  "person_run_witnesses": [
+    {
+      "race": "LOCAL:2025-09-02:盛岡:10",
+      "horse_id": "30013403596",
+      "horse_name": "ナルカミ",
+      "runner_no": 12,
+      "finish": 1,
+      "clock_tenths": 1212,
+      "rider_label": "戸崎圭 (JRA)",
+      "trainer_label": "田中博",
+      "candidate_person_refs": [
+        "NAR:jockey:60458",
+        "NAR:trainer:40397"
+      ],
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=10&k_raceDate=2025%2F09%2F02&k_raceNo=10",
+      "horse_history_url": "https://www.keiba.go.jp/KeibaWeb_IPAT/DataRoom/HorseMarkInfo_ipat?k_lineageLoginCode=30013403596",
+      "stage": "ROW_LABEL_CORROBORATION_ONLY; result direct body cache miss; no person hyperlink trace; no join"
+    },
+    {
+      "race": "JRA:2025-11-16:京都:10",
+      "horse_id": "2022100154",
+      "runner_no": 4,
+      "finish": 3,
+      "clock_tenths": 1098,
+      "rider_label": "松山 弘平",
+      "candidate_person_refs": [
+        "NAR:jockey:60419"
+      ],
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1008202504041020251116%2FB7",
+      "stage": "ROW_LABEL_CORROBORATION_ONLY; no native person link; no join"
+    }
+  ],
+  "jra_indexed_checks": [
+    {
+      "evidence_id": "JRA:2026-10-25:京都:10:6",
+      "runner_no": 12,
+      "finish": 1,
+      "clock_tenths": 1076,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1008202604091020261025%2F1F",
+      "observation": "indexed table excerpt",
+      "stage": "INDEXED_OFFICIAL_OBSERVATION_ONLY"
+    },
+    {
+      "evidence_id": "JRA:2026-09-26:阪神:11:6",
+      "runner_no": 3,
+      "finish": 11,
+      "clock_tenths": 1264,
+      "source_url": "https://www.jra.go.jp/datafile/seiseki/replay/2026/089.html",
+      "observation": "indexed full result table; direct open cache miss",
+      "stage": "INDEXED_OFFICIAL_OBSERVATION_ONLY"
+    },
+    {
+      "evidence_id": "JRA:2026-05-30:京都:9:9",
+      "runner_no": 8,
+      "finish": 1,
+      "clock_tenths": 1101,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202603110920260530%2F8A",
+      "observation": "indexed table excerpt",
+      "stage": "INDEXED_OFFICIAL_OBSERVATION_ONLY"
+    },
+    {
+      "evidence_id": "JRA:2026-10-11:京都:11:8",
+      "runner_no": 1,
+      "finish": 7,
+      "clock_tenths": 1112,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202604041120261011%2F68",
+      "observation": "indexed row",
+      "stage": "INDEXED_OFFICIAL_OBSERVATION_ONLY"
+    }
+  ],
+  "local_indexed_checks": [
+    {
+      "evidence_id": "LOCAL:2026-09-01:盛岡:10:9",
+      "runner_no": 2,
+      "finish": 1,
+      "clock_tenths": 1209,
+      "final3f_tenths": 365,
+      "rt": 114,
+      "source_url": "https://www.keiba.go.jp/KeibaWeb_IPAT/TodayRaceInfo/RaceMarkTable_ipat?k_babaCode=10&k_raceDate=2026%2F09%2F01&k_raceNo=10",
+      "stage": "INDEXED_OFFICIAL_RESULT_TABLE; no full body or native link trace"
+    }
+  ],
+  "peer_candidates": [
+    {
+      "subject_no": 9,
+      "prior_race": "JRA:2026-05-30:京都:9",
+      "peer_profile_key": "2023100547",
+      "peer_finish": 2,
+      "peer_clock_tenths": 1102,
+      "later_date": "2026-08-30",
+      "later_race_name": "白川郷S",
+      "later_finish": 1,
+      "later_clock_tenths": 1177,
+      "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002023100547%2FBC",
+      "stage": "PROFILE_HISTORY_CANDIDATE; same official profile key; direct result to peer link and later result body pending"
+    }
+  ],
+  "terms": {
+    "nar": "https://www.keiba.go.jp/terms.html",
+    "nar_alias_rule": "official abbreviation rules changed in 2003 and 2012; use time-bound evidence, not abbreviated names as keys",
+    "jra": "https://www.jra.go.jp/use/",
+    "status": "NO_PERMISSION_ESTABLISHED"
+  },
+  "counts": {
+    "new_official_person_profile_registrations": 4,
+    "corroborated_person_entities": 3,
+    "valid_race_person_joins": 0,
+    "new_jra_full_body": 0,
+    "previous_jra_full_report": 33,
+    "remaining_jra_full": 29,
+    "new_jra_indexed": 4,
+    "new_local_indexed": 1,
+    "formal_admissions": 0
+  },
+  "remaining_full_result_queue": [
+    "JRA:2026-10-25:京都:10:6",
+    "JRA:2026-09-26:阪神:11:6",
+    "JRA:2026-08-29:新潟:8:6",
+    "JRA:2026-05-03:東京:10:6",
+    "JRA:2025-12-20:中京:11:6",
+    "JRA:2025-11-16:京都:10:6",
+    "JRA:2025-10-11:京都:11:6",
+    "JRA:2025-07-05:小倉:10:6",
+    "JRA:2025-03-08:阪神:4:6",
+    "JRA:2025-01-12:中京:1:6",
+    "JRA:2024-12-21:京都:3:6",
+    "JRA:2024-12-01:中京:1:6",
+    "JRA:2024-11-16:京都:6:6",
+    "JRA:2026-10-11:京都:11:8",
+    "JRA:2025-10-04:京都:12:8",
+    "JRA:2025-09-06:阪神:9:8",
+    "JRA:2025-07-26:中京:6:8",
+    "JRA:2025-05-18:京都:12:8",
+    "JRA:2025-04-26:東京:12:8",
+    "JRA:2024-08-17:中京:10:8",
+    "JRA:2023-03-25:中山:10:8",
+    "JRA:2023-03-12:阪神:5:8",
+    "JRA:2022-12-24:阪神:6:8",
+    "JRA:2026-05-30:京都:9:9",
+    "JRA:2026-04-19:中山:6:9",
+    "JRA:2026-03-28:中山:10:9",
+    "JRA:2026-02-22:東京:9:9",
+    "JRA:2025-12-13:中山:2:9",
+    "JRA:2025-10-19:東京:4:9"
+  ],
+  "limitations": [
+    "The NAR person profiles are current/retrospective; exact historical edition or publication time not shown.",
+    "No market information copied into research evidence.",
+    "New indexed observations do not increment full-body counts. Some prior history evidence could overlap; no additive claims for all LOCAL.",
+    "JRA source body open failed for tested result URLs; no bypass or automated bulk download.",
+    "No new full course version or formal eligibility proof; existing conflicts remain.",
+    "No production changes or permission inquiry."
+  ]
+}
