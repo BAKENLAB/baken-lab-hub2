@@ -23,7 +23,7 @@ export function analyzeOpposition33to42({target, roster, races=[], histories=[],
   const profile=(h,before)=>racesFor(h).filter(r=>timestamp(r.started_at)<before&&timestamp(r.observed_at)<before).map(r=>({race_id:r.race_id,finish:result(r,h).finish,status:result(r,h).status,class_key:r.class_key??null,conditions:Object.fromEntries(conditionKeys.map(k=>[k,r[k]??null])),evidence_id:r.evidence_id}));
   const fieldProfile=(field,subject,before)=>{const peers=field.filter(h=>h!==subject).map(h=>({horse_id:h,runs:profile(h,before)}));return {denominator:peers.length,covered:peers.filter(p=>p.runs.length).length,profiles:peers.map(p=>({...p,distribution:summary(p.runs)}))};};
   const historyFor=h=>unique(histories.filter(x=>admission(x)&&x.horse_id===h&&x.target_race_id===target.race_id&&x.chronology_verified===true),x=>x.horse_id)[0];
-  const ruleFor=(a,b)=>unique(rules.filter(r=>admission(r)&&r.circuit===a.circuit&&r.circuit===b.circuit&&r.from_key===a.class_key&&r.to_key===b.class_key&&r.from_version===a.rule_version&&r.to_version===b.rule_version&&timestamp(r.effective_from)<=timestamp(a.started_at)&&timestamp(r.effective_from)<=timestamp(b.started_at)&&timestamp(b.started_at)<timestamp(r.effective_until)&&["PROMOTION","DEMOTION","SAME_CLASS","SYSTEM_CHANGE"].includes(r.transition)),r=>r.from_key+"|"+r.to_key)[0];
+  const ruleFor=(a,b)=>unique(rules.filter(r=>admission(r)&&r.circuit===a.circuit&&r.circuit===b.circuit&&r.from_key===a.class_key&&r.to_key===b.class_key&&r.from_version===a.rule_version&&r.to_version===b.rule_version&&timestamp(r.effective_from)<=timestamp(a.started_at)&&timestamp(r.effective_from)<=timestamp(b.started_at)&&timestamp(a.started_at)<timestamp(r.effective_until)&&timestamp(b.started_at)<timestamp(r.effective_until)&&["PROMOTION","DEMOTION","SAME_CLASS","SYSTEM_CHANGE"].includes(r.transition)),r=>r.from_key+"|"+r.to_key)[0];
   const shared=new Map();
   const runners=roster.map(entry=>{
     const items=Object.fromEntries(Array.from({length:10},(_,i)=>[String(i+33),{facts:[],hypotheses:[],counterevidence:[],unknowns:[],effect:"NO_RECORDED_USE"}]));
@@ -51,7 +51,7 @@ export function analyzeOpposition33to42({target, roster, races=[], histories=[],
           const p=result(l,peer.horse_id);shared.set(k,{peer_id:peer.horse_id,later_result_id:l.race_id,finish:p.finish,status:p.status,evidence_id:l.evidence_id});
           emit(37,{prior_race_id:r.race_id,subject_id:h,peer_id:peer.horse_id,own_finish:own.finish,peer_prior_finish:peer.finish,peer_finish:p.finish,shared_followup_key:k,source_availability:"VERIFIED_PRESTART"},[...ref,l.evidence_id]);
         }
-        const rs=unique(ratings.filter(q=>admission(q)&&q.peer_id===peer.horse_id&&q.performance_ref===r.race_id&&q.crosswalk_status==="VERIFIED"&&q.edition_pinned===true&&["JRA","NAR","IFHA"].includes(q.authority)&&str(q.scope)&&str(q.edition)&&Number.isFinite(q.rating)&&q.rating>0),q=>q.peer_id+"|"+q.performance_ref+"|"+q.scope);
+        const rs=unique(ratings.filter(q=>admission(q)&&q.peer_id===peer.horse_id&&q.performance_ref===r.race_id&&q.crosswalk_status==="VERIFIED"&&q.edition_pinned===true&&timestamp(q.published_at)>timestamp(r.started_at)&&["JRA","NAR","IFHA"].includes(q.authority)&&str(q.scope)&&str(q.edition)&&Number.isFinite(q.rating)&&q.rating>0),q=>q.peer_id+"|"+q.performance_ref+"|"+q.scope);
         for(const q of rs)emit(38,{peer_id:q.peer_id,performance_ref:q.performance_ref,rating:q.rating,scope:q.scope,edition:q.edition,published_at:q.published_at},[...ref,q.evidence_id]);
         if(!rs.length)unknown(38,"NO_UNIQUE_OFFICIAL_RACE_RATING:"+r.race_id+":"+peer.horse_id);
         for(const other of ids.filter(x=>x!==h&&x!==peer.horse_id)){
@@ -65,7 +65,7 @@ export function analyzeOpposition33to42({target, roster, races=[], histories=[],
       const previous=fieldProfile(peerIds,h,timestamp(r.started_at));
       emit(40,{prior_race_id:r.race_id,current_field_profile:{...cur,denominator:target.field_size-1},prior_field_profile:previous,comparative_direction:null,conditions_match:comparable(r,target)},[...ref,...cur.profiles.flatMap(p=>p.runs.map(q=>q.evidence_id)),...previous.profiles.flatMap(p=>p.runs.map(q=>q.evidence_id))]);
       unknown(40,"FIELD_STRENGTH_COMPARISON_POLICY_UNAPPROVED");
-      const upper=ruleFor(target,r);
+      const upper=target.class_verified===true&&r.class_verified===true?ruleFor(target,r):null;
       if(upper?.transition==="PROMOTION")emit(41,{demonstrated_higher_class:{race_id:r.race_id,finish:own.finish,status:own.status},conditions_match:comparable(r,target),transferable_evidence:null},[...ref,upper.evidence_id]);
     }
     const chronological=historyFor(h);

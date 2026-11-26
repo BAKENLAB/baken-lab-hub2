@@ -58,9 +58,9 @@ export function analyzeConditions43to57({target,roster,runs=[],historyWitnesses=
    if(last&&positive(last.distance)&&positive(current.distance))put("44",{current_transition:true,delta_m:current.distance-last.distance,direction:direction(current.distance-last.distance),confounders:differences(last,current,["distance"])},[last.evidence_id,witness.evidence_id]);
   }else for(const n of ["44","46","54"])unknown(n,"CONTIGUOUS_HISTORY_NOT_ATTESTED");
   const d=unique(draws.filter(x=>admitted(x)&&x.horse_id===h&&x.race_id===target.race_id&&x.field_size===target.field_size&&Number.isInteger(x.gate_position)&&x.gate_position>0&&x.gate_position<=target.field_size&&x.actual_gate_verified===true),x=>x.horse_id)[0];
-  if(d)put("53",{gate_position:d.gate_position,normalized_draw:target.field_size===1?null:(d.gate_position-1)/(target.field_size-1),style_profile:null,draw_interaction:null},[d.evidence_id]);
+  if(d&&draws.filter(x=>admitted(x)&&x.race_id===target.race_id&&x.actual_gate_verified===true&&x.gate_position===d.gate_position).length===1)put("53",{gate_position:d.gate_position,normalized_draw:target.field_size===1?null:(d.gate_position-1)/(target.field_size-1),style_profile:null,draw_interaction:null},[d.evidence_id]);
   for(const e of unique(exposures.filter(e=>admitted(e)&&e.horse_id===h&&own.some(r=>r.race_id===e.race_id)&&["OFFICIAL_REPORT","AUTHORIZED_VIDEO"].includes(e.source_scope)&&["SAND","TRAFFIC"].includes(e.type)&&["EXPOSED","NOT_EXPOSED"].includes(e.exposure_status)&&str(e.response_observation)),e=>e.evidence_id)){
-   const r=own.find(r=>r.race_id===e.race_id);if(e.type==="SAND"&&r.surface!=="DIRT")continue;
+   const r=own.find(r=>r.race_id===e.race_id);if(!(ts(e.published_at)>ts(r.started_at)))continue;if(e.type==="SAND"&&r.surface!=="DIRT")continue;
    put(e.type==="SAND"?"55":"56",{race_id:e.race_id,exposure_status:e.exposure_status,response_observation:e.response_observation,source_scope:e.source_scope},[r.evidence_id,e.evidence_id]);
   }
   const months=own.map(r=>({race_id:r.race_id,date:r.local_date,finish:r.finish,conditions:record(r).conditions,evidence_id:r.evidence_id})).filter(r=>/^\d{4}-\d{2}-\d{2}$/.test(r.date??"")&&Number(r.date.slice(5,7))>=1&&Number(r.date.slice(5,7))<=12);
