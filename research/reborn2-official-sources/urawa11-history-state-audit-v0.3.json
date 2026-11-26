@@ -1,0 +1,329 @@
+{
+  "version": "0.3.0",
+  "semantics_commit": "e23a5427e0773ea05775333e9cf1c9e438d301ec",
+  "source": "private Work Library URAWA11_FULLFIELD_OFFICIAL_HISTORY_AUDIT_20261126.xlsx, History 193; all 193 rows read, no original DOM rehash",
+  "cutoff_date": "2026-11-25",
+  "observed_date_jst": "2026-11-26",
+  "counts": {
+    "history_rows": 193,
+    "local_rows": 131,
+    "local_numeric_finish": 129,
+    "local_cancelled": 2,
+    "jra_rows": 62,
+    "jra_numeric_finish": 61,
+    "jra_excluded": 1,
+    "numeric_finish_total": 190,
+    "profile_rows_with_nonstart": 3,
+    "previous_branch_jra_row_keys_matching_work": 14,
+    "new_jra_row_checks": 5,
+    "cumulative_branch_jra_keys_matching_work": 19,
+    "remaining_jra_row_keys": 43,
+    "unique_history_race_keys": 181,
+    "shared_race_keys": 8,
+    "possible_pair_edges": 10
+  },
+  "by_horse": [
+    {
+      "horse_no": 1,
+      "history_rows": 10,
+      "local_rows": 4,
+      "local_numeric_finish": 4,
+      "jra_rows": 6,
+      "jra_numeric_finish": 6,
+      "nonstart": 0
+    },
+    {
+      "horse_no": 2,
+      "history_rows": 45,
+      "local_rows": 45,
+      "local_numeric_finish": 45,
+      "jra_rows": 0,
+      "jra_numeric_finish": 0,
+      "nonstart": 0
+    },
+    {
+      "horse_no": 3,
+      "history_rows": 21,
+      "local_rows": 21,
+      "local_numeric_finish": 21,
+      "jra_rows": 0,
+      "jra_numeric_finish": 0,
+      "nonstart": 0
+    },
+    {
+      "horse_no": 4,
+      "history_rows": 20,
+      "local_rows": 6,
+      "local_numeric_finish": 6,
+      "jra_rows": 14,
+      "jra_numeric_finish": 13,
+      "nonstart": 1
+    },
+    {
+      "horse_no": 5,
+      "history_rows": 19,
+      "local_rows": 19,
+      "local_numeric_finish": 19,
+      "jra_rows": 0,
+      "jra_numeric_finish": 0,
+      "nonstart": 0
+    },
+    {
+      "horse_no": 6,
+      "history_rows": 21,
+      "local_rows": 1,
+      "local_numeric_finish": 1,
+      "jra_rows": 20,
+      "jra_numeric_finish": 20,
+      "nonstart": 0
+    },
+    {
+      "horse_no": 7,
+      "history_rows": 33,
+      "local_rows": 33,
+      "local_numeric_finish": 31,
+      "jra_rows": 0,
+      "jra_numeric_finish": 0,
+      "nonstart": 2
+    },
+    {
+      "horse_no": 8,
+      "history_rows": 16,
+      "local_rows": 0,
+      "local_numeric_finish": 0,
+      "jra_rows": 16,
+      "jra_numeric_finish": 16,
+      "nonstart": 0
+    },
+    {
+      "horse_no": 9,
+      "history_rows": 8,
+      "local_rows": 2,
+      "local_numeric_finish": 2,
+      "jra_rows": 6,
+      "jra_numeric_finish": 6,
+      "nonstart": 0
+    }
+  ],
+  "nonstarts": [
+    {
+      "race_id": "LOCAL:2023-06-01:浦和:11",
+      "horse_no": 7,
+      "status": "CANCELLED_NOT_STARTED",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2023%2F06%2F01&k_raceNo=11&k_babaCode=18",
+      "official_result_confirmed": true,
+      "runner_no": 7,
+      "observed_date_jst": "2026-11-26",
+      "published_at_or_null": null,
+      "raw_sha256_or_null": null
+    },
+    {
+      "race_id": "LOCAL:2022-06-01:浦和:8",
+      "horse_no": 7,
+      "status": "CANCELLED_NOT_STARTED",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2022%2F06%2F01&k_raceNo=8&k_babaCode=18",
+      "official_result_confirmed": true,
+      "runner_no": 9,
+      "observed_date_jst": "2026-11-26",
+      "published_at_or_null": null,
+      "raw_sha256_or_null": null
+    }
+  ],
+  "new_jra_checks": [
+    {
+      "race_id": "JRA:2024-11-09:京都:4",
+      "target_horse_no": 1,
+      "runner_no": 4,
+      "finish": 1,
+      "clock_tenths": 1112,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1008202406030420241109%2FFE",
+      "source_version": null,
+      "observed_date_jst": "2026-11-26",
+      "published_at_or_null": null,
+      "raw_sha256_or_null": null,
+      "identity_status": "RESULT_NAME_AND_PROFILE_HISTORY_MATCH; native result link not checked",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "stage": "OBSERVED"
+    },
+    {
+      "race_id": "JRA:2025-01-06:中京:4",
+      "target_horse_no": 1,
+      "runner_no": 8,
+      "finish": 7,
+      "clock_tenths": 1139,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1007202501020420250106%2F04",
+      "source_version": null,
+      "observed_date_jst": "2026-11-26",
+      "published_at_or_null": null,
+      "raw_sha256_or_null": null,
+      "identity_status": "RESULT_NAME_AND_PROFILE_HISTORY_MATCH; native result link not checked",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "stage": "OBSERVED"
+    },
+    {
+      "race_id": "JRA:2025-04-20:中山:6",
+      "target_horse_no": 1,
+      "runner_no": 11,
+      "finish": 1,
+      "clock_tenths": 1129,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1006202503080620250420%2FEF",
+      "source_version": null,
+      "observed_date_jst": "2026-11-26",
+      "published_at_or_null": null,
+      "raw_sha256_or_null": null,
+      "identity_status": "RESULT_NAME_AND_PROFILE_HISTORY_MATCH; native result link not checked",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "stage": "OBSERVED"
+    },
+    {
+      "race_id": "JRA:2025-06-28:福島:10",
+      "target_horse_no": 1,
+      "runner_no": 13,
+      "finish": 1,
+      "clock_tenths": 1042,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0103202502011020250628%2FCE",
+      "source_version": null,
+      "observed_date_jst": "2026-11-26",
+      "published_at_or_null": null,
+      "raw_sha256_or_null": null,
+      "identity_status": "RESULT_NAME_AND_PROFILE_HISTORY_MATCH; native result link not checked",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "stage": "OBSERVED"
+    },
+    {
+      "race_id": "JRA:2025-12-07:中京:11",
+      "target_horse_no": 1,
+      "runner_no": 12,
+      "finish": 13,
+      "clock_tenths": 1126,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1007202505021120251207%2F4B",
+      "source_version": null,
+      "observed_date_jst": "2026-11-26",
+      "published_at_or_null": null,
+      "raw_sha256_or_null": null,
+      "identity_status": "RESULT_NAME_AND_PROFILE_HISTORY_MATCH; native result link not checked",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "stage": "OBSERVED"
+    }
+  ],
+  "remaining_jra_queue": [
+    "JRA:2026-05-23:京都:11:1",
+    "JRA:2025-10-13:東京:9:4",
+    "JRA:2025-09-20:中山:7:4",
+    "JRA:2025-08-03:新潟:8:4",
+    "JRA:2025-07-05:福島:9:4",
+    "JRA:2025-04-06:中山:5:4",
+    "JRA:2025-03-23:中山:5:4",
+    "JRA:2025-03-01:中山:6:4",
+    "JRA:2025-02-02:東京:6:4",
+    "JRA:2025-01-05:中山:5:4",
+    "JRA:2024-12-15:中山:3:4",
+    "JRA:2024-10-19:東京:6:4",
+    "JRA:2026-10-25:京都:10:6",
+    "JRA:2026-09-26:阪神:11:6",
+    "JRA:2026-08-29:新潟:8:6",
+    "JRA:2026-05-03:東京:10:6",
+    "JRA:2025-12-20:中京:11:6",
+    "JRA:2025-11-16:京都:10:6",
+    "JRA:2025-10-11:京都:11:6",
+    "JRA:2025-07-05:小倉:10:6",
+    "JRA:2025-05-03:京都:11:6",
+    "JRA:2025-03-29:中山:10:6",
+    "JRA:2025-03-08:阪神:4:6",
+    "JRA:2025-01-12:中京:1:6",
+    "JRA:2024-12-21:京都:3:6",
+    "JRA:2024-12-01:中京:1:6",
+    "JRA:2024-11-16:京都:6:6",
+    "JRA:2026-10-11:京都:11:8",
+    "JRA:2025-10-04:京都:12:8",
+    "JRA:2025-09-06:阪神:9:8",
+    "JRA:2025-07-26:中京:6:8",
+    "JRA:2025-05-18:京都:12:8",
+    "JRA:2025-04-26:東京:12:8",
+    "JRA:2024-08-17:中京:10:8",
+    "JRA:2023-03-25:中山:10:8",
+    "JRA:2023-03-12:阪神:5:8",
+    "JRA:2022-12-24:阪神:6:8",
+    "JRA:2026-05-30:京都:9:9",
+    "JRA:2026-04-19:中山:6:9",
+    "JRA:2026-03-28:中山:10:9",
+    "JRA:2026-02-22:東京:9:9",
+    "JRA:2025-12-13:中山:2:9",
+    "JRA:2025-10-19:東京:4:9"
+  ],
+  "shared_race_candidates": [
+    {
+      "race_id": "LOCAL:2025-09-02:盛岡:10",
+      "horse_nos": [
+        1,
+        3,
+        6
+      ],
+      "stage": "PROFILE_HISTORY_CANDIDATE_ONLY"
+    },
+    {
+      "race_id": "LOCAL:2026-10-21:浦和:11",
+      "horse_nos": [
+        2,
+        7
+      ],
+      "stage": "PROFILE_HISTORY_CANDIDATE_ONLY"
+    },
+    {
+      "race_id": "LOCAL:2025-10-29:浦和:11",
+      "horse_nos": [
+        2,
+        7
+      ],
+      "stage": "PROFILE_HISTORY_CANDIDATE_ONLY"
+    },
+    {
+      "race_id": "LOCAL:2025-04-24:浦和:11",
+      "horse_nos": [
+        2,
+        7
+      ],
+      "stage": "PROFILE_HISTORY_CANDIDATE_ONLY"
+    },
+    {
+      "race_id": "JRA:2026-07-12:小倉:11",
+      "horse_nos": [
+        6,
+        8
+      ],
+      "stage": "PROFILE_HISTORY_CANDIDATE_ONLY"
+    },
+    {
+      "race_id": "JRA:2026-06-13:阪神:11",
+      "horse_nos": [
+        6,
+        8
+      ],
+      "stage": "PROFILE_HISTORY_CANDIDATE_ONLY"
+    },
+    {
+      "race_id": "JRA:2026-04-18:阪神:11",
+      "horse_nos": [
+        6,
+        8
+      ],
+      "stage": "PROFILE_HISTORY_CANDIDATE_ONLY"
+    },
+    {
+      "race_id": "JRA:2026-03-22:阪神:10",
+      "horse_nos": [
+        6,
+        8
+      ],
+      "stage": "PROFILE_HISTORY_CANDIDATE_ONLY"
+    }
+  ],
+  "notes": [
+    "All 193 rows classified by stored profile finish state; not independently verified official result pages for all numeric finishes.",
+    "No same-day or future target outcomes used.",
+    "Previous branch row-key checks are overlap audit, not independent reconfirmation of all earlier result fields.",
+    "Work prior detail overlap remains separate; no raw profile or result text reproduced.",
+    "Reported DOM SHA is rendered DOM, not HTTP original; no independent rehash.",
+    "Source permission and historical version unresolved; formal admissions zero."
+  ]
+}
