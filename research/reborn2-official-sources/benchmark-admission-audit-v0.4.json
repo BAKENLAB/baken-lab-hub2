@@ -1,0 +1,131 @@
+{
+  "version": "0.4.0",
+  "acceptance_commit": "3a6943b127093a421fb96f9e22dcf783a676493e",
+  "observed_date_jst": "2026-11-26",
+  "observed_at": null,
+  "scope": "read-only aggregate SQL on existing archive; no writes; no raw official record redistribution",
+  "prior_jra": {
+    "races": 7311,
+    "runner_rows": 101196,
+    "status": "REPORTED_PRIOR_RESEARCH; extraction conditions not reproduced this turn"
+  },
+  "local": {
+    "replay_sql_ref": "https://github.com/BAKENLAB/baken-lab-hub2/blob/3a6943b/research/reborn2-local-benchmark/archive-cohort-audit-v2.sql",
+    "raw_races": 22352,
+    "raw_rows": 232038,
+    "reproduced": {
+      "races": 19131,
+      "runner_rows": 197712,
+      "groups": 12432,
+      "groups20": 34,
+      "groups5_19": 470,
+      "groups_lt5": 11928,
+      "groups20_6months": 30,
+      "invalid_output": 0
+    },
+    "sample": {
+      "track": "園田",
+      "distance_m": 1400,
+      "going": "良",
+      "raw_label": "C2一3歳以上",
+      "race_n": 49,
+      "runner_n": 477,
+      "winner_median_sec": 91.9,
+      "runner_median_sec": 93
+    },
+    "formal_admission": 0
+  },
+  "jra": {
+    "archive": {
+      "full_field_races": 30015,
+      "archive_complete_races": 2,
+      "archive_complete_runners": 20,
+      "full_runner_rows": 415165,
+      "scope": "2018-01-06 to 2026-09-13; jra_public_reference"
+    },
+    "new_scope": {
+      "from": "2024-01-01",
+      "to_exclusive": "2026-09-01",
+      "surface": "flat turf/dirt",
+      "clock_candidates": 7918,
+      "runner_rows": 109293,
+      "strict_clock_and_f3_races": 7917,
+      "strict_rows": 109279,
+      "strict_condition_races": 7855,
+      "strict_condition_rows": 108282,
+      "all_profile_ref_present_races": 7777,
+      "all_rider_ref_present_races": 5039,
+      "layout_present_races": 0,
+      "checked_before_target_date_races": 7918,
+      "checked_before_next_day_of_source_race": 0,
+      "archive_complete_count": 0,
+      "notes": "Presence of reference or check timestamp does not authenticate horse identity or historical version. Strict numeric finishes exclude dead heats and nonfinishers conservatively; not evidence of full universal coverage."
+    },
+    "sql": "WITH f AS (SELECT r.id,r.race_date,r.surface,r.turn,r.going,r.distance,r.field_size,r.class_name,r.course_layout,h.horse_no,h.finish,h.final3f,CASE WHEN h.time_raw~'^[0-9]+:[0-5][0-9][.][0-9]$' THEN split_part(h.time_raw,':',1)::numeric*60+split_part(h.time_raw,':',2)::numeric END AS sec FROM public.jra_lab_races r JOIN public.jra_lab_runs h ON h.race_id=r.id WHERE r.full_field AND r.source_kind='jra_public_reference' AND h.record_role='full_runner' AND h.source_kind='jra_public_reference' AND r.race_date>=DATE '2024-01-01' AND r.race_date<DATE '2026-09-01' AND r.surface IN ('芝','ダート')), g AS (SELECT id,race_date,surface,turn,going,distance,field_size,class_name,course_layout,count(*) AS n,count(DISTINCT horse_no) AS uniq,count(DISTINCT finish) FILTER(WHERE finish>0) AS finishes,min(finish) AS lo,max(finish) AS hi,count(sec) AS clocks,min(sec) AS min_clock,min(sec) FILTER(WHERE finish=1) AS winner_clock,count(*) FILTER(WHERE finish=1) AS winners,count(*) FILTER(WHERE final3f>0 AND final3f<sec) AS f3n,array_agg(sec ORDER BY finish,horse_no)=array_agg(sec ORDER BY sec) AS clock_order FROM f GROUP BY id,race_date,surface,turn,going,distance,field_size,class_name,course_layout), e AS (SELECT *, n=field_size AND uniq=n AND finishes=n AND lo=1 AND hi=n AND clocks=n AND winners=1 AND min_clock=winner_clock AND min_clock>0 AS candidate FROM g) SELECT count(*) FILTER(WHERE candidate) AS clock_candidates,sum(n) FILTER(WHERE candidate) AS candidate_rows,count(*) FILTER(WHERE candidate AND f3n=n) AS valid_f3_races,sum(n) FILTER(WHERE candidate AND f3n=n) AS valid_f3_rows,count(*) FILTER(WHERE candidate AND f3n=n AND clock_order) AS strict_races,sum(n) FILTER(WHERE candidate AND f3n=n AND clock_order) AS strict_rows,count(*) FILTER(WHERE candidate AND f3n=n AND clock_order AND turn IN ('左','右','直線') AND going IN ('良','稍重','重','不良') AND distance>0 AND nullif(btrim(class_name),'') IS NOT NULL) AS strict_condition_races,sum(n) FILTER(WHERE candidate AND f3n=n AND clock_order AND turn IN ('左','右','直線') AND going IN ('良','稍重','重','不良') AND distance>0 AND nullif(btrim(class_name),'') IS NOT NULL) AS strict_condition_rows FROM e",
+    "formal_admission": 0
+  },
+  "gates": [
+    {
+      "id": "PERMISSION",
+      "jra": "UNKNOWN",
+      "local": "UNKNOWN",
+      "action": "written scope confirmation: existing archive retention, ordinary/manual and automated collection, internal analysis, derived public display, historical snapshot retention; no inquiry sent"
+    },
+    {
+      "id": "IDENTITY",
+      "jra": "7777/7918 candidate races have all horse_ref values present; verify native links and collisions; reference presence != identity",
+      "local": "horse_runs lacks native horse ID column; result-row identity bridge required for per-horse baselines",
+      "action": "separate race-grain winner clock from runner-grain profile; require race/result provenance for both; do not waive per-horse identity gates"
+    },
+    {
+      "id": "ASOF",
+      "jra": "7918 candidate race records checked before target date 2026-11-25 but none checked before next day after source race; historical replay uses target-specific cutoff, version and original witness, not observation as publication",
+      "local": "horse_runs has source_month but no observed_at/publication/version field",
+      "action": "recover independently dated snapshots or permitted official archived versions; no date backfill"
+    },
+    {
+      "id": "COURSE_VERSION",
+      "jra": "0/7918 populated; public meeting overview gives rail usage by meeting and day; requires actual race meeting key and conflict checks",
+      "local": "no explicit course version column",
+      "action": "join official venue/surface/direction/distance/meeting/rail/inner-outer and effective periods, reject conflicting values"
+    },
+    {
+      "id": "CLASS",
+      "jra": "raw class labels not formal eligibility",
+      "local": "race name grouping not formal class",
+      "action": "use official race eligibility, yearly rule version, age/weight/sex/grade; validate normalization before regrouping"
+    },
+    {
+      "id": "VALIDATION",
+      "jra": "new scope is not old 7311 cohort; reproduce exact manifest",
+      "local": "v2 reproduced; severe sparse groups",
+      "action": "independent temporal holdout; compare supported exact groups; no arbitrary pooling"
+    }
+  ],
+  "rider_diagnostic": {
+    "scope": "2025 Tokyo dirt, archived results only",
+    "proxy_definition": "earlier race number, same meeting date and going, at least two prior valid races; share of top-three finishers whose early_pos<=3; >=0.5 exploratory band only",
+    "eligible_races": 232,
+    "target_races": 134,
+    "high_targets": 51,
+    "low_targets": 83,
+    "rider_rows": 1886,
+    "rider_refs": 1,
+    "status": "INVALID_FOR_RIDER_EFFECT",
+    "collision_audit": {
+      "rows": 4053,
+      "jockey_names": 118,
+      "jockey_refs": 1,
+      "jockey_ref_collisions": 1,
+      "max_jockey_names_per_ref": 105,
+      "horse_names": 2414,
+      "horse_refs": 2414,
+      "horse_ref_collisions": 0,
+      "max_horse_names_per_ref": 1,
+      "sql": "WITH f AS (SELECT h.jockey_ref,h.jockey,h.horse_ref,h.horse_name,r.source_checked_at FROM public.jra_lab_races r JOIN public.jra_lab_runs h ON h.race_id=r.id WHERE r.track='東京' AND r.surface='ダート' AND r.race_date>=DATE '2025-01-01' AND r.race_date<DATE '2026-01-01' AND r.full_field AND r.source_kind='jra_public_reference' AND h.record_role='full_runner' AND h.source_kind='jra_public_reference'), j AS (SELECT jockey_ref,count(*) AS n,count(DISTINCT jockey) AS names FROM f WHERE nullif(btrim(jockey_ref),'') IS NOT NULL GROUP BY jockey_ref), h AS (SELECT horse_ref,count(*) AS n,count(DISTINCT horse_name) AS names FROM f WHERE nullif(btrim(horse_ref),'') IS NOT NULL GROUP BY horse_ref) SELECT (SELECT count(*) FROM f) AS rows,(SELECT count(DISTINCT jockey) FROM f) AS jockey_names,(SELECT count(*) FROM j) AS jockey_refs,(SELECT count(*) FROM j WHERE names>1) AS jockey_ref_collisions,(SELECT max(names) FROM j) AS max_jockey_names_per_ref,(SELECT count(DISTINCT horse_name) FROM f) AS horse_names,(SELECT count(*) FROM h) AS horse_refs,(SELECT count(*) FROM h WHERE names>1) AS horse_ref_collisions,(SELECT max(names) FROM h) AS max_horse_names_per_ref"
+    },
+    "notes": "Do not group by reference presence or replace by name-only identity. No rider-by-going estimate. Race order is not proof of prior publication. Recover official jockey result links and verify native IDs before rerun."
+  },
+  "formal_admission": 0,
+  "production_changes": false
+}
