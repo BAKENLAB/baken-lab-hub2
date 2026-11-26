@@ -27,3 +27,21 @@ const q=abilityResearch115v2({rankArgs,typedRecords:[...typedRecords,individual]
 assert.equal(q.typed[0].items['10'].observations[0].value.second_step_acceleration,null);
 assert.notEqual(q.evidence_version,z.evidence_version);
 console.log('PASS typed semantics 01–32 overlay, versioned all-field reinspection, planned DAG, actual linked research outputs');
+
+assert.equal(z.official_packet.full_field_validation,false);
+assert.equal(z.official_packet.formal_admissions,0);
+assert.ok(z.official_packet.records.every(x=>x.missing.includes('OFFICIAL_PUBLISHER_HOST_UNVERIFIED')));
+const conflict={...result,evidence_id:'conflict',event_at:'2026-10-01T01:01:00Z',fact:{...result.fact,finish:4}};
+const bad=abilityResearch115v2({rankArgs,typedRecords:[...typedRecords,conflict]});
+assert.equal(bad.typed[0].items['03'].observations.length,0);
+assert.ok(bad.prior.intake.inspected.some(x=>x.errors.includes('SINGLETON_EVENT_SCOPE_CONFLICT')));
+const jt={...target,circuit:'JRA'};
+const jr=roster.map(h=>({...h,horse_id:h.horse_id.replace('LOCAL:','JRA:')}));
+const je=typedRecords.map(x=>({...x,jurisdiction:'JRA',horse_id:x.horse_id?.replace('LOCAL:','JRA:')??null,source_id:'J_PROFILE',fact:{...x.fact,...(x.fact.preceding_horse_id?{preceding_horse_id:x.fact.preceding_horse_id.replace('LOCAL:','JRA:')}:{})}}));
+const jrank={baseArgs:{input:{circuit:'JRA',targetDate:jt.local_date,targetRaceId:'T',cutoff:jt.cutoff,roster:[1,2],rows:[]}},oppositionArgs:{target:jt,roster:jr},evidence:je.slice(0,2).map(x=>({...x,source_verified:true,source_ref:x.source_url,published_at:x.published_at_or_null}))};
+const j=abilityResearch115v2({rankArgs:jrank,typedRecords:je});
+assert.equal(j.audit.runners.length,2);
+assert.ok(j.audit.runners.every(h=>h.items.length===115&&h.final_rank===null));
+assert.equal(j.typed[0].items['04'].observations[0].value.following_horse_id,'JRA:2');
+assert.equal(j.official_packet.full_field_validation,false);
+console.log('PASS JRA and LOCAL v2 full-field fixtures, source conflict refusal and official packet non-admission');
