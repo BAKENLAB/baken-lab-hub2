@@ -28,15 +28,28 @@ export function stagedAbilityResearch({rankArgs,initialRecords=[],discoveredReco
  const before=abilityResearch115v3({rankArgs,typedRecords:initialRecords});
  // New source packets are not visible to the first execution. The EYE scan sees both editions.
  const all=inspectEvidence({target,records:[...initialRecords,...discoveredRecords],sources:catalog.source_ids});
- const bound=roster.map(h=>({...h,horse_id:before.audit.runners.find(x=>x.horse_no===h.horse_no)?.horse_id??null}));
- const eyeScan=inspectEye15({target,roster:bound,rankAudit:before.rerun.rank.audit,intake:all,catalog:catalog.items});
+ // A newly discovered card may repair only a pre-existing independently admitted roster identity.
+// It may not invent an ID for a missing original roster entry or overwrite a conflicting one.
+ const initialIdsForIdentity=new Set(initialRecords.map(r=>r.evidence_id));
+ const identityPackets=[];
+ for(const h of roster){
+  if(h.active===false||!h.horse_id||before.audit.runners.find(x=>x.horse_no===h.horse_no)?.horse_id)continue;
+  const prior=before.prior.rank.audit.runners.find(x=>x.horse_no===h.horse_no);
+  const matches=all.accepted.filter(g=>g.record.kind==='CURRENT_CARD'&&g.record.race_id===target.race_id&&g.record.horse_id===h.horse_id&&g.record.runner_no===h.horse_no&&(!target.roster_version||g.record.fact.roster_version===target.roster_version)&&g.record.fact.active!==false);
+  if(prior?.horse_id!==h.horse_id||matches.length!==1)continue;
+  const packet=discoveredRecords.find(r=>matches[0].evidence_ids.includes(r.evidence_id)&&!initialIdsForIdentity.has(r.evidence_id));
+  if(packet)identityPackets.push(packet);
+ }
+ const scanBase=identityPackets.length?abilityResearch115v3({rankArgs,typedRecords:[...initialRecords,...identityPackets]}):before;
+ const bound=roster.map(h=>({...h,horse_id:scanBase.audit.runners.find(x=>x.horse_no===h.horse_no)?.horse_id??null}));
+ const eyeScan=inspectEye15({target,roster:bound,rankAudit:scanBase.rerun.rank.audit,intake:all,catalog:catalog.items});
  const found=new Set(eyeScan.flatMap(h=>h.items.flatMap(i=>i.original_event_keys)));
  const original=eventMap(before.prior.intake);
   const candidates=all.accepted.filter(g=>found.has(g.event_key)&&g.evidence_ids.some(id=>discoveredRecords.some(r=>r.evidence_id===id)));
  // Corrections or conflicts affecting old roots must be passed through the intake again even if no positive discovery exists.
  const initialIds=new Set(initialRecords.map(r=>r.evidence_id));
  const existingRoots=new Set(before.prior.intake.accepted.map(g=>g.event_key));
- const selectedIds=new Set(candidates.flatMap(g=>g.evidence_ids));
+ const selectedIds=new Set([...candidates.flatMap(g=>g.evidence_ids),...identityPackets.map(r=>r.evidence_id)]);
  for(const row of all.inspected){
   if(existingRoots.has(row.key)&&['CONFLICT','SUPERSEDED'].includes(row.stage)){
    for(const r of all.inspected.filter(x=>x.key===row.key))selectedIds.add(r.evidence_id);
@@ -61,5 +74,5 @@ export function stagedAbilityResearch({rankArgs,initialRecords=[],discoveredReco
  })}));
  const interpret=eyeScan.flatMap(h=>h.items.map(i=>{const old=before.eye.find(r=>r.horse_no===h.horse_no)?.items.find(x=>x.eye_item_id===i.eye_item_id);return {horse_no:h.horse_no,item_id:i.eye_item_id,before_hash:fingerprint(old?.observed_facts),scan_hash:fingerprint(i.observed_facts),changed:fingerprint(old?.observed_facts)!==fingerprint(i.observed_facts),content_changed:contentHash(old?.observed_facts,before.prior.intake)!==contentHash(i.observed_facts,all),shared_original_events:i.original_event_keys.filter(k=>shared.includes(k))};}));
  const discovery=researchDiscoveryFromAnalysis(after);
- return {before,after,eyeScan,boundary_research:researchBoundaryFromAnalysis({analysis:after,target}),discovery_research:discovery,discovery_summary:discoveryFieldSummary(discovery),typed_bridge_coverage:typedBridgeCoverage(after.prior.intake,after.rerun),return_audit:{initial_input_hash:fingerprint({rankArgs,records:initialRecords}),final_input_hash:fingerprint({rankArgs,records:finalRecords}),before_actual_bridge_hash:before.rerun.actual_input_hash,after_actual_bridge_hash:after.rerun.actual_input_hash,before_bridge_evidence_version:before.rerun.input_version,after_bridge_evidence_version:after.rerun.input_version,before_semantic_hash:fingerprint(canonicalEvents(before.prior.intake)),after_semantic_hash:fingerprint(canonicalEvents(after.prior.intake)),added_original_events:added,removed_original_events:removed,revised_original_events:revised,shared_reinterpretations:shared,new_fact_count:added.length,revised_fact_count:revised.length,returned_record_ids:returnedRecords.map(x=>x.evidence_id).sort(),not_returned:discoveredRecords.filter(r=>!selectedIds.has(r.evidence_id)).map(r=>({evidence_id:r.evidence_id,reason:all.inspected.find(x=>x.evidence_id===r.evidence_id)?.stage==='STRUCTURAL_ASOF_CANDIDATE'?'NOT_OBSERVED_BY_EYE':all.inspected.find(x=>x.evidence_id===r.evidence_id)?.stage??'NOT_OBSERVED_BY_EYE'})),interpretation_differences:interpret,per_horse:rows,reexecuted:true,final_consumption:0,formal_admissions:0},rank_candidate:null,eye_candidate:null,release_eligible:false};
+ return {before,after,eyeScan,boundary_research:researchBoundaryFromAnalysis({analysis:after,target}),discovery_research:discovery,discovery_summary:discoveryFieldSummary(discovery),typed_bridge_coverage:typedBridgeCoverage(after.prior.intake,after.rerun),return_audit:{initial_input_hash:fingerprint({rankArgs,records:initialRecords}),final_input_hash:fingerprint({rankArgs,records:finalRecords}),before_actual_bridge_hash:before.rerun.actual_input_hash,after_actual_bridge_hash:after.rerun.actual_input_hash,before_bridge_evidence_version:before.rerun.input_version,after_bridge_evidence_version:after.rerun.input_version,before_semantic_hash:fingerprint(canonicalEvents(before.prior.intake)),after_semantic_hash:fingerprint(canonicalEvents(after.prior.intake)),added_original_events:added,removed_original_events:removed,revised_original_events:revised,shared_reinterpretations:shared,new_fact_count:added.length,revised_fact_count:revised.length,returned_record_ids:returnedRecords.map(x=>x.evidence_id).sort(),identity_return_record_ids:identityPackets.map(x=>x.evidence_id).sort(),identity_differences:after.audit.runners.map(h=>({horse_no:h.horse_no,before:before.audit.runners.find(r=>r.horse_no===h.horse_no)?.horse_id??null,after:h.horse_id??null})),not_returned:discoveredRecords.filter(r=>!selectedIds.has(r.evidence_id)).map(r=>({evidence_id:r.evidence_id,reason:all.inspected.find(x=>x.evidence_id===r.evidence_id)?.stage==='STRUCTURAL_ASOF_CANDIDATE'?'NOT_OBSERVED_BY_EYE':all.inspected.find(x=>x.evidence_id===r.evidence_id)?.stage??'NOT_OBSERVED_BY_EYE'})),interpretation_differences:interpret,per_horse:rows,reexecuted:true,final_consumption:0,formal_admissions:0},rank_candidate:null,eye_candidate:null,release_eligible:false};
 }

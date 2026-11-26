@@ -25,7 +25,15 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  if(f.winner_gap_tenths!=null||f.margin_reference==='WINNER')put('03','WINNER_GAP',{race_id:r,clock_gap_tenths:f.winner_gap_tenths??null,official_margin:f.margin_reference==='WINNER'?f.official_margin:null,dead_heat_group:f.dead_heat_group??null},[g]);
  // A following finisher's official margin is only usable when its preceding horse is explicitly bound.
  for(const p of accepted.filter(x=>x.record.kind==='PEER_RESULT'&&x.record.race_id===r&&x.record.event_at===g.record.event_at&&x.record.fact.field_size===f.field_size&&x.record.horse_id!==h.horse_id&&x.record.fact.start_status==='FINISHED'&&x.record.fact.margin_reference==='PRECEDING_FINISHER'&&x.record.fact.preceding_horse_id===h.horse_id&&x.record.fact.finish>f.finish&&typeof x.record.fact.official_margin==='string')){
- const q=p.record.fact;put('04','FOLLOWING_HORSE_MARGIN',{race_id:r,following_horse_id:p.record.horse_id,official_margin:q.official_margin,clock_gap_tenths:f.clock_tenths!=null&&q.clock_tenths!=null&&q.clock_tenths>=f.clock_tenths?q.clock_tenths-f.clock_tenths:null},[g,p],['02','05']);}
+ const q=p.record.fact;
+ // A named preceding finisher is necessary but rank adjacency also needs to agree.
+ // For dead heats the next rank can skip a number; require a complete official field witness for that case.
+ const field=accepted.find(x=>x.record.kind==='RACE_FIELD'&&x.record.race_id===r&&x.record.event_at===g.record.event_at&&x.record.fact.field_size===f.field_size&&x.record.fact.complete_field_verified===true);
+ const allRows=field?.record.fact.runner_ids.map(id=>{const rs=accepted.filter(x=>['RESULT','PEER_RESULT'].includes(x.record.kind)&&x.record.horse_id===id&&x.record.race_id===r&&x.record.event_at===g.record.event_at&&x.record.fact.field_size===f.field_size);return rs.length===1?rs[0]:null;});
+ const full=!!allRows&&!allRows.some(x=>!x);
+ const intervening=full&&allRows.some(x=>x.record.fact.start_status==='FINISHED'&&x.record.fact.finish>f.finish&&x.record.fact.finish<q.finish);
+ if(intervening||q.finish!==f.finish+1&&!full){unknown('04','FOLLOWING_RANK_ADJACENCY_UNRESOLVED:'+r);continue;}
+ put('04','FOLLOWING_HORSE_MARGIN',{race_id:r,following_horse_id:p.record.horse_id,official_margin:q.official_margin,clock_gap_tenths:f.clock_tenths!=null&&q.clock_tenths!=null&&q.clock_tenths>=f.clock_tenths?q.clock_tenths-f.clock_tenths:null,adjacency_scope:full?'FULL_FIELD':'CONSECUTIVE_RANK'},[g,p,...(full?[field,...allRows]:[])],['02','05']);}
  if(f.clock_tenths!=null)put('05','DISPLAY_CLOCK',{race_id:r,tenths:f.clock_tenths},[g]);
  if(f.final3f_tenths!=null)put('06','INDIVIDUAL_FINAL3F',{race_id:r,tenths:f.final3f_tenths},[g]);
  if(f.finish>1&&(f.winner_gap_tenths!=null||f.margin_reference==='WINNER'))put('28','DEFEAT_GAP_CANDIDATE',{race_id:r,finish:f.finish,gap_tenths:f.winner_gap_tenths??null,narrow_threshold:null},[g],['02','03']);
