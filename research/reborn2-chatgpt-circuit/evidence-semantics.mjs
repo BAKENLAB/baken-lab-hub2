@@ -30,7 +30,7 @@ export function inspectEvidence({target,records=[],sources=[]}){
   if(e.identity_status!=="VERIFIED"||e.identity_attestation_verified!==true)missing.push("IDENTITY_NOT_INDEPENDENTLY_ATTESTED");
   if(e.fact_or_proxy!=="FACT")missing.push("NOT_DIRECT_FACT");
   if(e.source_authenticity_verified!==true)missing.push("AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED");
-  if(["RESULT","POSITIONS","PEER_RESULT","INCIDENT"].includes(kind)){
+  if(["RESULT","POSITIONS","PEER_RESULT","INCIDENT","INDIVIDUAL_SPLITS","RACE_LAPS"].includes(kind)){
    if(e.race_id===target.race_id||ts(e.event_at)>=cutoff)errors.push("TARGET_OR_FUTURE_RESULT");
    if(Number.isFinite(ts(e.published_at_or_null))&&ts(e.published_at_or_null)<ts(e.event_at))errors.push("RESULT_PUBLISHED_BEFORE_EVENT");
   }
@@ -41,10 +41,17 @@ export function inspectEvidence({target,records=[],sources=[]}){
    if(status!=="FINISHED"&&v.finish!==null)errors.push("NONFINISH_RANK_INVALID");
    if(v.clock_tenths!==null&&!int(v.clock_tenths))errors.push("CLOCK_NOT_INTEGER_TENTHS");
    if(v.winner_gap_tenths!=null&&!int(v.winner_gap_tenths))errors.push("GAP_NOT_INTEGER_TENTHS");
+   if(v.final3f_tenths!=null&&!int(v.final3f_tenths))errors.push("FINAL3F_NOT_INTEGER_TENTHS");
    if(v.official_margin!=null&&(!str(v.official_margin)||!["PRECEDING_FINISHER","WINNER"].includes(v.margin_reference)))errors.push("MARGIN_SEMANTICS");
    if(v.dead_heat_group!=null&&!str(v.dead_heat_group))errors.push("DEAD_HEAT_GROUP_INVALID");
    if(!str(e.horse_id))errors.push("HORSE_REQUIRED");
    if(status==="START_STATUS_UNKNOWN")missing.push("ACTUAL_START_UNKNOWN");
+  }else if(kind==="INDIVIDUAL_SPLITS"||kind==="RACE_LAPS"){
+   if(kind==="INDIVIDUAL_SPLITS"&&(!horse(e.horse_id)||v.measurement_scope!=="INDIVIDUAL"||v.measurement_verified!==true))errors.push("INDIVIDUAL_MEASUREMENT_REQUIRED");
+   if(kind==="RACE_LAPS"&&(e.horse_id!==null||v.measurement_scope!=="RACE_LEADER"))errors.push("RACE_LEADER_SCOPE_REQUIRED");
+   if(!Array.isArray(v.splits)||!v.splits.length||v.splits.some(s=>!int(s.start_m)||!int(s.end_m)||s.end_m<=s.start_m||!int(s.elapsed_tenths)||s.elapsed_tenths===0)||v.splits.some((s,i)=>i>0&&s.start_m!==v.splits[i-1].end_m))errors.push("SPLIT_GRID_INVALID");
+  }else if(kind==="INCIDENT"){
+   if(!horse(e.horse_id)||!str(v.incident_code)||!["SUFFERED","CAUSED","SELF","UNKNOWN"].includes(v.role)||v.official_ruling_verified!==true)missing.push("INCIDENT_ROLE_OR_RULING_UNVERIFIED");
   }else if(kind==="COURSE"){
    if(!str(v.course_version)||!str(v.venue)||!str(v.surface)||!str(v.direction)||!str(v.layout)||!Number.isInteger(v.distance_m)||v.distance_m<=0||!str(v.start_point)||!(ts(v.effective_from)<=ts(e.event_at)&&ts(e.event_at)<ts(v.effective_until)))missing.push("COURSE_VERSION_OR_DISTANCE_UNRESOLVED");
    for(const k of ["lap_m","full_straight_m","home_straight_to_finish_m","first_turn_m","elevation_range_m"])if(v[k]!=null&&(!Number.isFinite(v[k])||v[k]<0))errors.push("GEOMETRY_TYPE:"+k);
