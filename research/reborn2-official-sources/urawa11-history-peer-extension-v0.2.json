@@ -1,0 +1,324 @@
+{
+  "version": "0.2.0",
+  "contract_commit": "f8352896f1bf2fd9af46c70ed4cd3ed5331550bd",
+  "base_commit": "f62ced4e54b6ec61c43b85a8addec8a32f73f180",
+  "cutoff_date": "2026-11-25",
+  "observed_date_jst": "2026-11-26",
+  "observed_at": null,
+  "published_at_or_null": null,
+  "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+  "raw_sha256_or_null": null,
+  "history_counts": {
+    "reported_jra_rows": 62,
+    "reported_actual_starts": 61,
+    "excluded": 1,
+    "previous_jra_start_rows_observed": 8,
+    "new_jra_start_rows_observed": 5,
+    "new_exclusion_rows_observed": 1,
+    "cumulative_jra_start_rows_observed_in_this_branch": 13,
+    "cumulative_jra_history_rows_observed_in_this_branch": 14,
+    "remaining_rows": 48,
+    "work_overlap": "unknown, not additive to Work counts"
+  },
+  "history_checks": [
+    {
+      "evidence_id": "JRA:2025-02-23:東京:4:4",
+      "target_horse_no": 4,
+      "race_id": "JRA:2025-02-23:東京:4",
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1005202501080420250223%2F1A",
+      "profile_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002022104560%2FE7",
+      "runner_no": 16,
+      "finish": null,
+      "clock_tenths": null,
+      "start_status": "EXCLUDED_NOT_STARTED",
+      "identity_status": "PROFILE_HISTORY_AND_RESULT_ROW_MATCH",
+      "observed_date_jst": "2026-11-26",
+      "observed_at": null,
+      "published_at_or_null": null,
+      "cutoff": "2026-11-25",
+      "stage": "OBSERVED",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "raw_sha256_or_null": null
+    },
+    {
+      "evidence_id": "JRA:2025-04-20:中山:4:4",
+      "target_horse_no": 4,
+      "race_id": "JRA:2025-04-20:中山:4",
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1006202503080420250420%2F85",
+      "profile_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002022104560%2FE7",
+      "runner_no": 5,
+      "finish": 1,
+      "clock_tenths": 1197,
+      "start_status": "STARTED",
+      "identity_status": "PROFILE_HISTORY_AND_RESULT_ROW_MATCH",
+      "observed_date_jst": "2026-11-26",
+      "observed_at": null,
+      "published_at_or_null": null,
+      "cutoff": "2026-11-25",
+      "stage": "OBSERVED",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "raw_sha256_or_null": null
+    },
+    {
+      "evidence_id": "JRA:2025-12-21:中京:8:4",
+      "target_horse_no": 4,
+      "race_id": "JRA:2025-12-21:中京:8",
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1007202505060820251221%2FFE",
+      "profile_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002022104560%2FE7",
+      "runner_no": 1,
+      "finish": 15,
+      "clock_tenths": 973,
+      "start_status": "STARTED",
+      "identity_status": "PROFILE_HISTORY_AND_RESULT_ROW_MATCH",
+      "observed_date_jst": "2026-11-26",
+      "observed_at": null,
+      "published_at_or_null": null,
+      "cutoff": "2026-11-25",
+      "stage": "OBSERVED",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "raw_sha256_or_null": null
+    },
+    {
+      "evidence_id": "JRA:2025-11-23:京都:8:8",
+      "target_horse_no": 8,
+      "race_id": "JRA:2025-11-23:京都:8",
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1008202504060820251123%2F16",
+      "profile_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102020100061%2F78",
+      "runner_no": 7,
+      "finish": 1,
+      "clock_tenths": 1122,
+      "start_status": "STARTED",
+      "identity_status": "PROFILE_HISTORY_AND_RESULT_ROW_MATCH",
+      "observed_date_jst": "2026-11-26",
+      "observed_at": null,
+      "published_at_or_null": null,
+      "cutoff": "2026-11-25",
+      "stage": "OBSERVED",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "raw_sha256_or_null": null
+    },
+    {
+      "evidence_id": "JRA:2026-01-12:京都:10:8",
+      "target_horse_no": 8,
+      "race_id": "JRA:2026-01-12:京都:10",
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1008202601051020260112%2F92",
+      "profile_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102020100061%2F78",
+      "runner_no": 15,
+      "finish": 1,
+      "clock_tenths": 1117,
+      "start_status": "STARTED",
+      "identity_status": "PROFILE_HISTORY_AND_RESULT_ROW_MATCH",
+      "observed_date_jst": "2026-11-26",
+      "observed_at": null,
+      "published_at_or_null": null,
+      "cutoff": "2026-11-25",
+      "stage": "OBSERVED",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "raw_sha256_or_null": null
+    },
+    {
+      "evidence_id": "JRA:2025-06-07:阪神:10:6",
+      "target_horse_no": 6,
+      "race_id": "JRA:2025-06-07:阪神:10",
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1009202503011020250607%2F29",
+      "profile_url": null,
+      "runner_no": 2,
+      "finish": 2,
+      "clock_tenths": 1130,
+      "start_status": "STARTED",
+      "identity_status": "RESULT_ROW_OBSERVED_PROFILE_HISTORY_NOT_RECHECKED_THIS_BATCH",
+      "observed_date_jst": "2026-11-26",
+      "observed_at": null,
+      "published_at_or_null": null,
+      "cutoff": "2026-11-25",
+      "stage": "OBSERVED",
+      "asof_status": "RETROSPECTIVE_CANDIDATE",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "raw_sha256_or_null": null
+    }
+  ],
+  "peer_identity": {
+    "jra_profile_key": "2022100653",
+    "nar_id": "30022408596",
+    "source_urls": [
+      "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102022100653%2F8C",
+      "https://www.keiba.go.jp/KeibaWeb/DataRoom/RaceHorseInfo?k_lineageLoginCode=30022408596&k_activeCode=1",
+      "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30022408596"
+    ],
+    "fingerprint_match_fields": [
+      "name",
+      "birth_date",
+      "coat",
+      "sire",
+      "dam",
+      "damsire"
+    ],
+    "matches": 6,
+    "identity_status": "PROFILE_FINGERPRINT_MATCH_NAR_RESULT_LINK_TRACED",
+    "history_asof": "RETROSPECTIVE_CANDIDATE"
+  },
+  "peer_edges": [
+    {
+      "race_id": "JRA:2025-06-07:阪神:10",
+      "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1009202503011020250607%2F29",
+      "class_label": "2勝クラス",
+      "surface": "dirt",
+      "distance_m": 1800,
+      "going": "良",
+      "peer_finish": 1,
+      "subject_finishes": [
+        {
+          "no": 6,
+          "finish": 2,
+          "official_margin": "ハナ",
+          "rounded_clock_gap_tenths": 0
+        }
+      ]
+    },
+    {
+      "race_id": "LOCAL:2025-09-02:盛岡:10",
+      "url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=10&k_raceDate=2025%2F09%2F02&k_raceNo=10",
+      "class_label": "JpnII",
+      "surface": "dirt",
+      "distance_m": 2000,
+      "going": "不良",
+      "peer_finish": 4,
+      "peer_rating": 103,
+      "subject_finishes": [
+        {
+          "no": 1,
+          "finish": 1
+        },
+        {
+          "no": 6,
+          "finish": 3
+        },
+        {
+          "no": 3,
+          "finish": 6
+        }
+      ]
+    },
+    {
+      "race_id": "JRA:2026-04-18:阪神:11",
+      "url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1009202602071120260418%2F87",
+      "class_label": "GIII",
+      "surface": "dirt",
+      "distance_m": 1800,
+      "going": "良",
+      "peer_finish": 9,
+      "peer_rating": 99,
+      "subject_finishes": [
+        {
+          "no": 8,
+          "finish": 2
+        },
+        {
+          "no": 6,
+          "finish": 13
+        }
+      ]
+    }
+  ],
+  "peer_followups": [
+    {
+      "date": "2025-11-30",
+      "venue": "京都",
+      "race_name": "花園S",
+      "class_label": "3勝クラス",
+      "finish": 1,
+      "rt": null,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1008202504081020251130%2FC9",
+      "verification": "RESULT_ROW_VERIFIED"
+    },
+    {
+      "date": "2025-12-21",
+      "venue": "阪神",
+      "race_name": "ベテルギウス",
+      "class_label": "L",
+      "finish": 7,
+      "rt": 98,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1009202505061020251221%2F3C",
+      "verification": "PROFILE_ONLY_ROW; result page opened but row not checked"
+    },
+    {
+      "date": "2026-03-22",
+      "venue": "阪神",
+      "race_name": "レグルスS",
+      "class_label": "OP",
+      "finish": 9,
+      "rt": 98,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1009202601101020260322%2FFD",
+      "verification": "PROFILE_ONLY_ROW; result page opened but row not checked"
+    },
+    {
+      "date": "2026-04-18",
+      "venue": "阪神",
+      "race_name": "アンタレスS",
+      "class_label": "GIII",
+      "finish": 9,
+      "rt": 99,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1009202602071120260418%2F87",
+      "verification": "RESULT_ROW_VERIFIED"
+    },
+    {
+      "date": "2026-05-04",
+      "venue": "名古屋",
+      "race_name": "名古屋GP",
+      "class_label": "JpnII",
+      "finish": 9,
+      "rt": 97,
+      "source_url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102022100653%2F8C",
+      "verification": "PROFILE_ONLY_ROW"
+    },
+    {
+      "date": "2026-10-31",
+      "venue": "東京",
+      "race_name": "ペルセウスS",
+      "class_label": "OP",
+      "finish": 12,
+      "rt": 91,
+      "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1005202604101120261031%2F61",
+      "verification": "PROFILE_ONLY_ROW; result page opened but row not checked"
+    }
+  ],
+  "indirect_comparison": {
+    "subject_pair": [
+      3,
+      8
+    ],
+    "common_peer_id": "30022408596",
+    "race_refs": [
+      "LOCAL:2025-09-02:盛岡:10",
+      "JRA:2026-04-18:阪神:11"
+    ],
+    "status": "IDENTITY_LINKED_NOT_COMPARABLE",
+    "reason": "different age, venue, distance, class and going; no transitive ranking"
+  },
+  "item_refs": [
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "EYE-04",
+    "EYE-05",
+    "EYE-14"
+  ],
+  "notes": [
+    "A same rounded clock does not mean dead heat; literal margin retained.",
+    "Six followup records after Morioka: one win, five nonwins. Two individually verified; four profile-only. Not exhaustive population evidence.",
+    "Peer later form is shared, not independent per subject.",
+    "All rows retrospective; no as-of or production admission."
+  ]
+}
