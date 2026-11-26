@@ -1,0 +1,3180 @@
+{
+  "schema_version": "v5-research-contract",
+  "canonical_review": "9ffbec4466ac0d733938adab541df43550a144ce",
+  "status": "PER_ITEM_DESCRIPTIVE_CONTRACT_NOT_ACCEPTANCE",
+  "items": [
+    {
+      "id": "01",
+      "name": "基礎競走能力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "02〜16の本人馬結合済み結果・相手・時計",
+      "implemented_research_content": "原事象別基礎材料束",
+      "remaining_gap": "今回能力の統合強度・相手比較",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "02",
+      "name": "近走成績・着順",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "本人馬公式全履歴・出走状態",
+      "implemented_research_content": "着順と実出走／非出走別観測",
+      "remaining_gap": "全履歴完全性・近走期間",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "03",
+      "name": "勝ち馬との着差",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "勝馬基準の明示着差・時計",
+      "implemented_research_content": "勝馬差の整数0.1秒／原表記",
+      "remaining_gap": "同着・計時丸め・比較条件",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "04",
+      "name": "後続馬との着差",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "直後馬の公式行・前馬ID",
+      "implemented_research_content": "後続馬着差と時計差",
+      "remaining_gap": "直後関係・同着群の照合",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "05",
+      "name": "走破時計",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "本人馬公式走破時計・コース版",
+      "implemented_research_content": "表示時計0.1秒",
+      "remaining_gap": "正式条件別基準時計と残差",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "06",
+      "name": "上がりタイム",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "本人馬個別上がり・区間定義",
+      "implemented_research_content": "個別上がり0.1秒",
+      "remaining_gap": "区間比較可能性・基準分布",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "07",
+      "name": "瞬発力",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "個体連続区間距離・時計",
+      "implemented_research_content": "区間平均速度差",
+      "remaining_gap": "瞬間加速度・個体計測範囲",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "08",
+      "name": "持続力",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "個体連続区間計時",
+      "implemented_research_content": "区間平均速度プロファイル",
+      "remaining_gap": "持続能力の比較・展開調整",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "09",
+      "name": "スタートの安定性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "実出走履歴と全裁決カバレッジ",
+      "implemented_research_content": "出遅れ観測率・不明母数",
+      "remaining_gap": "出遅れ以外の発馬測定・安定性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "10",
+      "name": "二の脚・加速力",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "発馬直後個体区間計時",
+      "implemented_research_content": "最初2区間の平均速度差",
+      "remaining_gap": "二の脚の瞬時加速測定",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "11",
+      "name": "距離別の消耗傾向",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "距離別個体時計・上がり・条件",
+      "implemented_research_content": "距離別上がり観測群",
+      "remaining_gap": "疲労測定・距離以外交絡調整",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "12",
+      "name": "勝ち切る能力",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "出走・勝利・非勝利・今回相手",
+      "implemented_research_content": "実出走分母と勝率・勝利履歴",
+      "remaining_gap": "今回勝ち切りへの比較可能性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "13",
+      "name": "成績の安定性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "同条件複数実走・時計",
+      "implemented_research_content": "着順・表示時計の範囲",
+      "remaining_gap": "基準残差・安定性の独立検証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "14",
+      "name": "成長・衰え",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "時系列連続走・同条件時計",
+      "implemented_research_content": "直近比較の時計・着順差",
+      "remaining_gap": "成長／衰え因果・長期推移",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "15",
+      "name": "潜在能力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "回復観測・今回条件・反証",
+      "implemented_research_content": "同条件過去の回復候補",
+      "remaining_gap": "潜在能力の機序・再現性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "16",
+      "name": "公式レーティング",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RATING",
+          "IFHA"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "公式レーティング発行版・対象走・公表時刻",
+      "implemented_research_content": "公表値と版・範囲",
+      "remaining_gap": "本人馬／版の公式照合・条件移送",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "17",
+      "name": "各コーナーの通過順位",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "公式各角順位・頭数・区間",
+      "implemented_research_content": "順位範囲",
+      "remaining_gap": "欠損角・同着／並走範囲",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "18",
+      "name": "道中の位置取り変化",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "隣接角順位範囲",
+      "implemented_research_content": "最小最大順位増減",
+      "remaining_gap": "速度や距離ロスを推定しない",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "19",
+      "name": "実ラップ・ペース",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "公式先頭ラップ・距離区間",
+      "implemented_research_content": "競走先頭区間時計",
+      "remaining_gap": "個体ラップと混同禁止・基準ペース",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "20",
+      "name": "過去走の展開有利・不利",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "同一競走ラップ・位置・着順",
+      "implemented_research_content": "展開と位置取りの併記",
+      "remaining_gap": "反事実・有利不利の因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "21",
+      "name": "道中での後退からの巻き返し",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "連続順位範囲",
+      "implemented_research_content": "確実な後退後の順位回復",
+      "remaining_gap": "回復原因・今回再現",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "22",
+      "name": "コーナーでの進出",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "連続角順位範囲",
+      "implemented_research_content": "確実な順位進出区間",
+      "remaining_gap": "個体速度・角形状の因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "23",
+      "name": "先行争いによる消耗",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "序盤順位・終盤後退・ラップ",
+      "implemented_research_content": "先行後の後退観測",
+      "remaining_gap": "先行争いの原因・個体消耗",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "24",
+      "name": "終盤の失速原因",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "終盤順位・裁決・ラップ",
+      "implemented_research_content": "終盤順位低下",
+      "remaining_gap": "失速原因・代替説明",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "25",
+      "name": "差し損ね・脚の余力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "終盤進出・着順・個体計時",
+      "implemented_research_content": "進出した非勝利観測",
+      "remaining_gap": "余力・差し損ねの因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "26",
+      "name": "出遅れ・進路などの不利",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "公式裁決・本人馬役割",
+      "implemented_research_content": "不利事象と被害／加害役割",
+      "remaining_gap": "裁決網羅性・影響量",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "27",
+      "name": "不利を克服した好走",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "本人馬不利と同走着順",
+      "implemented_research_content": "不利と着順の併記",
+      "remaining_gap": "克服の因果・好走基準",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "28",
+      "name": "僅差の凡走",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "非勝利と勝馬差",
+      "implemented_research_content": "着順と勝馬差の対照",
+      "remaining_gap": "僅差基準・今回関連性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "29",
+      "name": "負けて強し",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "敗戦着差・同走相手・相手後続",
+      "implemented_research_content": "同走相手付き敗戦観測",
+      "remaining_gap": "相手水準と敗戦価値",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "30",
+      "name": "勝利内容の価値",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "勝利時計・着差・同走相手・条件",
+      "implemented_research_content": "勝利観測と条件一致",
+      "remaining_gap": "勝利内容価値・相手補正",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "31",
+      "name": "特殊条件による凡走",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "公式特殊事象・敗戦",
+      "implemented_research_content": "被害裁決と敗戦",
+      "remaining_gap": "敗因の因果・再発可能性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "32",
+      "name": "前走からの内容改善",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "A"
+      ],
+      "required_evidence": "直近2実走の公式順序・比較条件",
+      "implemented_research_content": "時計・着順差",
+      "remaining_gap": "走路変化・相手強度・内容改善",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "33",
+      "name": "過去走のクラス水準",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "公式格付・資格・規則版",
+      "implemented_research_content": "過去走クラスラベルと規則",
+      "remaining_gap": "実証水準・版照合",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "34",
+      "name": "過去の対戦相手の能力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "同走全相手と当時以前の履歴",
+      "implemented_research_content": "相手履歴分布と網羅率",
+      "remaining_gap": "相手能力の比較基準",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "35",
+      "name": "今回の出走馬同士の直接対戦",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "今回全頭と過去同走全成績",
+      "implemented_research_content": "直接先着／後着・条件",
+      "remaining_gap": "同着・現在性・条件比較",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "36",
+      "name": "共通対戦馬による間接比較",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "共通相手の異なる競走成績",
+      "implemented_research_content": "共通相手経由の方向比較",
+      "remaining_gap": "非推移性・条件／状態調整",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "37",
+      "name": "過去の対戦相手の後続実績",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "同走相手と発走前後続成績",
+      "implemented_research_content": "相手後続実績・共有キー",
+      "remaining_gap": "当時水準への遡及妥当性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "38",
+      "name": "対戦相手の公式レーティング",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RATING",
+          "IFHA",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "相手公式レーティング・対象走・版",
+      "implemented_research_content": "公表値・評価範囲",
+      "remaining_gap": "本人馬結合・評価範囲移送",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "39",
+      "name": "昇級・降級",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "直前走と今回公式格付・規則",
+      "implemented_research_content": "昇降級方向",
+      "remaining_gap": "制度違い・実証相手水準",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "40",
+      "name": "今回の相手強化・弱化",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "今回と前走全相手の履歴／基準",
+      "implemented_research_content": "相手分布比較と被覆・候補差",
+      "remaining_gap": "比較条件・効果検証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "41",
+      "name": "上位クラスでの通用可能性",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "高位クラス公式規則と実績",
+      "implemented_research_content": "上位クラスでの成績観測",
+      "remaining_gap": "現条件への移送",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "42",
+      "name": "中央・地方転入による水準変化",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      },
+      "axes": [
+        "A",
+        "C"
+      ],
+      "required_evidence": "公式JRA/LOCAL本人馬照合・前後履歴",
+      "implemented_research_content": "転入方向と前後成績",
+      "remaining_gap": "水準換算・転入初戦の網羅性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "43",
+      "name": "距離適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "距離別結果・条件・基準残差",
+      "implemented_research_content": "距離別成績分布・一致走",
+      "remaining_gap": "距離適性の交絡調整",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "44",
+      "name": "距離延長・短縮への適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "前後距離・条件・実出走順",
+      "implemented_research_content": "延長短縮別観測",
+      "remaining_gap": "距離変更効果の因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "45",
+      "name": "競馬場適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "場別本人馬実績・コース版",
+      "implemented_research_content": "場別成績分布",
+      "remaining_gap": "同場異コース・相手水準",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "46",
+      "name": "コース間相関",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "方向付きコース遷移・独立検証標本",
+      "implemented_research_content": "遷移前後・条件差・研究コホート",
+      "remaining_gap": "正式相関・外部検証・因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "47",
+      "name": "芝・ダート適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "芝ダート別公式成績",
+      "implemented_research_content": "路面別分布",
+      "remaining_gap": "路面以外交絡",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "48",
+      "name": "馬場状態別適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "馬場状態別時計・条件基準",
+      "implemented_research_content": "馬場別分布・残差候補",
+      "remaining_gap": "馬場速度補正・コース版",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "49",
+      "name": "左回り・右回り適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "公式回り・条件別成績",
+      "implemented_research_content": "回り別成績",
+      "remaining_gap": "回り独立効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "50",
+      "name": "直線の長さへの適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "コース版直線長・成績・上がり",
+      "implemented_research_content": "直線長と上がり／位置差",
+      "remaining_gap": "個体直線計時・適性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "51",
+      "name": "坂・高低差への適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "コース坂・高低差・個体計時",
+      "implemented_research_content": "幾何と結果の併記",
+      "remaining_gap": "坂での個体減速・効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "52",
+      "name": "コーナー形状への適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "角幾何・順位・コース版",
+      "implemented_research_content": "角形状と位置観測",
+      "remaining_gap": "実走距離・外回り測定",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "53",
+      "name": "枠順と脚質の相性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "実発走位置・脚質・場別対照",
+      "implemented_research_content": "正規化枠位置・脚質対照",
+      "remaining_gap": "枠×脚質効果・当日検証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "54",
+      "name": "斤量・斤量増減への適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "公式斤量・過去同条件成績",
+      "implemented_research_content": "斤量差と結果",
+      "remaining_gap": "斤量独立効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "55",
+      "name": "砂被り耐性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "公式／許諾観測砂被り・反応",
+      "implemented_research_content": "曝露状態と反応記録",
+      "remaining_gap": "砂被り耐性の再現性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "56",
+      "name": "馬群・揉まれ耐性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "公式／許諾観測馬群・反応",
+      "implemented_research_content": "馬群曝露と反応記録",
+      "remaining_gap": "揉まれ耐性の再現性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "57",
+      "name": "季節適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "日付・季節・条件別成績",
+      "implemented_research_content": "季節別成績観測",
+      "remaining_gap": "条件／年齢交絡",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "58",
+      "name": "各馬の脚質",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "個体各角順位と頭数",
+      "implemented_research_content": "序盤位置・脚質分布",
+      "remaining_gap": "脚質の条件別安定性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "59",
+      "name": "前走の先行判定",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "直前実走と角順位網羅",
+      "implemented_research_content": "先行YES／NO／UNKNOWN",
+      "remaining_gap": "発馬・途中進出の区別",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "60",
+      "name": "先行力の再現性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "同条件複数実走・直近履歴",
+      "implemented_research_content": "序盤先行頻度・不明母数",
+      "remaining_gap": "先行力の移送・再現性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "61",
+      "name": "逃げ候補の特定",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "先頭観測と今回条件",
+      "implemented_research_content": "逃げ候補群",
+      "remaining_gap": "実際の逃げ確率・意図",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "62",
+      "name": "逃げへの依存度",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "先頭／非先頭の比較成績",
+      "implemented_research_content": "両条件の成績対照",
+      "remaining_gap": "逃げ依存の独立効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "63",
+      "name": "先行馬占有率",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "全ACTIVE・先行判定",
+      "implemented_research_content": "既知先行数と下限上限",
+      "remaining_gap": "未照合馬・取消を含む正確な母数",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "64",
+      "name": "先行馬の内外配置",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "全頭実発走位置と先行判定",
+      "implemented_research_content": "内外配置",
+      "remaining_gap": "不明枠・序盤競合",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "65",
+      "name": "同型馬の競合",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "同条件先頭候補・配置",
+      "implemented_research_content": "競合辺・競る／譲る仮説",
+      "remaining_gap": "シナリオ実現性・未照合馬影響",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "66",
+      "name": "逃げハサミ",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "両隣の実発走位置と先行判定",
+      "implemented_research_content": "挟み配置候補",
+      "remaining_gap": "恩恵の実証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "67",
+      "name": "最初のコーナーまでの距離",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "公式コース版・発走地点・最初の角",
+      "implemented_research_content": "最初の角までの距離・精度",
+      "remaining_gap": "版・発走地点の照合",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "68",
+      "name": "序盤の位置取り争い",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "先行力・配置・最初の角",
+      "implemented_research_content": "序盤争い仮説",
+      "remaining_gap": "位置取り実現性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "69",
+      "name": "想定ペース",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "競合・公式基準ラップ・条件",
+      "implemented_research_content": "ペース仮説と分布候補",
+      "remaining_gap": "公式ペース基準・発生頻度",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "70",
+      "name": "想定隊列",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "脚質・配置・競合シナリオ",
+      "implemented_research_content": "隊列候補",
+      "remaining_gap": "個体位置予測の独立検証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "71",
+      "name": "想定される距離ロス",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "角形状・配置・隊列",
+      "implemented_research_content": "距離ロスのリスク仮説",
+      "remaining_gap": "実走経路・距離計測",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "72",
+      "name": "今回の先行争いによる消耗",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "競合シナリオ・過去後退",
+      "implemented_research_content": "消耗仮説",
+      "remaining_gap": "個体消耗・競合因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "73",
+      "name": "各馬の展開有利・不利",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "今回シナリオ・過去対応・当日傾向",
+      "implemented_research_content": "適合候補と不確実性",
+      "remaining_gap": "現在の有利不利の実証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "74",
+      "name": "展開対応力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "過去展開別成績・個体位置",
+      "implemented_research_content": "展開別成績対照",
+      "remaining_gap": "条件比較可能性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "75",
+      "name": "展開依存度",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "過去展開別成績・条件",
+      "implemented_research_content": "展開依存候補",
+      "remaining_gap": "依存度の因果・外部検証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "76",
+      "name": "当日の内外馬場傾向",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "当日発走前完全結果・実枠・コース",
+      "implemented_research_content": "内外別観測",
+      "remaining_gap": "相手／脚質調整・当日標本",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "77",
+      "name": "当日の前残り・差し傾向",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "D"
+      ],
+      "required_evidence": "当日発走前完全結果・角順位",
+      "implemented_research_content": "前残り差し観測",
+      "remaining_gap": "ペース／相手調整",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "78",
+      "name": "休養期間",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "実出走履歴・公式休養開始",
+      "implemented_research_content": "直近出走からの日数",
+      "remaining_gap": "休養実態・状態効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "79",
+      "name": "出走間隔・連闘",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "時系列実出走日時",
+      "implemented_research_content": "出走間隔",
+      "remaining_gap": "連闘定義・疲労因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "80",
+      "name": "休養明けからの出走回数",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "休養区切り・完全履歴",
+      "implemented_research_content": "明け出走回数候補",
+      "remaining_gap": "公式休養定義と網羅性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "81",
+      "name": "馬体重・増減",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "発走前公式体重・前走体重",
+      "implemented_research_content": "体重と増減・矛盾",
+      "remaining_gap": "未発表・状態との因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "82",
+      "name": "過去の好走時馬体重",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "体重付き過去成績・条件",
+      "implemented_research_content": "好走時体重候補分布",
+      "remaining_gap": "好走基準・交絡",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "83",
+      "name": "調教内容",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_TRAIN"
+        ],
+        "local": [
+          "N_TRAIN"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "調教日時・方法・計測区間",
+      "implemented_research_content": "調教セッションと区間時計",
+      "remaining_gap": "仕上がり効果・調教負荷",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "84",
+      "name": "馬具変更",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "公式馬具・前回版",
+      "implemented_research_content": "馬具差の観測",
+      "remaining_gap": "馬具の効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "85",
+      "name": "騎手の能力・実績",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "騎手公式固有ID・競走行結合",
+      "implemented_research_content": "騎手実績分布",
+      "remaining_gap": "時点・人物能力補正",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "86",
+      "name": "騎手のコース別適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "騎手結合・コース版・成績",
+      "implemented_research_content": "条件別騎手実績",
+      "remaining_gap": "コース適性の交絡",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "87",
+      "name": "馬と騎手の相性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "馬騎手組合せ・対照騎手成績",
+      "implemented_research_content": "組合せ別分布",
+      "remaining_gap": "馬／騎手相互作用",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "88",
+      "name": "乗り替わり",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "直前／今回公式騎手ID",
+      "implemented_research_content": "継続／変更／再騎乗",
+      "remaining_gap": "乗替効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "89",
+      "name": "調教師・厩舎の傾向",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "調教師公式固有ID・競走行結合",
+      "implemented_research_content": "厩舎成績と条件別分布",
+      "remaining_gap": "独立効果・所属期間",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "90",
+      "name": "血統",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "血統本人ID・父母・産駒結果",
+      "implemented_research_content": "父母IDと産駒集計候補",
+      "remaining_gap": "産駒条件効果・比較群",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "91",
+      "name": "年齢・性別・成長段階",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "生年月日・性別・公式履歴",
+      "implemented_research_content": "年齢性別と観測状態",
+      "remaining_gap": "成長段階・成熟効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "92",
+      "name": "輸送・遠征",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "B"
+      ],
+      "required_evidence": "輸送経路・実測時間",
+      "implemented_research_content": "移動観測または所在地代理",
+      "remaining_gap": "疲労影響・輸送真正性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "93",
+      "name": "前走からの条件好転",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "前走／今回条件と作用根拠",
+      "implemented_research_content": "変化方向候補・差分",
+      "remaining_gap": "好転の因果と現在性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "94",
+      "name": "前走からの条件悪化",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "前走／今回条件と反証",
+      "implemented_research_content": "悪化候補・差分",
+      "remaining_gap": "悪化の因果と現在性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "95",
+      "name": "過去の好走条件への復帰",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "過去条件／前走／今回一致",
+      "implemented_research_content": "復帰条件と過去結果",
+      "remaining_gap": "好走根拠・持続性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "96",
+      "name": "前走の敗因解消",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "前走公式敗因・今回解消証拠",
+      "implemented_research_content": "敗因候補と再発未解決",
+      "remaining_gap": "敗因因果・解消検証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "97",
+      "name": "複数の好転材料の重なり",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "作用経路・原事象・反証",
+      "implemented_research_content": "共有根拠の機序群",
+      "remaining_gap": "独立性・相互作用検証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "98",
+      "name": "潜在能力を発揮できる可能性",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "潜在能力材料と今回作用",
+      "implemented_research_content": "潜在経路候補",
+      "remaining_gap": "発揮条件・因果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "99",
+      "name": "過去の好走の再現性",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "今回一致条件の複数実走",
+      "implemented_research_content": "一致走と勝利回数",
+      "remaining_gap": "再現性・相手水準",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "100",
+      "name": "今回の勝ち切り可能性",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "required_evidence": "勝利／好走内容・今回相手・条件・展開・反証",
+      "implemented_research_content": "別々の歴史的勝ち筋／好走筋・比較範囲",
+      "remaining_gap": "今回の支持強度・主要シナリオ・最終消費",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-01",
+      "name": "着順と着差のギャップ",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "02",
+        "03",
+        "28",
+        "29"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "着順と勝馬着差・今回条件",
+      "implemented_research_content": "敗戦着差の対照",
+      "remaining_gap": "今回関連性・僅差基準",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-02",
+      "name": "着順と過去走内容のギャップ",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "着順・通過順位・個体時計",
+      "implemented_research_content": "位置変化と着順の対照",
+      "remaining_gap": "内容価値・今回再現",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-03",
+      "name": "道中後退からの巻き返し",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "18",
+        "21",
+        "22",
+        "24",
+        "27"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "後退から回復した公式順位",
+      "implemented_research_content": "順位回復観測",
+      "remaining_gap": "回復原因・現在性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-04",
+      "name": "強い相手との僅差敗戦",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "03",
+        "28",
+        "29",
+        "33",
+        "34",
+        "38"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "僅差敗戦と同走相手水準",
+      "implemented_research_content": "相手／着差の照合候補",
+      "remaining_gap": "比較可能な強さ",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-05",
+      "name": "対戦相手の後続実績",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "34",
+        "37",
+        "38",
+        "40"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "同走相手の後続公式結果",
+      "implemented_research_content": "相手後続実績候補",
+      "remaining_gap": "元競走内容と今回適合",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-06",
+      "name": "前走の展開不利の解消",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "20",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "31",
+        "65",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "96"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "前走不利と今回条件／展開",
+      "implemented_research_content": "不利と解消候補",
+      "remaining_gap": "解消の因果・再発反証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-07",
+      "name": "得意距離・条件への復帰",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "93",
+        "95",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "前走と過去好走条件・今回条件",
+      "implemented_research_content": "条件復帰候補",
+      "remaining_gap": "過去好走価値・持続性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-08",
+      "name": "コース変更による適性向上",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "45",
+        "46",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "93"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "方向付きコース遷移・現在コース",
+      "implemented_research_content": "コース変更と比較候補",
+      "remaining_gap": "移送効果・検証",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-09",
+      "name": "先行馬占有率による恩恵",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "69",
+        "73",
+        "74",
+        "75"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "全頭先行判定・個馬脚質",
+      "implemented_research_content": "先行率範囲とシナリオ",
+      "remaining_gap": "個馬への恩恵",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-10",
+      "name": "逃げハサミによる恩恵",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "59",
+        "60",
+        "64",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "73"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "両隣先行・実枠・角距離",
+      "implemented_research_content": "挟み配置仮説",
+      "remaining_gap": "実際の位置改善",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-11",
+      "name": "同型馬の減少",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "同一定義の前走／今回同型数",
+      "implemented_research_content": "同型増減と相手",
+      "remaining_gap": "競合減の実現効果",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-12",
+      "name": "想定隊列による位置取り改善",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "53",
+        "93"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "過去位置・今回隊列仮説",
+      "implemented_research_content": "位置候補と条件",
+      "remaining_gap": "実際の改善可能性",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-13",
+      "name": "着順に表れていない能力上昇",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "13",
+        "14",
+        "15",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "98",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "連続比較内容・現在条件",
+      "implemented_research_content": "成績外の変化候補",
+      "remaining_gap": "能力上昇と回復の区別",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-14",
+      "name": "転入・クラス変更による相手弱化",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "93",
+        "95"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "転入・格付・今回相手比較",
+      "implemented_research_content": "相手変化と条件候補",
+      "remaining_gap": "今回水準弱化の根拠",
+      "formal_validated": false,
+      "formal_consumption": false
+    },
+    {
+      "id": "EYE-15",
+      "name": "複数の条件好転の組み合わせ",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "axes": [
+        "E"
+      ],
+      "required_evidence": "複数条件変化・原事象・反証",
+      "implemented_research_content": "共有機序群の照合",
+      "remaining_gap": "相互作用・独立性・再現",
+      "formal_validated": false,
+      "formal_consumption": false
+    }
+  ]
+}
