@@ -34,7 +34,7 @@ export function researchWinningPaths({target,roster,intake,typedAnalysis,pace}){
    for(const g of ar){const r=g.record.race_id,other=single(finished,b,r);
     if(!other||!single(finished,a,r)||!match(other)||!exact(g.record.fact,other.record.fact)||(s.scenario_id!=='CONDITION_MATCH_ONLY'&&scenarioFor(other)!==s.scenario_id))continue;
     const x=g.record.fact,y=other.record.fact;
-    if(x.field_size!==y.field_size)continue;
+    if(x.field_size!==y.field_size||g.record.event_at!==other.record.event_at)continue;
     let direction=null;if(x.finish===y.finish){if(x.dead_heat_group&&x.dead_heat_group===y.dead_heat_group)direction='OFFICIAL_TIE';}else direction=x.finish<y.finish?a:b;
     if(direction)observations.push({race_id:r,direction,evidence_ids:ref([g,other,...[card[a],card[b]].filter(Boolean)]),event_keys:roots([g,other])});
    }
@@ -46,6 +46,7 @@ export function researchWinningPaths({target,roster,intake,typedAnalysis,pace}){
  const runners=active.map(h=>{
   const id=h.horse_id,own=result.filter(g=>g.record.horse_id===id),d=historyDenominators(own.map(g=>g.record.fact));
   const matched=finished.filter(g=>g.record.horse_id===id&&match(g));
+  const nonmatching=finished.filter(g=>g.record.horse_id===id&&!match(g));
   const typed=typedAnalysis.find(x=>x.horse_id===id);
   const allPaths=scenarios.map(s=>{
     const observations=matched.filter(g=>s.scenario_id==='CONDITION_MATCH_ONLY'||scenarioFor(g)===s.scenario_id);
@@ -56,7 +57,7 @@ export function researchWinningPaths({target,roster,intake,typedAnalysis,pace}){
     const unknowns=[];if(!card[id])unknowns.push('CURRENT_CONDITION_UNKNOWN');if(!observations.length)unknowns.push('COMPARABLE_HISTORY_UNKNOWN');if(comparison.some(x=>x.status==='UNKNOWN'))unknowns.push('CURRENT_OPPONENT_COMPARISON_INCOMPLETE');if(s.scenario_id!=='CONDITION_MATCH_ONLY')unknowns.push('SCENARIO_REALIZATION_UNCERTAIN');
     const position=observations.flatMap(g=>{const p=single(pos,id,g.record.race_id);return p?[{race_id:g.record.race_id,positions:p.record.fact.positions,finish:g.record.fact.finish,evidence_ids:p.evidence_ids}]:[]});
     const evidence=uniq([...ref([...observations,...[card[id]].filter(Boolean)]),...comparison.flatMap(x=>x.observations.flatMap(o=>o.evidence_ids)),...position.flatMap(x=>x.evidence_ids),...s.evidence_ids]);
-    const common={horse_id:id,scenario_id:s.scenario_id,scenario_assumptions:s.assumptions,historical_support:observations.map(g=>({race_id:g.record.race_id,finish:g.record.fact.finish,evidence_ids:g.evidence_ids})),opponent_comparison:comparison,current_condition_match:observations.length?true:null,required_events:['Comparable current conditions persist','Actual race scenario permits the observed performance'],counterevidence:{behind,mixed,nonwins:nonwin.map(g=>g.record.race_id)},unresolved_materials:unknowns,evidence_ids:evidence,upstream_item_ids:uniq([...(observations.length?['02','12','43']:[]),...(comparison.some(x=>x.observations.length)?['35']:[]),...(position.length?['17']:[]),...(s.evidence_ids.length?['65','69']:[])]),shared_mechanism_ids:uniq([...roots(observations),...comparison.flatMap(x=>x.observations.flatMap(o=>o.event_keys))]),position_observations:position,individual_speed_inferred:false,final_rank:null};
+    const common={horse_id:id,scenario_id:s.scenario_id,scenario_assumptions:s.assumptions,historical_support:observations.map(g=>({race_id:g.record.race_id,finish:g.record.fact.finish,evidence_ids:g.evidence_ids})),opponent_comparison:comparison,current_condition_match:observations.length?true:null,required_events:['Comparable current conditions persist','Actual race scenario permits the observed performance'],counterevidence:{behind,mixed,nonwins:nonwin.map(g=>g.record.race_id),nonmatching_history:nonmatching.map(g=>({race_id:g.record.race_id,finish:g.record.fact.finish,condition_delta:fields.filter(k=>g.record.fact[k]!=null&&card[id]?.record.fact[k]!=null&&g.record.fact[k]!==card[id].record.fact[k]),evidence_ids:g.evidence_ids}))},unresolved_materials:unknowns,evidence_ids:evidence,upstream_item_ids:uniq([...(observations.length?['02','12','43']:[]),...(comparison.some(x=>x.observations.length)?['35']:[]),...(position.length?['17']:[]),...(s.evidence_ids.length?['65','69']:[])]),shared_mechanism_ids:uniq([...roots(observations),...comparison.flatMap(x=>x.observations.flatMap(o=>o.event_keys))]),position_observations:position,individual_speed_inferred:false,final_rank:null};
     // No threshold on historical wins; direct observed precedence over a current opponent can support a conditional route without a win.
     const finishReach=win.length>0||ahead.length>0;
     const winStatus=finishReach?(behind.length||mixed.length?'MIXED':ahead.length?'SUPPORTED_CONDITIONAL':'UNKNOWN'):behind.length?'COUNTERED':'UNKNOWN';
@@ -88,7 +89,7 @@ export function researchRaceStructure({target,roster,winning,intake}){
  if(broad.length===horseIds.length&&horseIds.length>1&&comparable===total)hypothesis.push({kind:'C',pattern:'ALL_ACTIVE_HAVE_CONDITIONAL_PATH_AND_COMPARISON',classification:null});
  if(changes.length)hypothesis.push({kind:'D',pattern:'OBSERVED_SCENARIO_DIRECTION_REVERSAL',classification:null});
  if(comparable<total||unknown.some(x=>x.unknowns.length))hypothesis.push({kind:'E',pattern:'MATERIAL_OR_COMPARISON_UNKNOWN',classification:null});
- const program=intake.accepted.filter(g=>g.record.kind==='CURRENT_CARD'&&g.record.horse_id===null&&g.record.race_id===target.race_id&&g.record.fact.program_rule_verified===true);
+ const program=intake.accepted.filter(g=>g.record.kind==='CURRENT_CARD'&&g.record.horse_id===null&&g.record.race_id===target.race_id&&g.record.fact.program_rule_verified===true&&typeof g.record.fact.rule_version==='string'&&typeof g.record.fact.selection_rule==='string');
  const special=program.length===1?program[0].record.fact.selection_rule??null:null;
  return {race_id:target.race_id,roster_version:target.roster_version??null,cutoff:target.cutoff,scenario_ids:scenarios,comparison_edges:winning.comparisons,supported_winning_path_horse_ids_by_scenario:byScenario,supported_placing_path_horse_ids_by_scenario:byPlace,material_unknowns_by_horse:unknown,comparative_coverage:{possible_pairs:total,comparable_pairs:comparable,unknown_pairs:total-comparable},scenario_sensitive_pairs:changes,structure_hypotheses:hypothesis,special_program_rule:special,classification_status:'RESEARCH_UNAPPROVED',no_s_reason:null,rank_changes:[],eye_changes:[],release_eligible:false};
 }
