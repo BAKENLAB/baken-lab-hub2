@@ -18,7 +18,7 @@ export function rebuildRankInputs({rankArgs,intake,boundRoster}){
  const bridgeConflicts=[];
  const upsert=(xs,ys,k)=>{const m=new Map((xs??[]).map(x=>[k(x),x]));for(const x of ys){const old=m.get(k(x));if(old){const critical=['finish','status','distance','course_id','course_version','class_key','surface','going','body_weight_kg','actual_gate','ordered_race_ids','results','positions'];const differences=critical.filter(p=>old[p]!=null&&x[p]!=null&&JSON.stringify(old[p])!==JSON.stringify(x[p]));if(differences.length){bridgeConflicts.push({key:k(x),fields:differences,old_evidence_id:old.evidence_id,new_evidence_id:x.evidence_id,status:'CONFLICT_PENDING_RECONCILIATION'});m.delete(k(x));continue;}m.set(k(x),{...old,...Object.fromEntries(Object.entries(x).filter(([,v])=>v!=null))});}else m.set(k(x),x);}return [...m.values()]};
  // Do not replace old runner evidence on an ambiguous/contradictory card.
- const newRoster=args.oppositionArgs.roster.map(h=>{const b=boundRoster.find(r=>r.horse_no===h.horse_no),g=b?.horse_id&&cardFor(b.horse_id);if(!g||!eligible.has(b.horse_id))return h;const e=add(g);if(!e)return h;return {...h,...e,horse_no:h.horse_no,active:h.active};});
+ const newRoster=args.oppositionArgs.roster.map(h=>{const b=boundRoster.find(r=>r.horse_no===h.horse_no),g=b?.horse_id&&cardFor(b.horse_id);if(!b?.horse_id||!eligible.has(b.horse_id))return {...h,horse_id:null};if(!g)return h;const e=add(g);if(!e)return h;return {...h,...e,horse_no:h.horse_no,active:h.active};});
  args.oppositionArgs.roster=newRoster;
  const runs=[],histories=[],currents=[],gate=[],geo=[];
  for(const g of groups){
