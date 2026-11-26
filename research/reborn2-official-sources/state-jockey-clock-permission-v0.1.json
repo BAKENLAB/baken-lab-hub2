@@ -1,0 +1,192 @@
+{
+  "version": "0.1.0",
+  "semantics_commit": "e23a5427e0773ea05775333e9cf1c9e438d301ec",
+  "observed_date_jst": "2026-11-26",
+  "observed_at": null,
+  "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+  "source_original_sha256": null,
+  "status": "RESEARCH_ONLY",
+  "source_observations": [
+    {
+      "url": "https://www.jra.go.jp/faq/pop02/2_13.html",
+      "item_ids": [
+        "81",
+        "82"
+      ],
+      "finding": "Race-day measured weight appears on card after announcement; actual announcement timestamp still required."
+    },
+    {
+      "url": "https://www.jra.go.jp/faq/pop02/2_4.html",
+      "item_ids": [
+        "81",
+        "82",
+        "83",
+        "92"
+      ],
+      "finding": "Post-training weight published for G1 and two named G3 races; not training performance or universal coverage."
+    },
+    {
+      "url": "https://www.jra.go.jp/datafile/leading/",
+      "item_ids": [
+        "85",
+        "86",
+        "89",
+        "90"
+      ],
+      "finding": "Latest JRA jockey/trainer leading table updated after all races on each race day; sire table Mondays; JRA-only. Same-day final table cannot be used for earlier target."
+    },
+    {
+      "url": "https://www.jra.go.jp/datafile/meikan/index.html",
+      "item_ids": [
+        "85",
+        "86",
+        "87",
+        "88",
+        "89"
+      ],
+      "finding": "Official jockey/trainer search route; exact historical entity and tenure versions still required."
+    },
+    {
+      "url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/DataRoomTop",
+      "item_ids": [
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91"
+      ],
+      "finding": "NAR rider/trainer/horse search, leading by year; historical cutoff snapshot not proved."
+    },
+    {
+      "url": "https://www.jra.go.jp/keiba/baba/kaisetsu/",
+      "item_ids": [
+        "48",
+        "76",
+        "77",
+        "85",
+        "86"
+      ],
+      "finding": "Moisture measurement time is distinct from publication; Friday around midday, race day about 09:30 scheduled. Actual announcement must be verified; moisture is not automatic going classification."
+    },
+    {
+      "url": "https://www.jra.go.jp/keiba/baba/archive/2025.html",
+      "item_ids": [
+        "48",
+        "76",
+        "77"
+      ],
+      "finding": "Historical archive exists; moisture series begins 2018-07-27, cushion 2020-09-11. Historical versions and exact timestamps still need validation."
+    }
+  ],
+  "case_weight": {
+    "horse": "ナルカミ",
+    "target_race_id": "JRA:2025-12-07:中京:11",
+    "pre_race_training_weight_kg": 517,
+    "measurement_date": "2025-12-03",
+    "news_publication_date": "2025-12-04",
+    "published_at_or_null": null,
+    "previous_race_weight_kg": 505,
+    "training_location": "美浦",
+    "trainer": "田中博康",
+    "source_url": "https://www.jra.go.jp/news/202512/120404.html",
+    "retrospective_result_weight_kg": 508,
+    "result_weight_change_kg": 3,
+    "result_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1007202505021120251207%2F4B",
+    "status": "OBSERVED_SEPARATE_WEIGHT_TYPES; actual race-day prestart publication not independently proved",
+    "warning": "517 is not race-day weight; 508 must not enter historical morning view merely because final result has it; 9kg difference is not verified transportation loss."
+  },
+  "state_item_status": {
+    "78": "history state classification 193 rows; exclude three nonstarts",
+    "79": "same history; interval calculation after individually verified dates",
+    "80": "break threshold not validated",
+    "81": "separate pre-training/race-day example observed; actual prestart snapshot needed",
+    "82": "historical weight result source observed; all runs not checked",
+    "83": "post-training weight not workout clock; public workout detail coverage unresolved",
+    "84": "official result shows blinkers flag; full change history and card versions unresolved",
+    "85": "official leading route and JRA update cadence confirmed; rider-ID cohort unresolved",
+    "86": "course-conditioned rider comparison not yet validated",
+    "87": "same horse-rider historical results possible; adjusted comparison not done",
+    "88": "current versus prior official rider version needed",
+    "89": "official trainer directory and leading route observed; historical tenure unresolved",
+    "90": "official pedigree route and sire leading cadence observed; offspring sample and time scope unresolved",
+    "91": "birth/sex official profile fields observed; longitudinal comparison unresolved",
+    "92": "training location/affiliation observed only; actual travel route and timing unknown"
+  },
+  "jockey_going_interaction": {
+    "status": "DESIGN_ONLY",
+    "item_refs": [
+      "48",
+      "53",
+      "58",
+      "69",
+      "73",
+      "76",
+      "77",
+      "85",
+      "86",
+      "87",
+      "88"
+    ],
+    "unit": "one rider-horse-race observation",
+    "time_filter": "strict prior result and official publication before target cutoff; freeze each target separately",
+    "features": [
+      "native rider ID",
+      "horse ID",
+      "course version/distance/surface",
+      "going announcement version",
+      "earlier same-day position bands",
+      "field size",
+      "pace",
+      "draw",
+      "horse prestart ability evidence"
+    ],
+    "analysis": "compare within comparable courses and going states; separate horse and rider effects; group by meeting/date, hold out later meetings; report uncertainty and both positive and negative examples; no fixed effects promoted without validation",
+    "prohibitions": [
+      "no final same-day leading figures before earlier race",
+      "no odds",
+      "no treating draw as actual route",
+      "no claiming rider adaptation from a single result",
+      "no automatic pooling JRA/LOCAL"
+    ]
+  },
+  "benchmark_release_gates": {
+    "prior_reported_jra": {
+      "races": 7311,
+      "runner_rows": 101196
+    },
+    "prior_reported_local": {
+      "races": 19131,
+      "runner_rows": 197712
+    },
+    "formal_admissions": 0,
+    "conditions": [
+      "verify course layout effective version and distance start",
+      "surface, going, class/eligibility rule version and calendar",
+      "official result status and winner clock, ties and nonstarts",
+      "pretarget version and exact publication or separately approved as-of proof",
+      "deduplicate race, keep winner-level and runner-level grains separate",
+      "coverage and independent temporal validation, no unvalidated threshold",
+      "permission to acquire/store/derive/publish"
+    ],
+    "state": "NOT_RESOLVED; no new long-term dataset or replay this turn"
+  },
+  "terms": [
+    {
+      "url": "https://www.jra.go.jp/use/",
+      "finding": "JRA media copyright; prior permission required for video reuse outside private use/quotation; application limited to corporations. Not a blanket data licence.",
+      "permission": "UNKNOWN_DATA_USE"
+    },
+    {
+      "url": "https://www.keiba.go.jp/terms.html",
+      "finding": "NAR restricts unapproved reproduction; link instructions include notification and homepage target. No automated/data reuse approval established.",
+      "permission": "UNKNOWN_DATA_USE"
+    }
+  ],
+  "notes": [
+    "No source text or original file redistributed, factual research summaries only.",
+    "No permission inquiry sent; do not infer acceptance from public access.",
+    "No actual interaction estimate or production change."
+  ]
+}
