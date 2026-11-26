@@ -1,0 +1,120 @@
+import {readFileSync} from 'node:fs';
+import {fingerprint} from './recompute-full-rank.mjs';
+import {stagedAbilityResearch} from './staged-eye-return.mjs';
+const defs=JSON.parse(readFileSync(new URL('./analysis-contract-115-v5.json',import.meta.url),'utf8')).items;
+const uniq=xs=>[...new Set(xs)].sort();
+const arr=x=>Array.isArray(x)?x:[];
+const fields=['course_id','course_version','distance_m','surface','going','class_key','eligibility','weight_rule_version'];
+const conditionDiff=(a,b)=>({matched:fields.filter(k=>a?.[k]!=null&&a[k]===b?.[k]),different:fields.filter(k=>a?.[k]!=null&&b?.[k]!=null&&a[k]!==b[k]),unknown:fields.filter(k=>a?.[k]==null||b?.[k]==null)});
+const status=d=>d.different.length?'CONDITION_DIFFERENCE_OBSERVED':d.unknown.length?'CONDITION_COMPARISON_INCOMPLETE':'RECORDED_CONDITIONS_MATCH';
+const sameScope=(g,h,r)=>g.record.horse_id===h&&g.record.race_id===r;
+const sortBy=x=>x.slice().sort((a,b)=>fingerprint(a).localeCompare(fingerprint(b)));
+function observations(item){
+ if(!item)return [];
+ if(item.item_id.startsWith('EYE-'))return arr(item.observed_output).map(x=>({kind:'EYE_OBSERVATION',value:x.value??x,refs:arr(x.evidence_ids),observation_type:x.type??null}));
+ const f=item.observed_output;
+ const typed=arr(item.typed_output).map(x=>({kind:'TYPED_OBSERVATION',value:x.value,refs:arr(x.evidence_ids),observation_type:x.kind}));
+ const legacy=Array.isArray(f)?f.map(x=>({kind:'OBSERVATION',value:x.value??x,refs:arr(x.evidence_ids??(x.evidence_id?[x.evidence_id]:[]))})):['facts','hypotheses','counterevidence'].flatMap(k=>arr(f?.[k]).map(x=>({kind:k==='facts'?'OBSERVATION':k==='hypotheses'?'HYPOTHESIS':'COUNTER_OBSERVATION',value:x.value??x,refs:arr(x.evidence_ids??(x.evidence_id?[x.evidence_id]:[])),observation_type:x.typed_kind??null})));
+ return [...typed,...legacy];
+}
+function makeContext(analysis,target){
+ const accepted=analysis.prior.intake.accepted;
+ const refs=new Map(accepted.flatMap(g=>g.evidence_ids.map(e=>[e,g])));
+ const eventRefs=xs=>uniq(xs.flatMap(e=>refs.has(e)?[refs.get(e).event_key]:[]));
+ const result=(id,r)=>{const a=accepted.filter(g=>g.record.kind==='RESULT'&&sameScope(g,id,r));return a.length===1?a[0]:null;};
+ const card=id=>{const a=accepted.filter(g=>g.record.kind==='CURRENT_CARD'&&sameScope(g,id,target.race_id));return a.length===1?a[0]:null;};
+ const chronology=id=>{const a=accepted.filter(g=>g.record.kind==='HISTORY'&&sameScope(g,id,target.race_id)&&g.record.fact.chronology_verified===true);if(a.length!==1)return null;const ids=a[0].record.fact.ordered_actual_start_race_ids;if(!Array.isArray(ids)||new Set(ids).size!==ids.length)return null;const records=ids.map(r=>result(id,r));if(records.some(x=>!x)||records.some((x,i)=>i>0&&Date.parse(records[i-1].record.event_at)<=Date.parse(x.record.event_at)))return null;return {group:a[0],records};};
+ return {accepted,refs,eventRefs,result,card,chronology};
+}
+export function deriveResearchV5({analysis,target}){
+ const ctx=makeContext(analysis,target);
+ const reads=[];
+ const recordRead=(horse_no,item_id,consumer,value,reason,refs=[])=>{
+  reads.push({horse_no,item_id,consumer,input_version:analysis.evidence_version,actual_bridge_input_hash:analysis.rerun.actual_input_hash,output_hash:fingerprint(value),reason,evidence_ids:uniq(refs),original_event_keys:ctx.eventRefs(refs),effect:'RESEARCH_REASON_OR_UNCERTAINTY',final_consumption:false});
+ };
+ const runners=analysis.audit.runners.map(h=>{
+  const path=analysis.winning.runners.find(r=>r.horse_no===h.horse_no);
+  const eye=analysis.eye.find(r=>r.horse_no===h.horse_no);
+  const current=h.horse_id?ctx.card(h.horse_id):null,chron=h.horse_id?ctx.chronology(h.horse_id):null;
+  const active=h.active!==false,bound=active&&!!h.horse_id;
+  const material=[];
+  const unknown=(code,scope,required_for,evidence_ids=[],why='')=>({code,scope,required_for,evidence_ids:uniq(evidence_ids),original_event_keys:ctx.eventRefs(evidence_ids),why,materiality:'ROUTE_PREREQUISITE_UNRESOLVED',formal_materiality:null});
+  if(active&&!bound)material.push(unknown('IDENTITY_HOLD','ALL_PATHS',['本人馬の分析・相手比較'],[],'馬番を維持するが、本人馬との結合が成立しない'));
+  if(bound&&!current)material.push(unknown('CURRENT_CARD_MISSING','ALL_PATHS',['今回条件の比較'],[],'今回条件が不明'));
+  if(bound&&!chron)material.push(unknown('CHRONOLOGY_INCOMPLETE','CURRENT_STATE',['直前走・状態変化・現在性'],[],'公式順序の連続照合が不足'));
+  const pathResearch=(p,kind)=>{
+   const support=[],counter=[],neutral=[],unresolved=[];
+   const histories=arr(p.historical_support);
+   for(const x of histories){
+    const g=ctx.result(h.horse_id,x.race_id);if(!g||!current)continue;
+    const d=conditionDiff(g.record.fact,current.record.fact),refs=uniq([...g.evidence_ids,...current.evidence_ids]);
+    const v={race_id:x.race_id,event_at:g.record.event_at,finish:g.record.fact.finish,condition_comparison:d,condition_status:status(d),evidence_ids:refs,original_event_keys:ctx.eventRefs(refs),scope:'HISTORICAL_CONDITION_CONTEXT',current_strength_proven:false};
+    if(status(d)!=='RECORDED_CONDITIONS_MATCH'){neutral.push(v);continue;}
+    const positive=kind==='WIN'?v.finish===1:v.finish<=3;
+    (positive?support:counter).push({...v,reason:positive?'OBSERVED_TARGET_FINISH_UNDER_RECORDED_MATCH':'OBSERVED_NON_TARGET_FINISH_UNDER_RECORDED_MATCH',route_counter_scope:'HISTORICAL_OUTCOME_ONLY'});
+   }
+   for(const pair of arr(p.opponent_comparison))for(const x of arr(pair.observations)){
+    const v={race_id:x.race_id,peer_ids:pair.pair_ids,observed_direction:x.direction,clock_difference_tenths:x.clock_difference_tenths,evidence_ids:x.evidence_ids,original_event_keys:ctx.eventRefs(x.evidence_ids),scope:'HISTORICAL_CURRENT_PEER_PAIR',current_strength_proven:false};
+    if(x.direction==='OFFICIAL_TIE')neutral.push(v);else if(x.direction===h.horse_id)support.push({...v,reason:'OBSERVED_AHEAD_OF_CURRENT_PEER',does_not_prove_target_finish:true});else counter.push({...v,reason:'OBSERVED_BEHIND_CURRENT_PEER',route_counter_scope:'PAIR_ONLY'});
+   }
+   // Neither observed defeat nor a changed condition is automatically a decisive counter.
+   const historicalNonmatch=arr(p.counterevidence?.nonmatching_history).map(x=>({...x,scope:'DIFFERENT_OR_UNKNOWN_CONDITIONS',current_effect:'UNVALIDATED'}));
+   const cov=p.comparison_coverage??{};
+   if((cov.unknown_peer_ids??[]).length||(cov.unbound_peer_horse_nos??[]).length)unresolved.push(unknown('CURRENT_PEER_COVERAGE_GAP',p.path_id,['今回全相手に対する経路'],[],'直接比較のない相手または本人馬不明が残る'));
+   if(!histories.length)unresolved.push(unknown('NO_COMPARABLE_HISTORICAL_FINISH',p.path_id,['同条件での到達実績'],[],'比較可能な過去結果がない'));
+   if(p.scenario_id!=='CONDITION_MATCH_ONLY')unresolved.push(unknown('SCENARIO_NOT_REALIZED',p.path_id,['想定展開での再現'],p.evidence_ids??[],'競合・譲りは観測済みの今回展開ではない'));
+   unresolved.push(unknown('CURRENT_STRENGTH_NOT_VALIDATED',p.path_id,['今回の勝ち切り／好走支持強度'],p.evidence_ids??[],'過去の同条件・先着のみでは今回の能力を確定できない'));
+   const historicalStatus=support.length&&counter.length?'MIXED':support.length?'SUPPORT':counter.length?'COUNTER':'UNKNOWN';
+   return {...p,route_kind:kind,historical_evidence_status:historicalStatus,current_evidence_status:'UNKNOWN',support_observations:sortBy(support),counter_observations:sortBy(counter),neutral_observations:sortBy(neutral),nonmatching_history:historicalNonmatch,material_unknowns:unresolved,major_counter_candidates:counter.map(x=>({...x,major_status:'NOT_ESTABLISHED',effect_scope:x.route_counter_scope,alternative_route_review:'REQUIRED'})),formal_major_counterevidence:[],final_rank:null};
+  };
+  const winning=arr(path?.winning_paths).map(p=>pathResearch(p,'WIN')),placing=arr(path?.placing_paths).map(p=>pathResearch(p,'PLACE'));
+  if(bound){for(const p of [...winning,...placing])material.push(...p.material_unknowns);}
+  const items=h.items.map(i=>{
+   const def=defs.find(d=>d.id===i.item_id);
+   const os=observations(i).map(x=>({...x,original_event_keys:ctx.eventRefs(x.refs),evidence_binding:x.refs.length&&x.refs.every(r=>ctx.refs.has(r))?'STRUCTURAL_ROOT_BOUND':'REFERENCE_UNRESOLVED',formal_admission:false}));
+   const consumed=arr(i.actual_runtime_reads);
+   const findings=os.filter(o=>o.evidence_binding==='STRUCTURAL_ROOT_BOUND');
+   // Reading a value into research rationale is a distinct, observed consumer, not final consumption.
+   if(bound&&findings.length)recordRead(h.horse_no,i.item_id,'deriveResearchV5.itemRationale',findings,'原事象と対応する分析結果を項目別理由へ組み込む',findings.flatMap(x=>x.refs));
+   const historical=os.filter(o=>o.kind==='COUNTER_OBSERVATION');
+   return {item_id:i.item_id,name:def.name,role:def.role,axes:def.axes,required_evidence:def.required_evidence,source_ids:def.source_ids,implemented_research_content:def.implemented_research_content,remaining_gap:def.remaining_gap,implementation_status:i.execution_state,execution_state:i.analysis_state,actual_analysis_output:os,actual_output_hash:fingerprint(os),structurally_bound_outputs:findings.length,observed_counter_outputs:historical,unknowns:arr(i.unknowns),planned_consumers:analysis.dependency.items.find(d=>d.id===i.item_id)?.planned_consumers??[],runtime_consumers:consumed,formal_validation:false,formal_consumption:false,final_decision_effect:null};
+  });
+  const baseRoutes=[...winning,...placing].filter(p=>p.scenario_id==='CONDITION_MATCH_ONLY');
+  const axes=['A','B','C','D','E'].map(axis=>{
+   const selected=items.filter(i=>i.axes.includes(axis)&&!i.item_id.startsWith('EYE-'));
+   const context=selected.flatMap(i=>i.actual_analysis_output.filter(o=>o.evidence_binding==='STRUCTURAL_ROOT_BOUND').map(o=>({item_id:i.item_id,...o})));
+   for(const i of selected){const v=context.filter(o=>o.item_id===i.item_id);if(v.length)recordRead(h.horse_no,i.item_id,'deriveResearchV5.axis.'+axis,v,'観点の事実・仮説・反証の文脈へ実出力を参照',v.flatMap(o=>o.refs));}
+   const scoped=axis==='A'?baseRoutes.flatMap(p=>[...p.support_observations,...p.counter_observations].filter(x=>x.scope==='HISTORICAL_CONDITION_CONTEXT')):axis==='C'?baseRoutes.flatMap(p=>[...p.support_observations,...p.counter_observations].filter(x=>x.scope==='HISTORICAL_CURRENT_PEER_PAIR')):axis==='D'?[...winning,...placing].filter(p=>p.scenario_id!=='CONDITION_MATCH_ONLY').flatMap(p=>[...p.support_observations,...p.counter_observations]):[];
+   const sup=scoped.filter(x=>x.reason==='OBSERVED_TARGET_FINISH_UNDER_RECORDED_MATCH'||x.reason==='OBSERVED_AHEAD_OF_CURRENT_PEER');
+   const ctr=[...scoped.filter(x=>x.reason==='OBSERVED_NON_TARGET_FINISH_UNDER_RECORDED_MATCH'||x.reason==='OBSERVED_BEHIND_CURRENT_PEER'),...context.filter(x=>x.kind==='COUNTER_OBSERVATION')];
+   const conditionContexts=axis==='B'&&current?ctx.accepted.filter(g=>g.record.kind==='RESULT'&&g.record.horse_id===h.horse_id&&g.record.fact.start_status==='FINISHED').map(g=>({race_id:g.record.race_id,event_at:g.record.event_at,finish:g.record.fact.finish,comparison:conditionDiff(g.record.fact,current.record.fact),evidence_ids:uniq([...g.evidence_ids,...current.evidence_ids])})):[];
+   const historical=sup.length&&ctr.length?'MIXED':sup.length?'SUPPORT':ctr.length?'COUNTER':'UNKNOWN';
+   return {axis,status:!active?'NOT_APPLICABLE':'UNKNOWN',historical_observation_status:!active?'NOT_APPLICABLE':historical,support:sortBy(sup),counter:sortBy(ctr),observed_context:context,condition_context:conditionContexts,material_unknowns:material.filter(x=>axis==='C'?x.code.includes('PEER')||x.code==='IDENTITY_HOLD':axis==='D'?x.code.includes('SCENARIO')||x.code.includes('PEER'):axis==='B'?x.scope==='CURRENT_STATE'||x.code.includes('CARD'):axis==='A'?x.code.includes('HISTORICAL')||x.code.includes('STRENGTH'):true),unobserved_item_ids:selected.filter(i=>!i.structurally_bound_outputs).map(i=>i.item_id),current_support_strength:'UNVALIDATED',formal_consumption:false};
+  });
+  const eyeItems=arr(eye?.items).map(e=>{
+   const matched=[];
+   for(const o of arr(e.observed_facts)){
+    const groups=uniq(arr(o.evidence_ids)).map(id=>ctx.refs.get(id)).filter(Boolean);
+    const ownResults=groups.filter(g=>g.record.kind==='RESULT'&&g.record.horse_id===h.horse_id);
+    for(const g of ownResults){
+     const d=conditionDiff(g.record.fact,current?.record.fact),at=Date.parse(g.record.event_at);
+     const newer=ctx.accepted.filter(x=>x.record.kind==='RESULT'&&x.record.horse_id===h.horse_id&&Date.parse(x.record.event_at)>at&&x.record.fact.start_status==='FINISHED').map(x=>({race_id:x.record.race_id,finish:x.record.fact.finish,condition_status:status(conditionDiff(x.record.fact,current?.record.fact)),evidence_ids:x.evidence_ids}));
+     matched.push({observation_type:o.type,race_id:g.record.race_id,event_at:g.record.event_at,days_before_target:Math.floor((Date.parse(target.started_at)-at)/86400000),condition_status:status(d),condition_comparison:d,immediate_prior_verified:chron?.records[0]?.record.race_id===g.record.race_id,newer_observations:sortBy(newer),evidence_ids:uniq([...o.evidence_ids,...(current?.evidence_ids??[]),...(chron?.group.evidence_ids??[]),...newer.flatMap(n=>n.evidence_ids)]),causal_relevance:'UNVALIDATED'});
+    }
+   }
+   if(matched.length)recordRead(h.horse_no,e.eye_item_id,'deriveResearchV5.eyeCurrentRelevance',matched,'歴史事象・今回条件・後続成績の現在性照合',matched.flatMap(x=>x.evidence_ids));
+   const checks={item_executed:true,observation_present:arr(e.observed_facts).length>0,structural_roots_bound:arr(e.evidence_ids).length>0&&e.evidence_ids.every(id=>ctx.refs.has(id)),current_condition_comparison:matched.some(x=>x.condition_status==='RECORDED_CONDITIONS_MATCH'),chronology_verified:!!chron,causal_effect_validated:false};
+   return {eye_item_id:e.eye_item_id,checks,observed_relevance:matched,counter:e.counter??[],unknowns:e.unknowns??[],status:!active?'NOT_APPLICABLE':!bound?'IDENTITY_HOLD':!checks.observation_present?'NO_OBSERVATION':'RESEARCH_CONTEXT_ONLY',current_relevance:'UNVALIDATED',selection:null};
+  });
+  const major=[...winning,...placing].flatMap(p=>p.major_counter_candidates);
+  const historicalEvidenceGroups=new Map();for(const i of items)for(const o of i.actual_analysis_output)for(const key of o.original_event_keys){if(!historicalEvidenceGroups.has(key))historicalEvidenceGroups.set(key,new Set());historicalEvidenceGroups.get(key).add(i.item_id);}
+  return {horse_no:h.horse_no,horse_id:h.horse_id,active,items,five_axis_findings:axes,winning_paths:winning,placing_paths:placing,major_counter_candidates:major,decisive_counterevidence:[],material_unknowns:material,nonmaterial_unknowns:[],materiality_status:'ROUTE_PREREQUISITES_ONLY_NOT_FINAL',eye:{items:eyeItems,items_executed:eyeItems.length,all_items_reviewed:false,items_with_observations:eyeItems.filter(e=>e.checks.observation_present).length,items_with_current_condition_comparison:eyeItems.filter(e=>e.checks.current_condition_comparison).length,material_coverage_complete:false,ability_eligible:null,selection:null},original_event_groups:[...historicalEvidenceGroups].map(([key,ids])=>({key,item_ids:uniq([...ids]),independent_vote:false})).sort((a,b)=>a.key.localeCompare(b.key)),rank_candidate:null,decision_status:!active?'NOT_APPLICABLE':!bound?'IDENTITY_HOLD':'FORMAL_JUDGMENT_DISABLED',formal_consumption:0};
+ });
+ for(const h of runners)for(const i of h.items)i.synthesis_runtime_reads=reads.filter(x=>x.horse_no===h.horse_no&&x.item_id===i.item_id);
+ return {runners,runtime_reads:reads,scope:{catalog_items:defs.length,all_roster_rows:runners.length,formal_consumption:0,formal_admissions:0,full_runtime_dependency_extraction:false},release_eligible:false};
+}
+export function abilityResearch115v5(args){
+ const staged=stagedAbilityResearch(args),target=args.rankArgs.oppositionArgs.target;
+ const before=deriveResearchV5({analysis:staged.before,target}),after=deriveResearchV5({analysis:staged.after,target});
+ return {staged,before,after,delta:after.runners.map(h=>{const old=before.runners.find(x=>x.horse_no===h.horse_no);return {horse_no:h.horse_no,axis_changed:h.five_axis_findings.map(a=>({axis:a.axis,changed:fingerprint(a)!==fingerprint(old?.five_axis_findings.find(x=>x.axis===a.axis))})),paths_changed:fingerprint([h.winning_paths,h.placing_paths])!==fingerprint([old?.winning_paths,old?.placing_paths]),eye_changed:fingerprint(h.eye)!==fingerprint(old?.eye),formal_consumption:0};}),rank_candidate:null,eye_candidate:null,release_eligible:false};
+}
