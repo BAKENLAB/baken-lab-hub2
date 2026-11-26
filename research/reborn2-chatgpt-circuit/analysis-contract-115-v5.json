@@ -98,7 +98,7 @@
         "A"
       ],
       "required_evidence": "直後馬の公式行・前馬ID",
-      "implemented_research_content": "後続馬着差と時計差",
+      "implemented_research_content": "後続馬の着差・時計差・連続着順または完全競走による隣接確認",
       "remaining_gap": "直後関係・同着群の照合",
       "formal_validated": false,
       "formal_consumption": false
@@ -349,7 +349,7 @@
         "A"
       ],
       "required_evidence": "時系列連続走・同条件時計",
-      "implemented_research_content": "直近比較の時計・着順差",
+      "implemented_research_content": "直近2走の時計・着順・上がり・着差差分と同条件3走以上の時系列観測",
       "remaining_gap": "成長／衰え因果・長期推移",
       "formal_validated": false,
       "formal_consumption": false
@@ -478,7 +478,7 @@
         "A"
       ],
       "required_evidence": "公式先頭ラップ・距離区間",
-      "implemented_research_content": "競走先頭区間時計",
+      "implemented_research_content": "競走先頭区間時計・区間平均速度・観測総時間",
       "remaining_gap": "個体ラップと混同禁止・基準ペース",
       "formal_validated": false,
       "formal_consumption": false
@@ -807,7 +807,7 @@
         "A"
       ],
       "required_evidence": "直近2実走の公式順序・比較条件",
-      "implemented_research_content": "時計・着順差",
+      "implemented_research_content": "直近比較の時計・着順・上がり・着差・頭数差",
       "remaining_gap": "走路変化・相手強度・内容改善",
       "formal_validated": false,
       "formal_consumption": false
