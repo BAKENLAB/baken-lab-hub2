@@ -25,9 +25,10 @@ export function analyzeOpposition33to42({target, roster, races=[], histories=[],
   const historyFor=h=>unique(histories.filter(x=>admission(x)&&x.horse_id===h&&x.target_race_id===target.race_id&&x.chronology_verified===true),x=>x.horse_id)[0];
   const ruleFor=(a,b)=>unique(rules.filter(r=>admission(r)&&r.circuit===a.circuit&&r.circuit===b.circuit&&r.from_key===a.class_key&&r.to_key===b.class_key&&r.from_version===a.rule_version&&r.to_version===b.rule_version&&timestamp(r.effective_from)<=timestamp(a.started_at)&&timestamp(r.effective_from)<=timestamp(b.started_at)&&timestamp(a.started_at)<timestamp(r.effective_until)&&timestamp(b.started_at)<timestamp(r.effective_until)&&["PROMOTION","DEMOTION","SAME_CLASS","SYSTEM_CHANGE"].includes(r.transition)),r=>r.from_key+"|"+r.to_key)[0];
   const shared=new Map();
+  const rowRefs=new Map(accepted.filter(r=>Array.isArray(r.row_evidence_ids)).map(r=>[r.evidence_id,r.row_evidence_ids]));
   const runners=roster.map(entry=>{
     const items=Object.fromEntries(Array.from({length:10},(_,i)=>[String(i+33),{facts:[],hypotheses:[],counterevidence:[],unknowns:[],effect:"NO_RECORDED_USE"}]));
-    const emit=(n,value,refs)=>items[n].facts.push({value,evidence_ids:[...new Set(refs)]});
+    const emit=(n,value,refs)=>items[n].facts.push({value,evidence_ids:[...new Set([...refs,...refs.flatMap(e=>rowRefs.get(e)??[])])]});
     const unknown=(n,reason)=>items[n].unknowns.push(reason);
     const h=identities.find(x=>x.horse_no===entry.horse_no)?.horse_id;
     if(!h){for(const n in items)unknown(n,"CURRENT_IDENTITY_UNVERIFIED_OR_CONFLICT");return {horse_no:entry.horse_no,horse_id:null,items};}

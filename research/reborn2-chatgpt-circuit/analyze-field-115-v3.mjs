@@ -46,7 +46,7 @@ export function abilityResearch115v3({rankArgs,typedRecords=[]}){
  const merged=merge(rerun.rank,typed);
  stage='eye_reinspection';const eye=inspectEye15({target,roster:bound,rankAudit:merged,intake,catalog:pinned.items,traceRead});
  const returned=returnToRank({rankAudit:merged,eyeRunners:eye,intake});
- stage='current_path_research';const winning=researchPathsV3({target,roster:bound,intake,typedAnalysis:typed,pace:rerun.rank.pace,traceRead});
+ stage='current_path_research';const winning=researchPathsV3({target,roster:bound,intake,typedAnalysis:typed,pace:rerun.rank.pace,rankAudit:merged,traceRead});
  const structure=raceStructureV3({target,roster:bound,winning,intake});
  const changed=uniq([...initialReturn.runners.flatMap(x=>x.rerun_required_rank_items),...prior.returned.runners.flatMap(x=>x.rerun_required_rank_items)]);
  const affected=affectedItems(ledger,changed);

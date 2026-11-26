@@ -47,7 +47,7 @@ export function rebuildRankInputs({rankArgs,intake,boundRoster}){
   const rows=f.runner_ids.map(id=>single(groups.filter(q=>['RESULT','PEER_RESULT'].includes(q.record.kind)&&q.record.horse_id===id&&q.record.race_id===r.race_id&&q.record.event_at===r.event_at&&q.record.fact.field_size===f.field_size)));
   if(rows.some(x=>!x||!['FINISHED','DNF_STARTED','DQ_STARTED','EXCLUDED_NOT_STARTED','CANCELLED_NOT_STARTED'].includes(x.record.fact.start_status)))continue;
   const e=add(g);if(!e)continue;
-  full.push({...f,...e,circuit:r.jurisdiction,started_at:r.event_at,distance:f.distance_m,class_verified:f.class_verified===true,results:rows.map(x=>({horse_id:x.record.horse_id,finish:x.record.fact.finish,status:x.record.fact.start_status==='FINISHED'?'FINISHED':x.record.fact.start_status==='DNF_STARTED'?'DNF':x.record.fact.start_status==='DQ_STARTED'?'DQ':'DNS'}))});refs.push({kind:'COMPLETE_FIELD',race_id:r.race_id,evidence_ids:[e.evidence_id,...rows.flatMap(x=>x.evidence_ids)]});
+  full.push({...f,...e,circuit:r.jurisdiction,started_at:r.event_at,distance:f.distance_m,class_verified:f.class_verified===true,row_evidence_ids:rows.flatMap(x=>x.evidence_ids),results:rows.map(x=>({horse_id:x.record.horse_id,finish:x.record.fact.finish,status:x.record.fact.start_status==='FINISHED'?'FINISHED':x.record.fact.start_status==='DNF_STARTED'?'DNF':x.record.fact.start_status==='DQ_STARTED'?'DQ':'DNS'}))});refs.push({kind:'COMPLETE_FIELD',race_id:r.race_id,evidence_ids:[e.evidence_id,...rows.flatMap(x=>x.evidence_ids)]});
  }
  const rk=x=>x.horse_id+'|'+x.race_id,hk=x=>x.horse_id;
  args.oppositionArgs={...args.oppositionArgs,races:upsert(args.oppositionArgs.races,full,x=>x.circuit+'|'+x.race_id),histories:upsert(args.oppositionArgs.histories,histories,hk)};

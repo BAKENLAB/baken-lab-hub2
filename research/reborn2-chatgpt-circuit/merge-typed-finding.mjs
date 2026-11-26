@@ -27,7 +27,7 @@ export function mergeTypedFinding({item,typedItem,intake,corrections=[]}){
  const oldFacts=keep(old.facts??[],'facts'),hypotheses=keep(old.hypotheses??[],'hypotheses'),counterevidence=keep(old.counterevidence??[],'counterevidence');
  const factsNew=fresh.map(o=>({value:o.value,evidence_ids:o.evidence_ids,typed_kind:o.kind,original_event_keys:o.original_event_keys}));
  for(const a of oldFacts)for(const b of factsNew){
-  const overlap=refs(a).some(id=>refs(b).includes(id));
+  const ar=refs(a),br=refs(b);const overlap=ar.some(id=>br.includes(id)||byRef.has(id)&&br.some(j=>byRef.get(id)?.event_key===byRef.get(j)?.event_key));
   if(overlap&&key(a.value??a)!==key(b.value))conflicts.push({old:a,new:b,status:'SHARED_SOURCE_DIFFERENT_REPRESENTATION_REVIEW'});
  }
  const unknowns=uniq([...(old.unknowns??[]),...(item.unknowns??[]),...(typedItem?.unknowns??[]),...(conflicts.length?['TYPED_LEGACY_RECONCILIATION_REQUIRED']:[]),...(history.length?['CORRECTION_DEPENDENCIES_REVALIDATION_REQUIRED']:[])]);
