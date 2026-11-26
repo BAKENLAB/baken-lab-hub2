@@ -54,3 +54,22 @@ export function assessContext({items,runPairs,targetDate,cutoff,ratings=[]}) {
   }
   return {units,findings,consumed:traceIds.filter(id=>units.some(x=>Object.hasOwn(x.dimensions,id)))};
 }
+
+// The propositions are confined to the observed historical performance.
+export function judgeHistoricalContext(units, findings){
+  return units.map(unit=>{
+    const dimensions=unit.dimensions;
+    const changes=(dimensions['18']??[]).flat();
+    const support=[],counter=[];
+    if(changes.some(x=>x.gain>0)) support.push('OBSERVED_POSITION_GAIN');
+    if(changes.some(x=>x.gain<0)) counter.push('OBSERVED_POSITION_LOSS');
+    if(dimensions['21']?.length) support.push('OBSERVED_RECOVERY');
+    if(dimensions['30']?.length) support.push('HISTORICAL_WIN');
+    if(dimensions['28']?.length) counter.push('HISTORICAL_DEFEAT');
+    if(findings['25']?.some(r=>r.evidence_id===unit.evidence_id))support.push('OBSERVED_LATE_GAIN_WITH_FASTER_FINAL3F');
+    if(findings['24']?.some(r=>r.evidence_id===unit.evidence_id))counter.push('OBSERVED_LATE_POSITION_LOSS');
+    return {evidence_id:unit.evidence_id,support,counter,status:support.length?
+      (counter.length?'MIXED':'HISTORICAL_SUPPORT'):(counter.length?'HISTORICAL_COUNTEREVIDENCE':'UNDETERMINED'),
+      current_ability:null};
+  });
+}

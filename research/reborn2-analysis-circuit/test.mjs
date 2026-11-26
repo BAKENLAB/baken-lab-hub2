@@ -89,3 +89,40 @@ assert.equal(expanded[0].history_complete,false);
 assert.equal(expanded[1].status,'PROFILE_UNAVAILABLE');
 assert.throws(()=>collectLocalProfileHistory({...profileInput,profiles:[...profileInput.profiles,...profileInput.profiles]}));
 console.log('PASS supplied LOCAL profile beyond five starts');
+
+const {readFile}=await import('node:fs/promises');
+const {evaluateLocalBenchmark}=await import('./local-benchmark.mjs');
+const report=JSON.parse(await readFile(new URL('../reborn2-local-benchmark/archive-cohort-replay-v2.json',import.meta.url)));
+const benchmark=report.results.sample[0];
+const sonoda={track:benchmark.track,turn:benchmark.turn,surface:benchmark.surface,distance:benchmark.distance,
+ going:benchmark.going,label:benchmark.label,evidence_id:'fixture',race_date:'2026-09-08',
+ observed_at:'2026-09-09T00:00:00Z',elapsed_seconds:93,final3f:40,final3f_kind:'INDIVIDUAL_FINAL3F'};
+const benchArgs={runs:[sonoda],benchmarks:[benchmark],targetDate:'2026-11-01',cutoff:'2026-11-01T00:00:00Z'};
+const candidate=evaluateLocalBenchmark(benchArgs);
+assert.equal(candidate.observations[0].elapsed_residual_seconds,0);
+assert.equal(candidate.observations[0].individual_final3f_residual_seconds,-0.2);
+assert.equal(candidate.admitted,0);
+assert.deepEqual(candidate.trends,{});
+assert.equal(evaluateLocalBenchmark({...benchArgs,runs:[{...sonoda,race_date:'2026-08-30'}]}).observations.length,0);
+assert.equal(evaluateLocalBenchmark({...benchArgs,benchmarks:[benchmark,benchmark]}).observations.length,0);
+assert.equal(evaluateLocalBenchmark({...benchArgs,runs:[{...sonoda,final3f_kind:'RACE_LEVEL_ONLY'}]}).observations[0].individual_final3f_residual_seconds,null);
+const officialConditions={course_layout:'fixture',verified_class:'fixture',verified_eligibility:'fixture'};
+const formal={...benchmark,...officialConditions,benchmark_admitted:true,asof_verified:true,lineage_verified:true,
+ source_ref:'fixture',version:'fixture',available_at:'2026-09-02T00:00:00Z'};
+const formalRuns=Array.from({length:4},(_,i)=>({...sonoda,...officialConditions,identity_verified:true,
+ horse_id:'123',conditions_verified:true,evidence_id:'fixture'+i,race_date:'2026-09-'+(18+i),
+ start_at:'2026-09-'+(18+i)+'T01:00:00Z',observed_at:'2026-09-'+(18+i)+'T02:00:00Z'}));
+const admitted=evaluateLocalBenchmark({...benchArgs,runs:formalRuns,benchmarks:[formal],chronologyProven:true});
+assert.equal(admitted.admitted,4);
+assert.deepEqual(Object.keys(admitted.trends),['13','14','32']);
+const {compareOpponents}=await import('./opponent-context.mjs');
+const own={horse_id:'123',race_id:'A',result_ref:'official:A',identity_verified:true,result_verified:true,circuit:'LOCAL',
+ finish:2,started_at:'2026-09-08T01:00:00Z',published_at:'2026-09-08T02:00:00Z',checked_at:'2026-09-08T03:00:00Z'};
+const rival={...own,horse_id:'456',finish:1};
+const later={...rival,race_id:'B',result_ref:'official:B',started_at:'2026-09-09T01:00:00Z',
+ published_at:'2026-09-09T02:00:00Z',checked_at:'2026-09-09T03:00:00Z'};
+const rivals=compareOpponents({own,field:[own,rival],followups:[later,{...later,race_id:'C',checked_at:'2026-11-02T00:00:00Z'}],cutoff:benchArgs.cutoff});
+assert.equal(rivals[0].order,'BEHIND');
+assert.equal(rivals[0].followups.length,1);
+assert.equal(a.runners[0].historical_judgments[0].status,'HISTORICAL_SUPPORT');
+console.log('PASS v2 candidate/formal gates, benchmark trends, and dated opponent linkage');

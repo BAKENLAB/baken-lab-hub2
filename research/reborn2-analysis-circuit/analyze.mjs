@@ -1,4 +1,6 @@
-import { assessContext } from './context-assessment.mjs';
+import { compareOpponents } from './opponent-context.mjs';
+import { evaluateLocalBenchmark } from './local-benchmark.mjs';
+import { assessContext, judgeHistoricalContext } from './context-assessment.mjs';
 import { inspectStartIncident } from '../reborn2-evidence-01-12/start-incident-09-intake.mjs';
 import { compareHistory } from './trends.mjs';
 import { supplyArchiveMaterials } from '../reborn2-evidence-01-12/archive-materials.mjs';
@@ -28,7 +30,7 @@ export function compareClock(run,samples,circuit) {
     source_refs:eligible.map(s=>s.source_ref)};
 }
 
-export function analyzeField({input, profile=null, benchmarks=[],historyByHorse={},incidentWitnesses=[],verifiedContexts={},ratings=[],verifiedRoster=[]}) {
+export function analyzeField({input, profile=null, benchmarks=[],historyByHorse={},incidentWitnesses=[],verifiedContexts={},ratings=[],verifiedRoster=[],localBenchmarkByHorse={},opponentsByHorse={}}) {
   const packet=supplyArchiveMaterials(input);
   if (profile && profile.circuit!==input.circuit) throw Error('PROFILE_CIRCUIT_MISMATCH');
   const base=profile ? integrateBase0112({profile,roster:input.roster,targetDate:input.targetDate}) : null;
@@ -106,17 +108,34 @@ export function analyzeField({input, profile=null, benchmarks=[],historyByHorse=
       for(const [id,findings] of Object.entries(compareHistory(history.runs,input.targetDate,history.chronologyProven)))
         items[id]=findings.map(value=>({status:'OBSERVED_COMPARISON',value}));
     }
-    const item01=base?.runners.find(h=>h.horse_no===horse.horse_no)?.item01??null;
-    const identities=verifiedRoster.filter(h=>h.horse_no===horse.horse_no && h.verified===true &&
+    const identityRows=verifiedRoster.filter(h=>h.horse_no===horse.horse_no && h.verified===true &&
       typeof h.horse_id==='string' && /^\d+$/.test(h.horse_id) &&
       Date.parse(h.checked_at)<=Date.parse(input.cutoff));
-    const identity=identities.length===1 && verifiedRoster.filter(h=>h.horse_id===identities[0].horse_id).length===1
-      ? identities[0].horse_id : null;
+    const identity=identityRows.length===1 && verifiedRoster.filter(h=>h.horse_id===identityRows[0].horse_id).length===1
+      ? identityRows[0].horse_id : null;
+    const benchmarkInput=input.circuit==='LOCAL'?localBenchmarkByHorse[horse.horse_no]:null;
+    const localBenchmark=benchmarkInput?evaluateLocalBenchmark({...benchmarkInput,
+      targetDate:input.targetDate,cutoff:input.cutoff,
+      runs:benchmarkInput.runs.map(r=>({...r,identity_verified:r.identity_verified===true&&Boolean(identity)&&r.horse_id===identity}))}):null;
+    if(localBenchmark){
+      for(const [id,field] of [['05','elapsed_residual_seconds'],['06','individual_final3f_residual_seconds']])
+        for(const finding of localBenchmark.observations.filter(x=>Number.isFinite(x[field])))
+          items[id].push({evidence_id:finding.evidence_id,status:finding.status,value:finding});
+      for(const finding of localBenchmark.comparisons) items['11'].push({status:'DISTANCE_COMPARISON',value:finding});
+      for(const [id,findings] of Object.entries(localBenchmark.trends))
+        items[id].push(...findings.map(value=>({status:'ADMITTED_HISTORICAL_COMPARISON',value})));
+    }
+    const item01=base?.runners.find(h=>h.horse_no===horse.horse_no)?.item01??null;
     const context=assessContext({items,targetDate:input.targetDate,cutoff:input.cutoff,ratings,
       runPairs:horse.materials.map(run=>({run:{...run,horse_id:identity},id:runKey(run),context:verifiedContexts[horse.horse_no]?.[runKey(run)]}))});
     for(const [id,findings] of Object.entries(context.findings)) items[id].push(...findings);
+    const opponents=(opponentsByHorse[horse.horse_no]??[]).flatMap(w=>
+      w.own?.horse_id===identity && horse.materials.some(run=>run.source_ref===w.own.result_ref)
+        ? compareOpponents({...w,cutoff:input.cutoff}) : []);
+    for(const value of opponents) items['12'].push({status:'VERIFIED_HISTORICAL_MATCHUP',value});
+    const historicalJudgments=judgeHistoricalContext(context.units,context.findings);
     const consumed=item01?.consumed_items??[];
-    return {horse_no:horse.horse_no,items,item01,historical_context:context.units,ability_trace:{
+    return {horse_no:horse.horse_no,items,item01,historical_context:context.units,historical_judgments:historicalJudgments,ability_trace:{
       consumed_items:consumed,
       context_items_read:context.consumed,
       evidence_sources:item01?[...item01.visible_condition_evidence,...item01.other_condition_evidence].flatMap(c=>c.source_refs):[],
