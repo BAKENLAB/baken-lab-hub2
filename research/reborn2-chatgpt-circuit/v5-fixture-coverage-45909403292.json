@@ -1,0 +1,1964 @@
+{
+  "source_commit": "9bb5739da206397bdba812c239fe3c6069804b9a",
+  "ci_run": 45909403292,
+  "ci_job": 140213842352,
+  "scope": "NODE_EXECUTED_SYNTHETIC_3_RUNNER_CASE_ONLY",
+  "fixture_only": true,
+  "roster_rows": 3,
+  "catalog_items": 115,
+  "items": [
+    {
+      "id": "01",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "BASE_EVIDENCE_BUNDLE",
+      "sample_value_keys": [
+        "items",
+        "current_ability"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "02",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "analyzeTyped01to32.baseBundle",
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "OFFICIAL_START_STATE",
+      "sample_value_keys": [
+        "race_id",
+        "start_status",
+        "finish",
+        "field_size"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "03",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "analyzeTyped01to32.baseBundle",
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "WINNER_GAP",
+      "sample_value_keys": [
+        "race_id",
+        "clock_gap_tenths",
+        "official_margin",
+        "dead_heat_group"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "04",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "05",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "analyzeTyped01to32.baseBundle",
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "DISPLAY_CLOCK",
+      "sample_value_keys": [
+        "race_id",
+        "tenths"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "06",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "analyzeTyped01to32.baseBundle",
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "INDIVIDUAL_FINAL3F",
+      "sample_value_keys": [
+        "race_id",
+        "tenths"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "07",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "08",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "09",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "10",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "11",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "12",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 9,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "analyzeTyped01to32.baseBundle",
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale",
+        "researchPathsV3.historical12"
+      ],
+      "sample_type": "HISTORICAL_WIN_NONWIN_DENOMINATORS",
+      "sample_value_keys": [
+        "history_rows",
+        "actual_starts",
+        "finished",
+        "excluded",
+        "unknown",
+        "wins",
+        "top2",
+        "win_share_of_top2"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "13",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "14",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "15",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "16",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "17",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "POSITION_RANGES",
+      "sample_value_keys": [
+        "race_id",
+        "positions",
+        "field_size"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "18",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "POSITION_TRANSITIONS",
+      "sample_value_keys": [
+        "race_id",
+        "transitions"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "19",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "20",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "21",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "22",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": "DEFINITE_POSITION_GAINS",
+      "sample_value_keys": [
+        "race_id",
+        "gains",
+        "speed_measured"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "23",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "24",
+      "executed_rows": 3,
+      "observed_rows": 2,
+      "structurally_bound_rows": 2,
+      "prior_runtime_read_count": 8,
+      "v5_runtime_read_count": 4,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": "LATE_POSITION_LOSS",
+      "sample_value_keys": [
+        "race_id",
+        "late_transition",
+        "cause"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "25",
+      "executed_rows": 3,
+      "observed_rows": 1,
+      "structurally_bound_rows": 1,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 2,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": "LATE_GAIN_WITHOUT_WIN",
+      "sample_value_keys": [
+        "race_id",
+        "late_transition",
+        "finish",
+        "remaining_energy"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "26",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "27",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "28",
+      "executed_rows": 3,
+      "observed_rows": 2,
+      "structurally_bound_rows": 2,
+      "prior_runtime_read_count": 8,
+      "v5_runtime_read_count": 4,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": "DEFEAT_GAP_CANDIDATE",
+      "sample_value_keys": [
+        "race_id",
+        "finish",
+        "gap_tenths",
+        "narrow_threshold"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "29",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "30",
+      "executed_rows": 3,
+      "observed_rows": 1,
+      "structurally_bound_rows": 1,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 2,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "WIN_OBSERVATION",
+      "sample_value_keys": [
+        "race_id",
+        "clock_tenths",
+        "condition_match",
+        "opponent_value"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "31",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "32",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "33",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "34",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 11,
+      "v5_runtime_read_count": 9,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.axis.C",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "prior_race_id",
+        "denominator",
+        "covered",
+        "profiles"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "35",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 9,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.axis.C",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "pair_ids",
+        "shared_race",
+        "outcome",
+        "own_finish",
+        "peer_finish",
+        "comparable_conditions"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "36",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "37",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "38",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "39",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "40",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 12,
+      "v5_runtime_read_count": 9,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.axis.C",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "prior_race_id",
+        "current_field_profile",
+        "prior_field_profile",
+        "comparative_direction",
+        "conditions_match"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "41",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "42",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "43",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 3,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "profiles",
+        "current_value",
+        "exact_condition_races",
+        "missing"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "44",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "current_transition",
+        "delta_m",
+        "direction",
+        "confounders"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "45",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "profiles",
+        "current_value",
+        "exact_condition_races",
+        "missing"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "46",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "47",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "profiles",
+        "current_value",
+        "exact_condition_races",
+        "missing"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "48",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 3,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "profiles",
+        "current_value",
+        "exact_condition_races",
+        "missing"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "49",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 3,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "profiles",
+        "current_value",
+        "exact_condition_races",
+        "missing"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "50",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "51",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "52",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "53",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "gate_position",
+        "normalized_draw",
+        "style_profile",
+        "draw_interaction"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "54",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "55",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "56",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "57",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "months",
+        "years_observed",
+        "season_effect"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "58",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 3,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "segment_positions",
+        "style_distribution"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "59",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "last_run_id",
+        "top3_any_corner",
+        "early_top3",
+        "late_only"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "60",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 9,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "long_term",
+        "recent",
+        "prior5_missing"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "61",
+      "executed_rows": 3,
+      "observed_rows": 2,
+      "structurally_bound_rows": 2,
+      "prior_runtime_read_count": 10,
+      "v5_runtime_read_count": 4,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "observed_leads",
+        "matching_leads",
+        "candidate_ids"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "62",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "lead",
+        "nonlead",
+        "dependence_hypothesis"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "63",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 12,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "known_front",
+        "unknown",
+        "active_n",
+        "lower",
+        "upper",
+        "band_hypothesis"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "64",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 6,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "gate_order"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "65",
+      "executed_rows": 3,
+      "observed_rows": 2,
+      "structurally_bound_rows": 2,
+      "prior_runtime_read_count": 16,
+      "v5_runtime_read_count": 4,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "competition_edges",
+        "scenarios",
+        "pace_conclusion"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "66",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 12,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "pattern",
+        "left_right_ids",
+        "realized_benefit"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "67",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "68",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 21,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "prior_early_rank",
+        "scenarios"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "69",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "70",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 30,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "scenario_id",
+        "lead_candidates",
+        "uncertain_horses",
+        "strict_order"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "71",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "72",
+      "executed_rows": 3,
+      "observed_rows": 2,
+      "structurally_bound_rows": 2,
+      "prior_runtime_read_count": 10,
+      "v5_runtime_read_count": 4,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "scenarios",
+        "historical_refs",
+        "individual_fatigue"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "73",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "74",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 3,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "observations",
+        "adaptability"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "75",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 18,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "observations",
+        "dependency"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "76",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "77",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "78",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "days_since_last_start",
+        "last_race_id",
+        "rest_classification"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "79",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "interval_days",
+        "interval_history",
+        "consecutive_start_flag"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "80",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "historical_intervals",
+        "starts_since_break",
+        "break_threshold"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "81",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "82",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "observations",
+        "success_definition"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "83",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "84",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "85",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "86",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "87",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "88",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "89",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "90",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "91",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "92",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "93",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 36,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.E",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "condition_delta",
+        "direction_candidates",
+        "confirmed_effect"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "94",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 9,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.E",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "inspectEye15.counter_and_scenario",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "condition_delta",
+        "direction_candidates",
+        "confirmed_effect"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "95",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "96",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "97",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "98",
+      "executed_rows": 3,
+      "observed_rows": 0,
+      "structurally_bound_rows": 0,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 0,
+      "actual_consumers": [],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "99",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 12,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.axis.E",
+        "deriveResearchV5.itemRationale",
+        "inspectEye15",
+        "researchPathsV3.currentContext"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [
+        "matched_runs",
+        "repeated_win_observations",
+        "repeatability_conclusion"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "100",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 21,
+      "actual_consumers": [
+        "deriveResearchV5.axis.A",
+        "deriveResearchV5.axis.B",
+        "deriveResearchV5.axis.C",
+        "deriveResearchV5.axis.D",
+        "deriveResearchV5.axis.E",
+        "deriveResearchV5.itemRationale",
+        "deriveResearchV5.pathResearch"
+      ],
+      "sample_type": null,
+      "sample_value_keys": [],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-01",
+      "executed_rows": 3,
+      "observed_rows": 2,
+      "structurally_bound_rows": 2,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 4,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "DEFEAT_GAP",
+      "sample_value_keys": [
+        "race_id",
+        "finish",
+        "field_size",
+        "winner_gap_tenths",
+        "official_margin",
+        "margin_reference",
+        "condition_match",
+        "gap_threshold"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-02",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "FINISH_POSITION_CONTENT",
+      "sample_value_keys": [
+        "race_id",
+        "finish",
+        "transitions",
+        "condition_match",
+        "individual_speed_measured"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-03",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 5,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "UPSTREAM_CONTENT",
+      "sample_value_keys": [
+        "race_id",
+        "gains",
+        "speed_measured"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-04",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "OPPONENT_AND_GAP_CONTEXT",
+      "sample_value_keys": [
+        "prior_race_id",
+        "denominator",
+        "covered",
+        "profiles"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-05",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "OPPONENT_CONTEXT",
+      "sample_value_keys": [
+        "prior_race_id",
+        "denominator",
+        "covered",
+        "profiles"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-06",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "PRIOR_INCIDENT_OR_SCENARIO",
+      "sample_value_keys": [
+        "race_id",
+        "late_transition",
+        "cause"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-07",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "CONDITION_CONTEXT",
+      "sample_value_keys": [
+        "condition_delta",
+        "direction_candidates",
+        "confirmed_effect"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-08",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "COURSE_CHANGE_CONTEXT",
+      "sample_value_keys": [
+        "profiles",
+        "current_value",
+        "exact_condition_races",
+        "missing"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-09",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "FRONT_SHARE_AND_SCENARIO",
+      "sample_value_keys": [
+        "last_run_id",
+        "top3_any_corner",
+        "early_top3",
+        "late_only"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-10",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "SANDWICH_PATTERN_AND_SCENARIO",
+      "sample_value_keys": [
+        "pattern",
+        "left_right_ids",
+        "realized_benefit"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-11",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "COMPETITION_CONTEXT",
+      "sample_value_keys": [
+        "long_term",
+        "recent",
+        "prior5_missing"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-12",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "POSITION_SCENARIO",
+      "sample_value_keys": [
+        "segment_positions",
+        "style_distribution"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-13",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "COMPARABLE_TREND_CONTEXT",
+      "sample_value_keys": [
+        "matched_runs",
+        "repeated_win_observations",
+        "repeatability_conclusion"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-14",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "CLASS_AND_FIELD_CONTEXT",
+      "sample_value_keys": [
+        "prior_race_id",
+        "denominator",
+        "covered",
+        "profiles"
+      ],
+      "formal_consumption": 0
+    },
+    {
+      "id": "EYE-15",
+      "executed_rows": 3,
+      "observed_rows": 3,
+      "structurally_bound_rows": 3,
+      "prior_runtime_read_count": 0,
+      "v5_runtime_read_count": 6,
+      "actual_consumers": [
+        "deriveResearchV5.eyeCurrentRelevance",
+        "deriveResearchV5.itemRationale"
+      ],
+      "sample_type": "MECHANISM_CONTEXT",
+      "sample_value_keys": [
+        "condition_delta",
+        "direction_candidates",
+        "confirmed_effect"
+      ],
+      "formal_consumption": 0
+    }
+  ],
+  "rows_with_output": 173,
+  "rows_bound": 173,
+  "items_with_output": 61,
+  "items_with_bound_output": 61,
+  "items_with_v5_reads": 61,
+  "formal_consumption": 0,
+  "unobserved_item_ids": [
+    "04",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "13",
+    "14",
+    "15",
+    "16",
+    "19",
+    "20",
+    "21",
+    "23",
+    "26",
+    "27",
+    "29",
+    "31",
+    "32",
+    "33",
+    "36",
+    "37",
+    "38",
+    "39",
+    "41",
+    "42",
+    "46",
+    "50",
+    "51",
+    "52",
+    "54",
+    "55",
+    "56",
+    "67",
+    "69",
+    "71",
+    "73",
+    "76",
+    "77",
+    "81",
+    "83",
+    "84",
+    "85",
+    "86",
+    "87",
+    "88",
+    "89",
+    "90",
+    "91",
+    "92",
+    "95",
+    "96",
+    "97",
+    "98"
+  ],
+  "not_formal_validation": true
+}
