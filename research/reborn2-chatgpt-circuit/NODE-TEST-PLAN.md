@@ -1,0 +1,2 @@
+# Research-only test execution
+Run `bash research/reborn2-chatgpt-circuit/run-node-regression.sh` on Node 22. No database, deployment, acquisition, Cron or credential access. Includes syntax, five new suites, all-100 empty-input integration in both circuits, legacy preservation and four predecessor suites. Positive full-field official replay and source attestation still outstanding. No result is asserted until runner output is obtained.
