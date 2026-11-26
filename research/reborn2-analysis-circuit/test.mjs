@@ -57,19 +57,20 @@ items['19']=[{evidence_id:'run',value:{individual_sectionals:false}}];
 const result={prior_no:1,horse_id:'123',source_ref:'prior',race_date:'2026-11-20',finish:2,gap_winner:0.3};
 const at='2026-11-21T00:00:00Z';
 const incident={verified:true,horse_id:'123',result_ref:'prior',document_ref:'report',role:'SUFFERED',
- finding:'fixture',phase:'BEFORE_LAST_CORNER',published_at:at,checked_at:at};
+ finding:'fixture',phase:'BEFORE_LAST_CORNER',published_at:at,checked_at:at,
+ race_date:result.race_date,prior_no:1,document_sha256:'a'.repeat(64),event_id:'fixture'};
 const context={verified:true,source_ref:'prior',prior_no:1,horse_id:'123',observed_at:at,
  last_corner:5,relative_final3f_seconds:-0.5,early_pace_residual_seconds:-0.2,
  pace_benchmark_verified:true,forward_rival_finishes:[1,6],opposition_verified:true,current_relevance_verified:true,
- special_condition_verified:true,comparable_baseline_n:3,residual_vs_own_baseline_seconds:1,incident};
+ special_condition_verified:true,comparable_baseline_n:3,residual_vs_own_baseline_seconds:1,official_incidents:[incident]};
 const runContext=(patch={},ratings=[])=>assessContext({items,targetDate:input.targetDate,cutoff:input.cutoff,ratings,
  runPairs:[{run:result,id:'run',context:{...context,...patch}}]});
 const verified=runContext({},[{verified:true,horse_id:'123',performance_ref:'prior',performance_date:result.race_date,
- published_at:at,observed_at:at,source_ref:'rating',version:'fixture',value:110}]);
+ published_at:at,observed_at:at,source_ref:'rating',version:'fixture',value:110,scope:'RACE_PERFORMANCE',document_sha256:'b'.repeat(64)}]);
 for(const id of ['15','16','20','25','26','27','29','31']) assert.ok(verified.findings[id]?.length,id);
 assert.deepEqual(verified.consumed,['17','19']);
-assert.deepEqual(runContext({horse_id:'456'}).findings,{});
-assert.equal(runContext({incident:{...incident,checked_at:'2026-12-01T00:00:00Z'}}).findings['26'],undefined);
+assert.deepEqual(runContext({horse_id:'456',official_incidents:[]}).findings,{});
+assert.equal(runContext({official_incidents:[{...incident,checked_at:'2026-12-01T00:00:00Z'}]}).findings['26'],undefined);
 assert.ok(runContext({last_corner:1,early_group_documented:true}).findings['23']);
 assert.ok(runContext({last_corner:1}).findings['24']);
 console.log('PASS contextual ability read and extended item gates');
@@ -147,3 +148,19 @@ assert.equal((await analyzeWithWorkBundle(workArgs)).runners.length,2);
 await assert.rejects(analyzeWithWorkBundle({...workArgs,input:{...workArgs.input,raceNo:9}}),/MISMATCH/);
 await assert.rejects(analyzeWithWorkBundle({...workArgs,bundle:{...bundle,bytes:new Uint8Array([9])}}),/HASH/);
 console.log('PASS 32-item audit, numeric evidence narrative and Work intake');
+
+for(const role of ['CAUSED','SELF_EVENT']){
+ const events=runContext({official_incidents:[{...incident,role}]}).findings;
+ assert.equal(events['26'][0].value.role,role);
+ assert.equal(events['27'],undefined);
+}
+assert.equal(runContext({official_incidents:[incident,incident]}).findings['26'],undefined);
+
+const {analyzeRetrospectiveProfiles}=await import('./retrospective-profile.mjs');
+const realProfile=JSON.parse(await readFile(new URL('./nar-profile-observations-20261126.json',import.meta.url)));
+const retrospective=analyzeRetrospectiveProfiles(realProfile);
+assert.equal(retrospective.histories[0].starts,12);
+assert.equal(retrospective.admitted,false);
+assert.ok(retrospective.direct.length>=2);
+assert.equal(analyzeRetrospectiveProfiles({...realProfile,targetDate:'2026-10-28'}).histories[0].starts,11);
+console.log('PASS official profile retrospective, target-day exclusion and non-admission');

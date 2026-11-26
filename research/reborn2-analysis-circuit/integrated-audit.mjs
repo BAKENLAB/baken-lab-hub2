@@ -46,13 +46,15 @@ export function buildIntegratedAudit({horse,materials}) {
     const fields=dependencies[id];
     const sources=fields?usable.filter(r=>fields.every(k=>present(r[k]))):[];
     const findings=horse.items[id];
+    const documents=findings.flatMap(f=>f.value?.document_sha256?
+      [f.value.document_ref??f.value.source_ref].filter(Boolean):[]);
     const used=horse.ability_trace.consumed_items.includes(id);
     const read=horse.ability_trace.context_items_read.includes(id);
     const observed=id==='01'?Boolean(horse.item01?.consumed_items?.length):findings.length>0;
     return [id,{
-      acquisition:sources.length?'STORED_SOURCE_MATERIAL':'NO_BOUND_SOURCE_MATERIAL',
+      acquisition:documents.length?'UPSTREAM_VERIFIED_DOCUMENT_WITNESS':sources.length?'STORED_SOURCE_MATERIAL':'NO_BOUND_SOURCE_MATERIAL',
       identity:sources.length?[...new Set(sources.map(r=>r.identity_status??'UNVERIFIED'))]:[],
-      source_refs:[...new Set(sources.map(r=>r.source_ref))],
+      source_refs:[...new Set([...sources.map(r=>r.source_ref),...documents])],
       analysis:observed?'OUTPUT_PRESENT':'NO_OUTPUT',
       analysis_evidence_ids:[...new Set(findings.flatMap(f=>f.evidence_id?[f.evidence_id]:f.value?.evidence_ids??[]))],
       effect:used?'HISTORICAL_01_INPUT':read?'HISTORICAL_CONTEXT_READ':id==='01'&&observed?'HISTORICAL_01_OUTPUT':'NO_RECORDED_USE'
