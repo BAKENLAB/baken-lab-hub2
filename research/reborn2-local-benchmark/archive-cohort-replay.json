@@ -1,0 +1,91 @@
+{
+  "status": "RESEARCH_CANDIDATE_NOT_RELEASED",
+  "source": "existing public.horse_runs SELECT",
+  "period_start": "2025-01-01",
+  "period_end_exclusive": "2026-09-01",
+  "raw_races": 22352,
+  "raw_rows": 232038,
+  "duplicate_race_keys": 0,
+  "results": {
+    "groups": 12432,
+    "valid_races": "19132",
+    "valid_rows": "197724",
+    "groups20": 34,
+    "groups5_19": 470,
+    "groups_lt5": 11928,
+    "groups20_6months": 30,
+    "invalid_output": 0,
+    "sample": [
+      {
+        "turn": "右",
+        "going": "良",
+        "label": "C2一3歳以上",
+        "track": "園田",
+        "circuit": "LOCAL",
+        "n_races": 49,
+        "surface": "ダート",
+        "distance": 1400,
+        "n_horses": 477,
+        "n_months": 8,
+        "last_date": "2026-08-27",
+        "first_date": "2025-07-09",
+        "period_end": "2026-09-01",
+        "sample_flag": "20_PLUS_RESEARCH",
+        "period_start": "2025-01-01",
+        "asof_verified": false,
+        "course_layout": null,
+        "source_status": "ARCHIVE_NAME_CONDITION_CANDIDATE",
+        "verified_class": null,
+        "winner_elapsed": {
+          "n": 49,
+          "max": 93.5,
+          "min": 90.6,
+          "mean": 91.947,
+          "stdev": 0.725,
+          "quartiles": [
+            91.4,
+            91.9,
+            92.4
+          ]
+        },
+        "finisher_elapsed": {
+          "n": 477,
+          "max": 105.4,
+          "min": 90.6,
+          "mean": 93.188,
+          "stdev": 1.318,
+          "quartiles": [
+            92.4,
+            93,
+            93.8
+          ]
+        },
+        "raw_name_variants": 1,
+        "benchmark_admitted": false,
+        "individual_final3f": {
+          "n": 477,
+          "max": 50.8,
+          "min": 37.9,
+          "mean": 40.519,
+          "stdev": 1.293,
+          "quartiles": [
+            39.7,
+            40.2,
+            41.2
+          ]
+        },
+        "scoring_authorized": false,
+        "verified_eligibility": null
+      }
+    ]
+  },
+  "limitations": [
+    "No verified official class, eligibility, layout, publication timestamps or full source lineage",
+    "All classified complete races only; DNF and dead heats excluded, selection bias possible",
+    "Normalized race-name labels are candidate grouping keys, not official class codes",
+    "No race-clock monotonicity check or walk-forward validation completed; expanded query timed out",
+    "No individual horse identity inferred from aggregate",
+    "No raw official CSV acquisition or permission inferred",
+    "No scoring"
+  ]
+}
