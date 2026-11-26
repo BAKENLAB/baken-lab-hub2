@@ -1,0 +1,885 @@
+{
+  "version": "0.7.0",
+  "acceptance_commit": "748381571b9b4b8aa6f91a82873f00e2e9f70a4c",
+  "observed_date_jst": "2026-11-27",
+  "source_pack_audit": {
+    "stage10_sha256": "1edb850d452eb8a2c62564546f3373cb39dac87a6e682b733b72cfb5ebec9672",
+    "stage8_sha256": "48df059c10a5c62e18352a7768215e3599634735a096887e85679376b5c03cd6",
+    "urawa_sha256": "df09365de5862ac07474ed653adfd3e5d22b86975fc12a3366a4d83c26fb1831",
+    "stage10_manifest_files": 10,
+    "all_hash_and_bytes_match": true,
+    "standalone_report_xlsx_gate_json_all_match": true,
+    "stage10_original_join_sha256": "9dea3b3cc66dac1a704b5f2de18aeebcf9d53d0c6bb2bb5b1ede846d0ba96725"
+  },
+  "method": "Read original tar bytes; hash each saved HTML; BeautifulSoup parse race header date/venue/R, table headers, unique NAR horse href, td.c, same-row rider/trainer href; compare all three IDs against V10; compare actual horse no/finish/elapsed against prior 193-row profile ledger; profile DOM hashes exist; no fresh network retrieval of these 21 pages; no raw HTML published.",
+  "counts": {
+    "target_rows": 21,
+    "original_dom_rehash_matches": 21,
+    "unique_race_headers_match": 21,
+    "all_three_id_matches": 21,
+    "profile_ledger_no_finish_clock_match": 21,
+    "target_vs_historical_no_mismatch": 17,
+    "unique_historical_races": 20,
+    "formal_admissions": 0
+  },
+  "rows": [
+    {
+      "evidence_id": "LOCAL:2026-03-11:船橋:11:1",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 1,
+      "historical_race_key": "LOCAL:2026-03-11:船橋:11",
+      "historical_runner_no": 2,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30013403596"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "60458"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "40397"
+      },
+      "finish_literal": "5",
+      "elapsed_literal": "2:38.9",
+      "margin_literal": "3",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F03%2F11&k_raceNo=11&k_babaCode=19",
+      "source_pack": "URAWA11_FULLFIELD_EVIDENCE_BUNDLE_20261126.tar.gz",
+      "source_member": "raw_results/01_ナルカミ_2026-03-11_船橋R11.rendered-dom.html",
+      "rendered_dom_sha256": "6d114ad34a62e6265ed27510451dc4fc35e33cd4eec797b6f6446b2d91b9b89a",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30013403596",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=60458",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=40397",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:29:27+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-10-28:大井:11:2",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 2,
+      "historical_race_key": "LOCAL:2026-10-28:大井:11",
+      "historical_runner_no": 4,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30085406656"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31155"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11296"
+      },
+      "finish_literal": "7",
+      "elapsed_literal": "1:40.9",
+      "margin_literal": "クビ",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F10%2F28&k_raceNo=11&k_babaCode=20",
+      "source_pack": "URAWA11_FULLFIELD_EVIDENCE_BUNDLE_20261126.tar.gz",
+      "source_member": "raw_results/02_ランリョウオー_2026-10-28_大井R11.rendered-dom.html",
+      "rendered_dom_sha256": "79e6cc354ee237265280426f0dcbf500977a49a33d4d261b5d21e8c08e68d0c8",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30085406656",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31155",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11296",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:29:29+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-11-08:盛岡:11:3",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 3,
+      "historical_race_key": "LOCAL:2026-11-08:盛岡:11",
+      "historical_runner_no": 1,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30054405596"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31039"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11387"
+      },
+      "finish_literal": "1",
+      "elapsed_literal": "1:50.8",
+      "margin_literal": "",
+      "margin_scope": "NOT_APPLICABLE",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F11%2F08&k_raceNo=11&k_babaCode=10",
+      "source_pack": "URAWA11_FULLFIELD_EVIDENCE_BUNDLE_20261126.tar.gz",
+      "source_member": "raw_results/03_リケアカプチーノ_2026-11-08_盛岡R11.rendered-dom.html",
+      "rendered_dom_sha256": "51182143d02ba93a4332302ceea1bfe7d987be6f8c5055986b2668300f7f34a8",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30054405596",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31039",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11387",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:29:30+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-09-10:川崎:10:4",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 4,
+      "historical_race_key": "LOCAL:2026-09-10:川崎:10",
+      "historical_runner_no": 4,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30036405496"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31229"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11296"
+      },
+      "finish_literal": "1",
+      "elapsed_literal": "2:13.7",
+      "margin_literal": "",
+      "margin_scope": "NOT_APPLICABLE",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F09%2F10&k_raceNo=10&k_babaCode=21",
+      "source_pack": "URAWA11_FULLFIELD_EVIDENCE_BUNDLE_20261126.tar.gz",
+      "source_member": "raw_results/04_ルトンワージ_2026-09-10_川崎R10.rendered-dom.html",
+      "rendered_dom_sha256": "ea5905396dc8d22dc051992a07b575f3ee3a25783fdc009dc7dc8d8ec2c6100c",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30036405496",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31229",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11296",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:29:31+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-11-03:船橋:11:5",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 5,
+      "historical_race_key": "LOCAL:2026-11-03:船橋:11",
+      "historical_runner_no": 7,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30032402007"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "30982"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11222"
+      },
+      "finish_literal": "11",
+      "elapsed_literal": "1:57.7",
+      "margin_literal": "4",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F11%2F03&k_raceNo=11&k_babaCode=19",
+      "source_pack": "URAWA11_FULLFIELD_EVIDENCE_BUNDLE_20261126.tar.gz",
+      "source_member": "raw_results/05_モコパンチ_2026-11-03_船橋R11.rendered-dom.html",
+      "rendered_dom_sha256": "e8930de798a969f69d0140c508b926b4d4d280bff42d211825cc9415a380a28b",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30032402007",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=30982",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11222",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:29:33+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2025-09-02:盛岡:10:6",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 6,
+      "historical_race_key": "LOCAL:2025-09-02:盛岡:10",
+      "historical_runner_no": 11,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30022409096"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "60138"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "40334"
+      },
+      "finish_literal": "3",
+      "elapsed_literal": "2:02.0",
+      "margin_literal": "2.1/2",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F09%2F02&k_raceNo=10&k_babaCode=10",
+      "source_pack": "URAWA11_FULLFIELD_EVIDENCE_BUNDLE_20261126.tar.gz",
+      "source_member": "raw_results/06_メイショウズイウン_2025-09-02_盛岡R10.rendered-dom.html",
+      "rendered_dom_sha256": "3093301bec2a2ea61821dcedddb6cf04565d347b4e3b6ae4962a4118808850c9",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30022409096",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=60138",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=40334",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:29:34+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-11-10:川崎:11:7",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 7,
+      "historical_race_key": "LOCAL:2026-11-10:川崎:11",
+      "historical_runner_no": 7,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30011400966"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31147"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11136"
+      },
+      "finish_literal": "2",
+      "elapsed_literal": "2:20.0",
+      "margin_literal": "4",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F11%2F10&k_raceNo=11&k_babaCode=21",
+      "source_pack": "URAWA11_FULLFIELD_EVIDENCE_BUNDLE_20261126.tar.gz",
+      "source_member": "raw_results/07_アルラ_2026-11-10_川崎R11.rendered-dom.html",
+      "rendered_dom_sha256": "3114fb83124760273e081a2ff5da5cf16718c06f6148d13ae7db75155da3d5b6",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30011400966",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31147",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11136",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:29:36+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-10-07:大井:11:9",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 9,
+      "historical_race_key": "LOCAL:2026-10-07:大井:11",
+      "historical_runner_no": 15,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30015407007"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "60458"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "40321"
+      },
+      "finish_literal": "16",
+      "elapsed_literal": "2:13.5",
+      "margin_literal": "大差",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F10%2F07&k_raceNo=11&k_babaCode=20",
+      "source_pack": "URAWA11_FULLFIELD_EVIDENCE_BUNDLE_20261126.tar.gz",
+      "source_member": "raw_results/09_イッテラッシャイ_2026-10-07_大井R11.rendered-dom.html",
+      "rendered_dom_sha256": "320f19e36f9971e4d4147fb6d3a89e044237e7cd614f60d16d8cc43e500f177d",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30015407007",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=60458",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=40321",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:29:37+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2025-12-29:大井:9:1",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 1,
+      "historical_race_key": "LOCAL:2025-12-29:大井:9",
+      "historical_runner_no": 3,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30013403596"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "60458"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "40397"
+      },
+      "finish_literal": "6",
+      "elapsed_literal": "2:05.8",
+      "margin_literal": "クビ",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F12%2F29&k_raceNo=9&k_babaCode=20",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/01_2025-12-29_大井_R9.rendered-dom.html",
+      "rendered_dom_sha256": "6e7e75822ad33ae315e4da6bf66faf36909aaf5c63f2924cc6d7d6d1286227f9",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30013403596",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=60458",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=40397",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:45:56+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2025-10-08:大井:11:1",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 1,
+      "historical_race_key": "LOCAL:2025-10-08:大井:11",
+      "historical_runner_no": 5,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30013403596"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "60458"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "40397"
+      },
+      "finish_literal": "1",
+      "elapsed_literal": "2:03.7",
+      "margin_literal": "",
+      "margin_scope": "NOT_APPLICABLE",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2025%2F10%2F08&k_raceNo=11&k_babaCode=20",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/01_2025-10-08_大井_R11.rendered-dom.html",
+      "rendered_dom_sha256": "aaad6aee02336f43b3bb001970d677ff59071b9aa5f8074069745db7ff335205",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30013403596",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=60458",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=40397",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:45:57+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-10-21:浦和:11:2",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 2,
+      "historical_race_key": "LOCAL:2026-10-21:浦和:11",
+      "historical_runner_no": 2,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30085406656"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31229"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11296"
+      },
+      "finish_literal": "5",
+      "elapsed_literal": "2:08.7",
+      "margin_literal": "ハナ",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F10%2F21&k_raceNo=11&k_babaCode=18",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/02_2026-10-21_浦和_R11.rendered-dom.html",
+      "rendered_dom_sha256": "3bceb67ae023661a5020678940d48e1a4e0a04981d5573ff559715e644272712",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30085406656",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31229",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11296",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:45:57+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-07-22:大井:11:2",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 2,
+      "historical_race_key": "LOCAL:2026-07-22:大井:11",
+      "historical_runner_no": 9,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30085406656"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31155"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11296"
+      },
+      "finish_literal": "7",
+      "elapsed_literal": "1:40.3",
+      "margin_literal": "1",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F07%2F22&k_raceNo=11&k_babaCode=20",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/02_2026-07-22_大井_R11.rendered-dom.html",
+      "rendered_dom_sha256": "4f87b9ede2cef134acb7da4d3d8185ea5f3871a10790ff4b2edbbe112ea6b374",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30085406656",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31155",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11296",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:45:58+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-07-20:盛岡:12:3",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 3,
+      "historical_race_key": "LOCAL:2026-07-20:盛岡:12",
+      "historical_runner_no": 2,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30054405596"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "30836"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11387"
+      },
+      "finish_literal": "7",
+      "elapsed_literal": "2:04.2",
+      "margin_literal": "3/4",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F07%2F20&k_raceNo=12&k_babaCode=10",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/03_2026-07-20_盛岡_R12.rendered-dom.html",
+      "rendered_dom_sha256": "5efa79faa7d1cd93f71a5ffce37d691d599b33580e01a1a4c83974f6e07f80ec",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30054405596",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=30836",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11387",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:45:58+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-06-21:水沢:11:3",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 3,
+      "historical_race_key": "LOCAL:2026-06-21:水沢:11",
+      "historical_runner_no": 9,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30054405596"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31039"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11387"
+      },
+      "finish_literal": "1",
+      "elapsed_literal": "2:04.2",
+      "margin_literal": "レコード",
+      "margin_scope": "RECORD_NOTE_NOT_MARGIN",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F06%2F21&k_raceNo=11&k_babaCode=11",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/03_2026-06-21_水沢_R11.rendered-dom.html",
+      "rendered_dom_sha256": "8376eab9b7254bb0cf30b891ac76e9577200f28d5900a4ff39f2089bdb7ab107",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30054405596",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31039",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11387",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:45:59+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-08-28:船橋:11:4",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 4,
+      "historical_race_key": "LOCAL:2026-08-28:船橋:11",
+      "historical_runner_no": 3,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30036405496"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31229"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11296"
+      },
+      "finish_literal": "10",
+      "elapsed_literal": "2:28.8",
+      "margin_literal": "1.1/2",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F08%2F28&k_raceNo=11&k_babaCode=19",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/04_2026-08-28_船橋_R11.rendered-dom.html",
+      "rendered_dom_sha256": "df2ac2b392bb5761ee574ff62cf7c931efb04dceb9ad1687e1592e4b621572b4",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30036405496",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31229",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11296",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:45:59+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-07-15:浦和:12:4",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 4,
+      "historical_race_key": "LOCAL:2026-07-15:浦和:12",
+      "historical_runner_no": 4,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30036405496"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31229"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11296"
+      },
+      "finish_literal": "1",
+      "elapsed_literal": "2:07.9",
+      "margin_literal": "",
+      "margin_scope": "NOT_APPLICABLE",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F07%2F15&k_raceNo=12&k_babaCode=18",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/04_2026-07-15_浦和_R12.rendered-dom.html",
+      "rendered_dom_sha256": "31e167b27529076caa007234763ad1437dfbe89e7ecd055fd66c8e5506821a5f",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30036405496",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31229",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11296",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:46:00+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-10-22:浦和:11:5",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 5,
+      "historical_race_key": "LOCAL:2026-10-22:浦和:11",
+      "historical_runner_no": 6,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30032402007"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31306"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11222"
+      },
+      "finish_literal": "10",
+      "elapsed_literal": "1:35.8",
+      "margin_literal": "1/2",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F10%2F22&k_raceNo=11&k_babaCode=18",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/05_2026-10-22_浦和_R11.rendered-dom.html",
+      "rendered_dom_sha256": "a076009f1b7f10c1721ff3841e2193e85146c371c2c645d8044a293f51fffb23",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30032402007",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31306",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11222",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:46:01+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-09-09:川崎:11:5",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 5,
+      "historical_race_key": "LOCAL:2026-09-09:川崎:11",
+      "historical_runner_no": 2,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30032402007"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31306"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11222"
+      },
+      "finish_literal": "13",
+      "elapsed_literal": "2:30.6",
+      "margin_literal": "大差",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F09%2F09&k_raceNo=11&k_babaCode=21",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/05_2026-09-09_川崎_R11.rendered-dom.html",
+      "rendered_dom_sha256": "6cb2a983fa6e3b2d1015c8b3ee56b22c962109cd2a76ffc7ee24a27617ecc314",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30032402007",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31306",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11222",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:46:01+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-10-21:浦和:11:7",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 7,
+      "historical_race_key": "LOCAL:2026-10-21:浦和:11",
+      "historical_runner_no": 5,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30011400966"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31323"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11136"
+      },
+      "finish_literal": "4",
+      "elapsed_literal": "2:08.7",
+      "margin_literal": "3",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F10%2F21&k_raceNo=11&k_babaCode=18",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/07_2026-10-21_浦和_R11.rendered-dom.html",
+      "rendered_dom_sha256": "3bceb67ae023661a5020678940d48e1a4e0a04981d5573ff559715e644272712",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30011400966",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31323",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11136",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:46:01+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-09-30:船橋:11:7",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 7,
+      "historical_race_key": "LOCAL:2026-09-30:船橋:11",
+      "historical_runner_no": 5,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30011400966"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31147"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11136"
+      },
+      "finish_literal": "7",
+      "elapsed_literal": "1:54.9",
+      "margin_literal": "5",
+      "margin_scope": "PRECEDING_FINISHER",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F09%2F30&k_raceNo=11&k_babaCode=19",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/07_2026-09-30_船橋_R11.rendered-dom.html",
+      "rendered_dom_sha256": "fdecc51d963f3d62ad5b94abd0081f614e88b9534abe9c9dbc1ce9fce4acdef9",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30011400966",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31147",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11136",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:46:02+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    },
+    {
+      "evidence_id": "LOCAL:2026-09-01:盛岡:10:9",
+      "target_race_key": "LOCAL:2026-11-25:浦和:11",
+      "target_runner_no": 9,
+      "historical_race_key": "LOCAL:2026-09-01:盛岡:10",
+      "historical_runner_no": 2,
+      "horse_id": {
+        "issuer": "NAR",
+        "id": "30015407007"
+      },
+      "jockey": {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "60458"
+      },
+      "trainer": {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "40321"
+      },
+      "finish_literal": "1",
+      "elapsed_literal": "2:00.9",
+      "margin_literal": "",
+      "margin_scope": "NOT_APPLICABLE",
+      "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_raceDate=2026%2F09%2F01&k_raceNo=10&k_babaCode=10",
+      "source_pack": "BAKEN_LAB_REBORN2_第8工程_研究実証パック_V3_20261127.tar.gz",
+      "source_member": "reborn2-research-v2-20261126/raw_result_expansion/09_2026-09-01_盛岡_R10.rendered-dom.html",
+      "rendered_dom_sha256": "015dc82e46134fb66f23912bfb102eb35f727885554b7182af5194e9cef6b805",
+      "row_locator": {
+        "horse_href": "/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30015407007",
+        "jockey_href": "/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=60458",
+        "trainer_href": "/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=40321",
+        "actual_number_cell": "td.c"
+      },
+      "source_acquired_at_reported_v10": "2026-11-26T22:46:02+09:00",
+      "verified_acquired_at": null,
+      "identity_status": "SAVED_RESULT_DOM_ROW_AND_PROFILE_LEDGER_MATCH",
+      "profile_person_identity_status": "NOT_REVERIFIED",
+      "formal_admission": false
+    }
+  ],
+  "peer_coverage": {
+    "unique_races": 20,
+    "unique_race_table_rows": 249,
+    "numeric_finish_subject_peer_edges": 233,
+    "distinct_peer_nar_ids": 182,
+    "nonnumeric_peer_edges": 4,
+    "states": {
+      "blank": 2,
+      "cancelled": 1,
+      "excluded": 1
+    },
+    "later_edges_in_original_nine_subject_profile_ledger": 4,
+    "distinct_peer_ids_with_later_candidate": 4,
+    "scope": "retrospective candidate, no exhaustive peer profiles, not independent race instances; blanks not automatically nonstarts"
+  },
+  "finding": "Legacy subject_horse_no/evidence_id suffix was correctly a target-race label in JSON but spreadsheet column called horse number; 17 differ from actual. All same-row official link IDs match original; not a wrong-horse join in these 21. The original V10 gate is not promoted to person-profile verified or as-of eligibility.",
+  "permission_status": "NOT_CLEARED",
+  "production_changes": false
+}
