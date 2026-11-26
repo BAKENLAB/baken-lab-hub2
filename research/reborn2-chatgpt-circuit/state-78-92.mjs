@@ -1,5 +1,6 @@
+import {personIdentity} from './person-identity.mjs';
 import {common} from './common-evidence.mjs';
-export function analyzeState78to92({target,roster,evidence=[],runs=[],history=[],current=[],workouts=[],riderResults=[],trainerResults=[],pedigrees=[],offspringResults=[],travel=[]}){
+export function analyzeState78to92({target,roster,evidence=[],runs=[],history=[],current=[],workouts=[],riderResults=[],trainerResults=[],pedigrees=[],offspringResults=[],travel=[],personAttestations=[]}){
  const c=common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
  const past=unique(runs.filter(prior),r=>r.horse_id+"|"+r.race_id);
  const pos=x=>typeof x==="number"&&Number.isFinite(x)&&x>0;
@@ -11,8 +12,9 @@ export function analyzeState78to92({target,roster,evidence=[],runs=[],history=[]
  const exact=(a,b)=>cond.every(k=>a[k]!=null&&a[k]===b[k]);
  const aggregate=rs=>({n:rs.length,wins:rs.filter(r=>r.finish===1).length,other_finishes:rs.filter(r=>count(r)&&r.finish>1).length,observations:rs.map(r=>({race_id:r.race_id,horse_id:r.horse_id,finish:count(r)?r.finish:null,course_id:r.course_id??null}))});
  const external=r=>r.circuit===target.circuit&&r.race_id!==target.race_id&&key(r.race_id)&&key(r.horse_id)&&bound(r,r.horse_id,r.race_id)&&ts(r.started_at)<c.cutoff&&ts(c.byId.get(r.evidence_id).published_at_or_null)>ts(r.started_at)&&r.conditions_verified===true&&count(r);
- const riders=unique(riderResults.filter(external),r=>r.race_id+"|"+r.horse_id);
- const trainers=unique(trainerResults.filter(external),r=>r.race_id+"|"+r.horse_id);
+ const person=(row,kind)=>personIdentity({row,kind,target,context:c,attestations:personAttestations});
+ const riders=unique(riderResults.filter(r=>external(r)&&person(r,'jockey').id!==null),r=>r.race_id+"|"+r.horse_id);
+ const trainers=unique(trainerResults.filter(r=>external(r)&&person(r,'trainer').id!==null),r=>r.race_id+"|"+r.horse_id);
  const children=unique(offspringResults.filter(external),r=>r.race_id+"|"+r.horse_id);
  const runners=roster.map(entry=>{
   const h=identities.find(x=>x.horse_no===entry.horse_no),I=c.items(78,92),put=(n,v,refs,kind="facts")=>add(I,n,kind,v,refs);
@@ -48,18 +50,22 @@ export function analyzeState78to92({target,roster,evidence=[],runs=[],history=[]
    const prev=last?.equipment_verified===true&&Array.isArray(last.equipment)?last.equipment:null;
    put("84",{equipment_current:curr.equipment,added:prev?curr.equipment.filter(x=>!prev.includes(x)):null,removed:prev?prev.filter(x=>!curr.equipment.includes(x)):null,first_use:null},refs);
   }
-  const jockey=curr?.jockey_id;
+  const currentPerson=curr?person({...curr,race_id:target.race_id},'jockey'):{id:null,refs:[]};
+  const jockey=currentPerson.id;
+  if(!jockey)for(const n of ['85','86','87','88'])I[n].unknowns.push('PERSON_ID_NOT_VERIFIED');
   if(key(jockey)){
    const rr=riders.filter(r=>r.jockey_id===jockey),course=rr.filter(r=>exact(r,target));
-   if(rr.length)put("85",{jockey_id:jockey,raw_profile:aggregate(rr),adjusted_ability:null},[...refs,...rr.map(r=>r.evidence_id)]);
-   if(course.length)put("86",{jockey_id:jockey,course_profile:aggregate(course),other_profile:aggregate(rr.filter(r=>!exact(r,target))),adjusted_ability:null},[...refs,...rr.map(r=>r.evidence_id)]);
-   const pair=own.filter(r=>r.jockey_id===jockey),other=own.filter(r=>key(r.jockey_id)&&r.jockey_id!==jockey);
-   if(pair.length||other.length)put("87",{pair_history:aggregate(pair),alternative_rider_history:aggregate(other),matched_pair:aggregate(pair.filter(r=>exact(r,target))),matched_other:aggregate(other.filter(r=>exact(r,target))),pair_effect:null},[...refs,...pair.map(r=>r.evidence_id),...other.map(r=>r.evidence_id)]);
-   if(key(last?.jockey_id))put("88",{rider_transition:last.jockey_id===jockey?"CONTINUED":pair.length?"RETURNING":"CHANGED_PRIOR_PAIR_UNKNOWN",previous_rider:last.jockey_id,current_rider:jockey,improvement:null},refs);
+   if(rr.length)put("85",{jockey_id:jockey,raw_profile:aggregate(rr),adjusted_ability:null},[...refs,...currentPerson.refs,...rr.flatMap(r=>[r.evidence_id,...person(r,'jockey').refs])]);
+   if(course.length)put("86",{jockey_id:jockey,course_profile:aggregate(course),other_profile:aggregate(rr.filter(r=>!exact(r,target))),adjusted_ability:null},[...refs,...currentPerson.refs,...rr.flatMap(r=>[r.evidence_id,...person(r,'jockey').refs])]);
+   const pair=own.filter(r=>person(r,'jockey').id===jockey),other=own.filter(r=>person(r,'jockey').id!==null&&person(r,'jockey').id!==jockey);
+   if(pair.length||other.length)put("87",{pair_history:aggregate(pair),alternative_rider_history:aggregate(other),matched_pair:aggregate(pair.filter(r=>exact(r,target))),matched_other:aggregate(other.filter(r=>exact(r,target))),pair_effect:null},[...refs,...currentPerson.refs,...[...pair,...other].flatMap(r=>[r.evidence_id,...person(r,'jockey').refs])]);
+   if(last&&person(last,'jockey').id!==null)put("88",{rider_transition:last.jockey_id===jockey?"CONTINUED":pair.length?"RETURNING":"CHANGED_PRIOR_PAIR_UNKNOWN",previous_rider:last.jockey_id,current_rider:jockey,improvement:null},[...refs,...currentPerson.refs,...person(last,'jockey').refs]);
   }
-  if(key(curr?.trainer_id)){
+  const trainer=curr?person({...curr,race_id:target.race_id},'trainer'):{id:null,refs:[]};
+  if(!trainer.id)I['89'].unknowns.push('PERSON_ID_NOT_VERIFIED');
+  if(trainer.id){
    const tr=trainers.filter(r=>r.trainer_id===curr.trainer_id);
-   if(tr.length)put("89",{trainer_id:curr.trainer_id,profile:aggregate(tr),matched:aggregate(tr.filter(r=>exact(r,target))),adjusted_effect:null},[...refs,...tr.map(r=>r.evidence_id)]);
+   if(tr.length)put("89",{trainer_id:curr.trainer_id,profile:aggregate(tr),matched:aggregate(tr.filter(r=>exact(r,target))),adjusted_effect:null},[...refs,...trainer.refs,...tr.flatMap(r=>[r.evidence_id,...person(r,'trainer').refs])]);
   }
   const ped=unique(pedigrees.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&key(x.sire_id)&&key(x.dam_id)),x=>x.horse_id)[0];
   if(ped){
