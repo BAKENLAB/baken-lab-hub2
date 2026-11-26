@@ -8,7 +8,7 @@ function clock(value) {
   return match ? Number(match[1]) * 60 + Number(match[2]) : null;
 }
 
-function raceLaps(raw, distance, winner) {
+export function raceLaps(raw, distance, winner) {
   const ticks = typeof raw === 'string' ? raw.split(/\s*-\s*/).map(number) : raw;
   if (!Array.isArray(ticks) || !distance || !winner || ticks.length !== Math.ceil(distance / 200) ||
       ticks.some(n => !Number.isFinite(n) || n <= 0 || Math.abs(n * 10 - Math.round(n * 10)) > 1e-7) ||
@@ -54,6 +54,10 @@ export function supplyArchiveMaterials({circuit,targetDate,cutoff,roster,rows}) 
       lap_scope:'RACE_LEVEL_ONLY',incident:null
     });
   }
+  return materialPacket({circuit,targetDate,roster,records});
+}
+
+export function materialPacket({circuit,targetDate,roster,records}) {
   const ledger=routeAvailability({circuit,targetDate,roster,records});
   return {...ledger,runners:ledger.per_runner.map(h=>({
     ...h,materials:records.filter(r=>r.current_no===h.horse_no)
