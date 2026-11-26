@@ -39,3 +39,15 @@ const excluded={...r,evidence_id:'excluded',race_id:'EX',fact:{start_status:'EXC
 const x=inspectEvidence({target,records:[excluded,{...r,evidence_id:'zero',fact:{...result,winner_gap_tenths:0}}],sources:catalog.source_ids});assert.equal(x.accepted.length,2);assert.equal(x.accepted.find(g=>g.record.evidence_id==='zero').record.fact.dead_heat_group,null);assert.equal(x.accepted.find(g=>g.record.evidence_id==='zero').record.fact.official_margin,'ハナ');
 assert.equal(z.eye[0].items.find(i=>i.eye_item_id==='EYE-03').observed_facts[0].type,'OBSERVED_RANK_RECOVERY');
 console.log('PASS evidence semantics, all-115 fixture and research audit boundaries');
+
+assert.equal(z.audit.runners[0].items.find(i=>i.item_id==='12').research_recomputed,true);
+assert.equal(z.audit.runners[0].items.find(i=>i.item_id==='12').actual_final_consumption,false);
+const jt={...target,circuit:'JRA'};
+const jr=roster.map(h=>({...h,horse_id:h.horse_id.replace('LOCAL:','JRA:')}));
+const je=typedRecords.map(x=>({...x,jurisdiction:'JRA',horse_id:x.horse_id?.replace('LOCAL:','JRA:')??null,source_id:'J_PROFILE'}));
+const jrank={baseArgs:{input:{circuit:'JRA',targetDate:jt.local_date,targetRaceId:'T',cutoff:jt.cutoff,roster:[1,2],rows:[]}},oppositionArgs:{target:jt,roster:jr},evidence:je.slice(0,2).map(x=>({...x,source_verified:true,source_ref:x.source_url,published_at:x.published_at_or_null}))};
+const j=abilityResearch115({rankArgs:jrank,typedRecords:je});
+assert.ok(j.audit.runners.every(h=>h.items.length===115&&h.rank_candidate===null));
+assert.equal(j.eye[0].items.find(i=>i.eye_item_id==='EYE-03').observed_facts[0].type,'OBSERVED_RANK_RECOVERY');
+assert.ok(j.recomputed[0].recomputed_item_ids.includes('21'));
+console.log('PASS JRA and LOCAL 115 integration with typed evidence return and distinct consumption audit');

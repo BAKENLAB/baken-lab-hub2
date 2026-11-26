@@ -21,6 +21,7 @@ export const stageEdges=[['typed_intake','rank100_v1'],['rank100_v1','eye15'],['
 export function abilityResearch115({rankArgs,typedRecords=[]}){
  rejectMarket(rankArgs);rejectMarket(typedRecords);
  validateDag(stageEdges);
+ validateDag(pinned.items.filter(d=>d.id.startsWith('EYE-')).flatMap(d=>d.upstream_rank_item_ids.map(id=>['RANK-'+id,d.id])));
  const {target,roster}=rankArgs.oppositionArgs;
  const intake=inspectEvidence({target,records:typedRecords,sources:pinned.source_ids});
  // Preserve the legacy result. Typed candidates are not auto-promoted to old verified flags.
@@ -34,14 +35,15 @@ export function abilityResearch115({rankArgs,typedRecords=[]}){
    const items=pinned.items.map(d=>{
     const x=d.id.startsWith('EYE-')?e.items.find(i=>i.eye_item_id===d.id):h.items.find(i=>i.item_id===d.id);
     if(!x)throw Error('ITEM_MISSING:'+d.id);
-    const refs=x.evidence_ids??[],roots=[...new Set(intake.accepted.filter(g=>g.evidence_ids.some(id=>refs.includes(id))).map(g=>g.event_key))].sort();
-    return {item_id:d.id,name:d.name,role:d.role,independent_vote:false,implementation:x.implementation??'INITIAL_RESEARCH_PRESENT',analysis_status:x.analysis_status??x.status,applicability:x.applicability??'UNRESOLVED',evidence_ids:refs,original_event_keys:roots,upstream_item_ids:d.upstream_rank_item_ids,actual_final_consumption:false,consumption_reason:'NO_APPROVED_DECISION_CONSUMER',analysis_validated:false,release_eligible:false,unknowns:x.unknowns??[]};
+    const recalculated=recomputed.find(q=>q.horse_no===h.horse_no)?.items?.[d.id]??[];
+    const refs=[...new Set([...(x.evidence_ids??[]),...recalculated.flatMap(q=>q.evidence_ids)])].sort(),roots=[...new Set(intake.accepted.filter(g=>g.evidence_ids.some(id=>refs.includes(id))).map(g=>g.event_key))].sort();
+    return {item_id:d.id,name:d.name,role:d.role,independent_vote:false,implementation:x.implementation??'INITIAL_RESEARCH_PRESENT',analysis_status:x.analysis_status??x.status,applicability:x.applicability??'UNRESOLVED',evidence_ids:refs,original_event_keys:roots,upstream_item_ids:d.upstream_rank_item_ids,research_recomputed:recalculated.length>0,recomputed_candidates:recalculated,actual_final_consumption:false,consumption_reason:'NO_APPROVED_DECISION_CONSUMER',analysis_validated:false,release_eligible:false,unknowns:x.unknowns??[]};
    });
    const direct=intake.accepted.filter(g=>g.record.horse_id===h.horse_id&&h.horse_id!==null&&g.record.kind==='RESULT').map(g=>g.record.fact);
    return {horse_no:h.horse_no,horse_id:h.horse_id,items,history_denominators:historyDenominators(direct),rank_candidate:null,eye_candidate:null,ability_eligible:null,return_plan:r,decision_status:'UNAPPROVED_RESEARCH'};
  });
- const coverage=Object.fromEntries(pinned.items.map(d=>[d.id,{target:roster.length,implemented:runners.filter(h=>h.items.find(i=>i.item_id===d.id).implementation==='INITIAL_RESEARCH_PRESENT').length,candidate_output:runners.filter(h=>['OUTPUT_CANDIDATE','CANDIDATE_OUTPUT'].includes(h.items.find(i=>i.item_id===d.id).analysis_status)).length,validated:0,consumed:0,release_eligible:0}]));
+ const coverage=Object.fromEntries(pinned.items.map(d=>[d.id,{target:roster.length,implemented:runners.filter(h=>h.items.find(i=>i.item_id===d.id).implementation==='INITIAL_RESEARCH_PRESENT').length,candidate_output:runners.filter(h=>['OUTPUT_CANDIDATE','CANDIDATE_OUTPUT'].includes(h.items.find(i=>i.item_id===d.id).analysis_status)||h.items.find(i=>i.item_id===d.id).research_recomputed).length,recomputed:runners.filter(h=>h.items.find(i=>i.item_id===d.id).research_recomputed).length,validated:0,consumed:0,release_eligible:0}]));
  const snapshot={race_id:target.race_id,cutoff:target.cutoff,runners:runners.map(h=>({horse_no:h.horse_no,horse_id:h.horse_id,rank_candidate:null,ability_eligible:null})),decision_status:'UNAPPROVED_RESEARCH',market_snapshot_version:null};
- const ability_digest=digest({snapshot,runners,eye,returned});
+ const ability_digest=digest({snapshot,runners,eye,returned,recomputed});
  return {rank,eye,returned,recomputed,intake,audit:{runners,coverage,actual_final_consumption:0,release_eligible:false},abilitySnapshot:{...snapshot,digest:ability_digest},release_eligible:false};
 }
