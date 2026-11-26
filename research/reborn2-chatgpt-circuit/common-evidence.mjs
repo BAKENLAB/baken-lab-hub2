@@ -5,7 +5,7 @@ export function common(target,roster,evidence){
  const unique=(xs,key)=>{const n=new Map();for(const x of xs)n.set(key(x),(n.get(key(x))||0)+1);return xs.filter(x=>n.get(key(x))===1)};
  if(!["JRA","LOCAL"].includes(target.circuit)||!str(target.race_id)||!(cutoff<start)||!Number.isInteger(target.field_size)||target.field_size<1||roster.length!==target.field_size||roster.some(r=>!Number.isInteger(r.horse_no)||r.horse_no<1)||unique(roster,r=>r.horse_no).length!==roster.length)throw Error("TARGET_OR_ROSTER_INVALID");
  const valid=e=>str(e.evidence_id)&&str(e.source_id)&&str(e.source_url)&&str(e.source_version)&&e.cutoff===target.cutoff&&e.identity_status==="VERIFIED"&&e.permission_status==="CLEARED_FOR_RESEARCH_USE"&&/^[a-f0-9]{64}$/.test(e.raw_sha256_or_null??"")&&e.fact_or_proxy==="FACT"&&ts(e.published_at_or_null)<=ts(e.observed_at)&&ts(e.observed_at)<=cutoff;
- const admitted=unique(evidence.filter(valid),e=>e.evidence_id);
+ const admitted=unique(evidence,e=>e.evidence_id).filter(valid);
  const byId=new Map(admitted.map(e=>[e.evidence_id,e]));
  const bound=(x,h,r)=>{const e=byId.get(x?.evidence_id);return !!e&&e.horse_id===h&&e.race_id===r};
  const identities=unique(roster.filter(r=>typeof r.horse_id==="string"&&new RegExp("^"+target.circuit+":\\d+$").test(r.horse_id)&&bound(r,r.horse_id,target.race_id)&&byId.get(r.evidence_id).runner_no===r.horse_no),r=>r.horse_id);

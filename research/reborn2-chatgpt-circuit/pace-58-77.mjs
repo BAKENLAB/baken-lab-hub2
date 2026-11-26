@@ -1,5 +1,5 @@
 import {common} from './common-evidence.mjs';
-export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],gates=[],course=[],today=[]}){
+export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],gates=[],course=[],today=[],paceBenchmarks=[]}){
  const c=common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
  const validRuns=unique(runs.filter(prior),r=>r.horse_id+"|"+r.race_id);
  const position=r=>{if(!Number.isInteger(r.field_size)||r.field_size<1||!Array.isArray(r.positions))return [];return unique(r.positions.filter(p=>Number.isInteger(p.segment)&&p.segment>0&&Number.isInteger(p.rank_min)&&Number.isInteger(p.rank_max)&&p.rank_min>=1&&p.rank_max>=p.rank_min&&p.rank_max<=r.field_size),p=>p.segment).sort((a,b)=>a.segment-b.segment)};
@@ -8,9 +8,9 @@ export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],
  const states=roster.map(entry=>{
  const h=identities.find(x=>x.horse_no===entry.horse_no),own=validRuns.filter(r=>r.horse_id===h?.horse_id).sort((a,b)=>ts(b.started_at)-ts(a.started_at));
  const w=unique(history.filter(x=>h&&bound(x,h.horse_id,target.race_id)&&x.chronology_verified===true&&Array.isArray(x.ordered_race_ids)),x=>x.horse_id).find(x=>x.horse_id===h?.horse_id);
- const last=w&&own.find(r=>r.race_id===w.ordered_race_ids[0]);
+ const last=w&&own[0]?.race_id===w.ordered_race_ids[0]?own[0]:null;
  const p=last?position(last):[],ep=last?early(last):null;
- const full=last?.all_segments_verified===true&&p.length===last.expected_segments;
+ const full=last?.all_segments_verified===true&&Number.isInteger(last.expected_segments)&&last.expected_segments>0&&p.length===last.expected_segments&&last.segment_definition_verified===true;
  const front=p.some(q=>q.rank_max<=3)?"YES":full&&p.every(q=>q.rank_min>3)?"NO":"UNKNOWN";
  const lead=own.filter(r=>early(r)?.rank_max===1);
  const g=unique(gates.filter(x=>h&&x.horse_id===h.horse_id&&bound(x,h.horse_id,target.race_id)&&x.actual_gate_verified===true&&Number.isInteger(x.gate)&&x.gate>=1&&x.gate<=target.field_size),x=>x.horse_id)[0];
@@ -27,7 +27,7 @@ export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],
  const {h,own,w,last,p,ep,front}=s,I=c.items(58,77),put=(n,v,refs,kind="facts")=>add(I,n,kind,v,refs);
  if(!h){for(const v of Object.values(I))v.unknowns.push("IDENTITY_UNVERIFIED");return {horse_no:s.entry.horse_no,horse_id:null,items:I}}
  const hist=own.filter(r=>position(r).length).map(r=>({race_id:r.race_id,field_size:r.field_size,positions:position(r),conditions_match:exact(r,target),finish:r.finish??null,evidence_id:r.evidence_id}));
- if(hist.length)put("58",{segment_positions:hist,style_distribution:null},hist.map(r=>r.evidence_id));
+ if(hist.length)put("58",{segment_positions:hist,style_distribution:{early_observed:own.filter(early).length,early_lead:own.filter(r=>early(r)?.rank_max===1).length,early_top3:own.filter(r=>early(r)?.rank_max<=3).length,early_outside_top3:own.filter(r=>early(r)?.rank_min>3).length,early_ambiguous_or_missing:own.filter(r=>!early(r)||early(r).rank_min<=3&&early(r).rank_max>3).length}},hist.map(r=>r.evidence_id));
  if(last)put("59",{last_run_id:last.race_id,top3_any_corner:front,early_top3:ep?ep.rank_max<=3?"YES":ep.rank_min>3?"NO":"UNKNOWN":"UNKNOWN",late_only:ep?.rank_min>3&&p.some(q=>q.segment!==ep.segment&&q.rank_max<=3)},[last.evidence_id,w.evidence_id]);
  const frequency=rs=>({n:rs.length,observed:rs.filter(early).length,early_front:rs.filter(r=>early(r)?.rank_max<=3).length,unknown:rs.filter(r=>!early(r)||early(r).rank_min<=3&&early(r).rank_max>3).length});
  if(own.length){put("60",{long_term:frequency(own.filter(r=>exact(r,target))),recent:w?frequency(w.ordered_race_ids.slice(0,5).map(id=>own.find(r=>r.race_id===id)).filter(Boolean).filter(r=>exact(r,target))):null,prior5_missing:w?w.ordered_race_ids.slice(0,5).filter(id=>!own.some(r=>r.race_id===id)).length:null},own.map(r=>r.evidence_id));
@@ -47,7 +47,16 @@ export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],
  if(comparable.length){const obs=comparable.map(r=>({race_id:r.race_id,early:early(r),finish:r.finish??null,race_pace:r.verified_race_pace??null}));put("74",{observations:obs,adaptability:null},comparable.map(r=>r.evidence_id));put("75",{observations:obs,dependency:null},comparable.map(r=>r.evidence_id),"hypotheses");}
  if(todayRaces.length){const refs=todayRaces.map(r=>r.evidence_id);const obs=todayRaces.flatMap(r=>r.results.filter(q=>Number.isInteger(q.gate)&&q.gate>=1&&q.gate<=r.field_size&&Number.isInteger(q.finish)&&q.finish>=1&&q.finish<=r.field_size).map(q=>({race_id:r.race_id,gate:q.gate,field_size:r.field_size,finish:q.finish})));if(obs.length)put("76",{observations:obs,n_races:todayRaces.length,proxy_flag:"GATE_NOT_ROUTE",bias:null},refs);
  const pos=todayRaces.flatMap(r=>r.results.filter(q=>Number.isInteger(q.early_rank)&&q.early_rank>=1&&q.early_rank<=r.field_size&&Number.isInteger(q.finish)&&q.finish>=1&&q.finish<=r.field_size).map(q=>({race_id:r.race_id,early_rank:q.early_rank,finish:q.finish,field_size:r.field_size})));if(pos.length)put("77",{observations:pos,n_races:todayRaces.length,n_runners:pos.length,bias:null},refs);}
- I["69"].unknowns.push("PACE_BENCHMARK_AND_SCENARIO_CALIBRATION_REQUIRED");I["73"].unknowns.push("SCENARIO_FIT_REQUIRES_ABILITY_AND_COUNTEREVIDENCE_BINDING");
+
+ const benchmark=unique(paceBenchmarks.filter(b=>bound(b,null,b.race_id)&&b.race_id!==target.race_id&&b.circuit===target.circuit&&exact(b,target)&&ts(b.started_at)<c.cutoff&&ts(c.byId.get(b.evidence_id).published_at_or_null)>ts(b.started_at)&&b.race_level_only===true&&b.early_segment_m===target.early_segment_m&&Number.isFinite(b.early_segment_m)&&b.early_segment_m>0&&Number.isFinite(b.early_seconds)&&b.early_seconds>0),b=>b.race_id);
+ if(benchmark.length){
+   const values=benchmark.map(b=>b.early_seconds).sort((a,b)=>a-b),middle=(values[Math.floor(values.length/2)]+values[Math.floor((values.length-1)/2)])/2;
+   const hypotheses=lead.length>1?["CONTEST_PERSISTS","CONTEST_EASES"]:lead.length===1?["SINGLE_LEAD_CANDIDATE","LEAD_UNCERTAIN"]:["LEAD_UNCERTAIN"];
+   put("69",{benchmark_n:values.length,observed_range_seconds:[values[0],values.at(-1)],median_seconds:middle,early_segment_m:target.early_segment_m,scenario_assumptions:hypotheses,pace_band:null,probability:null,race_level_only:true},[...benchmark.map(b=>b.evidence_id),...allRefs],"hypotheses");
+   const sample=own.filter(r=>exact(r,target)&&early(r)&&Number.isInteger(r.finish)&&r.finish>=1&&r.finish<=r.field_size&&benchmark.some(b=>b.race_id===r.race_id));
+   if(sample.length)put("73",{scenario_candidates:hypotheses,historical_observations:sample.map(r=>({race_id:r.race_id,early_rank:early(r),finish:r.finish,early_seconds:benchmark.find(b=>b.race_id===r.race_id).early_seconds})),scenario_fit:null,uncertainty:"UNVALIDATED_CURRENT_ABILITY"},[...sample.map(r=>r.evidence_id),...benchmark.map(b=>b.evidence_id)],"hypotheses");
+ }
+ I["69"].unknowns.push("PACE_SCENARIO_CALIBRATION_REQUIRED");I["73"].unknowns.push("SCENARIO_FIT_REQUIRES_ABILITY_AND_COUNTEREVIDENCE_BINDING");
  return {horse_no:s.entry.horse_no,horse_id:h.horse_id,items:close(I)};
  });
  return c.finish(runners,58,77);

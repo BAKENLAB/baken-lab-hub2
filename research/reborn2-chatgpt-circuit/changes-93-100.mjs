@@ -11,7 +11,7 @@ export function analyzeChanges93to100({target,roster,evidence=[],runs=[],history
   if(!h){for(const x of Object.values(I))x.unknowns.push("IDENTITY_UNVERIFIED");return {horse_no:entry.horse_no,horse_id:null,items:I}}
   const id=h.horse_id,own=past.filter(r=>r.horse_id===id).sort((a,b)=>ts(b.started_at)-ts(a.started_at));
   const w=unique(history.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&x.chronology_verified===true&&Array.isArray(x.ordered_race_ids)),x=>x.horse_id)[0];
-  const last=w&&own.find(r=>r.race_id===w.ordered_race_ids[0]);
+  const last=w&&own[0]?.race_id===w.ordered_race_ids[0]?own[0]:null;
   const curr=unique(currentConditions.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&x.conditions_verified===true),x=>x.horse_id)[0];
   const delta=last&&curr?keys.filter(k=>known(last[k])&&known(curr[k])&&last[k]!==curr[k]).map(k=>({field:k,prior:last[k],current:curr[k]})):[];
   const refs=[h.evidence_id,w?.evidence_id,last?.evidence_id,curr?.evidence_id];
@@ -36,7 +36,7 @@ export function analyzeChanges93to100({target,roster,evidence=[],runs=[],history
    if(latent.length)put("98",{latent_candidates:latent,activation_verified:false},latent.flatMap(m=>m.evidence_ids),"hypotheses");
   }
   if(curr){const match=own.filter(r=>count(r)&&same(r,curr,["course_id","course_version","distance","surface","going","class_key"]));if(match.length)put("99",{matched_runs:match.map(r=>({race_id:r.race_id,finish:r.finish,started_at:r.started_at})),repeated_win_observations:match.filter(r=>r.finish===1).length,repeatability_conclusion:null},[...refs,...match.map(r=>r.evidence_id)]);}
-  const traces=u.map(x=>({item_id:x.item_id,evidence_ids:x.evidence_ids,analysis_status:x.analysis_status??"UNKNOWN"}));
+  const traces=[...u.map(x=>({item_id:x.item_id,evidence_ids:x.evidence_ids,analysis_status:x.analysis_status??"UNKNOWN"})),...Object.entries(I).filter(([n])=>n!=="100").map(([n,x])=>({item_id:n,evidence_ids:[...new Set([...x.facts,...x.hypotheses,...x.counterevidence].flatMap(f=>f.evidence_ids))],analysis_status:x.facts.length||x.hypotheses.length?"OUTPUT_CANDIDATE":"NO_OUTPUT"}))];
   put("100",{winning_paths:validMechanisms.filter(x=>x.direction==="SUPPORT"),counterevidence:validMechanisms.filter(x=>x.direction!=="SUPPORT"),upstream_trace:traces,conditional_requirements:"INDEPENDENT_VALIDATION_REQUIRED",comparative_evidence:null,decision_status:"UNAPPROVED_RESEARCH",rank_candidate:null},[...refs,...traces.flatMap(x=>x.evidence_ids)],"hypotheses");
   return {horse_no:entry.horse_no,horse_id:id,items:close(I)};
  });

@@ -42,7 +42,7 @@ export function strengthen40to42and46and53({target,roster,evidence=[],opposition
   for(const x of unique(crosswalks.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&x.crosswalk_verified===true&&str(x.previous_horse_id)&&x.previous_horse_id.split(":")[0]!==id.split(":")[0]&&ts(x.effective_at)<c.cutoff&&Array.isArray(x.before)&&Array.isArray(x.after)),x=>x.effective_at)){
    const good=(r,h)=>r.horse_id===h&&bound(r,h,r.race_id)&&r.conditions_verified===true&&r.class_verified===true&&ts(r.started_at)<c.cutoff&&ts(c.byId.get(r.evidence_id).published_at_or_null)>ts(r.started_at)&&finish(r,r.field_size);
    const before=unique(x.before.filter(r=>good(r,x.previous_horse_id)&&ts(r.started_at)<ts(x.effective_at)),r=>r.race_id),after=unique(x.after.filter(r=>good(r,id)&&ts(r.started_at)>ts(x.effective_at)),r=>r.race_id);
-   put("42",{crosswalk_verified:true,direction:x.previous_horse_id.split(":")[0]+"_TO_"+target.circuit,before:before.map(describe),after:after.map(describe),first_start_candidate:after.length===0,conversion:null},[x.evidence_id,...before.map(r=>r.evidence_id),...after.map(r=>r.evidence_id)]);
+   put("42",{crosswalk_verified:true,direction:x.previous_horse_id.split(":")[0]+"_TO_"+target.circuit,before:before.map(describe),after:after.map(describe),first_start_candidate:after.length===0&&x.post_transfer_history_complete_verified===true,conversion:null},[x.evidence_id,...before.map(r=>r.evidence_id),...after.map(r=>r.evidence_id)]);
   }
   for(const s of studies.filter(s=>s.target_course===target.course_id))put("46",s,s.evidence_ids,"hypotheses");
   const gate=pace?.runners?.find(x=>x.horse_no===entry.horse_no)?.items?.["64"]?.facts?.[0]?.value?.gate_order?.find(x=>x.horse_id===id);
