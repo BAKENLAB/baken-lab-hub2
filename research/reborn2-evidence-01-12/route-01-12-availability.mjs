@@ -9,7 +9,7 @@ export function routeAvailability({circuit,targetDate,roster,records}) {
   if(!groups.has(r.current_no)||!/^\d{4}-\d{2}-\d{2}$/.test(r.race_date)||r.race_date>=targetDate||typeof r.track!=="string"||!r.track||!Number.isInteger(r.race_no)||r.race_no<1||r.race_no>14)throw Error("BAD_PRIOR_KEY");
   const key=JSON.stringify([r.current_no,r.race_date,r.track,r.race_no]);
   if(seen.has(key))throw Error("DUPLICATE_PRIOR_KEY");seen.add(key);
-  const f={finish:positive(r.finish),clock:positive(r.elapsed_seconds),gapWinner:nonnegative(r.gap_winner),gapNext:nonnegative(r.gap_next),f3:positive(r.final3f),corners:Array.isArray(r.corners)&&r.corners.length>0&&r.corners.every(x=>Number.isInteger(x)&&x>=1&&x<=24),raceLaps:Array.isArray(r.race_laps)&&r.race_laps.length>0&&r.race_laps.every(positive),conditions:positive(r.distance)&&["芝","ダート"].includes(r.surface)&&typeof r.going==="string"&&r.going.length>0,incident:r.incident==="REPORTED_LATE_START",individual:false};
+  const f={finish:positive(r.finish),clock:positive(r.elapsed_seconds),gapWinner:nonnegative(r.gap_winner),gapNext:nonnegative(r.gap_next),f3:positive(r.final3f),corners:Array.isArray(r.corners)&&r.corners.length>0&&r.corners.every(x=>Number.isInteger(x)&&x>=1&&x<=24),raceLaps:Array.isArray(r.race_laps)&&r.race_laps.length>0&&r.race_laps.every(positive),conditions:positive(r.distance)&&["芝","ダート"].includes(r.surface)&&typeof r.going==="string"&&r.going.length>0,incident:["REPORTED_LATE_START","REPORTED_INTERFERENCE"].includes(r.incident),individual:false};
   groups.get(r.current_no).push(f);
  }
  const per_runner=roster.slice().sort((a,b)=>a-b).map(no=>{
