@@ -1,0 +1,118 @@
+{
+  "version": "0.5.0",
+  "prior_commit": "0d6328b7cde6beb27d69b400af14264a805531b6",
+  "acceptance_commit": "3a6943b127093a421fb96f9e22dcf783a676493e",
+  "observed_date_jst": "2026-11-26",
+  "observed_at": null,
+  "publication_at": null,
+  "raw_sha256_or_null": null,
+  "source": "SELECT-only archive aggregates and saved Work history ledger; not independent official row acquisition",
+  "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+  "history": {
+    "ledger": "URAWA11_FULLFIELD_OFFICIAL_HISTORY_AUDIT_20261126.xlsx / History 193",
+    "source_rows": 193,
+    "numeric_rows": 190,
+    "jra": {
+      "expected": 61,
+      "exact_archive_row": 58,
+      "exact_with_ref": 58,
+      "profile_component_matches": 58,
+      "no_archive_match": 3,
+      "ambiguous": 0,
+      "conflicts": 0,
+      "distinct_prior_races": 54,
+      "exceptions": [
+        [
+          "2026-09-26",
+          "阪神",
+          11,
+          6
+        ],
+        [
+          "2026-10-11",
+          "京都",
+          11,
+          8
+        ],
+        [
+          "2026-10-25",
+          "京都",
+          10,
+          6
+        ]
+      ]
+    },
+    "local": {
+      "expected": 129,
+      "exact_archive_row": 59,
+      "no_archive_match": 70,
+      "ambiguous": 0,
+      "conflicts": 0,
+      "exact_with_ref": 0,
+      "distinct_prior_races": 55
+    },
+    "match_contract": "exact circuit/date/track/race no/horse name/finish/elapsed tenths, single candidate row only. JRA known profile component substring check additional. LOCAL no horse native ID in archive, no name-only identity admission.",
+    "queue_policy": "archive matches do not increment individual official-page counts; original source version and publication proof pending"
+  },
+  "peers": {
+    "jra_subject_peer_edges": 761,
+    "jra_peer_edges_with_archive_ref": 761,
+    "jra_peer_edges_with_later_candidate": 644,
+    "jra_distinct_peer_ref_candidates": 616,
+    "local_subject_peer_edges_without_id": 610,
+    "meaning": "subject-race-peer edges including possible shared races, not independent horses or fully verified opponents. Later candidate existence joined by same literal archived horse_ref with prior race date < later date < 2026-11-25. No source version or publication proof, no independent native link verification. Nonmatches are unknown.",
+    "formal_admissions": 0
+  },
+  "identity_audit": {
+    "scope": "all JRA full_runner records joined to full_field jra_public_reference races",
+    "sql": "WITH f AS (SELECT h.jockey_ref,h.jockey,h.horse_ref,h.horse_name,h.trainer_ref,h.trainer FROM public.jra_lab_races r JOIN public.jra_lab_runs h ON h.race_id=r.id WHERE r.full_field AND r.source_kind='jra_public_reference' AND h.record_role='full_runner' AND h.source_kind='jra_public_reference'), a AS (SELECT 'jockey' AS kind,jockey_ref AS ref,jockey AS name FROM f UNION ALL SELECT 'horse',horse_ref,horse_name FROM f UNION ALL SELECT 'trainer',trainer_ref,trainer FROM f), b AS (SELECT kind,ref,count(*) AS rows,count(DISTINCT name) AS names FROM a WHERE nullif(btrim(ref),'') IS NOT NULL GROUP BY kind,ref), c AS (SELECT kind,count(*) AS all_rows,count(*) FILTER(WHERE nullif(btrim(ref),'') IS NOT NULL) AS populated,count(DISTINCT name) AS unique_names FROM a GROUP BY kind) SELECT c.*,count(b.ref) AS distinct_refs,count(*) FILTER(WHERE b.names>1) AS colliding_refs,coalesce(sum(b.rows) FILTER(WHERE b.names>1),0) AS rows_with_collision,max(b.names) AS max_names_per_ref FROM c LEFT JOIN b USING(kind) GROUP BY c.kind,c.all_rows,c.populated,c.unique_names ORDER BY c.kind",
+    "rows": 415165,
+    "horse": {
+      "populated": 412873,
+      "unique_names": 47979,
+      "distinct_refs": 47989,
+      "collision_refs": 0,
+      "collision_rows": 0,
+      "max_names_per_ref": 1
+    },
+    "jockey": {
+      "populated": 402747,
+      "unique_names": 388,
+      "distinct_refs": 1,
+      "collision_refs": 1,
+      "collision_rows": 402747,
+      "max_names_per_ref": 195,
+      "observed_literal": "#"
+    },
+    "trainer": {
+      "populated": 412245,
+      "unique_names": 416,
+      "distinct_refs": 1,
+      "collision_refs": 1,
+      "collision_rows": 412245,
+      "max_names_per_ref": 257,
+      "observed_literal": "#"
+    },
+    "note": "A # anchor is not an entity ID; exact root literal confirmed by separate GROUP BY. Distinct raw display names are not unique real persons; normalize only after official identity evidence. Name collision absence is not proof of native horse identity.",
+    "blocked_items": [
+      "85",
+      "86",
+      "87",
+      "88",
+      "89"
+    ],
+    "recovery": "reject #, blank, javascript:void and non-entity anchors; official person-profile/registration links verified independently before any join; date-valid alias/tenure evidence; retain missing; no archive mutation. Do not estimate rider effect on invalid identity."
+  },
+  "benchmark": {
+    "old_jra_7311_manifest": "not recovered; examined PR #92 replay notes and default branch text search returned no match",
+    "local_previous_replay": "19,131 races / 197,712 rows reproduced in prior v0.4; no duplicate rerun in this step",
+    "permission": "unresolved",
+    "historical_asof": "unresolved",
+    "course_version": "unresolved except source observations",
+    "formal_class": "unresolved",
+    "identity": "archive match added, not proof for all long-term archive",
+    "release": "BLOCKED"
+  },
+  "formal_admissions": 0,
+  "production_changes": false
+}
