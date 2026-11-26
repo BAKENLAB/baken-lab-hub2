@@ -1,0 +1,195 @@
+{
+  "version": "0.5.0",
+  "prior_commit": "0d6328b7cde6beb27d69b400af14264a805531b6",
+  "acceptance_commit": "3a6943b127093a421fb96f9e22dcf783a676493e",
+  "observed_date_jst": "2026-11-26",
+  "observed_at": null,
+  "published_at_or_null": null,
+  "raw_sha256_or_null": null,
+  "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+  "asof_status": "RETROSPECTIVE_CANDIDATE",
+  "jra": {
+    "previous_reported": 32,
+    "new_full_official_result_table": [
+      {
+        "evidence_id": "JRA:2025-05-03:京都:11:6",
+        "runner_no": 5,
+        "finish": 3,
+        "clock_tenths": 1170,
+        "body_weight_kg": 498,
+        "weight_change_kg": 14,
+        "carried_weight_kg": 57,
+        "corner_positions": [
+          12,
+          13,
+          3,
+          2
+        ],
+        "final3f_tenths": 367,
+        "margin_literal": "クビ",
+        "margin_scope": "preceding finisher",
+        "source_url": "https://www.jra.go.jp/datafile/seiseki/replay/2025/047.html",
+        "observation": "FULL_OFFICIAL_REPLAY_RESULT_TABLE",
+        "identity": "name and saved profile race/finish/clock; native result link not traced",
+        "status": "OBSERVED"
+      }
+    ],
+    "new_indexed_rows": [
+      {
+        "evidence_id": "JRA:2026-08-29:新潟:8:6",
+        "runner_no": 7,
+        "finish": 1,
+        "clock_tenths": 1120,
+        "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0104202603030820260829%2F3F",
+        "observation": "OFFICIAL_DOMAIN_INDEXED_RESULT_ROW_ONLY",
+        "status": "PARTIAL_OBSERVATION",
+        "missing": "full official result page or replay body not obtained; not counted as full-page verification"
+      },
+      {
+        "evidence_id": "JRA:2025-11-16:京都:10:6",
+        "runner_no": 4,
+        "finish": 3,
+        "clock_tenths": 1098,
+        "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1008202504041020251116%2FB7",
+        "observation": "OFFICIAL_DOMAIN_INDEXED_RESULT_ROW_ONLY",
+        "status": "PARTIAL_OBSERVATION",
+        "missing": "full official result page or replay body not obtained; not counted as full-page verification"
+      },
+      {
+        "evidence_id": "JRA:2025-10-11:京都:11:6",
+        "runner_no": 8,
+        "finish": 4,
+        "clock_tenths": 1179,
+        "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0108202503031120251011%2FBD",
+        "observation": "OFFICIAL_DOMAIN_INDEXED_RESULT_ROW_ONLY",
+        "status": "PARTIAL_OBSERVATION",
+        "missing": "full official result page or replay body not obtained; not counted as full-page verification"
+      },
+      {
+        "evidence_id": "JRA:2026-09-26:阪神:11:6",
+        "runner_no": 3,
+        "finish": 11,
+        "clock_tenths": 1264,
+        "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1009202604081120260926%2FA3",
+        "observation": "OFFICIAL_DOMAIN_INDEXED_RESULT_ROW_ONLY",
+        "status": "PARTIAL_OBSERVATION",
+        "missing": "full official result page or replay body not obtained; not counted as full-page verification"
+      }
+    ],
+    "cumulative_full_result_observation_reported": 33,
+    "remaining_full_result_queue": [
+      "JRA:2026-10-25:京都:10:6",
+      "JRA:2026-09-26:阪神:11:6",
+      "JRA:2026-08-29:新潟:8:6",
+      "JRA:2026-05-03:東京:10:6",
+      "JRA:2025-12-20:中京:11:6",
+      "JRA:2025-11-16:京都:10:6",
+      "JRA:2025-10-11:京都:11:6",
+      "JRA:2025-07-05:小倉:10:6",
+      "JRA:2025-03-08:阪神:4:6",
+      "JRA:2025-01-12:中京:1:6",
+      "JRA:2024-12-21:京都:3:6",
+      "JRA:2024-12-01:中京:1:6",
+      "JRA:2024-11-16:京都:6:6",
+      "JRA:2026-10-11:京都:11:8",
+      "JRA:2025-10-04:京都:12:8",
+      "JRA:2025-09-06:阪神:9:8",
+      "JRA:2025-07-26:中京:6:8",
+      "JRA:2025-05-18:京都:12:8",
+      "JRA:2025-04-26:東京:12:8",
+      "JRA:2024-08-17:中京:10:8",
+      "JRA:2023-03-25:中山:10:8",
+      "JRA:2023-03-12:阪神:5:8",
+      "JRA:2022-12-24:阪神:6:8",
+      "JRA:2026-05-30:京都:9:9",
+      "JRA:2026-04-19:中山:6:9",
+      "JRA:2026-03-28:中山:10:9",
+      "JRA:2026-02-22:東京:9:9",
+      "JRA:2025-12-13:中山:2:9",
+      "JRA:2025-10-19:東京:4:9"
+    ],
+    "note": "Previous reports not independently reverified in this batch. Indexed rows remain in full result queue."
+  },
+  "local": {
+    "new_full_official_rating_result_tables": [
+      {
+        "evidence_id": "LOCAL:2025-12-29:大井:9:1",
+        "runner_no": 3,
+        "finish": 6,
+        "clock_tenths": 1258,
+        "rt": 108,
+        "margin_literal": "クビ",
+        "source_url": "https://www.keiba.go.jp/dirtgraderace/2025/rating/dirtgraderacerating/1229_tokyodaishoten.html",
+        "official_result_index_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=20&k_raceDate=2025%2F12%2F29&k_raceNo=9",
+        "actual_numeric_finishers": 15,
+        "cancelled": 1,
+        "observation": "FULL_OFFICIAL_RATING_RESULT_TABLE; standard result indexed row only",
+        "status": "OBSERVED",
+        "identity": "name and saved profile date/finish/clock; native link not traced"
+      },
+      {
+        "evidence_id": "LOCAL:2025-10-08:大井:11:1",
+        "runner_no": 5,
+        "finish": 1,
+        "clock_tenths": 1237,
+        "rt": 117,
+        "source_url": "https://www.keiba.go.jp/dirtgraderace/2025/rating/dirtgraderacerating/1008_japandirtclassic.html",
+        "official_result_index_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=20&k_raceDate=2025%2F10%2F08&k_raceNo=11",
+        "actual_numeric_finishers": 16,
+        "cancelled": 0,
+        "observation": "FULL_OFFICIAL_RATING_RESULT_TABLE; standard result indexed row only",
+        "status": "OBSERVED",
+        "identity": "name and saved profile date/finish/clock; native link not traced"
+      }
+    ],
+    "standard_result_page_body_unavailable": true,
+    "note": "Two additional official alternative result tables; overlap with Work's unpreserved extended work unknown."
+  },
+  "course": {
+    "new_first_turn": {
+      "venue": "中山",
+      "surface": "芝",
+      "distance_m": 1600,
+      "layout": "A-outer",
+      "first_turn_label": "2",
+      "first_turn_m": 240,
+      "precision": "approximate",
+      "source_url": "https://www.jra.go.jp/keiba/thisweek/2026/0111_1/race.html",
+      "effective_from": null,
+      "stage": "INDEXED_SOURCE_EXPLICIT_OBSERVATION"
+    },
+    "kyoto_conflict": {
+      "status": "CONFLICT_STILL_BLOCKED",
+      "current_source": {
+        "url": "https://www.jra.go.jp/facilities/race/kyoto/course/",
+        "outer_a_lap_m": 1894.3
+      },
+      "autumn_2025": {
+        "url": "https://www.jra.go.jp/keiba/baba/overview/2025_3-4_kyoto.html",
+        "outer_a_lap_m": 1849.3
+      },
+      "corroborating_indexed_sources": [
+        "https://www.jra.go.jp/keiba/baba/overview/2025_1_kyoto.html",
+        "https://www.jra.go.jp/keiba/baba/overview/2026_1-2_kyoto.html",
+        "https://www.jra.go.jp/keiba/baba/overview/2024_5-7_kyoto.html"
+      ],
+      "finding": "multiple other documents explicitly report 1894.3; no official correction or effective version proof, do not silently change historical observation"
+    }
+  },
+  "peer_sample": {
+    "subject": 6,
+    "peer": "カナルビーグル",
+    "prior": "2025-05-03 京都11R",
+    "prior_peer_finish": 1,
+    "prior_peer_time_tenths": 1168,
+    "prior_source": "https://www.jra.go.jp/datafile/seiseki/replay/2025/047.html",
+    "later": "2026-10-25 京都10R",
+    "later_peer_finish": 2,
+    "later_rt": 106,
+    "later_source": "https://www.jra.go.jp/datafile/ranking/jyusyo/2026/10.html",
+    "later_identity_status": "name only; native ID chain not yet verified",
+    "status": "FOLLOWUP_CANDIDATE_ONLY"
+  },
+  "formal_admissions": 0,
+  "production_changes": false
+}
