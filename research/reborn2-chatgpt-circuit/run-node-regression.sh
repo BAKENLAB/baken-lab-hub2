@@ -22,3 +22,5 @@ node ../reborn2-analysis-circuit/test.mjs
 node ../reborn2-evidence-01-12/test-nar-monthly-materials.mjs
 node ../reborn2-evidence-01-12/test-archive-materials.mjs
 node ../reborn2-evidence-01-12/test-same-response-handoff.mjs
+
+node run-gemini-seven-first.mjs
