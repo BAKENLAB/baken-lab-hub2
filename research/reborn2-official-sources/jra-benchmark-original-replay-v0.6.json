@@ -1,0 +1,133 @@
+{
+  "version": "0.6.0",
+  "acceptance_commit": "6f0593ccdb8d276b2a2fc0182d04e774414fa45d",
+  "original_commit": "42a38b6ee42b11946209f071b11165102d4e9a97",
+  "original_sql_blob": "a5a43a05643462434172b8f0baac78fb80f53bba",
+  "original_replay_blob": "a2e935e8cfa934fef32bf428ab5de0852350568b",
+  "observed_date_jst": "2026-11-27",
+  "observed_at": null,
+  "query_mode": "SELECT ONLY; original SQL executed without alteration",
+  "original_replay": {
+    "groups": 1094,
+    "baseline_races": "7311",
+    "baseline_runners": "101196",
+    "eligible_holdout_races": 544,
+    "matched_holdout_races": 504,
+    "matched_holdout_runners": 6549,
+    "holdout_tracks": 6,
+    "sample": [
+      {
+        "track": "函館",
+        "race_no": 1,
+        "runners": 9,
+        "race_date": "2026-07-04",
+        "max_elapsed_difference": 2.2,
+        "max_final3f_difference": 1.1,
+        "min_elapsed_difference": -1.1,
+        "min_final3f_difference": -0.9
+      },
+      {
+        "track": "函館",
+        "race_no": 2,
+        "runners": 16,
+        "race_date": "2026-07-04",
+        "max_elapsed_difference": 2.15,
+        "max_final3f_difference": 1.2,
+        "min_elapsed_difference": -1.05,
+        "min_final3f_difference": -1.5
+      },
+      {
+        "track": "函館",
+        "race_no": 4,
+        "runners": 16,
+        "race_date": "2026-07-04",
+        "max_elapsed_difference": 2.5,
+        "max_final3f_difference": 1.8,
+        "min_elapsed_difference": -1.5,
+        "min_final3f_difference": -1.4
+      },
+      {
+        "track": "函館",
+        "race_no": 5,
+        "runners": 5,
+        "race_date": "2026-07-04",
+        "max_elapsed_difference": 1.8,
+        "max_final3f_difference": 0.9,
+        "min_elapsed_difference": -0.2,
+        "min_final3f_difference": -0.4
+      },
+      {
+        "track": "函館",
+        "race_no": 7,
+        "runners": 10,
+        "race_date": "2026-07-04",
+        "max_elapsed_difference": 0.05,
+        "max_final3f_difference": 0.6,
+        "min_elapsed_difference": -0.85,
+        "min_final3f_difference": -0.6
+      },
+      {
+        "track": "函館",
+        "race_no": 8,
+        "runners": 7,
+        "race_date": "2026-07-04",
+        "max_elapsed_difference": -0.4,
+        "max_final3f_difference": 2.8,
+        "min_elapsed_difference": -4.1,
+        "min_final3f_difference": -0.9
+      }
+    ],
+    "benchmark_admitted": false
+  },
+  "reexecution_observation": {
+    "groups": 1094,
+    "baseline_races": "7311",
+    "baseline_runners": "101196",
+    "eligible_holdout_races": 544,
+    "matched_holdout_races": 504,
+    "matched_holdout_runners": 6549,
+    "holdout_tracks": 6,
+    "sample_check": "all six sample rows and min/max residuals matched by inspection",
+    "benchmark_admitted": false
+  },
+  "diagnostic_sql": "-- Retrospective research only. The calendar split is not proof of historical publication.\nWITH races AS MATERIALIZED (\n SELECT id,race_date,track,race_no,turn,surface,distance,going,class_name,course_layout,field_size,source_ref,\n jsonb_build_array(track,turn,surface,distance,going,class_name,course_layout) AS condition\n FROM public.jra_lab_races\n WHERE race_date>=DATE '2024-01-01' AND race_date<DATE '2026-09-01'\n AND full_field AND source_ref IS NOT NULL AND surface IN ('芝','ダート')\n AND distance>0 AND turn IS NOT NULL AND going IS NOT NULL AND class_name IS NOT NULL\n), rows AS MATERIALIZED (\n SELECT r.*,h.horse_no,h.finish,h.final3f,\n CASE WHEN h.time_raw~'^[0-9]+:[0-5][0-9][.][0-9]$'\n THEN split_part(h.time_raw,':',1)::numeric*60+split_part(h.time_raw,':',2)::numeric END elapsed\n FROM races r JOIN public.jra_lab_runs h ON h.race_id=r.id\n WHERE h.record_role='full_runner' AND h.source_kind='jra_public_reference'\n), complete AS (\n SELECT id FROM rows GROUP BY id,field_size\n HAVING count(*)=field_size AND count(distinct horse_no)=field_size\n AND count(distinct finish)=field_size AND min(finish)=1 AND max(finish)=field_size\n AND count(*) FILTER(WHERE elapsed>0 AND final3f>0 AND final3f<elapsed)=field_size\n AND array_agg(elapsed ORDER BY finish)=array_agg(elapsed ORDER BY elapsed)\n), eligible AS MATERIALIZED (\n SELECT rows.* FROM rows JOIN complete USING(id)\n), per_race AS (SELECT id,condition,race_date,count(*) n FROM eligible WHERE race_date<DATE '2026-07-01' GROUP BY id,condition,race_date), g AS (SELECT condition,count(*) n,count(DISTINCT date_trunc('month',race_date)) months FROM per_race GROUP BY condition), p AS (SELECT p.*,r.source_kind,r.archive_complete,r.course_layout,r.source_checked_at,r.class_name,r.surface FROM per_race p JOIN public.jra_lab_races r USING(id)), refs AS (SELECT p.id,count(*) FILTER(WHERE nullif(btrim(h.horse_ref),'') IS NOT NULL AND h.horse_ref<>'#') AS horse_refs,count(*) FILTER(WHERE nullif(btrim(h.jockey_ref),'') IS NOT NULL AND h.jockey_ref<>'#') AS jockey_refs,count(*) FILTER(WHERE nullif(btrim(h.trainer_ref),'') IS NOT NULL AND h.trainer_ref<>'#') AS trainer_refs,count(*) FILTER(WHERE h.weight_carried>0) AS weights FROM p JOIN public.jra_lab_runs h ON h.race_id=p.id WHERE h.record_role='full_runner' AND h.source_kind='jra_public_reference' GROUP BY p.id) SELECT count(*) AS races,sum(p.n) AS runners,count(*) FILTER(WHERE p.source_kind='jra_public_reference') AS race_source_kind_match,count(*) FILTER(WHERE archive_complete) AS archive_complete,count(*) FILTER(WHERE nullif(btrim(course_layout),'') IS NOT NULL) AS layout_present,count(*) FILTER(WHERE source_checked_at IS NOT NULL) AS checked_present,count(*) FILTER(WHERE source_checked_at<'2026-07-01 00:00:00+09'::timestamptz) AS checked_before_holdout,count(*) FILTER(WHERE source_checked_at<(race_date+1)::timestamp AT TIME ZONE 'Asia/Tokyo') AS checked_before_next_day,count(*) FILTER(WHERE horse_refs=p.n) AS all_horse_refs,count(*) FILTER(WHERE jockey_refs=p.n) AS all_nonplaceholder_jockey_refs,count(*) FILTER(WHERE trainer_refs=p.n) AS all_nonplaceholder_trainer_refs,count(*) FILTER(WHERE weights=p.n) AS all_positive_weights,(SELECT count(*) FROM g WHERE n<5) AS groups_lt5,(SELECT count(*) FROM g WHERE n BETWEEN 5 AND 19) AS groups5_19,(SELECT count(*) FROM g WHERE n>=20) AS groups20,(SELECT count(*) FROM g WHERE n>=20 AND months>=6) AS groups20_6months FROM p JOIN refs USING(id);",
+  "diagnostic_result": {
+    "races": 7311,
+    "runners": 101196,
+    "race_source_kind_match": 7311,
+    "archive_complete": 0,
+    "layout_present": 0,
+    "checked_present": 7311,
+    "checked_before_holdout": 0,
+    "checked_before_next_day": 0,
+    "all_horse_refs": 7209,
+    "all_nonplaceholder_jockey_refs": 0,
+    "all_nonplaceholder_trainer_refs": 0,
+    "all_positive_weights": 7311,
+    "groups_lt5": 680,
+    "groups5_19": 322,
+    "groups20": 92,
+    "groups20_6months": 88
+  },
+  "gates": {
+    "source_kind": "PASS for baseline only",
+    "layout_version": "BLOCKED; zero recorded layout, no inferred value",
+    "formal_class_eligibility": "BLOCKED; raw class label not eligibility",
+    "carried_weight": "numeric presence all 7311, weight rule/allowance eligibility unverified",
+    "asof": "BLOCKED; zero archive checks before holdout start; calendar split not historical availability",
+    "horse_identity": "7209 full reference presence; 102 incomplete; presence not verification",
+    "person_identity": "zero full valid references",
+    "archive_complete": "zero; clarify completeness semantics, do not override",
+    "permission": "unresolved; no inquiry sent",
+    "original_digest": "Git blob only, source-original digest unavailable",
+    "validation": "holdout residual connectivity not SABC accuracy; 40 unmatched races; no threshold adopted"
+  },
+  "local_prior_replay": {
+    "races": 19131,
+    "rows": 197712,
+    "source_commit": "0d6328b7cde6beb27d69b400af14264a805531b6",
+    "no_rerun_this_turn": true
+  },
+  "formal_admissions": 0,
+  "production_changes": false
+}
