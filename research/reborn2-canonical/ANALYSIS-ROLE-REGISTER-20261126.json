@@ -1,0 +1,709 @@
+{
+  "version": "0.1.0",
+  "status": "RESEARCH_PROPOSAL_NOT_APPROVED",
+  "source": "Gemini second independent review supplied by user 2026-11-26 JST; reviewed against canonical and synthesis designs",
+  "canonical_rank": "5bf7014",
+  "canonical_eye": "7fad08f",
+  "role_definition": {
+    "OBSERVATION": "source-grounded facts or direct arithmetic over verified facts; comparison/interpretation separately tagged",
+    "DERIVED": "computed comparison, profile or conditional association; source lineage required",
+    "SYNTHESIS": "conditional judgement or scenario combining upstream facts; no new independent vote"
+  },
+  "notes": [
+    "Primary output role only; all items may have mixed typed subfields, distinguish observations, derived calculations and hypotheses per field.",
+    "No item skipped, no weights or quotas, no hidden ranking, not a dependency DAG; implementation must independently check cycles.",
+    "EYE is a reinspection view and may discover a new verified fact; new fact must enter shared evidence registry before rank synthesis; never count same fact twice."
+  ],
+  "items": [
+    {
+      "id": "01",
+      "name": "基礎競走能力",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "02",
+      "name": "近走成績・着順",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "03",
+      "name": "勝ち馬との着差",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "04",
+      "name": "後続馬との着差",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "05",
+      "name": "走破時計",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "06",
+      "name": "上がりタイム",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "07",
+      "name": "瞬発力",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "08",
+      "name": "持続力",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "09",
+      "name": "スタートの安定性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "10",
+      "name": "二の脚・加速力",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "11",
+      "name": "距離別の消耗傾向",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "12",
+      "name": "勝ち切る能力",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "13",
+      "name": "成績の安定性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "14",
+      "name": "成長・衰え",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "15",
+      "name": "潜在能力",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "16",
+      "name": "公式レーティング",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "17",
+      "name": "各コーナーの通過順位",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "18",
+      "name": "道中の位置取り変化",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "19",
+      "name": "実ラップ・ペース",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "20",
+      "name": "過去走の展開有利・不利",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "21",
+      "name": "道中での後退からの巻き返し",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "22",
+      "name": "コーナーでの進出",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "23",
+      "name": "先行争いによる消耗",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "24",
+      "name": "終盤の失速原因",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "25",
+      "name": "差し損ね・脚の余力",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "26",
+      "name": "出遅れ・進路などの不利",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "27",
+      "name": "不利を克服した好走",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "28",
+      "name": "僅差の凡走",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "29",
+      "name": "負けて強し",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "30",
+      "name": "勝利内容の価値",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "31",
+      "name": "特殊条件による凡走",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "32",
+      "name": "前走からの内容改善",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "33",
+      "name": "過去走のクラス水準",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "34",
+      "name": "過去の対戦相手の能力",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "35",
+      "name": "今回の出走馬同士の直接対戦",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "36",
+      "name": "共通対戦馬による間接比較",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "37",
+      "name": "過去の対戦相手の後続実績",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "38",
+      "name": "対戦相手の公式レーティング",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "39",
+      "name": "昇級・降級",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "40",
+      "name": "今回の相手強化・弱化",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "41",
+      "name": "上位クラスでの通用可能性",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "42",
+      "name": "中央・地方転入による水準変化",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "43",
+      "name": "距離適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "44",
+      "name": "距離延長・短縮への適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "45",
+      "name": "競馬場適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "46",
+      "name": "コース間相関",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "47",
+      "name": "芝・ダート適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "48",
+      "name": "馬場状態別適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "49",
+      "name": "左回り・右回り適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "50",
+      "name": "直線の長さへの適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "51",
+      "name": "坂・高低差への適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "52",
+      "name": "コーナー形状への適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "53",
+      "name": "枠順と脚質の相性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "54",
+      "name": "斤量・斤量増減への適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "55",
+      "name": "砂被り耐性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "56",
+      "name": "馬群・揉まれ耐性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "57",
+      "name": "季節適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "58",
+      "name": "各馬の脚質",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "59",
+      "name": "前走の先行判定",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "60",
+      "name": "先行力の再現性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "61",
+      "name": "逃げ候補の特定",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "62",
+      "name": "逃げへの依存度",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "63",
+      "name": "先行馬占有率",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "64",
+      "name": "先行馬の内外配置",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "65",
+      "name": "同型馬の競合",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "66",
+      "name": "逃げハサミ",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "67",
+      "name": "最初のコーナーまでの距離",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "68",
+      "name": "序盤の位置取り争い",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "69",
+      "name": "想定ペース",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "70",
+      "name": "想定隊列",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "71",
+      "name": "想定される距離ロス",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "72",
+      "name": "今回の先行争いによる消耗",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "73",
+      "name": "各馬の展開有利・不利",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "74",
+      "name": "展開対応力",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "75",
+      "name": "展開依存度",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "76",
+      "name": "当日の内外馬場傾向",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "77",
+      "name": "当日の前残り・差し傾向",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "78",
+      "name": "休養期間",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "79",
+      "name": "出走間隔・連闘",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "80",
+      "name": "休養明けからの出走回数",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "81",
+      "name": "馬体重・増減",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "82",
+      "name": "過去の好走時馬体重",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "83",
+      "name": "調教内容",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "84",
+      "name": "馬具変更",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "85",
+      "name": "騎手の能力・実績",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "86",
+      "name": "騎手のコース別適性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "87",
+      "name": "馬と騎手の相性",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "88",
+      "name": "乗り替わり",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "89",
+      "name": "調教師・厩舎の傾向",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "90",
+      "name": "血統",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "91",
+      "name": "年齢・性別・成長段階",
+      "primary_output_role": "OBSERVATION",
+      "independent_vote": false
+    },
+    {
+      "id": "92",
+      "name": "輸送・遠征",
+      "primary_output_role": "DERIVED",
+      "independent_vote": false
+    },
+    {
+      "id": "93",
+      "name": "前走からの条件好転",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "94",
+      "name": "前走からの条件悪化",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "95",
+      "name": "過去の好走条件への復帰",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "96",
+      "name": "前走の敗因解消",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "97",
+      "name": "複数の好転材料の重なり",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "98",
+      "name": "潜在能力を発揮できる可能性",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "99",
+      "name": "過去の好走の再現性",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "100",
+      "name": "今回の勝ち切り可能性",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-01",
+      "name": "着順と着差のギャップ",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-02",
+      "name": "着順と過去走内容のギャップ",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-03",
+      "name": "道中後退からの巻き返し",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-04",
+      "name": "強い相手との僅差敗戦",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-05",
+      "name": "対戦相手の後続実績",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-06",
+      "name": "前走の展開不利の解消",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-07",
+      "name": "得意距離・条件への復帰",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-08",
+      "name": "コース変更による適性向上",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-09",
+      "name": "先行馬占有率による恩恵",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-10",
+      "name": "逃げハサミによる恩恵",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-11",
+      "name": "同型馬の減少",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-12",
+      "name": "想定隊列による位置取り改善",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-13",
+      "name": "着順に表れていない能力上昇",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-14",
+      "name": "転入・クラス変更による相手弱化",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    },
+    {
+      "id": "EYE-15",
+      "name": "複数の条件好転の組み合わせ",
+      "primary_output_role": "SYNTHESIS",
+      "independent_vote": false
+    }
+  ]
+}
