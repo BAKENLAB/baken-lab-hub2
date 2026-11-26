@@ -1,0 +1,2 @@
+# Pinned research inputs
+PR92 8384dfd SABC draft; f835289 evidence handoff v0.1; official source register and course examples a959571a9811e54a4ef6f2874de935b9a07b970e. No permission clearance or verified geometry inferred. Common evidence requires upstream explicit permission, raw hash, ID, time and fact status; this is a structural gate, not a proof verifier. 58–77 partial observation/scenario circuit; 69/73 unresolved, no formal admission, 8 fixture assertions in JS runtime.
