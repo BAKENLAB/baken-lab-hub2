@@ -62,7 +62,7 @@ export function rebuildRankInputs({rankArgs,intake,boundRoster}){
  args.stateMaterials={...args.stateMaterials,runs:upsert(args.stateMaterials?.runs,runs,rk),history:upsert(args.stateMaterials?.history,histories,hk),current:upsert(args.stateMaterials?.current,currents,hk),workouts:upsert(args.stateMaterials?.workouts,workouts,x=>x.horse_id+'|'+x.session_id),travel:upsert(args.stateMaterials?.travel,travel,hk),pedigrees:upsert(args.stateMaterials?.pedigrees,pedigrees,hk)};
  args.changeMaterials={...args.changeMaterials,runs:upsert(args.changeMaterials?.runs,runs,rk),history:upsert(args.changeMaterials?.history,histories,hk),currentConditions:upsert(args.changeMaterials?.currentConditions,currents,hk)};
  args.evidence=[...evidence.values()];
- return {args,bridge_inputs:refs,bridge_conflicts:bridgeConflicts,version:fingerprint({args,events:groups.map(g=>[g.event_key,g.record.source_version,g.record.raw_sha256_or_null,g.record.fact])}),formal_admissions:0};
+ return {args,bridge_inputs:refs,bridge_conflicts:bridgeConflicts,actual_input_hash:fingerprint(args),version:fingerprint({args,events:groups.map(g=>[g.event_key,g.record.source_version,g.record.raw_sha256_or_null,g.record.fact])}),formal_admissions:0};
 }
 export function recomputeFullRank({rankArgs,intake,boundRoster,priorRank,traceRead=()=>{}}){
  const bridge=rebuildRankInputs({rankArgs,intake,boundRoster});
@@ -71,7 +71,7 @@ export function recomputeFullRank({rankArgs,intake,boundRoster,priorRank,traceRe
  const rows=recalculated.audit.runners.map(h=>({horse_no:h.horse_no,horse_id:h.horse_id,items:h.items.filter(i=>Number(i.item_id)>=33&&Number(i.item_id)<=99).map(i=>{
  const before=priorRank.audit.runners.find(r=>r.horse_no===h.horse_no)?.items.find(x=>x.item_id===i.item_id);
  const changed=fingerprint(before?.finding)!==fingerprint(i.finding);
- return {item_id:i.item_id,function_name:stageRanges.find(([lo,hi])=>Number(i.item_id)>=lo&&Number(i.item_id)<=hi)[2],input_version:bridge.version,previous_output_hash:fingerprint(before?.finding),output_hash:fingerprint(i.finding),function_executed:true,changed,reason:changed?'RESEARCH_OUTPUT_CHANGED':i.analysis_status==='NO_OUTPUT'?'NO_ADMISSIBLE_NEW_OUTPUT':'SAME_OUTPUT_ON_REEXECUTION',status:i.analysis_status,final_consumption:false};
+ return {item_id:i.item_id,function_name:stageRanges.find(([lo,hi])=>Number(i.item_id)>=lo&&Number(i.item_id)<=hi)[2],input_version:bridge.version,actual_input_hash:bridge.actual_input_hash,previous_output_hash:fingerprint(before?.finding),output_hash:fingerprint(i.finding),function_executed:true,changed,reason:changed?'RESEARCH_OUTPUT_CHANGED':i.analysis_status==='NO_OUTPUT'?'NO_ADMISSIBLE_NEW_OUTPUT':'SAME_OUTPUT_ON_REEXECUTION',status:i.analysis_status,final_consumption:false};
  })}));
- return {rank:recalculated,bridge_inputs:bridge.bridge_inputs,bridge_conflicts:bridge.bridge_conflicts,input_version:bridge.version,rows,all_stage_functions_executed:true,formal_admissions:0};
+ return {rank:recalculated,bridge_inputs:bridge.bridge_inputs,bridge_conflicts:bridge.bridge_conflicts,input_version:bridge.version,actual_input_hash:bridge.actual_input_hash,rows,all_stage_functions_executed:true,formal_admissions:0};
 }
