@@ -1,0 +1,74 @@
+{
+  "version": "0.1.0",
+  "observation_date_jst": "2026-11-26",
+  "observed_at": null,
+  "scope": "research only; small manual public page observation, no raw copy, permission not cleared, no historical prestart admission",
+  "samples": [
+    {
+      "jurisdiction": "LOCAL",
+      "venue": "浦和",
+      "surface": "dirt",
+      "distance_m": 2000,
+      "direction": "left",
+      "lap_m": 1200,
+      "home_straight_m": 220,
+      "first_turn_m": 300,
+      "first_turn_precision": "approximate",
+      "corners_traversed": 6,
+      "elevation_m": null,
+      "corner_radius_m": null,
+      "source_url": "https://www.keiba.go.jp/dirtgraderace/2026/1125_urawakinen/introduction.html",
+      "source_version": "2026 浦和記念紹介",
+      "published_at": null,
+      "effective_from": null,
+      "original_sha256": null,
+      "admission": "RETROSPECTIVE_CANDIDATE",
+      "item_refs": [
+        "45",
+        "49",
+        "50",
+        "52",
+        "67",
+        "68",
+        "71"
+      ],
+      "notes": "公式サイト掲載のコース説明から必要数値のみ抽出。初角概数を精密測定扱いしない。対象前公開時点未立証。"
+    },
+    {
+      "jurisdiction": "JRA",
+      "venue": "東京",
+      "surface": "turf",
+      "layout": "A",
+      "distance_m": null,
+      "direction": "left",
+      "lap_m": 2083.1,
+      "home_straight_m": 525.9,
+      "first_turn_m": null,
+      "home_straight_rise_m": 2,
+      "home_straight_rise_start_remaining_m": 460,
+      "home_straight_rise_end_remaining_m": 300,
+      "corner_radius_m": null,
+      "source_url": "https://www.jra.go.jp/facilities/race/tokyo/course/",
+      "published_at": null,
+      "effective_from": null,
+      "original_sha256": null,
+      "admission": "RESEARCH_CANDIDATE",
+      "item_refs": [
+        "45",
+        "49",
+        "50",
+        "51",
+        "52",
+        "67"
+      ],
+      "notes": "Aコースの数値。初角は発走距離別の公式資料が必要。坂の高低差は全周高低差と異なる。"
+    }
+  ],
+  "gates": [
+    "course_id must distinguish race distance/start point/layout version",
+    "unknown publication and layout effective period must not be inferred",
+    "never infer radius or distance from unscaled diagram",
+    "current observations do not prove historical availability",
+    "permissions unresolved; no automated collection or raw redistribution"
+  ]
+}
