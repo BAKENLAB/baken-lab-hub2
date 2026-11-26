@@ -1,0 +1,4271 @@
+{
+  "version": "0.2.0",
+  "canonical_rank_register": {
+    "path": "research/reborn2-official-sources/source-register-v0.1.json",
+    "commit": "281572484b9549572edec63bd31b7b9ecc00a2e1",
+    "blob": "373c67607a309780fbc049c5c7fe4084e554755e"
+  },
+  "canonical_eye": {
+    "commit": "5f1217db8252f8f4b4d37e412870985a1e0927b4",
+    "blob": "64105a0f0fb802bc1c45eb78a1169f64aa5dcd16"
+  },
+  "design_blob": "130ec849e3b8b3648bd66e0aca798d22eb39fb83",
+  "rank_item_count": 100,
+  "eye_item_count": 15,
+  "total": 115,
+  "shared_source_registry": {
+    "J_MENU": {
+      "url": "https://www.jra.go.jp/keiba/",
+      "status": "ENTRY_VERIFIED",
+      "scope": "出馬表、結果、馬、馬場、番組、騎手調教師"
+    },
+    "J_PROFILE": {
+      "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud102019101265%2F16",
+      "status": "SAMPLE_VERIFIED",
+      "scope": "公式個馬例。中央原則月曜、中央以外月木日、遅延あり"
+    },
+    "J_RATING": {
+      "url": "https://www.jra.go.jp/datafile/ranking/",
+      "status": "ENTRY_VERIFIED",
+      "scope": "競走値、プレ値、年次最高値を分離"
+    },
+    "J_COURSE": {
+      "url": "https://www.jra.go.jp/facilities/race/tokyo/course/",
+      "status": "SAMPLE_VERIFIED",
+      "scope": "東京のコース形状、全場全距離の有効版未確認"
+    },
+    "J_TRAIN": {
+      "url": "https://prc.jp/jraracingviewer/contents/training/index.html",
+      "status": "RESTRICTED_CANDIDATE",
+      "scope": "限定公開・公式と第三者時計を区別。有料取得禁止"
+    },
+    "N_CARD": {
+      "url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop",
+      "status": "ENTRY_VERIFIED",
+      "scope": "出馬表・結果・日次データ、未確定カード混在"
+    },
+    "N_PROFILE": {
+      "url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/DataRoomTop",
+      "status": "ENTRY_VERIFIED",
+      "scope": "馬・騎手・調教師検索"
+    },
+    "N_RATING": {
+      "url": "https://www.keiba.go.jp/dirtgraderace/rating/index.html",
+      "status": "ENTRY_VERIFIED",
+      "scope": "限定競走の公表値"
+    },
+    "N_COURSE": {
+      "url": "https://www.keiba.go.jp/guide/course/",
+      "status": "ENTRY_VERIFIED",
+      "scope": "地方コース一覧"
+    },
+    "N_URAWA": {
+      "url": "https://www.keiba.go.jp/dirtgraderace/2026/1125_urawakinen/introduction.html",
+      "status": "SAMPLE_VERIFIED",
+      "scope": "浦和左2000m・初角概数"
+    },
+    "N_INCIDENT": {
+      "url": "https://ppr.keiba.go.jp/",
+      "status": "PR92_REPORTED",
+      "scope": "裁決・パトロール経路、全文と時点は個別確認"
+    },
+    "N_RULE": {
+      "url": null,
+      "status": "TO_LOCATE",
+      "scope": "主催者格付規程の有効版"
+    },
+    "N_TRAIN": {
+      "url": null,
+      "status": "TO_LOCATE",
+      "scope": "主催者公式調教の全頭公開性未確認"
+    },
+    "IFHA": {
+      "url": null,
+      "status": "PR92_REPORTED",
+      "scope": "国際公式値、版と本人馬照合未完"
+    },
+    "J_TERMS": {
+      "url": "https://www.jra.go.jp/use/",
+      "status": "ENTRY_VERIFIED",
+      "scope": "自動取得・二次利用未許諾"
+    },
+    "N_TERMS": {
+      "url": "https://www.keiba.go.jp/terms.html",
+      "status": "ENTRY_VERIFIED",
+      "scope": "自動取得・二次利用未許諾"
+    }
+  },
+  "rank_items": [
+    {
+      "id": "01",
+      "name": "基礎競走能力",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "本人馬・全履歴・比較条件・02〜12証拠束",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "統合判定未検証",
+      "output_fields": "historical_ability",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "02",
+      "name": "近走成績・着順",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "本人馬ID・競走ID・着順・実出走状態",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "個別成績照合未完",
+      "output_fields": "finish_history",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "03",
+      "name": "勝ち馬との着差",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "勝馬時計・本人時計・公式着差",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "全完走馬と同着確認",
+      "output_fields": "winner_gap",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "04",
+      "name": "後続馬との着差",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "本人時計・後続分類完走馬時計・文字着差",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "後続なし・同着・非完走を区別",
+      "output_fields": "next_gap",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "05",
+      "name": "走破時計",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "走破時計・コース版・距離・格・馬場",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "正式基準時計0件",
+      "output_fields": "elapsed_time",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "06",
+      "name": "上がりタイム",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "個馬上がり・距離・計測区間",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "全体上がりと区別",
+      "output_fields": "closing_time",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "07",
+      "name": "瞬発力",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "個馬区間時計または位置変化代理",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "一般個馬区間時計未確認",
+      "output_fields": "acceleration",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "08",
+      "name": "持続力",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "個馬区間時計・ペース・終盤維持",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "個馬区間不足",
+      "output_fields": "sustain",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "09",
+      "name": "スタートの安定性",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式発馬事象・裁決・本人馬役割",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_INCIDENT"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "裁決記載なしは正常と断定不可",
+      "output_fields": "start_incidents",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "10",
+      "name": "二の脚・加速力",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "発馬後初期の個馬速度・位置の複数観測",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "二段加速代理は別、個馬初期計測不足",
+      "output_fields": "early_acceleration",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "11",
+      "name": "距離別の消耗傾向",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "距離・ペース・終盤内容・比較基準",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "消耗原因は仮説",
+      "output_fields": "distance_fatigue",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "12",
+      "name": "勝ち切る能力",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "勝利・僅差敗戦・比較条件・相手",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "勝率だけで判定不可",
+      "output_fields": "winning_history",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "13",
+      "name": "成績の安定性",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "比較可能な複数走の着差・時計・内容",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "基準時計とサンプル不足",
+      "output_fields": "stability",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "14",
+      "name": "成長・衰え",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "時系列・馬齢・相対内容・比較条件",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "時期と条件の交絡",
+      "output_fields": "trend",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "15",
+      "name": "潜在能力",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "不利・相手・内容・適性の証拠鎖",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "未測定能力は未知",
+      "output_fields": "latent_evidence",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "16",
+      "name": "公式レーティング",
+      "group": "基礎能力分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式値・対象競走・版・発表日・ID",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_RATING",
+        "IFHA"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RATING",
+        "IFHA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "edition dependent; JRA race ratings weekly",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "非公表は欠損、最高値と競走値を分離",
+      "output_fields": "rating",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "17",
+      "name": "各コーナーの通過順位",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式コーナー順・位置・頭数",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "括弧内順位は区間",
+      "output_fields": "corner_positions",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "18",
+      "name": "道中の位置取り変化",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "複数時点の個馬位置",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "順位欠損を推定しない",
+      "output_fields": "position_changes",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "19",
+      "name": "実ラップ・ペース",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式先頭ラップ・距離・馬場・時計",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "個馬区間時計でない",
+      "output_fields": "race_laps",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "20",
+      "name": "過去走の展開有利・不利",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "通過順・実ラップ・枠・不利・条件",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "展開の因果未検証",
+      "output_fields": "pace_context",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "21",
+      "name": "道中での後退からの巻き返し",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "三時点以上の位置後退・回復",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "欠損時点は不明",
+      "output_fields": "recovery",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "22",
+      "name": "コーナーでの進出",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "コーナー名・順位・頭数",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "位置と距離を混同しない",
+      "output_fields": "corner_gain",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "23",
+      "name": "先行争いによる消耗",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "序盤位置・先行競合・実ラップ・終盤内容",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "消耗原因は仮説",
+      "output_fields": "early_pressure",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "24",
+      "name": "終盤の失速原因",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "終盤位置・相対上がり・ペース・裁決",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_INCIDENT"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "原因確定不可",
+      "output_fields": "fade_context",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "25",
+      "name": "差し損ね・脚の余力",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "終盤改善・相対上がり・勝馬差",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "残存余力は測定不可",
+      "output_fields": "late_gain",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "26",
+      "name": "出遅れ・進路などの不利",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式裁決・本人馬・原因/被害/自己役割",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_INCIDENT"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "全文解析・網羅性未確認",
+      "output_fields": "incidents",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "27",
+      "name": "不利を克服した好走",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "不利証拠・結果・相手・比較条件",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_INCIDENT"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "因果未検証",
+      "output_fields": "incident_recovery",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "28",
+      "name": "僅差の凡走",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "着順・公式着差・相手・格",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "僅差閾値未確定",
+      "output_fields": "close_loss",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "29",
+      "name": "負けて強し",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "相手能力・着差・ペース・不利",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "相手と条件不足",
+      "output_fields": "strong_loss",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "30",
+      "name": "勝利内容の価値",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "勝利時計・着差・相手・ペース・格",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "正式基準と相手網羅不足",
+      "output_fields": "win_quality",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "31",
+      "name": "特殊条件による凡走",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式特殊条件・裁決・比較可能な履歴",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_INCIDENT"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "原因未確認を推測しない",
+      "output_fields": "exceptional_context",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "32",
+      "name": "前走からの内容改善",
+      "group": "過去走内容分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "前走と今回以前の比較可能な時系列内容",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "正式基準時計0件",
+      "output_fields": "improvement",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-evidence-01-12/; research/reborn2-evidence-13-16/; research/reborn2-evidence-17-32/",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "33",
+      "name": "過去走のクラス水準",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式競走格・資格・斤量条件・開催区分・適用規程の版、レース結果、基準時計（正式採用済みのみ）",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "名称だけで格を推定しない。地域間の同名クラスを同格と扱わない。",
+      "output_fields": "class_key, eligibility, rule_version, empirical_level_evidence, unknowns",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "34",
+      "name": "過去の対戦相手の能力",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "過去走の全出走馬ID・結果、相手の当時以前の実績、後続実績は37への参照、レーティングは38への参照",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "出走頭数を分母とする。未確認馬を弱い扱いしない。37・38の根拠は加算しない。",
+      "output_fields": "opponent_profiles, coverage, distribution, shared_evidence_refs",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "35",
+      "name": "今回の出走馬同士の直接対戦",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "今回の発走前全頭ID、過去の共有公式競走ID、両馬の結果、条件、通過順・着差が確認できれば併記",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "同じ競走を1単位。着順の前後だけで今回の優劣を確定しない。",
+      "output_fields": "pair_ids, shared_races, head_to_head_outcomes, comparable_conditions, contradictions",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "36",
+      "name": "共通対戦馬による間接比較",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "今回の2頭と共通対戦馬の公式ID、別競走結果、条件、時点",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "AがXに勝ちXがBに勝ったからA>Bとはしない。距離・格・時期の異なる結果の着差差引を禁止。",
+      "output_fields": "common_peer_id, race_links, relative_observations, comparability, contradiction",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "37",
+      "name": "過去の対戦相手の後続実績",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "過去直接対戦の双方IDと競走ID、相手の後続レース公式結果、発走前時点の証拠",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "勝ち馬だけ抽出しない。後日取得資料と当時保存資料を区別。昇級は39の規程判定を参照。",
+      "output_fields": "prior_race_id, subject_id, peer_id, later_result_id, peer_finish, source_availability, coverage",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "38",
+      "name": "対戦相手の公式レーティング",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "JRA/NAR/IFHAの公式版、相手IDのcrosswalk、対象実績・評価範囲・発表時点",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_RATING",
+        "IFHA"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RATING",
+        "IFHA",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "edition dependent; JRA race ratings weekly",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "非公表は欠損、0にしない。ランキング期間最高値を当該競走のレーティングにしない。16と同じ数値を別加点しない。",
+      "output_fields": "peer_id, performance_ref, rating, scope, edition, published_at, crosswalk_status",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "39",
+      "name": "昇級・降級",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "前走・今回の正式格組、資格、主催者の格付・昇降級規程の有効版",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "組番号・競走名・賞金だけで自動昇降級しない。制度変更を検知。",
+      "output_fields": "prior_class_key, target_class_key, transition, rule_ref, effective_date",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "40",
+      "name": "今回の相手強化・弱化",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "今回全出走馬の発走前能力証拠、比較対象過去走全出走馬、33/34/37/38",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "確認件数の差を強さの差にしない。循環依存を避け、最終SABCを相手強度の入力にしない。",
+      "output_fields": "current_field_profile, prior_field_profile, coverage_both, comparative_direction, reasons",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "41",
+      "name": "上位クラスでの通用可能性",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "今回想定クラスと実際の上位クラス経験、同格の相手・内容、正式な基準時計、現在条件への適性",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "下位格圧勝だけで通用確定しない。過去実績の古さ・条件差を保持。",
+      "output_fields": "demonstrated_higher_class, transferable_evidence, counterevidence, conditions, unresolved",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "42",
+      "name": "中央・地方転入による水準変化",
+      "group": "対戦相手・競走レベル分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "JRA・NAR固有IDの公式crosswalk、転入・所属履歴、双方の格規程とコース条件、移行前後実績",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_RULE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "NARプロフィール内のJRA行はJRAネイティブID照合と別。中央所属だけで格上扱いしない。固定換算は禁止。",
+      "output_fields": "crosswalk_status, transition_direction, before_after_conditions, observed_performance, comparability",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-33-42-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "43",
+      "name": "距離適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "距離・芝ダ・正式条件・本人馬履歴・基準時計・位置と着差",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "距離だけの勝率、距離違いの生時計比較、最良走だけの抽出は禁止。",
+      "output_fields": "distance_profiles, comparable_runs, residuals, coverage, support/counter",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "44",
+      "name": "距離延長・短縮への適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "連続する過去走の距離と条件・今回距離・走破/終盤の変化",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "前走比のみで距離変更の効果を断定しない。11との根拠共有。",
+      "output_fields": "transitions, distance_delta, observed_outcomes, confounders",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "45",
+      "name": "競馬場適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "競馬場・開催時点のコースID、全履歴、同場と他場の比較条件",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "同場1勝を万能適性としない。未経験を不適性にしない。",
+      "output_fields": "venue_profiles, layout_profiles, coverage, counterexamples",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "46",
+      "name": "コース間相関",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式コース形状と時点付き競走履歴、同一馬のコース遷移、独立検証用結果",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "相関を因果・個馬適性と同一視しない。逆方向へ流用しない。外部相関表は研究の着想のみ、許諾・時点・オッズ非使用の確認なしに本番入力しない。",
+      "output_fields": "source_course,target_course, cohort_definition,n_horses,n_runs, baseline, conditional_outcome, uncertainty, validation_period",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "47",
+      "name": "芝・ダート適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "芝/ダート別履歴、距離・格・馬場、公式転入・血統は90参照",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "芝からダートへの成功を血統だけで断定しない。障害・ばんえいと平地を混ぜない。",
+      "output_fields": "surface_profiles, surface_transitions, unknown_surface",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "48",
+      "name": "馬場状態別適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式馬場状態、同条件の走破/上がり、可能なら含水率等の測定と時点",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "重馬場なら一律加点しない。馬場発表変更は時点版管理。",
+      "output_fields": "going_profiles, measurements, matched_residuals, uncertainty",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "49",
+      "name": "左回り・右回り適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式回り・直線コース区分・同馬履歴・コース形状",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "右左差を手前や故障原因と推測しない。",
+      "output_fields": "turn_profiles, straight_only, comparable_pairs",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "50",
+      "name": "直線の長さへの適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式コースの直線長・内外・使用コース版、過去走通過順と個馬上がり",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "layout revision; effective dates unknown",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "直線が長いから差し有利とは断定しない。コーナー進出と直線の改善を区別。",
+      "output_fields": "straight_length_m, late_position_change, performance_profile",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "51",
+      "name": "坂・高低差への適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式縦断形状・勾配・高低差・坂の位置、履歴と終盤内容",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "layout revision; effective dates unknown",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "個馬の坂での減速を全体ラップから測定扱いしない。",
+      "output_fields": "elevation_features, observed_performance, proxy_status",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "52",
+      "name": "コーナー形状への適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式コーナー数・曲率/半径・位置・進入条件、過去走各コーナー順位",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "layout revision; effective dates unknown",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "図から未確認の半径を数値化しない。位置変化と走行距離を混同しない。",
+      "output_fields": "corner_geometry, interval_position_change, uncertainty",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "53",
+      "name": "枠順と脚質の相性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "枠・馬番・実出走頭数・馬番変更/取消時点、脚質58・コース形状・過去走",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "枠別勝率を全馬へ一律適用しない。64/66/68と同じ配置を重複評価しない。",
+      "output_fields": "gate_position, normalized_draw, style_profile, draw_interaction",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "54",
+      "name": "斤量・斤量増減への適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "実斤量・減量騎手・別定/定量等・馬体重（利用可なら）・条件と履歴",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "1kg何秒の固定換算、体重比だけの優劣判定は禁止。",
+      "output_fields": "weight_kg, delta_kg, matched_transitions, confounders",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "55",
+      "name": "砂被り耐性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式裁決・許諾済み映像に基づく明示的観察、馬ID・位置・路面",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_INCIDENT",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "ダート内枠・後退のみで砂嫌いと断定しない。映像未確認を観測扱いしない。",
+      "output_fields": "exposure_status, response_observation, source_scope, uncertainty",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "56",
+      "name": "馬群・揉まれ耐性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式裁決・許諾済み映像による囲まれた事象と反応、本人馬、位置履歴",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_INCIDENT",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "通過順のみで揉まれ弱いと断定しない。26/27との重複禁止。",
+      "output_fields": "traffic_exposure, response, incident_refs, uncertainty",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "57",
+      "name": "季節適性",
+      "group": "コース・条件適性分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "出走日・開催地・馬齢・クラス・馬場/気象公式観測、複数年履歴",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "夏冬の1回の好走で季節適性を確定しない。14/91との重複禁止。",
+      "output_fields": "season_profiles, years_observed, comparable_runs, confounders",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-43-57-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "58",
+      "name": "各馬の脚質",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "全履歴の公式通過順・頭数・距離・路面・コーナー定義",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "最終着順で脚質を分類しない。順位同着幅・欠損を保持。",
+      "output_fields": "style_distribution, segment_positions, coverage",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "59",
+      "name": "前走の先行判定",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "直前の実出走の全公式通過順",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "前走欠損時に前々走で代用しない。後半3番手を序盤先行と同一視しない。",
+      "output_fields": "last_run_id, top3_any_corner, early_top3, late_only, unknown",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "60",
+      "name": "先行力の再現性",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "直近5走と長期履歴、公式初期位置、今回条件、出遅れ09/26",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "全履歴の平均だけで現在再現性を確定しない。",
+      "output_fields": "early_front_frequency, recent_long_term, context, unknown",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "61",
+      "name": "逃げ候補の特定",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "序盤の先頭観測、逃げ実績、初角距離、枠、相手構成、騎手変更",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "逃げ候補1頭だけを強制選出しない。",
+      "output_fields": "lead_candidates, evidence, competing_scenarios",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "62",
+      "name": "逃げへの依存度",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "先頭時と非先頭時の同馬成績・条件・ペース",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "逃げ好走だけで逃げ必須と断定しない。",
+      "output_fields": "lead_vs_nonlead, coverage, dependence_hypothesis",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "63",
+      "name": "先行馬占有率",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "今回ACTIVE全頭、59の先行判定",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "欠損を非先行にしない。30%等を確定加点にしない。",
+      "output_fields": "known_front, unknown, active_n, lower_upper, band_hypothesis",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "64",
+      "name": "先行馬の内外配置",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "今回ゲート順と取消・変更時点、58〜63",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "枠番と馬番を混同しない。取消後配置の確証なしに詰めない。",
+      "output_fields": "gate_order, front_neighbors, unknowns",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "65",
+      "name": "同型馬の競合",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "61候補・60再現性・62依存度、ゲート配置、初角形状",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "同型が多いだけで必ずハイペースとはしない。",
+      "output_fields": "competition_edges, scenarios, conflict_evidence",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "66",
+      "name": "逃げハサミ",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "59・64、左右隣のACTIVE位置、対象馬の出遅れ履歴、初角距離",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "成立パターンを進路利の実測としない。両隣の一方が後半進出型ならリスク明示。",
+      "output_fields": "sandwich_pattern, left_right_ids, realization_hypothesis",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "67",
+      "name": "最初のコーナーまでの距離",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式コース図/距離資料、今回距離・発走地点・使用コース",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "layout revision; effective dates unknown",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "縮尺不明図から距離推定しない。",
+      "output_fields": "first_turn_m, course_version, availability",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "68",
+      "name": "序盤の位置取り争い",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "58〜68の関連証拠、発馬09、枠と距離変更",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "実際の通過順位を発走前予測に流用しない。",
+      "output_fields": "early_position_scenarios, conditions, uncertainty",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "69",
+      "name": "想定ペース",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "過去レース先頭ラップ、公式距離・馬場・クラス基準、候補の競合",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "先頭ラップを個馬テンにしない。閾値未校正なら定量確率を出さない。",
+      "output_fields": "pace_scenarios, benchmark_ref, assumptions",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "70",
+      "name": "想定隊列",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "68/69、コースの区間定義、58〜62",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "全頭の厳密な一列順位を根拠なく断定しない。",
+      "output_fields": "scenario_id, position_bands, uncertain_horses",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "71",
+      "name": "想定される距離ロス",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式コーナー形状・幅員、想定進路、許諾済み実測位置データがあれば使用",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "枠と順位だけでメートル数を捏造しない。",
+      "output_fields": "route_loss_risk, geometry_ref, measured_or_hypothesis",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "72",
+      "name": "今回の先行争いによる消耗",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "23の過去事象、先行競合65、想定ペース69、持続力08",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "先行候補一律減点、原因確定、個馬消耗秒推定は禁止。",
+      "output_fields": "pressure_scenarios, historical_refs, counterexamples",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "73",
+      "name": "各馬の展開有利・不利",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "69〜72の各ケース、能力・適性・脚質・当日傾向",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "単一ケースを確定扱いしない。展開有利のみで能力最上位にしない。",
+      "output_fields": "scenario_fit, support, counter, sensitivity",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "74",
+      "name": "展開対応力",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "異なる観測ペース・位置・条件での履歴、過去走内容17〜32",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "1例の好走で万能としない。",
+      "output_fields": "adaptability_profiles, coverage, contradictory_runs",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "75",
+      "name": "展開依存度",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "74の履歴分布と今回ケース",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "未経験のケースを不振扱いしない。62と重複評価しない。",
+      "output_fields": "dependency_hypothesis, supported_conditions, sensitivity",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "76",
+      "name": "当日の内外馬場傾向",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "対象発走前に確定した同開催の同路面・使用コース結果、実測走行位置があれば使用、馬場変更時点",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "earlier same-day completed races with verified publication only",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "枠=内を走ったと断定しない。対象以降の結果を混ぜない。少数例は仮説。",
+      "output_fields": "prior_today_races, inside_outside_observations, proxy_flag, sample_n",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "77",
+      "name": "当日の前残り・差し傾向",
+      "group": "展開・隊列分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "発走前の同日同路面レース、全頭初期/終盤位置、結果、ラップ・条件",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE",
+        "J_COURSE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE",
+        "N_COURSE",
+        "N_URAWA"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "earlier same-day completed races with verified publication only",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "1レースで馬場断定しない。対象結果禁止、76と共通根拠管理。",
+      "output_fields": "front_back_distribution, n_races, n_runners, pace_context, freshness",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-58-77-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "78",
+      "name": "休養期間",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式出走日・競走履歴の完全性、対象発走日",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "出走空白を故障・調整不足と断定しない。履歴欠損を休養としない。",
+      "output_fields": "days_since_last_start, historical_breaks, comeback_observations",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "79",
+      "name": "出走間隔・連闘",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "直前複数走の公式日付・対象日、開催日程",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "連闘を一律減点しない。78と同じ日数を重複評価しない。",
+      "output_fields": "interval_days, interval_history, consecutive_start_flag, comparability",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "80",
+      "name": "休養明けからの出走回数",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "全時系列履歴・研究で検証された休養境界",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "休養境界未確定なら日数列と候補のみ。初戦と2戦目の改善を機械的に仮定しない。",
+      "output_fields": "starts_since_break, break_ref, sequence_outcomes",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "81",
+      "name": "馬体重・増減",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式発表馬体重・増減、前走体重、発表時刻・版",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "official current announcement/version before cutoff; morning/final separate",
+      "publication_time": null,
+      "update_frequency": "official announcement/change; exact time required",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "未発表を0や前走値で補わない。増減だけで太め・仕上がり・体調を断定しない。",
+      "output_fields": "body_weight_kg, delta_kg, relative_change, source_version",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "82",
+      "name": "過去の好走時馬体重",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "各過去走の公式馬体重・内容・条件・当時馬齢",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "好走定義は独立検証。最良走だけの体重を理想値にしない。82と81は共通根拠。",
+      "output_fields": "successful_weight_distribution, unsuccessful_distribution, sample_n, overlap",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "83",
+      "name": "調教内容",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式に公開された調教日・場所・走路・区間時計・負荷・併走情報と公開時点",
+      "jra_source_ids": [
+        "J_TRAIN"
+      ],
+      "local_source_ids": [
+        "N_TRAIN"
+      ],
+      "acquisition": "free public official disclosures only",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "event-specific; limited disclosure",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "時計の手動/自動や施設差を混同しない。非公開・未取得は未知、調教なしと断定しない。",
+      "output_fields": "workout_sessions, comparable_history, measured_fields, missing_fields",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "84",
+      "name": "馬具変更",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式馬具の今回・前走・過去の種類と適用時点",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "official current announcement/version before cutoff; morning/final separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "馬具欄空欄を必ず非装着とみなさない。装着=能力向上とはしない。",
+      "output_fields": "equipment_current, change_type, observed_history, version",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "85",
+      "name": "騎手の能力・実績",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式騎手ID・騎乗結果・競走条件・期間・騎乗馬水準の事前資料",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "勝率をそのまま騎手能力にしない。人気オッズを調整変数にしない。",
+      "output_fields": "jockey_profile, sample_n, raw_rates, adjusted_research, uncertainty",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "86",
+      "name": "騎手のコース別適性",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式騎手ID、コース版・路面・距離、全騎乗成績",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "コース1勝で得意としない。85との重複禁止。",
+      "output_fields": "course_jockey_profile, comparison_group, sample_n",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "87",
+      "name": "馬と騎手の相性",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式馬ID・騎手IDの組合せと過去の騎乗内容・条件",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "初コンビは未知。騎手単独能力と組合せの効果を重複評価しない。",
+      "output_fields": "pair_history, alternative_rider_history, comparable_runs",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "88",
+      "name": "乗り替わり",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "今回確定騎手・直前実出走騎手・変更公表時刻、85〜87",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "official current announcement/version before cutoff; morning/final separate",
+      "publication_time": null,
+      "update_frequency": "official announcement/change; exact time required",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "知名度や格だけで強化弱化としない。公式変更前の値は版管理。",
+      "output_fields": "rider_transition, previous_pair, current_pair, uncertainty",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "89",
+      "name": "調教師・厩舎の傾向",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式調教師ID・所属厩舎・在籍期間・管理馬の出走結果・条件",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "所属だけで能力を断定しない。馬主・調教師・生産牧場を混同しない。",
+      "output_fields": "trainer_profile, stable_tenure, condition_patterns, sample_n",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "90",
+      "name": "血統",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式血統・父母母父等のID・産駒の過去成績と条件、時点",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "血統だけで適性確定、産駒数の少ない成功例の一般化は禁止。",
+      "output_fields": "pedigree_refs, offspring_cohorts, condition_hypothesis, coverage",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "91",
+      "name": "年齢・性別・成長段階",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "生年月日・性別・去勢等の公式記録と有効時点・履歴・年齢別競走条件",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "年齢だけで成長衰えを断定しない。14と重複評価しない。",
+      "output_fields": "age_stage, sex_status, longitudinal_evidence, confounders",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "92",
+      "name": "輸送・遠征",
+      "group": "状態・人的要素分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "公式所属地・開催地・転厩履歴・公表済み輸送情報、過去遠征結果",
+      "jra_source_ids": [
+        "J_MENU",
+        "J_PROFILE"
+      ],
+      "local_source_ids": [
+        "N_CARD",
+        "N_PROFILE"
+      ],
+      "acquisition": "ordinary individual public lookup or existing authorized evidence; no bulk automation",
+      "identity": "native horse ID + race ID + runner no + official profile identity; cross-system ID requires corroboration; no name-only",
+      "prestart": "prior observations or current official card/edition before cutoff; retrospective separate",
+      "publication_time": null,
+      "update_frequency": "source-specific; exact frequency not fully verified",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "所属地だけで輸送距離・時間・疲労を捏造しない。転入42と遠征を区別。",
+      "output_fields": "origin_destination, travel_observed_or_proxy, comparable_history",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-78-92-20261126.md",
+      "route_status": "CANDIDATE_ROUTE_NOT_FULLY_VALIDATED",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "93",
+      "name": "前走からの条件好転",
+      "group": "条件変化・巻き返し分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "直前実出走・今回の公式条件、43〜92の適性・展開・状態証拠",
+      "jra_source_ids": [],
+      "local_source_ids": [],
+      "acquisition": "upstream trace only",
+      "identity": "inherit exact upstream IDs",
+      "prestart": "all upstream observations admitted before cutoff",
+      "publication_time": null,
+      "update_frequency": "upstream dependent",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "単なる距離短縮・内枠・乗り替わりを好転と断定しない。前走欠損時は不明。",
+      "output_fields": "condition_delta, supported_improvements, mechanism_refs, counterevidence",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-93-100-20261126.md",
+      "route_status": "DERIVED_DEPENDENCY_ONLY",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "94",
+      "name": "前走からの条件悪化",
+      "group": "条件変化・巻き返し分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "93と同じ入力・条件差、過去の不適合実績",
+      "jra_source_ids": [],
+      "local_source_ids": [],
+      "acquisition": "upstream trace only",
+      "identity": "inherit exact upstream IDs",
+      "prestart": "all upstream observations admitted before cutoff",
+      "publication_time": null,
+      "update_frequency": "upstream dependent",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "未経験条件を悪化にしない。好転材料だけを選択しない。",
+      "output_fields": "supported_deteriorations, mechanism_refs, conflicting_changes",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-93-100-20261126.md",
+      "route_status": "DERIVED_DEPENDENCY_ONLY",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "95",
+      "name": "過去の好走条件への復帰",
+      "group": "条件変化・巻き返し分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "全過去走の確認済み好走・凡走の条件、今回の公式条件、直近履歴",
+      "jra_source_ids": [],
+      "local_source_ids": [],
+      "acquisition": "upstream trace only",
+      "identity": "inherit exact upstream IDs",
+      "prestart": "all upstream observations admitted before cutoff",
+      "publication_time": null,
+      "update_frequency": "upstream dependent",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "一部条件一致を完全復帰扱いしない。好走の選択基準は時系列検証で確定し、好走例だけを抽出しない。",
+      "output_fields": "matched_successful_runs, restored_conditions, nonmatching_conditions, counterexamples",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-93-100-20261126.md",
+      "route_status": "DERIVED_DEPENDENCY_ONLY",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "96",
+      "name": "前走の敗因解消",
+      "group": "条件変化・巻き返し分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "24〜27/31の敗因に関する確認済み事実・今回条件・公式変更・再発可能性",
+      "jra_source_ids": [],
+      "local_source_ids": [],
+      "acquisition": "upstream trace only",
+      "identity": "inherit exact upstream IDs",
+      "prestart": "all upstream observations admitted before cutoff",
+      "publication_time": null,
+      "update_frequency": "upstream dependent",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "原因が不明なら解消を断定しない。過去の出遅れ・不利が今回ないと仮定しない。",
+      "output_fields": "prior_cause_status, resolved_evidence, recurrence_risk, unknowns",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-93-100-20261126.md",
+      "route_status": "DERIVED_DEPENDENCY_ONLY",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "97",
+      "name": "複数の好転材料の重なり",
+      "group": "条件変化・巻き返し分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "93〜96の好転・悪化候補と全上流証拠ID・依存関係",
+      "jra_source_ids": [],
+      "local_source_ids": [],
+      "acquisition": "upstream trace only",
+      "identity": "inherit exact upstream IDs",
+      "prestart": "all upstream observations admitted before cutoff",
+      "publication_time": null,
+      "update_frequency": "upstream dependent",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "項目数・理由数で加算しない。枠・隊列・逃げハサミ等同一経路の重複禁止。独立性未検証は不明。",
+      "output_fields": "independent_mechanism_groups, shared_evidence_refs, joint_scenario, contradictions",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-93-100-20261126.md",
+      "route_status": "DERIVED_DEPENDENCY_ONLY",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "98",
+      "name": "潜在能力を発揮できる可能性",
+      "group": "条件変化・巻き返し分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "15の潜在能力候補、29〜32の内容、33〜92の現在適合性、93〜97",
+      "jra_source_ids": [],
+      "local_source_ids": [],
+      "acquisition": "upstream trace only",
+      "identity": "inherit exact upstream IDs",
+      "prestart": "all upstream observations admitted before cutoff",
+      "publication_time": null,
+      "update_frequency": "upstream dependent",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "未知の能力を数値化しない。潜在能力だけでSやEYEにしない。",
+      "output_fields": "latent_evidence, activation_conditions, scenario_support, counterevidence",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-93-100-20261126.md",
+      "route_status": "DERIVED_DEPENDENCY_ONLY",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "99",
+      "name": "過去の好走の再現性",
+      "group": "条件変化・巻き返し分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "同馬の複数の比較可能な過去走、13/14/43〜92、今回条件とシナリオ",
+      "jra_source_ids": [],
+      "local_source_ids": [],
+      "acquisition": "upstream trace only",
+      "identity": "inherit exact upstream IDs",
+      "prestart": "all upstream observations admitted before cutoff",
+      "publication_time": null,
+      "update_frequency": "upstream dependent",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "単一成功を再現性としない。過去最高値だけを現在値としない。",
+      "output_fields": "repeated_patterns, observed_n, counterexamples, current_match, uncertainty",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-93-100-20261126.md",
+      "route_status": "DERIVED_DEPENDENCY_ONLY",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    },
+    {
+      "id": "100",
+      "name": "今回の勝ち切り可能性",
+      "group": "条件変化・巻き返し分析",
+      "definition_status": "CANONICAL",
+      "required_materials": "01〜99の能力・相手・今回条件・展開・状態の統合証拠、全頭の同一時点入力",
+      "jra_source_ids": [],
+      "local_source_ids": [],
+      "acquisition": "upstream trace only",
+      "identity": "inherit exact upstream IDs",
+      "prestart": "all upstream observations admitted before cutoff",
+      "publication_time": null,
+      "update_frequency": "upstream dependent",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "missing_or_stop_conditions": "勝率・単勝オッズ・旧順位・固定点を独断で利用しない。勝利確率の校正未実施なら数値確率を出さない。100を上流に戻す循環依存禁止。",
+      "output_fields": "winning_paths, conditional_requirements, comparative_evidence, counterevidence, uncertainty, upstream_trace",
+      "format": "JSONL evidence; derived result JSON with evidence IDs; null for missing",
+      "design_ref": "research/reborn2-canonical/DESIGN-93-100-20261126.md",
+      "route_status": "DERIVED_DEPENDENCY_ONLY",
+      "formal_admission": "NOT_ESTABLISHED",
+      "original_sha256": null
+    }
+  ],
+  "eye_items": [
+    {
+      "id": "EYE-01",
+      "name": "着順と着差のギャップ",
+      "upstream_rank_item_ids": [
+        "02",
+        "03",
+        "28",
+        "29"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "02",
+          "material": "本人馬ID・競走ID・着順・実出走状態"
+        },
+        {
+          "rank_item_id": "03",
+          "material": "勝馬時計・本人時計・公式着差"
+        },
+        {
+          "rank_item_id": "28",
+          "material": "着順・公式着差・相手・格"
+        },
+        {
+          "rank_item_id": "29",
+          "material": "相手能力・着差・ペース・不利"
+        }
+      ],
+      "analysis": "着順が低くても勝ち馬との時計差や着差が小さい事例を、頭数・同条件分布・相手水準で評価する。着順と差の食い違いを観測し、今回への関連性を別判定。",
+      "stop_conditions": "僅差でも展開恩恵や低い相手水準があれば反証。固定着差閾値は未確定。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-02",
+      "name": "着順と過去走内容のギャップ",
+      "upstream_rank_item_ids": [
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "17",
+          "material": "公式コーナー順・位置・頭数"
+        },
+        {
+          "rank_item_id": "18",
+          "material": "複数時点の個馬位置"
+        },
+        {
+          "rank_item_id": "19",
+          "material": "公式先頭ラップ・距離・馬場・時計"
+        },
+        {
+          "rank_item_id": "20",
+          "material": "通過順・実ラップ・枠・不利・条件"
+        },
+        {
+          "rank_item_id": "21",
+          "material": "三時点以上の位置後退・回復"
+        },
+        {
+          "rank_item_id": "22",
+          "material": "コーナー名・順位・頭数"
+        },
+        {
+          "rank_item_id": "23",
+          "material": "序盤位置・先行競合・実ラップ・終盤内容"
+        },
+        {
+          "rank_item_id": "24",
+          "material": "終盤位置・相対上がり・ペース・裁決"
+        },
+        {
+          "rank_item_id": "25",
+          "material": "終盤改善・相対上がり・勝馬差"
+        },
+        {
+          "rank_item_id": "26",
+          "material": "公式裁決・本人馬・原因/被害/自己役割"
+        },
+        {
+          "rank_item_id": "27",
+          "material": "不利証拠・結果・相手・比較条件"
+        },
+        {
+          "rank_item_id": "28",
+          "material": "着順・公式着差・相手・格"
+        },
+        {
+          "rank_item_id": "29",
+          "material": "相手能力・着差・ペース・不利"
+        },
+        {
+          "rank_item_id": "30",
+          "material": "勝利時計・着差・相手・ペース・格"
+        },
+        {
+          "rank_item_id": "31",
+          "material": "公式特殊条件・裁決・比較可能な履歴"
+        },
+        {
+          "rank_item_id": "32",
+          "material": "前走と今回以前の比較可能な時系列内容"
+        }
+      ],
+      "analysis": "着順に対して通過順の改善・個馬上がり・確認済み不利等の内容が優れていたかを競走単位で照合する。",
+      "stop_conditions": "上がり順位だけで能力優位としない。レース先頭ラップを個馬時計にしない。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-03",
+      "name": "道中後退からの巻き返し",
+      "upstream_rank_item_ids": [
+        "18",
+        "21",
+        "22",
+        "24",
+        "27"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "18",
+          "material": "複数時点の個馬位置"
+        },
+        {
+          "rank_item_id": "21",
+          "material": "三時点以上の位置後退・回復"
+        },
+        {
+          "rank_item_id": "22",
+          "material": "コーナー名・順位・頭数"
+        },
+        {
+          "rank_item_id": "24",
+          "material": "終盤位置・相対上がり・ペース・裁決"
+        },
+        {
+          "rank_item_id": "27",
+          "material": "不利証拠・結果・相手・比較条件"
+        }
+      ],
+      "analysis": "公式通過順の区間で後退と回復が実際に確認できる走を抽出し、その際の着差や競走条件、反対事例と今回の再現可能性を照合する。",
+      "stop_conditions": "後退原因の推測は禁止。順位変動は個馬加速度と別。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-04",
+      "name": "強い相手との僅差敗戦",
+      "upstream_rank_item_ids": [
+        "03",
+        "28",
+        "29",
+        "33",
+        "34",
+        "38"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "03",
+          "material": "勝馬時計・本人時計・公式着差"
+        },
+        {
+          "rank_item_id": "28",
+          "material": "着順・公式着差・相手・格"
+        },
+        {
+          "rank_item_id": "29",
+          "material": "相手能力・着差・ペース・不利"
+        },
+        {
+          "rank_item_id": "33",
+          "material": "公式競走格・資格・斤量条件・開催区分・適用規程の版、レース結果、基準時計（正式採用済みのみ）"
+        },
+        {
+          "rank_item_id": "34",
+          "material": "過去走の全出走馬ID・結果、相手の当時以前の実績、後続実績は37への参照、レーティングは38への参照"
+        },
+        {
+          "rank_item_id": "38",
+          "material": "JRA/NAR/IFHAの公式版、相手IDのcrosswalk、対象実績・評価範囲・発表時点"
+        }
+      ],
+      "analysis": "僅差敗戦と相手の確認済み水準を同一競走に結び付ける。今回の相手比較40・条件適性を参照する。",
+      "stop_conditions": "相手の名前や格のみで強敵扱いしない。正式比較不能は候補。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-05",
+      "name": "対戦相手の後続実績",
+      "upstream_rank_item_ids": [
+        "34",
+        "37",
+        "38",
+        "40"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "34",
+          "material": "過去走の全出走馬ID・結果、相手の当時以前の実績、後続実績は37への参照、レーティングは38への参照"
+        },
+        {
+          "rank_item_id": "37",
+          "material": "過去直接対戦の双方IDと競走ID、相手の後続レース公式結果、発走前時点の証拠"
+        },
+        {
+          "rank_item_id": "38",
+          "material": "JRA/NAR/IFHAの公式版、相手IDのcrosswalk、対象実績・評価範囲・発表時点"
+        },
+        {
+          "rank_item_id": "40",
+          "material": "今回全出走馬の発走前能力証拠、比較対象過去走全出走馬、33/34/37/38"
+        }
+      ],
+      "analysis": "相手の後続実績を本人馬ID・競走ID・時点で照合。勝利と敗戦、対象馬の当時内容、現在関連性を同時に表示する。",
+      "stop_conditions": "勝った相手だけの抽出や相手勝利から対象馬能力への自動変換禁止。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-06",
+      "name": "前走の展開不利の解消",
+      "upstream_rank_item_ids": [
+        "20",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "31",
+        "65",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "96"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "20",
+          "material": "通過順・実ラップ・枠・不利・条件"
+        },
+        {
+          "rank_item_id": "23",
+          "material": "序盤位置・先行競合・実ラップ・終盤内容"
+        },
+        {
+          "rank_item_id": "24",
+          "material": "終盤位置・相対上がり・ペース・裁決"
+        },
+        {
+          "rank_item_id": "25",
+          "material": "終盤改善・相対上がり・勝馬差"
+        },
+        {
+          "rank_item_id": "26",
+          "material": "公式裁決・本人馬・原因/被害/自己役割"
+        },
+        {
+          "rank_item_id": "27",
+          "material": "不利証拠・結果・相手・比較条件"
+        },
+        {
+          "rank_item_id": "31",
+          "material": "公式特殊条件・裁決・比較可能な履歴"
+        },
+        {
+          "rank_item_id": "65",
+          "material": "61候補・60再現性・62依存度、ゲート配置、初角形状"
+        },
+        {
+          "rank_item_id": "69",
+          "material": "過去レース先頭ラップ、公式距離・馬場・クラス基準、候補の競合"
+        },
+        {
+          "rank_item_id": "70",
+          "material": "68/69、コースの区間定義、58〜62"
+        },
+        {
+          "rank_item_id": "71",
+          "material": "公式コーナー形状・幅員、想定進路、許諾済み実測位置データがあれば使用"
+        },
+        {
+          "rank_item_id": "72",
+          "material": "23の過去事象、先行競合65、想定ペース69、持続力08"
+        },
+        {
+          "rank_item_id": "73",
+          "material": "69〜72の各ケース、能力・適性・脚質・当日傾向"
+        },
+        {
+          "rank_item_id": "74",
+          "material": "異なる観測ペース・位置・条件での履歴、過去走内容17〜32"
+        },
+        {
+          "rank_item_id": "75",
+          "material": "74の履歴分布と今回ケース"
+        },
+        {
+          "rank_item_id": "96",
+          "material": "24〜27/31の敗因に関する確認済み事実・今回条件・公式変更・再発可能性"
+        }
+      ],
+      "analysis": "過去の展開不利を観測事実と仮説に分け、今回の複数展開候補で同じ不利が起きにくくなる経路を調べる。",
+      "stop_conditions": "前走不利の原因不明、今回の展開不確実性を残す。解消断定禁止。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-07",
+      "name": "得意距離・条件への復帰",
+      "upstream_rank_item_ids": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "93",
+        "95",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA",
+          "N_INCIDENT"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "43",
+          "material": "距離・芝ダ・正式条件・本人馬履歴・基準時計・位置と着差"
+        },
+        {
+          "rank_item_id": "44",
+          "material": "連続する過去走の距離と条件・今回距離・走破/終盤の変化"
+        },
+        {
+          "rank_item_id": "45",
+          "material": "競馬場・開催時点のコースID、全履歴、同場と他場の比較条件"
+        },
+        {
+          "rank_item_id": "46",
+          "material": "公式コース形状と時点付き競走履歴、同一馬のコース遷移、独立検証用結果"
+        },
+        {
+          "rank_item_id": "47",
+          "material": "芝/ダート別履歴、距離・格・馬場、公式転入・血統は90参照"
+        },
+        {
+          "rank_item_id": "48",
+          "material": "公式馬場状態、同条件の走破/上がり、可能なら含水率等の測定と時点"
+        },
+        {
+          "rank_item_id": "49",
+          "material": "公式回り・直線コース区分・同馬履歴・コース形状"
+        },
+        {
+          "rank_item_id": "50",
+          "material": "公式コースの直線長・内外・使用コース版、過去走通過順と個馬上がり"
+        },
+        {
+          "rank_item_id": "51",
+          "material": "公式縦断形状・勾配・高低差・坂の位置、履歴と終盤内容"
+        },
+        {
+          "rank_item_id": "52",
+          "material": "公式コーナー数・曲率/半径・位置・進入条件、過去走各コーナー順位"
+        },
+        {
+          "rank_item_id": "53",
+          "material": "枠・馬番・実出走頭数・馬番変更/取消時点、脚質58・コース形状・過去走"
+        },
+        {
+          "rank_item_id": "54",
+          "material": "実斤量・減量騎手・別定/定量等・馬体重（利用可なら）・条件と履歴"
+        },
+        {
+          "rank_item_id": "55",
+          "material": "公式裁決・許諾済み映像に基づく明示的観察、馬ID・位置・路面"
+        },
+        {
+          "rank_item_id": "56",
+          "material": "公式裁決・許諾済み映像による囲まれた事象と反応、本人馬、位置履歴"
+        },
+        {
+          "rank_item_id": "57",
+          "material": "出走日・開催地・馬齢・クラス・馬場/気象公式観測、複数年履歴"
+        },
+        {
+          "rank_item_id": "93",
+          "material": "直前実出走・今回の公式条件、43〜92の適性・展開・状態証拠"
+        },
+        {
+          "rank_item_id": "95",
+          "material": "全過去走の確認済み好走・凡走の条件、今回の公式条件、直近履歴"
+        },
+        {
+          "rank_item_id": "99",
+          "material": "同馬の複数の比較可能な過去走、13/14/43〜92、今回条件とシナリオ"
+        }
+      ],
+      "analysis": "過去の好走と凡走の条件集合を比較し、前走から今回への条件復帰を確認。現在性と相手水準を再照合する。",
+      "stop_conditions": "得意条件の一部一致のみで発掘成立としない。古い好走だけで判断しない。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-08",
+      "name": "コース変更による適性向上",
+      "upstream_rank_item_ids": [
+        "45",
+        "46",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "93"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "45",
+          "material": "競馬場・開催時点のコースID、全履歴、同場と他場の比較条件"
+        },
+        {
+          "rank_item_id": "46",
+          "material": "公式コース形状と時点付き競走履歴、同一馬のコース遷移、独立検証用結果"
+        },
+        {
+          "rank_item_id": "49",
+          "material": "公式回り・直線コース区分・同馬履歴・コース形状"
+        },
+        {
+          "rank_item_id": "50",
+          "material": "公式コースの直線長・内外・使用コース版、過去走通過順と個馬上がり"
+        },
+        {
+          "rank_item_id": "51",
+          "material": "公式縦断形状・勾配・高低差・坂の位置、履歴と終盤内容"
+        },
+        {
+          "rank_item_id": "52",
+          "material": "公式コーナー数・曲率/半径・位置・進入条件、過去走各コーナー順位"
+        },
+        {
+          "rank_item_id": "53",
+          "material": "枠・馬番・実出走頭数・馬番変更/取消時点、脚質58・コース形状・過去走"
+        },
+        {
+          "rank_item_id": "93",
+          "material": "直前実出走・今回の公式条件、43〜92の適性・展開・状態証拠"
+        }
+      ],
+      "analysis": "公式コース構造と同馬の実証済み適性、独自の検証済み方向付き相関を参照し、今回の変更による好転経路を整理する。",
+      "stop_conditions": "外部相関の無検証転用、相関だけによる能力認定禁止。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-09",
+      "name": "先行馬占有率による恩恵",
+      "upstream_rank_item_ids": [
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "69",
+        "73",
+        "74",
+        "75"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "58",
+          "material": "全履歴の公式通過順・頭数・距離・路面・コーナー定義"
+        },
+        {
+          "rank_item_id": "59",
+          "material": "直前の実出走の全公式通過順"
+        },
+        {
+          "rank_item_id": "60",
+          "material": "直近5走と長期履歴、公式初期位置、今回条件、出遅れ09/26"
+        },
+        {
+          "rank_item_id": "61",
+          "material": "序盤の先頭観測、逃げ実績、初角距離、枠、相手構成、騎手変更"
+        },
+        {
+          "rank_item_id": "62",
+          "material": "先頭時と非先頭時の同馬成績・条件・ペース"
+        },
+        {
+          "rank_item_id": "63",
+          "material": "今回ACTIVE全頭、59の先行判定"
+        },
+        {
+          "rank_item_id": "64",
+          "material": "今回ゲート順と取消・変更時点、58〜63"
+        },
+        {
+          "rank_item_id": "65",
+          "material": "61候補・60再現性・62依存度、ゲート配置、初角形状"
+        },
+        {
+          "rank_item_id": "69",
+          "material": "過去レース先頭ラップ、公式距離・馬場・クラス基準、候補の競合"
+        },
+        {
+          "rank_item_id": "73",
+          "material": "69〜72の各ケース、能力・適性・脚質・当日傾向"
+        },
+        {
+          "rank_item_id": "74",
+          "material": "異なる観測ペース・位置・条件での履歴、過去走内容17〜32"
+        },
+        {
+          "rank_item_id": "75",
+          "material": "74の履歴分布と今回ケース"
+        }
+      ],
+      "analysis": "先行馬占有率の上下限と今回の脚質・先行再現性、複数ペース候補を照合し、具体的な恩恵経路を検査する。",
+      "stop_conditions": "30%等の研究帯だけで成立にしない。未確認馬を非先行にしない。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-10",
+      "name": "逃げハサミによる恩恵",
+      "upstream_rank_item_ids": [
+        "59",
+        "60",
+        "64",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "73"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "59",
+          "material": "直前の実出走の全公式通過順"
+        },
+        {
+          "rank_item_id": "60",
+          "material": "直近5走と長期履歴、公式初期位置、今回条件、出遅れ09/26"
+        },
+        {
+          "rank_item_id": "64",
+          "material": "今回ゲート順と取消・変更時点、58〜63"
+        },
+        {
+          "rank_item_id": "66",
+          "material": "59・64、左右隣のACTIVE位置、対象馬の出遅れ履歴、初角距離"
+        },
+        {
+          "rank_item_id": "67",
+          "material": "公式コース図/距離資料、今回距離・発走地点・使用コース"
+        },
+        {
+          "rank_item_id": "68",
+          "material": "58〜68の関連証拠、発馬09、枠と距離変更"
+        },
+        {
+          "rank_item_id": "69",
+          "material": "過去レース先頭ラップ、公式距離・馬場・クラス基準、候補の競合"
+        },
+        {
+          "rank_item_id": "70",
+          "material": "68/69、コースの区間定義、58〜62"
+        },
+        {
+          "rank_item_id": "73",
+          "material": "69〜72の各ケース、能力・適性・脚質・当日傾向"
+        }
+      ],
+      "analysis": "両隣の先行判定と対象馬の位置取り・出遅れ・初角距離を照合し、候補パターンと実現仮説を別出力する。",
+      "stop_conditions": "配置のみで進路利を確定しない。取消・端・隣不明を監査。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-11",
+      "name": "同型馬の減少",
+      "upstream_rank_item_ids": [
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "60",
+          "material": "直近5走と長期履歴、公式初期位置、今回条件、出遅れ09/26"
+        },
+        {
+          "rank_item_id": "61",
+          "material": "序盤の先頭観測、逃げ実績、初角距離、枠、相手構成、騎手変更"
+        },
+        {
+          "rank_item_id": "62",
+          "material": "先頭時と非先頭時の同馬成績・条件・ペース"
+        },
+        {
+          "rank_item_id": "63",
+          "material": "今回ACTIVE全頭、59の先行判定"
+        },
+        {
+          "rank_item_id": "64",
+          "material": "今回ゲート順と取消・変更時点、58〜63"
+        },
+        {
+          "rank_item_id": "65",
+          "material": "61候補・60再現性・62依存度、ゲート配置、初角形状"
+        },
+        {
+          "rank_item_id": "68",
+          "material": "58〜68の関連証拠、発馬09、枠と距離変更"
+        },
+        {
+          "rank_item_id": "69",
+          "material": "過去レース先頭ラップ、公式距離・馬場・クラス基準、候補の競合"
+        },
+        {
+          "rank_item_id": "70",
+          "material": "68/69、コースの区間定義、58〜62"
+        },
+        {
+          "rank_item_id": "71",
+          "material": "公式コーナー形状・幅員、想定進路、許諾済み実測位置データがあれば使用"
+        },
+        {
+          "rank_item_id": "72",
+          "material": "23の過去事象、先行競合65、想定ペース69、持続力08"
+        },
+        {
+          "rank_item_id": "73",
+          "material": "69〜72の各ケース、能力・適性・脚質・当日傾向"
+        },
+        {
+          "rank_item_id": "74",
+          "material": "異なる観測ペース・位置・条件での履歴、過去走内容17〜32"
+        },
+        {
+          "rank_item_id": "75",
+          "material": "74の履歴分布と今回ケース"
+        }
+      ],
+      "analysis": "前走と今回の同型候補の定義・構成を同じ基準で比較し、競合減少が対象馬の勝ち筋または好走筋を支持するか検査。",
+      "stop_conditions": "頭数減少だけで同型減少としない。新たな競合も反証に含める。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-12",
+      "name": "想定隊列による位置取り改善",
+      "upstream_rank_item_ids": [
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "53",
+        "93"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "58",
+          "material": "全履歴の公式通過順・頭数・距離・路面・コーナー定義"
+        },
+        {
+          "rank_item_id": "59",
+          "material": "直前の実出走の全公式通過順"
+        },
+        {
+          "rank_item_id": "60",
+          "material": "直近5走と長期履歴、公式初期位置、今回条件、出遅れ09/26"
+        },
+        {
+          "rank_item_id": "61",
+          "material": "序盤の先頭観測、逃げ実績、初角距離、枠、相手構成、騎手変更"
+        },
+        {
+          "rank_item_id": "62",
+          "material": "先頭時と非先頭時の同馬成績・条件・ペース"
+        },
+        {
+          "rank_item_id": "63",
+          "material": "今回ACTIVE全頭、59の先行判定"
+        },
+        {
+          "rank_item_id": "64",
+          "material": "今回ゲート順と取消・変更時点、58〜63"
+        },
+        {
+          "rank_item_id": "65",
+          "material": "61候補・60再現性・62依存度、ゲート配置、初角形状"
+        },
+        {
+          "rank_item_id": "66",
+          "material": "59・64、左右隣のACTIVE位置、対象馬の出遅れ履歴、初角距離"
+        },
+        {
+          "rank_item_id": "67",
+          "material": "公式コース図/距離資料、今回距離・発走地点・使用コース"
+        },
+        {
+          "rank_item_id": "68",
+          "material": "58〜68の関連証拠、発馬09、枠と距離変更"
+        },
+        {
+          "rank_item_id": "69",
+          "material": "過去レース先頭ラップ、公式距離・馬場・クラス基準、候補の競合"
+        },
+        {
+          "rank_item_id": "70",
+          "material": "68/69、コースの区間定義、58〜62"
+        },
+        {
+          "rank_item_id": "71",
+          "material": "公式コーナー形状・幅員、想定進路、許諾済み実測位置データがあれば使用"
+        },
+        {
+          "rank_item_id": "72",
+          "material": "23の過去事象、先行競合65、想定ペース69、持続力08"
+        },
+        {
+          "rank_item_id": "73",
+          "material": "69〜72の各ケース、能力・適性・脚質・当日傾向"
+        },
+        {
+          "rank_item_id": "74",
+          "material": "異なる観測ペース・位置・条件での履歴、過去走内容17〜32"
+        },
+        {
+          "rank_item_id": "75",
+          "material": "74の履歴分布と今回ケース"
+        },
+        {
+          "rank_item_id": "53",
+          "material": "枠・馬番・実出走頭数・馬番変更/取消時点、脚質58・コース形状・過去走"
+        },
+        {
+          "rank_item_id": "67",
+          "material": "公式コース図/距離資料、今回距離・発走地点・使用コース"
+        },
+        {
+          "rank_item_id": "93",
+          "material": "直前実出走・今回の公式条件、43〜92の適性・展開・状態証拠"
+        }
+      ],
+      "analysis": "過去の序盤位置と今回の複数隊列候補を比較し、位置取り改善の根拠と必要条件を記録する。",
+      "stop_conditions": "想定順位の厳密な確定、前走順位の単純繰上げは禁止。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-13",
+      "name": "着順に表れていない能力上昇",
+      "upstream_rank_item_ids": [
+        "13",
+        "14",
+        "15",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "98",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "13",
+          "material": "比較可能な複数走の着差・時計・内容"
+        },
+        {
+          "rank_item_id": "14",
+          "material": "時系列・馬齢・相対内容・比較条件"
+        },
+        {
+          "rank_item_id": "15",
+          "material": "不利・相手・内容・適性の証拠鎖"
+        },
+        {
+          "rank_item_id": "17",
+          "material": "公式コーナー順・位置・頭数"
+        },
+        {
+          "rank_item_id": "18",
+          "material": "複数時点の個馬位置"
+        },
+        {
+          "rank_item_id": "19",
+          "material": "公式先頭ラップ・距離・馬場・時計"
+        },
+        {
+          "rank_item_id": "20",
+          "material": "通過順・実ラップ・枠・不利・条件"
+        },
+        {
+          "rank_item_id": "21",
+          "material": "三時点以上の位置後退・回復"
+        },
+        {
+          "rank_item_id": "22",
+          "material": "コーナー名・順位・頭数"
+        },
+        {
+          "rank_item_id": "23",
+          "material": "序盤位置・先行競合・実ラップ・終盤内容"
+        },
+        {
+          "rank_item_id": "24",
+          "material": "終盤位置・相対上がり・ペース・裁決"
+        },
+        {
+          "rank_item_id": "25",
+          "material": "終盤改善・相対上がり・勝馬差"
+        },
+        {
+          "rank_item_id": "26",
+          "material": "公式裁決・本人馬・原因/被害/自己役割"
+        },
+        {
+          "rank_item_id": "27",
+          "material": "不利証拠・結果・相手・比較条件"
+        },
+        {
+          "rank_item_id": "28",
+          "material": "着順・公式着差・相手・格"
+        },
+        {
+          "rank_item_id": "29",
+          "material": "相手能力・着差・ペース・不利"
+        },
+        {
+          "rank_item_id": "30",
+          "material": "勝利時計・着差・相手・ペース・格"
+        },
+        {
+          "rank_item_id": "31",
+          "material": "公式特殊条件・裁決・比較可能な履歴"
+        },
+        {
+          "rank_item_id": "32",
+          "material": "前走と今回以前の比較可能な時系列内容"
+        },
+        {
+          "rank_item_id": "98",
+          "material": "15の潜在能力候補、29〜32の内容、33〜92の現在適合性、93〜97"
+        },
+        {
+          "rank_item_id": "99",
+          "material": "同馬の複数の比較可能な過去走、13/14/43〜92、今回条件とシナリオ"
+        }
+      ],
+      "analysis": "比較可能な連続履歴から時計基準差・上がり・位置・相手等の改善を検査し、着順に現れない変化の現在性を確認する。",
+      "stop_conditions": "正式基準なしの数値推移、欠損前走の飛ばし、好走だけの抽出は禁止。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-14",
+      "name": "転入・クラス変更による相手弱化",
+      "upstream_rank_item_ids": [
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "93",
+        "95"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "33",
+          "material": "公式競走格・資格・斤量条件・開催区分・適用規程の版、レース結果、基準時計（正式採用済みのみ）"
+        },
+        {
+          "rank_item_id": "34",
+          "material": "過去走の全出走馬ID・結果、相手の当時以前の実績、後続実績は37への参照、レーティングは38への参照"
+        },
+        {
+          "rank_item_id": "35",
+          "material": "今回の発走前全頭ID、過去の共有公式競走ID、両馬の結果、条件、通過順・着差が確認できれば併記"
+        },
+        {
+          "rank_item_id": "36",
+          "material": "今回の2頭と共通対戦馬の公式ID、別競走結果、条件、時点"
+        },
+        {
+          "rank_item_id": "37",
+          "material": "過去直接対戦の双方IDと競走ID、相手の後続レース公式結果、発走前時点の証拠"
+        },
+        {
+          "rank_item_id": "38",
+          "material": "JRA/NAR/IFHAの公式版、相手IDのcrosswalk、対象実績・評価範囲・発表時点"
+        },
+        {
+          "rank_item_id": "39",
+          "material": "前走・今回の正式格組、資格、主催者の格付・昇降級規程の有効版"
+        },
+        {
+          "rank_item_id": "40",
+          "material": "今回全出走馬の発走前能力証拠、比較対象過去走全出走馬、33/34/37/38"
+        },
+        {
+          "rank_item_id": "41",
+          "material": "今回想定クラスと実際の上位クラス経験、同格の相手・内容、正式な基準時計、現在条件への適性"
+        },
+        {
+          "rank_item_id": "42",
+          "material": "JRA・NAR固有IDの公式crosswalk、転入・所属履歴、双方の格規程とコース条件、移行前後実績"
+        },
+        {
+          "rank_item_id": "93",
+          "material": "直前実出走・今回の公式条件、43〜92の適性・展開・状態証拠"
+        },
+        {
+          "rank_item_id": "95",
+          "material": "全過去走の確認済み好走・凡走の条件、今回の公式条件、直近履歴"
+        }
+      ],
+      "analysis": "本人馬ID統合と正式格組規程に基づき、前走/転入前と今回の相手水準比較が支持されるかを調べる。",
+      "stop_conditions": "中央所属・降級表示だけで相手弱化としない。今回全相手の不足を明示。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "EYE-15",
+      "name": "複数の条件好転の組み合わせ",
+      "upstream_rank_item_ids": [
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      },
+      "required_materials": [
+        {
+          "rank_item_id": "93",
+          "material": "直前実出走・今回の公式条件、43〜92の適性・展開・状態証拠"
+        },
+        {
+          "rank_item_id": "94",
+          "material": "93と同じ入力・条件差、過去の不適合実績"
+        },
+        {
+          "rank_item_id": "95",
+          "material": "全過去走の確認済み好走・凡走の条件、今回の公式条件、直近履歴"
+        },
+        {
+          "rank_item_id": "96",
+          "material": "24〜27/31の敗因に関する確認済み事実・今回条件・公式変更・再発可能性"
+        },
+        {
+          "rank_item_id": "97",
+          "material": "93〜96の好転・悪化候補と全上流証拠ID・依存関係"
+        },
+        {
+          "rank_item_id": "98",
+          "material": "15の潜在能力候補、29〜32の内容、33〜92の現在適合性、93〜97"
+        },
+        {
+          "rank_item_id": "99",
+          "material": "同馬の複数の比較可能な過去走、13/14/43〜92、今回条件とシナリオ"
+        }
+      ],
+      "analysis": "今回同時成立し得る好転の作用経路を統合し、共通根拠・依存・反証を分離。複数の独立した経路かを検査する。",
+      "stop_conditions": "同じ展開・条件変更を別項目として水増ししない。必要根拠数を独断で固定しない。",
+      "identity": "inherit shared evidence IDs; no repeated fetch",
+      "prestart": "inherit upstream ASOF eligibility, current relevance separately audited",
+      "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+      "output_format": "eye_item_id,horse_id,evidence_ids,upstream_item_ids,observed_facts,current_relevance,mechanism_group,support,counter,unknowns,scenario_conditions,status",
+      "stage": "SOURCE_PLANNED",
+      "formal_admission": "NOT_ESTABLISHED"
+    }
+  ],
+  "market_gate": {
+    "market": "単勝",
+    "minimum_odds": 10,
+    "inclusive": true,
+    "timing": "確定時オッズ",
+    "stage": "発掘根拠の監査後",
+    "ability_input": false,
+    "discovery_input": false,
+    "source_candidates": {
+      "jra": "official prestart odds page",
+      "local": "official prestart odds page"
+    },
+    "snapshot_timing": "unresolved; only prestart version; no after-race final odds",
+    "status": "SOURCE_PLANNED_SEPARATE_NOT_ADMITTED"
+  },
+  "dedup_key": "source ID + native race/horse key + version + observation; analysis references same evidence_id",
+  "formal_admissions": 0,
+  "raw_sha256": null
+}
