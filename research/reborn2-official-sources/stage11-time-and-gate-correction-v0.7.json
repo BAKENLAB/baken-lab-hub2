@@ -1,0 +1,138 @@
+{
+  "version": "0.7.0",
+  "acceptance_commit": "748381571b9b4b8aa6f91a82873f00e2e9f70a4c",
+  "prior_correction_commit": "a94567b6780ffdd19182d8ec1db8fb8bc1bd45a2",
+  "observed_date_jst": "2026-11-27",
+  "source_pack": "BAKEN_LAB_REBORN2_STAGE10_FORMAL_EVIDENCE_PACK_V5_20261127.tar.gz",
+  "source_pack_sha256": "1edb850d452eb8a2c62564546f3373cb39dac87a6e682b733b72cfb5ebec9672",
+  "manifest_verified": 10,
+  "library_metadata": {
+    "created_at_utc": "2026-11-26T23:15:32+00:00",
+    "created_at_jst": "2026-11-27T08:15:32+09:00",
+    "note": "library registration timestamp, not page acquisition timestamp"
+  },
+  "original_timestamp_conflicts": [
+    {
+      "file": "JRA_JAPAN_CUP_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+      "field": "observed_at_jst",
+      "reported": "2026-11-27T17:00:00+09:00",
+      "tar_member_mtime_utc": "2026-11-26T23:11:35+00:00",
+      "tar_member_mtime_jst": "2026-11-27T08:11:35+09:00",
+      "sha256": "0fb1e34931eb4dd53e89b222b8f25a3c756d3557d8906553c0ef05ea3886f22e",
+      "corrected_value": null,
+      "affected_rows": 18
+    },
+    {
+      "file": "LOCAL_URAWA11_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+      "field": "evidence_observed_at_jst",
+      "reported": "2026-11-27T17:00:00+09:00",
+      "tar_member_mtime_utc": "2026-11-26T23:11:35+00:00",
+      "sha256": "263e4ee30c87e4c129bfc26bff26f63baae9aef4d99fcd329eb9de9dd9aa90d1",
+      "corrected_value": null,
+      "affected_rows": 9
+    },
+    {
+      "file": "OFFICIAL_PERSON_RESULT_ROW_JOINS_V1.json",
+      "field": "generated_at_jst",
+      "reported": "2026-11-27T17:30:00+09:00",
+      "tar_member_mtime_utc": "2026-11-26T23:07:13+00:00",
+      "sha256": "9dea3b3cc66dac1a704b5f2de18aeebcf9d53d0c6bb2bb5b1ede846d0ba96725",
+      "corrected_value": null,
+      "affected_rows": 21
+    },
+    {
+      "file": "STAGE10_MANIFEST_V2.json",
+      "field": "created_at_jst",
+      "reported": "2026-11-27T17:00:00+09:00",
+      "tar_member_mtime_utc": "2026-11-26T23:14:53+00:00",
+      "sha256": "b4d4e99920ec9791f982a2e6c0a57946fc0334d0439d6052c00ca33d716bb349",
+      "corrected_value": null
+    },
+    {
+      "file": "ACCEPTANCE_9ffbec4_RECEIPT.json",
+      "field": "reviewed_at_jst",
+      "reported": "2026-11-27T17:00:00+09:00",
+      "tar_member_mtime_utc": "2026-11-26T23:11:53+00:00",
+      "sha256": "f42282e198ffcdde9b85c863d9a061805e06e08022df7fcb1a0fb9bc1417a318",
+      "corrected_value": null
+    }
+  ],
+  "xlsx": {
+    "sha256": "1546897cd8e9520a38942e8f9f9a1220b8da1aceed4a1549bfc27696988c8c5c",
+    "zip_entry_time_literal": "2026-11-27 08:14:08",
+    "timezone": null,
+    "core_properties_xml_present": false,
+    "reported_roster_timestamp_rows": 18
+  },
+  "inspection": {
+    "actual_browser_request_log_found": false,
+    "raw_JC_card_bytes_found_in_stage10_pack": false,
+    "raw_JC_card_hash_found": false,
+    "mtime_not_acquisition": true,
+    "source_historical_published_at": null,
+    "possible_cause": "future value or time conversion mistake cannot establish root cause from available files; do not subtract nine hours by assumption",
+    "source_prior_local_history_time_note": "Retain individual original reported 2026-11-26 timestamps separately; no verified network acquisition timestamps inferred."
+  },
+  "new_observation": {
+    "session_window_jst": {
+      "lower": "2026-11-27T08:40:55+09:00",
+      "upper": "2026-11-27T08:42:56+09:00"
+    },
+    "meaning": "clock observations bound search-index session, not the source crawler acquisition or original Work capture",
+    "raw_response_sha256": null,
+    "actual_page_publication_timestamp": null,
+    "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605081220261129%2F3D",
+    "direct_open": "CACHE_MISS",
+    "indexed_source": "OBSERVED_OFFICIAL_INDEX",
+    "race_date": "2026-11-29",
+    "race_no": 12,
+    "meeting": "5回東京8日",
+    "scheduled_start": "15:40",
+    "distance_m": 2400,
+    "surface": "芝",
+    "turn": "左",
+    "official_dated_corroboration": {
+      "url": "https://www.jra.go.jp/news/202611/112606.html",
+      "date": "2026-11-26",
+      "kind": "post-training weight roster",
+      "note": "Official date is a separate pre-event publication witness, not a restored timestamp for original card or actual day weight."
+    },
+    "official_program": {
+      "url": "https://www.jra.go.jp/keiba/calendar2026/2026/11/1129.html",
+      "note": "general Thursday around 16:00 publication note, not individual actual timestamp"
+    }
+  },
+  "gate_revision": {
+    "source": "FORMAL_ADOPTION_EVIDENCE_GATES_V2.json",
+    "source_sha256": "92cc389b59b086ce6b5939512f67e2b89c413982fcb3637501e8ee23df0a8b70",
+    "version": "V3_STAGE11_DELTA",
+    "original_preserved": true,
+    "changes": [
+      {
+        "scope": "Work21",
+        "gate": "人物ID競走行結合",
+        "old_status": "PASS_LIMITED",
+        "new_status": "PASS_LIMITED_ROW_KEYS_REVERIFIED",
+        "meaning": "21/21 result row links rehashed and target/history runner numbers separated; person profile identity, publication, permission still pending"
+      },
+      {
+        "scope": "ジャパンC",
+        "gate": "歴史的公開時点",
+        "old_status": "PASS_LIMITED",
+        "new_status": "BLOCKED_CAPTURE_TIME",
+        "meaning": "old observation timestamp invalid; dated announcement evidence is separate; no original prestart snapshot authentication"
+      },
+      {
+        "scope": "浦和11R",
+        "gate": "歴史的公開時点",
+        "old_status": "PASS_LIMITED",
+        "new_status": "PASS_LIMITED_PUBLICATION_DATE_ONLY",
+        "meaning": "prior dated official notice chronology retained as reported; original observed_at invalid; no prestart capture"
+      }
+    ],
+    "other_gates": "retain V2 reports as limited or pending, do not upgrade independently",
+    "formal_adoption": false
+  },
+  "permission_status": "BLOCKED",
+  "production_changes": false
+}
