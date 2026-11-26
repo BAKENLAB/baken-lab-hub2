@@ -1,3 +1,4 @@
+import {mergeTypedFinding} from './merge-typed-finding.mjs';
 import {auditOfficialPacket} from './official-packet-audit.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -22,7 +23,7 @@ export function abilityResearch115v2({rankArgs,typedRecords=[]}){
  const t=typed.find(x=>x.horse_no===h.horse_no);
  return {...h,items:h.items.map(i=>{
  const x=t.items[i.item_id];if(!x?.observations.length)return i;
- return {...i,analysis_status:'OUTPUT_CANDIDATE',finding:{facts:x.observations.map(o=>({value:o.value,evidence_ids:o.evidence_ids})),hypotheses:[],counterevidence:[],unknowns:x.unknowns},evidence_ids:[...new Set(x.observations.flatMap(o=>o.evidence_ids))].sort(),typed_v2:true};
+ return mergeTypedFinding({item:i,typedItem:x,intake:prior.intake});
  })};})};
  const eye=inspectEye15({target,roster:boundRoster,rankAudit:merged,intake:prior.intake,catalog:pinned.items});
  const returned=returnToRank({rankAudit:merged,eyeRunners:eye,intake:prior.intake});
