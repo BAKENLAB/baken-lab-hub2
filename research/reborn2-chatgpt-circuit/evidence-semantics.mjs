@@ -30,7 +30,7 @@ export function inspectEvidence({target,records=[],sources=[]}){
   if(e.identity_status!=="VERIFIED"||e.identity_attestation_verified!==true)missing.push("IDENTITY_NOT_INDEPENDENTLY_ATTESTED");
   if(e.fact_or_proxy!=="FACT")missing.push("NOT_DIRECT_FACT");
   if(e.source_authenticity_verified!==true)missing.push("AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED");
-  if(["RESULT","POSITIONS","PEER_RESULT","INCIDENT","INDIVIDUAL_SPLITS","RACE_LAPS"].includes(kind)){
+  if(["RESULT","POSITIONS","PEER_RESULT","INCIDENT","INDIVIDUAL_SPLITS","RACE_LAPS","RACE_FIELD"].includes(kind)){
    if(e.race_id===target.race_id||ts(e.event_at)>=cutoff)errors.push("TARGET_OR_FUTURE_RESULT");
    if(Number.isFinite(ts(e.published_at_or_null))&&ts(e.published_at_or_null)<ts(e.event_at))errors.push("RESULT_PUBLISHED_BEFORE_EVENT");
   }
@@ -46,6 +46,8 @@ export function inspectEvidence({target,records=[],sources=[]}){
    if(v.dead_heat_group!=null&&!str(v.dead_heat_group))errors.push("DEAD_HEAT_GROUP_INVALID");
    if(!str(e.horse_id))errors.push("HORSE_REQUIRED");
    if(status==="START_STATUS_UNKNOWN")missing.push("ACTUAL_START_UNKNOWN");
+  }else if(kind==="RACE_FIELD"){
+   if(e.horse_id!==null||v.complete_field_verified!==true||!Number.isInteger(v.field_size)||v.field_size<1||!Array.isArray(v.runner_ids)||v.runner_ids.length!==v.field_size||new Set(v.runner_ids).size!==v.field_size||v.runner_ids.some(x=>!horse(x)||!x.startsWith(e.jurisdiction+":")))errors.push("FULL_FIELD_WITNESS_INVALID");
   }else if(kind==="INDIVIDUAL_SPLITS"||kind==="RACE_LAPS"){
    if(kind==="INDIVIDUAL_SPLITS"&&(!horse(e.horse_id)||v.measurement_scope!=="INDIVIDUAL"||v.measurement_verified!==true))errors.push("INDIVIDUAL_MEASUREMENT_REQUIRED");
    if(kind==="RACE_LAPS"&&(e.horse_id!==null||v.measurement_scope!=="RACE_LEADER"))errors.push("RACE_LEADER_SCOPE_REQUIRED");
