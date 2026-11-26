@@ -1,3 +1,4 @@
+import { buildIntegratedAudit } from './integrated-audit.mjs';
 import { compareOpponents } from './opponent-context.mjs';
 import { evaluateLocalBenchmark } from './local-benchmark.mjs';
 import { assessContext, judgeHistoricalContext } from './context-assessment.mjs';
@@ -135,11 +136,12 @@ export function analyzeField({input, profile=null, benchmarks=[],historyByHorse=
     for(const value of opponents) items['12'].push({status:'VERIFIED_HISTORICAL_MATCHUP',value});
     const historicalJudgments=judgeHistoricalContext(context.units,context.findings);
     const consumed=item01?.consumed_items??[];
-    return {horse_no:horse.horse_no,items,item01,historical_context:context.units,historical_judgments:historicalJudgments,ability_trace:{
+    const analyzed={horse_no:horse.horse_no,items,item01,historical_context:context.units,historical_judgments:historicalJudgments,ability_trace:{
       consumed_items:consumed,
       context_items_read:context.consumed,
       evidence_sources:item01?[...item01.visible_condition_evidence,...item01.other_condition_evidence].flatMap(c=>c.source_refs):[],
       final_grade:null}};
+    return {...analyzed,integrated_audit:buildIntegratedAudit({horse:analyzed,materials:horse.materials})};
   });
   const coverage=Object.fromEntries(ids.map(id=>{
     const supplied=h=>id==='01'?h.ability_trace.consumed_items.length>0:h.items[id].length>0;
