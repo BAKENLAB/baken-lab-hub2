@@ -1,3 +1,4 @@
+import { assessContext } from './context-assessment.mjs';
 import { inspectStartIncident } from '../reborn2-evidence-01-12/start-incident-09-intake.mjs';
 import { compareHistory } from './trends.mjs';
 import { supplyArchiveMaterials } from '../reborn2-evidence-01-12/archive-materials.mjs';
@@ -27,7 +28,7 @@ export function compareClock(run,samples,circuit) {
     source_refs:eligible.map(s=>s.source_ref)};
 }
 
-export function analyzeField({input, profile=null, benchmarks=[],historyByHorse={},incidentWitnesses=[]}) {
+export function analyzeField({input, profile=null, benchmarks=[],historyByHorse={},incidentWitnesses=[],verifiedContexts={},ratings=[],verifiedRoster=[]}) {
   const packet=supplyArchiveMaterials(input);
   if (profile && profile.circuit!==input.circuit) throw Error('PROFILE_CIRCUIT_MISMATCH');
   const base=profile ? integrateBase0112({profile,roster:input.roster,targetDate:input.targetDate}) : null;
@@ -106,9 +107,18 @@ export function analyzeField({input, profile=null, benchmarks=[],historyByHorse=
         items[id]=findings.map(value=>({status:'OBSERVED_COMPARISON',value}));
     }
     const item01=base?.runners.find(h=>h.horse_no===horse.horse_no)?.item01??null;
+    const identities=verifiedRoster.filter(h=>h.horse_no===horse.horse_no && h.verified===true &&
+      typeof h.horse_id==='string' && /^\d+$/.test(h.horse_id) &&
+      Date.parse(h.checked_at)<=Date.parse(input.cutoff));
+    const identity=identities.length===1 && verifiedRoster.filter(h=>h.horse_id===identities[0].horse_id).length===1
+      ? identities[0].horse_id : null;
+    const context=assessContext({items,targetDate:input.targetDate,cutoff:input.cutoff,ratings,
+      runPairs:horse.materials.map(run=>({run:{...run,horse_id:identity},id:runKey(run),context:verifiedContexts[horse.horse_no]?.[runKey(run)]}))});
+    for(const [id,findings] of Object.entries(context.findings)) items[id].push(...findings);
     const consumed=item01?.consumed_items??[];
-    return {horse_no:horse.horse_no,items,item01,ability_trace:{
+    return {horse_no:horse.horse_no,items,item01,historical_context:context.units,ability_trace:{
       consumed_items:consumed,
+      context_items_read:context.consumed,
       evidence_sources:item01?[...item01.visible_condition_evidence,...item01.other_condition_evidence].flatMap(c=>c.source_refs):[],
       final_grade:null}};
   });
@@ -117,7 +127,8 @@ export function analyzeField({input, profile=null, benchmarks=[],historyByHorse=
     const analyzed=runners.filter(supplied).length;
     const observations=runners.reduce((total,h)=>total+h.items[id].length,0);
     return [id,{target:runners.length,with_output:analyzed,observations,missing:runners.length-analyzed,
-      consumed:runners.filter(h=>h.ability_trace.consumed_items.includes(id)).length}];
+      consumed:runners.filter(h=>h.ability_trace.consumed_items.includes(id)).length,
+      context_read:runners.filter(h=>h.ability_trace.context_items_read.includes(id)).length}];
   }));
   return {circuit:input.circuit,target_date:input.targetDate,runners,coverage,scoring_authorized:false};
 }
