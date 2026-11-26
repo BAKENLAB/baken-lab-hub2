@@ -3,6 +3,7 @@ import {createHash} from 'node:crypto';
 import {analyzeField100} from './analyze-field-100.mjs';
 import {inspectEvidence,historyDenominators} from './evidence-semantics.mjs';
 import {inspectEye15,returnToRank} from './eye-01-15.mjs';
+import {recomputeReturned} from './rank-return-recompute.mjs';
 const pinned=JSON.parse(readFileSync(new URL('./catalog-115.json',import.meta.url),'utf8'));
 const canonical=v=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;
 const digest=v=>createHash('sha256').update(JSON.stringify(canonical(v))).digest('hex');
@@ -26,6 +27,8 @@ export function abilityResearch115({rankArgs,typedRecords=[]}){
  const rank=analyzeField100(rankArgs);
  const eye=inspectEye15({target,roster,rankAudit:rank.audit,intake,catalog:pinned.items});
  const returned=returnToRank({rankAudit:rank.audit,eyeRunners:eye,intake});
+ const recomputed=recomputeReturned({intake,returned});
+ for(const h of returned.runners){const r=recomputed.find(x=>x.horse_no===h.horse_no);h.actually_recomputed=r.recomputed_item_ids;h.still_pending_rank_items=r.still_pending_rank_items;}
  const runners=rank.audit.runners.slice().sort((a,b)=>a.horse_no-b.horse_no).map(h=>{
    const e=eye.find(x=>x.horse_no===h.horse_no),r=returned.runners.find(x=>x.horse_no===h.horse_no);
    const items=pinned.items.map(d=>{
@@ -40,5 +43,5 @@ export function abilityResearch115({rankArgs,typedRecords=[]}){
  const coverage=Object.fromEntries(pinned.items.map(d=>[d.id,{target:roster.length,implemented:runners.filter(h=>h.items.find(i=>i.item_id===d.id).implementation==='INITIAL_RESEARCH_PRESENT').length,candidate_output:runners.filter(h=>['OUTPUT_CANDIDATE','CANDIDATE_OUTPUT'].includes(h.items.find(i=>i.item_id===d.id).analysis_status)).length,validated:0,consumed:0,release_eligible:0}]));
  const snapshot={race_id:target.race_id,cutoff:target.cutoff,runners:runners.map(h=>({horse_no:h.horse_no,horse_id:h.horse_id,rank_candidate:null,ability_eligible:null})),decision_status:'UNAPPROVED_RESEARCH',market_snapshot_version:null};
  const ability_digest=digest({snapshot,runners,eye,returned});
- return {rank,eye,returned,intake,audit:{runners,coverage,actual_final_consumption:0,release_eligible:false},abilitySnapshot:{...snapshot,digest:ability_digest},release_eligible:false};
+ return {rank,eye,returned,recomputed,intake,audit:{runners,coverage,actual_final_consumption:0,release_eligible:false},abilitySnapshot:{...snapshot,digest:ability_digest},release_eligible:false};
 }
