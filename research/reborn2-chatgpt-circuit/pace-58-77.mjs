@@ -5,7 +5,7 @@ export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],
  const position=r=>{if(!Number.isInteger(r.field_size)||r.field_size<1||!Array.isArray(r.positions))return [];return unique(r.positions.filter(p=>Number.isInteger(p.segment)&&p.segment>0&&Number.isInteger(p.rank_min)&&Number.isInteger(p.rank_max)&&p.rank_min>=1&&p.rank_max>=p.rank_min&&p.rank_max<=r.field_size),p=>p.segment).sort((a,b)=>a.segment-b.segment)};
  const early=r=>position(r).find(p=>p.segment===r.first_segment&&r.segment_definition_verified===true);
  const exact=(a,b)=>["course_id","course_version","surface","distance","going","class_key"].every(k=>a[k]!=null&&a[k]===b[k]);
- const states=roster.map(entry=>{
+ const allStates=roster.map(entry=>{
  const h=identities.find(x=>x.horse_no===entry.horse_no),own=validRuns.filter(r=>r.horse_id===h?.horse_id).sort((a,b)=>ts(b.started_at)-ts(a.started_at));
  const w=unique(history.filter(x=>h&&bound(x,h.horse_id,target.race_id)&&x.chronology_verified===true&&Array.isArray(x.ordered_race_ids)),x=>x.horse_id).find(x=>x.horse_id===h?.horse_id);
  const last=w&&own[0]?.race_id===w.ordered_race_ids[0]?own[0]:null;
@@ -16,24 +16,26 @@ export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],
  const g=unique(gates.filter(x=>h&&x.horse_id===h.horse_id&&bound(x,h.horse_id,target.race_id)&&x.actual_gate_verified===true&&Number.isInteger(x.gate)&&x.gate>=1&&x.gate<=target.field_size),x=>x.horse_id)[0];
  return {entry,h,own,w,last,p,ep,front,lead,g};
  });
+ const states=allStates.filter(s=>s.entry.active!==false);
  const known=states.filter(s=>s.front==="YES").length,unknown=states.filter(s=>s.front==="UNKNOWN").length;
- const allGate=states.every(s=>s.g)&&new Set(states.map(s=>s.g?.gate)).size===roster.length;
+ const allGate=states.length>0&&states.every(s=>s.g)&&new Set(states.map(s=>s.g?.gate)).size===states.length;
  const sorted=allGate?states.slice().sort((a,b)=>a.g.gate-b.g.gate):[];
  const lead=states.filter(s=>s.lead.some(r=>exact(r,target)));
  const allRefs=states.flatMap(s=>[s.last?.evidence_id,s.w?.evidence_id,s.g?.evidence_id].filter(Boolean));
  const g=unique(course.filter(x=>bound(x,null,target.race_id)&&x.course_id===target.course_id&&x.course_version===target.course_version&&x.distance===target.distance&&ts(x.effective_from)<=ts(target.started_at)&&ts(target.started_at)<ts(x.effective_until)),x=>x.course_id)[0];
  const todayRaces=unique(today.filter(r=>bound(r,null,r.race_id)&&r.race_id!==target.race_id&&r.circuit===target.circuit&&r.local_date===target.local_date&&r.course_id===target.course_id&&r.course_version===target.course_version&&r.surface===target.surface&&ts(r.started_at)<c.cutoff&&ts(c.byId.get(r.evidence_id).published_at_or_null)>ts(r.started_at)&&r.complete_field_verified===true&&Array.isArray(r.results)&&r.results.length===r.field_size&&unique(r.results,q=>q.horse_id).length===r.field_size),r=>r.race_id);
  const positionRefs=new Map(validRuns.filter(r=>r.position_evidence_id&&c.byId.has(r.position_evidence_id)).map(r=>[r.evidence_id,r.position_evidence_id]));
- const runners=states.map(s=>{
+ const runners=allStates.map(s=>{
  const {h,own,w,last,p,ep,front}=s,I=c.items(58,77),put=(n,v,refs,kind="facts")=>add(I,n,kind,v,[...refs,...(["58","59","60","61","62","63","64","65","66","68","69","70","71","72","73","74","75"].includes(String(n))?refs.map(e=>positionRefs.get(e)).filter(Boolean):[])]);
- if(!h){for(const v of Object.values(I))v.unknowns.push("IDENTITY_UNVERIFIED");return {horse_no:s.entry.horse_no,horse_id:null,items:I}}
+ if(s.entry.active===false){for(const v of Object.values(I))v.unknowns.push('INACTIVE_NOT_APPLICABLE');return {horse_no:s.entry.horse_no,horse_id:null,items:I};}
+ if(!h||!h.horse_id){for(const v of Object.values(I))v.unknowns.push("IDENTITY_UNVERIFIED");return {horse_no:s.entry.horse_no,horse_id:null,items:I}}
  const hist=own.filter(r=>position(r).length).map(r=>({race_id:r.race_id,field_size:r.field_size,positions:position(r),conditions_match:exact(r,target),finish:r.finish??null,evidence_id:r.evidence_id}));
  if(hist.length)put("58",{segment_positions:hist,style_distribution:{early_observed:own.filter(early).length,early_lead:own.filter(r=>early(r)?.rank_max===1).length,early_top3:own.filter(r=>early(r)?.rank_max<=3).length,early_outside_top3:own.filter(r=>early(r)?.rank_min>3).length,early_ambiguous_or_missing:own.filter(r=>!early(r)||early(r).rank_min<=3&&early(r).rank_max>3).length}},hist.map(r=>r.evidence_id));
  if(last)put("59",{last_run_id:last.race_id,top3_any_corner:front,early_top3:ep?ep.rank_max<=3?"YES":ep.rank_min>3?"NO":"UNKNOWN":"UNKNOWN",late_only:ep?.rank_min>3&&p.some(q=>q.segment!==ep.segment&&q.rank_max<=3)},[last.evidence_id,w.evidence_id]);
  const frequency=rs=>({n:rs.length,observed:rs.filter(early).length,early_front:rs.filter(r=>early(r)?.rank_max<=3).length,unknown:rs.filter(r=>!early(r)||early(r).rank_min<=3&&early(r).rank_max>3).length});
  if(own.length){put("60",{long_term:frequency(own.filter(r=>exact(r,target))),recent:w?frequency(w.ordered_race_ids.slice(0,5).map(id=>own.find(r=>r.race_id===id)).filter(Boolean).filter(r=>exact(r,target))):null,prior5_missing:w?w.ordered_race_ids.slice(0,5).filter(id=>!own.some(r=>r.race_id===id)).length:null},own.map(r=>r.evidence_id));
  const e=own.filter(early);if(e.length)put("62",{lead:e.filter(r=>early(r).rank_max===1).map(r=>({race_id:r.race_id,finish:r.finish??null})),nonlead:e.filter(r=>early(r).rank_min>1).map(r=>({race_id:r.race_id,finish:r.finish??null})),dependence_hypothesis:null},e.map(r=>r.evidence_id));}
- put("63",{known_front:known,unknown,active_n:roster.length,lower:known/roster.length,upper:(known+unknown)/roster.length,band_hypothesis:null},allRefs);
+ put("63",{known_front:known,unknown,active_n:states.length,lower:states.length?known/states.length:null,upper:states.length?(known+unknown)/states.length:null,band_hypothesis:null},allRefs);
  if(s.lead.length)put("61",{observed_leads:s.lead.map(r=>r.race_id),matching_leads:s.lead.filter(r=>exact(r,target)).map(r=>r.race_id),candidate_ids:lead.map(x=>x.h.horse_id)},[...s.lead.map(r=>r.evidence_id),...lead.flatMap(x=>x.lead.map(r=>r.evidence_id))],"hypotheses");
  if(allGate){const j=sorted.indexOf(s),left=sorted[j-1],right=sorted[j+1];put("64",{gate_order:sorted.map(x=>({horse_id:x.h.horse_id,gate:x.g.gate,front:x.front}))},allRefs);
  const pattern=!left||!right?"NOT_APPLICABLE":s.front==="NO"&&left.front==="YES"&&right.front==="YES"?"PATTERN":s.front==="UNKNOWN"||left.front==="UNKNOWN"||right.front==="UNKNOWN"?"UNKNOWN":"NO_PATTERN";
