@@ -30,7 +30,7 @@ export function inspectEvidence({target,records=[],sources=[]}){
   if(e.identity_status!=="VERIFIED"||e.identity_attestation_verified!==true)missing.push("IDENTITY_NOT_INDEPENDENTLY_ATTESTED");
   if(e.fact_or_proxy!=="FACT")missing.push("NOT_DIRECT_FACT");
   if(e.source_authenticity_verified!==true)missing.push("AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED");
-  if(["RESULT","POSITIONS","PEER_RESULT","INCIDENT","INDIVIDUAL_SPLITS","RACE_LAPS","RACE_FIELD"].includes(kind)){
+  if(["RESULT","POSITIONS","PEER_RESULT","INCIDENT","INDIVIDUAL_SPLITS","RACE_LAPS","RACE_FIELD","EXPOSURE"].includes(kind)){
    if(e.race_id===target.race_id||ts(e.event_at)>=cutoff)errors.push("TARGET_OR_FUTURE_RESULT");
    if(Number.isFinite(ts(e.published_at_or_null))&&ts(e.published_at_or_null)<ts(e.event_at))errors.push("RESULT_PUBLISHED_BEFORE_EVENT");
   }
@@ -52,6 +52,14 @@ export function inspectEvidence({target,records=[],sources=[]}){
    if(kind==="INDIVIDUAL_SPLITS"&&(!horse(e.horse_id)||v.measurement_scope!=="INDIVIDUAL"||v.measurement_verified!==true))errors.push("INDIVIDUAL_MEASUREMENT_REQUIRED");
    if(kind==="RACE_LAPS"&&(e.horse_id!==null||v.measurement_scope!=="RACE_LEADER"))errors.push("RACE_LEADER_SCOPE_REQUIRED");
    if(!Array.isArray(v.splits)||!v.splits.length||v.splits.some(s=>!int(s.start_m)||!int(s.end_m)||s.end_m<=s.start_m||!int(s.elapsed_tenths)||s.elapsed_tenths===0)||v.splits.some((s,i)=>i>0&&s.start_m!==v.splits[i-1].end_m))errors.push("SPLIT_GRID_INVALID");
+  }else if(kind==="WORKOUT"){
+   if(!horse(e.horse_id)||e.race_id!==target.race_id||!str(v.session_id)||!str(v.facility)||!str(v.measurement_method)||!Number.isFinite(ts(v.session_at))||ts(v.session_at)>=cutoff||ts(v.session_at)>ts(e.published_at_or_null)||!Array.isArray(v.splits)||!v.splits.length||v.splits.some(x=>!Number.isFinite(x)||x<=0)||v.measurement_verified!==true)missing.push("WORKOUT_SCOPE_UNVERIFIED");
+  }else if(kind==="TRAVEL"){
+   if(!horse(e.horse_id)||e.race_id!==target.race_id||!str(v.origin)||!str(v.destination)||v.actual_transport_verified!==true||!Number.isFinite(v.duration_minutes)||v.duration_minutes<=0||!Number.isFinite(ts(v.completed_at))||ts(v.completed_at)>ts(e.published_at_or_null)||ts(v.completed_at)>=cutoff)missing.push("TRAVEL_OBSERVATION_UNVERIFIED");
+  }else if(kind==="EXPOSURE"){
+   if(!horse(e.horse_id)||!["OFFICIAL_REPORT","AUTHORIZED_VIDEO"].includes(v.source_scope)||!["SAND","TRAFFIC"].includes(v.type)||!["EXPOSED","NOT_EXPOSED"].includes(v.exposure_status)||!str(v.response_observation)||v.runner_link_verified!==true)missing.push("EXPOSURE_SCOPE_UNVERIFIED");
+  }else if(kind==="PEDIGREE"){
+   if(!horse(e.horse_id)||e.race_id!==target.race_id||!horse(v.sire_id)||!horse(v.dam_id)||v.sire_id===v.dam_id||v.sire_id===e.horse_id||v.dam_id===e.horse_id||v.official_pedigree_verified!==true)missing.push("PEDIGREE_ID_UNVERIFIED");
   }else if(kind==="INCIDENT_COVERAGE"){
    if(!horse(e.horse_id)||v.coverage_scope!=="ALL_OFFICIAL_START_INCIDENTS"||v.official_rulings_complete!==true||!Array.isArray(v.actual_start_race_ids)||!v.actual_start_race_ids.length||new Set(v.actual_start_race_ids).size!==v.actual_start_race_ids.length||v.actual_start_race_ids.some(id=>!str(id)||id===target.race_id))missing.push("INCIDENT_COVERAGE_UNVERIFIED");
   }else if(kind==="INCIDENT"){
@@ -76,7 +84,7 @@ export function inspectEvidence({target,records=[],sources=[]}){
  }
  const accepted=[];
  // A single official result / position series per race and horse cannot be made independent by changing the event timestamp.
- const singletonKinds=new Set(["RESULT","PEER_RESULT","POSITIONS","RACE_LAPS","CURRENT_CARD","HISTORY"]);
+ const singletonKinds=new Set(["RESULT","PEER_RESULT","POSITIONS","RACE_LAPS","CURRENT_CARD","HISTORY","PEDIGREE","TRAVEL","RACE_FIELD"]);
  const singleton=new Map();
  for(const [key,rows] of groups){const r=rows[0].record;if(!singletonKinds.has(r.kind))continue;const id=JSON.stringify([r.jurisdiction,r.race_id,r.horse_id,r.kind]);if(!singleton.has(id))singleton.set(id,[]);singleton.get(id).push(key);}
  const conflictKeys=new Set([...singleton.values()].filter(keys=>keys.length>1).flat());
