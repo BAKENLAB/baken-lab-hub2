@@ -1,4 +1,6 @@
 import {abilityResearch115v3} from './analyze-field-115-v3.mjs';
+import {researchBoundaryFromAnalysis,researchDiscoveryFromAnalysis,discoveryFieldSummary} from './boundary-discovery-research.mjs';
+import {typedBridgeCoverage} from './research-input-boundary.mjs';
 import {fingerprint} from './recompute-full-rank.mjs';
 import {inspectEvidence} from './evidence-semantics.mjs';
 import {inspectEye15} from './eye-01-15.mjs';
@@ -20,8 +22,7 @@ export function stagedAbilityResearch({rankArgs,initialRecords=[],discoveredReco
  const eyeScan=inspectEye15({target,roster:bound,rankAudit:before.rerun.rank.audit,intake:all,catalog:catalog.items});
  const found=new Set(eyeScan.flatMap(h=>h.items.flatMap(i=>i.original_event_keys)));
  const original=eventMap(before.prior.intake);
- const proposed=eventMap(all);
- const candidates=all.accepted.filter(g=>found.has(g.event_key)&&g.evidence_ids.some(id=>discoveredRecords.some(r=>r.evidence_id===id)));
+  const candidates=all.accepted.filter(g=>found.has(g.event_key)&&g.evidence_ids.some(id=>discoveredRecords.some(r=>r.evidence_id===id)));
  // Corrections or conflicts affecting old roots must be passed through the intake again even if no positive discovery exists.
  const initialIds=new Set(initialRecords.map(r=>r.evidence_id));
  const existingRoots=new Set(before.prior.intake.accepted.map(g=>g.event_key));
@@ -48,5 +49,6 @@ export function stagedAbilityResearch({rankArgs,initialRecords=[],discoveredReco
  return {item_id:i.item_id,before_hash:itemFingerprint(old),after_hash:itemFingerprint(i),changed:itemFingerprint(old)!==itemFingerprint(i),reexecuted:true,final_consumption:false};
  })}));
  const interpret=eyeScan.flatMap(h=>h.items.map(i=>{const old=before.eye.find(r=>r.horse_no===h.horse_no)?.items.find(x=>x.eye_item_id===i.eye_item_id);return {horse_no:h.horse_no,item_id:i.eye_item_id,before_hash:fingerprint(old?.observed_facts),scan_hash:fingerprint(i.observed_facts),changed:fingerprint(old?.observed_facts)!==fingerprint(i.observed_facts),shared_original_events:i.original_event_keys.filter(k=>shared.includes(k))};}));
- return {before,after,eyeScan,return_audit:{initial_input_hash:fingerprint({rankArgs,records:initialRecords}),final_input_hash:fingerprint({rankArgs,records:finalRecords}),before_actual_bridge_hash:before.rerun.input_version,after_actual_bridge_hash:after.rerun.input_version,before_semantic_hash:fingerprint(canonicalEvents(before.prior.intake)),after_semantic_hash:fingerprint(canonicalEvents(after.prior.intake)),added_original_events:added,removed_original_events:removed,revised_original_events:revised,shared_reinterpretations:shared,new_fact_count:added.length,revised_fact_count:revised.length,returned_record_ids:returnedRecords.map(x=>x.evidence_id).sort(),not_returned:discoveredRecords.filter(r=>!selectedIds.has(r.evidence_id)).map(r=>({evidence_id:r.evidence_id,reason:all.inspected.find(x=>x.evidence_id===r.evidence_id)?.stage??'NOT_OBSERVED_BY_EYE'})),interpretation_differences:interpret,per_horse:rows,reexecuted:true,final_consumption:0,formal_admissions:0},rank_candidate:null,eye_candidate:null,release_eligible:false};
+ const discovery=researchDiscoveryFromAnalysis(after);
+ return {before,after,eyeScan,boundary_research:researchBoundaryFromAnalysis({analysis:after,target}),discovery_research:discovery,discovery_summary:discoveryFieldSummary(discovery),typed_bridge_coverage:typedBridgeCoverage(after.prior.intake,after.rerun),return_audit:{initial_input_hash:fingerprint({rankArgs,records:initialRecords}),final_input_hash:fingerprint({rankArgs,records:finalRecords}),before_actual_bridge_hash:before.rerun.input_version,after_actual_bridge_hash:after.rerun.input_version,before_semantic_hash:fingerprint(canonicalEvents(before.prior.intake)),after_semantic_hash:fingerprint(canonicalEvents(after.prior.intake)),added_original_events:added,removed_original_events:removed,revised_original_events:revised,shared_reinterpretations:shared,new_fact_count:added.length,revised_fact_count:revised.length,returned_record_ids:returnedRecords.map(x=>x.evidence_id).sort(),not_returned:discoveredRecords.filter(r=>!selectedIds.has(r.evidence_id)).map(r=>({evidence_id:r.evidence_id,reason:all.inspected.find(x=>x.evidence_id===r.evidence_id)?.stage??'NOT_OBSERVED_BY_EYE'})),interpretation_differences:interpret,per_horse:rows,reexecuted:true,final_consumption:0,formal_admissions:0},rank_candidate:null,eye_candidate:null,release_eligible:false};
 }
