@@ -74,7 +74,9 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  if(d.length&&r){const last=d.at(-1);if(last.max_gain<0)put('24','LATE_POSITION_LOSS',{race_id:g.record.race_id,late_transition:last,cause:null},[g,r],['18','02']);if(last.min_gain>0&&r.record.fact.finish>1)put('25','LATE_GAIN_WITHOUT_WIN',{race_id:g.record.race_id,late_transition:last,finish:r.record.fact.finish,remaining_energy:null},[g,r],['18','02']);}
  }
  const raceIds=new Set(results.map(g=>g.record.race_id));
- for(const g of accepted.filter(x=>x.record.kind==='RACE_LAPS'&&raceIds.has(x.record.race_id)))put('19','LEADER_LAPS',{race_id:g.record.race_id,splits:g.record.fact.splits,individual:false},[g]);
+ for(const g of accepted.filter(x=>x.record.kind==='RACE_LAPS'&&raceIds.has(x.record.race_id))){
+ const split=g.record.fact.splits;
+ put('19','LEADER_LAPS',{race_id:g.record.race_id,splits:split,leader_interval_mean_mps:split.map(s=>({start_m:s.start_m,end_m:s.end_m,mean_mps:(s.end_m-s.start_m)*10/s.elapsed_tenths})),observed_total_tenths:split.reduce((n,s)=>n+s.elapsed_tenths,0),individual:false},[g]);}
  for(const g of byKind('RATING')){const f=g.record.fact;if(Number.isFinite(f.rating)&&typeof f.rating_scope==='string'&&typeof f.rating_version==='string')put('16','OFFICIAL_RATING_CANDIDATE',{rating:f.rating,scope:f.rating_scope,version:f.rating_version},[g]);}
  const match=finished.filter(g=>exact(g.record.fact,curr));
  if(match.length>=2){
@@ -84,9 +86,11 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  }
  if(order.length>=2){const a=get(finished,order[0]),b=get(finished,order[1]);if(a&&b&&Date.parse(a.record.event_at)>Date.parse(b.record.event_at)&&exact(a.record.fact,b.record.fact)){
  const af=a.record.fact,bf=b.record.fact;
- const delta={latest:a.record.race_id,previous:b.record.race_id,clock_difference_tenths:af.clock_tenths!=null&&bf.clock_tenths!=null?af.clock_tenths-bf.clock_tenths:null,finish_difference:af.finish-bf.finish,ability_change:null};
+ const delta={latest:a.record.race_id,previous:b.record.race_id,clock_difference_tenths:af.clock_tenths!=null&&bf.clock_tenths!=null?af.clock_tenths-bf.clock_tenths:null,finish_difference:af.finish-bf.finish,final3f_difference_tenths:af.final3f_tenths!=null&&bf.final3f_tenths!=null?af.final3f_tenths-bf.final3f_tenths:null,winner_gap_difference_tenths:af.winner_gap_tenths!=null&&bf.winner_gap_tenths!=null?af.winner_gap_tenths-bf.winner_gap_tenths:null,field_size_difference:af.field_size-bf.field_size,ability_change:null};
  put('32','IMMEDIATE_COMPARABLE_CHANGE',delta,[a,b,...chronological],['02','05']);put('14','CHRONOLOGICAL_CONTENT_CHANGE',delta,[a,b,...chronological],['32']);
  }}
+ // Multi-run chronology comparison: no improvement label is derived from raw clock direction alone.
+ if(order.length>=3){const ordered=order.map(r=>get(finished,r));if(ordered.every(Boolean)&&ordered.every((g,i)=>i===0||Date.parse(ordered[i-1].record.event_at)>Date.parse(g.record.event_at))){const common=ordered.filter(g=>exact(g.record.fact,ordered[0].record.fact));if(common.length>=3)put('14','MATCHED_CHRONOLOGICAL_SERIES',{race_ids:common.map(g=>g.record.race_id),clock_tenths:common.map(g=>g.record.fact.clock_tenths),final3f_tenths:common.map(g=>g.record.fact.final3f_tenths??null),finishes:common.map(g=>g.record.fact.finish),excluded_nonmatching:ordered.filter(g=>!common.includes(g)).map(g=>g.record.race_id),baseline_adjusted_trend:null,ability_change:null},[...common,...chronological],['02','05','06','32']);}}
  const distanceGroups=new Map();for(const g of finished){const f=g.record.fact;if(!Number.isInteger(f.distance_m)||f.final3f_tenths==null)continue;const k=JSON.stringify([f.course_id,f.course_version,f.surface,f.going,f.class_key,f.distance_m]);if(!distanceGroups.has(k))distanceGroups.set(k,[]);distanceGroups.get(k).push(g);}
  if(distanceGroups.size>1)put('11','DISTANCE_CONTEXT_OBSERVATIONS',{groups:[...distanceGroups].map(([k,gs])=>({condition_key:k,final3f_tenths:gs.map(g=>g.record.fact.final3f_tenths)})),fatigue_conclusion:null},[...distanceGroups.values()].flat(),['05','06']);
  for(const g of finished.filter(g=>g.record.fact.finish>1)){
