@@ -1,0 +1,30 @@
+import { analyzeOpposition33to42 } from './opposition-33-42.mjs';
+function runTests(analyze){
+ const eq=(x,y,msg)=>{if(JSON.stringify(x)!==JSON.stringify(y))throw Error(msg+" "+JSON.stringify(x)+" != "+JSON.stringify(y));};
+ const ev=(id)=>({identity_status:"VERIFIED",source_verified:true,evidence_id:id,source_ref:"fixture:"+id,source_version:"v1",published_at:"2026-01-01T00:00:00Z",observed_at:"2026-01-01T00:01:00Z"});
+ const target={circuit:"LOCAL",race_id:"target",field_size:3,started_at:"2026-11-22T10:00:00Z",cutoff:"2026-11-22T09:59:00Z"};
+ const a="LOCAL:1",b="LOCAL:2",x="LOCAL:3",c="LOCAL:4";
+ const roster=[a,b,c].map((horse_id,i)=>({...ev("r"+i),horse_id,horse_no:i+1,race_id:"target"}));
+ const race=(id,date,arr)=>({...ev(id),circuit:"LOCAL",race_id:id,started_at:date+"T01:00:00Z",published_at:date+"T02:00:00Z",observed_at:date+"T03:00:00Z",field_size:arr.length,results:arr.map(([horse_id,finish])=>({horse_id,finish,status:"FINISHED"}))});
+ const p=race("p","2026-10-01",[[a,2],[b,2],[x,1]]);
+ const q=race("q","2026-10-02",[[c,1],[x,2]]);
+ const f=race("f","2026-10-03",[[x,9],...[11,12,13,14,15,16,17,18].map((n,i)=>["LOCAL:"+n,i+1])]);
+ const late=race("late","2026-11-23",[[a,1],[b,2]]);
+ const z=analyze({target,roster,races:[p,q,f,late]});
+ eq(z.accepted_races,3,"late exclusion");
+ eq(z.runners[0].items["35"].facts[0].value.outcome,"SAME_FINISH","dead heat");
+ eq(z.runners[0].items["36"].facts[0].value.transitive_conclusion,null,"no transitive ranking");
+ eq(z.runners[0].items["37"].facts.some(y=>y.value.peer_finish===9),true,"preserve losses");
+ eq(z.shared_followups.filter(y=>y.peer_id===x&&y.later_result_id==="f").length,1,"shared dedup");
+ eq(z.runners[0].items["38"].facts.length,0,"missing rating");
+ eq(z.runners[0].items["39"].facts.length,0,"missing rule");
+ eq(z.runners[0].items["40"].facts[0].value.comparative_direction,null,"no strength assumption");
+ eq(z.coverage["35"].consumed,0,"no score consumption");
+ eq(analyze({target,roster,races:[p,p]}).accepted_races,0,"duplicate race rejected");
+ eq(analyze({target,roster:[roster[0],{...roster[1],horse_id:a},roster[2]],races:[p]}).runners[0].horse_id,null,"identity collision");
+ eq(analyze({target,roster,races:[{...p,published_at:null}]}).accepted_races,0,"unknown publication");
+ eq(analyze({target,roster,races:[{...p,field_size:4}]}).accepted_races,0,"incomplete field");
+ eq(z.runners.length,3,"all roster retained");
+ return {assertions:14,passed:14};
+}
+console.log(runTests(analyzeOpposition33to42));
