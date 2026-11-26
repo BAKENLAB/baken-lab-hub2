@@ -1,4 +1,4 @@
-export function inspectEye15({target,roster,rankAudit,intake,catalog}){
+export function inspectEye15({target,roster,rankAudit,intake,catalog,traceRead=()=>{}}){
  const defs=catalog.filter(x=>x.id.startsWith("EYE-"));
  if(defs.length!==15||!rankAudit?.runners||rankAudit.runners.length!==roster.length)throw Error("EYE_CONTEXT");
  const byRef=new Map(intake.accepted.flatMap(g=>g.evidence_ids.map(e=>[e,g])));
@@ -25,7 +25,7 @@ export function inspectEye15({target,roster,rankAudit,intake,catalog}){
  const n=d.id.slice(-2), upstream=d.upstream_rank_item_ids.map(id=>find(rank,id)).filter(Boolean);
  const observations=[],support=[],counter=[],unknowns=[],scenarios=[];
  const add=(type,v,refs=[],ids=[])=>observations.push({type,value:v,evidence_ids:unique(refs),upstream_item_ids:unique(ids),classification:"RESEARCH_CANDIDATE"});
- const linked=(ids)=>ids.flatMap(id=>facts(find(rank,id)).map(f=>({id,v:value(f),refs:list(f.evidence_ids??(f.evidence_id?[f.evidence_id]:[]))})));
+ const linked=(ids)=>ids.flatMap(id=>{const input=find(rank,id),values=facts(input);if(values.length)traceRead({consumer:"inspectEye15",consumer_item_id:d.id,horse_no:h.horse_no,item_id:id,value:input.finding,reason:"Read source item facts, hypotheses and counterevidence for this EYE analysis"});return values.map(f=>({id,v:value(f),refs:list(f.evidence_ids??(f.evidence_id?[f.evidence_id]:[]))}));});
  const use=(ids,type)=>{for(const x of linked(ids))add(type,x.v,x.refs,[x.id]);};
  const rel=(r)=>same(r,currentFact);
  if(n==="01"){
@@ -108,7 +108,7 @@ export function inspectEye15({target,roster,rankAudit,intake,catalog}){
  // Raw references are never promoted by the existence of an upstream output.
  const refs=unique(observations.flatMap(x=>x.evidence_ids));
  const roots=unique(refs.map(e=>byRef.get(e)?.event_key).filter(Boolean));
- for(const a of upstream){for(const x of list(a.finding?.counterevidence))counter.push({item_id:a.item_id,observation:x});for(const x of list(a.finding?.hypotheses))scenarios.push({item_id:a.item_id,observation:x});}
+ for(const a of upstream){if(list(a.finding?.counterevidence).length||list(a.finding?.hypotheses).length)traceRead({consumer:"inspectEye15.counter_and_scenario",consumer_item_id:d.id,horse_no:h.horse_no,item_id:a.item_id,value:{counterevidence:a.finding?.counterevidence??[],hypotheses:a.finding?.hypotheses??[]},reason:"Read contrary and scenario material into EYE audit"});for(const x of list(a.finding?.counterevidence))counter.push({item_id:a.item_id,observation:x});for(const x of list(a.finding?.hypotheses))scenarios.push({item_id:a.item_id,observation:x});}
  if(!observations.length)unknowns.push("NO_BOUND_ANALYSIS_OUTPUT");
  if(refs.some(e=>!byRef.has(e)))unknowns.push("UPSTREAM_REFERENCE_NOT_ADMITTED_BY_TYPED_GATE");
  unknowns.push("CURRENT_RELEVANCE_AND_SELECTION_RULE_UNAPPROVED");

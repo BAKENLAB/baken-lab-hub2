@@ -9,7 +9,7 @@ import {strengthen40to42and46and53} from './strengthen-40-42-46-53.mjs';
 const load=p=>JSON.parse(readFileSync(new URL(p,import.meta.url),'utf8'));
 const canonical=load('../reborn2-canonical/chapter1-100-items.json').groups.flatMap(g=>g.items);
 const sourceIndex=load('./source-index-a959571.json');
-export function analyzeField100({baseArgs,oppositionArgs,conditionMaterials={},evidence=[],paceMaterials={},stateMaterials={},changeMaterials={},strengtheningMaterials={}}){
+export function analyzeField100({baseArgs,oppositionArgs,conditionMaterials={},evidence=[],paceMaterials={},stateMaterials={},changeMaterials={},strengtheningMaterials={},runtimeTrace=()=>{}}){
  const {target,roster}=oppositionArgs;
  const ctx={target,roster,evidence};
  const c=common(target,roster,evidence);
@@ -30,7 +30,7 @@ export function analyzeField100({baseArgs,oppositionArgs,conditionMaterials={},e
  const priorAudit=auditAll100({...ctx,sections,canonical,sourceIndex});
  const upstream=priorAudit.runners.flatMap(h=>h.items.filter(i=>Number(i.item_id)<=92&&i.analysis_status==='OUTPUT_CANDIDATE'&&i.contract_matched_evidence_ids.length>0).map(i=>({horse_id:h.horse_id,item_id:i.item_id,source_cutoff:target.cutoff,evidence_ids:i.contract_matched_evidence_ids,analysis_status:i.analysis_status})));
  // All evidence used here remains research candidate, including validated-looking upstream flags.
- const changes=analyzeChanges93to100({...changeMaterials,...ctx,upstream});
+ const changes=analyzeChanges93to100({...changeMaterials,...ctx,upstream,traceRead:runtimeTrace});
  sections.push({lo:93,hi:100,result:changes});
  const audit=auditAll100({...ctx,sections,canonical,sourceIndex});
  return {previous,pace,state,changes,strengthening,audit,release_eligible:false,rank_candidate:null,eye_candidate:null,scoring_authorized:false};

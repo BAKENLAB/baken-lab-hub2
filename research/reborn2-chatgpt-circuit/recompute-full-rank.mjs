@@ -15,7 +15,8 @@ export function rebuildRankInputs({rankArgs,intake,boundRoster}){
  const refs=[],evidence=new Map((args.evidence??[]).map(e=>[e.evidence_id,e]));
  const stamp=g=>{const r=g.record;return {evidence_id:r.evidence_id,horse_id:r.horse_id,race_id:r.race_id,runner_no:r.runner_no,source_id:r.source_id,source_url:r.source_url,source_ref:r.source_url,source_version:r.source_version,identity_status:'VERIFIED',source_verified:true,published_at:r.published_at_or_null,published_at_or_null:r.published_at_or_null,observed_at:r.observed_at,cutoff:r.cutoff,permission_status:r.permission_status,raw_sha256_or_null:r.raw_sha256_or_null,fact_or_proxy:'FACT',research_bridge_only:true}};
  const add=g=>{const e=stamp(g),old=evidence.get(e.evidence_id);if(old&&(old.horse_id!==e.horse_id||old.race_id!==e.race_id||old.source_version!==e.source_version||old.raw_sha256_or_null!==e.raw_sha256_or_null))return null;evidence.set(e.evidence_id,e);return e;};
- const upsert=(xs,ys,k)=>{const m=new Map((xs??[]).map(x=>[k(x),x]));for(const x of ys)m.set(k(x),x);return [...m.values()]};
+ const bridgeConflicts=[];
+ const upsert=(xs,ys,k)=>{const m=new Map((xs??[]).map(x=>[k(x),x]));for(const x of ys){const old=m.get(k(x));if(old){const critical=['finish','status','distance','course_id','course_version','class_key','surface','going','body_weight_kg','actual_gate','ordered_race_ids','results','positions'];const differences=critical.filter(p=>old[p]!=null&&x[p]!=null&&JSON.stringify(old[p])!==JSON.stringify(x[p]));if(differences.length){bridgeConflicts.push({key:k(x),fields:differences,old_evidence_id:old.evidence_id,new_evidence_id:x.evidence_id,status:'CONFLICT_PENDING_RECONCILIATION'});m.delete(k(x));continue;}m.set(k(x),{...old,...Object.fromEntries(Object.entries(x).filter(([,v])=>v!=null))});}else m.set(k(x),x);}return [...m.values()]};
  // Do not replace old runner evidence on an ambiguous/contradictory card.
  const newRoster=args.oppositionArgs.roster.map(h=>{const b=boundRoster.find(r=>r.horse_no===h.horse_no),g=b?.horse_id&&cardFor(b.horse_id);if(!g||!eligible.has(b.horse_id))return h;const e=add(g);if(!e)return h;return {...h,...e,horse_no:h.horse_no,active:h.active};});
  args.oppositionArgs.roster=newRoster;
@@ -55,16 +56,16 @@ export function rebuildRankInputs({rankArgs,intake,boundRoster}){
  args.stateMaterials={...args.stateMaterials,runs:upsert(args.stateMaterials?.runs,runs,rk),history:upsert(args.stateMaterials?.history,histories,hk),current:upsert(args.stateMaterials?.current,currents,hk)};
  args.changeMaterials={...args.changeMaterials,runs:upsert(args.changeMaterials?.runs,runs,rk),history:upsert(args.changeMaterials?.history,histories,hk),currentConditions:upsert(args.changeMaterials?.currentConditions,currents,hk)};
  args.evidence=[...evidence.values()];
- return {args,bridge_inputs:refs,version:fingerprint({target,roster:newRoster,events:groups.map(g=>[g.event_key,g.record.source_version,g.record.raw_sha256_or_null,g.record.fact])}),formal_admissions:0};
+ return {args,bridge_inputs:refs,bridge_conflicts:bridgeConflicts,version:fingerprint({target,roster:newRoster,events:groups.map(g=>[g.event_key,g.record.source_version,g.record.raw_sha256_or_null,g.record.fact])}),formal_admissions:0};
 }
-export function recomputeFullRank({rankArgs,intake,boundRoster,priorRank}){
+export function recomputeFullRank({rankArgs,intake,boundRoster,priorRank,traceRead=()=>{}}){
  const bridge=rebuildRankInputs({rankArgs,intake,boundRoster});
- const recalculated=analyzeField100(bridge.args);
+ const recalculated=analyzeField100({...bridge.args,runtimeTrace:traceRead});
  const stageRanges=[[33,42,'analyzeOpposition33to42'],[43,57,'analyzeConditions43to57'],[58,77,'analyzePace58to77'],[78,92,'analyzeState78to92'],[93,99,'analyzeChanges93to100']];
  const rows=recalculated.audit.runners.map(h=>({horse_no:h.horse_no,horse_id:h.horse_id,items:h.items.filter(i=>Number(i.item_id)>=33&&Number(i.item_id)<=99).map(i=>{
  const before=priorRank.audit.runners.find(r=>r.horse_no===h.horse_no)?.items.find(x=>x.item_id===i.item_id);
  const changed=fingerprint(before?.finding)!==fingerprint(i.finding);
  return {item_id:i.item_id,function_name:stageRanges.find(([lo,hi])=>Number(i.item_id)>=lo&&Number(i.item_id)<=hi)[2],input_version:bridge.version,previous_output_hash:fingerprint(before?.finding),output_hash:fingerprint(i.finding),function_executed:true,changed,reason:changed?'RESEARCH_OUTPUT_CHANGED':i.analysis_status==='NO_OUTPUT'?'NO_ADMISSIBLE_NEW_OUTPUT':'SAME_OUTPUT_ON_REEXECUTION',status:i.analysis_status,final_consumption:false};
  })}));
- return {rank:recalculated,bridge_inputs:bridge.bridge_inputs,input_version:bridge.version,rows,all_stage_functions_executed:true,formal_admissions:0};
+ return {rank:recalculated,bridge_inputs:bridge.bridge_inputs,bridge_conflicts:bridge.bridge_conflicts,input_version:bridge.version,rows,all_stage_functions_executed:true,formal_admissions:0};
 }

@@ -1,6 +1,6 @@
 import {historyDenominators} from './evidence-semantics.mjs';
 // Typed research overlay. A missing measurement is not a negative ability conclusion.
-export function analyzeTyped01to32({target,roster,intake}){
+export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const ids=Array.from({length:32},(_,i)=>String(i+1).padStart(2,'0'));
  const accepted=intake.accepted;
  const keyset=['course_id','course_version','distance_m','surface','going','class_key'];
@@ -81,10 +81,10 @@ export function analyzeTyped01to32({target,roster,intake}){
  if(peers.length&&(f.winner_gap_tenths!=null||f.margin_reference==='WINNER'))put('29','DEFEAT_WITH_SHARED_RACE_PEERS',{race_id:r,finish:f.finish,winner_gap_tenths:f.winner_gap_tenths??null,peers:peers.map(p=>({horse_id:p.record.horse_id,finish:p.record.fact.finish})),peer_quality:null,ability_conclusion:null},[g,...peers],['02','03','28']);
  const special=incident.filter(i=>i.record.race_id===r&&i.record.fact.role==='SUFFERED');
  if(special.length)put('31','DEFEAT_WITH_OFFICIAL_INCIDENT',{race_id:r,finish:f.finish,incidents:special.map(i=>i.record.fact.incident_code),causal_attribution:null},[g,...special],['02','26','28']);
- if(exact(f,curr)){const recovery=items['21'].observations.filter(x=>x.value.race_id===r);if(recovery.length)put('15','CURRENT_MATCH_HISTORICAL_RECOVERY',{race_id:r,finish:f.finish,observed_recovery:recovery.map(x=>x.value),latent_ability:null},[g,...card,...accepted.filter(q=>recovery.some(x=>x.original_event_keys.includes(q.event_key)))],['21','32']);}
+ if(exact(f,curr)){const recovery=items['21'].observations.filter(x=>x.value.race_id===r);if(recovery.length)traceRead({consumer:'analyzeTyped01to32.latentRecovery',consumer_item_id:'15',horse_no:h.horse_no,item_id:'21',value:recovery,reason:'Read actual recovery observation for current condition candidate'});if(recovery.length)put('15','CURRENT_MATCH_HISTORICAL_RECOVERY',{race_id:r,finish:f.finish,observed_recovery:recovery.map(x=>x.value),latent_ability:null},[g,...card,...accepted.filter(q=>recovery.some(x=>x.original_event_keys.includes(q.event_key)))],['21','32']);}
  }
  // 01 combines typed evidence descriptions without counting them as votes.
- const base=ids.slice(1,16).flatMap(id=>items[id].observations.map(o=>({item_id:id,kind:o.kind,original_event_keys:o.original_event_keys})));
+ const base=ids.slice(1,16).flatMap(id=>{if(items[id].observations.length)traceRead({consumer:"analyzeTyped01to32.baseBundle",consumer_item_id:"01",horse_no:h.horse_no,item_id:id,value:items[id],reason:"Read historical component output into base evidence bundle"});return items[id].observations.map(o=>({item_id:id,kind:o.kind,original_event_keys:o.original_event_keys}));});
  const root=uniq(base.flatMap(x=>x.original_event_keys));
  if(root.length)put('01','BASE_EVIDENCE_BUNDLE',{items:base,current_ability:null},accepted.filter(g=>root.includes(g.event_key)),ids.slice(1,16));
  for(const [id,reason] of Object.entries({'01':'CURRENT_OPPONENT_AND_ABILITY_UNVALIDATED','07':'INSTANTANEOUS_ACCELERATION_UNMEASURED','08':'SUSTAINED_ABILITY_UNVALIDATED','10':'SECOND_STEP_ACCELERATION_UNMEASURED','11':'DISTANCE_FATIGUE_CAUSALITY_UNVALIDATED','12':'CURRENT_WINNING_PATH_NOT_HISTORICAL_RATE','15':'LATENT_ABILITY_CAUSAL_CHAIN_UNVALIDATED','20':'COUNTERFACTUAL_PACE_UNVALIDATED','23':'COMPETITION_FATIGUE_UNVALIDATED','24':'CAUSE_UNVERIFIED','25':'REMAINING_ENERGY_UNMEASURED','27':'OVERCOMING_CAUSALITY_UNVALIDATED','29':'COMPARABLE_OPPONENT_QUALITY_UNVALIDATED','30':'WIN_VALUE_UNVALIDATED','31':'SPECIAL_CONDITION_CAUSALITY_UNVALIDATED'}))unknown(id,reason);

@@ -1,6 +1,6 @@
 import {personIdentity} from './person-identity.mjs';
 import {common} from './common-evidence.mjs';
-export function analyzeChanges93to100({target,roster,evidence=[],runs=[],history=[],currentConditions=[],mechanisms=[],upstream=[],personAttestations=[]}){
+export function analyzeChanges93to100({target,roster,evidence=[],runs=[],history=[],currentConditions=[],mechanisms=[],upstream=[],personAttestations=[],traceRead=()=>{}}){
  const c=common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
  const past=unique(runs.filter(prior),r=>r.horse_id+"|"+r.race_id);
  const keys=["course_id","course_version","distance","surface","going","turn","class_key","weight_kg","actual_gate","jockey_id","equipment_version"];
@@ -19,6 +19,7 @@ export function analyzeChanges93to100({target,roster,evidence=[],runs=[],history
   const refs=[h.evidence_id,w?.evidence_id,last?.evidence_id,curr?.evidence_id];
   const u=unique(upstream.filter(x=>x.horse_id===id&&x.source_cutoff===target.cutoff&&/^(0[1-9]|[1-8]\d|9[0-2])$/.test(x.item_id)&&Array.isArray(x.evidence_ids)&&x.evidence_ids.length&&x.evidence_ids.every(e=>c.byId.has(e))),x=>x.item_id);
   const validMechanisms=unique(mechanisms.filter(m=>m.horse_id===id&&m.race_id===target.race_id&&m.source_cutoff===target.cutoff&&typeof m.mechanism_id==="string"&&["SUPPORT","COUNTER","MIXED"].includes(m.direction)&&Array.isArray(m.upstream_item_ids)&&m.upstream_item_ids.length&&m.upstream_item_ids.every(i=>u.some(q=>q.item_id===i))&&Array.isArray(m.evidence_ids)&&m.evidence_ids.length&&m.evidence_ids.every(e=>u.some(q=>m.upstream_item_ids.includes(q.item_id)&&q.evidence_ids.includes(e)))&&typeof m.scenario_id==="string"&&m.current_relevance_verified===true),m=>m.mechanism_id);
+  for(const m of validMechanisms)for(const id of m.upstream_item_ids){const read=u.find(x=>x.item_id===id);if(read)traceRead({consumer:'analyzeChanges93to100.mechanism',horse_no:entry.horse_no,item_id:id,value:read,reason:'Validated structural reference for mechanism '+m.mechanism_id});}
   if(last&&curr){
    for(const [n,d] of [["93","SUPPORT"],["94","COUNTER"]]){
     put(n,{condition_delta:delta,direction_candidates:validMechanisms.filter(m=>m.direction===d||m.direction==="MIXED"),confirmed_effect:null},[...refs,...validMechanisms.flatMap(m=>m.evidence_ids)],"hypotheses");

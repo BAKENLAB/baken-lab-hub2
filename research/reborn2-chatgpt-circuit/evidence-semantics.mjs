@@ -80,6 +80,12 @@ export function inspectEvidence({target,records=[],sources=[]}){
  const conflictKeys=new Set([...singleton.values()].filter(keys=>keys.length>1).flat());
  for(const [key,rows] of groups){
   if(conflictKeys.has(key)){for(const x of rows){x.stage="CONFLICT";x.errors.push("SINGLETON_EVENT_SCOPE_CONFLICT");}continue;}
+  // An independently attested official correction may supersede exactly one earlier edition.
+  // Keep both original records in inspected, including the old fact and the witness.
+  if(rows.length===2){
+   const latest=rows.find(x=>{const w=x.record.correction_witness,old=rows.find(y=>y!==x);return w?.official_correction_verified===true&&w.independent_attestation_verified===true&&w.old_evidence_id===old.evidence_id&&w.old_raw_sha256===old.record.raw_sha256_or_null&&w.old_source_version===old.record.source_version&&x.record.source_version!==old.record.source_version&&x.record.raw_sha256_or_null!==old.record.raw_sha256_or_null&&x.record.source_id===old.record.source_id&&ts(x.record.published_at_or_null)>ts(old.record.published_at_or_null);});
+   if(latest){const old=rows.find(x=>x!==latest);old.stage="SUPERSEDED";old.missing.push("OFFICIAL_CORRECTION_REVALIDATION_REQUIRED");accepted.push({event_key:key,evidence_ids:[latest.evidence_id],record:latest.record,superseded_evidence_ids:[old.evidence_id],formal_admission:false});continue;}
+  }
   const variants=new Set(rows.map(r=>JSON.stringify(canonicalize(r.record.fact))));
   if(variants.size!==1){for(const x of rows){x.stage="CONFLICT";x.errors.push("ORIGINAL_EVENT_CONFLICT");}continue;}
   const primary=rows.slice().sort((a,b)=>a.evidence_id.localeCompare(b.evidence_id))[0];
