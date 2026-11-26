@@ -90,12 +90,13 @@ export function returnToRank({rankAudit,eyeRunners,intake}){
  const rows=rankAudit.runners.map(r=>{
   const eye=eyeRunners.find(x=>x.horse_no===r.horse_no);
   const existing=new Set(r.items.flatMap(x=>x.evidence_ids??[]));
+  const existingRoots=new Set(intake.accepted.filter(x=>x.evidence_ids.some(e=>existing.has(e))).map(x=>x.event_key));
   const events=intake.accepted.filter(x=>x.record.horse_id===r.horse_id&&r.horse_id!==null);
   const eventByKey=new Map(events.map(x=>[x.event_key,x]));
   const links=new Map();
   for(const item of eye.items)for(const key of item.original_event_keys){
    const g=eventByKey.get(key);if(!g)continue;
-   if(!links.has(key))links.set(key,{event_key:key,evidence_ids:g.evidence_ids,eye_item_ids:[],rank_item_ids:[],kind:g.evidence_ids.some(e=>existing.has(e))?"SHARED_EVENT_REINTERPRETATION":"NEW_STRUCTURAL_EVENT_CANDIDATE",formal_admission:false});
+   if(!links.has(key))links.set(key,{event_key:key,evidence_ids:g.evidence_ids,eye_item_ids:[],rank_item_ids:[],kind:existingRoots.has(key)?"SHARED_EVENT_REINTERPRETATION":"NEW_STRUCTURAL_EVENT_CANDIDATE",formal_admission:false});
    const q=links.get(key);q.eye_item_ids.push(item.eye_item_id);q.rank_item_ids.push(...item.upstream_item_ids);
   }
   const returned=[...links.values()].map(x=>({...x,eye_item_ids:[...new Set(x.eye_item_ids)].sort(),rank_item_ids:[...new Set(x.rank_item_ids)].sort()})).sort((a,b)=>a.event_key.localeCompare(b.event_key));
