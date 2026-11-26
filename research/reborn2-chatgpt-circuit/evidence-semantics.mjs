@@ -71,7 +71,13 @@ export function inspectEvidence({target,records=[],sources=[]}){
   if(!groups.has(i.key))groups.set(i.key,[]);groups.get(i.key).push(i);
  }
  const accepted=[];
+ // A single official result / position series per race and horse cannot be made independent by changing the event timestamp.
+ const singletonKinds=new Set(["RESULT","PEER_RESULT","POSITIONS","RACE_LAPS","CURRENT_CARD","HISTORY"]);
+ const singleton=new Map();
+ for(const [key,rows] of groups){const r=rows[0].record;if(!singletonKinds.has(r.kind))continue;const id=JSON.stringify([r.jurisdiction,r.race_id,r.horse_id,r.kind]);if(!singleton.has(id))singleton.set(id,[]);singleton.get(id).push(key);}
+ const conflictKeys=new Set([...singleton.values()].filter(keys=>keys.length>1).flat());
  for(const [key,rows] of groups){
+  if(conflictKeys.has(key)){for(const x of rows){x.stage="CONFLICT";x.errors.push("SINGLETON_EVENT_SCOPE_CONFLICT");}continue;}
   const variants=new Set(rows.map(r=>JSON.stringify(canonicalize(r.record.fact))));
   if(variants.size!==1){for(const x of rows){x.stage="CONFLICT";x.errors.push("ORIGINAL_EVENT_CONFLICT");}continue;}
   const primary=rows.slice().sort((a,b)=>a.evidence_id.localeCompare(b.evidence_id))[0];

@@ -57,6 +57,7 @@ export function analyzeTyped01to32({target,roster,intake}){
  const r=get(finished,g.record.race_id);
  const laps=accepted.filter(x=>x.record.kind==='RACE_LAPS'&&x.record.race_id===g.record.race_id);
  if(laps.length&&r)put('20','RACE_PACE_POSITION_CONTEXT',{race_id:g.record.race_id,transitions:d,finish:r.record.fact.finish,causal_advantage:null},[g,r,...laps],['17','18','19']);
+ if(d.length&&r&&laps.length&&q[0]?.rank_max<=3&&d.at(-1).max_gain<0)put('23','EARLY_FORWARD_LATE_LOSS_CONTEXT',{race_id:g.record.race_id,initial_rank:[q[0].rank_min,q[0].rank_max],late_transition:d.at(-1),finish:r.record.fact.finish,competition_cause:null,individual_fatigue:null},[g,r,...laps],['17','18','19']);
  if(d.length&&r){const last=d.at(-1);if(last.max_gain<0)put('24','LATE_POSITION_LOSS',{race_id:g.record.race_id,late_transition:last,cause:null},[g,r],['18','02']);if(last.min_gain>0&&r.record.fact.finish>1)put('25','LATE_GAIN_WITHOUT_WIN',{race_id:g.record.race_id,late_transition:last,finish:r.record.fact.finish,remaining_energy:null},[g,r],['18','02']);}
  }
  const raceIds=new Set(results.map(g=>g.record.race_id));
@@ -74,6 +75,14 @@ export function analyzeTyped01to32({target,roster,intake}){
  }}
  const distanceGroups=new Map();for(const g of finished){const f=g.record.fact;if(!Number.isInteger(f.distance_m)||f.final3f_tenths==null)continue;const k=JSON.stringify([f.course_id,f.course_version,f.surface,f.going,f.class_key,f.distance_m]);if(!distanceGroups.has(k))distanceGroups.set(k,[]);distanceGroups.get(k).push(g);}
  if(distanceGroups.size>1)put('11','DISTANCE_CONTEXT_OBSERVATIONS',{groups:[...distanceGroups].map(([k,gs])=>({condition_key:k,final3f_tenths:gs.map(g=>g.record.fact.final3f_tenths)})),fatigue_conclusion:null},[...distanceGroups.values()].flat(),['05','06']);
+ for(const g of finished.filter(g=>g.record.fact.finish>1)){
+ const f=g.record.fact,r=g.record.race_id;
+ const peers=accepted.filter(p=>p.record.kind==='PEER_RESULT'&&p.record.race_id===r&&p.record.event_at===g.record.event_at&&p.record.horse_id!==h.horse_id&&p.record.fact.start_status==='FINISHED'&&p.record.fact.field_size===f.field_size);
+ if(peers.length&&(f.winner_gap_tenths!=null||f.margin_reference==='WINNER'))put('29','DEFEAT_WITH_SHARED_RACE_PEERS',{race_id:r,finish:f.finish,winner_gap_tenths:f.winner_gap_tenths??null,peers:peers.map(p=>({horse_id:p.record.horse_id,finish:p.record.fact.finish})),peer_quality:null,ability_conclusion:null},[g,...peers],['02','03','28']);
+ const special=incident.filter(i=>i.record.race_id===r&&i.record.fact.role==='SUFFERED');
+ if(special.length)put('31','DEFEAT_WITH_OFFICIAL_INCIDENT',{race_id:r,finish:f.finish,incidents:special.map(i=>i.record.fact.incident_code),causal_attribution:null},[g,...special],['02','26','28']);
+ if(exact(f,curr)){const recovery=items['21'].observations.filter(x=>x.value.race_id===r);if(recovery.length)put('15','CURRENT_MATCH_HISTORICAL_RECOVERY',{race_id:r,finish:f.finish,observed_recovery:recovery.map(x=>x.value),latent_ability:null},[g,...card,...accepted.filter(q=>recovery.some(x=>x.original_event_keys.includes(q.event_key)))],['21','32']);}
+ }
  // 01 combines typed evidence descriptions without counting them as votes.
  const base=ids.slice(1,16).flatMap(id=>items[id].observations.map(o=>({item_id:id,kind:o.kind,original_event_keys:o.original_event_keys})));
  const root=uniq(base.flatMap(x=>x.original_event_keys));
