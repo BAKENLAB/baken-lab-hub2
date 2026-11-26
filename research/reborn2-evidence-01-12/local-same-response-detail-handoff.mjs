@@ -14,6 +14,24 @@ export function attachDetailedCandidates({targetRace,priorRace,raw,cornerPacket,
  if(!Array.isArray(table?.expectedHorseNos)||!Array.isArray(raw.knownHorseNos)||table.expectedHorseNos.length!==raw.knownHorseNos.length||new Set(table.expectedHorseNos).size!==table.expectedHorseNos.length||table.expectedHorseNos.some(n=>!raw.knownHorseNos.includes(n))||!Array.isArray(table?.horseLinks)||table.horseLinks.length!==table.expectedHorseNos.length||new Set(table.horseLinks.map(x=>x.horseNo)).size!==table.expectedHorseNos.length||table.horseLinks.some(x=>!table.expectedHorseNos.includes(x.horseNo)))throw Error("FIELD_MISMATCH");
  const parsed=parseTable({headers:table.headers,rows:table.rows,expectedHorseNos:table.expectedHorseNos,circuit:"LOCAL"});
  if(parsed?.status!=="CANDIDATE_ONLY"||!Array.isArray(parsed.runners)||parsed.runners.length!==table.expectedHorseNos.length)throw Error("DETAIL_PARSER_CONTRACT");
+ // Accept only race-level laps from the same response, with exact source/time/race keys,
+ // explicit original distance grid and a matching winner clock from the detailed table.
+ const lap=raw.officialRaceLaps;
+ let raceLaps=null,lapDistance=null;
+ if(lap?.status==="VERIFIED_RACE_LEVEL_LAPS"&&lap.sourceRef===expectedUrl&&lap.sourceCheckedAt===raw.sourceCheckedAt&&sameRace(lap.pastRace,priorRace)&&lap.finish_time_reconciled===true&&lap.individual_horse_sectionals===false&&lap.market_used===false&&lap.target_result_used===false&&Number.isInteger(lap.distance_m)&&lap.distance_m>=600&&lap.distance_m<=4000&&Array.isArray(lap.segments)&&lap.segments.length===Math.ceil(lap.distance_m/200)){
+  const tick=v=>typeof v==="number"&&Number.isFinite(v)&&v>0&&Math.abs(v*10-Math.round(v*10))<1e-7?Math.round(v*10):null;
+  const winners=parsed.runners.filter(x=>x.finish===1);
+  const win=tick(lap.winner_time_seconds);
+  let cumulative=0,at=0,ok=win!==null&&winners.length>0&&winners.every(x=>tick(x.elapsed_seconds)===win);
+  for(const [i,s] of lap.segments.entries()){
+   const d=i===0?lap.distance_m-200*(lap.segments.length-1):200;
+   const t=tick(s.seconds);
+   if(t===null||s.from_m!==at||s.distance_m!==d||s.to_m!==at+d){ok=false;break;}
+   at+=d;cumulative+=t;
+   if(tick(s.cumulative_seconds)!==cumulative){ok=false;break;}
+  }
+  if(ok&&at===lap.distance_m&&cumulative===win){raceLaps=lap.segments.map(s=>s.seconds);lapDistance=lap.distance_m;}
+ }
  const ids=table.horseLinks.map(x=>parseRef(x.horseRef));
  if(ids.some(x=>!x)||new Set(ids).size!==ids.length)throw Error("RESULT_HORSE_LINKS");
  const byNo=new Map(parsed.runners.map(x=>[x.horse_no,x]));if(byNo.size!==table.expectedHorseNos.length||table.expectedHorseNos.some(n=>!byNo.has(n)))throw Error("DETAIL_FIELD_MISMATCH");
@@ -30,7 +48,7 @@ export function attachDetailedCandidates({targetRace,priorRace,raw,cornerPacket,
   const corners=corner.corner_positions;
   if(!Array.isArray(corners)||!corners.length||corners.some(x=>!Number.isInteger(x.position)||x.position<1||x.position>24)||new Set(corners.map(x=>x.corner)).size!==corners.length){rejections.push({current_no:link.horseNo,reason:"CORNER_INCOMPLETE"});continue;}
   const elapsed=validNumber(detail.elapsed_seconds),final3f=validNumber(detail.final3f);
-  out.push({current_no:link.horseNo,horse_ref:link.horseRef,prior_no:link.pastHorseNo,race_date:priorRace.raceDate,track:priorRace.track,race_no:priorRace.raceNo,finish:detail.finish,elapsed_seconds:elapsed>0?elapsed:null,final3f:final3f>0&&elapsed>final3f?final3f:null,final3f_kind:detail.final3f_kind??null,gap_winner:validNumber(detail.rounded_clock_gap_to_winner_s),gap_next:validNumber(detail.rounded_clock_gap_to_next_finisher_s),margin_literal:detail.margin_literal??null,corners:corners.slice().sort((a,b)=>a.corner-b.corner).map(x=>x.position),source_ref:expectedUrl,source_checked_at:raw.sourceCheckedAt,as_of:targetRace.asOf,status:"RESEARCH_CANDIDATE_ONLY"});
+  out.push({current_no:link.horseNo,horse_ref:link.horseRef,prior_no:link.pastHorseNo,race_date:priorRace.raceDate,track:priorRace.track,race_no:priorRace.raceNo,finish:detail.finish,elapsed_seconds:elapsed>0?elapsed:null,final3f:final3f>0&&elapsed>final3f?final3f:null,final3f_kind:detail.final3f_kind??null,gap_winner:validNumber(detail.rounded_clock_gap_to_winner_s),gap_next:validNumber(detail.rounded_clock_gap_to_next_finisher_s),margin_literal:detail.margin_literal??null,corners:corners.slice().sort((a,b)=>a.corner-b.corner).map(x=>x.position),race_laps:raceLaps===null?null:raceLaps.slice(),distance:lapDistance,lap_scope:raceLaps===null?null:"RACE_LEVEL_ONLY",source_ref:expectedUrl,source_checked_at:raw.sourceCheckedAt,as_of:targetRace.asOf,status:"RESEARCH_CANDIDATE_ONLY"});
  }
  return {status:"RESEARCH_ONLY",records:out,rejections,source_ref:expectedUrl,scoring_authorized:false,individual_sectionals:false};
 }
