@@ -10,6 +10,7 @@ node test-state-78-92.mjs
 node test-changes-93-100.mjs
 node test-all-100.mjs
 node test-positive-all-100.mjs
+node test-strengthening.mjs
 node ../reborn2-analysis-circuit/test.mjs
 node ../reborn2-evidence-01-12/test-nar-monthly-materials.mjs
 node ../reborn2-evidence-01-12/test-archive-materials.mjs

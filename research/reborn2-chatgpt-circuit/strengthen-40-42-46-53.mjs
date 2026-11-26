@@ -23,7 +23,9 @@ export function strengthen40to42and46and53({target,roster,evidence=[],opposition
   const clean=unique(eligible,o=>o.target_run.horse_id);
   const train=clean.filter(o=>ts(o.target_run.started_at)<ts(s.training_end)&&ts(c.byId.get(o.target_run.evidence_id).observed_at)<ts(s.training_end));
   const holdout=clean.filter(o=>ts(o.target_run.started_at)>=ts(s.holdout_start)&&ts(o.target_run.started_at)<ts(s.holdout_end));
-  const group=xs=>Object.fromEntries(["SOURCE_WIN","SOURCE_OTHER","NO_SOURCE_EXPERIENCE"].map(g=>{const rows=xs.filter(o=>o.exposure===g),n=rows.length,wins=rows.filter(o=>o.target_run.finish===1).length;return [g,{n,wins,win_fraction:n?wins/n:null,top3:rows.filter(o=>o.target_run.finish<=3).length}]}));
+  // Wilson interval is descriptive sampling uncertainty, not calibrated win probability.
+  const interval=(wins,n)=>{if(!n)return null;const z=1.959963984540054,p=wins/n,d=1+z*z/n,mid=(p+z*z/(2*n))/d,rad=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d;return [Math.max(0,mid-rad),Math.min(1,mid+rad)]};
+  const group=xs=>Object.fromEntries(["SOURCE_WIN","SOURCE_OTHER","NO_SOURCE_EXPERIENCE"].map(g=>{const rows=xs.filter(o=>o.exposure===g),n=rows.length,wins=rows.filter(o=>o.target_run.finish===1).length;return [g,{n,wins,win_fraction:n?wins/n:null,win_fraction_wilson95:interval(wins,n),top3:rows.filter(o=>o.target_run.finish<=3).length}]}));
   const t=group(train),v=group(holdout);
   const difference=g=>g.SOURCE_WIN.win_fraction===null||g.NO_SOURCE_EXPERIENCE.win_fraction===null?null:g.SOURCE_WIN.win_fraction-g.NO_SOURCE_EXPERIENCE.win_fraction;
   studies.push({study_id:s.study_id,source_course:s.source_course,target_course:s.target_course,train:t,holdout:v,train_difference:difference(t),holdout_difference:difference(v),duplicate_horses_excluded:eligible.length-clean.length,cohort_assessment:"DESCRIPTIVE_UNCALIBRATED",effect:null,evidence_ids:[...new Set([...train,...holdout].flatMap(o=>[o.history_evidence_id,o.target_run.evidence_id,o.source_run?.evidence_id].filter(Boolean)))]});
