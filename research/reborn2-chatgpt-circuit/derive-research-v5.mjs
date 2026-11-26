@@ -68,10 +68,12 @@ export function deriveResearchV5({analysis,target}){
    return {...p,route_kind:kind,historical_evidence_status:historicalStatus,current_evidence_status:'UNKNOWN',support_observations:sortBy(support),counter_observations:sortBy(counter),neutral_observations:sortBy(neutral),nonmatching_history:historicalNonmatch,material_unknowns:unresolved,major_counter_candidates:counter.map(x=>({...x,major_status:'NOT_ESTABLISHED',effect_scope:x.route_counter_scope,alternative_route_review:'REQUIRED'})),formal_major_counterevidence:[],final_rank:null};
   };
   const winning=arr(path?.winning_paths).map(p=>pathResearch(p,'WIN')),placing=arr(path?.placing_paths).map(p=>pathResearch(p,'PLACE'));
+  if(bound&&winning.length+placing.length)recordRead(h.horse_no,'100','deriveResearchV5.pathResearch',[winning,placing],'勝利と好走の到達実績・過去相手比較・必要条件の反証を別々に検査',[...winning,...placing].flatMap(p=>p.evidence_ids??[]));
   if(bound){for(const p of [...winning,...placing])material.push(...p.material_unknowns);}
   const items=h.items.map(i=>{
    const def=defs.find(d=>d.id===i.item_id);
-   const os=observations(i).map(x=>({...x,original_event_keys:ctx.eventRefs(x.refs),evidence_binding:x.refs.length&&x.refs.every(r=>ctx.refs.has(r))?'STRUCTURAL_ROOT_BOUND':'REFERENCE_UNRESOLVED',formal_admission:false}));
+   const rawOutput=i.item_id==='100'?[...winning,...placing].map(p=>({kind:'DERIVED_ROUTE_RESEARCH',value:p,refs:p.evidence_ids??[],observation_type:p.route_kind})):observations(i);
+   const os=rawOutput.map(x=>({...x,original_event_keys:ctx.eventRefs(x.refs),evidence_binding:x.refs.length&&x.refs.every(r=>ctx.refs.has(r))?'STRUCTURAL_ROOT_BOUND':'REFERENCE_UNRESOLVED',formal_admission:false}));
    const consumed=arr(i.actual_runtime_reads);
    const findings=os.filter(o=>o.evidence_binding==='STRUCTURAL_ROOT_BOUND');
    // Reading a value into research rationale is a distinct, observed consumer, not final consumption.
@@ -88,8 +90,16 @@ export function deriveResearchV5({analysis,target}){
    const sup=scoped.filter(x=>x.reason==='OBSERVED_TARGET_FINISH_UNDER_RECORDED_MATCH'||x.reason==='OBSERVED_AHEAD_OF_CURRENT_PEER');
    const ctr=[...scoped.filter(x=>x.reason==='OBSERVED_NON_TARGET_FINISH_UNDER_RECORDED_MATCH'||x.reason==='OBSERVED_BEHIND_CURRENT_PEER'),...context.filter(x=>x.kind==='COUNTER_OBSERVATION')];
    const conditionContexts=axis==='B'&&current?ctx.accepted.filter(g=>g.record.kind==='RESULT'&&g.record.horse_id===h.horse_id&&g.record.fact.start_status==='FINISHED').map(g=>({race_id:g.record.race_id,event_at:g.record.event_at,finish:g.record.fact.finish,comparison:conditionDiff(g.record.fact,current.record.fact),evidence_ids:uniq([...g.evidence_ids,...current.evidence_ids])})):[];
+   // B and E give direction only for a specifically stated historical condition prerequisite.
+   // The outcome remains scoped to that past performance, not a forecast.
+   const conditionPrerequisites=conditionContexts.map(x=>({...x,scope:'RECORDED_CONDITION_PERSISTENCE',condition_status:status(x.comparison),supports_condition_transfer_only:status(x.comparison)==='RECORDED_CONDITIONS_MATCH',contradicts_exact_match_only:x.comparison.different.length>0}));
+   const conditionSupport=axis==='B'?conditionPrerequisites.filter(x=>x.supports_condition_transfer_only):[];
+   const conditionCounter=axis==='B'?conditionPrerequisites.filter(x=>x.contradicts_exact_match_only):[];
+   if(axis==='B'&&conditionPrerequisites.length)recordRead(h.horse_no,'43','deriveResearchV5.axis.B.conditionPrerequisites',conditionPrerequisites,'今回条件と本人馬の過去成績の一致・不一致・未知を分離',conditionPrerequisites.flatMap(x=>x.evidence_ids));
+   const restoration=axis==='E'?context.filter(x=>x.item_id==='95'&&Array.isArray(x.value?.matched_observations)).flatMap(x=>x.value.matched_observations.map(m=>({race_id:m.race_id,finish:m.finish,refs:x.refs,scope:'RESTORED_CONDITION_HISTORICAL_OUTCOME',effect:'UNVALIDATED'}))):[];
+   const changes=axis==='E'?context.filter(x=>['93','94','96','97','98','99'].includes(x.item_id)):[];
    const historical=sup.length&&ctr.length?'MIXED':sup.length?'SUPPORT':ctr.length?'COUNTER':'UNKNOWN';
-   return {axis,status:!active?'NOT_APPLICABLE':'UNKNOWN',historical_observation_status:!active?'NOT_APPLICABLE':historical,support:sortBy(sup),counter:sortBy(ctr),observed_context:context,condition_context:conditionContexts,material_unknowns:material.filter(x=>axis==='C'?x.code.includes('PEER')||x.code==='IDENTITY_HOLD':axis==='D'?x.code.includes('SCENARIO')||x.code.includes('PEER'):axis==='B'?x.scope==='CURRENT_STATE'||x.code.includes('CARD'):axis==='A'?x.code.includes('HISTORICAL')||x.code.includes('STRENGTH'):true),unobserved_item_ids:selected.filter(i=>!i.structurally_bound_outputs).map(i=>i.item_id),current_support_strength:'UNVALIDATED',formal_consumption:false};
+   return {axis,status:!active?'NOT_APPLICABLE':'UNKNOWN',historical_observation_status:!active?'NOT_APPLICABLE':historical,support:sortBy(sup),counter:sortBy(ctr),observed_context:context,condition_context:conditionContexts,condition_prerequisite_support:conditionSupport,condition_prerequisite_counter:conditionCounter,restored_condition_observations:restoration,change_context:changes,material_unknowns:material.filter(x=>axis==='C'?x.code.includes('PEER')||x.code==='IDENTITY_HOLD':axis==='D'?x.code.includes('SCENARIO')||x.code.includes('PEER'):axis==='B'?x.scope==='CURRENT_STATE'||x.code.includes('CARD'):axis==='A'?x.code.includes('HISTORICAL')||x.code.includes('STRENGTH'):true),unobserved_item_ids:selected.filter(i=>!i.structurally_bound_outputs).map(i=>i.item_id),current_support_strength:'UNVALIDATED',formal_consumption:false};
   });
   const eyeItems=arr(eye?.items).map(e=>{
    const matched=[];
@@ -103,10 +113,11 @@ export function deriveResearchV5({analysis,target}){
     }
    }
    if(matched.length)recordRead(h.horse_no,e.eye_item_id,'deriveResearchV5.eyeCurrentRelevance',matched,'歴史事象・今回条件・後続成績の現在性照合',matched.flatMap(x=>x.evidence_ids));
+   const scopeStatus=!matched.length?'NO_BOUND_HISTORICAL_RESULT':matched.some(x=>x.condition_status==='RECORDED_CONDITIONS_MATCH')?matched.some(x=>x.newer_observations.length)?'MATCHED_CONDITIONS_WITH_NEWER_RESULTS_TO_REVIEW':'MATCHED_CONDITIONS_NO_NEWER_RESULT_OBSERVED':matched.some(x=>x.condition_status==='CONDITION_DIFFERENCE_OBSERVED')?'RECORDED_CONDITION_CHANGE':'CONDITION_COMPARISON_INCOMPLETE';
    const checks={item_executed:true,observation_present:arr(e.observed_facts).length>0,structural_roots_bound:arr(e.evidence_ids).length>0&&e.evidence_ids.every(id=>ctx.refs.has(id)),current_condition_comparison:matched.some(x=>x.condition_status==='RECORDED_CONDITIONS_MATCH'),chronology_verified:!!chron,causal_effect_validated:false};
-   return {eye_item_id:e.eye_item_id,checks,observed_relevance:matched,counter:e.counter??[],unknowns:e.unknowns??[],status:!active?'NOT_APPLICABLE':!bound?'IDENTITY_HOLD':!checks.observation_present?'NO_OBSERVATION':'RESEARCH_CONTEXT_ONLY',current_relevance:'UNVALIDATED',selection:null};
+   return {eye_item_id:e.eye_item_id,checks,observed_relevance:matched,condition_relevance_status:scopeStatus,counter:e.counter??[],unknowns:e.unknowns??[],status:!active?'NOT_APPLICABLE':!bound?'IDENTITY_HOLD':!checks.observation_present?'NO_OBSERVATION':'RESEARCH_CONTEXT_ONLY',current_relevance:'UNVALIDATED',selection:null};
   });
-  const major=[...winning,...placing].flatMap(p=>p.major_counter_candidates);
+  const major=[...winning,...placing].flatMap(p=>p.major_counter_candidates.map(c=>({...c,path_id:p.path_id,scenario_id:p.scenario_id,route_kind:p.route_kind,alternative_path_ids:[...winning,...placing].filter(x=>x.path_id!==p.path_id&&x.historical_evidence_status==='SUPPORT').map(x=>x.path_id)})));
   const historicalEvidenceGroups=new Map();for(const i of items)for(const o of i.actual_analysis_output)for(const key of o.original_event_keys){if(!historicalEvidenceGroups.has(key))historicalEvidenceGroups.set(key,new Set());historicalEvidenceGroups.get(key).add(i.item_id);}
   return {horse_no:h.horse_no,horse_id:h.horse_id,active,items,five_axis_findings:axes,winning_paths:winning,placing_paths:placing,major_counter_candidates:major,decisive_counterevidence:[],material_unknowns:material,nonmaterial_unknowns:[],materiality_status:'ROUTE_PREREQUISITES_ONLY_NOT_FINAL',eye:{items:eyeItems,items_executed:eyeItems.length,all_items_reviewed:false,items_with_observations:eyeItems.filter(e=>e.checks.observation_present).length,items_with_current_condition_comparison:eyeItems.filter(e=>e.checks.current_condition_comparison).length,material_coverage_complete:false,ability_eligible:null,selection:null},original_event_groups:[...historicalEvidenceGroups].map(([key,ids])=>({key,item_ids:uniq([...ids]),independent_vote:false})).sort((a,b)=>a.key.localeCompare(b.key)),rank_candidate:null,decision_status:!active?'NOT_APPLICABLE':!bound?'IDENTITY_HOLD':'FORMAL_JUDGMENT_DISABLED',formal_consumption:0};
  });
