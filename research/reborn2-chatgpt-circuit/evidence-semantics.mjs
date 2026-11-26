@@ -52,6 +52,8 @@ export function inspectEvidence({target,records=[],sources=[]}){
    if(kind==="INDIVIDUAL_SPLITS"&&(!horse(e.horse_id)||v.measurement_scope!=="INDIVIDUAL"||v.measurement_verified!==true))errors.push("INDIVIDUAL_MEASUREMENT_REQUIRED");
    if(kind==="RACE_LAPS"&&(e.horse_id!==null||v.measurement_scope!=="RACE_LEADER"))errors.push("RACE_LEADER_SCOPE_REQUIRED");
    if(!Array.isArray(v.splits)||!v.splits.length||v.splits.some(s=>!int(s.start_m)||!int(s.end_m)||s.end_m<=s.start_m||!int(s.elapsed_tenths)||s.elapsed_tenths===0)||v.splits.some((s,i)=>i>0&&s.start_m!==v.splits[i-1].end_m))errors.push("SPLIT_GRID_INVALID");
+  }else if(kind==="INCIDENT_COVERAGE"){
+   if(!horse(e.horse_id)||v.coverage_scope!=="ALL_OFFICIAL_START_INCIDENTS"||v.official_rulings_complete!==true||!Array.isArray(v.actual_start_race_ids)||!v.actual_start_race_ids.length||new Set(v.actual_start_race_ids).size!==v.actual_start_race_ids.length||v.actual_start_race_ids.some(id=>!str(id)||id===target.race_id))missing.push("INCIDENT_COVERAGE_UNVERIFIED");
   }else if(kind==="INCIDENT"){
    if(!horse(e.horse_id)||!str(v.incident_code)||!["SUFFERED","CAUSED","SELF","UNKNOWN"].includes(v.role)||v.official_ruling_verified!==true)missing.push("INCIDENT_ROLE_OR_RULING_UNVERIFIED");
   }else if(kind==="COURSE"){

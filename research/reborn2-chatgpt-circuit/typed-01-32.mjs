@@ -13,8 +13,9 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const results=byKind('RESULT'),finished=results.filter(g=>g.record.fact.start_status==='FINISHED');
  const card=byKind('CURRENT_CARD').filter(g=>g.record.race_id===target.race_id),curr=card.length===1?card[0].record.fact:null;
  const chronological=byKind('HISTORY').filter(g=>g.record.race_id===target.race_id&&g.record.fact.chronology_verified===true&&Array.isArray(g.record.fact.ordered_actual_start_race_ids));
- const order=chronological.length===1?chronological[0].record.fact.ordered_actual_start_race_ids:[];
- const get=(xs,race)=>xs.find(g=>g.record.race_id===race);
+ const declaredOrder=chronological.length===1?chronological[0].record.fact.ordered_actual_start_race_ids:[];
+ const order=new Set(declaredOrder).size===declaredOrder.length?declaredOrder:[];
+ const get=(xs,race)=>{const rs=xs.filter(g=>g.record.race_id===race);return rs.length===1?rs[0]:undefined;};
  const put=(id,kind,value,groups,upstream=[])=>{if(!groups.length)return;items[id].observations.push({kind,value,evidence_ids:uniq(groups.flatMap(g=>g.evidence_ids)),original_event_keys:uniq(groups.map(g=>g.event_key)),upstream_item_ids:upstream,status:'STRUCTURAL_RESEARCH_CANDIDATE'});items[id].status='CANDIDATE_OUTPUT';};
  const unknown=(id,reason)=>items[id].unknowns.push(reason);
  for(const g of results){
@@ -23,7 +24,7 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  if(f.start_status!=='FINISHED')continue;
  if(f.winner_gap_tenths!=null||f.margin_reference==='WINNER')put('03','WINNER_GAP',{race_id:r,clock_gap_tenths:f.winner_gap_tenths??null,official_margin:f.margin_reference==='WINNER'?f.official_margin:null,dead_heat_group:f.dead_heat_group??null},[g]);
  // A following finisher's official margin is only usable when its preceding horse is explicitly bound.
- for(const p of accepted.filter(x=>x.record.kind==='PEER_RESULT'&&x.record.race_id===r&&x.record.horse_id!==h.horse_id&&x.record.fact.start_status==='FINISHED'&&x.record.fact.margin_reference==='PRECEDING_FINISHER'&&x.record.fact.preceding_horse_id===h.horse_id&&x.record.fact.finish>f.finish&&typeof x.record.fact.official_margin==='string')){
+ for(const p of accepted.filter(x=>x.record.kind==='PEER_RESULT'&&x.record.race_id===r&&x.record.event_at===g.record.event_at&&x.record.fact.field_size===f.field_size&&x.record.horse_id!==h.horse_id&&x.record.fact.start_status==='FINISHED'&&x.record.fact.margin_reference==='PRECEDING_FINISHER'&&x.record.fact.preceding_horse_id===h.horse_id&&x.record.fact.finish>f.finish&&typeof x.record.fact.official_margin==='string')){
  const q=p.record.fact;put('04','FOLLOWING_HORSE_MARGIN',{race_id:r,following_horse_id:p.record.horse_id,official_margin:q.official_margin,clock_gap_tenths:f.clock_tenths!=null&&q.clock_tenths!=null&&q.clock_tenths>=f.clock_tenths?q.clock_tenths-f.clock_tenths:null},[g,p],['02','05']);}
  if(f.clock_tenths!=null)put('05','DISPLAY_CLOCK',{race_id:r,tenths:f.clock_tenths},[g]);
  if(f.final3f_tenths!=null)put('06','INDIVIDUAL_FINAL3F',{race_id:r,tenths:f.final3f_tenths},[g]);
@@ -44,8 +45,12 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  }
  if(results.length){
  const d=historyDenominators(results.map(g=>g.record.fact));
+ const actualRaceIds=uniq(results.filter(g=>['FINISHED','DNF_STARTED','DQ_STARTED'].includes(g.record.fact.start_status)).map(g=>g.record.race_id));
+ const coverage=byKind('INCIDENT_COVERAGE').filter(g=>g.record.race_id===target.race_id&&g.record.fact.actual_start_race_ids.length===actualRaceIds.length&&g.record.fact.actual_start_race_ids.every(id=>actualRaceIds.includes(id)));
  put('12','HISTORICAL_WIN_NONWIN_DENOMINATORS',{...d,win_rate:d.actual_starts?d.wins/d.actual_starts:null,win_race_ids:finished.filter(g=>g.record.fact.finish===1).map(g=>g.record.race_id),nonwin_race_ids:results.filter(g=>['FINISHED','DNF_STARTED','DQ_STARTED'].includes(g.record.fact.start_status)&&g.record.fact.finish!==1).map(g=>g.record.race_id),full_history_verified:false},results,['02']);
- if(incident.length)put('09','START_INCIDENT_OBSERVATIONS',{observed_actual_starts:d.actual_starts,start_incident_races:uniq(incident.filter(g=>g.record.fact.incident_code==='START_DELAY'&&g.record.fact.role!=='CAUSED').map(g=>g.record.race_id)),incident_coverage_complete:false,frequency:null},[...results,...incident],['02','26']);
+ const delayed=uniq(incident.filter(g=>actualRaceIds.includes(g.record.race_id)&&g.record.fact.incident_code==='START_DELAY'&&['SELF','SUFFERED'].includes(g.record.fact.role)).map(g=>g.record.race_id));
+ const unknownRoles=incident.filter(g=>actualRaceIds.includes(g.record.race_id)&&g.record.fact.incident_code==='START_DELAY'&&g.record.fact.role==='UNKNOWN');
+ if(incident.length||coverage.length===1)put('09','START_INCIDENT_OBSERVATIONS',{observed_actual_starts:d.actual_starts,start_incident_races:delayed,incident_coverage_complete:coverage.length===1&&!unknownRoles.length,frequency:coverage.length===1&&!unknownRoles.length&&d.actual_starts?delayed.length/d.actual_starts:null,stability_conclusion:null},[...results,...incident,...coverage],['02','26']);
  }
  for(const g of byKind('POSITIONS')){
  const f=g.record.fact,q=f.positions.slice().sort((a,b)=>a.segment-b.segment);
@@ -66,9 +71,10 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const match=finished.filter(g=>exact(g.record.fact,curr));
  if(match.length>=2){
  const values=match.map(g=>({race_id:g.record.race_id,finish:g.record.fact.finish,clock_tenths:g.record.fact.clock_tenths}));
- put('13','MATCHED_CONDITION_RESULT_SPREAD',{values,stability_conclusion:null},[...match,...card],['02','05']);
+ const ranks=values.map(v=>v.finish),clocks=values.map(v=>v.clock_tenths).filter(Number.isInteger);
+ put('13','MATCHED_CONDITION_RESULT_SPREAD',{values,finish_range:[Math.min(...ranks),Math.max(...ranks)],display_clock_range_tenths:clocks.length===values.length?[Math.min(...clocks),Math.max(...clocks)]:null,baseline_adjusted_spread:null,stability_conclusion:null},[...match,...card],['02','05']);
  }
- if(order.length>=2){const a=get(finished,order[0]),b=get(finished,order[1]);if(a&&b&&exact(a.record.fact,b.record.fact)){
+ if(order.length>=2){const a=get(finished,order[0]),b=get(finished,order[1]);if(a&&b&&Date.parse(a.record.event_at)>Date.parse(b.record.event_at)&&exact(a.record.fact,b.record.fact)){
  const af=a.record.fact,bf=b.record.fact;
  const delta={latest:a.record.race_id,previous:b.record.race_id,clock_difference_tenths:af.clock_tenths!=null&&bf.clock_tenths!=null?af.clock_tenths-bf.clock_tenths:null,finish_difference:af.finish-bf.finish,ability_change:null};
  put('32','IMMEDIATE_COMPARABLE_CHANGE',delta,[a,b,...chronological],['02','05']);put('14','CHRONOLOGICAL_CONTENT_CHANGE',delta,[a,b,...chronological],['32']);

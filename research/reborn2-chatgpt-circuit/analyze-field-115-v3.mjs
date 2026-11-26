@@ -23,9 +23,9 @@ export function abilityResearch115v3({rankArgs,typedRecords=[]}){
  const {target,roster}=rankArgs.oppositionArgs;
  const intake=prior.intake, bound=bindResearchRoster({target,roster,rankAudit:prior.rank.audit,intake});
  const ledger=dependencyLedger(pinned.items);
- const version=fingerprint({target,roster:bound,events:intake.accepted.map(g=>[g.event_key,g.record.source_version,g.record.raw_sha256_or_null,g.record.fact])});
- const reads=[];let stage='typed_initial';
- const traceRead=e=>{reads.push({sequence:reads.length+1,stage,input_version:version,horse_no:e.horse_no,source_item_id:e.item_id,consumer_item_id:e.consumer_item_id??null,consumer_function:e.consumer,output_hash:fingerprint(e.value),reason:e.reason,read_kind:'EXECUTED_ANALYSIS_OUTPUT_READ',decision_effect:'RESEARCH_ONLY_NOT_FINAL',final_consumption:false});};
+ const version=fingerprint({rankArgs,target,roster:bound,events:intake.accepted.map(g=>[g.event_key,g.record.source_version,g.record.raw_sha256_or_null,g.record.fact])});
+ const reads=[];let stage='typed_initial',stageVersion=version;
+ const traceRead=e=>{reads.push({sequence:reads.length+1,stage,input_version:e.input_version??stageVersion,horse_no:e.horse_no,source_item_id:e.item_id,consumer_item_id:e.consumer_item_id??null,consumer_function:e.consumer,output_hash:fingerprint(e.value),reason:e.reason,read_kind:'EXECUTED_ANALYSIS_OUTPUT_READ',decision_effect:'RESEARCH_ONLY_NOT_FINAL',final_consumption:false});};
  const corrections=intake.accepted.flatMap(g=>array(g.superseded_evidence_ids).map(id=>{const w=g.record.correction_witness;return {old_evidence_id:id,new_evidence_id:g.record.evidence_id,old_raw_sha256:w.old_raw_sha256,old_source_version:w.old_source_version};}));
  const typedInitial=analyzeTyped01to32({target,roster:bound,intake,traceRead});
  const merge=(rank,typed)=>({...rank.audit,runners:rank.audit.runners.map(h=>{
@@ -40,7 +40,7 @@ export function abilityResearch115v3({rankArgs,typedRecords=[]}){
  // The intake already contains the EYE-visible facts; select their original event roots rather than fabricate a second source.
  const discoveredRoots=uniq(initialEye.flatMap(h=>h.items.flatMap(i=>i.original_event_keys)));
  const returnVersion=fingerprint({base_version:version,returned_original_events:discoveredRoots});
- stage='rank_reexecution';
+ stageVersion=returnVersion;stage='rank_reexecution';
  const rerun=recomputeFullRank({rankArgs,intake,boundRoster:bound,priorRank:prior.rank,traceRead});
  stage='typed_reexecution';const typed=analyzeTyped01to32({target,roster:bound,intake,traceRead});
  const merged=merge(rerun.rank,typed);
@@ -58,7 +58,7 @@ export function abilityResearch115v3({rankArgs,typedRecords=[]}){
  const observed=isEye?x.observed_facts.length:array(x.finding?.facts).length+array(x.finding?.hypotheses).length+array(x.finding?.counterevidence).length;
  const actualReads=reads.filter(q=>q.horse_no===h.horse_no&&q.source_item_id===d.id);
  const state=h.active===false?'NOT_APPLICABLE':!h.horse_id?'IDENTITY_HOLD':x.implementation==='MISSING'?'NOT_IMPLEMENTED':x.applicability==='CANDIDATE_NOT_APPLICABLE'?'APPLICABILITY_UNVALIDATED':!observed?'NOT_OBSERVED':'RESEARCH_OUTPUT_NOT_VALIDATED';
- return {item_id:d.id,name:d.name,horse_no:h.horse_no,horse_id:h.horse_id,input_version:returnVersion,analysis_state:state,execution_state:re?'FUNCTION_REEXECUTED':isEye?'EYE_REEXECUTED':d.id==='100'?'PATH_RESEARCH_EXECUTED':'TYPED_OVERLAY_REEXECUTED',reexecution:re??null,observed_output_count:observed,observed_output:isEye?x.observed_facts:x.finding,merge_audit:x.merge_audit??null,typed_output:t.items[d.id]?.observations??[],winning_placing_output:d.id==='100'?p:null,evidence_ids:x.evidence_ids??[],actual_runtime_reads:actualReads,actual_runtime_read_count:actualReads.length,consumption_state:actualReads.length?'RESEARCH_OUTPUT_READ_NOT_FINAL':'NOT_CONSUMED',neutrality_state:'NOT_ESTABLISHED',validation_state:'NOT_VALIDATED',final_consumption:false,release_eligible:false,unknowns:uniq([...(x.unknowns??[]),...(h.identity_unknowns??[])])};
+ return {item_id:d.id,name:d.name,horse_no:h.horse_no,horse_id:h.horse_id,input_version:re?.input_version??returnVersion,analysis_state:state,execution_state:re?'FUNCTION_REEXECUTED':isEye?'EYE_REEXECUTED':d.id==='100'?'PATH_RESEARCH_EXECUTED':'TYPED_OVERLAY_REEXECUTED',reexecution:re??null,observed_output_count:observed,observed_output:isEye?x.observed_facts:x.finding,merge_audit:x.merge_audit??null,typed_output:t.items[d.id]?.observations??[],winning_placing_output:d.id==='100'?p:null,evidence_ids:x.evidence_ids??[],actual_runtime_reads:actualReads,actual_runtime_read_count:actualReads.length,consumption_state:actualReads.length?'RESEARCH_OUTPUT_READ_NOT_FINAL':'NOT_CONSUMED',neutrality_state:'NOT_ESTABLISHED',validation_state:'NOT_VALIDATED',final_consumption:false,release_eligible:false,unknowns:uniq([...(x.unknowns??[]),...(h.identity_unknowns??[])])};
  });
  return {horse_no:h.horse_no,horse_id:h.horse_id,active:h.active!==false,identity_status:h.identity_status,unknowns:h.identity_unknowns,items,rank_candidate:null,eye_candidate:null};
  });

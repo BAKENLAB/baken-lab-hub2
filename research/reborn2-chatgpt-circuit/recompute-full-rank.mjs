@@ -56,11 +56,11 @@ export function rebuildRankInputs({rankArgs,intake,boundRoster}){
  args.stateMaterials={...args.stateMaterials,runs:upsert(args.stateMaterials?.runs,runs,rk),history:upsert(args.stateMaterials?.history,histories,hk),current:upsert(args.stateMaterials?.current,currents,hk)};
  args.changeMaterials={...args.changeMaterials,runs:upsert(args.changeMaterials?.runs,runs,rk),history:upsert(args.changeMaterials?.history,histories,hk),currentConditions:upsert(args.changeMaterials?.currentConditions,currents,hk)};
  args.evidence=[...evidence.values()];
- return {args,bridge_inputs:refs,bridge_conflicts:bridgeConflicts,version:fingerprint({target,roster:newRoster,events:groups.map(g=>[g.event_key,g.record.source_version,g.record.raw_sha256_or_null,g.record.fact])}),formal_admissions:0};
+ return {args,bridge_inputs:refs,bridge_conflicts:bridgeConflicts,version:fingerprint({args,events:groups.map(g=>[g.event_key,g.record.source_version,g.record.raw_sha256_or_null,g.record.fact])}),formal_admissions:0};
 }
 export function recomputeFullRank({rankArgs,intake,boundRoster,priorRank,traceRead=()=>{}}){
  const bridge=rebuildRankInputs({rankArgs,intake,boundRoster});
- const recalculated=analyzeField100({...bridge.args,runtimeTrace:traceRead});
+ const recalculated=analyzeField100({...bridge.args,runtimeTrace:e=>traceRead({...e,input_version:bridge.version})});
  const stageRanges=[[33,42,'analyzeOpposition33to42'],[43,57,'analyzeConditions43to57'],[58,77,'analyzePace58to77'],[78,92,'analyzeState78to92'],[93,99,'analyzeChanges93to100']];
  const rows=recalculated.audit.runners.map(h=>({horse_no:h.horse_no,horse_id:h.horse_id,items:h.items.filter(i=>Number(i.item_id)>=33&&Number(i.item_id)<=99).map(i=>{
  const before=priorRank.audit.runners.find(r=>r.horse_no===h.horse_no)?.items.find(x=>x.item_id===i.item_id);
