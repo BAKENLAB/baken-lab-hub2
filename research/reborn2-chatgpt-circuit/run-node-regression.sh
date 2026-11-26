@@ -7,6 +7,7 @@ node test-opposition-33-42.mjs
 node test-conditions-43-57.mjs
 node test-pace-58-77.mjs
 node test-state-78-92.mjs
+node test-person-identity.mjs
 node test-changes-93-100.mjs
 node test-all-100.mjs
 node test-positive-all-100.mjs
