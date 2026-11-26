@@ -1,0 +1,269 @@
+{
+  "version": "0.4.0",
+  "acceptance_commit": "3a6943b127093a421fb96f9e22dcf783a676493e",
+  "observed_date_jst": "2026-11-26",
+  "observed_at": null,
+  "published_at_or_null": null,
+  "raw_sha256_or_null": null,
+  "permission_status": "NOT_CLEARED_FOR_AUTOMATION_OR_REUSE",
+  "stage": "OBSERVED_RESEARCH_ONLY",
+  "course_version_sources": [
+    {
+      "venue": "東京",
+      "source_url": "https://www.jra.go.jp/keiba/baba/overview/2025_4-5_tokyo.html",
+      "document_as_of_date": "2025-09-29",
+      "published_at": null,
+      "scheduled_rail_usage": [
+        {
+          "meeting": 4,
+          "days": [
+            1,
+            9
+          ],
+          "rail": "A"
+        },
+        {
+          "meeting": 4,
+          "days": [
+            10,
+            11
+          ],
+          "rail": "B"
+        },
+        {
+          "meeting": 5,
+          "days": [
+            1,
+            4
+          ],
+          "rail": "B"
+        },
+        {
+          "meeting": 5,
+          "days": [
+            5,
+            8
+          ],
+          "rail": "C"
+        }
+      ],
+      "note": "Meeting/day schedule, not independently reconciled to actual race date/changes."
+    },
+    {
+      "venue": "京都",
+      "source_url": "https://www.jra.go.jp/keiba/baba/overview/2025_3-4_kyoto.html",
+      "document_as_of_date": "2025-09-29",
+      "published_at": null,
+      "scheduled_rail_usage": [
+        {
+          "meeting": 3,
+          "days": [
+            1,
+            9
+          ],
+          "rail": "A"
+        },
+        {
+          "meeting": 3,
+          "days": [
+            10,
+            11
+          ],
+          "rail": "B"
+        },
+        {
+          "meeting": 4,
+          "days": [
+            1,
+            4
+          ],
+          "rail": "B"
+        },
+        {
+          "meeting": 4,
+          "days": [
+            5,
+            8
+          ],
+          "rail": "C"
+        }
+      ],
+      "note": "Do not admit unresolved outer A geometry conflict."
+    },
+    {
+      "venue": "名古屋",
+      "effective_month": "2022-04",
+      "source_url": "https://www.keiba.go.jp/dirtgraderace/2026/0223_kakitsubatakinen/introduction.html",
+      "old_lap_m": 1100,
+      "new_lap_m": 1180,
+      "new_home_straight_to_finish_m": 240,
+      "note": "month precision only; historical cutoff exact day and subsequent changes still require evidence."
+    }
+  ],
+  "geometry_conflicts": [
+    {
+      "venue": "京都",
+      "surface": "芝",
+      "layout": "A-outer",
+      "field": "lap_m",
+      "values": [
+        {
+          "value": 1894.3,
+          "url": "https://www.jra.go.jp/facilities/race/kyoto/course/"
+        },
+        {
+          "value": 1849.3,
+          "url": "https://www.jra.go.jp/keiba/baba/overview/2025_3-4_kyoto.html"
+        }
+      ],
+      "difference_m": 45,
+      "status": "CONFLICT_BLOCKED",
+      "note": "No correction by guess; existing layout observation retained and flagged."
+    }
+  ],
+  "first_turn_new": [
+    {
+      "venue": "東京",
+      "surface": "芝",
+      "distance_m": 2400,
+      "first_corner_label": "1",
+      "distance_m_value": 350,
+      "precision": "approximate",
+      "rail": null,
+      "source_url": "https://www.jra.go.jp/keiba/thisweek/2025/1130_1/race.html"
+    },
+    {
+      "venue": "中山",
+      "surface": "芝",
+      "distance_m": 2500,
+      "first_corner_label": "4",
+      "distance_m_value": 200,
+      "precision": "strict_upper_bound_in_source; 200m弱, not exact 200",
+      "rail": null,
+      "source_url": "https://www.jra.go.jp/keiba/thisweek/2025/1228_1/race.html"
+    },
+    {
+      "venue": "阪神",
+      "surface": "芝",
+      "distance_m": 1800,
+      "layout": "outer",
+      "first_corner_label": "3",
+      "distance_m_value": 600,
+      "precision": "lower_bound_inclusive",
+      "rail": null,
+      "source_url": "https://www.jra.go.jp/keiba/thisweek/2025/0914_1/race.html"
+    }
+  ],
+  "class_rule": {
+    "jurisdiction": "兵庫",
+    "fiscal_year": 2026,
+    "source_url": "https://www.sonoda-himeji.jp/race/rank/",
+    "adult_classes": 7,
+    "rule_summary": "points and headcount proportion; two-month adjustments; transfer eligibility and prior starts specified; current rule not applied to 2025",
+    "examples": [
+      {
+        "from": "JRA 3勝クラス",
+        "to": "A1"
+      },
+      {
+        "from": "JRA 2勝クラス",
+        "to": "A2"
+      },
+      {
+        "from": "JRA 未勝利",
+        "to": "C2",
+        "points": 130
+      }
+    ],
+    "status": "ADMINISTRATIVE_ELIGIBILITY_ONLY_NOT_ABILITY_EQUIVALENCE",
+    "historical_2025_rule_status": "UNRESOLVED"
+  },
+  "peer_followup_samples": [
+    {
+      "peer": "スレイマン",
+      "nar_id": "30037409056",
+      "prior": {
+        "race_id": "LOCAL:2025-10-29:浦和:11",
+        "finish": 1,
+        "url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=18&k_raceDate=2025%2F10%2F29&k_raceNo=11"
+      },
+      "later": {
+        "race_id": "LOCAL:2026-10-21:浦和:11",
+        "finish": 1,
+        "url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=18&k_raceDate=2026%2F10%2F21&k_raceNo=11"
+      },
+      "identity": "same NAR link ID on both result pages",
+      "complete_history": false
+    },
+    {
+      "peer": "オピニオンリーダー",
+      "nar_id": "30052409076",
+      "prior": {
+        "race_id": "LOCAL:2025-04-24:浦和:11",
+        "finish": 1,
+        "url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=18&k_raceDate=2025%2F04%2F24&k_raceNo=11"
+      },
+      "later": {
+        "race_id": "LOCAL:2026-10-21:浦和:11",
+        "finish": 2,
+        "url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=18&k_raceDate=2026%2F10%2F21&k_raceNo=11"
+      },
+      "identity": "same NAR link ID on both result pages",
+      "complete_history": false
+    }
+  ],
+  "state_samples": [
+    {
+      "race_id": "LOCAL:2026-10-21:浦和:11",
+      "horse_no_in_target": 7,
+      "horse_id": "30011400966",
+      "runner_no": 5,
+      "rider_id": "31323",
+      "rider_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31323",
+      "trainer_id": "11136",
+      "trainer_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11136",
+      "result_weight_kg": 540,
+      "result_weight_delta_kg": 2,
+      "weight_carried_kg": 54,
+      "result_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=18&k_raceDate=2026%2F10%2F21&k_raceNo=11"
+    },
+    {
+      "race_id": "LOCAL:2026-10-21:浦和:11",
+      "horse_no_in_target": 2,
+      "horse_id": "30085406656",
+      "runner_no": 2,
+      "rider_id": "31229",
+      "rider_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31229",
+      "result_weight_kg": 475,
+      "result_weight_delta_kg": 15,
+      "weight_carried_kg": 56,
+      "result_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=18&k_raceDate=2026%2F10%2F21&k_raceNo=11"
+    },
+    {
+      "race_id": "LOCAL:2025-04-24:浦和:11",
+      "horse_no_in_target": 7,
+      "horse_id": "30011400966",
+      "runner_no": 6,
+      "result_weight_kg": null,
+      "weight_status": "計不",
+      "result_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=18&k_raceDate=2025%2F04%2F24&k_raceNo=11"
+    }
+  ],
+  "terms": [
+    {
+      "url": "https://www.jra.go.jp/use/",
+      "finding": "information can change without notice; no general bulk collection/reuse licence established"
+    },
+    {
+      "url": "https://www.keiba.go.jp/terms.html",
+      "finding": "prior permission required for reproduction/republishing; scope of derived analytical use still unresolved"
+    }
+  ],
+  "formal_admissions": 0,
+  "notes": [
+    "All observations retrospective; official page publication timestamp not established.",
+    "First turn number can be 1, 3 or 4; store label and lower/upper bounds separately from exact values.",
+    "Class administrative mapping is not race strength or historical rule version.",
+    "No raw data or market inputs published. No inquiry or production changes."
+  ]
+}
