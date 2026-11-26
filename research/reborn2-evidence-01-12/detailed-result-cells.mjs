@@ -26,7 +26,7 @@ export function parseDetailedResultTable({headers,rows,expectedHorseNos,circuit}
  const usable=classified.length>0&&winners.length>=1&&classified.every(h=>h.elapsed_seconds!==null)&&winners.every(h=>h.elapsed_seconds===winners[0].elapsed_seconds)&&classified.every(h=>h.elapsed_seconds>=winners[0].elapsed_seconds);
  for(const h of result){h.rounded_clock_gap_to_winner_s=usable&&h.finish!==null?Math.round((h.elapsed_seconds-winners[0].elapsed_seconds)*10)/10:null;
  const nextRank=h.finish===null?null:Math.min(...classified.filter(x=>x.finish>h.finish).map(x=>x.finish));const next=classified.filter(x=>x.finish===nextRank);
- h.rounded_clock_gap_to_next_finisher_s=usable&&next.length>0&&next.every(x=>x.elapsed_seconds===next[0].elapsed_seconds)&&next[0].elapsed_seconds>=h.elapsed_seconds?Math.round((next[0].elapsed_seconds-h.elapsed_seconds)*10)/10:null}
+ h.rounded_clock_gap_to_next_finisher_s=usable&&h.finish!==null&&next.length>0&&next.every(x=>x.elapsed_seconds===next[0].elapsed_seconds)&&next[0].elapsed_seconds>=h.elapsed_seconds?Math.round((next[0].elapsed_seconds-h.elapsed_seconds)*10)/10:null}
  return {circuit,runners:result,status:"CANDIDATE_ONLY",limitations:["OFFICIAL_SOURCE_AND_IDENTITY_REQUIRED","CLOCK_DIFFERENCES_ROUNDED_NOT_MARGIN","NO_TARGET_RESULTS_OR_MARKET"]};
 }
 export function extractGateIncidentCandidates({lines,roster}) {
