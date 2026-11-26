@@ -16,6 +16,7 @@ node test-independent-audit-02.mjs
 node test-winning-race-structure.mjs
 node test-typed-v2.mjs
 node test-review-v3.mjs
+node test-staged-v4.mjs
 node ../reborn2-analysis-circuit/test.mjs
 node ../reborn2-evidence-01-12/test-nar-monthly-materials.mjs
 node ../reborn2-evidence-01-12/test-archive-materials.mjs
