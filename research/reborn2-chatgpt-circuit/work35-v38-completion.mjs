@@ -32,7 +32,7 @@ export async function loadV38(){
  const fixed=new Map(m.cases.map(p=>[p.id,{raw:{raw:fixtures.find(f=>f.id===p.id).docs},pin:{...p,blob:p.id.startsWith('FK34')?V.fixed.get(p.id).pin.blob:blob(b)}}]));
  return {C,fixed,manifest:m};
 }
-export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,gapStress=false}={}){
+export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,gapStress=false,evidenceCross=false}={}){
  const f=V.C.fixtures.find(x=>x.id===id);assert.ok(f);
  const common=analyzeV34(V,id,{withdraw,eyeEnabled,placeThreshold,localize:true});
  // Preserve local observed bounds even when there is no independent current
@@ -47,6 +47,15 @@ export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,
   for(const k of [0.25,0.5,1.5]){
    const starts=Object.fromEntries(v.map(([h,a])=>{const m=origin+k*(center(a)-origin),u=(a[1]-a[0])/2;return [h,[m-u,m+u]];}));
    branches.push({id:'GAP_STRESS:'+k+':'+s.id,checkpoint_m:s.checkpoint_m,response_event:s.event,starts});
+  }
+ }
+ // V40: use an independent observed starting vector and the entire measured
+ // response of another comparable event. No guessed gap compression.
+ if(evidenceCross){
+  const eligible=observed.filter(s=>s.checkpoint_m===800&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE');
+  for(const a of eligible)for(const b of eligible){
+   if(a.event===b.event)continue;
+   branches.push({id:'EVIDENCE_CROSS:'+a.id+'>'+b.id,checkpoint_m:b.checkpoint_m,response_event:b.event,starts:a.starts});
   }
  }
  const shared=analyzeV35(V,id,{withdraw,eyeEnabled,placeThreshold,branches,localize:true});
