@@ -19,7 +19,7 @@ function checkpoints(r,m,h){
  const clocks=m.clocks[r.id][h.id];const positions=points.map((_,i)=>1+r.rows.filter(x=>m.clocks[r.id][x.id][i]<clocks[i]).length);
  return points.map((at_m,i)=>({at_m,rank:positions[i],clock_tenths:clocks[i],segment_tenths:clocks[i]-(clocks[i-1]??0),transition:i===0?'FIRST_OBSERVATION':positions[i]<positions[i-1]?'GAIN':positions[i]>positions[i-1]?'RETREAT':'HOLD',lead_change:i===0?null:positions[i]===1&&positions[i-1]!==1?'GAIN_OR_REGAIN_LEAD':positions[i]!==1&&positions[i-1]===1?'LOSE_LEAD':null}));
 }
-function dedup(rows,m){const by=new Map();for(const r of rows){const k=m.families[r.id];if(!by.has(k))by.set(k,[]);by.get(k).push(r);}return [...by.values()];}
+function dedup(rows,m){const by=new Map();for(const r of rows){const k=m.families[r.id];if(!by.has(k))by.set(k,[]);by.get(k).push(r);}return [...by.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(x=>x[1]);}
 function familySignature(r,m){return JSON.stringify({date:r.date,start:r.start,conditions:scopeKeys.map(k=>r.conditions[k]),geometry:m.geometry[r.id],laps:r.lap_tenths,segments:r.lap_segment_m,rows:r.rows.slice().sort((a,b)=>a.id.localeCompare(b.id)).map(h=>({id:h.id,kg:h.kg,finish:h.finish,clock:h.clock_tenths,final3f:h.final3f_tenths,gap:h.margin_tenths,positions:h.corners,checkpoints:m.clocks[r.id][h.id]}))});}
 function uniqueFamilies(rows,m){return dedup(rows,m).map(f=>{const a=f.slice().sort((x,y)=>x.id.localeCompare(y.id));return {r:a[0],aliases:a.map(x=>x.id),conflict:new Set(a.map(x=>familySignature(x,m))).size!==1};});}
 function cyclic(edges,ids){const adj=new Map(ids.map(h=>[h,[]]));for(const [a,b] of edges)adj.get(a).push(b);
