@@ -1,0 +1,3893 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "checks": [
+    {
+      "name": "FK35_ACTIVE_MISSING:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_MISSING:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_MISSING:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_MISSING:COMMON_V35",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_MISSING:SHARED_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_MISSING:NO_CURRENT_MEASUREMENT",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_NO_CHECKPOINT:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_NO_CHECKPOINT:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_NO_CHECKPOINT:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_NO_CHECKPOINT:COMMON_V35",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_NO_CHECKPOINT:SHARED_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK35_ACTIVE_NO_CHECKPOINT:NO_CURRENT_MEASUREMENT",
+      "pass": true
+    },
+    {
+      "name": "FK35_CONTEXT_CHANGE:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK35_CONTEXT_CHANGE:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK35_CONTEXT_CHANGE:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK35_CONTEXT_CHANGE:COMMON_V35",
+      "pass": true
+    },
+    {
+      "name": "FK35_CONTEXT_CHANGE:SHARED_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK35_CONTEXT_CHANGE:NO_CURRENT_MEASUREMENT",
+      "pass": true
+    },
+    {
+      "name": "FK35_CONTEXT_CHANGE:INDEPENDENT_START_CHANGE",
+      "pass": true
+    }
+  ],
+  "summary": [
+    {
+      "id": "FK35_ACTIVE_MISSING",
+      "evidence": 217,
+      "source_digest": "93df9900a888bc0a515c3796dd6124c02fa08b8864b2c8b9c78a75c5d19a10bb",
+      "bundle_sha256": "3a145ccfbfd7eb1451bbabb6c0a46a7f915ca84e1f49af03d9c2a7e7e6a4700c",
+      "v34": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "v35": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "roster": {
+        "registered": 5,
+        "declared_active_count": 5,
+        "actual_starters": null,
+        "known_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "possible_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "unknown_slots": []
+      },
+      "scenarios": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "H5_START_MISSING",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FK35_ACTIVE_NO_CHECKPOINT",
+      "evidence": 527,
+      "source_digest": "88f0d96679ea78ee9a7e1d59db60b4766d82728dbbce3b9dd30cd93ffb98c844",
+      "bundle_sha256": "d6211f517467b6b3eaa5c4001d6b2c571d5dc6e48f8b350a560efcd21fec57a9",
+      "v34": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "v35": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "roster": {
+        "registered": 5,
+        "declared_active_count": 5,
+        "actual_starters": null,
+        "known_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "possible_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "unknown_slots": []
+      },
+      "scenarios": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "H5_START_MISSING",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FK35_CONTEXT_CHANGE",
+      "evidence": 537,
+      "source_digest": "04c3cc3c73c23a9ab472fc26ba1269fd9e1640e0d5037afbdc78737e9c55c243",
+      "bundle_sha256": "375d317d930d10674dfb6faf442543f830b7f4aa0756820d717a144b531f2e01",
+      "v34": [
+        "A",
+        "C",
+        "B",
+        "C",
+        "C"
+      ],
+      "v35": [
+        "A",
+        null,
+        "B",
+        null,
+        null
+      ],
+      "eyeOff": [
+        "A",
+        null,
+        "B",
+        null,
+        null
+      ],
+      "roster": {
+        "registered": 5,
+        "declared_active_count": 5,
+        "actual_starters": null,
+        "known_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "possible_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "unknown_slots": []
+      },
+      "scenarios": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 1,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "H5_START_MISSING",
+          "complete": false,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              2
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "FK35_ACTIVE_MISSING",
+      "docs": [
+        {
+          "kind": "TARGET_CARD",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:T",
+          "version": 1,
+          "publishedAt": 70,
+          "updatedAt": 70,
+          "scheduledPost": 100,
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "ACTIVE",
+              "gate": 1,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "ACTIVE",
+              "gate": 2,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "ACTIVE",
+              "gate": 3,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "ACTIVE",
+              "gate": 4,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "ACTIVE",
+              "gate": 5,
+              "weightG": 55000
+            }
+          ]
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:CONTEST",
+          "eventAt": 8,
+          "version": 1,
+          "publishedAt": 9,
+          "updatedAt": 10,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86000,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                12600,
+                49000,
+                74200
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                3,
+                2
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87900,
+              "final600Ms": 40400,
+              "checkpointMs": [
+                11500,
+                47500,
+                73900
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86700,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13500,
+                50400,
+                74900
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 87200,
+              "final600Ms": 36600,
+              "checkpointMs": [
+                12900,
+                50600,
+                75400
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                4,
+                5,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": null,
+              "final600Ms": null,
+              "checkpointMs": null,
+              "finish": null,
+              "checkpointRanks": null,
+              "officialMargin": null
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": null,
+          "passing": null
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:LONE",
+          "eventAt": 20,
+          "version": 1,
+          "publishedAt": 21,
+          "updatedAt": 22,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86600,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12700,
+                49300,
+                74200
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                2,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 85200,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                11700,
+                48200,
+                72500
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                1,
+                2,
+                1
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86100,
+              "final600Ms": 35600,
+              "checkpointMs": [
+                13700,
+                50500,
+                74700
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 87100,
+              "final600Ms": 36200,
+              "checkpointMs": [
+                13000,
+                50900,
+                75500
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": null,
+              "final600Ms": null,
+              "checkpointMs": null,
+              "finish": null,
+              "checkpointRanks": null,
+              "officialMargin": null
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": null,
+          "passing": null
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:RECOVERY_A",
+          "eventAt": 32,
+          "version": 1,
+          "publishedAt": 33,
+          "updatedAt": 34,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86200,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12600,
+                48900,
+                74100
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87300,
+              "final600Ms": 39400,
+              "checkpointMs": [
+                11700,
+                47900,
+                73800
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86800,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13500,
+                50500,
+                74800
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 85500,
+              "final600Ms": 34400,
+              "checkpointMs": [
+                12100,
+                51100,
+                75100
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": null,
+              "final600Ms": null,
+              "checkpointMs": null,
+              "finish": null,
+              "checkpointRanks": null,
+              "officialMargin": null
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": null,
+          "passing": null
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:RECOVERY_B",
+          "eventAt": 44,
+          "version": 1,
+          "publishedAt": 45,
+          "updatedAt": 46,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86400,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12700,
+                49100,
+                74300
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87500,
+              "final600Ms": 39500,
+              "checkpointMs": [
+                11800,
+                48000,
+                74000
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 87000,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13600,
+                50700,
+                75000
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 85700,
+              "final600Ms": 34400,
+              "checkpointMs": [
+                12200,
+                51300,
+                75300
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": null,
+              "final600Ms": null,
+              "checkpointMs": null,
+              "finish": null,
+              "checkpointRanks": null,
+              "officialMargin": null
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": null,
+          "passing": null
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:COUNTER",
+          "eventAt": 56,
+          "version": 1,
+          "publishedAt": 57,
+          "updatedAt": 58,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86300,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12600,
+                49000,
+                74300
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 85100,
+              "final600Ms": 37200,
+              "checkpointMs": [
+                11600,
+                47900,
+                73200
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86900,
+              "final600Ms": 36400,
+              "checkpointMs": [
+                13600,
+                50500,
+                75000
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 88000,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                12100,
+                51000,
+                76200
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                3,
+                5,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": null,
+              "final600Ms": null,
+              "checkpointMs": null,
+              "finish": null,
+              "checkpointRanks": null,
+              "officialMargin": null
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": null,
+          "passing": null
+        }
+      ],
+      "branches": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ],
+            "TEST:NAR|TEST:H5": [
+              48050,
+              48150
+            ]
+          }
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49450,
+              49550
+            ],
+            "TEST:NAR|TEST:H2": [
+              48050,
+              48150
+            ],
+            "TEST:NAR|TEST:H3": [
+              50750,
+              50850
+            ],
+            "TEST:NAR|TEST:H4": [
+              51250,
+              51350
+            ],
+            "TEST:NAR|TEST:H5": [
+              48350,
+              48450
+            ]
+          }
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:LONE",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49350,
+              49450
+            ],
+            "TEST:NAR|TEST:H2": [
+              47950,
+              48050
+            ],
+            "TEST:NAR|TEST:H3": [
+              50650,
+              50750
+            ],
+            "TEST:NAR|TEST:H4": [
+              51050,
+              51150
+            ],
+            "TEST:NAR|TEST:H5": [
+              48350,
+              48450
+            ]
+          }
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              48950,
+              49050
+            ],
+            "TEST:NAR|TEST:H2": [
+              48150,
+              48250
+            ],
+            "TEST:NAR|TEST:H3": [
+              50550,
+              50650
+            ],
+            "TEST:NAR|TEST:H4": [
+              50950,
+              51050
+            ],
+            "TEST:NAR|TEST:H5": [
+              47850,
+              47950
+            ]
+          }
+        },
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:COUNTER",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ],
+            "TEST:NAR|TEST:H5": [
+              48050,
+              48150
+            ]
+          }
+        },
+        {
+          "id": "H5_START_MISSING",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "FK35_ACTIVE_NO_CHECKPOINT",
+      "docs": [
+        {
+          "kind": "TARGET_CARD",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:T",
+          "version": 1,
+          "publishedAt": 70,
+          "updatedAt": 70,
+          "scheduledPost": 100,
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "ACTIVE",
+              "gate": 1,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "ACTIVE",
+              "gate": 2,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "ACTIVE",
+              "gate": 3,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "ACTIVE",
+              "gate": 4,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "ACTIVE",
+              "gate": 5,
+              "weightG": 55000
+            }
+          ]
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:CONTEST",
+          "eventAt": 8,
+          "version": 1,
+          "publishedAt": 9,
+          "updatedAt": 10,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86000,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                12600,
+                49000,
+                74200
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                3,
+                2
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87900,
+              "final600Ms": 40400,
+              "checkpointMs": [
+                11500,
+                47500,
+                73900
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86700,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13500,
+                50400,
+                74900
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 87200,
+              "final600Ms": 36600,
+              "checkpointMs": [
+                12900,
+                50600,
+                75400
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                4,
+                5,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89000,
+              "final600Ms": 41400,
+              "checkpointMs": null,
+              "finish": 5,
+              "checkpointRanks": null,
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11500,
+              36000,
+              26400,
+              12100
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                5
+              ],
+              [
+                1
+              ],
+              [
+                4
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:LONE",
+          "eventAt": 20,
+          "version": 1,
+          "publishedAt": 21,
+          "updatedAt": 22,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86600,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12700,
+                49300,
+                74200
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                2,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 85200,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                11700,
+                48200,
+                72500
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                1,
+                2,
+                1
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86100,
+              "final600Ms": 35600,
+              "checkpointMs": [
+                13700,
+                50500,
+                74700
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 87100,
+              "final600Ms": 36200,
+              "checkpointMs": [
+                13000,
+                50900,
+                75500
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89200,
+              "final600Ms": 41300,
+              "checkpointMs": null,
+              "finish": 5,
+              "checkpointRanks": null,
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11700,
+              36200,
+              24600,
+              12700
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                1
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:RECOVERY_A",
+          "eventAt": 32,
+          "version": 1,
+          "publishedAt": 33,
+          "updatedAt": 34,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86200,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12600,
+                48900,
+                74100
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87300,
+              "final600Ms": 39400,
+              "checkpointMs": [
+                11700,
+                47900,
+                73800
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86800,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13500,
+                50500,
+                74800
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 85500,
+              "final600Ms": 34400,
+              "checkpointMs": [
+                12100,
+                51100,
+                75100
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89300,
+              "final600Ms": 41300,
+              "checkpointMs": null,
+              "finish": 5,
+              "checkpointRanks": null,
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11700,
+              36200,
+              25900,
+              11700
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                5
+              ],
+              [
+                4
+              ],
+              [
+                1
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:RECOVERY_B",
+          "eventAt": 44,
+          "version": 1,
+          "publishedAt": 45,
+          "updatedAt": 46,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86400,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12700,
+                49100,
+                74300
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87500,
+              "final600Ms": 39500,
+              "checkpointMs": [
+                11800,
+                48000,
+                74000
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 87000,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13600,
+                50700,
+                75000
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 85700,
+              "final600Ms": 34400,
+              "checkpointMs": [
+                12200,
+                51300,
+                75300
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89500,
+              "final600Ms": 41400,
+              "checkpointMs": null,
+              "finish": 5,
+              "checkpointRanks": null,
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11800,
+              36200,
+              26000,
+              11700
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                5
+              ],
+              [
+                4
+              ],
+              [
+                1
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:COUNTER",
+          "eventAt": 56,
+          "version": 1,
+          "publishedAt": 57,
+          "updatedAt": 58,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86300,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12600,
+                49000,
+                74300
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 85100,
+              "final600Ms": 37200,
+              "checkpointMs": [
+                11600,
+                47900,
+                73200
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86900,
+              "final600Ms": 36400,
+              "checkpointMs": [
+                13600,
+                50500,
+                75000
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 88000,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                12100,
+                51000,
+                76200
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                3,
+                5,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89900,
+              "final600Ms": 41900,
+              "checkpointMs": null,
+              "finish": 5,
+              "checkpointRanks": null,
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11600,
+              36300,
+              25300,
+              11900
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                5
+              ],
+              [
+                4
+              ],
+              [
+                1
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        }
+      ],
+      "branches": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ],
+            "TEST:NAR|TEST:H5": [
+              48050,
+              48150
+            ]
+          }
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49450,
+              49550
+            ],
+            "TEST:NAR|TEST:H2": [
+              48050,
+              48150
+            ],
+            "TEST:NAR|TEST:H3": [
+              50750,
+              50850
+            ],
+            "TEST:NAR|TEST:H4": [
+              51250,
+              51350
+            ],
+            "TEST:NAR|TEST:H5": [
+              48350,
+              48450
+            ]
+          }
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:LONE",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49350,
+              49450
+            ],
+            "TEST:NAR|TEST:H2": [
+              47950,
+              48050
+            ],
+            "TEST:NAR|TEST:H3": [
+              50650,
+              50750
+            ],
+            "TEST:NAR|TEST:H4": [
+              51050,
+              51150
+            ],
+            "TEST:NAR|TEST:H5": [
+              48350,
+              48450
+            ]
+          }
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              48950,
+              49050
+            ],
+            "TEST:NAR|TEST:H2": [
+              48150,
+              48250
+            ],
+            "TEST:NAR|TEST:H3": [
+              50550,
+              50650
+            ],
+            "TEST:NAR|TEST:H4": [
+              50950,
+              51050
+            ],
+            "TEST:NAR|TEST:H5": [
+              47850,
+              47950
+            ]
+          }
+        },
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:COUNTER",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ],
+            "TEST:NAR|TEST:H5": [
+              48050,
+              48150
+            ]
+          }
+        },
+        {
+          "id": "H5_START_MISSING",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "FK35_CONTEXT_CHANGE",
+      "docs": [
+        {
+          "kind": "TARGET_CARD",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:T",
+          "version": 1,
+          "publishedAt": 70,
+          "updatedAt": 70,
+          "scheduledPost": 100,
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:SOFT",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 350,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A2",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "ACTIVE",
+              "gate": 1,
+              "weightG": 57000
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "ACTIVE",
+              "gate": 2,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "ACTIVE",
+              "gate": 3,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "ACTIVE",
+              "gate": 4,
+              "weightG": 55000
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "ACTIVE",
+              "gate": 5,
+              "weightG": 55000
+            }
+          ]
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:CONTEST",
+          "eventAt": 8,
+          "version": 1,
+          "publishedAt": 9,
+          "updatedAt": 10,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 57000,
+              "clockMs": 86000,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                12600,
+                49000,
+                74200
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                3,
+                2
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87900,
+              "final600Ms": 40400,
+              "checkpointMs": [
+                11500,
+                47500,
+                73900
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86700,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13500,
+                50400,
+                74900
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 87200,
+              "final600Ms": 36600,
+              "checkpointMs": [
+                12900,
+                50600,
+                75400
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                4,
+                5,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89000,
+              "final600Ms": 41400,
+              "checkpointMs": [
+                11600,
+                47600,
+                75200
+              ],
+              "finish": 5,
+              "checkpointRanks": [
+                2,
+                2,
+                4
+              ],
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:SOFT",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 350,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A2",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11500,
+              36000,
+              26400,
+              12100
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                5
+              ],
+              [
+                1
+              ],
+              [
+                4
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:LONE",
+          "eventAt": 20,
+          "version": 1,
+          "publishedAt": 21,
+          "updatedAt": 22,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86600,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12700,
+                49300,
+                74200
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                2,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 85200,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                11700,
+                48200,
+                72500
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                1,
+                2,
+                1
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86100,
+              "final600Ms": 35600,
+              "checkpointMs": [
+                13700,
+                50500,
+                74700
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 87100,
+              "final600Ms": 36200,
+              "checkpointMs": [
+                13000,
+                50900,
+                75500
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89200,
+              "final600Ms": 41300,
+              "checkpointMs": [
+                13300,
+                47900,
+                76800
+              ],
+              "finish": 5,
+              "checkpointRanks": [
+                4,
+                1,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11700,
+              36200,
+              24600,
+              12700
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                1
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:RECOVERY_A",
+          "eventAt": 32,
+          "version": 1,
+          "publishedAt": 33,
+          "updatedAt": 34,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86200,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12600,
+                48900,
+                74100
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87300,
+              "final600Ms": 39400,
+              "checkpointMs": [
+                11700,
+                47900,
+                73800
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86800,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13500,
+                50500,
+                74800
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 85500,
+              "final600Ms": 34400,
+              "checkpointMs": [
+                12100,
+                51100,
+                75100
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89300,
+              "final600Ms": 41300,
+              "checkpointMs": [
+                11800,
+                48000,
+                76000
+              ],
+              "finish": 5,
+              "checkpointRanks": [
+                2,
+                2,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11700,
+              36200,
+              25900,
+              11700
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                5
+              ],
+              [
+                4
+              ],
+              [
+                1
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:RECOVERY_B",
+          "eventAt": 44,
+          "version": 1,
+          "publishedAt": 45,
+          "updatedAt": 46,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86400,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12700,
+                49100,
+                74300
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 87500,
+              "final600Ms": 39500,
+              "checkpointMs": [
+                11800,
+                48000,
+                74000
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 87000,
+              "final600Ms": 36300,
+              "checkpointMs": [
+                13600,
+                50700,
+                75000
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 85700,
+              "final600Ms": 34400,
+              "checkpointMs": [
+                12200,
+                51300,
+                75300
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                3,
+                5,
+                4
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89500,
+              "final600Ms": 41400,
+              "checkpointMs": [
+                11900,
+                48100,
+                76200
+              ],
+              "finish": 5,
+              "checkpointRanks": [
+                2,
+                2,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11800,
+              36200,
+              26000,
+              11700
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                5
+              ],
+              [
+                4
+              ],
+              [
+                1
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        },
+        {
+          "kind": "HISTORICAL_RESULT",
+          "issuer": "TEST:NAR",
+          "eventId": "TEST:COUNTER",
+          "eventAt": 56,
+          "version": 1,
+          "publishedAt": 57,
+          "updatedAt": 58,
+          "distanceM": 1400,
+          "registeredCount": 5,
+          "actualStarters": 5,
+          "precisionMs": 50,
+          "rows": [
+            {
+              "nativeId": "TEST:H1",
+              "no": 1,
+              "status": "FINISHED",
+              "gate": 1,
+              "weightG": 55000,
+              "clockMs": 86300,
+              "final600Ms": 37300,
+              "checkpointMs": [
+                12600,
+                49000,
+                74300
+              ],
+              "finish": 2,
+              "checkpointRanks": [
+                4,
+                3,
+                2
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H2",
+              "no": 2,
+              "status": "FINISHED",
+              "gate": 2,
+              "weightG": 55000,
+              "clockMs": 85100,
+              "final600Ms": 37200,
+              "checkpointMs": [
+                11600,
+                47900,
+                73200
+              ],
+              "finish": 1,
+              "checkpointRanks": [
+                1,
+                1,
+                1
+              ],
+              "officialMargin": null
+            },
+            {
+              "nativeId": "TEST:H3",
+              "no": 3,
+              "status": "FINISHED",
+              "gate": 3,
+              "weightG": 55000,
+              "clockMs": 86900,
+              "final600Ms": 36400,
+              "checkpointMs": [
+                13600,
+                50500,
+                75000
+              ],
+              "finish": 3,
+              "checkpointRanks": [
+                5,
+                4,
+                3
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H4",
+              "no": 4,
+              "status": "FINISHED",
+              "gate": 4,
+              "weightG": 55000,
+              "clockMs": 88000,
+              "final600Ms": 37000,
+              "checkpointMs": [
+                12100,
+                51000,
+                76200
+              ],
+              "finish": 4,
+              "checkpointRanks": [
+                3,
+                5,
+                5
+              ],
+              "officialMargin": "TEST_LITERAL"
+            },
+            {
+              "nativeId": "TEST:H5",
+              "no": 5,
+              "status": "FINISHED",
+              "gate": 5,
+              "weightG": 55000,
+              "clockMs": 89900,
+              "final600Ms": 41900,
+              "checkpointMs": [
+                11700,
+                48000,
+                75800
+              ],
+              "finish": 5,
+              "checkpointRanks": [
+                2,
+                2,
+                4
+              ],
+              "officialMargin": "TEST_LITERAL"
+            }
+          ],
+          "conditions": {
+            "distance_m": 1400,
+            "surface": "DIRT",
+            "going": "TEST:GOOD",
+            "venue": "TEST:VENUE_A",
+            "class_label": "TEST:FIELD_CLASS",
+            "class_version": "TEST:CLASS_V1",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "geometry": {
+            "direction": "RIGHT",
+            "first_turn_m": 200,
+            "straight_m": 300,
+            "checkpoints_m": [
+              200,
+              800,
+              1200
+            ],
+            "course_version": "TEST:COURSE_A",
+            "effective_from": 0,
+            "effective_until": 120
+          },
+          "leaderLaps": {
+            "unit": "ms",
+            "scope": "RACE_LEADER",
+            "boundariesM": [
+              0,
+              200,
+              800,
+              1200,
+              1400
+            ],
+            "valuesMs": [
+              11600,
+              36300,
+              25300,
+              11900
+            ]
+          },
+          "passing": {
+            "checkpointM": 200,
+            "groups": [
+              [
+                2
+              ],
+              [
+                5
+              ],
+              [
+                4
+              ],
+              [
+                1
+              ],
+              [
+                3
+              ]
+            ],
+            "semantics": "SOURCE_GROUPED_ORDER"
+          }
+        }
+      ],
+      "branches": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ],
+            "TEST:NAR|TEST:H5": [
+              48050,
+              48150
+            ]
+          }
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49450,
+              49550
+            ],
+            "TEST:NAR|TEST:H2": [
+              48050,
+              48150
+            ],
+            "TEST:NAR|TEST:H3": [
+              50750,
+              50850
+            ],
+            "TEST:NAR|TEST:H4": [
+              51250,
+              51350
+            ],
+            "TEST:NAR|TEST:H5": [
+              48350,
+              48450
+            ]
+          }
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:LONE",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49350,
+              49450
+            ],
+            "TEST:NAR|TEST:H2": [
+              47950,
+              48050
+            ],
+            "TEST:NAR|TEST:H3": [
+              50650,
+              50750
+            ],
+            "TEST:NAR|TEST:H4": [
+              51050,
+              51150
+            ],
+            "TEST:NAR|TEST:H5": [
+              48350,
+              48450
+            ]
+          }
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              48950,
+              49050
+            ],
+            "TEST:NAR|TEST:H2": [
+              48150,
+              48250
+            ],
+            "TEST:NAR|TEST:H3": [
+              50550,
+              50650
+            ],
+            "TEST:NAR|TEST:H4": [
+              50950,
+              51050
+            ],
+            "TEST:NAR|TEST:H5": [
+              47850,
+              47950
+            ]
+          }
+        },
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:COUNTER",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ],
+            "TEST:NAR|TEST:H5": [
+              48050,
+              48150
+            ]
+          }
+        },
+        {
+          "id": "H5_START_MISSING",
+          "checkpoint_m": 800,
+          "response_event": "TEST:NAR|TEST:CONTEST",
+          "starts": {
+            "TEST:NAR|TEST:H1": [
+              49200,
+              49300
+            ],
+            "TEST:NAR|TEST:H2": [
+              47800,
+              47900
+            ],
+            "TEST:NAR|TEST:H3": [
+              50600,
+              50700
+            ],
+            "TEST:NAR|TEST:H4": [
+              51100,
+              51200
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
