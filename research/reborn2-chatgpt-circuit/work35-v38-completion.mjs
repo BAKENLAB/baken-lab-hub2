@@ -1,6 +1,8 @@
 // V38 research-only fixed Work35 intake and upstream localized comparison.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import {loadV36} from './work34-v36-current.mjs';
 import {analyzeV34,analyzeV35} from './work33-v34-synthesis.mjs';
@@ -84,6 +86,7 @@ function rootContrast(V,after,event){
  }));
  return {root,event,snapshot:after.source_digest,eyeEnabled:true,comparisons,itemChanges,untouched,paths,gradeChanged:after.runners.some(h=>h.research_grade!==baseline.runners.find(q=>q.slot===h.slot).research_grade),scope:'CANDIDATE_ROOT_SENSITIVITY_NOT_FULL_EYE_ADMISSION'};
 }
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
 const V=await loadV38(),t=(id,fn)=>{fn();console.log(id+' PASS');};
 const all=V.manifest.cases.map(c=>analyzeV38(V,c.id));
 t('F38-01',()=>{assert.equal(all.length,10);assert.equal(all.reduce((n,x)=>n+x.source_packet.evidence.length,0),4434);for(const x of all){const c=V.manifest.cases.find(c=>c.id===x.id);assert.equal(x.source_digest,c.source_digest);assert.equal(x.source_packet.evidence.length,c.evidence);assert.equal(x.runners.length,5);assert.ok(x.runners.every(h=>h.items.length===115&&h.grade===null));assert.equal(x.groups,118);assert.equal(x.held,826);}});
@@ -116,3 +119,5 @@ const positiveContrast=rootContrast(V,eye,'TEST:DISCOVERED'),counterContrast=roo
 t('F38-05',()=>{assert.ok(positiveContrast.comparisons.some(c=>c.changed));assert.ok(counterContrast.comparisons.some(c=>c.changed));assert.ok(positiveContrast.untouched&&counterContrast.untouched);assert.ok(positiveContrast.paths.length&&counterContrast.paths.length);assert.equal(positiveContrast.gradeChanged,false);assert.equal(counterContrast.gradeChanged,false);});
 console.log('V38_RECEIPT '+JSON.stringify(all.map(compact)));
 console.log('V38_ROOT_CONTRAST '+JSON.stringify({positive:positiveContrast,counter:counterContrast}));
+
+}
