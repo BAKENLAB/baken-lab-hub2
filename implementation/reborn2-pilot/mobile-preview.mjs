@@ -1,6 +1,7 @@
 import {createServer} from 'node:http';
 import {readManifest,readField} from './compact-store.mjs';
 import assert from 'node:assert/strict';
+import {itemName,itemState,describeItem} from './item-detail-ja.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const href=(h,field,extra={})=>'/detail?'+new URLSearchParams({horse:h,field,...extra});
 const styles=':root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b1017;color:#eef3fa;font:15px/1.6 system-ui,sans-serif}main{max-width:760px;margin:auto;padding:16px}h1{font-size:28px;line-height:1.2}h2{font-size:18px;margin:0}h3{font-size:15px;margin:12px 0 5px;color:#a1c9ba}a{color:#abd3f4;overflow-wrap:anywhere}article{background:#131c26;border:1px solid #344051;border-radius:14px;margin:12px 0;padding:14px}.row{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center}.grade{font-weight:800;font-size:21px;color:#a9d8c6}.muted{font-size:12px;color:#a8b6c7}.notice{padding:10px;border:1px solid #b2975d;color:#f0d49f;border-radius:9px}.chips{display:flex;flex-wrap:wrap;gap:6px}.chips span{border:1px solid #3e4b5d;padding:5px 8px;border-radius:6px;font-size:12px}p{overflow-wrap:anywhere}.link{display:inline-flex;align-items:center;min-height:44px;padding:6px 8px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#101722;padding:10px;border-radius:8px;font-size:12px}footer{font-size:12px;overflow-wrap:anywhere;color:#a8b6c7}@media(max-width:420px){main{padding:12px}article{padding:11px}.grade{font-size:18px}}';
@@ -25,10 +26,13 @@ export async function openDetail(root,m,h,field,params){
  const route=params.get('route'),item=params.get('item');
  if(route){assert.equal(field,'paths');v=v.find(x=>x.id===route);assert.ok(v,'UNKNOWN_ROUTE');}
  if(item){assert.equal(field,'analysisItems');v=v.find(x=>x.item===item);assert.ok(v,'UNKNOWN_ITEM');}
+ if(field==='analysisItems'&&!item){return shell('115分析項目','<a class="link" href="/">一覧に戻る</a><h1>'+esc(summary.name)+'</h1><h2>全'+v.length+'分析項目</h2><p>項目名を選ぶと観測・判定・根拠を確認できます。部分分析は完全な評価を意味しません。</p>'+v.map(i=>'<div>'+link(h,field,i.item+'｜'+itemName(i.item),{item:i.item})+'<span class="muted">'+esc(itemState(i))+'</span></div>').join(''));}
+ const human=field==='analysisItems'&&item?describeItem(v):null;
+ const overview=human?'<h3>'+esc(human.name)+'</h3><p>'+esc(human.state)+'</p><p>'+esc(human.sourcePlanning)+'</p>'+human.rows.map(q=>'<p><b>'+esc(q.label)+'</b> '+esc(q.text)+' <span class="muted">証拠参照 '+q.refs.length+'件</span>'+(q.route?link(h,'paths','経路を確認',{route:q.route}):'')+'</p>').join('')+(human.hold?'<p>保留理由（原文）：'+esc(human.hold)+'</p>':'')+link(h,'analysisItems','全項目へ')+'<h3>証拠原文</h3>':'';
  const raw=JSON.stringify(v,null,2),size=12000,number=Math.max(1,Math.ceil(raw.length/size)),p=Number(params.get('page')??1);
  assert.ok(Number.isSafeInteger(p)&&p>=1&&p<=number,'PAGE');
  const extra={...(route?{route}:{}),...(item?{item}:{})};
- return shell(fieldNames[field],'<a class="link" href="/">一覧に戻る</a><h1>'+esc(summary.no+' '+summary.name)+'</h1><h2>'+esc(fieldNames[field])+'</h2><p class="muted">根拠データ（原文・'+p+'/'+number+'ページ）。全データは保存済み。'+(field==='axes'&&m.header.mode==='FULL'?' 各経路の根拠：':'')+'</p>'+(field==='axes'&&m.header.mode==='FULL'?link(h,'paths','経路別の詳細'):'')+'<pre>'+esc(raw.slice((p-1)*size,p*size))+'</pre><nav>'+(p>1?link(h,field,'前へ',{...extra,page:p-1}):'')+(p<number?link(h,field,'次へ',{...extra,page:p+1}):'')+'</nav>');
+ return shell(fieldNames[field],'<a class="link" href="/">一覧に戻る</a><h1>'+esc(summary.no+' '+summary.name)+'</h1><h2>'+esc(fieldNames[field])+'</h2><p class="muted">根拠データ（原文・'+p+'/'+number+'ページ）。全データは保存済み。'+(field==='axes'&&m.header.mode==='FULL'?' 各経路の根拠：':'')+'</p>'+overview+(field==='axes'&&m.header.mode==='FULL'?link(h,'paths','経路別の詳細'):'')+'<pre>'+esc(raw.slice((p-1)*size,p*size))+'</pre><nav>'+(p>1?link(h,field,'前へ',{...extra,page:p-1}):'')+(p<number?link(h,field,'次へ',{...extra,page:p+1}):'')+'</nav>');
 }
 export async function startPreview(root,digest,port=0){
  const m=await readManifest(root,digest);

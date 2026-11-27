@@ -114,20 +114,45 @@ function build({race,time,sourceDigest,mode,roster,analysis}){
  const body=wireBody({schema:VERSION,mode,scope:'FIXTURE_ONLY',engineCommit:ENGINE,sourceDigest,race,time,runners,realAdmission:false,formal:false});
  return {...body,snapshotDigest:sha(body)};
 }
-export async function executeFixture(name='FK34_FULL'){
+// The only executable path remains the pinned fixture verifier. The
+// caller cannot turn a real envelope into a fixture by changing a flag.
+export async function executeVerifiedSupply(input){
  assertFrozenEngine();
- if(name==='WORK44_PARTIAL'){
-  const {b,trust}=partialFixture(),candidate=preparePartial(b,trust),z=analyzePartialVerified(b,trust,candidate),p=z.sourcePacket;
+ const fullKeys=['scope','mode','request','receipt','work42Envelope'];
+ const partialKeys=['scope','mode','bundle','trust','candidate'];
+ assert.equal(input.scope,'FIXTURE_ONLY','REAL_ENGINE_ADMISSION_CLOSED');
+ if(input.mode==='PARTIAL'){
+  exact(input,partialKeys);
+  const {bundle:b,trust,candidate}=input;
+  const z=analyzePartialVerified(b,trust,candidate),p=z.sourcePacket;
   const card=p.events.find(e=>e.role==='TARGET_CARD'),val=(r,k)=>r.observations[k]?.state==='OBSERVED_TEST_FORMAT'?r.observations[k].value:null;
   const roster=card.rows.map(r=>({horseId:r.nativeId,no:val(r,'no'),name:val(r,'displayName'),status:'UNKNOWN'}));
-  return build({race:{raceId:p.target.eventId,circuit:'LOCAL',label:'Work44 架空競走'},time:{domain:'SYNTHETIC_SIGNED_FIXTURE_TIME',cutoff:p.cutoff,analysisAt:trust.now,startLower:b.manifest.payload.startLower,scheduledPost:p.target.scheduledPost,prospective:false},sourceDigest:z.sourceDigest,mode:'PARTIAL',roster,analysis:z.runners});
+  const snapshot=build({race:{raceId:p.target.eventId,circuit:'LOCAL',label:'Work44 架空競走'},time:{domain:'SYNTHETIC_SIGNED_FIXTURE_TIME',cutoff:p.cutoff,analysisAt:trust.now,startLower:b.manifest.payload.startLower,scheduledPost:p.target.scheduledPost,prospective:false},sourceDigest:z.sourceDigest,mode:'PARTIAL',roster,analysis:z.runners});
+  return {snapshot,sourceProof:{scope:'FIXTURE_ONLY',mode:'PARTIAL',sourceDigest:z.sourceDigest,packet:p,receipt:{manifest:trust.expectedManifestSha256,rights:trust.expectedRightsSha256,inventory:trust.expectedInventorySha256,identity:trust.expectedIdentitySha256}}};
+ }
+ assert.equal(input.mode,'FULL');exact(input,fullKeys);
+ const {request,receipt,work42Envelope}=input,V=await loadV40();
+ // Only previously accepted fixed complete fixture IDs and their exact
+ // independently pinned bundle+packet are eligible in this wrapper.
+ assert.ok(['FK34_FULL','FK34_UNKNOWN'].includes(request.id),'FIXTURE_NOT_ALLOWLISTED');
+ const expected=acceptedRequest(V,request.id);
+ assert.deepEqual(request,expected.request);assert.deepEqual(receipt,expected.receipt);
+ const verified=verifyIntake(V,request,receipt),card=verified.docs[0];
+ const z=await analyzeVerified(V,request,receipt,{semanticVersion:48,work42Envelope});
+ const roster=card.rows.map(r=>({horseId:card.issuer+'|'+r.nativeId,no:r.no,name:'架空馬 '+r.nativeId.split(':').at(-1),status:r.status}));
+ const snapshot=build({race:{raceId:card.eventId,circuit:card.issuer==='TEST:JRA'?'JRA':'LOCAL',label:'V48 '+request.id+' 架空競走'},time:fixtureClock(JSON.parse(request.bundleText).cases[0].input.manifest.cutoff,card.scheduledPost),sourceDigest:z.digest,mode:'FULL',roster,analysis:z.candidate.runners});
+ return {snapshot,sourceProof:{scope:'FIXTURE_ONLY',mode:'FULL',sourceDigest:z.digest,packet:verified.packet,packetDigest:receipt.source_digest,bundleDigest:receipt.bundle_sha256,receipt}};
+}
+export async function executeFixtureWithProof(name='FK34_FULL'){
+ if(name==='WORK44_PARTIAL'){
+  const {b,trust}=partialFixture();
+  return executeVerifiedSupply({scope:'FIXTURE_ONLY',mode:'PARTIAL',bundle:b,trust,candidate:preparePartial(b,trust)});
  }
  assert.ok(['FK34_FULL','FK34_UNKNOWN'].includes(name),'FIXTURE_NOT_ALLOWLISTED');
- const V=await loadV40(),{request,receipt}=acceptedRequest(V,name),verified=verifyIntake(V,request,receipt),card=verified.docs[0];
- const z=await analyzeVerified(V,request,receipt,{semanticVersion:48,work42Envelope:makeEnvelope(verified.docs)});
- const roster=card.rows.map(r=>({horseId:card.issuer+'|'+r.nativeId,no:r.no,name:'架空馬 '+r.nativeId.split(':').at(-1),status:r.status}));
- return build({race:{raceId:card.eventId,circuit:card.issuer==='TEST:JRA'?'JRA':'LOCAL',label:'V48 '+name+' 架空競走'},time:fixtureClock(JSON.parse(request.bundleText).cases[0].input.manifest.cutoff,card.scheduledPost),sourceDigest:z.digest,mode:'FULL',roster,analysis:z.candidate.runners});
+ const V=await loadV40(),{request,receipt}=acceptedRequest(V,name),verified=verifyIntake(V,request,receipt);
+ return executeVerifiedSupply({scope:'FIXTURE_ONLY',mode:'FULL',request,receipt,work42Envelope:makeEnvelope(verified.docs)});
 }
+export async function executeFixture(name='FK34_FULL'){return (await executeFixtureWithProof(name)).snapshot;}
 export function validateSnapshot(s){
  exact(s,['schema','mode','scope','engineCommit','sourceDigest','race','time','runners','realAdmission','formal','snapshotDigest']);
  const {snapshotDigest,...body}=s;assert.equal(sha(body),snapshotDigest,'SNAPSHOT_DIGEST');
