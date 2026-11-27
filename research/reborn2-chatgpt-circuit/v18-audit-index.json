@@ -1,0 +1,2309 @@
+{
+  "schema": "V18-research-audit-v1",
+  "tested_commit": "8e4b2da6855a0d5da67e5e5504b48d2abac223bc",
+  "ci_run": 45956645783,
+  "ci_job": 140364550371,
+  "prior_named_tests": 198,
+  "additional_named_tests": [
+    "F18-01",
+    "F18-02",
+    "F18-03",
+    "F18-04",
+    "F18-05",
+    "F18-06",
+    "F18-07",
+    "F18-08"
+  ],
+  "total_named_tests": 206,
+  "fixture_groups": {
+    "prototype": {
+      "horses": 4,
+      "item_rows": 460,
+      "changed": 36,
+      "outputs": 271,
+      "instrumented": 164,
+      "judgment_links": 34,
+      "missing": 189,
+      "added_routes": 21,
+      "new_evidence_records": 0,
+      "mechanisms": 12
+    },
+    "heterogeneous": {
+      "horses": 6,
+      "item_rows": 690,
+      "changed": 162,
+      "outputs": 352,
+      "instrumented": 207,
+      "judgment_links": 28,
+      "missing": 338,
+      "added_routes": 15,
+      "new_evidence_records": 8,
+      "mechanisms": 7
+    },
+    "field4-1200": {
+      "horses": 4,
+      "item_rows": 460,
+      "changed": 128,
+      "outputs": 226,
+      "instrumented": 139,
+      "judgment_links": 24,
+      "missing": 234,
+      "added_routes": 14,
+      "new_evidence_records": 8,
+      "mechanisms": 6
+    },
+    "field8-2200": {
+      "horses": 8,
+      "item_rows": 920,
+      "changed": 195,
+      "outputs": 481,
+      "instrumented": 278,
+      "judgment_links": 32,
+      "missing": 439,
+      "added_routes": 16,
+      "new_evidence_records": 8,
+      "mechanisms": 8
+    }
+  },
+  "summary": {
+    "prototype": {
+      "horses": 4,
+      "mechanisms": [
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-A",
+          "root": [
+            "fixture-v2:pos:FK-GEN-1:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-A"
+          ]
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-A",
+          "root": [
+            "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-2:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-A",
+          "root": [
+            "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-2:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-A",
+          "root": [
+            "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-A",
+          "root": [
+            "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-B",
+          "root": [
+            "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-B",
+          "root": [
+            "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-C",
+          "root": [
+            "fixture-v2:pos:FK-GEN-2:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-2:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-C",
+          "root": [
+            "fixture-v2:pos:FK-GEN-3:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-C",
+          "root": [
+            "fixture-v2:pos:FK-GEN-4:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-C"
+          ]
+        },
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-D",
+          "root": [
+            "fixture-v2:pos:FK-GEN-3:FIXTURE-D",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-D"
+          ]
+        },
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-D",
+          "root": [
+            "fixture-v2:pos:FK-GEN-4:FIXTURE-D",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-D"
+          ]
+        }
+      ],
+      "changed": [
+        {
+          "id": "FIXTURE-A",
+          "items": [
+            "93",
+            "94",
+            "97",
+            "100",
+            "EYE-07",
+            "EYE-08",
+            "EYE-12",
+            "EYE-14",
+            "EYE-15"
+          ]
+        },
+        {
+          "id": "FIXTURE-B",
+          "items": [
+            "93",
+            "94",
+            "97",
+            "100",
+            "EYE-07",
+            "EYE-08",
+            "EYE-12",
+            "EYE-14",
+            "EYE-15"
+          ]
+        },
+        {
+          "id": "FIXTURE-C",
+          "items": [
+            "93",
+            "94",
+            "97",
+            "100",
+            "EYE-07",
+            "EYE-08",
+            "EYE-12",
+            "EYE-14",
+            "EYE-15"
+          ]
+        },
+        {
+          "id": "FIXTURE-D",
+          "items": [
+            "93",
+            "94",
+            "97",
+            "100",
+            "EYE-07",
+            "EYE-08",
+            "EYE-12",
+            "EYE-14",
+            "EYE-15"
+          ]
+        }
+      ]
+    },
+    "heterogeneous": {
+      "horses": 6,
+      "disclosed": [
+        "FK-SYN18-20261127-4"
+      ],
+      "raw_new": 8,
+      "mechanisms": [
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-A1",
+          "prior": "FK-SYN18-20261127-1"
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-A1",
+          "prior": "FK-SYN18-20261127-1",
+          "later": "FK-SYN18-20261127-2"
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-A1",
+          "prior": "FK-SYN18-20261127-1",
+          "later": "FK-SYN18-20261127-4"
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-A1",
+          "prior": "FK-SYN18-20261127-1",
+          "later": "FK-SYN18-20261127-3"
+        },
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-A2",
+          "prior": "FK-SYN18-20261127-1"
+        },
+        {
+          "eye": "EYE-02",
+          "subject": "FIXTURE-A2",
+          "prior": "FK-SYN18-20261127-3"
+        },
+        {
+          "eye": "EYE-05",
+          "subject": "FIXTURE-A2",
+          "prior": "FK-SYN18-20261127-1",
+          "later": "FK-SYN18-20261127-3"
+        }
+      ],
+      "changed": [
+        {
+          "id": "FIXTURE-A1",
+          "items": [
+            "36",
+            "37",
+            "40",
+            "61",
+            "63",
+            "64",
+            "65",
+            "66",
+            "69",
+            "70",
+            "71",
+            "73",
+            "93",
+            "94",
+            "97",
+            "100",
+            "EYE-05",
+            "EYE-06",
+            "EYE-07",
+            "EYE-08",
+            "EYE-09",
+            "EYE-10",
+            "EYE-11",
+            "EYE-12",
+            "EYE-14",
+            "EYE-15"
+          ]
+        },
+        {
+          "id": "FIXTURE-A2",
+          "items": [
+            "01",
+            "02",
+            "03",
+            "05",
+            "06",
+            "11",
+            "12",
+            "13",
+            "15",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "28",
+            "33",
+            "34",
+            "36",
+            "37",
+            "38",
+            "40",
+            "43",
+            "45",
+            "47",
+            "48",
+            "49",
+            "54",
+            "57",
+            "58",
+            "59",
+            "60",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65",
+            "66",
+            "68",
+            "69",
+            "70",
+            "71",
+            "72",
+            "73",
+            "74",
+            "75",
+            "78",
+            "79",
+            "80",
+            "93",
+            "94",
+            "97",
+            "99",
+            "100",
+            "EYE-01",
+            "EYE-02",
+            "EYE-03",
+            "EYE-04",
+            "EYE-05",
+            "EYE-06",
+            "EYE-07",
+            "EYE-08",
+            "EYE-09",
+            "EYE-10",
+            "EYE-11",
+            "EYE-12",
+            "EYE-13",
+            "EYE-14",
+            "EYE-15"
+          ]
+        },
+        {
+          "id": "FIXTURE-A3",
+          "items": [
+            "36",
+            "37",
+            "40",
+            "61",
+            "63",
+            "64",
+            "65",
+            "66",
+            "69",
+            "70",
+            "71",
+            "73",
+            "100",
+            "EYE-05",
+            "EYE-06",
+            "EYE-09",
+            "EYE-10",
+            "EYE-11",
+            "EYE-12",
+            "EYE-14"
+          ]
+        },
+        {
+          "id": "FIXTURE-A4",
+          "items": [
+            "36",
+            "37",
+            "40",
+            "63",
+            "64",
+            "66",
+            "69",
+            "70",
+            "73",
+            "100",
+            "EYE-05",
+            "EYE-06",
+            "EYE-09",
+            "EYE-10",
+            "EYE-11",
+            "EYE-12",
+            "EYE-14"
+          ]
+        },
+        {
+          "id": "FIXTURE-A5",
+          "items": [
+            "36",
+            "37",
+            "40",
+            "63",
+            "64",
+            "66",
+            "69",
+            "70",
+            "73",
+            "100",
+            "EYE-05",
+            "EYE-06",
+            "EYE-09",
+            "EYE-10",
+            "EYE-11",
+            "EYE-12",
+            "EYE-14"
+          ]
+        },
+        {
+          "id": "FIXTURE-A6",
+          "items": [
+            "63",
+            "64",
+            "66",
+            "69",
+            "70",
+            "100",
+            "EYE-06",
+            "EYE-09",
+            "EYE-10",
+            "EYE-11",
+            "EYE-12"
+          ]
+        }
+      ]
+    },
+    "work": {
+      "JRA": {
+        "runners": 18,
+        "histories": 147,
+        "strict": 119,
+        "card": 69,
+        "matched": 43,
+        "class_matched": 30,
+        "unmatched": 26,
+        "direct": 13,
+        "indirect": 89,
+        "later": 22,
+        "horse3_card_matches": 0,
+        "horse3_strict": 5
+      },
+      "LOCAL": {
+        "runners": 12,
+        "histories": 29,
+        "card": "EXCLUDED_POSTSTART",
+        "direct": 8,
+        "peer": 13
+      },
+      "eligible": 0
+    },
+    "formal": false
+  },
+  "versions": [
+    {
+      "label": "prototype",
+      "initial_version": {
+        "raw": "ed81102a27798570e9f58c77712ac5a29a96b08edbf388e1eda51aba33a83c69",
+        "derived": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "evidence_version": "3f8ff0c2111e9398b1d043be174bfe34603a4c61408cb6c69587e15e29c234b8"
+      },
+      "final_version": {
+        "raw": "ed81102a27798570e9f58c77712ac5a29a96b08edbf388e1eda51aba33a83c69",
+        "derived": "f0b4c070b154a0804de1a7eb88c0d96aa36000d685de4b81f33f1195fcd07eae",
+        "evidence_version": "0b640584575e3e087e945419e4f881e830ae0b9ba3cf2bff4b2ba9f858d0c1e3"
+      },
+      "disclosed": [],
+      "held": [],
+      "raw_new_evidence": [],
+      "mechanisms": [
+        {
+          "horse_id": "FIXTURE-A",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-GEN-1\",\"FIXTURE-A\",null,null]",
+          "family": "[\"FK-GEN-1\",\"FIXTURE-A\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-GEN-1:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-A"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-GEN-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            3,
+            1,
+            4,
+            1
+          ],
+          "win_attained": true
+        },
+        {
+          "horse_id": "FIXTURE-A",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-GEN-2\",\"FIXTURE-A\",\"FK-GEN-3\",\"FIXTURE-C\"]",
+          "family": "[\"FK-GEN-2\",\"FIXTURE-A\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-2:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-C"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-GEN-2",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-C",
+          "later_race": "FK-GEN-3",
+          "peer_prior_finish": 2,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-GEN-2\",\"FIXTURE-A\",\"FK-GEN-4\",\"FIXTURE-C\"]",
+          "family": "[\"FK-GEN-2\",\"FIXTURE-A\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-2:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-C"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-GEN-2",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-C",
+          "later_race": "FK-GEN-4",
+          "peer_prior_finish": 2,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-GEN-1\",\"FIXTURE-A\",\"FK-GEN-3\",\"FIXTURE-C\"]",
+          "family": "[\"FK-GEN-1\",\"FIXTURE-A\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-C"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-GEN-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-C",
+          "later_race": "FK-GEN-3",
+          "peer_prior_finish": 3,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-GEN-1\",\"FIXTURE-A\",\"FK-GEN-4\",\"FIXTURE-C\"]",
+          "family": "[\"FK-GEN-1\",\"FIXTURE-A\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-C"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-GEN-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-C",
+          "later_race": "FK-GEN-4",
+          "peer_prior_finish": 3,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-B",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-GEN-1\",\"FIXTURE-B\",\"FK-GEN-3\",\"FIXTURE-C\"]",
+          "family": "[\"FK-GEN-1\",\"FIXTURE-B\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-C"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-GEN-1",
+          "observed_finish": 2,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-C",
+          "later_race": "FK-GEN-3",
+          "peer_prior_finish": 3,
+          "peer_later_finish": 1,
+          "win_attained": false,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-B",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-GEN-1\",\"FIXTURE-B\",\"FK-GEN-4\",\"FIXTURE-C\"]",
+          "family": "[\"FK-GEN-1\",\"FIXTURE-B\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+            "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-C"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-GEN-1",
+          "observed_finish": 2,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-C",
+          "later_race": "FK-GEN-4",
+          "peer_prior_finish": 3,
+          "peer_later_finish": 1,
+          "win_attained": false,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-C",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-GEN-2\",\"FIXTURE-C\",null,null]",
+          "family": "[\"FK-GEN-2\",\"FIXTURE-C\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-GEN-2:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-2:FIXTURE-C"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-GEN-2",
+          "observed_finish": 2,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            3,
+            1,
+            3,
+            2
+          ],
+          "win_attained": false
+        },
+        {
+          "horse_id": "FIXTURE-C",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-GEN-3\",\"FIXTURE-C\",null,null]",
+          "family": "[\"FK-GEN-3\",\"FIXTURE-C\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-GEN-3:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-C"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-GEN-3",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            2,
+            1,
+            1,
+            1
+          ],
+          "win_attained": true
+        },
+        {
+          "horse_id": "FIXTURE-C",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-GEN-4\",\"FIXTURE-C\",null,null]",
+          "family": "[\"FK-GEN-4\",\"FIXTURE-C\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-GEN-4:FIXTURE-C",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-C"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-GEN-4",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "going"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            2,
+            1,
+            1,
+            1
+          ],
+          "win_attained": true
+        },
+        {
+          "horse_id": "FIXTURE-D",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-GEN-3\",\"FIXTURE-D\",null,null]",
+          "family": "[\"FK-GEN-3\",\"FIXTURE-D\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-GEN-3:FIXTURE-D",
+            "fixture-v2:result:FK-GEN-3:FIXTURE-D"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-GEN-3",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            3,
+            3,
+            2,
+            2
+          ],
+          "win_attained": false
+        },
+        {
+          "horse_id": "FIXTURE-D",
+          "race_id": "FK-GEN-TARGET",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-GEN-4\",\"FIXTURE-D\",null,null]",
+          "family": "[\"FK-GEN-4\",\"FIXTURE-D\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-GEN-4:FIXTURE-D",
+            "fixture-v2:result:FK-GEN-4:FIXTURE-D"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-GEN-4",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [
+              "going"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            3,
+            3,
+            2,
+            2
+          ],
+          "win_attained": false
+        }
+      ],
+      "executed": {
+        "initial": [
+          "analyzeTyped01to32",
+          "analyzeOpposition33to42Fixture",
+          "analyzeConditions43to57Fixture",
+          "analyzePace58to77Fixture",
+          "analyzeState78to92Fixture",
+          "analyzeChanges93to100Fixture",
+          "inspectEye15"
+        ],
+        "final": [
+          "analyzeTyped01to32",
+          "analyzeOpposition33to42Fixture",
+          "analyzeConditions43to57Fixture",
+          "analyzePace58to77Fixture",
+          "analyzeState78to92Fixture",
+          "analyzeChanges93to100Fixture",
+          "inspectEye15"
+        ]
+      },
+      "formal": false
+    },
+    {
+      "label": "heterogeneous",
+      "initial_version": {
+        "raw": "164c0c33f8242095c6a0f1d971bf813895090940367c2b37f880b75649f2e870",
+        "derived": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "evidence_version": "308a43fb52b2c30276f6ba5ae584b9e96670c1624d90e699430f76d78cc5a4f7"
+      },
+      "final_version": {
+        "raw": "c45ded064eacfd4356cb485908e2e3bafb217339fe52d4c62b4fb242b4167231",
+        "derived": "a6794965f958cee85ad0fc21adb12ecad06c2be11b72c15f05e768e8a3ccf68a",
+        "evidence_version": "8869ba3694e7d28ac4f5ae6d111342435dc8296830fb095ca618682034fe8117"
+      },
+      "disclosed": [
+        "FK-SYN18-20261127-4"
+      ],
+      "held": [],
+      "raw_new_evidence": [
+        {
+          "evidence_id": "fixture-v2:race:FK-SYN18-20261127-4",
+          "horse_id": null,
+          "race_id": "FK-SYN18-20261127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:laps:FK-SYN18-20261127-4",
+          "horse_id": null,
+          "race_id": "FK-SYN18-20261127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-20261127-4:FIXTURE-Z1",
+          "horse_id": "FIXTURE-Z1",
+          "race_id": "FK-SYN18-20261127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-20261127-4:FIXTURE-Z1",
+          "horse_id": "FIXTURE-Z1",
+          "race_id": "FK-SYN18-20261127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-20261127-4:FIXTURE-A2",
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-20261127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-20261127-4:FIXTURE-A2",
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-20261127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-20261127-4:FIXTURE-Z2",
+          "horse_id": "FIXTURE-Z2",
+          "race_id": "FK-SYN18-20261127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-20261127-4:FIXTURE-Z2",
+          "horse_id": "FIXTURE-Z2",
+          "race_id": "FK-SYN18-20261127-4",
+          "published_at": "2026-10-12T13:20:00"
+        }
+      ],
+      "mechanisms": [
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-20261127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-20261127-1\",\"FIXTURE-A1\",null,null]",
+          "family": "[\"FK-SYN18-20261127-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-20261127-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-A1"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-20261127-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            4,
+            3,
+            1,
+            3
+          ],
+          "win_attained": true
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-20261127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-20261127-1\",\"FIXTURE-A1\",\"FK-SYN18-20261127-2\",\"FIXTURE-Z1\"]",
+          "family": "[\"FK-SYN18-20261127-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-Z1",
+            "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-Z1"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-20261127-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z1",
+          "later_race": "FK-SYN18-20261127-2",
+          "peer_prior_finish": 2,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-20261127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-20261127-1\",\"FIXTURE-A1\",\"FK-SYN18-20261127-4\",\"FIXTURE-Z1\"]",
+          "family": "[\"FK-SYN18-20261127-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-Z1",
+            "fixture-v2:result:FK-SYN18-20261127-4:FIXTURE-Z1"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-20261127-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z1",
+          "later_race": "FK-SYN18-20261127-4",
+          "peer_prior_finish": 2,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-20261127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-20261127-1\",\"FIXTURE-A1\",\"FK-SYN18-20261127-3\",\"FIXTURE-Z2\"]",
+          "family": "[\"FK-SYN18-20261127-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-Z2",
+            "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-Z2"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-20261127-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z2",
+          "later_race": "FK-SYN18-20261127-3",
+          "peer_prior_finish": 4,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-TARGET-20261127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-20261127-1\",\"FIXTURE-A2\",null,null]",
+          "family": "[\"FK-SYN18-20261127-1\",\"FIXTURE-A2\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-20261127-1:FIXTURE-A2",
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-A2"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-20261127-1",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            2,
+            1,
+            3,
+            1
+          ],
+          "win_attained": false
+        },
+        {
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-TARGET-20261127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-20261127-3\",\"FIXTURE-A2\",null,null]",
+          "family": "[\"FK-SYN18-20261127-3\",\"FIXTURE-A2\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A2",
+            "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A2"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-20261127-3",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            2,
+            1,
+            3,
+            1
+          ],
+          "win_attained": false
+        },
+        {
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-TARGET-20261127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-20261127-1\",\"FIXTURE-A2\",\"FK-SYN18-20261127-3\",\"FIXTURE-Z2\"]",
+          "family": "[\"FK-SYN18-20261127-1\",\"FIXTURE-A2\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-A2",
+            "fixture-v2:result:FK-SYN18-20261127-1:FIXTURE-Z2",
+            "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-Z2"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-20261127-1",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z2",
+          "later_race": "FK-SYN18-20261127-3",
+          "peer_prior_finish": 4,
+          "peer_later_finish": 1,
+          "win_attained": false,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        }
+      ],
+      "executed": {
+        "initial": [
+          "analyzeTyped01to32",
+          "analyzeOpposition33to42Fixture",
+          "analyzeConditions43to57Fixture",
+          "analyzePace58to77Fixture",
+          "analyzeState78to92Fixture",
+          "analyzeChanges93to100Fixture",
+          "inspectEye15"
+        ],
+        "final": [
+          "analyzeTyped01to32",
+          "analyzeOpposition33to42Fixture",
+          "analyzeConditions43to57Fixture",
+          "analyzePace58to77Fixture",
+          "analyzeState78to92Fixture",
+          "analyzeChanges93to100Fixture",
+          "inspectEye15"
+        ]
+      },
+      "formal": false
+    },
+    {
+      "label": "field4-1200",
+      "initial_version": {
+        "raw": "f6b316ebfc97e33c3fbaf4fadf5751c0796fa1f7b05416d4661c1449e5b0a967",
+        "derived": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "evidence_version": "a515d1e0938d3b0c323d5f18cdf74bc495170b25280606595e15b248de87b2b0"
+      },
+      "final_version": {
+        "raw": "1e7805d804e74a2ed31afa34148e8045fd1c40ca76a7d35c5cf45c40785b5f7b",
+        "derived": "c64e83cc9e6132c196709396153666f914a25a2abf4abe7bdbe19850dbb2f6cd",
+        "evidence_version": "305dcde34ae5c3a3f9b6cb4bfa0a7487d8cd7035664ff51b63aff9276b7c37dc"
+      },
+      "disclosed": [
+        "FK-SYN18-127-4"
+      ],
+      "held": [],
+      "raw_new_evidence": [
+        {
+          "evidence_id": "fixture-v2:race:FK-SYN18-127-4",
+          "horse_id": null,
+          "race_id": "FK-SYN18-127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:laps:FK-SYN18-127-4",
+          "horse_id": null,
+          "race_id": "FK-SYN18-127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-127-4:FIXTURE-Z1",
+          "horse_id": "FIXTURE-Z1",
+          "race_id": "FK-SYN18-127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-127-4:FIXTURE-Z1",
+          "horse_id": "FIXTURE-Z1",
+          "race_id": "FK-SYN18-127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-127-4:FIXTURE-A2",
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-127-4:FIXTURE-A2",
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-127-4:FIXTURE-Z2",
+          "horse_id": "FIXTURE-Z2",
+          "race_id": "FK-SYN18-127-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-127-4:FIXTURE-Z2",
+          "horse_id": "FIXTURE-Z2",
+          "race_id": "FK-SYN18-127-4",
+          "published_at": "2026-10-12T13:20:00"
+        }
+      ],
+      "mechanisms": [
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-127-1\",\"FIXTURE-A1\",null,null]",
+          "family": "[\"FK-SYN18-127-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-127-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-A1"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-127-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            4,
+            3,
+            1,
+            3
+          ],
+          "win_attained": true
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-127-1\",\"FIXTURE-A1\",\"FK-SYN18-127-2\",\"FIXTURE-Z1\"]",
+          "family": "[\"FK-SYN18-127-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-Z1",
+            "fixture-v2:result:FK-SYN18-127-2:FIXTURE-Z1"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-127-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z1",
+          "later_race": "FK-SYN18-127-2",
+          "peer_prior_finish": 2,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-127-1\",\"FIXTURE-A1\",\"FK-SYN18-127-4\",\"FIXTURE-Z1\"]",
+          "family": "[\"FK-SYN18-127-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-Z1",
+            "fixture-v2:result:FK-SYN18-127-4:FIXTURE-Z1"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-127-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z1",
+          "later_race": "FK-SYN18-127-4",
+          "peer_prior_finish": 2,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-127-1\",\"FIXTURE-A1\",\"FK-SYN18-127-3\",\"FIXTURE-Z2\"]",
+          "family": "[\"FK-SYN18-127-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-Z2",
+            "fixture-v2:result:FK-SYN18-127-3:FIXTURE-Z2"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-127-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z2",
+          "later_race": "FK-SYN18-127-3",
+          "peer_prior_finish": 4,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-TARGET-127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-127-1\",\"FIXTURE-A2\",null,null]",
+          "family": "[\"FK-SYN18-127-1\",\"FIXTURE-A2\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-127-1:FIXTURE-A2",
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-A2"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-127-1",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            2,
+            1,
+            3,
+            1
+          ],
+          "win_attained": false
+        },
+        {
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-TARGET-127",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-127-1\",\"FIXTURE-A2\",\"FK-SYN18-127-3\",\"FIXTURE-Z2\"]",
+          "family": "[\"FK-SYN18-127-1\",\"FIXTURE-A2\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-A2",
+            "fixture-v2:result:FK-SYN18-127-1:FIXTURE-Z2",
+            "fixture-v2:result:FK-SYN18-127-3:FIXTURE-Z2"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-127-1",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z2",
+          "later_race": "FK-SYN18-127-3",
+          "peer_prior_finish": 4,
+          "peer_later_finish": 1,
+          "win_attained": false,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        }
+      ],
+      "executed": {
+        "initial": [
+          "analyzeTyped01to32",
+          "analyzeOpposition33to42Fixture",
+          "analyzeConditions43to57Fixture",
+          "analyzePace58to77Fixture",
+          "analyzeState78to92Fixture",
+          "analyzeChanges93to100Fixture",
+          "inspectEye15"
+        ],
+        "final": [
+          "analyzeTyped01to32",
+          "analyzeOpposition33to42Fixture",
+          "analyzeConditions43to57Fixture",
+          "analyzePace58to77Fixture",
+          "analyzeState78to92Fixture",
+          "analyzeChanges93to100Fixture",
+          "inspectEye15"
+        ]
+      },
+      "formal": false
+    },
+    {
+      "label": "field8-2200",
+      "initial_version": {
+        "raw": "be2f241f4ddb7f00565dd83e2d04b5c4fa0e7b9a46b4bfcf605b16c902968ce0",
+        "derived": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "evidence_version": "ba26ad6450539d2e7eb66206243592b5b0286f597e61ac81abc093c72e68c9a5"
+      },
+      "final_version": {
+        "raw": "97bb3c649e35d3d920a7a7f4640a8b888124408027e012f02bd9aaa1a10c2d8f",
+        "derived": "ad1e9fad86b2da26bbc60722bc02e676e4e2c6f7bb3bc73e07ea2a86d2d86ffb",
+        "evidence_version": "d02249d6b8f465dd4d7778af8f398da5e6a953f5ce1cb3b4840bf05535924b27"
+      },
+      "disclosed": [
+        "FK-SYN18-131-4"
+      ],
+      "held": [],
+      "raw_new_evidence": [
+        {
+          "evidence_id": "fixture-v2:race:FK-SYN18-131-4",
+          "horse_id": null,
+          "race_id": "FK-SYN18-131-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:laps:FK-SYN18-131-4",
+          "horse_id": null,
+          "race_id": "FK-SYN18-131-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-131-4:FIXTURE-Z1",
+          "horse_id": "FIXTURE-Z1",
+          "race_id": "FK-SYN18-131-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-131-4:FIXTURE-Z1",
+          "horse_id": "FIXTURE-Z1",
+          "race_id": "FK-SYN18-131-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-131-4:FIXTURE-A2",
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-131-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-131-4:FIXTURE-A2",
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-131-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:result:FK-SYN18-131-4:FIXTURE-Z2",
+          "horse_id": "FIXTURE-Z2",
+          "race_id": "FK-SYN18-131-4",
+          "published_at": "2026-10-12T13:20:00"
+        },
+        {
+          "evidence_id": "fixture-v2:pos:FK-SYN18-131-4:FIXTURE-Z2",
+          "horse_id": "FIXTURE-Z2",
+          "race_id": "FK-SYN18-131-4",
+          "published_at": "2026-10-12T13:20:00"
+        }
+      ],
+      "mechanisms": [
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-131",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-131-1\",\"FIXTURE-A1\",null,null]",
+          "family": "[\"FK-SYN18-131-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-131-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-A1"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-131-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            4,
+            3,
+            1,
+            3
+          ],
+          "win_attained": true
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-131",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-131-2\",\"FIXTURE-A1\",null,null]",
+          "family": "[\"FK-SYN18-131-2\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-131-2:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-131-2:FIXTURE-A1"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-131-2",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            2,
+            1,
+            3,
+            1
+          ],
+          "win_attained": false
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-131",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-131-1\",\"FIXTURE-A1\",\"FK-SYN18-131-2\",\"FIXTURE-Z1\"]",
+          "family": "[\"FK-SYN18-131-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-Z1",
+            "fixture-v2:result:FK-SYN18-131-2:FIXTURE-Z1"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-131-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z1",
+          "later_race": "FK-SYN18-131-2",
+          "peer_prior_finish": 2,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-131",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-131-1\",\"FIXTURE-A1\",\"FK-SYN18-131-4\",\"FIXTURE-Z1\"]",
+          "family": "[\"FK-SYN18-131-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-Z1",
+            "fixture-v2:result:FK-SYN18-131-4:FIXTURE-Z1"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-131-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z1",
+          "later_race": "FK-SYN18-131-4",
+          "peer_prior_finish": 2,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A1",
+          "race_id": "FK-SYN18-TARGET-131",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-131-1\",\"FIXTURE-A1\",\"FK-SYN18-131-3\",\"FIXTURE-Z2\"]",
+          "family": "[\"FK-SYN18-131-1\",\"FIXTURE-A1\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-A1",
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-Z2",
+            "fixture-v2:result:FK-SYN18-131-3:FIXTURE-Z2"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-131-1",
+          "observed_finish": 1,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z2",
+          "later_race": "FK-SYN18-131-3",
+          "peer_prior_finish": 4,
+          "peer_later_finish": 1,
+          "win_attained": true,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        },
+        {
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-TARGET-131",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-131-1\",\"FIXTURE-A2\",null,null]",
+          "family": "[\"FK-SYN18-131-1\",\"FIXTURE-A2\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-131-1:FIXTURE-A2",
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-A2"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-131-1",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            2,
+            1,
+            3,
+            1
+          ],
+          "win_attained": false
+        },
+        {
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-TARGET-131",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-02\",\"FK-SYN18-131-3\",\"FIXTURE-A2\",null,null]",
+          "family": "[\"FK-SYN18-131-3\",\"FIXTURE-A2\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "17",
+            "18"
+          ],
+          "evidence_ids": [
+            "fixture-v2:pos:FK-SYN18-131-3:FIXTURE-A2",
+            "fixture-v2:result:FK-SYN18-131-3:FIXTURE-A2"
+          ],
+          "scenario_id": "REPRODUCE_OBSERVED_ADVANCE",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-02",
+          "prior_race": "FK-SYN18-131-3",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [],
+            "missing": [],
+            "hard": [],
+            "scope": "MATCHED_CONDITIONS"
+          },
+          "raw_new_facts": 0,
+          "observed_positions": [
+            2,
+            1,
+            3,
+            1
+          ],
+          "win_attained": false
+        },
+        {
+          "horse_id": "FIXTURE-A2",
+          "race_id": "FK-SYN18-TARGET-131",
+          "source_cutoff": "2026-11-20T14:30:00",
+          "mechanism_id": "[\"EYE-05\",\"FK-SYN18-131-1\",\"FIXTURE-A2\",\"FK-SYN18-131-3\",\"FIXTURE-Z2\"]",
+          "family": "[\"FK-SYN18-131-1\",\"FIXTURE-A2\"]",
+          "direction": "SUPPORT",
+          "upstream_item_ids": [
+            "02",
+            "37"
+          ],
+          "evidence_ids": [
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-A2",
+            "fixture-v2:result:FK-SYN18-131-1:FIXTURE-Z2",
+            "fixture-v2:result:FK-SYN18-131-3:FIXTURE-Z2"
+          ],
+          "scenario_id": "SUBJECT_BEAT_LATER_WINNER",
+          "current_relevance_verified": true,
+          "scope": "FICTIONAL_CONDITIONAL_NOT_VERIFIED_ABILITY",
+          "eye_id": "EYE-05",
+          "prior_race": "FK-SYN18-131-1",
+          "observed_finish": 3,
+          "applicability": {
+            "different": [
+              "venue",
+              "distance_m",
+              "going",
+              "layout"
+            ],
+            "missing": [],
+            "hard": [],
+            "scope": "PARTIAL_HYPOTHESIS"
+          },
+          "raw_new_facts": 0,
+          "peer": "FIXTURE-Z2",
+          "later_race": "FK-SYN18-131-3",
+          "peer_prior_finish": 4,
+          "peer_later_finish": 1,
+          "win_attained": false,
+          "missing": [
+            "PEER_FORM_STABILITY",
+            "NO_CAUSAL_CLASS_UPGRADE"
+          ]
+        }
+      ],
+      "executed": {
+        "initial": [
+          "analyzeTyped01to32",
+          "analyzeOpposition33to42Fixture",
+          "analyzeConditions43to57Fixture",
+          "analyzePace58to77Fixture",
+          "analyzeState78to92Fixture",
+          "analyzeChanges93to100Fixture",
+          "inspectEye15"
+        ],
+        "final": [
+          "analyzeTyped01to32",
+          "analyzeOpposition33to42Fixture",
+          "analyzeConditions43to57Fixture",
+          "analyzePace58to77Fixture",
+          "analyzeState78to92Fixture",
+          "analyzeChanges93to100Fixture",
+          "inspectEye15"
+        ]
+      },
+      "formal": false
+    }
+  ],
+  "files": [
+    {
+      "label": "prototype",
+      "id": "FIXTURE-A",
+      "file": "v18-audit/prototype-FIXTURE-A.json",
+      "rows": 115
+    },
+    {
+      "label": "prototype",
+      "id": "FIXTURE-B",
+      "file": "v18-audit/prototype-FIXTURE-B.json",
+      "rows": 115
+    },
+    {
+      "label": "prototype",
+      "id": "FIXTURE-C",
+      "file": "v18-audit/prototype-FIXTURE-C.json",
+      "rows": 115
+    },
+    {
+      "label": "prototype",
+      "id": "FIXTURE-D",
+      "file": "v18-audit/prototype-FIXTURE-D.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A1",
+      "file": "v18-audit/heterogeneous-FIXTURE-A1.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A2",
+      "file": "v18-audit/heterogeneous-FIXTURE-A2.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A3",
+      "file": "v18-audit/heterogeneous-FIXTURE-A3.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A4",
+      "file": "v18-audit/heterogeneous-FIXTURE-A4.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A5",
+      "file": "v18-audit/heterogeneous-FIXTURE-A5.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A6",
+      "file": "v18-audit/heterogeneous-FIXTURE-A6.json",
+      "rows": 115
+    },
+    {
+      "label": "field4-1200",
+      "id": "FIXTURE-A1",
+      "file": "v18-audit/field4-1200-FIXTURE-A1.json",
+      "rows": 115
+    },
+    {
+      "label": "field4-1200",
+      "id": "FIXTURE-A2",
+      "file": "v18-audit/field4-1200-FIXTURE-A2.json",
+      "rows": 115
+    },
+    {
+      "label": "field4-1200",
+      "id": "FIXTURE-A3",
+      "file": "v18-audit/field4-1200-FIXTURE-A3.json",
+      "rows": 115
+    },
+    {
+      "label": "field4-1200",
+      "id": "FIXTURE-A4",
+      "file": "v18-audit/field4-1200-FIXTURE-A4.json",
+      "rows": 115
+    },
+    {
+      "label": "field8-2200",
+      "id": "FIXTURE-A1",
+      "file": "v18-audit/field8-2200-FIXTURE-A1.json",
+      "rows": 115
+    },
+    {
+      "label": "field8-2200",
+      "id": "FIXTURE-A2",
+      "file": "v18-audit/field8-2200-FIXTURE-A2.json",
+      "rows": 115
+    },
+    {
+      "label": "field8-2200",
+      "id": "FIXTURE-A3",
+      "file": "v18-audit/field8-2200-FIXTURE-A3.json",
+      "rows": 115
+    },
+    {
+      "label": "field8-2200",
+      "id": "FIXTURE-A4",
+      "file": "v18-audit/field8-2200-FIXTURE-A4.json",
+      "rows": 115
+    },
+    {
+      "label": "field8-2200",
+      "id": "FIXTURE-A5",
+      "file": "v18-audit/field8-2200-FIXTURE-A5.json",
+      "rows": 115
+    },
+    {
+      "label": "field8-2200",
+      "id": "FIXTURE-A6",
+      "file": "v18-audit/field8-2200-FIXTURE-A6.json",
+      "rows": 115
+    },
+    {
+      "label": "field8-2200",
+      "id": "FIXTURE-A7",
+      "file": "v18-audit/field8-2200-FIXTURE-A7.json",
+      "rows": 115
+    },
+    {
+      "label": "field8-2200",
+      "id": "FIXTURE-A8",
+      "file": "v18-audit/field8-2200-FIXTURE-A8.json",
+      "rows": 115
+    }
+  ],
+  "strict_individual_semantic_proof": 0,
+  "official_admissions": 0,
+  "formal": false,
+  "limits": [
+    "No individual effect proof for every item; hash changes not semantic proof.",
+    "EYE02/05 validated by conditional route intervention; full other EYE return incomplete.",
+    "Partial transfer hypotheses, not empirical distance, course, going or class coefficients.",
+    "Synthetic reserve discovery only, not official acquisition.",
+    "No independent empirical source from controlled duplicate historical case; shared roots not additive.",
+    "Work17 locator adapter rejects all current records; positive scoped authorized-value adapter remains untested."
+  ]
+}
