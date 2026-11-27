@@ -1,0 +1,131 @@
+{
+  "schema": "stage22-final-research-receipt-v2.0",
+  "acceptance": "ab4cbec26d1dfa137a2c9c84618e5c493f132077",
+  "sources": [
+    {
+      "name": "stage22_probe.py",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "c1761138bd9b9d6f4eb7eb53495a3fb5d590c724"
+    },
+    {
+      "name": "stage22-v03-result.json",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "47c8a1708e2ebf23ac1f77784b26f3a89009612f"
+    },
+    {
+      "name": "stage22-legacy-result.json",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "ac96b6b929665b0c2d2ce4aa5cc648104eeb179e"
+    },
+    {
+      "name": "stage22-prospective-evidence-retention-design-v0.3.md",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "6eacf175be835c1560259e9bc5d233b2ad637b3f"
+    },
+    {
+      "name": "stage21_offline_probe.py",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "fa20296be3e441d8a33e492af402a39abb36fefc"
+    },
+    {
+      "name": "stage21-final-research-receipt-v1.9.json",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "29e23cb97e808399b209738f3152a222ae8e77ca"
+    },
+    {
+      "name": "stage16-derived-row-receipt-v1.3.json",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "476fe4470f4933210627dfd508c1660ff0792f70"
+    },
+    {
+      "name": "stage20-clock-and-crossissuer-delta-v1.8.json",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "2b93285044c6e3ada2d1f440be97c234bf9dfba7"
+    },
+    {
+      "name": "stage20-saga-row-crosscheck-v1.8.json",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "7d5d9036342d685f9b5c555b779ba3265fdaeef7"
+    },
+    {
+      "name": "stage21-index-corroboration-v1.9.json",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "fff15c9daa294cbb6cbb8b35fb341b7d31539697"
+    },
+    {
+      "name": "stage17-permission-inquiry-drafts-20261127.md",
+      "ref": "c71e5715aa2222978357414adee02492d5545dbe",
+      "blob": "248333a735dc919a13e34ebf35636b2159f1dcb8"
+    }
+  ],
+  "checks": {
+    "new_code_exact": true,
+    "new_log_exact": true,
+    "legacy_code_exact": true,
+    "legacy_log_exact": true,
+    "new_73": true,
+    "legacy_37": true,
+    "prior_118_826": true,
+    "prior_formal_zero": true,
+    "base_match_42": true,
+    "overlay_2": true,
+    "index_11": true
+  },
+  "actual_execution": {
+    "legacy": {
+      "total": 37,
+      "passed": 37,
+      "code_sha256": "6687634b078cc7b85edd39d09fe833bd79b18e547f243c147882e0933ef51de5",
+      "stdout_sha256": "89eea499a3a4a55b8d62b20949c420c03fff98c714efe7b9bcbdeeefe13a0b82"
+    },
+    "new": {
+      "total": 73,
+      "passed": 73,
+      "code_sha256": "9834a8d803a7898fb3d66387a8b8e8a31a56e659309141b56e413e9220a6bb42",
+      "stdout_sha256": "e38befd0f2211225a9dab25ae3e29f2c8b9b533f5335a5216e8ac3881d8b10bd"
+    },
+    "sum": 110,
+    "scope": "OFFLINE_SYNTHETIC_ONLY",
+    "execution_note": "Original per-case process launch exceeded execution timeout; changed to persistent separate verification process, independent disk read per case. Subsequent complete 66/66 then expanded final 73/73. Exact code and raw stdout committed and retrieved. No Codex 241 rerun."
+  },
+  "historical": {
+    "saga_candidates": 55,
+    "archive_44": 44,
+    "base_four_field_flags": 42,
+    "index_11_four_field_flags": 11,
+    "combined_base_flags": 53,
+    "subminute_overlay_2": 2,
+    "comparison_fields_differ": true,
+    "official_raw_verified": 0,
+    "tokyo_16_leads": true,
+    "native_result_link_missing": 5,
+    "crossissuer_held": true,
+    "old_search_repeated": false,
+    "new_authorized_locator": false
+  },
+  "pilot": {
+    "jra": 1,
+    "local": 1,
+    "executed": false,
+    "selected_race": null,
+    "permissions": "NOT_CLEARED",
+    "inquiry_sent": false,
+    "contract": false,
+    "charge": false
+  },
+  "limits": [
+    "Public test key, fake clocks, same OS account, separate process not external independent trust.",
+    "No immutable storage or actual trusted timestamp; no complete authenticated version inventory, live rights registry, deletion orchestration, cross-issuer certified identity, production-ready parser or actual provider permission.",
+    "No actual evidence values admitted, no acquisition or past recovery this stage."
+  ],
+  "canonical_items": 115,
+  "codex_test_baseline": 241,
+  "prior_gates": {
+    "groups": 118,
+    "flags": 826,
+    "all_held": true
+  },
+  "formal_admissions": 0,
+  "formal_replays": 0,
+  "production_changes": 0
+}
