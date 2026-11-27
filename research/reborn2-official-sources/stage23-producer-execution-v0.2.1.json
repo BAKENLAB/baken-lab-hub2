@@ -1,0 +1,468 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "execution": "Actual JS producer execution in offline isolate, re-executed from pinned GitHub code for deterministic saves. Byte string hash actual; simulated raw storage/receipts in memory, not independent filesystem verifier. Existing Python 135 not rerun in Work23; previous code/logs preserved.",
+  "tests": [
+    {
+      "name": "jra_full",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 85
+    },
+    {
+      "name": "local_full",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 85
+    },
+    {
+      "name": "missing_clock",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 75
+    },
+    {
+      "name": "bad_margin_unit",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 84
+    },
+    {
+      "name": "revoked",
+      "pass": true,
+      "status": "HELD",
+      "reason": "LATEST_RIGHTS_DENIED",
+      "evidence": 0
+    },
+    {
+      "name": "correction_before",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 84
+    },
+    {
+      "name": "correction_after",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 85
+    },
+    {
+      "name": "malformed_target_market",
+      "pass": true,
+      "status": "HELD",
+      "reason": "TARGET_SCOPE",
+      "evidence": 0
+    },
+    {
+      "name": "malformed_prior_market",
+      "pass": true,
+      "status": "HELD",
+      "reason": "HISTORY_ROW_SCHEMA",
+      "evidence": 0
+    },
+    {
+      "name": "wrong_identity",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 76
+    },
+    {
+      "name": "bad_lap_sum",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 84
+    },
+    {
+      "name": "bad_geometry",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 80
+    },
+    {
+      "name": "late_observation",
+      "pass": true,
+      "status": "HELD",
+      "reason": "HISTORY_TIME_OR_ID",
+      "evidence": 0
+    },
+    {
+      "name": "target_as_history",
+      "pass": true,
+      "status": "HELD",
+      "reason": "HISTORY_TIME_OR_ID",
+      "evidence": 0
+    },
+    {
+      "name": "duplicate_roster",
+      "pass": true,
+      "status": "HELD",
+      "reason": "ROSTER",
+      "evidence": 0
+    },
+    {
+      "name": "missing_registry_entry",
+      "pass": true,
+      "status": "HELD",
+      "reason": "INVENTORY_INCOMPLETE",
+      "evidence": 0
+    },
+    {
+      "name": "expired_rights",
+      "pass": true,
+      "status": "HELD",
+      "reason": "LATEST_RIGHTS_DENIED",
+      "evidence": 0
+    },
+    {
+      "name": "deleted_rights",
+      "pass": true,
+      "status": "HELD",
+      "reason": "LATEST_RIGHTS_DENIED",
+      "evidence": 0
+    },
+    {
+      "name": "raw_tamper",
+      "pass": true,
+      "status": "HELD",
+      "reason": "RAW_MISMATCH",
+      "evidence": 0
+    },
+    {
+      "name": "wrong_asof",
+      "pass": true,
+      "status": "HELD",
+      "reason": "WRONG_ASOF_VERSION",
+      "evidence": 0
+    },
+    {
+      "name": "stale_registry",
+      "pass": true,
+      "status": "HELD",
+      "reason": "REGISTRY_TIME_OR_SCOPE",
+      "evidence": 0
+    },
+    {
+      "name": "rollback",
+      "pass": true,
+      "status": "HELD",
+      "reason": "REGISTRY_ROLLBACK_OR_UNPINNED",
+      "evidence": 0
+    },
+    {
+      "name": "nested_geometry_market_rejected",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 80
+    },
+    {
+      "name": "invalid_weight_does_not_leak",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 83
+    },
+    {
+      "name": "incorrect_next_margin",
+      "pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 84
+    },
+    {
+      "name": "zero_requested_version",
+      "pass": true,
+      "status": "HELD",
+      "reason": "WRONG_ASOF_VERSION",
+      "evidence": 0
+    },
+    {
+      "name": "stable_root_distinct_version_id",
+      "pass": true,
+      "status": "INVARIANT",
+      "reason": null,
+      "evidence": 0
+    }
+  ],
+  "total": 27,
+  "passed": 27,
+  "examples": [
+    {
+      "name": "jra_full",
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85,
+      "fields": 89,
+      "runners": 3,
+      "relations": 14,
+      "selected_version": 1,
+      "items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "counts": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "packet_sha256": "17e65acd8602b2417047faeacf1e78baac94088c8623f1e1a9251ea1c2215206"
+    },
+    {
+      "name": "local_full",
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85,
+      "fields": 89,
+      "runners": 3,
+      "relations": 14,
+      "selected_version": 1,
+      "items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "counts": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "packet_sha256": "4bac8ff27c2fe91e2b9275bf5ce618ea0d4368993ac955c859f43688b22c3775"
+    },
+    {
+      "name": "missing_clock",
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 75,
+      "fields": 89,
+      "runners": 3,
+      "relations": 14,
+      "selected_version": 1,
+      "items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 19,
+            "REJECTED": 3
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "counts": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "packet_sha256": "3357cd8a56cdf64c3d50453b0bcf88d64d86a41138960edda9a97697efd01439"
+    },
+    {
+      "name": "bad_margin_unit",
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 84,
+      "fields": 89,
+      "runners": 3,
+      "relations": 14,
+      "selected_version": 1,
+      "items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "counts": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "packet_sha256": "2806bf7e5608f506064d884b5065ab21ed3e4c780c6c258a3de386b706650628"
+    },
+    {
+      "name": "revoked",
+      "status": "HELD",
+      "evidence": 0,
+      "fields": 0,
+      "runners": 0,
+      "relations": 0,
+      "selected_version": null,
+      "items": [],
+      "packet_sha256": "831875b1aa32058db223c093ae52ec9ddb7f4f3e60a749d517e61e1482372dce"
+    },
+    {
+      "name": "correction_before",
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 84,
+      "fields": 89,
+      "runners": 3,
+      "relations": 5,
+      "selected_version": 2,
+      "items": [
+        {
+          "no": 1,
+          "status": "EXCLUDED",
+          "counts": {
+            "NOT_APPLICABLE": 115
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 94,
+            "TEST_INPUT_AVAILABLE": 21
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "counts": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "packet_sha256": "4c4937ab320e4012868b7076cf07a3d2646cc3082d86b268cd9d7b1b44731c46"
+    },
+    {
+      "name": "correction_after",
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85,
+      "fields": 89,
+      "runners": 3,
+      "relations": 14,
+      "selected_version": 1,
+      "items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "counts": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "packet_sha256": "397d2ca199f3796267a75e408b487cd4fa6330c700ecc5106f30c1db62bbce0d"
+    },
+    {
+      "name": "malformed_target_market",
+      "status": "HELD",
+      "evidence": 0,
+      "fields": 0,
+      "runners": 0,
+      "relations": 0,
+      "selected_version": null,
+      "items": [],
+      "packet_sha256": "821acf693e5b6956e4e88290b12835904116ecdcd9567f3dc91faca9186e3f94"
+    },
+    {
+      "name": "nested_geometry_market_rejected",
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 80,
+      "fields": 89,
+      "runners": 3,
+      "relations": 14,
+      "selected_version": 1,
+      "items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "counts": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 21,
+            "REJECTED": 1
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "counts": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "packet_sha256": "5726b2399a9a0f993115dcc354a0a862a715cacfeec3e8a2d5189c12142ef57f"
+    }
+  ],
+  "formal_admissions": 0
+}
