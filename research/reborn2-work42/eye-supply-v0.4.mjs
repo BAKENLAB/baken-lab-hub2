@@ -45,9 +45,11 @@ export function sectionContrast(a,b,h){
  const rankDelta=finite(x?.finish)&&finite(y?.finish)?y.finish-x.finish:null;
  const section=delta===null?'UNKNOWN':delta< -u?'IMPROVED':delta>u?'WORSENED':'WITHIN_UNCERTAINTY';
  const placing=rankDelta===null?'UNKNOWN':rankDelta<0?'IMPROVED':rankDelta>0?'WORSENED':'UNCHANGED';
- const comparable=c==='MATCHED'&&samePeers&&personal==='MATCHED'&&pace!==null;
- const status=!comparable?(c==='CHANGED'||!samePeers||personal==='CHANGED'?'IRRELEVANT_CONDITION':'UNKNOWN'):section==='IMPROVED'&&['WORSENED','UNCHANGED'].includes(placing)?'SUPPORT_ANTECEDENT':section==='WORSENED'?'COUNTER_ANTECEDENT':section==='UNKNOWN'||placing==='UNKNOWN'?'UNKNOWN':'NEUTRAL';
- return {section,placing,section_delta_ms:delta,rank_delta:rankDelta,bound_ms:u,context:c,samePeers,personal,pace,comparable,status};
+ const peerEquipment= samePeers&&a.rows.every(r=>{const q=rows(b,r.nativeId);return r.gate!==null&&r.weightG!==null&&q.gate!==null&&q.weightG!==null&&r.gate===q.gate&&r.weightG===q.weightG;});
+ const prefixPace=pace? (pace.a.length===pace.b.length&&pace.a.slice(0,2).every((v,i)=>Math.abs(v-pace.b[i])<=(i===0?u:2*u))?'OVERLAP':'DIFFERENT'):'UNKNOWN';
+ const comparable=c==='MATCHED'&&samePeers&&personal==='MATCHED'&&peerEquipment&&prefixPace==='OVERLAP';
+ const status=!comparable?(c==='CHANGED'||!samePeers||personal==='CHANGED'||prefixPace==='DIFFERENT'||!peerEquipment?'IRRELEVANT_CONDITION':'UNKNOWN'):section==='IMPROVED'&&['WORSENED','UNCHANGED'].includes(placing)?'SUPPORT_ANTECEDENT':section==='WORSENED'?'COUNTER_ANTECEDENT':section==='UNKNOWN'||placing==='UNKNOWN'?'UNKNOWN':'NEUTRAL';
+ return {section,placing,section_delta_ms:delta,rank_delta:rankDelta,bound_ms:u,context:c,samePeers,personal,peerEquipment,prefixPace,pace,comparable,status};
 }
 // Native evidence identities are field-specific and retain upstream dependency closure.
 export function buildSupply(envelope,packet){
