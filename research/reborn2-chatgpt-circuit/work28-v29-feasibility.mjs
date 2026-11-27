@@ -92,21 +92,35 @@ export function analyzeV29(L,name,withdraw=null,options={}){
   }):[];
   h.pair_progress_v29=pairs;
   const roles=active.map(k=>{const q=out.runners.find(x=>x.slot===k),hs=q?.historical??[];const early=hs.filter(z=>z.rank?.[0]===1),gain=hs.filter(z=>z.ordinal?.transitions.some(t=>t.ordinal_gain>0));return {slot:k,role:!q?.identity_known||!hs.some(z=>z.rank?.length)?'UNKNOWN':early.length?'OBSERVED_FIRST_CHECKPOINT_LEADER':gain.length?'OBSERVED_ORDINAL_ADVANCE':'OBSERVED_OTHER_POSITION',refs:uniq([...early,...gain].flatMap(z=>z.rankTrace.refs))};});
-  // An explicit counterfactual: replay measured crossings to last checkpoint;
-  // then assume their strict ordering persists to finish. No current pace/transfer assertion.
+  // Three separate hypotheses; never treat the unknown queue/pace as a measurement.
+  // A: reproduce observed start and trajectory. B: equal checkpoint start and same
+  // observed net change. C: contested lead/different pace, response unidentified.
   const paths=valid?own.flatMap(a=>{
    const ps=pairs.filter(x=>x.event===a.event),context=h.condition_paths.find(x=>x.event===a.event);
-   const finalDistances=uniq(ps.flatMap(x=>x.segments.length?[x.segments.at(-1).to_m]:[]));
-   if(finalDistances.length!==1)return [];
-   const checkpoint=finalDistances[0],relations=rivals.map(rival=>{
-    const p=ps.find(x=>x.rival===rival),last=p?.segments.at(-1);
-    const order=last?.to_m===checkpoint?last.end_order:'UNKNOWN';
-    return {rival,order,required:p?.finish_order===null||!p?'UNKNOWN_HISTORICAL_FINISH':p.finish_order===h.slot?'MAINTAIN_PAST_FINISH_RELATION':'REVERSE_PAST_FINISH_RELATION',segments:p?.segments??[],refs:p?.intervalRefs??[],finish_refs:p?.finishRefs??[],basis:order==='UNKNOWN'?'NO_RESOLVED_SAME_CHECKPOINT_ORDER':'MEASURED_HISTORICAL_CHECKPOINT_ORDER'};
+   const ev=history.find(x=>x.event_id===a.event),geo=v(ev?.geometry);
+   const checkpoint=geo?.checkpoints_m?.at(-1)??null;
+   if(checkpoint===null)return [];
+   const scenarios=[
+    {queue:'REPLAY_OBSERVED_CHECKPOINT_QUEUE',pace:'ASSUME_OBSERVED_RELATIVE_RESPONSE_REPEATS',assumptions:['HISTORICAL_PAIR_CHECKPOINT_TRAJECTORIES_REPEAT','FINAL_MEASURED_CHECKPOINT_ORDER_PERSISTS_TO_FINISH']},
+    {queue:'EQUAL_FIRST_CHECKPOINT_START',pace:'ASSUME_OBSERVED_NET_RELATIVE_CHANGE_REPEATS',assumptions:['HYPOTHETICAL_EQUAL_CROSSING_TIME_AT_FIRST_CHECKPOINT','HISTORICAL_NET_RELATIVE_CHANGE_REPEATS','FINAL_MEASURED_CHECKPOINT_ORDER_PERSISTS_TO_FINISH']},
+    {queue:'CONTESTED_LEAD_OR_UNKNOWN_ROLE',pace:'DIFFERENT_OR_UNIDENTIFIED_PACE',assumptions:['NO_MEASURED_RESPONSE_FOR_CHANGED_QUEUE_OR_PACE']}
+   ];
+   return scenarios.map(sc=>{
+    const relations=rivals.map(rival=>{
+     const p=ps.find(x=>x.rival===rival),first=p?.segments[0],last=p?.segments.at(-1);
+     const measured=!!(first&&last&&last.to_m===checkpoint);
+     const gain=measured?last.end-first.start:null,bound=measured?first.changeBound:null;
+     const actualOrder=measured?last.end_order:'UNKNOWN';
+     let order='UNKNOWN',basis='NO_RESOLVED_SAME_CHECKPOINT_ORDER';
+     if(measured&&sc.queue==='REPLAY_OBSERVED_CHECKPOINT_QUEUE'){order=actualOrder;basis='MEASURED_HISTORICAL_CHECKPOINT_ORDER';}
+     if(measured&&sc.queue==='EQUAL_FIRST_CHECKPOINT_START'){order=gain>bound?'AHEAD':gain< -bound?'BEHIND':'UNKNOWN';basis='HYPOTHETICAL_START_PLUS_BOUNDED_OBSERVED_NET_CHANGE';}
+     if(sc.queue==='CONTESTED_LEAD_OR_UNKNOWN_ROLE')basis='NO_IDENTIFIED_RESPONSE_TO_CHANGED_PACE';
+     const required=p?.finish_order===null||!p?'UNKNOWN_HISTORICAL_FINISH':p.finish_order===h.slot?'MAINTAIN_PAST_FINISH_RELATION':'REVERSE_PAST_FINISH_RELATION';
+     return {rival,order,required,conditional_relation:order==='AHEAD'?'SUPPORTED_UNDER_ASSUMPTIONS':order==='BEHIND'?'CONTRADICTED_UNDER_ASSUMPTIONS':'UNRESOLVED_UNDER_ASSUMPTIONS',net_change_ms:gain,change_bound_ms:bound,required_start_advantage_ms:gain===null?null:{sufficient_strictly_above:bound-gain,contradicted_strictly_below:-bound-gain,scope:'IF_SAME_NET_CHANGE_AND_EXACT_HYPOTHETICAL_START'},segments:p?.segments??[],refs:p?.intervalRefs??[],finish_refs:p?.finishRefs??[],basis};
+    });
+    const envelope=conditionalEnvelope(relations,threshold);
+    return {event:a.event,checkpoint,queue:sc.queue,pace:sc.pace,roles,assumptions:[...sc.assumptions,'TRANSFER_ACROSS_CURRENT_CONDITION_DIFFERENCES_NOT_ESTABLISHED'],relations,envelope,context:context?.state??'UNKNOWN',condition_mismatches:context?.mismatches??[],condition_unknown:context?.unknown??[],queue_feasibility:'UNRESOLVED_NO_QUEUE_RESPONSE_MODEL',current_feasibility:'UNRESOLVED',refs:uniq([...relations.flatMap(x=>x.refs),...(context?.refs??[]),...roles.flatMap(x=>x.refs)])};
    });
-   const envelope=conditionalEnvelope(relations,threshold);
-   const assumptions=['HISTORICAL_PAIR_CHECKPOINT_TRAJECTORIES_REPEAT','FINAL_MEASURED_CHECKPOINT_ORDER_PERSISTS_TO_FINISH','TRANSFER_ACROSS_CURRENT_CONDITION_DIFFERENCES_NOT_ESTABLISHED'];
-   // These are distinct untested queues, not different measured pace values.
-   return ['OBSERVED_LEADERS_SEEK_LEAD','UNKNOWN_OR_OTHER_RIVAL_CONTESTS_LEAD','ORDINAL_ADVANCERS_SEEK_LATE_PROGRESS'].map(queue=>({event:a.event,checkpoint,queue,roles,assumptions,relations,envelope,context:context?.state??'UNKNOWN',condition_mismatches:context?.mismatches??[],condition_unknown:context?.unknown??[],queue_feasibility:'UNRESOLVED_NO_QUEUE_RESPONSE_MODEL',current_feasibility:'UNRESOLVED',refs:uniq([...relations.flatMap(x=>x.refs),...(context?.refs??[]),...roles.flatMap(x=>x.refs)])}));
   }):[];
   h.conditional_scenarios=paths;
   if(h.WIN&&h.PLACE){
