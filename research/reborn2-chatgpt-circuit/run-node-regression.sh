@@ -48,3 +48,5 @@ node test-v20-expression.mjs
 node test-v21-expression.mjs
 
 node test-v22-expression.mjs
+
+node test-v22-continuation.mjs
