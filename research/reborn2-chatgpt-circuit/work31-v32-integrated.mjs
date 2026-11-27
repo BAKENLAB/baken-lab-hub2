@@ -103,9 +103,17 @@ export function analyzeV32(n,{withdraw=null,placeThreshold=null,candidate=null}=
  const rawFind=(event,subject,field)=>p.evidence.find(e=>e.event===event&&e.subject===subject&&e.field===field);
  const live=e=>e&&ok(e.evidenceId);
  const observed=(event,h)=>history.find(x=>x.event===ns(event)&&x.horse===ns(h));
+ const allRelations=fn=>out.roster.possible_active.flatMap((a,i)=>out.roster.possible_active.slice(i+1).map(b=>({a,b,...fn(a,b)})));
  const relations=p.histories.map(e=>{
   const pairs=direct.filter(x=>x.event===ns(e.event));
-  return {event:e.event,scope:'HISTORICAL_ORDER_ONLY',field:jointField(out.roster.possible_active,pairs.map(x=>({a:x.a,b:x.b,order:x.order===x.a?'AHEAD':'BEHIND',refs:x.refs})),placeThreshold),refs:uniq(pairs.flatMap(x=>x.refs))};
+  const edges=allRelations((a,b)=>{const x=pairs.find(p=>[p.a,p.b].includes(a)&&[p.a,p.b].includes(b));return x?{order:x.order===a?'AHEAD':'BEHIND',refs:x.refs}:{order:'UNKNOWN',refs:[]};});
+  return {event:e.event,scope:'HISTORICAL_ORDER_ONLY',field:jointField(out.roster.possible_active,edges,placeThreshold),refs:uniq(pairs.flatMap(x=>x.refs))};
+ });
+ const checkpoints=p.histories.map(e=>{
+  const passing=rawFind(e.event,null,'passing_order'),usable=live(passing);
+  const queue=out.roster.possible_active.map(slot=>{const h=out.runners.find(x=>x.slot===slot),native=slot.slice(p.issuer.length+1),card=p.runners.find(x=>x.nativeId===native),row=usable&&passing.measurement.roster.find(r=>r.nativeId===native),i=row&&h.identity_known&&h.status==='ACTIVE'&&live(rawFind(p.targetId,native,'current_card_row'))?passing.value.findIndex(g=>g.includes(row.no)):-1;return {slot,group:i>=0?i+1:null,refs:i>=0?refs([passing.evidenceId,card.cardRef]):[]};});
+  const edges=allRelations((a,b)=>{const x=queue.find(x=>x.slot===a),y=queue.find(x=>x.slot===b);return {order:x.group===null||y.group===null||x.group===y.group?'UNKNOWN':x.group<y.group?'AHEAD':'BEHIND',refs:uniq([...x.refs,...y.refs])};});
+  return {event:e.event,checkpoint_m:usable?passing.measurement.checkpointM:null,queue,field:jointField(out.roster.possible_active,edges),scope:'HISTORICAL_SINGLE_GROUPED_CHECKPOINT_ONLY',current_pace:null,finish_prediction:false};
  });
  const runnerOutput=out.runners.map(h=>{
   const native=h.slot.slice(p.issuer.length+1),status=h.status,known=h.identity_known&&status==='ACTIVE';
@@ -149,5 +157,5 @@ export function analyzeV32(n,{withdraw=null,placeThreshold=null,candidate=null}=
   const eye_feedback=known?(h.review??[]).map(x=>({item:x.item,targets:x.targets,refs:x.refs,state:'HISTORICAL_REVIEW_ONLY',returned_to_current_analysis:false,conditional_path_effect:false,independent_vote:false})):[];
   return {slot:h.slot,status,identity_known:h.identity_known,findings_v32:findings,rival_paths:known?rivalPaths:[],paths,axes,eye_feedback,items:itemAudit,WIN:known?{state:'UNRESOLVED',paths,unknown_rivals:rivalPaths.filter(x=>!x.comparisons.length).map(x=>x.rival)}:null,PLACE:known?{state:placeThreshold===null?'THRESHOLD_UNSPECIFIED':'UNRESOLVED',threshold:placeThreshold,paths:placeThreshold===null?[]:paths}:null,grade:null,formal:false};
  });
- return {schema:'REBORN2_COMMON_ANALYSIS_TO_CODEX_AXES_V32_RESEARCH',source_digest:v.digest,source_evidence:p.evidence.length,source_item_rows:p.runners.length*115,roster:out.roster,history:out.historical,direct:out.direct,leaders:out.leaders,relations,runners:runnerOutput,clock_conflicts:pack.conflicts,formal:false,grade:null,core:'analyzeV30->V29->V28->V27',groups:118,held:826};
+ return {schema:'REBORN2_COMMON_ANALYSIS_TO_CODEX_AXES_V32_RESEARCH',source_digest:v.digest,source_evidence:p.evidence.length,source_item_rows:p.runners.length*115,roster:out.roster,history:out.historical,direct:out.direct,leaders:out.leaders,relations,checkpoints,shared_scenarios:out.shared_scenarios_v30,runners:runnerOutput,clock_conflicts:pack.conflicts,formal:false,grade:null,core:'analyzeV30->V29->V28->V27',groups:118,held:826};
 }
