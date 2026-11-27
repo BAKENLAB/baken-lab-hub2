@@ -52,3 +52,9 @@ five-axis detail, supported/held paths, LAB EYE all classifications, concrete
 comments, reasons and 115 item details. No inferred ACTIVE, grade conversion,
 fixed S quota or old score. Unknown remains distinct from C.
 Original research mode and formal null retained. Separate pilot stage review.
+
+Storage normalizes JSON wire values before hashing. Full-mode repeated route
+judgments are stored once under paths; the five-axis and item projections
+reference those route IDs. Full concrete evidence remains in path axes, and
+partial source findings are retained. Snapshot roundtrip checks compare
+serialized hash, avoiding giant deep-equality diagnostics.

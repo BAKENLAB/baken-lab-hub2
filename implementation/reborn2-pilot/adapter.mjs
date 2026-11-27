@@ -61,16 +61,24 @@ function scopeTime(t){
 }
 const axesNames={A:'能力',B:'条件適性',C:'相手比較',D:'展開耐性',E:'LAB EYE'};
 const gradeSet=['S','A','B','C','UNASSESSED'];
-const axisView=a=>({axis:a.axis,name:axesNames[a.axis],...a});
+const axisView=(a,partial)=>partial?{axis:a.axis,name:axesNames[a.axis],...a}:{axis:a.axis,name:axesNames[a.axis],supportingRoutes:a.supportingRoutes,counterRoutes:a.counterRoutes,unknownRoutes:a.unknownRoutes,scope:'DETAILS_IN_PATH_AXES'};
+// Full engine returns the same route judgments in multiple projections.
+// Store the path once; item-level route reviews retain links, not repeated
+// nested five-axis payloads. Keep all 115 item IDs and source-bound findings.
+function itemView(i){
+ const {routeReviewV47,...rest}=i;
+ return {...rest,routeReviewV47:(routeReviewV47??[]).map(q=>({route:q.id??q.route,state:q.state,category:q.category,predicate:q.predicate,refs:q.refs??[]}))};
+}
+function wireBody(body){return JSON.parse(JSON.stringify(body));}
 const textGrade=g=>g==='UNASSESSED'?'未評価':g;
 const fullComments=(h,status)=>{
  if(status==='CANCELLED')return ['出走取消。評価を付けない。'];
  const c=[],paths=h.paths??[];
  const win=paths.find(p=>h.winPaths.includes(p.id)),place=paths.find(p=>h.placePaths.includes(p.id));
- const evidence=p=>{const pair=p?.own?.find(q=>q.finish&&q.finish[0]>0);return pair?'対 '+pair.rival+'：相対時計差 '+pair.finish[0]+'〜'+pair.finish[1]+'ms（先着側）。':'';};
+ const evidence=p=>{const pairs=p?.own??p?.axes?.find(a=>a.axis==='A')?.support.flatMap(x=>Array.isArray(x.value)?x.value:[])??[];const pair=pairs.find(q=>q.finish&&q.finish[0]>0);return pair?'対 '+pair.rival+'：相対時計差 '+pair.finish[0]+'〜'+pair.finish[1]+'ms（先着側）。':'';};
  if(win)c.push('条件付き勝ち筋 '+win.id+'。順位範囲 '+win.rank.join('〜')+'。'+evidence(win));
  if(place&&place.id!==win?.id)c.push('条件付き好走筋 '+place.id+'。順位範囲 '+place.rank.join('〜')+'。'+evidence(place));
- if(h.counterPaths.length)c.push('反証・劣勢または再現性注意の経路 '+h.counterPaths.length+'件。');
+ if(h.counterPaths.length){const p=paths.find(p=>h.counterPaths.includes(p.id)&&p.rank);c.push('反証・劣勢または再現性注意の経路 '+h.counterPaths.length+'件。'+(p?'例：'+p.id+'、条件付き順位範囲 '+p.rank.join('〜')+'。':''));}
  if(h.deployment.held.length)c.push('未成立の経路 '+h.deployment.held.length+'件。');
  if(h.grade==='UNASSESSED')c.push('未評価：'+h.decisionReason+'。');
  if(!c.length)c.push('研究評価 '+textGrade(h.grade)+'：'+h.decisionReason+'。');
@@ -98,12 +106,12 @@ function build({race,time,sourceDigest,mode,roster,analysis}){
   assert.ok(gradeSet.includes(h.grade)&&h.formalGrade===null);
   if(r.status!=='ACTIVE')assert.equal(h.grade,'UNASSESSED');
   const partial=mode==='PARTIAL',holdReasons=uniq([...(h.missingness?.decisive??[]),...(partial?[]:h.paths.filter(p=>p.state==='HELD').flatMap(p=>p.decisiveUnknown??[])),...(r.status==='UNKNOWN'?['CURRENT_STATUS_UNCERTIFIED']:[])]);
-  const axes=h.ability.axes.map(axisView);
+  const axes=h.ability.axes.map(a=>axisView(a,partial));
   assert.deepEqual(axes.map(a=>a.axis),['A','B','C','D','E']);
   assert.equal(h.analysisItems.length,115);assert.equal(h.eye.length,15);
-  return {...r,grade:h.grade,formalGrade:null,axes,winPaths:h.winPaths,placePaths:h.placePaths,counterPaths:h.counterPaths,paths:h.paths??[],eye:h.eye,comments:partial?partialComments(h):fullComments(h,r.status),holdReasons,analysisItems:h.analysisItems,coverage:h.coverage??null,missingness:h.missingness,rankBounds:h.rankBoundsAcrossReviewedScenarios,decisionReason:h.decisionReason??h.eligibility};
+  return {...r,grade:h.grade,formalGrade:null,axes,winPaths:h.winPaths,placePaths:h.placePaths,counterPaths:h.counterPaths,paths:h.paths??[],eye:h.eye,comments:partial?partialComments(h):fullComments(h,r.status),holdReasons,analysisItems:partial?h.analysisItems:h.analysisItems.map(itemView),coverage:h.coverage??null,missingness:h.missingness,rankBounds:h.rankBoundsAcrossReviewedScenarios,decisionReason:h.decisionReason??h.eligibility};
  });
- const body={schema:VERSION,mode,scope:'FIXTURE_ONLY',engineCommit:ENGINE,sourceDigest,race,time,runners,realAdmission:false,formal:false};
+ const body=wireBody({schema:VERSION,mode,scope:'FIXTURE_ONLY',engineCommit:ENGINE,sourceDigest,race,time,runners,realAdmission:false,formal:false});
  return {...body,snapshotDigest:sha(body)};
 }
 export async function executeFixture(name='FK34_FULL'){

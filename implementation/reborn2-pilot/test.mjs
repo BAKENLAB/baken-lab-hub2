@@ -23,7 +23,7 @@ assert.throws(()=>inspectRealSupply({...m,realAdmission:true}));assert.throws(()
 console.log('CODEX01_REAL_INTAKE_CLOSED PASS');
 const dir=await mkdtemp(join(tmpdir(),'reborn2-pilot-'));
 try{
- const f=await saveFixtureSnapshot(dir,full);assert.deepEqual(await readFixtureSnapshot(f),full);
+ const f=await saveFixtureSnapshot(dir,full);const reread=await readFixtureSnapshot(f);assert.equal(reread.snapshotDigest,full.snapshotDigest);assert.equal(sha(reread),sha(full));console.log('CODEX01_SNAPSHOT_BYTES '+(await readFile(f)).length);
  await assert.rejects(()=>saveFixtureSnapshot(dir,full),e=>e.code==='EEXIST');
  const tamper=structuredClone(full);tamper.runners[0].grade='S';assert.throws(()=>validateSnapshot(tamper),/SNAPSHOT_DIGEST/);
  const legacy=structuredClone(full);legacy.runners[0].score=100;const {snapshotDigest,...body}=legacy;legacy.snapshotDigest=sha(body);assert.throws(()=>validateSnapshot(legacy),/LEGACY_FIELD/);
