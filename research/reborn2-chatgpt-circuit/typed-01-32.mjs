@@ -57,7 +57,7 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  for(const g of incident){
  const f=g.record.fact;put('26',fictional?'FIXTURE_RULING_OBSERVATION':'OFFICIAL_INCIDENT',{race_id:g.record.race_id,code:f.incident_code,role:f.role,...(fictional?{text:f.text,official_ruling_verified:false}:{})},[g]);
  const r=get(finished,g.record.race_id);
- if(f.role==='SUFFERED'&&r)put('27','INCIDENT_AND_FINISH',{race_id:g.record.race_id,finish:r.record.fact.finish,role:f.role,overcame:null},[g,r],['02','26']);
+ if((f.role==='SUFFERED'||fictional&&f.role==='SELF'&&f.incident_code==='FIXTURE_TRAFFIC')&&r)put('27','INCIDENT_AND_FINISH',{race_id:g.record.race_id,finish:r.record.fact.finish,role:f.role,overcame:null},[g,r],['02','26']);
  }
  if(results.length){
  const d=historyDenominators(results.map(g=>g.record.fact));
@@ -98,6 +98,7 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  put('32','IMMEDIATE_COMPARABLE_CHANGE',delta,[a,b,...chronological],['02','05']);put('14','CHRONOLOGICAL_CONTENT_CHANGE',delta,[a,b,...chronological],['32']);
  }}
  // Multi-run chronology comparison: no improvement label is derived from raw clock direction alone.
+ if(order.length>=2){const ordered=order.map(r=>get(finished,r));if(ordered.every(Boolean)&&ordered.every((g,i)=>i===0||Date.parse(ordered[i-1].record.event_at)>Date.parse(g.record.event_at))){put('14','CHRONOLOGICAL_CONDITION_CONTEXT',{runs:ordered.map(g=>({race_id:g.record.race_id,event_at:g.record.event_at,finish:g.record.fact.finish,clock_tenths:g.record.fact.clock_tenths,final3f_tenths:g.record.fact.final3f_tenths??null,conditions:Object.fromEntries(keyset.map(k=>[k,g.record.fact[k]??null]))})),full_history_verified:false,baseline_adjusted_trend:null,ability_change:null},[...ordered,...chronological],['02','05','06']);}}
  if(order.length>=3){const ordered=order.map(r=>get(finished,r));if(ordered.every(Boolean)&&ordered.every((g,i)=>i===0||Date.parse(ordered[i-1].record.event_at)>Date.parse(g.record.event_at))){const common=ordered.filter(g=>exact(g.record.fact,ordered[0].record.fact));if(common.length>=3)put('14','MATCHED_CHRONOLOGICAL_SERIES',{race_ids:common.map(g=>g.record.race_id),clock_tenths:common.map(g=>g.record.fact.clock_tenths),final3f_tenths:common.map(g=>g.record.fact.final3f_tenths??null),finishes:common.map(g=>g.record.fact.finish),excluded_nonmatching:ordered.filter(g=>!common.includes(g)).map(g=>g.record.race_id),baseline_adjusted_trend:null,ability_change:null},[...common,...chronological],['02','05','06','32']);}}
  const distanceGroups=new Map();for(const g of finished){const f=g.record.fact;if(!Number.isInteger(f.distance_m)||f.final3f_tenths==null)continue;const k=JSON.stringify([f.course_id,f.course_version,f.surface,f.going,f.class_key,f.distance_m]);if(!distanceGroups.has(k))distanceGroups.set(k,[]);distanceGroups.get(k).push(g);}
  if(distanceGroups.size>1)put('11','DISTANCE_CONTEXT_OBSERVATIONS',{groups:[...distanceGroups].map(([k,gs])=>({condition_key:k,final3f_tenths:gs.map(g=>g.record.fact.final3f_tenths)})),fatigue_conclusion:null},[...distanceGroups.values()].flat(),['05','06']);
@@ -105,8 +106,8 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const f=g.record.fact,r=g.record.race_id;
  const peers=accepted.filter(p=>p.record.kind==='PEER_RESULT'&&p.record.race_id===r&&p.record.event_at===g.record.event_at&&p.record.horse_id!==h.horse_id&&p.record.fact.start_status==='FINISHED'&&p.record.fact.field_size===f.field_size);
  if(peers.length&&(f.winner_gap_tenths!=null||f.margin_reference==='WINNER'))put('29','DEFEAT_WITH_SHARED_RACE_PEERS',{race_id:r,finish:f.finish,winner_gap_tenths:f.winner_gap_tenths??null,peers:peers.map(p=>({horse_id:p.record.horse_id,finish:p.record.fact.finish})),peer_quality:null,ability_conclusion:null},[g,...peers],['02','03','28']);
- const special=incident.filter(i=>i.record.race_id===r&&i.record.fact.role==='SUFFERED');
- if(special.length)put('31','DEFEAT_WITH_OFFICIAL_INCIDENT',{race_id:r,finish:f.finish,incidents:special.map(i=>i.record.fact.incident_code),causal_attribution:null},[g,...special],['02','26','28']);
+ const special=incident.filter(i=>i.record.race_id===r&&(i.record.fact.role==='SUFFERED'||fictional&&i.record.fact.role==='SELF'&&i.record.fact.incident_code==='FIXTURE_TRAFFIC'));
+ if(special.length)put('31',fictional?'FIXTURE_DEFEAT_WITH_RULING_CONTEXT':'DEFEAT_WITH_OFFICIAL_INCIDENT',{race_id:r,finish:f.finish,incidents:special.map(i=>i.record.fact.incident_code),causal_attribution:null},[g,...special],['02','26','28']);
  if(exact(f,curr)){const recovery=items['21'].observations.filter(x=>x.value.race_id===r);if(recovery.length)traceRead({consumer:'analyzeTyped01to32.latentRecovery',consumer_item_id:'15',horse_no:h.horse_no,item_id:'21',value:recovery,reason:'Read actual recovery observation for current condition candidate'});if(recovery.length)put('15','CURRENT_MATCH_HISTORICAL_RECOVERY',{race_id:r,finish:f.finish,observed_recovery:recovery.map(x=>x.value),latent_ability:null},[g,...card,...accepted.filter(q=>recovery.some(x=>x.original_event_keys.includes(q.event_key)))],['21','32']);}
  }
  // 01 combines typed evidence descriptions without counting them as votes.

@@ -48,6 +48,7 @@ export function runGeminiV2(bytes){
   const linked=followups.filter(f=>f.subject_horse_id===h.horse_id);
   if(linked.length){const i=item(row,'37');i.unknowns=i.unknowns.filter(s=>s!=='NO_ADMITTED_ANALYSIS_FACT').map(s=>linked.some(f=>s==='PEER_FOLLOWUP_MISSING:'+f.prior_race_id+':'+f.peer_horse_id)?s.replace('PEER_FOLLOWUP_MISSING','FULL_FIELD_FOLLOWUP_MISSING'):s);}
   if(own.length){add(row,'33',{observed_class_keys:uniq(own.map(r=>r.class_key)),formal_rule_version:null,empirical_level:null},own.map(r=>r.evidence_id));const last=own[0];add(row,'39',{prior_class_key:last.class_key,target_class_key:target.class_key,formal_transition:null},[last.evidence_id,card]);}
+  if(Number.isFinite(z.weight_kg)&&z.weight_kg>0)add(row,'54',{reported_current_assigned_weight_kg:z.weight_kg,prior_weight_comparison:own.length?own.map(r=>({race_id:r.race_id,kg:r.weight_kg})):[],weight_effect:null},[card,...own.map(r=>r.evidence_id)]);
   if(z.reported_transfer_first===true)add(row,'42',{reported_transfer_first:true,previous_identity:null,transfer_level:null},[card],'hypotheses');
   if(Number.isInteger(z.age)&&z.sex)add(row,'91',{reported_age:z.age,reported_sex:z.sex,birth_date:null,stage_effect:null},[card]);
   if(z.sire_label)add(row,'90',{sire_label:z.sire_label,damsire_label:z.damsire_label??null,registered_ids:null,cohort:null},[card],'hypotheses');
@@ -73,7 +74,10 @@ export function runGeminiV2(bytes){
  }
  const upstream=before.flatMap(h=>Object.entries(h.items).map(([id,i])=>({horse_id:h.horse_id,item_id:id,evidence_ids:uniq(fval(i).flatMap(x=>x.evidence_ids)),source_cutoff:target.cutoff,analysis_status:fval(i).length?'OUTPUT_CANDIDATE':'UNKNOWN'})));
  const changes=analyzeChanges93to100Fixture({target,roster,evidence,runs,history:histories,currentConditions:current,upstream,traceRead});
- const rankRunners=before.map(h=>{Object.assign(h.items,changes.runners.find(x=>x.horse_no===h.horse_no).items);const o=roster.find(x=>x.horse_id===h.horse_id),own=runs.filter(r=>r.horse_id===h.horse_id).sort((a,b)=>b.local_date.localeCompare(a.local_date));
+ const rankRunners=before.map(h=>{Object.assign(h.items,changes.runners.find(x=>x.horse_no===h.horse_no).items);
+ const incident=fval(h.items['26']),scenario=[...fval(h.items['65']),...fval(h.items['70'])];
+ if(incident.length&&scenario.length){for(const id of ['26','65','70'])if(fval(h.items[id]).length)traceRead({consumer:'fixtureRecurrenceContext',consumer_item_id:'96',horse_no:h.horse_no,item_id:id,value:h.items[id],reason:'Ruling context and present scenario prerequisites, no causal resolution'});add(h,'96',{prior_incident_context:incident.map(x=>x.value),current_scenario_context:scenario.map(x=>x.value),causal_loss:null,recurrence_resolution:null,materiality:'UNVALIDATED'},[...incident,...scenario].flatMap(x=>x.evidence_ids),'hypotheses');}
+ const o=roster.find(x=>x.horse_id===h.horse_id),own=runs.filter(r=>r.horse_id===h.horse_id).sort((a,b)=>b.local_date.localeCompare(a.local_date));
  const currentRun=current.find(x=>x.horse_id===h.horse_id);
  const partial=own.filter(r=>exact(r,currentRun));
  const other=own.filter(r=>!exact(r,currentRun));
