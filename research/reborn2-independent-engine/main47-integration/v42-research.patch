@@ -1,0 +1,228 @@
+diff --git a/research/reborn2-chatgpt-circuit/test-v42-eye-intervention.mjs b/research/reborn2-chatgpt-circuit/test-v42-eye-intervention.mjs
+new file mode 100644
+index 0000000..41d3899
+--- /dev/null
++++ b/research/reborn2-chatgpt-circuit/test-v42-eye-intervention.mjs
+@@ -0,0 +1,61 @@
++import assert from 'node:assert/strict';
++import {loadV40} from './work36-v40-integrated.mjs';
++import {admission,leakAudit} from './work36-v41-local-decision.mjs';
++import {integrate} from './work36-v42-propagation.mjs';
++
++const V=await loadV40();
++const docs=V.master.f.docs;
++const standard=new Set(V.generated.find(g=>g.f.id==='W36_BASE').f.docs.map(d=>d.eventId));
++const available=docs.filter(d=>d.kind==='HISTORICAL_RESULT'&&!standard.has(d.eventId)).slice(0,2).map(d=>d.eventId);
++assert.deepEqual(available,['TEST:W36_POS_A','TEST:W36_POS_B']);
++const on=admission(V,available);
++const off=admission(V,available,{eyeEnabled:false});
++assert.deepEqual(on.admitted,off.admitted);
++assert.equal(on.x.source_digest,off.x.source_digest);
++assert.deepEqual(on.x.source_packet,off.x.source_packet);
++assert.deepEqual(on.x.history_v41,off.x.history_v41);
++const a=integrate(on.x,docs),b=integrate(off.x,docs,{eyeEnabled:false});
++assert.deepEqual(a.routes,b.routes);
++for(const [x,z] of [[on.x,a],[off.x,b]]){
++  const leak=leakAudit({...x,v42:z});
++  assert.equal(leak.leaks.length+leak.events.length+leak.broken.length,0);
++}
++const horse='TEST:NAR|TEST:H4',peer='TEST:NAR|TEST:H1';
++const runner=z=>z.runners.find(h=>h.horse===horse);
++const upstream=x=>x.runners.find(h=>h.slot===horse).findings_v33??[];
++const recovery=f=>f.item==='RANK18'&&f.eye_id&&f.observation?.rival===peer;
++assert.ok(upstream(on.x).some(recovery));
++assert.ok(!upstream(off.x).some(recovery));
++const route='TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:W36_POS_B@800';
++const path=z=>runner(z).paths.find(p=>p.id===route);
++const enabled=path(a),disabled=path(b);
++assert.equal(enabled.decision,disabled.decision);
++assert.ok(enabled.axes[4].support.some(e=>e.item==='EYE03'&&e.rival===peer));
++assert.equal(disabled.axes[4].support.length,0);
++assert.deepEqual(enabled.axes.slice(0,4),disabled.axes.slice(0,4));
++assert.ok(a.runners.every(h=>h.grade===null&&h.current_grade===null&&h.items.length===115));
++console.log(JSON.stringify({test:'SAME_PACKET_EYE03',digest:a.digest,horse,peer,route,
++  before:disabled.decision,after:enabled.decision,axisESupport:[disabled.axes[4].support.length,enabled.axes[4].support.length],formal:false}));
++
++const roster=on.x.roster.possible_active;
++assert.deepEqual(new Set(a.runners.map(h=>h.horse)),new Set(roster));
++const evidence=new Map(on.x.source_packet.evidence.map(e=>[e.evidenceId,e]));
++const retained=new Map(on.x.admissionTrace.retained.map(e=>[e.id,e]));
++const field=a.runners.map(h=>{
++  const p=h.paths.find(x=>x.id===route);
++  assert.ok(p);
++  const axes=p.axes.map(({axis,support,counter,unknown,refs})=>({
++    axis,support:support.length,counter:counter.length,unknown:unknown.length,refs
++  }));
++  const usedRoots=[...new Set(axes.flatMap(axis=>axis.refs))].map(ref=>{
++    const source=evidence.get(ref);
++    if(source)return {ref,root:source.root};
++    const derived=retained.get(ref);
++    return {ref,root:null,dependencies:derived?.depends??null};
++  });
++  return {horse:h.horse,conditionalGrade:h.conditional_grade,currentGrade:h.current_grade,
++    routeDecision:p.decision,mathematicalEnvelope:p.field&&[p.field.min,p.field.max],
++    currentApplicability:p.actual_current,axes,usedRoots};
++});
++console.log('FULL_FIELD '+JSON.stringify({schema:'REBORN2_SYNTHETIC_REVIEW_V1',sourceDigest:a.digest,
++  admittedEvents:on.admitted,route,scope:'HISTORICAL_SCENARIO_ONLY',formal:false,field}));
+diff --git a/research/reborn2-chatgpt-circuit/work35-v38-completion.mjs b/research/reborn2-chatgpt-circuit/work35-v38-completion.mjs
+index 5542f75..e349b6a 100644
+--- a/research/reborn2-chatgpt-circuit/work35-v38-completion.mjs
++++ b/research/reborn2-chatgpt-circuit/work35-v38-completion.mjs
+@@ -38,11 +38,16 @@ export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,
+  // Preserve local observed bounds even when there is no independent current
+  // pace evidence. V35 shared numeric solver still consumes the actual pair edges.
+  const observed=common.scenarios.filter(s=>s.valid&&['COMPARABLE_SYNTHETIC_RESPONSE','LOCAL_OBSERVED_RESPONSE_ONLY'].includes(s.applicability));
+- const branches=[...branches35(f),...observed.map(s=>({id:'OBS:'+s.id,checkpoint_m:s.checkpoint_m,response_event:s.event,starts:s.starts}))];
++ // Historical observations may contain rivals absent from the target card.
++ // Project generated starts only; the shared analyzer still validates caller branches
++ // and retains the original historical field for applicability checks.
++ const targetSlots=new Set(common.roster.possible_active);
++ const targetStarts=starts=>Object.fromEntries(Object.entries(starts).filter(([horse])=>targetSlots.has(horse)));
++ const branches=[...branches35(f),...observed.map(s=>({id:'OBS:'+s.id,checkpoint_m:s.checkpoint_m,response_event:s.event,starts:targetStarts(s.starts)}))];
+  // Optional, explicitly hypothetical gap-width contrast. No current observations
+  // are created. All eligible 800m vectors receive the same scale grid.
+  if(gapStress)for(const s of observed.filter(s=>s.checkpoint_m===800&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE')){
+-  const v=Object.entries(s.starts);if(v.length!==common.roster.possible_active.length)continue;
++  const v=Object.entries(targetStarts(s.starts));if(v.length!==common.roster.possible_active.length)continue;
+   const center=x=>(x[0]+x[1])/2,origin=Math.min(...v.map(([,a])=>center(a)));
+   for(const k of [0.25,0.5,1.5]){
+    const starts=Object.fromEntries(v.map(([h,a])=>{const m=origin+k*(center(a)-origin),u=(a[1]-a[0])/2;return [h,[m-u,m+u]];}));
+@@ -55,7 +60,7 @@ export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,
+   const eligible=observed.filter(s=>s.checkpoint_m===800&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE');
+   for(const a of eligible)for(const b of eligible){
+    if(a.event===b.event)continue;
+-   branches.push({id:'EVIDENCE_CROSS:'+a.id+'>'+b.id,checkpoint_m:b.checkpoint_m,response_event:b.event,starts:a.starts});
++   branches.push({id:'EVIDENCE_CROSS:'+a.id+'>'+b.id,checkpoint_m:b.checkpoint_m,response_event:b.event,starts:targetStarts(a.starts)});
+   }
+  }
+  const shared=analyzeV35(V,id,{withdraw,eyeEnabled,placeThreshold,branches,localize:true});
+diff --git a/research/reborn2-chatgpt-circuit/work36-v40-integrated.mjs b/research/reborn2-chatgpt-circuit/work36-v40-integrated.mjs
+index 5a1404a..ddc9673 100644
+--- a/research/reborn2-chatgpt-circuit/work36-v40-integrated.mjs
++++ b/research/reborn2-chatgpt-circuit/work36-v40-integrated.mjs
+@@ -122,8 +122,8 @@ function route(x,h,s,threshold){
+   win==='SUPPORT'&&dWin?'WIN_SUPPORT':place==='SUPPORT'?'PLACE_SUPPORT':place==='COUNTER'?'PLACE_COUNTER':'HELD':'HELD';
+  return {id:s.id,horse:h.slot,start_event:a?.event??null,response_event:s.response_event,env,axes,decision,paceComparable,conditions,roles,measured,applicable,WIN:win,PLACE:place,pairs,formal:false,actual_current:'UNPROVEN'};
+ }
+-export function analyze(V,id,threshold=2){
+- const x=analyzeV38(V,id,{eyeEnabled:true,placeThreshold:threshold,evidenceCross:true});
++export function analyze(V,id,threshold=2,{eyeEnabled=true}={}){
++ const x=analyzeV38(V,id,{eyeEnabled,placeThreshold:threshold,evidenceCross:true});
+  const runners=x.runners.map(h=>{
+   const routes=x.conditional_scenarios.filter(s=>s.id.startsWith('EVIDENCE_CROSS:')).map(s=>route(x,h,s,threshold));
+   const obs=x.historical_scenarios.filter(s=>s.checkpoint_m===800&&s.valid&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE');
+diff --git a/research/reborn2-chatgpt-circuit/work36-v41-local-decision.mjs b/research/reborn2-chatgpt-circuit/work36-v41-local-decision.mjs
+index a5ac28e..c9202c0 100644
+--- a/research/reborn2-chatgpt-circuit/work36-v41-local-decision.mjs
++++ b/research/reborn2-chatgpt-circuit/work36-v41-local-decision.mjs
+@@ -150,8 +150,8 @@ function gradeTrace(h,history,eye,threshold){
+   decisiveUnknown:['CURRENT_FORM','CURRENT_ROLE_PACE','CURRENT_ROUTE_COVERAGE',...(unknown.length?['DEPENDENT_CONDITION_TRANSFER']:[])],
+   heldRoutes:held.map(p=>p.id),winRoutes:win.map(p=>p.id),placeRoutes:place.map(p=>p.id),counterRoutes:counter.map(p=>p.id),threshold,formal:false};
+ }
+-export function analyze(V,id){
+- const x=analyzeV40(V,id),f=V.C.fixtures.find(f=>f.id===id),history=localScenarios(x,f.docs);
++export function analyze(V,id,options={}){
++ const x=analyzeV40(V,id,2,options),f=V.C.fixtures.find(f=>f.id===id),history=localScenarios(x,f.docs);
+  const runners=x.runners.map(h=>{
+   const contrast=responseContrast(history,h.slot),eye=eyeAudit(h,x.source_packet,history),decision=gradeTrace(h,history,eye,x.placeThreshold);
+   return {horse:h.slot,items:h.items,contrast,role:roleReview(history,h.slot),eye,decision,grade:null,formal:false};
+@@ -160,7 +160,7 @@ export function analyze(V,id){
+ }
+ // Generic event availability review over exact verified master. Selection is
+ // source availability/validity, NOT a predicted benefit or expected grade.
+-export function admission(V,available){
++export function admission(V,available,options={}){
+  const packet=V.master.out.packet,docs=V.master.f.docs,base=V.generated.find(g=>g.f.id==='W36_BASE').f.docs;
+  const baseIds=new Set(base.map(d=>d.eventId));
+  const candidateDocs=docs.filter(d=>d.kind==='HISTORICAL_RESULT'&&!baseIds.has(d.eventId));
+@@ -178,7 +178,7 @@ export function admission(V,available){
+  });
+  const admitted=reviewed.filter(r=>r.available&&r.valid).map(r=>r.event);
+  const W={...V,C:{...V.C,admission:{candidateEvents:ids,admittedEvents:admitted}}};
+- const x=analyze(W,V.master.f.id);
++ const x=analyze(W,V.master.f.id,options);
+  assert.equal(x.source_digest,V.master.out.digest);
+  assert.equal(sha(JSON.stringify(x.source_packet)),V.master.out.digest);
+  return {x,reviewed,admitted};
+diff --git a/research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs b/research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs
+index 42fd6d4..afda6a6 100644
+--- a/research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs
++++ b/research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs
+@@ -2,6 +2,7 @@
+ // Fixed synthetic observations only. No market, point tally, rank quota, formal grade or future observation.
+ import assert from 'node:assert/strict';
+ import {readFileSync} from 'node:fs';
++import {pathToFileURL} from 'node:url';
+ import {createHash} from 'node:crypto';
+ import {loadV40} from './work36-v40-integrated.mjs';
+ import {analyze as analyzeV41,admission,leakAudit} from './work36-v41-local-decision.mjs';
+@@ -140,11 +141,11 @@ function assess(h,r,eye,threshold){
+  return {id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,start:r.start,response:r.response,replay:r.replay,decision,axes,basis,field:e??null,local:l??null,full,own,
+   actual_current:'UNPROVEN',formal:false};
+ }
+-function integrate(x,docs){
++export function integrate(x,docs,{eyeEnabled=true}={}){
+  const hs=x.history_v41,threshold=x.placeThreshold??2;
+  const routes=hs.flatMap(a=>hs.filter(b=>compatibleWindow(a,b)).map(b=>route(x,docs,a,b,threshold)));
+  const runners=x.runners_v41.map(h=>{
+-  const eye=discoveries(h,x,routes),rr=routes.map(r=>assess(h.horse,r,eye,threshold));
++  const eye=eyeEnabled?discoveries(h,x,routes):[],rr=routes.map(r=>assess(h.horse,r,eye,threshold));
+   const items=h.items.map(i=>{
+    const changed=hs.flatMap(s=>(s.individual[h.horse]??[]).concat(s.shared).filter(q=>fields[q.dimension]===i.item&&q.state!=='MATCHED').map(q=>({event:s.event,dimension:q.dimension,past:q.past,current:q.current,delta:q.delta,state:q.state,refs:q.refs})));
+    const effects=eye.filter(q=>q.targets.includes(i.item));
+@@ -167,6 +168,7 @@ function integrate(x,docs){
+  });
+  return {id:x.id,digest:x.source_digest,routes,runners,formal:false,grade:null,threshold};
+ }
++if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
+ const V=await loadV40(),all=[];
+ for(const f of V.C.fixtures.filter(f=>f.id!=='W36_MASTER_IMMUTABLE')){
+  const x=analyzeV41(V,f.id);all.push({base:x,z:integrate(x,f.docs)});
+@@ -241,7 +243,22 @@ t('F42-08',()=>{
+  assert.equal(b,undefined);assert.ok(p&&o);
+  assert.equal(p.decision,'CONDITIONAL_WIN');assert.equal(o.decision,p.decision);
+  const pair=p.own.find(e=>e.rival===H(2));assert.deepEqual(pair.finish,[1000,1600]);
+- assert.ok(p.axes.find(a=>a.axis==='E').support.some(e=>e.item==='EYE03'&&e.rival===H(2)));
++ const support=p.axes.find(a=>a.axis==='E').support.filter(e=>e.item==='EYE03');
++ for(const rival of [H(1),H(5)])assert.ok(support.some(e=>e.rival===rival&&e.event===p.response&&e.checkpoint===p.checkpoint));
++ // A route-specific transfer is weaker than recovery across the largest observed deficit.
++ const responseDocs=V.master.f.docs.filter(d=>candidate.slice(0,2).includes(d.eventId));
++ const measured=responseDocs.map(d=>{
++  const subject=d.rows.find(row=>row.nativeId===id(H(4))),rival=d.rows.find(row=>row.nativeId===id(H(2)));
++  const checkpoint=d.geometry.checkpoints_m.indexOf(p.checkpoint);
++  assert.ok(checkpoint>=0);
++  const deficit=subject.checkpointMs[checkpoint]-rival.checkpointMs[checkpoint];
++  const finish=rival.clockMs-subject.clockMs;
++  assert.ok(deficit>2*d.precisionMs&&finish>2*d.precisionMs);
++  return {deficit,lowerGain:finish+deficit-4*d.precisionMs};
++ });
++ assert.equal(measured.length,2);
++ assert.equal(Math.min(...measured.map(m=>m.lowerGain))-Math.max(...measured.map(m=>m.deficit)),-400);
++ assert.ok(!support.some(e=>e.rival===H(2)));
+  assert.deepEqual(o.own.map(e=>e.finish),p.own.map(e=>e.finish));
+  assert.ok(h(3).paths.some(q=>q.response.endsWith('W36_COUNTER_MATCHED')&&q.decision==='CONDITIONAL_COUNTER'));
+  assert.ok(p.basis.discovery&&p.basis.ability&&p.basis.applicability&&p.basis.comparison&&p.basis.response);
+@@ -268,7 +285,9 @@ t('F42-10',()=>{
+  const handoff=read('stage37-final-handoff-v0.1.json','95aa9c8906aef6a6398e3f749f3bd19e8632c780');
+  const pin=read('work36-independent-pins-v0.1.json','ca1ad8f0a2059f0226cfdb7f78122ddce39cca27','0811e22bac17e6c49ff13b91747cc96e55042e7496e4be3f39ed438c99cf9e13');
+  const h3=read('work36-original-crosscheck-h3-v0.1.json','b6b0a5979b0f13c100bd1721c4b6d71618498da6','caec36b32fc37075f6057cea2cc9bbf1818d931d3d82972309fe13da88c84b8b');
+- assert.equal(handoff.priorWorkLedger,699);assert.equal(handoff.addedWorkTests,0);assert.equal(pin.cases.length,15);
++ assert.equal(handoff.priorWorkLedger,699);assert.equal(handoff.addedWorkTests,0);assert.equal(pin.cases.length,16);
++ assert.equal(pin.cases.filter(p=>p.id==='W36_MASTER_IMMUTABLE').length,1);
++ assert.deepEqual(pin.cases.map(p=>p.id).sort(),V.generated.map(g=>g.p.id).sort());
+  for(const p of pin.cases){
+   const g=V.generated.find(q=>q.p.id===p.id);assert.ok(g);
+   for(const k of ['source_digest','bundle_sha256','evidence'])assert.equal(g.p[k],p[k]);
+@@ -287,8 +306,10 @@ t('F42-10',()=>{
+   for(const e of q.edges){const a=r.own.find(p=>id(p.rival)===e.rival);assert.deepEqual(a.finish,e.interval);}
+   assert.equal(r.own.every(p=>p.finish&&p.finish[0]>0),false);
+  }
+- console.log('V42_WORK37_INDEPENDENT_CHECK '+JSON.stringify({packets:15,casePins:25,H3Cross:20,H3PairIntervals:80,clearWins:0,scope:'RECORDED_800M_CROSSES_ONLY'}));
++ console.log('V42_WORK37_INDEPENDENT_CHECK '+JSON.stringify({fixturePackets:15,masterPackets:1,casePins:25,H3Cross:20,H3PairIntervals:80,clearWins:0,scope:'RECORDED_800M_CROSSES_ONLY'}));
+ });
+ const compact=z=>({id:z.id,digest:z.digest,routes:z.routes.map(r=>({id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,local:r.edges.filter(e=>e.local).length,full:r.edges.filter(e=>e.full).length,valid:r.valid})),runners:z.runners.map(h=>({horse:h.horse,conditional:h.conditional_grade,eye:h.eye,reason:h.reasons,paths:h.paths.map(p=>({id:p.id,decision:p.decision,field:p.field&&[p.field.min,p.field.max],local:p.local&&[p.local.min,p.local.max],axes:p.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown.length}))}))}))});
+ for(const {z} of all)console.log('V42_CASE '+JSON.stringify(compact(z)));
+ for(const {m,z} of masks)console.log('V42_MASK '+JSON.stringify({admitted:m.admitted,result:compact(z)}));
++
++}
