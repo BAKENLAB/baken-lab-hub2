@@ -45,10 +45,10 @@ export function sectionContrast(a,b,h){
  const rankDelta=finite(x?.finish)&&finite(y?.finish)?y.finish-x.finish:null;
  const section=delta===null?'UNKNOWN':delta< -u?'IMPROVED':delta>u?'WORSENED':'WITHIN_UNCERTAINTY';
  const placing=rankDelta===null?'UNKNOWN':rankDelta<0?'IMPROVED':rankDelta>0?'WORSENED':'UNCHANGED';
- const peerEquipment= samePeers&&a.rows.every(r=>{const q=rows(b,r.nativeId);return r.gate!==null&&r.weightG!==null&&q.gate!==null&&q.weightG!==null&&r.gate===q.gate&&r.weightG===q.weightG;});
+ const peerEquipment=!samePeers?'CHANGED':a.rows.some(r=>{const q=rows(b,r.nativeId);return [r.gate,r.weightG,q.gate,q.weightG].some(v=>v===null);})?'UNKNOWN':a.rows.every(r=>{const q=rows(b,r.nativeId);return r.gate===q.gate&&r.weightG===q.weightG;})?'MATCHED':'CHANGED';
  const prefixPace=pace? (pace.a.length===pace.b.length&&pace.a.slice(0,2).every((v,i)=>Math.abs(v-pace.b[i])<=(i===0?u:2*u))?'OVERLAP':'DIFFERENT'):'UNKNOWN';
- const comparable=c==='MATCHED'&&samePeers&&personal==='MATCHED'&&peerEquipment&&prefixPace==='OVERLAP';
- const status=!comparable?(c==='CHANGED'||!samePeers||personal==='CHANGED'||prefixPace==='DIFFERENT'||!peerEquipment?'IRRELEVANT_CONDITION':'UNKNOWN'):section==='IMPROVED'&&['WORSENED','UNCHANGED'].includes(placing)?'SUPPORT_ANTECEDENT':section==='WORSENED'?'COUNTER_ANTECEDENT':section==='UNKNOWN'||placing==='UNKNOWN'?'UNKNOWN':'NEUTRAL';
+ const comparable=c==='MATCHED'&&samePeers&&personal==='MATCHED'&&peerEquipment==='MATCHED'&&prefixPace==='OVERLAP';
+ const status=!comparable?(c==='CHANGED'||!samePeers||personal==='CHANGED'||prefixPace==='DIFFERENT'||peerEquipment==='CHANGED'?'IRRELEVANT_CONDITION':'UNKNOWN'):section==='IMPROVED'&&['WORSENED','UNCHANGED'].includes(placing)?'SUPPORT_ANTECEDENT':section==='WORSENED'?'COUNTER_ANTECEDENT':section==='UNKNOWN'||placing==='UNKNOWN'?'UNKNOWN':'NEUTRAL';
  return {section,placing,section_delta_ms:delta,rank_delta:rankDelta,bound_ms:u,context:c,samePeers,personal,peerEquipment,prefixPace,pace,comparable,status};
 }
 // Native evidence identities are field-specific and retain upstream dependency closure.
@@ -63,13 +63,15 @@ export function buildSupply(envelope,packet){
  const pfield=['checkpoint_ms','ranks','finish','finish_clock','individual_final600','winner_clock_difference','historical_row','gate_number','weight_grams'];
  const dfield=['conditions','geometry','race_leader_laps','passing_order','finish_classification'];
  const fieldSpec=d=>[[d,null,dfield],...d.rows.map(r=>[d,r.nativeId,pfield])];
+ const fieldFacts=(d,fields,eventFields=[])=>[[d,null,eventFields],...d.rows.map(r=>[d,r.nativeId,fields])];
  const cardSpec=()=>[[card,null,['conditions','geometry']],...card.rows.map(r=>[card,r.nativeId,['current_card_row','gate_number','weight_grams']])];
  const roleSpec=()=>[...cardSpec(),...current.filter(r=>r.last).flatMap(r=>[[r.last,r.horse,['ranks','checkpoint_ms','historical_row']]])];
  const mk=(h,i,mechanism,values,status,spec,missing=[],scenario_conditions=[])=>{
   const refs=sort(spec.flatMap(([d,horse,fields])=>native(d,horse,fields))),sourceRefs=sort(spec.map(([d,horse])=>rref(d,horse)).filter(Boolean)),evidence_ids=closure(refs);
   const category=definitions[i-1],claim_id=sha(JSON.stringify([h,category.category,mechanism,sourceRefs,values]));
-  const cardBound=spec.some(([d])=>d===card);
-  return {claim_id,eye_item_id:category.category,horse_id:card.issuer+'|'+h,upstream_item_ids:category.upstream_item_ids,mechanism_group:mechanism,observed_facts:values,evidence_ids,source_root_ids:sourceRefs,current_relevance:status==='IRRELEVANT_CONDITION'?'OTHER_CONTEXT':cardBound?'CARD_LINKED_ANTECEDENT_NOT_CURRENT_OUTCOME':'HISTORICAL_ONLY',status:refs.length?status:'UNKNOWN',support:status==='SUPPORT_ANTECEDENT'?refs:[],counter:status==='COUNTER_ANTECEDENT'?refs:[],unknowns:missing,scenario_conditions,independent_vote:false,grade_effect:false,formal:false};
+  const cardBound=spec.some(([d])=>d===card),subjectStatus=rows(card,h).status;
+  const currentStatus=subjectStatus==='ACTIVE'?'ACTIVE_ANTECEDENT_ONLY':subjectStatus==='UNKNOWN'?'CURRENT_START_STATUS_UNKNOWN':'CANCELLED';
+  return {claim_id,eye_item_id:category.category,horse_id:card.issuer+'|'+h,upstream_item_ids:category.upstream_item_ids,mechanism_group:mechanism,observed_facts:values,direct_evidence_ids:refs,evidence_ids,source_root_ids:sourceRefs,semantic_root_keys:sort(refs.map(id=>ev.get(id).root)),current_relevance:status==='IRRELEVANT_CONDITION'?'OTHER_CONTEXT':subjectStatus!=='ACTIVE'?currentStatus:cardBound?'CARD_LINKED_ANTECEDENT_NOT_CURRENT_OUTCOME':'HISTORICAL_ONLY',status:refs.length?status:'UNKNOWN',support:status==='SUPPORT_ANTECEDENT'?refs:[],counter:status==='COUNTER_ANTECEDENT'?refs:[],unknowns:missing,scenario_conditions,independent_vote:false,grade_effect:false,formal:false};
  };
  const roster=current.map(({last,...r})=>r);
  const runners=card.rows.map(t=>{
@@ -77,13 +79,14 @@ export function buildSupply(envelope,packet){
   const put=(i,m,v,s,spec,missing=[],scenario=[])=>claims[i-1].push(mk(h,i,m,v,s,spec,missing,scenario));
   for(const d of own){
    const r=rows(d,h),g=gap(d,r),ctx=context(d,card),spec=fieldSpec(d),linked=[...spec,...cardSpec()];
+   const marginSpec=fieldFacts(d,['finish','finish_clock','winner_clock_difference'],['conditions','finish_classification']),sectionSpec=fieldFacts(d,['finish','individual_final600','ranks'],['geometry','conditions']),rankSpec=[[d,h,['ranks','finish','checkpoint_ms','finish_clock','winner_clock_difference']],[d,null,['conditions','geometry']]];
    const base={event:d.eventId,finish:r.finish,fieldSize:d.rows.length,gap_ms:g,error_ms:2*d.precisionMs,context:ctx};
    // No canonical fixed narrow-gap threshold: observed gap only, overlapping clocks are not proof.
-   put(1,'FINISH_MARGIN_RELATION',base,g===null||r.finish===null?'UNKNOWN':r.finish===1?'NOT_APPLICABLE':g<=2*d.precisionMs?'SUPPORT_ANTECEDENT':'RELEVANT_FACT',spec,['SAME_CLASS_GAP_DISTRIBUTION_AND_FIELD_STRENGTH_REQUIRED']);
+   put(1,'FINISH_MARGIN_RELATION',base,g===null||r.finish===null?'UNKNOWN':r.finish===1?'NOT_APPLICABLE':g<=2*d.precisionMs?'SUPPORT_ANTECEDENT':'RELEVANT_FACT',marginSpec,['SAME_CLASS_GAP_DISTRIBUTION_AND_FIELD_STRENGTH_REQUIRED']);
    const lateRank=finite(r.final600Ms)&&d.rows.every(q=>finite(q.final600Ms))?1+d.rows.filter(q=>q.final600Ms<r.final600Ms).length:null;
-   put(2,'RESULT_VS_SECTION',{...base,lateRank,positions:r.checkpointRanks},lateRank===null||r.finish===null?'UNKNOWN':stance(lateRank<r.finish,lateRank>r.finish),spec,['TROUBLE_AND_LOAD_NOT_OBSERVED']);
+   put(2,'RESULT_VS_SECTION',{...base,lateRank,positions:r.checkpointRanks},lateRank===null||r.finish===null?'UNKNOWN':stance(lateRank<r.finish,lateRank>r.finish),sectionSpec,['TROUBLE_AND_LOAD_NOT_OBSERVED']);
    const ranks=r.checkpointRanks,back=ranks?.some((v,i)=>i>0&&v>Math.min(...ranks.slice(0,i))),rec=!!(back&&finite(r.finish)&&r.finish<Math.max(...ranks));
-   put(3,'BACKWARD_AND_RECOVERY',{...base,positions:ranks,back:back??null,recovered:rec},!ranks||r.finish===null?'UNKNOWN':stance(rec,back&&!rec),spec,['CAUSE_AND_CURRENT_REPEAT_UNPROVEN']);
+   put(3,'BACKWARD_AND_RECOVERY',{...base,positions:ranks,back:back??null,recovered:rec},!ranks||r.finish===null?'UNKNOWN':stance(rec,back&&!rec),rankSpec,['CAUSE_AND_CURRENT_REPEAT_UNPROVEN']);
    for(const p of d.rows.filter(q=>q.nativeId!==h)){
     const later=history.filter(x=>x.eventAt>d.eventAt&&rows(x,p.nativeId));
     const diff=finite(r.clockMs)&&finite(p.clockMs)?r.clockMs-p.clockMs:null;
@@ -104,7 +107,7 @@ export function buildSupply(envelope,packet){
   put(10,'ADJACENT_FRONT_ROLE',flank,flank.state==='UNKNOWN'?'UNKNOWN':stance(flank.state==='BOTH_FRONT_OBSERVED',flank.state==='NOT_BOTH_FRONT'),roleSpec(),[...flank.missing,'TRAFFIC_BENEFIT_UNPROVEN']);
   if(last){const old=last.rows.map(r=>({horse:r.nativeId,role:role(r)})),b=rivalBounds(old,roster,h);put(11,'SAME_ROLE_RIVAL_COUNT_RANGE',b,b.reduction==='UNRESOLVED'?'UNKNOWN':stance(b.reduction==='PROVEN_COUNT_REDUCTION',b.reduction==='NO_COUNT_REDUCTION'),[...fieldSpec(last),...roleSpec()],['CURRENT_ROLE_REPRODUCTION_AND_BENEFIT_UNPROVEN']);}
   // Adjacent actual history only; a missing run is not skipped.
-  for(let i=1;i<own.length;i++){const a=own[i-1],b=own[i],v=sectionContrast(a,b,h);put(13,'CONSECUTIVE_SECTION_VS_FINISH',{earlier:a.eventId,later:b.eventId,...v},v.status,[...fieldSpec(a),...fieldSpec(b)],['CLOCK_STANDARD_AND_CURRENTABILITY_REQUIRED']);}
+  for(let i=1;i<own.length;i++){const a=own[i-1],b=own[i],v=sectionContrast(a,b,h);put(13,'CONSECUTIVE_SECTION_VS_FINISH',{earlier:a.eventId,later:b.eventId,...v},v.status,[...fieldSpec(a),...fieldSpec(b)],['CLOCK_STANDARD_AND_CURRENT_ABILITY_REQUIRED']);}
   return {horse_id:card.issuer+'|'+h,status:t.status,history_events:own.map(d=>d.eventId),categories:definitions.map((d,i)=>({...d,claims:claims[i],missing:!claims[i].length?['NO_LINKED_OBSERVATION',...(!own.length?['NO_HORSE_HISTORY']:[])]:[],formal:false}))};
  });
  const missing=[];
