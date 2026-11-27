@@ -1,0 +1,225 @@
+{
+  "schema": "WORK23_FINAL_READBACK_PART_A",
+  "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+  "check": {
+    "tests30": true,
+    "all_fixtures_exact": true,
+    "prior_audit90": true,
+    "prior_115_826": true
+  },
+  "pins": [
+    {
+      "name": "jra_full",
+      "path": "research/reborn2-official-sources/stage23-jra_full-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "f6b85de17791d4814d16ecc5082862fdcd41686b",
+      "sha256": "17e65acd8602b2417047faeacf1e78baac94088c8623f1e1a9251ea1c2215206",
+      "bytes": 253180,
+      "exact_final_producer": true,
+      "prior_full_readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "prior_sha_unchanged": true,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85
+    },
+    {
+      "name": "local_full",
+      "path": "research/reborn2-official-sources/stage23-local_full-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "0004df712b6253dda1ea395c1b3e7707c0370428",
+      "sha256": "4bac8ff27c2fe91e2b9275bf5ce618ea0d4368993ac955c859f43688b22c3775",
+      "bytes": 254286,
+      "exact_final_producer": true,
+      "prior_full_readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "prior_sha_unchanged": true,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85
+    },
+    {
+      "name": "missing_clock",
+      "path": "research/reborn2-official-sources/stage23-missing_clock-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "af5486d3dd4d60ab4ca786f14d4b43f30cc7ecb4",
+      "sha256": "3357cd8a56cdf64c3d50453b0bcf88d64d86a41138960edda9a97697efd01439",
+      "bytes": 244128,
+      "exact_final_producer": true,
+      "prior_full_readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "prior_sha_unchanged": true,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 75
+    },
+    {
+      "name": "bad_margin_unit",
+      "path": "research/reborn2-official-sources/stage23-bad_margin_unit-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "576e3d47981a0cc9f8ba529427aa01aeea2b187c",
+      "sha256": "2806bf7e5608f506064d884b5065ab21ed3e4c780c6c258a3de386b706650628",
+      "bytes": 252144,
+      "exact_final_producer": true,
+      "prior_full_readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "prior_sha_unchanged": true,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 84
+    },
+    {
+      "name": "revoked",
+      "path": "research/reborn2-official-sources/stage23-revoked-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "77a072ed999e4044cbd977554220372c8681cdaa",
+      "sha256": "831875b1aa32058db223c093ae52ec9ddb7f4f3e60a749d517e61e1482372dce",
+      "bytes": 15338,
+      "exact_final_producer": true,
+      "prior_full_readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "prior_sha_unchanged": true,
+      "status": "HELD",
+      "evidence": 0
+    },
+    {
+      "name": "correction_after",
+      "path": "research/reborn2-official-sources/stage23-correction_after-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "9d20f9bb8193049d04aab30ad305c25a2fb38a11",
+      "sha256": "397d2ca199f3796267a75e408b487cd4fa6330c700ecc5106f30c1db62bbce0d",
+      "bytes": 253180,
+      "exact_final_producer": true,
+      "prior_full_readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "prior_sha_unchanged": true,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85
+    },
+    {
+      "name": "malformed_target_market",
+      "path": "research/reborn2-official-sources/stage23-malformed_target_market-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "e1cd8250612301075e9cea7b3a7ac6ae7827e7a9",
+      "sha256": "821acf693e5b6956e4e88290b12835904116ecdcd9567f3dc91faca9186e3f94",
+      "bytes": 14410,
+      "exact_final_producer": true,
+      "prior_full_readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "prior_sha_unchanged": true,
+      "status": "HELD",
+      "evidence": 0
+    }
+  ],
+  "source_pins": [
+    {
+      "name": "stage23-producer-v0.2.2.mjs",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "c310caf7d9cb5803cb486e6184450e09e5407a62",
+      "sha256": "8d2d2a296e20302f25a92df39e41f4cf264f5223541c10b8ed8d5c5784fdc0eb"
+    },
+    {
+      "name": "stage22-custody-to-115-contract-v0.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "7fff865e11517d6e6da74506cb3ad8175e584f88",
+      "sha256": null
+    },
+    {
+      "name": "stage22-handoff-execution-summary.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "dc19e4de9fb835b4510826346d351cd3000a0486",
+      "sha256": "ea8874a7c28c72158485deefbe5aac254ccd112f17063390e90e3f11ba6d4025"
+    },
+    {
+      "name": "stage23-fixture-bundles-v0.2.2.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "bb1e2f961a75adfa4a4e49f585149cba0aba7b56",
+      "sha256": "fc986c52ee0cb39b2fe4b7c82a5df3b09c216e3c24f72d84ade1e1113c4795a2"
+    },
+    {
+      "name": "stage23-producer-execution-v0.2.2.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "acc90dd8038fc145b5e43935892732eaa22a8cee",
+      "sha256": "f601aa13965e77d0decce42c64e06ca1d4fc0af5f7adc65f69af4d50974e1a10"
+    },
+    {
+      "name": "stage23-packet-readback-audit-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "0ad6fde2544bf04d64ab1a02e1a734a11313b679",
+      "sha256": "c071d0fdfa6de2a3bba4af2d256c7ed16e49f4fa3753145be6c2834868bb7f5c"
+    },
+    {
+      "name": "stage23-validation-source-pins-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "98ff8276864eda496fe5d5422ecb8e9a4c316938",
+      "sha256": "623cdf8f3316480b66a3237bb38640a02865a3c097d5331d6c9099baf5411ce1"
+    }
+  ],
+  "formal_admissions": 0
+}
