@@ -3,8 +3,8 @@
   "fixture_only": true,
   "official_evidence": false,
   "production_admission": false,
-  "parent_input_commit": "83fba73a3a35faafdf9fa37880620d873dc9bf43",
-  "source": "user-transcribed Gemini correction supplement 2026-11-27; source values preserved, audit separate",
+  "parent_input_commit": "9bfed3c3d812fda966f54a43e7155ef5022563fe",
+  "source": "Separate fictional corrected derivative of pinned supplement; latest Gemini full corner lists and explicit RACE_LEADER semantics, previous six arithmetic corrections only; original preserved.",
   "time_basis": "local fictional clock; UTC offset not explicitly supplied; do not certify actual capture",
   "target": {
     "race_id": "FK-20261115-T10",
@@ -316,7 +316,7 @@
       "age": 3,
       "weight_kg": 56,
       "reported_interval_days": 31,
-      "reported_interval": "中5週",
+      "reported_interval": "中4週",
       "current_body_weight_kg": 494,
       "reported_body_weight_delta_kg": 4,
       "gear_narrative": "ブリンカー（3走前なし→2走前初着用→前走・今回継続）",
@@ -5176,6 +5176,267 @@
     }
   ],
   "audit": {
+    "scope": "CORRECTED_FICTIONAL_INPUT_INTERNAL_CONSISTENCY_ONLY",
+    "races": 18,
+    "rows": 166,
+    "corner_grids": 72,
+    "corner_points": 664,
+    "per_race": [
+      {
+        "race_id": "FK-20261018-T08",
+        "rows": 8,
+        "field_size": 8,
+        "lap_sum_tenths": 1016,
+        "winner_tenths": 1016,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1600,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260927-T07",
+        "rows": 8,
+        "field_size": 8,
+        "lap_sum_tenths": 874,
+        "winner_tenths": 874,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260906-T06",
+        "rows": 8,
+        "field_size": 8,
+        "lap_sum_tenths": 878,
+        "winner_tenths": 878,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20261101-T09",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 877,
+        "winner_tenths": 877,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20261011-T08",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 880,
+        "winner_tenths": 880,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260920-T07",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 881,
+        "winner_tenths": 881,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20261015-T08",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 878,
+        "winner_tenths": 878,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260924-T05",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 864,
+        "winner_tenths": 864,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260903-T04",
+        "rows": 8,
+        "field_size": 8,
+        "lap_sum_tenths": 735,
+        "winner_tenths": 735,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1200,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20261102-T09",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 873,
+        "winner_tenths": 873,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20261012-T07",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 810,
+        "winner_tenths": 810,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1300,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260921-T08",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 879,
+        "winner_tenths": 879,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20261017-T09",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 878,
+        "winner_tenths": 878,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260926-T08",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 950,
+        "winner_tenths": 950,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1500,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260905-T07",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 879,
+        "winner_tenths": 879,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20261018-T07",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 873,
+        "winner_tenths": 873,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260927-T08",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 879,
+        "winner_tenths": 879,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      },
+      {
+        "race_id": "FK-20260906-T07",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 862,
+        "winner_tenths": 862,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "lap_kind": "RACE_LEADER"
+      }
+    ],
+    "intervals": [
+      {
+        "horse_id": "FIXTURE-A",
+        "reported": 28,
+        "computed": 28
+      },
+      {
+        "horse_id": "FIXTURE-B",
+        "reported": 14,
+        "computed": 14
+      },
+      {
+        "horse_id": "FIXTURE-C",
+        "reported": 31,
+        "computed": 31
+      },
+      {
+        "horse_id": "FIXTURE-D",
+        "reported": 13,
+        "computed": 13
+      },
+      {
+        "horse_id": "FIXTURE-E",
+        "reported": 29,
+        "computed": 29
+      },
+      {
+        "horse_id": "FIXTURE-F",
+        "reported": 28,
+        "computed": 28
+      }
+    ],
+    "day": {
+      "all_top3": 27,
+      "all_le4": 22,
+      "at1400_top3": 21,
+      "at1400_le4": 18,
+      "scope": "TOP3_ONLY_NOT_BIAS"
+    },
+    "unresolved": [
+      "当日1〜9Rは各公開時刻と全出走馬行なし",
+      "後続12件の個別馬番・全頭行・発走時刻なし",
+      "人物集計の原騎乗行なし",
+      "調教時計の区間距離・計測方法が一部不明",
+      "血統ID・過去馬体重・C3資格版等なし",
+      "第1版/第2版からの後続記述変更と個別走内容変更は履歴を保持"
+    ],
+    "formal_admission": false,
+    "notes": [
+      "Earlier explicit row correction proposals not applied; latest full corner lists supersede them.",
+      "Historical race leader splits are not individual split measurements; differing winner final3f not automatically a discrepancy.",
+      "A latest positions changed 2-2-5-6 to 8-8-5-6; historical early forward narrative superseded, incident 3→4 remains observation only.",
+      "No expected rank or target outcome supplied."
+    ]
+  },
+  "prior_version_audit": {
     "per_race": [
       {
         "race_id": "FK-20261018-T08",
