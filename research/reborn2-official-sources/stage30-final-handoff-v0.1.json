@@ -1,0 +1,113 @@
+{
+  "schema": "WORK30_FINAL_RESEARCH_HANDOFF_0.1",
+  "scope": "SYNTHETIC_PIPELINE_AND_PUBLIC_TERMS_REVIEW_ONLY",
+  "acceptance": {
+    "ref": "886e18c77c5516a4491810acc223247a351cbeef",
+    "path": "research/reborn2-canonical/RESEARCH-WORK29-374-OBSERVATION-MAIN40-AUDIT-20261128.md",
+    "blob": "3aebd195098f1b840b316dbc46322ed530a79a86"
+  },
+  "parent": {
+    "ref": "8aac063859953446acc431b0eb85caacadc20971",
+    "path": "research/reborn2-official-sources/stage29-final-handoff-v0.1.json",
+    "blob": "4fc6d2502c0bab9896781c9e85bc2205e961112a"
+  },
+  "sha_implementation": {
+    "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+    "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+    "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+    "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+  },
+  "branch": "research/reborn2-work30-byte-pipeline-20261128",
+  "pins": [
+    {
+      "ref": "8ef426617a791f5ec1a3bdd8c61b7f2c021b45aa",
+      "path": "research/reborn2-official-sources/stage30-byte-pipeline-v0.1.mjs",
+      "blob": "091590f121c3c94a04406a64cd598a894e7570ac",
+      "sha256": "ab85574c47070b38cf748a00f54cc77ad04f0540190ee2207de1686565848cac"
+    },
+    {
+      "ref": "8ef426617a791f5ec1a3bdd8c61b7f2c021b45aa",
+      "path": "research/reborn2-official-sources/stage30-synthetic-bundles-v0.1.json",
+      "blob": "a668a6ef5ff7cb5e98387dc80a6a8b47d68b92d9",
+      "sha256": "1358d5111aa0efd0b996fc54663e66f917c9c5b8cbc670d4f9fc23a50c729f88"
+    },
+    {
+      "ref": "8ef426617a791f5ec1a3bdd8c61b7f2c021b45aa",
+      "path": "research/reborn2-official-sources/stage30-codex-packets-v0.1.json",
+      "blob": "acfad8ac2d401b6c8f71964f4502c9cfb20d9281",
+      "sha256": "e633b4df9244c37e59eb793d11e68d1ae6bb48b67eff1cb08acf7b11ed7cb7f4"
+    },
+    {
+      "ref": "8ef426617a791f5ec1a3bdd8c61b7f2c021b45aa",
+      "path": "research/reborn2-official-sources/stage30-execution-v0.1.json",
+      "blob": "2bfe9e69315d082d20a31561c2f2caed095f2cc4",
+      "sha256": "26cd4e9d3f831f78e4ed6b26fdc16a290829b72635d580303e7944f7f46cff96"
+    },
+    {
+      "ref": "8ef426617a791f5ec1a3bdd8c61b7f2c021b45aa",
+      "path": "research/reborn2-official-sources/stage30-real-capture-review-v0.1.json",
+      "blob": "1bb3d4014bd9c06aab209e24d8504a1a3ba540e0",
+      "sha256": "20505b15d370f73d4d554b569818369180fab333307772b822fb896921cc3ba0"
+    }
+  ],
+  "execution": {
+    "prior_recorded": 374,
+    "prior_rerun": false,
+    "new_named_checks": 31,
+    "passed": 31,
+    "combined_recorded_if_accepted": 405,
+    "readback_checks_separate": 12,
+    "readback": [
+      {
+        "issuer": "TEST:JRA",
+        "checks": {
+          "exact_replay": true,
+          "raw_hashes": true,
+          "packet_digest": true,
+          "refs": true,
+          "dependencies": true,
+          "no_formal": true
+        }
+      },
+      {
+        "issuer": "TEST:NAR",
+        "checks": {
+          "exact_replay": true,
+          "raw_hashes": true,
+          "packet_digest": true,
+          "refs": true,
+          "dependencies": true,
+          "no_formal": true
+        }
+      }
+    ],
+    "ci_executed": false,
+    "codex_executed": false,
+    "official_values": 0,
+    "formal_admissions": 0
+  },
+  "summary": {
+    "synthetic_packets": 2,
+    "observations": 24,
+    "item_rows": 690,
+    "available_item_rows": 28,
+    "missing_active_item_rows": 432,
+    "not_applicable_cancelled_item_rows": 230,
+    "groups": 118,
+    "held_conditions": 826,
+    "Tokyo12": "HELD",
+    "Saga8": "HELD"
+  },
+  "consumer": [
+    "Load exact byte bundles, canonical array and pinned SHA implementation; verify packet digest and simulated result token independently against fixed fixture registry. Real scope disabled.",
+    "The source JSON is ASCII subset UTF8; no provider-native encoding/HTML/CSV parser. Two synthetic historical finishers plus one cancellation per issuer; no surface supplied, no inferred current conditions. Race leader lap and passing observation event scoped and reused, not duplicated per horse.",
+    "Only seven narrow routes actually connected (02,03,05,06,17,19,35); all other active rows missing, cancelled N/A. Passing group checkpoint is a candidate for RANK17, not authenticated actual corner geometry. No grade or semantic analyzer consumption.",
+    "Timestamp callback is simulated; receipt registry and policy not cryptographically authenticated, actual external trust and real source authority remain unimplemented. Do not treat fixture result token as an actual independent timestamp.",
+    "Historical peer output is a same-event two-finisher dependency example only. Multi-peer distinct roots, later-event full dependency chain, dead-heat parser, non-finish checkpoint completeness, cross-issuer crosswalk, native parser, strict all nested source field whitelist, actual replay mode test remain future work. Source payload values not generalized to official providers.",
+    "Public terms/schedule review only. Tokyo and Saga meeting candidates on 2026-11-28 are conditional; no race selected or approved. No TSA call, contract, inquiry or data collection. User decision separates A private acquisition/retention, B external processing/hash disclosure, C publication."
+  ],
+  "limits": [
+    "31 new checks executed in connector JavaScript isolate; not CI, not Codex; prior374 not rerun. 12 separate exact saved packet readback checks.",
+    "No actual provider data acquisition or real proof; 118/826 held, no production, DB, merge or formal changes. No independent legal conclusion."
+  ]
+}
