@@ -1,0 +1,1482 @@
+{
+  "schema": "stage20-saga-row-crosscheck-v1.8",
+  "source_library_id": "file_00000000eb448206a2003f7d716b04d9",
+  "source_sha256": "b9a67c5f748613cc3b88566f051689f8337dc47a525d49aea93914520a953ef3",
+  "scope": "DERIVED_LOCATORS_ONLY",
+  "query_template_not_directly_executable": "BEGIN READ ONLY;\nWITH input(no,ord,horse_name,hid,event_date,track,rno,finish,clock,f3,dist,going,corners) AS (VALUES /* INSERT AUTHORIZED EXISTING DERIVED ROWS; NEVER COMMIT RAW VALUES */),\ni AS (SELECT *,CASE WHEN clock~'^[0-9]+:[0-5][0-9][.][0-9]$' THEN (split_part(clock,':',1)::numeric*60+split_part(clock,':',2)::numeric)*10 END ticks FROM input WHERE event_date<'2026-10-10'),\na AS (SELECT i.*,coalesce(h.rows,'[]'::jsonb) archive_rows,coalesce(j.rows,'[]'::jsonb) jra_rows,coalesce(o.rows,'[]'::jsonb) settlement_rows,coalesce(w.rows,'[]'::jsonb) snapshot_rows\nFROM i LEFT JOIN LATERAL (\n SELECT jsonb_agg(jsonb_build_object('row_id',h.id,'race_id',h.race_id,'historical_no',h.horse_no,'finish_match',h.finish=i.finish,'clock_match',CASE WHEN h.time_raw~'^[0-9]{1,2}[0-5][0-9][0-9]$' THEN left(h.time_raw,length(h.time_raw)-3)::numeric*600+right(h.time_raw,3)::numeric=i.ticks WHEN h.time_raw~'^[0-9]+:[0-5][0-9][.][0-9]$' THEN (split_part(h.time_raw,':',1)::numeric*60+split_part(h.time_raw,':',2)::numeric)*10=i.ticks END,'f3_match',h.final3f::text::numeric=i.f3::numeric,'distance_match',h.distance=i.dist,'going_match',h.going=i.going,'early_match',CASE WHEN i.corners~'^[0-9]+(-[0-9]+)*$' THEN h.early_pos=split_part(i.corners,'-',1)::int END,'final_turn_match',CASE WHEN i.corners~'^[0-9]+(-[0-9]+)*$' THEN h.final_turn_pos=regexp_replace(i.corners,'^.*-','')::int END,'margin_present',nullif(h.margin,'') IS NOT NULL,'weight_present',nullif(h.weight_carried,'') IS NOT NULL,'field_size',h.field_size,'native_id_available',false,'capture_available',false)) rows FROM public.horse_runs h WHERE h.race_date::text=i.event_date AND h.track=i.track AND h.race_no=i.rno AND h.horse_name=i.horse_name\n) h ON true LEFT JOIN LATERAL (\n SELECT jsonb_agg(jsonb_build_object('race_id',r.id,'row_id',u.id,'historical_no',u.horse_no,'native_jra_ref',u.horse_ref,'finish_match',u.finish=i.finish,'clock_match',u.time_raw=i.clock,'f3_match',u.final3f=i.f3::numeric,'distance_match',r.distance=i.dist,'going_match',r.going=i.going,'lap_available',nullif(r.halon_times,'') IS NOT NULL,'corners_available',nullif(u.corner_positions,'') IS NOT NULL,'source_checked',r.source_checked_at,'pre_cutoff',r.source_checked_at<='2026-10-09 15:43:39+00'::timestamptz AND r.updated_at<='2026-10-09 15:43:39+00'::timestamptz AND u.updated_at<='2026-10-09 15:43:39+00'::timestamptz)) rows FROM public.jra_lab_races r JOIN public.jra_lab_runs u ON u.race_id=r.id WHERE r.race_date::text=i.event_date AND r.track=regexp_replace(i.track,'^J','') AND r.race_no=i.rno AND u.horse_name=i.horse_name AND i.track LIKE 'J%'\n) j ON true LEFT JOIN LATERAL (\n SELECT jsonb_agg(jsonb_build_object('result_id',z.id,'source',z.source,'settled_at',z.settled_at,'historical_no',f->>'horse_no','finish_match',f->>'finish'=i.finish::text,'clock_literal_match',coalesce(f->>'time',f->>'time_raw')=i.clock,'native_id_field_exists',f?'horse_ref' OR f?'horse_id')) rows FROM public.official_results z CROSS JOIN LATERAL jsonb_array_elements(CASE WHEN jsonb_typeof(z.result->'finishers')='array' THEN z.result->'finishers' ELSE '[]'::jsonb END) f WHERE z.race_date::text=i.event_date AND z.track=regexp_replace(i.track,'^J','') AND z.race_no=i.rno AND z.circuit=CASE WHEN i.track LIKE 'J%' THEN 'JRA' ELSE 'LOCAL' END AND z.created_at<='2026-10-09 15:43:39+00'::timestamptz AND z.settled_at<='2026-10-09 15:43:39+00'::timestamptz AND f->>'horse_name'=i.horse_name\n) o ON true LEFT JOIN LATERAL (\n SELECT jsonb_agg(jsonb_build_object('snapshot_id',s.id,'captured_at',s.captured_at,'witness_ordinal',e.ord,'historical_no',e.j->>'pastHorseNo','source_ref',e.j->>'sourceRef','source_checked_at',e.j->>'sourceCheckedAt')) rows FROM private.lab_preclaim_evidence_snapshots_v1 s CROSS JOIN LATERAL jsonb_array_elements(CASE WHEN jsonb_typeof(s.evidence->'packet'->'evidence')='array' THEN s.evidence->'packet'->'evidence' ELSE '[]'::jsonb END) WITH ORDINALITY e(j,ord) WHERE s.circuit='LOCAL' AND s.captured_at<='2026-10-09 15:43:39+00'::timestamptz AND s.captured_at<s.official_post_time AND s.as_of<=s.captured_at AND e.j->>'identityVerifiedBy'='OFFICIAL_HORSE_REF' AND substring(e.j->>'horseRef' from 'k_lineageLoginCode=([0-9]{11})')=i.hid AND e.j->'pastRace'->>'raceDate'=i.event_date AND e.j->'pastRace'->>'track'=i.track AND e.j->'pastRace'->>'raceNo'=i.rno::text AND (e.j->>'sourceCheckedAt')::timestamptz<=s.as_of\n) w ON true)\nSELECT no,ord,event_date,track,rno,archive_rows,jra_rows,settlement_rows,snapshot_rows FROM a ORDER BY no,ord;\nROLLBACK;",
+  "summary": {
+    "rows": 55,
+    "events": 39,
+    "archive_unique": 42,
+    "archive_four_match": 40,
+    "archive_going_match": 40,
+    "jra_unique": 2,
+    "jra_four_match": 2,
+    "jra_pre_cutoff": 2,
+    "settlement_unique": 1,
+    "settlement_finish_match": 1,
+    "prior_native_snapshot": 0
+  },
+  "rows": [
+    {
+      "no": 1,
+      "ord": 1,
+      "event_date": "2026-08-15",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [
+        {
+          "row_id": 256933,
+          "race_id": "20260815_佐賀_7R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 8,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 1,
+      "ord": 2,
+      "event_date": "2026-07-20",
+      "track": "大井",
+      "rno": 12,
+      "archive_rows": [
+        {
+          "row_id": 236380,
+          "race_id": "20260720_大井_12R",
+          "f3_match": true,
+          "field_size": 14,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 13,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 1,
+      "ord": 3,
+      "event_date": "2026-07-02",
+      "track": "大井",
+      "rno": 10,
+      "archive_rows": [
+        {
+          "row_id": 236075,
+          "race_id": "20260702_大井_10R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 6,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 1,
+      "ord": 4,
+      "event_date": "2026-03-10",
+      "track": "高知",
+      "rno": 4,
+      "archive_rows": [
+        {
+          "row_id": 189021,
+          "race_id": "20260310_高知_4R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 2,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 1,
+      "ord": 5,
+      "event_date": "2026-02-17",
+      "track": "高知",
+      "rno": 5,
+      "archive_rows": [
+        {
+          "row_id": 176134,
+          "race_id": "20260217_高知_5R",
+          "f3_match": true,
+          "field_size": 7,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 4,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 1,
+      "event_date": "2026-09-19",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 2,
+      "event_date": "2026-08-29",
+      "track": "佐賀",
+      "rno": 5,
+      "archive_rows": [
+        {
+          "row_id": 257348,
+          "race_id": "20260829_佐賀_5R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 9,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 3,
+      "event_date": "2026-07-16",
+      "track": "佐賀",
+      "rno": 3,
+      "archive_rows": [
+        {
+          "row_id": 244288,
+          "race_id": "20260716_佐賀_3R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 12,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 4,
+      "event_date": "2026-06-25",
+      "track": "浦和",
+      "rno": 11,
+      "archive_rows": [
+        {
+          "row_id": 221681,
+          "race_id": "20260625_浦和_11R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 5,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 5,
+      "event_date": "2026-04-21",
+      "track": "浦和",
+      "rno": 12,
+      "archive_rows": [
+        {
+          "row_id": 193657,
+          "race_id": "20260421_浦和_12R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 2,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 1,
+      "event_date": "2026-09-20",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 2,
+      "event_date": "2026-08-15",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [
+        {
+          "row_id": 256949,
+          "race_id": "20260815_佐賀_9R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 3,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 3,
+      "event_date": "2026-07-11",
+      "track": "佐賀",
+      "rno": 8,
+      "archive_rows": [
+        {
+          "row_id": 244222,
+          "race_id": "20260711_佐賀_8R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 1,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 4,
+      "event_date": "2026-06-21",
+      "track": "佐賀",
+      "rno": 3,
+      "archive_rows": [
+        {
+          "row_id": 230328,
+          "race_id": "20260621_佐賀_3R",
+          "f3_match": true,
+          "field_size": 9,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 5,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 5,
+      "event_date": "2026-05-30",
+      "track": "佐賀",
+      "rno": 4,
+      "archive_rows": [
+        {
+          "row_id": 216831,
+          "race_id": "20260530_佐賀_4R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 2,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 1,
+      "event_date": "2026-09-26",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [
+        {
+          "source": "NAR_OFFICIAL",
+          "result_id": "d875b2c8-971a-40cd-8b4c-091dd11ea52c",
+          "settled_at": "2026-09-26T12:48:42.725415+00:00",
+          "finish_match": true,
+          "historical_no": "9",
+          "clock_literal_match": null,
+          "native_id_field_exists": false
+        }
+      ],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 2,
+      "event_date": "2026-08-29",
+      "track": "佐賀",
+      "rno": 4,
+      "archive_rows": [
+        {
+          "row_id": 257333,
+          "race_id": "20260829_佐賀_4R",
+          "f3_match": true,
+          "field_size": 11,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 5,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 3,
+      "event_date": "2026-08-16",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [
+        {
+          "row_id": 257066,
+          "race_id": "20260816_佐賀_9R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 10,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 4,
+      "event_date": "2026-05-09",
+      "track": "佐賀",
+      "rno": 8,
+      "archive_rows": [
+        {
+          "row_id": 216114,
+          "race_id": "20260509_佐賀_8R",
+          "f3_match": true,
+          "field_size": 11,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 11,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 5,
+      "event_date": "2026-04-25",
+      "track": "佐賀",
+      "rno": 8,
+      "archive_rows": [
+        {
+          "row_id": 202996,
+          "race_id": "20260425_佐賀_8R",
+          "f3_match": true,
+          "field_size": 9,
+          "clock_match": true,
+          "early_match": null,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 4,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": null,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 1,
+      "event_date": "2026-09-19",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 2,
+      "event_date": "2026-09-03",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 3,
+      "event_date": "2026-05-03",
+      "track": "佐賀",
+      "rno": 8,
+      "archive_rows": [
+        {
+          "row_id": 215886,
+          "race_id": "20260503_佐賀_8R",
+          "f3_match": true,
+          "field_size": 11,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 5,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 4,
+      "event_date": "2026-04-18",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [
+        {
+          "row_id": 202679,
+          "race_id": "20260418_佐賀_9R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 11,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 5,
+      "event_date": "2026-04-05",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [
+        {
+          "row_id": 202208,
+          "race_id": "20260405_佐賀_9R",
+          "f3_match": true,
+          "field_size": 9,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 8,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 1,
+      "event_date": "2026-09-19",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 2,
+      "event_date": "2026-08-29",
+      "track": "佐賀",
+      "rno": 5,
+      "archive_rows": [
+        {
+          "row_id": 257340,
+          "race_id": "20260829_佐賀_5R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 1,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 3,
+      "event_date": "2026-08-08",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [
+        {
+          "row_id": 256738,
+          "race_id": "20260808_佐賀_7R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 8,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 4,
+      "event_date": "2026-07-04",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [
+        {
+          "row_id": 244027,
+          "race_id": "20260704_佐賀_9R",
+          "f3_match": true,
+          "field_size": 11,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 11,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 5,
+      "event_date": "2026-06-18",
+      "track": "名古屋",
+      "rno": 10,
+      "archive_rows": [
+        {
+          "row_id": 226939,
+          "race_id": "20260618_名古屋_10R",
+          "f3_match": true,
+          "field_size": 8,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 8,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 1,
+      "event_date": "2026-09-19",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 2,
+      "event_date": "2026-08-29",
+      "track": "佐賀",
+      "rno": 5,
+      "archive_rows": [
+        {
+          "row_id": 257350,
+          "race_id": "20260829_佐賀_5R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 11,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 3,
+      "event_date": "2026-08-15",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [
+        {
+          "row_id": 256951,
+          "race_id": "20260815_佐賀_9R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 5,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 4,
+      "event_date": "2026-07-04",
+      "track": "佐賀",
+      "rno": 3,
+      "archive_rows": [
+        {
+          "row_id": 243949,
+          "race_id": "20260704_佐賀_3R",
+          "f3_match": true,
+          "field_size": 12,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 3,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 5,
+      "event_date": "2026-06-13",
+      "track": "佐賀",
+      "rno": 4,
+      "archive_rows": [
+        {
+          "row_id": 230103,
+          "race_id": "20260613_佐賀_4R",
+          "f3_match": true,
+          "field_size": 9,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 2,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 1,
+      "event_date": "2026-09-20",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 2,
+      "event_date": "2026-08-30",
+      "track": "佐賀",
+      "rno": 6,
+      "archive_rows": [
+        {
+          "row_id": 257451,
+          "race_id": "20260830_佐賀_6R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": null,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 7,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 3,
+      "event_date": "2026-08-08",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [
+        {
+          "row_id": 256735,
+          "race_id": "20260808_佐賀_7R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 5,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 4,
+      "event_date": "2026-07-11",
+      "track": "佐賀",
+      "rno": 8,
+      "archive_rows": [
+        {
+          "row_id": 244224,
+          "race_id": "20260711_佐賀_8R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 3,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 5,
+      "event_date": "2026-02-18",
+      "track": "大井",
+      "rno": 8,
+      "archive_rows": [
+        {
+          "row_id": 170861,
+          "race_id": "20260218_大井_8R",
+          "f3_match": true,
+          "field_size": 14,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 4,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 1,
+      "event_date": "2026-09-19",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 2,
+      "event_date": "2026-08-30",
+      "track": "佐賀",
+      "rno": 6,
+      "archive_rows": [
+        {
+          "row_id": 257449,
+          "race_id": "20260830_佐賀_6R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": null,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 5,
+          "distance_match": true,
+          "margin_present": false,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 3,
+      "event_date": "2026-08-08",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [
+        {
+          "row_id": 256737,
+          "race_id": "20260808_佐賀_7R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 7,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": false,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 4,
+      "event_date": "2026-07-05",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [
+        {
+          "row_id": 244128,
+          "race_id": "20260705_佐賀_9R",
+          "f3_match": true,
+          "field_size": 9,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 4,
+          "distance_match": true,
+          "margin_present": false,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 5,
+      "event_date": "2026-06-21",
+      "track": "佐賀",
+      "rno": 3,
+      "archive_rows": [
+        {
+          "row_id": 230331,
+          "race_id": "20260621_佐賀_3R",
+          "f3_match": true,
+          "field_size": 9,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 8,
+          "distance_match": true,
+          "margin_present": false,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 1,
+      "event_date": "2026-09-19",
+      "track": "佐賀",
+      "rno": 3,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 2,
+      "event_date": "2026-08-29",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [
+        {
+          "row_id": 257363,
+          "race_id": "20260829_佐賀_7R",
+          "f3_match": true,
+          "field_size": 9,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 3,
+          "distance_match": true,
+          "margin_present": false,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 3,
+      "event_date": "2026-08-09",
+      "track": "佐賀",
+      "rno": 10,
+      "archive_rows": [
+        {
+          "row_id": 256860,
+          "race_id": "20260809_佐賀_10R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 1,
+          "distance_match": true,
+          "margin_present": false,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 4,
+      "event_date": "2026-07-11",
+      "track": "J小倉",
+      "rno": 8,
+      "archive_rows": [],
+      "jra_rows": [
+        {
+          "row_id": "fcf78e21-7499-4155-b288-b6bf7b605d65",
+          "race_id": "2b5a6e40-6391-4f14-9120-d4c3bb1f3d88",
+          "f3_match": true,
+          "pre_cutoff": true,
+          "clock_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 6,
+          "lap_available": true,
+          "distance_match": true,
+          "native_jra_ref": "/JRADB/accessU.html?CNAME=pw01dud102022104553/17",
+          "source_checked": "2026-09-18T21:20:03.073+00:00",
+          "corners_available": true
+        }
+      ],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 5,
+      "event_date": "2026-05-09",
+      "track": "J新潟",
+      "rno": 8,
+      "archive_rows": [],
+      "jra_rows": [
+        {
+          "row_id": "adb45325-f202-4c24-adcf-b5a3a5879ab5",
+          "race_id": "62889a81-8242-4a6e-ad11-fa2b02d1f9c6",
+          "f3_match": true,
+          "pre_cutoff": true,
+          "clock_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 11,
+          "lap_available": true,
+          "distance_match": true,
+          "native_jra_ref": "/JRADB/accessU.html?CNAME=pw01dud102022104553/17",
+          "source_checked": "2026-09-18T23:05:10.306+00:00",
+          "corners_available": true
+        }
+      ],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 1,
+      "event_date": "2026-09-20",
+      "track": "佐賀",
+      "rno": 7,
+      "archive_rows": [],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 2,
+      "event_date": "2026-08-29",
+      "track": "佐賀",
+      "rno": 4,
+      "archive_rows": [
+        {
+          "row_id": 257338,
+          "race_id": "20260829_佐賀_4R",
+          "f3_match": true,
+          "field_size": 11,
+          "clock_match": true,
+          "early_match": false,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 10,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 3,
+      "event_date": "2026-08-15",
+      "track": "佐賀",
+      "rno": 9,
+      "archive_rows": [
+        {
+          "row_id": 256947,
+          "race_id": "20260815_佐賀_9R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 1,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 4,
+      "event_date": "2026-06-20",
+      "track": "佐賀",
+      "rno": 10,
+      "archive_rows": [
+        {
+          "row_id": 230287,
+          "race_id": "20260620_佐賀_10R",
+          "f3_match": true,
+          "field_size": 11,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 11,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 5,
+      "event_date": "2026-05-31",
+      "track": "佐賀",
+      "rno": 8,
+      "archive_rows": [
+        {
+          "row_id": 216987,
+          "race_id": "20260531_佐賀_8R",
+          "f3_match": true,
+          "field_size": 10,
+          "clock_match": true,
+          "early_match": true,
+          "going_match": true,
+          "finish_match": true,
+          "historical_no": 7,
+          "distance_match": true,
+          "margin_present": true,
+          "weight_present": true,
+          "final_turn_match": true,
+          "capture_available": false,
+          "native_id_available": false
+        }
+      ],
+      "jra_rows": [],
+      "settlement_rows": [],
+      "snapshot_rows": [],
+      "formal_usable": false
+    }
+  ],
+  "permissions": "NOT_CLEARED",
+  "limits": "Match by event and horse name only in generic/JRA result archive; no cross-issuer ID proof. Prior settlement and snapshot metadata limited to claimed first capture cutoff. No target outcome or market selected. Archive without source time remains held. Query input contained existing derived values only; values not saved to GitHub."
+}
