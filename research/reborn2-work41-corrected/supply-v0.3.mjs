@@ -77,6 +77,27 @@ const sameContext=(a,b)=>match(a.conditions,b.conditions,conditionKeys)&&match(a
 function metrics(d,r){return {event:d.eventId,finish:r.finish,gap:r.clockMs-Math.min(...d.rows.map(q=>q.clockMs)),early:r.checkpointRanks[0],positions:r.checkpointRanks,late:r.final600Ms,clock:r.clockMs,precision:d.precisionMs,gate:r.gate,weight:r.weightG};}
 // Category-specific raw facts, not assertions of benefit. Unknown/contradictory
 // conditions remain explicit; labels here never determine a grade.
+function direction(kind,v){
+ // These directions concern observed antecedents, never a predicted EYE benefit.
+ switch(kind){
+ case 'FINISH_AND_WINNER_CLOCK_GAP':return v.finish>1&&v.gap_ms<=v.error_ms?'SUPPORTING_OBSERVATION':v.finish>1?'COUNTER_OR_LIMIT':'NO_DEFEAT';
+ case 'FINISH_VS_SECTION_CONTENT':{const rank=1+v.field_late_ms.filter(x=>x<v.late_ms).length;return rank<v.finish?'SUPPORTING_OBSERVATION':rank>v.finish?'COUNTER_OR_LIMIT':'NEUTRAL';}
+ case 'BACKWARD_THEN_FORWARD_ORDER':return v.recovered?'SUPPORTING_OBSERVATION':'COUNTER_OR_LIMIT';
+ case 'DEFEAT_GAP_AND_PEER_FOLLOWUP':return v.later.length?'RELEVANT_FACT_STRENGTH_UNPROVEN':'MISSING_FOLLOWUP';
+ case 'LATER_PEER_RESULT':return v.finish===1?'SUPPORTING_OBSERVATION':'COUNTER_OR_LIMIT';
+ case 'OBSERVED_EARLY_COMPETITION_AND_LATE_RESPONSE':return v.close_front.length?'RELEVANT_FACT_CAUSALITY_UNPROVEN':'COUNTER_OR_LIMIT';
+ case 'DISTANCE_GOING_RETURN':return v.past_distance!==v.current_distance||v.past_going!==v.current_going?'OTHER_CONDITION':v.finish===1?'SUPPORTING_OBSERVATION':'COUNTER_OR_LIMIT';
+ case 'COURSE_GEOMETRY_RESPONSE':return v.past_course!==v.current_course||v.past_venue!==v.current_venue?'OTHER_CONDITION':v.finish===1?'SUPPORTING_OBSERVATION':'COUNTER_OR_LIMIT';
+ case 'FIELD_EARLY_ROLE_OCCUPANCY':return v.known!==v.active?'MISSING_FIELD_ROLE':'RELEVANT_FACT_BENEFIT_UNPROVEN';
+ case 'ADJACENT_GATE_EARLY_ROLE':return v.flanks.some(q=>q.front===null)?'MISSING_FIELD_ROLE':v.flanks.length===2&&v.flanks.every(q=>q.front)?'SUPPORTING_ANTECEDENT':'COUNTER_OR_LIMIT';
+ case 'PAST_FRONT_RIVALS':return v.past_front.some(h=>!v.current_roster.includes(h))?'SUPPORTING_ANTECEDENT':'COUNTER_OR_LIMIT';
+ case 'GATE_AND_OBSERVED_EARLY_ROLE':return v.past_gate!==v.current_gate?'OTHER_CONDITION':'RELEVANT_FACT_CURRENT_ROLE_UNPROVEN';
+ case 'MATCHED_SECTION_TIME_CHANGE':return v.late_delta_ms< -v.error_ms&&v.finish_change>=0?'SUPPORTING_OBSERVATION':v.late_delta_ms>v.error_ms?'COUNTER_OR_LIMIT':'NEUTRAL';
+ case 'CLASS_AND_OPPONENT_MEMBERSHIP':return 'RELEVANT_FACT_STRENGTH_UNPROVEN';
+ case 'MULTI_CONDITION_MATCH':return v.changed.length||!v.course_match||!v.gate_match||!v.weight_match?'OTHER_CONDITION':v.finish===1?'SUPPORTING_OBSERVATION':'COUNTER_OR_LIMIT';
+ default:throw Error('UNKNOWN_EYE_FACT');
+ }
+}
 export function eyeSupply({docs,roots}){
  const card=docs[0],history=docs.slice(1).sort((a,b)=>a.eventAt-b.eventAt),root=(d,h=null)=>roots.find(x=>x.eventId===d.eventId&&(h===null?x.pointer==='/':x.horseId===h))?.id;
  const references=(pairs)=>[...new Set(pairs.flatMap(([d,h])=>[root(d),...(h?[root(d,h)]:[])]).filter(Boolean))].sort();
@@ -86,7 +107,7 @@ export function eyeSupply({docs,roots}){
   const currentFront=card.rows.map(r=>({horse:r.nativeId,gate:r.gate,last:history.filter(d=>d.rows.some(q=>q.nativeId===r.nativeId)).at(-1)})).map(q=>({...q,row:q.last?.rows.find(r=>r.nativeId===q.horse)}));
   const fieldRefs=[[card,null],...currentFront.filter(q=>q.last).map(q=>[q.last,q.horse])];
   const o=Array.from({length:15},()=>[]),m=Array.from({length:15},()=>[]);
-  const put=(i,kind,values,pairs)=>o[i-1].push({kind,values,refs:references(pairs)});
+  const put=(i,kind,values,pairs)=>o[i-1].push({kind,values,direction:direction(kind,values),refs:references(pairs)});
   const missing=(i,v)=>m[i-1].push(v);
   for(const d of own){const r=d.rows.find(q=>q.nativeId===h),v=metrics(d,r),p=[[d,h]],context=sameContext(d,card);
    put(1,'FINISH_AND_WINNER_CLOCK_GAP',{finish:v.finish,gap_ms:v.gap,error_ms:2*v.precision,context},p);
