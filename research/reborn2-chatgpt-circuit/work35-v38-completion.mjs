@@ -32,13 +32,23 @@ export async function loadV38(){
  const fixed=new Map(m.cases.map(p=>[p.id,{raw:{raw:fixtures.find(f=>f.id===p.id).docs},pin:{...p,blob:p.id.startsWith('FK34')?V.fixed.get(p.id).pin.blob:blob(b)}}]));
  return {C,fixed,manifest:m};
 }
-export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2}={}){
+export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,gapStress=false}={}){
  const f=V.C.fixtures.find(x=>x.id===id);assert.ok(f);
  const common=analyzeV34(V,id,{withdraw,eyeEnabled,placeThreshold,localize:true});
  // Preserve local observed bounds even when there is no independent current
  // pace evidence. V35 shared numeric solver still consumes the actual pair edges.
  const observed=common.scenarios.filter(s=>s.valid&&['COMPARABLE_SYNTHETIC_RESPONSE','LOCAL_OBSERVED_RESPONSE_ONLY'].includes(s.applicability));
  const branches=[...branches35(f),...observed.map(s=>({id:'OBS:'+s.id,checkpoint_m:s.checkpoint_m,response_event:s.event,starts:s.starts}))];
+ // Optional, explicitly hypothetical gap-width contrast. No current observations
+ // are created. All eligible 800m vectors receive the same scale grid.
+ if(gapStress)for(const s of observed.filter(s=>s.checkpoint_m===800&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE')){
+  const v=Object.entries(s.starts);if(v.length!==common.roster.possible_active.length)continue;
+  const center=x=>(x[0]+x[1])/2,origin=Math.min(...v.map(([,a])=>center(a)));
+  for(const k of [0.25,0.5,1.5]){
+   const starts=Object.fromEntries(v.map(([h,a])=>{const m=origin+k*(center(a)-origin),u=(a[1]-a[0])/2;return [h,[m-u,m+u]];}));
+   branches.push({id:'GAP_STRESS:'+k+':'+s.id,checkpoint_m:s.checkpoint_m,response_event:s.event,starts});
+  }
+ }
  const shared=analyzeV35(V,id,{withdraw,eyeEnabled,placeThreshold,branches,localize:true});
  const runners=shared.runners.map(h=>{
   const paths=shared.conditional_scenarios.map(s=>{
