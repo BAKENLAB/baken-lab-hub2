@@ -92,7 +92,8 @@ export function verifyIntake(V,request,receipt){
  assert.equal(replay.out.packet.evidence.length,receipt.evidence);
  const pin={...receipt,itemRows:card.rows.length*115,blob:receipt.blob??receipt.bundle_sha256};
  const W={...V,C:{...V.C,fixtures:[{id:request.id,docs}],receipt:{summary:[pin]},genericNoTemplates:true},fixed:new Map([[request.id,{raw:{raw:docs},pin}]])};
- return {W,docs,packet:replay.out.packet};
+ const adapted=V.C.adapt32(v,sha);
+ return {W,docs,packet:replay.out.packet,adapted};
 }
 // Independent accepted fixture receipt, not a new self-issued admission.
 // The generic verifier never invokes this helper on untrusted supplied data.
@@ -103,11 +104,11 @@ export function acceptedRequest(V,name){
  const bundleText=JSON.stringify({scope:'SYNTHETIC_ONLY',canonical:V.C.canonical,cases:[{n:name,input,registry,expectedDigest:out.digest}]})+'\n';
  return {request:{id:name,bundleText,envelope:out},receipt:pin};
 }
-function lineage(packet,ids){
- const map=new Map(packet.evidence.map(e=>[e.evidenceId,e])),seen=new Set(),roots=new Map();
- function visit(i){if(seen.has(i))return;seen.add(i);const e=map.get(i);if(!e)return;roots.set(e.root,{id:e.evidenceId,root:e.root,event:e.event,subject:e.subject,field:e.field});for(const d of e.dependencies)visit(d);}
+function lineage(packet,adapted,ids){
+ const map=new Map(packet.evidence.map(e=>[e.evidenceId,e])),aliases=new Map(adapted.o.evidence.map(e=>[e.evidence_id,e])),seen=new Set(),roots=new Map(),unresolved=new Set();
+ function visit(i){if(seen.has(i))return;seen.add(i);const e=map.get(i);if(!e){const a=aliases.get(i);if(a){for(const d of a.depends_on)visit(d);}else unresolved.add(i);return;}roots.set(e.root,{id:e.evidenceId,root:e.root,event:e.event,subject:e.subject,field:e.field});for(const d of e.dependencies)visit(d);}
  for(const i of ids)visit(i);
- return [...roots.values()].sort((a,b)=>a.root.localeCompare(b.root));
+ return {roots:[...roots.values()].sort((a,b)=>a.root.localeCompare(b.root)),unresolved:[...unresolved].sort()};
 }
 function factsFor(x,docs,h){
  const card=docs[0],history=x.history_v41;
@@ -153,7 +154,7 @@ function feedbackFor(x,h){
    refs:uniq([...f.refs,...f.counter_refs]),independent_vote:false,scope:'RECOMPUTED_OUTER_BOUND_NOT_CURRENT_FORECAST'};
  });
 }
-function synthesize(x,z,docs,packet){
+function synthesize(x,z,docs,packet,adapted){
  const threshold=z.threshold;
  return z.runners.map(h=>{
   const f=factsFor(x,docs,h),feedback=feedbackFor(x,h);
@@ -177,7 +178,7 @@ function synthesize(x,z,docs,packet){
   const axes=[A,B,C,D,E];
   assert.ok(axes.every(a=>states.includes(a.state)));
   const used=uniq([...routes.flatMap(p=>p.refs),...feedback.flatMap(q=>q.refs),...f.scenarios.flatMap(s=>s.refs)]);
-  const rootGroups=lineage(packet,used);
+  const audit=lineage(packet,adapted,used),rootGroups=audit.roots;
   // Current-card-anchored conditional RESEARCH candidate, not actual current
   // grade. A comparison class label alone is not an external strength index;
   // these decisions require direct same-field historical counterpart evidence.
@@ -202,29 +203,28 @@ function synthesize(x,z,docs,packet){
   const sourceComplete=f.scenarios.length>0&&f.scenarios.every(s=>s.scope==='REPORTED_CONTEXT_MATCHED_POSSIBLE_ROLE_VECTOR')&&x.roster.known_active.length===x.roster.possible_active.length;
   const roleWin=new Set(directWin.map(p=>startReviews.find(q=>q.event===p.start)?.role).filter(Boolean));
   const allObservedCompetitive=startReviews.length>0&&startReviews.every(q=>q.supported.length&&!q.counter.length&&!q.unresolved);
-  const robustWins=directWin.filter(p=>p.robustClaim);
-  // S requires distinct role contexts with a strong recovery review, and
+    // S requires distinct role contexts with a supported response, and
   // no materially adverse observed role. This is a provisional strict rule,
   // not an approved policy. Multiple horses may satisfy it independently.
-  const S=sourceComplete&&allObservedCompetitive&&roleWin.has('CLOCK_OVERLAP')&&roleWin.has('CLOCK_SEPARATED')&&robustWins.length>0;
+  const S=sourceComplete&&allObservedCompetitive&&roleWin.has('CLOCK_OVERLAP')&&roleWin.has('CLOCK_SEPARATED')&&!routes.some(p=>p.materialCounter);
   const Aok=directWin.length>0;
   const Bok=directPlace.length>0;
   const allObservedAdverse=sourceComplete&&startReviews.length>0&&startReviews.every(q=>q.counter.length&&!q.supported.length&&!q.unresolved)&&replay.length>0&&replay.every(p=>p.decision==='CONDITIONAL_COUNTER')&&routes.length>0&&routes.every(p=>p.decision==='CONDITIONAL_COUNTER');
   const candidate=S?'S':Aok?'A':Bok?'B':allObservedAdverse?'C':null;
-  const gradeReasons={S:S?'DISTINCT_SUPPORTED_ROLE_CONTEXTS_AND_ROBUST_RECOVERY_WITH_NO_OBSERVED_MATERIAL_COUNTER':'STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED',A:Aok?'NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE':'NO_CORROBORATED_NONREPLAY_WIN_PATH',B:Bok?'NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE':'NO_CORROBORATED_NONREPLAY_PLACE_PATH',C:allObservedAdverse?'ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE':'CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE'};
+  const gradeReasons={S:S?'DISTINCT_SUPPORTED_ROLE_CONTEXTS_WITH_NO_OBSERVED_MATERIAL_COUNTER':'STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED',A:Aok?'NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE':'NO_CORROBORATED_NONREPLAY_WIN_PATH',B:Bok?'NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE':'NO_CORROBORATED_NONREPLAY_PLACE_PATH',C:allObservedAdverse?'ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE':'CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE'};
   const itemConsumption=h.items.map(i=>({item:i.item,base:i.state,semantic:i.v33_findings??[],routeFacts:i.v42?.routeFacts??[],conditionFacts:i.v42?.changed??[],eye:i.v42?.effects??[],scope:'EXISTING_COMMON_ANALYSIS_NOT_ALL_ITEMS_PROVEN'}));
-  return {horse:h.horse,axes,paths:routes,feedback,grade:null,current_grade:null,research_grade:candidate,assessment:candidate?'CURRENT_CARD_ANCHORED_CONDITIONAL_RESEARCH':'UNASSESSED_CURRENT',gradeReasons,currentUnknown,rootGroups,itemConsumption,startReviews,sourceComplete,formal:false,
+  return {horse:h.horse,axes,paths:routes,feedback,grade:null,current_grade:null,research_grade:candidate,assessment:candidate?'CURRENT_CARD_ANCHORED_CONDITIONAL_RESEARCH':'UNASSESSED_CURRENT',gradeReasons,currentUnknown,rootGroups,unresolvedLineage:audit.unresolved,itemConsumption,startReviews,sourceComplete,formal:false,
    summary:{win:win.length,place:place.length,counter:negative.length,held:h.paths.filter(p=>p.decision==='HELD').length,robust:routes.filter(p=>p.robustClaim).length,materialCounter:routes.filter(p=>p.materialCounter).length}};
  });
 }
 export async function analyzeVerified(V,request,receipt,{eyeEnabled=true}={}){
- const {W,docs,packet}=verifyIntake(V,request,receipt);
+ const {W,docs,packet,adapted}=verifyIntake(V,request,receipt);
  const common=analyze(W,request.id,{eyeEnabled});
  const decision=integrate(common,docs,{eyeEnabled});
  assert.equal(decision.digest,receipt.source_digest);
  assert.equal(common.groups,118);assert.equal(common.held,826);
- const runners=synthesize(common,decision,docs,packet);
+ const runners=synthesize(common,decision,docs,packet,adapted);
  assert.ok(runners.every(h=>h.itemConsumption.length===115));
- return {schema:'V43_VERIFIED_SYNTHETIC_RESEARCH_V1',id:request.id,digest:decision.digest,evidence:packet.evidence.length,groups:common.groups,held:common.held,roster:common.roster,runners,formal:false};
+ return {schema:'V43_VERIFIED_SYNTHETIC_RESEARCH_V1',id:request.id,digest:decision.digest,evidence:packet.evidence.length,groups:common.groups,held:common.held,roster:common.roster,placeThreshold:decision.threshold,thresholdScope:'SYNTHETIC_FIXTURE_CONTROL_NOT_CANONICAL',runners,formal:false};
 }
 export {loadV40};
