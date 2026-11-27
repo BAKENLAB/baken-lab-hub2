@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';import crypto from 'node:crypto';
+import{parseJraSyntheticHtml,parseNarSyntheticCsv,toWork32Intake}from'./real-work-03-native-parsers.mjs';
+import{jraFixture,narFixture}from'./real-work-03-synthetic-fixtures.mjs';
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+test('JRA HTML -> bound Work32 intake',()=>{const f=jraFixture(),p=parseJraSyntheticHtml(f.raw,f.receipt),x=toWork32Intake(p,f.receipt);assert.equal(x.document.rows.length,2);assert.equal(x.rowBindings[0].nativeId,'JRA:H001');assert.equal(x.formal,false);assert.equal(x.scoring_authorized,false)});
+test('NAR CSV -> bound Work32 intake',()=>{const f=narFixture(),p=parseNarSyntheticCsv(f.raw,f.receipt),x=toWork32Intake(p,f.receipt);assert.equal(x.document.rows.length,2);assert.equal(x.document.rows[1].clockMs,87200);assert.equal(x.rowBindings[1].pointer,'/rows/1')});
+test('raw mutation rejected',()=>{const f=narFixture(),bad=Buffer.concat([f.raw,Buffer.from('x')]);assert.throws(()=>parseNarSyntheticCsv(bad,f.receipt),/RAW_HASH/)});
+test('unknown JRA row field rejected',()=>{const f=jraFixture(),s=f.raw.toString().replace('data-status="ACTIVE"','data-status="ACTIVE" data-odds="2.0"'),raw=Buffer.from(s),r={...f.receipt,sha256:sha(raw)};assert.throws(()=>parseJraSyntheticHtml(raw,r),/odds|UNKNOWN|FORBIDDEN/i)});
+test('duplicate horse identity rejected',()=>{const f=jraFixture(),s=f.raw.toString().replace('JRA:H002','JRA:H001'),raw=Buffer.from(s),r={...f.receipt,sha256:sha(raw)};assert.throws(()=>parseJraSyntheticHtml(raw,r),/ROSTER/)});
+test('name-only / nonofficial URL rejected',()=>{const f=jraFixture(),p=parseJraSyntheticHtml(f.raw,f.receipt);assert.throws(()=>toWork32Intake(p,{...f.receipt,sourceUrl:'https://example.com/'}),/OFFICIAL_URL/)});
+test('parser version binding enforced',()=>{const f=jraFixture(),p=parseJraSyntheticHtml(f.raw,f.receipt);assert.throws(()=>toWork32Intake(p,{...f.receipt,parserVersion:'OTHER'}),/RECEIPT_BINDING/)});
+test('NAR header and order pinned',()=>{const f=narFixture(),raw=Buffer.from(f.raw.toString().replace('clock_ms,final600_ms','final600_ms,clock_ms')),r={...f.receipt,sha256:sha(raw)};assert.throws(()=>parseNarSyntheticCsv(raw,r),/CSV_HEADER/)});
+test('missing values stay missing',()=>{const f=narFixture(),raw=Buffer.from(f.raw.toString().replace(',2,87200,39100',',,,')),r={...f.receipt,sha256:sha(raw)};const p=parseNarSyntheticCsv(raw,r);assert.equal('finish'in p.rows[1],false);assert.equal('clockMs'in p.rows[1],false)});
+test('receipt nested unknown rejected',()=>{const f=jraFixture(),p=parseJraSyntheticHtml(f.raw,f.receipt);assert.throws(()=>toWork32Intake(p,{...f.receipt,extra:true}),/UNKNOWN_FIELD/)});

@@ -1,0 +1,32 @@
+{
+  "schema":"REAL_WORK_03_WORK32_PRIORITY24_DEPENDENCIES_0.3",
+  "scope":"SYNTHETIC_PREPARATION_ONLY",
+  "items":[
+    {"item":"RANK02","name":"近走成績・着順","observations":["historical_row","finish"],"sources":["official result","official horse identity"],"predicate":"classified finisher; row identity verified"},
+    {"item":"RANK03","name":"勝ち馬との着差","observations":["finish_classification","finish_clock","winner_clock_difference","official_margin_literal"],"sources":["official result"],"predicate":"prefer official margin literal; clock difference labelled derived and resolution-bound"},
+    {"item":"RANK05","name":"走破時計","observations":["historical_row","finish_clock"],"sources":["official result"],"predicate":"individual total clock with unit and precision"},
+    {"item":"RANK06","name":"上がりタイム","observations":["historical_row","individual_final600"],"sources":["official result"],"predicate":"individual native explicit only"},
+    {"item":"RANK08","name":"持続力","observations":["checkpoint_ms","individual_final600","finish_clock"],"sources":["official result","course geometry"],"predicate":"derived; common-start checkpoints and exact distance semantics required"},
+    {"item":"RANK18","name":"道中の位置取り変化","observations":["ranks","passing_order","historical_row"],"sources":["official result"],"predicate":"checkpoint semantics and historical horse-number roster bound"},
+    {"item":"RANK19","name":"実ラップ・ペース","observations":["race_leader_laps"],"sources":["official result"],"predicate":"event-scoped leader lap; never individual lap"},
+    {"item":"RANK33","name":"過去走のクラス水準","observations":["conditions"],"sources":["official program/rules","official result"],"predicate":"class label plus effective rule version; label alone is not strength"},
+    {"item":"RANK34","name":"過去の対戦相手の能力","observations":["historical_pair","finish_classification"],"sources":["official result","opponent official history"],"predicate":"no name-only join; interpretation remains derived"},
+    {"item":"RANK35","name":"今回の出走馬同士の直接対戦","observations":["historical_pair","current_card_row"],"sources":["official historical result","target official card"],"predicate":"both current runners ACTIVE and native IDs bound"},
+    {"item":"RANK36","name":"共通対戦馬による間接比較","observations":["historical_pair","current_card_row"],"sources":["two or more official results","target official card"],"predicate":"locator only; no transitive order without response analysis"},
+    {"item":"RANK37","name":"過去の対戦相手の後続実績","observations":["historical_pair","peer_followup","finish_classification"],"sources":["official prior result","official later result"],"predicate":"later result published before target cutoff"},
+    {"item":"RANK39","name":"昇級・降級","observations":["conditions"],"sources":["official program/rules","consecutive official results"],"predicate":"eligibility/class rule versions at both events"},
+    {"item":"RANK43","name":"距離適性","observations":["conditions","finish_clock","finish"],"sources":["official result","target card"],"predicate":"historical and target distance explicit"},
+    {"item":"RANK44","name":"距離延長・短縮への適性","observations":["conditions"],"sources":["historical result","target card"],"predicate":"distance delta observed; suitability derived separately"},
+    {"item":"RANK45","name":"競馬場適性","observations":["conditions","finish"],"sources":["official result","target card"],"predicate":"venue IDs and course versions explicit"},
+    {"item":"RANK47","name":"芝・ダート適性","observations":["conditions","finish"],"sources":["official result","target card"],"predicate":"surface explicit; surface change is not automatically improvement"},
+    {"item":"RANK48","name":"馬場状態別適性","observations":["conditions","finish"],"sources":["official result","target card"],"predicate":"official going at event time"},
+    {"item":"RANK49","name":"左回り・右回り適性","observations":["geometry","finish"],"sources":["official course version","official result"],"predicate":"historical version effective at race time"},
+    {"item":"RANK50","name":"直線の長さへの適性","observations":["geometry","finish"],"sources":["official course version","official result"],"predicate":"official geometry; derived suitability"},
+    {"item":"RANK52","name":"コーナー形状への適性","observations":["geometry","ranks"],"sources":["official course version","official result"],"predicate":"no geometric inference from passing order alone"},
+    {"item":"RANK53","name":"枠順と脚質の相性","observations":["gate_number","ranks","current_card_row"],"sources":["official cards","official results"],"predicate":"historical and current gate distinguished"},
+    {"item":"RANK54","name":"斤量・斤量増減への適性","observations":["weight_grams","finish","current_card_row"],"sources":["official cards","official results"],"predicate":"historical and current weight distinguished; effect derived"},
+    {"item":"RANK67","name":"最初のコーナーまでの距離","observations":["geometry"],"sources":["official course version"],"predicate":"direct official geometry or MISSING"}
+  ],
+  "counts":{"items":24,"direct_observation_items":9,"multi_source_or_derived_items":15},
+  "formal":false
+}

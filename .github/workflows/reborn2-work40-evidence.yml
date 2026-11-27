@@ -1,0 +1,35 @@
+name: Work40 evidence supply completion
+on:
+  pull_request:
+    branches:
+      - research/reborn2-work39-native-20261128
+    paths:
+      - 'research/reborn2-work40-evidence-completion/**'
+      - 'research/reborn2-real-work/real-work-02-115-source-map.json'
+      - 'research/reborn2-real-work/real-work-03-*'
+      - 'research/reborn2-real-work/test-real-work-03.mjs'
+      - '.github/workflows/reborn2-work40-evidence.yml'
+permissions:
+  contents: read
+jobs:
+  work40-research-only:
+    if: github.event.pull_request.head.ref == 'research/reborn2-work40-evidence-completion-20261128'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Work40 supply and blind boundary
+        run: node --test research/reborn2-work40-evidence-completion/test-evidence-completion-v0.1.mjs
+      - name: Native-format synthetic parsers
+        run: node --test research/reborn2-real-work/test-real-work-03.mjs
+      - name: Local RFC3161 verifier
+        run: bash research/reborn2-real-work/real-work-03-rfc3161-custody-test.sh
+      - name: Fixed artifact digests
+        working-directory: research/reborn2-work40-evidence-completion
+        run: sha256sum -c MANIFEST.sha256

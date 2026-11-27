@@ -1,0 +1,44 @@
+{
+  "schema": "REBORN2_CODEX_SUPPLY_INTEGRATION_REQUEST_0.1",
+  "scope": "RESEARCH_ONLY",
+  "engine_changes_requested": false,
+  "pins": {
+    "main47_audit": "2b0091f59ca85beee16b04a533e7a3f1ce5fb294",
+    "work38": "49526296da0aa780d7248912831a79ff3a78b7a7",
+    "work39": "9c8401e9735f102a3d25c49aef524681a29d7b2d",
+    "work39_run": 46069751283,
+    "work39_job": 140743582963,
+    "work39_artifact": 15232292703,
+    "work39_artifact_sha256": "b22b31ba2f73588584cf6b10fad94cfccf7173a61af41e7eb435a8eb567a57ad"
+  },
+  "observed_work39": {
+    "status": "FAILED",
+    "passes_before_failure": [
+      "WORK38_PINNED_REPLAY",
+      "WORK38_H3_40_ENDPOINT_PAIRS",
+      "EXACT_SOURCE_BLOBS",
+      "PREFIX_EQUAL_LATE_RESPONSE_DIFFERS",
+      "W39_LATE_CONTRAST"
+    ],
+    "failure": "BRANCH_ROSTER",
+    "failure_location": "work33-v34-synthesis.mjs:168 via analyzeV35/analyzeV38/V40/V41",
+    "cause_class": "SUPPLY_FIXTURE_CONTRACT_VIOLATION",
+    "do_not": ["weaken roster assertion", "fabricate evidence", "count Work39 as accepted", "change production analyzer"]
+  },
+  "supply_correction": {
+    "target_roster": "MUST_REMAIN_IDENTICAL_ACROSS_BRANCHES",
+    "vary_only": ["historical opponent composition", "historical class evidence", "pre-cutoff followup evidence"],
+    "held_out": ["post-cutoff followup", "target outcome", "market data"],
+    "expected_grade": null,
+    "acceptance": "compare support/counter/missing and per-axis outputs; no predetermined SABC"
+  },
+  "interface": {
+    "input": "REBORN2_BLIND_BUNDLE_0.1.analysis",
+    "result_partition": "REBORN2_BLIND_BUNDLE_0.1.sealed_results",
+    "supply_states": ["AVAILABLE", "PARTIAL", "MISSING", "CONFLICT", "HELD"],
+    "identity": "issuer + native horse ID + event ID + row pointer",
+    "field_dependency_map": "REBORN2_SUPPLY_115_MULTI_SOURCE_0.1",
+    "formal": false,
+    "scoring_authorized": false
+  }
+}
