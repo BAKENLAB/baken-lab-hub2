@@ -1,0 +1,226 @@
+{
+  "source_commit": "c82b1373d39ac98624fa8a542ba604d8c8e6ccd0",
+  "source_blobs": [
+    "192624bf3d59aafc536d7fe7c6d01493023a0520",
+    "eddd1b0946eb5ac8312bb757e7d527061d059974"
+  ],
+  "scope": "CANDIDATE_DIAGNOSTICS_ONLY_NO_FORMAL_ADMISSION",
+  "peer_counts": {
+    "subject_rows": 21,
+    "races": 20,
+    "all_rows": 249,
+    "numeric_peer_edges": 233,
+    "distinct_peer_ids": 182,
+    "non_numeric_edges": 4,
+    "saved_profiles_matched_to_peer_ids": 11,
+    "exact_profile_result_edges": 16,
+    "profile_edge_conflicts": 0,
+    "edges_with_later_profile_rows": 12,
+    "distinct_later_horse_races": 34,
+    "later_result_dom_matches": 13,
+    "later_result_dom_missing": 21,
+    "later_result_dom_conflicts": 0
+  },
+  "peer_status_counts": {
+    "RESULT_LINK_ONLY": 168,
+    "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH": 11,
+    "OFFICIAL_CACHED_PROFILE_ROW_MATCH": 1,
+    "CACHED_PROFILE_TOO_OLD_FOR_EDGE": 2
+  },
+  "later_finish_distribution": {
+    "1": 7,
+    "2": 8,
+    "3": 5,
+    "4": 2,
+    "5": 1,
+    "6": 1,
+    "7": 3,
+    "8": 2,
+    "9": 1,
+    "10": 1,
+    "12": 1,
+    "13": 2
+  },
+  "jc": {
+    "native_matches": 0,
+    "card_status": "CACHE_MISS",
+    "comparison": {
+      "race": "JRA:2025-11-30:東京:12",
+      "surface": "芝",
+      "distance": 2400,
+      "going": "良",
+      "class": "GI",
+      "result_url": "https://www.jra.go.jp/datafile/seiseki/g1/jc/result/jc2025.html",
+      "rating_url": "https://www.jra.go.jp/datafile/ranking/jyusyo/2025/11-g1.html",
+      "source_body_status": "BOTH_OFFICIAL_PAGE_BODIES_OBSERVED",
+      "rows": [
+        {
+          "target_no": 9,
+          "prior_no": 8,
+          "finish": 1,
+          "elapsed_tenths": 1403,
+          "weight_kg": 58,
+          "rating": 129
+        },
+        {
+          "target_no": 6,
+          "prior_no": 15,
+          "finish": 2,
+          "elapsed_tenths": 1403,
+          "weight_kg": 56,
+          "rating": 128
+        },
+        {
+          "target_no": 16,
+          "prior_no": 14,
+          "finish": 3,
+          "elapsed_tenths": 1408,
+          "weight_kg": 58,
+          "rating": 124
+        },
+        {
+          "target_no": 4,
+          "prior_no": 2,
+          "finish": 4,
+          "elapsed_tenths": 1409,
+          "weight_kg": 56,
+          "rating": 122
+        },
+        {
+          "target_no": 2,
+          "prior_no": 3,
+          "finish": 9,
+          "elapsed_tenths": 1419,
+          "weight_kg": 58,
+          "rating": 112
+        }
+      ],
+      "unordered_pair_candidates": 10,
+      "native_id_binding": "pending for current roster",
+      "asof_publication_timestamp": null,
+      "note": "2025 race-specific ratings, not 2026 annual peaks; rounded equal clock not a tie; 2025 weight differences retained."
+    },
+    "ratings": [
+      {
+        "target_no": 8,
+        "value": 131,
+        "distance_code": "I",
+        "scope": "IFHA 2026 Jan1-Nov8"
+      },
+      {
+        "target_no": 9,
+        "value": 124,
+        "distance_code": "I-L",
+        "scope": "IFHA 2026 Jan1-Nov8"
+      },
+      {
+        "target_no": 16,
+        "value": 124,
+        "distance_code": "I",
+        "scope": "JRA 2026 annual peak"
+      },
+      {
+        "target_no": 6,
+        "value": 122,
+        "distance_code": "I",
+        "scope": "JRA 2026 annual peak"
+      },
+      {
+        "target_no": 6,
+        "value": 128,
+        "distance_code": null,
+        "scope": "JRA 2026-11-16 registration priority rating, different definition; not interchangeable"
+      }
+    ]
+  },
+  "persons": {
+    "observations": [
+      {
+        "issuer": "NAR",
+        "role": "trainer",
+        "id": "11136",
+        "name": "箕輪武",
+        "source_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/TrainerMark?k_trainerLicenseNo=11136",
+        "source_body": "CACHED_BODY_OBSERVED",
+        "previous_404_preserved": true,
+        "affiliation": "浦和",
+        "profile_managed_horse_link": {
+          "id": "30011400966",
+          "source_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/RaceHorseInfo?k_activeCode=1&k_lineageLoginCode=30011400966"
+        },
+        "same_id_prior_result_rows": [
+          "LOCAL:2026-11-10:川崎:11:7",
+          "LOCAL:2026-10-21:浦和:11:7",
+          "LOCAL:2026-09-30:船橋:11:7"
+        ],
+        "stats_2025": {
+          "starts": 315,
+          "wins": 22,
+          "seconds": 26,
+          "thirds": 33
+        },
+        "date_valid_identity": "unverified at each race; cached snapshot not current live confirmation"
+      },
+      {
+        "issuer": "NAR",
+        "role": "jockey",
+        "id": "31323",
+        "name": "野畑凌",
+        "source_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/RiderMark?k_riderLicenseNo=31323",
+        "source_body": "CACHED_BODY_OBSERVED",
+        "affiliation": "川崎",
+        "same_id_prior_result_rows": [
+          "LOCAL:2026-10-21:浦和:11:7"
+        ],
+        "stats_2025": {
+          "starts": 1576,
+          "wins": 209,
+          "seconds": 147,
+          "thirds": 142
+        },
+        "date_valid_identity": "unverified at race; no market partitions copied"
+      }
+    ],
+    "formal_person_effects": 0
+  },
+  "benchmark": {
+    "source_sha256": {
+      "stage8": "48df059c10a5c62e18352a7768215e3599634735a096887e85679376b5c03cd6",
+      "stage9": "7bc674eb2004d4836666b12aa803b6bd5ed649450d349502d96f499309e21fbb"
+    },
+    "jra": {
+      "groups": 88,
+      "races": 2836,
+      "runners": 40333,
+      "dirt_groups": 49,
+      "turf_groups": 39,
+      "layout_present": 0,
+      "source": "JRA_88_PRIORITY_GROUPS_ACCEPTANCE_V1.csv"
+    },
+    "local": {
+      "groups": 30,
+      "races": 963,
+      "runners": 9652,
+      "venues": {
+        "園田": 17,
+        "門別": 6,
+        "盛岡": 4,
+        "水沢": 3
+      },
+      "source": "LOCAL30_REPRODUCED_GROUPS_V1.csv",
+      "new_time_conflict": {
+        "file": "LOCAL30_CURRENT_OBSERVATION_V1.json",
+        "sha256": "3d0134753002a3add2082f04d6914acddd8721a866fddae365734473af6c6dad",
+        "reported": "2026-11-27T15:30:00+09:00",
+        "tar_mtime_utc": "2026-11-26T22:53:54Z",
+        "library_created_at_utc": "2026-11-26T23:00:17Z",
+        "verified_observed_at": null
+      }
+    },
+    "note": "JRA dirt groups prioritized for geometry investigation, but no version inferred; LOCAL priority groups not Urawa and not fixed by Urawa proof. Exact original replay vs current observation kept separate. No new formal gate passes.",
+    "formal_admissions": 0
+  },
+  "permission": "NOT_CLEARED",
+  "observed_at": null,
+  "formal_admissions": 0
+}

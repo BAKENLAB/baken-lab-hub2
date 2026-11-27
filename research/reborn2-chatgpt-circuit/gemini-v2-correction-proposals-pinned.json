@@ -1,0 +1,541 @@
+{
+  "schema": "synthetic-correction-proposals-v1",
+  "fixture_only": true,
+  "official_evidence": false,
+  "formal_admission": false,
+  "base_commit": "c313d93ba5586a61d42f6000c10b59ba3316841e",
+  "base_file": "research/reborn2-canonical/GEMINI-FIXTURE-7-V2-SUPPLEMENT-INPUT-20261127.json",
+  "source": "Gemini correction difference supplied 2026-11-27 JST; not an overwrite",
+  "lap_proposals": [
+    {
+      "race_id": "FK-20260927-T07",
+      "old": [
+        123,
+        114,
+        121,
+        125,
+        126,
+        129,
+        134
+      ],
+      "new": [
+        123,
+        114,
+        121,
+        125,
+        126,
+        129,
+        136
+      ],
+      "old_sum": 872,
+      "new_sum": 874,
+      "winner_tenths": 874,
+      "status": "ARITHMETIC_CORRECTION_CANDIDATE_KIND_STILL_UNKNOWN",
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261011-T08",
+      "old": [
+        125,
+        117,
+        124,
+        128,
+        129,
+        130,
+        126
+      ],
+      "new": [
+        125,
+        117,
+        124,
+        128,
+        129,
+        130,
+        127
+      ],
+      "old_sum": 879,
+      "new_sum": 880,
+      "winner_tenths": 880,
+      "status": "ARITHMETIC_CORRECTION_CANDIDATE_KIND_STILL_UNKNOWN",
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260924-T05",
+      "old": [
+        121,
+        112,
+        119,
+        123,
+        125,
+        127,
+        127
+      ],
+      "new": [
+        121,
+        112,
+        119,
+        123,
+        125,
+        127,
+        137
+      ],
+      "old_sum": 854,
+      "new_sum": 864,
+      "winner_tenths": 864,
+      "status": "ARITHMETIC_CORRECTION_CANDIDATE_KIND_STILL_UNKNOWN",
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261102-T09",
+      "old": [
+        129,
+        121,
+        127,
+        128,
+        126,
+        122,
+        120
+      ],
+      "new": [
+        129,
+        121,
+        127,
+        128,
+        126,
+        121,
+        121
+      ],
+      "old_sum": 873,
+      "new_sum": 873,
+      "winner_tenths": 873,
+      "status": "HOLD_UNNECESSARY_CHANGE_TO_ALREADY_CONSISTENT_LAPS",
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261012-T07",
+      "old": [
+        68,
+        113,
+        120,
+        125,
+        128,
+        130,
+        126
+      ],
+      "new": [
+        68,
+        113,
+        120,
+        125,
+        128,
+        130,
+        126
+      ],
+      "old_sum": 810,
+      "new_sum": 810,
+      "winner_tenths": 810,
+      "status": "NO_CHANGE",
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260921-T08",
+      "old": [
+        124,
+        115,
+        122,
+        126,
+        128,
+        131,
+        133
+      ],
+      "new": [
+        124,
+        115,
+        122,
+        126,
+        128,
+        130,
+        134
+      ],
+      "old_sum": 879,
+      "new_sum": 879,
+      "winner_tenths": 879,
+      "status": "HOLD_UNNECESSARY_CHANGE_TO_ALREADY_CONSISTENT_LAPS",
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260926-T08",
+      "old": [
+        67,
+        120,
+        118,
+        125,
+        128,
+        129,
+        131,
+        127
+      ],
+      "new": [
+        67,
+        120,
+        118,
+        125,
+        128,
+        129,
+        131,
+        132
+      ],
+      "old_sum": 945,
+      "new_sum": 950,
+      "winner_tenths": 950,
+      "status": "ARITHMETIC_CORRECTION_CANDIDATE_KIND_STILL_UNKNOWN",
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261018-T07",
+      "old": [
+        122,
+        113,
+        120,
+        125,
+        127,
+        129,
+        127
+      ],
+      "new": [
+        122,
+        113,
+        120,
+        125,
+        127,
+        129,
+        137
+      ],
+      "old_sum": 863,
+      "new_sum": 873,
+      "winner_tenths": 873,
+      "status": "ARITHMETIC_CORRECTION_CANDIDATE_KIND_STILL_UNKNOWN",
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260906-T07",
+      "old": [
+        120,
+        111,
+        118,
+        122,
+        125,
+        127,
+        117
+      ],
+      "new": [
+        120,
+        111,
+        118,
+        122,
+        125,
+        127,
+        139
+      ],
+      "old_sum": 840,
+      "new_sum": 862,
+      "winner_tenths": 862,
+      "status": "ARITHMETIC_CORRECTION_CANDIDATE_KIND_STILL_UNKNOWN",
+      "reported_lap_kind": null
+    }
+  ],
+  "unaddressed_lap_conflicts": [
+    {
+      "race_id": "FK-20261018-T08",
+      "laps": [
+        126,
+        118,
+        124,
+        128,
+        130,
+        131,
+        129,
+        128
+      ],
+      "sum": 1014,
+      "winner": 1016
+    },
+    {
+      "race_id": "FK-20260903-T04",
+      "laps": [
+        122,
+        111,
+        118,
+        123,
+        126,
+        115
+      ],
+      "sum": 715,
+      "winner": 735
+    },
+    {
+      "race_id": "FK-20260927-T08",
+      "laps": [
+        125,
+        116,
+        123,
+        127,
+        129,
+        130,
+        124
+      ],
+      "sum": 874,
+      "winner": 879
+    }
+  ],
+  "position_proposals": [
+    {
+      "race_id": "FK-20261018-T08",
+      "horse_id": "FIXTURE-A4",
+      "old": [
+        6,
+        6,
+        5,
+        3
+      ],
+      "new": [
+        6,
+        6,
+        4,
+        3
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20261101-T09",
+      "horse_id": "FIXTURE-B12",
+      "old": [
+        4,
+        4,
+        3,
+        3
+      ],
+      "new": [
+        4,
+        4,
+        3,
+        5
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20261101-T09",
+      "horse_id": "FIXTURE-B13",
+      "old": [
+        3,
+        3,
+        5,
+        5
+      ],
+      "new": [
+        3,
+        3,
+        5,
+        3
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20260924-T05",
+      "horse_id": "FIXTURE-C11",
+      "old": [
+        4,
+        5,
+        4,
+        4
+      ],
+      "new": [
+        4,
+        5,
+        6,
+        4
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20260924-T05",
+      "horse_id": "FIXTURE-C12",
+      "old": [
+        6,
+        6,
+        6,
+        5
+      ],
+      "new": [
+        6,
+        6,
+        4,
+        5
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20261017-T09",
+      "horse_id": "FIXTURE-E4",
+      "old": [
+        2,
+        2,
+        4,
+        4
+      ],
+      "new": [
+        2,
+        2,
+        3,
+        4
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20261017-T09",
+      "horse_id": "FIXTURE-E3",
+      "old": [
+        5,
+        5,
+        3,
+        3
+      ],
+      "new": [
+        5,
+        5,
+        5,
+        3
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20260927-T08",
+      "horse_id": "FIXTURE-F",
+      "old": [
+        6,
+        7,
+        6,
+        9
+      ],
+      "new": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20260927-T08",
+      "horse_id": "FIXTURE-F17",
+      "old": [
+        9,
+        9,
+        9,
+        8
+      ],
+      "new": [
+        9,
+        9,
+        6,
+        8
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20260906-T07",
+      "horse_id": "FIXTURE-F26",
+      "old": [
+        6,
+        7,
+        7,
+        9
+      ],
+      "new": [
+        6,
+        7,
+        9,
+        9
+      ],
+      "status": "HOLD"
+    },
+    {
+      "race_id": "FK-20260906-T07",
+      "horse_id": "FIXTURE-F25",
+      "old": [
+        9,
+        9,
+        9,
+        8
+      ],
+      "new": [
+        9,
+        9,
+        7,
+        8
+      ],
+      "status": "HOLD"
+    }
+  ],
+  "conflicting_position_summary_claims": [
+    {
+      "race_id": "FK-20261018-T08",
+      "corner": 3,
+      "order": [
+        "A8",
+        "A2",
+        "A3",
+        "A4",
+        "A",
+        "A6",
+        "A7",
+        "A5"
+      ],
+      "note": "Contradicts explicit row patches and unmodified source rows; first/second corner duplication also unresolved"
+    },
+    {
+      "race_id": "FK-20261017-T09",
+      "corner": 3,
+      "order": [
+        "E5",
+        "E1",
+        "E4",
+        "E",
+        "E3",
+        "E2",
+        "E7",
+        "E6",
+        "E8",
+        "E9"
+      ],
+      "note": "Contradicts explicit row patches and unmodified source rows; second corner duplication unresolved"
+    }
+  ],
+  "accepted_diagnostic_corrections": [
+    {
+      "horse_id": "FIXTURE-C",
+      "field": "reported_interval_days",
+      "old": 35,
+      "new": 31,
+      "reason": "2026-10-15 to 2026-11-15 calendar difference; display week convention separate"
+    },
+    {
+      "field": "reported_same_day_counts.all_le4",
+      "old": 19,
+      "new": 22,
+      "denominator": 27
+    },
+    {
+      "field": "reported_same_day_counts.at1400_le4",
+      "old": 16,
+      "new": 18,
+      "denominator": 21
+    }
+  ],
+  "status": "PROPOSALS_ONLY_BASE_UNCHANGED",
+  "notes": [
+    "9 originally inconsistent lap sums; 6 arithmetic corrections valid, 3 not addressed. 3 proposals refer to already-consistent races; no change or unnecessary redistribution. All lap kinds unknown.",
+    "Explicit row proposals do not repair original six corner-conflict races; add an invalid third corner in F2. Hold all position changes; no fabricated corrections.",
+    "Day top3 counts only, not full field bias. No target outcome or expected rank."
+  ]
+}

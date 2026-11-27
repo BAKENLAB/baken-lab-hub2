@@ -64,9 +64,13 @@ export function prepareGeminiV2(raw){
   // Ruling text is fictional; roles must match the historical number AND horse ID.
   const text=r.ruling?.text??'';
   if(text&&text!=='該当事象なし'){
-   const victim=text.match(/被害馬(\d+)番/),self=text.match(/(\d+)番馬([A-Z])は/),cause=text.match(/原因馬(\d+)番/);
-   const row=subject[0],match=(victim&&+victim[1]===row.horse_no)||(self&&+self[1]===row.horse_no&&'FIXTURE-'+self[2]===row.horse_id);
-   if(match){const e=mk('ruling:'+r.race_id+':'+row.horse_id,row.horse_id,r.race_id,r.publication_local,{historical_runner_no:row.horse_no});push(e,'INCIDENT',{incident_code:victim?'FIXTURE_PATH_PRESSURE':'FIXTURE_TRAFFIC',role:victim?'SUFFERED':'SELF',text,causing_horse_id:cause?rs.find(x=>x.horse_no===+cause[1])?.horse_id??null:null,official_ruling_verified:false},r.scheduled_start_local);}
+   const victim=text.match(/被害馬(\d+)番/),self=text.match(/(\d+)番馬([A-Z]\d*)は/),cause=text.match(/原因馬(\d+)番/);
+   const row=subject[0],subjectBound=!!self&&+self[1]===row.horse_no&&'FIXTURE-'+self[2]===row.horse_id;
+   const causeRow=cause?rs.find(x=>x.horse_no===+cause[1]):null;
+   const causeLabel=cause?text.match(new RegExp('(?:^|[^0-9])'+cause[1]+'番馬([A-Z]\\d*)')):null;
+   const causeBound=!cause||(!!causeRow&&!!causeLabel&&'FIXTURE-'+causeLabel[1]===causeRow.horse_id&&causeRow.horse_id!==row.horse_id);
+   const match=subjectBound&&(!victim||+victim[1]===row.horse_no)&&(!victim||!!cause)&&causeBound;
+   if(match){const e=mk('ruling:'+r.race_id+':'+row.horse_id,row.horse_id,r.race_id,r.publication_local,{historical_runner_no:row.horse_no});push(e,'INCIDENT',{incident_code:victim?'FIXTURE_PATH_PRESSURE':'FIXTURE_TRAFFIC',role:victim?'SUFFERED':'SELF',text,causing_horse_id:causeRow?.horse_id??null,subject_historical_runner_no:row.horse_no,causing_historical_runner_no:causeRow?.horse_no??null,fixture_subject_id_and_number_bound:true,fixture_cause_id_and_number_bound:cause?causeBound:null,official_ruling_verified:false},r.scheduled_start_local);}
    else hold('RULING',r.race_id,'UNBOUND_HISTORICAL_RUNNER_NUMBER');
   }
  }
