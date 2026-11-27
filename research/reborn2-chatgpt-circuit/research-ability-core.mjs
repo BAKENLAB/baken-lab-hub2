@@ -12,7 +12,7 @@ export function dependencyReader(all,withdraw=null,extra=()=>[]){
   memo.set(id,result);return result;
  }
  const lineage=ids=>{const seen=new Set();function walk(id){if(seen.has(id)||!get(id))return;seen.add(id);const e=all.get(id);for(const k of [...(e.depends_on??[]),...extra(e)])walk(k);}ids.filter(Boolean).forEach(walk);return [...seen].map(id=>all.get(id));};
- return {get,lineage};
+ return {get:id=>get(id),lineage};
 }
 export function relativePosition(rank,count){
  if(!Number.isInteger(rank)||!Number.isInteger(count)||rank<1||rank>count)return null;
