@@ -1,0 +1,300 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "tests": [
+    {
+      "name": "exact_bytes_and_independent_readback",
+      "expected": null,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "name": "exclusive_create",
+      "expected": null,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "name": "append_correction_preserves_old_bytes",
+      "expected": null,
+      "errors": [],
+      "pass": true
+    },
+    {
+      "name": "wrong_domain",
+      "expected": "DOMAIN",
+      "errors": [
+        "DOMAIN"
+      ],
+      "pass": true
+    },
+    {
+      "name": "wrong_charset",
+      "expected": "DOMAIN",
+      "errors": [
+        "DOMAIN",
+        "DECODE"
+      ],
+      "pass": true
+    },
+    {
+      "name": "start_after_end",
+      "expected": "TIME",
+      "errors": [
+        "TIME"
+      ],
+      "pass": true
+    },
+    {
+      "name": "late_seal",
+      "expected": "TIME",
+      "errors": [
+        "TIME"
+      ],
+      "pass": true
+    },
+    {
+      "name": "uncertain_cutoff",
+      "expected": "TIME",
+      "errors": [
+        "TIME"
+      ],
+      "pass": true
+    },
+    {
+      "name": "cutoff_at_post",
+      "expected": "TIME",
+      "errors": [
+        "TIME"
+      ],
+      "pass": true
+    },
+    {
+      "name": "publication_missing",
+      "expected": "TIME",
+      "errors": [
+        "TIME"
+      ],
+      "pass": true
+    },
+    {
+      "name": "late_publication",
+      "expected": "TIME",
+      "errors": [
+        "TIME"
+      ],
+      "pass": true
+    },
+    {
+      "name": "post_version_mismatch",
+      "expected": "VERSION",
+      "errors": [
+        "VERSION"
+      ],
+      "pass": true
+    },
+    {
+      "name": "late_correction",
+      "expected": "VERSION",
+      "errors": [
+        "VERSION"
+      ],
+      "pass": true
+    },
+    {
+      "name": "course_expired",
+      "expected": "VERSION",
+      "errors": [
+        "VERSION"
+      ],
+      "pass": true
+    },
+    {
+      "name": "class_expired",
+      "expected": "VERSION",
+      "errors": [
+        "VERSION"
+      ],
+      "pass": true
+    },
+    {
+      "name": "public_without_right",
+      "expected": "RIGHTS",
+      "errors": [
+        "RIGHTS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "nonfiction_scope",
+      "expected": "SCOPE",
+      "errors": [
+        "SCOPE"
+      ],
+      "pass": true
+    },
+    {
+      "name": "length_mismatch",
+      "expected": "RAW",
+      "errors": [
+        "RAW"
+      ],
+      "pass": true
+    },
+    {
+      "name": "rights_capture",
+      "expected": "RIGHTS",
+      "errors": [
+        "RIGHTS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "rights_storage",
+      "expected": "RIGHTS",
+      "errors": [
+        "RIGHTS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "rights_ai",
+      "expected": "RIGHTS",
+      "errors": [
+        "RIGHTS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "rights_processor",
+      "expected": "RIGHTS",
+      "errors": [
+        "RIGHTS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "rights_revoked_at",
+      "expected": "RIGHTS",
+      "errors": [
+        "RIGHTS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "rights_retain_until",
+      "expected": "RIGHTS",
+      "errors": [
+        "RIGHTS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "rights_valid_until",
+      "expected": "RIGHTS",
+      "errors": [
+        "RIGHTS"
+      ],
+      "pass": true
+    },
+    {
+      "name": "raw_changed",
+      "expected": "RAW",
+      "errors": [
+        "RAW"
+      ],
+      "pass": true
+    },
+    {
+      "name": "raw_missing",
+      "expected": "MISSING_RAW",
+      "errors": [
+        "MISSING_RAW"
+      ],
+      "pass": true
+    },
+    {
+      "name": "receipt_modified",
+      "expected": "MAC",
+      "errors": [
+        "MAC"
+      ],
+      "pass": true
+    },
+    {
+      "name": "roster_mismatch",
+      "expected": "ROSTER",
+      "errors": [
+        "ROSTER"
+      ],
+      "pass": true
+    },
+    {
+      "name": "duplicate_native_id",
+      "expected": "ROSTER",
+      "errors": [
+        "HISTORY",
+        "ROSTER"
+      ],
+      "pass": true
+    },
+    {
+      "name": "unknown_status",
+      "expected": "ROSTER",
+      "errors": [
+        "ROSTER"
+      ],
+      "pass": true
+    },
+    {
+      "name": "market_field",
+      "expected": "ALLOWLIST",
+      "errors": [
+        "ALLOWLIST"
+      ],
+      "pass": true
+    },
+    {
+      "name": "target_result_field",
+      "expected": "ALLOWLIST",
+      "errors": [
+        "ALLOWLIST"
+      ],
+      "pass": true
+    },
+    {
+      "name": "target_event_in_history",
+      "expected": "HISTORY",
+      "errors": [
+        "HISTORY"
+      ],
+      "pass": true
+    },
+    {
+      "name": "late_history",
+      "expected": "HISTORY",
+      "errors": [
+        "HISTORY"
+      ],
+      "pass": true
+    },
+    {
+      "name": "wrong_subject",
+      "expected": "HISTORY",
+      "errors": [
+        "HISTORY"
+      ],
+      "pass": true
+    },
+    {
+      "name": "nested_market",
+      "expected": "ALLOWLIST",
+      "errors": [
+        "ALLOWLIST"
+      ],
+      "pass": true
+    }
+  ],
+  "passed": 37,
+  "total": 37,
+  "formal_admissions": 0
+}
