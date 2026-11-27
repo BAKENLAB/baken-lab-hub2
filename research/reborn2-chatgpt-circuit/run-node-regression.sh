@@ -38,3 +38,5 @@ node test-v15-research.mjs
 node test-v16-research.mjs
 
 node test-v17-prototype.mjs
+
+node test-v18-circular.mjs

@@ -14,13 +14,13 @@ export function generateFixture(seed=20261127){
 const integer=(n)=>Number.isInteger(n)&&n>0;
 const permutation=(xs,n)=>xs.length===n&&xs.every(x=>integer(x)&&x<=n)&&new Set(xs).size===n;
 const instant=(d,t)=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(d??'')||!/^\d{2}:\d{2}$/.test(t??''))return NaN;const x=d+'T'+t+':00Z',v=Date.parse(x);return Number.isFinite(v)&&new Date(v).toISOString().slice(0,16)===x.slice(0,16)?v:NaN;};
-export function validateGenerated(c){
+export function validateGenerated(c,{allowExternalPeers=false}={}){
  const errors=[],t=c.target,cut=instant(t.date,t.published),start=instant(t.date,t.start),n=t.entrants.length,ids=t.entrants.map(x=>x.id);
  if(!(cut<start)||!t.field_complete||!permutation(t.entrants.map(x=>x.runner),n)||!permutation(t.entrants.map(x=>x.draw),n)||new Set(ids).size!==n||t.entrants.some(x=>!/^FIXTURE-[A-Z]\d*$/.test(x.id)||!integer(x.kg)||x.status!=='ACTIVE'))errors.push('TARGET');
  if(new Set(c.history.map(x=>x.id)).size!==c.history.length)errors.push('DUPLICATE_RACE');
  for(const r of c.history){const bad=k=>errors.push(r.id+':'+k),m=r.field_count,rows=r.rows,w=rows.find(x=>x.finish===1);
  if(r.id===t.id||!(instant(r.date,r.start)<instant(r.date,r.published)&&instant(r.date,r.published)<cut))bad('TIME');
- if(!r.full_result_rows||rows.length!==m||!permutation(rows.map(x=>x.runner),m)||!permutation(rows.map(x=>x.finish),m)||new Set(rows.map(x=>x.id)).size!==m||rows.some(x=>!ids.includes(x.id)))bad('FIELD_ID');
+ if(!r.full_result_rows||rows.length!==m||!permutation(rows.map(x=>x.runner),m)||!permutation(rows.map(x=>x.finish),m)||new Set(rows.map(x=>x.id)).size!==m||rows.some(x=>!ids.includes(x.id)&&!(allowExternalPeers&&/^FIXTURE-[A-Z]\d*$/.test(x.id))))bad('FIELD_ID');
  if(!w||rows.some(x=>!integer(x.kg)||!integer(x.clock_tenths)||!integer(x.final3f_tenths)||x.final3f_tenths>=x.clock_tenths||x.finish!==1&&x.clock_tenths-w.clock_tenths!==x.margin_tenths||x.finish===1&&x.margin_tenths!==null))bad('CLOCK_MARGIN_WEIGHT');
  if(rows.slice().sort((a,b)=>a.finish-b.finish).some((x,i,a)=>i&&x.clock_tenths<a[i-1].clock_tenths))bad('CLOCK_ORDER');
  if(rows.some(x=>!Array.isArray(x.corners)||x.corners.length!==4)||[0,1,2,3].some(k=>!permutation(rows.map(x=>x.corners?.[k]),m)))bad('CORNERS');

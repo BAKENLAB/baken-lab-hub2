@@ -95,8 +95,8 @@ export function replayV2(c,{reveal=true}={}){
  return {id:c.id,decisions,field,scenarios,strict_time_races:used.filter(r=>r.start!=null).map(r=>r.id),date_only_races:used.filter(r=>r.start==null).map(r=>r.id),laps:used.filter(r=>lap(r)).map(r=>({race:r.id,...leaderWindows(lap(r)),time_scope:r.start?'LOCAL_START':'DATE_ONLY'})),formal:false};
 }
 // Full generated data only: use real common research kernels with explicitly synthetic identity and exact times.
-export function runGenerated(c){
- const checked=validateGenerated(c);if(!checked.valid)throw Error('INVALID_GENERATED:'+checked.errors.join(','));
+export function runGenerated(c,{mechanisms=[],allowExternalPeers=false,versioned=false}={}){
+ const checked=validateGenerated(c,{allowExternalPeers});if(!checked.valid)throw Error('INVALID_GENERATED:'+checked.errors.join(','));
  const t=c.target,cv=r=>({track:r.venue,course_id:r.venue,course_version:r.course_version,surface:r.surface,distance:r.distance_m,distance_m:r.distance_m,going:r.going,turn:r.turn,class_key:r.grade,layout:r.layout,rule_version:r.rule_version,eligibility:r.eligibility,conditions_observed:true});
  const target={...stamp,...cv(t.conditions),circuit:'FIXTURE',race_id:t.id,field_size:t.entrants.length,cutoff:local(t.date,t.published),started_at:local(t.date,t.start),early_segment_m:600,local_date:t.date};
  const evidence=[],groups=[],runs=[],races=[],history=[],current=[],gates=[],paceBenchmarks=[];
@@ -111,14 +111,15 @@ export function runGenerated(c){
  for(const h of roster){const ids=runs.filter(r=>r.horse_id===h.horse_id).sort((a,b)=>b.started_at.localeCompare(a.started_at)).map(r=>r.race_id),e=ev('history:'+h.horse_id,h.horse_id,t.id,target.cutoff);history.push({...e,fixture_chronology_consistent:true,ordered_race_ids:ids,immediate_prior_race_id:ids[0],target_race_id:t.id});g(e,'HISTORY',{fixture_chronology_consistent:true,ordered_actual_start_race_ids:ids});}
  const ce=ev('geometry',null,t.id,target.cutoff),course=[{...ce,...cv(t.conditions),fixture_geometry_observed:true,first_turn_m:t.conditions.first_corner_m,first_turn_precision:'reported'}],intake={...stamp,accepted:groups},trace=[];
  const typed=analyzeTyped01to32({target,roster,intake,traceRead:x=>trace.push(x)});
+ if(versioned)for(const r of races)r.row_evidence_ids=evidence.filter(e=>e.race_id===r.race_id&&e.horse_id&&e.evidence_id.startsWith('fixture-v2:result:')).map(e=>e.evidence_id);
  const opp=analyzeOpposition33to42Fixture({target,roster,races,histories:history}),conditions=analyzeConditions43to57Fixture({target,roster,runs,historyWitnesses:history,draws:gates}),pace=analyzePace58to77Fixture({target,roster,evidence,runs,history,gates,course,paceBenchmarks}),state=analyzeState78to92Fixture({target,roster,evidence,runs,history,current});
  const merged=roster.map(h=>{const items=Object.fromEntries(Object.entries(typed.find(x=>x.horse_id===h.horse_id).items).map(([k,v])=>[k,{facts:v.observations.map(o=>({value:o.value,evidence_ids:o.evidence_ids})),hypotheses:[],counterevidence:[],unknowns:v.unknowns}]));for(const z of [opp,conditions,pace,state])Object.assign(items,z.runners.find(x=>x.horse_id===h.horse_id).items);return {...h,items};});
  const facts=x=>[...(x?.facts??[]),...(x?.hypotheses??[]),...(x?.counterevidence??[])];
  const upstream=merged.flatMap(h=>Object.entries(h.items).map(([item_id,x])=>({horse_id:h.horse_id,item_id,source_cutoff:target.cutoff,evidence_ids:uniq(facts(x).flatMap(o=>o.evidence_ids)),analysis_status:facts(x).length?'OUTPUT_CANDIDATE':'UNKNOWN'})));
- const change=analyzeChanges93to100Fixture({target,roster,evidence,runs,history,currentConditions:current,upstream,traceRead:x=>trace.push(x)});
+ const change=analyzeChanges93to100Fixture({target,roster,evidence,runs,history,currentConditions:current,upstream,mechanisms,traceRead:x=>trace.push(x)});
  for(const h of merged)Object.assign(h.items,change.runners.find(x=>x.horse_id===h.horse_id).items);
  const rankAudit={runners:merged.map(h=>({...h,items:Object.entries(h.items).map(([item_id,finding])=>({item_id,finding,evidence_ids:uniq(facts(finding).flatMap(o=>o.evidence_ids))}))}))};
  const eye=inspectEye15({target,roster,rankAudit,intake,catalog,traceRead:x=>trace.push(x)});
  const ledger=merged.flatMap(h=>catalog.map(d=>({horse:h.horse_id,item:d.id,section_called:true,output_count:d.id.startsWith('EYE-')?eye.find(x=>x.horse_id===h.horse_id).items.find(x=>x.eye_item_id===d.id).observed_facts.length:facts(h.items[d.id]).length,instrumented_reads:trace.filter(x=>x.horse_no===h.horse_no&&x.item_id===d.id).length,individual_semantic_effect_proven:false,formal:false})));
- return {checked,ledger,merged,eye,formal:false};
+ return {checked,ledger,merged,eye,...(versioned?{evidence_index:evidence.map(({evidence_id,horse_id,race_id,published_at})=>({evidence_id,horse_id,race_id,published_at})),trace:trace.map(({consumer,consumer_item_id,horse_no,item_id,reason})=>({consumer,consumer_item_id,horse_no,item_id,reason})),executed_kernels:['analyzeTyped01to32','analyzeOpposition33to42Fixture','analyzeConditions43to57Fixture','analyzePace58to77Fixture','analyzeState78to92Fixture','analyzeChanges93to100Fixture','inspectEye15']}:{}),formal:false};
 }
