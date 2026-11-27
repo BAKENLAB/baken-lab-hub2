@@ -75,7 +75,7 @@ export function adapt30(out,raw){
  return {r:{scope:'WORK30_EXACT_SYNTHETIC_ONLY',cutoff:p.cutoff,measurement:{checkpoint_scope:null,clock_uncertainty_ms:null,snapshot_uncertainty_m:null}},o:{events:[target,past],evidence,followups:[],active_ids:active},f:{active_ids:active,pairs:[]},packet:p};
 }
 export function analyzeV31(L,name,withdraw=null,options={}){
- const w=L.work30.get(name);if(!w)return analyzeV30(L,name,withdraw,options);
+ const w=L.work30.get(name);if(!w)return attachClockFeasibility(analyzeV30(L,name,withdraw,options));
  const {pack}=w,all=new Map(pack.o.evidence.map(e=>[e.evidence_id,e])),[target,hist]=pack.o.events;
  need(withdraw===null||all.has(withdraw),'WITHDRAW_ID');
  const out=analyzeV30(L,name,withdraw,options);
@@ -109,5 +109,49 @@ export function analyzeV31(L,name,withdraw=null,options={}){
   h.items=h.items.map(x=>{const fs=findings.filter(y=>y.item===x.item);if(!fs.length)return x;return {...x,state:fs.every(y=>y.scope==='CANDIDATE_ONLY')?'CANDIDATE_ONLY':'SYNTHETIC_COMMON_ANALYZER_OBSERVATION',refs:uniq([...x.refs,...fs.flatMap(y=>y.refs)]),v31_findings:fs,grade_effect_proven:false};});
   h.v31_consumption=findings;
  }
- return {...out,work30_scope:'EXACT_PINNED_REPLAY_COMMON_ANALYZER',formal:false,grade:null};
+ return attachClockFeasibility({...out,work30_scope:'EXACT_PINNED_REPLAY_COMMON_ANALYZER',formal:false,grade:null});
+}
+
+// Joint numeric differences: d = time(b)-time(a). Unknown edges add no constraint.
+export function jointClockFeasibility(roster,pairs){
+ need(new Set(roster).size===roster.length,'CLOCK_ROSTER');
+ const edges=[],seen=new Set();
+ for(const p of pairs){
+  need(roster.includes(p.a)&&roster.includes(p.b)&&p.a!==p.b&&Number.isFinite(p.delta)&&Number.isFinite(p.bound)&&p.bound>=0&&Array.isArray(p.refs)&&p.refs.length>0,'CLOCK_PAIR');
+  const key=JSON.stringify([p.a,p.b].sort());need(!seen.has(key),'CLOCK_DUP_PAIR');seen.add(key);
+  edges.push({a:p.a,b:p.b,max:p.delta+p.bound,refs:p.refs},{a:p.b,b:p.a,max:-p.delta+p.bound,refs:p.refs});
+ }
+ const d=new Map(roster.map(h=>[h,0])),prev=new Map();let last=null;
+ for(let i=0;i<roster.length;i++){
+  last=null;
+  for(const e of edges)if(d.get(e.b)>d.get(e.a)+e.max){d.set(e.b,d.get(e.a)+e.max);prev.set(e.b,e);last=e.b;}
+  if(last===null)break;
+ }
+ if(last!==null){for(let i=0;i<roster.length;i++)last=prev.get(last)?.a??last;const cycle=[],start=last;do{const e=prev.get(last);if(!e)break;cycle.push(e);last=e.a;}while(last!==start&&cycle.length<=roster.length+1);return {state:'CONTRADICTED_NUMERIC_DIFFERENCES',refs:uniq(cycle.flatMap(e=>e.refs)),cycle:cycle.map(e=>({a:e.a,b:e.b,max:e.max})),prediction:false};}
+ return {state:pairs.length?'CONSISTENT_BOUNDED_DIFFERENCES_NOT_RACE_DYNAMICS':'NO_MEASURED_DIFFERENCES',refs:uniq(pairs.flatMap(p=>p.refs)),constraint_count:edges.length,prediction:false};
+}
+function attachClockFeasibility(out){
+ for(const s of out.shared_scenarios_v30){
+  const observed=out.terminal_v30.filter(p=>p.event===s.event&&p.terminal.segment&&!p.finish_conflict);
+  const pairs=observed.flatMap(p=>{
+   const t=p.terminal.segment;
+   if(s.kind==='CHECKPOINT_OBSERVED')return [{a:p.a,b:p.b,delta:t.start,bound:t.endpointBound,refs:p.checkpoint_refs}];
+   if(s.kind==='FINISH_OBSERVED')return [{a:p.a,b:p.b,delta:t.end,bound:t.endpointBound,refs:p.terminal_refs}];
+   if(s.kind==='EQUAL_FIRST_CHECKPOINT_TO_FINISH'&&p.net_first_to_finish_ms!==null)return [{a:p.a,b:p.b,delta:p.net_first_to_finish_ms,bound:p.net_bound_ms,refs:p.refs}];
+   return [];
+  }).filter(p=>p.refs.length);
+  s.numeric_feasibility=jointClockFeasibility(out.roster.possible_active,pairs);
+ }
+ return out;
+}
+// Contrast two genuinely distinct historical races; differences are observed, not causal.
+export function compareV31Response(L,name,subject,rival,first,second,withdraw=null){
+ const q=analyzeV31(L,name,withdraw),pack=L.cases.get(name),all=new Map(pack.o.evidence.map(e=>[e.evidence_id,e]));
+ need(first!==second&&subject!==rival,'DISTINCT_HISTORY_AND_HORSE');
+ const field=(event,horse,k)=>pack.o.evidence.find(e=>e.event_id===event&&e.subject_id===horse&&e.field===k);
+ const {get,lineage}=dependencyReader(all,withdraw,e=>e.subject_id===null||e.field==='id'?[]:[field(e.event_id,e.subject_id,'id')?.evidence_id,...(e.field==='status'?[]:[field(e.event_id,e.subject_id,'status')?.evidence_id])].filter(Boolean));
+ const val=e=>e&&get(e.evidence_id)&&e.state==='SYNTHETIC_OBSERVATION'?e.value:null;
+ const read=event=>{const a=q.historical.find(h=>h.event===event&&h.horse===subject),b=q.historical.find(h=>h.event===event&&h.horse===rival),d=q.direct.find(x=>x.event===event&&[x.a,x.b].includes(subject)&&[x.a,x.b].includes(rival)),c=field(event,null,'conditions'),wa=field(event,subject,'weight_grams'),wb=field(event,rival,'weight_grams'),ga=field(event,subject,'gate_number'),gb=field(event,rival,'gate_number'),es=[c,wa,wb,ga,gb].filter(Boolean),x=val(c);return {event,relative_finish:d?d.order===subject?'AHEAD':'BEHIND':'UNKNOWN',reported_advantage_ms:d?signedGap(a?.clock,b?.clock):null,subject_rank:a?.finish??null,rival_rank:b?.finish??null,subject_terminal_ms:a?.terminal_ms??null,rival_terminal_ms:b?.terminal_ms??null,conditions:x,subject_weight:val(wa),rival_weight:val(wb),subject_gate:val(ga),rival_gate:val(gb),refs:uniq([...(d?.refs??[]),...lineage(es.map(e=>e.evidence_id)).map(e=>e.evidence_id)])};};
+ const a=read(first),b=read(second),dims=['distance_m','venue','surface','going','class_label'],changed=dims.filter(k=>a.conditions?.[k]!=null&&b.conditions?.[k]!=null&&a.conditions[k]!==b.conditions[k]);
+ return {subject,rival,first:a,second:b,changed_dimensions:changed,observed_reversal:a.relative_finish!=='UNKNOWN'&&b.relative_finish!=='UNKNOWN'&&a.relative_finish!==b.relative_finish,reported_advantage_change_ms:a.reported_advantage_ms===null||b.reported_advantage_ms===null?null:b.reported_advantage_ms-a.reported_advantage_ms,causal_response:null,current_relevance:'UNPROVEN_MULTIPLE_CONDITIONS_CHANGED',formal:false};
 }
