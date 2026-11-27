@@ -7,7 +7,9 @@ export function matchHistoricalCandidate({row,expectedHorseId,expectedRaceKey,ex
  if(row?.historical_race_key!==expectedRaceKey)errors.push('HISTORICAL_RACE_MISMATCH');
  if(!Number.isInteger(row?.target_runner_no)||row.target_runner_no<1||!Number.isInteger(row?.historical_runner_no)||row.historical_runner_no<1)errors.push('RUNNER_NUMBER_INVALID');
  if(expectedHistoricalRunnerNo!==null&&row?.historical_runner_no!==expectedHistoricalRunnerNo)errors.push('HISTORICAL_RUNNER_NO_MISMATCH');
- if(row?.margin_scope!=='PRECEDING_FINISHER')errors.push('MARGIN_SCOPE_UNRESOLVED');
+ const winner=row?.finish_literal==='1';
+ const validMargin=winner?row.margin_scope==='NOT_APPLICABLE'&&row.margin_literal===''||row.margin_scope==='RECORD_NOTE_NOT_MARGIN'&&row.margin_literal==='レコード':row?.margin_scope==='PRECEDING_FINISHER'&&typeof row.margin_literal==='string'&&row.margin_literal.trim().length>0;
+ if(!validMargin)errors.push('MARGIN_SCOPE_UNRESOLVED');
  if(row?.formal_admission!==false)errors.push('FORMAL_FLAG_NOT_ALLOWED');
  return {evidence_id:row?.evidence_id??null,match:errors.length===0,errors,target_runner_no:row?.target_runner_no??null,historical_runner_no:row?.historical_runner_no??null,margin_literal:row?.margin_literal??null,margin_scope:row?.margin_scope??null,winner_gap:null,verified_acquired_at:row?.verified_acquired_at??null,formal_admission:false,scope:'SAVED_CANDIDATE_NOT_RAW_DOM_REVERIFICATION'};
 }
