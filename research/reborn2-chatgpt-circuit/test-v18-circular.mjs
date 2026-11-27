@@ -10,8 +10,27 @@ t('F18-02',()=>{const m=a.mechanisms.find(x=>x.eye_id==='EYE-02');assert.ok(m);c
 const f=heterogeneous(20261127),b=analyzeV18(f.p,{reserve:f.reserve}),no=analyzeV18(f.p,{reserve:f.reserve,disabled:['EYE-05']});
 t('F18-03',()=>{assert.equal(b.audit.length,6);assert.equal(b.disclosed.length,1);assert.ok(b.raw_new_evidence.length>0);assert.notEqual(b.initial_version.raw,b.final_version.raw);assert.ok(b.after.some(h=>h.routes.some(r=>r.mechanism==='SCOPED_POSITION_PATTERN'&&r.applicability.scope==='PARTIAL_HYPOTHESIS')));assert.ok(b.audit.find(h=>h.id==='FIXTURE-A6').items.some(i=>i.missing));});
 t('F18-04',()=>{const m=b.mechanisms.find(x=>x.eye_id==='EYE-05'&&x.horse_id==='FIXTURE-A1');assert.ok(m);assert.ok(m.evidence_ids.length===3);assert.ok(b.after.find(h=>h.id===m.horse_id).routes.some(x=>x.mechanism_id===m.mechanism_id));assert.ok(!no.after.flatMap(h=>h.routes).some(x=>x.mechanism_id===m.mechanism_id));assert.deepEqual(b.after.find(h=>h.id==='FIXTURE-A6'),no.after.find(h=>h.id==='FIXTURE-A6'));});
-t('F18-05',()=>{for(const [n,distance] of [[4,1200],[8,2200]]){const z=heterogeneous(123+n,{n,distance}),out=analyzeV18(z.p,{reserve:z.reserve});assert.equal(out.audit.length,n);assert.equal(out.audit.flatMap(h=>h.items).length,n*115);assert.ok(out.after.every(h=>!h.formal&&h.candidate_rank===null));}const x=structuredClone(f.p);x.history[0].conditions.surface='turf';const y=analyzeV18(x);assert.ok(y.after.every(h=>h.routes.every(r=>r.prior_race!==x.history[0].id||r.state==='UNKNOWN')));});
+const diverse=[[4,1200],[8,2200]].map(([n,distance])=>{const z=heterogeneous(123+n,{n,distance});return {n,distance,out:analyzeV18(z.p,{reserve:z.reserve})};});
+t('F18-05',()=>{for(const {n,distance,out} of diverse){assert.equal(out.audit.length,n);assert.equal(out.audit.flatMap(h=>h.items).length,n*115);assert.ok(out.after.every(h=>!h.formal&&h.candidate_rank===null));}const x=structuredClone(f.p);x.history[0].conditions.surface='turf';const y=analyzeV18(x);assert.ok(y.after.every(h=>h.routes.every(r=>r.prior_race!==x.history[0].id||r.state==='UNKNOWN')));});
 const w=inspectWork17(readWork17());
 t('F18-06',()=>{assert.equal(w.JRA.histories,147);assert.equal(w.JRA.strict,119);assert.equal(w.JRA.horse3_card_matches,0);assert.equal(w.JRA.horse3_strict,5);assert.equal(w.LOCAL.histories,29);assert.equal(w.official_replay_eligible,0);assert.equal(routeWork17(readWork17()).common_input,null);});
 t('F18-07',()=>{const p=readWork17();p[0].LOCAL.runners[0].current_card={};assert.throws(()=>inspectWork17(p),/LOCAL_LINK/);const q=readWork17();q[3].direct_rows[0].a_row='wrong';assert.throws(()=>inspectWork17(q),/DIRECT/);});
 console.log('F18_SUMMARY '+JSON.stringify({prototype:{horses:a.audit.length,mechanisms:a.mechanisms.map(x=>({eye:x.eye_id,subject:x.horse_id,root:x.evidence_ids})),changed:a.audit.map(h=>({id:h.id,items:h.items.filter(i=>i.changed).map(i=>i.id)}))},heterogeneous:{horses:b.audit.length,disclosed:b.disclosed,raw_new:b.raw_new_evidence.length,mechanisms:b.mechanisms.map(x=>({eye:x.eye_id,subject:x.horse_id,prior:x.prior_race,later:x.later_race})),changed:b.audit.map(h=>({id:h.id,items:h.items.filter(i=>i.changed).map(i=>i.id)}))},work:{JRA:w.JRA,LOCAL:w.LOCAL,eligible:w.official_replay_eligible},formal:false}));
+
+t('F18-08',()=>{
+ const h=b.after.find(x=>x.id==='FIXTURE-A2');assert.ok(h.observed.length&&h.observed.every(r=>r.finish!==1));assert.ok(h.routes.some(r=>r.kind==='WIN'&&r.mechanism==='PAIRWISE_ALTERNATIVE'&&r.state==='CONDITIONAL_HYPOTHESIS'));
+ const missing=b.after.find(x=>x.id==='FIXTURE-A6');assert.equal(missing.observed.length,0);assert.equal(missing.winning_hypotheses.length,0);
+ const rerun=analyzeV18(f.p,{reserve:f.reserve,disabled:['EYE-02','EYE-05']});assert.ok(rerun.raw_new_evidence.length);assert.equal(rerun.mechanisms.length,0);assert.ok(rerun.audit.some(h=>h.items.find(i=>i.id==='37').changed));
+});
+for(const [label,out] of [['prototype',a],['heterogeneous',b],...diverse.map(x=>['field'+x.n+'-'+x.distance,x.out])]){
+ const header={label,initial_version:out.initial_version,final_version:out.final_version,disclosed:out.disclosed,held:out.held,raw_new_evidence:out.raw_new_evidence,mechanisms:out.mechanisms,executed:out.executed,formal:false};
+ console.log('F18_INDEX '+JSON.stringify(header));
+ for(const a of out.audit){
+  const before=out.before.find(x=>x.id===a.id),after=out.after.find(x=>x.id===a.id);
+  // Full per-item coverage and actual research links, not the full fact graph.
+  // Retain route-specific reasons and root references for positive/negative changes.
+  const routeDelta={added:after.routes.filter(x=>!before.routes.some(y=>y.id===x.id)),removed:before.routes.filter(x=>!after.routes.some(y=>y.id===x.id))};
+  const projection={label,id:a.id,items:a.items.map(i=>({id:i.id,initial_hash:i.initial_hash,final_hash:i.final_hash,changed:i.changed,output_count:i.output_count,instrumented_reads:i.instrumented_reads,consumption:i.consumption,missing:i.missing,semantic_proof:i.semantic_proof})),before:a.before,after:a.after,routeDelta,perspectives:Object.fromEntries(Object.entries(after.perspectives).map(([k,v])=>[k,v.status])),formal:false};
+  console.log('F18_AUDIT '+JSON.stringify(projection));
+ }
+}
