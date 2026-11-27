@@ -1,0 +1,198 @@
+{
+  "schema": "WORK26_FINAL_RESEARCH_HANDOFF_0.1",
+  "scope": "EXPLICITLY_SYNTHETIC_NEVER_OFFICIAL",
+  "acceptance": {
+    "ref": "366ce991fbfe539526a4487cb86dd9f7b2ac1f40",
+    "path": "research/reborn2-canonical/RESEARCH-WORK25-264-ORDINAL-PATH-MAIN39-AUDIT-20261128.md",
+    "blob": "87657c3b3136ce5629211c03cfd5ff58bbd75d56"
+  },
+  "gemini_ref": "50361e6357827f8f7b0ce8f188064bc50a572ef9",
+  "codex_reference": {
+    "ref": "483b0197a4ed0104b6ed8f5267489df9683ede7d",
+    "path": "research/reborn2-chatgpt-circuit/HANDOFF-V25-20261128.md",
+    "integration_executed": false
+  },
+  "work25_parent": {
+    "ref": "b449fb6b14b8ab002aadbd07fdd47d92f287991b",
+    "path": "research/reborn2-official-sources/stage25-final-handoff-v0.1.json",
+    "blob": "ec02ebaed188a658b8da868e6b28c56c2fde4547"
+  },
+  "branch": "research/reborn2-work26-varied-20261128",
+  "producer": {
+    "ref": "62e442f355d456decc68e1d42af96d58cc29c31f",
+    "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+    "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+    "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+  },
+  "raw": {
+    "ref": "62e442f355d456decc68e1d42af96d58cc29c31f",
+    "path": "research/reborn2-official-sources/stage26-varied-synthetic-raw-v0.1.json",
+    "blob": "895c3bc46b9faac5558d9a2e5efe155d07680581",
+    "sha256": "65e80d58daa5f4e62a062393182c3b368d0ebbb6aa0a60e3fcf74af1c28d87b9"
+  },
+  "execution": {
+    "ref": "62e442f355d456decc68e1d42af96d58cc29c31f",
+    "path": "research/reborn2-official-sources/stage26-execution-receipt-v0.1.json",
+    "blob": "83d4741434e7ea96770caea519100a64067a5060",
+    "sha256": "9ed413dace64b19fbe1d895566139537eb7e35b89701ccbaf1367a706d080e84"
+  },
+  "readback": {
+    "ref": "62e442f355d456decc68e1d42af96d58cc29c31f",
+    "path": "research/reborn2-official-sources/stage26-readback-audit-v0.1.json",
+    "blob": "d1c30d2a4ef04c93925d380b11c3f88fe6864632",
+    "sha256": "4ffbdff9164eeb8891543899b41478cbbdd6d9ed305cc842d1b0ad34f71af477"
+  },
+  "full_field_plan": {
+    "ref": "5a4929f76ceb4118068b0943a652f32cf14c4926",
+    "path": "research/reborn2-official-sources/stage26-full-field-input-plan-v0.1.json",
+    "blob": "a44c4253e69ed48bb9cc94c12ecaae74e5945ab0",
+    "sha256": "0bb4d648b3e3237400880525464f9ad3a60a145c12456d1cb7f0290f01302085"
+  },
+  "batches": [
+    {
+      "ref": "747dbef9a5d2dbca96c8ca83a3f14a2cc38348fb",
+      "path": "research/reborn2-official-sources/stage26-codex-observations-batch1-v0.1.json",
+      "blob": "75a36a9b88250b4fc1291e9a826c3ec5543ca3a7",
+      "sha256": "02e7812babb4f999141737061f9d30678d33a811ce92fb2622261c73c273cc30",
+      "cases": [
+        {
+          "id": "BASE",
+          "output_pointer": "/cases/0",
+          "raw_case_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        },
+        {
+          "id": "TARGET_SHORT",
+          "output_pointer": "/cases/1",
+          "raw_case_sha256": "d771f7954bf186e8713bab8b1b1cace27bb8346fd258688593e6770c743a93d0",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        }
+      ]
+    },
+    {
+      "ref": "0d63a1074a82e127d3a6a908f25d63b01dd98684",
+      "path": "research/reborn2-official-sources/stage26-codex-observations-batch2-v0.1.json",
+      "blob": "ab79aa1f6c6f2594b31d86c98e86a3bf26471f58",
+      "sha256": "4217fdbbc9239b9892235ee38fcfbb9edd380f660460263c897ac6d953fcb906",
+      "cases": [
+        {
+          "id": "TARGET_LONG",
+          "output_pointer": "/cases/0",
+          "raw_case_sha256": "0e40117facd11b4123b2a5bdadf7f93f1d5808925cbb7f8aee9bc5740243814d",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        },
+        {
+          "id": "SAME_RANK_DIFFERENT_SPEED",
+          "output_pointer": "/cases/1",
+          "raw_case_sha256": "de09cc81578a76de3987333e333de9f23c33024a4260c95681293caacd0d1a52",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        }
+      ]
+    },
+    {
+      "ref": "4c568a75891fe25f090cd11ba45f7070a19c928e",
+      "path": "research/reborn2-official-sources/stage26-codex-observations-batch3-v0.1.json",
+      "blob": "3ec46de479c02551a4528466ae23e6f41e8fd8ad",
+      "sha256": "0c943bb422b1068cddf183b7a1ab69ceef5afe04f779f78e6f1aff997fd42a41",
+      "cases": [
+        {
+          "id": "MISSING_MEASUREMENTS",
+          "output_pointer": "/cases/0",
+          "raw_case_sha256": "596deac5ef66d03a46e6d260739de5b3d08d7be25ceefcc380b66ca04eeaecb8",
+          "evidence_records": 182,
+          "active_count": 5,
+          "followup_links": 24
+        },
+        {
+          "id": "MISSING_GEOMETRY",
+          "output_pointer": "/cases/1",
+          "raw_case_sha256": "12349a14b75acee692ec179913fbbb8ad0a0c106641070d87a6da85f3098ea09",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        }
+      ]
+    },
+    {
+      "ref": "0087555fb2a50e10778a2945a87b8ba0653bf012",
+      "path": "research/reborn2-official-sources/stage26-codex-observations-batch4-v0.1.json",
+      "blob": "3fa96d9cf4ddd7c4e5043d864563953cd111c876",
+      "sha256": "2f58a8109528ef6c719d8fc1ec8a1cd7d71b7c220b93bf3a63dc1d17e9df8db3",
+      "cases": [
+        {
+          "id": "PEER_LATER_SEVERE_LOSS",
+          "output_pointer": "/cases/0",
+          "raw_case_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "cases": 7,
+    "base_transitions": {
+      "RANK_GAIN": 9,
+      "RANK_LOSS": 8,
+      "RANK_UNCHANGED": 9
+    },
+    "base_active": [
+      "S26:A",
+      "S26:B",
+      "S26:C",
+      "S26:D",
+      "S26:E"
+    ],
+    "base_unknown": [
+      "S26:E"
+    ],
+    "base_followup_links": 24,
+    "base_distinct_later_events": 6,
+    "base_pair_inputs": 12,
+    "tests": 27,
+    "passed": 27
+  },
+  "checks": {
+    "prior_recorded": 264,
+    "prior_rerun": false,
+    "new_named_checks": 27,
+    "new_passed": 27,
+    "combined_recorded_if_accepted": 291,
+    "readback_checks_separate": 39,
+    "readback_passed": 39,
+    "full_field_plan_readback_exact": true
+  },
+  "case_digest_definition": "SHA256 of UTF8 JSON.stringify(case object) using original stored key order; not SHA256 of entire pretty raw file. Full raw file SHA256 separately pinned. Each case is an isolated synthetic world, never union or count across variants as independent evidence.",
+  "consumer": [
+    "Read exact pinned files and check whole-file SHA256/blob. Parse the raw cases as stored, verify case digest, run validate and supply, verify exact equality with the selected output pointer. Only use matching case. Do not replace Work23/24/25 packets or pass Work26 data as official.",
+    "Use typed observations, source IDs, pointers, stable roots and field state. Null or unavailable dependencies are not numeric values. The same field across variants uses stable root but different source digest; repeated facts not independent votes. For margin use winner_pointer plus own finish ref within same raw case.",
+    "Ordinal gain/loss/unchanged is not speed or physical gain. Preserve unlocated ordinal fact if geometry missing; individual checkpoint times are explicitly stipulated synthetic measurements, never inferred. Interval speeds are average course progress with uncertainty, not instantaneous acceleration or actual path velocity. Relative synchronized course positions measure coordinate separation only.",
+    "Target declared active count is known within scenario, actual starters unknown until race. Historical actual starters distinct from registered count; cancellation not competitor. Preserve unknown active E in all scenarios. Full-field plan has all 10 active pairs per case (6 with shared history, 4 without), 3 qualitative conditional branch prompts per case, no predicted outcomes.",
+    "Followup links contain results, clock, terminal average, margin, positions, weight, condition, field count. Dedup later_event_key and underlying roots; no class strength or large-loss rule. BASE X later win vs PEER_LATER_SEVERE_LOSS X 6000ms behind; no automatic strength conclusion.",
+    "TARGET_SHORT/LONG preserve past raw history exactly; geometry and distance are changed together, not a one-variable causal test. Actual source data acquisition and runtime semantic effect remain separate."
+  ],
+  "gates": {
+    "canonical_items": 115,
+    "groups": 118,
+    "JRA": 88,
+    "LOCAL": 30,
+    "held": 826,
+    "formal_admissions": 0,
+    "production_changes": 0,
+    "merges": 0
+  },
+  "limitations": [
+    "Research fictional data and synthetic identity/rights flags only; no real source authority or formal eligibility. No official rules, current pressure, race leader laps or full career claimed.",
+    "The 27 checks were executed in JavaScript tool isolate and 39 separate readback checks after GitHub save; prior 264 untouched, no CI run, no actual Codex analyzer integration. Full-field plan is a research input scaffold, not an executed competition model.",
+    "Seven variants share histories and must not be counted as seven independent races; no real prediction or grade verification. Work26 isolated branch; PR92/94 not edited."
+  ]
+}
