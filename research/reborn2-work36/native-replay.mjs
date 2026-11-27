@@ -49,8 +49,8 @@ try{
   assert.equal(execFileSync('git',['status','--porcelain'],{cwd:p}).toString(),'');
   // All tracked research files from the exact tree, including transitive imports.
   // Store hashes for the actual native tree, not just the named top-level modules.
-  const paths=execFileSync('git',['ls-files','-z','research'],{cwd:p,maxBuffer:64*1024*1024}).toString().split('\0').filter(Boolean);
-  const hashes=paths.map(path=>{const b=readFileSync(join(p,path));assert.equal(blob(b),git('rev-parse',ref+':'+path).toString().trim());return {path,sha256:sha(b)};});
+  const tree=git('ls-tree','-r','-z',ref,'research').toString().split('\0').filter(Boolean).map(line=>{const [meta,path]=line.split('\t');const [mode,type,hash]=meta.split(' ');assert.equal(type,'blob');assert.notEqual(mode,'120000','No research symlink permitted');return {path,hash};});
+  const hashes=tree.map(({path,hash})=>{const b=readFileSync(join(p,path));assert.equal(blob(b),hash,path);return {path,sha256:sha(b)};});
   report[key+'_research_tree']={files:hashes.length,hashes};
  }
  const module=async(p)=>import(pathToFileURL(p).href);
@@ -95,6 +95,10 @@ try{
  assert.equal(report.latest.length,10);
  report.native_pass=true;
  console.log('WORK36_NATIVE_COMPLETE 72/72 cases=10 latest=10 pins='+report.verifiedPins);
+ const {runControls}=await module(join(root,'research/reborn2-work36/completion-controls.mjs'));
+ report.controls=await runControls({raw,sha,producer,adapter,normal,common:latest34});
+ report.controls_pass=true;
+ console.log('WORK36_CONTROLS_COMPLETE '+report.controls.checks.length+' cases='+report.controls.results.length);
 }finally{
  mkdirSync(dirname(outPath),{recursive:true});writeFileSync(outPath,JSON.stringify(report,null,2)+'\n');
  for(const p of Object.values(wt))try{git('worktree','remove','--force',p)}catch{}
