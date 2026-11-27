@@ -10,9 +10,12 @@ if(hash('sha256',pinned)!=='6f802e227cafda160275e0aa17d67360e00b3ae80e252bc80d2a
 export function analyzeWork29(candidates,withdraw=null){
  const findings=[],held=[],shared=new Map();
  for(const {e,registry} of candidates){
-  const x=candidateObservation(e,registry);
+  let x;try{x=candidateObservation(e,registry)}catch{held.push({state:'HELD',reason:'MALFORMED_SYNTHETIC_REGISTRY'});continue;}
   if(x.state!=='TEST_OBSERVATION_ELIGIBLE'||x.formal||x.score_authorized||x.benchmark_admission){held.push({state:x.state,reason:x.reason});continue;}
   const o=e.observation,s=e.record,q=x.observations[0],base={root:q.root,dependencies:q.dependencies,subject:o.subjectId,event:s.eventId,unit:q.unit,scope:q.scope,version:q.version,sourceDigest:q.sourceDigest,pointer:q.pointer,formal:false,current_relevance:'UNPROVEN',independent_vote:false};
+  // Work29 audit: do not consume unbound field size or clock metadata on ordinal observations.
+  if(o.field==='finish'||o.field==='passing_order'){held.push({state:'HELD',reason:'ORDINAL_SCOPE_OR_STARTER_BOUND_NOT_VERIFIED'});continue;}
+  base.source_context={issuer:s.issuer,event:s.eventId,native_id:s.nativeId,row_id:s.rowId,row_pointer:s.rowPointer,record_id:s.recordId,hash_domain:s.hashDomain,parser_version:s.parserVersion,authority_receipt:s.authorityReceipt,timestamp_receipt:s.timestampReceipt,rights_id:s.rightsId,cutoff:e.target.cutoff,seal_at:s.sealAt,processing_at:e.target.processingAt,trust:'SYNTHETIC_PLACEHOLDER_NOT_INDEPENDENT_AUTHORITY'};
   // Shared leader measurement is event-level, not an independent vote for every row.
   if(o.field==='race_leader_laps'){
    const root=[s.issuer,s.eventId,s.sourceId,s.version,s.originalDigest,o.field].join('|');
