@@ -1,0 +1,1393 @@
+{
+  "schema": "stage20-saga-field-relations-v1.8",
+  "source_commit": "22bedc52b42a652fbd4eea44d628d594184f4e52",
+  "query": "BEGIN READ ONLY;\nWITH selected(no,ord,row_id) AS (VALUES (1,1,256933::bigint),(1,2,236380::bigint),(1,3,236075::bigint),(1,4,189021::bigint),(1,5,176134::bigint),(2,2,257348::bigint),(2,3,244288::bigint),(2,4,221681::bigint),(2,5,193657::bigint),(3,2,256949::bigint),(3,3,244222::bigint),(3,4,230328::bigint),(3,5,216831::bigint),(4,2,257333::bigint),(4,3,257066::bigint),(4,4,216114::bigint),(4,5,202996::bigint),(5,3,215886::bigint),(5,4,202679::bigint),(5,5,202208::bigint),(6,2,257340::bigint),(6,3,256738::bigint),(6,4,244027::bigint),(6,5,226939::bigint),(7,2,257350::bigint),(7,3,256951::bigint),(7,4,243949::bigint),(7,5,230103::bigint),(8,2,257451::bigint),(8,3,256735::bigint),(8,4,244224::bigint),(8,5,170861::bigint),(9,2,257449::bigint),(9,3,256737::bigint),(9,4,244128::bigint),(9,5,230331::bigint),(10,2,257363::bigint),(10,3,256860::bigint),(11,2,257338::bigint),(11,3,256947::bigint),(11,4,230287::bigint),(11,5,216987::bigint)),\nevents AS (SELECT DISTINCT h.race_id FROM selected s JOIN public.horse_runs h ON h.id=s.row_id),\nfield AS (SELECT h.race_id,count(*) n,count(DISTINCT h.horse_no) unique_no,count(DISTINCT h.finish) unique_finish,min(h.field_size) min_field,max(h.field_size) max_field,count(*) FILTER(WHERE h.finish>0 AND h.time_raw IS NOT NULL AND h.final3f>0) numeric_rows FROM events e JOIN public.horse_runs h ON h.race_id=e.race_id GROUP BY h.race_id)\nSELECT s.no,s.ord,h.id row_id,h.race_id,h.horse_no historical_no,f.n,f.unique_no,f.unique_finish,f.min_field,f.max_field,f.numeric_rows,(f.n=f.min_field AND f.min_field=f.max_field AND f.unique_no=f.n AND f.unique_finish=f.n AND f.numeric_rows=f.n) full_numeric_candidate FROM selected s JOIN public.horse_runs h ON h.id=s.row_id JOIN field f ON f.race_id=h.race_id WHERE h.race_date<'2026-10-10' ORDER BY s.no,s.ord;\nROLLBACK;",
+  "summary": {
+    "event_locators": 39,
+    "all_transcribed_pairs": 26,
+    "shared_archive_pairs": 13,
+    "full_numeric_row_candidates": 33,
+    "full_numeric_distinct_events": 25,
+    "archive_row_candidates": 42,
+    "distinct_archive_events": 32,
+    "jra_lap_rows": 2,
+    "local_lap_rows_verified": 0
+  },
+  "events": [
+    {
+      "key": "2026-08-15|佐賀|7",
+      "participants": [
+        {
+          "no": 1,
+          "ord": 1
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-07-20|大井|12",
+      "participants": [
+        {
+          "no": 1,
+          "ord": 2
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-07-02|大井|10",
+      "participants": [
+        {
+          "no": 1,
+          "ord": 3
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-03-10|高知|4",
+      "participants": [
+        {
+          "no": 1,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-02-17|高知|5",
+      "participants": [
+        {
+          "no": 1,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-09-19|佐賀|7",
+      "participants": [
+        {
+          "no": 2,
+          "ord": 1
+        },
+        {
+          "no": 5,
+          "ord": 1
+        },
+        {
+          "no": 6,
+          "ord": 1
+        },
+        {
+          "no": 7,
+          "ord": 1
+        },
+        {
+          "no": 9,
+          "ord": 1
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-08-29|佐賀|5",
+      "participants": [
+        {
+          "no": 2,
+          "ord": 2
+        },
+        {
+          "no": 6,
+          "ord": 2
+        },
+        {
+          "no": 7,
+          "ord": 2
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-07-16|佐賀|3",
+      "participants": [
+        {
+          "no": 2,
+          "ord": 3
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-06-25|浦和|11",
+      "participants": [
+        {
+          "no": 2,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-04-21|浦和|12",
+      "participants": [
+        {
+          "no": 2,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-09-20|佐賀|7",
+      "participants": [
+        {
+          "no": 3,
+          "ord": 1
+        },
+        {
+          "no": 8,
+          "ord": 1
+        },
+        {
+          "no": 11,
+          "ord": 1
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-08-15|佐賀|9",
+      "participants": [
+        {
+          "no": 3,
+          "ord": 2
+        },
+        {
+          "no": 7,
+          "ord": 3
+        },
+        {
+          "no": 11,
+          "ord": 3
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-07-11|佐賀|8",
+      "participants": [
+        {
+          "no": 3,
+          "ord": 3
+        },
+        {
+          "no": 8,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-06-21|佐賀|3",
+      "participants": [
+        {
+          "no": 3,
+          "ord": 4
+        },
+        {
+          "no": 9,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-05-30|佐賀|4",
+      "participants": [
+        {
+          "no": 3,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-09-26|佐賀|7",
+      "participants": [
+        {
+          "no": 4,
+          "ord": 1
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-08-29|佐賀|4",
+      "participants": [
+        {
+          "no": 4,
+          "ord": 2
+        },
+        {
+          "no": 11,
+          "ord": 2
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-08-16|佐賀|9",
+      "participants": [
+        {
+          "no": 4,
+          "ord": 3
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-05-09|佐賀|8",
+      "participants": [
+        {
+          "no": 4,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-04-25|佐賀|8",
+      "participants": [
+        {
+          "no": 4,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-09-03|佐賀|9",
+      "participants": [
+        {
+          "no": 5,
+          "ord": 2
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-05-03|佐賀|8",
+      "participants": [
+        {
+          "no": 5,
+          "ord": 3
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-04-18|佐賀|9",
+      "participants": [
+        {
+          "no": 5,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-04-05|佐賀|9",
+      "participants": [
+        {
+          "no": 5,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-08-08|佐賀|7",
+      "participants": [
+        {
+          "no": 6,
+          "ord": 3
+        },
+        {
+          "no": 8,
+          "ord": 3
+        },
+        {
+          "no": 9,
+          "ord": 3
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-07-04|佐賀|9",
+      "participants": [
+        {
+          "no": 6,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-06-18|名古屋|10",
+      "participants": [
+        {
+          "no": 6,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-07-04|佐賀|3",
+      "participants": [
+        {
+          "no": 7,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-06-13|佐賀|4",
+      "participants": [
+        {
+          "no": 7,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-08-30|佐賀|6",
+      "participants": [
+        {
+          "no": 8,
+          "ord": 2
+        },
+        {
+          "no": 9,
+          "ord": 2
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-02-18|大井|8",
+      "participants": [
+        {
+          "no": 8,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-07-05|佐賀|9",
+      "participants": [
+        {
+          "no": 9,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-09-19|佐賀|3",
+      "participants": [
+        {
+          "no": 10,
+          "ord": 1
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-08-29|佐賀|7",
+      "participants": [
+        {
+          "no": 10,
+          "ord": 2
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-08-09|佐賀|10",
+      "participants": [
+        {
+          "no": 10,
+          "ord": 3
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-07-11|J小倉|8",
+      "participants": [
+        {
+          "no": 10,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-05-09|J新潟|8",
+      "participants": [
+        {
+          "no": 10,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-06-20|佐賀|10",
+      "participants": [
+        {
+          "no": 11,
+          "ord": 4
+        }
+      ],
+      "formal_usable": false
+    },
+    {
+      "key": "2026-05-31|佐賀|8",
+      "participants": [
+        {
+          "no": 11,
+          "ord": 5
+        }
+      ],
+      "formal_usable": false
+    }
+  ],
+  "pairs": [
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 2,
+      "a_ord": 1,
+      "b_no": 5,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 2,
+      "a_ord": 1,
+      "b_no": 6,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 2,
+      "a_ord": 1,
+      "b_no": 7,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 2,
+      "a_ord": 1,
+      "b_no": 9,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 5,
+      "a_ord": 1,
+      "b_no": 6,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 5,
+      "a_ord": 1,
+      "b_no": 7,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 5,
+      "a_ord": 1,
+      "b_no": 9,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 6,
+      "a_ord": 1,
+      "b_no": 7,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 6,
+      "a_ord": 1,
+      "b_no": 9,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-19|佐賀|7",
+      "a_no": 7,
+      "a_ord": 1,
+      "b_no": 9,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-29|佐賀|5",
+      "a_no": 2,
+      "a_ord": 2,
+      "b_no": 6,
+      "b_ord": 2,
+      "a_row": 257348,
+      "b_row": 257340,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-29|佐賀|5",
+      "a_no": 2,
+      "a_ord": 2,
+      "b_no": 7,
+      "b_ord": 2,
+      "a_row": 257348,
+      "b_row": 257350,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-29|佐賀|5",
+      "a_no": 6,
+      "a_ord": 2,
+      "b_no": 7,
+      "b_ord": 2,
+      "a_row": 257340,
+      "b_row": 257350,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-20|佐賀|7",
+      "a_no": 3,
+      "a_ord": 1,
+      "b_no": 8,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-20|佐賀|7",
+      "a_no": 3,
+      "a_ord": 1,
+      "b_no": 11,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-09-20|佐賀|7",
+      "a_no": 8,
+      "a_ord": 1,
+      "b_no": 11,
+      "b_ord": 1,
+      "a_row": null,
+      "b_row": null,
+      "shared_archive_event": false,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-15|佐賀|9",
+      "a_no": 3,
+      "a_ord": 2,
+      "b_no": 7,
+      "b_ord": 3,
+      "a_row": 256949,
+      "b_row": 256951,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-15|佐賀|9",
+      "a_no": 3,
+      "a_ord": 2,
+      "b_no": 11,
+      "b_ord": 3,
+      "a_row": 256949,
+      "b_row": 256947,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-15|佐賀|9",
+      "a_no": 7,
+      "a_ord": 3,
+      "b_no": 11,
+      "b_ord": 3,
+      "a_row": 256951,
+      "b_row": 256947,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-07-11|佐賀|8",
+      "a_no": 3,
+      "a_ord": 3,
+      "b_no": 8,
+      "b_ord": 4,
+      "a_row": 244222,
+      "b_row": 244224,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-06-21|佐賀|3",
+      "a_no": 3,
+      "a_ord": 4,
+      "b_no": 9,
+      "b_ord": 5,
+      "a_row": 230328,
+      "b_row": 230331,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-29|佐賀|4",
+      "a_no": 4,
+      "a_ord": 2,
+      "b_no": 11,
+      "b_ord": 2,
+      "a_row": 257333,
+      "b_row": 257338,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-08|佐賀|7",
+      "a_no": 6,
+      "a_ord": 3,
+      "b_no": 8,
+      "b_ord": 3,
+      "a_row": 256738,
+      "b_row": 256735,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-08|佐賀|7",
+      "a_no": 6,
+      "a_ord": 3,
+      "b_no": 9,
+      "b_ord": 3,
+      "a_row": 256738,
+      "b_row": 256737,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-08|佐賀|7",
+      "a_no": 8,
+      "a_ord": 3,
+      "b_no": 9,
+      "b_ord": 3,
+      "a_row": 256735,
+      "b_row": 256737,
+      "shared_archive_event": true,
+      "formal_usable": false
+    },
+    {
+      "event": "2026-08-30|佐賀|6",
+      "a_no": 8,
+      "a_ord": 2,
+      "b_no": 9,
+      "b_ord": 2,
+      "a_row": 257451,
+      "b_row": 257449,
+      "shared_archive_event": true,
+      "formal_usable": false
+    }
+  ],
+  "field_rows": [
+    {
+      "no": 1,
+      "ord": 1,
+      "row_id": 256933,
+      "race_id": "20260815_佐賀_7R",
+      "historical_no": 8,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 1,
+      "ord": 2,
+      "row_id": 236380,
+      "race_id": "20260720_大井_12R",
+      "historical_no": 13,
+      "n": 14,
+      "unique_no": 14,
+      "unique_finish": 13,
+      "min_field": 14,
+      "max_field": 14,
+      "numeric_rows": 13,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 1,
+      "ord": 3,
+      "row_id": 236075,
+      "race_id": "20260702_大井_10R",
+      "historical_no": 6,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 12,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 12,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 1,
+      "ord": 4,
+      "row_id": 189021,
+      "race_id": "20260310_高知_4R",
+      "historical_no": 2,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 11,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 11,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 1,
+      "ord": 5,
+      "row_id": 176134,
+      "race_id": "20260217_高知_5R",
+      "historical_no": 4,
+      "n": 7,
+      "unique_no": 7,
+      "unique_finish": 7,
+      "min_field": 7,
+      "max_field": 7,
+      "numeric_rows": 7,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 2,
+      "row_id": 257348,
+      "race_id": "20260829_佐賀_5R",
+      "historical_no": 9,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 11,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 11,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 3,
+      "row_id": 244288,
+      "race_id": "20260716_佐賀_3R",
+      "historical_no": 12,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 11,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 11,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 4,
+      "row_id": 221681,
+      "race_id": "20260625_浦和_11R",
+      "historical_no": 5,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 5,
+      "row_id": 193657,
+      "race_id": "20260421_浦和_12R",
+      "historical_no": 2,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 12,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 12,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 2,
+      "row_id": 256949,
+      "race_id": "20260815_佐賀_9R",
+      "historical_no": 3,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 3,
+      "row_id": 244222,
+      "race_id": "20260711_佐賀_8R",
+      "historical_no": 1,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 4,
+      "row_id": 230328,
+      "race_id": "20260621_佐賀_3R",
+      "historical_no": 5,
+      "n": 9,
+      "unique_no": 9,
+      "unique_finish": 9,
+      "min_field": 9,
+      "max_field": 9,
+      "numeric_rows": 9,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 5,
+      "row_id": 216831,
+      "race_id": "20260530_佐賀_4R",
+      "historical_no": 2,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 2,
+      "row_id": 257333,
+      "race_id": "20260829_佐賀_4R",
+      "historical_no": 5,
+      "n": 11,
+      "unique_no": 11,
+      "unique_finish": 11,
+      "min_field": 11,
+      "max_field": 11,
+      "numeric_rows": 11,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 3,
+      "row_id": 257066,
+      "race_id": "20260816_佐賀_9R",
+      "historical_no": 10,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 12,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 12,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 4,
+      "row_id": 216114,
+      "race_id": "20260509_佐賀_8R",
+      "historical_no": 11,
+      "n": 11,
+      "unique_no": 11,
+      "unique_finish": 11,
+      "min_field": 11,
+      "max_field": 11,
+      "numeric_rows": 11,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 5,
+      "row_id": 202996,
+      "race_id": "20260425_佐賀_8R",
+      "historical_no": 4,
+      "n": 9,
+      "unique_no": 9,
+      "unique_finish": 9,
+      "min_field": 9,
+      "max_field": 9,
+      "numeric_rows": 9,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 3,
+      "row_id": 215886,
+      "race_id": "20260503_佐賀_8R",
+      "historical_no": 5,
+      "n": 11,
+      "unique_no": 11,
+      "unique_finish": 10,
+      "min_field": 11,
+      "max_field": 11,
+      "numeric_rows": 10,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 4,
+      "row_id": 202679,
+      "race_id": "20260418_佐賀_9R",
+      "historical_no": 11,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 12,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 12,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 5,
+      "row_id": 202208,
+      "race_id": "20260405_佐賀_9R",
+      "historical_no": 8,
+      "n": 9,
+      "unique_no": 9,
+      "unique_finish": 9,
+      "min_field": 9,
+      "max_field": 9,
+      "numeric_rows": 9,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 2,
+      "row_id": 257340,
+      "race_id": "20260829_佐賀_5R",
+      "historical_no": 1,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 11,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 11,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 3,
+      "row_id": 256738,
+      "race_id": "20260808_佐賀_7R",
+      "historical_no": 8,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 4,
+      "row_id": 244027,
+      "race_id": "20260704_佐賀_9R",
+      "historical_no": 11,
+      "n": 11,
+      "unique_no": 11,
+      "unique_finish": 10,
+      "min_field": 11,
+      "max_field": 11,
+      "numeric_rows": 10,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 6,
+      "ord": 5,
+      "row_id": 226939,
+      "race_id": "20260618_名古屋_10R",
+      "historical_no": 8,
+      "n": 8,
+      "unique_no": 8,
+      "unique_finish": 8,
+      "min_field": 8,
+      "max_field": 8,
+      "numeric_rows": 8,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 2,
+      "row_id": 257350,
+      "race_id": "20260829_佐賀_5R",
+      "historical_no": 11,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 11,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 11,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 3,
+      "row_id": 256951,
+      "race_id": "20260815_佐賀_9R",
+      "historical_no": 5,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 4,
+      "row_id": 243949,
+      "race_id": "20260704_佐賀_3R",
+      "historical_no": 3,
+      "n": 12,
+      "unique_no": 12,
+      "unique_finish": 12,
+      "min_field": 12,
+      "max_field": 12,
+      "numeric_rows": 12,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 5,
+      "row_id": 230103,
+      "race_id": "20260613_佐賀_4R",
+      "historical_no": 2,
+      "n": 9,
+      "unique_no": 9,
+      "unique_finish": 9,
+      "min_field": 9,
+      "max_field": 9,
+      "numeric_rows": 9,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 2,
+      "row_id": 257451,
+      "race_id": "20260830_佐賀_6R",
+      "historical_no": 7,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 3,
+      "row_id": 256735,
+      "race_id": "20260808_佐賀_7R",
+      "historical_no": 5,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 4,
+      "row_id": 244224,
+      "race_id": "20260711_佐賀_8R",
+      "historical_no": 3,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 5,
+      "row_id": 170861,
+      "race_id": "20260218_大井_8R",
+      "historical_no": 4,
+      "n": 14,
+      "unique_no": 14,
+      "unique_finish": 14,
+      "min_field": 14,
+      "max_field": 14,
+      "numeric_rows": 14,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 2,
+      "row_id": 257449,
+      "race_id": "20260830_佐賀_6R",
+      "historical_no": 5,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 3,
+      "row_id": 256737,
+      "race_id": "20260808_佐賀_7R",
+      "historical_no": 7,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 4,
+      "row_id": 244128,
+      "race_id": "20260705_佐賀_9R",
+      "historical_no": 4,
+      "n": 9,
+      "unique_no": 9,
+      "unique_finish": 9,
+      "min_field": 9,
+      "max_field": 9,
+      "numeric_rows": 9,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 5,
+      "row_id": 230331,
+      "race_id": "20260621_佐賀_3R",
+      "historical_no": 8,
+      "n": 9,
+      "unique_no": 9,
+      "unique_finish": 9,
+      "min_field": 9,
+      "max_field": 9,
+      "numeric_rows": 9,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 2,
+      "row_id": 257363,
+      "race_id": "20260829_佐賀_7R",
+      "historical_no": 3,
+      "n": 9,
+      "unique_no": 9,
+      "unique_finish": 9,
+      "min_field": 9,
+      "max_field": 9,
+      "numeric_rows": 9,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 3,
+      "row_id": 256860,
+      "race_id": "20260809_佐賀_10R",
+      "historical_no": 1,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 2,
+      "row_id": 257338,
+      "race_id": "20260829_佐賀_4R",
+      "historical_no": 10,
+      "n": 11,
+      "unique_no": 11,
+      "unique_finish": 11,
+      "min_field": 11,
+      "max_field": 11,
+      "numeric_rows": 11,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 3,
+      "row_id": 256947,
+      "race_id": "20260815_佐賀_9R",
+      "historical_no": 1,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 4,
+      "row_id": 230287,
+      "race_id": "20260620_佐賀_10R",
+      "historical_no": 11,
+      "n": 11,
+      "unique_no": 11,
+      "unique_finish": 10,
+      "min_field": 11,
+      "max_field": 11,
+      "numeric_rows": 10,
+      "full_numeric_candidate": false,
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 5,
+      "row_id": 216987,
+      "race_id": "20260531_佐賀_8R",
+      "historical_no": 7,
+      "n": 10,
+      "unique_no": 10,
+      "unique_finish": 10,
+      "min_field": 10,
+      "max_field": 10,
+      "numeric_rows": 10,
+      "full_numeric_candidate": true,
+      "formal_usable": false
+    }
+  ],
+  "limits": "Shared race reference does not prove actual same-event participation; both rows require identity and temporal authentication. Numeric coverage check not clock-order or lap arithmetic verification. JRA laps only field-presence; no individual sectionals or authorized baseline. LOCAL lap not verified in this search. No actual performance values committed. No target result or market."
+}
