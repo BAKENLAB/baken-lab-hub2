@@ -183,7 +183,30 @@ export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,can
  assert.equal(out.state,'TEST_PACKET');assert.equal(out.digest,sha(JSON.stringify(out.packet)));
  const q={n:id,input,registry,expectedDigest:out.digest},text=JSON.stringify({scope:'SYNTHETIC_ONLY',canonical:C.canonical,cases:[q]})+'\n';
  const v=C.verify32(text,id,candidate??out,sha,pipeline31,verifier31,sha(text));assert.equal(v.state,'VERIFIED_SYNTHETIC_ENVELOPE',v.reason);
- const p=C.adapt32(v,sha),all=new Map(p.o.evidence.map(e=>[e.evidence_id,e])),{get}=dependencyReader(all,withdraw);
+ const p=C.adapt32(v,sha);
+ // V40: only the analysis view is masked AFTER exact immutable envelope verification.
+ // All aliases transitively depending on an unavailable incident are excluded.
+ // No evidence is created, no source packet or expected digest is changed.
+ if(C.admission){
+  assert.equal(withdraw,null,'MASK_AND_ROOT_WITHDRAWAL_NOT_COMBINED');
+  const {candidateEvents,admittedEvents}=C.admission;
+  assert.ok(Array.isArray(candidateEvents)&&Array.isArray(admittedEvents));
+  const candidates=new Set(candidateEvents),admitted=new Set(admittedEvents);
+  assert.ok([...admitted].every(e=>candidates.has(e)));
+  const target=p.o.events[0].event_id,issuer=out.packet.issuer+'|';
+  assert.ok(!candidates.has(target.slice(issuer.length)));
+  assert.ok([...candidates].every(e=>p.o.events.some(x=>x.event_id===issuer+e)));
+  const denied=new Set([...candidates].filter(e=>!admitted.has(e)).map(e=>issuer+e));
+  const allowed=new Map(p.o.evidence.filter(e=>!denied.has(e.event_id)).map(e=>[e.evidence_id,e]));
+  const read=dependencyReader(allowed);
+  p.o.evidence=p.o.evidence.filter(e=>read.get(e.evidence_id));
+  p.o.events=p.o.events.filter(e=>!denied.has(e.event_id));
+  p.o.followups=p.o.followups.filter(f=>!denied.has(f.reference_event)&&!denied.has(f.followup_event)&&read.get(f.source_ref));
+  // Keep immutable packet for source provenance; conflict lookups in enrich
+  // are already scoped to an admitted event. The shared analyzer reads p.o.
+  assert.equal(out.digest,sha(JSON.stringify(out.packet)));
+ }
+ const all=new Map(p.o.evidence.map(e=>[e.evidence_id,e])),{get}=dependencyReader(all,withdraw);
  assert.ok(withdraw===null||all.has(withdraw),'WITHDRAW_ID');p.o.followups=p.o.followups.filter(x=>get(x.source_ref));
  const L={cases:new Map([[id,p]]),canonical:C.canonical,work30:new Map(),work27:new Map()};
  const r=enrich(L,id,withdraw,{placeThreshold,eyeEnabled}),expected=C.receipt.summary.find(x=>x.id===id);
