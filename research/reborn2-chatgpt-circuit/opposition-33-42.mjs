@@ -2,7 +2,7 @@ import {assertFictionalTarget,fictionalTime,fixtureHorse,localAdmission,historyK
 // Research-only normalized evidence contract. No acquisition, grading or production I/O.
 export function analyzeOpposition33to42(args){return analyzeOpposition33to42Core(args,false);}
 export function analyzeOpposition33to42Fixture(args){return analyzeOpposition33to42Core(args,true);}
-function analyzeOpposition33to42Core({target, roster, races=[], histories=[], rules=[], ratings=[], transfers=[]},fictional){
+function analyzeOpposition33to42Core({target, roster, races=[], histories=[], rules=[], ratings=[], transfers=[], researchReturn=[],traceRead=()=>{}},fictional){
  if(fictional)assertFictionalTarget(target,roster);
   const timestamp=x=>fictional?fictionalTime(x):typeof x==="string"&&/(Z|[+-]\d\d:\d\d)$/.test(x)?Date.parse(x):NaN;
   const cutoff=timestamp(target.cutoff), start=timestamp(target.started_at);
@@ -73,6 +73,16 @@ function analyzeOpposition33to42Core({target, roster, races=[], histories=[], ru
       unknown(40,"FIELD_STRENGTH_COMPARISON_POLICY_UNAPPROVED");
       const upper=target.class_verified===true&&r.class_verified===true?ruleFor(target,r):null;
       if(upper?.transition==="PROMOTION")emit(41,{demonstrated_higher_class:{race_id:r.race_id,finish:own.finish,status:own.status},conditions_match:comparable(r,target),transferable_evidence:null},[...ref,upper.evidence_id]);
+    }
+    // EYE05: independently rebind the observed reference and subsequent
+    // result to accepted complete fields; return context without strength votes.
+    if(fictional)for(const m of researchReturn.filter(x=>x.kind==='PEER_FOLLOWUP'&&x.horse_id===h)){
+      const a=ownRaces.find(x=>x.race_id===m.race_id),b=accepted.find(x=>x.race_id===m.later_race),x=a&&result(a,h),y=a&&result(a,m.peer_id),z=b&&result(b,m.peer_id),laterOwn=b&&result(b,h);
+      if(!a||!b||!x||!y||!z||timestamp(b.started_at)<=timestamp(a.started_at)||!Number.isInteger(x.finish)||!Number.isInteger(y.finish)||!Number.isInteger(z.finish))continue;
+      const matched=comparable(a,b)&&comparable(a,target);
+      const value={research_return:'EYE-05',prior_race_id:a.race_id,later_race_id:b.race_id,peer_id:m.peer_id,own_finish:x.finish,peer_prior_finish:y.finish,peer_finish:z.finish,subject_later_finish:laterOwn?.finish??null,matched_conditions:matched,interpretation:!matched?'APPLICABILITY_UNESTABLISHED':x.finish<y.finish&&laterOwn?.finish>z.finish?'ORDER_REVERSAL_CONTEXT':x.finish<y.finish&&z.finish===1?'LATER_WIN_CONTEXT':'NEUTRAL_CONTEXT',current_effect:null};
+      emit(37,value,[a.evidence_id,b.evidence_id,entry.evidence_id]);
+      traceRead({consumer:'analyzeOpposition33to42Fixture.followupReturn',consumer_item_id:'37',horse_no:entry.horse_no,item_id:'EYE-05',value,reason:'Recomputed later-result context and reversal from actual shared-race evidence'});
     }
     const chronological=historyFor(h);
     const last=ownRaces.find(r=>r.race_id===chronological?.immediate_prior_race_id);

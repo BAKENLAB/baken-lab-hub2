@@ -40,3 +40,5 @@ node test-v16-research.mjs
 node test-v17-prototype.mjs
 
 node test-v18-circular.mjs
+
+node test-v19-field.mjs
