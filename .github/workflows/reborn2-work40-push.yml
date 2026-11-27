@@ -1,0 +1,23 @@
+name: Work40 evidence supply native replay
+on:
+  push:
+    branches:
+      - research/reborn2-work40-evidence-completion-20261128
+permissions:
+  contents: read
+jobs:
+  work40-research-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test research/reborn2-work40-evidence-completion/test-evidence-completion-v0.1.mjs
+      - run: node --test research/reborn2-real-work/test-real-work-03.mjs
+      - run: bash research/reborn2-real-work/real-work-03-rfc3161-custody-test.sh
+      - working-directory: research/reborn2-work40-evidence-completion
+        run: sha256sum -c MANIFEST.sha256
