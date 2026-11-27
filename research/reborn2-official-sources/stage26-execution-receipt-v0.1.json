@@ -1,0 +1,986 @@
+{
+  "schema": "WORK26_EXECUTION_RECEIPT_0.1",
+  "summary": {
+    "cases": 7,
+    "base_transitions": {
+      "RANK_GAIN": 9,
+      "RANK_LOSS": 8,
+      "RANK_UNCHANGED": 9
+    },
+    "base_active": [
+      "S26:A",
+      "S26:B",
+      "S26:C",
+      "S26:D",
+      "S26:E"
+    ],
+    "base_unknown": [
+      "S26:E"
+    ],
+    "base_followup_links": 24,
+    "base_distinct_later_events": 6,
+    "base_pair_inputs": 12,
+    "tests": 27,
+    "passed": 27
+  },
+  "tests": [
+    {
+      "name": "all_seven_full_fields_validated",
+      "pass": true
+    },
+    {
+      "name": "all_current_active_and_unknown_preserved",
+      "pass": true
+    },
+    {
+      "name": "registered_active_actual_distinct",
+      "pass": true
+    },
+    {
+      "name": "nonvacuous_gain_loss_unchanged",
+      "pass": true
+    },
+    {
+      "name": "recovery_after_loss",
+      "pass": true
+    },
+    {
+      "name": "native_gate_distinct",
+      "pass": true
+    },
+    {
+      "name": "distance_extension_and_shortening",
+      "pass": true
+    },
+    {
+      "name": "target_only_history_unchanged",
+      "pass": true
+    },
+    {
+      "name": "target_geometry_changes",
+      "pass": true
+    },
+    {
+      "name": "same_ordinal_different_measured_interval",
+      "pass": true
+    },
+    {
+      "name": "same_ordinal_different_synchronized_relative_gain",
+      "pass": true
+    },
+    {
+      "name": "missing_clock_no_inference",
+      "pass": true
+    },
+    {
+      "name": "missing_geometry_preserves_unlocated_rank",
+      "pass": true
+    },
+    {
+      "name": "pair_inputs_not_pace_prediction",
+      "pass": true
+    },
+    {
+      "name": "peer_later_win_vs_loss",
+      "pass": true
+    },
+    {
+      "name": "no_grade_or_strength",
+      "pass": true
+    },
+    {
+      "name": "reject_rank_collision",
+      "pass": true
+    },
+    {
+      "name": "reject_clock_rank_conflict",
+      "pass": true
+    },
+    {
+      "name": "reject_actual_starter_mismatch",
+      "pass": true
+    },
+    {
+      "name": "reject_late_observation",
+      "pass": true
+    },
+    {
+      "name": "reject_revoked_rights",
+      "pass": true
+    },
+    {
+      "name": "reject_wrong_identity",
+      "pass": true
+    },
+    {
+      "name": "reject_geometry_out_of_bounds",
+      "pass": true
+    },
+    {
+      "name": "reject_cancelled_result",
+      "pass": true
+    },
+    {
+      "name": "reject_snapshot_inconsistent",
+      "pass": true
+    },
+    {
+      "name": "reject_final600_inconsistent",
+      "pass": true
+    },
+    {
+      "name": "reject_future_current_results",
+      "pass": true
+    }
+  ],
+  "prior264_preserved_not_rerun": true,
+  "formal_admissions": 0,
+  "case_digests": [
+    {
+      "case_id": "BASE",
+      "raw_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f"
+    },
+    {
+      "case_id": "TARGET_SHORT",
+      "raw_sha256": "d771f7954bf186e8713bab8b1b1cace27bb8346fd258688593e6770c743a93d0"
+    },
+    {
+      "case_id": "TARGET_LONG",
+      "raw_sha256": "0e40117facd11b4123b2a5bdadf7f93f1d5808925cbb7f8aee9bc5740243814d"
+    },
+    {
+      "case_id": "SAME_RANK_DIFFERENT_SPEED",
+      "raw_sha256": "de09cc81578a76de3987333e333de9f23c33024a4260c95681293caacd0d1a52"
+    },
+    {
+      "case_id": "MISSING_MEASUREMENTS",
+      "raw_sha256": "596deac5ef66d03a46e6d260739de5b3d08d7be25ceefcc380b66ca04eeaecb8"
+    },
+    {
+      "case_id": "MISSING_GEOMETRY",
+      "raw_sha256": "12349a14b75acee692ec179913fbbb8ad0a0c106641070d87a6da85f3098ea09"
+    },
+    {
+      "case_id": "PEER_LATER_SEVERE_LOSS",
+      "raw_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de"
+    }
+  ],
+  "examples": {
+    "base_A": {
+      "state": "COURSE_PROGRESS_INTERVAL_AVERAGES_ONLY",
+      "refs": [
+        "S26EV:28650c5e84b6c9fc838d7b96d3992bc5fcf3429596269543701a03c7f25b590b",
+        "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee"
+      ],
+      "intervals": [
+        {
+          "start_m": 200,
+          "end_m": 600,
+          "elapsed_ms": 24000,
+          "course_progress_mps": 16.666666666666668,
+          "lower_mps": 16.638935108153078,
+          "upper_mps": 16.69449081803005
+        },
+        {
+          "start_m": 600,
+          "end_m": 1000,
+          "elapsed_ms": 24000,
+          "course_progress_mps": 16.666666666666668,
+          "lower_mps": 16.638935108153078,
+          "upper_mps": 16.69449081803005
+        }
+      ],
+      "comparisons": [
+        {
+          "earlier_interval": 0,
+          "later_interval": 1,
+          "state": "UNCERTAINTY_OVERLAP"
+        }
+      ],
+      "measurement": {
+        "clock_unit": "ms",
+        "checkpoint_scope": "COURSE_DISTANCE_CROSSING_ELAPSED_FROM_COMMON_START",
+        "clock_uncertainty_ms": 20,
+        "snapshot_scope": "SYNCHRONIZED_COURSE_COORDINATE_NOT_ACTUAL_PATH_LENGTH",
+        "snapshot_uncertainty_m": 1
+      },
+      "not_instantaneous_acceleration": true,
+      "not_actual_travelled_path_speed": true
+    },
+    "fast_A": {
+      "state": "COURSE_PROGRESS_INTERVAL_AVERAGES_ONLY",
+      "refs": [
+        "S26EV:3be24dffc1dc84ffd450efb99c525bcffc3ed62bbb3871bb4a39f6ba545a1271",
+        "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9"
+      ],
+      "intervals": [
+        {
+          "start_m": 200,
+          "end_m": 600,
+          "elapsed_ms": 24400,
+          "course_progress_mps": 16.39344262295082,
+          "lower_mps": 16.366612111292962,
+          "upper_mps": 16.420361247947454
+        },
+        {
+          "start_m": 600,
+          "end_m": 1000,
+          "elapsed_ms": 23400,
+          "course_progress_mps": 17.094017094017094,
+          "lower_mps": 17.064846416382252,
+          "upper_mps": 17.123287671232877
+        }
+      ],
+      "comparisons": [
+        {
+          "earlier_interval": 0,
+          "later_interval": 1,
+          "state": "HIGHER_INTERVAL_AVERAGE"
+        }
+      ],
+      "measurement": {
+        "clock_unit": "ms",
+        "checkpoint_scope": "COURSE_DISTANCE_CROSSING_ELAPSED_FROM_COMMON_START",
+        "clock_uncertainty_ms": 20,
+        "snapshot_scope": "SYNCHRONIZED_COURSE_COORDINATE_NOT_ACTUAL_PATH_LENGTH",
+        "snapshot_uncertainty_m": 1
+      },
+      "not_instantaneous_acceleration": true,
+      "not_actual_travelled_path_speed": true
+    },
+    "base_AB": {
+      "a": "S26:A",
+      "b": "S26:B",
+      "start_gap_m": -10,
+      "end_gap_m": 10,
+      "relative_course_gain_m": 20,
+      "uncertainty_bound_m": 4,
+      "refs": [
+        "S26EV:e617427c7cd4540e81631128925aef571f00fcc17e48c9107e10e45f87f3e4dc",
+        "S26EV:77d39402767833cad4e9e405a418f7a4c333b0d6a07ca5462f4b036d0939d299"
+      ],
+      "scope": "SYNCHRONIZED_COURSE_COORDINATE_DIFFERENCE_NOT_ACTUAL_PATH_LENGTH"
+    },
+    "fast_AB": {
+      "a": "S26:A",
+      "b": "S26:B",
+      "start_gap_m": -20,
+      "end_gap_m": 20,
+      "relative_course_gain_m": 40,
+      "uncertainty_bound_m": 4,
+      "refs": [
+        "S26EV:ebd55f2d5ef25e7e5f829e7dad6be157ec4bed1bf8dc8b7f42e6b82f5a0c40be",
+        "S26EV:578ff4a9157df9971fdefad6d01d79a1dce1ac272937fe85b3756e05cdcfb316"
+      ],
+      "scope": "SYNCHRONIZED_COURSE_COORDINATE_DIFFERENCE_NOT_ACTUAL_PATH_LENGTH"
+    },
+    "peer_base": {
+      "subject": "S26:A",
+      "opponent": "S26:X",
+      "reference_event": "S26:H1",
+      "followup_event": "S26:H3",
+      "reference_observation": {
+        "finish": {
+          "evidence_id": "S26EV:e809c6c05b79756e9c8dc27fbf8b1a36a3b2d40bfaea6f9b8be146c4ac127b13",
+          "root": "S26ROOT:04ef62e125d6de672ce64fe21cde0a0299224a7163251b50fe3db02baf056404",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H1",
+          "subject_id": "S26:X",
+          "field": "finish",
+          "pointer": "/history/0/rows/4/finish",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 5,
+          "reason": null,
+          "formal_usable": false
+        },
+        "clock": {
+          "evidence_id": "S26EV:ea32fc44f7fb4594d88e995458d7545731460f1e0192b4772331268eb5e47d30",
+          "root": "S26ROOT:35465a6fab2c27f9ad4f07b629c1531aff0a52c9f4ed3df84d6b1e87b9a1753b",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H1",
+          "subject_id": "S26:X",
+          "field": "finish_ms",
+          "pointer": "/history/0/rows/4/finish_ms",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 76500,
+          "reason": null,
+          "formal_usable": false
+        },
+        "margin": {
+          "state": "DERIVED_TIME_MARGIN",
+          "unit": "ms",
+          "value": 3500,
+          "source_refs": [
+            "S26EV:ea32fc44f7fb4594d88e995458d7545731460f1e0192b4772331268eb5e47d30"
+          ],
+          "winner_pointer": "/history/0/rows/2/finish_ms",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f"
+        },
+        "final600": {
+          "observation": {
+            "evidence_id": "S26EV:12becfab374b053fd3493d3434625de6b49b9dbbb5b710500f63ed27c70dd979",
+            "root": "S26ROOT:196942cc3fbc54730373cbf0ec9a70ee78842e9142a658c2a2cf793795de0254",
+            "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+            "source_version": 1,
+            "case_id": "BASE",
+            "event_id": "S26:H1",
+            "subject_id": "S26:X",
+            "field": "final600_ms",
+            "pointer": "/history/0/rows/4/final600_ms",
+            "state": "SYNTHETIC_OBSERVATION",
+            "value": 37500,
+            "reason": null,
+            "formal_usable": false
+          },
+          "interval_m": [
+            600,
+            1200
+          ],
+          "scope": "INDIVIDUAL_TERMINAL_AVERAGE_NOT_ACCELERATION"
+        },
+        "ranks": {
+          "state": "LOCATED_ORDINAL",
+          "ranks": [
+            5,
+            5,
+            5
+          ],
+          "locations_m": [
+            200,
+            600,
+            1000
+          ],
+          "field_count": 5,
+          "refs": [
+            "S26EV:b1081b4ff2b1105aebc87473f96712b2939723a960413c44b600fe340225fd9c",
+            "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+            "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c"
+          ],
+          "transitions": [
+            {
+              "from_index": 0,
+              "to_index": 1,
+              "ordinal_gain": 0,
+              "kind": "RANK_UNCHANGED"
+            },
+            {
+              "from_index": 1,
+              "to_index": 2,
+              "ordinal_gain": 0,
+              "kind": "RANK_UNCHANGED"
+            }
+          ],
+          "not_physical_gain": true
+        },
+        "weight": {
+          "evidence_id": "S26EV:9b3113df8b4f2a8ea33418fd1970372020ce5e094f8d33c712855c9ca532791d",
+          "root": "S26ROOT:0d7bd7a1fb4bdf1e8c8e51fe9372ee27885c5a76d15d86c297f98028cf353e71",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H1",
+          "subject_id": "S26:X",
+          "field": "weight_grams",
+          "pointer": "/history/0/rows/4/weight_grams",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 58000,
+          "reason": null,
+          "formal_usable": false
+        },
+        "conditions": {
+          "evidence_id": "S26EV:fb775ae7ebd04d2809dd625650a060a17a7d7744dcbf747a83e75d83535524b6",
+          "root": "S26ROOT:cba8e159819df27e878a566d5d641cd1cfbb3486bb48691bae4618f4496e89ae",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H1",
+          "subject_id": null,
+          "field": "conditions",
+          "pointer": "/history/0/conditions",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": {
+            "distance_m": 1200,
+            "venue": "SYN:A",
+            "surface": "TURF",
+            "going": "GOOD",
+            "class_label": "SYN:LOW",
+            "class_effective": [
+              0,
+              200
+            ],
+            "class_rule": null,
+            "geometry": {
+              "first_turn_m": 200,
+              "straight_m": 200,
+              "checkpoints_m": [
+                200,
+                600,
+                1000
+              ],
+              "direction": "RIGHT",
+              "effective": [
+                0,
+                200
+              ],
+              "source": "SYNTHETIC_STIPULATION"
+            }
+          },
+          "reason": null,
+          "formal_usable": false
+        },
+        "field_count": {
+          "evidence_id": "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c",
+          "root": "S26ROOT:46d569df317ff1324e2317e50bed782ad0a26d6c31254d6ef637ae538fca8b42",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H1",
+          "subject_id": null,
+          "field": "actual_starters",
+          "pointer": "/history/0/actual_starters",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 5,
+          "reason": null,
+          "formal_usable": false
+        }
+      },
+      "later_observation": {
+        "finish": {
+          "evidence_id": "S26EV:ee1a23f8edaefe793ecae39ca094006fa01d82e098da0c52e4dd5e2357ffa431",
+          "root": "S26ROOT:d843d4caddd2d7d48323323c1a4d7e7cf9ad8869ab70d8d2cfef5cf31315c51d",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H3",
+          "subject_id": "S26:X",
+          "field": "finish",
+          "pointer": "/history/2/rows/0/finish",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 1,
+          "reason": null,
+          "formal_usable": false
+        },
+        "clock": {
+          "evidence_id": "S26EV:44d47d6a7e8872165343abb0f69e9ff5f6b882114a9b46457062c7c70869ad62",
+          "root": "S26ROOT:e3e32e39cfa70c30a3eb3494966d5a8b374ea0212bb5b981ddb0f1d1d7ba9f1a",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H3",
+          "subject_id": "S26:X",
+          "field": "finish_ms",
+          "pointer": "/history/2/rows/0/finish_ms",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 61000,
+          "reason": null,
+          "formal_usable": false
+        },
+        "margin": {
+          "state": "DERIVED_TIME_MARGIN",
+          "unit": "ms",
+          "value": 0,
+          "source_refs": [
+            "S26EV:44d47d6a7e8872165343abb0f69e9ff5f6b882114a9b46457062c7c70869ad62"
+          ],
+          "winner_pointer": "/history/2/rows/0/finish_ms",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f"
+        },
+        "final600": {
+          "observation": {
+            "evidence_id": "S26EV:392a97416b09da885db45af5c5a4c5b5f4db1029d5b782b2a8a61cd460cc2595",
+            "root": "S26ROOT:611eb8b9ddef4aba7e720ac9367ab516b09d7789616c47f41cf8958a840670a4",
+            "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+            "source_version": 1,
+            "case_id": "BASE",
+            "event_id": "S26:H3",
+            "subject_id": "S26:X",
+            "field": "final600_ms",
+            "pointer": "/history/2/rows/0/final600_ms",
+            "state": "SYNTHETIC_OBSERVATION",
+            "value": 36500,
+            "reason": null,
+            "formal_usable": false
+          },
+          "interval_m": [
+            400,
+            1000
+          ],
+          "scope": "INDIVIDUAL_TERMINAL_AVERAGE_NOT_ACCELERATION"
+        },
+        "ranks": {
+          "state": "LOCATED_ORDINAL",
+          "ranks": [
+            3,
+            2,
+            1
+          ],
+          "locations_m": [
+            150,
+            450,
+            750
+          ],
+          "field_count": 3,
+          "refs": [
+            "S26EV:698f43c1c4c26d97170baa8e1deecc8cbf4fd89a652b26398d249e0905841e17",
+            "S26EV:0e1ad184c068ec117764c4eddd14284d70bcb542e3ba3c6d600c152a88865abb",
+            "S26EV:4a992e51f7eb33c7e086e17edda52cca1aba83a20823999463d623cc85c87aa1"
+          ],
+          "transitions": [
+            {
+              "from_index": 0,
+              "to_index": 1,
+              "ordinal_gain": 1,
+              "kind": "RANK_GAIN"
+            },
+            {
+              "from_index": 1,
+              "to_index": 2,
+              "ordinal_gain": 1,
+              "kind": "RANK_GAIN"
+            }
+          ],
+          "not_physical_gain": true
+        },
+        "weight": {
+          "evidence_id": "S26EV:601d8188507151b2fa7bf0ed3dd7eebb5614694a1bd0cc97f5fcad6cb8c2bf1b",
+          "root": "S26ROOT:f0c1bf8a1ba2a88707dd55c48677792754786e832dac9cd3af8418e1d46c3187",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H3",
+          "subject_id": "S26:X",
+          "field": "weight_grams",
+          "pointer": "/history/2/rows/0/weight_grams",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 56000,
+          "reason": null,
+          "formal_usable": false
+        },
+        "conditions": {
+          "evidence_id": "S26EV:1a9bb2d3b326273db95cb25c58e3c787d2f855836c752d00bcc3eb74e850ca61",
+          "root": "S26ROOT:9f18a247dd62f8aa760980e148d0d735371333e4506095ecd2fb1143c64e331f",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H3",
+          "subject_id": null,
+          "field": "conditions",
+          "pointer": "/history/2/conditions",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": {
+            "distance_m": 1000,
+            "venue": "SYN:C",
+            "surface": "TURF",
+            "going": "GOOD",
+            "class_label": "SYN:LOW",
+            "class_effective": [
+              0,
+              200
+            ],
+            "class_rule": null,
+            "geometry": {
+              "first_turn_m": 150,
+              "straight_m": 250,
+              "checkpoints_m": [
+                150,
+                450,
+                750
+              ],
+              "direction": "RIGHT",
+              "effective": [
+                0,
+                200
+              ],
+              "source": "SYNTHETIC_STIPULATION"
+            }
+          },
+          "reason": null,
+          "formal_usable": false
+        },
+        "field_count": {
+          "evidence_id": "S26EV:4a992e51f7eb33c7e086e17edda52cca1aba83a20823999463d623cc85c87aa1",
+          "root": "S26ROOT:64a82035ea1935510a38d9e94568ad8e0af323d24043367bf6bfdec87a3c133a",
+          "source_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "source_version": 1,
+          "case_id": "BASE",
+          "event_id": "S26:H3",
+          "subject_id": null,
+          "field": "actual_starters",
+          "pointer": "/history/2/actual_starters",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 3,
+          "reason": null,
+          "formal_usable": false
+        }
+      },
+      "later_event_key": "S26:X|S26:H3",
+      "link_key": "S26:A|S26:X|S26:H1|S26:H3",
+      "strength": {
+        "state": "MISSING",
+        "value": null,
+        "reason": "OBSERVATION_NOT_STABLE_STRENGTH"
+      }
+    },
+    "peer_loss": {
+      "subject": "S26:A",
+      "opponent": "S26:X",
+      "reference_event": "S26:H1",
+      "followup_event": "S26:H3",
+      "reference_observation": {
+        "finish": {
+          "evidence_id": "S26EV:da4bfcad8dbdcd89517fe3d897e846471a461d87aaa96947564dfd584598620f",
+          "root": "S26ROOT:04ef62e125d6de672ce64fe21cde0a0299224a7163251b50fe3db02baf056404",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H1",
+          "subject_id": "S26:X",
+          "field": "finish",
+          "pointer": "/history/0/rows/4/finish",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 5,
+          "reason": null,
+          "formal_usable": false
+        },
+        "clock": {
+          "evidence_id": "S26EV:cd01eb4ecbe09e7fe04b4668f75b554fe171209c4dcc3aa8e143b58ea07a7c83",
+          "root": "S26ROOT:35465a6fab2c27f9ad4f07b629c1531aff0a52c9f4ed3df84d6b1e87b9a1753b",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H1",
+          "subject_id": "S26:X",
+          "field": "finish_ms",
+          "pointer": "/history/0/rows/4/finish_ms",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 76500,
+          "reason": null,
+          "formal_usable": false
+        },
+        "margin": {
+          "state": "DERIVED_TIME_MARGIN",
+          "unit": "ms",
+          "value": 3500,
+          "source_refs": [
+            "S26EV:cd01eb4ecbe09e7fe04b4668f75b554fe171209c4dcc3aa8e143b58ea07a7c83"
+          ],
+          "winner_pointer": "/history/0/rows/2/finish_ms",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de"
+        },
+        "final600": {
+          "observation": {
+            "evidence_id": "S26EV:fb641f13ec640f619c44a318aa7a772756345118f1a5f3ca40c6dad1a298b1e1",
+            "root": "S26ROOT:196942cc3fbc54730373cbf0ec9a70ee78842e9142a658c2a2cf793795de0254",
+            "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+            "source_version": 1,
+            "case_id": "PEER_LATER_SEVERE_LOSS",
+            "event_id": "S26:H1",
+            "subject_id": "S26:X",
+            "field": "final600_ms",
+            "pointer": "/history/0/rows/4/final600_ms",
+            "state": "SYNTHETIC_OBSERVATION",
+            "value": 37500,
+            "reason": null,
+            "formal_usable": false
+          },
+          "interval_m": [
+            600,
+            1200
+          ],
+          "scope": "INDIVIDUAL_TERMINAL_AVERAGE_NOT_ACCELERATION"
+        },
+        "ranks": {
+          "state": "LOCATED_ORDINAL",
+          "ranks": [
+            5,
+            5,
+            5
+          ],
+          "locations_m": [
+            200,
+            600,
+            1000
+          ],
+          "field_count": 5,
+          "refs": [
+            "S26EV:604236332e93c4954185fd684ec5b6dcf07bd41fd038ebbc13c2ba98f9dc3bb9",
+            "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+            "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a"
+          ],
+          "transitions": [
+            {
+              "from_index": 0,
+              "to_index": 1,
+              "ordinal_gain": 0,
+              "kind": "RANK_UNCHANGED"
+            },
+            {
+              "from_index": 1,
+              "to_index": 2,
+              "ordinal_gain": 0,
+              "kind": "RANK_UNCHANGED"
+            }
+          ],
+          "not_physical_gain": true
+        },
+        "weight": {
+          "evidence_id": "S26EV:1ec729091942d71bce12573035f7c5a86f5027f28f3489ff6767f17678377e73",
+          "root": "S26ROOT:0d7bd7a1fb4bdf1e8c8e51fe9372ee27885c5a76d15d86c297f98028cf353e71",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H1",
+          "subject_id": "S26:X",
+          "field": "weight_grams",
+          "pointer": "/history/0/rows/4/weight_grams",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 58000,
+          "reason": null,
+          "formal_usable": false
+        },
+        "conditions": {
+          "evidence_id": "S26EV:52e1af5e7293f3a783e5c88ed7396584e86435b2c5cede3f1907aed262f934e2",
+          "root": "S26ROOT:cba8e159819df27e878a566d5d641cd1cfbb3486bb48691bae4618f4496e89ae",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H1",
+          "subject_id": null,
+          "field": "conditions",
+          "pointer": "/history/0/conditions",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": {
+            "distance_m": 1200,
+            "venue": "SYN:A",
+            "surface": "TURF",
+            "going": "GOOD",
+            "class_label": "SYN:LOW",
+            "class_effective": [
+              0,
+              200
+            ],
+            "class_rule": null,
+            "geometry": {
+              "first_turn_m": 200,
+              "straight_m": 200,
+              "checkpoints_m": [
+                200,
+                600,
+                1000
+              ],
+              "direction": "RIGHT",
+              "effective": [
+                0,
+                200
+              ],
+              "source": "SYNTHETIC_STIPULATION"
+            }
+          },
+          "reason": null,
+          "formal_usable": false
+        },
+        "field_count": {
+          "evidence_id": "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a",
+          "root": "S26ROOT:46d569df317ff1324e2317e50bed782ad0a26d6c31254d6ef637ae538fca8b42",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H1",
+          "subject_id": null,
+          "field": "actual_starters",
+          "pointer": "/history/0/actual_starters",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 5,
+          "reason": null,
+          "formal_usable": false
+        }
+      },
+      "later_observation": {
+        "finish": {
+          "evidence_id": "S26EV:eac66566661022dbfca9a4d708e7ffd8af573e6c36beb332ce8a839045dd1270",
+          "root": "S26ROOT:d843d4caddd2d7d48323323c1a4d7e7cf9ad8869ab70d8d2cfef5cf31315c51d",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H3",
+          "subject_id": "S26:X",
+          "field": "finish",
+          "pointer": "/history/2/rows/0/finish",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 3,
+          "reason": null,
+          "formal_usable": false
+        },
+        "clock": {
+          "evidence_id": "S26EV:aa5b3a8f4f8fc8780af4477f66bde9aea2c2c1a873c0f411a2edad365f840317",
+          "root": "S26ROOT:e3e32e39cfa70c30a3eb3494966d5a8b374ea0212bb5b981ddb0f1d1d7ba9f1a",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H3",
+          "subject_id": "S26:X",
+          "field": "finish_ms",
+          "pointer": "/history/2/rows/0/finish_ms",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 67000,
+          "reason": null,
+          "formal_usable": false
+        },
+        "margin": {
+          "state": "DERIVED_TIME_MARGIN",
+          "unit": "ms",
+          "value": 6000,
+          "source_refs": [
+            "S26EV:aa5b3a8f4f8fc8780af4477f66bde9aea2c2c1a873c0f411a2edad365f840317"
+          ],
+          "winner_pointer": "/history/2/rows/1/finish_ms",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de"
+        },
+        "final600": {
+          "observation": {
+            "evidence_id": "S26EV:0ef41a070dcb30590e01523f60b3aabd72cb2f50030c2627bfb75ad56ee2b92a",
+            "root": "S26ROOT:611eb8b9ddef4aba7e720ac9367ab516b09d7789616c47f41cf8958a840670a4",
+            "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+            "source_version": 1,
+            "case_id": "PEER_LATER_SEVERE_LOSS",
+            "event_id": "S26:H3",
+            "subject_id": "S26:X",
+            "field": "final600_ms",
+            "pointer": "/history/2/rows/0/final600_ms",
+            "state": "SYNTHETIC_OBSERVATION",
+            "value": 41000,
+            "reason": null,
+            "formal_usable": false
+          },
+          "interval_m": [
+            400,
+            1000
+          ],
+          "scope": "INDIVIDUAL_TERMINAL_AVERAGE_NOT_ACCELERATION"
+        },
+        "ranks": {
+          "state": "LOCATED_ORDINAL",
+          "ranks": [
+            3,
+            3,
+            3
+          ],
+          "locations_m": [
+            150,
+            450,
+            750
+          ],
+          "field_count": 3,
+          "refs": [
+            "S26EV:58e3a8d304887924ab9a512dc2c6bc2621596d1ca0e3ce0e278db05e7ba91d32",
+            "S26EV:35468e97d066ded4fe2c9edac865ebd1f2c79607611e87a47a1dc69fdb4e7116",
+            "S26EV:a61688b271e2d50cc8d7501a38714a4e098f255032ef3a49709a441257393f13"
+          ],
+          "transitions": [
+            {
+              "from_index": 0,
+              "to_index": 1,
+              "ordinal_gain": 0,
+              "kind": "RANK_UNCHANGED"
+            },
+            {
+              "from_index": 1,
+              "to_index": 2,
+              "ordinal_gain": 0,
+              "kind": "RANK_UNCHANGED"
+            }
+          ],
+          "not_physical_gain": true
+        },
+        "weight": {
+          "evidence_id": "S26EV:1ac9b06e5b228bf9cad5ae2cbb8ba4f74e9c5ee80e8dec73ff42f6841a89eec3",
+          "root": "S26ROOT:f0c1bf8a1ba2a88707dd55c48677792754786e832dac9cd3af8418e1d46c3187",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H3",
+          "subject_id": "S26:X",
+          "field": "weight_grams",
+          "pointer": "/history/2/rows/0/weight_grams",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 56000,
+          "reason": null,
+          "formal_usable": false
+        },
+        "conditions": {
+          "evidence_id": "S26EV:99f796e93812aa7726eab23bb7acb6b06159745ebdf5660d8e04ef6cdc95a05b",
+          "root": "S26ROOT:9f18a247dd62f8aa760980e148d0d735371333e4506095ecd2fb1143c64e331f",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H3",
+          "subject_id": null,
+          "field": "conditions",
+          "pointer": "/history/2/conditions",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": {
+            "distance_m": 1000,
+            "venue": "SYN:C",
+            "surface": "TURF",
+            "going": "GOOD",
+            "class_label": "SYN:LOW",
+            "class_effective": [
+              0,
+              200
+            ],
+            "class_rule": null,
+            "geometry": {
+              "first_turn_m": 150,
+              "straight_m": 250,
+              "checkpoints_m": [
+                150,
+                450,
+                750
+              ],
+              "direction": "RIGHT",
+              "effective": [
+                0,
+                200
+              ],
+              "source": "SYNTHETIC_STIPULATION"
+            }
+          },
+          "reason": null,
+          "formal_usable": false
+        },
+        "field_count": {
+          "evidence_id": "S26EV:a61688b271e2d50cc8d7501a38714a4e098f255032ef3a49709a441257393f13",
+          "root": "S26ROOT:64a82035ea1935510a38d9e94568ad8e0af323d24043367bf6bfdec87a3c133a",
+          "source_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "source_version": 1,
+          "case_id": "PEER_LATER_SEVERE_LOSS",
+          "event_id": "S26:H3",
+          "subject_id": null,
+          "field": "actual_starters",
+          "pointer": "/history/2/actual_starters",
+          "state": "SYNTHETIC_OBSERVATION",
+          "value": 3,
+          "reason": null,
+          "formal_usable": false
+        }
+      },
+      "later_event_key": "S26:X|S26:H3",
+      "link_key": "S26:A|S26:X|S26:H1|S26:H3",
+      "strength": {
+        "state": "MISSING",
+        "value": null,
+        "reason": "OBSERVATION_NOT_STABLE_STRENGTH"
+      }
+    }
+  },
+  "limitations": [
+    "Execution in connector JavaScript isolate, not CI or Codex runtime.",
+    "All timings and geometry explicitly fictional, no official source or prediction proof.",
+    "Synthetic rights/identity flags are test controls only.",
+    "No current actual starters, no grades, no causal pressure or distance conclusions."
+  ]
+}
