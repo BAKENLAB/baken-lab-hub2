@@ -1,5 +1,6 @@
 import {historyKnown} from './fictional-research-context.mjs';
 export function inspectEye15({target,roster,rankAudit,intake,catalog,traceRead=()=>{}}){
+ if(target.circuit==='FIXTURE'&&(intake.fixture_only!==true||intake.accepted.some(g=>g.fixture_only!==true||g.formal_admission!==false||g.record.official_evidence!==false)))throw Error('FICTIONAL_EYE_INTAKE_REQUIRED');
  const defs=catalog.filter(x=>x.id.startsWith("EYE-"));
  if(defs.length!==15||!rankAudit?.runners||rankAudit.runners.length!==roster.length)throw Error("EYE_CONTEXT");
  const byRef=new Map(intake.accepted.flatMap(g=>g.evidence_ids.map(e=>[e,g])));
@@ -55,7 +56,7 @@ export function inspectEye15({target,roster,rankAudit,intake,catalog,traceRead=(
   if(dedup.size)add("FOLLOWUP_DISTRIBUTION",{observed_pairs:follow.length,distinct_followup_candidates:dedup.size,wins:[...dedup.values()].filter(x=>x.value.later_finish===1).length,nonwins:[...dedup.values()].filter(x=>x.value.later_finish>1).length,coverage:"INCOMPLETE_POSSIBLE",effect:null},follow.flatMap(x=>x.evidence_ids),["37"]);
  }else if(n==="06"){
   use(["20","23","24","25","26","27","31","65","69","70","72","73","96"],"PRIOR_INCIDENT_OR_SCENARIO");
-  if(lastId){const priorIncidents=own.filter(g=>g.record.kind==="INCIDENT"&&g.record.race_id===lastId&&g.record.fact.role==="SUFFERED");
+  if(lastId){const priorIncidents=own.filter(g=>g.record.kind==="INCIDENT"&&g.record.race_id===lastId&&(g.record.fact.role==="SUFFERED"||target.circuit==="FIXTURE"&&g.record.fact.role==="SELF"&&g.record.fact.incident_code==="FIXTURE_TRAFFIC"));
    const future=linked(["69","70","73","96"]);
    if(priorIncidents.length&&future.length)add("LAST_INCIDENT_AND_CURRENT_SCENARIO",{prior_race_id:lastId,incidents:priorIncidents.map(g=>g.record.fact),scenario_context:future.map(x=>x.v),resolved:null},[...priorIncidents.flatMap(g=>g.evidence_ids),...future.flatMap(x=>x.refs)],["26","69","70","73","96"]);}
   unknowns.push("CAUSE_AND_RECURRENCE_NOT_VALIDATED");
