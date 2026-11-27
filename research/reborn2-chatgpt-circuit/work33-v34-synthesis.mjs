@@ -28,6 +28,7 @@ function prepare(V,id,withdraw,threshold){
  const after=enrich(base.loaded,id,withdraw,{placeThreshold:threshold,eyeEnabled:true});
  const {source_envelope:env}=base;
  assert.equal(env.digest,f.pin.source_digest,'INDEPENDENT_PACKET_PIN');
+ assert.equal(base.source_bundle_sha256,f.pin.bundle_sha256,'INDEPENDENT_BUNDLE_PIN');
  // Bundle generation is verified against the independently recorded Work33 digest by reusing the exact producer.
  return {base,after,L:base.loaded,f};
 }
@@ -51,8 +52,7 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled){
  });
  // Every historically observed field trajectory is an alternative, not a predicted starting queue.
  // Explicit current conditions, exact field identity, and comparable role/pace observations are required for a supported research path.
- const scenarios=byEvent.map(x=>{
-  const j=x.g?.checkpoints_m?.length-1,checkpoint=x.g?.checkpoints_m?.[j]??null;
+ const scenarios=byEvent.flatMap(x=>(x.g?.checkpoints_m??[null]).map((checkpoint,j)=>{
   const starts=Object.fromEntries(x.roleEvidence.filter(r=>Number.isFinite(r.checkpoints?.[j])).map(r=>[r.horse,[r.checkpoints[j]-x.u,r.checkpoints[j]+x.u]]));
   const edges=pairs.map(({a,b})=>{
    const pa=field(x.ev,a,'checkpoint_ms'),pb=field(x.ev,b,'checkpoint_ms'),fa=field(x.ev,a,'finish_ms'),fb=field(x.ev,b,'finish_ms'),av=val(pa),bv=val(pb),af=val(fa),bf=val(fb);
@@ -65,15 +65,15 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled){
   });
   const numeric=jointClockFeasibility(roster,edges.filter(e=>e.interval_ms).map(e=>({a:e.a,b:e.b,delta:(e.interval_ms[0]+e.interval_ms[1])/2,bound:(e.interval_ms[1]-e.interval_ms[0])/2,refs:e.refs})));
   const f=jointField(roster,edges,threshold),valid=f.state!=='CONTRADICTED_SHARED_ORDER'&&numeric.state!=='CONTRADICTED_NUMERIC_DIFFERENCES';
-  return {id:x.ev,kind:'OBSERVED_FIELD_RESPONSE_SCENARIO',checkpoint_m:checkpoint,starts,edges,field:f,numeric,valid,contextMatched:x.contextMatched,knownField:x.knownField,paceUsable:x.paceUsable,leader:x.leader,roleEvidence:x.roleEvidence,refs:uniq([...x.refs,...x.leaderRefs,...edges.flatMap(e=>e.refs),...x.roleEvidence.flatMap(r=>r.refs)]),applicability:x.contextMatched&&x.knownField&&x.paceUsable&&valid?'COMPARABLE_SYNTHETIC_RESPONSE':'CONDITIONAL_OR_HELD',prediction:false,actual_current_feasibility:'UNRESOLVED'};
- });
+  return {id:x.ev+'@'+checkpoint,event:x.ev,kind:'OBSERVED_FIELD_RESPONSE_SCENARIO',checkpoint_m:checkpoint,starts,edges,field:f,numeric,valid,contextMatched:x.contextMatched,knownField:x.knownField,paceUsable:x.paceUsable,leader:x.leader,roleEvidence:x.roleEvidence,refs:uniq([...x.refs,...x.leaderRefs,...edges.flatMap(e=>e.refs),...x.roleEvidence.flatMap(r=>r.refs)]),applicability:x.contextMatched&&x.knownField&&x.paceUsable&&valid?'COMPARABLE_SYNTHETIC_RESPONSE':'CONDITIONAL_OR_HELD',prediction:false,actual_current_feasibility:'UNRESOLVED'};
+ }));
  // EYE discovery returns an earlier, explicitly bounded checkpoint response to the same shared scenario analyzer.
  // Baseline and addition run the real common analyzer, preserve baseline paths, and add only verified discovery predicates.
  const feedback=[];
  if(eyeEnabled)for(const e of after.eyeReturns){
   const supporting=e.observation.events,matching=byEvent.filter(x=>supporting.includes(x.ev));
   if(matching.length!==supporting.length||matching.some(x=>!x.contextMatched||!x.knownField||!x.paceUsable))continue;
-  const distance=e.observation.checkpoint_m,subject=e.subject,rival=e.rival,baselineScenario=scenarios.find(x=>x.id===supporting[0]);
+  const distance=e.observation.checkpoint_m,subject=e.subject,rival=e.rival,baselineScenario=scenarios.find(x=>x.event===supporting[0]&&x.checkpoint_m===distance);
   if(!baselineScenario||!baselineScenario.valid)continue;
   // Re-evaluate all rivals at the discovery checkpoint using the same Codex stress function and the actual reference trajectory.
   const ref=matching[0],j=ref.g.checkpoints_m.indexOf(distance);if(j<0)continue;
@@ -96,7 +96,7 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled){
   const b=baselineScenario.field.envelopes.find(h=>h.slot===subject),a=fieldResult.envelopes.find(h=>h.slot===subject),pair=relations.find(r=>[r.a,r.b].includes(subject)&&[r.a,r.b].includes(rival)),order=pair?.a===subject?pair.order:pair?.order==='AHEAD'?'BEHIND':pair?.order==='BEHIND'?'AHEAD':'UNKNOWN';
   const state=order==='AHEAD'?'CONDITIONAL_RECOVERY_SUPPORTED_AFTER_COUNTER_REVIEW':order==='BEHIND'?'RECOVERY_ROUTE_COUNTERED':'RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW';
   const roots=uniq([...e.refs,...(e.counter_refs??[]),...relations.flatMap(r=>r.refs)]);
-  feedback.push({id:e.id,subject,rival,checkpoint_m:distance,before:{event:baselineScenario.id,checkpoint_m:baselineScenario.checkpoint_m,envelope:b,edges:baselineScenario.edges},after:{envelope:a,edges:relations,numeric},state,refs:roots,counter_refs:e.counter_refs??[],changed:!eq(b,a)||baselineScenario.checkpoint_m!==distance,independent_vote:false,formal:false});
+  feedback.push({id:e.id,subject,rival,checkpoint_m:distance,before:{event:baselineScenario.id,checkpoint_m:baselineScenario.checkpoint_m,envelope:b,edges:baselineScenario.edges},after:{envelope:a,edges:relations,numeric},state,refs:roots,counter_refs:e.counter_refs??[],changed:!eq(b,a)||!eq(baselineScenario.edges.map(r=>r.interval_ms),relations.map(r=>r.interval_ms)),order_changed:!eq(b,a),same_checkpoint:true,independent_vote:false,formal:false});
   scenarios.push({id:e.id,kind:'EYE03_RECOMPUTED_SHARED_SCENARIO',checkpoint_m:distance,starts,edges:relations,field:fieldResult,numeric,valid:true,contextMatched:true,knownField:true,paceUsable:true,refs:roots,applicability:'CONDITIONAL_DISCOVERY_RESPONSE_NOT_CURRENT_POSITION',prediction:false,actual_current_feasibility:'UNRESOLVED'});
  }
  return {scenarios,feedback,raw};
@@ -106,23 +106,24 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled){
 function summarizeHorse(h,common,legacy,shared,threshold){
  const {scenarios,feedback}=shared,active=h.status==='ACTIVE'&&h.identity_known;
  const comparable=scenarios.filter(s=>s.kind==='OBSERVED_FIELD_RESPONSE_SCENARIO'&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE');
- const paths=comparable.map(s=>({event:s.id,envelope:s.field.envelopes.find(x=>x.slot===h.slot),refs:s.refs,role:s.roleEvidence.find(r=>r.horse===h.slot),scope:'HISTORICAL_RESPONSE_TRANSFER_HYPOTHESIS'})).filter(x=>x.envelope);
+ const paths=comparable.filter(s=>s.checkpoint_m===Math.max(...comparable.filter(t=>t.event===s.event).map(t=>t.checkpoint_m))).map(s=>({event:s.event,envelope:s.field.envelopes.find(x=>x.slot===h.slot),refs:s.refs,role:s.roleEvidence.find(r=>r.horse===h.slot),scope:'HISTORICAL_RESPONSE_TRANSFER_HYPOTHESIS'})).filter(x=>x.envelope);
  const positives=paths.filter(x=>x.envelope.max===1),places=paths.filter(x=>threshold!==null&&x.envelope.max<=threshold),negative=paths.filter(x=>x.envelope.min>1),badPlace=paths.filter(x=>threshold!==null&&x.envelope.min>threshold);
  const relevantFeedback=feedback.filter(e=>e.subject===h.slot);
  const possibleUnknown=common.roster.possible_active.some(x=>!common.roster.known_active.includes(x));
  const relevant=active&&!possibleUnknown&&paths.length>0;
+ const missingComparable=scenarios.some(s=>s.kind==='OBSERVED_FIELD_RESPONSE_SCENARIO'&&s.contextMatched&&(!s.knownField||!s.paceUsable||!s.valid));
  const gradeEvidence=uniq(paths.flatMap(x=>x.refs)),repeat=new Set(positives.map(x=>x.event)).size>1;
  // No S from this fixture alone: current state and scenario coverage are unmeasured.
  // A/B/C are provisional research candidates for this stipulated comparable synthetic context, not official grades.
  let candidate=null,reason='CURRENT_COMPARABLE_EVIDENCE_INSUFFICIENT';
  if(relevant&&positives.length){candidate='A';reason=repeat?'REPEATED_COMPARABLE_WIN_ROUTE_CURRENT_PACE_UNMEASURED':'OBSERVED_COMPARABLE_WIN_ROUTE_WITH_TRANSFER_LIMITS';}
  else if(relevant&&places.length){candidate='B';reason='CONCRETE_COMPARABLE_PLACE_ROUTE_LIMITED_WIN_EVIDENCE';}
- else if(relevant&&threshold!==null&&badPlace.length&&badPlace.length===paths.length&&paths.every(x=>x.envelope.min===x.envelope.max)){candidate='C';reason='ALL_OBSERVED_COMPARABLE_FIELD_ROUTES_SHOW_RELATIVE_DISADVANTAGE';}
- const dirs={A:positives.length||places.length?'SUPPORT':badPlace.length?'COUNTER':'UNKNOWN',B:relevant?'SUPPORT':'UNKNOWN',C:positives.length||places.length?'SUPPORT':badPlace.length?'COUNTER':'UNKNOWN',D:paths.length?(negative.length&&positives.length?'MIXED':positives.length||places.length?'SUPPORT':badPlace.length?'COUNTER':'UNKNOWN'):'UNKNOWN',E:negative.length?(positives.length||places.length?'MIXED':'COUNTER'):relevantFeedback.length?'SUPPORT':'UNKNOWN'};
+ else if(relevant&&!missingComparable&&threshold!==null&&badPlace.length&&badPlace.length===paths.length&&paths.every(x=>x.envelope.min===x.envelope.max)){candidate='C';reason='ALL_OBSERVED_COMPARABLE_FIELD_ROUTES_SHOW_RELATIVE_DISADVANTAGE';}
+ const dirs={A:positives.length||places.length?'SUPPORT':badPlace.length?'COUNTER':'UNKNOWN',B:relevant?'SUPPORT':'UNKNOWN',C:positives.length||places.length?'SUPPORT':badPlace.length?'COUNTER':'UNKNOWN',D:paths.length?(negative.length&&positives.length?'MIXED':positives.length||places.length?'SUPPORT':badPlace.length?'COUNTER':'UNKNOWN'):'UNKNOWN',E:relevantFeedback.some(f=>f.state!=='CONDITIONAL_RECOVERY_SUPPORTED_AFTER_COUNTER_REVIEW')?(relevantFeedback.some(f=>f.state==='CONDITIONAL_RECOVERY_SUPPORTED_AFTER_COUNTER_REVIEW')?'MIXED':'COUNTER'):negative.length?(positives.length||places.length?'MIXED':'COUNTER'):relevantFeedback.some(f=>f.state==='CONDITIONAL_RECOVERY_SUPPORTED_AFTER_COUNTER_REVIEW')?'SUPPORT':'UNKNOWN'};
  const axes=h.axes.map(a=>{const support=active?positives.concat(places.filter(x=>!positives.includes(x))):[],counter=active?negative:[],f=a.axis==='E'||a.axis==='D'?relevantFeedback:[];return {...a,legacy_facts:legacy?.axes?.find(x=>x.axis===a.axis)?.facts??[],state:!active?'UNKNOWN':dirs[a.axis],current_support:[],current_counter:[],research_support:dirs[a.axis]==='SUPPORT'||dirs[a.axis]==='MIXED'?support:[],research_counter:dirs[a.axis]==='COUNTER'||dirs[a.axis]==='MIXED'?counter:[],discovery_feedback:f,scope:'SYNTHETIC_COMPARABLE_PATH_NOT_OBSERVED_CURRENT_CAPABILITY'};});
  const boundary=reviewGradeBoundary({axes:axes.map(a=>({axis:a.axis,current_relevance_reviewed:false,direction:'NEUTRAL',evidence_ids:gradeEvidence})),claim:'WIN_PATH'});
- const used=new Set([...gradeEvidence,...relevantFeedback.flatMap(x=>x.refs)]),audit=h.items.map(i=>({...i,decision_refs:i.refs.filter(r=>used.has(r)),decision_effect:i.refs.some(r=>used.has(r))?'REFERENCED_BY_RESEARCH_PATH_NOT_ISOLATED_EFFECT':'NO_PROVEN_DECISION_EFFECT',grade_effect_proven:false}));
- return {...h,axes,items:audit,WIN:{...h.WIN,comparable_paths:positives,counter_paths:negative,overall:'UNRESOLVED'},PLACE:{...h.PLACE,comparable_paths:places,counter_paths:badPlace,overall:'UNRESOLVED'},eye_reanalysis:relevantFeedback,research_grade:candidate,research_reason:reason,grade:null,formal:false,decision_refs:gradeEvidence,pr95_boundary_probe:boundary,material_unknowns:['CURRENT_PACE_AND_ROLE','CURRENT_FORM_AND_FULL_SCENARIO_COVERAGE',...(possibleUnknown?['UNKNOWN_RIVAL']:[])]};
+ const used=new Set([...gradeEvidence,...relevantFeedback.flatMap(x=>x.refs)]),audit=h.items.map(i=>{const rerun=['RANK18','RANK21','RANK100'].includes(i.item)?relevantFeedback.map(f=>({state:f.state,checkpoint_m:f.checkpoint_m,before:f.before.envelope,after:f.after.envelope,refs:f.refs,order_changed:f.order_changed})):[];return {...i,v34_reanalysis:rerun,decision_refs:i.refs.filter(r=>used.has(r)),decision_effect:rerun.length?'SHARED_SCENARIO_RECOMPUTED_CONDITIONAL_ONLY':i.refs.some(r=>used.has(r))?'REFERENCED_BY_RESEARCH_PATH_NOT_ISOLATED_EFFECT':'NO_PROVEN_DECISION_EFFECT',grade_effect_proven:false};});
+ return {...h,axes,items:audit,WIN:{...h.WIN,comparable_paths:positives,counter_paths:negative,discovery_paths:relevantFeedback.map(f=>({id:f.id,state:f.state,envelope:f.after.envelope,refs:f.refs})),overall:'UNRESOLVED'},PLACE:{...h.PLACE,comparable_paths:places,counter_paths:badPlace,discovery_paths:relevantFeedback.map(f=>({id:f.id,state:f.state,envelope:f.after.envelope,refs:f.refs})),overall:'UNRESOLVED'},eye_reanalysis:relevantFeedback,research_grade:candidate,research_reason:reason,grade:null,formal:false,decision_refs:gradeEvidence,pr95_boundary_probe:boundary,material_unknowns:['CURRENT_PACE_AND_ROLE','CURRENT_FORM_AND_FULL_SCENARIO_COVERAGE',...(possibleUnknown?['UNKNOWN_RIVAL']:[])]};
 }
 export function analyzeV34(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true}={}){
  const {base,after,L,f}=prepare(V,id,withdraw,placeThreshold);

@@ -188,5 +188,5 @@ export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,can
  const L={cases:new Map([[id,p]]),canonical:C.canonical,work30:new Map(),work27:new Map()};
  const r=enrich(L,id,withdraw,{placeThreshold,eyeEnabled}),expected=C.receipt.summary.find(x=>x.id===id);
  assert.equal(r.source_evidence,expected.evidence);assert.equal(r.source_item_rows,expected.itemRows);
- return {...r,source_digest:out.digest,source_packet:out.packet,source_envelope:out,...(includePack?{loaded:L}: {})};
+ return {...r,source_digest:out.digest,source_packet:out.packet,source_envelope:out,source_bundle_sha256:sha(text),...(includePack?{loaded:L}: {})};
 }
