@@ -1,0 +1,240 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "checks": [
+    {
+      "name": "pipeline_3",
+      "pass": true
+    },
+    {
+      "name": "pair_count_3",
+      "pass": true
+    },
+    {
+      "name": "unique_3",
+      "pass": true
+    },
+    {
+      "name": "all_115_3",
+      "pass": true
+    },
+    {
+      "name": "pipeline_5",
+      "pass": true
+    },
+    {
+      "name": "pair_count_5",
+      "pass": true
+    },
+    {
+      "name": "unique_5",
+      "pass": true
+    },
+    {
+      "name": "all_115_5",
+      "pass": true
+    },
+    {
+      "name": "pipeline_12",
+      "pass": true
+    },
+    {
+      "name": "pair_count_12",
+      "pass": true
+    },
+    {
+      "name": "unique_12",
+      "pass": true
+    },
+    {
+      "name": "all_115_12",
+      "pass": true
+    },
+    {
+      "name": "outside_not_direct",
+      "pass": true
+    },
+    {
+      "name": "common_outside",
+      "pass": true
+    },
+    {
+      "name": "later_outside",
+      "pass": true
+    },
+    {
+      "name": "numbers_not_fused",
+      "pass": true
+    },
+    {
+      "name": "shared_lap",
+      "pass": true
+    },
+    {
+      "name": "unknown_held",
+      "pass": true
+    },
+    {
+      "name": "cancel_na",
+      "pass": true
+    },
+    {
+      "name": "missing_lap_preserve_clock",
+      "pass": true
+    },
+    {
+      "name": "missing_passing_preserve_finish",
+      "pass": true
+    },
+    {
+      "name": "missing_winner_clock_no_margin",
+      "pass": true
+    },
+    {
+      "name": "missing_finish_keep_clock",
+      "pass": true
+    },
+    {
+      "name": "dead_heat",
+      "pass": true
+    },
+    {
+      "name": "rounded_equal_not_tie",
+      "pass": true
+    },
+    {
+      "name": "dnf_excluded",
+      "pass": true
+    },
+    {
+      "name": "raw_corrupt",
+      "pass": true
+    },
+    {
+      "name": "stamp_lower_bound",
+      "pass": true
+    },
+    {
+      "name": "cutoff_change",
+      "pass": true
+    },
+    {
+      "name": "late_result",
+      "pass": true
+    },
+    {
+      "name": "registry_missing",
+      "pass": true
+    },
+    {
+      "name": "target_extra",
+      "pass": true
+    },
+    {
+      "name": "gate_negative",
+      "pass": true
+    },
+    {
+      "name": "target_row_market",
+      "pass": true
+    },
+    {
+      "name": "actual_work30_v30_joint_field",
+      "pass": true
+    },
+    {
+      "name": "12_plus_unknown_joint",
+      "pass": true
+    },
+    {
+      "name": "actual_v30_withdrawal_changes_historical_order",
+      "pass": true
+    },
+    {
+      "name": "unrelated_withdrawal_invariant",
+      "pass": true
+    }
+  ],
+  "summary": [
+    {
+      "n": 3,
+      "roster": 5,
+      "history": 3,
+      "evidence": 99,
+      "pairs": 13,
+      "currentPairs": 6,
+      "common": 12,
+      "followups": 15,
+      "items": 575,
+      "available": 30
+    },
+    {
+      "n": 5,
+      "roster": 7,
+      "history": 3,
+      "evidence": 163,
+      "pairs": 31,
+      "currentPairs": 20,
+      "common": 80,
+      "followups": 35,
+      "items": 805,
+      "available": 50
+    },
+    {
+      "n": 12,
+      "roster": 14,
+      "history": 3,
+      "evidence": 513,
+      "pairs": 157,
+      "currentPairs": 132,
+      "common": 1452,
+      "followups": 168,
+      "items": 1610,
+      "available": 120
+    }
+  ],
+  "prior405_not_rerun": true,
+  "new_checks": 38,
+  "passed": 38,
+  "codeRef": "9528099db16f4655a99333c2c0937306c20101c3",
+  "rawRef": "7e49455cc6b9de5025c5437288b781896fe72495",
+  "pins": [
+    {
+      "n": 3,
+      "path": "research/reborn2-official-sources/stage31-packet-3-v0.1.json",
+      "ref": "3a4129b912158f321d38ccec99192e51c8ef45c3",
+      "sha256": "10639aff38d4281afdff2cdfeb417b92f69ea97aca31e968f58497f4aa2ebc48",
+      "digest": "4099ef09c07c750c3a958f6497d81dcb98e6e4c782b9b53e6205dea1ef33e656",
+      "chars": 203719
+    },
+    {
+      "n": 5,
+      "path": "research/reborn2-official-sources/stage31-packet-5-v0.1.json",
+      "ref": "8cc556c9c1790fa4ad2dbc05905df7843c71476f",
+      "sha256": "062582023a56304cc44b85b39b23e4848a097cc0883098469c8b706cac377092",
+      "digest": "ac4b662b2437425755a0c13c912c2b7bccfbabd152c988fa14f17e7b5ce93597",
+      "chars": 361163
+    },
+    {
+      "n": 12,
+      "path": "research/reborn2-official-sources/stage31-packet-12-v0.1.json",
+      "ref": "092ea04f7f882964854489c7492cafae30d450d0",
+      "sha256": "813b8aa5224dece7979dac07a8ed67d25124f386c3afc84aa8958671b11adf52",
+      "digest": "07bb739a67be220e02799b3e64b747bef0c81f8da4334d04a41e012efc9ce269",
+      "chars": 1686124
+    }
+  ],
+  "bridgeRef": "7f783becd530cee6844abdc2ab2c652b3d02ae87",
+  "variantDigests": [
+    "1fe02ac3cc91c966c1d0f5a39accc1d72e06f131fcc38d77d83e1d73e4258c5b",
+    "376d35842f8a8950919720af17e9c8e80b983f76b9ecbe1f3d17963cbae340c3",
+    "d832a64de1ed912866466657c4003b76419abb5ac9b32f6eaa57f247145d9e02",
+    "1ae29316088e0c634c921cf5daa848bf96a13644ef619c214be46b955868cef8",
+    "7b057777a03b1d805941dfb1891b1a6f00fa88a8c3b42aa334835db4f98276ee",
+    "a55f9ec2505ac9651e33e6b38a0d325edb11ec007d06dd59be56fccab2d63588",
+    "ba673f42bfb26318e6f0349d18997d87a85bb7452f5f3c8f0d6f41b072c075b7"
+  ],
+  "limits": [
+    "Actual exact V30 jointField function executed in isolation, not full V30 analyzer or CI. Historic orders only. Work30 legacy missing card provenance remains explicit.",
+    "Synthetic ASCII JSON, registry simulated, no signature or official proof. Common peer links not strength or transitive ranking. Optional field isolation is partial; bad roster/authority fails entire packet."
+  ]
+}
