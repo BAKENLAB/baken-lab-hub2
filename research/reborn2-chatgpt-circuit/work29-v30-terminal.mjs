@@ -53,32 +53,40 @@ export function analyzeV30(L,name,withdraw=null,options={}){
    const ta=v(ca),tb=v(cb),ha=hs(ev,a),hb=hs(ev,b);
    const t=p&&last&&last.to_m===checkpoint&&r.measurement.checkpoint_scope==='COURSE_DISTANCE_CROSSING_ELAPSED_FROM_COMMON_START'?terminalSegment({a,b,lastA:ta?.at(-1),lastB:tb?.at(-1),finishA:v(fa),finishB:v(fb),rankA:ha?.finish,rankB:hb?.finish,distance,checkpoint,uncertainty:r.measurement.clock_uncertainty_ms}):{state:'MISSING_OR_INVALID_TERMINAL',segment:null};
    const termRefs=t.segment?refs([ca,cb,fa,fb,ra,rb,e.geometry,e.conditions]):[];
-   const rankOrder=p?.finish_order===a?'AHEAD':p?.finish_order===b?'BEHIND':'UNKNOWN';
+   const rankOrder=p&&Number.isInteger(ha?.finish)&&Number.isInteger(hb?.finish)?ha.finish<hb.finish?'AHEAD':ha.finish>hb.finish?'BEHIND':'UNKNOWN':'UNKNOWN';
    const rankRefs=rankOrder==='UNKNOWN'?[]:refs([ra,rb]);
    const checkpointOrder=last?.end_order??'UNKNOWN';
    const persistence=checkpointOrder!=='UNKNOWN'&&rankOrder!=='UNKNOWN'?(checkpointOrder===rankOrder?'OBSERVED_CONSISTENT':'OBSERVED_COUNTEREXAMPLE'):'UNRESOLVED';
-   const row={event:ev,a,b,checkpoint,distance,target_distance:targetDistance,transfer:distance!==null&&targetDistance!==null&&distance===targetDistance?'SAME_DISTANCE_NOT_TRANSFER_PROOF':'DISTANCE_CHANGED_OR_UNKNOWN',checkpoint_order:checkpointOrder,finish_order:rankOrder,persistence,terminal:t,checkpoint_refs:p?.intervalRefs??[],finish_refs:rankRefs,terminal_refs:termRefs,refs:uniq([...(p?.intervalRefs??[]),...rankRefs,...termRefs])};
+   const first=p?.intervals[0],net=first&&t.segment?t.segment.end-first.start:null,netBound=first&&t.segment?Math.max(first.changeBound,t.segment.changeBound):null;
+   const priorRecovery={a:!!p?.intervals.some(x=>x.change==='LOSS'),b:!!p?.intervals.some(x=>x.change==='GAIN')};
+   const row={event:ev,a,b,checkpoint,distance,target_distance:targetDistance,net_first_to_finish_ms:net,net_bound_ms:netBound,priorRecovery,transfer:distance!==null&&targetDistance!==null&&distance===targetDistance?'SAME_DISTANCE_NOT_TRANSFER_PROOF':'DISTANCE_CHANGED_OR_UNKNOWN',checkpoint_order:checkpointOrder,finish_order:rankOrder,persistence,terminal:t,checkpoint_refs:p?.intervalRefs??[],finish_refs:rankRefs,terminal_refs:termRefs,refs:uniq([...(p?.intervalRefs??[]),...rankRefs,...termRefs])};
    pairs.push(row);terminal.push(row);
   }
-  const create=(kind,predicate,scope)=>{
-   const relations=pairs.map(p=>({a:p.a,b:p.b,order:predicate(p),refs:p.refs}));
-   return {event:ev,kind,scope,relations,field:jointField(active,relations,threshold),actual_current_feasibility:'UNRESOLVED',prediction:false};
+  const known=h=>out.runners.find(x=>x.slot===h)?.identity_known&&out.runners.find(x=>x.slot===h)?.status==='ACTIVE';
+  const early=active.map(h=>{const a=known(h)?hs(ev,h):null,rank=a?.rank?.[0]??null;return {slot:h,rank,role:rank===1?'OBSERVED_FIRST_CHECKPOINT_LEADER':rank===null?'UNKNOWN':'OBSERVED_OTHER_POSITION',refs:rank===null?[]:a.rankTrace.refs};});
+  const earlyMap=new Map(early.map(x=>[x.slot,x]));
+  const earlyPairs=pairs.map(p=>{const a=earlyMap.get(p.a),b=earlyMap.get(p.b);return {a:p.a,b:p.b,order:a.rank===null||b.rank===null||a.rank===b.rank?'UNKNOWN':a.rank<b.rank?'AHEAD':'BEHIND',refs:uniq([...a.refs,...b.refs])};});
+  const context=active.map(h=>{const q=out.runners.find(x=>x.slot===h),a=known(h)?hs(ev,h):null,c=q?.condition_paths?.find(x=>x.event===ev),pace=q?.pace_paths?.find(x=>x.event===ev);return {slot:h,condition_dimensions:c?.dims??null,condition_mismatches:c?.mismatches??[],condition_unknown:c?.unknown??[],geometry_delta:a?.geometry_delta??null,weight_delta_g:a?.weight_delta_g??null,gate_state:c?.gateState??null,pace_observation:pace?.state??'UNKNOWN',current_response:'UNPROVEN',refs:uniq([...(c?.refs??[]),...(pace?.refs??[])])};});
+  const sharedContext={early,early_field:jointField(active,earlyPairs),historical_leader_pace:out.leaders?.find(x=>x.event===ev)??null,context};
+  const create=(kind,predicate,scope,root=p=>p.refs)=>{
+   const relations=pairs.map(p=>({a:p.a,b:p.b,order:predicate(p),refs:root(p)}));
+   return {event:ev,kind,scope,relations,sharedContext,field:jointField(active,relations,threshold),actual_current_feasibility:'UNRESOLVED',prediction:false};
   };
-  scenarios.push(create('CHECKPOINT_OBSERVED',p=>p.checkpoint_order,'HISTORICAL_CHECKPOINT_ONLY'));
-  scenarios.push(create('FINISH_OBSERVED',p=>p.terminal.state==='CLOCK_FINISH_CONTRADICTION'?'UNKNOWN':p.finish_order,'HISTORICAL_FINISH_ORDER_AMONG_CURRENT_POSSIBLE_RUNNERS'));
+  scenarios.push(create('CHECKPOINT_OBSERVED',p=>p.checkpoint_order,'HISTORICAL_CHECKPOINT_ONLY',p=>p.checkpoint_refs));
+  scenarios.push(create('FINISH_OBSERVED',p=>p.terminal.state==='CLOCK_FINISH_CONTRADICTION'?'UNKNOWN':p.finish_order,'HISTORICAL_FINISH_ORDER_AMONG_CURRENT_POSSIBLE_RUNNERS',p=>uniq([...p.finish_refs,...(p.terminal.state==='CLOCK_FINISH_CONTRADICTION'?p.refs:[])])));
   const counter=pairs.filter(p=>p.persistence==='OBSERVED_COUNTEREXAMPLE');
   const persist=create('CHECKPOINT_PERSISTS_TO_FINISH',p=>p.checkpoint_order,'COUNTERFACTUAL_NOT_OBSERVED_FINISH');
   persist.counterexamples=counter.map(p=>({a:p.a,b:p.b,refs:p.refs}));
   if(counter.length)persist.field={state:'CONTRADICTED_BY_OBSERVED_FINISH',envelopes:[],prediction:false};
   // No measured changed-pace response means no conditional claim. All possible runners kept.
-  scenarios.push(persist,create('CHANGED_PACE_OR_CONTESTED_LEAD',()=> 'UNKNOWN','UNIDENTIFIED_CURRENT_RESPONSE'));
+  scenarios.push(persist,create('EQUAL_FIRST_CHECKPOINT_TO_FINISH',p=>p.net_first_to_finish_ms===null?'UNKNOWN':order(p.net_first_to_finish_ms,p.net_bound_ms),'HYPOTHETICAL_EQUAL_FIRST_CHECKPOINT_AND_SAME_MEASURED_NET_CHANGE',p=>p.terminal.segment?p.refs:[]),create('CHANGED_PACE_OR_CONTESTED_LEAD',()=> 'UNKNOWN','UNIDENTIFIED_CURRENT_RESPONSE',()=>[]));
  }
  for(const h of out.runners){
   const valid=h.identity_known&&h.status==='ACTIVE',rows=valid?terminal.filter(p=>p.a===h.slot||p.b===h.slot).map(p=>{
    const s=p.terminal.segment,sign=p.a===h.slot?1:-1;
    return {...p,rival:sign===1?p.b:p.a,checkpoint_order:sign===1?p.checkpoint_order:reverse(p.checkpoint_order),finish_order:sign===1?p.finish_order:reverse(p.finish_order),subject_segment:s?{...classifyInterval(sign*s.start,sign*s.end,s.endpointBound,s.changeBound),from_m:s.from_m,to_m:s.to_m,elapsed_ms:sign===1?s.elapsed_a_ms:s.elapsed_b_ms,rival_elapsed_ms:sign===1?s.elapsed_b_ms:s.elapsed_a_ms}:null};
   }):[];
-  const paths=valid?scenarios.map(s=>({event:s.event,kind:s.kind,scope:s.scope,state:s.field.state,envelope:s.field.envelopes.find(x=>x.slot===h.slot)??null,counterexamples:s.counterexamples??[],refs:uniq(s.relations.flatMap(x=>x.refs)),current_feasibility:'UNRESOLVED'})):[];
+  const paths=valid?scenarios.filter(s=>hs(s.event,h.slot)).map(s=>({event:s.event,kind:s.kind,scope:s.scope,state:s.field.state,envelope:s.field.envelopes.find(x=>x.slot===h.slot)??null,counterexamples:s.counterexamples??[],refs:uniq(s.relations.flatMap(x=>x.refs)),current_feasibility:'UNRESOLVED'})):[];
   const findings=[];
   for(const p of rows){
    const z=p.subject_segment;
@@ -87,18 +95,18 @@ export function analyzeV30(L,name,withdraw=null,options={}){
    if(z){
     add('RANK08','TERMINAL_INTERVAL_AVERAGE_NOT_PHYSIOLOGICAL_ENDURANCE',p.terminal_refs,z);
     add('RANK18',z.kind,p.terminal_refs,z);
-    if(z.start_order==='BEHIND'&&z.end_order==='AHEAD')add('RANK21','TERMINAL_PAIR_RECOVERY',p.terminal_refs,z);
-    if(p.finish_order==='AHEAD')add('RANK12',z.start_order==='AHEAD'?'TERMINAL_PAIR_LEAD_RETAINED':'TERMINAL_PAIR_CONVERSION',p.terminal_refs,z);
+    if(z.change==='GAIN'&&p.priorRecovery[p.a===h.slot?'a':'b'])add('RANK21','TERMINAL_PAIR_RECOVERY',p.refs,z);
+    if(p.finish_order==='AHEAD'&&z.start_order!=='UNKNOWN')add('RANK12',z.start_order==='AHEAD'?'TERMINAL_PAIR_LEAD_RETAINED':'TERMINAL_PAIR_CONVERSION',p.terminal_refs,z);
     if(p.finish_order==='BEHIND'&&z.change==='GAIN')add('RANK29','TERMINAL_GAIN_DESPITE_PAIR_LOSS_REVIEW',p.terminal_refs,z);
    }
   }
   for(const path of paths.filter(p=>p.kind==='CHECKPOINT_PERSISTS_TO_FINISH'&&p.state==='CONTRADICTED_BY_OBSERVED_FINISH'))findings.push({item:'RANK100',state:'SHARED_PATH_REJECTED_BY_TERMINAL_COUNTEREVIDENCE',refs:path.refs,observation:{event:path.event},formal:false,current_relevance:'UNPROVEN'});
   h.terminal_v30=rows;h.scenarios_v30=paths;h.findings_v30=findings;
   // Preserve old data only as explicitly superseded diagnostics, not competing decision outputs.
-  h.legacy_v29={conditional_scenarios:h.conditional_scenarios,findings:h.v29_findings,semantic_effects:h.semantic_effects_v29,scope:'SUPERSEDED_FOR_FINISH_DECISIONS'};
+  h.legacy_v29={conditional_scenarios:h.conditional_scenarios,findings:h.v29_findings,semantic_effects:h.semantic_effects_v29,WIN:h.WIN?{...h.WIN}:null,PLACE:h.PLACE?{...h.PLACE}:null,scope:'SUPERSEDED_FOR_FINISH_DECISIONS'};
   h.conditional_scenarios=paths;
-  if(h.WIN){h.WIN.conditional_scenarios=paths.filter(p=>p.kind!=='CHECKPOINT_OBSERVED').map(p=>({...p,conditional_state:p.envelope?.win??p.state}));h.WIN.state='UNRESOLVED';}
-  if(h.PLACE){h.PLACE.conditional_scenarios=threshold===null?[]:paths.filter(p=>p.kind!=='CHECKPOINT_OBSERVED').map(p=>({...p,conditional_state:p.envelope?.place??p.state}));h.PLACE.state='UNRESOLVED';}
+  if(h.WIN){h.WIN={state:'UNRESOLVED',historical_finish_paths:paths.filter(p=>p.kind==='FINISH_OBSERVED'),conditional_scenarios:paths.filter(p=>!['CHECKPOINT_OBSERVED','FINISH_OBSERVED'].includes(p.kind)).map(p=>({...p,conditional_state:p.envelope?.win??p.state})),missing:uniq([...h.WIN.missing,'CURRENT_TRANSFER_AND_PACE_RESPONSE_UNPROVEN']),formal:false};}
+  if(h.PLACE){h.PLACE={state:'UNRESOLVED',threshold,historical_finish_paths:paths.filter(p=>p.kind==='FINISH_OBSERVED'),conditional_scenarios:threshold===null?[]:paths.filter(p=>!['CHECKPOINT_OBSERVED','FINISH_OBSERVED'].includes(p.kind)).map(p=>({...p,conditional_state:p.envelope?.place??p.state})),missing:uniq([...h.PLACE.missing,'CURRENT_TRANSFER_AND_PACE_RESPONSE_UNPROVEN']),formal:false};}
   h.items=h.items.map(x=>{const f=findings.filter(z=>z.item===x.item);return {...x,refs:uniq([...x.refs,...f.flatMap(z=>z.refs)]),v30_findings:f,v30_semantic_scope:f.length?'HISTORICAL_OR_CONDITIONAL_ONLY':null,grade_effect_proven:false};});
   h.eye_feedback_v30=valid?(h.eye_feedback_v29??[]).map(x=>({...x,reviewed:findings.filter(f=>['RANK18','RANK21'].includes(f.item)),current_relevance:'UNPROVEN',independent_vote:false,canonical_return:false})):[];
   h.grade=null;
