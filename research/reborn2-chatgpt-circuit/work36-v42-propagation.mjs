@@ -101,9 +101,10 @@ function discoveries(h,x,routes){
  // route's response, not a blanket bonus.
  const upstream=x.runners.find(q=>q.slot===h.horse);
  const existing=(upstream?.findings_v33??[]).filter(f=>f.item==='RANK18'&&f.eye_id).flatMap(f=>(f.observation?.measurements??[]).filter(m=>m.supported).map(m=>({item:'EYE03',kind:'SHARED_RECOVERY_RETURN',horse:h.horse,rival:f.observation.rival,event:m.event,checkpoint:m.checkpoint_m,refs:m.refs,scope:'CONDITIONAL_RECOVERY',targets:['RANK18','RANK21','RANK100'],counterEvents:(f.observation.counterexamples??[]).map(q=>q.event)})));
- const all=[...candidates,...existing];
+ const counter=(upstream?.findings_v33??[]).filter(f=>f.item==='RANK18'&&f.eye_id).flatMap(f=>(f.observation?.counterexamples??[]).map(m=>({item:'EYE03',kind:'SHARED_RECOVERY_COUNTER',horse:h.horse,rival:f.observation.rival,event:m.event,checkpoint:m.checkpoint_m,refs:m.refs,scope:'MEASURED_COUNTER_TO_RECOVERY',targets:['RANK18','RANK21','RANK100']})));
+ const all=[...candidates,...existing,...counter];
  const unique=new Map();
- for(const q of all){const k=JSON.stringify([q.item,q.horse,q.rival??null,q.event,q.counterEvent??null,q.checkpoint??null]);if(!unique.has(k))unique.set(k,q);}
+ for(const q of all){const k=JSON.stringify([q.item,q.kind,q.horse,q.rival??null,q.event,q.counterEvent??null,q.checkpoint??null]);if(!unique.has(k))unique.set(k,{...q,refs:uniq(q.refs)});else{const prior=unique.get(k);unique.set(k,{...prior,refs:roots(prior.refs,q.refs)});}}
  return [...unique.values()];
 }
 function assess(h,r,eye,threshold){
@@ -113,13 +114,13 @@ function assess(h,r,eye,threshold){
  const fullWin=full&&e.max===1,fullPlace=full&&e.max<=threshold,fullCounter=full&&e.min>threshold;
  const localEvidence=own.filter(q=>q.local),positive=own.filter(q=>q.recovered||q.retained),negative=own.filter(q=>q.lost);
  const found=eye.filter(q=>q.event===r.response&&(q.checkpoint===undefined||q.checkpoint===r.checkpoint));
- const relevance=found.map(q=>({...q,effective:own.some(p=>p.full&&p.finish?.[0]>0&&(!q.rival||p.rival===q.rival))}));
+ const relevance=found.map(q=>({...q,explicitCounter:q.kind==='SHARED_RECOVERY_COUNTER',effective:q.kind!=='SHARED_RECOVERY_COUNTER'&&own.some(p=>p.full&&p.finish?.[0]>0&&(!q.rival||p.rival===q.rival))}));
  const axes=[
   {axis:'A',support:own.filter(q=>q.full&&q.finish?.[0]>0),counter:own.filter(q=>q.full&&q.finish?.[1]<0),unknown:own.filter(q=>!q.full),refs:roots(...own.map(q=>q.refs))},
   {axis:'B',support:localEvidence,counter:[],unknown:own.filter(q=>!q.full),facts:{context:r.context,pace:r.pace,checkpoint:r.checkpoint,remaining:r.remaining},refs:roots(...own.map(q=>q.refs))},
   {axis:'C',support:fullWin||fullPlace?[e]:[],counter:fullCounter?[e]:[],unknown:!full||!fullPlace&&!fullCounter?[l]:[],refs:roots(...r.edges.map(q=>q.refs))},
   {axis:'D',support:positive,counter:negative,unknown:own.filter(q=>!q.full||!q.initial),refs:roots(...own.map(q=>q.refs))},
-  {axis:'E',support:relevance.filter(q=>q.effective),counter:relevance.filter(q=>!q.effective),unknown:relevance.length?[]:['NO_ADDITIONAL_RELEVANT_DISCOVERY'],refs:roots(...relevance.map(q=>q.refs))}
+  {axis:'E',support:relevance.filter(q=>q.effective),counter:relevance.filter(q=>q.explicitCounter),unknown:relevance.length?relevance.filter(q=>!q.effective&&!q.explicitCounter):['NO_ADDITIONAL_RELEVANT_DISCOVERY'],refs:roots(...relevance.map(q=>q.refs))}
  ];
  // Material effect: applicable matched whole-field response and explicit
  // demonstrated response to deficit/advantage. EYE is not a second vote.
@@ -242,6 +243,18 @@ t('F42-08',()=>{
  assert.deepEqual(o.own.map(e=>e.finish),p.own.map(e=>e.finish));
  assert.ok(h(3).paths.some(q=>q.response.endsWith('W36_COUNTER_MATCHED')&&q.decision==='CONDITIONAL_COUNTER'));
  assert.ok(p.basis.discovery&&p.basis.ability&&p.basis.applicability&&p.basis.comparison&&p.basis.response);
+});
+t('F42-09',()=>{
+ const {base,z}=get('W36_OTHER_COUNTER');
+ for(const h of base.runners_v41){
+  const a=discoveries(h,base,z.routes);
+  const duplicate={...base,runners:base.runners.map(q=>({...q,findings_v33:[...(q.findings_v33??[]),...(q.findings_v33??[])]}))};
+  const b=discoveries({...h,contrast:[...h.contrast,...h.contrast]},duplicate,z.routes);
+  assert.deepEqual(a,b,'DUPLICATE_FINDING_MUST_NOT_DOUBLE_COUNT');
+ }
+ const h=masks[3].z.runners.find(q=>q.horse===H(4));
+ assert.ok(h.eye.some(e=>e.kind==='SHARED_RECOVERY_COUNTER'&&e.event.endsWith('W36_COUNTER_MATCHED')));
+ assert.ok(h.paths.some(p=>p.response.endsWith('W36_COUNTER_MATCHED')&&p.axes.find(a=>a.axis==='E').counter.length));
 });
 const compact=z=>({id:z.id,digest:z.digest,routes:z.routes.map(r=>({id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,local:r.edges.filter(e=>e.local).length,full:r.edges.filter(e=>e.full).length,valid:r.valid})),runners:z.runners.map(h=>({horse:h.horse,conditional:h.conditional_grade,eye:h.eye,reason:h.reasons,paths:h.paths.map(p=>({id:p.id,decision:p.decision,field:p.field&&[p.field.min,p.field.max],local:p.local&&[p.local.min,p.local.max],axes:p.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown.length}))}))}))});
 for(const {z} of all)console.log('V42_CASE '+JSON.stringify(compact(z)));
