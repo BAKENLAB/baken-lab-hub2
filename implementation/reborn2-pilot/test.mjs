@@ -32,6 +32,6 @@ try{
   const html=renderHub(s);assert.equal((html.match(/<article data-horse=/g)||[]).length,s.runners.length);for(const title of ['5観点','勝ち筋','好走筋','LAB EYE','具体的分析コメント','保留理由'])assert.ok(html.includes(title));assert.ok(!html.includes('<script'));assert.ok(html.includes('架空材料のみ'));
   if(process.env.PILOT_ARTIFACT_DIR){await mkdir(process.env.PILOT_ARTIFACT_DIR,{recursive:true});await writeFile(join(process.env.PILOT_ARTIFACT_DIR,name+'.html'),html);}
  }
- const injected=structuredClone(full);injected.runners[0].name='<script>alert(1)</script>';const {snapshotDigest,...body}=injected;injected.snapshotDigest=sha(body);assert.ok(renderHub(injected).includes('&lt;script&gt;'));assert.ok(!renderHub(injected).includes('<script'));
+ const injected=structuredClone(full);injected.runners[0].name='<script>alert(1)</script>';const {snapshotDigest:injectedDigest,...injectedBody}=injected;injected.snapshotDigest=sha(injectedBody);assert.ok(renderHub(injected).includes('&lt;script&gt;'));assert.ok(!renderHub(injected).includes('<script'));
  console.log('CODEX01_HUB_PREVIEW PASS');
 }finally{await rm(dir,{recursive:true,force:true});}
