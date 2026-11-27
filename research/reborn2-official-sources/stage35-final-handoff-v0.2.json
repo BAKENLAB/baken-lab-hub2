@@ -1,0 +1,574 @@
+{
+  "schema": "WORK35_CURRENT_EVIDENCE_RESEARCH_HANDOFF_0.2",
+  "scope": "SYNTHETIC_ONLY",
+  "parent": "e193a22a0d6f36020dffbc96fd4b518f64d802b8",
+  "main41_audit": "70abe391e4a48f005c9aacc6ab1bfccbc73a53b2",
+  "v34_fixed": "4fe9d2adcca979d91000e5f671e1725beb382445",
+  "v35_fixed": "1c765f3918905445fd90e7bfb9e6f985bde26627",
+  "canonical": 115,
+  "groups": 118,
+  "held": 826,
+  "priorRecorded": 576,
+  "existingCaseReplayChecks": 37,
+  "newVariantChecks": 35,
+  "totalNamedExecutedChecks": 72,
+  "combinedRecordedIfAllAccepted": 648,
+  "prior576Rerun": false,
+  "formal_admissions": 0,
+  "upstream_pins": [
+    {
+      "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+      "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+      "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+      "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-condition-pipeline-v0.1.2.mjs",
+      "blob": "93d87bb022dae3bae021ba62fc433504bc16f924",
+      "sha256": "2d1a8a6c6d6f15504a660478f60a626d47ec3ec6dee8a94175b82e920dd7fa23"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-bundles-v0.1.2.json",
+      "blob": "b7795dc91ebe203827b1054448068a8e2465069f",
+      "sha256": "befda1231124e5c9aef088659436077c5c9027c7301ff66d29e6ae8827b1af69"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-verified-common-adapter-v0.1.2.mjs",
+      "blob": "1693dfd4657483a1f9e457188c28b38b9d8b2166",
+      "sha256": "098f94a2738d68d30030403788dc15f707dba4438719256f08b846403fba0e92"
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/research-ability-core.mjs",
+      "blob": "92112f6c5e0a38c38aa8d1eff997127bae7d191d",
+      "sha256": "93b1515e2e2f3796296f650cdc8d64f005828521a9b450492827558682e2ca4f",
+      "exports": [
+        "uniq",
+        "dependencyReader",
+        "relativePosition",
+        "ordinalPath",
+        "signedGap",
+        "conditionDelta",
+        "winPlaceRequirements",
+        "repeatEnvelope"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work26-v27-integrated.mjs",
+      "blob": "5b1e805f605879321e2ae5176c29021bc26f7ac9",
+      "sha256": "a59020167726d590f5b378c4d26907c9cdd37fc401ebf4dd2c8cc2cf4ab5c7ab",
+      "exports": [
+        "analyzeV27"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work27-v28-contrast.mjs",
+      "blob": "42fda8b93261079fbb09a053463657af7ca8b703",
+      "sha256": "69029b5020f59158135cad2269c17c0fc09080f9376c3246340cd963c7459ab7",
+      "exports": [
+        "analyzeV28"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work28-v29-feasibility.mjs",
+      "blob": "d7275c6c06f9ed7aac49bc0017ad008cc6cf6de2",
+      "sha256": "ba4f1e1091cc36eabc2c1e67da90982d349ef8b934f1293002da16aa8b6f47b4",
+      "exports": [
+        "analyzeV29",
+        "classifyInterval"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work29-v30-terminal.mjs",
+      "blob": "c3048ab248ae11f5c6c0d981a62c8b8633f7c49c",
+      "sha256": "c78cf46d856564dc2026117b7869100d3e13dd3f20b4660c1f54c89fe6b496df",
+      "exports": [
+        "analyzeV30",
+        "jointField"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work30-v31-integrated.mjs",
+      "blob": "6e812e54ea096f55b2307d05659faaf4824711f2",
+      "sha256": "a1e67df2b40e943991ddf2cde7dcbbfe9f2c6f9f2d9fe19362894b69a91c1b8e",
+      "exports": [
+        "analyzeV31",
+        "compareV31Response"
+      ]
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-chatgpt-circuit/work32-v33-current.mjs",
+      "blob": "80e33a31e8f5c032f591fc1c43bf958a6fceb90f",
+      "sha256": "ecb59e243bc32c547247003f45fd5083147a6a5bf49085ae355eb90f345754c0"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+      "blob": "e652dcde2cf73577bc0a9d4fa4cfc1fc6d8ea228",
+      "sha256": "1241ffc9af725965f3e305b5fc6c52ce8e740ac9ed9f21a65188b7186b2db19d"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-v34-codex-pinned/engine.mjs",
+      "blob": "6fcfe19dbdbb052b87b73186d6c2a0df44460939",
+      "sha256": "612719a57bd40aa560c8ef05d9aaaa2ed43043208898a08e80d119610fcfb1d3"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-v34-codex-pinned/synthesis.mjs",
+      "blob": "fa23a3c606ce636f1663a499d76dcbe339bffcc5",
+      "sha256": "51a64613e1c691c26e6fdab56406cfbfa9497e4259677931d44827835e652a95"
+    },
+    {
+      "ref": "4fe9d2adcca979d91000e5f671e1725beb382445",
+      "path": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+      "blob": "d5068b771ba2caed416aad69033013c53122408e",
+      "sha256": "9808b5e540eebaa51b82cae28d277c8d45b8d3e21ba446ecd01135f8f8d529e8"
+    },
+    {
+      "ref": "1c765f3918905445fd90e7bfb9e6f985bde26627",
+      "path": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+      "blob": "beff47b48f1f8bc7afa29a2e3c887527cec1339c",
+      "sha256": "86138046cd890eb4a0b997ebc0f04caddc485f84322207e67f414ca7eef0701b"
+    },
+    {
+      "ref": "04cfc8eaca0a73f9ca2c17902689529fe7d06d5b",
+      "path": "research/reborn2-official-sources/stage35-current-evidence-v0.1.mjs",
+      "blob": "65d6e8b820b8ebda765db1158adef0a34343b119",
+      "sha256": "653e434a844d8bc49e3cb20e5c99dc8c9c3ad47a96c8299fe5e15e2232f10d50"
+    },
+    {
+      "ref": "0f16a98528aa3e8e790b5d7382af43d7122d9c12",
+      "path": "research/reborn2-official-sources/stage34-raw-fixtures-v0.2.json",
+      "blob": "21fc312418165985504fb6c230ebeb3321ae9ae6",
+      "sha256": "ec46adc52a23545a1f923956b919407ec95f081ed26ecdbbc5e0b7f918c28555",
+      "bytes": 38547
+    }
+  ],
+  "files": [
+    {
+      "ref": "052364766f17dfdf7319887952a6a01942770521",
+      "path": "research/reborn2-official-sources/stage35-current-evidence-v0.2.mjs",
+      "blob": "1393a10f3c9bc49216779ed58fff5d7f7664b414",
+      "sha256": "ed11ef01616ac5a0d726dceb32ea85292855d795e7ecd6d27075b5c13151932e",
+      "bytes": 8671
+    },
+    {
+      "ref": "052364766f17dfdf7319887952a6a01942770521",
+      "path": "research/reborn2-official-sources/stage35-fixed-replay-summary-v0.1.json",
+      "blob": "b16d94324aa5ffd4987509c5b827a0c8b703fca1",
+      "sha256": "746576212389e06559dff39e5305e2752abe4d76b373dbf9a453c6f5ceae215f",
+      "bytes": 21165
+    },
+    {
+      "ref": "052364766f17dfdf7319887952a6a01942770521",
+      "path": "research/reborn2-official-sources/stage35-missing-context-receipt-v0.2.json",
+      "blob": "0808f09cbb58dfdbf7d7bda58142a7668e080517",
+      "sha256": "47bdc720ad843c1a7c92547812b5c872eb7f1ca910f95fa93dc242531d0445e0",
+      "bytes": 94171
+    },
+    {
+      "ref": "052364766f17dfdf7319887952a6a01942770521",
+      "path": "research/reborn2-official-sources/stage35-eye-admission-compact-v0.2.json",
+      "blob": "94e8542623065e79872e8b9388b2a4fd2f35bfbf",
+      "sha256": "a79920c974999c741773bb2f37c8142b91048845865903ea60d8843566bf88d6",
+      "bytes": 252209
+    },
+    {
+      "ref": "052364766f17dfdf7319887952a6a01942770521",
+      "path": "research/reborn2-official-sources/stage35-eye-counter-receipt-v0.2.json",
+      "blob": "505b678d5c9f38b12edddb8d83c3624ff4e83251",
+      "sha256": "b8bcf10bfb605a1341b6df6d5aac6b0d4cb09221fe945c3dd9859c398af626a6",
+      "bytes": 293420
+    },
+    {
+      "ref": "052364766f17dfdf7319887952a6a01942770521",
+      "path": "research/reborn2-official-sources/stage35-native-replay-v0.2.mjs",
+      "blob": "4fc085d14bb76bf0a87db4c744f408d9a5428156",
+      "sha256": "4b1d8a7ff5c48010d5ebd4368acfdbf945394dc6c3f35370878cc72e17c381c0",
+      "bytes": 3924
+    }
+  ],
+  "cases": [
+    {
+      "id": "FK34_FULL",
+      "source_digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+      "bundle_sha256": "1d3f0a66ffec5f26a985167520d81fa495a6eefd091e54d4bea76d05db39a8ca",
+      "evidence": 537,
+      "v34": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ],
+      "v35": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ],
+      "eyeOff": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ],
+      "withdraw": null
+    },
+    {
+      "id": "FK34_DISCOVERY",
+      "source_digest": "96a444d913920031add473845fd2e5682b88fb9c1f77afa8314a996020d19f1a",
+      "bundle_sha256": "cae903022d1bf2560784cfded869b841f167e9f805d7f6bb1cb58b0f73c04fe6",
+      "evidence": 393,
+      "v34": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ],
+      "v35": [
+        "A",
+        null,
+        "B",
+        null,
+        null
+      ],
+      "eyeOff": [
+        "A",
+        null,
+        "B",
+        null,
+        null
+      ],
+      "withdraw": null
+    },
+    {
+      "id": "FK34_UNKNOWN",
+      "source_digest": "ee05bf601bd1cf091643b4553cce2954b23dc64c4fd31972e6cdf2f2ac5d0937",
+      "bundle_sha256": "729b2028d4bbf7bc14179b7d61fb53d5e6c2fadc8326dbc95905127becd15b9a",
+      "evidence": 497,
+      "v34": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "v35": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "withdraw": null
+    },
+    {
+      "id": "FK34_NEGATIVE_ONLY",
+      "source_digest": "85ed11b719251b864b81dfda583cb5e193e7a643f99f39a1f4a3cc343e5db16c",
+      "bundle_sha256": "a5d56682a261337840e655bbae1a96421863cc7cf65f7461526411db553cdcd7",
+      "evidence": 81,
+      "v34": [
+        "B",
+        "A",
+        "C",
+        "C",
+        "C"
+      ],
+      "v35": [
+        "B",
+        "A",
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        "B",
+        "A",
+        null,
+        null,
+        null
+      ],
+      "withdraw": null
+    },
+    {
+      "id": "FK34_NEGATIVE_REMOVED",
+      "source_digest": "c836d95df8fb1357ca2e57e2b27f397bb30f5abb73cec0d56a2e9333b09a55ae",
+      "bundle_sha256": "dd831e0587b72bff11c24e0167b2ab20a5529ea063adbdd84dd36c32e84dc1a0",
+      "evidence": 59,
+      "v34": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "v35": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "withdraw": null
+    },
+    {
+      "id": "FK35_ACTIVE_MISSING",
+      "source_digest": "93df9900a888bc0a515c3796dd6124c02fa08b8864b2c8b9c78a75c5d19a10bb",
+      "bundle_sha256": "3a145ccfbfd7eb1451bbabb6c0a46a7f915ca84e1f49af03d9c2a7e7e6a4700c",
+      "evidence": 217,
+      "v34": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "v35": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "withdraw": null
+    },
+    {
+      "id": "FK35_ACTIVE_NO_CHECKPOINT",
+      "source_digest": "88f0d96679ea78ee9a7e1d59db60b4766d82728dbbce3b9dd30cd93ffb98c844",
+      "bundle_sha256": "d6211f517467b6b3eaa5c4001d6b2c571d5dc6e48f8b350a560efcd21fec57a9",
+      "evidence": 527,
+      "v34": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "v35": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "withdraw": null
+    },
+    {
+      "id": "FK35_CONTEXT_CHANGE",
+      "source_digest": "04c3cc3c73c23a9ab472fc26ba1269fd9e1640e0d5037afbdc78737e9c55c243",
+      "bundle_sha256": "375d317d930d10674dfb6faf442543f830b7f4aa0756820d717a144b531f2e01",
+      "evidence": 537,
+      "v34": [
+        "A",
+        "C",
+        "B",
+        "C",
+        "C"
+      ],
+      "v35": [
+        "A",
+        null,
+        "B",
+        null,
+        null
+      ],
+      "eyeOff": [
+        "A",
+        null,
+        "B",
+        null,
+        null
+      ],
+      "withdraw": null
+    },
+    {
+      "id": "FK35_EYE",
+      "source_digest": "ef6dcaffe8a11fc2c117789ba530d539decff5cdba87811b29599bacbea9bf7a",
+      "bundle_sha256": "ea52e0e48cf2664f98a0c148d2e17c760f0d4da3f6faad37dfdb01875e13d25c",
+      "evidence": 701,
+      "v34": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ],
+      "v35": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ],
+      "eyeOff": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ],
+      "withdraw": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ]
+    },
+    {
+      "id": "FK35_EYE_COUNTER",
+      "source_digest": "9c38c2a7ee53d75c340bd4006cc2c3a3704487c2c4827af144d83cf989a0bd86",
+      "bundle_sha256": "8f3207ae217f92e8bbef976b404815ad4bccfb664a8eeeca7e12df6fa9e60ab9",
+      "evidence": 885,
+      "v34": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ],
+      "v35": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ],
+      "eyeOff": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ],
+      "withdraw": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ]
+    }
+  ],
+  "observations": {
+    "fixedWork34FiveDigestMatch": true,
+    "latestV34HistoricalCandidateFull": [
+      "A",
+      "A",
+      "B",
+      "A",
+      "C"
+    ],
+    "v35ConditionalCandidateFull": [
+      "A",
+      "A",
+      "B",
+      null,
+      null
+    ],
+    "h5StartMissingBounds": [
+      [
+        1,
+        2
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        1,
+        5
+      ]
+    ],
+    "knownActiveH5NoCheckpointAllHeld": true,
+    "knownActiveH5NoPerformanceAllHeld": true,
+    "changedContextV34": [
+      "A",
+      "C",
+      "B",
+      "C",
+      "C"
+    ],
+    "changedContextV35": [
+      "A",
+      null,
+      "B",
+      null,
+      null
+    ],
+    "newH4ResponseEnvelope": [
+      1,
+      2
+    ],
+    "newCounterH4Envelope": [
+      5,
+      5
+    ],
+    "newH4ResponseBlocked": [
+      "TRANSFER_ANTECEDENT_NOT_SUPPORTED",
+      "UNRESOLVED_DISCOVERY_COUNTER"
+    ],
+    "newH4CheckpointWithdrawnMakesNewResponseNotComparable": true,
+    "h4h5FeedbackAfterCounter": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW"
+  },
+  "consumer": "Read the immutable Work34 parent handoff and all Work35 file pins. Fixed cases compare independent packet/bundle digest before passing to actual shared analyzeV34/analyzeV35. Work35 new variant digests are generated and now fixed, not independently accepted until Main41 audit. Native replay script prepared, not executed; requires clean exact V34 and V35 worktrees. No independent grading engine. Inspect local missingness and scenario-specific counter scope before adopting any research candidate.",
+  "limits": [
+    "JS isolate execution of pinned actual common function bodies, import/export and SHA/assert compatibility shims; native loadV34 hardcoded Work33 entry remains unextended; native Node replay and CI not run. Native script untested.",
+    "Work34 all five independent packet/bundle digests matched; V34/V35 observed summary receipts, not byte-for-byte comparison of all old rich analysis outputs across versions. Prior576 not rerun.",
+    "37 replay checks on old five cases and 35 checks on new five variants, 72 distinct recorded assertions; not 72 independent empirical cases or automatically accepted new regression suite.",
+    "Historical new H4 observation is new root/event, but H4 already beat H2 on other histories. Eye on/off candidate unchanged; no positive current grade change, no incident-only admissible root in existing producer. H4 withdrawal blocks that event's comparability; EYE root admission is not implemented as isolated same-snapshot evidence gate.",
+    "H5 known active with all performance missing and with checkpoint only missing both trigger blanket hold; V35 full field comparable and complete gate is blocker. Missing hypothetical start alone preserves informative partial bounds but B axis holds; no localized candidate correction yet.",
+    "Hypothetical starts are chosen independent stress antecedents; no actual physiological load, competition, current role or causality observed. H2 wins COUNTER with near H5, so proximity alone is not a decisive adverse burden. Changed-context fixture changes going, weight and straight/version jointly; not isolated cause. No independent class strength / indirect opponent ability supply added.",
+    "S and C absent by V35 implementation, no meaningful S multiple test or completed C/unknown rule. No formal grade, no real data, no production/DB/MCP/FROZEN/Cron/deploy/payment/merge."
+  ]
+}
