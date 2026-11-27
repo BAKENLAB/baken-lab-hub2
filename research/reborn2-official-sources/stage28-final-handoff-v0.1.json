@@ -1,0 +1,91 @@
+{
+  "schema": "WORK28_FINAL_RESEARCH_HANDOFF_0.1",
+  "scope": "EXISTING_LOCATOR_DIAGNOSTICS_ONLY_NO_OFFICIAL_VALUES",
+  "acceptance": {
+    "ref": "de3019b1c9a390ffc2051b70d405abc5dc5b7276",
+    "path": "research/reborn2-canonical/RESEARCH-WORK27-320-CONTROLLED-CONTRAST-MAIN39-AUDIT-20261128.md",
+    "blob": "f80b7c4a0c2dfd6b85837ccdac91b0594893615b"
+  },
+  "parent": {
+    "ref": "5975000b1496f8b0b7cd94b5a565a8bf087bfddf",
+    "path": "research/reborn2-official-sources/stage27-final-handoff-v0.1.json",
+    "blob": "fcbceb2ff2a6eb482b4d6f3f0b015e96f882e954"
+  },
+  "branch": "research/reborn2-work28-real-readiness-20261128",
+  "pins": [
+    {
+      "ref": "8a4a3863deb7c14774ba53b91e96e05dd37e4d26",
+      "path": "research/reborn2-official-sources/stage28-real-candidate-compact-v0.1.json",
+      "blob": "b89f907adf7e5a89612683e3e825ccd2a6c3ff2d",
+      "sha256": "4b8ccfaa7ee035706b955cdebdbdca8ba7606e2ea4334451cdad08e15152a643",
+      "bytes_utf8_note": "SHA256 of exact fetched UTF8 text"
+    },
+    {
+      "ref": "8a4a3863deb7c14774ba53b91e96e05dd37e4d26",
+      "path": "research/reborn2-official-sources/stage28-real-source-gates-v0.1.json",
+      "blob": "185403a95559dce8214da27d4ab4e3a069bff844",
+      "sha256": "aaa236b1bd828d2002478895f87a80374807a37626b440aef32be8a33ed6c578",
+      "bytes_utf8_note": "SHA256 of exact fetched UTF8 text"
+    },
+    {
+      "ref": "8a4a3863deb7c14774ba53b91e96e05dd37e4d26",
+      "path": "research/reborn2-official-sources/stage28-candidate-intake-probe-v0.1.mjs",
+      "blob": "11be464744acbadafa0fdc5b160a42bc5cfd0a95",
+      "sha256": "d83c4126fad1de64d183a00058ac29badd7c213008018d9b3440c96fd5791892",
+      "bytes_utf8_note": "SHA256 of exact fetched UTF8 text"
+    },
+    {
+      "ref": "8a4a3863deb7c14774ba53b91e96e05dd37e4d26",
+      "path": "research/reborn2-official-sources/stage28-intake-execution-v0.1.json",
+      "blob": "94938d6a3b77fd31891477e5be7a47d128572715",
+      "sha256": "d768b9fb61f853ea86bdbbc39a21a459490e20cdb756c830f7491dc0da23bd8f",
+      "bytes_utf8_note": "SHA256 of exact fetched UTF8 text"
+    }
+  ],
+  "readback_checks": {
+    "matrix_pin": true,
+    "roster_unique": true,
+    "all_items_held": true,
+    "partial_count": true,
+    "history_counts": true,
+    "all_gates_held": true,
+    "capture_and_discrepancy": true,
+    "local_card_excluded": true,
+    "tests": true
+  },
+  "execution": {
+    "prior_recorded": 320,
+    "prior_rerun": false,
+    "new_named_checks": 21,
+    "passed": 21,
+    "combined_recorded_if_accepted": 341,
+    "readback_checks_separate": 9,
+    "official_analyzer_values": 0,
+    "official_replays": 0,
+    "ci_executed": false,
+    "codex_executed": false
+  },
+  "summary": {
+    "runners": 30,
+    "historical_locators": 176,
+    "item_rows": 3450,
+    "partial_locator_rows": 813,
+    "missing_or_unmapped_rows": 2637,
+    "formal_item_rows": 0,
+    "groups": 118,
+    "held_gates": 826,
+    "cleared_gates": 0
+  },
+  "consumer": [
+    "Use compact matrix, not oversize initial matrix. Pin and verify exact UTF8 text SHA256, Git blob and upstream source pins before reading. DiagnosticIntake returns HELD and null for every item. No performance values from availability, counts, IDs, timestamps or locator pointers.",
+    "Per item dictionary provides original required materials and source routes; mapping is conservative locator presence, not exhaustive per-item missingness or analytical sufficiency. RANK78/79 date locators only. All original raw permissions remain unresolved.",
+    "Source/gate file preserves exact stored capture record metadata and 26 unresolved row updates; no raw bytes recovered or authority proof. Tokyo metadata status witness3647 has later mutable proof row and distinct hash domains; no retrospective reconstruction. Saga current card poststart excluded.",
+    "Future real source contract must be independently authenticated and authorized; probeContract accepts only synthetic shape, never real intake and never outputs values. Grouped order and deadheat tests are shape semantics, not provider parser. DNF/cancelled/excluded not numeric performance. Missing individual clocks remain missing. No blanket requirement for unobservable fields in a narrower approved observation.",
+    "User approval required before provider inquiry or authorized archive access; no permission assumed. No contact, contract, charge, DB query/write, production change, merge or formal admission performed."
+  ],
+  "limitations": [
+    "Oversize initial matrix GitHub content fetch returned empty; preserved original and independently rebuilt compact matrix from same pinned sources with matching counts. Compact readback verified, oversize original not byte-compared.",
+    "No new official acquisition, raw proof recovery, or independent source SQL/provider verification. Existing historical diagnostics only. Work27 residual synthetic cases not extended in this stage. 21 tests executed in JavaScript environment; prior320 unchanged, no CI or real Codex analysis.",
+    "Future positive real source adapter not implemented; current diagnostics only. No official field values supplied."
+  ]
+}
