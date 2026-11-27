@@ -32,7 +32,8 @@ export function loadV27(){
  need(cases.size===7&&raw.cases.length===7,'CASE_COUNT');return {previous,cases};
 }
 export function analyzeResearch(loaded,name,withdraw=null){return loaded.cases.has(name)?analyzeV27(loaded,name,withdraw):analyzeV26(loaded.previous,name,withdraw);}
-export function analyzeV27(loaded,name,withdraw=null){
+export function analyzeV27(loaded,name,withdraw=null,options={}){
+ const threshold=Object.hasOwn(options,'placeThreshold')?options.placeThreshold:3;need(threshold===null||Number.isInteger(threshold)&&threshold>0,'RESEARCH_THRESHOLD');
  const pack=loaded.cases.get(name);need(pack,'CASE');const {r,o,f}=pack;
  const all=new Map(o.evidence.map(e=>[e.evidence_id,e])),fields=new Map(o.evidence.map(e=>[JSON.stringify([e.event_id,e.subject_id,e.field]),e]));
  const field=(event,horse,key)=>fields.get(JSON.stringify([event,horse,key]));
@@ -54,23 +55,26 @@ export function analyzeV27(loaded,name,withdraw=null){
   const rank=field(e.event_id,row.id,'ranks'),count=e.actual_starters,g=e.geometry,c=e.conditions,rg=val(rank),n=val(count),geom=val(g),base=ordinalPath(rg);
   const positions=rg&&n!==null?rg.map((x,j)=>({...relativePosition(x,n),distance_m:geom?.checkpoints_m[j]??null})):null;
   const clock=field(e.event_id,row.id,'checkpoint_ms'),times=val(clock),u=r.measurement.clock_uncertainty_ms*2;
-  let intervals=null,speed='UNRESOLVED';
-  if(geom&&times&&times.length>=3){intervals=times.slice(1).map((t,j)=>{const dt=t-times[j],d=geom.checkpoints_m[j+1]-geom.checkpoints_m[j];return {m:d,ms:dt,mps:d*1000/dt,low:dt>u?d*1000/(dt+u):null,high:dt>u?d*1000/(dt-u):null}});const [a,b]=intervals;if(a.low!==null&&b.low!==null)speed=b.low>a.high?'HIGHER_INTERVAL_AVERAGE':b.high<a.low?'LOWER_INTERVAL_AVERAGE':'UNCERTAINTY_OVERLAP';}
+  let intervals=null,speed='UNRESOLVED',speedComparisons=[];
+  if(geom&&times&&times.length>=3){intervals=times.slice(1).map((t,j)=>{const dt=t-times[j],d=geom.checkpoints_m[j+1]-geom.checkpoints_m[j];return {m:d,ms:dt,mps:d*1000/dt,low:dt>u?d*1000/(dt+u):null,high:dt>u?d*1000/(dt-u):null}});speedComparisons=intervals.slice(1).map((b,j)=>{const a=intervals[j];return a.low===null||b.low===null?'UNRESOLVED':b.low>a.high?'HIGHER_INTERVAL_AVERAGE':b.high<a.low?'LOWER_INTERVAL_AVERAGE':'UNCERTAINTY_OVERLAP'});speed=speedComparisons.length===1?speedComparisons[0]:speedComparisons.every(x=>x===speedComparisons[0])?speedComparisons[0]:'MIXED_INTERVAL_AVERAGES';}
   const finish=field(e.event_id,row.id,'finish'),finClock=field(e.event_id,row.id,'finish_ms'),terminal=field(e.event_id,row.id,'final600_ms');
   const winner=all.get(o.evidence.find(x=>x.pointer===row.margin.winner_pointer)?.evidence_id),winnerFinish=winner&&field(e.event_id,winner.subject_id,'finish');
-  const margin=val(winnerFinish)===1?signedGap(val(winner),val(finClock)):null;
+  const margin=val(finish)!==null&&val(winnerFinish)===1?signedGap(val(winner),val(finClock)):null;
   const weight=field(e.event_id,row.id,'weight_grams'),nowW=field(targetId,row.id,'weight_grams');
   const d=conditionDelta(val(c)?.distance_m,val(target.conditions)?.distance_m);
   const conditionComparison=val(c)&&val(target.conditions)?{past:{venue:val(c).venue,going:val(c).going,class_label:val(c).class_label,surface:val(c).surface},current:{venue:val(target.conditions).venue,going:val(target.conditions).going,class_label:val(target.conditions).class_label,surface:val(target.conditions).surface},class_strength:null}:null;
   const gd=geom&&val(target.geometry)?{first_turn_m:val(target.geometry).first_turn_m-geom.first_turn_m,straight_m:val(target.geometry).straight_m-geom.straight_m,direction_same:val(target.geometry).direction===geom.direction}:null;
   const rankTrace=note(row.id,'RANK18',base?.pattern??'UNRESOLVED',[id(rank),id(count),id(g)],geom?[]:['GEOMETRY_MISSING']);
-  const speedTrace=note(row.id,'RANK21',speed,intervals?[id(clock),id(g)]:[],intervals?[]:['INDIVIDUAL_INTERVAL_OR_LOCATION_MISSING']);
-  note(row.id,'RANK22',base?.recovery?'ORDINAL_RECOVERY_ONLY':'NO_OBSERVED_ORDINAL_RECOVERY',[id(rank),id(count)]);
+  const speedTrace=note(row.id,'RANK08',speed,intervals?[id(clock),id(g)]:[],['INTERVAL_AVERAGE_CANDIDATE_NOT_ENDURANCE_PROOF',...(intervals?[]:['INDIVIDUAL_INTERVAL_OR_LOCATION_MISSING'])]);
+  note(row.id,'RANK21',base?.recovery?'ORDINAL_RECOVERY_ONLY':base?'NO_OBSERVED_ORDINAL_RECOVERY':'ORDINAL_UNKNOWN',[id(rank),id(count)],['CAUSE_AND_CURRENT_RELEVANCE_UNPROVEN']);
   note(row.id,'RANK44',d===null?'UNRESOLVED':d>0?'EXTENSION_CONTEXT':d<0?'SHORTENING_CONTEXT':'SAME_DISTANCE_CONTEXT',[id(c),id(target.conditions)],['CAUSAL_RESPONSE_UNPROVEN']);
-  note(row.id,'RANK67',gd?'GEOMETRY_CONTEXT_CHANGED':'GEOMETRY_UNKNOWN',[id(g),id(target.geometry)],['GEOMETRY_EFFECT_UNPROVEN']);
-  const marginTrace=note(row.id,'RANK29',margin===null?'MARGIN_UNAVAILABLE':'OBSERVED_TIME_MARGIN',margin===null?[]:[id(finClock),id(winner),id(winnerFinish),id(finish)]);
-  const terminalTrace=note(row.id,'RANK12',val(terminal)===null?'TERMINAL_UNKNOWN':'TERMINAL_AVERAGE_ONLY',[id(terminal),id(c)]);
-  const h={horse:row.id,event:e.event_id,rank:rg,positions,ordinal:base,speed,intervals,finish:val(finish),clock:val(finClock),terminal_ms:val(terminal),margin_ms:margin,distance_delta_m:d,geometry_delta:gd,weight_delta_g:conditionDelta(val(weight),val(nowW)),conditionComparison,rankTrace,speedTrace,marginTrace,terminalTrace,acceleration:null,pressure_tolerance:null,causal_current_response:null};
+  note(row.id,'RANK67',gd?gd.first_turn_m===0?'FIRST_TURN_SAME':'FIRST_TURN_CHANGED':'FIRST_TURN_UNKNOWN',[id(g),id(target.geometry)],['GEOMETRY_EFFECT_UNPROVEN']);
+  note(row.id,'RANK50',gd?gd.straight_m===0?'STRAIGHT_SAME':'STRAIGHT_CHANGED':'STRAIGHT_UNKNOWN',[id(g),id(target.geometry)],['SUITABILITY_UNPROVEN']);
+  note(row.id,'RANK49',gd?gd.direction_same?'DIRECTION_SAME':'DIRECTION_CHANGED':'DIRECTION_UNKNOWN',[id(g),id(target.geometry)],['SUITABILITY_UNPROVEN']);
+  note(row.id,'RANK47',conditionComparison?conditionComparison.past.surface===conditionComparison.current.surface?'SURFACE_SAME':'SURFACE_CHANGED':'SURFACE_UNKNOWN',[id(c),id(target.conditions)],['SUITABILITY_UNPROVEN']);
+  const marginTrace=note(row.id,'RANK03',margin===null?'MARGIN_UNAVAILABLE':'OBSERVED_TIME_MARGIN',margin===null?[]:[id(finClock),id(winner),id(winnerFinish),id(finish)]);
+  const terminalTrace=note(row.id,'RANK06',val(terminal)===null?'TERMINAL_UNKNOWN':'TERMINAL_AVERAGE_ONLY',[id(terminal),id(c)]);
+  const h={horse:row.id,event:e.event_id,rank:rg,positions,ordinal:base,speed,intervals,speedComparisons,finish:val(finish),clock:val(finClock),terminal_ms:val(terminal),margin_ms:margin,distance_delta_m:d,geometry_delta:gd,weight_delta_g:conditionDelta(val(weight),val(nowW)),conditionComparison,rankTrace,speedTrace,marginTrace,terminalTrace,acceleration:null,pressure_tolerance:null,causal_current_response:null};
   hist.push(h);byHist.set(key(e.event_id,row.id),h);
  }
  const relative=[];
@@ -102,9 +106,9 @@ export function analyzeV27(loaded,name,withdraw=null){
   if(!active.find(z=>z.slot===p.a)?.identity_known||!active.find(z=>z.slot===p.b)?.identity_known)continue;
   for(const k of hist.filter(z=>z.event===x.event&&z.horse!==p.a&&z.horse!==p.b&&z.finish!==null)){
    const l=byHist.get(key(y.event,k.horse));if(!l||l.finish===null)continue;
-   const refs=[x,y,k,l].map(z=>id(field(z.event,z.horse,'finish')));
+   const refs=[x,y,k,l].flatMap(z=>['finish','finish_ms','weight_grams'].map(k=>id(field(z.event,z.horse,k))).concat(['conditions','actual_starters'].map(k=>id(field(z.event,null,k)))));
    const t=note(p.a,'RANK36','COMMON_PEER_NONTRANSITIVE',refs);note(p.b,'RANK36','COMMON_PEER_NONTRANSITIVE',refs);
-   indirect.push({a:p.a,b:p.b,peer:k.horse,events:[x.event,y.event],relative_finishes:[x.finish-k.finish,y.finish-l.finish],refs:t.refs,roots:t.roots,current_order:null});
+   indirect.push({a:p.a,b:p.b,peer:k.horse,events:[x.event,y.event],relative_finishes:[x.finish-k.finish,y.finish-l.finish],relative_clocks:[signedGap(x.clock,k.clock),signedGap(y.clock,l.clock)],contexts:[x.conditionComparison,y.conditionComparison],refs:t.refs,roots:t.roots,current_order:null});
   }
  }
  const followups=[],laterRoots=new Map();
@@ -114,36 +118,38 @@ export function analyzeV27(loaded,name,withdraw=null){
   const x=byHist.get(key(e.event_id,z.opponent)),y=byHist.get(key(l.event_id,z.opponent)),subject=byHist.get(key(e.event_id,z.subject));
   const f2=field(l.event_id,z.opponent,'finish');
   const held=!x||!y||!subject||!get(id(f2)),state=held?'HELD_DEPENDENCY':y.finish===null?'MISSING_RESULT':y.finish===1?'OBSERVED_WIN':'OBSERVED_NONWIN';
-  const refs=held?[]:[id(field(e.event_id,z.subject,'id')),id(field(e.event_id,z.opponent,'finish')),id(f2),...y.marginTrace.refs];
+  const refs=held?[]:[id(field(e.event_id,z.subject,'id')),id(field(e.event_id,z.opponent,'finish')),id(f2),...['finish_ms','final600_ms','ranks','weight_grams'].map(k=>id(field(l.event_id,z.opponent,k))),id(l.conditions),id(l.actual_starters),...y.marginTrace.refs];
   const t=note(z.subject,'RANK37',state,refs,held?['DEPENDENCY_WITHHELD']:[]);
-  const q={subject:z.subject,peer:z.opponent,reference:e.event_id,event:l.event_id,state,finish:held?null:y.finish,margin_ms:held?null:y.margin_ms,clock:held?null:y.clock,root:held?null:f2.root,refs:t.refs,strength:null};
+  const q={subject:z.subject,peer:z.opponent,reference:e.event_id,event:l.event_id,state,finish:held?null:y.finish,margin_ms:held?null:y.margin_ms,clock:held?null:y.clock,terminal_ms:held?null:y.terminal_ms,ranks:held?null:y.rank,weight:held?null:val(field(l.event_id,z.opponent,'weight_grams')),conditions:held?null:(val(l.conditions)?Object.fromEntries(Object.entries(val(l.conditions)).filter(([k])=>k!=='geometry')):null),actual_starters:held?null:val(l.actual_starters),root:held?null:f2.root,refs:t.refs,strength:null};
   followups.push(q);if(q.root){const group=laterRoots.get(q.root)??{peer:q.peer,event:q.event,state:q.state,margin_ms:q.margin_ms,links:[]};group.links.push([q.subject,q.reference]);laterRoots.set(q.root,group);}
  }
  const runners=current.map(h=>{
   if(h.status==='CANCELLED')return {...h,WIN:null,PLACE:null,grade:null};
-  const own=h.identity_known&&h.status==='ACTIVE'?hist.filter(z=>z.horse===h.slot):[],rivals=active.filter(z=>z.slot!==h.slot).map(z=>z.slot),req=winPlaceRequirements(rivals),peer=followups.filter(z=>z.subject===h.slot&&h.identity_known);
+  if(!h.identity_known||h.status!=='ACTIVE')return {...h,assessment:'UNKNOWN_CURRENT_IDENTITY_OR_STATUS',WIN:null,PLACE:null,grade:null};
+  const own=h.identity_known&&h.status==='ACTIVE'?hist.filter(z=>z.horse===h.slot):[],rivals=active.filter(z=>z.slot!==h.slot).map(z=>z.slot),req=winPlaceRequirements(rivals,threshold),peer=followups.filter(z=>z.subject===h.slot&&h.identity_known);
   const ownPairs=direct.filter(z=>z.a===h.slot||z.b===h.slot),support=ownPairs.filter(z=>z.order===h.slot),counter=ownPairs.filter(z=>z.order!==h.slot),unknown=rivals.filter(k=>!ownPairs.some(z=>z.a===k||z.b===k));
   const recovery=own.filter(z=>z.ordinal?.recovery),eye=[];
   const addEye=(item,upstream,observations,missing)=>{eye.push({item,observations,current_relevance:null,upstream,canonical_return:false,state:observations.length?'RESEARCH_OBSERVED_REVIEW_ONLY':'HELD',missing});};
-  addEye('EYE03',['RANK18','RANK21','RANK22'],recovery.map(z=>({event:z.event,refs:z.rankTrace.refs})),['CURRENT_REPRODUCIBILITY_UNPROVEN']);
+  addEye('EYE03',['RANK18','RANK21'],recovery.map(z=>({event:z.event,refs:z.rankTrace.refs})),['CURRENT_REPRODUCIBILITY_UNPROVEN']);
   addEye('EYE05',['RANK37'],peer.filter(z=>z.root).map(z=>({root:z.root,state:z.state,refs:z.refs})),['CURRENT_RELEVANCE_AND_PEER_STRENGTH_UNPROVEN']);
   for(const item of ['EYE04','EYE08','EYE13','EYE14','EYE15'])addEye(item,[],[],['CANONICAL_CONDITIONS_UNPROVEN']);
   // Evidence-bearing review feeds the same analysis trace; no canonical positive effect until current relevance established.
   const review=eye.filter(z=>z.observations.length).map(z=>({item:z.item,targets:z.upstream,refs:uniq(z.observations.flatMap(v=>v.refs)),mode:'REVIEW_NOT_CANONICAL_POSITIVE'}));
   for(const q of review)for(const item of q.targets)note(h.slot,item,'EYE_REVIEW_RECONSIDER_OBSERVED_FACTS',q.refs,['CURRENT_RELEVANCE_UNPROVEN']);
   const early=own.filter(z=>z.positions?.[0]?.rank===1),others=active.filter(z=>z.slot!==h.slot),unknownRole=others.filter(z=>!z.identity_known||!hist.some(v=>v.horse===z.slot&&v.positions)).map(z=>z.slot);
-  const overlap=others.filter(z=>hist.some(v=>v.horse===z.slot&&v.positions?.[0]?.rank===1)).map(z=>z.slot);
+  const overlap=others.filter(z=>z.identity_known&&z.status==='ACTIVE'&&hist.some(v=>v.horse===z.slot&&v.positions?.[0]?.rank===1)).map(z=>z.slot);
   const branches=[{condition:'IF_HISTORICAL_FIRST_CHECKPOINT_LEADER_SEEKS_LEAD',participants:active.map(z=>z.slot),subject_has_observed_lead:early.length>0,other_observed_leaders:overlap,unknown_role:unknownRole,pressure:null},{condition:'IF_UNKNOWN_OR_OTHER_RIVAL_SEEKS_SAME_SLOT',participants:active.map(z=>z.slot),unknown_role:unknownRole,pressure:null}];
   const repeatPaths=own.filter(z=>z.finish!==null).map(z=>{
    const observed=rivals.flatMap(k=>{const q=active.find(x=>x.slot===k),h=byHist.get(key(z.event,k));return q?.identity_known&&q.status==='ACTIVE'&&h?.finish!==null&&h?.finish!==undefined?[h]:[]});
    const unobserved=rivals.filter(k=>!observed.some(h=>h.horse===k));
    const refs=[z,...observed].map(h=>id(field(h.event,h.horse,'finish'))).concat(active.map(q=>id(field(targetId,q.slot,'status'))));
-   const e=repeatEnvelope(z.finish,observed,unobserved,3);const tr=note(h.slot,'RANK35','CONDITIONAL_REPEAT_ENVELOPE_NOT_FORECAST',refs,['CURRENT_ORDER_UNPROVEN']);
+   const rec=recovery.find(q=>q.event===z.event);if(rec)refs.push(...rec.rankTrace.refs);
+   const e=repeatEnvelope(z.finish,observed,unobserved,threshold);const tr=note(h.slot,'RANK35','CONDITIONAL_REPEAT_ENVELOPE_NOT_FORECAST',refs,['CURRENT_ORDER_UNPROVEN']);
    return {event:z.event,...e,refs:tr.refs,reviewed_recovery:recovery.some(q=>q.event===z.event)?'OBSERVED_ORDINAL_RECOVERY_NOT_SPEED_OR_PRESSURE':null};
   });
   const commonMissing=['CURRENT_PACE','CURRENT_LOAD','CLASS_STRENGTH','CAUSAL_DISTANCE_RESPONSE',...(unknown.length?['UNKNOWN_RIVAL_COMPARISON']:[])];
   const finishObs=own.filter(z=>z.finish!==null).map(z=>({event:z.event,finish:z.finish,field_count:z.positions?.[0]?.field_count??null,refs:lineage([id(field(z.event,h.slot,'finish')),id(field(z.event,null,'actual_starters'))]).map(id)}));
-  return {...h,historical:own,branches,eye,review,repeat_paths:repeatPaths,WIN:{...req.WIN,state:'UNRESOLVED',past_wins:finishObs.filter(z=>z.finish===1),conditional_repeat_support:support,conditional_win_paths:repeatPaths.map(q=>({event:q.event,...q.win,reviewed_recovery:q.reviewed_recovery,refs:q.refs})),required_reversals:counter,unknown_rivals:unknown,missing:commonMissing},PLACE:{...req.PLACE,state:'UNRESOLVED',historical_finishes:finishObs,conditional_pair_support:support,hypothetical_place_paths:repeatPaths.map(q=>({event:q.event,...q.place,reviewed_recovery:q.reviewed_recovery,refs:q.refs})),nonterminal_pair_losses:counter,unknown_rivals:unknown,missing:[...commonMissing,'PLACE_THRESHOLD']},peer_roots:uniq(peer.map(z=>z.root).filter(Boolean)),grade:null};
+  return {...h,assessment:own.length?'PARTIAL_HISTORICAL_OBSERVATIONS':'UNKNOWN_ABILITY',historical:own,branches,eye,review,repeat_paths:repeatPaths,WIN:{...req.WIN,state:'UNRESOLVED',past_wins:finishObs.filter(z=>z.finish===1),conditional_repeat_support:support,conditional_win_paths:repeatPaths.map(q=>({event:q.event,...q.win,reviewed_recovery:q.reviewed_recovery,refs:q.refs})),required_reversals:counter,unknown_rivals:unknown,missing:commonMissing},PLACE:{...req.PLACE,state:'UNRESOLVED',historical_finishes:finishObs,conditional_pair_support:support,hypothetical_place_paths:threshold===null?[]:repeatPaths.map(q=>({event:q.event,...q.place,reviewed_recovery:q.reviewed_recovery,refs:q.refs})),nonterminal_pair_losses:counter,unknown_rivals:unknown,missing:[...commonMissing,'PLACE_THRESHOLD']},peer_roots:uniq(peer.map(z=>z.root).filter(Boolean)),grade:null};
  });
  return {case:name,scope:r.scope,roster,historical:hist,relative,direct,indirect,pairs,followups,later_roots:[...laterRoots.values()],runners,trace,withdrawal:withdraw?{id:withdraw,scope:'SYNTHETIC_WITHHOLD_ONLY',authenticated:false}:null,formal:false,grade:null};
 }

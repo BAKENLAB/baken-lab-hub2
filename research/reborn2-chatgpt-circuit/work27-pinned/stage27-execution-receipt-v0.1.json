@@ -1,0 +1,212 @@
+{
+  "schema": "WORK27_EXECUTION_0.1",
+  "summary": {
+    "cases": 12,
+    "checks": 23,
+    "passed": 23,
+    "local_pairs": 66,
+    "local_active": 12,
+    "local_historical_starters": 12,
+    "control_proximity": [
+      10,
+      10
+    ],
+    "near_proximity": [
+      2,
+      2
+    ],
+    "peer_margin_ms": [
+      0,
+      6000,
+      null
+    ],
+    "case_digests": [
+      {
+        "id": "CONTROL",
+        "sha256": "967669cf3e66887d99f97d403fa48bec76aabfb5cef3649c4ab96d26a8236670",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "DISTANCE_ONLY",
+        "sha256": "711d661a6a225aef6f75b9bcedf1b07bf9f388872f68a41ea145b90472fb4f9f",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "GEOMETRY_ONLY",
+        "sha256": "88e52af33088189dc7794d21e94ee5fdf92df794b85d2f5df7bbda7fd9e414ac",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "GATE_ONLY",
+        "sha256": "da9427738341c6bcf463ca55b32b6eb98aed040997a66a3e3f92aea3df88842c",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "NUMBER_ONLY",
+        "sha256": "4eb72b2f38574f98e563502c81d08ca67a0e0de71da4b94edba5db43c8dbf9c8",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "CLOCK_ONLY_MISSING",
+        "sha256": "a86ffe0a1331f27e8fbb9ae998d18a0cdfefe1efa7180930b9c0ecc16ee2858f",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "GATE_ONLY_MISSING",
+        "sha256": "7d3b1629f0b9a8f43c27c26ab9d4ff3ff2f741c1a20068cbe3e8bbe6fcae5727",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "PEER_LOSS",
+        "sha256": "b3ed5b7a16e760d80b9e0bacabb43241fa01cc0ac5849e3cc1d121f20f185209",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "PEER_NO_ASOF",
+        "sha256": "1ad0a6169ebae769fb1385acad6e346ad1e66a2bba36c224d6d3006e8d11ef05",
+        "evidence": 151,
+        "pairs": 10,
+        "followups": 16
+      },
+      {
+        "id": "NEAR_COMPETITION",
+        "sha256": "d691ae8b6f3dfb42781b4d0024e78b83695620c2847605637c14a6026b032edd",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "SURFACE_ONLY",
+        "sha256": "7e847b1b922be702a594385a1c32fbd6d4a2f8af19692d86d6c73f36e38a955c",
+        "evidence": 185,
+        "pairs": 10,
+        "followups": 24
+      },
+      {
+        "id": "LOCAL_DIRT900_LARGE",
+        "sha256": "f48c5ca6a05c0bb0c02ef7ceb79062cccfc2b4aac373a3c61f2220a2876e2e14",
+        "evidence": 200,
+        "pairs": 66,
+        "followups": 0
+      }
+    ]
+  },
+  "tests": [
+    {
+      "name": "all_cases_valid",
+      "pass": true
+    },
+    {
+      "name": "distance_only",
+      "pass": true
+    },
+    {
+      "name": "geometry_only",
+      "pass": true
+    },
+    {
+      "name": "gate_only",
+      "pass": true
+    },
+    {
+      "name": "number_only",
+      "pass": true
+    },
+    {
+      "name": "clock_missing_independent",
+      "pass": true
+    },
+    {
+      "name": "gate_missing_independent",
+      "pass": true
+    },
+    {
+      "name": "peer_win_loss_absence",
+      "pass": true
+    },
+    {
+      "name": "peer_prior_histories_invariant",
+      "pass": true
+    },
+    {
+      "name": "chronological_followups",
+      "pass": true
+    },
+    {
+      "name": "winner_clock_refs",
+      "pass": true
+    },
+    {
+      "name": "near_vs_control",
+      "pass": true
+    },
+    {
+      "name": "leader_never_individual",
+      "pass": true
+    },
+    {
+      "name": "surface_only",
+      "pass": true
+    },
+    {
+      "name": "local_900_large_field",
+      "pass": true
+    },
+    {
+      "name": "all_active_pairs",
+      "pass": true
+    },
+    {
+      "name": "unknown_active_retained",
+      "pass": true
+    },
+    {
+      "name": "formal_zero",
+      "pass": true
+    },
+    {
+      "name": "reject_unsorted_history",
+      "pass": true
+    },
+    {
+      "name": "reject_late_peer",
+      "pass": true
+    },
+    {
+      "name": "reject_peer_identity",
+      "pass": true
+    },
+    {
+      "name": "reject_measurement_scope",
+      "pass": true
+    },
+    {
+      "name": "reject_leader_mismatch",
+      "pass": true
+    }
+  ],
+  "prior291_not_rerun": true,
+  "formal_admissions": 0,
+  "limitations": [
+    "Synthetic only; no actual Codex runtime or CI.",
+    "Proximity and leader pace are observations not direct load or tolerance. No causal grade.",
+    "Distance/layout/gate configurations are independent fictional stipulations, not provider course/gate mapping.",
+    "LOCAL clocks explicitly simulated first; ranks derived from times, no clock from rank."
+  ]
+}
