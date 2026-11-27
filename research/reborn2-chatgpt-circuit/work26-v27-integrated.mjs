@@ -3,7 +3,7 @@ import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {loadV26,analyzeV26} from './work23-v26-integrated.mjs';
 import {validate,supply,sha256} from './work26-pinned/stage26-varied-synthetic-producer-v0.1.mjs';
-import {uniq,dependencyReader,relativePosition,ordinalPath,signedGap,conditionDelta,winPlaceRequirements} from './research-ability-core.mjs';
+import {uniq,dependencyReader,relativePosition,ordinalPath,signedGap,conditionDelta,winPlaceRequirements,repeatEnvelope} from './research-ability-core.mjs';
 const read=path=>readFileSync(new URL('./work26-pinned/'+path.split('/').at(-1),import.meta.url));
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update('blob '+b.length+'\0').update(b).digest('hex');
@@ -61,6 +61,7 @@ export function analyzeV27(loaded,name,withdraw=null){
   const margin=val(winnerFinish)===1?signedGap(val(winner),val(finClock)):null;
   const weight=field(e.event_id,row.id,'weight_grams'),nowW=field(targetId,row.id,'weight_grams');
   const d=conditionDelta(val(c)?.distance_m,val(target.conditions)?.distance_m);
+  const conditionComparison=val(c)&&val(target.conditions)?{past:{venue:val(c).venue,going:val(c).going,class_label:val(c).class_label,surface:val(c).surface},current:{venue:val(target.conditions).venue,going:val(target.conditions).going,class_label:val(target.conditions).class_label,surface:val(target.conditions).surface},class_strength:null}:null;
   const gd=geom&&val(target.geometry)?{first_turn_m:val(target.geometry).first_turn_m-geom.first_turn_m,straight_m:val(target.geometry).straight_m-geom.straight_m,direction_same:val(target.geometry).direction===geom.direction}:null;
   const rankTrace=note(row.id,'RANK18',base?.pattern??'UNRESOLVED',[id(rank),id(count),id(g)],geom?[]:['GEOMETRY_MISSING']);
   const speedTrace=note(row.id,'RANK21',speed,intervals?[id(clock),id(g)]:[],intervals?[]:['INDIVIDUAL_INTERVAL_OR_LOCATION_MISSING']);
@@ -69,7 +70,7 @@ export function analyzeV27(loaded,name,withdraw=null){
   note(row.id,'RANK67',gd?'GEOMETRY_CONTEXT_CHANGED':'GEOMETRY_UNKNOWN',[id(g),id(target.geometry)],['GEOMETRY_EFFECT_UNPROVEN']);
   const marginTrace=note(row.id,'RANK29',margin===null?'MARGIN_UNAVAILABLE':'OBSERVED_TIME_MARGIN',margin===null?[]:[id(finClock),id(winner),id(winnerFinish),id(finish)]);
   const terminalTrace=note(row.id,'RANK12',val(terminal)===null?'TERMINAL_UNKNOWN':'TERMINAL_AVERAGE_ONLY',[id(terminal),id(c)]);
-  const h={horse:row.id,event:e.event_id,rank:rg,positions,ordinal:base,speed,intervals,finish:val(finish),clock:val(finClock),terminal_ms:val(terminal),margin_ms:margin,distance_delta_m:d,geometry_delta:gd,weight_delta_g:conditionDelta(val(weight),val(nowW)),rankTrace,speedTrace,marginTrace,terminalTrace,acceleration:null,pressure_tolerance:null,causal_current_response:null};
+  const h={horse:row.id,event:e.event_id,rank:rg,positions,ordinal:base,speed,intervals,finish:val(finish),clock:val(finClock),terminal_ms:val(terminal),margin_ms:margin,distance_delta_m:d,geometry_delta:gd,weight_delta_g:conditionDelta(val(weight),val(nowW)),conditionComparison,rankTrace,speedTrace,marginTrace,terminalTrace,acceleration:null,pressure_tolerance:null,causal_current_response:null};
   hist.push(h);byHist.set(key(e.event_id,row.id),h);
  }
  const relative=[];
@@ -88,7 +89,7 @@ export function analyzeV27(loaded,name,withdraw=null){
   if(a.identity_known&&b.identity_known&&a.status==='ACTIVE'&&b.status==='ACTIVE')for(const e of history){
    const x=byHist.get(key(e.event_id,a.slot)),y=byHist.get(key(e.event_id,b.slot));if(!x||!y||x.finish===null||y.finish===null)continue;
    const clockGap=signedGap(x.clock,y.clock),order=x.finish<y.finish?a.slot:b.slot;
-   const refs=[id(field(e.event_id,a.slot,'finish')),id(field(e.event_id,b.slot,'finish')),id(field(e.event_id,a.slot,'finish_ms')),id(field(e.event_id,b.slot,'finish_ms')),id(field(targetId,a.slot,'status')),id(field(targetId,b.slot,'status'))];
+   const refs=[id(field(e.event_id,a.slot,'finish')),id(field(e.event_id,b.slot,'finish')),id(field(e.event_id,a.slot,'finish_ms')),id(field(e.event_id,b.slot,'finish_ms')),id(field(targetId,a.slot,'status')),id(field(targetId,b.slot,'status')),...(x.positions&&y.positions?[...x.rankTrace.refs,...y.rankTrace.refs]:[])];
    const t=note(a.slot,'RANK35','DIRECT_HISTORICAL_ORDER_NOT_CURRENT_ORDER',refs);note(b.slot,'RANK35','DIRECT_HISTORICAL_ORDER_NOT_CURRENT_ORDER',refs);
    const q={a:a.slot,b:b.slot,event:e.event_id,order,clock_gap_b_minus_a:clockGap,first_ranks:x.positions&&y.positions?[x.positions[0].rank,y.positions[0].rank]:null,roots:t.roots,refs:t.refs};
    obs.push(q);direct.push(q);
@@ -133,9 +134,16 @@ export function analyzeV27(loaded,name,withdraw=null){
   const early=own.filter(z=>z.positions?.[0]?.rank===1),others=active.filter(z=>z.slot!==h.slot),unknownRole=others.filter(z=>!z.identity_known||!hist.some(v=>v.horse===z.slot&&v.positions)).map(z=>z.slot);
   const overlap=others.filter(z=>hist.some(v=>v.horse===z.slot&&v.positions?.[0]?.rank===1)).map(z=>z.slot);
   const branches=[{condition:'IF_HISTORICAL_FIRST_CHECKPOINT_LEADER_SEEKS_LEAD',participants:active.map(z=>z.slot),subject_has_observed_lead:early.length>0,other_observed_leaders:overlap,unknown_role:unknownRole,pressure:null},{condition:'IF_UNKNOWN_OR_OTHER_RIVAL_SEEKS_SAME_SLOT',participants:active.map(z=>z.slot),unknown_role:unknownRole,pressure:null}];
+  const repeatPaths=own.filter(z=>z.finish!==null).map(z=>{
+   const observed=rivals.flatMap(k=>{const q=active.find(x=>x.slot===k),h=byHist.get(key(z.event,k));return q?.identity_known&&q.status==='ACTIVE'&&h?.finish!==null&&h?.finish!==undefined?[h]:[]});
+   const unobserved=rivals.filter(k=>!observed.some(h=>h.horse===k));
+   const refs=[z,...observed].map(h=>id(field(h.event,h.horse,'finish'))).concat(active.map(q=>id(field(targetId,q.slot,'status'))));
+   const e=repeatEnvelope(z.finish,observed,unobserved,3);const tr=note(h.slot,'RANK35','CONDITIONAL_REPEAT_ENVELOPE_NOT_FORECAST',refs,['CURRENT_ORDER_UNPROVEN']);
+   return {event:z.event,...e,refs:tr.refs,reviewed_recovery:recovery.some(q=>q.event===z.event)?'OBSERVED_ORDINAL_RECOVERY_NOT_SPEED_OR_PRESSURE':null};
+  });
   const commonMissing=['CURRENT_PACE','CURRENT_LOAD','CLASS_STRENGTH','CAUSAL_DISTANCE_RESPONSE',...(unknown.length?['UNKNOWN_RIVAL_COMPARISON']:[])];
   const finishObs=own.filter(z=>z.finish!==null).map(z=>({event:z.event,finish:z.finish,field_count:z.positions?.[0]?.field_count??null,refs:lineage([id(field(z.event,h.slot,'finish')),id(field(z.event,null,'actual_starters'))]).map(id)}));
-  return {...h,historical:own,branches,eye,review,WIN:{...req.WIN,state:'UNRESOLVED',past_wins:finishObs.filter(z=>z.finish===1),conditional_repeat_support:support,required_reversals:counter,unknown_rivals:unknown,missing:commonMissing},PLACE:{...req.PLACE,state:'UNRESOLVED',historical_finishes:finishObs,conditional_pair_support:support,nonterminal_pair_losses:counter,unknown_rivals:unknown,missing:[...commonMissing,'PLACE_THRESHOLD']},peer_roots:uniq(peer.map(z=>z.root).filter(Boolean)),grade:null};
+  return {...h,historical:own,branches,eye,review,repeat_paths:repeatPaths,WIN:{...req.WIN,state:'UNRESOLVED',past_wins:finishObs.filter(z=>z.finish===1),conditional_repeat_support:support,conditional_win_paths:repeatPaths.map(q=>({event:q.event,...q.win,reviewed_recovery:q.reviewed_recovery,refs:q.refs})),required_reversals:counter,unknown_rivals:unknown,missing:commonMissing},PLACE:{...req.PLACE,state:'UNRESOLVED',historical_finishes:finishObs,conditional_pair_support:support,hypothetical_place_paths:repeatPaths.map(q=>({event:q.event,...q.place,reviewed_recovery:q.reviewed_recovery,refs:q.refs})),nonterminal_pair_losses:counter,unknown_rivals:unknown,missing:[...commonMissing,'PLACE_THRESHOLD']},peer_roots:uniq(peer.map(z=>z.root).filter(Boolean)),grade:null};
  });
  return {case:name,scope:r.scope,roster,historical:hist,relative,direct,indirect,pairs,followups,later_roots:[...laterRoots.values()],runners,trace,withdrawal:withdraw?{id:withdraw,scope:'SYNTHETIC_WITHHOLD_ONLY',authenticated:false}:null,formal:false,grade:null};
 }

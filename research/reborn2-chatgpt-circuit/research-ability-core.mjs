@@ -30,3 +30,12 @@ export function conditionDelta(old,now){return Number.isFinite(old)&&Number.isFi
 export function winPlaceRequirements(rivals,threshold=null){
  return {WIN:{required:'FINISH_AHEAD_OF_EVERY_ACTIVE_RIVAL',rivals},PLACE:{required:'FINISH_WITHIN_SPECIFIED_THRESHOLD',threshold,rivals,allowed_ahead:threshold===null?null:threshold-1}};
 }
+
+ // Conditional rank envelope only: assumes the relative order of observed current rivals from one past race repeats.
+export function repeatEnvelope(ownFinish,observedRivals,unobserved,threshold=null){
+ if(!Number.isInteger(ownFinish))return null;
+ const ahead=observedRivals.filter(r=>r.finish<ownFinish).length;
+ const behind=observedRivals.length-ahead;
+ const min=1+ahead,max=min+unobserved.length;
+ return {assumption:'IF_PAST_RELATIVE_ORDER_AMONG_CURRENT_RIVALS_REPEATS',known_ahead:ahead,known_behind:behind,unknown_rivals:unobserved,conditional_finish_range:[min,max],win:{required_reversals:ahead,unknown_rivals_to_beat:unobserved,possible_under_repeat:min===1,guaranteed_under_repeat:max===1},place:threshold===null?null:{hypothetical_threshold:threshold,required_reversals_if_unknown_behind:Math.max(0,min-threshold),possible_under_repeat:min<=threshold,guaranteed_under_repeat:max<=threshold},prediction:false};
+}
