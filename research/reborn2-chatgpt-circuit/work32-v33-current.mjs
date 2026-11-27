@@ -91,34 +91,41 @@ export function enrich(L,name,withdraw,options){
   const fieldResult=jointField(roster,relations,threshold),clock=jointClockFeasibility(roster,numeric);
   return {event:c.event,kind:'CONDITION_LINKED_CONTRAST',scope:'IF_ALIGNED_HISTORICAL_PAIR_RESPONSE_REPEATS_AND_CHANGED_GATE_WEIGHT_FIELD_PACE_DO_NOT_INVALIDATE_IT',condition:c,relations,field:fieldResult,numeric_feasibility:clock,assumptions:['GATE_WEIGHT_RESPONSE_NOT_IDENTIFIED','CURRENT_PACE_ROLE_AND_OUTSIDE_RIVALS_UNKNOWN','JOINT_HISTORICAL_RESPONSE_REPEAT_NOT_PREDICTION'],actual_current_feasibility:'UNRESOLVED',prediction:false};
  });
- // EYE03: return measured loss-then-recovery to the same item and joint path outputs.
- // Require two distinct, fully context-matched historical events, identical field size,
- // actual rank decline plus robust terminal relative gain. No current pace/position is measured.
+ // EYE03: evidence-backed loss then recovery, across matching course checkpoints.
+ // All matched histories are audited; a failed repeat is counterevidence, not discarded.
  const eyeReturns=[];
  for(const p1 of pairResponse){
   for(const subject of [p1.a,p1.b]){
    if(!known.includes(subject)||!known.includes(p1.a)||!known.includes(p1.b))continue;
    const sign=subject===p1.a?1:-1,rival=sign===1?p1.b:p1.a;
-   const measured=p1.comparisons.filter(x=>x.pair_context==='MATCHED_RACE_GATE_WEIGHT').flatMap(c=>{
-    const e=history.find(x=>x.event_id===c.event),rank=field(c.event,subject,'ranks'),fr=field(c.event,subject,'finish'),ranks=val(rank),finish=val(fr);
-    if(!Array.isArray(ranks)||ranks.length<2||!Number.isInteger(finish)||!ranks.some((r,i)=>i>0&&r>ranks[i-1])||finish>=ranks.at(-1)||val(e.actual_starters)!==roster.length)return [];
-    const t=out.terminal_v30.find(x=>x.event===c.event&&x.a===p1.a&&x.b===p1.b),seg=t?.terminal?.segment;
-    if(!seg||t.finish_conflict)return [];
-    const start=sign*seg.start,end=sign*seg.end,gain=end-start,ub=seg.endpointBound,gb=seg.changeBound;
-    if(![start,end,gain,ub,gb].every(Number.isFinite)||start>=-ub||end<=ub||gain<=gb)return [];
-    return [{event:c.event,start,end,gain,endpoint_bound:ub,change_bound:gb,ranks,finish,refs:refs([...t.terminal_refs,...c.refs,rank,fr,e.actual_starters])}];
-   });
-   if(measured.length<2)continue;
-   const lower=Math.min(...measured.map(x=>x.gain-x.change_bound)),upper=Math.max(...measured.map(x=>x.gain+x.change_bound)),maxDeficit=Math.max(...measured.map(x=>-x.start)),minFinish=lower-maxDeficit,maxFinish=upper;
-   if(!(minFinish>0))continue;
-   const evidence=uniq(measured.flatMap(x=>x.refs)),before=pairs.map(x=>({...x,order:'UNKNOWN',refs:[]})),after=before.map(x=>x.a===p1.a&&x.b===p1.b?{...x,order:sign===1?'AHEAD':'BEHIND',refs:evidence}:x);
-   const bf=jointField(roster,before,threshold),af=jointField(roster,after,threshold),bounds=sign===1?[minFinish,maxFinish]:[-maxFinish,-minFinish];
-   const numeric=jointClockFeasibility(roster,[{a:p1.a,b:p1.b,delta:(bounds[0]+bounds[1])/2,bound:(bounds[1]-bounds[0])/2,refs:evidence}]);
-   const b=bf.envelopes.find(x=>x.slot===subject),a=af.envelopes.find(x=>x.slot===subject);
-   if(!a||!b||a.min===b.min&&a.max===b.max||numeric.state==='CONTRADICTED_NUMERIC_DIFFERENCES')continue;
-   const id='EYE03:'+subject+':'+rival,observation={rival,events:measured.map(x=>x.event),measurements:measured,assumed_current_terminal_deficit_max_ms:maxDeficit,conditional_gain_bounds_ms:[lower,upper],conditional_finish_advantage_bounds_ms:[minFinish,maxFinish],before_range:[b.min,b.max],after_range:[a.min,a.max]};
-   eyeReturns.push({subject,rival,id,item:'EYE03',targets:['RANK18','RANK21','RANK100'],refs:evidence,observation,state:'CONDITIONAL_RESEARCH_RETURN',returned_to_current_analysis:true,conditional_path_effect:true,independent_vote:false,canonical_positive:false,grade_effect:false,formal:false});
-   scenarios.push({event:id,kind:'EYE03_TERMINAL_RECOVERY_CONDITIONAL',scope:'IF_CURRENT_TERMINAL_DEFICIT_WITHIN_STATED_LIMIT_AND_MEASURED_GAIN_REPEATS',relations:after,before_field:bf,field:af,numeric_feasibility:numeric,assumptions:['CURRENT_TERMINAL_POSITION_UNKNOWN','TERMINAL_GAIN_REPEATS_UNDER_MATCHED_RECORDED_CONTEXT','OTHER_RIVALS_UNKNOWN'],actual_current_feasibility:'UNRESOLVED',prediction:false,eye_id:id,observation});
+   const matched=p1.comparisons.filter(x=>x.pair_context==='MATCHED_RACE_GATE_WEIGHT'),byCheckpoint=new Map();
+   for(const c of matched){
+    const e=history.find(x=>x.event_id===c.event),rank=field(c.event,subject,'ranks'),fr=field(c.event,subject,'finish'),ac=field(c.event,p1.a,'checkpoint_ms'),bc=field(c.event,p1.b,'checkpoint_ms'),af=field(c.event,p1.a,'finish_ms'),bf=field(c.event,p1.b,'finish_ms');
+    const ranks=val(rank),finish=val(fr),av=val(ac),bv=val(bc),avf=val(af),bvf=val(bf),geo=val(e.geometry),u=p.r.measurement.clock_uncertainty_ms;
+    if(!Array.isArray(ranks)||!Array.isArray(av)||!Array.isArray(bv)||!Array.isArray(geo?.checkpoints_m)||!Number.isInteger(finish)||!Number.isFinite(avf)||!Number.isFinite(bvf)||!Number.isFinite(u)||val(e.actual_starters)!==roster.length)continue;
+    for(let j=1;j<Math.min(ranks.length,av.length,bv.length,geo.checkpoints_m.length);j++){
+     const distance=geo.checkpoints_m[j],start=sign*(bv[j]-av[j]),end=sign*(bvf-avf),gain=end-start,ub=2*u,gb=4*u;
+     if(![distance,start,end,gain].every(Number.isFinite))continue;
+     const supported=ranks[j]>Math.min(...ranks.slice(0,j))&&finish<ranks[j]&&start< -ub&&end>ub&&gain>gb;
+     const observed={event:c.event,checkpoint_m:distance,start,end,gain,endpoint_bound:ub,change_bound:gb,ranks,finish,supported,refs:refs([...c.refs,rank,fr,ac,bc,af,bf,e.geometry,e.actual_starters])};
+     if(!byCheckpoint.has(distance))byCheckpoint.set(distance,[]);byCheckpoint.get(distance).push(observed);
+    }
+   }
+   for(const [distance,allMeasured] of byCheckpoint){
+    const measured=allMeasured.filter(x=>x.supported),counter=allMeasured.filter(x=>!x.supported);
+    if(measured.length<2)continue;
+    const lower=Math.min(...measured.map(x=>x.gain-x.change_bound)),upper=Math.max(...measured.map(x=>x.gain+x.change_bound)),maxDeficit=Math.max(...measured.map(x=>-x.start)),minFinish=lower-maxDeficit,maxFinish=upper;
+    if(!(minFinish>0))continue;
+    const evidence=uniq(measured.flatMap(x=>x.refs)),counterRefs=uniq(counter.flatMap(x=>x.refs)),before=pairs.map(x=>({...x,order:'UNKNOWN',refs:[]})),after=before.map(x=>x.a===p1.a&&x.b===p1.b?{...x,order:sign===1?'AHEAD':'BEHIND',refs:evidence}:x);
+    const bf=jointField(roster,before,threshold),af=jointField(roster,after,threshold),bounds=sign===1?[minFinish,maxFinish]:[-maxFinish,-minFinish];
+    const numeric=jointClockFeasibility(roster,[{a:p1.a,b:p1.b,delta:(bounds[0]+bounds[1])/2,bound:(bounds[1]-bounds[0])/2,refs:evidence}]);
+    const b=bf.envelopes.find(x=>x.slot===subject),a=af.envelopes.find(x=>x.slot===subject);
+    if(!a||!b||a.min===b.min&&a.max===b.max||numeric.state==='CONTRADICTED_NUMERIC_DIFFERENCES')continue;
+    const id='EYE03:'+subject+':'+rival+':'+distance,observation={rival,checkpoint_m:distance,events:measured.map(x=>x.event),measurements:measured,counterexamples:counter,missing_matched_events:matched.filter(x=>!allMeasured.some(y=>y.event===x.event)).map(x=>x.event),assumed_current_checkpoint_deficit_max_ms:maxDeficit,conditional_gain_bounds_ms:[lower,upper],conditional_finish_advantage_bounds_ms:[minFinish,maxFinish],before_range:[b.min,b.max],after_range:[a.min,a.max]};
+    eyeReturns.push({subject,rival,id,item:'EYE03',targets:['RANK18','RANK21','RANK100'],refs:evidence,counter_refs:counterRefs,observation,state:'CONDITIONAL_RESEARCH_RETURN',returned_to_current_analysis:true,conditional_path_effect:true,independent_vote:false,canonical_positive:false,grade_effect:false,formal:false});
+    scenarios.push({event:id,kind:'EYE03_CHECKPOINT_RECOVERY_CONDITIONAL',scope:'IF_CURRENT_CHECKPOINT_DEFICIT_WITHIN_STATED_LIMIT_AND_MEASURED_GAIN_REPEATS',relations:after,before_field:bf,field:af,numeric_feasibility:numeric,assumptions:['CURRENT_CHECKPOINT_POSITION_UNKNOWN','MEASURED_GAIN_REPEATS_UNDER_MATCHED_RECORDED_CONTEXT','OTHER_RIVALS_UNKNOWN'],counter_refs:counterRefs,actual_current_feasibility:'UNRESOLVED',prediction:false,eye_id:id,observation});
+    break;
+   }
   }
  }
  const sourceConflicts=p.packet.conflicts??[];
@@ -161,13 +168,13 @@ export function analyzeV33(n,{withdraw=null,placeThreshold=null,candidate=null,l
 // Expose the existing private verification functions from the exact pinned source,
 // without modifying that source or relaxing its replay requirements.
 export async function loadControlledWork33(){
- const l=loadWork32(),src=readFileSync(new URL('./work33-pinned/stage33-contrast-research-v0.1.mjs',import.meta.url)),summary=readFileSync(new URL('./work33-pinned/stage33-execution-summary-v0.1.json',import.meta.url));
- assert.equal(blob(src),'8b5a598781d3b3700e930d4ac0f2be9e8517d424');assert.equal(blob(summary),'7ea27efdef45d734f41b54ad2d570b07dc461d67');
+ const l=loadWork32(),src=readFileSync(new URL('./work33-pinned/stage33-contrast-research-v0.2.mjs',import.meta.url)),summary=readFileSync(new URL('./work33-pinned/stage33-execution-summary-v0.2.json',import.meta.url));
+ assert.equal(blob(src),'75792f78f2a279ca6409ef38eaf5ab2924b96fec');assert.equal(blob(summary),'24c01c46d5535a0dafec1eaff16e38b7898d56d8');
  const adapter=verifiedFile('stage32-verified-common-adapter-v0.1.2.mjs').toString('utf8')+'\nexport {verify32,adapt32};\n';
  const {verify32,adapt32}=await import('data:text/javascript;base64,'+Buffer.from(adapter).toString('base64'));
  const {makeCases}=await import('data:text/javascript;base64,'+src.toString('base64'));
  const fixtures=makeCases(),receipt=JSON.parse(summary);
- assert.equal(fixtures.length,8);
+ assert.equal(fixtures.length,9);
  return {canonical:l.bundle.canonical,fixtures,receipt,verify32,adapt32};
 }
 export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,candidate=null}={}){
