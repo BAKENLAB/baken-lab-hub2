@@ -73,7 +73,7 @@ function eye01(h,common){
  for(const f of e.observed_facts.filter(x=>x.type==='DEFEAT_GAP')){
   const o=h.history.find(x=>x.race===f.value.race_id);if(!o)continue;
   // No universal "small gap": retain measured gap and observed beaten horses.
-  const result={race:o.race,finish:o.finish,beaten:o.beaten,gap_tenths:o.winner_gap,clock:o.individual_clock,scope:o.transfer.status,interpretation:o.beaten===0?'COUNTER_TO_COMPETITIVE_PLACING':'NEUTRAL_MEASURED_DEFEAT_CONTEXT',threshold:null,roots:uniq([...o.roots,...f.evidence_ids])};
+  const result={race:o.race,finish:o.finish,beaten:o.beaten,gap_tenths:o.winner_gap,clock:o.individual_clock,scope:'HISTORICAL_OBSERVATION_ONLY',interpretation:o.beaten===0?'COUNTER_TO_COMPETITIVE_PLACING':'NEUTRAL_MEASURED_DEFEAT_CONTEXT',threshold:null,roots:uniq([...o.roots,...f.evidence_ids])};
   out.push(result);
  }
  return out;
