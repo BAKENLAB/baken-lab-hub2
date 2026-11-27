@@ -3,6 +3,13 @@ set -euo pipefail
 cd "$(dirname "$0")"
 node --version
 for f in *.mjs; do node --check "$f"; done
+node work35-v38-completion.mjs
+node work35-v39-decision.mjs
+node work36-v40-integrated.mjs
+node work36-v41-local-decision.mjs
+node work36-v42-propagation.mjs
+node work34-v37-completion.mjs
+node test-work34-v36-current.mjs
 node test-opposition-33-42.mjs
 node test-conditions-43-57.mjs
 node test-pace-58-77.mjs
@@ -70,3 +77,10 @@ node test-work27-v28-contrast.mjs
 node test-work30-v31-integrated.mjs
 
 node test-work31-v32-integrated.mjs
+
+node test-work32-v33-current.mjs
+
+node test-work33-v33-controlled.mjs
+
+node test-work33-v34-synthesis.mjs
+

@@ -1,0 +1,31 @@
+name: REBORN 2 PR95 isolated integration
+on:
+  push:
+    branches: [research/reborn2-independent-engine-20261128]
+permissions:
+  contents: read
+jobs:
+  common:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: bash research/reborn2-chatgpt-circuit/run-node-regression.sh
+      - run: node research/reborn2-chatgpt-circuit/test-v42-eye-intervention.mjs
+  work39:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: git fetch origin 9c8401e9735f102a3d25c49aef524681a29d7b2d
+      - run: bash research/reborn2-independent-engine/main47-integration/replay.sh --work39

@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import {loadV34,analyzeV34,analyzeV35} from './work33-v34-synthesis.mjs';
+const V=await loadV34(),t=(n,f)=>{f();console.log(n+' PASS')},r=analyzeV34(V,'DISTANCE'),base=analyzeV34(V,'DISTANCE',{eyeEnabled:false}),pace=analyzeV34(V,'PACE'),terminal=analyzeV34(V,'TERMINAL_REPEAT');
+t('F34-01',()=>{assert.equal(V.fixed.size,9);assert.equal(r.source_digest,V.fixed.get('DISTANCE').pin.source_digest);assert.equal(r.runners.length,3);assert.ok(r.runners.every(h=>h.items.length===115&&h.axes.length===5&&h.grade===null));});
+t('F34-02',()=>{assert.ok(r.scenarios.some(s=>s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE'));assert.ok(r.scenarios.every(s=>!s.prediction));assert.ok(r.runners.every(h=>h.pr95_boundary_probe.grade===null));});
+t('F34-03',()=>{assert.equal(base.feedback.length,0);assert.ok(r.feedback.length);assert.deepEqual(r.scenarios.filter(s=>s.kind==='OBSERVED_FIELD_RESPONSE_SCENARIO'),base.scenarios);assert.ok(r.feedback.every(x=>x.same_checkpoint));assert.ok(pace.feedback.some(x=>x.changed));});
+t('F34-04',()=>{const x=r.feedback[0],h=r.runners.find(h=>h.slot===x.subject);assert.ok(h.eye_reanalysis.length);assert.ok(h.axes.find(a=>a.axis==='E').discovery_feedback.length);assert.ok(x.after.edges.length===3);assert.ok(x.refs.length);});
+t('F34-05',()=>{const x=pace.feedback.find(x=>x.subject.endsWith('|TEST:H1')&&x.rival.endsWith('|TEST:H2'));assert.ok(x);const p=x.after.edges.find(e=>[e.a,e.b].includes(x.subject)&&[e.a,e.b].includes(x.rival));assert.ok(p.observations.some(o=>o.event.endsWith('|TEST:VAR')));assert.equal(p.order,'UNKNOWN');});
+t('F34-06',()=>{const w=r.source_packet.evidence.find(e=>e.event==='TEST:RETURN'&&e.subject==='TEST:H1'&&e.field==='checkpoint_ms').evidenceId,q=analyzeV34(V,'DISTANCE',{withdraw:w});assert.ok(!q.feedback.some(x=>x.subject.endsWith('|TEST:H1')&&x.rival.endsWith('|TEST:H2')));assert.equal(q.formal,false);});
+t('F34-07',()=>{assert.ok(terminal.runners.some(h=>h.research_grade!==null));assert.ok([r,pace,terminal].every(q=>q.runners.every(h=>h.grade===null&&h.research_grade!=='S')));});
+t('F34-08',()=>{const w=r.source_packet.evidence.find(e=>e.event==='TEST:T'&&e.subject==='TEST:H3'&&e.field==='current_card_row').evidenceId,q=analyzeV34(V,'DISTANCE',{withdraw:w});assert.ok(q.runners.every(h=>h.research_grade===null));assert.ok(q.roster.possible_active.length===3);});
+t('F34-09',()=>{const h=r.runners.find(h=>h.slot.endsWith('|TEST:H1')),p=pace.runners.find(h=>h.slot.endsWith('|TEST:H1'));assert.equal(h.axes.find(a=>a.axis==='E').state,'UNKNOWN');assert.equal(p.axes.find(a=>a.axis==='E').state,'MIXED');assert.ok(p.eye_reanalysis.some(f=>f.counter_refs.length));});
+console.log('V34_RECEIPT '+JSON.stringify([r,pace,terminal].map(q=>({id:q.id,digest:q.source_digest,scenarios:q.scenarios.map(s=>({id:s.id,applicability:s.applicability,edges:s.edges.map(e=>({a:e.a,b:e.b,order:e.order,interval:e.interval_ms}))})),feedback:q.feedback.map(f=>({subject:f.subject,rival:f.rival,state:f.state,before:f.before.envelope,after:f.after.envelope,counter:f.counter_refs.length,changed:f.changed})),runners:q.runners.map(h=>({slot:h.slot,candidate:h.research_grade,reason:h.research_reason,axes:h.axes.map(a=>a.state),grade:h.grade}))}))));
+
+const slots=r.roster.possible_active, h1=slots.find(h=>h.endsWith('|TEST:H1'));
+const source=r.scenarios.find(s=>s.event.endsWith('|TEST:BASE')&&s.checkpoint_m===600);
+const starts=Object.fromEntries(slots.map(h=>[h,[10000,10000]]));
+const branches=[
+ {id:'LEVEL',response_event:source.event,checkpoint_m:600,starts},
+ {id:'H1_EARLY_ADVANTAGE',response_event:source.event,checkpoint_m:600,starts:{...starts,[h1]:[0,0]}},
+ {id:'H1_EARLY_DEFICIT',response_event:source.event,checkpoint_m:600,starts:{...starts,[h1]:[30000,30000]}},
+ {id:'UNKNOWN_START',response_event:source.event,checkpoint_m:600,starts:Object.fromEntries(Object.entries(starts).filter(([h])=>h!==h1))}
+];
+const q=analyzeV35(V,'DISTANCE',{branches,eyeEnabled:false}),by=id=>q.conditional_scenarios.find(s=>s.id===id),env=(s,h)=>s.field.envelopes.find(e=>e.slot===h);
+t('F35-01',()=>{assert.deepEqual(q.historical_scenarios,base.scenarios);assert.equal(q.conditional_scenarios.length,4);assert.equal(q.runners.length,3);assert.ok(q.runners.every(h=>h.grade===null&&h.items.length===115));assert.ok(q.conditional_scenarios.every(s=>!s.prediction&&!s.observed_current_pace));});
+t('F35-02',()=>{assert.equal(env(by('H1_EARLY_ADVANTAGE'),h1).max,1);assert.equal(env(by('H1_EARLY_DEFICIT'),h1).min,3);assert.deepEqual(by('H1_EARLY_ADVANTAGE').edges.map(e=>e.change_ms),by('H1_EARLY_DEFICIT').edges.map(e=>e.change_ms));assert.ok(by('LEVEL').valid);});
+t('F35-03',()=>{assert.equal(env(by('UNKNOWN_START'),h1).min,1);assert.equal(env(by('UNKNOWN_START'),h1).max,3);assert.ok(by('UNKNOWN_START').edges.filter(e=>e.a===h1||e.b===h1).every(e=>e.order==='UNKNOWN'));assert.ok(!by('UNKNOWN_START').complete);});
+t('F35-04',()=>{for(const h of q.runners){assert.equal(h.conditional_paths_v35.length,4);for(const p of h.conditional_paths_v35){assert.equal(p.axes.length,5);if(p.blocked.length)assert.equal(p.candidate,null);if(p.candidate==='A')assert.equal(p.envelope.max,1);assert.equal(p.prediction,false);}}assert.ok(q.runners.every(h=>h.conditional_paths_v35.find(p=>p.scenario==='UNKNOWN_START').candidate===null));});
+const w35=r.source_packet.evidence.find(e=>e.event==='TEST:T'&&e.subject==='TEST:H3'&&e.field==='current_card_row').evidenceId;
+const withdrawn35=analyzeV35(V,'DISTANCE',{branches,withdraw:w35});
+t('F35-05',()=>{assert.equal(withdrawn35.roster.possible_active.length,3);assert.ok(withdrawn35.conditional_scenarios.every(s=>!s.complete));assert.ok(withdrawn35.runners.every(h=>h.research_grade===null));});
+const p35=analyzeV35(V,'PACE',{branches:branches.slice(0,1)}),p35off=analyzeV35(V,'PACE',{branches:branches.slice(0,1),eyeEnabled:false});
+t('F35-06',()=>{assert.ok(p35.runners.some(h=>h.conditional_paths_v35.some(p=>p.axes.find(a=>a.axis==='E').state==='COUNTER_REVIEW_REQUIRED'&&p.blocked.includes('UNRESOLVED_DISCOVERY_COUNTER'))));assert.ok(p35off.runners.every(h=>h.conditional_paths_v35.every(p=>p.axes.find(a=>a.axis==='E').state==='UNKNOWN')));assert.deepEqual(p35.conditional_scenarios,p35off.conditional_scenarios);});
+console.log('V35_RECEIPT '+JSON.stringify({scope:q.policy,scenarios:q.conditional_scenarios.map(s=>({id:s.id,complete:s.complete,valid:s.valid,roleConflicts:s.roleConflicts,edges:s.edges.map(e=>({a:e.a,b:e.b,interval:e.interval_ms,change:e.change_ms})),envelopes:s.field.envelopes})),runners:q.runners.map(h=>({slot:h.slot,grade:h.grade,candidate:h.research_grade,paths:h.conditional_paths_v35.map(p=>({scenario:p.scenario,candidate:p.candidate,axes:p.axes.map(a=>a.state),blocked:p.blocked}))})),pace:p35.runners.map(h=>({slot:h.slot,paths:h.conditional_paths_v35.map(p=>({axes:p.axes.map(a=>a.state),blocked:p.blocked}))}))}));

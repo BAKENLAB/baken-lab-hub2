@@ -1,0 +1,4807 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "actualV40": {
+    "commit": "2e9915fe8bc055a9c481e39743783ca802937322",
+    "run": 46066890822,
+    "job": 140734253844,
+    "checks": [
+      "2026-11-27T20:57:25.9576859Z F40-01 PASS",
+      "2026-11-27T20:57:25.9581819Z F40-02 PASS",
+      "2026-11-27T20:57:26.0175893Z F40-03 PASS",
+      "2026-11-27T20:57:26.0176364Z F40-04 PASS",
+      "2026-11-27T20:57:39.2213626Z F40-05 PASS",
+      "2026-11-27T20:57:39.2221101Z F40-06 PASS",
+      "2026-11-27T20:57:39.4213554Z F40-07 PASS"
+    ],
+    "regressionConfigured": 467,
+    "caseCount": 25,
+    "independentPacketMatches": 16
+  },
+  "originalWork36": "25fbe257b452702524312c3dfba933eb88cd8880",
+  "priorWorkLedger": 699,
+  "addedWorkTests": 0,
+  "canonical": 115,
+  "groups": 118,
+  "held": 826,
+  "pins": [
+    {
+      "ref": "79c0aa43a65e0071512c2836f04672c395381c76",
+      "path": "research/reborn2-work37/work36-independent-pins-v0.1.json",
+      "blob": "ca1ad8f0a2059f0226cfdb7f78122ddce39cca27",
+      "sha256": "0811e22bac17e6c49ff13b91747cc96e55042e7496e4be3f39ed438c99cf9e13"
+    },
+    {
+      "ref": "35d3ff1336ddc6a49fe95965b7bb3bc7fa8c3194",
+      "path": "research/reborn2-work37/work36-original-crosscheck-h3-v0.1.json",
+      "blob": "b6b0a5979b0f13c100bd1721c4b6d71618498da6",
+      "sha256": "caec36b32fc37075f6057cea2cc9bbf1818d931d3d82972309fe13da88c84b8b"
+    }
+  ],
+  "cases": [
+    {
+      "id": "FK34_FULL",
+      "digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+      "evidence": 537,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:CONTEST"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST",
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "winReviews": [],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 16,
+            "PLACE_SUPPORT": 4
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 10,
+            "PLACE_COUNTER": 5,
+            "WIN_SUPPORT": 5
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 16,
+            "PLACE_COUNTER": 4
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 10,
+            "WIN_SUPPORT": 5,
+            "PLACE_COUNTER": 5
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 10,
+            "PLACE_COUNTER": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "FK34_DISCOVERY",
+      "digest": "96a444d913920031add473845fd2e5682b88fb9c1f77afa8314a996020d19f1a",
+      "evidence": 393,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:CONTEST"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST",
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "winReviews": [],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 10,
+            "PLACE_SUPPORT": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 6,
+            "PLACE_COUNTER": 4,
+            "WIN_SUPPORT": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 10,
+            "PLACE_COUNTER": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 6,
+            "WIN_SUPPORT": 4,
+            "PLACE_COUNTER": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 6,
+            "PLACE_COUNTER": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "FK34_UNKNOWN",
+      "digest": "ee05bf601bd1cf091643b4553cce2954b23dc64c4fd31972e6cdf2f2ac5d0937",
+      "evidence": 497,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "FK34_NEGATIVE_ONLY",
+      "digest": "85ed11b719251b864b81dfda583cb5e193e7a643f99f39a1f4a3cc343e5db16c",
+      "evidence": 81,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "FK34_NEGATIVE_REMOVED",
+      "digest": "c836d95df8fb1357ca2e57e2b27f397bb30f5abb73cec0d56a2e9333b09a55ae",
+      "evidence": 59,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "FK35_ACTIVE_MISSING",
+      "digest": "93df9900a888bc0a515c3796dd6124c02fa08b8864b2c8b9c78a75c5d19a10bb",
+      "evidence": 217,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "FK35_ACTIVE_NO_CHECKPOINT",
+      "digest": "88f0d96679ea78ee9a7e1d59db60b4766d82728dbbce3b9dd30cd93ffb98c844",
+      "evidence": 527,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "FK35_CONTEXT_CHANGE",
+      "digest": "04c3cc3c73c23a9ab472fc26ba1269fd9e1640e0d5037afbdc78737e9c55c243",
+      "evidence": 537,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:CONTEST"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "FK35_EYE",
+      "digest": "ef6dcaffe8a11fc2c117789ba530d539decff5cdba87811b29599bacbea9bf7a",
+      "evidence": 701,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:CONTEST"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST",
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "winReviews": [],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 26,
+            "PLACE_SUPPORT": 4
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:DISCOVERED",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 20,
+            "PLACE_COUNTER": 5,
+            "WIN_SUPPORT": 5
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 26,
+            "PLACE_COUNTER": 4
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:DISCOVERED",
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:DISCOVERED",
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 20,
+            "WIN_SUPPORT": 5,
+            "PLACE_COUNTER": 5
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 20,
+            "PLACE_COUNTER": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "FK35_EYE_COUNTER",
+      "digest": "9c38c2a7ee53d75c340bd4006cc2c3a3704487c2c4827af144d83cf989a0bd86",
+      "evidence": 885,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:CONTEST"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST",
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:NEW_COUNTER",
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "winReviews": [],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:DISCOVERED",
+              "response": "TEST:NAR|TEST:NEW_COUNTER",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:DISCOVERED"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 36,
+            "PLACE_SUPPORT": 5,
+            "PLACE_COUNTER": 1
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": "B",
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE",
+            "TEST:NAR|TEST:NEW_COUNTER"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:DISCOVERED",
+            "TEST:NAR|TEST:LONE",
+            "TEST:NAR|TEST:NEW_COUNTER"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:DISCOVERED",
+              "response": "TEST:NAR|TEST:NEW_COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:DISCOVERED"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A",
+                "TEST:NAR|TEST:RECOVERY_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:RECOVERY_A"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:DISCOVERED",
+              "response": "TEST:NAR|TEST:NEW_COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:NEW_COUNTER",
+              "response": "TEST:NAR|TEST:DISCOVERED",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 30,
+            "PLACE_COUNTER": 5,
+            "WIN_SUPPORT": 6,
+            "PLACE_SUPPORT": 1
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:CONTEST",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 36,
+            "PLACE_COUNTER": 6
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:DISCOVERED",
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:DISCOVERED",
+            "TEST:NAR|TEST:RECOVERY_A",
+            "TEST:NAR|TEST:RECOVERY_B"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:NEW_COUNTER",
+              "response": "TEST:NAR|TEST:DISCOVERED",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:NEW_COUNTER"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_A",
+              "response": "TEST:NAR|TEST:RECOVERY_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:RECOVERY_B",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:RECOVERY_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:NEW_COUNTER",
+              "response": "TEST:NAR|TEST:DISCOVERED",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:NEW_COUNTER"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 30,
+            "WIN_SUPPORT": 6,
+            "PLACE_COUNTER": 6
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 30,
+            "PLACE_COUNTER": 12
+          }
+        }
+      ]
+    },
+    {
+      "id": "W36_BASE",
+      "digest": "d76a77fba9de0491004ad933e41180ebb532dd6b3a67f641a62b2832cfec7e0e",
+      "evidence": 165,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": "A",
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "WIN_SUPPORT": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "W36_POSITIVE",
+      "digest": "d6573c64b2b3e5efa928f6a55f4418fc5876edc5f9ee4160d808e46fb6f391cb",
+      "evidence": 393,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 12
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": "A",
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE",
+            "TEST:NAR|TEST:W36_POS_A"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_POS_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_POS_B",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_POS_B"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_POS_B",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "WIN_SUPPORT": 3,
+            "HELD": 9
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 11,
+            "PLACE_COUNTER": 1
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:W36_POS_A",
+            "TEST:NAR|TEST:W36_POS_B"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:W36_POS_A",
+            "TEST:NAR|TEST:W36_POS_B"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:W36_POS_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:W36_POS_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "PLACE_COUNTER": 3,
+            "HELD": 8,
+            "WIN_SUPPORT": 1
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 4,
+            "HELD": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "W36_WITHDRAWN",
+      "digest": "d76a77fba9de0491004ad933e41180ebb532dd6b3a67f641a62b2832cfec7e0e",
+      "evidence": 165,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": "A",
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "WIN_SUPPORT": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "W36_RELEVANT_COUNTER",
+      "digest": "496c8ec71e4d5f73b0b50c050b1772359fdfcfb8d7a12a8a36ba24a0b88a627b",
+      "evidence": 537,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:W36_COUNTER_MATCHED"
+          ],
+          "winReviews": [],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:W36_POS_A",
+              "response": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_POS_A"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "HELD": 18,
+            "PLACE_SUPPORT": 1,
+            "PLACE_COUNTER": 1
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": "A",
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE",
+            "TEST:NAR|TEST:W36_COUNTER_MATCHED"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE",
+            "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+            "TEST:NAR|TEST:W36_POS_A"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_POS_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_POS_A",
+              "response": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_POS_A"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_POS_B",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_POS_B"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_POS_A",
+              "response": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_POS_B",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+              "response": "TEST:NAR|TEST:W36_POS_A",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "WIN_SUPPORT": 4,
+            "HELD": 15,
+            "PLACE_SUPPORT": 1
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 17,
+            "PLACE_COUNTER": 3
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:W36_POS_A",
+            "TEST:NAR|TEST:W36_POS_B"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:W36_POS_A",
+            "TEST:NAR|TEST:W36_POS_B"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:W36_POS_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+              "response": "TEST:NAR|TEST:W36_POS_A",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_COUNTER_MATCHED"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:W36_POS_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+              "response": "TEST:NAR|TEST:W36_POS_A",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_COUNTER_MATCHED"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "PLACE_COUNTER": 4,
+            "HELD": 14,
+            "WIN_SUPPORT": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 6,
+            "HELD": 14
+          }
+        }
+      ]
+    },
+    {
+      "id": "W36_OTHER_COUNTER",
+      "digest": "6f216832e0256d3387a0a4934244522717aa9bc0935032d39d5cf961c66108c4",
+      "evidence": 537,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 12
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": "A",
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE",
+            "TEST:NAR|TEST:W36_POS_A"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_POS_B"
+              ],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_POS_B",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:W36_POS_B"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": true,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:W36_POS_B",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "WIN_SUPPORT": 3,
+            "HELD": 9
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 11,
+            "PLACE_COUNTER": 1
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:W36_POS_A",
+            "TEST:NAR|TEST:W36_POS_B"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:W36_POS_A",
+            "TEST:NAR|TEST:W36_POS_B"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:W36_POS_B",
+              "claim": 1,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:W36_POS_B",
+              "claim": 2,
+              "counterEvents": [
+                "TEST:NAR|TEST:COUNTER",
+                "TEST:NAR|TEST:LONE"
+              ],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "PLACE_COUNTER": 3,
+            "HELD": 8,
+            "WIN_SUPPORT": 1
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 4,
+            "HELD": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "W36_NEGATIVE_ONLY",
+      "digest": "35915d1a256dab519d0527fbd58a9b9cf8a908673daa0a0df87c40f1ee67993e",
+      "evidence": 269,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:W36_COUNTER_MATCHED"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 6
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": "A",
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE",
+            "TEST:NAR|TEST:W36_COUNTER_MATCHED"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE",
+            "TEST:NAR|TEST:W36_COUNTER_MATCHED"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "WIN_SUPPORT": 2,
+            "HELD": 4
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 6
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 2,
+            "HELD": 4
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 2,
+            "HELD": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "W36_CONTEXT_GOING",
+      "digest": "93c8fc410989caf5d42a4ef113fe48ecc0c1b8c171b3a01bd286ac5315d49849",
+      "evidence": 165,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "W36_CONTEXT_WEIGHT",
+      "digest": "74b79f0c47f72d9bfc9439614d013d912e87ed5a320528f94d254c4c21c70158",
+      "evidence": 165,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "W36_CONTEXT_GATE",
+      "digest": "d9248852a9950f51adf7daedf6ec1817a31eb87cc25bc35d61058de751748fd6",
+      "evidence": 165,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "W36_CONTEXT_COURSE",
+      "digest": "8e39b06be8796e77582af4c0bf40b29fb6dc05c1d011c0aca04216f1c92c4299",
+      "evidence": 165,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "W36_CONTEXT_DISTANCE",
+      "digest": "3896c9021c22491c8d04b4300e2a78ca1cc12bb80f157ae64cf18664ca7c615c",
+      "evidence": 165,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "W36_CONTEXT_JOINT",
+      "digest": "90f35a21497be60d82a66ba75d59ea3f8e6713951f7c2e4dc0106d5954fe3777",
+      "evidence": 165,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "W36_LOCAL_MISSING",
+      "digest": "de785d6cdceb3a2957ec4824e3434ff51c8db41b02f57435662670c84525ddd5",
+      "evidence": 163,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "W36_SHARED_CONFLICT",
+      "digest": "b2de5d73a4147824e461b6683274046a190b2280ffaf0c2989ee27441c8c6a3a",
+      "evidence": 164,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": null,
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {}
+        }
+      ]
+    },
+    {
+      "id": "W36_PEER_CLASS",
+      "digest": "54b9b97c0fb65bfb3a1d8a39b0f794f4ed2273c0c233d65c0235dc35ad54f8af",
+      "evidence": 373,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": "A",
+          "winEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "placeEvents": [
+            "TEST:NAR|TEST:COUNTER",
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 1,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "placeReviews": [
+            {
+              "start": "TEST:NAR|TEST:LONE",
+              "response": "TEST:NAR|TEST:COUNTER",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            },
+            {
+              "start": "TEST:NAR|TEST:COUNTER",
+              "response": "TEST:NAR|TEST:LONE",
+              "claim": 2,
+              "counterEvents": [],
+              "unknown": false,
+              "formal": false
+            }
+          ],
+          "decisions": {
+            "WIN_SUPPORT": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [
+            "TEST:NAR|TEST:LONE"
+          ],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "HELD": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 2
+          }
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": null,
+          "winEvents": [],
+          "placeEvents": [],
+          "winReviews": [],
+          "placeReviews": [],
+          "decisions": {
+            "PLACE_COUNTER": 2
+          }
+        }
+      ]
+    }
+  ],
+  "masks": [
+    {
+      "label": "BASE",
+      "reviews": [
+        {
+          "event": "TEST:W36_POS_A",
+          "available": false,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 2200,
+          "advantage": 900,
+          "roots": [
+            "7729ea36e8af0be5008fc85423cdbd938c821cb4cee6e4e8ac651483075b6b28",
+            "8e38d12edf56b3cd53aa63176cac466fe313f6f2d6a7d31feb0a80c2dc383245",
+            "3281a3f019ec33365a6a70ab1cd032058a0cb11f62a177d57eb0a9ccde87a726",
+            "95277017cfd60c18fdb5c02b591556034775ed9b7865efc036f42105fd3c7872",
+            "8d4c00b264f12d9a4342dcf1d18e12006016074b4826ac6d915b5b862deac136",
+            "f220f85ba657b85b330e771de99ee396ec38352c4987d76abd1d797c4f8358b9"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_A",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_POS_B",
+          "available": false,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 3300,
+          "advantage": 1100,
+          "roots": [
+            "f5644d757776762d4f4cf9dee9e49563fe3e080977e4ac52c32f7f3eaf981eff",
+            "c4f0eddae9299d540d90565ca88f29d8dab8d47c32f675857267d2e83916ae1b",
+            "5729fffd77ea3cad9ab16f94e5125b13a98722c4bcd55cf593e634a85aacfb47",
+            "5784308cf7fb12abed85fafcd450bf9ffa17a7616a84ff3835a8325169f0e06f",
+            "5b27d6d655bbee91b2af3580954712733f59379d2b12bd0b78edd6b2711cb7e3",
+            "f736638374fd2a3f298c46f113079a594725c2ea9783f7b17b684d2416b25fb7"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_B",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_COUNTER_MATCHED",
+          "available": false,
+          "admissible": true,
+          "matched": true,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "b36116b7c7979406eebda4200463e15dde3f3171565da86dfd3edc03b97b9d19",
+            "536c19628476e9123ebc0bb327c5af8f640079b566240e68af7d0a6ff0970b3c",
+            "653ea3ce035eee800fc0e93bed7a0a14bef40e4cf9ee2ebd4378f65863999056",
+            "379f7f1df76e4a942f7167a4e3362faf1dfea084080adfd92f3fdf4c14b00f72",
+            "afbb7212d57b8ca2d2e405f6b1378dc73edb55885939cdc3c7ea5c4993c194a9",
+            "5cda3bd9cec0e39e75dee2f01ce9b681b4b7b446ad43c0eb54183bfb73c4e036"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+          "kind": "MATCHED_COUNTER"
+        },
+        {
+          "event": "TEST:W36_COUNTER_OTHER_GOING",
+          "available": false,
+          "admissible": true,
+          "matched": false,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "4282a86bce2059bb5d63c70cf8ea8f1994bc273625b68a337c55e897b6cd9904",
+            "270c119252ac6a0bf22fe51ed4701f79faffc104faeae5908c6730c63f8bde64",
+            "8bc89d8eb9ae93608013a8c4c40a3096bda9ed02e26fabe3e81b5f22592b4760",
+            "3446a4fcc3245250037268caac70c735eee57679a0a7d5e44eb580d3ff547da0",
+            "e1f2cd72914e86ad177a48f436a3066cbf66c9eb5a6e88899babbc86482c53cc",
+            "0c77436ae27b7ff38a45612a63e1624caff9a55371e43f29553448cd1f248cf6"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_OTHER_GOING",
+          "kind": "OTHER_CONTEXT"
+        }
+      ],
+      "admitted": [],
+      "digest": "56370864fa42ebc9e58b4f36d16ae0d6a7ac1e9b8a0beb5cd7e961d9008f6ac0",
+      "grades": [
+        null,
+        "A",
+        null,
+        null,
+        null
+      ],
+      "h4Routes": [
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:LONE@800>TEST:NAR|TEST:COUNTER@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:LONE@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        }
+      ]
+    },
+    {
+      "label": "POSITIVE",
+      "reviews": [
+        {
+          "event": "TEST:W36_POS_A",
+          "available": true,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 2200,
+          "advantage": 900,
+          "roots": [
+            "7729ea36e8af0be5008fc85423cdbd938c821cb4cee6e4e8ac651483075b6b28",
+            "8e38d12edf56b3cd53aa63176cac466fe313f6f2d6a7d31feb0a80c2dc383245",
+            "3281a3f019ec33365a6a70ab1cd032058a0cb11f62a177d57eb0a9ccde87a726",
+            "95277017cfd60c18fdb5c02b591556034775ed9b7865efc036f42105fd3c7872",
+            "8d4c00b264f12d9a4342dcf1d18e12006016074b4826ac6d915b5b862deac136",
+            "f220f85ba657b85b330e771de99ee396ec38352c4987d76abd1d797c4f8358b9"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_A",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_POS_B",
+          "available": true,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 3300,
+          "advantage": 1100,
+          "roots": [
+            "f5644d757776762d4f4cf9dee9e49563fe3e080977e4ac52c32f7f3eaf981eff",
+            "c4f0eddae9299d540d90565ca88f29d8dab8d47c32f675857267d2e83916ae1b",
+            "5729fffd77ea3cad9ab16f94e5125b13a98722c4bcd55cf593e634a85aacfb47",
+            "5784308cf7fb12abed85fafcd450bf9ffa17a7616a84ff3835a8325169f0e06f",
+            "5b27d6d655bbee91b2af3580954712733f59379d2b12bd0b78edd6b2711cb7e3",
+            "f736638374fd2a3f298c46f113079a594725c2ea9783f7b17b684d2416b25fb7"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_B",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_COUNTER_MATCHED",
+          "available": false,
+          "admissible": true,
+          "matched": true,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "b36116b7c7979406eebda4200463e15dde3f3171565da86dfd3edc03b97b9d19",
+            "536c19628476e9123ebc0bb327c5af8f640079b566240e68af7d0a6ff0970b3c",
+            "653ea3ce035eee800fc0e93bed7a0a14bef40e4cf9ee2ebd4378f65863999056",
+            "379f7f1df76e4a942f7167a4e3362faf1dfea084080adfd92f3fdf4c14b00f72",
+            "afbb7212d57b8ca2d2e405f6b1378dc73edb55885939cdc3c7ea5c4993c194a9",
+            "5cda3bd9cec0e39e75dee2f01ce9b681b4b7b446ad43c0eb54183bfb73c4e036"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+          "kind": "MATCHED_COUNTER"
+        },
+        {
+          "event": "TEST:W36_COUNTER_OTHER_GOING",
+          "available": false,
+          "admissible": true,
+          "matched": false,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "4282a86bce2059bb5d63c70cf8ea8f1994bc273625b68a337c55e897b6cd9904",
+            "270c119252ac6a0bf22fe51ed4701f79faffc104faeae5908c6730c63f8bde64",
+            "8bc89d8eb9ae93608013a8c4c40a3096bda9ed02e26fabe3e81b5f22592b4760",
+            "3446a4fcc3245250037268caac70c735eee57679a0a7d5e44eb580d3ff547da0",
+            "e1f2cd72914e86ad177a48f436a3066cbf66c9eb5a6e88899babbc86482c53cc",
+            "0c77436ae27b7ff38a45612a63e1624caff9a55371e43f29553448cd1f248cf6"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_OTHER_GOING",
+          "kind": "OTHER_CONTEXT"
+        }
+      ],
+      "admitted": [
+        "TEST:W36_POS_A",
+        "TEST:W36_POS_B"
+      ],
+      "digest": "56370864fa42ebc9e58b4f36d16ae0d6a7ac1e9b8a0beb5cd7e961d9008f6ac0",
+      "grades": [
+        null,
+        "A",
+        null,
+        null,
+        null
+      ],
+      "h4Routes": [
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:LONE@800>TEST:NAR|TEST:COUNTER@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:LONE@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:W36_POS_B@800",
+          "decision": "WIN_SUPPORT",
+          "WIN": "SUPPORT",
+          "PLACE": "SUPPORT",
+          "env": [
+            1,
+            1
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "WIN_SUPPORT"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_B@800>TEST:NAR|TEST:COUNTER@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        }
+      ]
+    },
+    {
+      "label": "NEGATIVE",
+      "reviews": [
+        {
+          "event": "TEST:W36_POS_A",
+          "available": false,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 2200,
+          "advantage": 900,
+          "roots": [
+            "7729ea36e8af0be5008fc85423cdbd938c821cb4cee6e4e8ac651483075b6b28",
+            "8e38d12edf56b3cd53aa63176cac466fe313f6f2d6a7d31feb0a80c2dc383245",
+            "3281a3f019ec33365a6a70ab1cd032058a0cb11f62a177d57eb0a9ccde87a726",
+            "95277017cfd60c18fdb5c02b591556034775ed9b7865efc036f42105fd3c7872",
+            "8d4c00b264f12d9a4342dcf1d18e12006016074b4826ac6d915b5b862deac136",
+            "f220f85ba657b85b330e771de99ee396ec38352c4987d76abd1d797c4f8358b9"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_A",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_POS_B",
+          "available": false,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 3300,
+          "advantage": 1100,
+          "roots": [
+            "f5644d757776762d4f4cf9dee9e49563fe3e080977e4ac52c32f7f3eaf981eff",
+            "c4f0eddae9299d540d90565ca88f29d8dab8d47c32f675857267d2e83916ae1b",
+            "5729fffd77ea3cad9ab16f94e5125b13a98722c4bcd55cf593e634a85aacfb47",
+            "5784308cf7fb12abed85fafcd450bf9ffa17a7616a84ff3835a8325169f0e06f",
+            "5b27d6d655bbee91b2af3580954712733f59379d2b12bd0b78edd6b2711cb7e3",
+            "f736638374fd2a3f298c46f113079a594725c2ea9783f7b17b684d2416b25fb7"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_B",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_COUNTER_MATCHED",
+          "available": true,
+          "admissible": true,
+          "matched": true,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "b36116b7c7979406eebda4200463e15dde3f3171565da86dfd3edc03b97b9d19",
+            "536c19628476e9123ebc0bb327c5af8f640079b566240e68af7d0a6ff0970b3c",
+            "653ea3ce035eee800fc0e93bed7a0a14bef40e4cf9ee2ebd4378f65863999056",
+            "379f7f1df76e4a942f7167a4e3362faf1dfea084080adfd92f3fdf4c14b00f72",
+            "afbb7212d57b8ca2d2e405f6b1378dc73edb55885939cdc3c7ea5c4993c194a9",
+            "5cda3bd9cec0e39e75dee2f01ce9b681b4b7b446ad43c0eb54183bfb73c4e036"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+          "kind": "MATCHED_COUNTER"
+        },
+        {
+          "event": "TEST:W36_COUNTER_OTHER_GOING",
+          "available": false,
+          "admissible": true,
+          "matched": false,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "4282a86bce2059bb5d63c70cf8ea8f1994bc273625b68a337c55e897b6cd9904",
+            "270c119252ac6a0bf22fe51ed4701f79faffc104faeae5908c6730c63f8bde64",
+            "8bc89d8eb9ae93608013a8c4c40a3096bda9ed02e26fabe3e81b5f22592b4760",
+            "3446a4fcc3245250037268caac70c735eee57679a0a7d5e44eb580d3ff547da0",
+            "e1f2cd72914e86ad177a48f436a3066cbf66c9eb5a6e88899babbc86482c53cc",
+            "0c77436ae27b7ff38a45612a63e1624caff9a55371e43f29553448cd1f248cf6"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_OTHER_GOING",
+          "kind": "OTHER_CONTEXT"
+        }
+      ],
+      "admitted": [
+        "TEST:W36_COUNTER_MATCHED"
+      ],
+      "digest": "56370864fa42ebc9e58b4f36d16ae0d6a7ac1e9b8a0beb5cd7e961d9008f6ac0",
+      "grades": [
+        null,
+        "A",
+        null,
+        null,
+        null
+      ],
+      "h4Routes": [
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:LONE@800>TEST:NAR|TEST:COUNTER@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:LONE@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        }
+      ]
+    },
+    {
+      "label": "COUNTER",
+      "reviews": [
+        {
+          "event": "TEST:W36_POS_A",
+          "available": true,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 2200,
+          "advantage": 900,
+          "roots": [
+            "7729ea36e8af0be5008fc85423cdbd938c821cb4cee6e4e8ac651483075b6b28",
+            "8e38d12edf56b3cd53aa63176cac466fe313f6f2d6a7d31feb0a80c2dc383245",
+            "3281a3f019ec33365a6a70ab1cd032058a0cb11f62a177d57eb0a9ccde87a726",
+            "95277017cfd60c18fdb5c02b591556034775ed9b7865efc036f42105fd3c7872",
+            "8d4c00b264f12d9a4342dcf1d18e12006016074b4826ac6d915b5b862deac136",
+            "f220f85ba657b85b330e771de99ee396ec38352c4987d76abd1d797c4f8358b9"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_A",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_POS_B",
+          "available": true,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 3300,
+          "advantage": 1100,
+          "roots": [
+            "f5644d757776762d4f4cf9dee9e49563fe3e080977e4ac52c32f7f3eaf981eff",
+            "c4f0eddae9299d540d90565ca88f29d8dab8d47c32f675857267d2e83916ae1b",
+            "5729fffd77ea3cad9ab16f94e5125b13a98722c4bcd55cf593e634a85aacfb47",
+            "5784308cf7fb12abed85fafcd450bf9ffa17a7616a84ff3835a8325169f0e06f",
+            "5b27d6d655bbee91b2af3580954712733f59379d2b12bd0b78edd6b2711cb7e3",
+            "f736638374fd2a3f298c46f113079a594725c2ea9783f7b17b684d2416b25fb7"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_B",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_COUNTER_MATCHED",
+          "available": true,
+          "admissible": true,
+          "matched": true,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "b36116b7c7979406eebda4200463e15dde3f3171565da86dfd3edc03b97b9d19",
+            "536c19628476e9123ebc0bb327c5af8f640079b566240e68af7d0a6ff0970b3c",
+            "653ea3ce035eee800fc0e93bed7a0a14bef40e4cf9ee2ebd4378f65863999056",
+            "379f7f1df76e4a942f7167a4e3362faf1dfea084080adfd92f3fdf4c14b00f72",
+            "afbb7212d57b8ca2d2e405f6b1378dc73edb55885939cdc3c7ea5c4993c194a9",
+            "5cda3bd9cec0e39e75dee2f01ce9b681b4b7b446ad43c0eb54183bfb73c4e036"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+          "kind": "MATCHED_COUNTER"
+        },
+        {
+          "event": "TEST:W36_COUNTER_OTHER_GOING",
+          "available": false,
+          "admissible": true,
+          "matched": false,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "4282a86bce2059bb5d63c70cf8ea8f1994bc273625b68a337c55e897b6cd9904",
+            "270c119252ac6a0bf22fe51ed4701f79faffc104faeae5908c6730c63f8bde64",
+            "8bc89d8eb9ae93608013a8c4c40a3096bda9ed02e26fabe3e81b5f22592b4760",
+            "3446a4fcc3245250037268caac70c735eee57679a0a7d5e44eb580d3ff547da0",
+            "e1f2cd72914e86ad177a48f436a3066cbf66c9eb5a6e88899babbc86482c53cc",
+            "0c77436ae27b7ff38a45612a63e1624caff9a55371e43f29553448cd1f248cf6"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_OTHER_GOING",
+          "kind": "OTHER_CONTEXT"
+        }
+      ],
+      "admitted": [
+        "TEST:W36_POS_A",
+        "TEST:W36_POS_B",
+        "TEST:W36_COUNTER_MATCHED"
+      ],
+      "digest": "56370864fa42ebc9e58b4f36d16ae0d6a7ac1e9b8a0beb5cd7e961d9008f6ac0",
+      "grades": [
+        null,
+        "A",
+        null,
+        null,
+        null
+      ],
+      "h4Routes": [
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:LONE@800>TEST:NAR|TEST:COUNTER@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:LONE@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:W36_POS_B@800",
+          "decision": "WIN_SUPPORT",
+          "WIN": "SUPPORT",
+          "PLACE": "SUPPORT",
+          "env": [
+            1,
+            1
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "WIN_SUPPORT"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_A@800>TEST:NAR|TEST:W36_COUNTER_MATCHED@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            5,
+            5
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "MIXED_MEASURED_RESPONSE"
+            ],
+            [
+              "E",
+              "COUNTER_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_B@800>TEST:NAR|TEST:COUNTER@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_COUNTER_MATCHED@800>TEST:NAR|TEST:W36_POS_A@800",
+          "decision": "WIN_SUPPORT",
+          "WIN": "SUPPORT",
+          "PLACE": "SUPPORT",
+          "env": [
+            1,
+            1
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "WIN_SUPPORT"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        }
+      ]
+    },
+    {
+      "label": "OTHER",
+      "reviews": [
+        {
+          "event": "TEST:W36_POS_A",
+          "available": true,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 2200,
+          "advantage": 900,
+          "roots": [
+            "7729ea36e8af0be5008fc85423cdbd938c821cb4cee6e4e8ac651483075b6b28",
+            "8e38d12edf56b3cd53aa63176cac466fe313f6f2d6a7d31feb0a80c2dc383245",
+            "3281a3f019ec33365a6a70ab1cd032058a0cb11f62a177d57eb0a9ccde87a726",
+            "95277017cfd60c18fdb5c02b591556034775ed9b7865efc036f42105fd3c7872",
+            "8d4c00b264f12d9a4342dcf1d18e12006016074b4826ac6d915b5b862deac136",
+            "f220f85ba657b85b330e771de99ee396ec38352c4987d76abd1d797c4f8358b9"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_A",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_POS_B",
+          "available": true,
+          "admissible": true,
+          "matched": true,
+          "positive": true,
+          "deficit": 3300,
+          "advantage": 1100,
+          "roots": [
+            "f5644d757776762d4f4cf9dee9e49563fe3e080977e4ac52c32f7f3eaf981eff",
+            "c4f0eddae9299d540d90565ca88f29d8dab8d47c32f675857267d2e83916ae1b",
+            "5729fffd77ea3cad9ab16f94e5125b13a98722c4bcd55cf593e634a85aacfb47",
+            "5784308cf7fb12abed85fafcd450bf9ffa17a7616a84ff3835a8325169f0e06f",
+            "5b27d6d655bbee91b2af3580954712733f59379d2b12bd0b78edd6b2711cb7e3",
+            "f736638374fd2a3f298c46f113079a594725c2ea9783f7b17b684d2416b25fb7"
+          ],
+          "incident": "TEST:NAR|TEST:W36_POS_B",
+          "kind": "POSITIVE"
+        },
+        {
+          "event": "TEST:W36_COUNTER_MATCHED",
+          "available": false,
+          "admissible": true,
+          "matched": true,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "b36116b7c7979406eebda4200463e15dde3f3171565da86dfd3edc03b97b9d19",
+            "536c19628476e9123ebc0bb327c5af8f640079b566240e68af7d0a6ff0970b3c",
+            "653ea3ce035eee800fc0e93bed7a0a14bef40e4cf9ee2ebd4378f65863999056",
+            "379f7f1df76e4a942f7167a4e3362faf1dfea084080adfd92f3fdf4c14b00f72",
+            "afbb7212d57b8ca2d2e405f6b1378dc73edb55885939cdc3c7ea5c4993c194a9",
+            "5cda3bd9cec0e39e75dee2f01ce9b681b4b7b446ad43c0eb54183bfb73c4e036"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_MATCHED",
+          "kind": "MATCHED_COUNTER"
+        },
+        {
+          "event": "TEST:W36_COUNTER_OTHER_GOING",
+          "available": true,
+          "admissible": true,
+          "matched": false,
+          "positive": false,
+          "deficit": 2200,
+          "advantage": -4000,
+          "roots": [
+            "4282a86bce2059bb5d63c70cf8ea8f1994bc273625b68a337c55e897b6cd9904",
+            "270c119252ac6a0bf22fe51ed4701f79faffc104faeae5908c6730c63f8bde64",
+            "8bc89d8eb9ae93608013a8c4c40a3096bda9ed02e26fabe3e81b5f22592b4760",
+            "3446a4fcc3245250037268caac70c735eee57679a0a7d5e44eb580d3ff547da0",
+            "e1f2cd72914e86ad177a48f436a3066cbf66c9eb5a6e88899babbc86482c53cc",
+            "0c77436ae27b7ff38a45612a63e1624caff9a55371e43f29553448cd1f248cf6"
+          ],
+          "incident": "TEST:NAR|TEST:W36_COUNTER_OTHER_GOING",
+          "kind": "OTHER_CONTEXT"
+        }
+      ],
+      "admitted": [
+        "TEST:W36_POS_A",
+        "TEST:W36_POS_B",
+        "TEST:W36_COUNTER_OTHER_GOING"
+      ],
+      "digest": "56370864fa42ebc9e58b4f36d16ae0d6a7ac1e9b8a0beb5cd7e961d9008f6ac0",
+      "grades": [
+        null,
+        "A",
+        null,
+        null,
+        null
+      ],
+      "h4Routes": [
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:LONE@800>TEST:NAR|TEST:COUNTER@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:LONE@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:W36_POS_B@800",
+          "decision": "WIN_SUPPORT",
+          "WIN": "SUPPORT",
+          "PLACE": "SUPPORT",
+          "env": [
+            1,
+            1
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "WIN_SUPPORT"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        },
+        {
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_B@800>TEST:NAR|TEST:COUNTER@800",
+          "decision": "PLACE_COUNTER",
+          "WIN": "COUNTER",
+          "PLACE": "COUNTER",
+          "env": [
+            4,
+            4
+          ],
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ],
+          "paceComparable": true,
+          "roles": true
+        }
+      ]
+    }
+  ],
+  "delta": {
+    "positive": {
+      "changes": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "item": "RANK29"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "item": "RANK29"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "item": "RANK18"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "item": "RANK21"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "item": "RANK100"
+        }
+      ],
+      "routeChanges": [
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_B@800>TEST:NAR|TEST:COUNTER@800",
+          "before": null,
+          "after": "WIN_SUPPORT",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "WIN_SUPPORT"
+            ],
+            [
+              "D",
+              "FAVORABLE_POSITION_RETAINED"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:W36_POS_B@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:W36_POS_B@800",
+          "before": null,
+          "after": "WIN_SUPPORT",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "WIN_SUPPORT"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_B@800>TEST:NAR|TEST:COUNTER@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:W36_POS_B@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "MIXED_MEASURED_RESPONSE"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_B@800>TEST:NAR|TEST:COUNTER@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "MIXED_MEASURED_RESPONSE"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        }
+      ],
+      "grades": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "before": "A",
+          "after": "A"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "before": null,
+          "after": null
+        }
+      ]
+    },
+    "counter": {
+      "changes": [
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "item": "RANK18"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "item": "RANK21"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "item": "RANK100"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "item": "RANK12"
+        }
+      ],
+      "routeChanges": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_A@800>TEST:NAR|TEST:W36_COUNTER_MATCHED@800",
+          "before": null,
+          "after": "PLACE_SUPPORT",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_SUPPORT"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_COUNTER_MATCHED@800>TEST:NAR|TEST:W36_POS_A@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_A@800>TEST:NAR|TEST:W36_COUNTER_MATCHED@800",
+          "before": null,
+          "after": "WIN_SUPPORT",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "WIN_SUPPORT"
+            ],
+            [
+              "D",
+              "FAVORABLE_POSITION_RETAINED"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_COUNTER_MATCHED@800>TEST:NAR|TEST:W36_POS_A@800",
+          "before": null,
+          "after": "PLACE_SUPPORT",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_SUPPORT"
+            ],
+            [
+              "D",
+              "MIXED_MEASURED_RESPONSE"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_A@800>TEST:NAR|TEST:W36_COUNTER_MATCHED@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_COUNTER_MATCHED@800>TEST:NAR|TEST:W36_POS_A@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_A@800>TEST:NAR|TEST:W36_COUNTER_MATCHED@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "MIXED_MEASURED_RESPONSE"
+            ],
+            [
+              "E",
+              "COUNTER_INCIDENT_RELEVANT"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_COUNTER_MATCHED@800>TEST:NAR|TEST:W36_POS_A@800",
+          "before": null,
+          "after": "WIN_SUPPORT",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "WIN_SUPPORT"
+            ],
+            [
+              "D",
+              "ADVERSE_POSITION_OVERTAKEN"
+            ],
+            [
+              "E",
+              "POSITIVE_INCIDENT_RELEVANT"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_POS_A@800>TEST:NAR|TEST:W36_COUNTER_MATCHED@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "MIXED_MEASURED_RESPONSE"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "id": "EVIDENCE_CROSS:TEST:NAR|TEST:W36_COUNTER_MATCHED@800>TEST:NAR|TEST:W36_POS_A@800",
+          "before": null,
+          "after": "PLACE_COUNTER",
+          "axes": [
+            [
+              "A",
+              "MEASURED_ALL_RIVALS"
+            ],
+            [
+              "B",
+              "MATCHED_OBSERVED_ANTECEDENT"
+            ],
+            [
+              "C",
+              "PLACE_COUNTER"
+            ],
+            [
+              "D",
+              "MIXED_MEASURED_RESPONSE"
+            ],
+            [
+              "E",
+              "NO_RELEVANT_DISCOVERY"
+            ]
+          ]
+        }
+      ],
+      "grades": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "before": "A",
+          "after": "A"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "before": null,
+          "after": null
+        }
+      ]
+    },
+    "other": {
+      "changes": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "item": "RANK35"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "item": "RANK35"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "item": "RANK35"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "item": "RANK35"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "item": "RANK12"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "item": "RANK35"
+        }
+      ],
+      "routeChanges": [],
+      "grades": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "before": "A",
+          "after": "A"
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "before": null,
+          "after": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "before": null,
+          "after": null
+        }
+      ]
+    },
+    "scope": "SAME_MASTER_PRE_ANALYSIS_MASK_NOT_OFFICIAL_ADMISSION"
+  },
+  "limitations": [
+    "V40 CI run by Codex, independently checked actual log and 16 packet pins by Work37; no new Work native run or new Work accepted count.",
+    "Current H3 gaps and role/pace not observed; 20 synthetic historic crosses 10 pace-compatible and 0 clear win; no current grade. No invented current evidence.",
+    "EYE mask five states, actual nonreplay route effect; duplicate admission and redundant sufficient evidence not independently tested. Same source mask comparison from V40 log, no independent whole DAG reexecution.",
+    "Full old artifact not stored in Work37; original case pins and regenerated event/root maps preserved, compact V40 decision receipts persisted. No production, merge, official adoption."
+  ]
+}

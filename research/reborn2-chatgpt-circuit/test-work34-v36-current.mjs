@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {loadV36,analyzeV36,reviewAdmission} from './work34-v36-current.mjs';
+const V=await loadV36(), t=(id,fn)=>{fn();console.log(id+' PASS');};
+const results=V.manifest.cases.map(c=>analyzeV36(V,c.id));
+t('F36-01',()=>{assert.equal(results.length,5);for(const x of results){const c=V.manifest.cases.find(c=>c.id===x.id);assert.equal(x.source_digest,c.source_digest);assert.equal(x.runners.length,5);assert.equal(x.groups,118);assert.equal(x.held,826);assert.ok(x.runners.every(h=>h.items.length===115&&h.grade===null));}});
+const full=results[0],unknown=results.find(x=>x.id==='FK34_UNKNOWN');
+t('F36-02',()=>{assert.equal(full.roster.possible_active.length,5);assert.ok(full.conditional_scenarios.length>0);assert.ok(full.conditional_scenarios.every(s=>s.edges.length===10&&s.valid&&!s.prediction));assert.ok(full.runners.flatMap(h=>h.conditional_paths_v36).some(p=>p.pairs.some(q=>q.response==='OVERCAME_MEASURED_DEFICIT')));});
+t('F36-03',()=>{assert.equal(unknown.roster.possible_active.length,5);assert.ok(unknown.runners.every(h=>h.grade===null&&h.research_grade===null));assert.ok(results.every(x=>x.runners.every(h=>h.research_grade!=='S'&&h.research_grade!=='C')));});
+t('F36-04',()=>{assert.ok(full.runners.some(h=>h.conditional_paths_v36.some(p=>p.WIN==='CONDITIONALLY_SUPPORTED')));assert.ok(full.runners.every(h=>h.conditional_paths_v36.every(p=>p.axes.length===5)));});
+const root=full.source_packet.evidence.find(e=>e.event==='TEST:RECOVERY_B'&&e.subject==='TEST:H4'&&e.field==='checkpoint_ms')?.evidenceId;
+assert.ok(root);
+const review=reviewAdmission(V,'FK34_FULL',root);
+t('F36-05',()=>{assert.equal(review.formal,false);assert.equal(review.root,root);if(!review.admitted)assert.equal(review.changes.length,0);else assert.ok(review.evidence.length);});
+console.log('V36_RECEIPT '+JSON.stringify({cases:results.map(x=>({id:x.id,scenarios:x.conditional_scenarios.length,runners:x.runners.map(h=>({horse:h.slot,grade:h.research_grade,wins:h.WIN.conditional_paths.map(p=>p.event),places:h.PLACE.conditional_paths.map(p=>p.event),responses:h.conditional_paths_v36.flatMap(p=>p.pairs.map(q=>q.response))}))})),review:{...review,changes:review.changes.map(x=>({horse:x.horse,item:x.item}))}}));
