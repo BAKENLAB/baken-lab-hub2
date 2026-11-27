@@ -59,3 +59,15 @@ assert.ok(on.runners.every(h=>h.v46.conditionalCurrentResearchGrade!=='S'),'S_AB
 assert.ok(unknown.runners.every(h=>h.v46.conditionalCurrentResearchGrade===null));
 assert.ok(multi.runners.every(h=>h.grade===null&&h.current_grade===null));
 console.log('V46_GRADE_BOUNDARIES PASS');
+
+const without13=await run({work42Selection:Object.fromEntries(p.supply.runners.map(h=>[h.horse_id,h.categories.filter(c=>c.category!=='EYE13').flatMap(c=>c.claims.map(q=>q.claim_id))]))});
+assert.equal(without13.digest,on.digest);
+assert.ok(without13.runners.every(h=>h.v46.decisionBasis.responseSensitivity.length===0));
+const h2=on.runners.find(h=>h.horse.endsWith('|TEST:H2')),h2off=without13.runners.find(h=>h.horse===h2.horse);
+const witness=h2.v46.decisionBasis.responseSensitivity.find(q=>q.before[0]===1&&q.before[1]===1&&q.after[0]===4&&q.after[1]===4&&q.materialCounter);
+assert.ok(witness,'NO_EYE13_MATERIAL_RESPONSE_WITNESS');
+assert.ok(h2.v46.cardRoutes.some(p=>p.responseReview.some(q=>q.earlier===witness.earlier)&&p.robustAcrossReviewedResponses===false));
+assert.ok(h2.itemConsumption.find(i=>i.item==='RANK100').responseSensitivity.length);
+assert.ok(h2off.itemConsumption.find(i=>i.item==='RANK100').responseSensitivity.length===0);
+assert.deepEqual(h2.v46.cardRoutes.map(p=>[p.id,p.state]),h2off.v46.cardRoutes.map(p=>[p.id,p.state]));
+console.log('V46_EYE13_SAME_PACKET_RESPONSE_REVIEW PASS '+JSON.stringify({horse:h2.horse,before:witness.before,after:witness.after,delta:witness.delta,materialCounter:witness.materialCounter,grade:[h2off.v46.conditionalCurrentResearchGrade,h2.v46.conditionalCurrentResearchGrade],scope:'ROBUSTNESS_JUDGMENT_NOT_NEW_WIN_ROUTE'}));

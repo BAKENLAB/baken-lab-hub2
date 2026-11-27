@@ -148,7 +148,7 @@ export function assessCardRoutes(common,decision,docs,horse,items){
   const adverseAxes={A:sourceValid&&own.some(e=>e.finish?.[1]<0),B:supported,C:sourceValid&&p.field?.min>decision.threshold,D:own.every(e=>e.initial&&e.finish),E:p.basis.discovery};
   const state=excluded?'EXCLUDED_INCOMPATIBLE_HYPOTHESIS':materialUnknown?'HELD':p.decision==='CONDITIONAL_WIN'&&Object.values(axes).every(Boolean)?'SUPPORTED_CONDITIONAL_WIN':p.decision==='CONDITIONAL_PLACE'&&axes.A&&axes.B&&axes.C&&axes.E?'SUPPORTED_CONDITIONAL_PLACE':p.decision==='CONDITIONAL_COUNTER'&&Object.values(adverseAxes).every(Boolean)?'SUPPORTED_ADVERSE_CONDITIONAL':'HELD';
   const first=a?.rows.map(v=>v.checkpointMs?.[0])??[],leader=Math.min(...first.filter(finite)),roleContext=first.length&&first.every(finite)?first.filter(v=>v-leader<=2*a.precisionMs).length>1?'CLOCK_OVERLAP':'CLOCK_SEPARATED':null;
-  return {id:p.id,start:p.start,response:p.response,checkpoint:p.checkpoint,replay:p.replay,state,axes,adverseAxes,matchedCard,sourceValid,observedComplete,excluded,exclusionReasons,roleContext,field:r?.field?.envelopes.find(x=>x.slot===horse)??null,roleVector:complete?a.rows.map(v=>({horse:card.issuer+'|'+v.nativeId,elapsed:v.checkpointMs[k]})):[],own,recovery,retained,itemReview,materialUnknown:materialUnknown||state==='HELD',physicalLoad:'UNOBSERVED_CAUSAL_BURDEN',scope:'PRE_RACE_ANTECEDENT_CONDITIONAL_NOT_CURRENT_OBSERVATION'};
+  return {id:p.id,start:p.start,response:p.response,checkpoint:p.checkpoint,remaining:p.remaining,replay:p.replay,state,axes,adverseAxes,matchedCard,sourceValid,observedComplete,excluded,exclusionReasons,roleContext,field:r?.field?.envelopes.find(x=>x.slot===horse)??null,roleVector:complete?a.rows.map(v=>({horse:card.issuer+'|'+v.nativeId,elapsed:v.checkpointMs[k]})):[],own,recovery,retained,itemReview,materialUnknown:materialUnknown||state==='HELD',physicalLoad:'UNOBSERVED_CAUSAL_BURDEN',scope:'PRE_RACE_ANTECEDENT_CONDITIONAL_NOT_CURRENT_OBSERVATION'};
  });
 }
 // EYE13 compares actual common solver results under the SAME start vector
@@ -162,7 +162,7 @@ function sectionSensitivity(routes,items){
    if(!b)continue;
    const before=[a.field.min,a.field.max],after=[b.field.min,b.field.max];
    if(eq(before,after)&&a.state===b.state)continue;
-   const relevant=a.checkpoint===800&&a.roleVector.length===b.roleVector.length&&eq(a.roleVector,b.roleVector);
+   const relevant=a.remaining===600&&b.remaining===600&&a.roleVector.length===b.roleVector.length&&eq(a.roleVector,b.roleVector);
    if(!relevant)continue;
    const adverse=a.state==='SUPPORTED_ADVERSE_CONDITIONAL'||b.state==='SUPPORTED_ADVERSE_CONDITIONAL'||a.state==='HELD'||b.state==='HELD';
    records.push({category:'EYE13',item:'RANK32',start:a.start,checkpoint:a.checkpoint,earlier:a.id,later:b.id,before,after,beforeState:a.state,afterState:b.state,delta:f.value.delta,materialCounter:adverse,verdict:'RESPONSE_SENSITIVE_NOT_ISOLATED_CAUSAL_CHANGE',refs:f.refs,independent_vote:false});
