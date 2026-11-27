@@ -19,8 +19,8 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: d65725cd70c63d2c4b0a41d859a979509e84193b
-          path: fixed-v44
+          ref: 26789fc259745c3fe6b86449a06b477d252436a7
+          path: fixed-v45
           persist-credentials: false
       - uses: actions/checkout@v4
         with:
@@ -33,7 +33,7 @@ jobs:
           git rev-parse HEAD
           node --version
           set +e
-          node research/reborn2-independent-tests/probe-v44-prepared.mjs fixed-v44 d65725cd70c63d2c4b0a41d859a979509e84193b fixed-work42 1f185f879bc58ca5d0665d90419981dac9b73bf6 > "$RUNNER_TEMP/v44-prepared.log" 2>&1
+          node research/reborn2-independent-tests/probe-v44-prepared.mjs fixed-v45 26789fc259745c3fe6b86449a06b477d252436a7 fixed-work42 1f185f879bc58ca5d0665d90419981dac9b73bf6 > "$RUNNER_TEMP/v44-prepared.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/v44-prepared.log"
           echo "PREPARED_EXIT=$rc"
@@ -43,15 +43,26 @@ jobs:
         shell: bash
         run: |
           set +e
-          node research/reborn2-independent-tests/probe-v44-supplement.mjs fixed-v44 d65725cd70c63d2c4b0a41d859a979509e84193b > "$RUNNER_TEMP/v44-supplement.log" 2>&1
+          node research/reborn2-independent-tests/probe-v44-supplement.mjs fixed-v45 26789fc259745c3fe6b86449a06b477d252436a7 > "$RUNNER_TEMP/v44-supplement.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/v44-supplement.log"
           echo "SUPPLEMENT_EXIT=$rc"
           exit "$rc"
+      - name: V45 independent semantic and peer interventions
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          node research/reborn2-independent-tests/probe-v45-independent.mjs fixed-v45 26789fc259745c3fe6b86449a06b477d252436a7 > "$RUNNER_TEMP/v45-independent.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/v45-independent.log"
+          echo "V45_EXIT=$rc"
+          exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: main48-v44-independent-retest
+          name: main48-v45-independent
           path: |
             ${{ runner.temp }}/v44-prepared.log
             ${{ runner.temp }}/v44-supplement.log
+            ${{ runner.temp }}/v45-independent.log
