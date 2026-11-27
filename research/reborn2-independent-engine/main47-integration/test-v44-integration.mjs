@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {loadV40} from './v43-generic.mjs';
+import {analyzeV34} from '../../reborn2-chatgpt-circuit/work33-v34-synthesis.mjs';
+import {analyze} from '../../reborn2-chatgpt-circuit/work36-v41-local-decision.mjs';
+import {integrate} from '../../reborn2-chatgpt-circuit/work36-v42-propagation.mjs';
+import {makeEnvelope} from '../../reborn2-work41-corrected/supply-v0.3.mjs';
+import {analyzeWork41Verified} from './v44-work41.mjs';
+const V=await loadV40();
+const full=analyzeV34(V,'FK34_FULL',{localize:true,eyeEnabled:false}),unknown=analyzeV34(V,'FK34_UNKNOWN',{localize:true,eyeEnabled:false});
+const docs=V.C.fixtures.find(f=>f.id==='FK34_FULL').docs;
+const hist=q=>q.scenarios.filter(s=>s.kind==='OBSERVED_FIELD_RESPONSE_SCENARIO');
+const h14=e=>![e.a,e.b].some(h=>h.endsWith('|TEST:H5'));
+const native=h=>h.split('|').at(-1);
+const rootIds=new Set(unknown.source_packet.evidence.filter(e=>e.event==='TEST:T').map(e=>e.evidenceId));
+let n=0;
+for(const s of hist(unknown)){
+ const f=hist(full).find(q=>q.id===s.id),d=docs.find(q=>q.eventId===native(s.event)),k=d.geometry.checkpoints_m.indexOf(s.checkpoint_m),u=d.precisionMs;
+ assert.ok(s.historicalField&&!s.knownField&&!s.currentRosterCertain);
+ for(const e of s.edges.filter(h14)){
+  const b=f.edges.find(q=>q.a===e.a&&q.b===e.b),a=d.rows.find(q=>q.nativeId===native(e.a)),z=d.rows.find(q=>q.nativeId===native(e.b)),gap=z.clockMs-a.clockMs;
+  assert.deepEqual(e.interval_ms,[gap-6*u,gap+6*u]);
+  assert.equal(e.change_ms,gap-(z.checkpointMs[k]-a.checkpointMs[k]));
+  assert.deepEqual(e.interval_ms,b.interval_ms);
+  assert.deepEqual(e.historical_refs,b.historical_refs);
+  assert.ok(e.historical_refs.length&&!e.historical_refs.some(r=>rootIds.has(r)));
+  n++;
+ }
+}
+assert.equal(n,90);assert.ok(unknown.roster.possible_active.some(h=>h.endsWith('|TEST:H5')));assert.ok(!unknown.roster.known_active.some(h=>h.endsWith('|TEST:H5')));
+console.log('V44_HISTORICAL_90 PASS');
+const q=analyze(V,'FK34_UNKNOWN',{eyeEnabled:false}),z=integrate(q,V.C.fixtures.find(f=>f.id==='FK34_UNKNOWN').docs,{eyeEnabled:false});
+assert.equal(q.history_v41.flatMap(s=>s.edges.filter(e=>h14(e)&&e.measured)).length,90);
+assert.ok(z.runners.every(h=>h.current_grade===null&&h.conditional_grade===null));
+console.log('V44_LOCAL_TRANSFER PASS');
+const missing=unknown.source_packet.evidence.find(e=>e.event==='TEST:CONTEST'&&e.subject==='TEST:H1'&&e.field==='checkpoint_ms');
+assert.ok(missing);
+const w=analyzeV34(V,'FK34_UNKNOWN',{localize:true,eyeEnabled:false,withdraw:missing.evidenceId});
+assert.ok(hist(w).filter(s=>s.event.endsWith('|TEST:CONTEST')).every(s=>s.edges.filter(e=>e.a.endsWith('|TEST:H1')||e.b.endsWith('|TEST:H1')).every(e=>!e.interval_ms)));
+console.log('V44_WITHDRAWAL_HOLD PASS');
+const receipt=JSON.parse(readFileSync(new URL('../../reborn2-work41-corrected/stage41-corrected-handoff-v0.3.json',import.meta.url)));
+const pin={...V.fixed.get('FK34_FULL').pin,work41_analysis_sha256:receipt.summary.base.analysisSha256};
+const envelope=makeEnvelope(docs);
+const a=await analyzeWork41Verified(V,envelope,pin);
+assert.equal(a.digest,receipt.summary.base.commonSha256);assert.equal(a.evidence,537);assert.equal(a.work41.roots.length,36);
+assert.equal(a.runners.length,5);assert.ok(a.runners.every(h=>h.itemConsumption.length===115&&h.grade===null&&h.current_grade===null));
+assert.ok(a.work41.supplyReview.every(h=>h.categories.length===15&&h.categories.every(c=>!c.canonical_positive&&!c.decision_effect)));
+await assert.rejects(()=>analyzeWork41Verified(V,envelope,{...pin,work41_analysis_sha256:'wrong'}),/INDEPENDENT_WORK41_PIN/);
+console.log('V44_WORK41_V43_BRIDGE PASS');
+console.log('V44_FIELD '+JSON.stringify({digest:a.digest,evidence:a.evidence,groups:a.groups,held:a.held,runners:a.runners.map(h=>({horse:h.horse,research:h.research_grade,formal:h.grade,axes:h.axes.map(a=>({axis:a.axis,state:a.state})),reasons:h.gradeReasons,summary:h.summary})),semanticReturn:a.work41.semanticReturn}));

@@ -41,7 +41,7 @@ function localScenarios(x,docs){
   const edges=s.edges.map(e=>{
    const local=[...individual[e.a],...individual[e.b]],unresolved=local.filter(q=>q.state!=='MATCHED');
    const measured=sourceValid&&!!e.interval_ms&&!!e.refs.length;
-   const unaffected=measured&&!sharedHeld.length&&!unresolved.length;
+   const unaffected=measured&&x.roster.known_active.includes(e.a)&&x.roster.known_active.includes(e.b)&&!sharedHeld.length&&!unresolved.length;
    const interaction=fieldChanged.filter(h=>h!==e.a&&h!==e.b);
    const scope=!measured?'HISTORICAL_PAIR_UNAVAILABLE':sharedHeld.length?'MEASURED_HISTORY_SHARED_TRANSFER_HELD':unresolved.length?'MEASURED_HISTORY_INDIVIDUAL_TRANSFER_HELD':!rosterMatched||interaction.length||!s.paceUsable?'LOCAL_MATCHED_RESPONSE_SHARED_INTERACTION_UNRESOLVED':'MATCHED_REPORTED_HISTORICAL_RESPONSE';
    return {...e,measured,unaffected,scope,local,sharedHeld,interaction,rosterMatched,
@@ -49,7 +49,7 @@ function localScenarios(x,docs){
     // These are conditional bounds on local response, not current finishing order.
     order:unaffected?e.order:'UNKNOWN',
     transfer:unaffected?'CONDITIONAL_LOCAL_RESPONSE':'HELD_DEPENDENT_TRANSFER',
-    refs:uniq([...e.refs,...local.flatMap(q=>q.refs),...shared.flatMap(q=>q.refs)])};
+    historical_refs:e.historical_refs??e.refs,transfer_refs:uniq([...(e.transfer_refs??[]),...local.flatMap(q=>q.refs),...shared.flatMap(q=>q.refs)]),refs:uniq([...e.refs,...(e.transfer_refs??[]),...local.flatMap(q=>q.refs),...shared.flatMap(q=>q.refs)])};
   });
   const field=jointField(roster,edges.map(e=>({a:e.a,b:e.b,order:e.order})),x.placeThreshold??2);
   const roles=d.rows.filter(r=>roster.includes(p.issuer+'|'+r.nativeId)).map(r=>({horse:p.issuer+'|'+r.nativeId,firstRank:r.checkpointRanks?.[0]??null,firstMs:r.checkpointMs?.[0]??null,refs:sourceRefs(p,d.eventId,r.nativeId,['checkpoint_ms','ranks'])}));

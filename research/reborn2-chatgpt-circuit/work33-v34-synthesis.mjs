@@ -45,13 +45,17 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled,localize=fal
  const pairs=roster.flatMap((a,i)=>roster.slice(i+1).map(b=>({a,b})));
  const byEvent=history.map(e=>{
   const ev=e.event_id,ctx=base.contexts.find(x=>x.event===ev),g=val(e.geometry),tc=val(target.conditions),pc=val(e.conditions),u=p.r.measurement.clock_uncertainty_ms;
-  const knownField=fullRoster&&val(e.actual_starters)===roster.length&&e.rows.length===roster.length&&e.rows.every(r=>roster.includes(r.id))&&roster.every(h=>e.rows.some(r=>r.id===h));
+  // Historical classification integrity is independent of target participation.
+   const historicalRoster=e.rows.map(r=>r.id);
+   const historicalField=Number.isSafeInteger(val(e.actual_starters))&&val(e.actual_starters)===historicalRoster.length&&new Set(historicalRoster).size===historicalRoster.length&&historicalRoster.every(h=>val(field(ev,h,'id'))===h&&val(field(ev,h,'status'))==='FINISHED');
+   const knownField=historicalField&&fullRoster&&historicalRoster.length===roster.length&&historicalRoster.every(h=>roster.includes(h));
+   const historicalRefs=refs([e.actual_starters,e.geometry,e.conditions,...historicalRoster.flatMap(h=>[field(ev,h,'id'),field(ev,h,'status')])]);
   const comparison=base.pairResponse.flatMap(x=>x.comparisons.filter(c=>c.event===ev));
   const gateWeight=roster.every(h=>['gate_number','weight_grams'].every(k=>{const a=val(field(ev,h,k)),b=val(field(target.event_id,h,k));return a!==null&&b!==null&&a===b;}));
   const contextMatched=ctx?.state==='SAME_REPORTED_RACE_CONTEXT'&&gateWeight;
   const roleEvidence=roster.map(h=>{const r=field(ev,h,'ranks'),cp=field(ev,h,'checkpoint_ms'),rr=val(r),cc=val(cp);return {horse:h,ranks:rr,checkpoints:cc,refs:rr&&cc?refs([r,cp]):[]};});
   const leader=field(ev,null,'leader_crossings'),lc=val(leader),pace=base.cross_measurement_review.find(x=>x.event===ev),sharedPaceConflict=pace?.state==='CONFLICT_HOLD_JOINED_PACE_INFERENCE',paceUsable=!!lc&&!sharedPaceConflict&&roleEvidence.every(r=>Array.isArray(r.ranks)&&Array.isArray(r.checkpoints));
-  return {ev,ctx,g,tc,pc,u,knownField,contextMatched,gateWeight,roleEvidence,paceUsable,sharedPaceConflict,leader:lc,leaderRefs:lc?refs([leader]):[],comparison,refs:refs([e.conditions,target.conditions,e.geometry,target.geometry,e.actual_starters,...roster.flatMap(h=>['id','status','gate_number','weight_grams'].flatMap(k=>[field(ev,h,k),field(target.event_id,h,k)]))])};
+  return {ev,ctx,g,tc,pc,u,knownField,historicalField,historicalRoster,historicalRefs,contextMatched,gateWeight,roleEvidence,paceUsable,sharedPaceConflict,leader:lc,leaderRefs:lc?refs([leader]):[],comparison,refs:refs([e.conditions,target.conditions,e.geometry,target.geometry,e.actual_starters,...roster.flatMap(h=>['id','status','gate_number','weight_grams'].flatMap(k=>[field(ev,h,k),field(target.event_id,h,k)]))])};
  });
  // Every historically observed field trajectory is an alternative, not a predicted starting queue.
  // Explicit current conditions, exact field identity, and comparable role/pace observations are required for a supported research path.
@@ -61,26 +65,30 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled,localize=fal
   const edges=pairs.map(({a,b})=>{
    const pa=field(x.ev,a,'checkpoint_ms'),pb=field(x.ev,b,'checkpoint_ms'),fa=field(x.ev,a,'finish_ms'),fb=field(x.ev,b,'finish_ms'),av=val(pa),bv=val(pb),af=val(fa),bf=val(fb);
    let d=base.pairResponse.find(k=>k.a===a&&k.b===b)?.comparisons.find(k=>k.event===x.ev);
-   if(localize&&!d&&x.knownField){
+   if(localize&&!d&&x.historicalField&&x.historicalRoster.includes(a)&&x.historicalRoster.includes(b)){
     const ra=literalFinish(x.ev,a),rb=literalFinish(x.ev,b),ar=val(ra),br=val(rb);
-    const supplied=roster.map(h=>val(literalFinish(x.ev,h))).filter(Number.isInteger);
+    const supplied=x.historicalRoster.map(h=>val(literalFinish(x.ev,h))).filter(Number.isInteger);
     // Do not use incomplete or inconsistent literal ranks as a complete official classification.
     // Independently supplied unique ranks can corroborate only this pair's clock order.
-    if(Number.isInteger(ar)&&Number.isInteger(br)&&ar!==br&&new Set(supplied).size===supplied.length&&supplied.length<roster.length){
-     const roots=refs([ra,rb,field(x.ev,a,'id'),field(x.ev,b,'id'),field(x.ev,a,'status'),field(x.ev,b,'status'),...x.ctx.refs]);
+    if(Number.isInteger(ar)&&Number.isInteger(br)&&ar!==br&&new Set(supplied).size===supplied.length&&supplied.length<x.historicalRoster.length){
+     const roots=refs([ra,rb,field(x.ev,a,'id'),field(x.ev,b,'id'),field(x.ev,a,'status'),field(x.ev,b,'status'),...x.historicalRefs]);
      d={order:ar<br?'AHEAD':'BEHIND',rank_refs:roots,refs:roots,pair_context:'PARTIAL_LITERAL_RANK_CLOCK_ONLY'};
     }
    }
-   if(!x.knownField||!d||!Number.isFinite(av?.[j])||!Number.isFinite(bv?.[j])||!Number.isFinite(af)||!Number.isFinite(bf)||!Number.isFinite(x.u))return {a,b,order:'UNKNOWN',refs:[],interval_ms:null};
-   const change=(bf-af)-(bv[j]-av[j]),roots=refs([pa,pb,fa,fb,...d.rank_refs,...(localize?d.refs:x.refs)]);
+   if(!x.historicalField||!d||!Number.isFinite(av?.[j])||!Number.isFinite(bv?.[j])||!Number.isFinite(af)||!Number.isFinite(bf)||!Number.isFinite(x.u))return {a,b,order:'UNKNOWN',refs:[],interval_ms:null};
+   const change=(bf-af)-(bv[j]-av[j]);
+    // Historical observations must not depend on the target card. Keep
+    // transfer assumptions separately, and do not interpret this bound as a prediction.
+    const roots=refs([pa,pb,fa,fb,...d.rank_refs,...x.historicalRefs]);
+    const transferRefs=refs([...d.refs,...x.refs]);
    const z=stressScenario({path:{relations:[{rival:b,net_change_ms:change,change_bound_ms:4*x.u,refs:roots}]},subject:a,rivals:[b],starts,threshold:null}).relations[0];
    // Preserve literal rank and numeric evidence separately. An incompatible numeric edge is withheld.
    if(z.order!=='UNKNOWN'&&z.order!==d.order)rankClockConflict=true;
-   return {a,b,order:z.order!=='UNKNOWN'&&z.order!==d.order?'UNKNOWN':z.order,refs:roots,interval_ms:z.interval_ms,observed_order:d.order,change_ms:change,checkpoint_m:checkpoint,...(localize?{pair_context:d.pair_context}:{})};
+   return {a,b,order:z.order!=='UNKNOWN'&&z.order!==d.order?'UNKNOWN':z.order,refs:roots,historical_refs:roots,transfer_refs:transferRefs,interval_ms:z.interval_ms,observed_order:d.order,change_ms:change,checkpoint_m:checkpoint,...(localize?{pair_context:d.pair_context}:{})};
   });
   const numeric=jointClockFeasibility(roster,edges.filter(e=>e.interval_ms).map(e=>({a:e.a,b:e.b,delta:(e.interval_ms[0]+e.interval_ms[1])/2,bound:(e.interval_ms[1]-e.interval_ms[0])/2,refs:e.refs})));
   const f=jointField(roster,edges,threshold),valid=f.state!=='CONTRADICTED_SHARED_ORDER'&&numeric.state!=='CONTRADICTED_NUMERIC_DIFFERENCES'&&(!localize||(!rankClockConflict&&!x.sharedPaceConflict));
-  return {id:x.ev+'@'+checkpoint,event:x.ev,kind:'OBSERVED_FIELD_RESPONSE_SCENARIO',checkpoint_m:checkpoint,starts,edges,field:f,numeric,valid,contextMatched:x.contextMatched,knownField:x.knownField,paceUsable:x.paceUsable,leader:x.leader,roleEvidence:x.roleEvidence,refs:uniq([...x.refs,...x.leaderRefs,...edges.flatMap(e=>e.refs),...x.roleEvidence.flatMap(r=>r.refs)]),applicability:x.contextMatched&&x.knownField&&x.paceUsable&&valid?'COMPARABLE_SYNTHETIC_RESPONSE':localize&&x.knownField&&valid&&edges.some(e=>e.interval_ms)?'LOCAL_OBSERVED_RESPONSE_ONLY':'CONDITIONAL_OR_HELD',prediction:false,actual_current_feasibility:'UNRESOLVED'};
+  return {id:x.ev+'@'+checkpoint,event:x.ev,kind:'OBSERVED_FIELD_RESPONSE_SCENARIO',checkpoint_m:checkpoint,starts,edges,field:f,numeric,valid,contextMatched:x.contextMatched,knownField:x.knownField,historicalField:x.historicalField,currentRosterCertain:fullRoster,paceUsable:x.paceUsable,leader:x.leader,roleEvidence:x.roleEvidence,refs:uniq([...x.refs,...x.leaderRefs,...edges.flatMap(e=>e.refs),...x.roleEvidence.flatMap(r=>r.refs)]),applicability:x.contextMatched&&x.knownField&&x.paceUsable&&valid?'COMPARABLE_SYNTHETIC_RESPONSE':localize&&x.historicalField&&valid&&edges.some(e=>e.interval_ms)?'LOCAL_OBSERVED_RESPONSE_ONLY':'CONDITIONAL_OR_HELD',prediction:false,actual_current_feasibility:'UNRESOLVED'};
  }));
  // EYE discovery returns an earlier, explicitly bounded checkpoint response to the same shared scenario analyzer.
  // Baseline and addition run the real common analyzer, preserve baseline paths, and add only verified discovery predicates.
