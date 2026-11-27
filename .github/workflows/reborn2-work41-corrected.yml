@@ -1,0 +1,33 @@
+name: Work41 corrected isolated native evidence contract
+on:
+  pull_request:
+    branches: [research/reborn2-independent-engine-20261128]
+    paths:
+      - 'research/reborn2-work41-corrected/**'
+      - '.github/workflows/reborn2-work41-corrected.yml'
+permissions:
+  contents: read
+jobs:
+  isolated:
+    if: github.event.pull_request.head.ref == 'research/reborn2-work41-corrected-20261128'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Corrected contract and actual PR95 common analysis
+        env:
+          WORK41_FIX_RECEIPT: ${{ runner.temp }}/work41-fix-receipt.json
+        run: node research/reborn2-work41-corrected/test-v0.3.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: work41-corrected-receipt
+          path: ${{ runner.temp }}/work41-fix-receipt.json
+          if-no-files-found: warn
+          retention-days: 7
