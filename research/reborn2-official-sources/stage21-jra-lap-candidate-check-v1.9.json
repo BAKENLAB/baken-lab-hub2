@@ -1,0 +1,39 @@
+{
+  "schema": "stage21-jra-lap-candidate-check-v1.9",
+  "query": "BEGIN READ ONLY;\nWITH x AS (SELECT r.id,r.race_date,r.track,r.race_no,r.distance,r.halon_times,r.race_final3f,r.course_layout,r.source_checked_at,r.updated_at,r.field_size FROM public.jra_lab_races r WHERE r.id IN ('2b5a6e40-6391-4f14-9120-d4c3bb1f3d88','62889a81-8242-4a6e-ad11-fa2b02d1f9c6') AND r.race_date<'2026-10-10'),\nl AS (SELECT x.*,regexp_split_to_array(trim(halon_times),'[[:space:]-]+') parts FROM x),\na AS (SELECT l.*,cardinality(parts) segment_count,(SELECT bool_and(v~'^[0-9]+[.][0-9]$' AND CASE WHEN v~'^[0-9]+[.][0-9]$' THEN v::numeric>0 ELSE false END) FROM unnest(parts) v) positive_laps,(SELECT sum(CASE WHEN v~'^[0-9]+[.][0-9]$' THEN v::numeric*10 END) FROM unnest(parts) v) total_ticks FROM l),\nw AS (SELECT a.*,h.id winner_row_id,h.time_raw,CASE WHEN h.time_raw~'^[0-9]+:[0-5][0-9][.][0-9]$' THEN (split_part(h.time_raw,':',1)::numeric*60+split_part(h.time_raw,':',2)::numeric)*10 END winner_ticks,h.updated_at winner_updated FROM a LEFT JOIN public.jra_lab_runs h ON h.race_id=a.id AND h.finish=1)\nSELECT id,race_date,track,race_no,distance,segment_count,positive_laps,segment_count=ceil(distance::numeric/200) segment_count_match,total_ticks=winner_ticks lap_sum_matches_winner,winner_ticks IS NOT NULL winner_clock_parsed,course_layout IS NOT NULL course_layout_available,source_checked_at<='2026-10-09 15:43:39+00'::timestamptz AND updated_at<='2026-10-09 15:43:39+00'::timestamptz AND winner_updated<='2026-10-09 15:43:39+00'::timestamptz pre_cutoff,winner_row_id FROM w ORDER BY race_date;\nROLLBACK;",
+  "rows": [
+    {
+      "id": "62889a81-8242-4a6e-ad11-fa2b02d1f9c6",
+      "race_date": "2026-05-09",
+      "track": "新潟",
+      "race_no": 8,
+      "distance": 1800,
+      "segment_count": 9,
+      "positive_laps": true,
+      "segment_count_match": true,
+      "lap_sum_matches_winner": true,
+      "winner_clock_parsed": true,
+      "course_layout_available": false,
+      "pre_cutoff": true,
+      "winner_row_id": "0b46e7c8-0b92-46fb-a390-62aa5a8bb634"
+    },
+    {
+      "id": "2b5a6e40-6391-4f14-9120-d4c3bb1f3d88",
+      "race_date": "2026-07-11",
+      "track": "小倉",
+      "race_no": 8,
+      "distance": 1700,
+      "segment_count": 9,
+      "positive_laps": true,
+      "segment_count_match": true,
+      "lap_sum_matches_winner": true,
+      "winner_clock_parsed": true,
+      "course_layout_available": false,
+      "pre_cutoff": true,
+      "winner_row_id": "24dd4561-ab49-4ba7-b22f-4f467e4d68e3"
+    }
+  ],
+  "scope": "STORED_RACE_LEVEL_ONLY",
+  "formal_usable": false,
+  "limitations": "Historical race leader laps, not individual splits. Segment count ceil(distance/200) is a shape check, not authentication of first segment distance. No local verified laps found; no source original, permission or cross-issuer mapping. No target race result or market."
+}
