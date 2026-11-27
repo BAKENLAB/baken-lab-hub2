@@ -142,13 +142,27 @@ export function analyzeV29(L,name,withdraw=null,options={}){
    if(a.ordinal?.recovery)finding('RANK21','ORDINAL_RECOVERY_OBSERVED',a.ordinal.transitions,a.rankTrace.refs,['NO_CAUSAL_CURRENT_PROOF']);
    if(a.intervals?.length)finding('RANK08','INTERVAL_AVERAGE_PROFILE_ONLY',a.speedComparisons,a.speedTrace.refs,['ENDURANCE_AND_LOAD_TOLERANCE_UNPROVEN']);
   }
+  // Distinguish ability evidence from applicability: equality is not suitability.
+  const dimensions={'43':'distance','44':'distance','45':'venue','46':null,'47':'surface','48':'going','49':'direction','50':'straight','51':null,'52':null,'53':'gate','54':'weight','55':null,'56':null,'57':null};
+  const unavailable={'46':'NO_VERIFIED_COURSE_CORRELATION','51':'NO_EFFECTIVE_ELEVATION_PROFILE','52':'NO_VERIFIED_CORNER_SHAPE','55':'NO_OBSERVED_SAND_EXPOSURE','56':'NO_OBSERVED_PACK_EXPOSURE','57':'NO_MATCHED_SEASON_RESPONSE'};
+  for(const [n,k] of Object.entries(dimensions)){
+   if(!k){finding('RANK'+n,'HELD_REQUIRED_MATERIAL',null,[],[unavailable[n]]);continue;}
+   for(const c of h.condition_paths??[]){
+    const z=c.dims[k];
+    finding('RANK'+n,z===null?'MISSING_CONTEXT':z?'MATCHED_CONTEXT_NOT_SUITABILITY':'CHANGED_CONTEXT_RESPONSE_UNKNOWN',{event:c.event,dimension:k,matched:z},c.refs,['NO_MATCHED_CONDITION_CAUSAL_RESPONSE']);
+   }
+  }
   h.v29_findings=findings;
-  h.items=h.items.map(x=>{const f=findings.filter(z=>z.item===x.item);return {...x,state:cancelled?'NOT_APPLICABLE_CANCELLED':!valid?'UNKNOWN_CURRENT_IDENTITY_OR_STATUS':f.length?'OBSERVATION_WITH_SEMANTIC_FINDING':x.state,refs:uniq([...x.refs,...f.flatMap(z=>z.refs)]),finding:[...x.finding,...f.map(z=>z.state)],missing:uniq([...x.missing,...f.flatMap(z=>z.missing),...(x.item==='RANK22'?['NO_AUTHENTICATED_CORNER_INTERVAL_MAP']:[])]),semantic_effect_proven:false,grade_effect_proven:false};});
+  // Narrow semantic effect: RANK18 measured relative changes feed scenario conditions.
+  // No assertion of canonical adoption or rank/grade effect.
+  const effects=paths.flatMap(x=>x.relations.filter(y=>y.order!=='UNKNOWN'&&y.refs.length).map(y=>({item:'RANK18',event:x.event,rival:y.rival,queue:x.queue,conditional_relation:y.conditional_relation,scope:'CONDITIONAL_CHECKPOINT_RELATION_ONLY',refs:y.refs})));
+  h.semantic_effects_v29=effects;
+  h.items=h.items.map(x=>{const f=findings.filter(z=>z.item===x.item);return {...x,state:cancelled?'NOT_APPLICABLE_CANCELLED':!valid?'UNKNOWN_CURRENT_IDENTITY_OR_STATUS':f.some(z=>z.refs.length)?'OBSERVATION_WITH_SEMANTIC_FINDING':f.length?'HELD_OR_MISSING_REQUIRED_MATERIAL':x.state,refs:uniq([...x.refs,...f.flatMap(z=>z.refs)]),finding:[...x.finding,...f.map(z=>z.state)],missing:uniq([...x.missing,...f.flatMap(z=>z.missing),...(x.item==='RANK22'?['NO_AUTHENTICATED_CORNER_INTERVAL_MAP']:[])]),semantic_effect_proven:x.item==='RANK18'&&effects.length>0,semantic_effect_scope:x.item==='RANK18'&&effects.length?'CONDITIONAL_CHECKPOINT_RELATION_ONLY':null,grade_effect_proven:false};});
   const axis=(name,observations,unknown)=>({name,state:cancelled?'NOT_APPLICABLE':!valid?'UNKNOWN_IDENTITY_OR_STATUS':observations.length?'OBSERVED_NOT_CURRENT_PROOF':'UNKNOWN',observations,support:[],counter:[],unknown});
   h.perspectives=[
    axis('A 基礎能力の実証',findings.filter(x=>['RANK08','RANK12','RANK21','RANK29'].includes(x.item)),['COMPARABLE_CLASS_STRENGTH']),
    axis('B 現在の能力発揮',h.condition_paths??[],['CONDITION_CAUSAL_RESPONSE']),
-   axis('C 今回の相手比較',paths.map(x=>({event:x.event,conditional:x.envelope,refs:x.refs})),['CURRENT_RIVAL_ORDER']),
+   {...axis('C 今回の相手比較',paths.map(x=>({event:x.event,conditional:x.envelope,refs:x.refs})),['CURRENT_RIVAL_ORDER']),conditional_support:effects.filter(x=>x.conditional_relation==='SUPPORTED_UNDER_ASSUMPTIONS'),conditional_counter:effects.filter(x=>x.conditional_relation==='CONTRADICTED_UNDER_ASSUMPTIONS')},
    axis('D 展開耐性',h.pace_paths??[],['CURRENT_PACE','MATCHED_LOAD_TOLERANCE']),
    axis('E 好転・悪化・反証',findings.filter(x=>x.item==='RANK18'||x.item==='RANK29'),['CURRENT_RELEVANCE'])
   ];
