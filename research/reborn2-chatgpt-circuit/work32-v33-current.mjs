@@ -94,7 +94,7 @@ export function enrich(L,name,withdraw,options){
  // EYE03: evidence-backed loss then recovery, across matching course checkpoints.
  // All matched histories are audited; a failed repeat is counterevidence, not discarded.
  const eyeReturns=[];
- for(const p1 of pairResponse){
+ if(options.eyeEnabled!==false)for(const p1 of pairResponse){
   for(const subject of [p1.a,p1.b]){
    if(!known.includes(subject)||!known.includes(p1.a)||!known.includes(p1.b))continue;
    const sign=subject===p1.a?1:-1,rival=sign===1?p1.b:p1.a;
@@ -177,7 +177,7 @@ export async function loadControlledWork33(){
  assert.equal(fixtures.length,9);
  return {canonical:l.bundle.canonical,fixtures,receipt,verify32,adapt32};
 }
-export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,candidate=null}={}){
+export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,candidate=null,eyeEnabled=true,includePack=false}={}){
  const f=C.fixtures.find(x=>x.id===id);assert.ok(f);
  const {input,registry,out}=run31(f.docs,C.canonical,sha);
  assert.equal(out.state,'TEST_PACKET');assert.equal(out.digest,sha(JSON.stringify(out.packet)));
@@ -186,7 +186,7 @@ export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,can
  const p=C.adapt32(v,sha),all=new Map(p.o.evidence.map(e=>[e.evidence_id,e])),{get}=dependencyReader(all,withdraw);
  assert.ok(withdraw===null||all.has(withdraw),'WITHDRAW_ID');p.o.followups=p.o.followups.filter(x=>get(x.source_ref));
  const L={cases:new Map([[id,p]]),canonical:C.canonical,work30:new Map(),work27:new Map()};
- const r=enrich(L,id,withdraw,{placeThreshold}),expected=C.receipt.summary.find(x=>x.id===id);
+ const r=enrich(L,id,withdraw,{placeThreshold,eyeEnabled}),expected=C.receipt.summary.find(x=>x.id===id);
  assert.equal(r.source_evidence,expected.evidence);assert.equal(r.source_item_rows,expected.itemRows);
- return {...r,source_digest:out.digest,source_packet:out.packet,source_envelope:out};
+ return {...r,source_digest:out.digest,source_packet:out.packet,source_envelope:out,...(includePack?{loaded:L}: {})};
 }

@@ -1,0 +1,266 @@
+{
+  "schema": "WORK33_CONTROLLED_CONTRAST_HANDOFF_0.2",
+  "scope": "SYNTHETIC_ONLY",
+  "canonical": 115,
+  "groups": 118,
+  "held": 826,
+  "priorRecorded": 475,
+  "finalNamedChecks": 63,
+  "combinedRecordedIfAccepted": 538,
+  "prior475Rerun": false,
+  "repeatExecutionCountedAgain": false,
+  "formal_admissions": 0,
+  "source_pins": [
+    {
+      "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+      "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+      "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+      "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-condition-pipeline-v0.1.2.mjs",
+      "blob": "93d87bb022dae3bae021ba62fc433504bc16f924",
+      "sha256": "2d1a8a6c6d6f15504a660478f60a626d47ec3ec6dee8a94175b82e920dd7fa23"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-bundles-v0.1.2.json",
+      "blob": "b7795dc91ebe203827b1054448068a8e2465069f",
+      "sha256": "befda1231124e5c9aef088659436077c5c9027c7301ff66d29e6ae8827b1af69"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-verified-common-adapter-v0.1.2.mjs",
+      "blob": "1693dfd4657483a1f9e457188c28b38b9d8b2166",
+      "sha256": "098f94a2738d68d30030403788dc15f707dba4438719256f08b846403fba0e92"
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/research-ability-core.mjs",
+      "blob": "92112f6c5e0a38c38aa8d1eff997127bae7d191d",
+      "sha256": "93b1515e2e2f3796296f650cdc8d64f005828521a9b450492827558682e2ca4f",
+      "exports": [
+        "uniq",
+        "dependencyReader",
+        "relativePosition",
+        "ordinalPath",
+        "signedGap",
+        "conditionDelta",
+        "winPlaceRequirements",
+        "repeatEnvelope"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work26-v27-integrated.mjs",
+      "blob": "5b1e805f605879321e2ae5176c29021bc26f7ac9",
+      "sha256": "a59020167726d590f5b378c4d26907c9cdd37fc401ebf4dd2c8cc2cf4ab5c7ab",
+      "exports": [
+        "analyzeV27"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work27-v28-contrast.mjs",
+      "blob": "42fda8b93261079fbb09a053463657af7ca8b703",
+      "sha256": "69029b5020f59158135cad2269c17c0fc09080f9376c3246340cd963c7459ab7",
+      "exports": [
+        "analyzeV28"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work28-v29-feasibility.mjs",
+      "blob": "d7275c6c06f9ed7aac49bc0017ad008cc6cf6de2",
+      "sha256": "ba4f1e1091cc36eabc2c1e67da90982d349ef8b934f1293002da16aa8b6f47b4",
+      "exports": [
+        "analyzeV29",
+        "classifyInterval"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work29-v30-terminal.mjs",
+      "blob": "c3048ab248ae11f5c6c0d981a62c8b8633f7c49c",
+      "sha256": "c78cf46d856564dc2026117b7869100d3e13dd3f20b4660c1f54c89fe6b496df",
+      "exports": [
+        "analyzeV30",
+        "jointField"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work30-v31-integrated.mjs",
+      "blob": "6e812e54ea096f55b2307d05659faaf4824711f2",
+      "sha256": "a1e67df2b40e943991ddf2cde7dcbbfe9f2c6f9f2d9fe19362894b69a91c1b8e",
+      "exports": [
+        "analyzeV31",
+        "compareV31Response"
+      ]
+    },
+    {
+      "ref": "60a7d071411dfbb4fa15ab1c3323c2b8e8596eca",
+      "path": "research/reborn2-independent-engine/engine.mjs",
+      "blob": "6fcfe19dbdbb052b87b73186d6c2a0df44460939",
+      "sha256": "612719a57bd40aa560c8ef05d9aaaa2ed43043208898a08e80d119610fcfb1d3"
+    }
+  ],
+  "research_code": {
+    "ref": "64fdd7efe723565688e508c0aa7d87c443aee581",
+    "path": "research/reborn2-official-sources/stage33-contrast-research-v0.2.mjs",
+    "blob": "75792f78f2a279ca6409ef38eaf5ab2924b96fec",
+    "sha256": "d08737d180a5fe96570536bc96a4805a13d40379dd9b164db06b4fd79eeb89f5"
+  },
+  "execution_summary": {
+    "ref": "64fdd7efe723565688e508c0aa7d87c443aee581",
+    "path": "research/reborn2-official-sources/stage33-execution-summary-v0.2.json",
+    "blob": "24c01c46d5535a0dafec1eaff16e38b7898d56d8",
+    "sha256": "099cd341417ce5bd664e05697d68e97502cbacd2375ba03c120ac1c78c7d978a"
+  },
+  "case_index": [
+    {
+      "id": "DISTANCE",
+      "path": "research/reborn2-official-sources/stage33-case-distance-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "c31583256c98f47ac7173070d54e0fd9d2717bac",
+      "sha256": "01ab6897ec0a412e0602ac13cc6a2b4ba8d6579035f707348c4fb432f4bba835",
+      "bytes": 92707,
+      "source_digest": "fb74832b2a49a8179ede0d836b6cdc91984a6d92a78b888201e5dc91a86d94a1",
+      "bundle_sha256": "6d93d97b73d334ccd000f5f7a5bc7ee13757f737dc4066bc6ca9434bf84c4768",
+      "evidence": 140,
+      "item_rows": 345,
+      "directed_pairs": 6,
+      "eye03": true,
+      "grade": null
+    },
+    {
+      "id": "WEIGHT",
+      "path": "research/reborn2-official-sources/stage33-case-weight-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "54be82d9200cd886e0d47c5f8b494c12024d3511",
+      "sha256": "00e6724ec3fb04fa6e04a7c75414190f19b0e7d6a6100412659f12674a42a0d5",
+      "bytes": 92701,
+      "source_digest": "0db2d9f0ca2bca6178866e29f9b252095816a6f6968d9e51c097b10401a4581a",
+      "bundle_sha256": "d98da31c264c9c44addbe1340418e32b3dbf68878386756e04640b7bc7ac055a",
+      "evidence": 140,
+      "item_rows": 345,
+      "directed_pairs": 6,
+      "eye03": true,
+      "grade": null
+    },
+    {
+      "id": "GOING",
+      "path": "research/reborn2-official-sources/stage33-case-going-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "f1f58ee623add659f70c5892960cd021f19b9909",
+      "sha256": "53d9620603a8d914318205a376525f3f299039cf0f906470b5b4f306818ca463",
+      "bytes": 92689,
+      "source_digest": "17bba358a82e71867b3a234d089c0e3fb925a7ef6cf4fbd85aefe8587b2cfef6",
+      "bundle_sha256": "c1fd019cf2b91e9837a3648ae868ff831d592153d03b709d3f41144ccaab37eb",
+      "evidence": 140,
+      "item_rows": 345,
+      "directed_pairs": 6,
+      "eye03": true,
+      "grade": null
+    },
+    {
+      "id": "SURFACE",
+      "path": "research/reborn2-official-sources/stage33-case-surface-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "195619518dba9a129592abc1850aa5c9944efdba",
+      "sha256": "3540904386cc3c1746abc871069ecbb8433c0dbff6c7472c55805793ff49c741",
+      "bytes": 92697,
+      "source_digest": "f880df64156b62791978cb54af20c4ed4bea9afcd6c6ba02397ae8621cba0126",
+      "bundle_sha256": "fe69654e40a266238f0ac17257965aee905737b818d78fc2bb11c0e95c8d2e1e",
+      "evidence": 140,
+      "item_rows": 345,
+      "directed_pairs": 6,
+      "eye03": true,
+      "grade": null
+    },
+    {
+      "id": "COURSE",
+      "path": "research/reborn2-official-sources/stage33-case-course-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "9fc38d95e8435111cb5b86acb037da10f94eb3fc",
+      "sha256": "a89854d3acf2b8db343fa4cc717ceb2f82feff3f745135c23f17f26f366a91d6",
+      "bytes": 100219,
+      "source_digest": "f5c8bd6f69303dbbbfdc991e0218078cf217391cfe0dce1de6a1c14f1cf64c5d",
+      "bundle_sha256": "558905b320b067badd2dd3d877ec000120d318f6dd131ab5baec71f1c76339ff",
+      "evidence": 140,
+      "item_rows": 345,
+      "directed_pairs": 6,
+      "eye03": true,
+      "grade": null
+    },
+    {
+      "id": "PACE",
+      "path": "research/reborn2-official-sources/stage33-case-pace-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "7f7823580c908b8546687af24a0c4042efe26350",
+      "sha256": "01dcb2b604c43172fa2f6cee29ce05053a7c9ccd6650319b1ac909967c220267",
+      "bytes": 96889,
+      "source_digest": "112fa1014a89689571897cd41e58f43bc39c2c3adf1eba881597f5de0e04d68b",
+      "bundle_sha256": "d5e4852beb9812bcb0abd4cdaa9e50844f78fa1f30bf69d9351f6ea8f94c9bdf",
+      "evidence": 140,
+      "item_rows": 345,
+      "directed_pairs": 6,
+      "eye03": true,
+      "grade": null
+    },
+    {
+      "id": "COMPETITION",
+      "path": "research/reborn2-official-sources/stage33-case-competition-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "22f9514eebbb2649ef30d4fab7efbb7ce2355036",
+      "sha256": "dc5bfd9689aea37d053b349c36d43d442be0edfdffbce39ae2a9bd831615a457",
+      "bytes": 134188,
+      "source_digest": "cd0461f09bbe31ef8333611826da55d4f53f229d81c9f955007e699a4b87db40",
+      "bundle_sha256": "2c96544297557a0fa053a4f9b4b1e06eb5ce857528f3442a6a98dfe4fca15bde",
+      "evidence": 269,
+      "item_rows": 575,
+      "directed_pairs": 20,
+      "eye03": true,
+      "grade": null
+    },
+    {
+      "id": "TERMINAL_REPEAT",
+      "path": "research/reborn2-official-sources/stage33-case-terminal_repeat-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "5e051f583f837eec81478dd7749833edf373c99a",
+      "sha256": "947360a3859d8f5339f4d514626c7bd8de420961399ec0fc0c9db3b5d0c5949d",
+      "bytes": 88338,
+      "source_digest": "b8b3b82738f41dfb6a3f86808407be71172c3b2399dbc2c155a4984d6bd3a69a",
+      "bundle_sha256": "ce60f0fe743b35b4ae0b083e8a24df9e3e34e2619347a0fcdab80d5732431e61",
+      "evidence": 140,
+      "item_rows": 345,
+      "directed_pairs": 6,
+      "eye03": true,
+      "grade": null
+    },
+    {
+      "id": "MULTI",
+      "path": "research/reborn2-official-sources/stage33-case-multi-v0.2.json",
+      "ref": "9549a33813c9dd36ccb2d8d1db48153d0906611e",
+      "blob": "6f0a7d0108447672159d048542d7b5835b5ca8c0",
+      "sha256": "217dbf3906da500e0c60478b387ce89a7be41e1b0d7862215a214a0a792c100b",
+      "bytes": 141134,
+      "source_digest": "572b53950b3907b2fb3d85a2a6980dcd658efa8a68a4275772d221fde853f447",
+      "bundle_sha256": "1bd018756abdf9e0f7a4fc03074dfdfa84bd0ba15e62509c2abede361d88d563",
+      "evidence": 269,
+      "item_rows": 575,
+      "directed_pairs": 20,
+      "eye03": true,
+      "grade": null
+    }
+  ],
+  "consumer": "Pin exact source files and execute research33 with the same source functions; case raw documents preserved. Verify complete envelope before adapting. Do not treat historical review candidates as proven current suitability. No official acquisition, production change, grade or merge.",
+  "limits": [
+    "Revised final replaces v0.1 count; do not add initial 40 again.",
+    "Actual shared EYE03 review/path annotation withdrawal, not positive current grade or proof of win; other EYE observations are candidate receipts only.",
+    "V31 generic compareV31Response, V27–V30 and V31 fallback executed in JS isolate; V32 interface and PR95 Work32 adapter read, reviewGradeBoundary called; V32 loader and native CI not run.",
+    "Fixtures generated synthetic; no actual official data. Course venue and geometry linked; distance requires distance-specific checkpoints, not pure laboratory isolation. Pace/proximity observations not independently manipulated causal drivers.",
+    "Current EYE10, all current pace/role, current SABC, native Node loader, full475 rerun, 12-head rerun remain unverified."
+  ]
+}
