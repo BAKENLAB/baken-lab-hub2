@@ -1,0 +1,18 @@
+# Independent REBORN 2 experiment
+
+PR #92 head 886e18c77c5516a4491810acc223247a351cbeef; PR #94 head 428ef98775afc121cad12370269417f15cdc9dde. Base is PR #94 V29. V28 4e9161c and both Main40 audit documents were consulted. The two pinned canonical JSON files match PR #92 byte-for-byte by SHA-256. No other branch is modified.
+
+## What executes
+engine.mjs reuses the V29 candidate and its dependency reader. The scenario stress test feeds declared first-checkpoint timing intervals and bounded historical relative change for every possible active rival into the existing conditional rank envelope. Unknown rivals stay in the bounds. Missing start, disputed pair input or withdrawn measurement returns UNKNOWN. In CONTROL the A/B relation changes AHEAD → UNKNOWN → BEHIND as the assumed first-checkpoint deficit grows. The two-horse bound also moves among supported, contradicted and unresolved. This is conditional, with no inference of current pace, traffic or actual time between checkpoints.
+
+The EYE-linked evidence removal experiment reruns the common circuit and measures changed RANK findings. A shared source is never added as a second vote. This tests a narrow existing EYE linkage; most EYE items and a true feedback feed are not validated.
+
+reviewGradeBoundary tests a provisional rule independently of the scenario engine. It requires reviewed current evidence on five axes and a reviewed claim category. It returns candidate S/A/B/C or holds, with no score, ranking, population quota or production approval. Shared references do not increase evidence count, and conflicting interpretation of the same ID holds. No reviewed real axes are available and researchReplay returns no grades. This rule is an experiment for Main40 review and does not establish final thresholds.
+
+## Independent run
+Executed the unchanged configured V29 regression shell (337 V28 + 14 V29 configured cases) to exit 0, separately retaining the 15 F28 and 14 F29 markers. First local attempt hit Python child-process EPERM; the authorized execution environment completed the original shell. The test suite was not independently recounted beyond those marker families. The new test runs all 20 V29 fixture cases and asserts 115 per-runner inventory rows, preservation of 118 groups and 826 held conditions, and null formal grades. It exercises source withdrawal, adverse and overlapping scenario inputs, duplicate inputs, ordering, EYE source re-analysis and provisional boundaries. Run node research/reborn2-independent-engine/test.mjs. See execution.json and regression-receipt.txt.
+
+14,605 item-runner slots, 12,622 without any evidence references, and 62 with inherited narrow V29 conditional effects. The remainder with references is not verified semantic consumption. Formal, current ability and grade effects: zero. Work29 observations are upstream research receipts only; no indexed, synthetic or locator value is promoted as real official data.
+
+## Remaining work
+An authenticated prospective capture and current-race schedule/roster seal remain necessary. First-turn geometry, gates, peer styles, isolated pace-load tolerance, fatigue, trouble, rider/state and class/condition causality need native evidence and field-level response models before assignment to realistic scenarios. Current win/placing feasibility is unestablished. Do not conflate an observed individual checkpoint or measured leader lap with individual acceleration or present stamina. The other 114 item families have not all demonstrated independent semantic action, and the 15 EYE items have no full current-relevance or effect proof. Existing compatibility circuits are retained, including older research modules. No production operations or official adoption were attempted.

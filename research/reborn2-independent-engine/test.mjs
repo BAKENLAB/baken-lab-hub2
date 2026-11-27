@@ -1,0 +1,54 @@
+import assert from 'node:assert/strict';
+import { loadV29 } from '../reborn2-chatgpt-circuit/work28-v29-feasibility.mjs';
+import { researchReplay, stressScenario, reviewGradeBoundary } from './engine.mjs';
+const loaded=loadV29();
+const A='S26:A',B='S26:B',H='S26:H1';
+const starts={[A]:[0,0],[B]:[0,0]};
+const probe=s=>researchReplay({loaded,fixture:'CONTROL',scenarios:[{id:'declared',event:H,starts:s}],placeThreshold:3});
+const own=x=>x.runners.find(h=>h.slot===A);
+const relation=x=>own(x).paths[0].relations.find(r=>r.rival===B);
+assert.equal(relation(probe(starts)).order,'AHEAD');
+assert.equal(relation(probe({...starts,[B]:[-5000,-5000]})).order,'BEHIND');
+assert.equal(relation(probe({...starts,[B]:[-2000,-2000]})).order,'UNKNOWN');
+assert.equal(relation(probe({[A]:[0,0]})).order,'UNKNOWN');
+const id=loaded.work27.get('CONTROL').o.evidence.find(e=>e.event_id===H&&e.subject_id===A&&e.field==='checkpoint_ms').evidence_id;
+assert.equal(relation(researchReplay({loaded,fixture:'CONTROL',scenarios:[{id:'declared',event:H,starts}],withdraw:id})).order,'UNKNOWN');
+assert.deepEqual(probe(Object.fromEntries(Object.entries(starts).reverse())),probe(starts));
+assert.throws(()=>stressScenario({subject:A,rivals:[B,B],starts}));
+const direct=order=>stressScenario({subject:A,rivals:[B],starts,path:{relations:order},threshold:1});
+const witness={rival:B,net_change_ms:200,change_bound_ms:80,refs:['same','same']};
+assert.equal(direct([witness]).rank_bounds_under_assumptions.win,'SUPPORTED_UNDER_ASSUMPTIONS');
+assert.deepEqual(direct([witness]).relations[0].refs,['same']);
+assert.equal(direct([witness,witness]).rank_bounds_under_assumptions.win,'UNRESOLVED_UNDER_ASSUMPTIONS');
+assert.equal(direct([{...witness,net_change_ms:-200}]).rank_bounds_under_assumptions.win,'CONTRADICTED_UNDER_ASSUMPTIONS');
+const axes=['A','B','C','D','E'].map(axis=>({axis,direction:'SUPPORT',current_relevance_reviewed:true,evidence_ids:[axis]}));
+const review=(claim,directions)=>reviewGradeBoundary({claim,axes:axes.map((r,i)=>({...r,direction:directions[i]}))});
+assert.equal(review('WIN_PATH',['SUPPORT','SUPPORT','SUPPORT','SUPPORT','SUPPORT']).grade,'S');
+assert.equal(review('WIN_PATH',['SUPPORT','NEUTRAL','SUPPORT','SUPPORT','NEUTRAL']).grade,'A');
+assert.equal(review('PLACE_PATH',['NEUTRAL','SUPPORT','NEUTRAL','SUPPORT','NEUTRAL']).grade,'B');
+assert.equal(review('RELATIVE_DISADVANTAGE',['NEUTRAL','NEUTRAL','COUNTER','COUNTER','NEUTRAL']).grade,'C');
+assert.equal(review('WIN_PATH',['SUPPORT','SUPPORT','SUPPORT','SUPPORT','COUNTER']).grade,null);
+assert.equal(reviewGradeBoundary({axes:axes.slice(1),claim:'WIN_PATH'}).grade,null);
+let horses=0;
+for(const fixture of loaded.cases.keys()){
+  const run=researchReplay({fixture,loaded});
+  assert.equal(run.held,826);
+  assert.equal(run.groups,118);
+  for(const h of run.runners){
+    horses++;
+    assert.equal(h.audit.length,115);
+    assert.equal(h.research_grade,null);
+    assert.ok(h.audit.every(x=>!x.grade_effect));
+  }
+}
+console.log(JSON.stringify({suite:'independent engine',fixtures:loaded.cases.size,runner_instances:horses,formal:0}));
+const {reviewEyeFeedback}=await import('./engine.mjs');
+const original=researchReplay({loaded,fixture:'CONTROL'});
+const feedback=original.runners.find(h=>h.eye.some(f=>f.refs.length));
+assert.ok(feedback);
+const links=feedback.eye.flatMap(f=>f.refs);
+const changes=links.map(withdraw=>reviewEyeFeedback({loaded,fixture:'CONTROL',slot:feedback.slot,event:H,withdraw}));
+assert.ok(changes.every(x=>x.independent_vote===false));
+assert.ok(changes.some(x=>x.effect));
+assert.equal(reviewEyeFeedback({loaded,fixture:'CONTROL',slot:feedback.slot,withdraw:'absent'}).effect,false);
+console.log('PASS EYE-linked source removal reruns common evidence');
