@@ -42,7 +42,7 @@ function verified(n,candidate=null){
  const p=actual.packet;need(actual.state==='TEST_PACKET'&&actual.digest===sha(JSON.stringify(p))&&actual.resultTimestamp.digest===actual.digest&&p.formal_admissions===0&&p.scoring_authorized===false,'REPLAY');
  verifyDAG(p.evidence);
  const docs=c.input.documents.map(d=>{const bytes=Buffer.from(d.bytes);need(sha(bytes)===d.digest,'RAW_HASH');return {raw:parse(bytes),digest:d.digest};});
- return {p,docs,canonical:b.canonical,digest:actual.digest};
+ return {p,docs,canonical:b.canonical,digest:actual.digest,envelope:actual};
 }
 // No exported bare adapter. Raw-derived aliases depend on the actual replayed row; original roots remain in lineage.
 function adapt({p,docs}){
@@ -86,7 +86,7 @@ function adapt({p,docs}){
  const followups=p.followups.map(f=>({subject:ns(f.subject),opponent:ns(f.peer),reference_event:ns(f.priorEvent),followup_event:ns(f.laterEvent),ref:f.ref}));
  return {r:{scope:'WORK31_EXACT_SYNTHETIC_ONLY',cutoff:p.cutoff,measurement:{checkpoint_scope:null,clock_uncertainty_ms:null,snapshot_uncertainty_m:null}},o:{events,evidence,followups,active_ids:active},f:{active_ids:active,pairs:[]},packet:p,conflicts:[...conflicts]};
 }
-export function inspectV32(n){const v=verified(n);return {digest:v.digest,evidence:v.p.evidence.length,rows:v.p.runners.length,items:v.p.runners.reduce((s,r)=>s+r.items.length,0),available:v.p.runners.flatMap(r=>r.items).filter(i=>i.refs.length).length,packet:structuredClone(v.p)};}
+export function inspectV32(n){const v=verified(n);return {digest:v.digest,evidence:v.p.evidence.length,rows:v.p.runners.length,items:v.p.runners.reduce((s,r)=>s+r.items.length,0),available:v.p.runners.flatMap(r=>r.items).filter(i=>i.refs.length).length,packet:structuredClone(v.p),envelope:structuredClone(v.envelope)};}
 export function analyzeV32(n,{withdraw=null,placeThreshold=null,candidate=null}={}){
  const v=verified(n,candidate),L=loadV31();assert.deepEqual(v.canonical,L.canonical.map(({item,name})=>({item,name})));
  need(L.diagnostics.groups===118&&L.diagnostics.held===826,'CANONICAL');
@@ -110,7 +110,7 @@ export function analyzeV32(n,{withdraw=null,placeThreshold=null,candidate=null}=
  const runnerOutput=out.runners.map(h=>{
   const native=h.slot.slice(p.issuer.length+1),status=h.status,known=h.identity_known&&status==='ACTIVE';
   const past=known?h.historical??[]:[],ownPairs=known?direct.filter(x=>x.a===h.slot||x.b===h.slot):[],findings=[];
-  const note=(item,state,observation,ids)=>{const f={item,state,observation,refs:refs(ids),scope:'HISTORICAL_ONLY',formal:false,current_relevance:'UNPROVEN',independent_vote:false};if(f.refs.length)findings.push(f);};
+  const note=(item,state,observation,ids)=>{const f={item,state,observation,refs:refs(ids),scope:state==='SINGLE_GROUPED_CHECKPOINT_NOT_POSITION_CHANGE'?'CANDIDATE_ONLY':'HISTORICAL_ONLY',formal:false,current_relevance:'UNPROVEN',independent_vote:false};if(f.refs.length)findings.push(f);};
   for(const a of past){
    const event=a.event.slice(p.issuer.length+1),f=rawFind(event,native,'finish'),clock=rawFind(event,native,'finish_clock'),terminal=rawFind(event,native,'individual_final600'),gap=rawFind(event,native,'winner_clock_difference'),passing=rawFind(event,null,'passing_order'),lap=rawFind(event,null,'race_leader_laps');
    if(live(f)&&a.finish!==null)note('RANK02','PAST_FINISH',a.finish,[f.evidenceId]);
@@ -124,19 +124,30 @@ export function analyzeV32(n,{withdraw=null,placeThreshold=null,candidate=null}=
    const comparisons=ownPairs.filter(x=>x.a===rival||x.b===rival).map(x=>{
     const event=x.event.slice(p.issuer.length+1),other=rival.slice(p.issuer.length+1),a=observed(event,native),b=observed(event,other),rawPair=p.evidence.find(e=>e.event===event&&e.field==='historical_pair'&&[e.value.a,e.value.b].includes(native)&&[e.value.a,e.value.b].includes(other));
     const aa=rawFind(event,native,'individual_final600'),bb=rawFind(event,other,'individual_final600'),terminal=live(aa)&&live(bb)?signedGap(a?.terminal_ms,b?.terminal_ms):null;
-    const z={event,relation:x.order===h.slot?'AHEAD':'BEHIND',clock_advantage_ms:signedGap(a?.clock,b?.clock),final600_advantage_ms:terminal,rank_refs:x.refs,packet_pair_ref:live(rawPair)?rawPair.evidenceId:null,terminal_refs:terminal===null?[]:refs([aa.evidenceId,bb.evidenceId]),distance_m:pack.o.events.find(e=>e.event_id===x.event)?.conditions?.value?.distance_m??null};
+    const ca=rawFind(event,native,'finish_clock'),cb=rawFind(event,other,'finish_clock');
+    const endGap=signedGap(a?.clock,b?.clock),resolution=ca?.measurement?.resolutionMs;
+    const sameInterval=live(aa)&&live(bb)&&aa.measurement.fromM===bb.measurement.fromM&&aa.measurement.toM===bb.measurement.toM;
+    const startGap=terminal!==null&&endGap!==null&&sameInterval?endGap-terminal:null;
+    const interval=startGap===null||!Number.isFinite(resolution)?null:{from_m:aa.measurement.fromM,to_m:aa.measurement.toM,start_advantage_ms:startGap,end_advantage_ms:endGap,reported_change_ms:terminal,conservative_resolution_bound_ms:2*resolution,state:terminal>2*resolution?'REPORTED_RELATIVE_CLOSURE':terminal< -2*resolution?'REPORTED_RELATIVE_LOSS':'WITHIN_REPORTED_RESOLUTION',scope:'DERIVED_FROM_TOTAL_AND_NATIVE_FINAL600_NOT_INDEPENDENT_CROSSING_MEASUREMENT',refs:refs([ca.evidenceId,cb.evidenceId,aa.evidenceId,bb.evidenceId]),pressure:null,current_relevance:'UNPROVEN'};
+    const z={event,terminal_interval:interval,relation:x.order===h.slot?'AHEAD':'BEHIND',clock_advantage_ms:signedGap(a?.clock,b?.clock),final600_advantage_ms:terminal,rank_refs:x.refs,packet_pair_ref:live(rawPair)?rawPair.evidenceId:null,terminal_refs:terminal===null?[]:refs([aa.evidenceId,bb.evidenceId]),distance_m:(()=>{const c=pack.o.events.find(e=>e.event_id===x.event)?.conditions;return c&&ok(c.evidence_id)?c.value.distance_m:null;})()};
     note('RANK35','DIRECT_HISTORICAL_ORDER',z,[...x.refs,...(z.packet_pair_ref?[z.packet_pair_ref]:[])]);return z;
    });
    const a=comparisons[0],b=comparisons[1],reversal=!!a&&!!b&&a.relation!==b.relation;
    return {rival,comparisons,observed_reversal:reversal,advantage_change_ms:a?.clock_advantage_ms!=null&&b?.clock_advantage_ms!=null?b.clock_advantage_ms-a.clock_advantage_ms:null,condition_change:{distance:a&&b&&a.distance_m!==null&&b.distance_m!==null?a.distance_m!==b.distance_m:null,weight:null,going:null,class:null,gate:null,course:null,pace_response:null},causal_response:null,current_feasibility:'UNRESOLVED'};
   });
   const common=known?p.common.filter(c=>[c.a,c.b].includes(native)&&c.refs.every(ok)):[],follow=known?out.followups.filter(f=>f.subject===h.slot&&f.root):[];
-  for(const c of common){const match=out.indirect.find(z=>z.a===ns(c.a)&&z.b===ns(c.b)&&z.peer===ns(c.peer)&&z.events[0]===ns(c.eventA)&&z.events[1]===ns(c.eventB));if(match)note('RANK36','COMMON_PEER_LOCATOR_NO_TRANSITIVE_ORDER', {peer:c.peer,events:[c.eventA,c.eventB],relative_finishes:match.relative_finishes},c.refs);}
+  for(const c of common){const match=out.indirect.find(z=>z.peer===ns(c.peer)&&((z.a===ns(c.a)&&z.b===ns(c.b)&&z.events[0]===ns(c.eventA)&&z.events[1]===ns(c.eventB))||(z.b===ns(c.a)&&z.a===ns(c.b)&&z.events[1]===ns(c.eventA)&&z.events[0]===ns(c.eventB))));if(match)note('RANK36','COMMON_PEER_LOCATOR_NO_TRANSITIVE_ORDER', {peer:c.peer,events:[c.eventA,c.eventB],relative_finishes:match.a===ns(c.a)?match.relative_finishes:[...match.relative_finishes].reverse()},c.refs);}
   for(const f of follow){const source=pack.o.followups.find(z=>z.subject===f.subject&&z.opponent===f.peer&&z.reference_event===f.reference&&z.followup_event===f.event);if(source)note('RANK37','LATER_PEER_RESULT_NOT_STRENGTH', {peer:f.peer,event:f.event,finish:f.finish},[source.ref,...f.refs]);}
-  const axes=[['A',['RANK02','RANK03','RANK05','RANK06']],['B',[]],['C',['RANK35','RANK36','RANK37']],['D',['RANK19','RANK18']],['E',[]]].map(([axis,items])=>({axis,state:status==='CANCELLED'?'NOT_APPLICABLE':!known?'UNKNOWN_IDENTITY_OR_STATUS':findings.some(f=>items.includes(f.item))?'OBSERVED_CURRENT_RELEVANCE_UNPROVEN':'MISSING',facts:known?findings.filter(f=>items.includes(f.item)):[],current_support:[],current_counter:[],grade_effect:false}));
+  const contrastFacts=known?rivalPaths.filter(x=>x.observed_reversal).map(x=>({item:'RANK35',state:'HISTORICAL_ORDER_REVERSAL_REFUTES_FIXED_PAIR_ORDER',observation:{rival:x.rival,events:x.comparisons.map(y=>y.event),advantage_change_ms:x.advantage_change_ms,condition_change:x.condition_change},refs:uniq(x.comparisons.flatMap(y=>y.rank_refs)),formal:false,current_relevance:'UNPROVEN'})):[];
+  const axes=[['A',['RANK02','RANK03','RANK05','RANK06']],['B',[]],['C',['RANK35','RANK36','RANK37']],['D',['RANK19','RANK18']],['E',[]]].map(([axis,items])=>{
+   const observed=known?(axis==='E'?contrastFacts:findings.filter(f=>items.includes(f.item))):[];
+   const facts=observed.map(f=>({item:f.item,predicate:f.state,evidence_refs:f.refs,observation:f.observation,applicability:f.state==='SINGLE_GROUPED_CHECKPOINT_NOT_POSITION_CHANGE'?'CANDIDATE_ONLY':'HISTORICAL_ONLY'}));
+   return {axis,state:status==='CANCELLED'?'NOT_APPLICABLE':!known?'UNKNOWN_IDENTITY_OR_STATUS':facts.length?'OBSERVED_CURRENT_RELEVANCE_UNPROVEN':'MISSING',facts,conditions_or_pace:known?(axis==='B'?h.condition_paths??[]:axis==='D'?h.pace_paths??[]:[]):[],current_support:[],current_counter:[],grade_effect:false};
+  });
   const paths=known?relations.map(r=>({event:r.event,envelope:r.field.envelopes.find(x=>x.slot===h.slot)??null,scope:'IF_HISTORICAL_RELATIVE_ORDER_REPEATS',current_feasibility:'UNRESOLVED'})):[];
-  const itemAudit=h.items.map(i=>({...i,v32_findings:known?findings.filter(f=>f.item===i.item):[],grade_effect_proven:false}));
-  return {slot:h.slot,status,identity_known:h.identity_known,findings_v32:findings,rival_paths:known?rivalPaths:[],paths,axes,items:itemAudit,WIN:known?{state:'UNRESOLVED',paths,unknown_rivals:rivalPaths.filter(x=>!x.comparisons.length).map(x=>x.rival)}:null,PLACE:known?{state:placeThreshold===null?'THRESHOLD_UNSPECIFIED':'UNRESOLVED',threshold:placeThreshold,paths:placeThreshold===null?[]:paths}:null,grade:null,formal:false};
+  const itemAudit=h.items.map(i=>{const f=known?findings.filter(f=>f.item===i.item):[];return {...i,refs:known?uniq([...i.refs,...f.flatMap(x=>x.refs)]):[],v32_findings:f,grade_effect_proven:false};});
+  const eye_feedback=known?(h.review??[]).map(x=>({item:x.item,targets:x.targets,refs:x.refs,state:'HISTORICAL_REVIEW_ONLY',returned_to_current_analysis:false,conditional_path_effect:false,independent_vote:false})):[];
+  return {slot:h.slot,status,identity_known:h.identity_known,findings_v32:findings,rival_paths:known?rivalPaths:[],paths,axes,eye_feedback,items:itemAudit,WIN:known?{state:'UNRESOLVED',paths,unknown_rivals:rivalPaths.filter(x=>!x.comparisons.length).map(x=>x.rival)}:null,PLACE:known?{state:placeThreshold===null?'THRESHOLD_UNSPECIFIED':'UNRESOLVED',threshold:placeThreshold,paths:placeThreshold===null?[]:paths}:null,grade:null,formal:false};
  });
  return {schema:'REBORN2_COMMON_ANALYSIS_TO_CODEX_AXES_V32_RESEARCH',source_digest:v.digest,source_evidence:p.evidence.length,source_item_rows:p.runners.length*115,roster:out.roster,history:out.historical,direct:out.direct,leaders:out.leaders,relations,runners:runnerOutput,clock_conflicts:pack.conflicts,formal:false,grade:null,core:'analyzeV30->V29->V28->V27',groups:118,held:826};
 }
