@@ -1,0 +1,1864 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "priorAccepted": 811,
+  "addedAccepted": 0,
+  "baselineWork41": "2d7e9e59706acb749b7b5b7e13be5c3be16f5469",
+  "pinnedV43": "de895a633ec098a28b9014065231dd54d3ec6f89",
+  "independentReference": "3aa21b9af1a79c88630c41a34df93876b49ad03a",
+  "executedCommit": "20342b130a26a3f9b13871976c09935318d21a62",
+  "run": 46078193090,
+  "job": 140770779937,
+  "conclusion": "success",
+  "work41Pass": [
+    "2026-11-27T22:41:58.8555923Z WORK41_FIX EXACT_REJECTED_SOURCE_PIN PASS",
+    "2026-11-27T22:41:58.8559649Z WORK41_FIX ORIGINAL_1400MS_CONTRADICTION PASS",
+    "2026-11-27T22:41:58.8579695Z WORK41_FIX EXACT_WORK41_REPAIR_INDIVIDUAL_CLOCKS_UNCHANGED PASS",
+    "2026-11-27T22:41:58.8580655Z WORK41_FIX ORIGINAL_WORK40_MALFORMED_SOURCE PASS",
+    "2026-11-27T22:41:58.8593525Z WORK41_FIX ALL_BOUNDARIES_CORRECTED PASS",
+    "2026-11-27T22:41:58.8597952Z WORK41_FIX LEADER_200 PASS",
+    "2026-11-27T22:41:58.8602050Z WORK41_FIX LEADER_800 PASS",
+    "2026-11-27T22:41:58.8605380Z WORK41_FIX LEADER_1200 PASS",
+    "2026-11-27T22:41:58.8608718Z WORK41_FIX LEADER_1400 PASS",
+    "2026-11-27T22:41:58.8613021Z WORK41_FIX RAW_MUTATION_WITHOUT_HASH PASS",
+    "2026-11-27T22:41:58.8615540Z WORK41_FIX RAW_OBSERVATION_MISMATCH PASS",
+    "2026-11-27T22:41:58.8622500Z WORK41_FIX RAW_IDENTITY_ALIAS PASS",
+    "2026-11-27T22:41:58.8625546Z WORK41_FIX RAW_ROW_ALIAS PASS",
+    "2026-11-27T22:41:58.8628387Z WORK41_FIX RAW_ROW_DUPLICATE PASS",
+    "2026-11-27T22:41:58.8631189Z WORK41_FIX RAW_NONCANONICAL_DUPLICATE_KEY PASS",
+    "2026-11-27T22:41:58.8631863Z WORK41_FIX INVALID_CALENDAR PASS",
+    "2026-11-27T22:41:58.8632590Z WORK41_FIX INVALID_CUTOFF PASS",
+    "2026-11-27T22:41:58.8635401Z WORK41_FIX LATE_CAPTURE PASS",
+    "2026-11-27T22:41:58.8638145Z WORK41_FIX UNCERTAINTY_CROSSES_CUTOFF PASS",
+    "2026-11-27T22:41:58.8641198Z WORK41_FIX FALSE_PUBLICATION PASS",
+    "2026-11-27T22:41:58.8649268Z WORK41_FIX DUPLICATE_EVENT PASS",
+    "2026-11-27T22:41:58.8651739Z WORK41_FIX TARGET_OUTCOME_FIELD PASS",
+    "2026-11-27T22:41:58.8655608Z WORK41_FIX TARGET_RESULT_EVENT PASS",
+    "2026-11-27T22:41:58.8657789Z WORK41_FIX MARKET_ALIAS PASS",
+    "2026-11-27T22:41:58.8728092Z WORK41_FIX ALL_CATEGORY_SPECIFIC_KINDS PASS",
+    "2026-11-27T22:41:58.8730342Z WORK41_FIX SOURCE_ROOT_BINDING PASS",
+    "2026-11-27T22:41:58.8757025Z WORK41_FIX CHANGED_ROSTER_NO_FALSE_IDENTITY PASS",
+    "2026-11-27T22:41:58.8790457Z WORK41_FIX OTHER_CONDITION_NOT_SAME_SUPPORT PASS",
+    "2026-11-27T22:42:10.2372068Z WORK41_FIX SAME_FLAG_FULL_OUTPUT_RESULT_MUTATION PASS",
+    "2026-11-27T22:42:10.2609017Z WORK41_FIX PHYSICAL_RESULT_READ_DENIED PASS",
+    "2026-11-27T22:42:16.2988275Z WORK41_FIX GENERIC_NEW_ISSUER_EVENT_ROSTER PASS",
+    "2026-11-27T22:42:18.8834845Z WORK41_FIX ORIGINAL_REPAIRED_COMMON_EXECUTION PASS",
+    "2026-11-27T22:42:24.2403621Z WORK41_FIX SAME_PACKET_EYE_FLAG PASS"
+  ],
+  "work42Pass": [
+    "2026-11-27T22:42:25.3928436Z WORK42 CANONICAL_AND_INDEPENDENT_PINS PASS",
+    "2026-11-27T22:42:25.4195139Z WORK42 INDEPENDENT_REFERENCE_EXECUTED PASS",
+    "2026-11-27T22:42:25.4233741Z WORK42 REFERENCE_PROJECTION_EXACT_CLOCKS PASS",
+    "2026-11-27T22:42:25.4243570Z WORK42 SAME_FIELD_CHANGED_PEER_RESPONSE PASS",
+    "2026-11-27T22:42:25.8983311Z WORK42 UNKNOWN_FIELD_NOT_ABSENCE PASS",
+    "2026-11-27T22:42:25.8983707Z WORK42 CANCELLED_DISTINCT_FROM_UNKNOWN PASS",
+    "2026-11-27T22:42:25.8984329Z WORK42 ANY_CHECKPOINT_FRONT_PROXY PASS",
+    "2026-11-27T22:42:25.8987465Z WORK42 EYE13_SEPARATE_CLOCK_AND_RANK PASS",
+    "2026-11-27T22:42:25.8988990Z WORK42 MISSING_TYPES_SEPARATE PASS",
+    "2026-11-27T22:42:25.9044876Z WORK42 PER_CATEGORY_CONTRACT_AND_DUPLICATE_IRRELEVANT PASS",
+    "2026-11-27T22:42:25.9045337Z WORK42 OTHER_CONDITION_EYE07_AND_13_HELD PASS",
+    "2026-11-27T22:42:25.9047486Z WORK42 V43_PIN PASS",
+    "2026-11-27T22:42:29.1334776Z WORK42 V43_REFERENCE PASS",
+    "2026-11-27T22:42:29.9630620Z WORK42 V43_STRONGER_PEER PASS",
+    "2026-11-27T22:42:30.6132825Z WORK42 V43_UNKNOWN PASS",
+    "2026-11-27T22:42:31.5148165Z WORK42 V43_PARTIAL PASS",
+    "2026-11-27T22:42:32.3114742Z WORK42 V43_CONDITION_MISSING PASS",
+    "2026-11-27T22:42:32.8792653Z WORK42 V43_NO_HISTORY PASS"
+  ],
+  "summary": {
+    "priorAccepted": 811,
+    "addedAccepted": 0,
+    "checks": [
+      "CANONICAL_AND_INDEPENDENT_PINS",
+      "INDEPENDENT_REFERENCE_EXECUTED",
+      "REFERENCE_PROJECTION_EXACT_CLOCKS",
+      "SAME_FIELD_CHANGED_PEER_RESPONSE",
+      "UNKNOWN_FIELD_NOT_ABSENCE",
+      "CANCELLED_DISTINCT_FROM_UNKNOWN",
+      "ANY_CHECKPOINT_FRONT_PROXY",
+      "EYE13_SEPARATE_CLOCK_AND_RANK",
+      "MISSING_TYPES_SEPARATE",
+      "PER_CATEGORY_CONTRACT_AND_DUPLICATE_IRRELEVANT",
+      "OTHER_CONDITION_EYE07_AND_13_HELD",
+      "V43_PIN",
+      "V43_REFERENCE",
+      "V43_STRONGER_PEER",
+      "V43_UNKNOWN",
+      "V43_PARTIAL",
+      "V43_CONDITION_MISSING",
+      "V43_NO_HISTORY"
+    ],
+    "results": [
+      {
+        "name": "REFERENCE",
+        "state": "EXECUTED",
+        "evidence": 269,
+        "roster": {
+          "registered": 5,
+          "declared_active_count": 5,
+          "actual_starters": null,
+          "known_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "possible_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "unknown_slots": []
+        },
+        "runners": [
+          {
+            "horse": "TEST:NAR|TEST:A",
+            "grade": "A",
+            "current": null,
+            "summary": {
+              "win": 1,
+              "place": 2,
+              "counter": 0,
+              "held": 17,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:B",
+            "grade": "A",
+            "current": null,
+            "summary": {
+              "win": 1,
+              "place": 1,
+              "counter": 3,
+              "held": 17,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:C",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 6,
+              "held": 18,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:D",
+            "grade": "C",
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 13,
+              "held": 14,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:E",
+            "grade": "C",
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 15,
+              "held": 12,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          }
+        ]
+      },
+      {
+        "name": "STRONGER_PEER",
+        "state": "EXECUTED",
+        "evidence": 269,
+        "roster": {
+          "registered": 5,
+          "declared_active_count": 5,
+          "actual_starters": null,
+          "known_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "possible_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "unknown_slots": []
+        },
+        "runners": [
+          {
+            "horse": "TEST:NAR|TEST:A",
+            "grade": "A",
+            "current": null,
+            "summary": {
+              "win": 1,
+              "place": 1,
+              "counter": 0,
+              "held": 18,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:B",
+            "grade": "A",
+            "current": null,
+            "summary": {
+              "win": 3,
+              "place": 3,
+              "counter": 0,
+              "held": 15,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:C",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 9,
+              "held": 18,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:D",
+            "grade": "C",
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 13,
+              "held": 14,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:E",
+            "grade": "C",
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 15,
+              "held": 12,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          }
+        ]
+      },
+      {
+        "name": "UNKNOWN",
+        "state": "EXECUTED",
+        "evidence": 257,
+        "roster": {
+          "registered": 5,
+          "declared_active_count": 4,
+          "actual_starters": null,
+          "known_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "possible_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "unknown_slots": [
+            "TEST:NAR|TEST:B"
+          ]
+        },
+        "runners": [
+          {
+            "horse": "TEST:NAR|TEST:A",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:B",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:C",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:D",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:E",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          }
+        ]
+      },
+      {
+        "name": "PARTIAL",
+        "state": "EXECUTED",
+        "evidence": 267,
+        "roster": {
+          "registered": 5,
+          "declared_active_count": 5,
+          "actual_starters": null,
+          "known_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "possible_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "unknown_slots": []
+        },
+        "runners": [
+          {
+            "horse": "TEST:NAR|TEST:A",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 22,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:B",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 3,
+              "held": 21,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:C",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 3,
+              "held": 21,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:D",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 6,
+              "held": 21,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:E",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 6,
+              "held": 21,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          }
+        ]
+      },
+      {
+        "name": "CONDITION_MISSING",
+        "state": "EXECUTED",
+        "evidence": 267,
+        "roster": {
+          "registered": 5,
+          "declared_active_count": 5,
+          "actual_starters": null,
+          "known_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "possible_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:E"
+          ],
+          "unknown_slots": []
+        },
+        "runners": [
+          {
+            "horse": "TEST:NAR|TEST:A",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:B",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:C",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:D",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:E",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          }
+        ]
+      },
+      {
+        "name": "NO_HISTORY",
+        "state": "EXECUTED",
+        "evidence": 257,
+        "roster": {
+          "registered": 5,
+          "declared_active_count": 5,
+          "actual_starters": null,
+          "known_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:NO_HISTORY"
+          ],
+          "possible_active": [
+            "TEST:NAR|TEST:A",
+            "TEST:NAR|TEST:B",
+            "TEST:NAR|TEST:C",
+            "TEST:NAR|TEST:D",
+            "TEST:NAR|TEST:NO_HISTORY"
+          ],
+          "unknown_slots": []
+        },
+        "runners": [
+          {
+            "horse": "TEST:NAR|TEST:A",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:B",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:C",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:D",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          },
+          {
+            "horse": "TEST:NAR|TEST:NO_HISTORY",
+            "grade": null,
+            "current": null,
+            "summary": {
+              "win": 0,
+              "place": 0,
+              "counter": 0,
+              "held": 27,
+              "robust": 0,
+              "materialCounter": 0
+            },
+            "items": 115
+          }
+        ]
+      }
+    ],
+    "categoryCounts": [
+      {
+        "name": "BASE",
+        "evidence": 537,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 25,
+            "states": {
+              "NOT_APPLICABLE": 5,
+              "RELEVANT_FACT": 20
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 25,
+            "states": {
+              "COUNTER_ANTECEDENT": 7,
+              "NEUTRAL": 10,
+              "SUPPORT_ANTECEDENT": 8
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 25,
+            "states": {
+              "NEUTRAL": 13,
+              "COUNTER_ANTECEDENT": 6,
+              "SUPPORT_ANTECEDENT": 6
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 50,
+            "states": {
+              "UNKNOWN": 50
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 200,
+            "states": {
+              "SUPPORT_ANTECEDENT": 40,
+              "COUNTER_ANTECEDENT": 160
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 25,
+            "states": {
+              "SUPPORT_ANTECEDENT": 5,
+              "RELEVANT_FACT": 20
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 25,
+            "states": {
+              "SUPPORT_ANTECEDENT": 5,
+              "RELEVANT_FACT": 20
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "RELEVANT_FACT": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 2,
+              "SUPPORT_ANTECEDENT": 3
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 5
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 25,
+            "states": {
+              "RELEVANT_FACT": 25
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 20,
+            "states": {
+              "IRRELEVANT_CONDITION": 10,
+              "NEUTRAL": 8,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 25,
+            "states": {
+              "UNKNOWN": 25
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 25,
+            "states": {
+              "RELEVANT_FACT": 25
+            }
+          }
+        ],
+        "missing": []
+      },
+      {
+        "name": "REFERENCE",
+        "evidence": 269,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 15,
+            "states": {
+              "NOT_APPLICABLE": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 8,
+              "SUPPORT_ANTECEDENT": 5,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 12,
+              "COUNTER_ANTECEDENT": 3
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 30,
+            "states": {
+              "UNKNOWN": 30
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 60,
+            "states": {
+              "SUPPORT_ANTECEDENT": 12,
+              "COUNTER_ANTECEDENT": 48
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "RELEVANT_FACT": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 4,
+              "SUPPORT_ANTECEDENT": 1
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 5
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 10,
+            "states": {
+              "IRRELEVANT_CONDITION": 10
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          }
+        ],
+        "missing": []
+      },
+      {
+        "name": "STRONGER_PEER",
+        "evidence": 269,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 15,
+            "states": {
+              "NOT_APPLICABLE": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 9,
+              "SUPPORT_ANTECEDENT": 4,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 13,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 30,
+            "states": {
+              "UNKNOWN": 30
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 60,
+            "states": {
+              "SUPPORT_ANTECEDENT": 12,
+              "COUNTER_ANTECEDENT": 48
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "RELEVANT_FACT": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 4,
+              "SUPPORT_ANTECEDENT": 1
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 5
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 10,
+            "states": {
+              "IRRELEVANT_CONDITION": 10
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          }
+        ],
+        "missing": []
+      },
+      {
+        "name": "UNKNOWN",
+        "evidence": 257,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 15,
+            "states": {
+              "NOT_APPLICABLE": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 8,
+              "SUPPORT_ANTECEDENT": 5,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 12,
+              "COUNTER_ANTECEDENT": 3
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 30,
+            "states": {
+              "UNKNOWN": 30
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 60,
+            "states": {
+              "SUPPORT_ANTECEDENT": 12,
+              "COUNTER_ANTECEDENT": 48
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 3,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 4,
+              "COUNTER_ANTECEDENT": 1
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 10,
+            "states": {
+              "IRRELEVANT_CONDITION": 10
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          }
+        ],
+        "missing": [
+          {
+            "type": "CURRENT_START_STATUS_UNKNOWN",
+            "horse": "TEST:B",
+            "scope": "CURRENT_FIELD",
+            "materialTo": [
+              "EYE09",
+              "EYE10",
+              "EYE11",
+              "FULL_FIELD_TRANSFER"
+            ],
+            "notTo": [
+              "OTHER_HORSE_HISTORICAL_MEASUREMENTS"
+            ],
+            "reason": "possible starter, not absent"
+          }
+        ]
+      },
+      {
+        "name": "PARTIAL",
+        "evidence": 267,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 15,
+            "states": {
+              "NOT_APPLICABLE": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 8,
+              "SUPPORT_ANTECEDENT": 5,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 11,
+              "COUNTER_ANTECEDENT": 3,
+              "UNKNOWN": 1
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 30,
+            "states": {
+              "UNKNOWN": 30
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 60,
+            "states": {
+              "SUPPORT_ANTECEDENT": 12,
+              "COUNTER_ANTECEDENT": 48
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "RELEVANT_FACT": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 4,
+              "SUPPORT_ANTECEDENT": 1
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 5
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 14,
+              "UNKNOWN": 1
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 10,
+            "states": {
+              "IRRELEVANT_CONDITION": 10
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          }
+        ],
+        "missing": [
+          {
+            "type": "PARTIAL_HISTORICAL_ROW",
+            "event": "TEST:W42_CONTEST",
+            "horse": "TEST:E",
+            "scope": "ROW",
+            "materialTo": [
+              "ROW_DEPENDENT_COMPARISON",
+              "FULL_FIELD_IF_REQUIRED"
+            ],
+            "notTo": [
+              "UNRELATED_RAW_ROWS"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "CONDITION_MISSING",
+        "evidence": 267,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 15,
+            "states": {
+              "NOT_APPLICABLE": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 8,
+              "SUPPORT_ANTECEDENT": 5,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 12,
+              "COUNTER_ANTECEDENT": 3
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 30,
+            "states": {
+              "UNKNOWN": 30
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 60,
+            "states": {
+              "SUPPORT_ANTECEDENT": 12,
+              "COUNTER_ANTECEDENT": 48
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "RELEVANT_FACT": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 4,
+              "SUPPORT_ANTECEDENT": 1
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 5
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 10,
+            "states": {
+              "IRRELEVANT_CONDITION": 10
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          }
+        ],
+        "missing": [
+          {
+            "type": "CONDITION_OR_GEOMETRY_MISSING",
+            "event": "TEST:W42_TARGET",
+            "scope": "EVENT",
+            "materialTo": [
+              "CONTEXT_TRANSFER"
+            ],
+            "notTo": [
+              "RAW_FINISH_CLOCKS_IF_PRESENT"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "NO_HISTORY",
+        "evidence": 257,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 12,
+            "states": {
+              "NOT_APPLICABLE": 3,
+              "RELEVANT_FACT": 9
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 12,
+            "states": {
+              "NEUTRAL": 6,
+              "SUPPORT_ANTECEDENT": 4,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 12,
+            "states": {
+              "NEUTRAL": 9,
+              "COUNTER_ANTECEDENT": 3
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 18,
+            "states": {
+              "UNKNOWN": 18
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 48,
+            "states": {
+              "SUPPORT_ANTECEDENT": 9,
+              "COUNTER_ANTECEDENT": 39
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 4,
+            "states": {
+              "UNKNOWN": 4
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 12,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 9
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 12,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 9
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 3,
+              "SUPPORT_ANTECEDENT": 1,
+              "UNKNOWN": 1
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 4,
+            "states": {
+              "COUNTER_ANTECEDENT": 4
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 12,
+            "states": {
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 8,
+            "states": {
+              "IRRELEVANT_CONDITION": 8
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 12,
+            "states": {
+              "UNKNOWN": 12
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 12,
+            "states": {
+              "RELEVANT_FACT": 12
+            }
+          }
+        ],
+        "missing": [
+          {
+            "type": "NO_HORSE_HISTORY",
+            "horse": "TEST:NO_HISTORY",
+            "scope": "INDIVIDUAL",
+            "materialTo": [
+              "OWN_HISTORY",
+              "CURRENT_FIELD"
+            ],
+            "notTo": [
+              "OTHER_HORSE_HISTORICAL_MEASUREMENTS"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "CANCELLED",
+        "evidence": 257,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 15,
+            "states": {
+              "NOT_APPLICABLE": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 8,
+              "SUPPORT_ANTECEDENT": 5,
+              "COUNTER_ANTECEDENT": 2
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 15,
+            "states": {
+              "NEUTRAL": 12,
+              "COUNTER_ANTECEDENT": 3
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 30,
+            "states": {
+              "UNKNOWN": 30
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 60,
+            "states": {
+              "SUPPORT_ANTECEDENT": 12,
+              "COUNTER_ANTECEDENT": 48
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 15,
+            "states": {
+              "SUPPORT_ANTECEDENT": 3,
+              "RELEVANT_FACT": 12
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "RELEVANT_FACT": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 4,
+              "UNKNOWN": 1
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 5,
+            "states": {
+              "SUPPORT_ANTECEDENT": 4,
+              "COUNTER_ANTECEDENT": 1
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 10,
+            "states": {
+              "IRRELEVANT_CONDITION": 10
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 15,
+            "states": {
+              "UNKNOWN": 15
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 15,
+            "states": {
+              "RELEVANT_FACT": 15
+            }
+          }
+        ],
+        "missing": []
+      },
+      {
+        "name": "OTHER_CONDITION",
+        "evidence": 537,
+        "categories": [
+          {
+            "id": "EYE01",
+            "count": 25,
+            "states": {
+              "NOT_APPLICABLE": 5,
+              "RELEVANT_FACT": 20
+            }
+          },
+          {
+            "id": "EYE02",
+            "count": 25,
+            "states": {
+              "COUNTER_ANTECEDENT": 7,
+              "NEUTRAL": 10,
+              "SUPPORT_ANTECEDENT": 8
+            }
+          },
+          {
+            "id": "EYE03",
+            "count": 25,
+            "states": {
+              "NEUTRAL": 13,
+              "COUNTER_ANTECEDENT": 6,
+              "SUPPORT_ANTECEDENT": 6
+            }
+          },
+          {
+            "id": "EYE04",
+            "count": 50,
+            "states": {
+              "UNKNOWN": 50
+            }
+          },
+          {
+            "id": "EYE05",
+            "count": 200,
+            "states": {
+              "SUPPORT_ANTECEDENT": 40,
+              "COUNTER_ANTECEDENT": 160
+            }
+          },
+          {
+            "id": "EYE06",
+            "count": 5,
+            "states": {
+              "UNKNOWN": 5
+            }
+          },
+          {
+            "id": "EYE07",
+            "count": 25,
+            "states": {
+              "SUPPORT_ANTECEDENT": 4,
+              "IRRELEVANT_CONDITION": 5,
+              "RELEVANT_FACT": 16
+            }
+          },
+          {
+            "id": "EYE08",
+            "count": 25,
+            "states": {
+              "SUPPORT_ANTECEDENT": 5,
+              "RELEVANT_FACT": 20
+            }
+          },
+          {
+            "id": "EYE09",
+            "count": 5,
+            "states": {
+              "RELEVANT_FACT": 5
+            }
+          },
+          {
+            "id": "EYE10",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 2,
+              "SUPPORT_ANTECEDENT": 3
+            }
+          },
+          {
+            "id": "EYE11",
+            "count": 5,
+            "states": {
+              "COUNTER_ANTECEDENT": 5
+            }
+          },
+          {
+            "id": "EYE12",
+            "count": 25,
+            "states": {
+              "RELEVANT_FACT": 20,
+              "IRRELEVANT_CONDITION": 5
+            }
+          },
+          {
+            "id": "EYE13",
+            "count": 20,
+            "states": {
+              "IRRELEVANT_CONDITION": 15,
+              "NEUTRAL": 5
+            }
+          },
+          {
+            "id": "EYE14",
+            "count": 25,
+            "states": {
+              "UNKNOWN": 25
+            }
+          },
+          {
+            "id": "EYE15",
+            "count": 25,
+            "states": {
+              "RELEVANT_FACT": 20,
+              "IRRELEVANT_CONDITION": 5
+            }
+          }
+        ],
+        "missing": []
+      }
+    ],
+    "referenceChecks": {
+      "allSegmentsPlausible": true,
+      "leaderCorrect": true,
+      "rankConsistent": true,
+      "CneverWon": true,
+      "CconditionalWin": true,
+      "peerEffect": true,
+      "observedRecovery": true,
+      "observedLoneLead": true
+    },
+    "formal": false,
+    "scope": "SYNTHETIC_ONLY",
+    "limitations": [
+      "Independent 7-point clocks projected onto 3 common checkpoints; proxy first turn explicitly changed. Hypothetical result never fed as source.",
+      "No independent source authenticity; receipts are self-generated synthetic research, not external custody.",
+      "Native claim IDs and canonical target mapping supplied; V43 does not yet consume the complete EYE sidecar.",
+      "EYE04/06/14/15 and other current benefit remain held absent strength/causal evidence. Per-category antecedent contrast is not proof of positive current benefit.",
+      "EYE13 unit sign contrast is arithmetic not a source observation."
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 15235183278,
+      "name": "work42-receipts",
+      "digest": "sha256:6e22db35f288587da5d3a354f4013c43621f266b534a9f788f65dde4ba502e7a",
+      "expires_at": "2026-12-04T22:42:33Z",
+      "expired": false,
+      "size_in_bytes": 8224059
+    }
+  ],
+  "latestContractCommit": "1f185f879bc58ca5d0665d90419981dac9b73bf6",
+  "latestContractRun": 46078273623,
+  "latestContractStatus": "last checked in progress; do not count unverified tests",
+  "limitations": [
+    "Work41 33 replay not additive. 18 new Work42 checks independently pending acceptance, not 18 unique capabilities.",
+    "No positive current benefit proof in all fifteen EYE categories; explicit unknowns and antecedent-only material. Canonical upstream mapping and native evidence links supplied; V43 actual generic input executed, not complete EYE sidecar consumption.",
+    "UNKNOWN and missingness distinct; raw unrelated historical evidence survives, unaffected current decision preservation not established. Independent earlier 7/2 suite not replaced or certified.",
+    "Independent reference projected from 7 crossings to 3; geometry proxy; hypothetical results never input. Stronger peer is paired synthetic counterfactual not extra independent historical observation.",
+    "Position change does not prove physiological burden. Official acquisition/authentication and arbitrary real-race inputs not established.",
+    "Artifacts metadata checked, ZIP bytes not independently downloaded. No explicit deployment, production, database, FROZEN, Cron, merge, adoption or acquisition."
+  ]
+}

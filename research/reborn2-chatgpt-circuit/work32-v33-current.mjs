@@ -114,6 +114,20 @@ export function enrich(L,name,withdraw,options){
    for(const [distance,allMeasured] of byCheckpoint){
     const measured=allMeasured.filter(x=>x.supported),counter=allMeasured.filter(x=>!x.supported);
     if(measured.length<2)continue;
+    // Work42 compiled return is an input to the actual recovery kernel,
+    // not a new vote. Require the category-specific native evidence of
+    // every supporting event; counter events remain in the original range.
+    if(options.work42Return){
+     const review=options.work42Return[subject],item=review?.items.find(i=>i.item==='RANK18');
+     const claims=item?.claims.filter(q=>q.eye_item_id==='EYE03'&&q.status==='SUPPORT_ANTECEDENT'&&q.observed_facts.recovered&&q.current_relevance==='HISTORICAL_ONLY')??[];
+     const native=p.packet.evidence;
+     const bound=measured.every(m=>claims.some(q=>{
+      const event=m.event.slice(p.packet.issuer.length+1);
+      const horse=subject.slice(p.packet.issuer.length+1);
+      return q.observed_facts.event===event&&['ranks','finish','checkpoint_ms','finish_clock'].every(f=>native.some(n=>n.event===event&&n.subject===horse&&n.field===f&&q.evidence_ids.includes(n.evidenceId)));
+     }));
+     if(!bound)continue;
+    }
     const lower=Math.min(...measured.map(x=>x.gain-x.change_bound)),upper=Math.max(...measured.map(x=>x.gain+x.change_bound)),maxDeficit=Math.max(...measured.map(x=>-x.start)),minFinish=lower-maxDeficit,maxFinish=upper;
     if(!(minFinish>0))continue;
     const evidence=uniq(measured.flatMap(x=>x.refs)),counterRefs=uniq(counter.flatMap(x=>x.refs)),before=pairs.map(x=>({...x,order:'UNKNOWN',refs:[]})),after=before.map(x=>x.a===p1.a&&x.b===p1.b?{...x,order:sign===1?'AHEAD':'BEHIND',refs:evidence}:x);
@@ -214,7 +228,7 @@ export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,can
  const all=new Map(p.o.evidence.map(e=>[e.evidence_id,e])),{get}=dependencyReader(all,withdraw);
  assert.ok(withdraw===null||all.has(withdraw),'WITHDRAW_ID');p.o.followups=p.o.followups.filter(x=>get(x.source_ref));
  const L={cases:new Map([[id,p]]),canonical:C.canonical,work30:new Map(),work27:new Map()};
- const r=enrich(L,id,withdraw,{placeThreshold,eyeEnabled}),expected=C.receipt.summary.find(x=>x.id===id);
+ const r=enrich(L,id,withdraw,{placeThreshold,eyeEnabled,work42Return:C.work42Return}),expected=C.receipt.summary.find(x=>x.id===id);
  assert.equal(r.source_evidence,expected.evidence);assert.equal(r.source_item_rows,expected.itemRows);
  return {...r,...(admissionTrace?{admissionTrace}:{}),source_digest:out.digest,source_packet:out.packet,source_envelope:out,source_bundle_sha256:sha(text),...(includePack?{loaded:L}: {})};
 }

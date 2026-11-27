@@ -25,7 +25,7 @@ export async function loadV34(){
 function prepare(V,id,withdraw,threshold){
  const f=V.fixed.get(id);assert.ok(f);
  const base=analyzeControlledWork33(V.C,id,{withdraw,placeThreshold:threshold,eyeEnabled:false,includePack:true});
- const after=enrich(base.loaded,id,withdraw,{placeThreshold:threshold,eyeEnabled:true});
+ const after=enrich(base.loaded,id,withdraw,{placeThreshold:threshold,eyeEnabled:true,work42Return:V.C.work42Return});
  const {source_envelope:env}=base;
  assert.equal(env.digest,f.pin.source_digest,'INDEPENDENT_PACKET_PIN');
  assert.equal(base.source_bundle_sha256,f.pin.bundle_sha256,'INDEPENDENT_BUNDLE_PIN');
@@ -155,7 +155,7 @@ export function analyzeV34(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true,
  const legacy=synthesize({loaded:L,fixture:id,withdraw,placeThreshold});
  const shared=assessShared(L,id,base,after,withdraw,placeThreshold,eyeEnabled,localize),common=eyeEnabled?after:base;
  const runners=common.runners.map(h=>summarizeHorse(h,common,legacy.runners.find(x=>x.slot===h.slot),shared,placeThreshold));
- return {schema:'REBORN2_V34_RESEARCH_SYNTHESIS',id,source_digest:base.source_digest,source_packet:base.source_packet,...(base.admissionTrace?{admissionTrace:base.admissionTrace}:{}),roster:common.roster,baseline:base.runners.map(h=>({slot:h.slot,WIN:h.WIN,PLACE:h.PLACE,items:h.items,axes:h.axes})),scenarios:shared.scenarios,feedback:shared.feedback,runners,groups:118,held:826,formal:false,grade:null,policy:'PROVISIONAL_RESEARCH_CANDIDATE_NOT_FORMAL_SABC',source_pin:f.pin.blob};
+ return {schema:'REBORN2_V34_RESEARCH_SYNTHESIS',id,...(V.C.work42Return?{work42ReturnApplied:true}:{}),source_digest:base.source_digest,source_packet:base.source_packet,...(base.admissionTrace?{admissionTrace:base.admissionTrace}:{}),roster:common.roster,baseline:base.runners.map(h=>({slot:h.slot,WIN:h.WIN,PLACE:h.PLACE,items:h.items,axes:h.axes})),scenarios:shared.scenarios,feedback:shared.feedback,runners,groups:118,held:826,formal:false,grade:null,policy:'PROVISIONAL_RESEARCH_CANDIDATE_NOT_FORMAL_SABC',source_pin:f.pin.blob};
 }
 
 

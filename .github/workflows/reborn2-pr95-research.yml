@@ -67,3 +67,35 @@ jobs:
         with:
           node-version: '22'
       - run: node research/reborn2-independent-engine/main47-integration/test-v44-integration.mjs
+
+  v45-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node research/reborn2-independent-engine/main47-integration/test-v45-integration.mjs
+  work42-fixed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 1f185f879bc58ca5d0665d90419981dac9b73bf6
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node research/reborn2-work41-corrected/test-v0.3.mjs
+      - uses: actions/checkout@v4
+        with:
+          ref: de895a633ec098a28b9014065231dd54d3ec6f89
+          path: pinned-v43
+          persist-credentials: false
+      - run: node research/reborn2-work42/test-v0.4.mjs
+        env:
+          V43_ROOT: ${{ github.workspace }}/pinned-v43

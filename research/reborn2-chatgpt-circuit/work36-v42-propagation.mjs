@@ -113,7 +113,7 @@ function discoveries(h,x,routes){
  for(const q of all){const k=JSON.stringify([q.item,q.kind,q.horse,q.rival??null,q.event,q.counterEvent??null,q.checkpoint??null]);if(!unique.has(k))unique.set(k,{...q,refs:uniq(q.refs)});else{const prior=unique.get(k);unique.set(k,{...prior,refs:roots(prior.refs,q.refs)});}}
  return [...unique.values()];
 }
-function assess(h,r,eye,threshold){
+function assess(h,r,eye,threshold,feedback=[]){
  const own=r.edges.filter(e=>e.a===h||e.b===h).map(e=>oriented(e,h));
  const e=r.field.envelopes.find(q=>q.slot===h),l=r.local.envelopes.find(q=>q.slot===h);
  const active=!!e&&r.valid,full=active&&own.every(q=>q.full);
@@ -140,19 +140,32 @@ function assess(h,r,eye,threshold){
  const winGate=Object.values(basis).every(Boolean);
  const placeGate=basis.ability&&basis.applicability&&basis.comparison&&D.unknown.length===0&&positive.length>0&&basis.discovery;
  const counterGate=full&&A.counter.length>0&&C.counter.length>0&&D.unknown.length===0&&basis.discovery;
- const decision=fullWin&&winGate?'CONDITIONAL_WIN':fullPlace&&placeGate?'CONDITIONAL_PLACE':fullCounter&&counterGate?'CONDITIONAL_COUNTER':'HELD';
- return {id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,start:r.start,response:r.response,replay:r.replay,decision,axes,basis,field:e??null,local:l??null,full,own,
+ const conditionalDecision=fullWin&&winGate?'CONDITIONAL_WIN':fullPlace&&placeGate?'CONDITIONAL_PLACE':fullCounter&&counterGate?'CONDITIONAL_COUNTER':'HELD';
+ // The Work42-selected EYE03 kernel already recomputed a joint field
+ // envelope including every matched adverse event. Re-review a dependent
+ // recovery route against that bound; never replace its original scenario.
+ const recoveryReviews=feedback.filter(f=>f.subject===h&&f.before.event===r.start+'@'+r.checkpoint&&own.some(q=>q.rival===f.rival&&q.recovered)).map(f=>({rival:f.rival,before:f.before.envelope,after:f.after.envelope,state:f.state,refs:f.refs}));
+ const required=conditionalDecision==='CONDITIONAL_WIN'?1:conditionalDecision==='CONDITIONAL_PLACE'?threshold:null;
+ const held=required!==null&&recoveryReviews.some(f=>!f.after||f.after.max>required||f.state!=='CONDITIONAL_RECOVERY_SUPPORTED_AFTER_COUNTER_REVIEW');
+ const decision=held?'HELD':conditionalDecision;
+ if(held){
+  C.unknown=[...C.unknown,...C.support];C.support=[];
+  D.unknown=[...D.unknown,...D.support];D.support=[];
+  E.counter=[...E.counter,...recoveryReviews];E.refs=roots(E.refs,...recoveryReviews.map(q=>q.refs));
+  basis.discovery=false;
+ }
+ return {id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,start:r.start,response:r.response,replay:r.replay,decision,...(recoveryReviews.length?{conditionalDecision,recoveryReviews}:{}),axes,basis,field:e??null,local:l??null,full,own,
   actual_current:'UNPROVEN',formal:false};
 }
 export function integrate(x,docs,{eyeEnabled=true}={}){
  const hs=x.history_v41,threshold=x.placeThreshold??2;
  const routes=hs.flatMap(a=>hs.filter(b=>compatibleWindow(a,b)).map(b=>route(x,docs,a,b,threshold)));
  const runners=x.runners_v41.map(h=>{
-  const eye=eyeEnabled?discoveries(h,x,routes):[],rr=routes.map(r=>assess(h.horse,r,eye,threshold));
+  const eye=eyeEnabled?discoveries(h,x,routes):[],rr=routes.map(r=>assess(h.horse,r,eye,threshold,eyeEnabled&&x.work42ReturnApplied?(x.feedback??[]):[]));
   const items=h.items.map(i=>{
    const changed=hs.flatMap(s=>(s.individual[h.horse]??[]).concat(s.shared).filter(q=>fields[q.dimension]===i.item&&q.state!=='MATCHED').map(q=>({event:s.event,dimension:q.dimension,past:q.past,current:q.current,delta:q.delta,state:q.state,refs:q.refs})));
    const effects=eye.filter(q=>q.targets.includes(i.item));
-   const routeFacts=i.item==='RANK100'?rr.map(p=>({id:p.id,decision:p.decision,local:p.local,field:p.field})):i.item==='RANK35'?rr.flatMap(p=>p.own.filter(e=>e.local).map(e=>({route:p.id,rival:e.rival,finish:e.finish,scope:e.scope}))):[];
+   const routeFacts=i.item==='RANK100'?rr.map(p=>({id:p.id,decision:p.decision,local:p.local,field:p.field,...(x.work42ReturnApplied?{conditionalDecision:p.conditionalDecision,recoveryReviews:p.recoveryReviews}:{} )})):i.item==='RANK35'?rr.flatMap(p=>p.own.filter(e=>e.local).map(e=>({route:p.id,rival:e.rival,finish:e.finish,scope:e.scope}))):[];
    return {...i,v42:{changed,effects,routeFacts,scope:'RESEARCH_CONSUMED_NOT_FORMAL'}};
   });
   // The research judgement distinguishes conditional route evidence from

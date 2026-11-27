@@ -1,6 +1,7 @@
 // V43: research-only, verified synthetic input. No official intake or production.
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {prepareSupply,compileReturn} from '../../reborn2-work42/codex-contract-v0.4.mjs';
 import {loadV40} from '../../reborn2-chatgpt-circuit/work36-v40-integrated.mjs';
 import {analyze} from '../../reborn2-chatgpt-circuit/work36-v41-local-decision.mjs';
 import {integrate} from '../../reborn2-chatgpt-circuit/work36-v42-propagation.mjs';
@@ -30,6 +31,13 @@ function validateClock(d){
    if(k>=0&&row.clockMs!=null&&row.final600Ms!=null)
     assert.equal(row.clockMs-row.checkpointMs[k],row.final600Ms,'FINAL600_CLOCK_CONFLICT');
   }
+ }
+ // Even in a partially observed field, known pair clock/rank orders
+ // cannot contradict one another. Do not infer ranks for missing horses.
+ for(const [i,a] of finished.entries())for(const b of finished.slice(i+1)){
+  if([a.clockMs,b.clockMs,a.finish,b.finish].every(safeInt))assert.equal(Math.sign(a.clockMs-b.clockMs),Math.sign(a.finish-b.finish),'KNOWN_PAIR_FINISH_CONFLICT');
+  for(let k=0;k<g.length;k++)if([a.checkpointMs?.[k],b.checkpointMs?.[k],a.checkpointRanks?.[k],b.checkpointRanks?.[k]].every(safeInt))
+   assert.equal(Math.sign(a.checkpointMs[k]-b.checkpointMs[k]),Math.sign(a.checkpointRanks[k]-b.checkpointRanks[k]),'KNOWN_PAIR_CHECKPOINT_CONFLICT');
  }
  const complete=finished.length===d.actualStarters&&finished.every(r=>safeInt(r.clockMs)&&Array.isArray(r.checkpointMs)&&r.checkpointMs.length===g.length);
  if(!complete)return;
@@ -231,14 +239,31 @@ function synthesize(x,z,docs,packet,adapted){
    summary:{win:win.length,place:place.length,counter:negative.length,held:h.paths.filter(p=>p.decision==='HELD').length,robust:routes.filter(p=>p.robustClaim).length,materialCounter:routes.filter(p=>p.materialCounter).length}};
  });
 }
-export async function analyzeVerified(V,request,receipt,{eyeEnabled=true}={}){
+export async function analyzeVerified(V,request,receipt,{eyeEnabled=true,work42Envelope=null,work42Selection=null}={}){
  const {W,docs,packet,adapted}=verifyIntake(V,request,receipt);
+ let work42=null;
+ if(work42Envelope!==null){
+  const p=await prepareSupply(work42Envelope,{id:request.id});
+  // Source bytes and common packet must match the independently supplied
+  // V43 receipt, not the self-replay receipt alone. Work42 capture is fixed
+  // synthetic metadata, not independent real-world provenance.
+  assert.deepEqual(p.request,request,'WORK42_REQUEST_MISMATCH');
+  assert.equal(p.receipt.source_digest,receipt.source_digest);
+  assert.equal(p.receipt.bundle_sha256,receipt.bundle_sha256);
+  if(receipt.work42_analysis_sha256)assert.equal(p.supply.analysisSha256,receipt.work42_analysis_sha256,'WORK42_ANALYSIS_PIN');
+  const map=Object.fromEntries(p.supply.runners.map(h=>{
+   const ids=eyeEnabled?(work42Selection===null?h.categories.flatMap(c=>c.claims.map(q=>q.claim_id)):work42Selection[h.horse_id]??[]):[];
+   return [h.horse_id,compileReturn(p.supply,h.horse_id,ids)];
+  }));
+  W.C.work42Return=map;
+  work42={sourceDigest:p.supply.commonSha256,analysisSha256:p.supply.analysisSha256,scope:'VERIFIED_COMMON_BYTES_SYNTHETIC_METADATA',returns:map,missing:p.supply.missing,semanticCategories:['EYE03'],otherCategories:'ROUTED_NOT_YET_SEMANTICALLY_CONSUMED',formal:false};
+ }
  const common=analyze(W,request.id,{eyeEnabled});
  const decision=integrate(common,docs,{eyeEnabled});
  assert.equal(decision.digest,receipt.source_digest);
  assert.equal(common.groups,118);assert.equal(common.held,826);
  const runners=synthesize(common,decision,docs,packet,adapted);
  assert.ok(runners.every(h=>h.itemConsumption.length===115));
- return {schema:'V43_VERIFIED_SYNTHETIC_RESEARCH_V1',id:request.id,digest:decision.digest,evidence:packet.evidence.length,groups:common.groups,held:common.held,roster:common.roster,placeThreshold:decision.threshold,thresholdScope:'SYNTHETIC_FIXTURE_CONTROL_NOT_CANONICAL',runners,formal:false};
+ return {schema:'V43_VERIFIED_SYNTHETIC_RESEARCH_V1',id:request.id,...(work42?{work42}:{}),digest:decision.digest,evidence:packet.evidence.length,groups:common.groups,held:common.held,roster:common.roster,placeThreshold:decision.threshold,thresholdScope:'SYNTHETIC_FIXTURE_CONTROL_NOT_CANONICAL',runners,formal:false};
 }
 export {loadV40};
