@@ -2,7 +2,6 @@
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {loadWork23} from './work23-v24-bridge.mjs';
-import {analyzeCurrentV25} from './work23-v25-current.mjs';
 import {work23} from './work23-pinned/stage23-producer-v0.2.2.mjs';
 import {work24} from './work25-pinned/stage24-supplement-producer-v0.1.1.mjs';
 import {project} from './work25-pinned/stage25-pace-projection-v0.1.mjs';
@@ -96,7 +95,22 @@ export function analyzeV26(loaded,name,withdraw=null){
   const out={subject:rel.subject_id,peer,reference:rel.reference_event,event,state,finish:valid?fin.value:null,margin:valid?f(event,peer,'margin_to_winner')?.value??null:null,clock:valid?f(event,peer,'finish_clock')?.value??null:null,final600:valid?f(event,peer,'individual_final3f')?.value??null:null,positions:valid?f(event,peer,'checkpoint_positions')?.value??null:null,weight:valid?f(event,peer,'weight')?.value??null:null,field_count:valid?f(event,null,'historical_field_count')?.value??null:null,conditions:valid?f(event,null,'conditions')?.value??null:null,observation_root:valid?fin.root:null,roots:rr.roots,stable_strength:null,large_defeat:null};
   relations.push(out);if(valid){const k=fin.root;const group=byRoot.get(k)??{root:k,peer,event,state,links:[]};group.links.push({subject:out.subject,reference:out.reference});byRoot.set(k,group);}
  }
- const baseline=withdraw===null?analyzeCurrentV25(loaded.parent,name):null;
+ const direct=[],seenPairs=new Set();
+ for(const rel of p.relations.filter(x=>x.type==='DIRECT_CURRENT_RIVALS')){
+  const horses=[rel.subject_id,rel.opponent_id].sort(),event=rel.reference_event,key=JSON.stringify([event,horses]);
+  if(seenPairs.has(key))continue;seenPairs.add(key);
+  const identity=horses.map(h=>f(event,h,'historical_runner_identity')),finish=horses.map(h=>f(event,h,'finish')),clock=horses.map(h=>f(event,h,'finish_clock')),terminal=horses.map(h=>f(event,h,'individual_final3f')),weight=horses.map(h=>f(event,h,'weight')),nowWeight=horses.map(h=>f(p.event,h,'weight'));
+  const ctx=horses.map(h=>historical.find(z=>z.horse===h&&z.event===event));
+  const admissible=rel.evidence_ids.every(k=>get(k))&&identity.every(Boolean)&&finish.every(Boolean);
+  const old=f(event,null,'conditions'),now=f(p.event,null,'conditions'),count=f(event,null,'historical_field_count'),oldGeometry=f(event,null,'course_geometry'),nowGeometry=f(p.event,null,'course_geometry');
+  const labelMatch=old&&now&&['venue','surface','distance_m','going','direction','class_id'].every(k=>old.value[k]===now.value[k]);
+  const contextKnown=!!(admissible&&labelMatch&&count&&ctx.every(z=>z?.geometry_same===true&&z?.class_label_same===true)&&weight.every(Boolean)&&nowWeight.every(Boolean)&&rosterComplete);
+  const rivals=horses.every(h=>active.some(a=>a.id===h));
+  const refs=admissible?[...rel.evidence_ids,...[...identity,...finish,...clock,...terminal,...weight,...nowWeight,old,now,count,oldGeometry,nowGeometry,registered,activeCount].map(e=>e?.evidence_id)]:[];
+  const traces=horses.map(h=>note(h,'RANK35','HISTORICAL_PAIR_AND_CURRENT_CONTEXT',refs,admissible?contextKnown?[]:['CURRENT_COMPARISON_CONTEXT_INCOMPLETE']:['RELATION_DEPENDENCY_UNAVAILABLE']));
+  const order=admissible&&finish[0].value!==finish[1].value?horses[finish[0].value<finish[1].value?0:1]:null;
+  direct.push({horses,event,state:admissible?'OBSERVED_HISTORICAL_PAIR':'HELD_RELATION',current_rivals:rivals,context_known:contextKnown,past_order:order,clock_gap_b_minus_a:admissible&&clock.every(Boolean)?clock[1].value-clock[0].value:null,terminal_gap_b_minus_a:admissible&&terminal.every(Boolean)?terminal[1].value-terminal[0].value:null,roots:uniq(traces.flatMap(t=>t.roots)),current_order:null});
+ }
  const profiles=active.map(h=>{const hist=historical.filter(z=>z.horse===h.id);const starts=hist.filter(z=>z.first_checkpoint!==null);return {horse:h.id,starts:starts.map(z=>({event:z.event,...z.first_checkpoint,ahead:z.observed_ahead_count,behind:z.observed_behind_count})),state:starts.length?'OBSERVED_RELATIVE_POSITIONS_ONLY':'UNKNOWN_ROLE',current_role:null,leader_seen:starts.some(z=>z.first_observed_leader),refs:uniq(starts.flatMap(z=>z.refs))}});
  const runners=o.runners.map(h=>{
   const hist=historical.filter(z=>z.horse===h.id);
@@ -109,10 +123,13 @@ export function analyzeV26(loaded,name,withdraw=null){
   // Preserve historical outcome observation, never turn a two/three-runner order into a current win claim.
   const winObs=hist.filter(z=>z.finish===1).map(z=>({event:z.event,finish:z.finish}));
   const placeObs=hist.filter(z=>z.finish!==null).map(z=>({event:z.event,finish:z.finish,field_count:f(z.event,null,'historical_field_count')?.value??null}));
-  const pair=baseline?.runners.find(z=>z.horse===h.id)?.WIN;
+  const pair=direct.filter(z=>z.current_rivals&&z.horses.includes(h.id)&&z.state==='OBSERVED_HISTORICAL_PAIR');
+  const signed=(z,k)=>z[k]===null?null:z.horses[0]===h.id?z[k]:-z[k];
+  const pairRepeat=pair.filter(z=>z.context_known&&z.past_order===h.id).map(z=>({event:z.event,rival:z.horses.find(k=>k!==h.id),rival_minus_subject_clock:signed(z,'clock_gap_b_minus_a'),rival_minus_subject_final600:signed(z,'terminal_gap_b_minus_a'),terminal_alignment:signed(z,'terminal_gap_b_minus_a')===null?'UNKNOWN':signed(z,'terminal_gap_b_minus_a')>0?'SUPPORTS_PAST_ORDER':signed(z,'terminal_gap_b_minus_a')<0?'COUNTERS_PAST_ORDER':'SAME_TERMINAL_DURATION',roots:z.roots,condition:'IF_PAST_PAIR_ORDER_RECURS_NOT_CURRENT_WIN'}));
+  const pairReverse=pair.filter(z=>z.past_order!==null&&z.past_order!==h.id).map(z=>({event:z.event,rival:z.past_order,rival_minus_subject_clock:signed(z,'clock_gap_b_minus_a'),rival_minus_subject_final600:signed(z,'terminal_gap_b_minus_a'),condition:'MUST_REVERSE_HISTORICAL_PAIR_ORDER_TO_BEAT_THIS_RIVAL'}));
   const peer=relations.filter(z=>z.subject===h.id&&z.observation_root!==null).map(z=>z.observation_root);
   for(const item of ['EYE04','EYE14','EYE15'])note(h.id,item,'REVIEW_ONLY_NO_CANONICAL_RETURN',[],['INDEPENDENT_CURRENT_RELEVANCE_UNPROVEN']);
-  return {horse:h.id,status:h.status,historical:hist,position:own,competitors:others.map(z=>z.horse),branches:[{condition:'IF_PAST_RELATIVE_POSITION_RECURS',participants:profiles.map(z=>z.horse),state:'CONDITIONAL_NOT_PACE_PREDICTION'},{condition:'IF_ACTIVE_RIVAL_CHANGES_POSITION_OR_UNKNOWN_ROLE',participants:profiles.map(z=>z.horse),state:'OPEN_COUNTER'}],WIN:{state:'UNRESOLVED',past_wins:winObs,pair_repeat_support:pair?.conditional_relative_support??[],required:'FINISH_AHEAD_OF_EVERY_ACTIVE_RIVAL',counter:others.map(z=>z.horse),missing:[...missing,'WIN_STANDARD']},PLACE:{state:'UNRESOLVED',past_finishes:placeObs,required:'SPECIFIED_PLACE_THRESHOLD_AND_FEASIBLE_FINISH_POSITION',counter:others.map(z=>z.horse),missing:[...missing,'PLACE_THRESHOLD']},peer_observation_roots:uniq(peer),eye04:'HELD',eye14:'HELD',eye15:'HELD',grade:null};
+  return {horse:h.id,status:h.status,historical:hist,position:own,competitors:others.map(z=>z.horse),branches:[{condition:'IF_PAST_RELATIVE_POSITION_RECURS',participants:profiles.map(z=>z.horse),state:'CONDITIONAL_NOT_PACE_PREDICTION'},{condition:'IF_ACTIVE_RIVAL_CHANGES_POSITION_OR_UNKNOWN_ROLE',participants:profiles.map(z=>z.horse),state:'OPEN_COUNTER'}],WIN:{state:'UNRESOLVED',past_wins:winObs,pair_repeat_support:pairRepeat,pair_reverse_counter:pairReverse,required:'FINISH_AHEAD_OF_EVERY_ACTIVE_RIVAL',counter:others.map(z=>z.horse),missing:[...missing,'WIN_STANDARD']},PLACE:{state:'UNRESOLVED',past_finishes:placeObs,required:'SPECIFIED_PLACE_THRESHOLD_AND_FEASIBLE_FINISH_POSITION',counter:others.map(z=>z.horse),missing:[...missing,'PLACE_THRESHOLD']},peer_observation_roots:uniq(peer),items:s.runners.find(z=>z.id===h.id||z.subject_id===h.id||z.no===h.no)?.items.map(i=>({item:i.item,material_state:i.material_state,observation_status:i.observation_status,runtime_reads:trace.filter(t=>t.horse===h.id&&t.item===i.item),semantic_effect_proven:false,grade_effect_proven:false}))??[],eye04:'HELD',eye14:'HELD',eye15:'HELD',grade:null};
  });
- return {name,status:'RESEARCH_PARTIAL',roster:{registered:registered?.value??null,active_count:activeCount?.value??null,active:active.map(h=>h.id),complete:rosterComplete},runners,profiles,historical,trace,relations,unique_later_observations:[...byRoot.values()],ordinal_paths:historical.filter(z=>z.points).length,followup_links:o.followups.length,withdrawal:withdraw?{source_id:withdraw,kind:'RESEARCH_WITHHOLD_ONLY',authenticated:false}:null,formal:false,grade:null};
+ return {name,status:'RESEARCH_PARTIAL',roster:{registered:registered?.value??null,active_count:activeCount?.value??null,active:active.map(h=>h.id),complete:rosterComplete},runners,profiles,historical,trace,direct,relations,unique_later_observations:[...byRoot.values()],ordinal_paths:historical.filter(z=>z.points).length,followup_links:o.followups.length,withdrawal:withdraw?{source_id:withdraw,kind:'RESEARCH_WITHHOLD_ONLY',authenticated:false}:null,formal:false,grade:null};
 }
