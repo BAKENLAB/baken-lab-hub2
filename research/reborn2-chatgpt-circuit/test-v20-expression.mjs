@@ -20,7 +20,9 @@ test('F20-01',()=>{
 const q=structuredClone(p), changed=q.history.find(r=>r.id==='FK-GEN-2');
 // Coherent timing intervention: move every horse's early checkpoints by the
 // same offset, preserve crossing orders and final clock; rebuild derived values.
-for(const h of changed.rows)h.checkpoint_tenths=h.checkpoint_tenths.map((x,j)=>x+[ -12,-12,-8,-4,0,0,0 ][j]);
+const early=race(a,changed.id).phases[0],delta=early.reference_tenths+(early.delta_tenths<=0?2:-2)-early.tenths;
+assert.ok(Number.isInteger(delta));
+for(const h of changed.rows)h.checkpoint_tenths=h.checkpoint_tenths.map((x,j)=>x+[Math.trunc(delta/2),delta,Math.trunc(delta/2),0,0,0,0][j]);
 rebuild(changed);
 const b=analyzeV20(q);
 test('F20-02',()=>{
@@ -29,6 +31,7 @@ test('F20-02',()=>{
  assert.notDeepEqual(race(a,changed.id).phases,race(b,changed.id).phases);
  assert.equal(race(a,changed.id).race_clock_tenths,race(b,changed.id).race_clock_tenths);
  assert.notDeepEqual(horse(a,target).views.B.observations.find(x=>x.race===changed.id).pace_context,horse(b,target).views.B.observations.find(x=>x.race===changed.id).pace_context);
+ assert.notDeepEqual(horse(a,target).views.B.observations.find(x=>x.race===changed.id).phase_comparison,horse(b,target).views.B.observations.find(x=>x.race===changed.id).phase_comparison);
 });
 const k=structuredClone(p), kr=k.history[0], u=kr.rows.find(x=>x.id==='FIXTURE-B'),v=kr.rows.find(x=>x.id==='FIXTURE-C');
 [u.checkpoint_tenths[0],v.checkpoint_tenths[0]]=[v.checkpoint_tenths[0],u.checkpoint_tenths[0]];rebuild(kr);
