@@ -42,3 +42,5 @@ node test-v17-prototype.mjs
 node test-v18-circular.mjs
 
 node test-v19-field.mjs
+
+node test-v20-expression.mjs
