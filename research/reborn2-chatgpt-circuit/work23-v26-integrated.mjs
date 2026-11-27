@@ -23,7 +23,7 @@ export function loadV26(){
  const a=read('stage24-final-handoff-v0.1.1.json'),b=read('stage25-final-handoff-v0.1.json');
  need(blob(a)==='378927b5a439e8d6073ae8c1088c210dc1b13b4e'&&blob(b)==='ec02ebaed188a658b8da868e6b28c56c2fde4547','INDEX_PINS');
  const w24=parse(a),w25=parse(b);
- need(w24.schema==='WORK24_FINAL_HANDOFF_0.1.1'&&w25.schema==='WORK25_FINAL_HANDOFF_0.1'&&w24.parent_index.blob===parent.indexBlob&&w25.parent_index.blob===blob(a)&&w24.packet_index.length===12&&w25.packets.length===12,'INDEX_BINDING');
+ need(w24.schema==='WORK24_FINAL_HANDOFF_0.1.1'&&w25.schema==='WORK25_FINAL_RESEARCH_HANDOFF_0.1'&&w24.parent_index.blob===parent.indexBlob&&w25.parent_index.blob===blob(a)&&w24.packet_index.length===12&&w25.packets.length===12,'INDEX_BINDING');
  for(const x of [...w24.source_pins,...w25.receipts,w25.projection])verify(x);
  const canonical=parse(read('stage22-custody-to-115-contract-v0.1.json')).items;
  const replay=work23(canonical,parse(read('stage22-handoff-execution-summary.json')).examples);
