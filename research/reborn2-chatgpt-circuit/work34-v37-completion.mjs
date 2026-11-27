@@ -122,9 +122,9 @@ export function isolateFixedRoot(V,id,root){
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const V=await loadV36(),t=(id,f)=>{f();console.log(id+' PASS');};
- const full=analyzeV37(V,'FK34_FULL',{omitStart:'TEST:H5'});
+ const full=analyzeV37(V,'FK34_FULL',{omitStart:'TEST:NAR|TEST:H5'});
  const missing=full.routes.filter(r=>r.kind==='MISSING_START_STRESS');
- t('F37-01',()=>{assert.equal(full.groups,118);assert.equal(full.held,826);assert.equal(full.roster.possible_active.length,5);assert.ok(full.runners.every(h=>h.items.length===115&&h.grade===null));assert.ok(missing.length===5);assert.ok(missing.some(r=>r.horse!=='TEST:H5'&&r.envelope.max<5&&r.missing.includes('TEST:H5')));assert.ok(missing.find(r=>r.horse==='TEST:H5').possible_winner);});
+ t('F37-01',()=>{assert.equal(full.groups,118);assert.equal(full.held,826);assert.equal(full.roster.possible_active.length,5);assert.ok(full.runners.every(h=>h.items.length===115&&h.grade===null));assert.ok(missing.length===5);assert.ok(missing.some(r=>r.horse!=='TEST:NAR|TEST:H5'&&r.envelope.max<5&&r.missing.includes('TEST:NAR|TEST:H5')));assert.ok(missing.find(r=>r.horse==='TEST:NAR|TEST:H5').possible_winner);});
  t('F37-02',()=>{const cross=full.routes.filter(r=>r.kind==='CROSS_EVENT_STRESS');assert.ok(cross.length>0);assert.ok(cross.every(r=>r.start_event!==r.response_event&&r.actual_current==='UNPROVEN'));assert.ok(cross.some(r=>r.role_conflicts.length>0||r.mathematical_WIN==='UNRESOLVED_BOUND'||r.conditional_WIN==='CONDITIONAL_COUNTER'));assert.ok(full.routes.some(r=>r.axes[3].recovery.length>0));});
  const raw=analyzeV34(V,'FK34_FULL');
  const root=raw.source_packet.evidence.find(e=>e.event==='TEST:RECOVERY_B'&&e.subject==='TEST:H4'&&e.field==='checkpoint_ms')?.evidenceId;
