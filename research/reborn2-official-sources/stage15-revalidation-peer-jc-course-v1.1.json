@@ -1,0 +1,527 @@
+{
+  "version": "1.1",
+  "stage": 15,
+  "date_jst": "2026-11-27",
+  "observed_at": null,
+  "publication_at": null,
+  "acceptance": {
+    "pr": 92,
+    "head": "8104d5c983fca132044cbb913e5eff8e9444f79f",
+    "document": "research/reborn2-canonical/IMPLEMENTATION-V13-154-ACCEPTANCE-20261127.md",
+    "blob": "c7b758a44f10c74ea875f6957e20790301852f18",
+    "reported_tests": 154,
+    "independent_code_execution": false
+  },
+  "parent": "cb3d7c424252fd08676ac982e1bc085827fadb74",
+  "formal_admissions": 0,
+  "scoring_authorized": false,
+  "production_changes": false,
+  "permission_cleared": false,
+  "revalidation": {
+    "method": "Independent SHA256 over materialized Library files; ZIP manifest member hash check and JSON pointer comparison with original tar members.",
+    "hashes": {
+      "stage10": "1edb850d452eb8a2c62564546f3373cb39dac87a6e682b733b72cfb5ebec9672",
+      "stage9": "7bc674eb2004d4836666b12aa803b6bd5ed649450d349502d96f499309e21fbb",
+      "stage8": "48df059c10a5c62e18352a7768215e3599634735a096887e85679376b5c03cd6",
+      "stage12_ledger": "3a1f367f08e7d0c75ea61a16ecb492cf9b047c4f9dac053d26ebc7927aae9e9d",
+      "stage14_zip": "3f50eb331edd832c7713a3803f0c9f068cf1bee8160a56e41f868bc5e85e8284",
+      "urawa": "df09365de5862ac07474ed653adfd3e5d22b86975fc12a3366a4d83c26fb1831",
+      "stage13_time": "605af6be108a40bbbff7a5057beb4b6822667210ec47527810c53d93226a4b99"
+    },
+    "zip_manifest_sha256": "6435a407adc5837f449df567575332c36c7402b031eac88f91add645f118faa8",
+    "zip_members": 17,
+    "manifest_hash_matches": 16,
+    "original_json_matches": 12,
+    "pointer_old_value_and_new_null_matches": 52,
+    "groups": {
+      "JRA": 88,
+      "LOCAL": 30,
+      "all_7_gate_flags_true": 0
+    },
+    "profile_raw_hash_matches": 11,
+    "result_raw_hash_matches": 13,
+    "dom_reparsed": false,
+    "implementation_connected": false,
+    "originals_modified": false
+  },
+  "peer_audit": {
+    "identity": {
+      "distinct": 182,
+      "saved_raw": 11,
+      "cache": 8,
+      "candidate_unconfirmed": 163,
+      "raw_pending": 171,
+      "new_native_ids": 0
+    },
+    "old_followup": {
+      "total": 34,
+      "body_confirmed_reported": 15,
+      "body_pending": 19,
+      "raw_pending": 21
+    },
+    "dedup": {
+      "key": [
+        "issuer_scoped_horse_id",
+        "race_key"
+      ],
+      "old": 34,
+      "stage12_road": 5,
+      "stage13": 18,
+      "stage14": 8,
+      "new_unique": 31,
+      "old_new_intersection": 0,
+      "total_unique_horse_races": 65,
+      "distinct_races": 49,
+      "also_direct_peer_events": 12,
+      "not_already_direct_peer_events": 53,
+      "overlap_keys": [
+        [
+          "30022409707",
+          "LOCAL:2026-10-07:大井:11"
+        ],
+        [
+          "30022409707",
+          "LOCAL:2026-11-08:盛岡:11"
+        ],
+        [
+          "30076401076",
+          "LOCAL:2026-07-22:大井:11"
+        ],
+        [
+          "30076401076",
+          "LOCAL:2026-11-10:川崎:11"
+        ],
+        [
+          "40031405986",
+          "LOCAL:2026-10-28:大井:11"
+        ],
+        [
+          "30015407796",
+          "LOCAL:2025-12-29:大井:9"
+        ],
+        [
+          "30015407796",
+          "LOCAL:2026-03-11:船橋:11"
+        ],
+        [
+          "30015407796",
+          "LOCAL:2026-07-20:盛岡:12"
+        ],
+        [
+          "30058408796",
+          "LOCAL:2026-03-11:船橋:11"
+        ],
+        [
+          "30068409786",
+          "LOCAL:2026-06-21:水沢:11"
+        ],
+        [
+          "30068409786",
+          "LOCAL:2026-07-20:盛岡:12"
+        ],
+        [
+          "40091400866",
+          "LOCAL:2026-07-22:大井:11"
+        ]
+      ],
+      "rule": "Same event may support multiple relationships but evidence root counted once. Later relative to a specific reference race must be checked; no automatic target horse benefit."
+    },
+    "organizer_context": [
+      [
+        "LOCAL:2025-10-19:盛岡:12",
+        "https://www.iwatekeiba.or.jp/news/251019r",
+        "トパーズC",
+        "リケアカプチーノ",
+        "winner announcement only"
+      ],
+      [
+        "LOCAL:2025-11-30:水沢:12",
+        "https://www.iwatekeiba.or.jp/news/251130r",
+        "北上川大賞典",
+        "サクラトップキッド",
+        "winner and retrospective interview; not subject result row"
+      ],
+      [
+        "LOCAL:2025-12-31:水沢:12",
+        "https://www.iwatekeiba.or.jp/news/251231r",
+        "桐花賞",
+        "サクラトップキッド",
+        "winner and subjective rider observations; not subject result row"
+      ],
+      [
+        "LOCAL:2026-05-24:盛岡:12",
+        "https://www.iwatekeiba.or.jp/news/260524r",
+        "あすなろ賞",
+        "ラッキードリーム",
+        "winner announcement; no other horse row certified"
+      ],
+      [
+        "LOCAL:2026-11-23:水沢:12",
+        "https://www.iwatekeiba.or.jp/news/261123r",
+        "トウケイニセイ記念",
+        "ヒロシクン",
+        "winner and rider interview; not full result"
+      ]
+    ],
+    "organizer_status": "OFFICIAL_ORGANIZER_ARTICLE_TEXT_ONLY; no full result row or raw hash, no upgrade of body count",
+    "nar_429": "No new NAR direct requests, no bypass"
+  },
+  "iwate_correction": {
+    "source": "https://www.iwatekeiba.or.jp/news/0421-2",
+    "published_date": "2026-04-22",
+    "named_horse": "ミヤギヴォイジャー",
+    "affected_meetings": [
+      "FY2025 11th Mizusawa",
+      "FY2026 1st Mizusawa"
+    ],
+    "corrected_from": "FY2026 2nd Mizusawa",
+    "supersedes": {
+      "file": "stage14-jc-era-person-rule-evidence-v1.0.json",
+      "field": "benchmark.local.iwate_correction.effective_meeting_start_date",
+      "old": "2026-04-14",
+      "new": null
+    },
+    "actual_racing_days": [
+      "2026-04-19",
+      "2026-04-20",
+      "2026-04-21",
+      "2026-04-27",
+      "2026-04-28",
+      "2026-04-29"
+    ],
+    "first_race_day": "2026-04-19",
+    "actual_administrative_effective_at": null,
+    "calendar_source": "https://www.iwatekeiba.or.jp/news/260415n01",
+    "previous_meeting_source": "https://www.iwatekeiba.or.jp/news/260401n01",
+    "interpretation": "April 14 was entry-hours period start, not first actual racing day of 2nd meeting. Publication April 22 and actual administrative correction time distinct. Do not retroactively apply or generalize named horse correction. Preserve original."
+  },
+  "tokyo_dirt": {
+    "priority_groups": 7,
+    "priority_races": 256,
+    "old_documents": 3,
+    "new_documents": 5,
+    "document_meeting_number_coverage": 13,
+    "race_level_join_verified": 0,
+    "geometry": {
+      "lap_m": 1899,
+      "straight_m": 501.6,
+      "width_m": 25,
+      "sand_cm": 9
+    },
+    "new_overviews": [
+      {
+        "year": "2024",
+        "meeting": "2-3",
+        "url": "https://www.jra.go.jp/keiba/baba/overview/2024_2-3_tokyo.html",
+        "maintenance": "roadbed inspection; sand depth maintenance",
+        "geometry_matches": true,
+        "source_stage": "OFFICIAL_EXTRACTED_BODY",
+        "raw_sha256": null,
+        "publication_at": null
+      },
+      {
+        "year": "2024",
+        "meeting": "4-5",
+        "url": "https://www.jra.go.jp/keiba/baba/overview/2024_4-5_tokyo.html",
+        "maintenance": "roadbed inspection/repair; sand wash",
+        "geometry_matches": true,
+        "source_stage": "OFFICIAL_EXTRACTED_BODY",
+        "raw_sha256": null,
+        "publication_at": null
+      },
+      {
+        "year": "2025",
+        "meeting": "2-3",
+        "url": "https://www.jra.go.jp/keiba/baba/overview/2025_2-3_tokyo.html",
+        "maintenance": "roadbed inspection/partial repair",
+        "geometry_matches": true,
+        "source_stage": "OFFICIAL_EXTRACTED_BODY",
+        "raw_sha256": null,
+        "publication_at": null
+      },
+      {
+        "year": "2025",
+        "meeting": "4-5",
+        "url": "https://www.jra.go.jp/keiba/baba/overview/2025_4-5_tokyo.html",
+        "maintenance": "sand wash; roadbed inspection/partial repair",
+        "geometry_matches": true,
+        "source_stage": "OFFICIAL_EXTRACTED_BODY",
+        "raw_sha256": null,
+        "publication_at": null
+      },
+      {
+        "year": "2026",
+        "meeting": "2-3",
+        "url": "https://www.jra.go.jp/keiba/baba/overview/2026_2-3_tokyo.html",
+        "maintenance": "roadbed inspection; sand depth adjustment",
+        "geometry_matches": true,
+        "source_stage": "OFFICIAL_EXTRACTED_BODY",
+        "raw_sha256": null,
+        "publication_at": null
+      }
+    ],
+    "rule": "Identical geometry and nominal sand depth do not establish equal surface maintenance or version, nor speed equivalence."
+  },
+  "jc": {
+    "race": "JRA:2026-11-29:東京:12",
+    "card_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605081220261129%2F3D",
+    "weight_url": "https://www.jra.go.jp/news/202611/112606.html",
+    "weight_article_date": "2026-11-26",
+    "card_state": "OFFICIAL_EXTRACTED_BODY; not original bytes",
+    "card_count": 18,
+    "weight_count": 18,
+    "exact_name_count": 17,
+    "abbreviated_name_candidate_count": 1,
+    "native_card_horse_id_matches": 0,
+    "native_card_person_id_matches": 0,
+    "rating_count": 16,
+    "raw_sha256": null,
+    "publication_at": null,
+    "fields": [
+      "no",
+      "weight_kg",
+      "training_body_weight_kg",
+      "training_measurement_date",
+      "previous_body_weight_kg",
+      "pre_rating",
+      "distance_category"
+    ],
+    "rows": [
+      [
+        1,
+        58,
+        491,
+        "2026-11-26",
+        488,
+        114,
+        "E"
+      ],
+      [
+        2,
+        58,
+        532,
+        "2026-11-25",
+        524,
+        118,
+        "L"
+      ],
+      [
+        3,
+        58,
+        510,
+        "2026-11-25",
+        null,
+        123,
+        "L"
+      ],
+      [
+        4,
+        58,
+        520,
+        "2026-11-25",
+        512,
+        122,
+        "I,L"
+      ],
+      [
+        5,
+        58,
+        462,
+        "2026-11-26",
+        452,
+        117,
+        "I"
+      ],
+      [
+        6,
+        58,
+        486,
+        "2026-11-26",
+        474,
+        122,
+        "I"
+      ],
+      [
+        7,
+        58,
+        481,
+        "2026-11-25",
+        480,
+        110,
+        "L"
+      ],
+      [
+        8,
+        58,
+        482,
+        "2026-11-25",
+        null,
+        131,
+        "I"
+      ],
+      [
+        9,
+        58,
+        462,
+        "2026-11-25",
+        null,
+        124,
+        "I,L"
+      ],
+      [
+        10,
+        56,
+        474,
+        "2026-11-25",
+        null,
+        121,
+        "I"
+      ],
+      [
+        11,
+        58,
+        496,
+        "2026-11-26",
+        484,
+        116,
+        "E"
+      ],
+      [
+        12,
+        58,
+        526,
+        "2026-11-25",
+        null,
+        120,
+        "I"
+      ],
+      [
+        13,
+        58,
+        525,
+        "2026-11-25",
+        522,
+        null,
+        null
+      ],
+      [
+        14,
+        58,
+        524,
+        "2026-11-26",
+        498,
+        117,
+        "I"
+      ],
+      [
+        15,
+        58,
+        494,
+        "2026-11-25",
+        482,
+        null,
+        null
+      ],
+      [
+        16,
+        58,
+        524,
+        "2026-11-26",
+        516,
+        124,
+        "I"
+      ],
+      [
+        17,
+        58,
+        501,
+        "2026-11-25",
+        null,
+        120,
+        "L"
+      ],
+      [
+        18,
+        58,
+        472,
+        "2026-11-25",
+        null,
+        113,
+        "L"
+      ]
+    ],
+    "join_rule": "Race and runner no plus name; 18 abbreviated card literal エシカルダイヤモン vs weight エシカルダイヤモンド and matching context is candidate only; no name-only identity.",
+    "profiles": [
+      {
+        "no": 15,
+        "name": "エキサイトバイオ",
+        "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002022104614%2F94",
+        "url_token": "2022104614",
+        "birth": "2022-03-10",
+        "sire": "レイデオロ",
+        "dam": "アニメイトバイオ",
+        "damsire": "ゼンノロブロイ",
+        "state": "PROFILE_ATTRIBUTE_MATCH; not native card link"
+      },
+      {
+        "no": 16,
+        "name": "ダノンデサイル",
+        "url": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002021105143%2FBF",
+        "url_token": "2021105143",
+        "birth": "2021-04-06",
+        "sire": "エピファネイア",
+        "dam": "トップデサイル",
+        "damsire": "Congrats",
+        "state": "PROFILE_ATTRIBUTE_MATCH; not native card link"
+      }
+    ],
+    "comparison": {
+      "source": "card past performances, not independently acquired full result",
+      "rows": [
+        {
+          "race": "JRA:2026-04-05:阪神:11",
+          "distance": 2000,
+          "going": "良",
+          "winner": "クロワデュノール",
+          "second": "メイショウタバル",
+          "clock_gap_seconds": 0.1
+        },
+        {
+          "race": "JRA:2026-06-14:阪神:11",
+          "distance": 2200,
+          "going": "重",
+          "winner": "メイショウタバル",
+          "second": "クロワデュノール",
+          "clock_gap_seconds": 0.1
+        }
+      ],
+      "interpretation": "Observed order reversal, not causal going effect or formal present ability; retain condition and individual position evidence. Training weight not race-day weight or causal evidence."
+    }
+  },
+  "permission": {
+    "ERA": {
+      "url": "https://emiratesracing.com/terms-and-conditions",
+      "status": "NOT_CLEARED",
+      "note": "Terms section 3 prior written consent for content use, modification, reproduction, distribution and display; no bulk raw reproduction."
+    },
+    "JRA": {
+      "url": "https://www.jra.go.jp/use/",
+      "status": "NOT_CLEARED"
+    },
+    "NAR": {
+      "status": "NOT_CLEARED",
+      "direct_requests_after_429": 0
+    },
+    "inquiries_sent": 0
+  },
+  "unresolved": [
+    "163 NAR candidate identities and 171 raw profile evidence",
+    "19 old result bodies and 21 old raw result sources",
+    "current JC native horse and person IDs",
+    "individual eligibility and effective course versions all 118 groups",
+    "original bytes and publication timestamps for new web observations",
+    "JRA historical 29 result queue reconciliation",
+    "license and code integration"
+  ],
+  "no_market_fields": true
+}
