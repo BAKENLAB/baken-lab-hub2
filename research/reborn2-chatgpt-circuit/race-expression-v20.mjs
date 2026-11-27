@@ -7,7 +7,7 @@ const uniq=a=>[...new Set(a)].sort();
 const sum=a=>a.reduce((x,y)=>x+y,0);
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const family=r=>['FK-GEN-3','FK-GEN-4'].includes(r.id)?'CONTROLLED_CLONE_FK-GEN-3':r.id;
-const roots=(r,id)=>['fixture-v2:result:'+r.id+':'+id,'fixture-v2:pos:'+r.id+':'+id,'fixture-v2:lap:'+r.id];
+const roots=(r,id)=>['fixture-v2:result:'+r.id+':'+id,'fixture-v2:pos:'+r.id+':'+id,'fixture-v2:laps:'+r.id];
 const median=a=>{const x=a.slice().sort((a,b)=>a-b),n=x.length;return n?(x[(n-1)>>1]+x[n>>1])/2:null;};
 const clock=r=>r.date+'T'+r.published;
 const scope=(a,b)=>({missing:keys.filter(k=>a[k]==null||b[k]==null),different:keys.filter(k=>a[k]!=null&&b[k]!=null&&a[k]!==b[k])});
@@ -25,7 +25,7 @@ export function measuredRace(r,history){
   const sample=candidates.map(q=>phases(q)[i].tenths),reference=median(sample);
   return {...x,reference_tenths:reference,reference_range:sample.length?[Math.min(...sample),Math.max(...sample)]:null,delta_tenths:reference===null?null:x.tenths-reference,direction:reference===null?'UNKNOWN_NO_REFERENCE':x.tenths<reference?'FASTER_THAN_SAMPLE_MEDIAN':x.tenths>reference?'SLOWER_THAN_SAMPLE_MEDIAN':'EQUAL_TO_SAMPLE_MEDIAN'};
  });
- return {race:r.id,scope:'RACE_LEADER_CLOCK_NOT_INDIVIDUAL',conditions:r.conditions,phases:comparisons,reference:{selection:'STRICTLY_PRIOR_SAME_CONDITIONS_AND_SEGMENT_LAYOUT_DEDUP_FAMILY',as_of:r.date+'T'+r.start,ids:candidates.map(q=>q.id),sample_size:candidates.length,clock_tenths:median(candidates.map(q=>sum(q.lap_tenths)))},race_clock_tenths:sum(r.lap_tenths),calibrated_pace:null,roots:['fixture-v2:lap:'+r.id,...candidates.map(q=>'fixture-v2:lap:'+q.id)]};
+ return {race:r.id,scope:'RACE_LEADER_CLOCK_NOT_INDIVIDUAL',conditions:r.conditions,phases:comparisons,reference:{selection:'STRICTLY_PRIOR_SAME_CONDITIONS_AND_SEGMENT_LAYOUT_DEDUP_FAMILY',as_of:r.date+'T'+r.start,ids:candidates.map(q=>q.id),sample_size:candidates.length,clock_tenths:median(candidates.map(q=>sum(q.lap_tenths)))},race_clock_tenths:sum(r.lap_tenths),calibrated_pace:null,roots:['fixture-v2:laps:'+r.id,...candidates.map(q=>'fixture-v2:laps:'+q.id)]};
 }
 function historicalProfile(p,id,measured){
  const card=p.target.entrants.find(x=>x.id===id);
@@ -92,7 +92,7 @@ function positionEye(h,common){
   return [{race:o.race,prior_early_normalized:(o.positions[0]-1)/(o.field-1),roots:uniq([...o.roots,...f.evidence_ids]),interpretation:'NEUTRAL_ASSUMED_QUEUE_COMPARISON'}];
  });
 }
-function eye01(h,common){
+function baselineDefeatContext(h,common){
  const out=[];
  const e=common.eye.find(x=>x.horse_id===h.id).items.find(x=>x.eye_item_id==='EYE-01');
  for(const f of e.observed_facts.filter(x=>x.type==='DEFEAT_GAP')){
@@ -111,15 +111,18 @@ export function analyzeV20(packet,{disableEye01=false,disableEye12=false}={}){
  const trace=[];
  const decisions=p.target.entrants.map(card=>{
   const id=card.id,history=profiles[id],h={id,history},prior=previous.decisions.find(x=>x.id===id);
-  const eye=disableEye01?[]:eye01(h,common);for(const r of eye)trace.push({horse:id,eye:'EYE-01',consumer:'baselineDefeatContext',items:['02','03'],roots:r.roots,judgment:r.interpretation});
+  const eye=disableEye01?[]:baselineDefeatContext(h,common);for(const r of eye)trace.push({horse:id,eye:'EYE-01',consumer:'baselineDefeatContext',items:['02','03'],roots:r.roots,judgment:r.interpretation});
   const position=disableEye12?[]:positionEye(h,common);
   const paths=field.scenarios.map(s=>pathReview(h,s,position));
   for(const path of paths)for(const x of path.eyeReview)trace.push({horse:id,eye:'EYE-12',consumer:'pathReview',items:['58','68','70','73'],roots:x.roots,judgment:x.comparison,scenario:path.scenario});
   // Evidence families are grouped, not vote weights. A is independent of
   // current-card changes, B expresses only transfer context.
   const baseline=history.map(({transfer,...o})=>o);
-  const current=history.map(o=>({race:o.race,role:o.role,transfer:o.transfer,roots:o.roots,pace_context:o.observed_race.phases.map(x=>x.direction),phase_comparison:o.observed_race.phases.map(x=>({phase:x.phase,tenths:x.tenths,reference_tenths:x.reference_tenths,delta_tenths:x.delta_tenths})),current_effect:null}));
+  const current=history.map(o=>({race:o.race,role:o.role,transfer:o.transfer,roots:uniq([...o.roots,'fixture-v2:card:'+id]),pace_context:o.observed_race.phases.map(x=>x.direction),phase_comparison:o.observed_race.phases.map(x=>({phase:x.phase,tenths:x.tenths,reference_tenths:x.reference_tenths,delta_tenths:x.delta_tenths})),current_effect:null}));
   return {id,history,views:{A:{purpose:'OBSERVED_HISTORICAL_CAPABILITY',observations:baseline,defeat_context:eye},B:{purpose:'CURRENT_CONDITION_TRANSFER',observations:current,actual_effect:null},C:prior.views.C,D:{purpose:'JOINT_ROLE_FEASIBILITY',paths,families:uniq(paths.flatMap(x=>x.witness.map(y=>y.family))),actual_pace:null},E:{...prior.views.E,defeat_context:eye}},prior_eye_returns:previous.returns.filter(x=>x.horse_id===id),rank:null,formal:false};
  });
- return {scope:'SYNTHETIC_RESEARCH_ONLY',measured,field,decisions,trace,prior_traces:previous.traces,audit:previous.audit,actual_pace:null,formal:false,release_eligible:false};
+ const evidence=new Set(common.evidence_index.map(x=>x.evidence_id));
+ const referenced=uniq([...measured.flatMap(x=>x.roots),...decisions.flatMap(h=>[...h.history.flatMap(x=>x.roots),...h.views.B.observations.flatMap(x=>x.roots),...h.views.D.paths.flatMap(p=>p.witness.flatMap(w=>w.roots))]),...trace.flatMap(x=>x.roots)]);
+ const unresolved=referenced.filter(x=>!evidence.has(x));if(unresolved.length)throw Error('V20_UNBOUND_ROOT:'+unresolved.join(','));
+ return {scope:'SYNTHETIC_RESEARCH_ONLY',measured,field,decisions,trace,prior_traces:previous.traces,audit:previous.audit,root_check:{distinct:referenced.length,unbound:unresolved},actual_pace:null,formal:false,release_eligible:false};
 }
