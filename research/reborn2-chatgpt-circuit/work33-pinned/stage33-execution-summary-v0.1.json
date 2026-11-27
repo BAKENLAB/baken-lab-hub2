@@ -1,0 +1,477 @@
+{
+  "scope": "SYNTHETIC_ONLY_RESEARCH",
+  "manifest": [
+    {
+      "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+      "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+      "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+      "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-condition-pipeline-v0.1.2.mjs",
+      "blob": "93d87bb022dae3bae021ba62fc433504bc16f924",
+      "sha256": "2d1a8a6c6d6f15504a660478f60a626d47ec3ec6dee8a94175b82e920dd7fa23"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-bundles-v0.1.2.json",
+      "blob": "b7795dc91ebe203827b1054448068a8e2465069f",
+      "sha256": "befda1231124e5c9aef088659436077c5c9027c7301ff66d29e6ae8827b1af69"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-verified-common-adapter-v0.1.2.mjs",
+      "blob": "1693dfd4657483a1f9e457188c28b38b9d8b2166",
+      "sha256": "098f94a2738d68d30030403788dc15f707dba4438719256f08b846403fba0e92"
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/research-ability-core.mjs",
+      "blob": "92112f6c5e0a38c38aa8d1eff997127bae7d191d",
+      "sha256": "93b1515e2e2f3796296f650cdc8d64f005828521a9b450492827558682e2ca4f",
+      "exports": [
+        "uniq",
+        "dependencyReader",
+        "relativePosition",
+        "ordinalPath",
+        "signedGap",
+        "conditionDelta",
+        "winPlaceRequirements",
+        "repeatEnvelope"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work26-v27-integrated.mjs",
+      "blob": "5b1e805f605879321e2ae5176c29021bc26f7ac9",
+      "sha256": "a59020167726d590f5b378c4d26907c9cdd37fc401ebf4dd2c8cc2cf4ab5c7ab",
+      "exports": [
+        "analyzeV27"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work27-v28-contrast.mjs",
+      "blob": "42fda8b93261079fbb09a053463657af7ca8b703",
+      "sha256": "69029b5020f59158135cad2269c17c0fc09080f9376c3246340cd963c7459ab7",
+      "exports": [
+        "analyzeV28"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work28-v29-feasibility.mjs",
+      "blob": "d7275c6c06f9ed7aac49bc0017ad008cc6cf6de2",
+      "sha256": "ba4f1e1091cc36eabc2c1e67da90982d349ef8b934f1293002da16aa8b6f47b4",
+      "exports": [
+        "analyzeV29",
+        "classifyInterval"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work29-v30-terminal.mjs",
+      "blob": "c3048ab248ae11f5c6c0d981a62c8b8633f7c49c",
+      "sha256": "c78cf46d856564dc2026117b7869100d3e13dd3f20b4660c1f54c89fe6b496df",
+      "exports": [
+        "analyzeV30",
+        "jointField"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work30-v31-integrated.mjs",
+      "blob": "6e812e54ea096f55b2307d05659faaf4824711f2",
+      "sha256": "a1e67df2b40e943991ddf2cde7dcbbfe9f2c6f9f2d9fe19362894b69a91c1b8e",
+      "exports": [
+        "analyzeV31",
+        "compareV31Response"
+      ]
+    },
+    {
+      "ref": "60a7d071411dfbb4fa15ab1c3323c2b8e8596eca",
+      "path": "research/reborn2-independent-engine/engine.mjs",
+      "blob": "6fcfe19dbdbb052b87b73186d6c2a0df44460939",
+      "sha256": "612719a57bd40aa560c8ef05d9aaaa2ed43043208898a08e80d119610fcfb1d3"
+    }
+  ],
+  "checks": [
+    {
+      "name": "DISTANCE:REPLAY",
+      "pass": true
+    },
+    {
+      "name": "DISTANCE:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "DISTANCE:REHASH_TAMPER",
+      "pass": true
+    },
+    {
+      "name": "DISTANCE:RESPONSE_WITHDRAWAL",
+      "pass": true
+    },
+    {
+      "name": "DISTANCE:GRADE_HELD",
+      "pass": true
+    },
+    {
+      "name": "WEIGHT:REPLAY",
+      "pass": true
+    },
+    {
+      "name": "WEIGHT:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "WEIGHT:REHASH_TAMPER",
+      "pass": true
+    },
+    {
+      "name": "WEIGHT:RESPONSE_WITHDRAWAL",
+      "pass": true
+    },
+    {
+      "name": "WEIGHT:GRADE_HELD",
+      "pass": true
+    },
+    {
+      "name": "GOING:REPLAY",
+      "pass": true
+    },
+    {
+      "name": "GOING:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "GOING:REHASH_TAMPER",
+      "pass": true
+    },
+    {
+      "name": "GOING:RESPONSE_WITHDRAWAL",
+      "pass": true
+    },
+    {
+      "name": "GOING:GRADE_HELD",
+      "pass": true
+    },
+    {
+      "name": "COURSE:REPLAY",
+      "pass": true
+    },
+    {
+      "name": "COURSE:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "COURSE:REHASH_TAMPER",
+      "pass": true
+    },
+    {
+      "name": "COURSE:RESPONSE_WITHDRAWAL",
+      "pass": true
+    },
+    {
+      "name": "COURSE:GRADE_HELD",
+      "pass": true
+    },
+    {
+      "name": "PACE:REPLAY",
+      "pass": true
+    },
+    {
+      "name": "PACE:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "PACE:REHASH_TAMPER",
+      "pass": true
+    },
+    {
+      "name": "PACE:RESPONSE_WITHDRAWAL",
+      "pass": true
+    },
+    {
+      "name": "PACE:GRADE_HELD",
+      "pass": true
+    },
+    {
+      "name": "COMPETITION:REPLAY",
+      "pass": true
+    },
+    {
+      "name": "COMPETITION:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "COMPETITION:REHASH_TAMPER",
+      "pass": true
+    },
+    {
+      "name": "COMPETITION:RESPONSE_WITHDRAWAL",
+      "pass": true
+    },
+    {
+      "name": "COMPETITION:GRADE_HELD",
+      "pass": true
+    },
+    {
+      "name": "TERMINAL_REPEAT:REPLAY",
+      "pass": true
+    },
+    {
+      "name": "TERMINAL_REPEAT:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "TERMINAL_REPEAT:REHASH_TAMPER",
+      "pass": true
+    },
+    {
+      "name": "TERMINAL_REPEAT:RESPONSE_WITHDRAWAL",
+      "pass": true
+    },
+    {
+      "name": "TERMINAL_REPEAT:GRADE_HELD",
+      "pass": true
+    },
+    {
+      "name": "MULTI:REPLAY",
+      "pass": true
+    },
+    {
+      "name": "MULTI:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "MULTI:REHASH_TAMPER",
+      "pass": true
+    },
+    {
+      "name": "MULTI:RESPONSE_WITHDRAWAL",
+      "pass": true
+    },
+    {
+      "name": "MULTI:GRADE_HELD",
+      "pass": true
+    }
+  ],
+  "summary": [
+    {
+      "id": "DISTANCE",
+      "dimensions": [
+        "distance_m"
+      ],
+      "relation": [
+        "AHEAD",
+        "BEHIND",
+        "AHEAD"
+      ],
+      "gap": [
+        300,
+        -1700,
+        320
+      ],
+      "eye": [
+        "EYE03",
+        "EYE07"
+      ],
+      "commonEye": 0,
+      "grade": null,
+      "evidence": 140,
+      "itemRows": 345
+    },
+    {
+      "id": "WEIGHT",
+      "dimensions": [
+        "subject_weight"
+      ],
+      "relation": [
+        "AHEAD",
+        "BEHIND",
+        "AHEAD"
+      ],
+      "gap": [
+        300,
+        -1500,
+        320
+      ],
+      "eye": [
+        "EYE03",
+        "EYE07"
+      ],
+      "commonEye": 0,
+      "grade": null,
+      "evidence": 140,
+      "itemRows": 345
+    },
+    {
+      "id": "GOING",
+      "dimensions": [
+        "going"
+      ],
+      "relation": [
+        "AHEAD",
+        "BEHIND",
+        "AHEAD"
+      ],
+      "gap": [
+        300,
+        -1500,
+        320
+      ],
+      "eye": [
+        "EYE03",
+        "EYE07"
+      ],
+      "commonEye": 0,
+      "grade": null,
+      "evidence": 140,
+      "itemRows": 345
+    },
+    {
+      "id": "COURSE",
+      "dimensions": [
+        "venue",
+        "course_geometry"
+      ],
+      "relation": [
+        "AHEAD",
+        "BEHIND",
+        "AHEAD"
+      ],
+      "gap": [
+        300,
+        -1500,
+        320
+      ],
+      "eye": [
+        "EYE03",
+        "EYE07",
+        "EYE08",
+        "EYE15"
+      ],
+      "commonEye": 0,
+      "grade": null,
+      "evidence": 140,
+      "itemRows": 345
+    },
+    {
+      "id": "PACE",
+      "dimensions": [],
+      "relation": [
+        "AHEAD",
+        "BEHIND",
+        "AHEAD"
+      ],
+      "gap": [
+        300,
+        -1700,
+        320
+      ],
+      "eye": [
+        "EYE03",
+        "EYE06",
+        "EYE09",
+        "EYE11",
+        "EYE12"
+      ],
+      "commonEye": 0,
+      "grade": null,
+      "evidence": 140,
+      "itemRows": 345
+    },
+    {
+      "id": "COMPETITION",
+      "dimensions": [],
+      "relation": [
+        "AHEAD",
+        "BEHIND",
+        "AHEAD"
+      ],
+      "gap": [
+        300,
+        -1700,
+        320
+      ],
+      "eye": [
+        "EYE03",
+        "EYE06",
+        "EYE09",
+        "EYE11",
+        "EYE12"
+      ],
+      "commonEye": 0,
+      "grade": null,
+      "evidence": 269,
+      "itemRows": 575
+    },
+    {
+      "id": "TERMINAL_REPEAT",
+      "dimensions": [],
+      "relation": [
+        "AHEAD",
+        "AHEAD",
+        "AHEAD"
+      ],
+      "gap": [
+        300,
+        450,
+        320
+      ],
+      "eye": [
+        "EYE03"
+      ],
+      "commonEye": 0,
+      "grade": null,
+      "evidence": 140,
+      "itemRows": 345
+    },
+    {
+      "id": "MULTI",
+      "dimensions": [
+        "distance_m",
+        "going",
+        "venue",
+        "subject_weight",
+        "course_geometry"
+      ],
+      "relation": [
+        "AHEAD",
+        "BEHIND",
+        "AHEAD"
+      ],
+      "gap": [
+        300,
+        -1700,
+        320
+      ],
+      "eye": [
+        "EYE03",
+        "EYE07",
+        "EYE08",
+        "EYE15"
+      ],
+      "commonEye": 0,
+      "grade": null,
+      "evidence": 269,
+      "itemRows": 575
+    }
+  ],
+  "groups": 118,
+  "held": 826,
+  "priorRecorded": 475,
+  "newNamedChecks": 40,
+  "combinedRecordedIfAccepted": 515,
+  "formal_admissions": 0,
+  "grade_effects": 0,
+  "limitations": [
+    "JS isolate exact function bodies; no native Node loader or CI",
+    "V32 read for interface; pinned V31 generic response actually executed; Work32 adapter verify32/adapt32 reused under explicit pinned manifest",
+    "EYE candidate receipts except pre-existing EYE03 common review; no canonical positive return or current causal effect",
+    "Source bytes verified before execution; synthetic registry and timestamp not official",
+    "No full 475 rerun; no actual current pace, role occupancy, opponent strength or SABC"
+  ]
+}

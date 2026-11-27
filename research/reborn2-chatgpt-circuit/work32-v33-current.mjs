@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {pipeline31,verifier31} from './work32-pinned/stage32-condition-pipeline-v0.1.2.mjs';
+import {pipeline31,verifier31,run31} from './work32-pinned/stage32-condition-pipeline-v0.1.2.mjs';
 import {consume32} from './work32-pinned/stage32-verified-common-adapter-v0.1.2.mjs';
 import {analyzeV31,compareV31Response,jointClockFeasibility,loadV31} from './work30-v31-integrated.mjs';
 import {jointField} from './work29-v30-terminal.mjs';
@@ -37,7 +37,7 @@ export function envelope32(n,loaded=loadWork32()){
  }else candidate=replay; // adverse worlds are pinned inputs/digests, not fabricated packets.
  assert.deepEqual(candidate,replay,'COMPLETE_REPLAY');return candidate;
 }
-function enrich(L,name,withdraw,options){
+export function enrich(L,name,withdraw,options){
  const out=analyzeV31(L,name,withdraw,options),p=L.cases.get(name),[target,...history]=p.o.events,roster=out.roster.possible_active,threshold=options.placeThreshold??null;
  const all=new Map(p.o.evidence.map(e=>[e.evidence_id,e])),field=(ev,h,k)=>p.o.evidence.find(e=>e.event_id===ev&&e.subject_id===h&&e.field===k);
  const {get,lineage}=dependencyReader(all,withdraw,e=>e.subject_id===null||e.field==='id'?[]:[field(e.event_id,e.subject_id,'id')?.evidence_id,...(e.field==='status'?[]:[field(e.event_id,e.subject_id,'status')?.evidence_id])].filter(Boolean));
@@ -68,10 +68,16 @@ function enrich(L,name,withdraw,options){
    const c=contexts.find(x=>x.event===e.event_id);
    const gateWeight=Object.fromEntries([a,b].map(h=>[h,Object.fromEntries(['gate_number','weight_grams'].map(k=>{const old=field(e.event_id,h,k),now=field(target.event_id,h,k);return [k,{past:val(old),current:val(now),refs:refs([old,now])}]}))]));
    const roots=refs([...d.refs,...c.refs,...Object.values(gateWeight).flatMap(x=>Object.values(x).flatMap(v=>v.refs))]);
-   return [{event:e.event_id,order:d.order===a?'AHEAD':'BEHIND',condition:c,gateWeight,rank_refs:refs(d.refs),clock_advantage_ms:gap,clock_bound_ms:gap===null?null:2*u,clock_refs:gap===null?[]:refs([ca,cb]),final600_advantage_ms:final,terminal_refs:final===null?[]:refs([fa,fb]),refs:roots}];
+   const participantMatch=Object.values(gateWeight).flatMap(x=>Object.values(x)).map(v=>v.past===null||v.current===null?null:v.past===v.current);
+   const pair_context=c.state==='MISSING_CONTEXT'||participantMatch.includes(null)?'MISSING_PAIR_CONTEXT':c.state==='DIFFERENT_REPORTED_RACE_CONTEXT'?'DIFFERENT_RACE_CONTEXT':participantMatch.every(Boolean)?'MATCHED_RACE_GATE_WEIGHT':'MATCHED_RACE_CONTEXT_CHANGED_GATE_OR_WEIGHT';
+   return [{event:e.event_id,order:d.order===a?'AHEAD':'BEHIND',condition:c,gateWeight,pair_context,rank_refs:refs(d.refs),clock_advantage_ms:gap,clock_bound_ms:gap===null?null:2*u,clock_refs:gap===null?[]:refs([ca,cb]),final600_advantage_ms:final,terminal_refs:final===null?[]:refs([fa,fb]),refs:roots}];
   });
-  const aligned=comparisons.filter(x=>x.condition.state==='SAME_REPORTED_RACE_CONTEXT'),different=comparisons.filter(x=>x.condition.state==='DIFFERENT_REPORTED_RACE_CONTEXT');
-  const contrast=aligned.flatMap(x=>different.filter(y=>x.order!==y.order).map(y=>({aligned:x.event,other:y.event,aligned_order:x.order,other_order:y.order,clock_change_ms:x.clock_advantage_ms!==null&&y.clock_advantage_ms!==null?x.clock_advantage_ms-y.clock_advantage_ms:null,refs:refs([...x.refs,...y.refs,...x.clock_refs,...y.clock_refs]),causal_response:null})));
+  const aligned=comparisons.filter(x=>['MATCHED_RACE_GATE_WEIGHT','MATCHED_RACE_CONTEXT_CHANGED_GATE_OR_WEIGHT'].includes(x.pair_context));
+  const contrast=aligned.flatMap(x=>comparisons.filter(y=>x.event!==y.event&&x.order!==y.order&&(y.pair_context==='DIFFERENT_RACE_CONTEXT'||(x.pair_context==='MATCHED_RACE_GATE_WEIGHT'&&y.pair_context==='MATCHED_RACE_CONTEXT_CHANGED_GATE_OR_WEIGHT'))).flatMap(y=>{
+   const v31=compareV31Response(L,name,a,b,x.event,y.event,withdraw);
+   if(!v31.observed_reversal||v31.first.relative_finish!==x.order||v31.second.relative_finish!==y.order)return [];
+   return [{aligned:x.event,other:y.event,aligned_order:x.order,other_order:y.order,clock_change_ms:x.clock_advantage_ms!==null&&y.clock_advantage_ms!==null?x.clock_advantage_ms-y.clock_advantage_ms:null,v31_executed:true,refs:refs([...x.refs,...y.refs,...x.clock_refs,...y.clock_refs]),causal_response:null}];
+  }));
   pairResponse.push({...pair,comparisons,contrast,current_response:'UNPROVEN',independent_vote:false});
  }
  // One joint scenario per historical context. Do not select incompatible pair histories to manufacture a winner.
@@ -85,6 +91,36 @@ function enrich(L,name,withdraw,options){
   const fieldResult=jointField(roster,relations,threshold),clock=jointClockFeasibility(roster,numeric);
   return {event:c.event,kind:'CONDITION_LINKED_CONTRAST',scope:'IF_ALIGNED_HISTORICAL_PAIR_RESPONSE_REPEATS_AND_CHANGED_GATE_WEIGHT_FIELD_PACE_DO_NOT_INVALIDATE_IT',condition:c,relations,field:fieldResult,numeric_feasibility:clock,assumptions:['GATE_WEIGHT_RESPONSE_NOT_IDENTIFIED','CURRENT_PACE_ROLE_AND_OUTSIDE_RIVALS_UNKNOWN','JOINT_HISTORICAL_RESPONSE_REPEAT_NOT_PREDICTION'],actual_current_feasibility:'UNRESOLVED',prediction:false};
  });
+ // EYE03: return measured loss-then-recovery to the same item and joint path outputs.
+ // Require two distinct, fully context-matched historical events, identical field size,
+ // actual rank decline plus robust terminal relative gain. No current pace/position is measured.
+ const eyeReturns=[];
+ for(const p1 of pairResponse){
+  for(const subject of [p1.a,p1.b]){
+   if(!known.includes(subject)||!known.includes(p1.a)||!known.includes(p1.b))continue;
+   const sign=subject===p1.a?1:-1,rival=sign===1?p1.b:p1.a;
+   const measured=p1.comparisons.filter(x=>x.pair_context==='MATCHED_RACE_GATE_WEIGHT').flatMap(c=>{
+    const e=history.find(x=>x.event_id===c.event),rank=field(c.event,subject,'ranks'),fr=field(c.event,subject,'finish'),ranks=val(rank),finish=val(fr);
+    if(!Array.isArray(ranks)||ranks.length<2||!Number.isInteger(finish)||!ranks.some((r,i)=>i>0&&r>ranks[i-1])||finish>=ranks.at(-1)||val(e.actual_starters)!==roster.length)return [];
+    const t=out.terminal_v30.find(x=>x.event===c.event&&x.a===p1.a&&x.b===p1.b),seg=t?.terminal?.segment;
+    if(!seg||t.finish_conflict)return [];
+    const start=sign*seg.start,end=sign*seg.end,gain=end-start,ub=seg.endpointBound,gb=seg.changeBound;
+    if(![start,end,gain,ub,gb].every(Number.isFinite)||start>=-ub||end<=ub||gain<=gb)return [];
+    return [{event:c.event,start,end,gain,endpoint_bound:ub,change_bound:gb,ranks,finish,refs:refs([...t.terminal_refs,...c.refs,rank,fr,e.actual_starters])}];
+   });
+   if(measured.length<2)continue;
+   const lower=Math.min(...measured.map(x=>x.gain-x.change_bound)),upper=Math.max(...measured.map(x=>x.gain+x.change_bound)),maxDeficit=Math.max(...measured.map(x=>-x.start)),minFinish=lower-maxDeficit,maxFinish=upper;
+   if(!(minFinish>0))continue;
+   const evidence=uniq(measured.flatMap(x=>x.refs)),before=pairs.map(x=>({...x,order:'UNKNOWN',refs:[]})),after=before.map(x=>x.a===p1.a&&x.b===p1.b?{...x,order:sign===1?'AHEAD':'BEHIND',refs:evidence}:x);
+   const bf=jointField(roster,before,threshold),af=jointField(roster,after,threshold),bounds=sign===1?[minFinish,maxFinish]:[-maxFinish,-minFinish];
+   const numeric=jointClockFeasibility(roster,[{a:p1.a,b:p1.b,delta:(bounds[0]+bounds[1])/2,bound:(bounds[1]-bounds[0])/2,refs:evidence}]);
+   const b=bf.envelopes.find(x=>x.slot===subject),a=af.envelopes.find(x=>x.slot===subject);
+   if(!a||!b||a.min===b.min&&a.max===b.max||numeric.state==='CONTRADICTED_NUMERIC_DIFFERENCES')continue;
+   const id='EYE03:'+subject+':'+rival,observation={rival,events:measured.map(x=>x.event),measurements:measured,assumed_current_terminal_deficit_max_ms:maxDeficit,conditional_gain_bounds_ms:[lower,upper],conditional_finish_advantage_bounds_ms:[minFinish,maxFinish],before_range:[b.min,b.max],after_range:[a.min,a.max]};
+   eyeReturns.push({subject,rival,id,item:'EYE03',targets:['RANK18','RANK21','RANK100'],refs:evidence,observation,state:'CONDITIONAL_RESEARCH_RETURN',returned_to_current_analysis:true,conditional_path_effect:true,independent_vote:false,canonical_positive:false,grade_effect:false,formal:false});
+   scenarios.push({event:id,kind:'EYE03_TERMINAL_RECOVERY_CONDITIONAL',scope:'IF_CURRENT_TERMINAL_DEFICIT_WITHIN_STATED_LIMIT_AND_MEASURED_GAIN_REPEATS',relations:after,before_field:bf,field:af,numeric_feasibility:numeric,assumptions:['CURRENT_TERMINAL_POSITION_UNKNOWN','TERMINAL_GAIN_REPEATS_UNDER_MATCHED_RECORDED_CONTEXT','OTHER_RIVALS_UNKNOWN'],actual_current_feasibility:'UNRESOLVED',prediction:false,eye_id:id,observation});
+  }
+ }
  const sourceConflicts=p.packet.conflicts??[];
  // Preserve historical observations; conservatively hold joined leader/individual pace whenever a packet conflict
  // or incompatible measured leader checkpoint exists. No pace result feeds a current conditional edge.
@@ -102,19 +138,48 @@ function enrich(L,name,withdraw,options){
   const active=h.identity_known&&h.status==='ACTIVE',response=active?pairResponse.filter(x=>x.a===h.slot||x.b===h.slot):[];
   const paths=active?scenarios.map(s=>({event:s.event,kind:s.kind,scope:s.scope,envelope:s.field.envelopes.find(x=>x.slot===h.slot)??null,refs:uniq(s.relations.flatMap(x=>x.refs)),current_feasibility:'UNRESOLVED'})):[];
   const findings=active?response.flatMap(x=>x.contrast.map(z=>({item:'RANK35',state:'CONDITION_LINKED_OBSERVED_REVERSAL_NOT_CAUSAL',observation:{rival:x.a===h.slot?x.b:x.a,aligned:z.aligned,other:z.other,aligned_order:x.a===h.slot?z.aligned_order:z.aligned_order==='AHEAD'?'BEHIND':'AHEAD'},refs:z.refs,formal:false,current_relevance:'CONDITIONAL_ONLY'}))):[];
+  const returned=active?eyeReturns.filter(x=>x.subject===h.slot):[];
+  for(const e of returned)for(const item of e.targets)findings.push({item,state:'EYE03_CONDITIONAL_RECOVERY_PATH_REANALYZED',observation:e.observation,refs:e.refs,formal:false,current_relevance:'CONDITIONAL_ONLY',eye_id:e.id});
   const trace=active?out.trace.filter(x=>x.horse===h.slot&&x.refs?.length):[];
   const axes=[['A',['RANK02','RANK03','RANK05','RANK06']],['B',['RANK43','RANK53','RANK54']],['C',['RANK35','RANK36','RANK37']],['D',['RANK18','RANK19','RANK21']],['E',[]]].map(([axis,items])=>{
-   const f=axis==='E'?findings:trace.filter(x=>items.includes(x.item)).map(x=>({item:x.item,state:x.decision,observation:x.observation??null,refs:x.refs}));
-   const facts=f.map(x=>({item:x.item,predicate:x.state,evidence_refs:x.refs,root_keys:uniq(x.refs.map(k=>all.get(k)?.root).filter(Boolean)),independent_vote:false,observation:x.observation,applicability:axis==='E'?'CONDITIONAL_ONLY':'HISTORICAL_ONLY'}));
+   const f=axis==='E'?findings: [...trace.filter(x=>items.includes(x.item)).map(x=>({item:x.item,state:x.decision,observation:x.observation??null,refs:x.refs})),...findings.filter(x=>items.includes(x.item))];
+   const facts=f.map(x=>({item:x.item,predicate:x.state,evidence_refs:x.refs,root_keys:uniq(x.refs.map(k=>all.get(k)?.root).filter(Boolean)),independent_vote:false,observation:x.observation,applicability:x.current_relevance==='CONDITIONAL_ONLY'||axis==='E'?'CONDITIONAL_ONLY':'HISTORICAL_ONLY'}));
    return {axis,state:!active?'NOT_EVALUATED':facts.length?'OBSERVED_CURRENT_RELEVANCE_UNPROVEN':'MISSING',facts,conditions_or_pace:!active?[]:axis==='B'?h.condition_paths??[]:axis==='D'?(h.pace_paths??[]).map(x=>{const hold=paceHold.find(y=>y.event===x.event);return hold?.state==='CONFLICT_HOLD_JOINED_PACE_INFERENCE'?{...x,literal_observations:x.comparisons,comparisons:[],state:hold.state,current_pace:null}:x}):[],current_support:[],current_counter:[],grade_effect:false};
   });
   const eye=active?(h.eye??[]).map(x=>({item:x.item,targets:x.upstream,refs:uniq(x.observations.flatMap(z=>z.refs)),state:x.observations.length?'HISTORICAL_REVIEW_ONLY':'HELD',returned_to_current_analysis:false,conditional_path_effect:false,independent_vote:false})):[];
-  return {slot:h.slot,status:h.status,identity_known:h.identity_known,axes,rival_paths:response,paths,findings_v33:findings,eye_feedback:eye,items:h.items.map(i=>({...i,refs:active?uniq([...i.refs,...findings.filter(f=>f.item===i.item).flatMap(f=>f.refs)]):[],v33_findings:findings.filter(f=>f.item===i.item),grade_effect_proven:false})),WIN:active?{state:'UNRESOLVED',paths}:null,PLACE:active?{state:threshold===null?'THRESHOLD_UNSPECIFIED':'UNRESOLVED',threshold,paths:threshold===null?[]:paths}:null,grade:null,formal:false};
+  return {slot:h.slot,status:h.status,identity_known:h.identity_known,axes,rival_paths:response,paths,findings_v33:findings,eye_feedback:[...eye.filter(x=>!returned.some(y=>y.item===x.item)),...returned],items:h.items.map(i=>({...i,refs:active?uniq([...i.refs,...findings.filter(f=>f.item===i.item).flatMap(f=>f.refs)]):[],v33_findings:findings.filter(f=>f.item===i.item),grade_effect_proven:false})),WIN:active?{state:'UNRESOLVED',paths}:null,PLACE:active?{state:threshold===null?'THRESHOLD_UNSPECIFIED':'UNRESOLVED',threshold,paths:threshold===null?[]:paths}:null,grade:null,formal:false};
  });
- return {schema:'REBORN2_COMMON_ANALYSIS_TO_CODEX_AXES_V33_RESEARCH',source_digest:null,source_evidence:p.packet.evidence.length,source_item_rows:p.packet.runners.length*115,source_available:p.packet.runners.flatMap(r=>r.items).filter(i=>i.refs.length).length,roster:{...out.roster,unknown_slots:runners.filter(h=>h.status!=='CANCELLED'&&(!h.identity_known||h.status!=='ACTIVE')).map(h=>h.slot)},history:out.historical,direct:out.direct,indirect:out.indirect,followups:out.followups,leaders:out.leaders,contexts,pairResponse,representativeV31,relations:scenarios,checkpoints:[],cross_measurement_review:paceHold,shared_scenarios:[...historicalScenarios,...scenarios],runners,clock_conflicts:sourceConflicts,formal:false,grade:null,core:'consume32->analyzeV31->V30->V29->V28->V27',groups:118,held:826};
+ return {schema:'REBORN2_COMMON_ANALYSIS_TO_CODEX_AXES_V33_RESEARCH',source_digest:null,source_evidence:p.packet.evidence.length,source_item_rows:p.packet.runners.length*115,source_available:p.packet.runners.flatMap(r=>r.items).filter(i=>i.refs.length).length,roster:{...out.roster,unknown_slots:runners.filter(h=>h.status!=='CANCELLED'&&(!h.identity_known||h.status!=='ACTIVE')).map(h=>h.slot)},history:out.historical,direct:out.direct,indirect:out.indirect,followups:out.followups,leaders:out.leaders,contexts,pairResponse,representativeV31,eyeReturns,relations:scenarios,checkpoints:[],cross_measurement_review:paceHold,shared_scenarios:[...historicalScenarios,...scenarios],runners,clock_conflicts:sourceConflicts,formal:false,grade:null,core:'consume32->analyzeV31->V30->V29->V28->V27',groups:118,held:826};
 }
 export function analyzeV33(n,{withdraw=null,placeThreshold=null,candidate=null,loaded=loadWork32()}={}){
  const env=candidate??envelope32(n,loaded),r=consume32(loaded.text,n,env,sha,pipeline31,verifier31,enrich,withdraw,{placeThreshold});
  assert.equal(r.state,'COMMON_ANALYZER_EXECUTED',r.reason);
  return {...r.result,source_digest:r.pack.packet&&env.digest};
+}
+
+// Work33 source is a newly retrieved fixed research commit, not official evidence.
+// Expose the existing private verification functions from the exact pinned source,
+// without modifying that source or relaxing its replay requirements.
+export async function loadControlledWork33(){
+ const l=loadWork32(),src=readFileSync(new URL('./work33-pinned/stage33-contrast-research-v0.1.mjs',import.meta.url)),summary=readFileSync(new URL('./work33-pinned/stage33-execution-summary-v0.1.json',import.meta.url));
+ assert.equal(blob(src),'8b5a598781d3b3700e930d4ac0f2be9e8517d424');assert.equal(blob(summary),'7ea27efdef45d734f41b54ad2d570b07dc461d67');
+ const adapter=verifiedFile('stage32-verified-common-adapter-v0.1.2.mjs').toString('utf8')+'\nexport {verify32,adapt32};\n';
+ const {verify32,adapt32}=await import('data:text/javascript;base64,'+Buffer.from(adapter).toString('base64'));
+ const {makeCases}=await import('data:text/javascript;base64,'+src.toString('base64'));
+ const fixtures=makeCases(),receipt=JSON.parse(summary);
+ assert.equal(fixtures.length,8);
+ return {canonical:l.bundle.canonical,fixtures,receipt,verify32,adapt32};
+}
+export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,candidate=null}={}){
+ const f=C.fixtures.find(x=>x.id===id);assert.ok(f);
+ const {input,registry,out}=run31(f.docs,C.canonical,sha);
+ assert.equal(out.state,'TEST_PACKET');assert.equal(out.digest,sha(JSON.stringify(out.packet)));
+ const q={n:id,input,registry,expectedDigest:out.digest},text=JSON.stringify({scope:'SYNTHETIC_ONLY',canonical:C.canonical,cases:[q]})+'\n';
+ const v=C.verify32(text,id,candidate??out,sha,pipeline31,verifier31,sha(text));assert.equal(v.state,'VERIFIED_SYNTHETIC_ENVELOPE',v.reason);
+ const p=C.adapt32(v,sha),all=new Map(p.o.evidence.map(e=>[e.evidence_id,e])),{get}=dependencyReader(all,withdraw);
+ assert.ok(withdraw===null||all.has(withdraw),'WITHDRAW_ID');p.o.followups=p.o.followups.filter(x=>get(x.source_ref));
+ const L={cases:new Map([[id,p]]),canonical:C.canonical,work30:new Map(),work27:new Map()};
+ const r=enrich(L,id,withdraw,{placeThreshold}),expected=C.receipt.summary.find(x=>x.id===id);
+ assert.equal(r.source_evidence,expected.evidence);assert.equal(r.source_item_rows,expected.itemRows);
+ return {...r,source_digest:out.digest,source_packet:out.packet,source_envelope:out};
 }
