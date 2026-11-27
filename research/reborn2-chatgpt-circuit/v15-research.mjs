@@ -20,6 +20,7 @@ const allowed=(o,keys)=>{if(!o||Object.keys(o).some(k=>!keys.split(' ').includes
 function validateShape(c){
  allowed(c,'id target history synthetic_pace_reference scenarios stage_partition weight_report workout');
  allowed(c.target,'id date start published conditions field_complete candidate_ids entrants');
+ for(const s of c.scenarios??[])allowed(s,'id kind assumed_early_contenders pace_assumption observed assumed_leader_one_of other_of_pair H1_position');
  const condition=o=>allowed(o,'venue course_version distance_m surface turn first_corner_m going grade layout rule_version eligibility');
  condition(c.target.conditions);
  for(const h of c.target.entrants??[])allowed(h,'id runner draw sex age kg status');
@@ -64,7 +65,7 @@ export function replayV2(c,{reveal=true}={}){
  const own=used.flatMap(r=>r.rows.filter(x=>x.id===id).map(x=>({r,x}))).sort((a,b)=>b.r.date.localeCompare(a.r.date));
  const latest=own[0],p=latest?positions(latest.r,latest.x):[],first=p.find(q=>q.segment===1)?.rank_min??null,n=latest?.r.field_count??null;
  const any=p.some(q=>q.rank_max<=3)?true:p.length===4?false:null,early=first==null?null:first<=3;
- const routes=own.filter(({r})=>same(r.conditions,t.conditions,condKeys)).map(({r,x})=>{const pp=positions(r,x),a=pp.find(z=>z.segment===1)?.rank_min??null,b=pp.find(z=>z.segment===4)?.rank_min??null;return {race:r.id,finish:x.finish,win_attained:x.finish===1,place_attained:x.finish<=3,early:a,last:b,field:r.field_count,roots:roots(r,x),time_scope:r.start?'START_PUBLICATION_LOCAL_ORDER':'DATE_ONLY',forward_fade:a!=null&&a<=3&&b!=null&&b>a&&x.finish>3};});
+ const routes=own.filter(({r})=>same(r.conditions,t.conditions,condKeys)).map(({r,x})=>{const pp=positions(r,x),a=pp.find(z=>z.segment===1)?.rank_min??null,b=pp.find(z=>z.segment===4)?.rank_min??null;return {race:r.id,finish:x.finish,win_attained:x.finish===1,place_attained:x.finish<=3,margin_tenths:x.margin_tenths??null,early:a,last:b,field:r.field_count,roots:roots(r,x),time_scope:r.start?'START_PUBLICATION_LOCAL_ORDER':'DATE_ONLY',forward_fade:a!=null&&a<=3&&b!=null&&b>a&&x.finish>3};});
  const direct=[],indirect=[],follow=[];
  for(const {r,x} of own){
  for(const peer of ids.filter(y=>y!==id)){const y=r.rows.find(z=>z.id===peer);if(y)direct.push({peer,race:r.id,order:Math.sign(y.finish-x.finish),conditions_match:same(r.conditions,t.conditions,condKeys),roots:[key('RESULT',r.id,id),key('RESULT',r.id,peer)]});
@@ -79,9 +80,19 @@ export function replayV2(c,{reveal=true}={}){
  const rankAudit={runners:roster.map(h=>{const d=decisions.find(x=>x.id===h.horse_id),a=typed.find(x=>x.horse_id===h.horse_id);return {...h,items:catalog.filter(x=>!x.id.startsWith('EYE-')).map(x=>{let facts=a.items[x.id]?.observations.map(o=>({value:o.value,evidence_ids:o.evidence_ids}))??[];if(x.id==='35'||x.id==='36'||x.id==='37')facts=(x.id==='35'?d.direct:x.id==='36'?d.indirect:d.follow).map(v=>({value:v,evidence_ids:v.roots}));return {item_id:x.id,finding:{facts,hypotheses:[],counterevidence:[],unknowns:[]},evidence_ids:uniq(facts.flatMap(q=>q.evidence_ids))};})};})};
  const eye=inspectEye15({target,roster,rankAudit,intake,catalog,traceRead:x=>trace.push(x)});
  for(const d of decisions){const e=eye.find(x=>x.horse_id===d.id).items.find(x=>x.eye_item_id==='EYE-05'),seen=new Map();for(const f of d.follow.filter(x=>e.original_event_keys.includes(x.shared_followup_key))){if(!seen.has(f.shared_followup_key))seen.set(f.shared_followup_key,{root:f.shared_followup_key,finish:f.peer_finish,prior_routes:[]});seen.get(f.shared_followup_key).prior_routes.push(f.prior_race_id);}
- d.conditional_route_review=d.routes.map(r=>{const peer=[...seen.values()].filter(x=>x.prior_routes.includes(r.race));const incident=d.incidents.filter(x=>x.includes(r.race));return {race:r.race,own_place_attained:r.place_attained,close_against_later_top3:r.place_attained&&peer.some(x=>x.finish<=3),loss_context:incident.length?'OBSERVED_INCIDENT_CAUSAL_SHARE_UNKNOWN':r.forward_fade?'OBSERVED_POSITION_LOSS':'NONE_RECORDED',root_keys:uniq([...r.roots,...peer.map(x=>x.root),...incident]),current_effect:null};});}
+ d.conditional_route_review=d.routes.map(r=>{const peer=[...seen.values()].filter(x=>x.prior_routes.includes(r.race));const incident=d.incidents.filter(x=>x.includes(r.race));return {race:r.race,own_place_attained:r.place_attained,place_with_later_top3_peer:r.place_attained&&peer.some(x=>x.finish<=3),observed_margin_tenths:r.margin_tenths,loss_context:incident.length?'OBSERVED_INCIDENT_CAUSAL_SHARE_UNKNOWN':r.forward_fade?'OBSERVED_POSITION_LOSS':'NONE_RECORDED',root_keys:uniq([...r.roots,...peer.map(x=>x.root),...incident]),current_effect:null};});}
+ const scenarios=t.field_complete?(c.scenarios??[]).map(s=>{
+ if(s.kind!=='HYPOTHETICAL'||s.observed!==false)throw Error('SCENARIO_NOT_HYPOTHETICAL');
+ const contenders=s.assumed_early_contenders??null,possibleLeaders=s.assumed_leader_one_of??null;
+ if([...(contenders??[]),...(possibleLeaders??[])].some(x=>!ids.includes(x))||contenders&&new Set(contenders).size!==contenders.length)throw Error('SCENARIO_IDS');
+ return {id:s.id,assumption_only:true,assumed_contenders:contenders,possible_leaders:possibleLeaders,observed_pace:null,judgments:decisions.map(d=>{
+ const leadWin=d.routes.filter(r=>r.early===1&&r.win_attained),latePlace=d.routes.filter(r=>r.early>3&&r.last<=3&&r.place_attained);
+ const other=contenders?.filter(x=>x!==d.id).length;
+ return {id:d.id,lead_win_witnesses:leadWin.map(r=>r.race),late_place_witnesses:latePlace.map(r=>r.race),lead_route_precondition:leadWin.length?(contenders?.includes(d.id)&&other>0?'CONTEST_ASSUMED_EASY_LEAD_NOT_ESTABLISHED':contenders?.includes(d.id)&&other===0?'NO_OTHER_ASSUMED_CONTENDER':'POSITION_OR_LEAD_UNRESOLVED'):'NO_RECORDED_LEAD_WIN_WITNESS',late_route_context:latePlace.length?(s.pace_assumption==='fast'?'FAST_PACE_ASSUMPTION_RELEVANT_NO_REALIZED_BENEFIT':'PACE_EFFECT_UNRESOLVED'):'NO_RECORDED_LATE_PLACE_WITNESS',current_effect:null,roots:uniq([...leadWin,...latePlace].flatMap(r=>r.roots))};
+ })};
+ }):[];
  const field=t.field_complete?{size:ids.length,any_top3:decisions.filter(d=>d.any_top3===true).length,early_top3:decisions.filter(d=>d.early_top3===true).length,late_only:decisions.filter(d=>d.late_only).map(d=>d.id),scope:'LATEST_SUPPLIED_NOT_AUTHENTICATED_IMMEDIATE_START'}:null;
- return {id:c.id,decisions,field,strict_time_races:used.filter(r=>r.start!=null).map(r=>r.id),date_only_races:used.filter(r=>r.start==null).map(r=>r.id),laps:used.filter(r=>lap(r)).map(r=>({race:r.id,...leaderWindows(lap(r)),time_scope:r.start?'LOCAL_START':'DATE_ONLY'})),formal:false};
+ return {id:c.id,decisions,field,scenarios,strict_time_races:used.filter(r=>r.start!=null).map(r=>r.id),date_only_races:used.filter(r=>r.start==null).map(r=>r.id),laps:used.filter(r=>lap(r)).map(r=>({race:r.id,...leaderWindows(lap(r)),time_scope:r.start?'LOCAL_START':'DATE_ONLY'})),formal:false};
 }
 // Full generated data only: use real common research kernels with explicitly synthetic identity and exact times.
 export function runGenerated(c){
