@@ -76,3 +76,5 @@ node test-work32-v33-current.mjs
 node test-work33-v33-controlled.mjs
 
 node test-work33-v34-synthesis.mjs
+
+node test-work34-v36-current.mjs

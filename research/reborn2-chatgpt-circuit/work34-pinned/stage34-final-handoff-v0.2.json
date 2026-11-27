@@ -1,0 +1,270 @@
+{
+  "schema": "WORK34_FIVE_FIELD_V34_RESEARCH_HANDOFF_0.2",
+  "scope": "SYNTHETIC_ONLY",
+  "parent": "4b479a7fc807e3abed27b03cad8771613661a4a5",
+  "main40_audit": "8c587d5620cdad7275534f8a509db7c4f14f2c2c",
+  "gemini_audit": "fd06d8d9d450ea69a3b06c2c0f037c497141da91",
+  "v34_fixed": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+  "canonical": 115,
+  "groups": 118,
+  "held": 826,
+  "priorRecorded": 538,
+  "newChecks": 38,
+  "combinedRecordedIfAccepted": 576,
+  "priorRerun": false,
+  "formal_admissions": 0,
+  "source_pins": [
+    {
+      "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+      "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+      "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+      "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-condition-pipeline-v0.1.2.mjs",
+      "blob": "93d87bb022dae3bae021ba62fc433504bc16f924",
+      "sha256": "2d1a8a6c6d6f15504a660478f60a626d47ec3ec6dee8a94175b82e920dd7fa23"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-bundles-v0.1.2.json",
+      "blob": "b7795dc91ebe203827b1054448068a8e2465069f",
+      "sha256": "befda1231124e5c9aef088659436077c5c9027c7301ff66d29e6ae8827b1af69"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-verified-common-adapter-v0.1.2.mjs",
+      "blob": "1693dfd4657483a1f9e457188c28b38b9d8b2166",
+      "sha256": "098f94a2738d68d30030403788dc15f707dba4438719256f08b846403fba0e92"
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/research-ability-core.mjs",
+      "blob": "92112f6c5e0a38c38aa8d1eff997127bae7d191d",
+      "sha256": "93b1515e2e2f3796296f650cdc8d64f005828521a9b450492827558682e2ca4f",
+      "exports": [
+        "uniq",
+        "dependencyReader",
+        "relativePosition",
+        "ordinalPath",
+        "signedGap",
+        "conditionDelta",
+        "winPlaceRequirements",
+        "repeatEnvelope"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work26-v27-integrated.mjs",
+      "blob": "5b1e805f605879321e2ae5176c29021bc26f7ac9",
+      "sha256": "a59020167726d590f5b378c4d26907c9cdd37fc401ebf4dd2c8cc2cf4ab5c7ab",
+      "exports": [
+        "analyzeV27"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work27-v28-contrast.mjs",
+      "blob": "42fda8b93261079fbb09a053463657af7ca8b703",
+      "sha256": "69029b5020f59158135cad2269c17c0fc09080f9376c3246340cd963c7459ab7",
+      "exports": [
+        "analyzeV28"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work28-v29-feasibility.mjs",
+      "blob": "d7275c6c06f9ed7aac49bc0017ad008cc6cf6de2",
+      "sha256": "ba4f1e1091cc36eabc2c1e67da90982d349ef8b934f1293002da16aa8b6f47b4",
+      "exports": [
+        "analyzeV29",
+        "classifyInterval"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work29-v30-terminal.mjs",
+      "blob": "c3048ab248ae11f5c6c0d981a62c8b8633f7c49c",
+      "sha256": "c78cf46d856564dc2026117b7869100d3e13dd3f20b4660c1f54c89fe6b496df",
+      "exports": [
+        "analyzeV30",
+        "jointField"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work30-v31-integrated.mjs",
+      "blob": "6e812e54ea096f55b2307d05659faaf4824711f2",
+      "sha256": "a1e67df2b40e943991ddf2cde7dcbbfe9f2c6f9f2d9fe19362894b69a91c1b8e",
+      "exports": [
+        "analyzeV31",
+        "compareV31Response"
+      ]
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-chatgpt-circuit/work32-v33-current.mjs",
+      "blob": "80e33a31e8f5c032f591fc1c43bf958a6fceb90f",
+      "sha256": "ecb59e243bc32c547247003f45fd5083147a6a5bf49085ae355eb90f345754c0"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+      "blob": "e652dcde2cf73577bc0a9d4fa4cfc1fc6d8ea228",
+      "sha256": "1241ffc9af725965f3e305b5fc6c52ce8e740ac9ed9f21a65188b7186b2db19d"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-v34-codex-pinned/engine.mjs",
+      "blob": "6fcfe19dbdbb052b87b73186d6c2a0df44460939",
+      "sha256": "612719a57bd40aa560c8ef05d9aaaa2ed43043208898a08e80d119610fcfb1d3"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-v34-codex-pinned/synthesis.mjs",
+      "blob": "fa23a3c606ce636f1663a499d76dcbe339bffcc5",
+      "sha256": "51a64613e1c691c26e6fdab56406cfbfa9497e4259677931d44827835e652a95"
+    },
+    {
+      "ref": "39c52562d850cc51ff7d7b999b6834801a5c5f8b",
+      "path": "research/reborn2-official-sources/stage34-five-field-v0.2.mjs",
+      "blob": "d9c50a1d9f6c7656051f80a7a84de37e4540e88b",
+      "sha256": "4812d5dfc4db2f79d1529638333484b1483dfcc38cb3aea3d1da78a87dfbd28c"
+    }
+  ],
+  "files": [
+    {
+      "ref": "0f16a98528aa3e8e790b5d7382af43d7122d9c12",
+      "path": "research/reborn2-official-sources/stage34-five-field-v0.2.mjs",
+      "blob": "d9c50a1d9f6c7656051f80a7a84de37e4540e88b",
+      "sha256": "4812d5dfc4db2f79d1529638333484b1483dfcc38cb3aea3d1da78a87dfbd28c",
+      "bytes": 8270
+    },
+    {
+      "ref": "0f16a98528aa3e8e790b5d7382af43d7122d9c12",
+      "path": "research/reborn2-official-sources/stage34-execution-summary-v0.2.json",
+      "blob": "e620f1c5ef16410ee1dd47c25413b02e66bdcb46",
+      "sha256": "c1d4dd3ed8db353e70266dc7ac09bc361f489a13c9e3001b4d06697e45634382",
+      "bytes": 32333
+    },
+    {
+      "ref": "0f16a98528aa3e8e790b5d7382af43d7122d9c12",
+      "path": "research/reborn2-official-sources/stage34-raw-fixtures-v0.2.json",
+      "blob": "21fc312418165985504fb6c230ebeb3321ae9ae6",
+      "sha256": "ec46adc52a23545a1f923956b919407ec95f081ed26ecdbbc5e0b7f918c28555",
+      "bytes": 38547
+    },
+    {
+      "ref": "0f16a98528aa3e8e790b5d7382af43d7122d9c12",
+      "path": "research/reborn2-official-sources/stage34-actual-v34-receipts-v0.2.json",
+      "blob": "5745d02b745490784a6f17e1831effd1f5f7f8cb",
+      "sha256": "688dc45b3469ceb187d8f75edd54c487f6b7d59e1cefc0d1c4b7032ca6712c39",
+      "bytes": 486361
+    }
+  ],
+  "cases": [
+    {
+      "id": "FK34_FULL",
+      "source_digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+      "bundle_sha256": "1d3f0a66ffec5f26a985167520d81fa495a6eefd091e54d4bea76d05db39a8ca",
+      "evidence": 537,
+      "itemRows": 575,
+      "grades": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ]
+    },
+    {
+      "id": "FK34_DISCOVERY",
+      "source_digest": "96a444d913920031add473845fd2e5682b88fb9c1f77afa8314a996020d19f1a",
+      "bundle_sha256": "cae903022d1bf2560784cfded869b841f167e9f805d7f6bb1cb58b0f73c04fe6",
+      "evidence": 393,
+      "itemRows": 575,
+      "grades": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ]
+    },
+    {
+      "id": "FK34_UNKNOWN",
+      "source_digest": "ee05bf601bd1cf091643b4553cce2954b23dc64c4fd31972e6cdf2f2ac5d0937",
+      "bundle_sha256": "729b2028d4bbf7bc14179b7d61fb53d5e6c2fadc8326dbc95905127becd15b9a",
+      "evidence": 497,
+      "itemRows": 575,
+      "grades": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "FK34_NEGATIVE_ONLY",
+      "source_digest": "85ed11b719251b864b81dfda583cb5e193e7a643f99f39a1f4a3cc343e5db16c",
+      "bundle_sha256": "a5d56682a261337840e655bbae1a96421863cc7cf65f7461526411db553cdcd7",
+      "evidence": 81,
+      "itemRows": 575,
+      "grades": [
+        "B",
+        "A",
+        "C",
+        "C",
+        "C"
+      ]
+    },
+    {
+      "id": "FK34_NEGATIVE_REMOVED",
+      "source_digest": "c836d95df8fb1357ca2e57e2b27f397bb30f5abb73cec0d56a2e9333b09a55ae",
+      "bundle_sha256": "dd831e0587b72bff11c24e0167b2ab20a5529ea063adbdd84dd36c32e84dc1a0",
+      "evidence": 59,
+      "itemRows": 575,
+      "grades": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "results": {
+    "caseVariants": 5,
+    "distinctTargetRace": 1,
+    "evidenceAcrossOverlappingVariants": 1567,
+    "itemRowsAcrossVariants": 2875,
+    "fullEvidence": 537,
+    "fullItemRows": 575,
+    "fullEYEFeedback": 4,
+    "h4_h5_state": "CONDITIONAL_RECOVERY_SUPPORTED_AFTER_COUNTER_REVIEW",
+    "h4_h5_before": [
+      3,
+      3
+    ],
+    "h4_h5_after": [
+      1,
+      4
+    ],
+    "h4_grade_candidate": "A",
+    "unknown_rival_all_held": true,
+    "negative_removed_h4_held": true,
+    "unrelated_histories_preserved": true
+  },
+  "consumer": "Use raw-fixtures and canonical, verify hashes and source pins, replay producer and compare stored digest and bundle SHA256 before constructing C and fixed. Execute actual V34 analyzeV34; native loadV34 hardcodes nine Work33 cases and needs a new Work34 intake contract. No new scoring engine. No expected grade in raw input. JS isolate import/export plumbing and assert/SHA shims; native loader not exercised. For independent audit rerun using exact fixture/code pins and compare full receipt. No formal adoption.",
+  "limitations": [
+    "Actual V34 analyzeV34, prepare, assessShared, summarizeHorse and PR95 synthesize/stressScenario executed from pinned source bodies; unused native loader not executed; JS isolate import/export, assert, SHA and unused loader manifest shims.",
+    "Work34 caller builds C/fixed from newly replayed fixtures; V34 native loadV34 hardcodes Work33 nine cases, so integration of saved Work34 index requires Codex loader change. No source pin from an independent Work34 audit yet.",
+    "V34 research candidates only; current roles/pace not measured; no S under current V34 rule. Grade candidates from comparable historical envelopes; EYE discovery feedback not used by candidate rule. Do not claim a final grade or true positive current effect.",
+    "Full prior538 not rerun, no native Node CI, no production. Raw class label is not opponent strength. Historical crossing observations are synthetic, not official.",
+    "Only one positive H4/H5 pair conditional path, not an improvement in H4 overall envelope or candidate grade; EYE03 vs H1/H2/H3 remains unresolved, withdrawal removes H1/H3 feedback while H2/H5 still supported or unresolved by other evidence. Counter removal without positives yields hold, not B/A.",
+    "Explicit historical H2/H5 early crossing proximity, not proof of physiological pressure, actual role, or adverse load. No separately varied current course/going or measured opponent class strength. All same declared class. H5 unknown variant preserves possible roster but V34 conservatively holds all grade candidates. No S-multiple demonstration, V34 intentionally excludes S at this stage.",
+    "Initial33 checks superseded by revised38, not additive; repeated final execution not new tests. All historical fields and times fictional."
+  ]
+}
