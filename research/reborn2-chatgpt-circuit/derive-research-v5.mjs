@@ -1,6 +1,7 @@
 import {readFileSync} from 'node:fs';
 import {fingerprint} from './recompute-full-rank.mjs';
 import {stagedAbilityResearch} from './staged-eye-return.mjs';
+import {historyKnown} from './fictional-research-context.mjs';
 import {lookupWorkCohortDiagnostic} from './work-v09-benchmark-gate.mjs';
 const defs=JSON.parse(readFileSync(new URL('./analysis-contract-115-v5.json',import.meta.url),'utf8')).items;
 const uniq=xs=>[...new Set(xs)].sort();
@@ -20,11 +21,12 @@ function observations(item){
 }
 function makeContext(analysis,target){
  const accepted=analysis.prior.intake.accepted;
+ if(target.circuit==='FIXTURE'&&(analysis.prior.intake.fixture_only!==true||accepted.some(g=>g.fixture_only!==true||g.formal_admission!==false)))throw Error('FICTIONAL_SYNTHESIS_INTAKE_REQUIRED');
  const refs=new Map(accepted.flatMap(g=>g.evidence_ids.map(e=>[e,g])));
  const eventRefs=xs=>uniq(xs.flatMap(e=>refs.has(e)?[refs.get(e).event_key]:[]));
  const result=(id,r)=>{const a=accepted.filter(g=>g.record.kind==='RESULT'&&sameScope(g,id,r));return a.length===1?a[0]:null;};
  const card=id=>{const a=accepted.filter(g=>g.record.kind==='CURRENT_CARD'&&sameScope(g,id,target.race_id));return a.length===1?a[0]:null;};
- const chronology=id=>{const a=accepted.filter(g=>g.record.kind==='HISTORY'&&sameScope(g,id,target.race_id)&&g.record.fact.chronology_verified===true);if(a.length!==1)return null;const ids=a[0].record.fact.ordered_actual_start_race_ids;if(!Array.isArray(ids)||new Set(ids).size!==ids.length)return null;const records=ids.map(r=>result(id,r));if(records.some(x=>!x)||records.some((x,i)=>i>0&&Date.parse(records[i-1].record.event_at)<=Date.parse(x.record.event_at)))return null;return {group:a[0],records};};
+ const chronology=id=>{const a=accepted.filter(g=>g.record.kind==='HISTORY'&&sameScope(g,id,target.race_id)&&historyKnown(target,g.record.fact));if(a.length!==1)return null;const ids=a[0].record.fact.ordered_actual_start_race_ids;if(!Array.isArray(ids)||new Set(ids).size!==ids.length)return null;const records=ids.map(r=>result(id,r));if(records.some(x=>!x)||records.some((x,i)=>i>0&&Date.parse(records[i-1].record.event_at)<=Date.parse(x.record.event_at)))return null;return {group:a[0],records};};
  return {accepted,refs,eventRefs,result,card,chronology};
 }
 export function deriveResearchV5({analysis,target}){
@@ -138,7 +140,7 @@ export function deriveResearchV5({analysis,target}){
   return {horse_no:h.horse_no,horse_id:h.horse_id,active,items,work_benchmark_diagnostic:cohortDiagnostic,five_axis_findings:axes,winning_paths:winning,placing_paths:placing,major_counter_candidates:major,decisive_counterevidence:[],material_unknowns:material,nonmaterial_unknowns:[],materiality_status:'ROUTE_PREREQUISITES_ONLY_NOT_FINAL',eye:{items:eyeItems,items_executed:eyeItems.length,all_items_reviewed:false,items_with_observations:eyeItems.filter(e=>e.checks.observation_present).length,items_with_current_condition_comparison:eyeItems.filter(e=>e.checks.current_condition_comparison).length,material_coverage_complete:false,ability_eligible:null,selection:null},original_event_groups:[...historicalEvidenceGroups].map(([key,ids])=>({key,item_ids:uniq([...ids]),independent_vote:false})).sort((a,b)=>a.key.localeCompare(b.key)),rank_candidate:null,decision_status:!active?'NOT_APPLICABLE':!bound?'IDENTITY_HOLD':'FORMAL_JUDGMENT_DISABLED',formal_consumption:0};
  });
  for(const h of runners)for(const i of h.items)i.synthesis_runtime_reads=reads.filter(x=>x.horse_no===h.horse_no&&x.item_id===i.item_id);
- return {runners,runtime_reads:reads,raw_evidence_reads:rawReads,scope:{catalog_items:defs.length,all_roster_rows:runners.length,formal_consumption:0,formal_admissions:0,full_runtime_dependency_extraction:false},release_eligible:false};
+ return {runners,runtime_reads:reads,raw_evidence_reads:rawReads,fixture_only:target.circuit==='FIXTURE',formal_admission:false,scope:{catalog_items:defs.length,all_roster_rows:runners.length,formal_consumption:0,formal_admissions:0,full_runtime_dependency_extraction:false},release_eligible:false};
 }
 export function abilityResearch115v5(args){
  const staged=stagedAbilityResearch(args),target=args.rankArgs.oppositionArgs.target;

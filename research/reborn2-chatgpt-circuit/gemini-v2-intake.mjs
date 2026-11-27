@@ -82,12 +82,12 @@ export function prepareGeminiV2(raw){
   if(days!==null&&days!==z.reported_interval_days)hold('INTERVAL',h.horse_id,'REPORTED_DATE_INTERVAL_CONFLICT',{reported:z.reported_interval_days,computed:days});
   if(!chronology)hold('HISTORY',h.horse_id,'NO_LINKED_PAST_HISTORY');
  }
- const ce=mk('course:'+t.race_id,null,t.race_id,t.cutoff);push(ce,null,null);geometry.push({...ce,...cond(r0),circuit:'FIXTURE',fixture_geometry_observed:true,first_turn_m:r0.first_turn_m,first_turn_precision:'approximate'});
+ const ce=mk('course:'+t.race_id,null,t.race_id,t.cutoff);push(ce,'FIXTURE_COURSE',{first_turn_m:r0.first_turn_m,course_version:r0.course_version},t.cutoff);geometry.push({...ce,...cond(r0),circuit:'FIXTURE',fixture_geometry_observed:true,first_turn_m:r0.first_turn_m,first_turn_precision:'reported'});
  const followKeys=new Map();for(const f of raw.peer_followups){const k=f.peer_horse_id+'|'+f.race_id;followKeys.set(k,(followKeys.get(k)??0)+1);}
  for(const f of raw.peer_followups){const r=validById.get(f.prior_race_id),peer=r?.rows.find(x=>x.horse_id===f.peer_horse_id),key=f.peer_horse_id+'|'+f.race_id;
   const ok=r&&r.subject_horse_id===f.subject_horse_id&&peer&&peer.horse_id!==f.subject_horse_id&&followKeys.get(key)===1&&fixtureHorse(f.peer_horse_id)&&f.date>r.date&&obsDate(f.publication_local)===f.date&&time(f.publication_local)<=time(t.cutoff)&&posInt(f.finish);
   if(!ok){hold('PEER_FOLLOWUP',key,'LINK_DATE_OR_RESULT_INVALID');continue;}
-  const e=mk('followup:'+key,f.peer_horse_id,f.race_id,f.publication_local);push(e,null,null);
+  const e=mk('followup:'+key,f.peer_horse_id,f.race_id,f.publication_local);push(e,'FIXTURE_FOLLOWUP',{prior_race_id:f.prior_race_id,finish:f.finish,date:f.date,publication_local:f.publication_local,full_result:null},null);
   followups.push({...e,...f,prior_peer_finish:peer.finish,subject_finish:r.rows.find(x=>x.horse_id===f.subject_horse_id).finish,prior_evidence_id:'fixture-v2:result:'+r.race_id+':'+peer.horse_id,scope:'LINKED_PARTIAL_FICTIONAL_FOLLOWUP_NO_START_TIME_OR_FULL_FIELD'});
   hold('PEER_FOLLOWUP_FULL_FIELD',key,'MISSING_LATER_RACE_START_TIME_RUNNER_NO_AND_FULL_FIELD');
  }

@@ -4,6 +4,8 @@ import {historyDenominators} from './evidence-semantics.mjs';
 export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const ids=Array.from({length:32},(_,i)=>String(i+1).padStart(2,'0'));
  const accepted=intake.accepted;
+ const fictional=target.circuit==='FIXTURE';
+ if(fictional&&(intake.fixture_only!==true||accepted.some(g=>g.fixture_only!==true||g.formal_admission!==false||g.record.official_evidence!==false)))throw Error('FICTIONAL_TYPED_INTAKE_REQUIRED');
  const keyset=['course_id','course_version','distance_m','surface','going','class_key'];
  const exact=(a,b)=>!!a&&!!b&&keyset.every(k=>a[k]!=null&&a[k]===b[k]);
  const uniq=xs=>[...new Set(xs)].sort();
@@ -17,11 +19,11 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const declaredOrder=chronological.length===1?chronological[0].record.fact.ordered_actual_start_race_ids:[];
  const order=new Set(declaredOrder).size===declaredOrder.length?declaredOrder:[];
  const get=(xs,race)=>{const rs=xs.filter(g=>g.record.race_id===race);return rs.length===1?rs[0]:undefined;};
- const put=(id,kind,value,groups,upstream=[])=>{if(!groups.length)return;items[id].observations.push({kind,value,evidence_ids:uniq(groups.flatMap(g=>g.evidence_ids)),original_event_keys:uniq(groups.map(g=>g.event_key)),upstream_item_ids:upstream,status:'STRUCTURAL_RESEARCH_CANDIDATE'});items[id].status='CANDIDATE_OUTPUT';};
+ const put=(id,kind,value,groups,upstream=[])=>{if(!groups.length)return;items[id].observations.push({kind,value,evidence_ids:uniq(groups.flatMap(g=>g.evidence_ids)),original_event_keys:uniq(groups.map(g=>g.event_key)),upstream_item_ids:upstream,status:fictional?'FICTIONAL_OBSERVATION_ONLY':'STRUCTURAL_RESEARCH_CANDIDATE'});items[id].status='CANDIDATE_OUTPUT';};
  const unknown=(id,reason)=>items[id].unknowns.push(reason);
  for(const g of results){
  const f=g.record.fact,r=g.record.race_id;
- put('02','OFFICIAL_START_STATE',{race_id:r,start_status:f.start_status,finish:f.finish,field_size:f.field_size??null},[g]);
+ put('02',fictional?'FIXTURE_FINISH_STATE':'OFFICIAL_START_STATE',{race_id:r,start_status:f.start_status,finish:f.finish,field_size:f.field_size??null},[g]);
  if(f.start_status!=='FINISHED')continue;
  if(f.winner_gap_tenths!=null||f.margin_reference==='WINNER')put('03','WINNER_GAP',{race_id:r,clock_gap_tenths:f.winner_gap_tenths??null,official_margin:f.margin_reference==='WINNER'?f.official_margin:null,dead_heat_group:f.dead_heat_group??null},[g]);
  // A following finisher's official margin is only usable when its preceding horse is explicitly bound.
@@ -35,6 +37,11 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const intervening=full&&allRows.some(x=>x.record.fact.start_status==='FINISHED'&&x.record.fact.finish>f.finish&&x.record.fact.finish<q.finish);
  if(intervening||q.finish!==f.finish+1&&!full){unknown('04','FOLLOWING_RANK_ADJACENCY_UNRESOLVED:'+r);continue;}
  put('04','FOLLOWING_HORSE_MARGIN',{race_id:r,following_horse_id:p.record.horse_id,official_margin:q.official_margin,clock_gap_tenths:f.clock_tenths!=null&&q.clock_tenths!=null&&q.clock_tenths>=f.clock_tenths?q.clock_tenths-f.clock_tenths:null,adjacency_scope:full?'FULL_FIELD':'CONSECUTIVE_RANK'},[g,p,...(full?[field,...allRows]:[])],['02','05']);}
+ if(fictional){
+ const field=accepted.find(x=>x.record.kind==='RACE_FIELD'&&x.record.race_id===r&&x.record.fact.fixture_full_field_consistent===true);
+ const next=accepted.filter(x=>x.record.kind==='PEER_RESULT'&&x.record.race_id===r&&x.record.event_at===g.record.event_at&&x.record.fact.finish===f.finish+1&&x.record.fact.field_size===f.field_size);
+ if(field&&next.length===1&&Number.isInteger(f.clock_tenths)&&Number.isInteger(next[0].record.fact.clock_tenths)&&next[0].record.fact.clock_tenths>=f.clock_tenths)put('04','FOLLOWING_CLOCK_GAP_FIXTURE',{race_id:r,following_horse_id:next[0].record.horse_id,clock_gap_tenths:next[0].record.fact.clock_tenths-f.clock_tenths,official_margin:null,adjacency_scope:'COMPLETE_FICTIONAL_FIELD'},[g,next[0],field],['02','05']);
+ }
  if(f.clock_tenths!=null)put('05','DISPLAY_CLOCK',{race_id:r,tenths:f.clock_tenths},[g]);
  if(f.final3f_tenths!=null)put('06','INDIVIDUAL_FINAL3F',{race_id:r,tenths:f.final3f_tenths},[g]);
  if(f.finish>1&&(f.winner_gap_tenths!=null||f.margin_reference==='WINNER'))put('28','DEFEAT_GAP_CANDIDATE',{race_id:r,finish:f.finish,gap_tenths:f.winner_gap_tenths??null,narrow_threshold:null},[g],['02','03']);
@@ -48,7 +55,7 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  }
  const incident=byKind('INCIDENT');
  for(const g of incident){
- const f=g.record.fact;put('26','OFFICIAL_INCIDENT',{race_id:g.record.race_id,code:f.incident_code,role:f.role},[g]);
+ const f=g.record.fact;put('26',fictional?'FIXTURE_RULING_OBSERVATION':'OFFICIAL_INCIDENT',{race_id:g.record.race_id,code:f.incident_code,role:f.role,...(fictional?{text:f.text,official_ruling_verified:false}:{})},[g]);
  const r=get(finished,g.record.race_id);
  if(f.role==='SUFFERED'&&r)put('27','INCIDENT_AND_FINISH',{race_id:g.record.race_id,finish:r.record.fact.finish,role:f.role,overcame:null},[g,r],['02','26']);
  }
