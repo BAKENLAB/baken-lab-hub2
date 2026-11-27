@@ -1,0 +1,11 @@
+import {writeFile,mkdir} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import {executeFixture} from './adapter.mjs';
+import {saveFixtureSnapshot,readFixtureSnapshot} from './store.mjs';
+import {renderHub} from './hub-preview.mjs';
+const [name='FK34_FULL',out]=process.argv.slice(2);if(!out)throw Error('Specify isolated local output directory outside the repository');
+const dir=resolve(out);await mkdir(dir,{recursive:true,mode:0o700});
+const s=await executeFixture(name),file=await saveFixtureSnapshot(join(dir,'snapshots'),s);
+const html=join(dir,'preview-'+s.snapshotDigest+'.html');
+await writeFile(html,renderHub(await readFixtureSnapshot(file)),{flag:'wx',mode:0o600});
+console.log(JSON.stringify({file,html,grades:s.runners.map(r=>[r.no,r.grade]),scope:s.scope,engine:s.engineCommit}));
