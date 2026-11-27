@@ -114,9 +114,22 @@ function analyze(V,id,threshold=2){
   const winRoutes=routes.filter(p=>p.decision==='WIN_SUPPORT'),placeRoutes=routes.filter(p=>p.decision==='WIN_SUPPORT'||p.decision==='PLACE_SUPPORT');
   // Require independent observed response events plus a cross-event route.
   // Counter routes remain visible and prevent a robust/unconditional S claim.
-  const candidate=winEvents.length>=2&&winRoutes.length?'A':placeEvents.length>=2&&placeRoutes.length?'B':null;
+  // Repeated historical wins alone do not establish a credible current route.
+  // Include the actual historical outcome from the SAME start event as a
+  // counter to the transfer, instead of excluding the self case from review.
+  const assess=(p,t)=>{
+   const same=history.find(q=>q.event===p.start_event);
+   const alternatives=routes.filter(q=>q.start_event===p.start_event&&q.applicable);
+   const negative=alternatives.filter(q=>q.env&&q.env.min>t).map(q=>q.response_event);
+   if(same?.env.min>t)negative.push(same.event);
+   return {start:p.start_event,response:p.response_event,claim:t,counterEvents:uniq(negative),unknown:alternatives.some(q=>q.env.min<=t&&q.env.max>t)||!same,formal:false};
+  };
+  const winReviews=winRoutes.map(p=>assess(p,1)),placeReviews=placeRoutes.map(p=>assess(p,threshold));
+  const coherentWin=winReviews.filter(q=>!q.counterEvents.length&&!q.unknown);
+  const coherentPlace=placeReviews.filter(q=>!q.counterEvents.length&&!q.unknown);
+  const candidate=winEvents.length>=2&&coherentWin.length?'A':placeEvents.length>=2&&coherentPlace.length?'B':null;
   return {...h,routes_v40:routes,history_v40:history,research_grade:candidate,current_grade:null,grade:null,formal:false,
-   scope:'EVIDENCE_BACKED_HISTORICAL_ANTECEDENT_TRANSFER_NOT_ACTUAL_CURRENT',winEvents,placeEvents,
+   scope:'EVIDENCE_BACKED_HISTORICAL_ANTECEDENT_TRANSFER_NOT_ACTUAL_CURRENT',winEvents,placeEvents,winReviews,placeReviews,
    research_reason:candidate?'REPEATED_MATCHED_OBSERVATIONS_AND_INDEPENDENT_CROSS_ROUTE':'INSUFFICIENT_MATCHED_REPEATED_ROUTE',
    material_unknowns:['TODAY_ROLE_PACE_NOT_OBSERVED','CURRENT_FORM_AND_LOAD','EXHAUSTIVE_CURRENT_ROUTE_COVERAGE']};
  });
@@ -214,9 +227,28 @@ t('F40-06',()=>{
   if(p.decision!=='HELD'){assert.ok(p.applicable&&p.paceComparable&&p.conditions&&p.roles&&p.measured);assert.notEqual(p.start_event,p.response_event);}
  }
 });
-const compact=x=>({id:x.id,digest:x.source_digest,evidence:x.source_packet.evidence.length,groups:x.groups,held:x.held,runners:x.runners.map(h=>({horse:h.slot,grade:h.research_grade,winEvents:h.winEvents,placeEvents:h.placeEvents,routes:h.routes_v40.map(p=>({id:p.id,decision:p.decision,WIN:p.WIN,PLACE:p.PLACE,env:p.env&&[p.env.min,p.env.max],axes:p.axes.map(a=>[a.axis,a.state]),paceComparable:p.paceComparable,roles:p.roles}))}))});
+const compact=x=>({id:x.id,digest:x.source_digest,evidence:x.source_packet.evidence.length,groups:x.groups,held:x.held,runners:x.runners.map(h=>({horse:h.slot,grade:h.research_grade,winEvents:h.winEvents,placeEvents:h.placeEvents,winReviews:h.winReviews,placeReviews:h.placeReviews,routes:h.routes_v40.map(p=>({id:p.id,decision:p.decision,WIN:p.WIN,PLACE:p.PLACE,env:p.env&&[p.env.min,p.env.max],axes:p.axes.map(a=>[a.axis,a.state]),paceComparable:p.paceComparable,roles:p.roles}))}))});
 for(const x of all)console.log('V40_CASE '+JSON.stringify(compact(x)));
 for(const g of V.generated)console.log('V40_PIN '+JSON.stringify({...g.p,rootMap:g.out.packet.evidence.filter(e=>candidates.includes(e.event)&&['TEST:H4','TEST:H2'].includes(e.subject)&&['checkpoint_ms','finish_clock','finish'].includes(e.field)).map(e=>({id:e.evidenceId,event:e.event,subject:e.subject,field:e.field,root:e.root,dependencies:e.dependencies}))}));
-const brief=d=>({...d,changes:d.changes.map(q=>({horse:q.horse,item:q.item}))});
+// This tests a literal fixed Work36 contrast, not an expected grade label.
+ // The 800m COUNTER starting vector plus POS_B measured response yields
+ // H4-H2 1300ms advantage (before combined interval uncertainty).
+ t('F40-07',()=>{
+  const h=pos.x.runners.find(h=>h.slot===H(4)),p=h.routes_v40.find(q=>q.start_event===ns(E('COUNTER'))&&q.response_event===ns(E('W36_POS_B')));
+  assert.ok(p,'INDEPENDENT_NONREPLAY_PATH');
+  const e=p.pairs.find(q=>q.rival===H(2));
+  assert.ok(e&&e.finish&&e.finish[0]>0&&e.recovery);
+  assert.equal((e.finish[0]+e.finish[1])/2,1300);
+  assert.equal(p.decision,'WIN_SUPPORT');
+  assert.ok(p.axes.find(a=>a.axis==='E').support.some(q=>q.event===ns(E('W36_POS_B'))));
+  assert.ok(!base.x.runners.find(h=>h.slot===H(4)).routes_v40.some(q=>q.id===p.id));
+  assert.ok(dp.routeChanges.some(q=>q.id===p.id&&q.horse===H(4)&&q.after==='WIN_SUPPORT'));
+  const c=h.winReviews.find(q=>q.start===p.start_event&&q.response===p.response_event);
+  assert.ok(c?.counterEvents.includes(ns(E('COUNTER'))),'OBSERVED_SAME_START_COUNTER_NOT_DISCARDED');
+  const o=other.x.runners.find(h=>h.slot===H(4)).routes_v40.find(q=>q.id===p.id);
+  assert.ok(o);assert.equal(o.decision,p.decision);assert.deepEqual(o.pairs.map(q=>q.finish),p.pairs.map(q=>q.finish));
+  assert.ok(counter.x.runners.find(h=>h.slot===H(4)).routes_v40.some(q=>q.response_event===ns(E('W36_COUNTER_MATCHED'))&&q.decision==='PLACE_COUNTER'));
+ });
+ const brief=d=>({...d,changes:d.changes.map(q=>({horse:q.horse,item:q.item}))});
 for(const [label,m] of [['BASE',base],['POSITIVE',pos],['NEGATIVE',negative],['COUNTER',counter],['OTHER',other]])console.log('V40_MASK '+JSON.stringify({label,reviews:m.reviews,admitted:m.admitted,result:compact(m.x)}));
 console.log('V40_DELTA '+JSON.stringify({positive:brief(dp),counter:brief(dc),other:brief(doo),scope:'SAME_MASTER_PRE_ANALYSIS_MASK_NOT_OFFICIAL_ADMISSION'}));
