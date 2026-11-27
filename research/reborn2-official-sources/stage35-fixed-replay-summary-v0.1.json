@@ -1,0 +1,976 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "pins": [
+    {
+      "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+      "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+      "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+      "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-condition-pipeline-v0.1.2.mjs",
+      "blob": "93d87bb022dae3bae021ba62fc433504bc16f924",
+      "sha256": "2d1a8a6c6d6f15504a660478f60a626d47ec3ec6dee8a94175b82e920dd7fa23"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-bundles-v0.1.2.json",
+      "blob": "b7795dc91ebe203827b1054448068a8e2465069f",
+      "sha256": "befda1231124e5c9aef088659436077c5c9027c7301ff66d29e6ae8827b1af69"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-verified-common-adapter-v0.1.2.mjs",
+      "blob": "1693dfd4657483a1f9e457188c28b38b9d8b2166",
+      "sha256": "098f94a2738d68d30030403788dc15f707dba4438719256f08b846403fba0e92"
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/research-ability-core.mjs",
+      "blob": "92112f6c5e0a38c38aa8d1eff997127bae7d191d",
+      "sha256": "93b1515e2e2f3796296f650cdc8d64f005828521a9b450492827558682e2ca4f",
+      "exports": [
+        "uniq",
+        "dependencyReader",
+        "relativePosition",
+        "ordinalPath",
+        "signedGap",
+        "conditionDelta",
+        "winPlaceRequirements",
+        "repeatEnvelope"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work26-v27-integrated.mjs",
+      "blob": "5b1e805f605879321e2ae5176c29021bc26f7ac9",
+      "sha256": "a59020167726d590f5b378c4d26907c9cdd37fc401ebf4dd2c8cc2cf4ab5c7ab",
+      "exports": [
+        "analyzeV27"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work27-v28-contrast.mjs",
+      "blob": "42fda8b93261079fbb09a053463657af7ca8b703",
+      "sha256": "69029b5020f59158135cad2269c17c0fc09080f9376c3246340cd963c7459ab7",
+      "exports": [
+        "analyzeV28"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work28-v29-feasibility.mjs",
+      "blob": "d7275c6c06f9ed7aac49bc0017ad008cc6cf6de2",
+      "sha256": "ba4f1e1091cc36eabc2c1e67da90982d349ef8b934f1293002da16aa8b6f47b4",
+      "exports": [
+        "analyzeV29",
+        "classifyInterval"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work29-v30-terminal.mjs",
+      "blob": "c3048ab248ae11f5c6c0d981a62c8b8633f7c49c",
+      "sha256": "c78cf46d856564dc2026117b7869100d3e13dd3f20b4660c1f54c89fe6b496df",
+      "exports": [
+        "analyzeV30",
+        "jointField"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work30-v31-integrated.mjs",
+      "blob": "6e812e54ea096f55b2307d05659faaf4824711f2",
+      "sha256": "a1e67df2b40e943991ddf2cde7dcbbfe9f2c6f9f2d9fe19362894b69a91c1b8e",
+      "exports": [
+        "analyzeV31",
+        "compareV31Response"
+      ]
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-chatgpt-circuit/work32-v33-current.mjs",
+      "blob": "80e33a31e8f5c032f591fc1c43bf958a6fceb90f",
+      "sha256": "ecb59e243bc32c547247003f45fd5083147a6a5bf49085ae355eb90f345754c0"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+      "blob": "e652dcde2cf73577bc0a9d4fa4cfc1fc6d8ea228",
+      "sha256": "1241ffc9af725965f3e305b5fc6c52ce8e740ac9ed9f21a65188b7186b2db19d"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-v34-codex-pinned/engine.mjs",
+      "blob": "6fcfe19dbdbb052b87b73186d6c2a0df44460939",
+      "sha256": "612719a57bd40aa560c8ef05d9aaaa2ed43043208898a08e80d119610fcfb1d3"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-v34-codex-pinned/synthesis.mjs",
+      "blob": "fa23a3c606ce636f1663a499d76dcbe339bffcc5",
+      "sha256": "51a64613e1c691c26e6fdab56406cfbfa9497e4259677931d44827835e652a95"
+    },
+    {
+      "ref": "4fe9d2adcca979d91000e5f671e1725beb382445",
+      "path": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+      "blob": "d5068b771ba2caed416aad69033013c53122408e",
+      "sha256": "9808b5e540eebaa51b82cae28d277c8d45b8d3e21ba446ecd01135f8f8d529e8"
+    },
+    {
+      "ref": "1c765f3918905445fd90e7bfb9e6f985bde26627",
+      "path": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+      "blob": "beff47b48f1f8bc7afa29a2e3c887527cec1339c",
+      "sha256": "86138046cd890eb4a0b997ebc0f04caddc485f84322207e67f414ca7eef0701b"
+    },
+    {
+      "ref": "04cfc8eaca0a73f9ca2c17902689529fe7d06d5b",
+      "path": "research/reborn2-official-sources/stage35-current-evidence-v0.1.mjs",
+      "blob": "65d6e8b820b8ebda765db1158adef0a34343b119",
+      "sha256": "653e434a844d8bc49e3cb20e5c99dc8c9c3ad47a96c8299fe5e15e2232f10d50"
+    },
+    {
+      "ref": "0f16a98528aa3e8e790b5d7382af43d7122d9c12",
+      "path": "research/reborn2-official-sources/stage34-raw-fixtures-v0.2.json",
+      "blob": "21fc312418165985504fb6c230ebeb3321ae9ae6",
+      "sha256": "ec46adc52a23545a1f923956b919407ec95f081ed26ecdbbc5e0b7f918c28555",
+      "bytes": 38547
+    }
+  ],
+  "independent_handoff": {
+    "ref": "e193a22a0d6f36020dffbc96fd4b518f64d802b8",
+    "blob": "8615fcf19e2de1002200a43c5c668a16162b9403",
+    "sha256": "f60537e74d4349822ba18fb6150515c44907926bf5b000ef7d2b8b6ca62098cf"
+  },
+  "checks": [
+    {
+      "name": "FK34_FULL:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:INDEPENDENT_DIGEST",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:COMMON_V35",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:SHARED_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:NO_CURRENT_MEASUREMENT",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:INDEPENDENT_START_CHANGE",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:INDEPENDENT_DIGEST",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:COMMON_V35",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:SHARED_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:NO_CURRENT_MEASUREMENT",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:INDEPENDENT_START_CHANGE",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:INDEPENDENT_DIGEST",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:COMMON_V35",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:SHARED_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:NO_CURRENT_MEASUREMENT",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:INDEPENDENT_DIGEST",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:COMMON_V35",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:SHARED_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:NO_CURRENT_MEASUREMENT",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:INDEPENDENT_DIGEST",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:COMMON_V35",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:SHARED_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:NO_CURRENT_MEASUREMENT",
+      "pass": true
+    }
+  ],
+  "summary": [
+    {
+      "id": "FK34_FULL",
+      "evidence": 537,
+      "source_digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+      "bundle_sha256": "1d3f0a66ffec5f26a985167520d81fa495a6eefd091e54d4bea76d05db39a8ca",
+      "v34": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ],
+      "v35": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ],
+      "eyeOff": [
+        "A",
+        "A",
+        "B",
+        null,
+        null
+      ],
+      "scenarios": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 1,
+          "envelopes": [
+            [
+              3,
+              3
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              2,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "H5_START_MISSING",
+          "complete": false,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              2
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FK34_DISCOVERY",
+      "evidence": 393,
+      "source_digest": "96a444d913920031add473845fd2e5682b88fb9c1f77afa8314a996020d19f1a",
+      "bundle_sha256": "cae903022d1bf2560784cfded869b841f167e9f805d7f6bb1cb58b0f73c04fe6",
+      "v34": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ],
+      "v35": [
+        "A",
+        null,
+        "B",
+        null,
+        null
+      ],
+      "eyeOff": [
+        "A",
+        null,
+        "B",
+        null,
+        null
+      ],
+      "scenarios": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 1,
+          "envelopes": [
+            [
+              3,
+              3
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "H5_START_MISSING",
+          "complete": false,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              2
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FK34_UNKNOWN",
+      "evidence": 497,
+      "source_digest": "ee05bf601bd1cf091643b4553cce2954b23dc64c4fd31972e6cdf2f2ac5d0937",
+      "bundle_sha256": "729b2028d4bbf7bc14179b7d61fb53d5e6c2fadc8326dbc95905127becd15b9a",
+      "v34": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "v35": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scenarios": [
+        {
+          "id": "ALPHA_H5_NEAR_H2",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "ALPHA_CHANGED_DEFICIT",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "BETA_H2_LEADS",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 1,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "GAMMA_H5_LEADS",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "H5_START_MISSING",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FK34_NEGATIVE_ONLY",
+      "evidence": 81,
+      "source_digest": "85ed11b719251b864b81dfda583cb5e193e7a643f99f39a1f4a3cc343e5db16c",
+      "bundle_sha256": "a5d56682a261337840e655bbae1a96421863cc7cf65f7461526411db553cdcd7",
+      "v34": [
+        "B",
+        "A",
+        "C",
+        "C",
+        "C"
+      ],
+      "v35": [
+        "B",
+        "A",
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        "B",
+        "A",
+        null,
+        null,
+        null
+      ],
+      "scenarios": [
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "complete": true,
+          "comparable": true,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              2,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FK34_NEGATIVE_REMOVED",
+      "evidence": 59,
+      "source_digest": "c836d95df8fb1357ca2e57e2b27f397bb30f5abb73cec0d56a2e9333b09a55ae",
+      "bundle_sha256": "dd831e0587b72bff11c24e0167b2ab20a5529ea063adbdd84dd36c32e84dc1a0",
+      "v34": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "v35": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "eyeOff": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "scenarios": [
+        {
+          "id": "SAME_START_COUNTER_RESPONSE",
+          "complete": false,
+          "comparable": false,
+          "roleConflicts": 0,
+          "envelopes": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              5
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
