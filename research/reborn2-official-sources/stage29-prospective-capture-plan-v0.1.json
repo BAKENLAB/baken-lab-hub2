@@ -1,0 +1,209 @@
+{
+  "schema": "WORK29_PROSPECTIVE_CAPTURE_PLAN_0.1",
+  "scope": "PLAN_ONLY_NO_ACQUISITION_OR_CONTACT",
+  "candidate_selection": {
+    "decision": "Prefer first JRA research candidate after scope approval, retain first LOCAL candidate in parallel. No actual scheduled race selected or current card opened.",
+    "reason": "Tokyo prior diagnostic coverage larger (147 vs 29 historical locators), but neither proves prospective availability. Select lawful authority and capture feasibility, not outcome or performance.",
+    "JRA": {
+      "candidate": "Next ordinary race after approval, prefer an established Tokyo course/class if actually scheduled; otherwise any verified eligible JRA meeting",
+      "source_routes": [
+        "JRA official card and prior result access via approved method",
+        "official meeting program and course/track bulletin",
+        "official correction/publishing notices",
+        "native horse profile and historical result row"
+      ],
+      "required_preflight": [
+        "authorized access to full declared roster, native IDs, prior histories",
+        "versioned source bytes and publication receipt or independent equivalent witness",
+        "official effective course and eligibility documentation",
+        "capture/retention/AI scope approved"
+      ]
+    },
+    "LOCAL": {
+      "candidate": "Next ordinary race after approval, prefer Saga if actually scheduled and organizer scope permits; otherwise authorized LOCAL venue",
+      "source_routes": [
+        "NAR official card, prior results and native profiles, authorized CSV if separately cleared",
+        "organizer effective class/points and course documents",
+        "NAR or organizer dated corrections/publication notices"
+      ],
+      "required_preflight": [
+        "genuinely prestart complete current card, not historic witness alone",
+        "native horse IDs and official historical row provenance",
+        "approved method, organizer rights where needed",
+        "track/course/class effective versions"
+      ]
+    },
+    "acceptance": [
+      "Predeclare event ID/issuer and capture cutoff before accessing any target outcome.",
+      "No selection based on target outcome, market, prior analysis ranks, or ease of cherry-picking.",
+      "Choose earliest eligible race in approved source scope; if source fails record reason and defer, no replacement after outcome.",
+      "Actual fixture schedule and source availability not verified in this stage. No race ID or timestamp invented."
+    ],
+    "cutoff_proposal": {
+      "definition": "Research cutoff C = independently verified official scheduled post minus 10 minutes, freeze at C; actual start must be after C. Proposed design, not user-approved execution.",
+      "capture_windows": [
+        "first available approved prestart official card",
+        "prestart correction and roster update only before C",
+        "final immutable seal whose upper uncertainty bound <= C"
+      ],
+      "post_change": "If official post changes before C, record source and version and conservative earlier cutoff; never extend cutoff to admit late evidence. If post/start timing cannot be authenticated, hold replay."
+    }
+  },
+  "permissions": {
+    "status": "NOT_CLEARED",
+    "existing_draft": {
+      "ref": "34d727582c772e1dd7d0da3b2f99ec83b0a9490a",
+      "path": "research/reborn2-official-sources/stage17-permission-inquiry-drafts-20261127.md",
+      "blob": "248333a735dc919a13e34ebf35636b2159f1dcb8",
+      "sent": false
+    },
+    "purpose_matrix": [
+      {
+        "purpose": "ordinary individual viewing / offline research",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "one-race source capture and structured retention",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "continuous acquisition and limits",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "AI processing / external cloud and subcontractors",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "raw storage and duration, backup, deletion, revocation",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "derived private research",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "derived limited free release",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "derived public free/advertising/paid release",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "source excerpts, raw redistribution and attribution",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      },
+      {
+        "purpose": "timestamp/hash metadata disclosure",
+        "JRA": "NOT_CLEARED",
+        "NAR": "NOT_CLEARED",
+        "organizer_if_required": "NOT_CLEARED",
+        "required": "written or otherwise verifiable applicable permission/terms and method, effective dates, scope; no inference from public access"
+      }
+    ],
+    "additional_inquiry_text": "今回まず1競走のみを対象とし、発走前に公式出馬表と必要な過去成績の版を固定し、結果を見ずに独自分析を検証したいと考えています。原本は許可された保管場所に限定し、SHA-256、取得時刻、独立時刻証明、公式公表・訂正履歴、馬固有ID・成績行との対応を保存する予定です。原本の外部送信・再配布を行わない場合と、外部AI／クラウドに処理を委託する場合を分け、許可される取得方法・範囲・保存期間・費用の有無・既存アーカイブの正規回収経路についてご教示ください。料金が必要な場合は案内のみを希望し、契約は別途判断します。",
+    "user_approval_required_before": [
+      "send inquiry",
+      "any permission-required acquisition or archive recovery",
+      "external transfer of raw content",
+      "any contract/payment",
+      "formal use/publication"
+    ]
+  },
+  "custody": {
+    "raw": [
+      "exact received bytes; preserve encoding, content type, source URI, edition and request metadata in access-restricted approved storage",
+      "hash received bytes SHA256; separate decoded UTF8 text hash with exact decoding/version; never substitute digest domains",
+      "capture start/end, source version, publication and update instants, seal time, independent signed timestamp or equivalent trusted receipt; store timezone and uncertainty bound",
+      "capture end <= seal; seal upper uncertainty <= predeclared cutoff; publication <= update <= capture start for selected historical result version",
+      "immutable content address; append-only manifest, no overwrite; correction and supersession chain, authoritative inventory at cutoff; later versions separate",
+      "record permission scope/version at capture, throughout retention and processing, and release if relevant; revocation causes hold and handling per rights terms"
+    ],
+    "identity": [
+      "issuer native horse ID + event + runner number + raw row pointer, compare official profile and row",
+      "target and history roster records independently versioned; no name-only match; transfer crosswalk native IDs, authority, validity and publication",
+      "class rule and individual eligibility separate from class literal; effective dates and official source for course shape; draw number distinct from horse number",
+      "peer row exact same event, opponent native ID and separate original result and later result; temporal sequence and all dependency roots"
+    ],
+    "typed_fields": [
+      "finish/status (dead heat, DNF, exclusion and cancellation distinct)",
+      "finish_clock and individual final600 with native unit and explicit measurement scope",
+      "official margin literal and derived clock difference with both source roots; never convert lengths to seconds without validated method",
+      "grouped passing order with source checkpoint semantics, no invented ordering within group",
+      "race leader laps with boundaries/units, no missing individual clock inferred",
+      "class/course/draw/weight/going only within confirmed scope and applicable version"
+    ],
+    "outcome_isolation": "Separate target result after freeze into access-separated validation store only after research artifact sealed. No target result or market in analyzer intake. No current production writes."
+  },
+  "individual_vs_group": {
+    "observation_gate": "Authenticate the narrow fact (source authority, raw digest, row identity, publication/version/time, rights, measurement definition, dependencies). Supply only that observation to research after explicit authorization. Missing unrelated measurements stay null; no automatic grade or complete item claim.",
+    "benchmark_gate": "All 118 groups retain seven gates and 826 held flags; official comparable course/class/time/rights cohort and independent approval required. A narrow observed clock does not establish a reference clock or benchmark, or scoring permission.",
+    "examples": [
+      {
+        "observation": "official past finish clock",
+        "possible_route": "RANK05 historical observation only",
+        "unavailable": [
+          "course-version comparable reference",
+          "individual intermediate speed"
+        ],
+        "formal_group_admission": false
+      },
+      {
+        "observation": "official leader lap array",
+        "possible_route": "RANK19 pace observation only",
+        "unavailable": [
+          "individual checkpoint clock",
+          "pressure tolerance"
+        ],
+        "formal_group_admission": false
+      },
+      {
+        "observation": "native historical finish and identity",
+        "possible_route": "RANK02 historical result only",
+        "unavailable": [
+          "latest-run completeness",
+          "current suitability"
+        ],
+        "formal_group_admission": false
+      }
+    ]
+  },
+  "retrospective": {
+    "Tokyo": "18 capture metadata records, 26 unresolved card rows, 13 class conflicts. Prior inspection found no raw write path or recovered bytes. Only existing lawful immutable backup or provider archived edition with matching digest/version may resolve; do not reconstruct from present web page.",
+    "Saga": "29 prior witness locators and 1 leader lap candidate; current card captured after post, excluded. Only lawful original prestart card could reopen; otherwise prospective alternative.",
+    "stop_rule": "No repeated cache-miss fetching or unauthorized storage exploration. If lawful raw bytes unavailable, record unresolved and prioritize prospective race. No new archival access attempted."
+  },
+  "limits": [
+    "No actual permission verified, no external inquiry sent, no new source capture, no timestamp service contracted.",
+    "Independent timestamp and authority verification are specification only; no infrastructure provisioned. Future adapter requires separate actual trusted verifier; synthetic contract does not prove real trust.",
+    "Candidate choice is a proposed policy, not an actual dated race or guarantee of source availability."
+  ]
+}
