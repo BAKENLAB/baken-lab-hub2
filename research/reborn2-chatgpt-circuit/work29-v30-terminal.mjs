@@ -1,0 +1,136 @@
+// V30 research only: no official observations, grade or prediction.
+import {loadV29,analyzeV29,classifyInterval} from './work28-v29-feasibility.mjs';
+import {dependencyReader,uniq} from './research-ability-core.mjs';
+export {loadV29 as loadV30};
+const need=(x,m)=>{if(!x)throw Error(m)};
+const finite=x=>typeof x==='number'&&Number.isFinite(x);
+const reverse=x=>x==='AHEAD'?'BEHIND':x==='BEHIND'?'AHEAD':'UNKNOWN';
+const order=(x,u)=>x>u?'AHEAD':x< -u?'BEHIND':'UNKNOWN';
+const decision=(min,max,t)=>t===null?null:min>t?'CONTRADICTED_UNDER_ASSUMPTIONS':max<=t?'SUPPORTED_UNDER_ASSUMPTIONS':'UNRESOLVED_UNDER_ASSUMPTIONS';
+// A single shared partial order, not independent pair choices. Missing edges stay unknown.
+export function jointField(roster,pairs,threshold=null){
+ need(Array.isArray(roster)&&roster.every(x=>typeof x==='string'&&x.length)&&new Set(roster).size===roster.length,'ROSTER');
+ need(threshold===null||Number.isInteger(threshold)&&threshold>=1&&threshold<=roster.length,'THRESHOLD');
+ const seen=new Set(),graph=new Map(roster.map(h=>[h,new Set()])),n=roster.length;
+ for(const p of pairs){
+  need(graph.has(p.a)&&graph.has(p.b)&&p.a!==p.b&&['AHEAD','BEHIND','UNKNOWN'].includes(p.order),'PAIR');
+  const key=JSON.stringify([p.a,p.b].sort());need(!seen.has(key),'DUPLICATE_PAIR');seen.add(key);
+  if(p.order==='AHEAD')graph.get(p.a).add(p.b);
+  if(p.order==='BEHIND')graph.get(p.b).add(p.a);
+ }
+ need(seen.size===n*(n-1)/2,'INCOMPLETE_ROSTER_RELATIONS');
+ const closure=new Map(roster.map(h=>[h,new Set(graph.get(h))]));
+ for(const k of roster)for(const a of roster)if(closure.get(a).has(k))for(const b of closure.get(k))closure.get(a).add(b);
+ if(roster.some(h=>closure.get(h).has(h)))return {state:'CONTRADICTED_SHARED_ORDER',envelopes:[],prediction:false};
+ return {state:n<2?'NOT_APPLICABLE':'CONSISTENT_PARTIAL_ORDER',envelopes:roster.map(h=>{
+  const rival_ahead=roster.filter(a=>closure.get(a).has(h)).length,rival_behind=closure.get(h).size,unknown=n-1-rival_ahead-rival_behind,min=1+rival_ahead,max=n-rival_behind;
+  return {slot:h,min,max,rival_ahead,rival_behind,unknown,win:n<2?null:decision(min,max,1),place:n<2?null:decision(min,max,threshold),threshold,current_feasibility:'UNRESOLVED',prediction:false};
+ }),prediction:false};
+}
+// Explicit common-start checkpoint and finish measurements in the SAME historical event.
+export function terminalSegment({a,b,lastA,lastB,finishA,finishB,rankA,rankB,distance,checkpoint,uncertainty}){
+ if(![lastA,lastB,finishA,finishB,distance,checkpoint,uncertainty].every(finite)||!Number.isInteger(rankA)||!Number.isInteger(rankB)||rankA<1||rankB<1||uncertainty<0||checkpoint<=0||distance<=checkpoint||lastA<=0||lastB<=0||finishA-lastA<=2*uncertainty||finishB-lastB<=2*uncertainty)return {state:'MISSING_OR_INVALID_TERMINAL',segment:null};
+ const u=2*uncertainty,s=classifyInterval(lastB-lastA,finishB-finishA,u,2*u);
+ const rankOrder=rankA<rankB?'AHEAD':rankA>rankB?'BEHIND':'UNKNOWN';
+ if((s.end_order!=='UNKNOWN'&&s.end_order!==rankOrder))return {state:'CLOCK_FINISH_CONTRADICTION',segment:null};
+ const dtA=finishA-lastA,dtB=finishB-lastB,m=distance-checkpoint;
+ return {state:'OBSERVED_TERMINAL',segment:{...s,from_m:checkpoint,to_m:distance,a,b,elapsed_a_ms:dtA,elapsed_b_ms:dtB,average_a_mps:m*1000/dtA,average_b_mps:m*1000/dtB,average_a_bounds_mps:[m*1000/(dtA+u),m*1000/(dtA-u)],average_b_bounds_mps:[m*1000/(dtB+u),m*1000/(dtB-u)],finish_order:rankOrder,checkpoint_persistence:s.start_order!=='UNKNOWN'&&rankOrder!=='UNKNOWN'?(s.start_order===rankOrder?'OBSERVED_CONSISTENT':'OBSERVED_COUNTEREXAMPLE'):'UNRESOLVED'}};
+}
+// Strict entry used by the shared analyzer. The older mathematical primitive remains for V30 regression.
+export function validatedTerminalSegment(x){
+ if(typeof x.a!=='string'||typeof x.b!=='string'||!x.a||!x.b||x.a===x.b||!Number.isInteger(x.actualStarters)||x.actualStarters<2||!Number.isInteger(x.rankA)||!Number.isInteger(x.rankB)||x.rankA<1||x.rankB<1||x.rankA>x.actualStarters||x.rankB>x.actualStarters||x.scope!=='COURSE_DISTANCE_CROSSING_ELAPSED_FROM_COMMON_START'||typeof x.event!=='string'||!x.event)return {state:'UNBOUND_TERMINAL_IDENTITY_FIELD_OR_SCOPE',segment:null};
+ if(x.rankA===x.rankB)return {state:'TIED_CLASSIFICATION_REQUIRES_EXPLICIT_DEAD_HEAT',segment:null};
+ return terminalSegment(x);
+}
+export function analyzeV30(L,name,withdraw=null,options={}){
+ const threshold=options.placeThreshold??null,out=analyzeV29(L,name,withdraw,options),{r,o}=L.cases.get(name),[target,...history]=o.events,active=out.roster.possible_active;
+ const field=(ev,h,k)=>o.evidence.find(e=>e.event_id===ev&&e.subject_id===h&&e.field===k),id=e=>e?.evidence_id,all=new Map(o.evidence.map(e=>[id(e),e]));
+ const {get,lineage}=dependencyReader(all,withdraw,e=>e.subject_id===null||e.field==='id'?[]:[id(field(e.event_id,e.subject_id,'id')),...(e.field==='status'?[]:[id(field(e.event_id,e.subject_id,'status'))])].filter(Boolean));
+ const ok=e=>e&&get(id(e))&&e.state==='SYNTHETIC_OBSERVATION',v=e=>ok(e)?e.value:null,refs=es=>lineage(es.map(id).filter(Boolean)).filter(ok).map(id);
+ const hs=(ev,h)=>out.historical.find(x=>x.event===ev&&x.horse===h);
+ const terminal=[],scenarios=[];
+ for(const e of history){
+  const ev=e.event_id,geometry=v(e.geometry),conditions=v(e.conditions),distance=conditions?.distance_m??null,checkpoint=geometry?.checkpoints_m?.at(-1)??null;
+  const targetDistance=v(target.conditions)?.distance_m??null;
+  const pairs=[];
+  for(let i=0;i<active.length;i++)for(let j=i+1;j<active.length;j++){
+   const a=active[i],b=active[j],p=out.pair_progress_v29.find(x=>x.event===ev&&x.a===a&&x.b===b),last=p?.intervals.at(-1);
+   const ca=field(ev,a,'checkpoint_ms'),cb=field(ev,b,'checkpoint_ms'),fa=field(ev,a,'finish_ms'),fb=field(ev,b,'finish_ms'),ra=field(ev,a,'finish'),rb=field(ev,b,'finish');
+   const ta=v(ca),tb=v(cb),ha=hs(ev,a),hb=hs(ev,b);
+   const count=v(e.actual_starters),known=x=>out.runners.some(h=>h.slot===x&&h.identity_known&&h.status==='ACTIVE'),validRank=x=>Number.isInteger(x)&&Number.isInteger(count)&&x>=1&&x<=count;
+   const t=p&&last&&last.to_m===checkpoint&&known(a)&&known(b)?validatedTerminalSegment({a,b,event:ev,actualStarters:count,scope:r.measurement.checkpoint_scope,lastA:ta?.at(-1),lastB:tb?.at(-1),finishA:v(fa),finishB:v(fb),rankA:ha?.finish,rankB:hb?.finish,distance,checkpoint,uncertainty:r.measurement.clock_uncertainty_ms}):{state:'MISSING_OR_INVALID_TERMINAL',segment:null};
+   const termRefs=t.segment?refs([ca,cb,fa,fb,ra,rb,e.geometry,e.conditions]):[];
+   const rawRankOrder=known(a)&&known(b)&&validRank(ha?.finish)&&validRank(hb?.finish)?ha.finish<hb.finish?'AHEAD':ha.finish>hb.finish?'BEHIND':'UNKNOWN':'UNKNOWN';
+   const clockOrder=finite(v(fa))&&finite(v(fb))&&finite(r.measurement.clock_uncertainty_ms)?order(v(fb)-v(fa),2*r.measurement.clock_uncertainty_ms):'UNKNOWN';
+   const finishConflict=t.state==='CLOCK_FINISH_CONTRADICTION'||(rawRankOrder!=='UNKNOWN'&&clockOrder!=='UNKNOWN'&&rawRankOrder!==clockOrder);
+   const rankOrder=finishConflict?'UNKNOWN':rawRankOrder;
+   const rankRefs=rankOrder==='UNKNOWN'?[]:refs([ra,rb,e.actual_starters,field(target.event_id,a,'status'),field(target.event_id,b,'status')]);
+   const checkpointOrder=last?.end_order??'UNKNOWN';
+   const persistence=checkpointOrder!=='UNKNOWN'&&rankOrder!=='UNKNOWN'?(checkpointOrder===rankOrder?'OBSERVED_CONSISTENT':'OBSERVED_COUNTEREXAMPLE'):'UNRESOLVED';
+   const first=p?.intervals[0],net=first&&t.segment?t.segment.end-first.start:null,netBound=first&&t.segment?Math.max(first.changeBound,t.segment.changeBound):null;
+   const priorRecovery={a:!!p?.intervals.some(x=>x.change==='LOSS'),b:!!p?.intervals.some(x=>x.change==='GAIN')};
+   const row={event:ev,a,b,checkpoint,distance,target_distance:targetDistance,net_first_to_finish_ms:net,net_bound_ms:netBound,priorRecovery,transfer:distance!==null&&targetDistance!==null&&distance===targetDistance?'SAME_DISTANCE_NOT_TRANSFER_PROOF':'DISTANCE_CHANGED_OR_UNKNOWN',checkpoint_order:checkpointOrder,finish_order:rankOrder,finish_conflict:finishConflict,persistence,terminal:t,checkpoint_refs:p?.intervalRefs??[],finish_refs:rankRefs,terminal_refs:termRefs,refs:uniq([...(p?.intervalRefs??[]),...rankRefs,...termRefs])};
+   pairs.push(row);terminal.push(row);
+  }
+  const known=h=>out.runners.find(x=>x.slot===h)?.identity_known&&out.runners.find(x=>x.slot===h)?.status==='ACTIVE';
+  const early=active.map(h=>{const a=known(h)?hs(ev,h):null,rank=a?.rank?.[0]??null;return {slot:h,rank,role:rank===1?'OBSERVED_FIRST_CHECKPOINT_LEADER':rank===null?'UNKNOWN':'OBSERVED_OTHER_POSITION',refs:rank===null?[]:a.rankTrace.refs};});
+  const earlyMap=new Map(early.map(x=>[x.slot,x]));
+  const earlyPairs=pairs.map(p=>{const a=earlyMap.get(p.a),b=earlyMap.get(p.b);return {a:p.a,b:p.b,order:a.rank===null||b.rank===null||a.rank===b.rank?'UNKNOWN':a.rank<b.rank?'AHEAD':'BEHIND',refs:uniq([...a.refs,...b.refs])};});
+  const context=active.map(h=>{const q=out.runners.find(x=>x.slot===h),a=known(h)?hs(ev,h):null,c=q?.condition_paths?.find(x=>x.event===ev),pace=q?.pace_paths?.find(x=>x.event===ev);return {slot:h,condition_dimensions:c?.dims??null,condition_mismatches:c?.mismatches??[],condition_unknown:c?.unknown??[],geometry_delta:a?.geometry_delta??null,weight_delta_g:a?.weight_delta_g??null,gate_state:c?.gateState??null,pace_observation:pace?.state??'UNKNOWN',current_response:'UNPROVEN',refs:uniq([...(c?.refs??[]),...(pace?.refs??[])])};});
+  const sharedContext={early,early_field:jointField(active,earlyPairs),historical_leader_pace:out.leaders?.find(x=>x.event===ev)??null,context};
+  const create=(kind,predicate,scope,root=p=>p.refs)=>{
+   const relations=pairs.map(p=>({a:p.a,b:p.b,order:predicate(p),refs:root(p)}));
+   return {event:ev,kind,scope,relations,sharedContext,field:jointField(active,relations,threshold),actual_current_feasibility:'UNRESOLVED',prediction:false};
+  };
+  scenarios.push(create('CHECKPOINT_OBSERVED',p=>p.checkpoint_order,'HISTORICAL_CHECKPOINT_ONLY',p=>p.checkpoint_refs));
+  scenarios.push(create('FINISH_OBSERVED',p=>p.terminal.state==='CLOCK_FINISH_CONTRADICTION'?'UNKNOWN':p.finish_order,'HISTORICAL_FINISH_ORDER_AMONG_CURRENT_POSSIBLE_RUNNERS',p=>uniq([...p.finish_refs,...(p.terminal.state==='CLOCK_FINISH_CONTRADICTION'?p.refs:[])])));
+  const counter=pairs.filter(p=>p.persistence==='OBSERVED_COUNTEREXAMPLE');
+  const persist=create('CHECKPOINT_PERSISTS_TO_FINISH',p=>p.checkpoint_order,'COUNTERFACTUAL_NOT_OBSERVED_FINISH');
+  persist.counterexamples=counter.map(p=>({a:p.a,b:p.b,refs:p.refs}));
+  if(counter.length)persist.field={state:'CONTRADICTED_BY_OBSERVED_FINISH',envelopes:[],prediction:false};
+  // No measured changed-pace response means no conditional claim. All possible runners kept.
+  scenarios.push(persist,create('EQUAL_FIRST_CHECKPOINT_TO_FINISH',p=>p.net_first_to_finish_ms===null?'UNKNOWN':order(p.net_first_to_finish_ms,p.net_bound_ms),'HYPOTHETICAL_EQUAL_FIRST_CHECKPOINT_AND_SAME_MEASURED_NET_CHANGE',p=>p.terminal.segment?p.refs:[]),create('CHANGED_PACE_OR_CONTESTED_LEAD',()=> 'UNKNOWN','UNIDENTIFIED_CURRENT_RESPONSE',()=>[]));
+ }
+ for(const h of out.runners){
+  const valid=h.identity_known&&h.status==='ACTIVE',rows=valid?terminal.filter(p=>p.a===h.slot||p.b===h.slot).map(p=>{
+   const s=p.terminal.segment,sign=p.a===h.slot?1:-1;
+   return {...p,rival:sign===1?p.b:p.a,checkpoint_order:sign===1?p.checkpoint_order:reverse(p.checkpoint_order),finish_order:sign===1?p.finish_order:reverse(p.finish_order),subject_segment:s?{...classifyInterval(sign*s.start,sign*s.end,s.endpointBound,s.changeBound),from_m:s.from_m,to_m:s.to_m,elapsed_ms:sign===1?s.elapsed_a_ms:s.elapsed_b_ms,rival_elapsed_ms:sign===1?s.elapsed_b_ms:s.elapsed_a_ms}:null};
+  }):[];
+  const paths=valid?scenarios.filter(s=>hs(s.event,h.slot)).map(s=>({event:s.event,kind:s.kind,scope:s.scope,state:s.field.state,envelope:s.field.envelopes.find(x=>x.slot===h.slot)??null,counterexamples:s.counterexamples??[],refs:uniq(s.relations.flatMap(x=>x.refs)),current_feasibility:'UNRESOLVED'})):[];
+  const findings=[];
+  for(const p of rows){
+   const z=p.subject_segment;
+   const add=(item,state,roots,observation)=>findings.push({item,state,refs:uniq(roots),observation,formal:false,current_relevance:'UNPROVEN'});
+   if(p.persistence==='OBSERVED_COUNTEREXAMPLE')add('RANK18','CHECKPOINT_PERSISTENCE_REFUTED',p.refs,{rival:p.rival,checkpoint:p.checkpoint_order,finish:p.finish_order});
+   if(z){
+    add('RANK08','TERMINAL_INTERVAL_AVERAGE_NOT_PHYSIOLOGICAL_ENDURANCE',p.terminal_refs,z);
+    add('RANK18',z.kind,p.terminal_refs,z);
+    if(z.change==='GAIN'&&p.priorRecovery[p.a===h.slot?'a':'b'])add('RANK21','TERMINAL_PAIR_RECOVERY',p.refs,z);
+    if(p.finish_order==='AHEAD'&&z.start_order!=='UNKNOWN')add('RANK12',z.start_order==='AHEAD'?'TERMINAL_PAIR_LEAD_RETAINED':'TERMINAL_PAIR_CONVERSION',p.terminal_refs,z);
+    if(p.finish_order==='BEHIND'&&z.change==='GAIN')add('RANK29','TERMINAL_GAIN_DESPITE_PAIR_LOSS_REVIEW',p.terminal_refs,z);
+   }
+  }
+  for(const path of paths.filter(p=>p.kind==='CHECKPOINT_PERSISTS_TO_FINISH'&&p.state==='CONTRADICTED_BY_OBSERVED_FINISH')){
+   const related=path.counterexamples.filter(p=>p.a===h.slot||p.b===h.slot);
+   if(related.length)findings.push({item:'RANK100',state:'SHARED_PATH_REJECTED_BY_TERMINAL_COUNTEREVIDENCE',refs:uniq(related.flatMap(p=>p.refs)),observation:{event:path.event,related_pairs:related.map(p=>[p.a,p.b])},formal:false,current_relevance:'UNPROVEN'});
+  }
+  h.terminal_v30=rows;h.scenarios_v30=paths;h.findings_v30=findings;
+  // Preserve old data only as explicitly superseded diagnostics, not competing decision outputs.
+  h.legacy_v29={conditional_scenarios:h.conditional_scenarios,findings:h.v29_findings,semantic_effects:h.semantic_effects_v29,WIN:h.WIN?{...h.WIN}:null,PLACE:h.PLACE?{...h.PLACE}:null,scope:'SUPERSEDED_FOR_FINISH_DECISIONS'};
+  h.conditional_scenarios=paths;
+  if(h.WIN){h.WIN={state:'UNRESOLVED',historical_finish_paths:paths.filter(p=>p.kind==='FINISH_OBSERVED'),conditional_scenarios:paths.filter(p=>!['CHECKPOINT_OBSERVED','FINISH_OBSERVED'].includes(p.kind)).map(p=>({...p,conditional_state:p.envelope?.win??p.state})),missing:uniq([...h.WIN.missing,'CURRENT_TRANSFER_AND_PACE_RESPONSE_UNPROVEN']),formal:false};}
+  if(h.PLACE){h.PLACE={state:'UNRESOLVED',threshold,historical_finish_paths:paths.filter(p=>p.kind==='FINISH_OBSERVED'),conditional_scenarios:threshold===null?[]:paths.filter(p=>!['CHECKPOINT_OBSERVED','FINISH_OBSERVED'].includes(p.kind)).map(p=>({...p,conditional_state:p.envelope?.place??p.state})),missing:uniq([...h.PLACE.missing,'CURRENT_TRANSFER_AND_PACE_RESPONSE_UNPROVEN']),formal:false};}
+  h.items=h.items.map(x=>{const f=findings.filter(z=>z.item===x.item);return {...x,refs:uniq([...x.refs,...f.flatMap(z=>z.refs)]),v30_findings:f,v30_semantic_scope:f.length?'HISTORICAL_OR_CONDITIONAL_ONLY':null,grade_effect_proven:false};});
+  h.eye_feedback_v30=valid?(h.eye_feedback_v29??[]).map(x=>({...x,reviewed:findings.filter(f=>['RANK18','RANK21'].includes(f.item)),current_relevance:'UNPROVEN',independent_vote:false,canonical_return:false})):[];
+  h.grade=null;
+ }
+ return {...out,terminal_v30:terminal,shared_scenarios_v30:scenarios,formal:false,grade:null};
+}
+
+// Compare actual synthetic case outputs without treating scaled clocks as a causal response.
+export function compareV30Pace(L,baseName,variantName,event,subject){
+ const a=analyzeV30(L,baseName),b=analyzeV30(L,variantName);
+ const read=q=>{const h=q.runners.find(x=>x.slot===subject),s=q.shared_scenarios_v30.find(x=>x.event===event&&x.kind==='CHECKPOINT_OBSERVED'),past=q.historical.find(x=>x.horse===subject&&x.event===event);return {historical_rank:past?.rank??null,leader_ms:s?.sharedContext.historical_leader_pace?.segments.map(x=>x.ms)??null,leader_refs:s?.sharedContext.historical_leader_pace?.refs??[],subject_interval_ms:past?.intervals?.map(x=>x.ms)??null,subject_clock_refs:past?.speedTrace?.refs??[],first_checkpoint_queue:s?.sharedContext.early??[],condition:s?.sharedContext.context.find(x=>x.slot===subject)??null,terminal:h?.terminal_v30.filter(x=>x.event===event).map(x=>({rival:x.rival,segment:x.subject_segment,refs:x.terminal_refs}))??[]};};
+ const base=read(a),variant=read(b),same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+ return {event,subject,base,variant,leader_pace_changed:base.leader_ms!==null&&variant.leader_ms!==null&&!same(base.leader_ms,variant.leader_ms),observed_rank_same:base.historical_rank!==null&&variant.historical_rank!==null&&same(base.historical_rank,variant.historical_rank),current_pace_response:'UNPROVEN',causal_response:null,formal:false};
+}

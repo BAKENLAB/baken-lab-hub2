@@ -1,0 +1,676 @@
+{
+  "source_commit": "417a875b6cd389f853ade49dab94c3d6f0afe10e",
+  "target": "2026-11-25 浦和11R",
+  "target_exact_cutoff": "NOT_SUPPLIED",
+  "gate_fixture_only": true,
+  "counts": {
+    "reported_history_rows": 193,
+    "jra_history_rows": 62,
+    "jra_actual_starts_profile_total": 61,
+    "jra_individually_observed_rows": 14,
+    "jra_individually_observed_starts": 13,
+    "jra_remaining_rows": 48,
+    "local_reported_rows": 131,
+    "local_actual_starts": null,
+    "crosswalk_profile_matches": 5,
+    "course_candidates": 23,
+    "peer_followups": 6,
+    "peer_result_verified": 2,
+    "formal_admissions": 0,
+    "structurally_accepted": 0
+  },
+  "history_check_status": [
+    {
+      "evidence_id": "JRA:2025-02-23:東京:4:4",
+      "start_status": "EXCLUDED_NOT_STARTED",
+      "finish": null,
+      "clock_tenths": null
+    },
+    {
+      "evidence_id": "JRA:2025-04-20:中山:4:4",
+      "start_status": "STARTED",
+      "finish": 1,
+      "clock_tenths": 1197
+    },
+    {
+      "evidence_id": "JRA:2025-12-21:中京:8:4",
+      "start_status": "STARTED",
+      "finish": 15,
+      "clock_tenths": 973
+    },
+    {
+      "evidence_id": "JRA:2025-11-23:京都:8:8",
+      "start_status": "STARTED",
+      "finish": 1,
+      "clock_tenths": 1122
+    },
+    {
+      "evidence_id": "JRA:2026-01-12:京都:10:8",
+      "start_status": "STARTED",
+      "finish": 1,
+      "clock_tenths": 1117
+    },
+    {
+      "evidence_id": "JRA:2025-06-07:阪神:10:6",
+      "start_status": "STARTED",
+      "finish": 2,
+      "clock_tenths": 1130
+    }
+  ],
+  "zero_clock_margin_cases": [
+    {
+      "race_id": "JRA:2025-06-07:阪神:10",
+      "finish": 2,
+      "official_margin": "ハナ",
+      "rounded_clock_gap_tenths": 0
+    }
+  ],
+  "indirect_comparison": {
+    "subject_pair": [
+      3,
+      8
+    ],
+    "common_peer_id": "30022408596",
+    "race_refs": [
+      "LOCAL:2025-09-02:盛岡:10",
+      "JRA:2026-04-18:阪神:11"
+    ],
+    "status": "IDENTITY_LINKED_NOT_COMPARABLE",
+    "reason": "different age, venue, distance, class and going; no transitive ranking"
+  },
+  "gate_diagnostics": [
+    {
+      "evidence_id": "JRA:2025-02-23:東京:4:4",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "HORSE_REQUIRED"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+      ]
+    },
+    {
+      "evidence_id": "JRA:2025-04-20:中山:4:4",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "START_STATUS_INVALID",
+        "NONFINISH_RANK_INVALID",
+        "HORSE_REQUIRED"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+      ]
+    },
+    {
+      "evidence_id": "JRA:2025-12-21:中京:8:4",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "START_STATUS_INVALID",
+        "NONFINISH_RANK_INVALID",
+        "HORSE_REQUIRED"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+      ]
+    },
+    {
+      "evidence_id": "JRA:2025-11-23:京都:8:8",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "START_STATUS_INVALID",
+        "NONFINISH_RANK_INVALID",
+        "HORSE_REQUIRED"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+      ]
+    },
+    {
+      "evidence_id": "JRA:2026-01-12:京都:10:8",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "START_STATUS_INVALID",
+        "NONFINISH_RANK_INVALID",
+        "HORSE_REQUIRED"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+      ]
+    },
+    {
+      "evidence_id": "JRA:2025-06-07:阪神:10:6",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "START_STATUS_INVALID",
+        "NONFINISH_RANK_INVALID",
+        "HORSE_REQUIRED"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+      ]
+    },
+    {
+      "evidence_id": "urawa11-crosswalk-1",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "POST_CUTOFF_OBSERVATION"
+      ],
+      "missing": [
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "CROSSWALK_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "urawa11-crosswalk-4",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "POST_CUTOFF_OBSERVATION"
+      ],
+      "missing": [
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "CROSSWALK_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "urawa11-crosswalk-6",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "POST_CUTOFF_OBSERVATION"
+      ],
+      "missing": [
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "CROSSWALK_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "urawa11-crosswalk-8",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "POST_CUTOFF_OBSERVATION"
+      ],
+      "missing": [
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "CROSSWALK_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "urawa11-crosswalk-9",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH",
+        "POST_CUTOFF_OBSERVATION"
+      ],
+      "missing": [
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "CROSSWALK_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-1",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-2",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-3",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-4",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-5",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-6",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-7",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-8",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-9",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-10",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-11",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-12",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-13",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-14",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-15",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-16",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-17",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-18",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-19",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-20",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-21",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-22",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    },
+    {
+      "evidence_id": "course-candidate-23",
+      "stage": "REJECTED",
+      "errors": [
+        "EVENT_IDENTITY_OR_TIME",
+        "CUTOFF_MISMATCH"
+      ],
+      "missing": [
+        "OBSERVATION_TIME_UNKNOWN",
+        "PUBLICATION_UNKNOWN",
+        "PERMISSION_UNCLEARED",
+        "SOURCE_VERSION_OR_HASH_UNKNOWN",
+        "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+        "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED",
+        "COURSE_VERSION_OR_DISTANCE_UNRESOLVED"
+      ]
+    }
+  ],
+  "notes": [
+    "Observed research records are not asserted as as-of source packets. Placeholder gate target is a refusal-test fixture only; actual exact target time was not supplied.",
+    "No inferred horse ID, time, field count, dead heat, class equivalence or raw-source hash.",
+    "No sum with Work overlap, no real-data final judgment."
+  ]
+}

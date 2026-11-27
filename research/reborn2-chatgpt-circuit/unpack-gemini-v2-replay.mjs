@@ -1,0 +1,3 @@
+import {readFileSync} from 'node:fs';
+export function unpackReplay(p){if(p.format!=='lossless-json-replay-ref-v1')throw Error('FORMAT');const decode=x=>{if(!x||typeof x!=='object')return x;if(!Array.isArray(x)&&Object.keys(x).length===1&&Number.isInteger(x.$replay_ref)){if(x.$replay_ref<0||x.$replay_ref>=p.dictionary.length)throw Error('REF_RANGE');return decode(p.dictionary[x.$replay_ref]);}return Array.isArray(x)?x.map(decode):Object.fromEntries(Object.entries(x).map(([k,v])=>[k,decode(v)]));};return decode(p.payload);}
+if(process.argv[2])console.log(JSON.stringify(unpackReplay(JSON.parse(readFileSync(process.argv[2],'utf8'))),null,2));

@@ -1,0 +1,271 @@
+{
+  "schema": "WORK27_OUTPUT_INDEX_0.1",
+  "pins": [
+    {
+      "ref": "8785c23c004b415c578d3fa7bc8abfe6003d35a7",
+      "path": "research/reborn2-official-sources/stage27-codex-compact-batch1-v0.1.json",
+      "sha256": "b040570627ce81f54def1bcde18dabf48b8a8f7e4c2593f445a30ddf0880fea1",
+      "cases": [
+        {
+          "id": "CONTROL",
+          "pointer": "/cases/0",
+          "raw_sha256": "967669cf3e66887d99f97d403fa48bec76aabfb5cef3649c4ab96d26a8236670",
+          "full_projection_sha256": "dbb831c2910ad29c9f84fa41bee9ab38637df4c6f9f88b5666b9f2211cb52fa3",
+          "evidence": 185,
+          "pairs": 10
+        },
+        {
+          "id": "DISTANCE_ONLY",
+          "pointer": "/cases/1",
+          "raw_sha256": "711d661a6a225aef6f75b9bcedf1b07bf9f388872f68a41ea145b90472fb4f9f",
+          "full_projection_sha256": "f0310193c8f6740e7cafd4690a0717b44b36f38174cfcd6bae9ef8209636b11e",
+          "evidence": 185,
+          "pairs": 10
+        },
+        {
+          "id": "GEOMETRY_ONLY",
+          "pointer": "/cases/2",
+          "raw_sha256": "88e52af33088189dc7794d21e94ee5fdf92df794b85d2f5df7bbda7fd9e414ac",
+          "full_projection_sha256": "1088b4b604f3a878d4bdc1b7391dddea391c820fb2016b264a5dece2b51f1f72",
+          "evidence": 185,
+          "pairs": 10
+        },
+        {
+          "id": "GATE_ONLY",
+          "pointer": "/cases/3",
+          "raw_sha256": "da9427738341c6bcf463ca55b32b6eb98aed040997a66a3e3f92aea3df88842c",
+          "full_projection_sha256": "e507571074d95e4a571237dec9d193a95d54e49513fb7184c2229f80d581247c",
+          "evidence": 185,
+          "pairs": 10
+        }
+      ]
+    },
+    {
+      "ref": "f4783e0c9447b14d493af9ace39f09ab806b6072",
+      "path": "research/reborn2-official-sources/stage27-codex-compact-batch2-v0.1.json",
+      "sha256": "a5918cf3b9c3c4e176159c07ce9c4c04efd552a39863071452b932f5f25db9e9",
+      "cases": [
+        {
+          "id": "NUMBER_ONLY",
+          "pointer": "/cases/0",
+          "raw_sha256": "4eb72b2f38574f98e563502c81d08ca67a0e0de71da4b94edba5db43c8dbf9c8",
+          "full_projection_sha256": "9994185f280366586a09e602394e07e6156874f63bf5841deb9aac75637c9a7c",
+          "evidence": 185,
+          "pairs": 10
+        },
+        {
+          "id": "CLOCK_ONLY_MISSING",
+          "pointer": "/cases/1",
+          "raw_sha256": "a86ffe0a1331f27e8fbb9ae998d18a0cdfefe1efa7180930b9c0ecc16ee2858f",
+          "full_projection_sha256": "737cc03847b86839d43cc3d2827be0ca1c1fe73ab50fd4f25d90b110e680da2c",
+          "evidence": 185,
+          "pairs": 10
+        },
+        {
+          "id": "GATE_ONLY_MISSING",
+          "pointer": "/cases/2",
+          "raw_sha256": "7d3b1629f0b9a8f43c27c26ab9d4ff3ff2f741c1a20068cbe3e8bbe6fcae5727",
+          "full_projection_sha256": "af51589003463082be29a582a7a9948db0812807e6c205f9b22edc4b15af29b3",
+          "evidence": 185,
+          "pairs": 10
+        },
+        {
+          "id": "PEER_LOSS",
+          "pointer": "/cases/3",
+          "raw_sha256": "b3ed5b7a16e760d80b9e0bacabb43241fa01cc0ac5849e3cc1d121f20f185209",
+          "full_projection_sha256": "3347f8f009856cf6becb4d461706a99b74ffaf619a28861debf083bb2b68b805",
+          "evidence": 185,
+          "pairs": 10
+        }
+      ]
+    },
+    {
+      "ref": "324909ad74396ce7a3820ff26637670146f8a66f",
+      "path": "research/reborn2-official-sources/stage27-codex-compact-batch3-v0.1.json",
+      "sha256": "f687fa96419f896cf9df7afaa11c4bfba3217a5118de2cf90123b66f78af2834",
+      "cases": [
+        {
+          "id": "PEER_NO_ASOF",
+          "pointer": "/cases/0",
+          "raw_sha256": "1ad0a6169ebae769fb1385acad6e346ad1e66a2bba36c224d6d3006e8d11ef05",
+          "full_projection_sha256": "4321c2f3563e22153b139fb1b2d7eb71ed1da175afce7f98eaf6feb06ac342a0",
+          "evidence": 151,
+          "pairs": 10
+        },
+        {
+          "id": "NEAR_COMPETITION",
+          "pointer": "/cases/1",
+          "raw_sha256": "d691ae8b6f3dfb42781b4d0024e78b83695620c2847605637c14a6026b032edd",
+          "full_projection_sha256": "6cd648c6a7d4d161399adca0a331d73efa4206af6d1c15664d590e97ca4b40a3",
+          "evidence": 185,
+          "pairs": 10
+        },
+        {
+          "id": "SURFACE_ONLY",
+          "pointer": "/cases/2",
+          "raw_sha256": "7e847b1b922be702a594385a1c32fbd6d4a2f8af19692d86d6c73f36e38a955c",
+          "full_projection_sha256": "df08d52127f7fa24c4bfd6e8e87c8d93624b259695d124682224077d54e2d429",
+          "evidence": 185,
+          "pairs": 10
+        },
+        {
+          "id": "LOCAL_DIRT900_LARGE",
+          "pointer": "/cases/3",
+          "raw_sha256": "f48c5ca6a05c0bb0c02ef7ceb79062cccfc2b4aac373a3c61f2220a2876e2e14",
+          "full_projection_sha256": "339a79054f7dfde3b7a73e01120446891c8d21e68a80cb82e7112419dc39c6ee",
+          "evidence": 200,
+          "pairs": 66
+        }
+      ]
+    },
+    {
+      "ref": "c346cd97275bc172452765a3e2083b5b550bec83",
+      "path": "research/reborn2-official-sources/stage27-codex-compact-batch4-v0.1.json",
+      "sha256": "7937c0103631d3225ad0c790de8f568df36661333fb647057ae14c916acd312e",
+      "cases": [
+        {
+          "id": "FASTER_PACE_SAME_ORDER",
+          "pointer": "/cases/0",
+          "raw_sha256": "a10acbb1b3902dd5752dfa4ebcc94aa9f405cf031f2e4b2e6707981d9213c9db",
+          "full_projection_sha256": "57cf02d45906bc13d0890c1acd307de89067460c15a522d41d857d15a5ad6998",
+          "evidence": 185,
+          "pairs": 10
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "case_id": "CONTROL",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "DISTANCE_ONLY",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "GEOMETRY_ONLY",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "GATE_ONLY",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "NUMBER_ONLY",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "CLOCK_ONLY_MISSING",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "GATE_ONLY_MISSING",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "PEER_LOSS",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "PEER_NO_ASOF",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "NEAR_COMPETITION",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "SURFACE_ONLY",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "LOCAL_DIRT900_LARGE",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    },
+    {
+      "case_id": "FASTER_PACE_SAME_ORDER",
+      "checks": {
+        "unique_ids": true,
+        "raw_pointers": true,
+        "all_refs": true,
+        "margin_dependencies": true,
+        "full_pair_count": true
+      }
+    }
+  ],
+  "structural_checks": 65,
+  "scope": "SYNTHETIC_ONLY"
+}

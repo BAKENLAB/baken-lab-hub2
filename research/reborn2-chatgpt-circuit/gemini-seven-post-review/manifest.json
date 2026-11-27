@@ -1,0 +1,403 @@
+{
+  "input_sha256": "c8b09b6877e5286aa86325e78111f8991ea2cb2908d0bcc26e0ebeadc23aa414",
+  "input_blob": "86a8ff7d40ab53bc6c5027e9907271b307d69cb0",
+  "baseline_code": "65eb6933274406a590739a31cff226a3d4eb2079",
+  "fixture_only": true,
+  "official_admission": false,
+  "normal_v5_entry": {
+    "status": "BLOCKED",
+    "reason": "TARGET_TIME"
+  },
+  "partial_route": "V5_CONTRACT_SHARED_CATALOG_AND_DEPENDENCIES_FIXTURE_ONLY",
+  "field": {
+    "active_count": 7,
+    "front_definition": "ANY_REPORTED_POSITION_LE_3 (research observation, no verified corner/field size)",
+    "front_rows": [
+      {
+        "horse_id": "FIXTURE-A",
+        "horse_no": 1,
+        "reported_style": "先行〜好位",
+        "last_positions": [
+          2,
+          2,
+          5,
+          6
+        ],
+        "last_any_le3": true,
+        "last_first_le3": true,
+        "first_recorded_lead_count": 0,
+        "observed_position_runs": 3,
+        "source_refs": [
+          "FIXTURE-A-H1",
+          "FIXTURE-A-H2",
+          "FIXTURE-A-H3"
+        ]
+      },
+      {
+        "horse_id": "FIXTURE-B",
+        "horse_no": 2,
+        "reported_style": "差し〜追込",
+        "last_positions": [
+          10,
+          9,
+          7,
+          4
+        ],
+        "last_any_le3": false,
+        "last_first_le3": false,
+        "first_recorded_lead_count": 0,
+        "observed_position_runs": 3,
+        "source_refs": [
+          "FIXTURE-B-H1",
+          "FIXTURE-B-H2",
+          "FIXTURE-B-H3"
+        ]
+      },
+      {
+        "horse_id": "FIXTURE-C",
+        "horse_no": 3,
+        "reported_style": "好位〜差し",
+        "last_positions": [
+          4,
+          4,
+          6,
+          7
+        ],
+        "last_any_le3": false,
+        "last_first_le3": false,
+        "first_recorded_lead_count": 0,
+        "observed_position_runs": 3,
+        "source_refs": [
+          "FIXTURE-C-H1",
+          "FIXTURE-C-H2",
+          "FIXTURE-C-H3"
+        ]
+      },
+      {
+        "horse_id": "FIXTURE-D",
+        "horse_no": 4,
+        "reported_style": "逃げ〜先行",
+        "last_positions": [
+          1,
+          1,
+          1,
+          2
+        ],
+        "last_any_le3": true,
+        "last_first_le3": true,
+        "first_recorded_lead_count": 3,
+        "observed_position_runs": 3,
+        "source_refs": [
+          "FIXTURE-D-H1",
+          "FIXTURE-D-H2",
+          "FIXTURE-D-H3"
+        ]
+      },
+      {
+        "horse_id": "FIXTURE-E",
+        "horse_no": 5,
+        "reported_style": "先行〜好位",
+        "last_positions": [
+          7,
+          6,
+          4,
+          4
+        ],
+        "last_any_le3": false,
+        "last_first_le3": false,
+        "first_recorded_lead_count": 0,
+        "observed_position_runs": 3,
+        "source_refs": [
+          "FIXTURE-E-H1",
+          "FIXTURE-E-H2",
+          "FIXTURE-E-H3"
+        ]
+      },
+      {
+        "horse_id": "FIXTURE-F",
+        "horse_no": 6,
+        "reported_style": "中団〜差し",
+        "last_positions": [
+          5,
+          6,
+          8,
+          8
+        ],
+        "last_any_le3": false,
+        "last_first_le3": false,
+        "first_recorded_lead_count": 0,
+        "observed_position_runs": 3,
+        "source_refs": [
+          "FIXTURE-F-H1",
+          "FIXTURE-F-H2",
+          "FIXTURE-F-H3"
+        ]
+      },
+      {
+        "horse_id": "FIXTURE-G",
+        "horse_no": 7,
+        "reported_style": null,
+        "last_positions": null,
+        "last_any_le3": null,
+        "last_first_le3": null,
+        "first_recorded_lead_count": 0,
+        "observed_position_runs": 0,
+        "source_refs": []
+      }
+    ],
+    "known_front_ids": [
+      "FIXTURE-A",
+      "FIXTURE-D"
+    ],
+    "unknown_ids": [
+      "FIXTURE-G"
+    ],
+    "front_share_range": [
+      0.2857142857142857,
+      0.42857142857142855
+    ],
+    "front_share_scope": "SUPPLIED_POSITION_POINTS_ONLY; negative observations are not confirmed complete",
+    "formally_confirmed_share": null,
+    "unverified_negative_ids": [
+      "FIXTURE-B",
+      "FIXTURE-C",
+      "FIXTURE-E",
+      "FIXTURE-F"
+    ],
+    "first_recorded_leaders": [
+      "FIXTURE-D"
+    ],
+    "pair_comparison": {
+      "possible": 21,
+      "verified": 0,
+      "unknown": 21
+    },
+    "scenarios": [
+      {
+        "id": "FRONT_CANDIDATES_CONTEST",
+        "status": "HYPOTHESIS",
+        "assumptions": [
+          "known forward candidates seek forward positions",
+          "unknown horse may alter field"
+        ],
+        "pace": null,
+        "queue": null
+      },
+      {
+        "id": "FRONT_CANDIDATES_YIELD",
+        "status": "HYPOTHESIS",
+        "assumptions": [
+          "one forward candidate yields",
+          "unknown horse may alter field"
+        ],
+        "pace": null,
+        "queue": null
+      }
+    ],
+    "actual_gates_verified": false,
+    "first_turn_m": null,
+    "formal_rank": null
+  },
+  "counts": {
+    "audit_rows": 805,
+    "checks_executed": 805,
+    "computations_executed": 560,
+    "rows_with_output": 399,
+    "rows_with_runtime_consumers": 325,
+    "formal_consumption": 0
+  },
+  "rank_candidate": null,
+  "eye_candidate": null,
+  "execution_code": "f235d0c728b23546d160e03cc8ac81b5e9cf5706",
+  "ci_run": 45910181000,
+  "ci_job": 140216385676,
+  "initial_capture_commit": "4a8d874e4b24f5ff9711c69c558875b35d602352",
+  "expected_document_blob": "d9cdeb3114ee16c4a4bc1f56fc77858ebafb86ea",
+  "named_tests": {
+    "T": 15,
+    "W": 13,
+    "R": 12,
+    "v3": 17,
+    "G": 16,
+    "E": 14,
+    "v4": 7,
+    "v5": 16,
+    "GF": 10
+  },
+  "named_tests_total": 120,
+  "per_horse": [
+    {
+      "horse_id": "FIXTURE-A",
+      "output": 70,
+      "read": 58,
+      "changed_observations": [
+        "100"
+      ],
+      "changed_consumers": [
+        "01",
+        "12"
+      ],
+      "eye_context_items": 12,
+      "eye_own_history_items": 11,
+      "win_same_partial": [
+        "FIXTURE-A-H3"
+      ],
+      "place_same_partial": [
+        "FIXTURE-A-H3"
+      ],
+      "win_other_conditions": [],
+      "place_other_conditions": [
+        "FIXTURE-A-H2"
+      ],
+      "evaluation_status": "RESEARCH_ONLY_CURRENT_STRENGTH_UNKNOWN"
+    },
+    {
+      "horse_id": "FIXTURE-B",
+      "output": 61,
+      "read": 49,
+      "changed_observations": [
+        "01",
+        "14",
+        "32",
+        "98",
+        "100",
+        "EYE-02",
+        "EYE-13"
+      ],
+      "changed_consumers": [
+        "01",
+        "12"
+      ],
+      "eye_context_items": 12,
+      "eye_own_history_items": 11,
+      "win_same_partial": [],
+      "place_same_partial": [
+        "FIXTURE-B-H2",
+        "FIXTURE-B-H3"
+      ],
+      "win_other_conditions": [],
+      "place_other_conditions": [
+        "FIXTURE-B-H1"
+      ],
+      "evaluation_status": "RESEARCH_ONLY_CURRENT_STRENGTH_UNKNOWN"
+    },
+    {
+      "horse_id": "FIXTURE-C",
+      "output": 60,
+      "read": 50,
+      "changed_observations": [
+        "100"
+      ],
+      "changed_consumers": [
+        "01",
+        "12"
+      ],
+      "eye_context_items": 10,
+      "eye_own_history_items": 9,
+      "win_same_partial": [],
+      "place_same_partial": [],
+      "win_other_conditions": [
+        "FIXTURE-C-H2"
+      ],
+      "place_other_conditions": [
+        "FIXTURE-C-H2"
+      ],
+      "evaluation_status": "RESEARCH_ONLY_CURRENT_STRENGTH_UNKNOWN"
+    },
+    {
+      "horse_id": "FIXTURE-D",
+      "output": 65,
+      "read": 53,
+      "changed_observations": [
+        "26",
+        "27",
+        "31",
+        "96",
+        "97",
+        "100",
+        "EYE-02",
+        "EYE-06",
+        "EYE-15"
+      ],
+      "changed_consumers": [
+        "01",
+        "12",
+        "26",
+        "27",
+        "31",
+        "96"
+      ],
+      "eye_context_items": 12,
+      "eye_own_history_items": 11,
+      "win_same_partial": [],
+      "place_same_partial": [],
+      "win_other_conditions": [],
+      "place_other_conditions": [
+        "FIXTURE-D-H1"
+      ],
+      "evaluation_status": "RESEARCH_ONLY_CURRENT_STRENGTH_UNKNOWN"
+    },
+    {
+      "horse_id": "FIXTURE-E",
+      "output": 65,
+      "read": 54,
+      "changed_observations": [
+        "01",
+        "14",
+        "32",
+        "98",
+        "100",
+        "EYE-02",
+        "EYE-13"
+      ],
+      "changed_consumers": [
+        "01",
+        "12"
+      ],
+      "eye_context_items": 11,
+      "eye_own_history_items": 10,
+      "win_same_partial": [],
+      "place_same_partial": [],
+      "win_other_conditions": [],
+      "place_other_conditions": [],
+      "evaluation_status": "RESEARCH_ONLY_CURRENT_STRENGTH_UNKNOWN"
+    },
+    {
+      "horse_id": "FIXTURE-F",
+      "output": 57,
+      "read": 47,
+      "changed_observations": [
+        "100"
+      ],
+      "changed_consumers": [
+        "01",
+        "12"
+      ],
+      "eye_context_items": 10,
+      "eye_own_history_items": 9,
+      "win_same_partial": [],
+      "place_same_partial": [],
+      "win_other_conditions": [
+        "FIXTURE-F-H3"
+      ],
+      "place_other_conditions": [
+        "FIXTURE-F-H3"
+      ],
+      "evaluation_status": "RESEARCH_ONLY_CURRENT_STRENGTH_UNKNOWN"
+    },
+    {
+      "horse_id": "FIXTURE-G",
+      "output": 21,
+      "read": 14,
+      "changed_observations": [],
+      "changed_consumers": [],
+      "eye_context_items": 7,
+      "eye_own_history_items": 0,
+      "win_same_partial": [],
+      "place_same_partial": [],
+      "win_other_conditions": [],
+      "place_other_conditions": [],
+      "evaluation_status": "UNASSESSED_HISTORY_MISSING"
+    }
+  ]
+}

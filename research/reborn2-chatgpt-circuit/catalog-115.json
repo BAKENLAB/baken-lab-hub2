@@ -1,0 +1,2274 @@
+{
+  "canonical_commits": [
+    "5bf7014",
+    "7fad08f",
+    "e20db55",
+    "417a875"
+  ],
+  "items": [
+    {
+      "id": "01",
+      "name": "基礎競走能力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "02",
+      "name": "近走成績・着順",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "03",
+      "name": "勝ち馬との着差",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "04",
+      "name": "後続馬との着差",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "05",
+      "name": "走破時計",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "06",
+      "name": "上がりタイム",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "07",
+      "name": "瞬発力",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "08",
+      "name": "持続力",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "09",
+      "name": "スタートの安定性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "10",
+      "name": "二の脚・加速力",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "11",
+      "name": "距離別の消耗傾向",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "12",
+      "name": "勝ち切る能力",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "13",
+      "name": "成績の安定性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "14",
+      "name": "成長・衰え",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "15",
+      "name": "潜在能力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "16",
+      "name": "公式レーティング",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RATING",
+          "IFHA"
+        ]
+      }
+    },
+    {
+      "id": "17",
+      "name": "各コーナーの通過順位",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "18",
+      "name": "道中の位置取り変化",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "19",
+      "name": "実ラップ・ペース",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "20",
+      "name": "過去走の展開有利・不利",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "21",
+      "name": "道中での後退からの巻き返し",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "22",
+      "name": "コーナーでの進出",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "23",
+      "name": "先行争いによる消耗",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "24",
+      "name": "終盤の失速原因",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "25",
+      "name": "差し損ね・脚の余力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "26",
+      "name": "出遅れ・進路などの不利",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "27",
+      "name": "不利を克服した好走",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "28",
+      "name": "僅差の凡走",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "29",
+      "name": "負けて強し",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "30",
+      "name": "勝利内容の価値",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "31",
+      "name": "特殊条件による凡走",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "32",
+      "name": "前走からの内容改善",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "33",
+      "name": "過去走のクラス水準",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "34",
+      "name": "過去の対戦相手の能力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "35",
+      "name": "今回の出走馬同士の直接対戦",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "36",
+      "name": "共通対戦馬による間接比較",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "37",
+      "name": "過去の対戦相手の後続実績",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "38",
+      "name": "対戦相手の公式レーティング",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RATING",
+          "IFHA",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "39",
+      "name": "昇級・降級",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "40",
+      "name": "今回の相手強化・弱化",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "41",
+      "name": "上位クラスでの通用可能性",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "42",
+      "name": "中央・地方転入による水準変化",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE"
+        ]
+      }
+    },
+    {
+      "id": "43",
+      "name": "距離適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "44",
+      "name": "距離延長・短縮への適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "45",
+      "name": "競馬場適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "46",
+      "name": "コース間相関",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "47",
+      "name": "芝・ダート適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "48",
+      "name": "馬場状態別適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "49",
+      "name": "左回り・右回り適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "50",
+      "name": "直線の長さへの適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "51",
+      "name": "坂・高低差への適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "52",
+      "name": "コーナー形状への適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "53",
+      "name": "枠順と脚質の相性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "54",
+      "name": "斤量・斤量増減への適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "55",
+      "name": "砂被り耐性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "56",
+      "name": "馬群・揉まれ耐性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "57",
+      "name": "季節適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "58",
+      "name": "各馬の脚質",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "59",
+      "name": "前走の先行判定",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "60",
+      "name": "先行力の再現性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "61",
+      "name": "逃げ候補の特定",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "62",
+      "name": "逃げへの依存度",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "63",
+      "name": "先行馬占有率",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "64",
+      "name": "先行馬の内外配置",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "65",
+      "name": "同型馬の競合",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "66",
+      "name": "逃げハサミ",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "67",
+      "name": "最初のコーナーまでの距離",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "68",
+      "name": "序盤の位置取り争い",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "69",
+      "name": "想定ペース",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "70",
+      "name": "想定隊列",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "71",
+      "name": "想定される距離ロス",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "72",
+      "name": "今回の先行争いによる消耗",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "73",
+      "name": "各馬の展開有利・不利",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "74",
+      "name": "展開対応力",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "75",
+      "name": "展開依存度",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "76",
+      "name": "当日の内外馬場傾向",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "77",
+      "name": "当日の前残り・差し傾向",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "78",
+      "name": "休養期間",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "79",
+      "name": "出走間隔・連闘",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "80",
+      "name": "休養明けからの出走回数",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "81",
+      "name": "馬体重・増減",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "82",
+      "name": "過去の好走時馬体重",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "83",
+      "name": "調教内容",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_TRAIN"
+        ],
+        "local": [
+          "N_TRAIN"
+        ]
+      }
+    },
+    {
+      "id": "84",
+      "name": "馬具変更",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "85",
+      "name": "騎手の能力・実績",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "86",
+      "name": "騎手のコース別適性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "87",
+      "name": "馬と騎手の相性",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "88",
+      "name": "乗り替わり",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "89",
+      "name": "調教師・厩舎の傾向",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "90",
+      "name": "血統",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "91",
+      "name": "年齢・性別・成長段階",
+      "role": "OBSERVATION",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "92",
+      "name": "輸送・遠征",
+      "role": "DERIVED",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "93",
+      "name": "前走からの条件好転",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    },
+    {
+      "id": "94",
+      "name": "前走からの条件悪化",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    },
+    {
+      "id": "95",
+      "name": "過去の好走条件への復帰",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    },
+    {
+      "id": "96",
+      "name": "前走の敗因解消",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    },
+    {
+      "id": "97",
+      "name": "複数の好転材料の重なり",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    },
+    {
+      "id": "98",
+      "name": "潜在能力を発揮できる可能性",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    },
+    {
+      "id": "99",
+      "name": "過去の好走の再現性",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    },
+    {
+      "id": "100",
+      "name": "今回の勝ち切り可能性",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    },
+    {
+      "id": "EYE-01",
+      "name": "着順と着差のギャップ",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "02",
+        "03",
+        "28",
+        "29"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE"
+        ]
+      }
+    },
+    {
+      "id": "EYE-02",
+      "name": "着順と過去走内容のギャップ",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "EYE-03",
+      "name": "道中後退からの巻き返し",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "18",
+        "21",
+        "22",
+        "24",
+        "27"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "EYE-04",
+      "name": "強い相手との僅差敗戦",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "03",
+        "28",
+        "29",
+        "33",
+        "34",
+        "38"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-05",
+      "name": "対戦相手の後続実績",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "34",
+        "37",
+        "38",
+        "40"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-06",
+      "name": "前走の展開不利の解消",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "20",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "31",
+        "65",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "96"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-07",
+      "name": "得意距離・条件への復帰",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "93",
+        "95",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "EYE-08",
+      "name": "コース変更による適性向上",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "45",
+        "46",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "93"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-09",
+      "name": "先行馬占有率による恩恵",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "69",
+        "73",
+        "74",
+        "75"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-10",
+      "name": "逃げハサミによる恩恵",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "59",
+        "60",
+        "64",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "73"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-11",
+      "name": "同型馬の減少",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-12",
+      "name": "想定隊列による位置取り改善",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "53",
+        "93"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_COURSE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_COURSE",
+          "N_URAWA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-13",
+      "name": "着順に表れていない能力上昇",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "13",
+        "14",
+        "15",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "98",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_INCIDENT"
+        ]
+      }
+    },
+    {
+      "id": "EYE-14",
+      "name": "転入・クラス変更による相手弱化",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "93",
+        "95"
+      ],
+      "source_ids": {
+        "jra": [
+          "J_MENU",
+          "J_PROFILE",
+          "J_RATING",
+          "IFHA"
+        ],
+        "local": [
+          "N_CARD",
+          "N_PROFILE",
+          "N_RULE",
+          "N_RATING",
+          "IFHA"
+        ]
+      }
+    },
+    {
+      "id": "EYE-15",
+      "name": "複数の条件好転の組み合わせ",
+      "role": "SYNTHESIS",
+      "independent_vote": false,
+      "upstream_rank_item_ids": [
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99"
+      ],
+      "source_ids": {
+        "jra": [],
+        "local": []
+      }
+    }
+  ],
+  "market_gate": {
+    "market": "単勝",
+    "minimum_odds": 10,
+    "inclusive": true,
+    "timing": "確定時オッズ",
+    "stage": "発掘根拠の監査後"
+  },
+  "source_ids": [
+    "J_MENU",
+    "J_PROFILE",
+    "J_RATING",
+    "J_COURSE",
+    "J_TRAIN",
+    "N_CARD",
+    "N_PROFILE",
+    "N_RATING",
+    "N_COURSE",
+    "N_URAWA",
+    "N_INCIDENT",
+    "N_RULE",
+    "N_TRAIN",
+    "IFHA",
+    "J_TERMS",
+    "N_TERMS"
+  ]
+}

@@ -1,0 +1,4315 @@
+{
+  "schema": "WORK25_NEGATIVE_BATCH_2",
+  "projection_ref": "54bcb4c71a36706340ca72add616bbab300558b9",
+  "projection_blob": "c433d392d4fae6a6667500d069bccd9c2ca52efd",
+  "tests": [
+    {
+      "name": "correction_after:exact_blob_sha256",
+      "pass": true
+    },
+    {
+      "name": "correction_after:selected_source_version_only",
+      "pass": true
+    },
+    {
+      "name": "correction_after:nonvacuous_paths_bound_to_selected_version",
+      "pass": true
+    },
+    {
+      "name": "correction_after:no_post_cutoff_followups",
+      "pass": true
+    },
+    {
+      "name": "correction_after:correction_no_unsupported_claim",
+      "pass": true
+    },
+    {
+      "name": "correction_after:formal_zero",
+      "pass": true
+    },
+    {
+      "name": "malformed_target_market:exact_blob_sha256",
+      "pass": true
+    },
+    {
+      "name": "malformed_target_market:global_hold_zero_values",
+      "pass": true
+    },
+    {
+      "name": "malformed_target_market:formal_zero",
+      "pass": true
+    },
+    {
+      "name": "correction_before:exact_blob_sha256",
+      "pass": true
+    },
+    {
+      "name": "correction_before:selected_source_version_only",
+      "pass": true
+    },
+    {
+      "name": "correction_before:nonvacuous_paths_bound_to_selected_version",
+      "pass": true
+    },
+    {
+      "name": "correction_before:no_post_cutoff_followups",
+      "pass": true
+    },
+    {
+      "name": "correction_before:correction_no_unsupported_claim",
+      "pass": true
+    },
+    {
+      "name": "correction_before:formal_zero",
+      "pass": true
+    }
+  ],
+  "results": [
+    {
+      "name": "correction_after",
+      "status": "TEST_ONLY_PACKET",
+      "selected_version": 1,
+      "latest_inventory_version": 2,
+      "paths": 9,
+      "output": {
+        "schema": "WORK25_PACE_OBSERVATIONS_0.1",
+        "scope": "SYNTHETIC_ONLY",
+        "pins": {
+          "name": "correction_after",
+          "original": {
+            "name": "correction_after",
+            "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+            "path": "research/reborn2-official-sources/stage23-correction_after-packet-v0.2.1.json",
+            "blob": "9d20f9bb8193049d04aab30ad305c25a2fb38a11",
+            "sha256": "397d2ca199f3796267a75e408b487cd4fa6330c700ecc5106f30c1db62bbce0d"
+          },
+          "supplement": {
+            "path": "research/reborn2-official-sources/stage24-correction_after-supplement-v0.1.1.json",
+            "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+            "blob": "31a27512771ad7321afb18e34247d43fade5529f",
+            "sha256": "74bc2eb62e39cbf0e0cb98eefc590e1da5ccb7bfcefdb220aae3c3ce50a804a3",
+            "bytes": 270678
+          },
+          "extensions": 14,
+          "extensions_available": 14,
+          "item_rows": 345,
+          "events": 4,
+          "relations": 14
+        },
+        "status": "TEST_ONLY_PACKET",
+        "event": "TEST:JRA:TARGET",
+        "formal_admissions": 0,
+        "analysis_sufficient": false,
+        "events": [
+          {
+            "id": "TEST:JRA:TARGET",
+            "at": 70,
+            "current": true,
+            "conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:c545087ab0ca14fffa08d47144a9750ce10b7f1c8543779fd8ae92fb72535eb0",
+              "root": "TESTROOT:4470c98655b56079ee9ec396ff9bb0d47b8cef4fb2a25bce577cb8c6a69eea17",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "geometry": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a7c9066137265b84df786386c638acae7e0aa5bd763cb85872ae70e2dc1e4fa8",
+              "root": "TESTROOT:e19644327a2e93b93715b59246341e9131866ff5170d29304c566732f55a190b",
+              "value": {
+                "version": "TEST:GEO:1",
+                "effective": [
+                  0,
+                  100
+                ],
+                "first_turn_m": 300,
+                "straight_m": 250,
+                "elevation_change_mm": 1500,
+                "checkpoints_m": [
+                  300,
+                  1200
+                ]
+              }
+            },
+            "count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:dfb41d33d4b1fb2b268fecb87c7e08a6c94890bc54edee03b1e9070b7bafa4a6",
+              "root": "TESTROOT:0a4b857f625787f418b415711adef13b255e8c8e10d4c7fe6704e71da0e30108",
+              "value": 3
+            },
+            "class_label": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:c545087ab0ca14fffa08d47144a9750ce10b7f1c8543779fd8ae92fb72535eb0",
+              "root": "TESTROOT:4470c98655b56079ee9ec396ff9bb0d47b8cef4fb2a25bce577cb8c6a69eea17",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "class_rules": {
+              "state": "MISSING",
+              "reason": "OFFICIAL_CLASS_RULES_NOT_SUPPLIED",
+              "value": null
+            },
+            "strength": {
+              "state": "MISSING",
+              "reason": "NO_VALIDATED_STRENGTH_REFERENCE",
+              "value": null
+            },
+            "leader_laps": {
+              "state": "MISSING",
+              "reason": "CURRENT_RACE_NOT_RUN",
+              "value": null
+            },
+            "rows": [
+              {
+                "id": "TEST:JRA:A",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:f778e18ae21e76aeec6eb0334c1e28ffa68eb474e38cedcedf43b8863ef1174b",
+                  "root": "TESTROOT:0971e4406861fd441384ec5dd5c142ef2a431e902ad29e2d85fbfbb6c8159739",
+                  "value": {
+                    "id": "TEST:JRA:A",
+                    "no": 1,
+                    "status": "ACTIVE",
+                    "weight_grams": 56000
+                  }
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 1,
+                  "identity_ref": "TESTEV:f778e18ae21e76aeec6eb0334c1e28ffa68eb474e38cedcedf43b8863ef1174b"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "ACTIVE",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "MISSING",
+                  "reason": "NO_VERIFIED_CHECKPOINT_PATH",
+                  "value": null
+                }
+              },
+              {
+                "id": "TEST:JRA:B",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:0805dee414db7334b659259307fece9980354e5ae024bebab756bf76a1fd4981",
+                  "root": "TESTROOT:386c735d36a2b1e4993646e0fb291989b1c0d7c28fe12d68e5a03a356fcb5a1c",
+                  "value": {
+                    "id": "TEST:JRA:B",
+                    "no": 2,
+                    "status": "ACTIVE",
+                    "weight_grams": 55000
+                  }
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 2,
+                  "identity_ref": "TESTEV:0805dee414db7334b659259307fece9980354e5ae024bebab756bf76a1fd4981"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "ACTIVE",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "MISSING",
+                  "reason": "NO_VERIFIED_CHECKPOINT_PATH",
+                  "value": null
+                }
+              },
+              {
+                "id": "TEST:JRA:C",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:f717293b35310b979da36a6b089066943c5c24cc61baa2e043d84264afa90891",
+                  "root": "TESTROOT:cee669edb946c94bc8d7d1b56df356421c4dde5ed0675f6e6ceb66980f2d4f2e",
+                  "value": {
+                    "id": "TEST:JRA:C",
+                    "no": 4,
+                    "status": "CANCELLED",
+                    "weight_grams": null
+                  }
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 4,
+                  "identity_ref": "TESTEV:f717293b35310b979da36a6b089066943c5c24cc61baa2e043d84264afa90891"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "CANCELLED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "MISSING",
+                  "reason": "NO_VERIFIED_CHECKPOINT_PATH",
+                  "value": null
+                }
+              }
+            ]
+          },
+          {
+            "id": "TEST:JRA:H1",
+            "at": 10,
+            "current": false,
+            "conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "geometry": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:5a3e8667985966be14cb48b97b74a68c0ba3cc9b8d81f60d8a3fc8ad83931019",
+              "root": "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+              "value": {
+                "version": "TEST:GEO:1",
+                "effective": [
+                  0,
+                  100
+                ],
+                "first_turn_m": 300,
+                "straight_m": 250,
+                "elevation_change_mm": 1500,
+                "checkpoints_m": [
+                  300,
+                  1200
+                ]
+              }
+            },
+            "count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "class_label": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "class_rules": {
+              "state": "MISSING",
+              "reason": "OFFICIAL_CLASS_RULES_NOT_SUPPLIED",
+              "value": null
+            },
+            "strength": {
+              "state": "MISSING",
+              "reason": "NO_VALIDATED_STRENGTH_REFERENCE",
+              "value": null
+            },
+            "leader_laps": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:e1ba58b5da1fbf310d2198eecc6b55a8bc8dd762bf042067c1439acc96ddb955",
+              "root": "TESTROOT:6431654cf8afe085f751b385bd29f0587eb5fbf06dde10c03a573fee4e4aba46",
+              "value": {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            },
+            "rows": [
+              {
+                "id": "TEST:JRA:X",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:5dae6b87e82390fec5d6dc8cdd83783b2ed74f05f499a163800bc4ab6d864991",
+                  "root": "TESTROOT:2acc0982c103e0535bb1f6f7c4ab5e2a93aced18f5333226f5933789b7727530",
+                  "value": "TEST:JRA:X"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 7,
+                  "identity_ref": "TESTEV:5dae6b87e82390fec5d6dc8cdd83783b2ed74f05f499a163800bc4ab6d864991"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:18b22e8a349ab4585fdbc7f574962fed804101a3abe4b0e077e951077f047e16",
+                    "TESTEV:5a3e8667985966be14cb48b97b74a68c0ba3cc9b8d81f60d8a3fc8ad83931019",
+                    "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425"
+                  ],
+                  "roots": [
+                    "TESTROOT:9cc4923f8799f33979450cae07bf89b5ae606fb2b8263e40655c1791913bd423",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 1,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 1,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 1,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+                  "root": "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+                  "value": 1
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:f0e4d254c93bb47fda34266fe8a1583dd5ed3b2c131ae29faa5b14c7c85511de",
+                  "root": "TESTROOT:957defdad04613e74a4aa0b4b2c8808165e0d0b9738501891f42831ed95dbff7",
+                  "value": 840
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:4eccbbf63ec57746cebb48d5162256af9a3c9e133c71c955232f7bbc452eceef",
+                  "root": "TESTROOT:78240fbd7b997f24d0ea337c2cd623f0be3219cc2c0f8ab4e2671cec1ae637e6",
+                  "value": 360
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:3897dc37c77bf11c1cfbc46f32954348807296f9337567fd9b71cf57958fc040",
+                  "root": "TESTROOT:e71ac02d4a9ec7be35663cdabab824594be43f2d13905b6eb35a64b6af477d6d",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 0
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:A",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:21bcf54d11ab527dcd5d9b674dc9b38926766f924ebb7db50ed742e0dddada13",
+                  "root": "TESTROOT:079adf40e3aadb5a2d7089e3b83852341d311c691c3185a79b7d2a60b2cfb741",
+                  "value": "TEST:JRA:A"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 3,
+                  "identity_ref": "TESTEV:21bcf54d11ab527dcd5d9b674dc9b38926766f924ebb7db50ed742e0dddada13"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:b90110deb29428021636a41aa0ac2b0a399918e4ea328109c763d645d5248a61",
+                    "TESTEV:5a3e8667985966be14cb48b97b74a68c0ba3cc9b8d81f60d8a3fc8ad83931019",
+                    "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425"
+                  ],
+                  "roots": [
+                    "TESTROOT:5a6a49a76a07a6d7593093ae3c4560124a124c4369dd29c46fba9a1471cf4a62",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 2,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 2,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 2,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:1f8adbb180b0f1efad3f34c437fff9dacb9effa1e2da599afb905caf7c9a3054",
+                  "root": "TESTROOT:e5e8e7f13b69f8a0e6f39102e2055c81efdbc47ecf7bf574fd61b5908c905af6",
+                  "value": 2
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:1ec5d7408e12e8482bf5fe35237c299f89a816394f22de6386be9b1e34ee9091",
+                  "root": "TESTROOT:0fdd63c6093cc241c997c89cf1a249905402d5a98ff6dd25d134743f3b9075e4",
+                  "value": 843
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:10060d06ba37e5972d1903ce9bc84cafe51224c3f5c1afcd99c3c33dcc779191",
+                  "root": "TESTROOT:9d11c1841288c2c3306b0abbee0f0153f16e05be6a639c5267fa7a35ecbcd35e",
+                  "value": 362
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:ef59f9d4d1c73d7ef12c054741afaeeec14896631faad79efd56bb82815ffd47",
+                  "root": "TESTROOT:0c9268ffa10e960b83b1a9f207317f4df9839b1c1950afee6a4b5356c285bcc6",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 3
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:B",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:bb3339203769a59c1cb11e0c2db9bbc516d052afd6c4528563087922c55649f1",
+                  "root": "TESTROOT:731640c5924b8b4d04d457ab8a91c6a91d71a84f5f6e79b17952acc840dd4d26",
+                  "value": "TEST:JRA:B"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 9,
+                  "identity_ref": "TESTEV:bb3339203769a59c1cb11e0c2db9bbc516d052afd6c4528563087922c55649f1"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:88faa7dde960411fb6a157f2fa2b66304243c946e6e273d81f30d5e8b638040a",
+                    "TESTEV:5a3e8667985966be14cb48b97b74a68c0ba3cc9b8d81f60d8a3fc8ad83931019",
+                    "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425"
+                  ],
+                  "roots": [
+                    "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 3,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 3,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 3,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:c39bd1eaf9204bf8b011e5d6a8648e29c81e7316cf5844b0af66853e84834201",
+                  "root": "TESTROOT:695996bcdfa6354d5d3d0ac57f8bd4a784f1d4d590a75b5a0c2c905e92f29c3a",
+                  "value": 3
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:42a43ceaff76b63c481e4d7cdd27d342d13c102b3a3474a4134db987eeaa19e5",
+                  "root": "TESTROOT:a4afca446914eeaa5a49da7820ba5d3868fb5053aac64e25b2ab71a052c4516e",
+                  "value": 847
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:dab99494f113bbf7d4b8a54c4f8e8a49ecbc9508c099b31f0256b799917cd870",
+                  "root": "TESTROOT:6d5f34d5c86cc4ee55cfe59a9fce03311a05915f7b87736c947b1999dc795084",
+                  "value": 364
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:b3c8a0d9d116dab24cf116ea762c0ef6222a8407b15e3d0a50a3dbaa6721e0a2",
+                  "root": "TESTROOT:6e233e8f18c9854da2ee26e404f052d3039f12381275e15b2d3fc274a02d00fe",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 7
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "TEST:JRA:H2",
+            "at": 20,
+            "current": false,
+            "conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "geometry": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:f49a930a172d6073a7a42a1e2f5b19bcc4a3eed4e419fb321fa1643eaf68fd3f",
+              "root": "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+              "value": {
+                "version": "TEST:GEO:1",
+                "effective": [
+                  0,
+                  100
+                ],
+                "first_turn_m": 300,
+                "straight_m": 250,
+                "elevation_change_mm": 1500,
+                "checkpoints_m": [
+                  300,
+                  1200
+                ]
+              }
+            },
+            "count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "class_label": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "class_rules": {
+              "state": "MISSING",
+              "reason": "OFFICIAL_CLASS_RULES_NOT_SUPPLIED",
+              "value": null
+            },
+            "strength": {
+              "state": "MISSING",
+              "reason": "NO_VALIDATED_STRENGTH_REFERENCE",
+              "value": null
+            },
+            "leader_laps": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:187b6b24ed47a89be710fdae7eabe2356053e734699464b28a3260462682ea6b",
+              "root": "TESTROOT:4998580cb5e30ee260f36304350df6a429538ab74a38ef93c15e61c691cd3bca",
+              "value": {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              }
+            },
+            "rows": [
+              {
+                "id": "TEST:JRA:Y",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:d9a59dd0987d653c82e68551376a6b530e869583d0aba2b61b08024a7ff5fac9",
+                  "root": "TESTROOT:0af33a65f30d419c0ed015669d8ef3d44a724a0eef5e4a46004a2bf5b3eb1a37",
+                  "value": "TEST:JRA:Y"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 7,
+                  "identity_ref": "TESTEV:d9a59dd0987d653c82e68551376a6b530e869583d0aba2b61b08024a7ff5fac9"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:95909944b7cccf99d746168c62f04bd6c7d7157cefc4527f1e26e2db1abe9ac5",
+                    "TESTEV:f49a930a172d6073a7a42a1e2f5b19bcc4a3eed4e419fb321fa1643eaf68fd3f",
+                    "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0"
+                  ],
+                  "roots": [
+                    "TESTROOT:4affd9a095dc4c52fc8855148e5e039ed44f614e754a6ab5e30fb301ff1923fd",
+                    "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+                    "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559"
+                  ],
+                  "first_observed": {
+                    "rank": 1,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 1,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 1,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:b72eeddb7f75341f5c4ec3db2a9ebc190ddbda9dc99b92fdadae389a81af1b41",
+                  "root": "TESTROOT:d594effded4c8f9c1a41a9ac3a232a7cfade6d004aa792d4be604beb3fa9bb29",
+                  "value": 1
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:2b30718103a246e267e618cd9de307006189fb782e43a52c18958f0fffd1100b",
+                  "root": "TESTROOT:790b1cf2e8ec7e8f7b1a331b620d4d9f9c8380b6844e6923de582e109b5d6268",
+                  "value": 836
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:41bbb59f5f9899b65851815d7c696af4813b879b6e88355165a5be1bb21723ad",
+                  "root": "TESTROOT:3bdc025a8429368e7ce50907129e77535c43e96d7aba371389ec49486ce9e371",
+                  "value": 360
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:835a86810facd95af8176ee9822ab45ade63ddffbc0d33617107511f761835ba",
+                  "root": "TESTROOT:aa97ae18b1aee72155e369291fc68213fd0026ea14a4e4310800139a3fc19e10",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 0
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:A",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:ecb30c8107498c349ffe5de367b8fbcd5737f2945d5b148444bad3da4f3e565a",
+                  "root": "TESTROOT:ff09405e38b0dd74d13a156ac2bf94c44ed291e6ec0f6498ea18b898374b111d",
+                  "value": "TEST:JRA:A"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 3,
+                  "identity_ref": "TESTEV:ecb30c8107498c349ffe5de367b8fbcd5737f2945d5b148444bad3da4f3e565a"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:5f16bf55990aedb0cba753beebeb1c6af1042668fb8391e9ca877ae17bbd6b20",
+                    "TESTEV:f49a930a172d6073a7a42a1e2f5b19bcc4a3eed4e419fb321fa1643eaf68fd3f",
+                    "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0"
+                  ],
+                  "roots": [
+                    "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+                    "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+                    "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559"
+                  ],
+                  "first_observed": {
+                    "rank": 2,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 2,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 2,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:fdc67998bdadc66354ffb88e393014a6bed27573d0130be4f0e93a6aaa4eefd4",
+                  "root": "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+                  "value": 2
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:60d382cad1502a9835a8232e5874c1439b60f6a467f75082961adc41ce797a2e",
+                  "root": "TESTROOT:e4b36ad69b5cafb79da50fd0a3d30eb8dda709b6077951d0531f208cb80b5deb",
+                  "value": 838
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:9420fe491fe24e5d3c2312a559d2a8626ef190e0ff004a4fae14cf304db9248a",
+                  "root": "TESTROOT:8ef3696fb8f87ea199477a8af37a5416bf762dc49f7a01dd42ba725ff496206d",
+                  "value": 362
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:e6481f530a91cf2e9b187057b210274356ecc094d3eaf17ed9d383091fdd6916",
+                  "root": "TESTROOT:1dc3bdede677902e310c9fd66fb145e0632cef0d23d3e5b24ce9a56980868ebc",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:X",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:f927b5f16f88e0c64f36c18a994b6b05274e27976f0c6e53f00ef04c971a7cf6",
+                  "root": "TESTROOT:e36202ac9fc4657ad1433bf05f7c0fb31154065ae44505af49e63af850c1dc3d",
+                  "value": "TEST:JRA:X"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 9,
+                  "identity_ref": "TESTEV:f927b5f16f88e0c64f36c18a994b6b05274e27976f0c6e53f00ef04c971a7cf6"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:c8d75c8454033bd32721072a6860a5427eb826b66a652a48c38c8d74319eb966",
+                    "TESTEV:f49a930a172d6073a7a42a1e2f5b19bcc4a3eed4e419fb321fa1643eaf68fd3f",
+                    "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0"
+                  ],
+                  "roots": [
+                    "TESTROOT:c1f28e53aed73265f01dea6c8410dfe6328e45d96f0179e2b02ea567b3ee4f8c",
+                    "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+                    "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559"
+                  ],
+                  "first_observed": {
+                    "rank": 3,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 3,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 3,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:0be8db454bab36c35a4f3b765f0dd8896c2b04e5031e073290ef62de74d0c2b6",
+                  "root": "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+                  "value": 3
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:ebc1b54c7b1828fc73dcd69d6372e28c8848b490cf11148d36ad493e4de03bc7",
+                  "root": "TESTROOT:2442f82575ee81ea0490f7793bb94f5ac4158e465755584983258484b0e79059",
+                  "value": 841
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:1680d50a9ecc528e92a24a0baa2b705ee4512be84dce7205b26b68ca2a03ccad",
+                  "root": "TESTROOT:8dac4de8937f7a160fe5f4688dff9f46ecb396afd3c568d87388705abaa276e1",
+                  "value": 364
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:45d16b072bc506cb9c85e8c272826a203df113cc0a58e01142888eed4360e433",
+                  "root": "TESTROOT:1d9c409e0fc6063115b92d89a1f8ff62f87207fdb9fbd71caca2952feaa85d94",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 5
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "TEST:JRA:H3",
+            "at": 30,
+            "current": false,
+            "conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "geometry": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:df24c5013f3d99deef8f1569ed778373fb9245623788e8f60fe09b92326f0494",
+              "root": "TESTROOT:b1b85ba524401bee07f35b81710ae9a9e0d661c56094874c434ba07591050605",
+              "value": {
+                "version": "TEST:GEO:1",
+                "effective": [
+                  0,
+                  100
+                ],
+                "first_turn_m": 300,
+                "straight_m": 250,
+                "elevation_change_mm": 1500,
+                "checkpoints_m": [
+                  300,
+                  1200
+                ]
+              }
+            },
+            "count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:da8dc66e67f507517a96af5e7d331d49d8acdd173221101dc6cf9d011392b19a",
+              "root": "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518",
+              "value": 3
+            },
+            "class_label": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "class_rules": {
+              "state": "MISSING",
+              "reason": "OFFICIAL_CLASS_RULES_NOT_SUPPLIED",
+              "value": null
+            },
+            "strength": {
+              "state": "MISSING",
+              "reason": "NO_VALIDATED_STRENGTH_REFERENCE",
+              "value": null
+            },
+            "leader_laps": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a98564ff4879d56d24bf6f569a58fa3a2446e586aef3ff729275b98638bcb378",
+              "root": "TESTROOT:d3e5e9321d4a2d9d60f0e17aedea3f463f0432b8b13b52c65cfd6d263749766e",
+              "value": {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 118
+                  }
+                ]
+              }
+            },
+            "rows": [
+              {
+                "id": "TEST:JRA:X",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:a92130d4834f7bbe264ee02f38037d788e8b8d6ea6107b3061137c1c28d8b142",
+                  "root": "TESTROOT:265ff6ad24fd7f3a2167d78480a73b7a5ce7c3297f33e8d05cb5a4a0ac23b53d",
+                  "value": "TEST:JRA:X"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 7,
+                  "identity_ref": "TESTEV:a92130d4834f7bbe264ee02f38037d788e8b8d6ea6107b3061137c1c28d8b142"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:f542f218dce9e06685a87b09882ab9f2a78ef0109284779e56f01bdfb4fcbdaf",
+                    "TESTEV:df24c5013f3d99deef8f1569ed778373fb9245623788e8f60fe09b92326f0494",
+                    "TESTEV:da8dc66e67f507517a96af5e7d331d49d8acdd173221101dc6cf9d011392b19a"
+                  ],
+                  "roots": [
+                    "TESTROOT:fb18462b956dd4124cc0439b582edcfdfd5b657861120bee62737b70b4f785dd",
+                    "TESTROOT:b1b85ba524401bee07f35b81710ae9a9e0d661c56094874c434ba07591050605",
+                    "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518"
+                  ],
+                  "first_observed": {
+                    "rank": 1,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 1,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 1,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:b404ab43958afb16b4de184a8f33f571ff3a237ebfa285ea92d9d55c05a550b0",
+                  "root": "TESTROOT:ad6833e397934b01cbec1fa50c84fa603dd5e3a1c1af5b93cedb5739e732b94f",
+                  "value": 1
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:4a381970e2ba69febbe7221fcbb43c46472a7fc523e209ab87e2dbbfb73cfa8d",
+                  "root": "TESTROOT:09f1dabfeabe151214b7bdc4fe4fc1a4a46cbdbef2cb26e01f4ac301b4f3597f",
+                  "value": 838
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:23f2a0be0ae8864a40e9736491dfdc54d8ac164f00230ebb691147049749b65a",
+                  "root": "TESTROOT:52613aab3be9095c097413947bfee4f972713600869c3cc0fa0efb47868880d1",
+                  "value": 360
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:4a283ed96b0017a8b301d868f5b498d839422d9f57ac81019ea2b3c9f830952b",
+                  "root": "TESTROOT:78e6de1eded764cb55ab69f7f261fd79dcb712b45d19d4208538abe51d7c64eb",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 0
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:Y",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:714bd3c4b86cfb7998a9b6b0c339120c1fe26e1ff216ebbf956d21d6e7ebf304",
+                  "root": "TESTROOT:496e106bc1ec5ae150b595a8fd9a3d60f19b72e7c266ad470d4b4a3af7a39f95",
+                  "value": "TEST:JRA:Y"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 3,
+                  "identity_ref": "TESTEV:714bd3c4b86cfb7998a9b6b0c339120c1fe26e1ff216ebbf956d21d6e7ebf304"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:4015391825526026bae0e61c448ac13da1dbf1fee613e5764c097a33dfa5b424",
+                    "TESTEV:df24c5013f3d99deef8f1569ed778373fb9245623788e8f60fe09b92326f0494",
+                    "TESTEV:da8dc66e67f507517a96af5e7d331d49d8acdd173221101dc6cf9d011392b19a"
+                  ],
+                  "roots": [
+                    "TESTROOT:ea11045e53a16e3ed6b3a2e5d3ebe8193836abb67504f4f708ed7a4e30c4f5e0",
+                    "TESTROOT:b1b85ba524401bee07f35b81710ae9a9e0d661c56094874c434ba07591050605",
+                    "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518"
+                  ],
+                  "first_observed": {
+                    "rank": 2,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 2,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 2,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:cb1a9ff7d2bcbdc8ab3569a1f296dcc073e282c43bdcf7133a5217650478afda",
+                  "root": "TESTROOT:afb61cdfd8dc22fa9f93bdc1546e2f66c61be1e68ad988bfdbe576fe5866ff9a",
+                  "value": 2
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:6fa996b721818e5250ad313bbb822604d5109c497f9f3b7132a0d7237cbafa6a",
+                  "root": "TESTROOT:aeefc598af8b1d7c95e2e20d1267f317df5eed2183af2574695246d5401110f9",
+                  "value": 841
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:b04d7f903eed0ec6254b3e6b828224c509347cb7cbc78d8893e2f13b993d9770",
+                  "root": "TESTROOT:da72100fe72d6884c34fd31844c2edb527cd55f495e01f6b0198c47209ea94fa",
+                  "value": 362
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:edf8644901ff032eee2995d46c28e4c1190c4c3f44d135aa3e27ad319c6d5a0b",
+                  "root": "TESTROOT:5dddf6787590f4380321d2dae63ea692f4e98c2c41340bb3ba4ed012d238b362",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 3
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:Z",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:4b455994db1851038f2badd76a9e08277ea3817cececa72cc65d5605ce739b91",
+                  "root": "TESTROOT:acbb3ff6bc48337e7d6b0ef222979c76acccd22678de20d830a7e08d9f79c5a1",
+                  "value": "TEST:JRA:Z"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 9,
+                  "identity_ref": "TESTEV:4b455994db1851038f2badd76a9e08277ea3817cececa72cc65d5605ce739b91"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:f693be28a74de5e95c8177e73c0d08784e1aa611e5816fae10e2a5248da6f868",
+                    "TESTEV:df24c5013f3d99deef8f1569ed778373fb9245623788e8f60fe09b92326f0494",
+                    "TESTEV:da8dc66e67f507517a96af5e7d331d49d8acdd173221101dc6cf9d011392b19a"
+                  ],
+                  "roots": [
+                    "TESTROOT:62f07695631376f96b3965c9548047c56e4b54ec779382232502793f37990a28",
+                    "TESTROOT:b1b85ba524401bee07f35b81710ae9a9e0d661c56094874c434ba07591050605",
+                    "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518"
+                  ],
+                  "first_observed": {
+                    "rank": 3,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 3,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 3,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:7da088c99bd2ad7de3356586860846a0456ab3a20a7d038816dc415b1cd8b935",
+                  "root": "TESTROOT:111a43173e42b08436ce49b10312ecfa669c504d392d64c729a4dbbb8e41fd41",
+                  "value": 3
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:a7fcad40e62115473278cdbd543e1c4d8dbed3e80baa535123d0739611bbe953",
+                  "root": "TESTROOT:bb7c41f864c518f8f03285f2a093ca36755e55b3f8828adf6b89bebe5f8101a3",
+                  "value": 845
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:0de858c89592f126b89b5607754bed76f68ff2633f3c66dafa250035ae0a69f3",
+                  "root": "TESTROOT:b92b783964169c3d3cc92e1a96eabef36242bdca5ffcc74720f3ea00f6541001",
+                  "value": 364
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:79c6e9d65a7a11ce402845576ef4e1c397b8a128a56a1e4c6d294bbaf21da796",
+                  "root": "TESTROOT:605c9c0e2947ae1260e84b9bf8d04f3405165d7137742ffdf824c8c25be01e1d",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 7
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "runners": [
+          {
+            "id": "TEST:JRA:A",
+            "no": 1,
+            "status": "ACTIVE",
+            "gate": {
+              "state": "MISSING",
+              "reason": "NATIVE_GATE_NOT_SUPPLIED",
+              "value": null
+            },
+            "history": [
+              {
+                "event": "TEST:JRA:H1",
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:b90110deb29428021636a41aa0ac2b0a399918e4ea328109c763d645d5248a61",
+                    "TESTEV:5a3e8667985966be14cb48b97b74a68c0ba3cc9b8d81f60d8a3fc8ad83931019",
+                    "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425"
+                  ],
+                  "roots": [
+                    "TESTROOT:5a6a49a76a07a6d7593093ae3c4560124a124c4369dd29c46fba9a1471cf4a62",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 2,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 2,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 2,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "distance_change": {
+                  "state": "OBSERVED_CONDITION_DELTA_ONLY",
+                  "value": 0,
+                  "kind": "SAME_DISTANCE",
+                  "refs": [
+                    "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+                    "TESTEV:c545087ab0ca14fffa08d47144a9750ce10b7f1c8543779fd8ae92fb72535eb0"
+                  ],
+                  "roots": [
+                    "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+                    "TESTROOT:4470c98655b56079ee9ec396ff9bb0d47b8cef4fb2a25bce577cb8c6a69eea17"
+                  ]
+                },
+                "response": {
+                  "state": "MISSING",
+                  "reason": "NO_CAUSAL_DISTANCE_RESPONSE_PROOF",
+                  "value": null
+                }
+              },
+              {
+                "event": "TEST:JRA:H2",
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:5f16bf55990aedb0cba753beebeb1c6af1042668fb8391e9ca877ae17bbd6b20",
+                    "TESTEV:f49a930a172d6073a7a42a1e2f5b19bcc4a3eed4e419fb321fa1643eaf68fd3f",
+                    "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0"
+                  ],
+                  "roots": [
+                    "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+                    "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+                    "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559"
+                  ],
+                  "first_observed": {
+                    "rank": 2,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 2,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 2,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "distance_change": {
+                  "state": "OBSERVED_CONDITION_DELTA_ONLY",
+                  "value": 0,
+                  "kind": "SAME_DISTANCE",
+                  "refs": [
+                    "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+                    "TESTEV:c545087ab0ca14fffa08d47144a9750ce10b7f1c8543779fd8ae92fb72535eb0"
+                  ],
+                  "roots": [
+                    "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+                    "TESTROOT:4470c98655b56079ee9ec396ff9bb0d47b8cef4fb2a25bce577cb8c6a69eea17"
+                  ]
+                },
+                "response": {
+                  "state": "MISSING",
+                  "reason": "NO_CAUSAL_DISTANCE_RESPONSE_PROOF",
+                  "value": null
+                }
+              }
+            ],
+            "early_role": {
+              "state": "MISSING",
+              "reason": "FIRST_OBSERVED_RANK_NOT_CURRENT_ROLE_PROOF",
+              "value": null
+            },
+            "scenario": {
+              "state": "MISSING",
+              "reason": "REQUIRES_FULL_FIELD_ANALYSIS",
+              "value": null
+            }
+          },
+          {
+            "id": "TEST:JRA:B",
+            "no": 2,
+            "status": "ACTIVE",
+            "gate": {
+              "state": "MISSING",
+              "reason": "NATIVE_GATE_NOT_SUPPLIED",
+              "value": null
+            },
+            "history": [
+              {
+                "event": "TEST:JRA:H1",
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:88faa7dde960411fb6a157f2fa2b66304243c946e6e273d81f30d5e8b638040a",
+                    "TESTEV:5a3e8667985966be14cb48b97b74a68c0ba3cc9b8d81f60d8a3fc8ad83931019",
+                    "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425"
+                  ],
+                  "roots": [
+                    "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 3,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 3,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 3,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "distance_change": {
+                  "state": "OBSERVED_CONDITION_DELTA_ONLY",
+                  "value": 0,
+                  "kind": "SAME_DISTANCE",
+                  "refs": [
+                    "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+                    "TESTEV:c545087ab0ca14fffa08d47144a9750ce10b7f1c8543779fd8ae92fb72535eb0"
+                  ],
+                  "roots": [
+                    "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+                    "TESTROOT:4470c98655b56079ee9ec396ff9bb0d47b8cef4fb2a25bce577cb8c6a69eea17"
+                  ]
+                },
+                "response": {
+                  "state": "MISSING",
+                  "reason": "NO_CAUSAL_DISTANCE_RESPONSE_PROOF",
+                  "value": null
+                }
+              }
+            ],
+            "early_role": {
+              "state": "MISSING",
+              "reason": "FIRST_OBSERVED_RANK_NOT_CURRENT_ROLE_PROOF",
+              "value": null
+            },
+            "scenario": {
+              "state": "MISSING",
+              "reason": "REQUIRES_FULL_FIELD_ANALYSIS",
+              "value": null
+            }
+          },
+          {
+            "id": "TEST:JRA:C",
+            "no": 4,
+            "status": "CANCELLED",
+            "gate": {
+              "state": "MISSING",
+              "reason": "NATIVE_GATE_NOT_SUPPLIED",
+              "value": null
+            },
+            "history": [],
+            "early_role": {
+              "state": "MISSING",
+              "reason": "NOT_ACTIVE",
+              "value": null
+            },
+            "scenario": {
+              "state": "MISSING",
+              "reason": "REQUIRES_FULL_FIELD_ANALYSIS",
+              "value": null
+            }
+          }
+        ],
+        "followups": [
+          {
+            "subject": "TEST:JRA:A",
+            "opponent": "TEST:JRA:X",
+            "reference_event": "TEST:JRA:H1",
+            "followup_event": "TEST:JRA:H2",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+              "root": "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "value": 1
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:0be8db454bab36c35a4f3b765f0dd8896c2b04e5031e073290ef62de74d0c2b6",
+              "root": "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "value": 3
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:21bcf54d11ab527dcd5d9b674dc9b38926766f924ebb7db50ed742e0dddada13",
+              "TESTEV:1f8adbb180b0f1efad3f34c437fff9dacb9effa1e2da599afb905caf7c9a3054",
+              "TESTEV:5dae6b87e82390fec5d6dc8cdd83783b2ed74f05f499a163800bc4ab6d864991",
+              "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+              "TESTEV:f927b5f16f88e0c64f36c18a994b6b05274e27976f0c6e53f00ef04c971a7cf6",
+              "TESTEV:0be8db454bab36c35a4f3b765f0dd8896c2b04e5031e073290ef62de74d0c2b6",
+              "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21"
+            ],
+            "independence_key": "TEST:JRA:X|TEST:JRA:H1|TEST:JRA:H2",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          },
+          {
+            "subject": "TEST:JRA:A",
+            "opponent": "TEST:JRA:X",
+            "reference_event": "TEST:JRA:H1",
+            "followup_event": "TEST:JRA:H3",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+              "root": "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "value": 1
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:b404ab43958afb16b4de184a8f33f571ff3a237ebfa285ea92d9d55c05a550b0",
+              "root": "TESTROOT:ad6833e397934b01cbec1fa50c84fa603dd5e3a1c1af5b93cedb5739e732b94f",
+              "value": 1
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:da8dc66e67f507517a96af5e7d331d49d8acdd173221101dc6cf9d011392b19a",
+              "root": "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:21bcf54d11ab527dcd5d9b674dc9b38926766f924ebb7db50ed742e0dddada13",
+              "TESTEV:1f8adbb180b0f1efad3f34c437fff9dacb9effa1e2da599afb905caf7c9a3054",
+              "TESTEV:5dae6b87e82390fec5d6dc8cdd83783b2ed74f05f499a163800bc4ab6d864991",
+              "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+              "TESTEV:a92130d4834f7bbe264ee02f38037d788e8b8d6ea6107b3061137c1c28d8b142",
+              "TESTEV:b404ab43958afb16b4de184a8f33f571ff3a237ebfa285ea92d9d55c05a550b0",
+              "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8"
+            ],
+            "independence_key": "TEST:JRA:X|TEST:JRA:H1|TEST:JRA:H3",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          },
+          {
+            "subject": "TEST:JRA:A",
+            "opponent": "TEST:JRA:Y",
+            "reference_event": "TEST:JRA:H2",
+            "followup_event": "TEST:JRA:H3",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:b72eeddb7f75341f5c4ec3db2a9ebc190ddbda9dc99b92fdadae389a81af1b41",
+              "root": "TESTROOT:d594effded4c8f9c1a41a9ac3a232a7cfade6d004aa792d4be604beb3fa9bb29",
+              "value": 1
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:cb1a9ff7d2bcbdc8ab3569a1f296dcc073e282c43bdcf7133a5217650478afda",
+              "root": "TESTROOT:afb61cdfd8dc22fa9f93bdc1546e2f66c61be1e68ad988bfdbe576fe5866ff9a",
+              "value": 2
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:da8dc66e67f507517a96af5e7d331d49d8acdd173221101dc6cf9d011392b19a",
+              "root": "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:ecb30c8107498c349ffe5de367b8fbcd5737f2945d5b148444bad3da4f3e565a",
+              "TESTEV:fdc67998bdadc66354ffb88e393014a6bed27573d0130be4f0e93a6aaa4eefd4",
+              "TESTEV:d9a59dd0987d653c82e68551376a6b530e869583d0aba2b61b08024a7ff5fac9",
+              "TESTEV:b72eeddb7f75341f5c4ec3db2a9ebc190ddbda9dc99b92fdadae389a81af1b41",
+              "TESTEV:714bd3c4b86cfb7998a9b6b0c339120c1fe26e1ff216ebbf956d21d6e7ebf304",
+              "TESTEV:cb1a9ff7d2bcbdc8ab3569a1f296dcc073e282c43bdcf7133a5217650478afda",
+              "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8"
+            ],
+            "independence_key": "TEST:JRA:Y|TEST:JRA:H2|TEST:JRA:H3",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          },
+          {
+            "subject": "TEST:JRA:A",
+            "opponent": "TEST:JRA:X",
+            "reference_event": "TEST:JRA:H2",
+            "followup_event": "TEST:JRA:H3",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:0be8db454bab36c35a4f3b765f0dd8896c2b04e5031e073290ef62de74d0c2b6",
+              "root": "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "value": 3
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:b404ab43958afb16b4de184a8f33f571ff3a237ebfa285ea92d9d55c05a550b0",
+              "root": "TESTROOT:ad6833e397934b01cbec1fa50c84fa603dd5e3a1c1af5b93cedb5739e732b94f",
+              "value": 1
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:da8dc66e67f507517a96af5e7d331d49d8acdd173221101dc6cf9d011392b19a",
+              "root": "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:ecb30c8107498c349ffe5de367b8fbcd5737f2945d5b148444bad3da4f3e565a",
+              "TESTEV:fdc67998bdadc66354ffb88e393014a6bed27573d0130be4f0e93a6aaa4eefd4",
+              "TESTEV:f927b5f16f88e0c64f36c18a994b6b05274e27976f0c6e53f00ef04c971a7cf6",
+              "TESTEV:0be8db454bab36c35a4f3b765f0dd8896c2b04e5031e073290ef62de74d0c2b6",
+              "TESTEV:a92130d4834f7bbe264ee02f38037d788e8b8d6ea6107b3061137c1c28d8b142",
+              "TESTEV:b404ab43958afb16b4de184a8f33f571ff3a237ebfa285ea92d9d55c05a550b0",
+              "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8"
+            ],
+            "independence_key": "TEST:JRA:X|TEST:JRA:H2|TEST:JRA:H3",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          },
+          {
+            "subject": "TEST:JRA:B",
+            "opponent": "TEST:JRA:X",
+            "reference_event": "TEST:JRA:H1",
+            "followup_event": "TEST:JRA:H2",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+              "root": "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "value": 1
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:0be8db454bab36c35a4f3b765f0dd8896c2b04e5031e073290ef62de74d0c2b6",
+              "root": "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "value": 3
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:bb3339203769a59c1cb11e0c2db9bbc516d052afd6c4528563087922c55649f1",
+              "TESTEV:c39bd1eaf9204bf8b011e5d6a8648e29c81e7316cf5844b0af66853e84834201",
+              "TESTEV:5dae6b87e82390fec5d6dc8cdd83783b2ed74f05f499a163800bc4ab6d864991",
+              "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+              "TESTEV:f927b5f16f88e0c64f36c18a994b6b05274e27976f0c6e53f00ef04c971a7cf6",
+              "TESTEV:0be8db454bab36c35a4f3b765f0dd8896c2b04e5031e073290ef62de74d0c2b6",
+              "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21"
+            ],
+            "independence_key": "TEST:JRA:X|TEST:JRA:H1|TEST:JRA:H2",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          },
+          {
+            "subject": "TEST:JRA:B",
+            "opponent": "TEST:JRA:X",
+            "reference_event": "TEST:JRA:H1",
+            "followup_event": "TEST:JRA:H3",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+              "root": "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "value": 1
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:b404ab43958afb16b4de184a8f33f571ff3a237ebfa285ea92d9d55c05a550b0",
+              "root": "TESTROOT:ad6833e397934b01cbec1fa50c84fa603dd5e3a1c1af5b93cedb5739e732b94f",
+              "value": 1
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:da8dc66e67f507517a96af5e7d331d49d8acdd173221101dc6cf9d011392b19a",
+              "root": "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:bb3339203769a59c1cb11e0c2db9bbc516d052afd6c4528563087922c55649f1",
+              "TESTEV:c39bd1eaf9204bf8b011e5d6a8648e29c81e7316cf5844b0af66853e84834201",
+              "TESTEV:5dae6b87e82390fec5d6dc8cdd83783b2ed74f05f499a163800bc4ab6d864991",
+              "TESTEV:f97dc6a3cb47fa5e2ab976036a1605d447d07c0d0babefe1f730f52c79d61833",
+              "TESTEV:a92130d4834f7bbe264ee02f38037d788e8b8d6ea6107b3061137c1c28d8b142",
+              "TESTEV:b404ab43958afb16b4de184a8f33f571ff3a237ebfa285ea92d9d55c05a550b0",
+              "TESTEV:a629c58691266c082251d0d5b36134e72755b8e8f4ef284b9ea76af01622b0c8"
+            ],
+            "independence_key": "TEST:JRA:X|TEST:JRA:H1|TEST:JRA:H3",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          },
+          {
+            "subject": "TEST:JRA:B",
+            "opponent": "TEST:JRA:A",
+            "reference_event": "TEST:JRA:H1",
+            "followup_event": "TEST:JRA:H2",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:1f8adbb180b0f1efad3f34c437fff9dacb9effa1e2da599afb905caf7c9a3054",
+              "root": "TESTROOT:e5e8e7f13b69f8a0e6f39102e2055c81efdbc47ecf7bf574fd61b5908c905af6",
+              "value": 2
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:fdc67998bdadc66354ffb88e393014a6bed27573d0130be4f0e93a6aaa4eefd4",
+              "root": "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+              "value": 2
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:ddb9a5d9e443a46a8c78f3d64c9d86934ad94caa3baf0d7b720e058d97627425",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:1275a2c5327a26c26e00ae31172def349e465e0de16a352c22418810c74142c0",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:5e5e2a4c3842d23a4ae64c9f2e341fe83af3490cb5ef96d3057b44a370cacb7d",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:bb3339203769a59c1cb11e0c2db9bbc516d052afd6c4528563087922c55649f1",
+              "TESTEV:c39bd1eaf9204bf8b011e5d6a8648e29c81e7316cf5844b0af66853e84834201",
+              "TESTEV:21bcf54d11ab527dcd5d9b674dc9b38926766f924ebb7db50ed742e0dddada13",
+              "TESTEV:1f8adbb180b0f1efad3f34c437fff9dacb9effa1e2da599afb905caf7c9a3054",
+              "TESTEV:ecb30c8107498c349ffe5de367b8fbcd5737f2945d5b148444bad3da4f3e565a",
+              "TESTEV:fdc67998bdadc66354ffb88e393014a6bed27573d0130be4f0e93a6aaa4eefd4",
+              "TESTEV:74c8f57547f9f5b308473e3a5d3e824fd29a2b7dd078b126d1f126d022dadf21"
+            ],
+            "independence_key": "TEST:JRA:A|TEST:JRA:H1|TEST:JRA:H2",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "malformed_target_market",
+      "status": "HELD",
+      "selected_version": null,
+      "latest_inventory_version": null,
+      "paths": 0,
+      "output": {
+        "schema": "WORK25_PACE_OBSERVATIONS_0.1",
+        "scope": "SYNTHETIC_ONLY",
+        "pins": {
+          "name": "malformed_target_market",
+          "original": {
+            "name": "malformed_target_market",
+            "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+            "path": "research/reborn2-official-sources/stage23-malformed_target_market-packet-v0.2.1.json",
+            "blob": "e1cd8250612301075e9cea7b3a7ac6ae7827e7a9",
+            "sha256": "821acf693e5b6956e4e88290b12835904116ecdcd9567f3dc91faca9186e3f94"
+          },
+          "supplement": {
+            "path": "research/reborn2-official-sources/stage24-malformed_target_market-supplement-v0.1.1.json",
+            "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+            "blob": "256f416ad58f74910b8e84a80c0f6ac4e37089ad",
+            "sha256": "ef85159de802e8eb67b678b71c2ee52bdbe3a39746404d1934e5e49f1c0ed0eb",
+            "bytes": 22353
+          },
+          "extensions": 0,
+          "extensions_available": 0,
+          "item_rows": 115,
+          "events": 0,
+          "relations": 0
+        },
+        "status": "HELD",
+        "event": "TEST:JRA:TARGET",
+        "formal_admissions": 0,
+        "analysis_sufficient": false,
+        "events": [],
+        "runners": [],
+        "followups": [],
+        "reason": "TARGET_SCOPE"
+      }
+    },
+    {
+      "name": "correction_before",
+      "status": "TEST_ONLY_PACKET",
+      "selected_version": 2,
+      "latest_inventory_version": 2,
+      "paths": 9,
+      "output": {
+        "schema": "WORK25_PACE_OBSERVATIONS_0.1",
+        "scope": "SYNTHETIC_ONLY",
+        "pins": {
+          "name": "correction_before",
+          "original": {
+            "name": "correction_before",
+            "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+            "path": "research/reborn2-official-sources/stage23-correction_before-packet-v0.2.2.json",
+            "blob": "2df92483cbe06d2919665bdf9709048307e29961",
+            "sha256": "c407fd569eda9bd44e2f058d2b9c5d5840e9624547fc55df1c3f42fc8cbf2341"
+          },
+          "supplement": {
+            "path": "research/reborn2-official-sources/stage24-correction_before-supplement-v0.1.1.json",
+            "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+            "blob": "47202c136590c1206f0b9de932d9eddd872479d5",
+            "sha256": "76bb899ea65e502a01fd3781ea4a3ace68a16afbaca23106c37bae2fe77a1285",
+            "bytes": 179765
+          },
+          "extensions": 14,
+          "extensions_available": 14,
+          "item_rows": 345,
+          "events": 4,
+          "relations": 5
+        },
+        "status": "TEST_ONLY_PACKET",
+        "event": "TEST:JRA:TARGET",
+        "formal_admissions": 0,
+        "analysis_sufficient": false,
+        "events": [
+          {
+            "id": "TEST:JRA:TARGET",
+            "at": 70,
+            "current": true,
+            "conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:79d6e3db2df918e64d068559dfdb449edf9d1b2e172660f10150c1424aa592ac",
+              "root": "TESTROOT:4470c98655b56079ee9ec396ff9bb0d47b8cef4fb2a25bce577cb8c6a69eea17",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "geometry": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:632fc0b097a8f2c988673d1858a13b29c28ddc43d255f19d5005a91818eb3ca2",
+              "root": "TESTROOT:e19644327a2e93b93715b59246341e9131866ff5170d29304c566732f55a190b",
+              "value": {
+                "version": "TEST:GEO:1",
+                "effective": [
+                  0,
+                  100
+                ],
+                "first_turn_m": 300,
+                "straight_m": 250,
+                "elevation_change_mm": 1500,
+                "checkpoints_m": [
+                  300,
+                  1200
+                ]
+              }
+            },
+            "count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:028c20dd5898cf8a8713ebbabff12734b14d01fb45672d792d01866b6b02f7d6",
+              "root": "TESTROOT:0a4b857f625787f418b415711adef13b255e8c8e10d4c7fe6704e71da0e30108",
+              "value": 3
+            },
+            "class_label": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:79d6e3db2df918e64d068559dfdb449edf9d1b2e172660f10150c1424aa592ac",
+              "root": "TESTROOT:4470c98655b56079ee9ec396ff9bb0d47b8cef4fb2a25bce577cb8c6a69eea17",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "class_rules": {
+              "state": "MISSING",
+              "reason": "OFFICIAL_CLASS_RULES_NOT_SUPPLIED",
+              "value": null
+            },
+            "strength": {
+              "state": "MISSING",
+              "reason": "NO_VALIDATED_STRENGTH_REFERENCE",
+              "value": null
+            },
+            "leader_laps": {
+              "state": "MISSING",
+              "reason": "CURRENT_RACE_NOT_RUN",
+              "value": null
+            },
+            "rows": [
+              {
+                "id": "TEST:JRA:A",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:75982b2efc86cd6c4ce61f33a8b094363f9a7bb8475ce2fa3c57d12c5ef0a800",
+                  "root": "TESTROOT:0971e4406861fd441384ec5dd5c142ef2a431e902ad29e2d85fbfbb6c8159739",
+                  "value": {
+                    "id": "TEST:JRA:A",
+                    "no": 1,
+                    "status": "EXCLUDED",
+                    "weight_grams": 56000
+                  }
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 1,
+                  "identity_ref": "TESTEV:75982b2efc86cd6c4ce61f33a8b094363f9a7bb8475ce2fa3c57d12c5ef0a800"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "EXCLUDED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "MISSING",
+                  "reason": "NO_VERIFIED_CHECKPOINT_PATH",
+                  "value": null
+                }
+              },
+              {
+                "id": "TEST:JRA:B",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:7890e4382ec8fd9099c7cd2c44e8c2e60f84c38577f7fef84004db6c54880420",
+                  "root": "TESTROOT:386c735d36a2b1e4993646e0fb291989b1c0d7c28fe12d68e5a03a356fcb5a1c",
+                  "value": {
+                    "id": "TEST:JRA:B",
+                    "no": 2,
+                    "status": "ACTIVE",
+                    "weight_grams": 55000
+                  }
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 2,
+                  "identity_ref": "TESTEV:7890e4382ec8fd9099c7cd2c44e8c2e60f84c38577f7fef84004db6c54880420"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "ACTIVE",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "MISSING",
+                  "reason": "NO_VERIFIED_CHECKPOINT_PATH",
+                  "value": null
+                }
+              },
+              {
+                "id": "TEST:JRA:C",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:9d25eb9c512dd14a9860e6c4e02ebad64edcc3319272fa8728ca60dd64e4a7d1",
+                  "root": "TESTROOT:cee669edb946c94bc8d7d1b56df356421c4dde5ed0675f6e6ceb66980f2d4f2e",
+                  "value": {
+                    "id": "TEST:JRA:C",
+                    "no": 4,
+                    "status": "CANCELLED",
+                    "weight_grams": null
+                  }
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 4,
+                  "identity_ref": "TESTEV:9d25eb9c512dd14a9860e6c4e02ebad64edcc3319272fa8728ca60dd64e4a7d1"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "CANCELLED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "MISSING",
+                  "reason": "NO_VERIFIED_CHECKPOINT_PATH",
+                  "value": null
+                }
+              }
+            ]
+          },
+          {
+            "id": "TEST:JRA:H1",
+            "at": 10,
+            "current": false,
+            "conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "geometry": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:662fcb65050533a5b7c6d2e338ee262f3e776f25515b7d8622ac17fc9282c7e1",
+              "root": "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+              "value": {
+                "version": "TEST:GEO:1",
+                "effective": [
+                  0,
+                  100
+                ],
+                "first_turn_m": 300,
+                "straight_m": 250,
+                "elevation_change_mm": 1500,
+                "checkpoints_m": [
+                  300,
+                  1200
+                ]
+              }
+            },
+            "count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a61fc7e2b058e34a61cf0e56bff07735b200fdf809c1364be9fe16cd1dab33fd",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "class_label": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "class_rules": {
+              "state": "MISSING",
+              "reason": "OFFICIAL_CLASS_RULES_NOT_SUPPLIED",
+              "value": null
+            },
+            "strength": {
+              "state": "MISSING",
+              "reason": "NO_VALIDATED_STRENGTH_REFERENCE",
+              "value": null
+            },
+            "leader_laps": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:1c6bc54da820fa06c4bdd73cde478a6b674af5b0fd4e19507f3942886cea4742",
+              "root": "TESTROOT:6431654cf8afe085f751b385bd29f0587eb5fbf06dde10c03a573fee4e4aba46",
+              "value": {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            },
+            "rows": [
+              {
+                "id": "TEST:JRA:X",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:e404aa86937bda36768c82b3deb7121e03b8d1902512c68a317ba733ff8210bb",
+                  "root": "TESTROOT:2acc0982c103e0535bb1f6f7c4ab5e2a93aced18f5333226f5933789b7727530",
+                  "value": "TEST:JRA:X"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 7,
+                  "identity_ref": "TESTEV:e404aa86937bda36768c82b3deb7121e03b8d1902512c68a317ba733ff8210bb"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:d242b5cb0cac28fd62fe17dfac4dff2e997d925d0b42deb354b5b003b2a4ebad",
+                    "TESTEV:662fcb65050533a5b7c6d2e338ee262f3e776f25515b7d8622ac17fc9282c7e1",
+                    "TESTEV:a61fc7e2b058e34a61cf0e56bff07735b200fdf809c1364be9fe16cd1dab33fd"
+                  ],
+                  "roots": [
+                    "TESTROOT:9cc4923f8799f33979450cae07bf89b5ae606fb2b8263e40655c1791913bd423",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 1,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 1,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 1,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:baa33dc72b2aa85e84864b466b322dd12f380d35f6cd94652fac1b0812fb1db8",
+                  "root": "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+                  "value": 1
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:be084cf15d6920f34e3e652d8cad442908a24416490154ad1033cc24f6d17410",
+                  "root": "TESTROOT:957defdad04613e74a4aa0b4b2c8808165e0d0b9738501891f42831ed95dbff7",
+                  "value": 840
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:9911b6821dcb8168cb564b642a66938428b8bffc14cfc500b9b5ada4a79fdb67",
+                  "root": "TESTROOT:78240fbd7b997f24d0ea337c2cd623f0be3219cc2c0f8ab4e2671cec1ae637e6",
+                  "value": 360
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:67be4504bb8ca51d033108314c20e8c9b25a88068f601b3d897723540b85fed1",
+                  "root": "TESTROOT:e71ac02d4a9ec7be35663cdabab824594be43f2d13905b6eb35a64b6af477d6d",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 0
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:A",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:54417a4283b631a62ebd776e4091b753d8680af5f84cebc629b16bde7a3ec7fb",
+                  "root": "TESTROOT:079adf40e3aadb5a2d7089e3b83852341d311c691c3185a79b7d2a60b2cfb741",
+                  "value": "TEST:JRA:A"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 3,
+                  "identity_ref": "TESTEV:54417a4283b631a62ebd776e4091b753d8680af5f84cebc629b16bde7a3ec7fb"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:550fbc7d15bf87690dac8fb451f2e35d47e5a0c5e584d1884de0b1705ac25484",
+                    "TESTEV:662fcb65050533a5b7c6d2e338ee262f3e776f25515b7d8622ac17fc9282c7e1",
+                    "TESTEV:a61fc7e2b058e34a61cf0e56bff07735b200fdf809c1364be9fe16cd1dab33fd"
+                  ],
+                  "roots": [
+                    "TESTROOT:5a6a49a76a07a6d7593093ae3c4560124a124c4369dd29c46fba9a1471cf4a62",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 2,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 2,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 2,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:92a3f14287f64c7d9c975e563c0985b071f2aa819fc95c8015c2f6357c991bd2",
+                  "root": "TESTROOT:e5e8e7f13b69f8a0e6f39102e2055c81efdbc47ecf7bf574fd61b5908c905af6",
+                  "value": 2
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:2ab95ff6eb4ee4dbdbd022a638700272001fea3c81a0a729df3c1d8ec49cf8da",
+                  "root": "TESTROOT:0fdd63c6093cc241c997c89cf1a249905402d5a98ff6dd25d134743f3b9075e4",
+                  "value": 843
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:b982fb26c1584c44032fda795daa5bdcf9127906701a5d102851e41f406e9f08",
+                  "root": "TESTROOT:9d11c1841288c2c3306b0abbee0f0153f16e05be6a639c5267fa7a35ecbcd35e",
+                  "value": 362
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:9e1b591a2af972b04a5d63bb1105c89afccc0ab0cdd6baa5b4376a8673fce2f0",
+                  "root": "TESTROOT:0c9268ffa10e960b83b1a9f207317f4df9839b1c1950afee6a4b5356c285bcc6",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 3
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:B",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:af65ece64d9881e37bafe613172876a44b8bb29849f020b3a810c0d81b08d2ac",
+                  "root": "TESTROOT:731640c5924b8b4d04d457ab8a91c6a91d71a84f5f6e79b17952acc840dd4d26",
+                  "value": "TEST:JRA:B"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 9,
+                  "identity_ref": "TESTEV:af65ece64d9881e37bafe613172876a44b8bb29849f020b3a810c0d81b08d2ac"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:5dd5815afd49b278c99b44f7db09895d3df57d729ccafbbede0be175f48c1958",
+                    "TESTEV:662fcb65050533a5b7c6d2e338ee262f3e776f25515b7d8622ac17fc9282c7e1",
+                    "TESTEV:a61fc7e2b058e34a61cf0e56bff07735b200fdf809c1364be9fe16cd1dab33fd"
+                  ],
+                  "roots": [
+                    "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 3,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 3,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 3,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:d68f16469c3d07b2edf303f87bfa16f6cde86f7908d56a732ddb132f62d10c1e",
+                  "root": "TESTROOT:695996bcdfa6354d5d3d0ac57f8bd4a784f1d4d590a75b5a0c2c905e92f29c3a",
+                  "value": 3
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:887120ea98b0e80257142d3aab66626708b78bbfb7aff3c16816ae77fa38a896",
+                  "root": "TESTROOT:a4afca446914eeaa5a49da7820ba5d3868fb5053aac64e25b2ab71a052c4516e",
+                  "value": 847
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:fabb41f7ce108d106437ad284db6cd8a0496ebfe12cded30238837c00a49577b",
+                  "root": "TESTROOT:6d5f34d5c86cc4ee55cfe59a9fce03311a05915f7b87736c947b1999dc795084",
+                  "value": 364
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:188bfff00f2c6e03ed93d14b6752c4460419844facf1b0696628ddd746ef199d",
+                  "root": "TESTROOT:6e233e8f18c9854da2ee26e404f052d3039f12381275e15b2d3fc274a02d00fe",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 7
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "TEST:JRA:H2",
+            "at": 20,
+            "current": false,
+            "conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:e02b681e3313ed1821a1ae6ab3ebca73afe61a058879fd3f2815323f4a414230",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "geometry": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:e2f5f35282bbc1a977710cb0c8f0c80b8cb08f56eef6066a55d41e20b77087f1",
+              "root": "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+              "value": {
+                "version": "TEST:GEO:1",
+                "effective": [
+                  0,
+                  100
+                ],
+                "first_turn_m": 300,
+                "straight_m": 250,
+                "elevation_change_mm": 1500,
+                "checkpoints_m": [
+                  300,
+                  1200
+                ]
+              }
+            },
+            "count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:8a2bff91b462467913187ae3bd40c275e857a6f6b8b87ad2cb7ab9e141a25dde",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "class_label": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:e02b681e3313ed1821a1ae6ab3ebca73afe61a058879fd3f2815323f4a414230",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "class_rules": {
+              "state": "MISSING",
+              "reason": "OFFICIAL_CLASS_RULES_NOT_SUPPLIED",
+              "value": null
+            },
+            "strength": {
+              "state": "MISSING",
+              "reason": "NO_VALIDATED_STRENGTH_REFERENCE",
+              "value": null
+            },
+            "leader_laps": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:630f135501ebcc5eda5ff7888b7ad73251aaef044f4f800e6e881e8567eff714",
+              "root": "TESTROOT:4998580cb5e30ee260f36304350df6a429538ab74a38ef93c15e61c691cd3bca",
+              "value": {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              }
+            },
+            "rows": [
+              {
+                "id": "TEST:JRA:Y",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:f0867ba4759bb3d36146b840c8bec28566f6c11fdbaaf7ae5a9057183d1bf823",
+                  "root": "TESTROOT:0af33a65f30d419c0ed015669d8ef3d44a724a0eef5e4a46004a2bf5b3eb1a37",
+                  "value": "TEST:JRA:Y"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 7,
+                  "identity_ref": "TESTEV:f0867ba4759bb3d36146b840c8bec28566f6c11fdbaaf7ae5a9057183d1bf823"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:eb2603b988425be801b51dabe920b5a5bdc59dd53a5155e28e5f6109a6629a2d",
+                    "TESTEV:e2f5f35282bbc1a977710cb0c8f0c80b8cb08f56eef6066a55d41e20b77087f1",
+                    "TESTEV:8a2bff91b462467913187ae3bd40c275e857a6f6b8b87ad2cb7ab9e141a25dde"
+                  ],
+                  "roots": [
+                    "TESTROOT:4affd9a095dc4c52fc8855148e5e039ed44f614e754a6ab5e30fb301ff1923fd",
+                    "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+                    "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559"
+                  ],
+                  "first_observed": {
+                    "rank": 1,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 1,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 1,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:3bf4bedaeaa2cba47c33f427dca5dd86709a47eead7fe910b067775f6cc37683",
+                  "root": "TESTROOT:d594effded4c8f9c1a41a9ac3a232a7cfade6d004aa792d4be604beb3fa9bb29",
+                  "value": 1
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:2d6ef726e8da80a7b5bca12d4b87f77b2153963998094f3b596942442fa1dcfe",
+                  "root": "TESTROOT:790b1cf2e8ec7e8f7b1a331b620d4d9f9c8380b6844e6923de582e109b5d6268",
+                  "value": 836
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:88af26dfb2e18b25574ed53fe5c659563666ff46685ca94409e1ccfa17046583",
+                  "root": "TESTROOT:3bdc025a8429368e7ce50907129e77535c43e96d7aba371389ec49486ce9e371",
+                  "value": 360
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:df95f6f040c49bfac065ab6fdb0bedfcc0abeb2cdcc7c872e0f8b91c1b156512",
+                  "root": "TESTROOT:aa97ae18b1aee72155e369291fc68213fd0026ea14a4e4310800139a3fc19e10",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 0
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:A",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:7256b586eb5f45c61dc91482b8160bcd0cae4b3748cafc5ff415863af6aa9509",
+                  "root": "TESTROOT:ff09405e38b0dd74d13a156ac2bf94c44ed291e6ec0f6498ea18b898374b111d",
+                  "value": "TEST:JRA:A"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 3,
+                  "identity_ref": "TESTEV:7256b586eb5f45c61dc91482b8160bcd0cae4b3748cafc5ff415863af6aa9509"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:a6b9e02840d9202813066be43497b43f109389332c4822a540b94faaa4109d9f",
+                    "TESTEV:e2f5f35282bbc1a977710cb0c8f0c80b8cb08f56eef6066a55d41e20b77087f1",
+                    "TESTEV:8a2bff91b462467913187ae3bd40c275e857a6f6b8b87ad2cb7ab9e141a25dde"
+                  ],
+                  "roots": [
+                    "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+                    "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+                    "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559"
+                  ],
+                  "first_observed": {
+                    "rank": 2,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 2,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 2,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:4d847239917685b150902a2aabe3a9a6bc865ec055920121beb07a4b8d5af211",
+                  "root": "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+                  "value": 2
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:93c919eb92a20e0743445a802600f236c2105fa4a7c63a6b9e48d368da4173c5",
+                  "root": "TESTROOT:e4b36ad69b5cafb79da50fd0a3d30eb8dda709b6077951d0531f208cb80b5deb",
+                  "value": 838
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:5e57b7c11c767862ae4dd717e3be080c2169860b624128cdbc884833e11e01ef",
+                  "root": "TESTROOT:8ef3696fb8f87ea199477a8af37a5416bf762dc49f7a01dd42ba725ff496206d",
+                  "value": 362
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:65afabb90b66e2b926616de59f3a9986fd8c46a11092e6e1676d037e9ebf7c7a",
+                  "root": "TESTROOT:1dc3bdede677902e310c9fd66fb145e0632cef0d23d3e5b24ce9a56980868ebc",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 2
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:X",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:450831b7311d512c52b8da46446e427f5d24d3777840d65fe66179da68dfdd0a",
+                  "root": "TESTROOT:e36202ac9fc4657ad1433bf05f7c0fb31154065ae44505af49e63af850c1dc3d",
+                  "value": "TEST:JRA:X"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 9,
+                  "identity_ref": "TESTEV:450831b7311d512c52b8da46446e427f5d24d3777840d65fe66179da68dfdd0a"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:40c624429f7b358100c8ea80c4b6a7b5f095718124569f49fc4e1dc258605b6c",
+                    "TESTEV:e2f5f35282bbc1a977710cb0c8f0c80b8cb08f56eef6066a55d41e20b77087f1",
+                    "TESTEV:8a2bff91b462467913187ae3bd40c275e857a6f6b8b87ad2cb7ab9e141a25dde"
+                  ],
+                  "roots": [
+                    "TESTROOT:c1f28e53aed73265f01dea6c8410dfe6328e45d96f0179e2b02ea567b3ee4f8c",
+                    "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+                    "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559"
+                  ],
+                  "first_observed": {
+                    "rank": 3,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 3,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 3,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:fdf0feba03250b4ad88a3a8d3ed6da672ecf0d37dbc8ae217c3e71020a76ed2e",
+                  "root": "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+                  "value": 3
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:89fb6120b35303492c71179eba47cd80dd00bb94982e778b16a4089aa694882c",
+                  "root": "TESTROOT:2442f82575ee81ea0490f7793bb94f5ac4158e465755584983258484b0e79059",
+                  "value": 841
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:76b11e0db2abc30779c6d6b79e03c7683c145c15e2b1b59dbe6c52a8a123531e",
+                  "root": "TESTROOT:8dac4de8937f7a160fe5f4688dff9f46ecb396afd3c568d87388705abaa276e1",
+                  "value": 364
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:76c3b5843f3e48c8ec9bf945b687cbae4f7a8d5e8c98be7b3fd05fbf5df33add",
+                  "root": "TESTROOT:1d9c409e0fc6063115b92d89a1f8ff62f87207fdb9fbd71caca2952feaa85d94",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 5
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "TEST:JRA:H3",
+            "at": 30,
+            "current": false,
+            "conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:593bb5260baa740bda850d61cac55306444f42007c22c3fe119ee79579e05c9c",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "geometry": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:ed767b5dec3e6088275fa208767cb46c155c4823e2473b6c847256179c399eba",
+              "root": "TESTROOT:b1b85ba524401bee07f35b81710ae9a9e0d661c56094874c434ba07591050605",
+              "value": {
+                "version": "TEST:GEO:1",
+                "effective": [
+                  0,
+                  100
+                ],
+                "first_turn_m": 300,
+                "straight_m": 250,
+                "elevation_change_mm": 1500,
+                "checkpoints_m": [
+                  300,
+                  1200
+                ]
+              }
+            },
+            "count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:01eb662ebf73026846b694ded67029286eaa012cb633ae1aa90bca9097422be2",
+              "root": "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518",
+              "value": 3
+            },
+            "class_label": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:593bb5260baa740bda850d61cac55306444f42007c22c3fe119ee79579e05c9c",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "class_rules": {
+              "state": "MISSING",
+              "reason": "OFFICIAL_CLASS_RULES_NOT_SUPPLIED",
+              "value": null
+            },
+            "strength": {
+              "state": "MISSING",
+              "reason": "NO_VALIDATED_STRENGTH_REFERENCE",
+              "value": null
+            },
+            "leader_laps": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:5100322150643063fe15fb6e6047481175f82a71fa08113a41cdff4b2eaa4757",
+              "root": "TESTROOT:d3e5e9321d4a2d9d60f0e17aedea3f463f0432b8b13b52c65cfd6d263749766e",
+              "value": {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 118
+                  }
+                ]
+              }
+            },
+            "rows": [
+              {
+                "id": "TEST:JRA:X",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:ca886b484b4f3f82472b35a155d4a9e95492d66def87c4a5e422a0a1a732e58f",
+                  "root": "TESTROOT:265ff6ad24fd7f3a2167d78480a73b7a5ce7c3297f33e8d05cb5a4a0ac23b53d",
+                  "value": "TEST:JRA:X"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 7,
+                  "identity_ref": "TESTEV:ca886b484b4f3f82472b35a155d4a9e95492d66def87c4a5e422a0a1a732e58f"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:288a400f6964f6b1df8dc0d160e347837aa90da2d464bcdd44a0df85244e53e9",
+                    "TESTEV:ed767b5dec3e6088275fa208767cb46c155c4823e2473b6c847256179c399eba",
+                    "TESTEV:01eb662ebf73026846b694ded67029286eaa012cb633ae1aa90bca9097422be2"
+                  ],
+                  "roots": [
+                    "TESTROOT:fb18462b956dd4124cc0439b582edcfdfd5b657861120bee62737b70b4f785dd",
+                    "TESTROOT:b1b85ba524401bee07f35b81710ae9a9e0d661c56094874c434ba07591050605",
+                    "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518"
+                  ],
+                  "first_observed": {
+                    "rank": 1,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 1,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 1,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:34c0ec25a3cdfe64441a06779bf7a83989474734bbcef806c1852f5e1d2e40a5",
+                  "root": "TESTROOT:ad6833e397934b01cbec1fa50c84fa603dd5e3a1c1af5b93cedb5739e732b94f",
+                  "value": 1
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:0f8cc55e3ca5f839f0bbd5a37eeb5f5167b0556c92497993037a6c958d47d257",
+                  "root": "TESTROOT:09f1dabfeabe151214b7bdc4fe4fc1a4a46cbdbef2cb26e01f4ac301b4f3597f",
+                  "value": 838
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:0442439bbaf90d500138a5bddfe6349685effbd24528160c44a37681d89b28b5",
+                  "root": "TESTROOT:52613aab3be9095c097413947bfee4f972713600869c3cc0fa0efb47868880d1",
+                  "value": 360
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:97a7be3ba2d892eecf97807dff85ceec18a36d5d1d66f76306f3c0ee78f59ef6",
+                  "root": "TESTROOT:78e6de1eded764cb55ab69f7f261fd79dcb712b45d19d4208538abe51d7c64eb",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 0
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:Y",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:3608e3f7f04638b4b3aa130304e390040e756bf9f1572094403dc701eb136f82",
+                  "root": "TESTROOT:496e106bc1ec5ae150b595a8fd9a3d60f19b72e7c266ad470d4b4a3af7a39f95",
+                  "value": "TEST:JRA:Y"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 3,
+                  "identity_ref": "TESTEV:3608e3f7f04638b4b3aa130304e390040e756bf9f1572094403dc701eb136f82"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:90c0568ff121c228d599d54dcfb6e3ccab369b879d2024f5ed38c952d01c532d",
+                    "TESTEV:ed767b5dec3e6088275fa208767cb46c155c4823e2473b6c847256179c399eba",
+                    "TESTEV:01eb662ebf73026846b694ded67029286eaa012cb633ae1aa90bca9097422be2"
+                  ],
+                  "roots": [
+                    "TESTROOT:ea11045e53a16e3ed6b3a2e5d3ebe8193836abb67504f4f708ed7a4e30c4f5e0",
+                    "TESTROOT:b1b85ba524401bee07f35b81710ae9a9e0d661c56094874c434ba07591050605",
+                    "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518"
+                  ],
+                  "first_observed": {
+                    "rank": 2,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 2,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 2,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:7f8b35e65242c639df71ab96310c0d7db2c4168e646eb661ccb7fdd72dc24c18",
+                  "root": "TESTROOT:afb61cdfd8dc22fa9f93bdc1546e2f66c61be1e68ad988bfdbe576fe5866ff9a",
+                  "value": 2
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:fe804d9df0fabd6237cf865422b980014f7e534486f9fd0bb238c9b6a43afd57",
+                  "root": "TESTROOT:aeefc598af8b1d7c95e2e20d1267f317df5eed2183af2574695246d5401110f9",
+                  "value": 841
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:781bb30c3c93abd5e2d0e9be475364d7b5ae6e65678631bd8475cfc6238908c0",
+                  "root": "TESTROOT:da72100fe72d6884c34fd31844c2edb527cd55f495e01f6b0198c47209ea94fa",
+                  "value": 362
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:3e8ff19fb656da1d253aa3459a2c670e6bdd1d58915bd72f92cd4ef96661d38d",
+                  "root": "TESTROOT:5dddf6787590f4380321d2dae63ea692f4e98c2c41340bb3ba4ed012d238b362",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 3
+                  }
+                }
+              },
+              {
+                "id": "TEST:JRA:Z",
+                "identity": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:8656417e8e75e58586b81a64cbd9792e9f4a35142c327494ab88d28ce4c20168",
+                  "root": "TESTROOT:acbb3ff6bc48337e7d6b0ef222979c76acccd22678de20d830a7e08d9f79c5a1",
+                  "value": "TEST:JRA:Z"
+                },
+                "horse_number": {
+                  "state": "SOURCE_ROW_NUMBER",
+                  "value": 9,
+                  "identity_ref": "TESTEV:8656417e8e75e58586b81a64cbd9792e9f4a35142c327494ab88d28ce4c20168"
+                },
+                "gate": {
+                  "state": "MISSING",
+                  "reason": "NATIVE_GATE_NOT_SUPPLIED",
+                  "value": null
+                },
+                "status": "FINISHED",
+                "initial_acceleration": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_START_MEASUREMENT",
+                  "value": null
+                },
+                "intermediate_clock": {
+                  "state": "MISSING",
+                  "reason": "NO_INDIVIDUAL_CHECKPOINT_CLOCK",
+                  "value": null
+                },
+                "physical_gain": {
+                  "state": "MISSING",
+                  "reason": "NO_MEASURED_INTERHORSE_DISTANCE",
+                  "value": null
+                },
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:52b61050d9290cea336632a6d972739ee92dffc35b37331d185743da31b613df",
+                    "TESTEV:ed767b5dec3e6088275fa208767cb46c155c4823e2473b6c847256179c399eba",
+                    "TESTEV:01eb662ebf73026846b694ded67029286eaa012cb633ae1aa90bca9097422be2"
+                  ],
+                  "roots": [
+                    "TESTROOT:62f07695631376f96b3965c9548047c56e4b54ec779382232502793f37990a28",
+                    "TESTROOT:b1b85ba524401bee07f35b81710ae9a9e0d661c56094874c434ba07591050605",
+                    "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518"
+                  ],
+                  "first_observed": {
+                    "rank": 3,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 3,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 3,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "finish": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:6d45e1df6dc0cd38bc4ac226f9c6e7238e4f99533016a89a22ecffbb8ec7348c",
+                  "root": "TESTROOT:111a43173e42b08436ce49b10312ecfa669c504d392d64c729a4dbbb8e41fd41",
+                  "value": 3
+                },
+                "finish_clock": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:543d4283b59ac032436a6b05c9c7ed317594510ffb283a24bbff7a80b311a26d",
+                  "root": "TESTROOT:bb7c41f864c518f8f03285f2a093ca36755e55b3f8828adf6b89bebe5f8101a3",
+                  "value": 845
+                },
+                "final600": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:d48174594f319c883e43cdddd5860fb8527e88ead5c5ed3dfca10b064375555e",
+                  "root": "TESTROOT:b92b783964169c3d3cc92e1a96eabef36242bdca5ffcc74720f3ea00f6541001",
+                  "value": 364
+                },
+                "margin": {
+                  "state": "OBSERVED",
+                  "ref": "TESTEV:5e425b0414846f8d4f33dc1d71a6c8f0a8a21a0dc0faa71920745959601985f7",
+                  "root": "TESTROOT:605c9c0e2947ae1260e84b9bf8d04f3405165d7137742ffdf824c8c25be01e1d",
+                  "value": {
+                    "unit": "0.1_second",
+                    "value": 7
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "runners": [
+          {
+            "id": "TEST:JRA:A",
+            "no": 1,
+            "status": "EXCLUDED",
+            "gate": {
+              "state": "MISSING",
+              "reason": "NATIVE_GATE_NOT_SUPPLIED",
+              "value": null
+            },
+            "history": [],
+            "early_role": {
+              "state": "MISSING",
+              "reason": "NOT_ACTIVE",
+              "value": null
+            },
+            "scenario": {
+              "state": "MISSING",
+              "reason": "REQUIRES_FULL_FIELD_ANALYSIS",
+              "value": null
+            }
+          },
+          {
+            "id": "TEST:JRA:B",
+            "no": 2,
+            "status": "ACTIVE",
+            "gate": {
+              "state": "MISSING",
+              "reason": "NATIVE_GATE_NOT_SUPPLIED",
+              "value": null
+            },
+            "history": [
+              {
+                "event": "TEST:JRA:H1",
+                "rank_path": {
+                  "state": "OBSERVED_ORDINAL_ONLY",
+                  "refs": [
+                    "TESTEV:5dd5815afd49b278c99b44f7db09895d3df57d729ccafbbede0be175f48c1958",
+                    "TESTEV:662fcb65050533a5b7c6d2e338ee262f3e776f25515b7d8622ac17fc9282c7e1",
+                    "TESTEV:a61fc7e2b058e34a61cf0e56bff07735b200fdf809c1364be9fe16cd1dab33fd"
+                  ],
+                  "roots": [
+                    "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+                    "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+                    "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc"
+                  ],
+                  "first_observed": {
+                    "rank": 3,
+                    "distance_m": 300,
+                    "field_count": 3
+                  },
+                  "points": [
+                    {
+                      "rank": 3,
+                      "distance_m": 300,
+                      "field_count": 3
+                    },
+                    {
+                      "rank": 3,
+                      "distance_m": 1200,
+                      "field_count": 3
+                    }
+                  ],
+                  "transitions": [
+                    {
+                      "from_m": 300,
+                      "to_m": 1200,
+                      "ordinal_gain": 0,
+                      "kind": "RANK_UNCHANGED"
+                    }
+                  ],
+                  "not_acceleration": true,
+                  "not_physical_gain": true
+                },
+                "distance_change": {
+                  "state": "OBSERVED_CONDITION_DELTA_ONLY",
+                  "value": 0,
+                  "kind": "SAME_DISTANCE",
+                  "refs": [
+                    "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+                    "TESTEV:79d6e3db2df918e64d068559dfdb449edf9d1b2e172660f10150c1424aa592ac"
+                  ],
+                  "roots": [
+                    "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+                    "TESTROOT:4470c98655b56079ee9ec396ff9bb0d47b8cef4fb2a25bce577cb8c6a69eea17"
+                  ]
+                },
+                "response": {
+                  "state": "MISSING",
+                  "reason": "NO_CAUSAL_DISTANCE_RESPONSE_PROOF",
+                  "value": null
+                }
+              }
+            ],
+            "early_role": {
+              "state": "MISSING",
+              "reason": "FIRST_OBSERVED_RANK_NOT_CURRENT_ROLE_PROOF",
+              "value": null
+            },
+            "scenario": {
+              "state": "MISSING",
+              "reason": "REQUIRES_FULL_FIELD_ANALYSIS",
+              "value": null
+            }
+          },
+          {
+            "id": "TEST:JRA:C",
+            "no": 4,
+            "status": "CANCELLED",
+            "gate": {
+              "state": "MISSING",
+              "reason": "NATIVE_GATE_NOT_SUPPLIED",
+              "value": null
+            },
+            "history": [],
+            "early_role": {
+              "state": "MISSING",
+              "reason": "NOT_ACTIVE",
+              "value": null
+            },
+            "scenario": {
+              "state": "MISSING",
+              "reason": "REQUIRES_FULL_FIELD_ANALYSIS",
+              "value": null
+            }
+          }
+        ],
+        "followups": [
+          {
+            "subject": "TEST:JRA:B",
+            "opponent": "TEST:JRA:X",
+            "reference_event": "TEST:JRA:H1",
+            "followup_event": "TEST:JRA:H2",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:baa33dc72b2aa85e84864b466b322dd12f380d35f6cd94652fac1b0812fb1db8",
+              "root": "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "value": 1
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:fdf0feba03250b4ad88a3a8d3ed6da672ecf0d37dbc8ae217c3e71020a76ed2e",
+              "root": "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "value": 3
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:e02b681e3313ed1821a1ae6ab3ebca73afe61a058879fd3f2815323f4a414230",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a61fc7e2b058e34a61cf0e56bff07735b200fdf809c1364be9fe16cd1dab33fd",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:8a2bff91b462467913187ae3bd40c275e857a6f6b8b87ad2cb7ab9e141a25dde",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:e02b681e3313ed1821a1ae6ab3ebca73afe61a058879fd3f2815323f4a414230",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:af65ece64d9881e37bafe613172876a44b8bb29849f020b3a810c0d81b08d2ac",
+              "TESTEV:d68f16469c3d07b2edf303f87bfa16f6cde86f7908d56a732ddb132f62d10c1e",
+              "TESTEV:e404aa86937bda36768c82b3deb7121e03b8d1902512c68a317ba733ff8210bb",
+              "TESTEV:baa33dc72b2aa85e84864b466b322dd12f380d35f6cd94652fac1b0812fb1db8",
+              "TESTEV:450831b7311d512c52b8da46446e427f5d24d3777840d65fe66179da68dfdd0a",
+              "TESTEV:fdf0feba03250b4ad88a3a8d3ed6da672ecf0d37dbc8ae217c3e71020a76ed2e",
+              "TESTEV:e02b681e3313ed1821a1ae6ab3ebca73afe61a058879fd3f2815323f4a414230"
+            ],
+            "independence_key": "TEST:JRA:X|TEST:JRA:H1|TEST:JRA:H2",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          },
+          {
+            "subject": "TEST:JRA:B",
+            "opponent": "TEST:JRA:X",
+            "reference_event": "TEST:JRA:H1",
+            "followup_event": "TEST:JRA:H3",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:baa33dc72b2aa85e84864b466b322dd12f380d35f6cd94652fac1b0812fb1db8",
+              "root": "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "value": 1
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:34c0ec25a3cdfe64441a06779bf7a83989474734bbcef806c1852f5e1d2e40a5",
+              "root": "TESTROOT:ad6833e397934b01cbec1fa50c84fa603dd5e3a1c1af5b93cedb5739e732b94f",
+              "value": 1
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:593bb5260baa740bda850d61cac55306444f42007c22c3fe119ee79579e05c9c",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a61fc7e2b058e34a61cf0e56bff07735b200fdf809c1364be9fe16cd1dab33fd",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:01eb662ebf73026846b694ded67029286eaa012cb633ae1aa90bca9097422be2",
+              "root": "TESTROOT:e35b9089c78c43124986c81ce3e3dd60be4aeed7f259496b1f4721fb1afb6518",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:593bb5260baa740bda850d61cac55306444f42007c22c3fe119ee79579e05c9c",
+              "root": "TESTROOT:14e1d56c3da2a2cb833607af801c088fe4d3175a28874b3f97a513d3ded533b7",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:af65ece64d9881e37bafe613172876a44b8bb29849f020b3a810c0d81b08d2ac",
+              "TESTEV:d68f16469c3d07b2edf303f87bfa16f6cde86f7908d56a732ddb132f62d10c1e",
+              "TESTEV:e404aa86937bda36768c82b3deb7121e03b8d1902512c68a317ba733ff8210bb",
+              "TESTEV:baa33dc72b2aa85e84864b466b322dd12f380d35f6cd94652fac1b0812fb1db8",
+              "TESTEV:ca886b484b4f3f82472b35a155d4a9e95492d66def87c4a5e422a0a1a732e58f",
+              "TESTEV:34c0ec25a3cdfe64441a06779bf7a83989474734bbcef806c1852f5e1d2e40a5",
+              "TESTEV:593bb5260baa740bda850d61cac55306444f42007c22c3fe119ee79579e05c9c"
+            ],
+            "independence_key": "TEST:JRA:X|TEST:JRA:H1|TEST:JRA:H3",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          },
+          {
+            "subject": "TEST:JRA:B",
+            "opponent": "TEST:JRA:A",
+            "reference_event": "TEST:JRA:H1",
+            "followup_event": "TEST:JRA:H2",
+            "reference_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:92a3f14287f64c7d9c975e563c0985b071f2aa819fc95c8015c2f6357c991bd2",
+              "root": "TESTROOT:e5e8e7f13b69f8a0e6f39102e2055c81efdbc47ecf7bf574fd61b5908c905af6",
+              "value": 2
+            },
+            "followup_finish": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:4d847239917685b150902a2aabe3a9a6bc865ec055920121beb07a4b8d5af211",
+              "root": "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+              "value": 2
+            },
+            "reference_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "followup_conditions": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:e02b681e3313ed1821a1ae6ab3ebca73afe61a058879fd3f2815323f4a414230",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": {
+                "venue": "SYNTHETIC_J_VENUE",
+                "surface": "TURF",
+                "distance_m": 1400,
+                "going": "GOOD",
+                "direction": "RIGHT"
+              }
+            },
+            "reference_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:a61fc7e2b058e34a61cf0e56bff07735b200fdf809c1364be9fe16cd1dab33fd",
+              "root": "TESTROOT:e377fa20b0a0d8cdedabbfe15bf7b0d6b7499f22a788c1d5cc61d22f053fa9bc",
+              "value": 3
+            },
+            "followup_count": {
+              "state": "OBSERVED",
+              "ref": "TESTEV:8a2bff91b462467913187ae3bd40c275e857a6f6b8b87ad2cb7ab9e141a25dde",
+              "root": "TESTROOT:eb1f87ec84d0ccd038f616b56048128c0989e774f01004caf31551eb3198b559",
+              "value": 3
+            },
+            "reference_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:be5a4a1c4b9d18a959927aa296908f010250b7fbfaae0595c1c0049d06af041b",
+              "root": "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "followup_class": {
+              "state": "OBSERVED_LABEL_ONLY",
+              "ref": "TESTEV:e02b681e3313ed1821a1ae6ab3ebca73afe61a058879fd3f2815323f4a414230",
+              "root": "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "value": "TEST:CLASS:1",
+              "effective": [
+                0,
+                100
+              ]
+            },
+            "refs": [
+              "TESTEV:af65ece64d9881e37bafe613172876a44b8bb29849f020b3a810c0d81b08d2ac",
+              "TESTEV:d68f16469c3d07b2edf303f87bfa16f6cde86f7908d56a732ddb132f62d10c1e",
+              "TESTEV:54417a4283b631a62ebd776e4091b753d8680af5f84cebc629b16bde7a3ec7fb",
+              "TESTEV:92a3f14287f64c7d9c975e563c0985b071f2aa819fc95c8015c2f6357c991bd2",
+              "TESTEV:7256b586eb5f45c61dc91482b8160bcd0cae4b3748cafc5ff415863af6aa9509",
+              "TESTEV:4d847239917685b150902a2aabe3a9a6bc865ec055920121beb07a4b8d5af211",
+              "TESTEV:e02b681e3313ed1821a1ae6ab3ebca73afe61a058879fd3f2815323f4a414230"
+            ],
+            "independence_key": "TEST:JRA:A|TEST:JRA:H1|TEST:JRA:H2",
+            "strength": {
+              "state": "MISSING",
+              "reason": "OBSERVATIONS_NOT_STRENGTH_PROOF",
+              "value": null
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

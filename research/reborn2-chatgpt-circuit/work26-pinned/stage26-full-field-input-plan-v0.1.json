@@ -1,0 +1,2926 @@
+{
+  "schema": "WORK26_FULL_FIELD_INPUT_PLAN_0.1",
+  "scope": "EXPLICITLY_SYNTHETIC_NEVER_OFFICIAL",
+  "description": "Conditional research prompts and all-active pair observation inputs only; not measured current positions, predicted paths, grades or actual analyzer output.",
+  "cases": [
+    {
+      "case_id": "BASE",
+      "raw_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+      "active_ids": [
+        "S26:A",
+        "S26:B",
+        "S26:C",
+        "S26:D",
+        "S26:E"
+      ],
+      "cancelled_ids": [
+        "S26:F"
+      ],
+      "pairs": [
+        {
+          "a": "S26:A",
+          "b": "S26:B",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                3,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:b3d433bffb2a8b7409889f2a36d1a49f552b0e2782c52861c6d8cbe9c78eb2eb",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c",
+                "S26EV:701828ad6a7238cf7b12b758a15c1c79bb4ffa922db6f8571d5bc6dc58804bcf",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                2,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:7a82299a2d91b39286b924a903e2a4d3db0775b641c673d5198602e6960846bd",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31",
+                "S26EV:30bbf449da15a110a8ed28c419d6f336a2cd93ce95c33f88aba55836b09ff5f5",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                3,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:b3d433bffb2a8b7409889f2a36d1a49f552b0e2782c52861c6d8cbe9c78eb2eb",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c",
+                "S26EV:2342963d2816cd09fc903eb17f90b382e0b1ccf9971baa312ab5b96d6fb56dfe",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                2,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:7a82299a2d91b39286b924a903e2a4d3db0775b641c673d5198602e6960846bd",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31",
+                "S26EV:9b5656764ba620c5dfe81dd61d7eea4fe025170a8268746711ecaf6d4004aa18",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:b3d433bffb2a8b7409889f2a36d1a49f552b0e2782c52861c6d8cbe9c78eb2eb",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c",
+                "S26EV:614de7f456d8c18ed8c4c61d90fe9fe04e0377d49705eefc9d9898a72fa8c308",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:7a82299a2d91b39286b924a903e2a4d3db0775b641c673d5198602e6960846bd",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31",
+                "S26EV:b14bd385705e5c36ada9a3265db153b5b7f35d3c52c3ee46d66d6924bf7a8d27",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:701828ad6a7238cf7b12b758a15c1c79bb4ffa922db6f8571d5bc6dc58804bcf",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c",
+                "S26EV:2342963d2816cd09fc903eb17f90b382e0b1ccf9971baa312ab5b96d6fb56dfe",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:30bbf449da15a110a8ed28c419d6f336a2cd93ce95c33f88aba55836b09ff5f5",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31",
+                "S26EV:9b5656764ba620c5dfe81dd61d7eea4fe025170a8268746711ecaf6d4004aa18",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:701828ad6a7238cf7b12b758a15c1c79bb4ffa922db6f8571d5bc6dc58804bcf",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c",
+                "S26EV:614de7f456d8c18ed8c4c61d90fe9fe04e0377d49705eefc9d9898a72fa8c308",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:30bbf449da15a110a8ed28c419d6f336a2cd93ce95c33f88aba55836b09ff5f5",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31",
+                "S26EV:b14bd385705e5c36ada9a3265db153b5b7f35d3c52c3ee46d66d6924bf7a8d27",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:2342963d2816cd09fc903eb17f90b382e0b1ccf9971baa312ab5b96d6fb56dfe",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c",
+                "S26EV:614de7f456d8c18ed8c4c61d90fe9fe04e0377d49705eefc9d9898a72fa8c308",
+                "S26EV:ee091251847ea876d8826f5f13a87accff04e104bb3c80043b0e6a92127260ee",
+                "S26EV:af17615b856812b5b53fda0b8bde74d4dc37a10ac405ee4a879921e63cc10c1c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:9b5656764ba620c5dfe81dd61d7eea4fe025170a8268746711ecaf6d4004aa18",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31",
+                "S26EV:b14bd385705e5c36ada9a3265db153b5b7f35d3c52c3ee46d66d6924bf7a8d27",
+                "S26EV:7bdac2abc01b0c66c2845ac10cb04644219602abf6179f776a4a49f33fa954dd",
+                "S26EV:ad8cd5e28bd87ac82afe00c524c2dbdcf490c56307f1b13c7a091b30e53a4d31"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:D",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "REPEAT_OR_OVERLAP",
+          "condition": "If historically forward runners seek the same slot in this different current field",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "REVERSE_OR_PRESSURE_RELIEF",
+          "condition": "If historical early order reverses or a forward runner yields",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "UNKNOWN_ACTIVE_ALTERS_ORDER",
+          "condition": "If active runner with no historical data seeks an early slot or another role",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "unknown": [
+            "S26:E"
+          ],
+          "judgment": null
+        }
+      ],
+      "win_place": "NOT_ANALYZED",
+      "pace": "NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "TARGET_SHORT",
+      "raw_sha256": "d771f7954bf186e8713bab8b1b1cace27bb8346fd258688593e6770c743a93d0",
+      "active_ids": [
+        "S26:A",
+        "S26:B",
+        "S26:C",
+        "S26:D",
+        "S26:E"
+      ],
+      "cancelled_ids": [
+        "S26:F"
+      ],
+      "pairs": [
+        {
+          "a": "S26:A",
+          "b": "S26:B",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                3,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:fd4b7e90bfde7b767f2f92ea58884fe87f91902e7d8a4db876f5800d986afbb6",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520",
+                "S26EV:773a782ef7763817ebfca2ad3de8b7ff45ec28834c10516ff1306ea70518d088",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                2,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:969bb7ff151174eb714beda47d964db475abc1aeefdc1caa9356b95847dba313",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607",
+                "S26EV:ac26b119b59bf635a4cb09ae34c7e9aa36ce90d23eee6c1bb91cd326dc28e784",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                3,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:fd4b7e90bfde7b767f2f92ea58884fe87f91902e7d8a4db876f5800d986afbb6",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520",
+                "S26EV:4ca0065f4d2601f3f051f77d52cb04add9aefc7d3cc6e200b68470aa0acb0fa0",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                2,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:969bb7ff151174eb714beda47d964db475abc1aeefdc1caa9356b95847dba313",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607",
+                "S26EV:0c7f37f885f34077e6e30f42824d1b8d8c1a655d8ec1d3c06ca2075ee942657b",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:fd4b7e90bfde7b767f2f92ea58884fe87f91902e7d8a4db876f5800d986afbb6",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520",
+                "S26EV:a55fab546bb98b81ddcd4fa26a14f2212374388b1febfe69bac812ac0e78ae0e",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:969bb7ff151174eb714beda47d964db475abc1aeefdc1caa9356b95847dba313",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607",
+                "S26EV:c4a0f377c3f00f30ba40ccaf503fa6f3f179e958cfe64f4b9b14542e168afea2",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:773a782ef7763817ebfca2ad3de8b7ff45ec28834c10516ff1306ea70518d088",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520",
+                "S26EV:4ca0065f4d2601f3f051f77d52cb04add9aefc7d3cc6e200b68470aa0acb0fa0",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:ac26b119b59bf635a4cb09ae34c7e9aa36ce90d23eee6c1bb91cd326dc28e784",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607",
+                "S26EV:0c7f37f885f34077e6e30f42824d1b8d8c1a655d8ec1d3c06ca2075ee942657b",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:773a782ef7763817ebfca2ad3de8b7ff45ec28834c10516ff1306ea70518d088",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520",
+                "S26EV:a55fab546bb98b81ddcd4fa26a14f2212374388b1febfe69bac812ac0e78ae0e",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:ac26b119b59bf635a4cb09ae34c7e9aa36ce90d23eee6c1bb91cd326dc28e784",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607",
+                "S26EV:c4a0f377c3f00f30ba40ccaf503fa6f3f179e958cfe64f4b9b14542e168afea2",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:4ca0065f4d2601f3f051f77d52cb04add9aefc7d3cc6e200b68470aa0acb0fa0",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520",
+                "S26EV:a55fab546bb98b81ddcd4fa26a14f2212374388b1febfe69bac812ac0e78ae0e",
+                "S26EV:064d7ff5428f7c889e6f8701394db5566b56afe8490ead7506dd2168cd8597a9",
+                "S26EV:fc0c0dd9ea9eb0d637c0657dc92b1a6f473f4354b3cb99eb536bfddfcd4eb520"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0c7f37f885f34077e6e30f42824d1b8d8c1a655d8ec1d3c06ca2075ee942657b",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607",
+                "S26EV:c4a0f377c3f00f30ba40ccaf503fa6f3f179e958cfe64f4b9b14542e168afea2",
+                "S26EV:c1964b5f3dde853c80eec3931c850c2049c49c3b2e0cb5b263047977fa9475b0",
+                "S26EV:b7f7fcc2aa78374b7b9d03808bc22a24eb3246cd8ecac5d2949c29200b206607"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:D",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "REPEAT_OR_OVERLAP",
+          "condition": "If historically forward runners seek the same slot in this different current field",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "REVERSE_OR_PRESSURE_RELIEF",
+          "condition": "If historical early order reverses or a forward runner yields",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "UNKNOWN_ACTIVE_ALTERS_ORDER",
+          "condition": "If active runner with no historical data seeks an early slot or another role",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "unknown": [
+            "S26:E"
+          ],
+          "judgment": null
+        }
+      ],
+      "win_place": "NOT_ANALYZED",
+      "pace": "NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "TARGET_LONG",
+      "raw_sha256": "0e40117facd11b4123b2a5bdadf7f93f1d5808925cbb7f8aee9bc5740243814d",
+      "active_ids": [
+        "S26:A",
+        "S26:B",
+        "S26:C",
+        "S26:D",
+        "S26:E"
+      ],
+      "cancelled_ids": [
+        "S26:F"
+      ],
+      "pairs": [
+        {
+          "a": "S26:A",
+          "b": "S26:B",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                3,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:6e5041e827c18e3f2ef32fc85932f8bfaab94ea96eafed583de5dde9c1807155",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0",
+                "S26EV:44c048f2c6030723d41cb65861ece037e957b88c94ca9a5f25accd31bba3d8d7",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                2,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:9f5b48dc936588442995dbb75ae97111fdea162261b768d5c1eb32d4fa18acb3",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82",
+                "S26EV:2c1f89852943877546d17877613e37cf802de4fa024b06b4b34b63e3df2158c1",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                3,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:6e5041e827c18e3f2ef32fc85932f8bfaab94ea96eafed583de5dde9c1807155",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0",
+                "S26EV:1a8058d424415700694b22179bcb7714397dbcb1537ee58c2e4c7befe20659e5",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                2,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:9f5b48dc936588442995dbb75ae97111fdea162261b768d5c1eb32d4fa18acb3",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82",
+                "S26EV:0ad9a1980a067c59a7524a0c9c30efecbce22f85aff5b3e2452ce0f816bc103e",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:6e5041e827c18e3f2ef32fc85932f8bfaab94ea96eafed583de5dde9c1807155",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0",
+                "S26EV:edcd6cd031b37936bed749b6f4b94ed879f8955ff2bf98008f6fa2be0ee61332",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:9f5b48dc936588442995dbb75ae97111fdea162261b768d5c1eb32d4fa18acb3",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82",
+                "S26EV:211449f7cbccb9c7e0f327846adbea8fc38126a0eac0dd3ed854322b62668c25",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:44c048f2c6030723d41cb65861ece037e957b88c94ca9a5f25accd31bba3d8d7",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0",
+                "S26EV:1a8058d424415700694b22179bcb7714397dbcb1537ee58c2e4c7befe20659e5",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:2c1f89852943877546d17877613e37cf802de4fa024b06b4b34b63e3df2158c1",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82",
+                "S26EV:0ad9a1980a067c59a7524a0c9c30efecbce22f85aff5b3e2452ce0f816bc103e",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:44c048f2c6030723d41cb65861ece037e957b88c94ca9a5f25accd31bba3d8d7",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0",
+                "S26EV:edcd6cd031b37936bed749b6f4b94ed879f8955ff2bf98008f6fa2be0ee61332",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:2c1f89852943877546d17877613e37cf802de4fa024b06b4b34b63e3df2158c1",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82",
+                "S26EV:211449f7cbccb9c7e0f327846adbea8fc38126a0eac0dd3ed854322b62668c25",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:1a8058d424415700694b22179bcb7714397dbcb1537ee58c2e4c7befe20659e5",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0",
+                "S26EV:edcd6cd031b37936bed749b6f4b94ed879f8955ff2bf98008f6fa2be0ee61332",
+                "S26EV:4fce5dfb49e831551ac069911d1949e73bdecb75c0a40ecf6160b917b56c37d9",
+                "S26EV:f63504ccf8bfb51465260fc15489475bb026e06ae8b55b79b9cd8235942c11d0"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0ad9a1980a067c59a7524a0c9c30efecbce22f85aff5b3e2452ce0f816bc103e",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82",
+                "S26EV:211449f7cbccb9c7e0f327846adbea8fc38126a0eac0dd3ed854322b62668c25",
+                "S26EV:a806551d0ce9c89d6ce89f181d3dfe76d4007c72fb42fc9faee1088793892bd8",
+                "S26EV:7197c53ce61382c8676454d0b9e021f4e8561a1ccfb19e9059d3b8183c062f82"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:D",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "REPEAT_OR_OVERLAP",
+          "condition": "If historically forward runners seek the same slot in this different current field",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "REVERSE_OR_PRESSURE_RELIEF",
+          "condition": "If historical early order reverses or a forward runner yields",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "UNKNOWN_ACTIVE_ALTERS_ORDER",
+          "condition": "If active runner with no historical data seeks an early slot or another role",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "unknown": [
+            "S26:E"
+          ],
+          "judgment": null
+        }
+      ],
+      "win_place": "NOT_ANALYZED",
+      "pace": "NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "SAME_RANK_DIFFERENT_SPEED",
+      "raw_sha256": "de09cc81578a76de3987333e333de9f23c33024a4260c95681293caacd0d1a52",
+      "active_ids": [
+        "S26:A",
+        "S26:B",
+        "S26:C",
+        "S26:D",
+        "S26:E"
+      ],
+      "cancelled_ids": [
+        "S26:F"
+      ],
+      "pairs": [
+        {
+          "a": "S26:A",
+          "b": "S26:B",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                3,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:216690705747ba48ccf7a381b94b1ebfb8b4681ad34c48761bf54fd4a38ca4f5",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c",
+                "S26EV:13f579784cc48458da82358e1f83c9e109f8183a513cc1404421074cdc7fa13e",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                2,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:6ea81dc095e62fc320e623f7b486eccf9937b8b5726040ddb163282ddd27bb92",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d",
+                "S26EV:8c2c8d13879981bf57d9969b25b31f0acfbe99b667c0e5d72feeaf749fab19da",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                3,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:216690705747ba48ccf7a381b94b1ebfb8b4681ad34c48761bf54fd4a38ca4f5",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c",
+                "S26EV:e8220f910988de91e3082af7f68694bbf3d990875a5fe49cdc0c3578240b2f47",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                2,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:6ea81dc095e62fc320e623f7b486eccf9937b8b5726040ddb163282ddd27bb92",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d",
+                "S26EV:391e7e06cc3d56e9fca7567ec98c0cbde5d417a31dcc9d64378d31fbdc843d4b",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:216690705747ba48ccf7a381b94b1ebfb8b4681ad34c48761bf54fd4a38ca4f5",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c",
+                "S26EV:41a80c6308350aa3328a420091271909777f8b34d5422edc7c983e9b78a2dcd4",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:6ea81dc095e62fc320e623f7b486eccf9937b8b5726040ddb163282ddd27bb92",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d",
+                "S26EV:c8278f6e13dae86278c2df646de8636dfb909d1672c809497a4a7ccd76709954",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:13f579784cc48458da82358e1f83c9e109f8183a513cc1404421074cdc7fa13e",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c",
+                "S26EV:e8220f910988de91e3082af7f68694bbf3d990875a5fe49cdc0c3578240b2f47",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:8c2c8d13879981bf57d9969b25b31f0acfbe99b667c0e5d72feeaf749fab19da",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d",
+                "S26EV:391e7e06cc3d56e9fca7567ec98c0cbde5d417a31dcc9d64378d31fbdc843d4b",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:13f579784cc48458da82358e1f83c9e109f8183a513cc1404421074cdc7fa13e",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c",
+                "S26EV:41a80c6308350aa3328a420091271909777f8b34d5422edc7c983e9b78a2dcd4",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:8c2c8d13879981bf57d9969b25b31f0acfbe99b667c0e5d72feeaf749fab19da",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d",
+                "S26EV:c8278f6e13dae86278c2df646de8636dfb909d1672c809497a4a7ccd76709954",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:e8220f910988de91e3082af7f68694bbf3d990875a5fe49cdc0c3578240b2f47",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c",
+                "S26EV:41a80c6308350aa3328a420091271909777f8b34d5422edc7c983e9b78a2dcd4",
+                "S26EV:e7e533cb9aae2da779b6a443cf521c518a6213a3eac077eaf0de191fcaa589c9",
+                "S26EV:5dc73fd0fdd14341f39736a5ffce0ad5c30293ae5fcf2a0d785ba2744ee59d6c"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:391e7e06cc3d56e9fca7567ec98c0cbde5d417a31dcc9d64378d31fbdc843d4b",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d",
+                "S26EV:c8278f6e13dae86278c2df646de8636dfb909d1672c809497a4a7ccd76709954",
+                "S26EV:4ec32732b34d0ae121e84c2775d2c5d72de662fec70ed94cfbb540b378ffc789",
+                "S26EV:3a4480faeb21408973277423c9fbcf855a26c8927844830de9a1b4139e38706d"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:D",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "REPEAT_OR_OVERLAP",
+          "condition": "If historically forward runners seek the same slot in this different current field",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "REVERSE_OR_PRESSURE_RELIEF",
+          "condition": "If historical early order reverses or a forward runner yields",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "UNKNOWN_ACTIVE_ALTERS_ORDER",
+          "condition": "If active runner with no historical data seeks an early slot or another role",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "unknown": [
+            "S26:E"
+          ],
+          "judgment": null
+        }
+      ],
+      "win_place": "NOT_ANALYZED",
+      "pace": "NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "MISSING_MEASUREMENTS",
+      "raw_sha256": "596deac5ef66d03a46e6d260739de5b3d08d7be25ceefcc380b66ca04eeaecb8",
+      "active_ids": [
+        "S26:A",
+        "S26:B",
+        "S26:C",
+        "S26:D",
+        "S26:E"
+      ],
+      "cancelled_ids": [
+        "S26:F"
+      ],
+      "pairs": [
+        {
+          "a": "S26:A",
+          "b": "S26:B",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                3,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0e985008a53a2a99db91999e7e69c655e2e6487e71ec5f5f9cc671afe06a615e",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387",
+                "S26EV:899228eb2bf28097e3638cdc3b3448c8ea80030d85bafbbc7cc1a35f6d238767",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                2,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:3bfc2d201647f967d1442160c2a06bf00e184a9696c9a96adf15d9ceb4a39f8c",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede",
+                "S26EV:6a77df2f71d2d7cf810337d4222ac76a42269a0533adc3455b015ef072feea3f",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                3,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0e985008a53a2a99db91999e7e69c655e2e6487e71ec5f5f9cc671afe06a615e",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387",
+                "S26EV:cca6c40c29886e50ba783945a668ad957a1fd8940ec5ccc287ba4c5487dce8a9",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                2,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:3bfc2d201647f967d1442160c2a06bf00e184a9696c9a96adf15d9ceb4a39f8c",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede",
+                "S26EV:bd857478f21dba896842e1c1e624089ad189bffa0681236f59b7bd5c989fd859",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0e985008a53a2a99db91999e7e69c655e2e6487e71ec5f5f9cc671afe06a615e",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387",
+                "S26EV:3d042546b20f6da30e04e9de47c5ecfe332884ad93d37a8365eacd45373cfb8b",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:3bfc2d201647f967d1442160c2a06bf00e184a9696c9a96adf15d9ceb4a39f8c",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede",
+                "S26EV:298a2eb20957bd1ad21ab27af261b0dc1fda5824273c651b227c5e41c6b76d5a",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:899228eb2bf28097e3638cdc3b3448c8ea80030d85bafbbc7cc1a35f6d238767",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387",
+                "S26EV:cca6c40c29886e50ba783945a668ad957a1fd8940ec5ccc287ba4c5487dce8a9",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:6a77df2f71d2d7cf810337d4222ac76a42269a0533adc3455b015ef072feea3f",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede",
+                "S26EV:bd857478f21dba896842e1c1e624089ad189bffa0681236f59b7bd5c989fd859",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:899228eb2bf28097e3638cdc3b3448c8ea80030d85bafbbc7cc1a35f6d238767",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387",
+                "S26EV:3d042546b20f6da30e04e9de47c5ecfe332884ad93d37a8365eacd45373cfb8b",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:6a77df2f71d2d7cf810337d4222ac76a42269a0533adc3455b015ef072feea3f",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede",
+                "S26EV:298a2eb20957bd1ad21ab27af261b0dc1fda5824273c651b227c5e41c6b76d5a",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:cca6c40c29886e50ba783945a668ad957a1fd8940ec5ccc287ba4c5487dce8a9",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387",
+                "S26EV:3d042546b20f6da30e04e9de47c5ecfe332884ad93d37a8365eacd45373cfb8b",
+                "S26EV:92ca98bebd4c2c0abe3f14c84d8d328b23b60056a0291cba5e2464a693e12ac0",
+                "S26EV:d1449084e7450c22b7de79163e8e4fba63554d7ef5687fbdacac8c47e7c0b387"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:bd857478f21dba896842e1c1e624089ad189bffa0681236f59b7bd5c989fd859",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede",
+                "S26EV:298a2eb20957bd1ad21ab27af261b0dc1fda5824273c651b227c5e41c6b76d5a",
+                "S26EV:9920f793dcda1a1bd7d82d7246e88d55bc1dad67b7f780ff4d1814de5b701684",
+                "S26EV:75978da4be8728fb0e82a267fc9a9fa576bd87fd15594cbcd2ea3f1fda967ede"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:D",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "REPEAT_OR_OVERLAP",
+          "condition": "If historically forward runners seek the same slot in this different current field",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "REVERSE_OR_PRESSURE_RELIEF",
+          "condition": "If historical early order reverses or a forward runner yields",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "UNKNOWN_ACTIVE_ALTERS_ORDER",
+          "condition": "If active runner with no historical data seeks an early slot or another role",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "unknown": [
+            "S26:E"
+          ],
+          "judgment": null
+        }
+      ],
+      "win_place": "NOT_ANALYZED",
+      "pace": "NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "MISSING_GEOMETRY",
+      "raw_sha256": "12349a14b75acee692ec179913fbbb8ad0a0c106641070d87a6da85f3098ea09",
+      "active_ids": [
+        "S26:A",
+        "S26:B",
+        "S26:C",
+        "S26:D",
+        "S26:E"
+      ],
+      "cancelled_ids": [
+        "S26:F"
+      ],
+      "pairs": [
+        {
+          "a": "S26:A",
+          "b": "S26:B",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                3,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:3f7f3e3f0e79046805156dac14e565a5f3968d7834c19a24b7162fe577cdbbfa",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8",
+                "S26EV:788f1f62578ea1c8aaa9d35ccec7d1f5d012862867629d03aed014022711e0fc",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                2,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:f87dd8973f002d4412a4f7167aff2015e528bb9ce6ff079da292517e6d225068",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3",
+                "S26EV:607ad266f289de5d8b6af9a31969ec4024bfd4db8e0ecc4ce4f79ce0ea972f50",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                3,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:3f7f3e3f0e79046805156dac14e565a5f3968d7834c19a24b7162fe577cdbbfa",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8",
+                "S26EV:992e2229b904f2f39aa3e5247b52453d575be44e9fd70f05e65a0e53e0f47cc0",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                2,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:f87dd8973f002d4412a4f7167aff2015e528bb9ce6ff079da292517e6d225068",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3",
+                "S26EV:c30e678fb36ec7dac2e1126fb8b93db2487a4ae0ee36fa854c4888809d867f1b",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:3f7f3e3f0e79046805156dac14e565a5f3968d7834c19a24b7162fe577cdbbfa",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8",
+                "S26EV:ff2a51659fa0cf33177eef1f4c499b44145030807fb0e7ae544ceb669cc3f290",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:f87dd8973f002d4412a4f7167aff2015e528bb9ce6ff079da292517e6d225068",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3",
+                "S26EV:cac002a2f45e2320d73dc42de8704821bbb6f2c1741bc2de84afcaff173e60e3",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:788f1f62578ea1c8aaa9d35ccec7d1f5d012862867629d03aed014022711e0fc",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8",
+                "S26EV:992e2229b904f2f39aa3e5247b52453d575be44e9fd70f05e65a0e53e0f47cc0",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:607ad266f289de5d8b6af9a31969ec4024bfd4db8e0ecc4ce4f79ce0ea972f50",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3",
+                "S26EV:c30e678fb36ec7dac2e1126fb8b93db2487a4ae0ee36fa854c4888809d867f1b",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:788f1f62578ea1c8aaa9d35ccec7d1f5d012862867629d03aed014022711e0fc",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8",
+                "S26EV:ff2a51659fa0cf33177eef1f4c499b44145030807fb0e7ae544ceb669cc3f290",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:607ad266f289de5d8b6af9a31969ec4024bfd4db8e0ecc4ce4f79ce0ea972f50",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3",
+                "S26EV:cac002a2f45e2320d73dc42de8704821bbb6f2c1741bc2de84afcaff173e60e3",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:992e2229b904f2f39aa3e5247b52453d575be44e9fd70f05e65a0e53e0f47cc0",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8",
+                "S26EV:ff2a51659fa0cf33177eef1f4c499b44145030807fb0e7ae544ceb669cc3f290",
+                "S26EV:8d1eecfc4aeec993cde83cf138485901786ea9bcb992f057c5642cae5a4bb245",
+                "S26EV:a82a3811fd1e23e4b1b52dd3acebd723f367909f5eb4d3c3ceae12d7f8d0e6b8"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:c30e678fb36ec7dac2e1126fb8b93db2487a4ae0ee36fa854c4888809d867f1b",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3",
+                "S26EV:cac002a2f45e2320d73dc42de8704821bbb6f2c1741bc2de84afcaff173e60e3",
+                "S26EV:c711cb6a92ebe273447c78a9694f5310e6fde09f7aba7131f9973cb5cc5c6f32",
+                "S26EV:3b09255868f21443aee57ef638a65cc04dab25bbfb9ab7f68198b1fd923104b3"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:D",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "REPEAT_OR_OVERLAP",
+          "condition": "If historically forward runners seek the same slot in this different current field",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "REVERSE_OR_PRESSURE_RELIEF",
+          "condition": "If historical early order reverses or a forward runner yields",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "UNKNOWN_ACTIVE_ALTERS_ORDER",
+          "condition": "If active runner with no historical data seeks an early slot or another role",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "unknown": [
+            "S26:E"
+          ],
+          "judgment": null
+        }
+      ],
+      "win_place": "NOT_ANALYZED",
+      "pace": "NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "PEER_LATER_SEVERE_LOSS",
+      "raw_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+      "active_ids": [
+        "S26:A",
+        "S26:B",
+        "S26:C",
+        "S26:D",
+        "S26:E"
+      ],
+      "cancelled_ids": [
+        "S26:F"
+      ],
+      "pairs": [
+        {
+          "a": "S26:A",
+          "b": "S26:B",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                3,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:99b6b0f4fc09cabd579489b4cb548ab24d196a36707b3fc7f13c5d0977a1a61f",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a",
+                "S26EV:0b12a6dd34b125f5fefa64f96208025cb13756467e00ea97a2081ae6e539f58d",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:B",
+              "first_ranks": [
+                2,
+                1
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:aa73fd0082c51fe00e13a21732f4e9503a94aaa5775b037a6decc94031206b5b",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf",
+                "S26EV:0466fc6dd401861305f66cbdeb640bd1572d63c79acad37bcdddf94f2eb7ca90",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                3,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:99b6b0f4fc09cabd579489b4cb548ab24d196a36707b3fc7f13c5d0977a1a61f",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a",
+                "S26EV:807a9ae68a29037712bc427abed92890c7d57629584e0a12d2bda0bf0cb28983",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:C",
+              "first_ranks": [
+                2,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:aa73fd0082c51fe00e13a21732f4e9503a94aaa5775b037a6decc94031206b5b",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf",
+                "S26EV:cd50b55b7b49ab7bfcf0259635219af3881711c301f06e1f3c0345c509f2a8f7",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:99b6b0f4fc09cabd579489b4cb548ab24d196a36707b3fc7f13c5d0977a1a61f",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a",
+                "S26EV:107c006232aca1c4b069fdedab10c6c9952bf7c490e8836521f01593d104f98b",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:A",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:aa73fd0082c51fe00e13a21732f4e9503a94aaa5775b037a6decc94031206b5b",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf",
+                "S26EV:5817a6518520af8c5cf6dab7039aa7f9ac14f2e12f9f9076c5519c2ef6cf1e24",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:A",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:C",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                2
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0b12a6dd34b125f5fefa64f96208025cb13756467e00ea97a2081ae6e539f58d",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a",
+                "S26EV:807a9ae68a29037712bc427abed92890c7d57629584e0a12d2bda0bf0cb28983",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:C",
+              "first_ranks": [
+                1,
+                3
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0466fc6dd401861305f66cbdeb640bd1572d63c79acad37bcdddf94f2eb7ca90",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf",
+                "S26EV:cd50b55b7b49ab7bfcf0259635219af3881711c301f06e1f3c0345c509f2a8f7",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0b12a6dd34b125f5fefa64f96208025cb13756467e00ea97a2081ae6e539f58d",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a",
+                "S26EV:107c006232aca1c4b069fdedab10c6c9952bf7c490e8836521f01593d104f98b",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:B",
+              "b": "S26:D",
+              "first_ranks": [
+                1,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:0466fc6dd401861305f66cbdeb640bd1572d63c79acad37bcdddf94f2eb7ca90",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf",
+                "S26EV:5817a6518520af8c5cf6dab7039aa7f9ac14f2e12f9f9076c5519c2ef6cf1e24",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:B",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:D",
+          "state": "PAST_COMPARISON_AVAILABLE",
+          "observations": [
+            {
+              "event_id": "S26:H1",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                2,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:807a9ae68a29037712bc427abed92890c7d57629584e0a12d2bda0bf0cb28983",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a",
+                "S26EV:107c006232aca1c4b069fdedab10c6c9952bf7c490e8836521f01593d104f98b",
+                "S26EV:04d8ec6df5c38e789d6575e625f26ee0e9f6b5e3330097d181826a40175890c2",
+                "S26EV:ba2c807fdb05906db8bf966bde49f63283dd91bbdcdba73e7d3bae283978499a"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            },
+            {
+              "event_id": "S26:H2",
+              "a": "S26:C",
+              "b": "S26:D",
+              "first_ranks": [
+                3,
+                4
+              ],
+              "field_count": 5,
+              "refs": [
+                "S26EV:cd50b55b7b49ab7bfcf0259635219af3881711c301f06e1f3c0345c509f2a8f7",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf",
+                "S26EV:5817a6518520af8c5cf6dab7039aa7f9ac14f2e12f9f9076c5519c2ef6cf1e24",
+                "S26EV:89dd826fcb1da46f0468c349624ffcbefe39b6e7dc042cbd30096b12deed21be",
+                "S26EV:4eee200e2740eb6c00fa13ab02d2c2d6b90bb58df5c9e94bc35a6979e5a7fddf"
+              ],
+              "state": "PAST_PAIR_OBSERVATION_ONLY"
+            }
+          ],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:C",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        },
+        {
+          "a": "S26:D",
+          "b": "S26:E",
+          "state": "NO_SHARED_PAST_OBSERVATION",
+          "observations": [],
+          "possible_overlap": "CONDITIONAL_NOT_ESTABLISHED",
+          "actual_pressure": null,
+          "missing": [
+            "SHARED_PAST_EARLY_POSITION",
+            "CURRENT_POSITION_AND_TACTICAL_INTENT",
+            "ACTUAL_LOAD"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "REPEAT_OR_OVERLAP",
+          "condition": "If historically forward runners seek the same slot in this different current field",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "REVERSE_OR_PRESSURE_RELIEF",
+          "condition": "If historical early order reverses or a forward runner yields",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "judgment": null
+        },
+        {
+          "id": "UNKNOWN_ACTIVE_ALTERS_ORDER",
+          "condition": "If active runner with no historical data seeks an early slot or another role",
+          "participants": [
+            "S26:A",
+            "S26:B",
+            "S26:C",
+            "S26:D",
+            "S26:E"
+          ],
+          "unknown": [
+            "S26:E"
+          ],
+          "judgment": null
+        }
+      ],
+      "win_place": "NOT_ANALYZED",
+      "pace": "NOT_ESTABLISHED"
+    }
+  ]
+}

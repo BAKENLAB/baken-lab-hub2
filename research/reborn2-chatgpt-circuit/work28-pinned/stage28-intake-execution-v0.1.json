@@ -1,0 +1,105 @@
+{
+  "schema": "WORK28_INTAKE_EXECUTION_0.1",
+  "scope": "DIAGNOSTIC_AND_SYNTHETIC_TEST_ONLY",
+  "matrix_pin": {
+    "ref": "5743cd93fff5ffedbfedafaacffa73bcd3253987",
+    "path": "research/reborn2-official-sources/stage28-real-candidate-compact-v0.1.json",
+    "blob": "b89f907adf7e5a89612683e3e825ccd2a6c3ff2d"
+  },
+  "tests": [
+    {
+      "name": "actual_30_runner_diagnostics_no_values",
+      "pass": true
+    },
+    {
+      "name": "test_shape_only",
+      "pass": true
+    },
+    {
+      "name": "real_intake_disabled",
+      "pass": true
+    },
+    {
+      "name": "late_update_held",
+      "pass": true
+    },
+    {
+      "name": "uncaptured_correction_held",
+      "pass": true
+    },
+    {
+      "name": "wrong_identity_held",
+      "pass": true
+    },
+    {
+      "name": "crossissuer_held",
+      "pass": true
+    },
+    {
+      "name": "rights_held",
+      "pass": true
+    },
+    {
+      "name": "revoked_rights_held",
+      "pass": true
+    },
+    {
+      "name": "missing_original_held",
+      "pass": true
+    },
+    {
+      "name": "missing_individual_clock",
+      "pass": true
+    },
+    {
+      "name": "leader_not_individual_clock",
+      "pass": true
+    },
+    {
+      "name": "grouped_passing_order_preserved",
+      "pass": true
+    },
+    {
+      "name": "group_duplicate_rejected",
+      "pass": true
+    },
+    {
+      "name": "deadheat_explicit_shape",
+      "pass": true
+    },
+    {
+      "name": "dnf_not_numeric",
+      "pass": true
+    },
+    {
+      "name": "cancelled_numeric_rejected",
+      "pass": true
+    },
+    {
+      "name": "target_event_blocked",
+      "pass": true
+    },
+    {
+      "name": "market_blocked",
+      "pass": true
+    },
+    {
+      "name": "uncertainty_cutoff_held",
+      "pass": true
+    },
+    {
+      "name": "unknown_publication_held",
+      "pass": true
+    }
+  ],
+  "new_checks": 21,
+  "passed": 21,
+  "prior320_not_rerun": true,
+  "actual_diagnostic_rows": 3450,
+  "actual_diagnostic_runners": 30,
+  "official_values": 0,
+  "formal_admissions": 0,
+  "limitations": [
+    "Only negative/shape tests; synthetic booleans not real source trust. No positive official path, no full grouped/deadheat result parser; no actual Codex runtime or CI. No user authorization assumed."
+  ]
+}

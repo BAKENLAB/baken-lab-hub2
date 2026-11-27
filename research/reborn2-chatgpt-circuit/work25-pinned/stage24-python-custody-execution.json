@@ -1,0 +1,243 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "primitive_prefix_sha256": "8bc49f2d55959b4a054c19c42d6bcc0f941d0738b9ef7d503db025308fcb0a06",
+  "fixture_pins": {
+    "jra_full": {
+      "raw_sha256": [
+        "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303"
+      ],
+      "registry_sha": "62627b45ae3fe0433e858b9b3869390edd729809fb95c5d13d86d5c231c48014"
+    },
+    "local_full": {
+      "raw_sha256": [
+        "80f1a0dadc516ceef5de08c3a144a696872957458b114b5e50403c2d4420807d"
+      ],
+      "registry_sha": "091ffaaf1a7635dfb9c0d889cb51d8b46f2f6395c70e34eeafd5d1f03a72f3a3"
+    },
+    "correction_before": {
+      "raw_sha256": [
+        "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303",
+        "37eb352b035bae06b680ea6d91922c05b23956f39503b5a7461b4bb8d88ed04d"
+      ],
+      "registry_sha": "f8c88cf2b39bf5e4131b1c646138a2bce0e6ea4bd118da988627b758f87953f0"
+    },
+    "correction_after": {
+      "raw_sha256": [
+        "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303",
+        "de12d584b8d387c94f2f90f8c62c70dea7c85234cc999dc4052a773b51e34e3c"
+      ],
+      "registry_sha": "9202d663e1f6b16529f9528b02d6d99e1c09a04761b9efbdc32e02d5710dd50a"
+    },
+    "revoked": {
+      "raw_sha256": [
+        "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303"
+      ],
+      "registry_sha": "4be06ca6ae4da460326107f473bf4cdcffa2094e7148a66d53b8f4b2e0ee9d1e"
+    }
+  },
+  "total": 12,
+  "passed": 12,
+  "tests": [
+    {
+      "name": "jra_full",
+      "expected": "TEST_ONLY_CUSTODY_PASS",
+      "actual": "TEST_ONLY_CUSTODY_PASS",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "TEST_ONLY_CUSTODY_PASS",
+        "selected_version": 1,
+        "selected_raw_sha256": "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303",
+        "selected_receipt_sha": "4e41d585049fbfb704dc34183745915aaf3f2f58218a8b1986ef32a88d20d65b",
+        "registry_sha": "62627b45ae3fe0433e858b9b3869390edd729809fb95c5d13d86d5c231c48014",
+        "versions": [
+          {
+            "version": 1,
+            "raw_sha256": "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303",
+            "byte_length": 4723,
+            "receipt_sha": "4e41d585049fbfb704dc34183745915aaf3f2f58218a8b1986ef32a88d20d65b"
+          }
+        ],
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "local_full",
+      "expected": "TEST_ONLY_CUSTODY_PASS",
+      "actual": "TEST_ONLY_CUSTODY_PASS",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "TEST_ONLY_CUSTODY_PASS",
+        "selected_version": 1,
+        "selected_raw_sha256": "80f1a0dadc516ceef5de08c3a144a696872957458b114b5e50403c2d4420807d",
+        "selected_receipt_sha": "c6406bf01e2db488e4f8fdf30232259f8632ebeb7880980f23fd841ba7bf7623",
+        "registry_sha": "091ffaaf1a7635dfb9c0d889cb51d8b46f2f6395c70e34eeafd5d1f03a72f3a3",
+        "versions": [
+          {
+            "version": 1,
+            "raw_sha256": "80f1a0dadc516ceef5de08c3a144a696872957458b114b5e50403c2d4420807d",
+            "byte_length": 4560,
+            "receipt_sha": "c6406bf01e2db488e4f8fdf30232259f8632ebeb7880980f23fd841ba7bf7623"
+          }
+        ],
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "correction_before",
+      "expected": "TEST_ONLY_CUSTODY_PASS",
+      "actual": "TEST_ONLY_CUSTODY_PASS",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "TEST_ONLY_CUSTODY_PASS",
+        "selected_version": 2,
+        "selected_raw_sha256": "37eb352b035bae06b680ea6d91922c05b23956f39503b5a7461b4bb8d88ed04d",
+        "selected_receipt_sha": "22cc5f39a3ae6a0bec9685b33c62ea039508b8129f358fa20d1be8e8ad1491ff",
+        "registry_sha": "f8c88cf2b39bf5e4131b1c646138a2bce0e6ea4bd118da988627b758f87953f0",
+        "versions": [
+          {
+            "version": 1,
+            "raw_sha256": "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303",
+            "byte_length": 4723,
+            "receipt_sha": "4e41d585049fbfb704dc34183745915aaf3f2f58218a8b1986ef32a88d20d65b"
+          },
+          {
+            "version": 2,
+            "raw_sha256": "37eb352b035bae06b680ea6d91922c05b23956f39503b5a7461b4bb8d88ed04d",
+            "byte_length": 4725,
+            "receipt_sha": "22cc5f39a3ae6a0bec9685b33c62ea039508b8129f358fa20d1be8e8ad1491ff"
+          }
+        ],
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "correction_after",
+      "expected": "TEST_ONLY_CUSTODY_PASS",
+      "actual": "TEST_ONLY_CUSTODY_PASS",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "TEST_ONLY_CUSTODY_PASS",
+        "selected_version": 1,
+        "selected_raw_sha256": "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303",
+        "selected_receipt_sha": "4e41d585049fbfb704dc34183745915aaf3f2f58218a8b1986ef32a88d20d65b",
+        "registry_sha": "9202d663e1f6b16529f9528b02d6d99e1c09a04761b9efbdc32e02d5710dd50a",
+        "versions": [
+          {
+            "version": 1,
+            "raw_sha256": "795d945cadc5240518188e2da8ee7bfa0a923625e63f33ff08396d40f3a87303",
+            "byte_length": 4723,
+            "receipt_sha": "4e41d585049fbfb704dc34183745915aaf3f2f58218a8b1986ef32a88d20d65b"
+          },
+          {
+            "version": 2,
+            "raw_sha256": "de12d584b8d387c94f2f90f8c62c70dea7c85234cc999dc4052a773b51e34e3c",
+            "byte_length": 4725,
+            "receipt_sha": "38fc6e8831d22ab9bcb83c703a51c01b19f884709e9e32651cc688f6734787a0"
+          }
+        ],
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "revoked",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "HELD",
+        "reason": "RIGHTS",
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "wrong_asof",
+      "expected": "WRONG_ASOF_VERSION",
+      "actual": "WRONG_ASOF_VERSION",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "HELD",
+        "reason": "WRONG_ASOF_VERSION",
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "raw_tamper",
+      "expected": "RAW",
+      "actual": "RAW",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "HELD",
+        "reason": "RAW",
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "raw_missing",
+      "expected": "MALFORMED_OR_IO",
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "HELD",
+        "reason": "MALFORMED_OR_IO",
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "registry_missing",
+      "expected": "MALFORMED_OR_IO",
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "HELD",
+        "reason": "MALFORMED_OR_IO",
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "registry_rollback",
+      "expected": "REGISTRY_PIN",
+      "actual": "REGISTRY_PIN",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "HELD",
+        "reason": "REGISTRY_PIN",
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "duplicate_receipt_key",
+      "expected": "DUPLICATE_KEY",
+      "actual": "DUPLICATE_KEY",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "HELD",
+        "reason": "DUPLICATE_KEY",
+        "formal_admissions": 0
+      }
+    },
+    {
+      "name": "raw_symlink",
+      "expected": "MALFORMED_OR_IO",
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true,
+      "receipt": {
+        "status": "HELD",
+        "reason": "MALFORMED_OR_IO",
+        "formal_admissions": 0
+      }
+    }
+  ],
+  "formal_admissions": 0
+}

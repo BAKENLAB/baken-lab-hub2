@@ -1,0 +1,578 @@
+{
+  "schema": "WORK27_PACE_CONTRAST_0.1",
+  "scope": "EXPLICITLY_SYNTHETIC_NEVER_OFFICIAL",
+  "generation": "Scale all historical H1 individual elapsed and leader elapsed times and synchronized snapshot timestamps by 0.96, keeping ranks, conditions, coordinates and peer history fixed. Explicit fictional clocks, not estimates of missing data.",
+  "raw_case": {
+    "schema": "WORK26_SYNTHETIC_RAW_0.1",
+    "scope": "EXPLICITLY_SYNTHETIC_NEVER_OFFICIAL",
+    "family": "S27",
+    "case_id": "FASTER_PACE_SAME_ORDER",
+    "source_version": 1,
+    "cutoff": 100,
+    "analysis_at": 101,
+    "seal_at": 90,
+    "seal_uncertainty": 1,
+    "rights": {
+      "state": "SYNTHETIC_TEST_ONLY",
+      "valid_from": 0,
+      "valid_until": 200,
+      "revoked_at": null
+    },
+    "measurement": {
+      "clock_unit": "ms",
+      "checkpoint_scope": "COURSE_DISTANCE_CROSSING_ELAPSED_FROM_COMMON_START",
+      "clock_uncertainty_ms": 20,
+      "snapshot_scope": "SYNCHRONIZED_COURSE_COORDINATE_NOT_ACTUAL_PATH_LENGTH",
+      "snapshot_uncertainty_m": 1
+    },
+    "target": {
+      "id": "S26:T",
+      "event_at": 110,
+      "published_at": 79,
+      "observed_at": 80,
+      "registered_count": 6,
+      "declared_active_count": 5,
+      "actual_starters": null,
+      "conditions": {
+        "distance_m": 1400,
+        "venue": "SYN:D",
+        "surface": "TURF",
+        "going": "GOOD",
+        "class_label": "SYN:MID",
+        "class_effective": [
+          0,
+          200
+        ],
+        "class_rule": null,
+        "geometry": {
+          "first_turn_m": 280,
+          "straight_m": 350,
+          "checkpoints_m": [
+            280,
+            800,
+            1050
+          ],
+          "direction": "RIGHT",
+          "effective": [
+            0,
+            200
+          ],
+          "source": "SYNTHETIC_STIPULATION"
+        }
+      },
+      "rows": [
+        {
+          "id": "S26:A",
+          "verified_identity": true,
+          "horse_number": 4,
+          "gate_number": 2,
+          "weight_grams": 56000,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "S26:B",
+          "verified_identity": true,
+          "horse_number": 6,
+          "gate_number": 4,
+          "weight_grams": 55000,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "S26:C",
+          "verified_identity": true,
+          "horse_number": 1,
+          "gate_number": 1,
+          "weight_grams": 55000,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "S26:D",
+          "verified_identity": true,
+          "horse_number": 3,
+          "gate_number": 2,
+          "weight_grams": 57000,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "S26:E",
+          "verified_identity": true,
+          "horse_number": 2,
+          "gate_number": 1,
+          "weight_grams": 54000,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "S26:F",
+          "verified_identity": true,
+          "horse_number": 5,
+          "gate_number": 3,
+          "weight_grams": 56000,
+          "status": "CANCELLED"
+        }
+      ]
+    },
+    "history": [
+      {
+        "id": "S26:H1",
+        "event_at": 10,
+        "published_at": 11,
+        "observed_at": 12,
+        "registered_count": 6,
+        "actual_starters": 5,
+        "conditions": {
+          "distance_m": 1200,
+          "venue": "SYN:A",
+          "surface": "TURF",
+          "going": "GOOD",
+          "class_label": "SYN:LOW",
+          "class_effective": [
+            0,
+            200
+          ],
+          "class_rule": null,
+          "geometry": {
+            "first_turn_m": 200,
+            "straight_m": 200,
+            "checkpoints_m": [
+              200,
+              600,
+              1000
+            ],
+            "direction": "RIGHT",
+            "effective": [
+              0,
+              200
+            ],
+            "source": "SYNTHETIC_STIPULATION"
+          }
+        },
+        "rows": [
+          {
+            "id": "S26:A",
+            "verified_identity": true,
+            "horse_number": 5,
+            "gate_number": 3,
+            "weight_grams": 56000,
+            "status": "FINISHED",
+            "ranks": [
+              3,
+              2,
+              1
+            ],
+            "finish": 2,
+            "finish_ms": 70560,
+            "final600_ms": 35040,
+            "checkpoint_ms": [
+              12480,
+              35520,
+              58560
+            ]
+          },
+          {
+            "id": "S26:B",
+            "verified_identity": true,
+            "horse_number": 1,
+            "gate_number": 1,
+            "weight_grams": 57000,
+            "status": "FINISHED",
+            "ranks": [
+              1,
+              1,
+              3
+            ],
+            "finish": 3,
+            "finish_ms": 71040,
+            "final600_ms": 36000,
+            "checkpoint_ms": [
+              11520,
+              35040,
+              59520
+            ]
+          },
+          {
+            "id": "S26:C",
+            "verified_identity": true,
+            "horse_number": 3,
+            "gate_number": 2,
+            "weight_grams": 55000,
+            "status": "FINISHED",
+            "ranks": [
+              2,
+              4,
+              2
+            ],
+            "finish": 1,
+            "finish_ms": 70080,
+            "final600_ms": 33600,
+            "checkpoint_ms": [
+              12000,
+              36480,
+              59040
+            ]
+          },
+          {
+            "id": "S26:D",
+            "verified_identity": true,
+            "horse_number": 4,
+            "gate_number": 3,
+            "weight_grams": 56000,
+            "status": "FINISHED",
+            "ranks": [
+              4,
+              3,
+              4
+            ],
+            "finish": 4,
+            "finish_ms": 72000,
+            "final600_ms": 36000,
+            "checkpoint_ms": null
+          },
+          {
+            "id": "S26:X",
+            "verified_identity": true,
+            "horse_number": 6,
+            "gate_number": 4,
+            "weight_grams": 58000,
+            "status": "FINISHED",
+            "ranks": [
+              5,
+              5,
+              5
+            ],
+            "finish": 5,
+            "finish_ms": 73440,
+            "final600_ms": 36000,
+            "checkpoint_ms": null
+          },
+          {
+            "id": "S26:Y",
+            "verified_identity": true,
+            "horse_number": 2,
+            "gate_number": 2,
+            "weight_grams": 55000,
+            "status": "CANCELLED",
+            "ranks": null,
+            "finish": null,
+            "finish_ms": null,
+            "final600_ms": null,
+            "checkpoint_ms": null
+          }
+        ],
+        "snapshots": [
+          {
+            "elapsed_ms": 28800,
+            "positions_m": {
+              "S26:A": 490,
+              "S26:B": 500,
+              "S26:C": 475,
+              "S26:D": 470,
+              "S26:X": 450
+            }
+          },
+          {
+            "elapsed_ms": 38400,
+            "positions_m": {
+              "S26:A": 650,
+              "S26:B": 640,
+              "S26:C": 625,
+              "S26:D": 635,
+              "S26:X": 615
+            }
+          }
+        ]
+      },
+      {
+        "id": "S26:H2",
+        "event_at": 20,
+        "published_at": 21,
+        "observed_at": 22,
+        "registered_count": 5,
+        "actual_starters": 5,
+        "conditions": {
+          "distance_m": 1600,
+          "venue": "SYN:B",
+          "surface": "TURF",
+          "going": "SOFT",
+          "class_label": "SYN:MID",
+          "class_effective": [
+            0,
+            200
+          ],
+          "class_rule": null,
+          "geometry": {
+            "first_turn_m": 350,
+            "straight_m": 300,
+            "checkpoints_m": [
+              350,
+              800,
+              1300
+            ],
+            "direction": "LEFT",
+            "effective": [
+              0,
+              200
+            ],
+            "source": "SYNTHETIC_STIPULATION"
+          }
+        },
+        "rows": [
+          {
+            "id": "S26:A",
+            "verified_identity": true,
+            "horse_number": 1,
+            "gate_number": 1,
+            "weight_grams": 57000,
+            "status": "FINISHED",
+            "ranks": [
+              2,
+              3,
+              2
+            ],
+            "finish": 1,
+            "finish_ms": 99500,
+            "final600_ms": 36500,
+            "checkpoint_ms": null
+          },
+          {
+            "id": "S26:B",
+            "verified_identity": true,
+            "horse_number": 3,
+            "gate_number": 2,
+            "weight_grams": 57000,
+            "status": "FINISHED",
+            "ranks": [
+              1,
+              2,
+              4
+            ],
+            "finish": 4,
+            "finish_ms": 101000,
+            "final600_ms": 38000,
+            "checkpoint_ms": null
+          },
+          {
+            "id": "S26:C",
+            "verified_identity": true,
+            "horse_number": 5,
+            "gate_number": 3,
+            "weight_grams": 55000,
+            "status": "FINISHED",
+            "ranks": [
+              3,
+              1,
+              1
+            ],
+            "finish": 2,
+            "finish_ms": 99800,
+            "final600_ms": 36900,
+            "checkpoint_ms": null
+          },
+          {
+            "id": "S26:D",
+            "verified_identity": true,
+            "horse_number": 2,
+            "gate_number": 1,
+            "weight_grams": 55000,
+            "status": "FINISHED",
+            "ranks": [
+              4,
+              4,
+              3
+            ],
+            "finish": 3,
+            "finish_ms": 100400,
+            "final600_ms": 37200,
+            "checkpoint_ms": null
+          },
+          {
+            "id": "S26:X",
+            "verified_identity": true,
+            "horse_number": 4,
+            "gate_number": 2,
+            "weight_grams": 58000,
+            "status": "FINISHED",
+            "ranks": [
+              5,
+              5,
+              5
+            ],
+            "finish": 5,
+            "finish_ms": 103200,
+            "final600_ms": 39500,
+            "checkpoint_ms": null
+          }
+        ],
+        "snapshots": []
+      },
+      {
+        "id": "S26:H3",
+        "event_at": 30,
+        "published_at": 31,
+        "observed_at": 32,
+        "registered_count": 3,
+        "actual_starters": 3,
+        "conditions": {
+          "distance_m": 1000,
+          "venue": "SYN:C",
+          "surface": "TURF",
+          "going": "GOOD",
+          "class_label": "SYN:LOW",
+          "class_effective": [
+            0,
+            200
+          ],
+          "class_rule": null,
+          "geometry": {
+            "first_turn_m": 150,
+            "straight_m": 250,
+            "checkpoints_m": [
+              150,
+              450,
+              750
+            ],
+            "direction": "RIGHT",
+            "effective": [
+              0,
+              200
+            ],
+            "source": "SYNTHETIC_STIPULATION"
+          }
+        },
+        "rows": [
+          {
+            "id": "S26:X",
+            "verified_identity": true,
+            "horse_number": 3,
+            "gate_number": 2,
+            "weight_grams": 56000,
+            "status": "FINISHED",
+            "ranks": [
+              3,
+              2,
+              1
+            ],
+            "finish": 1,
+            "finish_ms": 61000,
+            "final600_ms": 36500,
+            "checkpoint_ms": null
+          },
+          {
+            "id": "S26:Y",
+            "verified_identity": true,
+            "horse_number": 1,
+            "gate_number": 1,
+            "weight_grams": 54000,
+            "status": "FINISHED",
+            "ranks": [
+              1,
+              1,
+              2
+            ],
+            "finish": 2,
+            "finish_ms": 61600,
+            "final600_ms": 38000,
+            "checkpoint_ms": null
+          },
+          {
+            "id": "S26:Z",
+            "verified_identity": true,
+            "horse_number": 2,
+            "gate_number": 1,
+            "weight_grams": 55000,
+            "status": "FINISHED",
+            "ranks": [
+              2,
+              3,
+              3
+            ],
+            "finish": 3,
+            "finish_ms": 63000,
+            "final600_ms": 39000,
+            "checkpoint_ms": null
+          }
+        ],
+        "snapshots": []
+      }
+    ],
+    "formal_admissions": 0,
+    "leader_measurements": [
+      {
+        "event_id": "S26:H1",
+        "distances_m": [
+          0,
+          200,
+          600,
+          1000,
+          1200
+        ],
+        "elapsed_ms": [
+          0,
+          11520,
+          35040,
+          58560,
+          70080
+        ],
+        "scope": "SYNTHETIC_LEADER_CROSSING_COMMON_START",
+        "uncertainty_ms": 20
+      }
+    ],
+    "condition_configuration": {
+      "venue": "SYN:D",
+      "configuration_kind": "FICTIONAL_INDEPENDENT_DIMENSIONS",
+      "distance_and_layout_stipulated_independently": true
+    }
+  },
+  "tests": [
+    {
+      "name": "fast_world_valid",
+      "pass": true
+    },
+    {
+      "name": "faster_leader_all_segments",
+      "pass": true
+    },
+    {
+      "name": "same_ordinal_and_condition",
+      "pass": true
+    },
+    {
+      "name": "same_peer_coordinate_separation",
+      "pass": true
+    },
+    {
+      "name": "individual_measured_average_changes",
+      "pass": true
+    },
+    {
+      "name": "no_direct_load_tolerance_or_grade",
+      "pass": true
+    }
+  ],
+  "summary": {
+    "case_id": "FASTER_PACE_SAME_ORDER",
+    "raw_sha256": "a10acbb1b3902dd5752dfa4ebcc94aa9f405cf031f2e4b2e6707981d9213c9db",
+    "leader_ms": [
+      12000,
+      24500,
+      24500,
+      12000
+    ],
+    "faster_leader_ms": [
+      11520,
+      23520,
+      23520,
+      11520
+    ],
+    "A_course_progress_mps": [
+      16.666666666666668,
+      16.666666666666668
+    ],
+    "faster_A_course_progress_mps": [
+      17.36111111111111,
+      17.36111111111111
+    ],
+    "tests": 6,
+    "passed": 6
+  },
+  "limitations": "Not single scalar or real causal load intervention; equal ordinal result at different pace is not proof of physiological tolerance."
+}

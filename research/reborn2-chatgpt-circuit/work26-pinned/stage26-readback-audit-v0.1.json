@@ -1,0 +1,253 @@
+{
+  "schema": "WORK26_READBACK_AUDIT_0.1",
+  "checks": [
+    {
+      "name": "batch1:exact_saved_sha256",
+      "pass": true
+    },
+    {
+      "name": "BASE:exact_producer_reproduction",
+      "pass": true
+    },
+    {
+      "name": "BASE:all_raw_pointers_and_lineage",
+      "pass": true
+    },
+    {
+      "name": "BASE:unique_ids",
+      "pass": true
+    },
+    {
+      "name": "BASE:all_projection_refs_resolve",
+      "pass": true
+    },
+    {
+      "name": "BASE:margin_consistency",
+      "pass": true
+    },
+    {
+      "name": "TARGET_SHORT:exact_producer_reproduction",
+      "pass": true
+    },
+    {
+      "name": "TARGET_SHORT:all_raw_pointers_and_lineage",
+      "pass": true
+    },
+    {
+      "name": "TARGET_SHORT:unique_ids",
+      "pass": true
+    },
+    {
+      "name": "TARGET_SHORT:all_projection_refs_resolve",
+      "pass": true
+    },
+    {
+      "name": "TARGET_SHORT:margin_consistency",
+      "pass": true
+    },
+    {
+      "name": "batch2:exact_saved_sha256",
+      "pass": true
+    },
+    {
+      "name": "TARGET_LONG:exact_producer_reproduction",
+      "pass": true
+    },
+    {
+      "name": "TARGET_LONG:all_raw_pointers_and_lineage",
+      "pass": true
+    },
+    {
+      "name": "TARGET_LONG:unique_ids",
+      "pass": true
+    },
+    {
+      "name": "TARGET_LONG:all_projection_refs_resolve",
+      "pass": true
+    },
+    {
+      "name": "TARGET_LONG:margin_consistency",
+      "pass": true
+    },
+    {
+      "name": "SAME_RANK_DIFFERENT_SPEED:exact_producer_reproduction",
+      "pass": true
+    },
+    {
+      "name": "SAME_RANK_DIFFERENT_SPEED:all_raw_pointers_and_lineage",
+      "pass": true
+    },
+    {
+      "name": "SAME_RANK_DIFFERENT_SPEED:unique_ids",
+      "pass": true
+    },
+    {
+      "name": "SAME_RANK_DIFFERENT_SPEED:all_projection_refs_resolve",
+      "pass": true
+    },
+    {
+      "name": "SAME_RANK_DIFFERENT_SPEED:margin_consistency",
+      "pass": true
+    },
+    {
+      "name": "batch3:exact_saved_sha256",
+      "pass": true
+    },
+    {
+      "name": "MISSING_MEASUREMENTS:exact_producer_reproduction",
+      "pass": true
+    },
+    {
+      "name": "MISSING_MEASUREMENTS:all_raw_pointers_and_lineage",
+      "pass": true
+    },
+    {
+      "name": "MISSING_MEASUREMENTS:unique_ids",
+      "pass": true
+    },
+    {
+      "name": "MISSING_MEASUREMENTS:all_projection_refs_resolve",
+      "pass": true
+    },
+    {
+      "name": "MISSING_MEASUREMENTS:margin_consistency",
+      "pass": true
+    },
+    {
+      "name": "MISSING_GEOMETRY:exact_producer_reproduction",
+      "pass": true
+    },
+    {
+      "name": "MISSING_GEOMETRY:all_raw_pointers_and_lineage",
+      "pass": true
+    },
+    {
+      "name": "MISSING_GEOMETRY:unique_ids",
+      "pass": true
+    },
+    {
+      "name": "MISSING_GEOMETRY:all_projection_refs_resolve",
+      "pass": true
+    },
+    {
+      "name": "MISSING_GEOMETRY:margin_consistency",
+      "pass": true
+    },
+    {
+      "name": "batch4:exact_saved_sha256",
+      "pass": true
+    },
+    {
+      "name": "PEER_LATER_SEVERE_LOSS:exact_producer_reproduction",
+      "pass": true
+    },
+    {
+      "name": "PEER_LATER_SEVERE_LOSS:all_raw_pointers_and_lineage",
+      "pass": true
+    },
+    {
+      "name": "PEER_LATER_SEVERE_LOSS:unique_ids",
+      "pass": true
+    },
+    {
+      "name": "PEER_LATER_SEVERE_LOSS:all_projection_refs_resolve",
+      "pass": true
+    },
+    {
+      "name": "PEER_LATER_SEVERE_LOSS:margin_consistency",
+      "pass": true
+    }
+  ],
+  "pins": [
+    {
+      "ref": "747dbef9a5d2dbca96c8ca83a3f14a2cc38348fb",
+      "path": "research/reborn2-official-sources/stage26-codex-observations-batch1-v0.1.json",
+      "blob": "75a36a9b88250b4fc1291e9a826c3ec5543ca3a7",
+      "sha256": "02e7812babb4f999141737061f9d30678d33a811ce92fb2622261c73c273cc30",
+      "cases": [
+        {
+          "id": "BASE",
+          "output_pointer": "/cases/0",
+          "raw_case_sha256": "6ba48b52d85c17361df483275cb1e8c9bd54ebbeeea131bcf85ba3754057852f",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        },
+        {
+          "id": "TARGET_SHORT",
+          "output_pointer": "/cases/1",
+          "raw_case_sha256": "d771f7954bf186e8713bab8b1b1cace27bb8346fd258688593e6770c743a93d0",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        }
+      ]
+    },
+    {
+      "ref": "0d63a1074a82e127d3a6a908f25d63b01dd98684",
+      "path": "research/reborn2-official-sources/stage26-codex-observations-batch2-v0.1.json",
+      "blob": "ab79aa1f6c6f2594b31d86c98e86a3bf26471f58",
+      "sha256": "4217fdbbc9239b9892235ee38fcfbb9edd380f660460263c897ac6d953fcb906",
+      "cases": [
+        {
+          "id": "TARGET_LONG",
+          "output_pointer": "/cases/0",
+          "raw_case_sha256": "0e40117facd11b4123b2a5bdadf7f93f1d5808925cbb7f8aee9bc5740243814d",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        },
+        {
+          "id": "SAME_RANK_DIFFERENT_SPEED",
+          "output_pointer": "/cases/1",
+          "raw_case_sha256": "de09cc81578a76de3987333e333de9f23c33024a4260c95681293caacd0d1a52",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        }
+      ]
+    },
+    {
+      "ref": "4c568a75891fe25f090cd11ba45f7070a19c928e",
+      "path": "research/reborn2-official-sources/stage26-codex-observations-batch3-v0.1.json",
+      "blob": "3ec46de479c02551a4528466ae23e6f41e8fd8ad",
+      "sha256": "0c943bb422b1068cddf183b7a1ab69ceef5afe04f779f78e6f1aff997fd42a41",
+      "cases": [
+        {
+          "id": "MISSING_MEASUREMENTS",
+          "output_pointer": "/cases/0",
+          "raw_case_sha256": "596deac5ef66d03a46e6d260739de5b3d08d7be25ceefcc380b66ca04eeaecb8",
+          "evidence_records": 182,
+          "active_count": 5,
+          "followup_links": 24
+        },
+        {
+          "id": "MISSING_GEOMETRY",
+          "output_pointer": "/cases/1",
+          "raw_case_sha256": "12349a14b75acee692ec179913fbbb8ad0a0c106641070d87a6da85f3098ea09",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        }
+      ]
+    },
+    {
+      "ref": "0087555fb2a50e10778a2945a87b8ba0653bf012",
+      "path": "research/reborn2-official-sources/stage26-codex-observations-batch4-v0.1.json",
+      "blob": "3fa96d9cf4ddd7c4e5043d864563953cd111c876",
+      "sha256": "2f58a8109528ef6c719d8fc1ec8a1cd7d71b7c220b93bf3a63dc1d17e9df8db3",
+      "cases": [
+        {
+          "id": "PEER_LATER_SEVERE_LOSS",
+          "output_pointer": "/cases/0",
+          "raw_case_sha256": "3ac9563a4c24d35341f78d140d587f2881ea2841acd27384a816db0c170967de",
+          "evidence_records": 184,
+          "active_count": 5,
+          "followup_links": 24
+        }
+      ]
+    }
+  ],
+  "passed": 39,
+  "scope": "SYNTHETIC_ONLY"
+}

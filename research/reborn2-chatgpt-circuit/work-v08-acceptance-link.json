@@ -1,0 +1,127 @@
+{
+  "version": "work-v08-acceptance-link-v4",
+  "status": "HOLD_NO_FORMAL_ADMISSION",
+  "design_commit": "b818b7b9c69a7d7c30a3422e78745100c04d2e2f",
+  "work_report": {
+    "name": "BAKEN_LAB_REBORN2_長期基準時計候補_第8工程報告_V3_20261127.md",
+    "generated_at": "2026-11-27T07:30:00+09:00",
+    "source_scope": "Library report full text and management sheet snippets, not distribution original bytes",
+    "jra": {
+      "cohorts": 88,
+      "races": 2836,
+      "runner_rows": 40333,
+      "turf_cohorts": 39,
+      "dirt_cohorts": 49,
+      "layout_missing": 88,
+      "quantiles_reported": [
+        10,
+        25,
+        50,
+        75,
+        90
+      ],
+      "distribution_original_reverified": false,
+      "formal_admissions": 0
+    },
+    "local": {
+      "cohorts": 30,
+      "races": 19131,
+      "runner_rows": 197712,
+      "all_group_keys_recovered": false,
+      "formal_admissions": 0
+    },
+    "individual_checks": {
+      "work_horse_race_checks": 21,
+      "work_reported_history_rows": 193,
+      "normal_chat_jra_full_page_report": 33,
+      "overlap_unresolved": true,
+      "combined_count": null
+    }
+  },
+  "local_original": {
+    "commit": "717b15868de097c4a50e175b2e1784517a8f0095",
+    "sql_blob": "3f12ac0fc86061cdea87f7c9da8898d83ef33d07",
+    "replay_blob": "af59940b5cdc1026600c562b070e6fe932ad31b1",
+    "rerun": false,
+    "source_scope": "direct repository retrieval; not regenerated snapshot"
+  },
+  "people": {
+    "commit": "72396d4916021a016c9ee857f864c12650409360",
+    "blob": "941c6bae54ba30588e433bdcc8c1709647827e02",
+    "counts": {
+      "new_official_person_profile_registrations": 4,
+      "corroborated_person_entities": 3,
+      "valid_race_person_joins": 0,
+      "new_jra_full_body": 0,
+      "previous_jra_full_report": 33,
+      "remaining_jra_full": 29,
+      "new_jra_indexed": 4,
+      "new_local_indexed": 1,
+      "formal_admissions": 0
+    },
+    "registration_entity_distinct": true,
+    "native_jra_id_not_recovered": true,
+    "formal_race_links": 0
+  },
+  "gates": {
+    "benchmark": {
+      "blocked_by": [
+        "course layout/effective version",
+        "formal eligibility",
+        "historical publication",
+        "original archive completeness",
+        "permission"
+      ],
+      "dependent_items": [
+        "05",
+        "06",
+        "11",
+        "13",
+        "14",
+        "40",
+        "43",
+        "46",
+        "48",
+        "69",
+        "73"
+      ]
+    },
+    "person": {
+      "blocked_by": [
+        "registration-to-result witness",
+        "effective dates",
+        "historical edition",
+        "permission"
+      ],
+      "dependent_items": [
+        "85",
+        "86",
+        "87",
+        "88",
+        "89"
+      ]
+    },
+    "horse_peer": {
+      "blocked_by": [
+        "native horse identity per result",
+        "historical source edition",
+        "permission"
+      ],
+      "dependent_items": [
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "40",
+        "42",
+        "EYE-04",
+        "EYE-05",
+        "EYE-14"
+      ]
+    }
+  },
+  "formal_admissions": 0,
+  "production_changes": false
+}

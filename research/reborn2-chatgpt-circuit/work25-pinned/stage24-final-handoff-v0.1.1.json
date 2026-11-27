@@ -1,0 +1,588 @@
+{
+  "schema": "WORK24_FINAL_HANDOFF_0.1.1",
+  "scope": "SYNTHETIC_ONLY_RESEARCH_NO_FORMAL_ADMISSION",
+  "acceptance": {
+    "ref": "a736bbef1331691ad54011034f2bd1da646f750d",
+    "path": "research/reborn2-canonical/RESEARCH-V23-272-WORK23-165-MAIN39-AUDIT-20261128.md",
+    "blob": "5be6cfb65e26049b635a3922ddd775b5b5aef807"
+  },
+  "refs": {
+    "pr92": {
+      "head": "4a3e27905b69592052a9a0c954934e8554d13c66",
+      "draft": true,
+      "merged": false
+    },
+    "pr94": {
+      "head": "d16fdefe06ea993baa9b41657d8519a22ce129b6",
+      "draft": true,
+      "merged": false
+    },
+    "work23": "1b2ec5abbc230edef7835127ff7f4665d06f4f01",
+    "work_branch": "research/reborn2-official-sources-20261126"
+  },
+  "parent_index": {
+    "ref": "1b2ec5abbc230edef7835127ff7f4665d06f4f01",
+    "path": "research/reborn2-official-sources/stage23-final-handoff-v0.2.2.json",
+    "blob": "b01a41e432399cc5de9fd9c569652fc39230db62",
+    "sha256": "fb9562bfd8bbb3174d1541e2c9e042eec602c10a750683a6001c35b374b7d06f"
+  },
+  "source_pins": [
+    {
+      "path": "research/reborn2-official-sources/stage24-readback-audit-v0.1.1.json",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "c9c91e6a2eb35b1b39bcfe2c5f4f47fac276d40b",
+      "sha256": "bd5819db4e59c7e7673eb11bf8df8351591b2e494e90b3ad2d83ce4e297f53d9"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage24-supplement-execution-v0.1.1.json",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "164395a79d2a03bf5dd1f45de4cb2722753588e4",
+      "sha256": "faccc94c8f1c33e88143fd659419b06e00ff5378b81306b23bb1595f3d5b1774"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage24-supplement-producer-v0.1.1.mjs",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "827aafca7f6913371ec8c5cf85cba7b432b34362",
+      "sha256": "ff65497585d9cf0432b1456050730cc49ad7e558679d70cadafa40139b15bd8c"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage24-python-custody-execution.json",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "edcb27860d7f16d5d76902f0c2535f8d740675e8",
+      "sha256": "64de89cf06285fb54e3d1a91536e63d7b147b903b4f9ff9c27364a410d82860f"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage24_python_custody_bridge.py",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "ff925844b39046823faf626cda91304655467721",
+      "sha256": "093259bb8f23821757249f4b216d68cbad6e59590f570c1d6a150ac6b70368a5"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage23-final-handoff-v0.2.2.json",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "b01a41e432399cc5de9fd9c569652fc39230db62",
+      "sha256": "fb9562bfd8bbb3174d1541e2c9e042eec602c10a750683a6001c35b374b7d06f"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage22-custody-to-115-contract-v0.1.json",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "7fff865e11517d6e6da74506cb3ad8175e584f88",
+      "sha256": null
+    },
+    {
+      "path": "research/reborn2-official-sources/stage16-derived-row-receipt-v1.3.json",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "476fe4470f4933210627dfd508c1660ff0792f70",
+      "sha256": null
+    },
+    {
+      "path": "research/reborn2-official-sources/stage22_probe.py",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "c1761138bd9b9d6f4eb7eb53495a3fb5d590c724",
+      "sha256": "9834a8d803a7898fb3d66387a8b8e8a31a56e659309141b56e413e9220a6bb42"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage23-producer-v0.2.2.mjs",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "c310caf7d9cb5803cb486e6184450e09e5407a62",
+      "sha256": "8d2d2a296e20302f25a92df39e41f4cf264f5223541c10b8ed8d5c5784fdc0eb"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage22-handoff-execution-summary.json",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "dc19e4de9fb835b4510826346d351cd3000a0486",
+      "sha256": "ea8874a7c28c72158485deefbe5aac254ccd112f17063390e90e3f11ba6d4025"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage23-fixture-bundles-v0.2.2.json",
+      "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+      "blob": "bb1e2f961a75adfa4a4e49f585149cba0aba7b56",
+      "sha256": "fc986c52ee0cb39b2fe4b7c82a5df3b09c216e3c24f72d84ade1e1113c4795a2"
+    }
+  ],
+  "checks": {
+    "prior165": true,
+    "canonical115": true,
+    "all826": true,
+    "group_counts": true,
+    "exact_parent_index": true,
+    "exact_producer_work23": true,
+    "supplement23": true,
+    "python12": true,
+    "python_source_exact": true,
+    "python_log_exact": true,
+    "prefix_exact": true,
+    "python_source_pins": true,
+    "all12_readback120": true,
+    "all_parent_index_pins": true,
+    "all_formal_zero": true
+  },
+  "execution": {
+    "previous_recorded_165": 165,
+    "work23_producer_30_rerun_in_work24": 30,
+    "work22_python_135_preserved_not_rerun": 135,
+    "work24_new_supplement_tests": 23,
+    "work24_new_python_custody_tests": 12,
+    "new_total": 35,
+    "new_passed": 35,
+    "cumulative_recorded": 200,
+    "full_cumulative_rerun": false,
+    "codex_baseline": 272,
+    "codex_rerun": false,
+    "readback_checks": 120,
+    "readback_passed": 120,
+    "analysis_runtime_executed": false
+  },
+  "packet_index": [
+    {
+      "name": "jra_full",
+      "original": {
+        "name": "jra_full",
+        "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+        "path": "research/reborn2-official-sources/stage23-jra_full-packet-v0.2.1.json",
+        "blob": "f6b85de17791d4814d16ecc5082862fdcd41686b",
+        "sha256": "17e65acd8602b2417047faeacf1e78baac94088c8623f1e1a9251ea1c2215206"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-jra_full-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "438bc360272c9ec3a463b86da677f54b98ca9fd5",
+        "sha256": "2aa4e6fd24ae0f05371f296acb2bed489a5a6700d4d7d8fc6b38877c6b803f4b",
+        "bytes": 270662
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 14
+    },
+    {
+      "name": "local_full",
+      "original": {
+        "name": "local_full",
+        "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+        "path": "research/reborn2-official-sources/stage23-local_full-packet-v0.2.1.json",
+        "blob": "0004df712b6253dda1ea395c1b3e7707c0370428",
+        "sha256": "4bac8ff27c2fe91e2b9275bf5ce618ea0d4368993ac955c859f43688b22c3775"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-local_full-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "2a3df711fb4ae18314fa9a941bc62497a42ee910",
+        "sha256": "cf750840253854c5bc6cc0505c811f824f80bdb047cfa6b3a7589954cd470a5e",
+        "bytes": 270916
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 14
+    },
+    {
+      "name": "missing_clock",
+      "original": {
+        "name": "missing_clock",
+        "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+        "path": "research/reborn2-official-sources/stage23-missing_clock-packet-v0.2.1.json",
+        "blob": "af5486d3dd4d60ab4ca786f14d4b43f30cc7ecb4",
+        "sha256": "3357cd8a56cdf64c3d50453b0bcf88d64d86a41138960edda9a97697efd01439"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-missing_clock-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "c66c3a633098e11a2e9a904c09a2c7dd9cb5eb54",
+        "sha256": "0bdca137bd1d6069b5cb83deba024fbab9a891abb982d55677d6c4f67f08b636",
+        "bytes": 274013
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 14
+    },
+    {
+      "name": "bad_margin_unit",
+      "original": {
+        "name": "bad_margin_unit",
+        "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+        "path": "research/reborn2-official-sources/stage23-bad_margin_unit-packet-v0.2.1.json",
+        "blob": "576e3d47981a0cc9f8ba529427aa01aeea2b187c",
+        "sha256": "2806bf7e5608f506064d884b5065ab21ed3e4c780c6c258a3de386b706650628"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-bad_margin_unit-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "200c97f4e5cc113611d647a8ea823897f23501e1",
+        "sha256": "a4a5b005a6ef564050a542fd3501027fb831b7e27a36f8b92bbc332864231ca0",
+        "bytes": 270940
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 14
+    },
+    {
+      "name": "revoked",
+      "original": {
+        "name": "revoked",
+        "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+        "path": "research/reborn2-official-sources/stage23-revoked-packet-v0.2.1.json",
+        "blob": "77a072ed999e4044cbd977554220372c8681cdaa",
+        "sha256": "831875b1aa32058db223c093ae52ec9ddb7f4f3e60a749d517e61e1482372dce"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-revoked-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "fb2c47f3664660a63e76213fbf4f8750047307cd",
+        "sha256": "fd5f947acc626c9a85c3884d74279e6e4267686b0ca30f71d01217ccd7d70e0d",
+        "bytes": 23249
+      },
+      "extensions": 0,
+      "extensions_available": 0,
+      "item_rows": 115,
+      "events": 0,
+      "relations": 0
+    },
+    {
+      "name": "correction_after",
+      "original": {
+        "name": "correction_after",
+        "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+        "path": "research/reborn2-official-sources/stage23-correction_after-packet-v0.2.1.json",
+        "blob": "9d20f9bb8193049d04aab30ad305c25a2fb38a11",
+        "sha256": "397d2ca199f3796267a75e408b487cd4fa6330c700ecc5106f30c1db62bbce0d"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-correction_after-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "31a27512771ad7321afb18e34247d43fade5529f",
+        "sha256": "74bc2eb62e39cbf0e0cb98eefc590e1da5ccb7bfcefdb220aae3c3ce50a804a3",
+        "bytes": 270678
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 14
+    },
+    {
+      "name": "malformed_target_market",
+      "original": {
+        "name": "malformed_target_market",
+        "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+        "path": "research/reborn2-official-sources/stage23-malformed_target_market-packet-v0.2.1.json",
+        "blob": "e1cd8250612301075e9cea7b3a7ac6ae7827e7a9",
+        "sha256": "821acf693e5b6956e4e88290b12835904116ecdcd9567f3dc91faca9186e3f94"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-malformed_target_market-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "256f416ad58f74910b8e84a80c0f6ac4e37089ad",
+        "sha256": "ef85159de802e8eb67b678b71c2ee52bdbe3a39746404d1934e5e49f1c0ed0eb",
+        "bytes": 22353
+      },
+      "extensions": 0,
+      "extensions_available": 0,
+      "item_rows": 115,
+      "events": 0,
+      "relations": 0
+    },
+    {
+      "name": "correction_before",
+      "original": {
+        "name": "correction_before",
+        "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+        "path": "research/reborn2-official-sources/stage23-correction_before-packet-v0.2.2.json",
+        "blob": "2df92483cbe06d2919665bdf9709048307e29961",
+        "sha256": "c407fd569eda9bd44e2f058d2b9c5d5840e9624547fc55df1c3f42fc8cbf2341"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-correction_before-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "47202c136590c1206f0b9de932d9eddd872479d5",
+        "sha256": "76bb899ea65e502a01fd3781ea4a3ace68a16afbaca23106c37bae2fe77a1285",
+        "bytes": 179765
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 5
+    },
+    {
+      "name": "nested_geometry_market_rejected",
+      "original": {
+        "name": "nested_geometry_market_rejected",
+        "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+        "path": "research/reborn2-official-sources/stage23-nested_geometry_market_rejected-packet-v0.2.2.json",
+        "blob": "bb0a63fb53f0d2dd09d35731e9f5f6f7a8907ef5",
+        "sha256": "86f50dd6cf78bae255784a9068b7de9931b8c7ecdd02077ca9484b8f83eabab1"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-nested_geometry_market_rejected-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "e16c8c15c17cb91e5fecd6ec3d7da5157107d869",
+        "sha256": "753f93363762df939572cd7e8892fe1c422ee21a3eff1896270e5baceb93bd71",
+        "bytes": 282536
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 14
+    },
+    {
+      "name": "wrong_identity",
+      "original": {
+        "name": "wrong_identity",
+        "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+        "path": "research/reborn2-official-sources/stage23-wrong_identity-packet-v0.2.2.json",
+        "blob": "a00c4cdd746a1e7ea8324b200c0304a693ee8aff",
+        "sha256": "ecc0405734dfa4c3204b66d2ab96438f2f93d58c3845cfdfded9a66747f50f4a"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-wrong_identity-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "aade889d5d5c27ab9e8578dfd5ec253628147454",
+        "sha256": "3034696f02768b5793f1d0dec5cb4c5a3eb965ba5feb31f78574fa27a30569fe",
+        "bytes": 227639
+      },
+      "extensions": 14,
+      "extensions_available": 13,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 8
+    },
+    {
+      "name": "length_margin",
+      "original": {
+        "name": "length_margin",
+        "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+        "path": "research/reborn2-official-sources/stage23-length_margin-packet-v0.2.2.json",
+        "blob": "0e8c8009a8e43b734086e67360c2ccccc47130e4",
+        "sha256": "5711eb4a49c0b90d9d8f7bb950cb550c968d29b1dc642b2615a95e8ba242f659"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-length_margin-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "f15dda63ec645b44332881c40ec636f664593ae2",
+        "sha256": "3e717937488d24ea0c02022cde88273de4e2c3073f9776a98a3b1b4f5631bee3",
+        "bytes": 270672
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 14
+    },
+    {
+      "name": "geometry_missing_field_held",
+      "original": {
+        "name": "geometry_missing_field_held",
+        "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+        "path": "research/reborn2-official-sources/stage23-geometry_missing_field_held-packet-v0.2.2.json",
+        "blob": "66cb1c026f568f8976eea4018e99a1a2b171f361",
+        "sha256": "7a24bbdaccd125a25b8c53de14487e165909505bc584947efdf0b615b1181ac1"
+      },
+      "supplement": {
+        "path": "research/reborn2-official-sources/stage24-geometry_missing_field_held-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "67776c87d1e268ee7c37c0b1884c0e50e0c8d572",
+        "sha256": "0d858c9c2c772c76b2e1789bfc816644e96a8436cdc287b5a6bfa29c9933c52c",
+        "bytes": 274049
+      },
+      "extensions": 14,
+      "extensions_available": 14,
+      "item_rows": 345,
+      "events": 4,
+      "relations": 14
+    }
+  ],
+  "summary": {
+    "packets": 12,
+    "extension_states": 140,
+    "extension_available": 139,
+    "item_rows": 3680,
+    "normal": [
+      {
+        "name": "jra_full",
+        "path": "research/reborn2-official-sources/stage24-jra_full-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "438bc360272c9ec3a463b86da677f54b98ca9fd5",
+        "sha256": "2aa4e6fd24ae0f05371f296acb2bed489a5a6700d4d7d8fc6b38877c6b803f4b",
+        "bytes": 270662,
+        "parent": {
+          "name": "jra_full",
+          "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+          "path": "research/reborn2-official-sources/stage23-jra_full-packet-v0.2.1.json",
+          "blob": "f6b85de17791d4814d16ecc5082862fdcd41686b",
+          "sha256": "17e65acd8602b2417047faeacf1e78baac94088c8623f1e1a9251ea1c2215206"
+        },
+        "checks": {
+          "exact_reproduction": true,
+          "original_pinned": true,
+          "item_count_and_identity": true,
+          "all_refs_resolve": true,
+          "extension_provenance": true,
+          "missing_and_held_no_value": true,
+          "event_scope": true,
+          "class_scope": true,
+          "measurement_scope": true,
+          "formal_zero": true
+        },
+        "passed": true,
+        "extension_count": 14,
+        "extension_available": 14,
+        "event_count": 4,
+        "item_rows": 345,
+        "relation_count": 14,
+        "per_runner": [
+          {
+            "no": 1,
+            "status": "ACTIVE",
+            "material_states": {
+              "MISSING": 92,
+              "PARTIAL_MATERIAL": 23
+            },
+            "observation_states": {
+              "MISSING": 92,
+              "COMPLETE_FOR_DECLARED_HISTORICAL_OBSERVATION_ONLY": 7,
+              "PARTIAL_CONTEXT": 16
+            },
+            "analysis_sufficient": 0
+          },
+          {
+            "no": 2,
+            "status": "ACTIVE",
+            "material_states": {
+              "MISSING": 92,
+              "PARTIAL_MATERIAL": 22,
+              "PARTIAL_WITH_UNAVAILABLE_DEPENDENCIES": 1
+            },
+            "observation_states": {
+              "MISSING": 92,
+              "COMPLETE_FOR_DECLARED_HISTORICAL_OBSERVATION_ONLY": 6,
+              "PARTIAL_CONTEXT": 17
+            },
+            "analysis_sufficient": 0
+          },
+          {
+            "no": 4,
+            "status": "CANCELLED",
+            "material_states": {
+              "NOT_APPLICABLE": 115
+            },
+            "observation_states": {
+              "NOT_APPLICABLE": 115
+            },
+            "analysis_sufficient": 0
+          }
+        ]
+      },
+      {
+        "name": "local_full",
+        "path": "research/reborn2-official-sources/stage24-local_full-supplement-v0.1.1.json",
+        "ref": "03891a1febfa3a82a8af320b7236ea1cac54726a",
+        "blob": "2a3df711fb4ae18314fa9a941bc62497a42ee910",
+        "sha256": "cf750840253854c5bc6cc0505c811f824f80bdb047cfa6b3a7589954cd470a5e",
+        "bytes": 270916,
+        "parent": {
+          "name": "local_full",
+          "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+          "path": "research/reborn2-official-sources/stage23-local_full-packet-v0.2.1.json",
+          "blob": "0004df712b6253dda1ea395c1b3e7707c0370428",
+          "sha256": "4bac8ff27c2fe91e2b9275bf5ce618ea0d4368993ac955c859f43688b22c3775"
+        },
+        "checks": {
+          "exact_reproduction": true,
+          "original_pinned": true,
+          "item_count_and_identity": true,
+          "all_refs_resolve": true,
+          "extension_provenance": true,
+          "missing_and_held_no_value": true,
+          "event_scope": true,
+          "class_scope": true,
+          "measurement_scope": true,
+          "formal_zero": true
+        },
+        "passed": true,
+        "extension_count": 14,
+        "extension_available": 14,
+        "event_count": 4,
+        "item_rows": 345,
+        "relation_count": 14,
+        "per_runner": [
+          {
+            "no": 1,
+            "status": "ACTIVE",
+            "material_states": {
+              "MISSING": 92,
+              "PARTIAL_MATERIAL": 23
+            },
+            "observation_states": {
+              "MISSING": 92,
+              "COMPLETE_FOR_DECLARED_HISTORICAL_OBSERVATION_ONLY": 7,
+              "PARTIAL_CONTEXT": 16
+            },
+            "analysis_sufficient": 0
+          },
+          {
+            "no": 2,
+            "status": "ACTIVE",
+            "material_states": {
+              "MISSING": 92,
+              "PARTIAL_MATERIAL": 22,
+              "PARTIAL_WITH_UNAVAILABLE_DEPENDENCIES": 1
+            },
+            "observation_states": {
+              "MISSING": 92,
+              "COMPLETE_FOR_DECLARED_HISTORICAL_OBSERVATION_ONLY": 6,
+              "PARTIAL_CONTEXT": 17
+            },
+            "analysis_sufficient": 0
+          },
+          {
+            "no": 4,
+            "status": "CANCELLED",
+            "material_states": {
+              "NOT_APPLICABLE": 115
+            },
+            "observation_states": {
+              "NOT_APPLICABLE": 115
+            },
+            "analysis_sufficient": 0
+          }
+        ]
+      }
+    ],
+    "official_admitted": 0
+  },
+  "consumer": {
+    "instruction": "Read the EXACT original from original.ref/path and verify its SHA-256 + blob; read matching supplement.ref/path, verify SHA-256 + blob; compare supplement.parent_packet against the original pin. Do not substitute a regenerated or modified Work23 packet. Existing WORK23_SYNTHETIC_HANDOFF_0.2 schema remains unchanged; supplement WORK24_SUPPLEMENT_0.1 is additive only. Do not merge by overwriting parent fields or states. Use parent evidence IDs and extensions separately; extension value may be used only when state TEST_INPUT_AVAILABLE, dependencies refer to available original evidence, source raw/pointer/time/rights and parent pin verified. Unavailable refs are reason only, never values. Global HELD has 115 reason rows and no values/events. Do not pass raw fixture bundle to analyzer; use it only in restricted offline verification. No numeric fill, grades, formal eligibility or actual consumption claims.",
+    "observation_vs_analysis": "COMPLETE_FOR_DECLARED_HISTORICAL_OBSERVATION_ONLY means only declared typed observations are complete in supplied fixture history; no claim all career, comparable context, ability, SABC or EYE. PARTIAL_MATERIAL and PARTIAL_WITH_UNAVAILABLE_DEPENDENCIES preserve missing siblings; parent_state preserved. analysis_sufficient is false for every item pending real semantic proof. No route for unimplemented EYE, no forced judgement.",
+    "new_fields": "14 raw-pointer extension records per non-global-held packet: current registered/active counts, 3 historical field counts, 9 historical run-status values. Field cardinality is not complete identity; invalid identity withholds status, not numeric evidence. Classes are synthetic card labels and event-effective intervals, no official rule or eligibility strength. All 3 historical race fields and their rows and relation context are projected by refs; no complete peer career or strength. Opponent later observations strictly prior cutoff. Stable roots not independent votes; class nested projections refer to same source root. Final3f interval from field definition and verified distance; race leader lap intervals are not individual clocks; checkpoint ranks tied to geometry; intermediate individual clocks absent and never inferred.",
+    "python": "Run stage24_python_custody_bridge.py beside pinned stage22_probe.py; local execution used exact first 2410 bytes of original source (hash matched) with safe_read/write_new/parse/canon/sha/shape/need etc. Raw and registry fixtures reconstructed deterministically from actual Work23 fixture definitions; all five named fixture raw SHA and registry SHA match pinned actual bundle. Separate subprocess reads filesystem bytes, checks MAC, hashes, correction chain and latest rights. Actual logs saved exact. This is custody compatibility only; old validate/bridge not integrated, full packet semantic checks delegated to Work23 and supplement, not real provider authority or time."
+  },
+  "gates": {
+    "items": 115,
+    "JRA": 88,
+    "LOCAL": 30,
+    "groups": 118,
+    "held": 826,
+    "formal0": true
+  },
+  "limitations": [
+    "Work24 uses actual original Work23 packet bytes fetched and checked before saving additive outputs; no change to original index, no PR merge or ref move. Independent readback is deterministic rerun of same producer plus explicit structural checks, not official independent authentication.",
+    "23 supplement tests and 12 Python tests are new; Work23 30 rerun, Work22 135 not rerun. Audit initially 119/120 due to requiring an available dependency even for a held reason; corrected auditor only, full rerun120/120. No hidden complete-case assertion; final after-correction projection invariant verified exactly.",
+    "No verified official raw, acquisition, actual rights, third-party timestamps, crossissuer authentication, official grade rules or complete peer-career source; positive fixtures all same synthetic class, not an empirical class-change comparison. No actual intermediate individual checkpoint times. No new official source research or repeated search.",
+    "No analysis runtime executed or sufficient item or SABC grade assigned; Codex must validate/consume explicit typed inputs and demonstrate semantic effect. No inference from leader laps or ordinal ranks. Current supplement code is not production-ready or complete custody integration; local public test keys and fictional clock."
+  ],
+  "formal_admissions": 0,
+  "formal_replays": 0,
+  "production_changes": 0,
+  "provider_inquiries": 0,
+  "contracts": 0,
+  "charges": 0,
+  "original_searches": 0
+}

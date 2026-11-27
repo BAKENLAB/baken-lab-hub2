@@ -1,0 +1,2895 @@
+{
+  "schema": "REBORN2_V24_RESEARCH_CI_RECEIPT_1",
+  "scope": "SYNTHETIC_RESEARCH_ONLY",
+  "main_acceptance": "a736bbef1331691ad54011034f2bd1da646f750d",
+  "work23_index_ref": "1b2ec5abbc230edef7835127ff7f4665d06f4f01",
+  "tested_commit": "1031250a691a922a9ea9f20c2e8d39339dff9bd0",
+  "workflow_run": 46032045664,
+  "job": 140618005990,
+  "conclusion": "success",
+  "actual_log_characters": 19730511,
+  "prior_configured": 272,
+  "new_named_passes": 12,
+  "configured_total": 284,
+  "prior_commands_preserved": true,
+  "prior_pass_lines_not_individually_recounted": true,
+  "actual_new_pass_lines": [
+    "2026-11-27T16:15:57.9301095Z F24-01 PASS",
+    "2026-11-27T16:15:57.9325025Z F24-02 PASS",
+    "2026-11-27T16:15:57.9325311Z F24-03 PASS",
+    "2026-11-27T16:15:57.9325545Z F24-04 PASS",
+    "2026-11-27T16:15:57.9340987Z F24-05 PASS",
+    "2026-11-27T16:15:57.9341388Z F24-06 PASS",
+    "2026-11-27T16:15:57.9342957Z F24-07 PASS",
+    "2026-11-27T16:15:57.9345118Z F24-08 PASS",
+    "2026-11-27T16:15:57.9348185Z F24-09 PASS",
+    "2026-11-27T16:15:57.9350315Z F24-10 PASS",
+    "2026-11-27T16:15:57.9366207Z F24-11 PASS",
+    "2026-11-27T16:15:57.9371143Z F24-12 PASS"
+  ],
+  "initial_failed_run": {
+    "commit": "c461c0b623ecddd129b23930706f30d9417006a6",
+    "run": 46031810648,
+    "job": 140617235437,
+    "error": "EVENT_SCOPE",
+    "cause": "HISTORICAL_RUNNER distinct from HISTORICAL_RACE; corrected adapter without modifying original packets"
+  },
+  "producer_tests_separate": 30,
+  "work_recorded_total": 165,
+  "work_previous_135_not_rerun_here": true,
+  "receipt": {
+    "indexBlob": "b01a41e432399cc5de9fd9c569652fc39230db62",
+    "producerTests": [
+      "jra_full",
+      "local_full",
+      "missing_clock",
+      "bad_margin_unit",
+      "revoked",
+      "correction_before",
+      "correction_after",
+      "malformed_target_market",
+      "malformed_prior_market",
+      "wrong_identity",
+      "bad_lap_sum",
+      "bad_geometry",
+      "late_observation",
+      "target_as_history",
+      "duplicate_roster",
+      "missing_registry_entry",
+      "expired_rights",
+      "deleted_rights",
+      "raw_tamper",
+      "wrong_asof",
+      "stale_registry",
+      "rollback",
+      "nested_geometry_market_rejected",
+      "invalid_weight_does_not_leak",
+      "incorrect_next_margin",
+      "zero_requested_version",
+      "cancelled_not_current_rival",
+      "length_margin",
+      "geometry_missing_field_held",
+      "stable_root_distinct_version_id"
+    ],
+    "packets": {
+      "jra_full": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "17e65acd8602b2417047faeacf1e78baac94088c8623f1e1a9251ea1c2215206",
+        "trace_count": 29,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [
+          {
+            "event": "TEST:JRA:H1",
+            "pair": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "finish": [
+              2,
+              3
+            ],
+            "clock_gap_b_minus_a_tenths": 4,
+            "final3f_gap_b_minus_a_tenths": 2,
+            "past_order_support": "TEST:JRA:A",
+            "final3f_support": "TEST:JRA:A",
+            "position_ranks": [
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ],
+            "leader_laps": {
+              "scope": "RACE_LEADER",
+              "segments": [
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": 0
+              },
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": -2000
+              }
+            ],
+            "contextKnown": true,
+            "relative_history": "ORDER_AND_FINAL3F_AGREE",
+            "current_head_to_head": "UNRESOLVED",
+            "individual_checkpoint_clocks": null,
+            "pressure_causality": null,
+            "WIN": null,
+            "PLACE": null
+          }
+        ],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "events": [
+              "TEST:JRA:H2",
+              "TEST:JRA:H1"
+            ],
+            "peer": "TEST:JRA:X",
+            "scope_differences": [],
+            "relative_clock_gaps": [
+              -3,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 3,
+                "clock": 841,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 1,
+                "clock": 840,
+                "final3f": 360,
+                "position": [
+                  1,
+                  1
+                ],
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": [
+              "finish",
+              "clock",
+              "final3f",
+              "position",
+              "weight"
+            ],
+            "state": "PEER_PROFILE_DIFFERS",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ff09405e38b0dd74d13a156ac2bf94c44ed291e6ec0f6498ea18b898374b111d",
+              "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+              "TESTROOT:e4b36ad69b5cafb79da50fd0a3d30eb8dda709b6077951d0531f208cb80b5deb",
+              "TESTROOT:8ef3696fb8f87ea199477a8af37a5416bf762dc49f7a01dd42ba725ff496206d",
+              "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+              "TESTROOT:5b944d418e6ca4742dc4642b3c0cea6b103a20067c427dd9d96cac942ce79814",
+              "TESTROOT:731640c5924b8b4d04d457ab8a91c6a91d71a84f5f6e79b17952acc840dd4d26",
+              "TESTROOT:695996bcdfa6354d5d3d0ac57f8bd4a784f1d4d590a75b5a0c2c905e92f29c3a",
+              "TESTROOT:a4afca446914eeaa5a49da7820ba5d3868fb5053aac64e25b2ab71a052c4516e",
+              "TESTROOT:6d5f34d5c86cc4ee55cfe59a9fce03311a05915f7b87736c947b1999dc795084",
+              "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+              "TESTROOT:1d53d96f52b6b35b0a8289b98848edb2675b3e43d64a85cc36703d14df1dc5ba",
+              "TESTROOT:e36202ac9fc4657ad1433bf05f7c0fb31154065ae44505af49e63af850c1dc3d",
+              "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "TESTROOT:2442f82575ee81ea0490f7793bb94f5ac4158e465755584983258484b0e79059",
+              "TESTROOT:8dac4de8937f7a160fe5f4688dff9f46ecb396afd3c568d87388705abaa276e1",
+              "TESTROOT:c1f28e53aed73265f01dea6c8410dfe6328e45d96f0179e2b02ea567b3ee4f8c",
+              "TESTROOT:b2f27fe66920ddef024ae921b4295e9ed23763225b902398cf1971285e838fd3",
+              "TESTROOT:2acc0982c103e0535bb1f6f7c4ab5e2a93aced18f5333226f5933789b7727530",
+              "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "TESTROOT:957defdad04613e74a4aa0b4b2c8808165e0d0b9738501891f42831ed95dbff7",
+              "TESTROOT:78240fbd7b997f24d0ea337c2cd623f0be3219cc2c0f8ab4e2671cec1ae637e6",
+              "TESTROOT:9cc4923f8799f33979450cae07bf89b5ae606fb2b8263e40655c1791913bd423",
+              "TESTROOT:4e99db780ebca77b1ba17e28f56826649ba06c88c2be79150bb4789f77da368c",
+              "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+              "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+              "TESTROOT:4998580cb5e30ee260f36304350df6a429538ab74a38ef93c15e61c691cd3bca",
+              "TESTROOT:6431654cf8afe085f751b385bd29f0587eb5fbf06dde10c03a573fee4e4aba46"
+            ]
+          }
+        ],
+        "eye04_count": 5
+      },
+      "local_full": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "4bac8ff27c2fe91e2b9275bf5ce618ea0d4368993ac955c859f43688b22c3775",
+        "trace_count": 29,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [
+          {
+            "event": "TEST:LOCAL:H1",
+            "pair": [
+              "TEST:LOCAL:A",
+              "TEST:LOCAL:B"
+            ],
+            "finish": [
+              2,
+              3
+            ],
+            "clock_gap_b_minus_a_tenths": 4,
+            "final3f_gap_b_minus_a_tenths": 2,
+            "past_order_support": "TEST:LOCAL:A",
+            "final3f_support": "TEST:LOCAL:A",
+            "position_ranks": [
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ],
+            "leader_laps": {
+              "scope": "RACE_LEADER",
+              "segments": [
+                {
+                  "distance_m": 100,
+                  "ticks": 60
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": 0
+              },
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": -2000
+              }
+            ],
+            "contextKnown": true,
+            "relative_history": "ORDER_AND_FINAL3F_AGREE",
+            "current_head_to_head": "UNRESOLVED",
+            "individual_checkpoint_clocks": null,
+            "pressure_causality": null,
+            "WIN": null,
+            "PLACE": null
+          }
+        ],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:LOCAL:A",
+              "TEST:LOCAL:B"
+            ],
+            "events": [
+              "TEST:LOCAL:H2",
+              "TEST:LOCAL:H1"
+            ],
+            "peer": "TEST:LOCAL:X",
+            "scope_differences": [],
+            "relative_clock_gaps": [
+              -3,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:LOCAL:X",
+                "finish": 3,
+                "clock": 541,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:LOCAL:X",
+                "finish": 1,
+                "clock": 540,
+                "final3f": 360,
+                "position": [
+                  1,
+                  1
+                ],
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 100,
+                    "ticks": 60
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 100,
+                    "ticks": 60
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": [
+              "finish",
+              "clock",
+              "final3f",
+              "position",
+              "weight"
+            ],
+            "state": "PEER_PROFILE_DIFFERS",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ad2bb19fa845de161bcd330d3c6c80417c98a45eddca1f8d97e2e3ad5ad16042",
+              "TESTROOT:b80ab4715d17be1a79ee88571fe9f8cfe468bcdc48ac97cb7f3f2a45ca21f7a7",
+              "TESTROOT:1102955b6fb10253e141184df76311ffe21a7218d00ebf5e4e61c3c2d72085fe",
+              "TESTROOT:50eaa9342270278e92f9bb7f45038f6cd8fb74a37c72cb337621fcfb55561fdc",
+              "TESTROOT:80d70a08240e755b11d5f268486a5d453a19163438784c9b9ba822a6d618be45",
+              "TESTROOT:a96dc452a5da4f9c71c71db0227aedace61e3f3bb3c8ea4e1c91f5c8ed94132e",
+              "TESTROOT:9ed59fa5abb7015c16d65ab16fb642a2f39c43c2942dfffb89e26cb4570f4714",
+              "TESTROOT:4ec0fe4fe75fcb279223b3eb56e6dae9ae635743f549bcbe13bb70754a47c5ee",
+              "TESTROOT:d87a650e12f991f77f658a1e68e9e6c9fe1822053272343b1bafe5fb97d2a6d5",
+              "TESTROOT:119de4931b5f484aa183e1c882846ec90b575366151d801d06a95992c6d4f3b7",
+              "TESTROOT:5253ab54ea62b2361bf8eca7d19c14ab55d51f2908d793bc0fcb93e21646a0dc",
+              "TESTROOT:7adfd03852f4f60badc10c6ba639db2106a3e27a5aad2faa836b59f2a37fdebf",
+              "TESTROOT:5b6d5ff3b72f2eea27b07877ed68a7e145a537f5d2a1b3b6ec086cf705b97a8c",
+              "TESTROOT:191465d7bbf961c7b4137619fef047780a729f099239287e4197e8f5de391d2d",
+              "TESTROOT:86cf400ba61e0cf7d0d29cd18553c07e1e88099158b105502d7d92f3e324fdd7",
+              "TESTROOT:576b0c1afa510bb317badd3bdacb920585917e66aa0570661ec9a8121f296323",
+              "TESTROOT:f02303e70f65bd9637abd605ec3a26a4ed676a7d670cfc1e0ac7a88fd1ed71c6",
+              "TESTROOT:2efe37d7545178594f8e5ab97fc50fc2b2ada4e70b375063f88dd3d249cb8428",
+              "TESTROOT:1bc808485e2e3c9079273893e23793d05ab128d59e04bb4cb9ec1428c94237c2",
+              "TESTROOT:7daa5f977bd5de6cad608182f1dd63e603caf16cc292a5e529bde55aa075b69e",
+              "TESTROOT:dc978530492f924ede87575cd1e9ad6d79ff3c7e5e5b0c21fbe7193eaa9bb5f3",
+              "TESTROOT:538c64cfad3bafaec26f1dfee44eae7c744df74e37a9db977c79ef5fc240ef3b",
+              "TESTROOT:63b1af1f8f7fad7a9dc52e73ba9af04c67e1e01bd29cdbfc3d4a7d496211179f",
+              "TESTROOT:0e1d2cbce5ea8d1e0987fa89f904140634668b8642778e0a4c873897bab9a4e4",
+              "TESTROOT:04227187f0fd072c83b73f2f9c210278ae66b3fe6f7e22bbfcf295dfb82c3f6a",
+              "TESTROOT:b6daf937e4f08239b88ebcfa6d4af843f2c6f8991eea56af05f28c9338d0ca8e",
+              "TESTROOT:ca385be75b75d9ffbba993beaef307b9cc957ae4fca84282c9c6a1865e90680e",
+              "TESTROOT:d2765f054cf7296f38c88ff2debe4122f88f2a98a6b0e62cb8d2598f1e75fa8a",
+              "TESTROOT:cd56adbb79b602daad9982745cb6d47c1fc434a55457406cc791f71bb23cb736",
+              "TESTROOT:2310421c91572220d5d85d0469561033a14c99e0781ee529ad39cc0bd11c006e"
+            ]
+          }
+        ],
+        "eye04_count": 5
+      },
+      "missing_clock": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "3357cd8a56cdf64c3d50453b0bcf88d64d86a41138960edda9a97697efd01439",
+        "trace_count": 18,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [
+          {
+            "event": "TEST:LOCAL:H1",
+            "pair": [
+              "TEST:LOCAL:A",
+              "TEST:LOCAL:B"
+            ],
+            "finish": [
+              2,
+              3
+            ],
+            "clock_gap_b_minus_a_tenths": null,
+            "final3f_gap_b_minus_a_tenths": null,
+            "past_order_support": "TEST:LOCAL:A",
+            "final3f_support": null,
+            "position_ranks": [
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ],
+            "leader_laps": {
+              "scope": "RACE_LEADER",
+              "segments": [
+                {
+                  "distance_m": 100,
+                  "ticks": 60
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": 0
+              },
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": -2000
+              }
+            ],
+            "contextKnown": true,
+            "relative_history": "ORDER_ONLY_FINAL3F_UNKNOWN",
+            "current_head_to_head": "UNRESOLVED",
+            "individual_checkpoint_clocks": null,
+            "pressure_causality": null,
+            "WIN": null,
+            "PLACE": null
+          }
+        ],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:LOCAL:A",
+              "TEST:LOCAL:B"
+            ],
+            "events": [
+              "TEST:LOCAL:H2",
+              "TEST:LOCAL:H1"
+            ],
+            "peer": "TEST:LOCAL:X",
+            "scope_differences": [],
+            "relative_clock_gaps": [
+              null,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:LOCAL:X",
+                "finish": 3,
+                "clock": 541,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:LOCAL:X",
+                "finish": 1,
+                "clock": 540,
+                "final3f": 360,
+                "position": [
+                  1,
+                  1
+                ],
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 100,
+                    "ticks": 60
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 100,
+                    "ticks": 60
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": [
+              "finish",
+              "clock",
+              "final3f",
+              "position",
+              "weight"
+            ],
+            "state": "PEER_PROFILE_DIFFERS",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ad2bb19fa845de161bcd330d3c6c80417c98a45eddca1f8d97e2e3ad5ad16042",
+              "TESTROOT:b80ab4715d17be1a79ee88571fe9f8cfe468bcdc48ac97cb7f3f2a45ca21f7a7",
+              "TESTROOT:80d70a08240e755b11d5f268486a5d453a19163438784c9b9ba822a6d618be45",
+              "TESTROOT:a96dc452a5da4f9c71c71db0227aedace61e3f3bb3c8ea4e1c91f5c8ed94132e",
+              "TESTROOT:9ed59fa5abb7015c16d65ab16fb642a2f39c43c2942dfffb89e26cb4570f4714",
+              "TESTROOT:4ec0fe4fe75fcb279223b3eb56e6dae9ae635743f549bcbe13bb70754a47c5ee",
+              "TESTROOT:d87a650e12f991f77f658a1e68e9e6c9fe1822053272343b1bafe5fb97d2a6d5",
+              "TESTROOT:119de4931b5f484aa183e1c882846ec90b575366151d801d06a95992c6d4f3b7",
+              "TESTROOT:5253ab54ea62b2361bf8eca7d19c14ab55d51f2908d793bc0fcb93e21646a0dc",
+              "TESTROOT:7adfd03852f4f60badc10c6ba639db2106a3e27a5aad2faa836b59f2a37fdebf",
+              "TESTROOT:5b6d5ff3b72f2eea27b07877ed68a7e145a537f5d2a1b3b6ec086cf705b97a8c",
+              "TESTROOT:191465d7bbf961c7b4137619fef047780a729f099239287e4197e8f5de391d2d",
+              "TESTROOT:86cf400ba61e0cf7d0d29cd18553c07e1e88099158b105502d7d92f3e324fdd7",
+              "TESTROOT:576b0c1afa510bb317badd3bdacb920585917e66aa0570661ec9a8121f296323",
+              "TESTROOT:f02303e70f65bd9637abd605ec3a26a4ed676a7d670cfc1e0ac7a88fd1ed71c6",
+              "TESTROOT:2efe37d7545178594f8e5ab97fc50fc2b2ada4e70b375063f88dd3d249cb8428",
+              "TESTROOT:1bc808485e2e3c9079273893e23793d05ab128d59e04bb4cb9ec1428c94237c2",
+              "TESTROOT:7daa5f977bd5de6cad608182f1dd63e603caf16cc292a5e529bde55aa075b69e",
+              "TESTROOT:dc978530492f924ede87575cd1e9ad6d79ff3c7e5e5b0c21fbe7193eaa9bb5f3",
+              "TESTROOT:538c64cfad3bafaec26f1dfee44eae7c744df74e37a9db977c79ef5fc240ef3b",
+              "TESTROOT:63b1af1f8f7fad7a9dc52e73ba9af04c67e1e01bd29cdbfc3d4a7d496211179f",
+              "TESTROOT:0e1d2cbce5ea8d1e0987fa89f904140634668b8642778e0a4c873897bab9a4e4",
+              "TESTROOT:04227187f0fd072c83b73f2f9c210278ae66b3fe6f7e22bbfcf295dfb82c3f6a",
+              "TESTROOT:b6daf937e4f08239b88ebcfa6d4af843f2c6f8991eea56af05f28c9338d0ca8e",
+              "TESTROOT:ca385be75b75d9ffbba993beaef307b9cc957ae4fca84282c9c6a1865e90680e",
+              "TESTROOT:d2765f054cf7296f38c88ff2debe4122f88f2a98a6b0e62cb8d2598f1e75fa8a",
+              "TESTROOT:cd56adbb79b602daad9982745cb6d47c1fc434a55457406cc791f71bb23cb736",
+              "TESTROOT:2310421c91572220d5d85d0469561033a14c99e0781ee529ad39cc0bd11c006e"
+            ]
+          }
+        ],
+        "eye04_count": 2
+      },
+      "bad_margin_unit": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "2806bf7e5608f506064d884b5065ab21ed3e4c780c6c258a3de386b706650628",
+        "trace_count": 26,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [
+          {
+            "event": "TEST:JRA:H1",
+            "pair": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "finish": [
+              2,
+              3
+            ],
+            "clock_gap_b_minus_a_tenths": 4,
+            "final3f_gap_b_minus_a_tenths": 2,
+            "past_order_support": "TEST:JRA:A",
+            "final3f_support": "TEST:JRA:A",
+            "position_ranks": [
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ],
+            "leader_laps": {
+              "scope": "RACE_LEADER",
+              "segments": [
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": 0
+              },
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": -2000
+              }
+            ],
+            "contextKnown": true,
+            "relative_history": "ORDER_AND_FINAL3F_AGREE",
+            "current_head_to_head": "UNRESOLVED",
+            "individual_checkpoint_clocks": null,
+            "pressure_causality": null,
+            "WIN": null,
+            "PLACE": null
+          }
+        ],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "events": [
+              "TEST:JRA:H2",
+              "TEST:JRA:H1"
+            ],
+            "peer": "TEST:JRA:X",
+            "scope_differences": [],
+            "relative_clock_gaps": [
+              -3,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 3,
+                "clock": 841,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 1,
+                "clock": 840,
+                "final3f": 360,
+                "position": [
+                  1,
+                  1
+                ],
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": [
+              "finish",
+              "clock",
+              "final3f",
+              "position",
+              "weight"
+            ],
+            "state": "PEER_PROFILE_DIFFERS",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ff09405e38b0dd74d13a156ac2bf94c44ed291e6ec0f6498ea18b898374b111d",
+              "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+              "TESTROOT:e4b36ad69b5cafb79da50fd0a3d30eb8dda709b6077951d0531f208cb80b5deb",
+              "TESTROOT:8ef3696fb8f87ea199477a8af37a5416bf762dc49f7a01dd42ba725ff496206d",
+              "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+              "TESTROOT:5b944d418e6ca4742dc4642b3c0cea6b103a20067c427dd9d96cac942ce79814",
+              "TESTROOT:731640c5924b8b4d04d457ab8a91c6a91d71a84f5f6e79b17952acc840dd4d26",
+              "TESTROOT:695996bcdfa6354d5d3d0ac57f8bd4a784f1d4d590a75b5a0c2c905e92f29c3a",
+              "TESTROOT:a4afca446914eeaa5a49da7820ba5d3868fb5053aac64e25b2ab71a052c4516e",
+              "TESTROOT:6d5f34d5c86cc4ee55cfe59a9fce03311a05915f7b87736c947b1999dc795084",
+              "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+              "TESTROOT:1d53d96f52b6b35b0a8289b98848edb2675b3e43d64a85cc36703d14df1dc5ba",
+              "TESTROOT:e36202ac9fc4657ad1433bf05f7c0fb31154065ae44505af49e63af850c1dc3d",
+              "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "TESTROOT:2442f82575ee81ea0490f7793bb94f5ac4158e465755584983258484b0e79059",
+              "TESTROOT:8dac4de8937f7a160fe5f4688dff9f46ecb396afd3c568d87388705abaa276e1",
+              "TESTROOT:c1f28e53aed73265f01dea6c8410dfe6328e45d96f0179e2b02ea567b3ee4f8c",
+              "TESTROOT:b2f27fe66920ddef024ae921b4295e9ed23763225b902398cf1971285e838fd3",
+              "TESTROOT:2acc0982c103e0535bb1f6f7c4ab5e2a93aced18f5333226f5933789b7727530",
+              "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "TESTROOT:957defdad04613e74a4aa0b4b2c8808165e0d0b9738501891f42831ed95dbff7",
+              "TESTROOT:78240fbd7b997f24d0ea337c2cd623f0be3219cc2c0f8ab4e2671cec1ae637e6",
+              "TESTROOT:9cc4923f8799f33979450cae07bf89b5ae606fb2b8263e40655c1791913bd423",
+              "TESTROOT:4e99db780ebca77b1ba17e28f56826649ba06c88c2be79150bb4789f77da368c",
+              "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+              "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+              "TESTROOT:4998580cb5e30ee260f36304350df6a429538ab74a38ef93c15e61c691cd3bca",
+              "TESTROOT:6431654cf8afe085f751b385bd29f0587eb5fbf06dde10c03a573fee4e4aba46"
+            ]
+          }
+        ],
+        "eye04_count": 3
+      },
+      "revoked": {
+        "status": "HELD",
+        "sha256": null,
+        "trace_count": 0,
+        "items": [],
+        "comparisons": [],
+        "indirect": [],
+        "eye04_count": 0
+      },
+      "correction_after": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "397d2ca199f3796267a75e408b487cd4fa6330c700ecc5106f30c1db62bbce0d",
+        "trace_count": 29,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [
+          {
+            "event": "TEST:JRA:H1",
+            "pair": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "finish": [
+              2,
+              3
+            ],
+            "clock_gap_b_minus_a_tenths": 4,
+            "final3f_gap_b_minus_a_tenths": 2,
+            "past_order_support": "TEST:JRA:A",
+            "final3f_support": "TEST:JRA:A",
+            "position_ranks": [
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ],
+            "leader_laps": {
+              "scope": "RACE_LEADER",
+              "segments": [
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": 0
+              },
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": -2000
+              }
+            ],
+            "contextKnown": true,
+            "relative_history": "ORDER_AND_FINAL3F_AGREE",
+            "current_head_to_head": "UNRESOLVED",
+            "individual_checkpoint_clocks": null,
+            "pressure_causality": null,
+            "WIN": null,
+            "PLACE": null
+          }
+        ],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "events": [
+              "TEST:JRA:H2",
+              "TEST:JRA:H1"
+            ],
+            "peer": "TEST:JRA:X",
+            "scope_differences": [],
+            "relative_clock_gaps": [
+              -3,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 3,
+                "clock": 841,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 1,
+                "clock": 840,
+                "final3f": 360,
+                "position": [
+                  1,
+                  1
+                ],
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": [
+              "finish",
+              "clock",
+              "final3f",
+              "position",
+              "weight"
+            ],
+            "state": "PEER_PROFILE_DIFFERS",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ff09405e38b0dd74d13a156ac2bf94c44ed291e6ec0f6498ea18b898374b111d",
+              "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+              "TESTROOT:e4b36ad69b5cafb79da50fd0a3d30eb8dda709b6077951d0531f208cb80b5deb",
+              "TESTROOT:8ef3696fb8f87ea199477a8af37a5416bf762dc49f7a01dd42ba725ff496206d",
+              "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+              "TESTROOT:5b944d418e6ca4742dc4642b3c0cea6b103a20067c427dd9d96cac942ce79814",
+              "TESTROOT:731640c5924b8b4d04d457ab8a91c6a91d71a84f5f6e79b17952acc840dd4d26",
+              "TESTROOT:695996bcdfa6354d5d3d0ac57f8bd4a784f1d4d590a75b5a0c2c905e92f29c3a",
+              "TESTROOT:a4afca446914eeaa5a49da7820ba5d3868fb5053aac64e25b2ab71a052c4516e",
+              "TESTROOT:6d5f34d5c86cc4ee55cfe59a9fce03311a05915f7b87736c947b1999dc795084",
+              "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+              "TESTROOT:1d53d96f52b6b35b0a8289b98848edb2675b3e43d64a85cc36703d14df1dc5ba",
+              "TESTROOT:e36202ac9fc4657ad1433bf05f7c0fb31154065ae44505af49e63af850c1dc3d",
+              "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "TESTROOT:2442f82575ee81ea0490f7793bb94f5ac4158e465755584983258484b0e79059",
+              "TESTROOT:8dac4de8937f7a160fe5f4688dff9f46ecb396afd3c568d87388705abaa276e1",
+              "TESTROOT:c1f28e53aed73265f01dea6c8410dfe6328e45d96f0179e2b02ea567b3ee4f8c",
+              "TESTROOT:b2f27fe66920ddef024ae921b4295e9ed23763225b902398cf1971285e838fd3",
+              "TESTROOT:2acc0982c103e0535bb1f6f7c4ab5e2a93aced18f5333226f5933789b7727530",
+              "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "TESTROOT:957defdad04613e74a4aa0b4b2c8808165e0d0b9738501891f42831ed95dbff7",
+              "TESTROOT:78240fbd7b997f24d0ea337c2cd623f0be3219cc2c0f8ab4e2671cec1ae637e6",
+              "TESTROOT:9cc4923f8799f33979450cae07bf89b5ae606fb2b8263e40655c1791913bd423",
+              "TESTROOT:4e99db780ebca77b1ba17e28f56826649ba06c88c2be79150bb4789f77da368c",
+              "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+              "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+              "TESTROOT:4998580cb5e30ee260f36304350df6a429538ab74a38ef93c15e61c691cd3bca",
+              "TESTROOT:6431654cf8afe085f751b385bd29f0587eb5fbf06dde10c03a573fee4e4aba46"
+            ]
+          }
+        ],
+        "eye04_count": 5
+      },
+      "malformed_target_market": {
+        "status": "HELD",
+        "sha256": null,
+        "trace_count": 0,
+        "items": [],
+        "comparisons": [],
+        "indirect": [],
+        "eye04_count": 0
+      },
+      "correction_before": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "c407fd569eda9bd44e2f058d2b9c5d5840e9624547fc55df1c3f42fc8cbf2341",
+        "trace_count": 8,
+        "items": [
+          {
+            "no": 1,
+            "material": [],
+            "read": []
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [],
+        "indirect": [],
+        "eye04_count": 2
+      },
+      "nested_geometry_market_rejected": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "86f50dd6cf78bae255784a9068b7de9931b8c7ecdd02077ca9484b8f83eabab1",
+        "trace_count": 27,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [
+          {
+            "event": "TEST:JRA:H1",
+            "pair": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "finish": [
+              2,
+              3
+            ],
+            "clock_gap_b_minus_a_tenths": 4,
+            "final3f_gap_b_minus_a_tenths": 2,
+            "past_order_support": "TEST:JRA:A",
+            "final3f_support": "TEST:JRA:A",
+            "position_ranks": [
+              null,
+              null
+            ],
+            "leader_laps": {
+              "scope": "RACE_LEADER",
+              "segments": [
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "changed": null,
+                "geometry_same": null,
+                "weight_delta_grams": 0
+              },
+              {
+                "changed": null,
+                "geometry_same": null,
+                "weight_delta_grams": -2000
+              }
+            ],
+            "contextKnown": false,
+            "relative_history": "ORDER_AND_FINAL3F_AGREE",
+            "current_head_to_head": "UNRESOLVED",
+            "individual_checkpoint_clocks": null,
+            "pressure_causality": null,
+            "WIN": null,
+            "PLACE": null
+          }
+        ],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "events": [
+              "TEST:JRA:H2",
+              "TEST:JRA:H1"
+            ],
+            "peer": "TEST:JRA:X",
+            "scope_differences": null,
+            "relative_clock_gaps": [
+              -3,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 3,
+                "clock": 841,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 1,
+                "clock": 840,
+                "final3f": 360,
+                "position": null,
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": null,
+            "state": "PEER_PROFILE_INCOMPLETE",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ff09405e38b0dd74d13a156ac2bf94c44ed291e6ec0f6498ea18b898374b111d",
+              "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+              "TESTROOT:e4b36ad69b5cafb79da50fd0a3d30eb8dda709b6077951d0531f208cb80b5deb",
+              "TESTROOT:8ef3696fb8f87ea199477a8af37a5416bf762dc49f7a01dd42ba725ff496206d",
+              "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+              "TESTROOT:5b944d418e6ca4742dc4642b3c0cea6b103a20067c427dd9d96cac942ce79814",
+              "TESTROOT:731640c5924b8b4d04d457ab8a91c6a91d71a84f5f6e79b17952acc840dd4d26",
+              "TESTROOT:695996bcdfa6354d5d3d0ac57f8bd4a784f1d4d590a75b5a0c2c905e92f29c3a",
+              "TESTROOT:a4afca446914eeaa5a49da7820ba5d3868fb5053aac64e25b2ab71a052c4516e",
+              "TESTROOT:6d5f34d5c86cc4ee55cfe59a9fce03311a05915f7b87736c947b1999dc795084",
+              "TESTROOT:1d53d96f52b6b35b0a8289b98848edb2675b3e43d64a85cc36703d14df1dc5ba",
+              "TESTROOT:e36202ac9fc4657ad1433bf05f7c0fb31154065ae44505af49e63af850c1dc3d",
+              "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "TESTROOT:2442f82575ee81ea0490f7793bb94f5ac4158e465755584983258484b0e79059",
+              "TESTROOT:8dac4de8937f7a160fe5f4688dff9f46ecb396afd3c568d87388705abaa276e1",
+              "TESTROOT:c1f28e53aed73265f01dea6c8410dfe6328e45d96f0179e2b02ea567b3ee4f8c",
+              "TESTROOT:b2f27fe66920ddef024ae921b4295e9ed23763225b902398cf1971285e838fd3",
+              "TESTROOT:2acc0982c103e0535bb1f6f7c4ab5e2a93aced18f5333226f5933789b7727530",
+              "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "TESTROOT:957defdad04613e74a4aa0b4b2c8808165e0d0b9738501891f42831ed95dbff7",
+              "TESTROOT:78240fbd7b997f24d0ea337c2cd623f0be3219cc2c0f8ab4e2671cec1ae637e6",
+              "TESTROOT:4e99db780ebca77b1ba17e28f56826649ba06c88c2be79150bb4789f77da368c",
+              "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+              "TESTROOT:4998580cb5e30ee260f36304350df6a429538ab74a38ef93c15e61c691cd3bca",
+              "TESTROOT:6431654cf8afe085f751b385bd29f0587eb5fbf06dde10c03a573fee4e4aba46"
+            ]
+          }
+        ],
+        "eye04_count": 5
+      },
+      "wrong_identity": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "ecc0405734dfa4c3204b66d2ab96438f2f93d58c3845cfdfded9a66747f50f4a",
+        "trace_count": 18,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "events": [
+              "TEST:JRA:H2",
+              "TEST:JRA:H1"
+            ],
+            "peer": "TEST:JRA:X",
+            "scope_differences": [],
+            "relative_clock_gaps": [
+              -3,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 3,
+                "clock": 841,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 1,
+                "clock": 840,
+                "final3f": 360,
+                "position": [
+                  1,
+                  1
+                ],
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": [
+              "finish",
+              "clock",
+              "final3f",
+              "position",
+              "weight"
+            ],
+            "state": "PEER_PROFILE_DIFFERS",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ff09405e38b0dd74d13a156ac2bf94c44ed291e6ec0f6498ea18b898374b111d",
+              "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+              "TESTROOT:e4b36ad69b5cafb79da50fd0a3d30eb8dda709b6077951d0531f208cb80b5deb",
+              "TESTROOT:8ef3696fb8f87ea199477a8af37a5416bf762dc49f7a01dd42ba725ff496206d",
+              "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+              "TESTROOT:5b944d418e6ca4742dc4642b3c0cea6b103a20067c427dd9d96cac942ce79814",
+              "TESTROOT:731640c5924b8b4d04d457ab8a91c6a91d71a84f5f6e79b17952acc840dd4d26",
+              "TESTROOT:695996bcdfa6354d5d3d0ac57f8bd4a784f1d4d590a75b5a0c2c905e92f29c3a",
+              "TESTROOT:a4afca446914eeaa5a49da7820ba5d3868fb5053aac64e25b2ab71a052c4516e",
+              "TESTROOT:6d5f34d5c86cc4ee55cfe59a9fce03311a05915f7b87736c947b1999dc795084",
+              "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+              "TESTROOT:1d53d96f52b6b35b0a8289b98848edb2675b3e43d64a85cc36703d14df1dc5ba",
+              "TESTROOT:e36202ac9fc4657ad1433bf05f7c0fb31154065ae44505af49e63af850c1dc3d",
+              "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "TESTROOT:2442f82575ee81ea0490f7793bb94f5ac4158e465755584983258484b0e79059",
+              "TESTROOT:8dac4de8937f7a160fe5f4688dff9f46ecb396afd3c568d87388705abaa276e1",
+              "TESTROOT:c1f28e53aed73265f01dea6c8410dfe6328e45d96f0179e2b02ea567b3ee4f8c",
+              "TESTROOT:b2f27fe66920ddef024ae921b4295e9ed23763225b902398cf1971285e838fd3",
+              "TESTROOT:2acc0982c103e0535bb1f6f7c4ab5e2a93aced18f5333226f5933789b7727530",
+              "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "TESTROOT:957defdad04613e74a4aa0b4b2c8808165e0d0b9738501891f42831ed95dbff7",
+              "TESTROOT:78240fbd7b997f24d0ea337c2cd623f0be3219cc2c0f8ab4e2671cec1ae637e6",
+              "TESTROOT:9cc4923f8799f33979450cae07bf89b5ae606fb2b8263e40655c1791913bd423",
+              "TESTROOT:4e99db780ebca77b1ba17e28f56826649ba06c88c2be79150bb4789f77da368c",
+              "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+              "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+              "TESTROOT:4998580cb5e30ee260f36304350df6a429538ab74a38ef93c15e61c691cd3bca",
+              "TESTROOT:6431654cf8afe085f751b385bd29f0587eb5fbf06dde10c03a573fee4e4aba46"
+            ]
+          }
+        ],
+        "eye04_count": 3
+      },
+      "length_margin": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "5711eb4a49c0b90d9d8f7bb950cb550c968d29b1dc642b2615a95e8ba242f659",
+        "trace_count": 29,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [
+          {
+            "event": "TEST:JRA:H1",
+            "pair": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "finish": [
+              2,
+              3
+            ],
+            "clock_gap_b_minus_a_tenths": 4,
+            "final3f_gap_b_minus_a_tenths": 2,
+            "past_order_support": "TEST:JRA:A",
+            "final3f_support": "TEST:JRA:A",
+            "position_ranks": [
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ],
+            "leader_laps": {
+              "scope": "RACE_LEADER",
+              "segments": [
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": 0
+              },
+              {
+                "changed": [],
+                "geometry_same": true,
+                "weight_delta_grams": -2000
+              }
+            ],
+            "contextKnown": true,
+            "relative_history": "ORDER_AND_FINAL3F_AGREE",
+            "current_head_to_head": "UNRESOLVED",
+            "individual_checkpoint_clocks": null,
+            "pressure_causality": null,
+            "WIN": null,
+            "PLACE": null
+          }
+        ],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:JRA:A",
+              "TEST:JRA:B"
+            ],
+            "events": [
+              "TEST:JRA:H2",
+              "TEST:JRA:H1"
+            ],
+            "peer": "TEST:JRA:X",
+            "scope_differences": [],
+            "relative_clock_gaps": [
+              -3,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 3,
+                "clock": 841,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:JRA:X",
+                "finish": 1,
+                "clock": 840,
+                "final3f": 360,
+                "position": [
+                  1,
+                  1
+                ],
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": [
+              "finish",
+              "clock",
+              "final3f",
+              "position",
+              "weight"
+            ],
+            "state": "PEER_PROFILE_DIFFERS",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ff09405e38b0dd74d13a156ac2bf94c44ed291e6ec0f6498ea18b898374b111d",
+              "TESTROOT:afd435b327d0fc5c6cd5ca4933a671866a29ecbceaaffe5f4f895ba1ce4cacda",
+              "TESTROOT:e4b36ad69b5cafb79da50fd0a3d30eb8dda709b6077951d0531f208cb80b5deb",
+              "TESTROOT:8ef3696fb8f87ea199477a8af37a5416bf762dc49f7a01dd42ba725ff496206d",
+              "TESTROOT:6d718415efccf491ddf3a559c43c57733535362f947977b7f1fc1a33fe623e39",
+              "TESTROOT:5b944d418e6ca4742dc4642b3c0cea6b103a20067c427dd9d96cac942ce79814",
+              "TESTROOT:731640c5924b8b4d04d457ab8a91c6a91d71a84f5f6e79b17952acc840dd4d26",
+              "TESTROOT:695996bcdfa6354d5d3d0ac57f8bd4a784f1d4d590a75b5a0c2c905e92f29c3a",
+              "TESTROOT:a4afca446914eeaa5a49da7820ba5d3868fb5053aac64e25b2ab71a052c4516e",
+              "TESTROOT:6d5f34d5c86cc4ee55cfe59a9fce03311a05915f7b87736c947b1999dc795084",
+              "TESTROOT:c7f81e0f19119f3bb851e48dbc06033a0eac8ea10bb6f6a4c4866e19c05842d2",
+              "TESTROOT:1d53d96f52b6b35b0a8289b98848edb2675b3e43d64a85cc36703d14df1dc5ba",
+              "TESTROOT:e36202ac9fc4657ad1433bf05f7c0fb31154065ae44505af49e63af850c1dc3d",
+              "TESTROOT:7160310aa55bb2df2a21969e800b11e7411d2c6b89605448a5665006fde1fdc3",
+              "TESTROOT:2442f82575ee81ea0490f7793bb94f5ac4158e465755584983258484b0e79059",
+              "TESTROOT:8dac4de8937f7a160fe5f4688dff9f46ecb396afd3c568d87388705abaa276e1",
+              "TESTROOT:c1f28e53aed73265f01dea6c8410dfe6328e45d96f0179e2b02ea567b3ee4f8c",
+              "TESTROOT:b2f27fe66920ddef024ae921b4295e9ed23763225b902398cf1971285e838fd3",
+              "TESTROOT:2acc0982c103e0535bb1f6f7c4ab5e2a93aced18f5333226f5933789b7727530",
+              "TESTROOT:4e122633b1be1f7c716807f3d95bfbb6f49b67db63ef62230291d2b687e7f9ec",
+              "TESTROOT:957defdad04613e74a4aa0b4b2c8808165e0d0b9738501891f42831ed95dbff7",
+              "TESTROOT:78240fbd7b997f24d0ea337c2cd623f0be3219cc2c0f8ab4e2671cec1ae637e6",
+              "TESTROOT:9cc4923f8799f33979450cae07bf89b5ae606fb2b8263e40655c1791913bd423",
+              "TESTROOT:4e99db780ebca77b1ba17e28f56826649ba06c88c2be79150bb4789f77da368c",
+              "TESTROOT:abe5a152a168d5a2bd9d44632bb0b896b719a05d02697a447986a3223ad344f9",
+              "TESTROOT:022701db1b0a30b3b3f734df253abe8b2b0c526292163ee1beb5e1f64d3ec7c4",
+              "TESTROOT:35e2074969d254cec625b3ab4564937f9aaecb1c765f427d161f7abe87c78210",
+              "TESTROOT:0c71b3eb23bc6d6e370f09f1ee921de5f51fe64e72def6b2fb89750f49b63c33",
+              "TESTROOT:4998580cb5e30ee260f36304350df6a429538ab74a38ef93c15e61c691cd3bca",
+              "TESTROOT:6431654cf8afe085f751b385bd29f0587eb5fbf06dde10c03a573fee4e4aba46"
+            ]
+          }
+        ],
+        "eye04_count": 5
+      },
+      "geometry_missing_field_held": {
+        "status": "RESEARCH_PARTIAL",
+        "sha256": "7a24bbdaccd125a25b8c53de14487e165909505bc584947efdf0b615b1181ac1",
+        "trace_count": 27,
+        "items": [
+          {
+            "no": 1,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK04",
+              "RANK05",
+              "RANK06",
+              "RANK17",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 2,
+            "material": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK19",
+              "RANK33",
+              "RANK34",
+              "RANK35",
+              "RANK36",
+              "RANK37",
+              "RANK43",
+              "RANK44",
+              "RANK45",
+              "RANK47",
+              "RANK48",
+              "RANK49",
+              "RANK50",
+              "RANK51",
+              "RANK52",
+              "RANK54",
+              "RANK67"
+            ],
+            "read": [
+              "RANK02",
+              "RANK03",
+              "RANK05",
+              "RANK06",
+              "RANK19",
+              "RANK35",
+              "RANK36",
+              "RANK37"
+            ]
+          },
+          {
+            "no": 4,
+            "material": [],
+            "read": []
+          }
+        ],
+        "comparisons": [
+          {
+            "event": "TEST:LOCAL:H1",
+            "pair": [
+              "TEST:LOCAL:A",
+              "TEST:LOCAL:B"
+            ],
+            "finish": [
+              2,
+              3
+            ],
+            "clock_gap_b_minus_a_tenths": 4,
+            "final3f_gap_b_minus_a_tenths": 2,
+            "past_order_support": "TEST:LOCAL:A",
+            "final3f_support": "TEST:LOCAL:A",
+            "position_ranks": [
+              null,
+              null
+            ],
+            "leader_laps": {
+              "scope": "RACE_LEADER",
+              "segments": [
+                {
+                  "distance_m": 100,
+                  "ticks": 60
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                },
+                {
+                  "distance_m": 200,
+                  "ticks": 120
+                }
+              ]
+            },
+            "conditions": [
+              {
+                "changed": [],
+                "geometry_same": null,
+                "weight_delta_grams": 0
+              },
+              {
+                "changed": [],
+                "geometry_same": null,
+                "weight_delta_grams": -2000
+              }
+            ],
+            "contextKnown": false,
+            "relative_history": "ORDER_AND_FINAL3F_AGREE",
+            "current_head_to_head": "UNRESOLVED",
+            "individual_checkpoint_clocks": null,
+            "pressure_causality": null,
+            "WIN": null,
+            "PLACE": null
+          }
+        ],
+        "indirect": [
+          {
+            "horses": [
+              "TEST:LOCAL:A",
+              "TEST:LOCAL:B"
+            ],
+            "events": [
+              "TEST:LOCAL:H2",
+              "TEST:LOCAL:H1"
+            ],
+            "peer": "TEST:LOCAL:X",
+            "scope_differences": null,
+            "relative_clock_gaps": [
+              -3,
+              7
+            ],
+            "relative_weight_grams": [
+              -1000,
+              2000
+            ],
+            "peer_profiles": [
+              {
+                "identity": "TEST:LOCAL:X",
+                "finish": 3,
+                "clock": 541,
+                "final3f": 364,
+                "position": [
+                  3,
+                  3
+                ],
+                "weight": 57000
+              },
+              {
+                "identity": "TEST:LOCAL:X",
+                "finish": 1,
+                "clock": 540,
+                "final3f": 360,
+                "position": null,
+                "weight": 55000
+              }
+            ],
+            "leader_laps": [
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 100,
+                    "ticks": 60
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 116
+                  }
+                ]
+              },
+              {
+                "scope": "RACE_LEADER",
+                "segments": [
+                  {
+                    "distance_m": 100,
+                    "ticks": 60
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  },
+                  {
+                    "distance_m": 200,
+                    "ticks": 120
+                  }
+                ]
+              }
+            ],
+            "measured_peer_changes": null,
+            "state": "PEER_PROFILE_INCOMPLETE",
+            "inferred_current_order": null,
+            "combined_margin": null,
+            "peer_strength": null,
+            "roots": [
+              "TESTROOT:ad2bb19fa845de161bcd330d3c6c80417c98a45eddca1f8d97e2e3ad5ad16042",
+              "TESTROOT:b80ab4715d17be1a79ee88571fe9f8cfe468bcdc48ac97cb7f3f2a45ca21f7a7",
+              "TESTROOT:1102955b6fb10253e141184df76311ffe21a7218d00ebf5e4e61c3c2d72085fe",
+              "TESTROOT:50eaa9342270278e92f9bb7f45038f6cd8fb74a37c72cb337621fcfb55561fdc",
+              "TESTROOT:80d70a08240e755b11d5f268486a5d453a19163438784c9b9ba822a6d618be45",
+              "TESTROOT:a96dc452a5da4f9c71c71db0227aedace61e3f3bb3c8ea4e1c91f5c8ed94132e",
+              "TESTROOT:9ed59fa5abb7015c16d65ab16fb642a2f39c43c2942dfffb89e26cb4570f4714",
+              "TESTROOT:4ec0fe4fe75fcb279223b3eb56e6dae9ae635743f549bcbe13bb70754a47c5ee",
+              "TESTROOT:d87a650e12f991f77f658a1e68e9e6c9fe1822053272343b1bafe5fb97d2a6d5",
+              "TESTROOT:119de4931b5f484aa183e1c882846ec90b575366151d801d06a95992c6d4f3b7",
+              "TESTROOT:7adfd03852f4f60badc10c6ba639db2106a3e27a5aad2faa836b59f2a37fdebf",
+              "TESTROOT:5b6d5ff3b72f2eea27b07877ed68a7e145a537f5d2a1b3b6ec086cf705b97a8c",
+              "TESTROOT:191465d7bbf961c7b4137619fef047780a729f099239287e4197e8f5de391d2d",
+              "TESTROOT:86cf400ba61e0cf7d0d29cd18553c07e1e88099158b105502d7d92f3e324fdd7",
+              "TESTROOT:576b0c1afa510bb317badd3bdacb920585917e66aa0570661ec9a8121f296323",
+              "TESTROOT:f02303e70f65bd9637abd605ec3a26a4ed676a7d670cfc1e0ac7a88fd1ed71c6",
+              "TESTROOT:2efe37d7545178594f8e5ab97fc50fc2b2ada4e70b375063f88dd3d249cb8428",
+              "TESTROOT:1bc808485e2e3c9079273893e23793d05ab128d59e04bb4cb9ec1428c94237c2",
+              "TESTROOT:7daa5f977bd5de6cad608182f1dd63e603caf16cc292a5e529bde55aa075b69e",
+              "TESTROOT:dc978530492f924ede87575cd1e9ad6d79ff3c7e5e5b0c21fbe7193eaa9bb5f3",
+              "TESTROOT:538c64cfad3bafaec26f1dfee44eae7c744df74e37a9db977c79ef5fc240ef3b",
+              "TESTROOT:0e1d2cbce5ea8d1e0987fa89f904140634668b8642778e0a4c873897bab9a4e4",
+              "TESTROOT:04227187f0fd072c83b73f2f9c210278ae66b3fe6f7e22bbfcf295dfb82c3f6a",
+              "TESTROOT:b6daf937e4f08239b88ebcfa6d4af843f2c6f8991eea56af05f28c9338d0ca8e",
+              "TESTROOT:ca385be75b75d9ffbba993beaef307b9cc957ae4fca84282c9c6a1865e90680e",
+              "TESTROOT:cd56adbb79b602daad9982745cb6d47c1fc434a55457406cc791f71bb23cb736",
+              "TESTROOT:2310421c91572220d5d85d0469561033a14c99e0781ee529ad39cc0bd11c006e"
+            ]
+          }
+        ],
+        "eye04_count": 5
+      }
+    },
+    "formal": 0
+  },
+  "limits": [
+    "12 exact indexed packet bytes verified by Git SHA1 blob, SHA256, byte length and pinned producer replay in successful CI; synthetic source trust, producer replay is not independent official custody verification.",
+    "Typed partial kernel reads finish, typed margins, display clock, individual final3f, checkpoint ranks with geometry and race leader laps. No individual checkpoint clocks synthesized.",
+    "RANK35 and RANK36 comparisons are historical only; interventions establish local measurement-driven changes, not grades or all 115 item effects.",
+    "RANK37 selected opponent follow-up review recorded; EYE04 strength and narrowness not established, no return to grade; EYE14/15 held.",
+    "Current condition and weight transitions recorded, but no validated pressure causality or full-field current WIN/PLACE feasibility; no grade assigned. All item semantic_effect_proven flags intentionally conservative false; only specifically controlled comparison effects proven.",
+    "No production, main, DB, MCP, FROZEN, Cron, deployment, market or formal admission; PR94 draft, no merge. PR92 not modified."
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "saga": {
+    "status": "STORED_PRESTART_CANDIDATE",
+    "target": "2026-11-22 佐賀8R",
+    "diagnostics": 13,
+    "subjects": 7,
+    "prior_and_later_corroborated": 1,
+    "peer_later_wins": 1,
+    "peer_later_nonwins": 12,
+    "distinct_peer_followups_reported": 11,
+    "formal_admissions": 0
+  },
+  "nar": {
+    "status": "RETROSPECTIVE_CANDIDATE",
+    "target_date": "2026-11-25",
+    "profiles": [
+      {
+        "horse_id": "30085406656",
+        "rows": 12
+      },
+      {
+        "horse_id": "30052409076",
+        "rows": 10
+      }
+    ],
+    "shared_races": [
+      {
+        "race_key": [
+          "2025-12-03",
+          "大井",
+          11
+        ],
+        "horse_ids": [
+          "30085406656",
+          "30052409076"
+        ],
+        "finish": [
+          12,
+          8
+        ],
+        "later_peer_rows": [
+          {
+            "date": "2026-04-23",
+            "track": "浦和",
+            "race_no": 11,
+            "finish": 1
+          },
+          {
+            "date": "2026-02-04",
+            "track": "川崎",
+            "race_no": 11,
+            "finish": 4
+          },
+          {
+            "date": "2026-01-28",
+            "track": "大井",
+            "race_no": 11,
+            "finish": 10
+          }
+        ]
+      },
+      {
+        "race_key": [
+          "2025-04-24",
+          "浦和",
+          11
+        ],
+        "horse_ids": [
+          "30085406656",
+          "30052409076"
+        ],
+        "finish": [
+          6,
+          1
+        ],
+        "later_peer_rows": [
+          {
+            "date": "2026-04-23",
+            "track": "浦和",
+            "race_no": 11,
+            "finish": 1
+          },
+          {
+            "date": "2026-02-04",
+            "track": "川崎",
+            "race_no": 11,
+            "finish": 4
+          },
+          {
+            "date": "2026-01-28",
+            "track": "大井",
+            "race_no": 11,
+            "finish": 10
+          },
+          {
+            "date": "2025-12-03",
+            "track": "大井",
+            "race_no": 11,
+            "finish": 8
+          },
+          {
+            "date": "2025-11-20",
+            "track": "川崎",
+            "race_no": 11,
+            "finish": 3
+          },
+          {
+            "date": "2025-08-05",
+            "track": "川崎",
+            "race_no": 10,
+            "finish": 1
+          },
+          {
+            "date": "2025-07-02",
+            "track": "大井",
+            "race_no": 11,
+            "finish": 7
+          },
+          {
+            "date": "2025-05-21",
+            "track": "大井",
+            "race_no": 11,
+            "finish": 3
+          }
+        ]
+      }
+    ],
+    "formal_admissions": 0
+  },
+  "scoring_authorized": false
+}

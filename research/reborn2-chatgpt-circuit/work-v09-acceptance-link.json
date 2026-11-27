@@ -1,0 +1,68 @@
+{
+  "version": "v09-acceptance-link",
+  "review": "9ffbec4466ac0d733938adab541df43550a144ce",
+  "work_report": "BAKEN_LAB_REBORN2_LOCAL30復元_第9工程報告_V4_20261127.md",
+  "input_contract": "CODEX_LOCAL30_REPRODUCED_INPUT_CONTRACT_V1.json",
+  "work_report_scope": "full Library report, workbook excerpts and input contract; no distribution raw bytes or independent SQL rerun",
+  "local": {
+    "status": "REPRODUCED_CANDIDATE_SET",
+    "raw_races": 22352,
+    "raw_rows": 232038,
+    "eligible_races": 19131,
+    "eligible_rows": 197712,
+    "all_groups": 12432,
+    "cohorts": 30,
+    "races": 963,
+    "runner_rows": 9652,
+    "venues": [
+      "園田",
+      "水沢",
+      "盛岡",
+      "門別"
+    ],
+    "old_all_rows_identical": false,
+    "old_sample_reported_match": true,
+    "formal_admissions": 0
+  },
+  "jra": {
+    "cohorts": 88,
+    "races": 2836,
+    "runner_rows": 40333,
+    "layout_missing": 88,
+    "formal_admissions": 0
+  },
+  "person": {
+    "registrations": 4,
+    "entity_candidates": 3,
+    "race_links": 0
+  },
+  "result_checks": {
+    "work_local_numeric_rows": 21,
+    "nonstarts": 0,
+    "normal_chat_local_overlap": 2,
+    "deduplicated_local_rows": 21,
+    "jra_separate": 33
+  },
+  "required_key": [
+    "track",
+    "turn",
+    "surface",
+    "distance",
+    "going",
+    "label"
+  ],
+  "distributions": [
+    "winner_elapsed",
+    "finisher_elapsed",
+    "individual_final3f"
+  ],
+  "required_gates": [
+    "course_layout_verified",
+    "formal_class_verified",
+    "eligibility_verified",
+    "historical_publication_verified",
+    "permission_cleared"
+  ],
+  "formal_admissions": 0,
+  "production_changes": false
+}

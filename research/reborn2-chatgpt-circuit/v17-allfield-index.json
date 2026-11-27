@@ -1,0 +1,1494 @@
+{
+  "tested_code": "5cb64507775c099f77665816f124bc0d402f2dc0",
+  "run_id": 45954179674,
+  "job_id": 140356714968,
+  "conclusion": "success",
+  "prior_named_tests": 192,
+  "additional_named_tests": [
+    "F17-01 PASS (V17 research)",
+    "F17-02 PASS (V17 research)",
+    "F17-03 PASS (V17 research)",
+    "F17-04 PASS (V17 research)",
+    "F17-05 PASS (V17 research)",
+    "F17-06 PASS (V17 research)"
+  ],
+  "version": "V17",
+  "scope": "SYNTHETIC_RESEARCH_ONLY",
+  "target": {
+    "id": "FK-GEN-TARGET",
+    "date": "2026-11-20",
+    "start": "15:00",
+    "published": "14:30",
+    "conditions": {
+      "venue": "Synthetic Track",
+      "course_version": "S1",
+      "distance_m": 1400,
+      "surface": "dirt",
+      "turn": "right",
+      "first_corner_m": 200,
+      "going": "良",
+      "grade": "C2",
+      "layout": "R1400",
+      "rule_version": "S1",
+      "eligibility": "SYNTHETIC"
+    },
+    "field_complete": true,
+    "entrants": [
+      {
+        "id": "FIXTURE-A",
+        "runner": 1,
+        "draw": 1,
+        "kg": 54,
+        "status": "ACTIVE"
+      },
+      {
+        "id": "FIXTURE-B",
+        "runner": 2,
+        "draw": 2,
+        "kg": 54,
+        "status": "ACTIVE"
+      },
+      {
+        "id": "FIXTURE-C",
+        "runner": 3,
+        "draw": 3,
+        "kg": 54,
+        "status": "ACTIVE"
+      },
+      {
+        "id": "FIXTURE-D",
+        "runner": 4,
+        "draw": 4,
+        "kg": 56,
+        "status": "ACTIVE"
+      }
+    ]
+  },
+  "packet": {
+    "id": "GEN17-ALLFIELD",
+    "target": {
+      "id": "FK-GEN-TARGET",
+      "date": "2026-11-20",
+      "start": "15:00",
+      "published": "14:30",
+      "conditions": {
+        "venue": "Synthetic Track",
+        "course_version": "S1",
+        "distance_m": 1400,
+        "surface": "dirt",
+        "turn": "right",
+        "first_corner_m": 200,
+        "going": "良",
+        "grade": "C2",
+        "layout": "R1400",
+        "rule_version": "S1",
+        "eligibility": "SYNTHETIC"
+      },
+      "field_complete": true,
+      "entrants": [
+        {
+          "id": "FIXTURE-A",
+          "runner": 1,
+          "draw": 1,
+          "kg": 54,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "FIXTURE-B",
+          "runner": 2,
+          "draw": 2,
+          "kg": 54,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "FIXTURE-C",
+          "runner": 3,
+          "draw": 3,
+          "kg": 54,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "FIXTURE-D",
+          "runner": 4,
+          "draw": 4,
+          "kg": 56,
+          "status": "ACTIVE"
+        }
+      ]
+    },
+    "history": [
+      {
+        "id": "FK-GEN-1",
+        "date": "2026-09-01",
+        "start": "13:00",
+        "published": "13:20",
+        "conditions": {
+          "venue": "Synthetic Track",
+          "course_version": "S1",
+          "distance_m": 1400,
+          "surface": "dirt",
+          "turn": "right",
+          "first_corner_m": 200,
+          "going": "良",
+          "grade": "C2",
+          "layout": "R1400",
+          "rule_version": "S1",
+          "eligibility": "SYNTHETIC"
+        },
+        "field_count": 4,
+        "full_result_rows": true,
+        "lap_kind": "synthetic_race_leader",
+        "lap_segment_m": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "lap_tenths": [
+          125,
+          116,
+          124,
+          123,
+          118,
+          123,
+          118
+        ],
+        "rows": [
+          {
+            "id": "FIXTURE-A",
+            "runner": 1,
+            "kg": 54,
+            "finish": 1,
+            "clock_tenths": 847,
+            "margin_tenths": null,
+            "final3f_tenths": 351,
+            "corners": [
+              3,
+              1,
+              4,
+              1
+            ],
+            "checkpoint_tenths": [
+              127,
+              241,
+              365,
+              496,
+              615,
+              729,
+              847
+            ]
+          },
+          {
+            "id": "FIXTURE-B",
+            "runner": 2,
+            "kg": 54,
+            "finish": 2,
+            "clock_tenths": 848,
+            "margin_tenths": 1,
+            "final3f_tenths": 360,
+            "corners": [
+              1,
+              2,
+              1,
+              3
+            ],
+            "checkpoint_tenths": [
+              125,
+              244,
+              367,
+              488,
+              606,
+              733,
+              848
+            ]
+          },
+          {
+            "id": "FIXTURE-C",
+            "runner": 3,
+            "kg": 54,
+            "finish": 3,
+            "clock_tenths": 851,
+            "margin_tenths": 4,
+            "final3f_tenths": 360,
+            "corners": [
+              2,
+              3,
+              2,
+              2
+            ],
+            "checkpoint_tenths": [
+              126,
+              246,
+              368,
+              491,
+              609,
+              731,
+              851
+            ]
+          },
+          {
+            "id": "FIXTURE-D",
+            "runner": 4,
+            "kg": 56,
+            "finish": 4,
+            "clock_tenths": 854,
+            "margin_tenths": 7,
+            "final3f_tenths": 360,
+            "corners": [
+              4,
+              4,
+              3,
+              4
+            ],
+            "checkpoint_tenths": [
+              128,
+              249,
+              369,
+              494,
+              612,
+              735,
+              854
+            ]
+          }
+        ]
+      },
+      {
+        "id": "FK-GEN-2",
+        "date": "2026-10-01",
+        "start": "13:00",
+        "published": "13:20",
+        "conditions": {
+          "venue": "Synthetic Track",
+          "course_version": "S1",
+          "distance_m": 1400,
+          "surface": "dirt",
+          "turn": "right",
+          "first_corner_m": 200,
+          "going": "良",
+          "grade": "C2",
+          "layout": "R1400",
+          "rule_version": "S1",
+          "eligibility": "SYNTHETIC"
+        },
+        "field_count": 3,
+        "full_result_rows": true,
+        "lap_kind": "synthetic_race_leader",
+        "lap_segment_m": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "lap_tenths": [
+          133,
+          125,
+          115,
+          134,
+          130,
+          114,
+          122
+        ],
+        "rows": [
+          {
+            "id": "FIXTURE-A",
+            "runner": 1,
+            "kg": 54,
+            "finish": 1,
+            "clock_tenths": 873,
+            "margin_tenths": null,
+            "final3f_tenths": 366,
+            "corners": [
+              1,
+              3,
+              1,
+              1
+            ],
+            "checkpoint_tenths": [
+              133,
+              262,
+              378,
+              507,
+              637,
+              751,
+              873
+            ]
+          },
+          {
+            "id": "FIXTURE-C",
+            "runner": 2,
+            "kg": 54,
+            "finish": 2,
+            "clock_tenths": 874,
+            "margin_tenths": 1,
+            "final3f_tenths": 361,
+            "corners": [
+              3,
+              1,
+              3,
+              2
+            ],
+            "checkpoint_tenths": [
+              137,
+              258,
+              373,
+              513,
+              643,
+              754,
+              874
+            ]
+          },
+          {
+            "id": "FIXTURE-D",
+            "runner": 3,
+            "kg": 56,
+            "finish": 3,
+            "clock_tenths": 875,
+            "margin_tenths": 2,
+            "final3f_tenths": 365,
+            "corners": [
+              2,
+              2,
+              2,
+              3
+            ],
+            "checkpoint_tenths": [
+              136,
+              260,
+              376,
+              510,
+              640,
+              758,
+              875
+            ]
+          }
+        ]
+      },
+      {
+        "id": "FK-GEN-3",
+        "date": "2026-11-01",
+        "start": "13:00",
+        "published": "13:20",
+        "conditions": {
+          "venue": "Synthetic Track",
+          "course_version": "S1",
+          "distance_m": 1400,
+          "surface": "dirt",
+          "turn": "right",
+          "first_corner_m": 200,
+          "going": "良",
+          "grade": "C2",
+          "layout": "R1400",
+          "rule_version": "S1",
+          "eligibility": "SYNTHETIC"
+        },
+        "field_count": 3,
+        "full_result_rows": true,
+        "lap_kind": "synthetic_race_leader",
+        "lap_segment_m": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "lap_tenths": [
+          121,
+          118,
+          125,
+          126,
+          124,
+          134,
+          127
+        ],
+        "rows": [
+          {
+            "id": "FIXTURE-C",
+            "runner": 1,
+            "kg": 54,
+            "finish": 1,
+            "clock_tenths": 875,
+            "margin_tenths": null,
+            "final3f_tenths": 385,
+            "corners": [
+              2,
+              1,
+              1,
+              1
+            ],
+            "checkpoint_tenths": [
+              123,
+              239,
+              364,
+              490,
+              614,
+              748,
+              875
+            ]
+          },
+          {
+            "id": "FIXTURE-B",
+            "runner": 2,
+            "kg": 54,
+            "finish": 2,
+            "clock_tenths": 877,
+            "margin_tenths": 2,
+            "final3f_tenths": 381,
+            "corners": [
+              1,
+              2,
+              3,
+              3
+            ],
+            "checkpoint_tenths": [
+              121,
+              242,
+              365,
+              496,
+              620,
+              753,
+              877
+            ]
+          },
+          {
+            "id": "FIXTURE-D",
+            "runner": 3,
+            "kg": 56,
+            "finish": 3,
+            "clock_tenths": 878,
+            "margin_tenths": 3,
+            "final3f_tenths": 385,
+            "corners": [
+              3,
+              3,
+              2,
+              2
+            ],
+            "checkpoint_tenths": [
+              124,
+              245,
+              368,
+              493,
+              617,
+              749,
+              878
+            ]
+          }
+        ]
+      },
+      {
+        "id": "FK-GEN-4",
+        "date": "2026-11-10",
+        "start": "13:00",
+        "published": "13:20",
+        "conditions": {
+          "venue": "Synthetic Track",
+          "course_version": "S1",
+          "distance_m": 1400,
+          "surface": "dirt",
+          "turn": "right",
+          "first_corner_m": 200,
+          "going": "重",
+          "grade": "C2",
+          "layout": "R1400",
+          "rule_version": "S1",
+          "eligibility": "SYNTHETIC"
+        },
+        "field_count": 3,
+        "full_result_rows": true,
+        "lap_kind": "synthetic_race_leader",
+        "lap_segment_m": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "lap_tenths": [
+          121,
+          118,
+          125,
+          126,
+          124,
+          134,
+          127
+        ],
+        "rows": [
+          {
+            "id": "FIXTURE-C",
+            "runner": 1,
+            "kg": 54,
+            "finish": 1,
+            "clock_tenths": 875,
+            "margin_tenths": null,
+            "final3f_tenths": 385,
+            "corners": [
+              2,
+              1,
+              1,
+              1
+            ],
+            "checkpoint_tenths": [
+              123,
+              239,
+              364,
+              490,
+              614,
+              748,
+              875
+            ]
+          },
+          {
+            "id": "FIXTURE-B",
+            "runner": 2,
+            "kg": 54,
+            "finish": 2,
+            "clock_tenths": 877,
+            "margin_tenths": 2,
+            "final3f_tenths": 381,
+            "corners": [
+              1,
+              2,
+              3,
+              3
+            ],
+            "checkpoint_tenths": [
+              121,
+              242,
+              365,
+              496,
+              620,
+              753,
+              877
+            ]
+          },
+          {
+            "id": "FIXTURE-D",
+            "runner": 3,
+            "kg": 56,
+            "finish": 3,
+            "clock_tenths": 878,
+            "margin_tenths": 3,
+            "final3f_tenths": 385,
+            "corners": [
+              3,
+              3,
+              2,
+              2
+            ],
+            "checkpoint_tenths": [
+              124,
+              245,
+              368,
+              493,
+              617,
+              749,
+              878
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "formal": false,
+    "scope": "SYNTHETIC_EXACT_TENTHS"
+  },
+  "summary": [
+    {
+      "no": 1,
+      "id": "FIXTURE-A",
+      "rank_items": 100,
+      "eye_items": 15,
+      "output_items": 64,
+      "consumed_items": [
+        "35",
+        "36",
+        "58",
+        "99",
+        "EYE-02"
+      ],
+      "WIN": 2,
+      "PLACE": 2,
+      "eye_WIN_delta": 1,
+      "eye_PLACE_delta": 1,
+      "perspectives": {
+        "A": "SUPPORT",
+        "B": "SUPPORT",
+        "C": "SUPPORT",
+        "D": "SUPPORT",
+        "E": "SUPPORT"
+      }
+    },
+    {
+      "no": 2,
+      "id": "FIXTURE-B",
+      "rank_items": 100,
+      "eye_items": 15,
+      "output_items": 71,
+      "consumed_items": [
+        "35",
+        "36",
+        "58",
+        "99"
+      ],
+      "WIN": 0,
+      "PLACE": 1,
+      "eye_WIN_delta": 0,
+      "eye_PLACE_delta": 0,
+      "perspectives": {
+        "A": "SUPPORT",
+        "B": "SUPPORT",
+        "C": "MIXED",
+        "D": "MIXED",
+        "E": "COUNTER"
+      }
+    },
+    {
+      "no": 3,
+      "id": "FIXTURE-C",
+      "rank_items": 100,
+      "eye_items": 15,
+      "output_items": 67,
+      "consumed_items": [
+        "35",
+        "58",
+        "99"
+      ],
+      "WIN": 0,
+      "PLACE": 1,
+      "eye_WIN_delta": 0,
+      "eye_PLACE_delta": 0,
+      "perspectives": {
+        "A": "SUPPORT",
+        "B": "SUPPORT",
+        "C": "MIXED",
+        "D": "SUPPORT",
+        "E": "UNKNOWN"
+      }
+    },
+    {
+      "no": 4,
+      "id": "FIXTURE-D",
+      "rank_items": 100,
+      "eye_items": 15,
+      "output_items": 65,
+      "consumed_items": [
+        "35"
+      ],
+      "WIN": 0,
+      "PLACE": 0,
+      "eye_WIN_delta": 0,
+      "eye_PLACE_delta": 0,
+      "perspectives": {
+        "A": "SUPPORT",
+        "B": "UNKNOWN",
+        "C": "COUNTER",
+        "D": "UNKNOWN",
+        "E": "UNKNOWN"
+      }
+    }
+  ],
+  "runner_files": [
+    {
+      "id": "FIXTURE-A",
+      "horse_no": 1,
+      "path": "research/reborn2-chatgpt-circuit/v17-allfield-runner-1.json",
+      "blob": "344e824fdca5601a914b0d25377603bec63697e5",
+      "length": 280761,
+      "roundtrip_equal": true
+    },
+    {
+      "id": "FIXTURE-B",
+      "horse_no": 2,
+      "path": "research/reborn2-chatgpt-circuit/v17-allfield-runner-2.json",
+      "blob": "14183285675c13baaec951db02a3c2d84b41f825",
+      "length": 337073,
+      "roundtrip_equal": true
+    },
+    {
+      "id": "FIXTURE-C",
+      "horse_no": 3,
+      "path": "research/reborn2-chatgpt-circuit/v17-allfield-runner-3.json",
+      "blob": "d792e81705bfacd8a888fedc964a248af5171cca",
+      "length": 344228,
+      "roundtrip_equal": true
+    },
+    {
+      "id": "FIXTURE-D",
+      "horse_no": 4,
+      "path": "research/reborn2-chatgpt-circuit/v17-allfield-runner-4.json",
+      "blob": "34f2f7169acb14e977db127fd5dce81f798fe5ed",
+      "length": 342132,
+      "roundtrip_equal": true
+    }
+  ],
+  "work": {
+    "source_blob": "476fe4470f4933210627dfd508c1660ff0792f70",
+    "groups": 118,
+    "groupCounts": {
+      "JRA": 88,
+      "LOCAL": 30
+    },
+    "gate_values": 826,
+    "jc_rows": 18,
+    "historical_rows": 21,
+    "changed_runner_numbers": 17,
+    "relations": 137,
+    "joined_reference_rows": 137,
+    "roots": 65,
+    "chronology": {
+      "AFTER_DATE_ONLY": 84,
+      "BEFORE_REFERENCE": 41,
+      "SAME_EVENT": 12,
+      "SAME_DATE_UNRESOLVED": 0
+    },
+    "patches": 52,
+    "inventory": 115,
+    "replay": [
+      {
+        "race": "2026-11-23 東京12R",
+        "circuit": "JRA",
+        "field": 18,
+        "columns": [
+          "horse_no",
+          "card_prior_rows",
+          "archive_identity_finish_clock_matches",
+          "class_label_matches",
+          "raw_archive_context_rows",
+          "complete_numeric_field_rows"
+        ],
+        "totals": [
+          69,
+          43,
+          30,
+          147,
+          126
+        ],
+        "recorded_capture_times": [
+          "2026-11-23T16:00:08.352+09:00",
+          "2026-11-23T16:00:08.606+09:00"
+        ],
+        "post": "2026-11-23T16:05:00+09:00",
+        "stored_before_post": true,
+        "scope": "COVERAGE_DIAGNOSTIC_ONLY",
+        "status": "BLOCKED",
+        "blockers": [
+          "PERMISSION_NOT_CLEARED",
+          "NATIVE_ID_AND_RAW_SOURCE_NOT_INDEPENDENTLY_VERIFIED",
+          "HISTORICAL_PUBLICATION_AND_VERSION_NOT_VERIFIED",
+          "NO_AUTHORIZED_PER_RUN_PERFORMANCE_PACKET"
+        ],
+        "runners": [
+          {
+            "horse_no": 1,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 3,
+              "class_label_matches": 3,
+              "raw_archive_context_rows": 12,
+              "complete_numeric_field_rows": 11
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 2,
+            "coverage_counts": {
+              "card_prior_rows": 2,
+              "archive_identity_finish_clock_matches": 1,
+              "class_label_matches": 1,
+              "raw_archive_context_rows": 1,
+              "complete_numeric_field_rows": 1
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 3,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 0,
+              "class_label_matches": 0,
+              "raw_archive_context_rows": 5,
+              "complete_numeric_field_rows": 5
+            },
+            "blockers": [
+              "NO_CARD_ARCHIVE_MATCH"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 4,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 1,
+              "class_label_matches": 1,
+              "raw_archive_context_rows": 8,
+              "complete_numeric_field_rows": 7
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 5,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 3,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 14,
+              "complete_numeric_field_rows": 12
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 6,
+            "coverage_counts": {
+              "card_prior_rows": 3,
+              "archive_identity_finish_clock_matches": 3,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 3,
+              "complete_numeric_field_rows": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 7,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 3,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 10,
+              "complete_numeric_field_rows": 7
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 8,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 2,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 10,
+              "complete_numeric_field_rows": 9
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 9,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 2,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 11,
+              "complete_numeric_field_rows": 8
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 10,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 2,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 22,
+              "complete_numeric_field_rows": 18
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 11,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 3,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 4,
+              "complete_numeric_field_rows": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 12,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 2,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 8,
+              "complete_numeric_field_rows": 6
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 13,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 4,
+              "class_label_matches": 1,
+              "raw_archive_context_rows": 16,
+              "complete_numeric_field_rows": 14
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 14,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 2,
+              "class_label_matches": 1,
+              "raw_archive_context_rows": 6,
+              "complete_numeric_field_rows": 6
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 15,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 4,
+              "class_label_matches": 1,
+              "raw_archive_context_rows": 5,
+              "complete_numeric_field_rows": 5
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 16,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 3,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 5,
+              "complete_numeric_field_rows": 4
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 17,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 3,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 4,
+              "complete_numeric_field_rows": 4
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 18,
+            "coverage_counts": {
+              "card_prior_rows": 4,
+              "archive_identity_finish_clock_matches": 2,
+              "class_label_matches": 2,
+              "raw_archive_context_rows": 3,
+              "complete_numeric_field_rows": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          }
+        ],
+        "analysis": null,
+        "formal_eligible": false
+      },
+      {
+        "race": "2026-11-22 佐賀8R",
+        "circuit": "LOCAL",
+        "field": 12,
+        "columns": [
+          "horse_no",
+          "prior_rows",
+          "corner_rows",
+          "linked_race_laps"
+        ],
+        "totals": [
+          29,
+          29,
+          1
+        ],
+        "recorded_capture_times": [
+          "2026-11-22T16:16:53.433+09:00"
+        ],
+        "post": "2026-11-22T19:10:00+09:00",
+        "stored_before_post": true,
+        "scope": "COVERAGE_DIAGNOSTIC_ONLY",
+        "status": "BLOCKED",
+        "blockers": [
+          "PERMISSION_NOT_CLEARED",
+          "NATIVE_ID_AND_RAW_SOURCE_NOT_INDEPENDENTLY_VERIFIED",
+          "HISTORICAL_PUBLICATION_AND_VERSION_NOT_VERIFIED",
+          "NO_AUTHORIZED_PER_RUN_PERFORMANCE_PACKET"
+        ],
+        "runners": [
+          {
+            "horse_no": 1,
+            "coverage_counts": {
+              "prior_rows": 2,
+              "corner_rows": 2,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 2,
+            "coverage_counts": {
+              "prior_rows": 2,
+              "corner_rows": 2,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 3,
+            "coverage_counts": {
+              "prior_rows": 1,
+              "corner_rows": 1,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 4,
+            "coverage_counts": {
+              "prior_rows": 2,
+              "corner_rows": 2,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 5,
+            "coverage_counts": {
+              "prior_rows": 4,
+              "corner_rows": 4,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 6,
+            "coverage_counts": {
+              "prior_rows": 3,
+              "corner_rows": 3,
+              "linked_race_laps": 1
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 7,
+            "coverage_counts": {
+              "prior_rows": 2,
+              "corner_rows": 2,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 8,
+            "coverage_counts": {
+              "prior_rows": 1,
+              "corner_rows": 1,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 9,
+            "coverage_counts": {
+              "prior_rows": 3,
+              "corner_rows": 3,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 10,
+            "coverage_counts": {
+              "prior_rows": 2,
+              "corner_rows": 2,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 11,
+            "coverage_counts": {
+              "prior_rows": 3,
+              "corner_rows": 3,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 12,
+            "coverage_counts": {
+              "prior_rows": 4,
+              "corner_rows": 4,
+              "linked_race_laps": 0
+            },
+            "blockers": [
+              "NO_LINKED_RACE_LAP"
+            ],
+            "horse_id": null,
+            "analysis": null
+          }
+        ],
+        "analysis": null,
+        "formal_eligible": false
+      },
+      {
+        "race": "2026-11-25 浦和11R",
+        "circuit": "LOCAL_RETROSPECTIVE",
+        "field": 9,
+        "columns": [
+          "horse_no",
+          "profile_history_rows",
+          "JRA_rows",
+          "LOCAL_rows",
+          "historical_detail_links"
+        ],
+        "totals": [
+          193,
+          62,
+          131,
+          21
+        ],
+        "recorded_capture_times": [],
+        "post": null,
+        "stored_before_post": false,
+        "scope": "COVERAGE_DIAGNOSTIC_ONLY",
+        "status": "BLOCKED",
+        "blockers": [
+          "PERMISSION_NOT_CLEARED",
+          "NATIVE_ID_AND_RAW_SOURCE_NOT_INDEPENDENTLY_VERIFIED",
+          "HISTORICAL_PUBLICATION_AND_VERSION_NOT_VERIFIED",
+          "NO_AUTHORIZED_PER_RUN_PERFORMANCE_PACKET",
+          "CAPTURE_AFTER_TARGET"
+        ],
+        "runners": [
+          {
+            "horse_no": 1,
+            "coverage_counts": {
+              "profile_history_rows": 10,
+              "JRA_rows": 6,
+              "LOCAL_rows": 4,
+              "historical_detail_links": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 2,
+            "coverage_counts": {
+              "profile_history_rows": 45,
+              "JRA_rows": 0,
+              "LOCAL_rows": 45,
+              "historical_detail_links": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 3,
+            "coverage_counts": {
+              "profile_history_rows": 21,
+              "JRA_rows": 0,
+              "LOCAL_rows": 21,
+              "historical_detail_links": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 4,
+            "coverage_counts": {
+              "profile_history_rows": 20,
+              "JRA_rows": 14,
+              "LOCAL_rows": 6,
+              "historical_detail_links": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 5,
+            "coverage_counts": {
+              "profile_history_rows": 19,
+              "JRA_rows": 0,
+              "LOCAL_rows": 19,
+              "historical_detail_links": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 6,
+            "coverage_counts": {
+              "profile_history_rows": 21,
+              "JRA_rows": 20,
+              "LOCAL_rows": 1,
+              "historical_detail_links": 1
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 7,
+            "coverage_counts": {
+              "profile_history_rows": 33,
+              "JRA_rows": 0,
+              "LOCAL_rows": 33,
+              "historical_detail_links": 3
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 8,
+            "coverage_counts": {
+              "profile_history_rows": 16,
+              "JRA_rows": 16,
+              "LOCAL_rows": 0,
+              "historical_detail_links": 0
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          },
+          {
+            "horse_no": 9,
+            "coverage_counts": {
+              "profile_history_rows": 8,
+              "JRA_rows": 6,
+              "LOCAL_rows": 2,
+              "historical_detail_links": 2
+            },
+            "blockers": [],
+            "horse_id": null,
+            "analysis": null
+          }
+        ],
+        "analysis": null,
+        "formal_eligible": false
+      }
+    ],
+    "formal_admissions": 0,
+    "official_replay_eligible": 0,
+    "raw_source_verified": false
+  },
+  "paired_comparison": {
+    "other": "FIXTURE-B",
+    "common_peer": "FIXTURE-C",
+    "races": [
+      "FK-GEN-2",
+      "FK-GEN-3"
+    ],
+    "observed_order": [
+      "AHEAD",
+      "BEHIND"
+    ],
+    "observed_clock_gaps_tenths": [
+      -1,
+      2
+    ],
+    "condition_differences": [],
+    "relative_weight_matched": true,
+    "field_sizes": [
+      3,
+      3,
+      4
+    ],
+    "roots": [
+      "[\"FK-GEN-2\",\"FIXTURE-A\"]",
+      "[\"FK-GEN-2\",\"FIXTURE-C\"]",
+      "[\"FK-GEN-3\",\"FIXTURE-B\"]",
+      "[\"FK-GEN-3\",\"FIXTURE-C\"]"
+    ],
+    "refs": [
+      "fixture-v2:race:FK-GEN-2",
+      "fixture-v2:card:FIXTURE-A",
+      "fixture-v2:race:FK-GEN-3"
+    ],
+    "current_comparison": "CONDITIONAL_SUBJECT_EDGE",
+    "scope": "PAIRWISE_ONLY_IF_COMMON_PEER_PERFORMANCE_AND_MATCHED_CONDITIONS_TRANSFER",
+    "missing": [
+      "COMMON_PEER_CURRENT_STATE_STABILITY",
+      "NO_JOINT_FIELD_ORDER"
+    ],
+    "formal": false
+  },
+  "eye_reanalysis": {
+    "before_WIN": [
+      "[\"FK-GEN-1\",\"FIXTURE-A\"]|WIN|NON_LEAD|POSITION_REPRODUCED"
+    ],
+    "before_PLACE": [
+      "[\"FK-GEN-1\",\"FIXTURE-A\"]|PLACE|NON_LEAD|POSITION_REPRODUCED"
+    ],
+    "after_WIN": [
+      "[\"FK-GEN-1\",\"FIXTURE-A\"]|WIN|NON_LEAD|POSITION_REPRODUCED",
+      "[\"FK-GEN-1\",\"FIXTURE-A\"]|WIN|ADVANCE|MIDRACE_PROGRESS_AVAILABLE"
+    ],
+    "after_PLACE": [
+      "[\"FK-GEN-1\",\"FIXTURE-A\"]|PLACE|NON_LEAD|POSITION_REPRODUCED",
+      "[\"FK-GEN-1\",\"FIXTURE-A\"]|PLACE|ADVANCE|MIDRACE_PROGRESS_AVAILABLE"
+    ],
+    "added": [
+      {
+        "id": "[\"FK-GEN-1\",\"FIXTURE-A\"]|PLACE|ADVANCE|MIDRACE_PROGRESS_AVAILABLE",
+        "horse_id": "FIXTURE-A",
+        "root": "[\"FK-GEN-1\",\"FIXTURE-A\"]",
+        "kind": "PLACE",
+        "mechanism": "ADVANCE",
+        "scenario": "MIDRACE_PROGRESS_AVAILABLE",
+        "state": "CONDITIONAL_SUPPORT",
+        "reason": "Subject advanced in observed comparable race and placed; conditional alternative to maintaining the lead.",
+        "items": [
+          "17",
+          "18",
+          "35",
+          "58",
+          "99",
+          "EYE-02"
+        ],
+        "refs": [
+          "fixture-v2:card:FIXTURE-A",
+          "fixture-v2:history:FIXTURE-A",
+          "fixture-v2:pos:FK-GEN-1:FIXTURE-A",
+          "fixture-v2:pos:FK-GEN-2:FIXTURE-A",
+          "fixture-v2:race:FK-GEN-1",
+          "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+          "fixture-v2:result:FK-GEN-2:FIXTURE-A"
+        ],
+        "root_reused": true
+      },
+      {
+        "id": "[\"FK-GEN-1\",\"FIXTURE-A\"]|WIN|ADVANCE|MIDRACE_PROGRESS_AVAILABLE",
+        "horse_id": "FIXTURE-A",
+        "root": "[\"FK-GEN-1\",\"FIXTURE-A\"]",
+        "kind": "WIN",
+        "mechanism": "ADVANCE",
+        "scenario": "MIDRACE_PROGRESS_AVAILABLE",
+        "state": "CONDITIONAL_SUPPORT",
+        "reason": "Subject advanced and won in observed comparable race; does not prove current acceleration or pace.",
+        "items": [
+          "17",
+          "18",
+          "35",
+          "58",
+          "99",
+          "EYE-02"
+        ],
+        "refs": [
+          "fixture-v2:card:FIXTURE-A",
+          "fixture-v2:history:FIXTURE-A",
+          "fixture-v2:pos:FK-GEN-1:FIXTURE-A",
+          "fixture-v2:pos:FK-GEN-2:FIXTURE-A",
+          "fixture-v2:race:FK-GEN-1",
+          "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+          "fixture-v2:result:FK-GEN-2:FIXTURE-A"
+        ],
+        "root_reused": true
+      }
+    ],
+    "removed": [],
+    "root_policy": "REUSE_NOT_INDEPENDENT_EVIDENCE",
+    "raw_new_evidence_count": 0
+  },
+  "counts": {
+    "all_items": 460,
+    "output_items": 267,
+    "consumption_rows": 13,
+    "individual_semantic_proof_rows": 0
+  },
+  "formal": false,
+  "release_eligible": false
+}

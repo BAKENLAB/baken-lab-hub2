@@ -1,0 +1,24 @@
+name: REBORN 2 isolated research Node regression
+on:
+  pull_request:
+    branches:
+      - research/reborn2-analysis-circuit-20261126
+    paths:
+      - 'research/reborn2-chatgpt-circuit/**'
+      - '.github/workflows/reborn2-isolated-research-node.yml'
+permissions:
+  contents: read
+jobs:
+  research-only:
+    if: github.event.pull_request.number == 94 && github.event.pull_request.head.ref == 'research/reborn2-chatgpt-33-100-20261126'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: bash research/reborn2-chatgpt-circuit/run-node-regression.sh

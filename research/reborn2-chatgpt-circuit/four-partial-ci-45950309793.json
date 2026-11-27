@@ -1,0 +1,623 @@
+{
+  "tested_commit": "b2af165b8309dccf9cdf8aaa542e5d5924aa80e3",
+  "run_id": 45950309793,
+  "job_id": 140344365801,
+  "conclusion": "success",
+  "previous_named_tests_preserved": 154,
+  "new_named_tests": 14,
+  "pass_logs": [
+    "2026-11-27T06:12:12.0188428Z CV01 PASS (corrected research)",
+    "2026-11-27T06:12:12.0188693Z CV02 PASS (corrected research)",
+    "2026-11-27T06:12:12.0188923Z CV03 PASS (corrected research)",
+    "2026-11-27T06:12:12.0189158Z CV04 PASS (corrected research)",
+    "2026-11-27T06:12:12.0189382Z CV05 PASS (corrected research)",
+    "2026-11-27T06:12:12.0189609Z CV06 PASS (corrected research)",
+    "2026-11-27T06:12:12.0189833Z CV07 PASS (corrected research)",
+    "2026-11-27T06:12:12.0190057Z CV08 PASS (corrected research)",
+    "2026-11-27T06:12:12.0190274Z CV09 PASS (corrected research)",
+    "2026-11-27T06:12:12.0190493Z CV10 PASS (corrected research)",
+    "2026-11-27T06:12:12.0190710Z CV11 PASS (corrected research)",
+    "﻿2026-11-27T06:12:12.4458637Z FC01 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4458948Z FC02 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4459210Z FC03 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4459456Z FC04 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4459703Z FC05 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4459946Z FC06 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4460193Z FC07 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4460477Z FC08 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4460717Z FC09 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4460961Z FC10 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4461212Z FC11 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4461456Z FC12 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4461694Z FC13 PASS (partial four-case research)",
+    "2026-11-27T06:12:12.4461935Z FC14 PASS (partial four-case research)"
+  ],
+  "actual_case_outputs": [
+    {
+      "case": "V01",
+      "decisions": [
+        {
+          "id": "V1-H1",
+          "comparisons": [
+            {
+              "peer": "V1-H2",
+              "direct": [
+                {
+                  "peer": "V1-H2",
+                  "race": "FK-20260910-V11",
+                  "order": -1,
+                  "gap_tenths": -2,
+                  "roots": [
+                    "[\"RESULT\",\"FK-20260910-V11\",\"V1-H1\"]",
+                    "[\"RESULT\",\"FK-20260910-V11\",\"V1-H2\"]"
+                  ],
+                  "current_comparison": null
+                }
+              ],
+              "indirect": [
+                {
+                  "peer": "V1-H2",
+                  "common": "CM-1",
+                  "races": [
+                    "FK-20261004-V13",
+                    "FK-20261025-V12"
+                  ],
+                  "own_gap": 1,
+                  "peer_gap": 5,
+                  "margin_direction": 1,
+                  "condition_differences": [
+                    "going",
+                    "field"
+                  ],
+                  "missing": [
+                    "venue",
+                    "course_version",
+                    "class_rule",
+                    "historical_weight"
+                  ],
+                  "comparable": false,
+                  "transitive_order": null,
+                  "roots": [
+                    "[\"RESULT\",\"FK-20261004-V13\",\"V1-H1\"]",
+                    "[\"RESULT\",\"FK-20261004-V13\",\"CM-1\"]",
+                    "[\"RESULT\",\"FK-20261025-V12\",\"V1-H2\"]",
+                    "[\"RESULT\",\"FK-20261025-V12\",\"CM-1\"]"
+                  ]
+                }
+              ],
+              "conflict": true,
+              "current_order": null
+            }
+          ],
+          "priorContext": [
+            {
+              "race": "FK-20260910-V11",
+              "finish": 2,
+              "win": "COUNTER",
+              "place": "SUPPORT",
+              "route": "OUTSIDE_TOP3",
+              "position_change": 2,
+              "roots": [
+                "[\"RESULT\",\"FK-20260910-V11\",\"V1-H1\"]"
+              ],
+              "formal_comparable": false,
+              "peer_context": [
+                {
+                  "root": "[\"RESULT\",\"FK-20261025-V12\",\"V1-H2\"]",
+                  "finish": 3,
+                  "peer_top3_proposition": "SUPPORT",
+                  "prior_routes": [
+                    "FK-20260910-V11"
+                  ]
+                }
+              ],
+              "win_ability": null
+            },
+            {
+              "race": "FK-20261004-V13",
+              "finish": 2,
+              "win": "COUNTER",
+              "place": "SUPPORT",
+              "route": "UNKNOWN",
+              "position_change": null,
+              "roots": [
+                "[\"RESULT\",\"FK-20261004-V13\",\"V1-H1\"]"
+              ],
+              "formal_comparable": false,
+              "peer_context": [
+                {
+                  "root": "[\"RESULT\",\"FK-20261025-V12\",\"CM-1\"]",
+                  "finish": 1,
+                  "peer_top3_proposition": "SUPPORT",
+                  "prior_routes": [
+                    "FK-20261004-V13"
+                  ]
+                }
+              ],
+              "win_ability": null
+            }
+          ],
+          "peer_roots": [
+            {
+              "root": "[\"RESULT\",\"FK-20261025-V12\",\"V1-H2\"]",
+              "finish": 3,
+              "peer_top3_proposition": "SUPPORT",
+              "prior_routes": [
+                "FK-20260910-V11"
+              ]
+            },
+            {
+              "root": "[\"RESULT\",\"FK-20261025-V12\",\"CM-1\"]",
+              "finish": 1,
+              "peer_top3_proposition": "SUPPORT",
+              "prior_routes": [
+                "FK-20261004-V13"
+              ]
+            }
+          ],
+          "forward_counter": [],
+          "win_history": "COUNTER",
+          "place_history": "SUPPORT",
+          "hypothetical": null,
+          "current_strength": null
+        },
+        {
+          "id": "V1-H2",
+          "comparisons": [
+            {
+              "peer": "V1-H1",
+              "direct": [
+                {
+                  "peer": "V1-H1",
+                  "race": "FK-20260910-V11",
+                  "order": 1,
+                  "gap_tenths": 2,
+                  "roots": [
+                    "[\"RESULT\",\"FK-20260910-V11\",\"V1-H2\"]",
+                    "[\"RESULT\",\"FK-20260910-V11\",\"V1-H1\"]"
+                  ],
+                  "current_comparison": null
+                }
+              ],
+              "indirect": [
+                {
+                  "peer": "V1-H1",
+                  "common": "CM-1",
+                  "races": [
+                    "FK-20261025-V12",
+                    "FK-20261004-V13"
+                  ],
+                  "own_gap": 5,
+                  "peer_gap": 1,
+                  "margin_direction": -1,
+                  "condition_differences": [
+                    "going",
+                    "field"
+                  ],
+                  "missing": [
+                    "venue",
+                    "course_version",
+                    "class_rule",
+                    "historical_weight"
+                  ],
+                  "comparable": false,
+                  "transitive_order": null,
+                  "roots": [
+                    "[\"RESULT\",\"FK-20261025-V12\",\"V1-H2\"]",
+                    "[\"RESULT\",\"FK-20261025-V12\",\"CM-1\"]",
+                    "[\"RESULT\",\"FK-20261004-V13\",\"V1-H1\"]",
+                    "[\"RESULT\",\"FK-20261004-V13\",\"CM-1\"]"
+                  ]
+                }
+              ],
+              "conflict": true,
+              "current_order": null
+            }
+          ],
+          "priorContext": [
+            {
+              "race": "FK-20260910-V11",
+              "finish": 1,
+              "win": "SUPPORT",
+              "place": "SUPPORT",
+              "route": "FORWARD",
+              "position_change": 1,
+              "roots": [
+                "[\"RESULT\",\"FK-20260910-V11\",\"V1-H2\"]"
+              ],
+              "formal_comparable": false,
+              "peer_context": [
+                {
+                  "root": "[\"RESULT\",\"FK-20261004-V13\",\"V1-H1\"]",
+                  "finish": 2,
+                  "peer_top3_proposition": "SUPPORT",
+                  "prior_routes": [
+                    "FK-20260910-V11"
+                  ]
+                }
+              ],
+              "win_ability": null
+            }
+          ],
+          "peer_roots": [
+            {
+              "root": "[\"RESULT\",\"FK-20261004-V13\",\"V1-H1\"]",
+              "finish": 2,
+              "peer_top3_proposition": "SUPPORT",
+              "prior_routes": [
+                "FK-20260910-V11"
+              ]
+            }
+          ],
+          "forward_counter": [],
+          "win_history": "SUPPORT",
+          "place_history": "SUPPORT",
+          "hypothetical": null,
+          "current_strength": null
+        }
+      ],
+      "held": [],
+      "held_incidents": [],
+      "additional_held": [],
+      "lap": [],
+      "ledger": {
+        "COMMON_TYPED_SECTION": 64,
+        "NOT_INVOKED_PARTIAL": 130,
+        "PARTIAL_COMPARISON_BRANCH": 6,
+        "COMMON_EYE_ITEM_BRANCH": 30
+      }
+    },
+    {
+      "case": "V02",
+      "decisions": [
+        {
+          "id": "V2-H1",
+          "comparisons": [
+            {
+              "peer": "V2-H2",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            },
+            {
+              "peer": "V2-H3",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            },
+            {
+              "peer": "V2-H4",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            }
+          ],
+          "priorContext": [
+            {
+              "race": "FK-20261019-V21",
+              "finish": 1,
+              "win": "SUPPORT",
+              "place": "SUPPORT",
+              "route": "LEAD",
+              "position_change": 0,
+              "roots": [
+                "[\"RESULT\",\"FK-20261019-V21\",\"V2-H1\"]"
+              ],
+              "formal_comparable": false,
+              "peer_context": [],
+              "win_ability": null
+            }
+          ],
+          "peer_roots": [],
+          "forward_counter": [],
+          "win_history": "SUPPORT",
+          "place_history": "SUPPORT",
+          "hypothetical": null,
+          "current_strength": null
+        },
+        {
+          "id": "V2-H2",
+          "comparisons": [
+            {
+              "peer": "V2-H1",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            },
+            {
+              "peer": "V2-H3",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            },
+            {
+              "peer": "V2-H4",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            }
+          ],
+          "priorContext": [
+            {
+              "race": "FK-20261019-V22",
+              "finish": 2,
+              "win": "COUNTER",
+              "place": "SUPPORT",
+              "route": "OUTSIDE_TOP3",
+              "position_change": 4,
+              "roots": [
+                "[\"RESULT\",\"FK-20261019-V22\",\"V2-H2\"]"
+              ],
+              "formal_comparable": false,
+              "peer_context": [],
+              "win_ability": null
+            }
+          ],
+          "peer_roots": [],
+          "forward_counter": [],
+          "win_history": "COUNTER",
+          "place_history": "SUPPORT",
+          "hypothetical": null,
+          "current_strength": null
+        },
+        {
+          "id": "V2-H3",
+          "comparisons": [
+            {
+              "peer": "V2-H1",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            },
+            {
+              "peer": "V2-H2",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            },
+            {
+              "peer": "V2-H4",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            }
+          ],
+          "priorContext": [],
+          "peer_roots": [],
+          "forward_counter": [],
+          "win_history": "UNKNOWN",
+          "place_history": "UNKNOWN",
+          "hypothetical": null,
+          "current_strength": null
+        },
+        {
+          "id": "V2-H4",
+          "comparisons": [
+            {
+              "peer": "V2-H1",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            },
+            {
+              "peer": "V2-H2",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            },
+            {
+              "peer": "V2-H3",
+              "direct": [],
+              "indirect": [],
+              "conflict": false,
+              "current_order": null
+            }
+          ],
+          "priorContext": [],
+          "peer_roots": [],
+          "forward_counter": [],
+          "win_history": "UNKNOWN",
+          "place_history": "UNKNOWN",
+          "hypothetical": null,
+          "current_strength": null
+        }
+      ],
+      "held": [],
+      "held_incidents": [],
+      "additional_held": [],
+      "lap": [
+        {
+          "race": "FK-20261019-V21",
+          "sum": 880,
+          "reported": 880,
+          "arithmetic": {
+            "distance_m": 1400,
+            "early600_tenths": 375,
+            "last600_tenths": 377,
+            "late_minus_early_tenths": 2,
+            "measurement_scope": "UNVERIFIED_LAP_KIND_ARITHMETIC_ONLY",
+            "interpolated": false
+          },
+          "usable": false,
+          "reason": "LAP_KIND_AND_BASELINE_UNVERIFIED"
+        },
+        {
+          "race": "FK-20261019-V22",
+          "sum": 874,
+          "reported": 874,
+          "arithmetic": {
+            "distance_m": 1400,
+            "early600_tenths": 352,
+            "last600_tenths": 398,
+            "late_minus_early_tenths": 46,
+            "measurement_scope": "UNVERIFIED_LAP_KIND_ARITHMETIC_ONLY",
+            "interpolated": false
+          },
+          "usable": false,
+          "reason": "LAP_KIND_AND_BASELINE_UNVERIFIED"
+        }
+      ],
+      "ledger": {
+        "COMMON_TYPED_SECTION": 128,
+        "NOT_INVOKED_PARTIAL": 260,
+        "PARTIAL_COMPARISON_BRANCH": 12,
+        "COMMON_EYE_ITEM_BRANCH": 60
+      }
+    },
+    {
+      "case": "V03",
+      "decisions": [
+        {
+          "id": "V3-H1",
+          "comparisons": [],
+          "priorContext": [
+            {
+              "race": "FK-20261020-V31",
+              "finish": 8,
+              "win": "COUNTER",
+              "place": "COUNTER",
+              "route": "FORWARD",
+              "position_change": -5,
+              "roots": [
+                "[\"RESULT\",\"FK-20261020-V31\",\"V3-H1\"]"
+              ],
+              "formal_comparable": false,
+              "peer_context": [],
+              "win_ability": null
+            },
+            {
+              "race": "FK-20260929-V32",
+              "finish": 2,
+              "win": "COUNTER",
+              "place": "SUPPORT",
+              "route": "OUTSIDE_TOP3",
+              "position_change": 2,
+              "roots": [
+                "[\"RESULT\",\"FK-20260929-V32\",\"V3-H1\"]"
+              ],
+              "formal_comparable": false,
+              "peer_context": [
+                {
+                  "root": "[\"RESULT\",\"FK-20261022-V33\",\"V3-X2\"]",
+                  "finish": 1,
+                  "peer_top3_proposition": "SUPPORT",
+                  "prior_routes": [
+                    "FK-20260929-V32"
+                  ]
+                }
+              ],
+              "win_ability": null
+            }
+          ],
+          "peer_roots": [
+            {
+              "root": "[\"RESULT\",\"FK-20261022-V33\",\"V3-X2\"]",
+              "finish": 1,
+              "peer_top3_proposition": "SUPPORT",
+              "prior_routes": [
+                "FK-20260929-V32"
+              ]
+            }
+          ],
+          "forward_counter": [
+            {
+              "race": "FK-20261020-V31",
+              "kind": "OBSERVED_FORWARD_POSITION_LOSS",
+              "roots": [
+                "[\"RESULT\",\"FK-20261020-V31\",\"V3-H1\"]"
+              ],
+              "current_cause": null
+            }
+          ],
+          "win_history": "COUNTER",
+          "place_history": "MIXED",
+          "hypothetical": null,
+          "current_strength": null
+        }
+      ],
+      "held": [],
+      "held_incidents": [
+        "裁決FK-1020-31"
+      ],
+      "additional_held": [],
+      "lap": [],
+      "ledger": {
+        "COMMON_TYPED_SECTION": 32,
+        "NOT_INVOKED_PARTIAL": 65,
+        "PARTIAL_COMPARISON_BRANCH": 3,
+        "COMMON_EYE_ITEM_BRANCH": 15
+      }
+    },
+    {
+      "case": "V04",
+      "decisions": [
+        {
+          "id": "V4-H1",
+          "comparisons": [],
+          "priorContext": [
+            {
+              "race": "FK-20261024-V43",
+              "finish": 5,
+              "win": "COUNTER",
+              "place": "COUNTER",
+              "route": "FORWARD",
+              "position_change": -3,
+              "roots": [
+                "[\"RESULT\",\"FK-20261024-V43\",\"V4-H1\"]"
+              ],
+              "formal_comparable": false,
+              "peer_context": [],
+              "win_ability": null
+            }
+          ],
+          "peer_roots": [],
+          "forward_counter": [
+            {
+              "race": "FK-20261024-V43",
+              "kind": "OBSERVED_FORWARD_POSITION_LOSS",
+              "roots": [
+                "[\"RESULT\",\"FK-20261024-V43\",\"V4-H1\"]"
+              ],
+              "current_cause": null
+            }
+          ],
+          "win_history": "COUNTER",
+          "place_history": "COUNTER",
+          "hypothetical": null,
+          "current_strength": null
+        }
+      ],
+      "held": [
+        "FK-20260912-V41",
+        "FK-20261003-V42"
+      ],
+      "held_incidents": [
+        "裁決FK-1024-43"
+      ],
+      "additional_held": [
+        "body_weight_report",
+        "workout_report"
+      ],
+      "lap": [],
+      "ledger": {
+        "COMMON_TYPED_SECTION": 32,
+        "NOT_INVOKED_PARTIAL": 65,
+        "PARTIAL_COMPARISON_BRANCH": 3,
+        "COMMON_EYE_ITEM_BRANCH": 15
+      }
+    }
+  ],
+  "formal_admissions": 0,
+  "scope": "partial research; 520 ledger rows not invoked; synthetic 118 gate checks only"
+}

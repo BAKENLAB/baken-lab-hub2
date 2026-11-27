@@ -1,0 +1,1284 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "originalArtifactPin": {
+    "ref": "2228f50032f03639e36ead95e92d14d197530a81",
+    "path": "research/reborn2-chatgpt-circuit/work36-pinned/native-receipt-pins.json",
+    "blob": "7d5cbc97701b821326fb1dc71bde297b302601df",
+    "sha256": "f37b981bcabfe00bdde3bccc6635f9c0eecaf12ab0b8996cd0a59ce4e7eb89c9",
+    "source": {
+      "artifact": 15228065171,
+      "run": 46057942064,
+      "job": 140704895503,
+      "zip_sha256": "e83b3e6e2ee9e82f5b8e9de96feb0047b39f2ec39cee10531287adbbd3daa402",
+      "receipt_sha256": "5b80cde1345086cbf9d7ef1907e9f96e8eb2c5948bde823d897a91e19c636466",
+      "master_sha256": "66260fce1e81a4043b85d6fd31621010b916d43fb31c0fd7b73836d0f7093317",
+      "fixtures_sha256": "a050cb35783eb231e33f670e34187fad1670cf7d598f4ff47a2fe27a925f4cfc"
+    }
+  },
+  "regeneratedPin": {
+    "ref": "79c0aa43a65e0071512c2836f04672c395381c76",
+    "blob": "ca1ad8f0a2059f0226cfdb7f78122ddce39cca27",
+    "sha256": "0811e22bac17e6c49ff13b91747cc96e55042e7496e4be3f39ed438c99cf9e13"
+  },
+  "matches": [
+    {
+      "id": "W36_BASE",
+      "match": true
+    },
+    {
+      "id": "W36_POSITIVE",
+      "match": true
+    },
+    {
+      "id": "W36_WITHDRAWN",
+      "match": true
+    },
+    {
+      "id": "W36_RELEVANT_COUNTER",
+      "match": true
+    },
+    {
+      "id": "W36_OTHER_COUNTER",
+      "match": true
+    },
+    {
+      "id": "W36_NEGATIVE_ONLY",
+      "match": true
+    },
+    {
+      "id": "W36_CONTEXT_GOING",
+      "match": true
+    },
+    {
+      "id": "W36_CONTEXT_WEIGHT",
+      "match": true
+    },
+    {
+      "id": "W36_CONTEXT_GATE",
+      "match": true
+    },
+    {
+      "id": "W36_CONTEXT_COURSE",
+      "match": true
+    },
+    {
+      "id": "W36_CONTEXT_DISTANCE",
+      "match": true
+    },
+    {
+      "id": "W36_CONTEXT_JOINT",
+      "match": true
+    },
+    {
+      "id": "W36_LOCAL_MISSING",
+      "match": true
+    },
+    {
+      "id": "W36_SHARED_CONFLICT",
+      "match": true
+    },
+    {
+      "id": "W36_PEER_CLASS",
+      "match": true
+    }
+  ],
+  "positiveRootsMatch": 12,
+  "conditions": {
+    "distance_m": 1400,
+    "surface": "DIRT",
+    "going": "TEST:GOOD",
+    "venue": "TEST:VENUE_A",
+    "class_label": "TEST:FIELD_CLASS",
+    "class_version": "TEST:CLASS_V1",
+    "effective_from": 0,
+    "effective_until": 120
+  },
+  "geometry": {
+    "direction": "RIGHT",
+    "first_turn_m": 200,
+    "straight_m": 300,
+    "checkpoints_m": [
+      200,
+      800,
+      1200
+    ],
+    "course_version": "TEST:COURSE_A",
+    "effective_from": 0,
+    "effective_until": 120
+  },
+  "roster": [
+    {
+      "nativeId": "TEST:H1",
+      "no": 1,
+      "status": "ACTIVE",
+      "gate": 1,
+      "weightG": 55000
+    },
+    {
+      "nativeId": "TEST:H2",
+      "no": 2,
+      "status": "ACTIVE",
+      "gate": 2,
+      "weightG": 55000
+    },
+    {
+      "nativeId": "TEST:H3",
+      "no": 3,
+      "status": "ACTIVE",
+      "gate": 3,
+      "weightG": 55000
+    },
+    {
+      "nativeId": "TEST:H4",
+      "no": 4,
+      "status": "ACTIVE",
+      "gate": 4,
+      "weightG": 55000
+    },
+    {
+      "nativeId": "TEST:H5",
+      "no": 5,
+      "status": "ACTIVE",
+      "gate": 5,
+      "weightG": 55000
+    }
+  ],
+  "history": [
+    {
+      "event": "TEST:CONTEST",
+      "finish": 2,
+      "early": 5,
+      "mid": 4,
+      "leaderGap800": 2900,
+      "fieldSpread800": 3100,
+      "pace": [
+        11500,
+        36000
+      ],
+      "u": 50
+    },
+    {
+      "event": "TEST:LONE",
+      "finish": 2,
+      "early": 5,
+      "mid": 4,
+      "leaderGap800": 2600,
+      "fieldSpread800": 3000,
+      "pace": [
+        11700,
+        36200
+      ],
+      "u": 50
+    },
+    {
+      "event": "TEST:RECOVERY_A",
+      "finish": 3,
+      "early": 5,
+      "mid": 4,
+      "leaderGap800": 2600,
+      "fieldSpread800": 3200,
+      "pace": [
+        11700,
+        36200
+      ],
+      "u": 50
+    },
+    {
+      "event": "TEST:RECOVERY_B",
+      "finish": 3,
+      "early": 5,
+      "mid": 4,
+      "leaderGap800": 2700,
+      "fieldSpread800": 3300,
+      "pace": [
+        11800,
+        36200
+      ],
+      "u": 50
+    },
+    {
+      "event": "TEST:COUNTER",
+      "finish": 3,
+      "early": 5,
+      "mid": 4,
+      "leaderGap800": 2600,
+      "fieldSpread800": 3100,
+      "pace": [
+        11600,
+        36300
+      ],
+      "u": 50
+    }
+  ],
+  "cross": [
+    {
+      "start": "TEST:CONTEST",
+      "response": "TEST:LONE",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1400,
+          "response": 1700,
+          "end": 300,
+          "interval": [
+            0,
+            600
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2900,
+          "response": 1400,
+          "end": -1500,
+          "interval": [
+            -1800,
+            -1200
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 200,
+          "response": 600,
+          "end": 800,
+          "interval": [
+            500,
+            1100
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2800,
+          "response": 5700,
+          "end": 2900,
+          "interval": [
+            2600,
+            3200
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:CONTEST",
+      "response": "TEST:RECOVERY_A",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1400,
+          "response": 1000,
+          "end": -400,
+          "interval": [
+            -700,
+            -100
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2900,
+          "response": 3100,
+          "end": 200,
+          "interval": [
+            -100,
+            500
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 200,
+          "response": -1900,
+          "end": -1700,
+          "interval": [
+            -2000,
+            -1400
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2800,
+          "response": 5000,
+          "end": 2200,
+          "interval": [
+            1900,
+            2500
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:CONTEST",
+      "response": "TEST:RECOVERY_B",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1400,
+          "response": 1000,
+          "end": -400,
+          "interval": [
+            -700,
+            -100
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2900,
+          "response": 3200,
+          "end": 300,
+          "interval": [
+            0,
+            600
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 200,
+          "response": -1900,
+          "end": -1700,
+          "interval": [
+            -2000,
+            -1400
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2800,
+          "response": 5100,
+          "end": 2300,
+          "interval": [
+            2000,
+            2600
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:CONTEST",
+      "response": "TEST:COUNTER",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1400,
+          "response": 900,
+          "end": -500,
+          "interval": [
+            -800,
+            -200
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2900,
+          "response": 800,
+          "end": -2100,
+          "interval": [
+            -2400,
+            -1800
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 200,
+          "response": 600,
+          "end": 800,
+          "interval": [
+            500,
+            1100
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2800,
+          "response": 5500,
+          "end": 2700,
+          "interval": [
+            2400,
+            3000
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:LONE",
+      "response": "TEST:CONTEST",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1200,
+          "response": 700,
+          "end": -500,
+          "interval": [
+            -800,
+            -200
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2300,
+          "response": 4100,
+          "end": 1800,
+          "interval": [
+            1500,
+            2100
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 400,
+          "response": 300,
+          "end": 700,
+          "interval": [
+            400,
+            1000
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2600,
+          "response": 5100,
+          "end": 2500,
+          "interval": [
+            2200,
+            2800
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:LONE",
+      "response": "TEST:RECOVERY_A",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1200,
+          "response": 1000,
+          "end": -200,
+          "interval": [
+            -500,
+            100
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2300,
+          "response": 3100,
+          "end": 800,
+          "interval": [
+            500,
+            1100
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 400,
+          "response": -1900,
+          "end": -1500,
+          "interval": [
+            -1800,
+            -1200
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2600,
+          "response": 5000,
+          "end": 2400,
+          "interval": [
+            2100,
+            2700
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:LONE",
+      "response": "TEST:RECOVERY_B",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1200,
+          "response": 1000,
+          "end": -200,
+          "interval": [
+            -500,
+            100
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2300,
+          "response": 3200,
+          "end": 900,
+          "interval": [
+            600,
+            1200
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 400,
+          "response": -1900,
+          "end": -1500,
+          "interval": [
+            -1800,
+            -1200
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2600,
+          "response": 5100,
+          "end": 2500,
+          "interval": [
+            2200,
+            2800
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:LONE",
+      "response": "TEST:COUNTER",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1200,
+          "response": 900,
+          "end": -300,
+          "interval": [
+            -600,
+            0
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2300,
+          "response": 800,
+          "end": -1500,
+          "interval": [
+            -1800,
+            -1200
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 400,
+          "response": 600,
+          "end": 1000,
+          "interval": [
+            700,
+            1300
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2600,
+          "response": 5500,
+          "end": 2900,
+          "interval": [
+            2600,
+            3200
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:RECOVERY_A",
+      "response": "TEST:CONTEST",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1600,
+          "response": 700,
+          "end": -900,
+          "interval": [
+            -1200,
+            -600
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2600,
+          "response": 4100,
+          "end": 1500,
+          "interval": [
+            1200,
+            1800
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 600,
+          "response": 300,
+          "end": 900,
+          "interval": [
+            600,
+            1200
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2500,
+          "response": 5100,
+          "end": 2600,
+          "interval": [
+            2300,
+            2900
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:RECOVERY_A",
+      "response": "TEST:LONE",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1600,
+          "response": 1700,
+          "end": 100,
+          "interval": [
+            -200,
+            400
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2600,
+          "response": 1400,
+          "end": -1200,
+          "interval": [
+            -1500,
+            -900
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 600,
+          "response": 600,
+          "end": 1200,
+          "interval": [
+            900,
+            1500
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2500,
+          "response": 5700,
+          "end": 3200,
+          "interval": [
+            2900,
+            3500
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:RECOVERY_A",
+      "response": "TEST:RECOVERY_B",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1600,
+          "response": 1000,
+          "end": -600,
+          "interval": [
+            -900,
+            -300
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2600,
+          "response": 3200,
+          "end": 600,
+          "interval": [
+            300,
+            900
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 600,
+          "response": -1900,
+          "end": -1300,
+          "interval": [
+            -1600,
+            -1000
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2500,
+          "response": 5100,
+          "end": 2600,
+          "interval": [
+            2300,
+            2900
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:RECOVERY_A",
+      "response": "TEST:COUNTER",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1600,
+          "response": 900,
+          "end": -700,
+          "interval": [
+            -1000,
+            -400
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2600,
+          "response": 800,
+          "end": -1800,
+          "interval": [
+            -2100,
+            -1500
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 600,
+          "response": 600,
+          "end": 1200,
+          "interval": [
+            900,
+            1500
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2500,
+          "response": 5500,
+          "end": 3000,
+          "interval": [
+            2700,
+            3300
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:RECOVERY_B",
+      "response": "TEST:CONTEST",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1600,
+          "response": 700,
+          "end": -900,
+          "interval": [
+            -1200,
+            -600
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2700,
+          "response": 4100,
+          "end": 1400,
+          "interval": [
+            1100,
+            1700
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 600,
+          "response": 300,
+          "end": 900,
+          "interval": [
+            600,
+            1200
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2600,
+          "response": 5100,
+          "end": 2500,
+          "interval": [
+            2200,
+            2800
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:RECOVERY_B",
+      "response": "TEST:LONE",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1600,
+          "response": 1700,
+          "end": 100,
+          "interval": [
+            -200,
+            400
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2700,
+          "response": 1400,
+          "end": -1300,
+          "interval": [
+            -1600,
+            -1000
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 600,
+          "response": 600,
+          "end": 1200,
+          "interval": [
+            900,
+            1500
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2600,
+          "response": 5700,
+          "end": 3100,
+          "interval": [
+            2800,
+            3400
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:RECOVERY_B",
+      "response": "TEST:RECOVERY_A",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1600,
+          "response": 1000,
+          "end": -600,
+          "interval": [
+            -900,
+            -300
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2700,
+          "response": 3100,
+          "end": 400,
+          "interval": [
+            100,
+            700
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 600,
+          "response": -1900,
+          "end": -1300,
+          "interval": [
+            -1600,
+            -1000
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2600,
+          "response": 5000,
+          "end": 2400,
+          "interval": [
+            2100,
+            2700
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:RECOVERY_B",
+      "response": "TEST:COUNTER",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1600,
+          "response": 900,
+          "end": -700,
+          "interval": [
+            -1000,
+            -400
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2700,
+          "response": 800,
+          "end": -1900,
+          "interval": [
+            -2200,
+            -1600
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 600,
+          "response": 600,
+          "end": 1200,
+          "interval": [
+            900,
+            1500
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2600,
+          "response": 5500,
+          "end": 2900,
+          "interval": [
+            2600,
+            3200
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:COUNTER",
+      "response": "TEST:CONTEST",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1500,
+          "response": 700,
+          "end": -800,
+          "interval": [
+            -1100,
+            -500
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2600,
+          "response": 4100,
+          "end": 1500,
+          "interval": [
+            1200,
+            1800
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 500,
+          "response": 300,
+          "end": 800,
+          "interval": [
+            500,
+            1100
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2500,
+          "response": 5100,
+          "end": 2600,
+          "interval": [
+            2300,
+            2900
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:COUNTER",
+      "response": "TEST:LONE",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1500,
+          "response": 1700,
+          "end": 200,
+          "interval": [
+            -100,
+            500
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2600,
+          "response": 1400,
+          "end": -1200,
+          "interval": [
+            -1500,
+            -900
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 500,
+          "response": 600,
+          "end": 1100,
+          "interval": [
+            800,
+            1400
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2500,
+          "response": 5700,
+          "end": 3200,
+          "interval": [
+            2900,
+            3500
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:COUNTER",
+      "response": "TEST:RECOVERY_A",
+      "paceCompatible": true,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1500,
+          "response": 1000,
+          "end": -500,
+          "interval": [
+            -800,
+            -200
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2600,
+          "response": 3100,
+          "end": 500,
+          "interval": [
+            200,
+            800
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 500,
+          "response": -1900,
+          "end": -1400,
+          "interval": [
+            -1700,
+            -1100
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2500,
+          "response": 5000,
+          "end": 2500,
+          "interval": [
+            2200,
+            2800
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:COUNTER",
+      "response": "TEST:RECOVERY_B",
+      "paceCompatible": false,
+      "allRivalsClearlyAhead": false,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "start": -1500,
+          "response": 1000,
+          "end": -500,
+          "interval": [
+            -800,
+            -200
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "start": -2600,
+          "response": 3200,
+          "end": 600,
+          "interval": [
+            300,
+            900
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "start": 500,
+          "response": -1900,
+          "end": -1400,
+          "interval": [
+            -1700,
+            -1100
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "start": -2500,
+          "response": 5100,
+          "end": 2600,
+          "interval": [
+            2300,
+            2900
+          ]
+        }
+      ]
+    }
+  ],
+  "stress": [
+    {
+      "event": "TEST:CONTEST",
+      "observedGap": 2900,
+      "assumedGap": 725,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "observedStart": -1400,
+          "assumedStart": -350,
+          "gain": 700,
+          "end": 350,
+          "interval": [
+            50,
+            650
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "observedStart": -2900,
+          "assumedStart": -725,
+          "gain": 4100,
+          "end": 3375,
+          "interval": [
+            3075,
+            3675
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "observedStart": 200,
+          "assumedStart": 50,
+          "gain": 300,
+          "end": 350,
+          "interval": [
+            50,
+            650
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "observedStart": -2800,
+          "assumedStart": -700,
+          "gain": 5100,
+          "end": 4400,
+          "interval": [
+            4100,
+            4700
+          ]
+        }
+      ]
+    },
+    {
+      "event": "TEST:LONE",
+      "observedGap": 2600,
+      "assumedGap": 650,
+      "edges": [
+        {
+          "rival": "TEST:H1",
+          "observedStart": -1200,
+          "assumedStart": -300,
+          "gain": 1700,
+          "end": 1400,
+          "interval": [
+            1100,
+            1700
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "observedStart": -2300,
+          "assumedStart": -575,
+          "gain": 1400,
+          "end": 825,
+          "interval": [
+            525,
+            1125
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "observedStart": 400,
+          "assumedStart": 100,
+          "gain": 600,
+          "end": 700,
+          "interval": [
+            400,
+            1000
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "observedStart": -2600,
+          "assumedStart": -650,
+          "gain": 5700,
+          "end": 5050,
+          "interval": [
+            4750,
+            5350
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Independent literal-clock arithmetic, not a common analyzer or current pace prediction.",
+    "All starts and responses synthetic. The compressed gap is unobserved in fixed history; response invariance not proved. Pace band uses V40 thresholds only to compare, not infer current applicability.",
+    "Original archive extraction was done by Codex, not Work37; 15 per-case source/bundle/evidence and 12 positive root IDs verified against its fixed extraction. Full artifact bytes not recovered here."
+  ]
+}

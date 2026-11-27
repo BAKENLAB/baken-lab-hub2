@@ -1,0 +1,2 @@
+# Static review hardening
+Race-rating publication must follow the performance start; class transition rule validity must cover both races; upper-class claims require class attestations. Duplicate witnessed gates are suppressed; exposure publication must follow the prior start. The additive wrapper requires explicit targetRaceId from the old input and derives Japan-local target date. Reran both exact patched source fixture suites in JS runtime (14+14 assertions). No end-to-end Node integration or formal source replay yet.

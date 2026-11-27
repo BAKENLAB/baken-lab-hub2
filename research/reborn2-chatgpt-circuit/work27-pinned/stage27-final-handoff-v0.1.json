@@ -1,0 +1,168 @@
+{
+  "schema": "WORK27_FINAL_RESEARCH_HANDOFF_0.1",
+  "scope": "EXPLICITLY_SYNTHETIC_NEVER_OFFICIAL",
+  "acceptance": {
+    "ref": "aa66c72e453dc5466a61ba9a1643463e6bc20dea",
+    "path": "research/reborn2-canonical/RESEARCH-WORK26-291-VARIED-FIELD-MAIN39-AUDIT-20261128.md",
+    "blob": "5d97f8cac2c305a184c7c7da6834333653037a38"
+  },
+  "parent": {
+    "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+    "path": "research/reborn2-official-sources/stage26-final-handoff-v0.1.json",
+    "blob": "ca46b670d6a8f8fdd0880019c189fe89c83c094a"
+  },
+  "upstream": {
+    "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+    "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+    "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+    "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+  },
+  "branch": "research/reborn2-work27-contrasts-20261128",
+  "pins": {
+    "stage27-controlled-contrast-producer-v0.1.mjs": {
+      "ref": "1c724212fb0e22d54ddf4c046a250ca937ce057f",
+      "path": "research/reborn2-official-sources/stage27-controlled-contrast-producer-v0.1.mjs",
+      "blob": "60201cf8f5ca36fe0af5d80ead3380c3018bb7ea",
+      "sha256": "ccaf2f3533a375d8ddf168901c01d78deb819f00fa0d79afd3e16bb8da8ffd27"
+    },
+    "stage27-controlled-raw-v0.1.json": {
+      "ref": "1c724212fb0e22d54ddf4c046a250ca937ce057f",
+      "path": "research/reborn2-official-sources/stage27-controlled-raw-v0.1.json",
+      "blob": "747a5bccc55a64297110bc3e71cfd0eb3c67386e",
+      "sha256": "e624cca7dfaaa8ddc9ebfaf66b85530088c4fd89b008b42ca3db1b1d7cd50234"
+    },
+    "stage27-execution-receipt-v0.1.json": {
+      "ref": "1c724212fb0e22d54ddf4c046a250ca937ce057f",
+      "path": "research/reborn2-official-sources/stage27-execution-receipt-v0.1.json",
+      "blob": "59547cd540e479945f5ba7ff22f42f1cbbacb6ea",
+      "sha256": "79d9e7375ee63d85d37e62f987cab13ffb029283cd98828a008f5e98c9c7740f"
+    },
+    "stage27-pace-contrast-v0.1.json": {
+      "ref": "1c724212fb0e22d54ddf4c046a250ca937ce057f",
+      "path": "research/reborn2-official-sources/stage27-pace-contrast-v0.1.json",
+      "blob": "0818c995e8b2bad2dd338b4e7307f1b516f9ff9a",
+      "sha256": "52cdddce1bb63de162c35303c34767f599bf4acf1a4b6e775cff3fcc8b706abd"
+    },
+    "stage27-output-index-v0.1.json": {
+      "ref": "1c724212fb0e22d54ddf4c046a250ca937ce057f",
+      "path": "research/reborn2-official-sources/stage27-output-index-v0.1.json",
+      "blob": "9442be8402b54d8b19ffa4f07d369277c1954da1",
+      "sha256": "d6249da4e0e6860339176f5afb6ff17e3e4fd77c67198828b3cdb84fc4881962"
+    },
+    "stage27-readback-v0.1.json": {
+      "ref": "1c724212fb0e22d54ddf4c046a250ca937ce057f",
+      "path": "research/reborn2-official-sources/stage27-readback-v0.1.json",
+      "blob": "dad05e90da97ac1f4dd4d3b3291ca98e09970dd4",
+      "sha256": "80140fe04a7ba6067cc9d51bc09d891569f655e3e3b1421999c7d84546b48725"
+    }
+  },
+  "execution": {
+    "prior291_preserved_not_rerun": true,
+    "new_named_checks": 29,
+    "passed": 29,
+    "combined_recorded_if_accepted": 320,
+    "structural_checks_before_save": 65,
+    "readback_batches": 4,
+    "case_count": 13,
+    "local_active": 12,
+    "local_pair_count": 66,
+    "codex_analyzer_executed": false,
+    "ci_executed": false
+  },
+  "consumer": [
+    "Read exact pins and batch blobs/sha256 from readback file. Parse raw case exactly, run validate27 and project27 with pinned Work26 exports. Compare full_projection_sha256 to SHA256(JSON.stringify(project27(...))) and compact file. Case SHA256 uses JSON.stringify original key order.",
+    "Base raw 12 cases plus pace contrast raw_case. Compact followups intentionally remove duplicated observations: resolve reference_row_locator and later_row_locator against events and rows, recover condition/count/finish/clock/margin/final600/rank/weight from same case. Preserve explicit temporal constraints and roots, never union variants.",
+    "Distances and layout change independently in fictional configuration; gate/number independent fictional mapping not real issuer rules. CLOCK_ONLY_MISSING removes only A checkpoint times; GATE_ONLY_MISSING removes only A current gate; no inference from leader laps. Surface-only not proof of suitability.",
+    "Proximity control 10m vs 2m at each of two observations, no direct physiological pressure. Faster pace case rescales entire historical clock world by 0.96, not independent scalar or actual causal tolerance test. LOCAL900 clock matrix explicitly simulated, ranks derived from clocks, not clocks from ranks.",
+    "PEER_NO_ASOF removes H3, absent observation is not a loss; PEER_LOSS coherent alternate field. Strict time order and winner clock ref/root included. No market, fixed grade, ranking, final winner claim or official adoption."
+  ],
+  "official_connection_blockers": {
+    "scope": "EXISTING_RESEARCH_ONLY_NOT_NEW_OFFICIAL_AUTHORITY",
+    "sources": [
+      {
+        "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+        "path": "research/reborn2-official-sources/stage16-derived-row-receipt-v1.3.json",
+        "blob": "476fe4470f4933210627dfd508c1660ff0792f70"
+      },
+      {
+        "ref": "dc07c6d3e62790627b58feaee44e2f831dede49b",
+        "path": "research/reborn2-official-sources/stage22-custody-to-115-contract-v0.1.json",
+        "blob": "7fff865e11517d6e6da74506cb3ad8175e584f88"
+      },
+      {
+        "ref": "a736bbef1331691ad54011034f2bd1da646f750d",
+        "path": "research/reborn2-canonical/RESEARCH-V23-272-WORK23-165-MAIN39-AUDIT-20261128.md"
+      }
+    ],
+    "historical_receipt_not_current_recount": {
+      "unmatched_nar": 163,
+      "cached_raw_pending": 8,
+      "old_body_pending": 19,
+      "old_raw_pending": 21,
+      "eligible_full_field_replays": 0,
+      "permission": "NOT_CLEARED"
+    },
+    "candidates": {
+      "JRA_TOKYO12_20261123": {
+        "reported_prestart_capture": true,
+        "field": 18,
+        "card_prior_rows": 69,
+        "archive_identity_finish_clock_matches": 43,
+        "class_label_matches": 30,
+        "archive_context_rows": 147,
+        "complete_numeric_field_rows": 126,
+        "official_publication_and_permission_not_proven": true
+      },
+      "LOCAL_SAGA8_20261122": {
+        "field": 12,
+        "prior_rows": 29,
+        "linked_lap_rows": 1,
+        "stored_snapshot_not_official_publication": true
+      },
+      "LOCAL_URAWA11_20261125": {
+        "field": 9,
+        "profile_rows": 193,
+        "numeric_finishes": 190,
+        "capture_after_target": true,
+        "not_prestart_replay": true
+      }
+    },
+    "gates": {
+      "groups": 118,
+      "JRA": 88,
+      "LOCAL": 30,
+      "held": 826,
+      "keys": [
+        "course_version_verified",
+        "eligibility_verified",
+        "historical_publication_verified",
+        "capture_time_verified",
+        "permission_cleared",
+        "benchmark_admitted",
+        "scoring_authorized"
+      ],
+      "formal_admissions": 0
+    },
+    "remaining": [
+      "Trusted publication and conservative capture/seal with independent timestamp and source authority; latest rights, retention, correction and inventory receipt.",
+      "Native issuer horse/people identity and cross-issuer mapping validity; historical condition version, class rules and eligibility, native gate/number, exact course layout.",
+      "Actual complete historical runner/peer field and result observations, authentic individual interval clocks/synchronized measurements only where supplied; grouped passing order, dead heat/DNF and nonperformance semantics distinct from strict synthetic permutations.",
+      "Official class and pace reference, matched load evidence, individual measurement scope, no inferred missing clock or official eligibility.",
+      "End-to-end custody and semantic analyzer proof, independent as-of official replay, source purpose/permission and benchmark formal approval; no work27 fixture substitutes for any."
+    ],
+    "notes": "Numbers from pinned historical receipt, not fresh archive reads; no new official intake, no rights assumption, no production or formal adoption."
+  },
+  "gates": {
+    "canonical_items": 115,
+    "groups": 118,
+    "held": 826,
+    "formal_admissions": 0,
+    "production_changes": 0,
+    "merges": 0
+  },
+  "limitations": [
+    "13 variants not independent races. Original Work26 raw never modified. No actual source authority, no CI/Codex runtime, no physical load/tolerance proof.",
+    "65 checks performed before save; four batch exact readback checks separately; no independent full producer replay after readback. 29 named checks only counted toward cumulative.",
+    "Historical receipt blockers not newly measured; no claim permission or identity is cleared."
+  ]
+}

@@ -1,0 +1,315 @@
+{
+  "status": "REAL_SOURCE_RESEARCH_CANDIDATES_NOT_FORMAL_INPUT",
+  "work_commit": "eba9a8067cea04403431637ccddf00eb8b7c4432",
+  "source_blob_ids": {
+    "audit": "1ed24f44c5878478473821090edcd2a3e8db1591",
+    "extension": "3f8b667ef28c0f29bb770e45f11f36b3e4e848be"
+  },
+  "archive": {
+    "scope": "all JRA full_runner records joined to full_field jra_public_reference races",
+    "rows": 415165,
+    "jockey": {
+      "populated": 402747,
+      "unique_names": 388,
+      "distinct_refs": 1,
+      "collision_refs": 1,
+      "collision_rows": 402747,
+      "max_names_per_ref": 195,
+      "observed_literal": "#"
+    },
+    "trainer": {
+      "populated": 412245,
+      "unique_names": 416,
+      "distinct_refs": 1,
+      "collision_refs": 1,
+      "collision_rows": 412245,
+      "max_names_per_ref": 257,
+      "observed_literal": "#"
+    },
+    "horse": {
+      "populated": 412873,
+      "unique_names": 47979,
+      "distinct_refs": 47989,
+      "collision_refs": 0,
+      "collision_rows": 0,
+      "max_names_per_ref": 1
+    },
+    "person_gate": "invalid # rejected; not an independent archive requery"
+  },
+  "history": {
+    "ledger": "URAWA11_FULLFIELD_OFFICIAL_HISTORY_AUDIT_20261126.xlsx / History 193",
+    "source_rows": 193,
+    "numeric_rows": 190,
+    "jra": {
+      "expected": 61,
+      "exact_archive_row": 58,
+      "exact_with_ref": 58,
+      "profile_component_matches": 58,
+      "no_archive_match": 3,
+      "ambiguous": 0,
+      "conflicts": 0,
+      "distinct_prior_races": 54,
+      "exceptions": [
+        [
+          "2026-09-26",
+          "阪神",
+          11,
+          6
+        ],
+        [
+          "2026-10-11",
+          "京都",
+          11,
+          8
+        ],
+        [
+          "2026-10-25",
+          "京都",
+          10,
+          6
+        ]
+      ]
+    },
+    "local": {
+      "expected": 129,
+      "exact_archive_row": 59,
+      "no_archive_match": 70,
+      "ambiguous": 0,
+      "conflicts": 0,
+      "exact_with_ref": 0,
+      "distinct_prior_races": 55
+    },
+    "match_contract": "exact circuit/date/track/race no/horse name/finish/elapsed tenths, single candidate row only. JRA known profile component substring check additional. LOCAL no horse native ID in archive, no name-only identity admission.",
+    "queue_policy": "archive matches do not increment individual official-page counts; original source version and publication proof pending"
+  },
+  "peer_candidates": {
+    "jra_subject_peer_edges": 761,
+    "jra_peer_edges_with_archive_ref": 761,
+    "jra_peer_edges_with_later_candidate": 644,
+    "jra_distinct_peer_ref_candidates": 616,
+    "local_subject_peer_edges_without_id": 610,
+    "meaning": "subject-race-peer edges including possible shared races, not independent horses or fully verified opponents. Later candidate existence joined by same literal archived horse_ref with prior race date < later date < 2026-11-25. No source version or publication proof, no independent native link verification. Nonmatches are unknown.",
+    "formal_admissions": 0
+  },
+  "official_observation_rows": {
+    "jra_full": 1,
+    "jra_indexed": 4,
+    "local_rating_table": 2
+  },
+  "replay": {
+    "exact_target_cutoff": null,
+    "fixture_refusal_only": true,
+    "records": 7,
+    "structural_acceptance": 0,
+    "formal_admissions": 0,
+    "diagnostics": [
+      {
+        "evidence_id": "JRA:2025-05-03:京都:11:6",
+        "stage": "REJECTED",
+        "errors": [
+          "EVENT_IDENTITY_OR_TIME",
+          "CUTOFF_MISMATCH",
+          "FINISH_INVALID",
+          "HORSE_REQUIRED"
+        ],
+        "missing": [
+          "OBSERVATION_TIME_UNKNOWN",
+          "PUBLICATION_UNKNOWN",
+          "PERMISSION_UNCLEARED",
+          "SOURCE_VERSION_OR_HASH_UNKNOWN",
+          "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+          "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+        ]
+      },
+      {
+        "evidence_id": "JRA:2026-08-29:新潟:8:6",
+        "stage": "REJECTED",
+        "errors": [
+          "EVENT_IDENTITY_OR_TIME",
+          "CUTOFF_MISMATCH",
+          "FINISH_INVALID",
+          "HORSE_REQUIRED"
+        ],
+        "missing": [
+          "OBSERVATION_TIME_UNKNOWN",
+          "PUBLICATION_UNKNOWN",
+          "PERMISSION_UNCLEARED",
+          "SOURCE_VERSION_OR_HASH_UNKNOWN",
+          "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+          "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+        ]
+      },
+      {
+        "evidence_id": "JRA:2025-11-16:京都:10:6",
+        "stage": "REJECTED",
+        "errors": [
+          "EVENT_IDENTITY_OR_TIME",
+          "CUTOFF_MISMATCH",
+          "FINISH_INVALID",
+          "HORSE_REQUIRED"
+        ],
+        "missing": [
+          "OBSERVATION_TIME_UNKNOWN",
+          "PUBLICATION_UNKNOWN",
+          "PERMISSION_UNCLEARED",
+          "SOURCE_VERSION_OR_HASH_UNKNOWN",
+          "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+          "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+        ]
+      },
+      {
+        "evidence_id": "JRA:2025-10-11:京都:11:6",
+        "stage": "REJECTED",
+        "errors": [
+          "EVENT_IDENTITY_OR_TIME",
+          "CUTOFF_MISMATCH",
+          "FINISH_INVALID",
+          "HORSE_REQUIRED"
+        ],
+        "missing": [
+          "OBSERVATION_TIME_UNKNOWN",
+          "PUBLICATION_UNKNOWN",
+          "PERMISSION_UNCLEARED",
+          "SOURCE_VERSION_OR_HASH_UNKNOWN",
+          "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+          "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+        ]
+      },
+      {
+        "evidence_id": "JRA:2026-09-26:阪神:11:6",
+        "stage": "REJECTED",
+        "errors": [
+          "EVENT_IDENTITY_OR_TIME",
+          "CUTOFF_MISMATCH",
+          "FINISH_INVALID",
+          "HORSE_REQUIRED"
+        ],
+        "missing": [
+          "OBSERVATION_TIME_UNKNOWN",
+          "PUBLICATION_UNKNOWN",
+          "PERMISSION_UNCLEARED",
+          "SOURCE_VERSION_OR_HASH_UNKNOWN",
+          "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+          "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+        ]
+      },
+      {
+        "evidence_id": "LOCAL:2025-12-29:大井:9:1",
+        "stage": "REJECTED",
+        "errors": [
+          "EVENT_IDENTITY_OR_TIME",
+          "CUTOFF_MISMATCH",
+          "FINISH_INVALID",
+          "MARGIN_SEMANTICS",
+          "HORSE_REQUIRED"
+        ],
+        "missing": [
+          "OBSERVATION_TIME_UNKNOWN",
+          "PUBLICATION_UNKNOWN",
+          "PERMISSION_UNCLEARED",
+          "SOURCE_VERSION_OR_HASH_UNKNOWN",
+          "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+          "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+        ]
+      },
+      {
+        "evidence_id": "LOCAL:2025-10-08:大井:11:1",
+        "stage": "REJECTED",
+        "errors": [
+          "EVENT_IDENTITY_OR_TIME",
+          "CUTOFF_MISMATCH",
+          "FINISH_INVALID",
+          "HORSE_REQUIRED"
+        ],
+        "missing": [
+          "OBSERVATION_TIME_UNKNOWN",
+          "PUBLICATION_UNKNOWN",
+          "PERMISSION_UNCLEARED",
+          "SOURCE_VERSION_OR_HASH_UNKNOWN",
+          "IDENTITY_NOT_INDEPENDENTLY_ATTESTED",
+          "AUTHENTICITY_NOT_INDEPENDENTLY_ATTESTED"
+        ]
+      }
+    ]
+  },
+  "position_candidate": {
+    "evidence_id": "JRA:2025-05-03:京都:11:6",
+    "corner_positions": [
+      12,
+      13,
+      3,
+      2
+    ],
+    "observed_rank_transitions": [
+      {
+        "from_segment": 1,
+        "to_segment": 2,
+        "rank_delta": 1
+      },
+      {
+        "from_segment": 2,
+        "to_segment": 3,
+        "rank_delta": -10
+      },
+      {
+        "from_segment": 3,
+        "to_segment": 4,
+        "rank_delta": -1
+      }
+    ],
+    "finish": 3,
+    "clock_tenths": 1170,
+    "final3f_tenths": 367,
+    "individual_acceleration": null,
+    "remaining_energy": null,
+    "loss_cause": null,
+    "admission": "RETROSPECTIVE_CANDIDATE"
+  },
+  "course_conflict": {
+    "status": "CONFLICT_STILL_BLOCKED",
+    "current_source": {
+      "url": "https://www.jra.go.jp/facilities/race/kyoto/course/",
+      "outer_a_lap_m": 1894.3
+    },
+    "autumn_2025": {
+      "url": "https://www.jra.go.jp/keiba/baba/overview/2025_3-4_kyoto.html",
+      "outer_a_lap_m": 1849.3
+    },
+    "corroborating_indexed_sources": [
+      "https://www.jra.go.jp/keiba/baba/overview/2025_1_kyoto.html",
+      "https://www.jra.go.jp/keiba/baba/overview/2026_1-2_kyoto.html",
+      "https://www.jra.go.jp/keiba/baba/overview/2024_5-7_kyoto.html"
+    ],
+    "finding": "multiple other documents explicitly report 1894.3; no official correction or effective version proof, do not silently change historical observation"
+  },
+  "new_first_turn": {
+    "venue": "中山",
+    "surface": "芝",
+    "distance_m": 1600,
+    "layout": "A-outer",
+    "first_turn_label": "2",
+    "first_turn_m": 240,
+    "precision": "approximate",
+    "source_url": "https://www.jra.go.jp/keiba/thisweek/2026/0111_1/race.html",
+    "effective_from": null,
+    "stage": "INDEXED_SOURCE_EXPLICIT_OBSERVATION"
+  },
+  "benchmark": {
+    "reference_commit": "42a38b6ee42b11946209f071b11165102d4e9a97",
+    "sql_blob": "a5a43a05643462434172b8f0baac78fb80f53bba",
+    "replay_blob": "a2e935e8cfa934fef32bf428ab5de0852350568b",
+    "original_saved_summary": {
+      "cohorts": 1094,
+      "races": 7311,
+      "rows": 101196,
+      "holdout_eligible_races": 544,
+      "holdout_matched_races": 504,
+      "holdout_rows": 6549
+    },
+    "admitted": false,
+    "rerun_performed": false,
+    "responsibility": "Work research; preserve original SQL criteria; this branch only pins original files"
+  },
+  "full_field_real_replay_completed": false,
+  "production_changes": false
+}

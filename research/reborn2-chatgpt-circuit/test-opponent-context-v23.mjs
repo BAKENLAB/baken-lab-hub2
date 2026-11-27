@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {capacityContrastV22} from './capability-depth-v22.mjs';
+import {mixedFixtureV22} from './race-expression-v22.mjs';
+import {validateV21} from './race-expression-v21.mjs';
+import {analyzeOpponentV23} from './opponent-context-v23.mjs';
+const test=(id,f)=>{f();console.log(id+' PASS (V23 opponent context)');};
+const v=capacityContrastV22(),p=structuredClone(v.p),m=structuredClone(v.m),source=p.history.find(r=>r.id===v.race),clone=structuredClone(source);
+clone.id='FK-V23-COMMON-PEER';clone.date='2026-10-01';p.history.push(clone);m.geometry[clone.id]=structuredClone(m.geometry[source.id]);m.clocks[clone.id]=structuredClone(m.clocks[source.id]);m.families[clone.id]=clone.id;
+const get=z=>z.decisions.find(h=>h.id==='FIXTURE-B').views.C.common_peer_context.find(x=>x.other==='FIXTURE-D'&&x.peer==='FIXTURE-C'&&x.races[0]===source.id&&x.races[1]===clone.id);
+const on=analyzeOpponentV23(p,m);
+test('F23-08',()=>{const w=get(on);assert.ok(w);assert.equal(w.state,'PEER_MEASURED_PROFILE_MATCH_ONLY');assert.equal(w.peer_form_stable,null);assert.equal(w.inferred_current_order,null);assert.equal(w.combined_margin,null);const q=structuredClone(m);q.clocks[clone.id]['FIXTURE-C'][2]++;assert.ok(validateV21(p,q));const x=get(analyzeOpponentV23(p,q));assert.deepEqual(x.peer_clocks,w.peer_clocks);assert.deepEqual(x.peer_finishes,w.peer_finishes);assert.deepEqual(x.relative_gaps,w.relative_gaps);assert.deepEqual(x.leader_envelopes,w.leader_envelopes);assert.notDeepEqual(x.peer_phases,w.peer_phases);assert.equal(x.state,'PEER_MEASURED_PERFORMANCE_DIFFERS');assert.equal(x.inferred_current_order,null);});
+test('F23-09',()=>{const v=mixedFixtureV22(),z=analyzeOpponentV23(v.packet,v.meta),reviews=z.decisions.flatMap(h=>h.views.D.eye04_review);assert.ok(reviews.length);assert.ok(reviews.every(x=>x.observed_gap_tenths>0&&x.strong_peer===null&&x.narrow_gap===null&&x.current_benefit===null));assert.deepEqual(z.opponent_root_check.unbound,[]);assert.ok(z.decisions.every(h=>h.views.E.eye14.state==='HELD'&&h.views.E.eye15.state==='HELD'&&h.rank===null));assert.equal(z.evaluation_policy,'SABC_ONLY_NO_ASSIGNMENT');});
+console.log('F23_OPPONENT '+JSON.stringify({context:get(on),eye04_candidates:on.decisions.flatMap(h=>h.views.D.eye04_review).length,formal:false}));

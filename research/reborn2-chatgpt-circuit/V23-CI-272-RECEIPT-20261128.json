@@ -1,0 +1,218 @@
+{
+  "schema": "V23_RESEARCH_RECEIPT_2",
+  "tested_commit": "c8ede5472e1acffdc2c9d45cce4672c0e2efe94d",
+  "ci": {
+    "run": 46028225845,
+    "job": 140605032725,
+    "conclusion": "success",
+    "log_characters": 19684947,
+    "pass_lines": [
+      "2026-11-27T15:49:31.8108851Z F23-01 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:49:31.8119836Z F23-02 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:49:31.8125280Z F23-03 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:49:31.8135967Z F23-04 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:49:31.8144082Z F23-05 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:49:31.8243411Z F23-06 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:49:31.8315079Z F23-07 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:49:32.8880185Z F23-08 PASS (V23 opponent context)",
+      "2026-11-27T15:49:33.0671951Z F23-09 PASS (V23 opponent context)"
+    ]
+  },
+  "configured_tests": {
+    "inherited": 263,
+    "new": 9,
+    "total": 272
+  },
+  "work": {
+    "producer_tests": 25,
+    "stdout_sha256": "897793c36924692b90331c34951db7fe3fae147beb89182f2714d91fcba35751",
+    "pins": {
+      "stage22_probe.py": "c1761138bd9b9d6f4eb7eb53495a3fb5d590c724",
+      "stage22_handoff_probe.py": "e4c6c945c29f71091c6100adf43d196576bd1376",
+      "stage22-handoff-execution-summary.json": "dc19e4de9fb835b4510826346d351cd3000a0486"
+    },
+    "packet_digests": {
+      "jra_clock": "64e817775d65139ea75337a96bbb171125380269e180e2b97b336a6d65579a1c",
+      "local_clock": "1aed66b10a066829d6bfbc8881385e31eef02995e23c4b43472e4ecb66b106d8",
+      "local_missing": "5ca8c1fc26df50051520228b4925299732e92f94130e33cbb8f4efefa4b3f99d",
+      "before_cutoff_select_latest": "9674bddb71bfd66d02b6727bc72a6dadda61f06aa0734d7a201bf51638acec86",
+      "revoked_after_capture": "eb6425a4c3190b81e7248a5c20b66d1b48c8e7c149f3be1de4a2be02206931b6"
+    },
+    "outputs": {
+      "jra_clock": {
+        "status": "RESEARCH_PARTIAL_OBSERVATIONS",
+        "observations": [
+          {
+            "kind": "DISPLAY_CLOCK",
+            "value": {
+              "race_id": "TEST:JRA:PRIOR",
+              "tenths": 557
+            },
+            "evidence_ids": [
+              "TEST:4aec1ee85856801ceb412c97d13ad083c96f9fa8494d559e398f8cff34766468"
+            ],
+            "original_event_keys": [
+              "TEST:4aec1ee85856801ceb412c97d13ad083c96f9fa8494d559e398f8cff34766468"
+            ],
+            "upstream_item_ids": [],
+            "status": "FICTIONAL_OBSERVATION_ONLY"
+          }
+        ],
+        "trace": [
+          {
+            "consumer": "analyzeTyped01to32.work22PartialClock",
+            "consumer_item_id": "05",
+            "horse_no": 1,
+            "item_id": "05",
+            "value": {
+              "race_id": "TEST:JRA:PRIOR",
+              "tenths": 557
+            },
+            "reason": "Read actual producer historical clock only; no full result or ability conclusion"
+          }
+        ],
+        "grade": null,
+        "formal": false
+      },
+      "local_clock": {
+        "status": "RESEARCH_PARTIAL_OBSERVATIONS",
+        "observations": [
+          {
+            "kind": "DISPLAY_CLOCK",
+            "value": {
+              "race_id": "TEST:LOCAL:PRIOR",
+              "tenths": 557
+            },
+            "evidence_ids": [
+              "TEST:de400d62414588af0c0849c66173fa9138d8068c22196da355c7337ae2143371"
+            ],
+            "original_event_keys": [
+              "TEST:de400d62414588af0c0849c66173fa9138d8068c22196da355c7337ae2143371"
+            ],
+            "upstream_item_ids": [],
+            "status": "FICTIONAL_OBSERVATION_ONLY"
+          }
+        ],
+        "trace": [
+          {
+            "consumer": "analyzeTyped01to32.work22PartialClock",
+            "consumer_item_id": "05",
+            "horse_no": 1,
+            "item_id": "05",
+            "value": {
+              "race_id": "TEST:LOCAL:PRIOR",
+              "tenths": 557
+            },
+            "reason": "Read actual producer historical clock only; no full result or ability conclusion"
+          }
+        ],
+        "grade": null,
+        "formal": false
+      },
+      "local_missing": {
+        "status": "RESEARCH_PARTIAL_OBSERVATIONS",
+        "observations": [],
+        "trace": [],
+        "grade": null,
+        "formal": false
+      },
+      "before_cutoff_select_latest": {
+        "status": "RESEARCH_PARTIAL_OBSERVATIONS",
+        "observations": [],
+        "trace": [],
+        "grade": null,
+        "formal": false
+      },
+      "revoked_after_capture": {
+        "status": "HELD",
+        "observations": [],
+        "trace": [],
+        "grade": null,
+        "formal": false
+      }
+    }
+  },
+  "opponent": {
+    "context": {
+      "races": [
+        "FK-V21-R1",
+        "FK-V23-COMMON-PEER"
+      ],
+      "peer": "FIXTURE-C",
+      "subject": "FIXTURE-B",
+      "other": "FIXTURE-D",
+      "scope": {
+        "missing": [],
+        "different": [],
+        "matched": true
+      },
+      "weightMatch": true,
+      "relativeWeights": [
+        -2,
+        -2
+      ],
+      "peer_clocks": [
+        545,
+        545
+      ],
+      "peer_final600": [
+        357,
+        357
+      ],
+      "peer_finishes": [
+        3,
+        3
+      ],
+      "peer_phases": [
+        [
+          188,
+          121,
+          236
+        ],
+        [
+          188,
+          121,
+          236
+        ]
+      ],
+      "leader_envelopes": [
+        [
+          180,
+          121,
+          240
+        ],
+        [
+          180,
+          121,
+          240
+        ]
+      ],
+      "same_roster": true,
+      "state": "PEER_MEASURED_PROFILE_MATCH_ONLY",
+      "relative_gaps": [
+        -2,
+        2
+      ],
+      "peer_form_stable": null,
+      "common_peer_quality": null,
+      "inferred_current_order": null,
+      "combined_margin": null,
+      "roots": [
+        "v22:clock:FK-V21-R1:FIXTURE-B",
+        "v22:clock:FK-V21-R1:FIXTURE-C",
+        "v22:clock:FK-V23-COMMON-PEER:FIXTURE-C",
+        "v22:clock:FK-V23-COMMON-PEER:FIXTURE-D",
+        "v22:geometry:FK-V21-R1",
+        "v22:geometry:FK-V23-COMMON-PEER",
+        "v22:race:FK-V21-R1",
+        "v22:race:FK-V23-COMMON-PEER"
+      ]
+    },
+    "eye04_candidates": 29,
+    "formal": false
+  },
+  "packet_archive_commit": "e42adee0f093519deb3557b20ee068c2ed273acc",
+  "formal_admissions": 0,
+  "all_115_individual_effects_proven": false,
+  "grade_assignment": false
+}
