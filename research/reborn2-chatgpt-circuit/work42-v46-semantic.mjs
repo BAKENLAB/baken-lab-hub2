@@ -31,7 +31,7 @@ function analyzeClaim(q,docs,packet,h,strict=false){
  const need=(e,s,fields)=>fields.every(k=>has(e,s,k));
  const emit=(item,predicate,state,value,missing=[])=>{
   assert.ok(q.upstream_item_ids.includes(item),'V46_CANONICAL_TARGET');
-  return {category:q.eye_item_id,item,predicate,state,value,missing,refs:b.refs,rootKeys:b.roots,independent_vote:false};
+  return {category:q.eye_item_id,item,predicate,state,value,missing,refs:b.refs,rootKeys:b.roots,...(strict?{directRefs:uniq(q.direct_evidence_ids)}:{}),independent_vote:false};
  };
  const held=(reason)=>({category:q.eye_item_id,state:'INSUFFICIENT_EVIDENCE',reason,refs:b.refs,rootKeys:b.roots});
  const currentRoles=()=>c.rows.map(t=>({horse:t.nativeId,status:t.status,gate:t.gate,role:role(row(hist.filter(d=>row(d,t.nativeId)).at(-1),t.nativeId))}));
