@@ -22,7 +22,16 @@ export function replayCase(c,{returnEye=true,scenario=null}={}){
  if(new Set(c.history.map(r=>r.id)).size!==c.history.length||c.history.some(r=>new Set(r.rows.map(x=>x.id)).size!==r.rows.length))throw Error('DUPLICATE_RESULT');
  const target={...stamp,circuit:'FIXTURE',race_id:t.id,cutoff:t.date+'T'+t.published+':00'};
  const roster=c.entrants.map((h,i)=>({horse_id:h.id,horse_no:i+1}));
- const rows=c.history.filter(r=>admitted(r,t)).flatMap(r=>r.rows.filter(x=>validRow(r,x)).map(x=>({r,x})));
+ // Only compare times where reported winner gaps and clocks agree; do not repair the source.
+ const raceConsistent=r=>{
+ const w=r.rows.filter(x=>x.finish===1);
+ if(w.length>1||new Set(r.rows.map(x=>x.finish)).size!==r.rows.length)return false;
+ if(r.rows.some(x=>!validRow(r,x)||x.clock!=null&&(!Number.isInteger(x.clock)||x.clock<=0)||x.margin!=null&&(!Number.isInteger(x.margin)||x.margin<0)))return false;
+ if(w.length===1&&Number.isInteger(w[0].clock)&&r.rows.some(x=>Number.isInteger(x.clock)&&(x.clock<w[0].clock||Number.isInteger(x.margin)&&x.clock-w[0].clock!==x.margin)))return false;
+ const timed=r.rows.filter(x=>Number.isInteger(x.clock)).slice().sort((a,b)=>a.finish-b.finish);
+ return timed.every((x,i)=>!i||x.clock>=timed[i-1].clock);
+ };
+ const rows=c.history.filter(r=>admitted(r,t)&&raceConsistent(r)).flatMap(r=>r.rows.map(x=>({r,x})));
  const groups=[],trace=[];const push=(kind,h,r,fact,event_key)=>groups.push({...stamp,event_key,evidence_ids:[event_key],record:{...stamp,kind,horse_id:h,race_id:r,fact}});
  for(const {r,x} of rows){
  const cond={distance_m:r.distance,going:r.going,course_id:null,course_version:null,surface:null,class_key:r.grade??null};
@@ -72,7 +81,7 @@ export function replayCase(c,{returnEye=true,scenario=null}={}){
  const {direct,indirect,route,counter,follow}=h.claims;
  const e=eye.find(q=>q.horse_id===h.horse_id).items.find(i=>i.eye_item_id==='EYE-05');
  const returned=returnEye?follow.filter(f=>e.original_event_keys.includes(f.shared_followup_key)):[];
- const peerRoots=new Map();for(const f of returned){const k=f.shared_followup_key;if(!peerRoots.has(k))peerRoots.set(k,{root:k,finish:f.peer_finish,prior_routes:[]});const q=peerRoots.get(k);if(!q.prior_routes.includes(f.prior_race_id))q.prior_routes.push(f.prior_race_id);}
+ const peerRoots=new Map();for(const f of returned){const k=f.shared_followup_key;if(!peerRoots.has(k))peerRoots.set(k,{root:k,finish:f.peer_finish,peer_top3_proposition:f.peer_finish<=3?'SUPPORT':'COUNTER',prior_routes:[]});const q=peerRoots.get(k);if(!q.prior_routes.includes(f.prior_race_id))q.prior_routes.push(f.prior_race_id);}
  const priorContext=route.map(r=>({...r,peer_context:[...peerRoots.values()].filter(p=>p.prior_routes.includes(r.race)),win_ability:null}));
  const comparisons=roster.filter(x=>x.horse_id!==h.horse_id).map(p=>{
  const d=direct.filter(x=>x.peer===p.horse_id),i=indirect.filter(x=>x.peer===p.horse_id);
@@ -87,9 +96,9 @@ export function replayCase(c,{returnEye=true,scenario=null}={}){
  }
  return {id:h.horse_id,comparisons,priorContext,peer_roots:[...peerRoots.values()],forward_counter:counter,win_history:state(route.filter(r=>r.win==='SUPPORT'),route.filter(r=>r.win==='COUNTER')),place_history:state(route.filter(r=>r.place==='SUPPORT'),route.filter(r=>r.place==='COUNTER')),hypothetical,current_strength:null};
  });
- const laps=c.history.filter(r=>Array.isArray(r.reported_laps)).map(r=>{const l=r.reported_laps;const grid=l.length*200===r.distance&&l.every(n=>Number.isInteger(n)&&n>0);const sum=l.reduce((a,b)=>a+b,0);return {race:r.id,sum,reported:r.reported_total,arithmetic:grid&&sum===r.reported_total?leaderWindows(l.map((n,i)=>({start_m:i*200,end_m:(i+1)*200,elapsed_tenths:n}))):null,usable:false,reason:'LAP_KIND_AND_BASELINE_UNVERIFIED'};});
+ const laps=c.history.filter(r=>Array.isArray(r.reported_laps)).map(r=>{const l=r.reported_laps;const grid=l.length*200===r.distance&&l.every(n=>Number.isInteger(n)&&n>0);const sum=l.reduce((a,b)=>a+b,0);return {race:r.id,sum,reported:r.reported_total,arithmetic:grid&&sum===r.reported_total?{...leaderWindows(l.map((n,i)=>({start_m:i*200,end_m:(i+1)*200,elapsed_tenths:n}))),measurement_scope:'UNVERIFIED_LAP_KIND_ARITHMETIC_ONLY'}:null,usable:false,reason:'LAP_KIND_AND_BASELINE_UNVERIFIED'};});
  const ledger=horses.flatMap(h=>catalog.map(d=>{const isEye=d.id.startsWith('EYE-'),e=eye.find(q=>q.horse_id===h.horse_id).items.find(i=>i.eye_item_id===d.id),r=h.items.find(i=>i.item_id===d.id);return {horse:h.horse_id,item:d.id,execution:isEye?'COMMON_EYE_ITEM_BRANCH':Number(d.id)<=32?'COMMON_TYPED_SECTION': ['35','36','37'].includes(d.id)?'PARTIAL_COMPARISON_BRANCH':'NOT_INVOKED_PARTIAL',outputs:isEye?e.observed_facts.length:r.finding.facts.length,reads:trace.filter(x=>x.horse_no===h.horse_no&&x.item_id===d.id).length,formal:false};}));
- return {decisions,ledger,laps,held:c.history.filter(r=>!admitted(r,t)).map(r=>r.id),held_incidents:c.history.filter(r=>r.incident).map(r=>r.incident.id),additional_held:(c.additional??[]).map(x=>x.type),target_field_complete:false,formal:false};
+ return {decisions,ledger,laps,held:c.history.filter(r=>!admitted(r,t)).map(r=>r.id),result_conflicts:c.history.filter(r=>admitted(r,t)&&!raceConsistent(r)).map(r=>r.id),held_incidents:c.history.filter(r=>r.incident).map(r=>r.incident.id),additional_held:(c.additional??[]).map(x=>x.type),target_field_complete:false,formal:false};
 }
 export function work14Gate(){const w=load('./work14-time-receipt-pinned.json');const rows=w.patches.flatMap(p=>p.paths.map(path=>({file:p.original_file,sha:p.original_sha256,path,reported:p.expected_value,replacement:p.replacement})));if(rows.length!==52||new Set(rows.map(r=>key(r.file,r.path))).size!==52||rows.some(r=>r.replacement!==null))throw Error('RECEIPT_CONFLICT');
  const resolve=({file,sha,path,reported})=>{const row=rows.find(r=>r.file===file&&r.path===path);return {verified_time:null,admitted:false,reason:row&&row.sha===sha&&row.reported===reported?'OLD_INVALID_TIME':'UNVERIFIED_OR_MISMATCH'};};
