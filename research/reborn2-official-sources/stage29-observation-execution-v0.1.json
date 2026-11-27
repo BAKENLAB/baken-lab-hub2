@@ -1,0 +1,389 @@
+{
+  "schema": "WORK29_SYNTHETIC_EXECUTION_0.1",
+  "scope": "SYNTHETIC_TEST_ONLY",
+  "tests": [
+    {
+      "name": "narrow_finish_clock_without_geometry_or_benchmark",
+      "pass": true,
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL"
+    },
+    {
+      "name": "leader_laps_explicit_intervals",
+      "pass": true,
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL"
+    },
+    {
+      "name": "individual_final600_explicit",
+      "pass": true,
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL"
+    },
+    {
+      "name": "grouped_order_not_flattened",
+      "pass": true,
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL"
+    },
+    {
+      "name": "peer_followup_scoped",
+      "pass": true,
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL"
+    },
+    {
+      "name": "real_scope_blocked",
+      "pass": true,
+      "state": "HELD",
+      "reason": "OFFICIAL_PATH_DISABLED"
+    },
+    {
+      "name": "rights_after_capture_held",
+      "pass": true,
+      "state": "HELD",
+      "reason": "RIGHTS_TIME_OR_PURPOSE"
+    },
+    {
+      "name": "update_before_publication_held",
+      "pass": true,
+      "state": "HELD",
+      "reason": "ASOF_TIME"
+    },
+    {
+      "name": "leader_no_unit_rejected",
+      "pass": true,
+      "state": "REJECTED",
+      "reason": "LAP_UNIT_INTERVAL_SCOPE"
+    },
+    {
+      "name": "native_id_changed_rejected",
+      "pass": true,
+      "state": "HELD",
+      "reason": "NATIVE_IDENTITY_BINDING"
+    },
+    {
+      "name": "peer_wrong_pointer",
+      "pass": true,
+      "state": "HELD",
+      "reason": "PEER_REF_UNRESOLVED"
+    },
+    {
+      "name": "peer_wrong_native",
+      "pass": true,
+      "state": "HELD",
+      "reason": "PEER_SCOPE_OR_TIME"
+    },
+    {
+      "name": "peer_future_observation",
+      "pass": true,
+      "state": "HELD",
+      "reason": "PEER_SCOPE_OR_TIME"
+    },
+    {
+      "name": "peer_wrong_reference_event",
+      "pass": true,
+      "state": "HELD",
+      "reason": "PEER_REFERENCE_EVENT"
+    },
+    {
+      "name": "peer_same_event_not_later",
+      "pass": true,
+      "state": "HELD",
+      "reason": "PEER_FOLLOWUP_ORDER"
+    },
+    {
+      "name": "rights_revoked_before_processing",
+      "pass": true,
+      "state": "HELD",
+      "reason": "RIGHTS_TIME_OR_PURPOSE"
+    },
+    {
+      "name": "rights_no_retention",
+      "pass": true,
+      "state": "HELD",
+      "reason": "RIGHTS_TIME_OR_PURPOSE"
+    },
+    {
+      "name": "release_not_authorized",
+      "pass": true,
+      "state": "HELD",
+      "reason": "RELEASE_RIGHTS"
+    },
+    {
+      "name": "late_update_held",
+      "pass": true,
+      "state": "HELD",
+      "reason": "ASOF_TIME"
+    },
+    {
+      "name": "seal_uncertainty_crosses_cutoff",
+      "pass": true,
+      "state": "HELD",
+      "reason": "ASOF_TIME"
+    },
+    {
+      "name": "new_asof_version_missing",
+      "pass": true,
+      "state": "HELD",
+      "reason": "LATEST_ASOF_VERSION"
+    },
+    {
+      "name": "later_correction_not_backfilled",
+      "pass": true,
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL"
+    },
+    {
+      "name": "replay_uses_original_cutoff",
+      "pass": true,
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL"
+    },
+    {
+      "name": "prospective_after_post_held",
+      "pass": true,
+      "state": "HELD",
+      "reason": "ANALYSIS_MODE"
+    },
+    {
+      "name": "clock_not_inferred_from_leader",
+      "pass": true,
+      "state": "REJECTED",
+      "reason": "INDIVIDUAL_CLOCK_SCOPE"
+    },
+    {
+      "name": "individual_missing_not_zero",
+      "pass": true,
+      "state": "MISSING",
+      "reason": "FIELD_NOT_SUPPLIED"
+    },
+    {
+      "name": "invalid_lap_interval",
+      "pass": true,
+      "state": "REJECTED",
+      "reason": "LAP_UNIT_INTERVAL_SCOPE"
+    },
+    {
+      "name": "unmatched_raw_field",
+      "pass": true,
+      "state": "HELD",
+      "reason": "RAW_FIELD_BINDING"
+    },
+    {
+      "name": "duplicate_identity",
+      "pass": true,
+      "state": "HELD",
+      "reason": "NATIVE_IDENTITY_BINDING"
+    },
+    {
+      "name": "target_wrong_id",
+      "pass": true,
+      "state": "HELD",
+      "reason": "TARGET_ROSTER_BINDING"
+    },
+    {
+      "name": "crossissuer_no_crosswalk",
+      "pass": true,
+      "state": "HELD",
+      "reason": "CROSSWALK_REQUIRED"
+    },
+    {
+      "name": "target_event_rejected",
+      "pass": true,
+      "state": "REJECTED",
+      "reason": "TARGET_OR_UNSUPPORTED_FIELD"
+    },
+    {
+      "name": "nonperformance_rejected",
+      "pass": true,
+      "state": "REJECTED",
+      "reason": "FINISH_STATUS"
+    }
+  ],
+  "examples": {
+    "narrow_finish_clock_without_geometry_or_benchmark": {
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL",
+      "observations": [
+        {
+          "field": "finish_clock",
+          "value": 60000,
+          "unit": "ms",
+          "scope": "INDIVIDUAL_NATIVE_EXPLICIT",
+          "root": "TEST:JRA|TEST:H|TEST:ROW1|finish_clock",
+          "version": 1,
+          "sourceDigest": "TEST_DIGEST",
+          "pointer": "/rows/0/finish_clock",
+          "dependencies": [],
+          "current_applicability": "UNDETERMINED",
+          "formal": false
+        }
+      ],
+      "formal": false,
+      "benchmark_admission": false,
+      "score_authorized": false
+    },
+    "leader_laps_explicit_intervals": {
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL",
+      "observations": [
+        {
+          "field": "race_leader_laps",
+          "value": [
+            20000,
+            20000,
+            20000
+          ],
+          "unit": "ms",
+          "scope": "RACE_LEADER",
+          "root": "TEST:JRA|TEST:H|TEST:ROW1|race_leader_laps",
+          "version": 1,
+          "sourceDigest": "TEST_DIGEST",
+          "pointer": "/rows/0/race_leader_laps",
+          "dependencies": [],
+          "current_applicability": "UNDETERMINED",
+          "formal": false
+        }
+      ],
+      "formal": false,
+      "benchmark_admission": false,
+      "score_authorized": false
+    },
+    "individual_final600_explicit": {
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL",
+      "observations": [
+        {
+          "field": "individual_final600",
+          "value": 60000,
+          "unit": "ms",
+          "scope": "INDIVIDUAL_NATIVE_EXPLICIT",
+          "root": "TEST:JRA|TEST:H|TEST:ROW1|individual_final600",
+          "version": 1,
+          "sourceDigest": "TEST_DIGEST",
+          "pointer": "/rows/0/individual_final600",
+          "dependencies": [],
+          "current_applicability": "UNDETERMINED",
+          "formal": false
+        }
+      ],
+      "formal": false,
+      "benchmark_admission": false,
+      "score_authorized": false
+    },
+    "grouped_order_not_flattened": {
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL",
+      "observations": [
+        {
+          "field": "passing_order",
+          "value": [
+            [
+              1,
+              2
+            ],
+            [
+              3
+            ]
+          ],
+          "unit": "ms",
+          "scope": "INDIVIDUAL_NATIVE_EXPLICIT",
+          "root": "TEST:JRA|TEST:H|TEST:ROW1|passing_order",
+          "version": 1,
+          "sourceDigest": "TEST_DIGEST",
+          "pointer": "/rows/0/passing_order",
+          "dependencies": [],
+          "current_applicability": "UNDETERMINED",
+          "formal": false
+        }
+      ],
+      "formal": false,
+      "benchmark_admission": false,
+      "score_authorized": false
+    },
+    "peer_followup_scoped": {
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL",
+      "observations": [
+        {
+          "field": "peer_followup",
+          "value": {
+            "subjectRowId": "TEST:ROW1",
+            "peerNativeId": "TEST:B",
+            "peerRefs": [
+              "TEST:PEER1",
+              "TEST:PEER2"
+            ]
+          },
+          "unit": null,
+          "scope": null,
+          "root": "TEST:JRA|TEST:H|TEST:ROW1|peer_followup",
+          "version": 1,
+          "sourceDigest": "TEST_DIGEST",
+          "pointer": "/rows/0/peer_followup",
+          "dependencies": [
+            "TEST:B:H",
+            "TEST:B:H2"
+          ],
+          "current_applicability": "UNDETERMINED",
+          "formal": false
+        }
+      ],
+      "formal": false,
+      "benchmark_admission": false,
+      "score_authorized": false
+    },
+    "later_correction_not_backfilled": {
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL",
+      "observations": [
+        {
+          "field": "finish_clock",
+          "value": 60000,
+          "unit": "ms",
+          "scope": "INDIVIDUAL_NATIVE_EXPLICIT",
+          "root": "TEST:JRA|TEST:H|TEST:ROW1|finish_clock",
+          "version": 1,
+          "sourceDigest": "TEST_DIGEST",
+          "pointer": "/rows/0/finish_clock",
+          "dependencies": [],
+          "current_applicability": "UNDETERMINED",
+          "formal": false
+        }
+      ],
+      "formal": false,
+      "benchmark_admission": false,
+      "score_authorized": false
+    },
+    "replay_uses_original_cutoff": {
+      "state": "TEST_OBSERVATION_ELIGIBLE",
+      "reason": "SYNTHETIC_ONLY_NOT_OFFICIAL",
+      "observations": [
+        {
+          "field": "finish_clock",
+          "value": 60000,
+          "unit": "ms",
+          "scope": "INDIVIDUAL_NATIVE_EXPLICIT",
+          "root": "TEST:JRA|TEST:H|TEST:ROW1|finish_clock",
+          "version": 1,
+          "sourceDigest": "TEST_DIGEST",
+          "pointer": "/rows/0/finish_clock",
+          "dependencies": [],
+          "current_applicability": "UNDETERMINED",
+          "formal": false
+        }
+      ],
+      "formal": false,
+      "benchmark_admission": false,
+      "score_authorized": false
+    }
+  },
+  "passed": 33,
+  "prior341_preserved_not_rerun": true,
+  "formal_admissions": 0,
+  "limits": [
+    "Independent authority/rights/timestamp verification simulated by separate fixture registry; no real signatures or source parser. Peer rows simulated receipts, not independently authenticated; no full official positive path.",
+    "Test observation values never official; benchmark and scoring remain false."
+  ]
+}
