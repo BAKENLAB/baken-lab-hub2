@@ -113,3 +113,11 @@ export function analyzeV30(L,name,withdraw=null,options={}){
  }
  return {...out,terminal_v30:terminal,shared_scenarios_v30:scenarios,formal:false,grade:null};
 }
+
+// Compare actual synthetic case outputs without treating scaled clocks as a causal response.
+export function compareV30Pace(L,baseName,variantName,event,subject){
+ const a=analyzeV30(L,baseName),b=analyzeV30(L,variantName);
+ const read=q=>{const h=q.runners.find(x=>x.slot===subject),s=q.shared_scenarios_v30.find(x=>x.event===event&&x.kind==='CHECKPOINT_OBSERVED'),past=q.historical.find(x=>x.horse===subject&&x.event===event);return {historical_rank:past?.rank??null,leader_ms:s?.sharedContext.historical_leader_pace?.segments.map(x=>x.ms)??null,leader_refs:s?.sharedContext.historical_leader_pace?.refs??[],subject_interval_ms:past?.intervals?.map(x=>x.ms)??null,subject_clock_refs:past?.speedTrace?.refs??[],first_checkpoint_queue:s?.sharedContext.early??[],condition:s?.sharedContext.context.find(x=>x.slot===subject)??null,terminal:h?.terminal_v30.filter(x=>x.event===event).map(x=>({rival:x.rival,segment:x.subject_segment,refs:x.terminal_refs}))??[]};};
+ const base=read(a),variant=read(b),same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+ return {event,subject,base,variant,leader_pace_changed:base.leader_ms!==null&&variant.leader_ms!==null&&!same(base.leader_ms,variant.leader_ms),observed_rank_same:base.historical_rank!==null&&variant.historical_rank!==null&&same(base.historical_rank,variant.historical_rank),current_pace_response:'UNPROVEN',causal_response:null,formal:false};
+}
