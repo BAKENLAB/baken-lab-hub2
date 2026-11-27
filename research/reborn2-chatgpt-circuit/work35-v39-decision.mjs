@@ -83,14 +83,19 @@ function route(x,h,s,threshold){
  // Positive EYE is not a second vote; its evidence already enters the response.
  // Negative EYE is retained on the relevant route; a local loss does not negate
  // a still-supported full-field bound. Uncertain or contradicted bounds never grade.
- const candidate=blocked.length?null:win==='SUPPORT'?'A':place==='SUPPORT'?'B':place==='COUNTER'?'C':null;
+ // A/B/C use these same route facts, not axis counts. E is a scoped
+ // material review, not an extra vote. A measured loss can coexist with a win.
+ const [a,b,c,d,f]=axes;
+ if(!a.support||a.unknown||!b.support||b.counter||d.unknown)blocked.push('FIVE_AXIS_DEPENDENCY_HELD');
+ if((f.support||f.counter)&&!f.refs.length)blocked.push('EYE_LINEAGE_HELD');
+ const candidate=blocked.length?null:c.support&&win==='SUPPORT'?'A':c.support&&place==='SUPPORT'?'B':c.counter&&place==='COUNTER'?'C':null;
  return {id:s.id,event:s.response_event,checkpoint:s.checkpoint_m,horse:h.slot,scope:'EXPLICIT_STRESS_ANTECEDENT_ONLY',
   replay:s.id.startsWith('OBS:'),axes,blocked,envelope:env,historical_envelope:past,WIN:win,PLACE:place,candidate,
   response_kind:win==='SUPPORT'?(recovered.length?'DEFICIT_OVERTAKEN':lead.length===pairs.length?'START_ADVANTAGE_RETAINED':'MIXED_RESPONSE'):'NO_SUPPORTED_WIN_IN_BRANCH',
   possible_winner:!!env&&env.min===1,refs:uniq(axes.flatMap(a=>a.refs)),formal:false,observed_current:false};
 }
-export function analyzeV39(V,id,{withdraw=null,placeThreshold=2}={}){
- const x=analyzeV38(V,id,{withdraw,eyeEnabled:true,placeThreshold});
+export function analyzeV39(V,id,{withdraw=null,placeThreshold=2,gapStress=true}={}){
+ const x=analyzeV38(V,id,{withdraw,eyeEnabled:true,placeThreshold,gapStress});
  const runners=x.runners.map(h=>{
   const routes=x.conditional_scenarios.map(s=>route(x,h,s,placeThreshold));
   const stress=routes.filter(p=>!p.replay);
@@ -106,9 +111,9 @@ export function analyzeV39(V,id,{withdraw=null,placeThreshold=2}={}){
  return {...x,runners,formal:false,grade:null,policy:'V39_PARTIAL_CONDITIONAL_DECISION_NO_FORMAL_ADOPTION'};
 }
 export function auditEyeRoot(V,id,event){
- const after=analyzeV39(V,id),root=after.source_packet.evidence.find(e=>e.event===event&&e.subject==='TEST:H4'&&e.field==='checkpoint_ms')?.evidenceId;
+ const after=analyzeV39(V,id,{gapStress:false}),root=after.source_packet.evidence.find(e=>e.event===event&&e.subject==='TEST:H4'&&e.field==='checkpoint_ms')?.evidenceId;
  assert.ok(root,'FIXED_ROOT_REQUIRED');
- const before=analyzeV39(V,id,{withdraw:root});
+ const before=analyzeV39(V,id,{withdraw:root,gapStress:false});
  assert.equal(before.source_digest,after.source_digest);
  const target='TEST:NAR|'+event;
  const b=before.runners.find(h=>h.slot===H(4)),a=after.runners.find(h=>h.slot===H(4));
@@ -137,6 +142,7 @@ export function auditEyeRoot(V,id,event){
  return {event,root,snapshot:after.source_digest,eye_enabled_both:true,positive_review:positive,counter_review:counter,
   admission:positive?'POSITIVE_INCIDENT_REVIEWED':counter?'COUNTER_INCIDENT_REVIEWED':'NOT_ADMITTED_BY_EYE_REVIEW',
   selected_grade:positive||counter?'RESTORED_RESEARCH_REVIEW':'WITHHELD_RESEARCH_REVIEW',
+  selected_grades:(positive||counter?after:before).runners.map(h=>({horse:h.slot,grade:h.research_grade})),
   independent_positive:independentPositive.map(m=>({event:m.event,gain:m.gain,refs:m.refs})),counter:relevantCounter.map(m=>({event:m.event,gain:m.gain,refs:m.refs})),
   changed,changes,grades,unrelated,formal:false};
 }
@@ -188,6 +194,11 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  t('F39-05',()=>{
   assert.ok(full.runners.some(h=>h.routes_v39.some(p=>!p.replay&&p.candidate==='A')));
   assert.ok(full.runners.some(h=>h.routes_v39.some(p=>p.response_kind==='DEFICIT_OVERTAKEN')));
+  const h3=full.runners.find(h=>h.slot===H(3));
+  const f=V.C.fixtures.find(f=>f.id==='FK34_FULL');
+  assert.ok(f.docs.filter(d=>d.kind==='HISTORICAL_RESULT').every(d=>d.rows.find(r=>r.nativeId==='TEST:H3').finish>1));
+  assert.ok(h3.routes_v39.some(p=>p.id.startsWith('GAP_STRESS:')&&p.candidate==='A'),'NONWINNER_CONDITIONAL_WIN');
+  assert.ok(h3.research_grade==='A');
   for(const x of [full,local,missing,unknown,context]){
    assert.equal(x.groups,118);assert.equal(x.held,826);
    for(const h of x.runners){assert.equal(h.items.length,115);assert.equal(h.grade,null);assert.equal(h.current_grade,null);
