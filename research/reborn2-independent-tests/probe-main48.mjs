@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import {prepareWork40,analyzeWork40} from '../reborn2-independent-engine/main47-integration/work40-common.mjs';
+import {loadV40} from '../reborn2-chatgpt-circuit/work36-v40-integrated.mjs';
+import {analyze} from '../reborn2-chatgpt-circuit/work36-v41-local-decision.mjs';
+import {integrate} from '../reborn2-chatgpt-circuit/work36-v42-propagation.mjs';
+const clean=({analysis,analysisSha256})=>({analysis,analysisSha256});
+const base=prepareWork40(), altered=prepareWork40([{evidence_id:'SEALED',raw_sha256:'e'.repeat(64)}]);
+const V=await loadV40();
+const fixture=id=>{const f=V.C.fixtures.find(f=>f.id===id);assert.ok(f,id);return f};
+const run=(id,eyeEnabled=true)=>integrate(analyze(V,id,{eyeEnabled}),fixture(id).docs,{eyeEnabled});
+const a=await analyzeWork40(clean(base)), b=await analyzeWork40(clean(altered)), off=await analyzeWork40(clean(base),{eyeEnabled:false});
+const rows=[];async function probe(id,fn){try{const detail=await fn();rows.push({id,status:'PASS',detail});}catch(e){rows.push({id,status:'FAIL',error:e.message});}console.log(JSON.stringify(rows.at(-1)));}
+await probe('IT48-01-sealed-same-flag',()=>{assert.notDeepEqual(base.sealedResults,altered.sealedResults);assert.deepEqual(a,b);return 'Full output equality; pinned input only, not process isolation';});
+await probe('IT48-02-sealed-direct-reject',async()=>{await assert.rejects(analyzeWork40(altered));});
+await probe('IT48-03-eye-semantic',()=>{const sem=z=>z.decision.runners.map(h=>({horse:h.horse,grade:h.current_grade,paths:h.paths.map(p=>[p.id,p.decision,p.basis]),items:h.items.map(({v42,...i})=>i)}));assert.ok(a.decision.runners.some(h=>h.eye.length));assert.notDeepEqual(sem(a),sem(off),'No semantic change beyond annotations; positive EYE efficacy requires a suitable witness');});
+const z=a.decision;
+await probe('IT48-04-current-grades',()=>{assert.ok(z.runners.some(h=>h.current_grade!==null),'All current grades null; current decision completion not demonstrated');});
+await probe('IT48-05-advantage-recovery',()=>{const own=z.runners.flatMap(h=>h.paths.flatMap(p=>p.own));assert.ok(own.some(q=>q.recovered));assert.ok(own.some(q=>q.retained));return {recovered:own.filter(q=>q.recovered).length,retained:own.filter(q=>q.retained).length,scope:'historical pair witnesses only'};});
+await probe('IT48-06-ab-witness',()=>{const all=V.C.fixtures.filter(f=>f.id!=='W36_MASTER_IMMUTABLE').map(f=>run(f.id));const h=all.flatMap(q=>q.runners);assert.ok(h.some(q=>q.conditional_grade==='A'),'No conditional A witness');assert.ok(h.some(q=>q.conditional_grade==='B'),'No conditional B witness');for(const q of h){if(q.conditional_grade==='A')assert.ok(q.reasons.win.some(v=>v.supported));if(q.conditional_grade==='B'){assert.ok(!q.reasons.win.some(v=>v.supported));assert.ok(q.reasons.place.some(v=>v.supported));}}return {A:h.filter(q=>q.conditional_grade==='A').length,B:h.filter(q=>q.conditional_grade==='B').length,scope:'historical only'};});
+await probe('IT48-07-missing-local',()=>{const q=run('FK34_UNKNOWN');assert.equal(q.runners.length,z.runners.length);assert.ok(q.routes.some(r=>r.edges.some(e=>e.local)),'No surviving unaffected local comparison');return {local:q.routes.flatMap(r=>r.edges).filter(e=>e.local).length,held:q.runners.filter(h=>h.current_grade===null).length};});
+await probe('IT48-08-peer-change',()=>{const p=run('W36_BASE'),q=run('W36_CONTEXT_WEIGHT');assert.notDeepEqual(p.routes.map(r=>r.edges.map(e=>e.full)),q.routes.map(r=>r.edges.map(e=>e.full)));return 'Weight change affects peer transfer; new opponent strength still untested';});
+await probe('IT48-09-root-id-unique',()=>{for(const h of z.runners)for(const e of h.eye)assert.equal(e.refs.length,new Set(e.refs).size);return 'ID uniqueness only; same root under different IDs requires separate fixture';});
+console.log(JSON.stringify({schema:'MAIN48_INDEPENDENT_PROBE',rows,formal:false}));process.exitCode=rows.some(r=>r.status==='FAIL')?1:0;
