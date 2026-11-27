@@ -71,7 +71,15 @@ function analyzePace58to77Core({target,roster,evidence=[],runs=[],history=[],gat
  // V19 research-only return. Rebind each requested observation to the actual
  // accepted subject run and position data; never accept a caller's conclusion.
  if(fictional)for(const m of researchReturn.filter(x=>x.horse_id===h.horse_id)){
-  if(m.kind==='V22_SANDWICH'){
+  if(m.kind==='V22_UNCHANGED_FINISH_CONTENT'){
+   const a=own[1],b=own[0];
+   if(!a||!b||a.finish!==b.finish||a.field_size!==b.field_size||a.field_size<2||!Number.isFinite(a.final3f)||!Number.isFinite(b.final3f))continue;
+   const matched=exact(a,b)&&exact(b,target)&&a.weight_kg===b.weight_kg&&b.field_size===target.field_size&&a.turn===b.turn&&b.turn===target.turn&&a.layout===b.layout&&b.layout===target.layout;
+   const state=!matched?'UNKNOWN':b.final3f<a.final3f?'SUPPORT_OBSERVED_FINAL600_IMPROVEMENT':b.final3f>a.final3f?'COUNTER_OBSERVED_FINAL600_IMPROVEMENT':'NEUTRAL';
+   const value={research_return:'EYE-13',proposition:'SAME_FINISH_WITH_CHANGED_MEASURED_FINAL600',races:[a.race_id,b.race_id],finish:b.finish,field:b.field_size,final600_seconds:[a.final3f,b.final3f],state,ability_growth:null,current_benefit:null};
+   put('74',value,[a.evidence_id,b.evidence_id],'hypotheses');
+   traceRead({consumer:'analyzePace58to77Fixture.v22UnchangedFinish',consumer_item_id:'74',horse_no:s.entry.horse_no,item_id:'EYE-13',value,reason:'Recompute same-finish measured final600 contrast; growth and applicability not inferred'});
+  }else if(m.kind==='V22_SANDWICH'){
    // Recompute from the same bound canonical item 66 inputs, never accept the requested benefit.
    if(!allGate||!g)continue;
    const j=sorted.indexOf(s),left=sorted[j-1],right=sorted[j+1];
