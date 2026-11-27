@@ -8,7 +8,7 @@ jobs:
   independent:
     if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -17,31 +17,29 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Exact checkout and revised six probes
+      - uses: actions/checkout@v4
+        with:
+          ref: ba4d85bb248e810969ddc321d9d7485474a38d10
+          path: fixed-v43
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: 2d7e9e59706acb749b7b5b7e13be5c3be16f5469
+          path: fixed-work41
+          persist-credentials: false
+      - name: Independently verify fixed V43 and corrected Work41
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node research/reborn2-independent-tests/probe-main48-revised.mjs > "$RUNNER_TEMP/main48-revised.log" 2>&1
+          node research/reborn2-independent-tests/probe-final-integration.mjs fixed-v43 ba4d85bb248e810969ddc321d9d7485474a38d10 fixed-work41 2d7e9e59706acb749b7b5b7e13be5c3be16f5469 > "$RUNNER_TEMP/main48-final.log" 2>&1
           rc=$?
-          cat "$RUNNER_TEMP/main48-revised.log"
-          echo "REVISED_EXIT=$rc"
-          exit "$rc"
-      - name: Trace known-active pairs through upstream and V42
-        if: always()
-        shell: bash
-        run: |
-          set +e
-          node research/reborn2-independent-tests/trace-fk34-unknown.mjs > "$RUNNER_TEMP/main48-trace.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/main48-trace.log"
-          echo "TRACE_EXIT=$rc"
+          cat "$RUNNER_TEMP/main48-final.log"
+          echo "FINAL_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: main48-revised-and-trace
-          path: |
-            ${{ runner.temp }}/main48-revised.log
-            ${{ runner.temp }}/main48-trace.log
+          name: main48-final-fixed-v43-work41
+          path: ${{ runner.temp }}/main48-final.log
