@@ -61,6 +61,29 @@ function compact(x){
   runners:x.runners.map(h=>({horse:h.slot,grade:h.research_grade,paths:h.paths_v38.map(p=>({id:p.id,WIN:p.WIN,PLACE:p.PLACE,missing:p.missing,possible_winner:p.possible_winner}))})),
   feedback:x.feedback.map(f=>({id:f.id,state:f.state,checkpoint:f.checkpoint_m,after:f.after.envelope,refs:f.refs.length}))};
 }
+// Work35 introduces a distinct historical event. Gate a single root on
+// the same immutable verified packet, with EYE enabled in all executions.
+// This is a controlled candidate-root experiment, not evidence of actual current
+// role/pace or full independent incident admission.
+function rootContrast(V,after,event){
+ const root=after.source_packet.evidence.find(e=>e.event===event&&e.subject==='TEST:H4'&&e.field==='checkpoint_ms')?.evidenceId;
+ assert.ok(root,'NEW_EVENT_ROOT');
+ const baseline=analyzeV38(V,after.id,{withdraw:root,eyeEnabled:true});
+ assert.equal(baseline.source_digest,after.source_digest,'IMMUTABLE_SNAPSHOT');
+ const before=baseline.historical_scenarios.filter(x=>x.event==='TEST:NAR|'+event),admitted=after.historical_scenarios.filter(x=>x.event==='TEST:NAR|'+event);
+ const edges=x=>x.edges.map(e=>({a:e.a,b:e.b,interval:e.interval_ms,order:e.order}));
+ const comparisons=admitted.map(x=>{const b=before.find(y=>y.id===x.id);return {id:x.id,changed:!eq(edges(b),edges(x)),before:edges(b),after:edges(x)};});
+ const itemChanges=after.runners.flatMap(h=>h.items.flatMap(i=>{
+  const b=baseline.runners.find(q=>q.slot===h.slot).items.find(q=>q.item===i.item);
+  return eq(i,b)?[]:[{horse:h.slot,item:i.item}];
+ }));
+ const untouched=after.historical_scenarios.filter(x=>x.event!=='TEST:NAR|'+event).every(x=>{const b=baseline.historical_scenarios.find(y=>y.id===x.id);return b&&eq(edges(x),edges(b));});
+ const paths=after.runners.flatMap(h=>h.paths_v38.flatMap(p=>{
+  const b=baseline.runners.find(q=>q.slot===h.slot).paths_v38.find(q=>q.id===p.id);
+  return !b||!eq([p.envelope,p.WIN,p.PLACE],[b.envelope,b.WIN,b.PLACE])?[{horse:h.slot,id:p.id,before:b?{WIN:b.WIN,PLACE:b.PLACE,envelope:b.envelope}:null,after:{WIN:p.WIN,PLACE:p.PLACE,envelope:p.envelope}}]:[];
+ }));
+ return {root,event,snapshot:after.source_digest,eyeEnabled:true,comparisons,itemChanges,untouched,paths,gradeChanged:after.runners.some(h=>h.research_grade!==baseline.runners.find(q=>q.slot===h.slot).research_grade),scope:'CANDIDATE_ROOT_SENSITIVITY_NOT_FULL_EYE_ADMISSION'};
+}
 const V=await loadV38(),t=(id,fn)=>{fn();console.log(id+' PASS');};
 const all=V.manifest.cases.map(c=>analyzeV38(V,c.id));
 t('F38-01',()=>{assert.equal(all.length,10);assert.equal(all.reduce((n,x)=>n+x.source_packet.evidence.length,0),4434);for(const x of all){const c=V.manifest.cases.find(c=>c.id===x.id);assert.equal(x.source_digest,c.source_digest);assert.equal(x.source_packet.evidence.length,c.evidence);assert.equal(x.runners.length,5);assert.ok(x.runners.every(h=>h.items.length===115&&h.grade===null));assert.equal(x.groups,118);assert.equal(x.held,826);}});
@@ -82,4 +105,8 @@ t('F38-03',()=>{
  assert.ok(missing.runners.every(h=>h.grade===null));
 });
 t('F38-04',()=>{const e=all.find(x=>x.id==='FK35_EYE'),c=all.find(x=>x.id==='FK35_EYE_COUNTER');assert.ok(e.source_packet.evidence.some(r=>r.event==='TEST:DISCOVERED'));assert.ok(c.source_packet.evidence.some(r=>r.event==='TEST:NEW_COUNTER'));assert.ok(e.runners.every(h=>h.research_grade===null));assert.ok(c.runners.every(h=>h.research_grade===null));});
+const eye=all.find(x=>x.id==='FK35_EYE'),counter=all.find(x=>x.id==='FK35_EYE_COUNTER');
+const positiveContrast=rootContrast(V,eye,'TEST:DISCOVERED'),counterContrast=rootContrast(V,counter,'TEST:NEW_COUNTER');
+t('F38-05',()=>{assert.ok(positiveContrast.comparisons.some(c=>c.changed));assert.ok(counterContrast.comparisons.some(c=>c.changed));assert.ok(positiveContrast.untouched&&counterContrast.untouched);assert.ok(positiveContrast.paths.length&&counterContrast.paths.length);assert.equal(positiveContrast.gradeChanged,false);assert.equal(counterContrast.gradeChanged,false);});
 console.log('V38_RECEIPT '+JSON.stringify(all.map(compact)));
+console.log('V38_ROOT_CONTRAST '+JSON.stringify({positive:positiveContrast,counter:counterContrast}));
