@@ -1,14 +1,14 @@
-name: REBORN2 Main48 independent diagnostics
+name: REBORN2 practical Test01 independent
 on:
   pull_request:
     branches: [research/reborn2-main48-test-ci-base]
 permissions:
   contents: read
 jobs:
-  independent:
+  test01:
     if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,163 +19,21 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: f565e88af3404c84328a6cd035d2f21df3ea49dc
-          path: fixed-final
+          ref: 5ffaba5d8a8d5892adb2b2721092d1e3a4984842
+          path: fixed-codex02
+          fetch-depth: 0
           persist-credentials: false
-      - uses: actions/checkout@v4
-        with:
-          ref: 1f185f879bc58ca5d0665d90419981dac9b73bf6
-          path: fixed-work42
-          persist-credentials: false
-      - name: Execute unchanged prepared six independent diagnostics
-        shell: bash
-        run: |
-          git rev-parse HEAD
-          node --version
-          set +e
-          node research/reborn2-independent-tests/probe-v44-prepared.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc fixed-work42 1f185f879bc58ca5d0665d90419981dac9b73bf6 > "$RUNNER_TEMP/v44-prepared.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/v44-prepared.log"
-          echo "PREPARED_EXIT=$rc"
-          exit "$rc"
-      - name: Retest IT48-07 and cancellation contrast
-        if: always()
+      - name: Independent Test01 fixed implementation
         shell: bash
         run: |
           set +e
-          node research/reborn2-independent-tests/probe-v44-supplement.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v44-supplement.log" 2>&1
+          node research/reborn2-independent-tests/probe-practical-test01.mjs fixed-codex02 5ffaba5d8a8d5892adb2b2721092d1e3a4984842 > "$RUNNER_TEMP/test01.log" 2>&1
           rc=$?
-          cat "$RUNNER_TEMP/v44-supplement.log"
-          echo "SUPPLEMENT_EXIT=$rc"
-          exit "$rc"
-      - name: V45 independent semantic and peer interventions
-        if: always()
-        shell: bash
-        run: |
-          set +e
-          node research/reborn2-independent-tests/probe-v45-independent.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v45-independent.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/v45-independent.log"
-          echo "V45_EXIT=$rc"
-          exit "$rc"
-      - name: V46 independent category and grade boundary controls
-        if: always()
-        shell: bash
-        run: |
-          set +e
-          node research/reborn2-independent-tests/probe-v46-independent.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v46-independent.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/v46-independent.log"
-          echo "V46_EXIT=$rc"
+          cat "$RUNNER_TEMP/test01.log"
+          echo "TEST01_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: main48-final-regression
-          path: |
-            ${{ runner.temp }}/v44-prepared.log
-            ${{ runner.temp }}/v44-supplement.log
-            ${{ runner.temp }}/v45-independent.log
-            ${{ runner.temp }}/v46-independent.log
-
-  v47-independent:
-    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - uses: actions/checkout@v4
-        with:
-          ref: f565e88af3404c84328a6cd035d2f21df3ea49dc
-          path: fixed-final
-          persist-credentials: false
-      - name: V47 independent route and boundary controls
-        shell: bash
-        run: |
-          git rev-parse HEAD
-          node --version
-          set +e
-          node research/reborn2-independent-tests/probe-v47-independent.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v47-independent.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/v47-independent.log"
-          echo "V47_EXIT=$rc"
-          exit "$rc"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: main48-final-v47-regression
-          path: ${{ runner.temp }}/v47-independent.log
-
-  v48-independent:
-    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - uses: actions/checkout@v4
-        with:
-          ref: f565e88af3404c84328a6cd035d2f21df3ea49dc
-          path: fixed-final
-          persist-credentials: false
-      - name: V48 independent common-peer and outcome boundary controls
-        shell: bash
-        run: |
-          git rev-parse HEAD
-          node --version
-          set +e
-          node research/reborn2-independent-tests/probe-v48-independent.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v48-independent.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/v48-independent.log"
-          echo "V48_EXIT=$rc"
-          exit "$rc"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: main48-final-independent
-          path: ${{ runner.temp }}/v48-independent.log
-
-  final-partial:
-    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - uses: actions/checkout@v4
-        with:
-          ref: f565e88af3404c84328a6cd035d2f21df3ea49dc
-          path: fixed-final
-          persist-credentials: false
-      - name: Final independent Work44 partial consumer
-        shell: bash
-        run: |
-          git rev-parse HEAD
-          node --version
-          set +e
-          node research/reborn2-independent-tests/probe-v48-final-partial.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v48-final-partial.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/v48-final-partial.log"
-          echo "FINAL_EXIT=$rc"
-          exit "$rc"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: main48-final-partial
-          path: ${{ runner.temp }}/v48-final-partial.log
+          name: reborn2-practical-test01
+          path: ${{ runner.temp }}/test01.log
