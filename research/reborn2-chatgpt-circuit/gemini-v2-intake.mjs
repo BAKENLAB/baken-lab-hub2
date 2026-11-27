@@ -58,6 +58,8 @@ export function prepareGeminiV2(raw){
    if(isSubject)runs.push({...e,...f,circuit:'FIXTURE',started_at:r.scheduled_start_local,local_date:r.date,status:'FINISHED',gap_winner:x.reported_winner_gap_tenths/10,final3f:x.final3f_tenths/10,positions,first_segment:1,fixture_segment_labels_consistent:true,fixture_segment_grid_complete:validCorners.length===4,expected_segments:4,position_evidence_id:pe?.evidence_id??null,labeled_corners:positions.map(p=>({corner:p.segment,position:p.rank_min})),last_corner:positions.find(p=>p.segment===4)?.rank_min??null});
   }
   push(raceE,'RACE_FIELD',{...cond(r),field_size:n,runner_ids:rs.map(x=>x.horse_id),fixture_full_field_consistent:true},r.scheduled_start_local);
+  // A future explicitly corrected fictional leader-lap packet can reach shared item19; never infer kind or repair a sum.
+  if(lapOK){let start_m=0;const splits=dist.map((length,i)=>{const x={start_m,end_m:start_m+length,elapsed_tenths:laps[i]};start_m+=length;return x;});const le=mk('laps:'+r.race_id,null,r.race_id,r.publication_local);push(le,'RACE_LAPS',{measurement_scope:'RACE_LEADER',fixture_lap_kind_reported:true,splits},r.scheduled_start_local);}
   races.push({...raceE,...cond(r),circuit:'FIXTURE',started_at:r.scheduled_start_local,field_size:n,row_evidence_ids:rowRefs,results:rs.map(x=>({horse_id:x.horse_id,finish:x.finish,status:'FINISHED'}))});
   // Ruling text is fictional; roles must match the historical number AND horse ID.
   const text=r.ruling?.text??'';

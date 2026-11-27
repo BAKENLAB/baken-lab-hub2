@@ -1,5 +1,5 @@
 // Isolated fictional local-clock context; no official admission.
-export const fictionalTime=x=>typeof x==='string'&&/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d$/.test(x)?Date.parse(x+'Z'):NaN; // wall-clock ordering coordinate only, NOT a UTC instant
+export const fictionalTime=x=>typeof x==='string'&&/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d$/.test(x)?((n)=>Number.isFinite(n)&&new Date(n).toISOString().slice(0,19)===x?n:NaN)(Date.parse(x+'Z')):NaN; // wall-clock ordering coordinate only, NOT a UTC instant
 export const fixtureHorse=x=>typeof x==='string'&&/^FIXTURE-[A-Z]\d*$/.test(x);
 export const fixtureEvidence=x=>x?.fixture_only===true&&x.official_evidence===false&&x.formal_admission===false&&typeof x.evidence_id==='string'&&x.evidence_id.startsWith('fixture-v2:')&&(!Object.hasOwn(x,'identity_status')||x.identity_status==='FICTIONAL_ONLY')&&x.source_verified!==true&&x.source_authenticity_verified!==true&&x.identity_attestation_verified!==true;
 export function assertFictionalTarget(target,roster){
