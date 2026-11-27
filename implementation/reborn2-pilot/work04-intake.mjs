@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {prepareSupplyPlan} from './work02-supply-plan.mjs';
 import {executeVerifiedSupply,ENGINE,sha} from './adapter.mjs';
-export const WORK04='e6918e98a46e9de797b11a7a4ef0c116a21ab5cc';
+export const WORK04='fe0857f8590e06377273d922461217796dcd61a6';
 export const sourceMap=JSON.parse(readFileSync(new URL('./work04-source-map.json',import.meta.url),'utf8'));
 assert.equal(sourceMap.engine,ENGINE);assert.equal(sourceMap.scope,'METADATA_ONLY');assert.equal(sourceMap.items.length,115);assert.equal(sourceMap.counts.admitted,0);assert.equal(sourceMap.engineInput,null);assert.equal(sourceMap.realAdmission,false);
 const exact=(x,k)=>assert.deepEqual(Object.keys(x).sort(),[...k].sort(),'UNEXPECTED_INTAKE_FIELDS');
@@ -11,9 +11,10 @@ export const realContract=Object.freeze({
  schema:'REBORN2_WORK04_REAL_INTAKE_1',
  target:['issuer','venueNativeId','dateJst','raceNo','nativeRaceId','officialPost','startLower','completeRoster'],
  roster:['nativeHorseId','horseNo','gate','weightG','status','statusProofRef'],
- historical:['nativeRaceId','nativeHorseId','finish','finishClockLiteral','marginLiteral','final600Ms','cornerGroupSlots','leaderLapSlots','context','refs'],
+ historical:['nativeRaceId','nativeHorseId','pastHorseNo','status','finish','finishClockLiteral','marginLiteral','final600Ms','cornerGroupSlots','leaderLapSlots','context','refs'],
  context:['surface','distanceM','going','direction','venueNativeId','classLiteral','courseVersion'],
  provenance:['nativeSourceId','documentId','rowPointer','field','value','dependencies','publishedAt','updatedAt','capturedAt','version','sha256','permissionRef'],
+ joinRules:['JRA stable key is candidate only: non-null extracted key + independent official native horse and event witness','JRA accessS vs pw01 requires validated event crosswalk; no date/track equivalence','LOCAL preclaim packet.evidence array, linkedRunEvidence is count; roster and payload digests; as_of/captured_at/post and sourceCheckedAt bound','LOCAL horse_runs has no native horse ID; hold without verified prior race+pastHorseNo+horseRef','dedup issuer/native race/native horse/version; conflicting duplicates held'],
  missing:['individual checkpoint clocks','exact distance ranks','normalized clock unless certified','status unless proven','effective course geometry'],
  prohibited:['odds','market','popularity','target result','legacy score','TOP5','name-only identity','fabricated clocks']
 });

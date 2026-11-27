@@ -1,3 +1,5 @@
+import {createHash} from 'node:crypto';
+const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
 const names={A:'能力',B:'条件適性',C:'相手比較',D:'展開耐性',E:'LAB EYE'};
 const reasons={CURRENT_STATUS_UNCERTIFIED:'今回の出走状態を確認できていない',CURRENT_PARTICIPATION:'今回の出走状態を確認できていない',INDIVIDUAL_CROSSING_CLOCK_UNAVAILABLE:'個馬の通過時計がない',COURSE_VERSION_UNCERTIFIED:'コース形状・適用時期が未確認',NO_SUPPORTED_WIN_OR_PLACE_OR_AFFIRMATIVE_ADVERSE_DECISION:'勝ち筋・好走筋・明確な劣勢のいずれも判断材料が不足',DEPENDENT_ROUTE_OR_FIELD_BOUND:'展開・相手比較の成立範囲が未確定',REQUIRED_DIRECTIONAL_PROOF_NOT_ESTABLISHED:'能力発揮の方向を裏付ける材料が不足',CANCELLED:'出走取消'};
 const gradeText={S:'複数の条件で勝ち筋を支持',A:'条件付きの勝ち筋を支持',B:'条件付きの好走筋を支持',C:'比較可能な条件で劣勢を支持',UNASSESSED:'判断に必要な証拠が不足'};
@@ -10,7 +12,7 @@ const display=(id,roster,subject)=>resolvePeer(id,roster,subject)?.name??'比較
 export const witness=(p,dir,roster,subject)=>{const q=pairs(p,dir).find(q=>clock(q.finish)&&resolvePeer(q.rival,roster,subject));if(!q)return null;const peer=resolvePeer(q.rival,roster,subject);return {route:p.id,peer:peer.horseId,peerName:peer.name,intervalMs:q.finish,direction:dir,refs:q.refs};};
 const line=(p,dir,roster,subject)=>{const w=witness(p,dir,roster,subject);return w?w.peerName+'との相対時計差は'+clock(w.intervalMs)+(dir==='support'?'先着側':'後着側')+'。':'';};
 export function summarizeRunner(r,roster,mode){
- const findings=[],push=(kind,text,link,proof)=>findings.push({kind,text,link,...(proof?{proof}: {})});
+ const findings=[],push=(kind,text,link,proof)=>findings.push({kind,text,link,...(proof?{proof:{...Object.fromEntries(Object.entries(proof).filter(([k])=>k!=='refs')),refCount:proof.refs.length,refsDigest:digest(proof.refs)}}: {})});
  if(r.status==='CANCELLED'){push('保留','出走取消。能力評価は付けない。',{field:'holdReasons'});}
  else if(mode==='PARTIAL'){
   const fs=r.analysisItems.flatMap(i=>(i.partialFindings??[]).map((f,index)=>({...f,item:i.item,index})));

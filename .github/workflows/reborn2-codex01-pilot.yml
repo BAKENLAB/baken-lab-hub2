@@ -1,4 +1,4 @@
-name: REBORN2 Codex02 isolated implementation
+name: REBORN2 Codex03 isolated implementation
 on:
   push:
     branches: [implementation/reborn2-pilot-01-20261128]
@@ -19,6 +19,7 @@ jobs:
       - run: node implementation/reborn2-pilot/test-v2.mjs
         env:
           PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview
+      - run: node implementation/reborn2-pilot/test-v3.mjs
       - run: node implementation/reborn2-pilot/test-mobile-browser.mjs
         env:
           PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview
