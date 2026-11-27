@@ -104,4 +104,5 @@ test('F20-12',()=>{
  // Lack of a canonical source is explicitly not a claimed EYE12 material success.
  console.log('F20_EYE12_ACTUAL_REVIEWS '+reviews.length);
 });
-console.log('F20_SUMMARY '+JSON.stringify({formal:false,measured:a.measured,pace_intervention:{before:race(a,changed.id),after:race(b,changed.id)},position_intervention:{before:horse(a,'FIXTURE-B').history[0].positions,after:horse(c,'FIXTURE-B').history[0].positions},scenarios:a.field.scenarios,trace:a.trace,decisions:a.decisions.map(h=>({id:h.id,A:h.views.A.observations.map(o=>({race:o.race,finish:o.finish,positions:o.positions,role:o.role})),B:h.views.B.observations,paths:h.views.D.paths}))}));
+test('F20-13',()=>{assert.ok(a.root_check.distinct>0);assert.deepEqual(a.root_check.unbound,[]);assert.ok(a.measured.every(r=>r.roots.some(x=>x==='fixture-v2:laps:'+r.race)));});
+console.log('F20_SUMMARY '+JSON.stringify({formal:false,root_check:a.root_check,measured:a.measured,pace_intervention:{before:race(a,changed.id),after:race(b,changed.id)},position_intervention:{before:horse(a,'FIXTURE-B').history[0].positions,after:horse(c,'FIXTURE-B').history[0].positions},scenarios:a.field.scenarios,trace:a.trace,decisions:a.decisions.map(h=>({id:h.id,A:h.views.A.observations.map(o=>({race:o.race,finish:o.finish,positions:o.positions,role:o.role})),B:h.views.B.observations,paths:h.views.D.paths}))}));
