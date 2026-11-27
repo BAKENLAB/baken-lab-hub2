@@ -1,5 +1,6 @@
 // Shared analysis kernels with a separate, nonofficial observation contract.
 import {researchWinningPathsFixture,researchRaceStructure} from './winning-race-structure.mjs';
+import {leaderWindows} from './route-observations-v13.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {prepareGeminiV2} from './gemini-v2-intake.mjs';
@@ -24,7 +25,7 @@ const exact=(a,b)=>scope.every(k=>a?.[k]!=null&&a[k]===b?.[k]);
 const fval=i=>[...arr(i?.facts),...arr(i?.hypotheses),...arr(i?.counterevidence)];
 const gradeKeys=['odds','popularity','market','rank_candidate','expected_rank','support_asserted'];
 function rejectInput(x){if(x&&typeof x==='object')for(const [k,v] of Object.entries(x)){if(gradeKeys.includes(k))throw Error('FORBIDDEN_EXPECTATION_OR_MARKET');rejectInput(v);}}
-export function runGeminiV2(bytes,{sharedRoutes=false}={}){
+export function runGeminiV2(bytes,{sharedRoutes=false,semanticV13=false}={}){
  const raw=JSON.parse(bytes);rejectInput(raw);
  const p=prepareGeminiV2(raw),{target,roster,evidence,intake,runs,races,histories,current,gates,geometry,followups,holds}=p;
  let ordinary;
@@ -34,7 +35,9 @@ export function runGeminiV2(bytes,{sharedRoutes=false}={}){
  const typed=analyzeTyped01to32({target,roster,intake,traceRead});
  const opposition=analyzeOpposition33to42Fixture({target,roster,races,histories});
  const conditions=analyzeConditions43to57Fixture({target,roster,runs,historyWitnesses:histories.map(h=>({...h,ordered_race_ids:h.ordered_race_ids.slice().reverse()})),draws:gates});
- const pace=analyzePace58to77Fixture({target,roster,evidence,runs,history:histories,gates,course:geometry});
+ const paceTarget=semanticV13?{...target,early_segment_m:600}:target;
+ const lapBenchmarks=semanticV13?intake.accepted.filter(g=>g.record.kind==='RACE_LAPS').flatMap(g=>{const r=races.find(r=>r.race_id===g.record.race_id),v=leaderWindows(g.record.fact.splits);return r&&v?.early600_tenths!=null?[{...r,evidence_id:g.evidence_ids[0],early_segment_m:600,early_seconds:v.early600_tenths/10,race_level_only:true}]:[];}):[];
+ const pace=analyzePace58to77Fixture({target:paceTarget,roster,evidence,runs,history:histories,gates,course:geometry,paceBenchmarks:lapBenchmarks});
  const badInterval=new Set(holds.filter(h=>h.scope==='INTERVAL').map(h=>h.key));
  const state=analyzeState78to92Fixture({target,roster,evidence,runs,history:histories.filter(h=>!badInterval.has(h.horse_id)),current});
  const before=[];
@@ -75,7 +78,7 @@ export function runGeminiV2(bytes,{sharedRoutes=false}={}){
  }
  const upstream=before.flatMap(h=>Object.entries(h.items).map(([id,i])=>({horse_id:h.horse_id,item_id:id,evidence_ids:uniq(fval(i).flatMap(x=>x.evidence_ids)),source_cutoff:target.cutoff,analysis_status:fval(i).length?'OUTPUT_CANDIDATE':'UNKNOWN'})));
  const changes=analyzeChanges93to100Fixture({target,roster,evidence,runs,history:histories,currentConditions:current,upstream,traceRead});
- const commonWinning=sharedRoutes?researchWinningPathsFixture({target,roster,intake,typedAnalysis:typed,pace,traceRead,analysisRows:before.map(h=>({...h,items:{...h.items,...changes.runners.find(x=>x.horse_no===h.horse_no).items}}))}):null;
+ const commonWinning=sharedRoutes?researchWinningPathsFixture({target,roster,intake,typedAnalysis:typed,pace,traceRead,semanticV13,analysisRows:before.map(h=>({...h,items:{...h.items,...changes.runners.find(x=>x.horse_no===h.horse_no).items}}))}):null;
  const rankRunners=before.map(h=>{Object.assign(h.items,changes.runners.find(x=>x.horse_no===h.horse_no).items);
  const incident=fval(h.items['26']),scenario=[...fval(h.items['65']),...fval(h.items['70'])];
  if(incident.length&&scenario.length){for(const id of ['26','65','70'])if(fval(h.items[id]).length)traceRead({consumer:'fixtureRecurrenceContext',consumer_item_id:'96',horse_no:h.horse_no,item_id:id,value:h.items[id],reason:'Ruling context and present scenario prerequisites, no causal resolution'});add(h,'96',{prior_incident_context:incident.map(x=>x.value),current_scenario_context:scenario.map(x=>x.value),causal_loss:null,recurrence_resolution:null,materiality:'UNVALIDATED'},[...incident,...scenario].flatMap(x=>x.evidence_ids),'hypotheses');}
@@ -108,5 +111,6 @@ export function runGeminiV2(bytes,{sharedRoutes=false}={}){
  const share=pace.runners.flatMap(h=>h.items['63'].facts).map(o=>o.value)[0];
  const field={active_n:roster.filter(h=>h.active).length,front_rows:pace.runners.map(h=>({horse_no:h.horse_no,horse_id:h.horse_id,front:h.items['59'].facts[0]?.value?.top3_any_corner??'UNKNOWN',first:h.items['59'].facts[0]?.value?.early_top3??'UNKNOWN',evidence_ids:h.items['59'].facts.flatMap(x=>x.evidence_ids)})),share,first_turn_m:target.distance_m===raw.target.distance_m?raw.target.first_turn_m:null,possible_pairs:21,observed_direct_pairs:opposition.runners.flatMap(h=>h.items['35'].facts).length/2,indirect_observations:opposition.runners.flatMap(h=>h.items['36'].facts).length,conditional_competition:pace.runners.flatMap(h=>h.items['65'].hypotheses.map(o=>o.value)).filter(o=>o.certainty==='CONDITIONAL_NOT_VERIFIED_COMPETITION').slice(0,1),scenario_status:'HYPOTHESES_ONLY_UNVALIDATED',day:p.dayAudit};
  const structure=sharedRoutes?researchRaceStructure({target,roster,winning:commonWinning,intake}):null;
- return {shared_route_kernel:sharedRoutes,structure,fixture_only:true,official_admission:false,formal_consumption:0,input_sha256:createHash('sha256').update(bytes).digest('hex'),normal_entry_rejection:ordinary,input_blob:'cc213bde970d07cf8dd5d034b18a72ca2e196dfa',time_basis:target.time_basis,audit:p.audit,holds,field,followup_diagnostics:followups,counts:{past_races:p.audit.length,past_rows:p.audit.reduce((n,r)=>n+r.rows,0),usable_races:races.length,usable_rows:races.reduce((n,r)=>n+r.results.length,0),lap_sum_conflicts:p.audit.filter(r=>r.lap_delta_tenths!==0).length,lap_kind_holds:p.audit.filter(r=>r.lap_status==='HOLD').length,position_conflict_races:p.audit.filter(r=>r.corner_held.length).length,held_corner_grids:p.audit.reduce((n,r)=>n+r.corner_held.length,0),target_history_number_differences:p.audit.filter(r=>r.target_runner_no!==r.subject_historical_runner_no).length,linked_partial_followups:followups.length,audit_rows:rows.length,shared_function_rows:sharedRoutes?null:rows.length,section_dispatched_rows:rows.length,rows_with_output:rows.filter(i=>i.actual_analysis_output.length).length,rows_with_structural_refs:rows.filter(i=>i.structurally_bound_outputs>0).length,rows_with_actual_research_reads:rows.filter(i=>i.runtime_consumers.length||i.synthesis_runtime_reads.length).length,formal_consumption:0},runners:synthesis.runners,trace_reads:traces,synthesis_reads:synthesis.runtime_reads,raw_reads:synthesis.raw_evidence_reads,rank_candidate:null,eye_candidate:null};
+ if(semanticV13&&structure)for(const h of commonWinning.runners.filter(h=>h.active!==false&&!h.winning_paths.length)){const r=structure.material_unknowns_by_horse.find(x=>x.horse_id===h.horse_id);if(r)r.unknowns=[...new Set([...r.unknowns,'NO_HISTORICAL_ROUTE'])];}
+ return {shared_route_kernel:sharedRoutes,structure,fixture_only:true,official_admission:false,formal_consumption:0,input_sha256:createHash('sha256').update(bytes).digest('hex'),normal_entry_rejection:ordinary,input_blob:semanticV13?null:'cc213bde970d07cf8dd5d034b18a72ca2e196dfa',time_basis:target.time_basis,audit:p.audit,holds,field,followup_diagnostics:followups,counts:{past_races:p.audit.length,past_rows:p.audit.reduce((n,r)=>n+r.rows,0),usable_races:races.length,usable_rows:races.reduce((n,r)=>n+r.results.length,0),lap_sum_conflicts:p.audit.filter(r=>r.lap_delta_tenths!==0).length,lap_kind_holds:p.audit.filter(r=>r.lap_status==='HOLD').length,position_conflict_races:p.audit.filter(r=>r.corner_held.length).length,held_corner_grids:p.audit.reduce((n,r)=>n+r.corner_held.length,0),target_history_number_differences:p.audit.filter(r=>r.target_runner_no!==r.subject_historical_runner_no).length,linked_partial_followups:followups.length,audit_rows:rows.length,shared_function_rows:sharedRoutes?null:rows.length,section_dispatched_rows:rows.length,rows_with_output:rows.filter(i=>i.actual_analysis_output.length).length,rows_with_structural_refs:rows.filter(i=>i.structurally_bound_outputs>0).length,rows_with_actual_research_reads:rows.filter(i=>i.runtime_consumers.length||i.synthesis_runtime_reads.length).length,formal_consumption:0},runners:synthesis.runners,trace_reads:traces,synthesis_reads:synthesis.runtime_reads,raw_reads:synthesis.raw_evidence_reads,rank_candidate:null,eye_candidate:null};
 }

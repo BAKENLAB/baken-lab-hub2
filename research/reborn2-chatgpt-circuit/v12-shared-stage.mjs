@@ -10,6 +10,7 @@ const unique=a=>[...new Set(a)];
 const hash=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
 const run=x=>runGeminiV2(Buffer.from(JSON.stringify(x)),{sharedRoutes:true});
 export function correctionDiagnostics(raw,proposals=load('./gemini-v2-correction-proposals-pinned.json')){
+ if(raw.prior_version_audit)throw Error('CORRECTED_VERSION_DO_NOT_REAPPLY');
  if(proposals.fixture_only!==true||proposals.formal_admission!==false||proposals.official_evidence!==false)throw Error('CORRECTION_SCOPE');
  const next=structuredClone(raw),base=prepareGeminiV2(raw);
  const lap=proposals.lap_proposals.map(p=>{

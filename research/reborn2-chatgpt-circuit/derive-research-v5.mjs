@@ -50,7 +50,7 @@ export function deriveResearchV5({analysis,target}){
   if(bound&&!chron)material.push(unknown('CHRONOLOGY_INCOMPLETE','CURRENT_STATE',['直前走・状態変化・現在性'],[],'公式順序の連続照合が不足'));
   const pathResearch=(p,kind)=>{
    const support=[],counter=[],neutral=[],unresolved=[];
-   const histories=arr(p.historical_support);
+   const histories=arr(p.observed_history??p.historical_support);
    for(const x of histories){
     const g=ctx.result(h.horse_id,x.race_id);if(!g||!current)continue;
     const d=conditionDiff(g.record.fact,current.record.fact),refs=uniq([...g.evidence_ids,...current.evidence_ids]);
