@@ -1,0 +1,359 @@
+{
+  "sourceCommit": "9c8401e9735f102a3d25c49aef524681a29d7b2d",
+  "patchSha256": "70c7461deef50b823b9c77016b0e031cb7d6a5d17f626fef6087535ff4a3bbf7",
+  "appliedFile": "research/reborn2-chatgpt-circuit/work35-v38-completion.mjs",
+  "exitCode": 0,
+  "checks": [
+    "WORK38_PINNED_REPLAY",
+    "WORK38_H3_40_ENDPOINT_PAIRS",
+    "EXACT_SOURCE_BLOBS",
+    "PREFIX_EQUAL_LATE_RESPONSE_DIFFERS",
+    "W39_LATE_CONTRAST",
+    "W39_CHANGED_PEER",
+    "EYE_ONLY_FK34_FULL",
+    "EYE_ONLY_MASTER_MASK_0",
+    "EYE_ONLY_MASTER_MASK_1",
+    "EYE_ONLY_MASTER_MASK_2",
+    "F42_GUARD_ARITHMETIC"
+  ],
+  "newCases": [
+    {
+      "id": "W39_LATE_CONTRAST",
+      "pin": {
+        "id": "W39_LATE_CONTRAST",
+        "source_digest": "d1e8af663864270e7c2dc68ac0b8e294c911759f388c37da9706b77c78841f07",
+        "bundle_sha256": "0e8457d01a945e22fce2d1673f6fc7ec1dcab404b0f30e9f82a83e0a138327da",
+        "evidence": 1089,
+        "itemRows": 575,
+        "blob": null
+      },
+      "grades": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "W39_CHANGED_PEER",
+      "pin": {
+        "id": "W39_CHANGED_PEER",
+        "source_digest": "946a0b16e4c8cefdc3a9c50ed32088e15f4f6a29feccc7985f99cf77c96d13a9",
+        "bundle_sha256": "977452d3583415428690bccda933126e5067434cb76eaeafc5ba2db418164585",
+        "evidence": 1137,
+        "itemRows": 575,
+        "blob": null
+      },
+      "grades": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "eye": [
+    {
+      "id": "FK34_FULL",
+      "digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 12,
+          "commonOff": 0,
+          "eye": 20,
+          "items": [
+            "RANK18",
+            "RANK21",
+            "RANK100"
+          ],
+          "paths": 25,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        }
+      ]
+    },
+    {
+      "id": "MASTER_MASK_0",
+      "digest": "56370864fa42ebc9e58b4f36d16ae0d6a7ac1e9b8a0beb5cd7e961d9008f6ac0",
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "gradeOn": "B",
+          "gradeOff": "B",
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 6,
+          "commonOff": 0,
+          "eye": 8,
+          "items": [
+            "RANK18",
+            "RANK21",
+            "RANK100"
+          ],
+          "paths": 16,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        }
+      ]
+    },
+    {
+      "id": "MASTER_MASK_1",
+      "digest": "56370864fa42ebc9e58b4f36d16ae0d6a7ac1e9b8a0beb5cd7e961d9008f6ac0",
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "gradeOn": "B",
+          "gradeOff": "B",
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 6,
+          "commonOff": 0,
+          "eye": 10,
+          "items": [
+            "RANK18",
+            "RANK21",
+            "RANK100"
+          ],
+          "paths": 25,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 0,
+          "commonOff": 0,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        }
+      ]
+    },
+    {
+      "id": "MASTER_MASK_2",
+      "digest": "56370864fa42ebc9e58b4f36d16ae0d6a7ac1e9b8a0beb5cd7e961d9008f6ac0",
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 4,
+          "commonOff": 4,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "gradeOn": "B",
+          "gradeOff": "B",
+          "commonOn": 2,
+          "commonOff": 2,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 4,
+          "commonOff": 4,
+          "eye": 6,
+          "items": [
+            "RANK35",
+            "RANK48",
+            "RANK100"
+          ],
+          "paths": 24,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 16,
+          "commonOff": 10,
+          "eye": 38,
+          "items": [
+            "RANK18",
+            "RANK21",
+            "RANK35",
+            "RANK48",
+            "RANK100"
+          ],
+          "paths": 48,
+          "decisionChanges": []
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "gradeOn": null,
+          "gradeOff": null,
+          "commonOn": 4,
+          "commonOff": 4,
+          "eye": 0,
+          "items": [],
+          "paths": 0,
+          "decisionChanges": []
+        }
+      ]
+    }
+  ],
+  "f42": {
+    "measure": [
+      {
+        "event": "TEST:W36_POS_A",
+        "start": -2200,
+        "end": 900,
+        "gain": 3100,
+        "bound": 200,
+        "ranks": [
+          3,
+          4,
+          2
+        ],
+        "finish": 1
+      },
+      {
+        "event": "TEST:W36_POS_B",
+        "start": -3300,
+        "end": 1100,
+        "gain": 4400,
+        "bound": 200,
+        "ranks": [
+          3,
+          5,
+          4
+        ],
+        "finish": 1
+      }
+    ],
+    "lower": 2900,
+    "maxDeficit": 3300,
+    "minFinish": -400,
+    "returned": 0
+  }
+}

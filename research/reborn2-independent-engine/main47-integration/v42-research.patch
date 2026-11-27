@@ -150,7 +150,7 @@ index a5ac28e..c9202c0 100644
   assert.equal(sha(JSON.stringify(x.source_packet)),V.master.out.digest);
   return {x,reviewed,admitted};
 diff --git a/research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs b/research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs
-index 42fd6d4..afda6a6 100644
+index 42fd6d4..baf6a1f 100644
 --- a/research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs
 +++ b/research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs
 @@ -2,6 +2,7 @@
@@ -161,7 +161,19 @@ index 42fd6d4..afda6a6 100644
  import {createHash} from 'node:crypto';
  import {loadV40} from './work36-v40-integrated.mjs';
  import {analyze as analyzeV41,admission,leakAudit} from './work36-v41-local-decision.mjs';
-@@ -140,11 +141,11 @@ function assess(h,r,eye,threshold){
+@@ -71,7 +72,10 @@ function route(x,docs,a,b,threshold){
+   actual_current:'UNPROVEN',formal:false};
+ }
+ function oriented(e,h){
+- const s=e.a===h?1:-1,rev=x=>!x?null:s===1?x:[-x[1],-x[0]];
++ const s=e.a===h?1:-1;
++ // Clock bounds are measured differences in milliseconds. Preserve all
++ // endpoints while giving zero a single representation in either orientation.
++ const rev=x=>!x?null:(s===1?x:[-x[1],-x[0]]).map(v=>v===0?0:v);
+  const initial=rev(e.initial),finish=rev(e.finish),gain=e.gain===null?null:e.gain*s;
+  return {rival:s===1?e.b:e.a,initial,finish,gain,gainBound:e.gainBound,scope:e.scope,local:e.local,full:e.full,
+   recovered:!!(initial&&finish&&initial[1]<0&&finish[0]>0&&gain>e.gainBound),
+@@ -140,11 +144,11 @@ function assess(h,r,eye,threshold){
   return {id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,start:r.start,response:r.response,replay:r.replay,decision,axes,basis,field:e??null,local:l??null,full,own,
    actual_current:'UNPROVEN',formal:false};
  }
@@ -175,7 +187,7 @@ index 42fd6d4..afda6a6 100644
    const items=h.items.map(i=>{
     const changed=hs.flatMap(s=>(s.individual[h.horse]??[]).concat(s.shared).filter(q=>fields[q.dimension]===i.item&&q.state!=='MATCHED').map(q=>({event:s.event,dimension:q.dimension,past:q.past,current:q.current,delta:q.delta,state:q.state,refs:q.refs})));
     const effects=eye.filter(q=>q.targets.includes(i.item));
-@@ -167,6 +168,7 @@ function integrate(x,docs){
+@@ -167,6 +171,7 @@ function integrate(x,docs){
   });
   return {id:x.id,digest:x.source_digest,routes,runners,formal:false,grade:null,threshold};
  }
@@ -183,7 +195,7 @@ index 42fd6d4..afda6a6 100644
  const V=await loadV40(),all=[];
  for(const f of V.C.fixtures.filter(f=>f.id!=='W36_MASTER_IMMUTABLE')){
   const x=analyzeV41(V,f.id);all.push({base:x,z:integrate(x,f.docs)});
-@@ -241,7 +243,22 @@ t('F42-08',()=>{
+@@ -241,7 +246,22 @@ t('F42-08',()=>{
   assert.equal(b,undefined);assert.ok(p&&o);
   assert.equal(p.decision,'CONDITIONAL_WIN');assert.equal(o.decision,p.decision);
   const pair=p.own.find(e=>e.rival===H(2));assert.deepEqual(pair.finish,[1000,1600]);
@@ -207,7 +219,7 @@ index 42fd6d4..afda6a6 100644
   assert.deepEqual(o.own.map(e=>e.finish),p.own.map(e=>e.finish));
   assert.ok(h(3).paths.some(q=>q.response.endsWith('W36_COUNTER_MATCHED')&&q.decision==='CONDITIONAL_COUNTER'));
   assert.ok(p.basis.discovery&&p.basis.ability&&p.basis.applicability&&p.basis.comparison&&p.basis.response);
-@@ -268,7 +285,9 @@ t('F42-10',()=>{
+@@ -268,7 +288,9 @@ t('F42-10',()=>{
   const handoff=read('stage37-final-handoff-v0.1.json','95aa9c8906aef6a6398e3f749f3bd19e8632c780');
   const pin=read('work36-independent-pins-v0.1.json','ca1ad8f0a2059f0226cfdb7f78122ddce39cca27','0811e22bac17e6c49ff13b91747cc96e55042e7496e4be3f39ed438c99cf9e13');
   const h3=read('work36-original-crosscheck-h3-v0.1.json','b6b0a5979b0f13c100bd1721c4b6d71618498da6','caec36b32fc37075f6057cea2cc9bbf1818d931d3d82972309fe13da88c84b8b');
@@ -218,7 +230,7 @@ index 42fd6d4..afda6a6 100644
   for(const p of pin.cases){
    const g=V.generated.find(q=>q.p.id===p.id);assert.ok(g);
    for(const k of ['source_digest','bundle_sha256','evidence'])assert.equal(g.p[k],p[k]);
-@@ -287,8 +306,10 @@ t('F42-10',()=>{
+@@ -287,8 +309,10 @@ t('F42-10',()=>{
    for(const e of q.edges){const a=r.own.find(p=>id(p.rival)===e.rival);assert.deepEqual(a.finish,e.interval);}
    assert.equal(r.own.every(p=>p.finish&&p.finish[0]>0),false);
   }
