@@ -1,0 +1,1281 @@
+{
+  "schema": "stage19-replay-blocker-update-v1.7",
+  "acceptance": "566ae7a41690d5920b6a7d1884771d0da3007438",
+  "source_pins": {
+    "previous_contract": {
+      "commit": "9bd275f4b2621504e543d083ca3055978f86c9ad",
+      "blob": "8cb3025742180418f62233faa20f5cd0dcc7884a"
+    },
+    "saga": {
+      "commit": "fadad021c0f5f6b98c3da29587260b80a2e38732",
+      "blob": "a7e7e9b3b88ec449819eeaf5034decc510f153ee",
+      "exact_readback": true
+    },
+    "settlement": {
+      "commit": "853a49f4a6857964ab9735159e5d58a7430c1a88",
+      "blob": "dd400b55730e74da8230605a8381f3dc6692f715"
+    }
+  },
+  "tokyo_html_retention": {
+    "source_inspection": [
+      {
+        "slug": "jra-live",
+        "version": 32,
+        "updated_at": "2026-11-20T22:46:49.716Z",
+        "bundle_hash": "22ed544f9f24942e8a474afb3f0cf1e336806ac59017bc69f2686f5db396dd7e",
+        "lines": [
+          466,
+          491,
+          499
+        ],
+        "digest_input": "UTF8 encoded decoded HTML text",
+        "persistence": "parsed rows + race key, cname, URL, fetched_at, hash, encoded byte length, extractor version, status and runner count"
+      },
+      {
+        "slug": "jra-verified-card-publish",
+        "version": 2,
+        "updated_at": "2026-11-06T21:52:44.530Z",
+        "bundle_hash": "205cb8f2b06e3c241b9c134d71c7558f6e778a5dea4f94be7e06c37072c2bb8b",
+        "lines": [
+          35,
+          43,
+          47,
+          53,
+          55,
+          56,
+          64,
+          67,
+          78
+        ],
+        "digest_input": "received arrayBuffer bytes before shift_jis decode",
+        "persistence": "structured proof to existing jra_publish_verified_card_v1 RPC; no raw bytes argument"
+      }
+    ],
+    "rpc": "jra_publish_verified_card_v1(jsonb) current definition inspected lines 126-154 proof and metadata writes; not invoked",
+    "raw_storage_write_matches": 0,
+    "raw_bytes_recovered": false,
+    "hash_recomputed": false,
+    "previous_capture_records": [
+      {
+        "id": 3634,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-22 15:24:02.319+00",
+        "recorded_at": "2026-11-22 15:24:02.854343+00",
+        "html_sha256": "66e2960d1a1a6e02a46906f3154e2b9d25de65671ceecf60505a61e7dfc9307e",
+        "html_bytes": 249241,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3647,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123/E9",
+        "fetched_at": "2026-11-22 21:50:04.578+00",
+        "recorded_at": "2026-11-22 21:50:04.609467+00",
+        "html_sha256": "eba746170cedcb66c3ace6f954474e7110f7cf0f1c27a037c234f00591102144",
+        "html_bytes": 241523,
+        "extractor_version": "jra-verified-gate-v1",
+        "status_basis": "VERIFIED_CURRENT_ENTRY",
+        "official_status_verified": true,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3680,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-22 22:13:03.131+00",
+        "recorded_at": "2026-11-22 22:13:03.576761+00",
+        "html_sha256": "0cc4ad51a817f9700ebd51f9f8d1e389c57f2d1a91807f0392db606add979717",
+        "html_bytes": 249241,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3703,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-22 22:49:00.997+00",
+        "recorded_at": "2026-11-22 22:49:01.367518+00",
+        "html_sha256": "16d906976e1ab1aafa25bc987fe952c8f978fdae9d7a950e78f6f146e19430c4",
+        "html_bytes": 249241,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3726,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-22 23:25:01.655+00",
+        "recorded_at": "2026-11-22 23:25:02.826358+00",
+        "html_sha256": "e910843c9baf892e5e107a6c6ac70f8c9861f5dc4aae45b71b59c77b624ff33b",
+        "html_bytes": 249241,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3749,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 00:01:01.328+00",
+        "recorded_at": "2026-11-23 00:01:02.119829+00",
+        "html_sha256": "6ce0fd666be8f698d9a86b302060cd88b0ebf921094324b844b726c129c353c3",
+        "html_bytes": 249730,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3772,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 00:37:01.42+00",
+        "recorded_at": "2026-11-23 00:37:01.965992+00",
+        "html_sha256": "1e3eaea926852bb31c5511622c13a68c97c5650e3d00d4f03da3c0a221c83575",
+        "html_bytes": 249730,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3794,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 01:12:03.074+00",
+        "recorded_at": "2026-11-23 01:12:03.612781+00",
+        "html_sha256": "7c76f1c55efddc57583be9832116d6fc823db4078c60c5bfb3067346505dd43d",
+        "html_bytes": 249731,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3814,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 01:48:03.226+00",
+        "recorded_at": "2026-11-23 01:48:03.765104+00",
+        "html_sha256": "4327aa838dba1dec4aec2f21bc3def0d86b65307c526896b50819f6809190df8",
+        "html_bytes": 249731,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3832,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 02:23:01.999+00",
+        "recorded_at": "2026-11-23 02:23:02.468064+00",
+        "html_sha256": "ce2bd2ee02d6fde00f4c66bba6741a76f7b2a1f12b2959ac7673f1bc1c8176ca",
+        "html_bytes": 249731,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3848,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 02:58:02.73+00",
+        "recorded_at": "2026-11-23 02:58:03.187049+00",
+        "html_sha256": "06e6e020e4c949c5ef8534528f612feb1f5ba20bb3b204099bef49e9c533ba3b",
+        "html_bytes": 249731,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3862,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 03:32:03.601+00",
+        "recorded_at": "2026-11-23 03:32:04.262512+00",
+        "html_sha256": "ac4ea34d283ce76df345bad07a9081d76821256bf530180394f8140890239b68",
+        "html_bytes": 249720,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3874,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 04:08:03.476+00",
+        "recorded_at": "2026-11-23 04:08:03.878038+00",
+        "html_sha256": "89cc40346c2ef35ea2a03c38b6209815b814c49c38ac3860866a0fdfdde9aa24",
+        "html_bytes": 249720,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3884,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 04:42:02.832+00",
+        "recorded_at": "2026-11-23 04:42:03.267282+00",
+        "html_sha256": "6a8ed2341f488d55ef68ce8e6490c193ef04177ea2e8de1ca69a77c798051cce",
+        "html_bytes": 249731,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3892,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 05:18:02.252+00",
+        "recorded_at": "2026-11-23 05:18:02.65967+00",
+        "html_sha256": "a34b60d55a34316d124e6c293fdd58940956951d973fa1d15fe0e9d7f29cfe47",
+        "html_bytes": 249731,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3898,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 05:52:02.698+00",
+        "recorded_at": "2026-11-23 05:52:03.186033+00",
+        "html_sha256": "b2fb30de6b16b58466db93dd6a0a41946a82a12257eafc0a033d5cdaf843c547",
+        "html_bytes": 249731,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3901,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 06:27:02.082+00",
+        "recorded_at": "2026-11-23 06:27:02.647425+00",
+        "html_sha256": "a6d4aa145822cebcff19efb4ae1684d29ef13b8e97f9830e0662b8d94d403d48",
+        "html_bytes": 251030,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      },
+      {
+        "id": 3903,
+        "race_key": "20261123_東京_12R",
+        "cname": "pw01dde0105202605061220261123/E9",
+        "source_url": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0105202605061220261123%2FE9",
+        "fetched_at": "2026-11-23 07:00:08.065+00",
+        "recorded_at": "2026-11-23 07:00:08.764834+00",
+        "html_sha256": "d6b088be4c44e8b40736c04022e7146ffb959060f6b566690809849c554cf01d",
+        "html_bytes": 251033,
+        "extractor_version": "jra-live-v17-provenance",
+        "status_basis": "UNVERIFIED_HTML_CAPTURE",
+        "official_status_verified": false,
+        "runner_count": 18,
+        "both_prestart": true
+      }
+    ],
+    "verified_payload_witness": {
+      "record_id": 3647,
+      "hash": "eba746170cedcb66c3ace6f954474e7110f7cf0f1c27a037c234f00591102144",
+      "proof_time": "2026-11-22T21:50:04.578+00:00",
+      "field_fetched_at": "2026-11-22T21:50:04.578+00:00",
+      "row_updated_at": "2026-11-23T07:20:05.056+00:00",
+      "post": "2026-11-23T07:05:00+00:00",
+      "roster_count": 18,
+      "active_count": 18,
+      "basis": "JRA_OFFICIAL_CARD_FULL_NUMBERED_FIELD_V1",
+      "hash_matches_existing_receipt": true,
+      "raw_native_proof": false,
+      "mutable_after_post": true
+    },
+    "conclusion": "Known inspected collectors store hashes and structured data, not source bytes. Cannot rule out external backup; historical deployed bundle provenance not independently reconstructed. A newly acquired page cannot substitute for matching historical bytes."
+  },
+  "missing_26": [
+    {
+      "current_no": 1,
+      "card_ordinal": 1,
+      "event": [
+        "2026-10-31",
+        "東京",
+        12
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "03f0ef43-659c-40d4-b7c0-6c0496782a11",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-31 07:30:04.711+00",
+        "finish_match": true,
+        "clock_literal_match": true,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 2,
+      "card_ordinal": 1,
+      "event": [
+        "2026-09-20",
+        "中山",
+        7
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "ARCHIVE_EVENT_ABSENT",
+      "details": null,
+      "formal_usable": false
+    },
+    {
+      "current_no": 3,
+      "card_ordinal": 1,
+      "event": [
+        "2026-10-21",
+        "JRAへ転入",
+        null
+      ],
+      "previous_status": "TRANSFER_EVENT_NOT_RACE",
+      "next_status": "TRANSFER_EVENT_NOT_RACE",
+      "details": null,
+      "formal_usable": false
+    },
+    {
+      "current_no": 3,
+      "card_ordinal": 2,
+      "event": [
+        "2026-09-11",
+        "笠松",
+        null
+      ],
+      "previous_status": "CROSS_CIRCUIT_NATIVE_LINK_REQUIRED",
+      "next_status": "CROSS_CIRCUIT_NATIVE_LINK_REQUIRED",
+      "details": null,
+      "formal_usable": false
+    },
+    {
+      "current_no": 3,
+      "card_ordinal": 3,
+      "event": [
+        "2026-06-12",
+        "笠松",
+        null
+      ],
+      "previous_status": "CROSS_CIRCUIT_NATIVE_LINK_REQUIRED",
+      "next_status": "LOCAL_CLOCK_NORMALIZED_CORROBORATION_ID_TIME_HELD",
+      "details": {
+        "archive_row_id": 225636,
+        "finish_match": true,
+        "clock_normalized_match": true,
+        "final3f_match": true
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 3,
+      "card_ordinal": 4,
+      "event": [
+        "2026-05-13",
+        "笠松",
+        null
+      ],
+      "previous_status": "CROSS_CIRCUIT_NATIVE_LINK_REQUIRED",
+      "next_status": "LOCAL_CLOCK_NORMALIZED_CORROBORATION_ID_TIME_HELD",
+      "details": {
+        "archive_row_id": 211136,
+        "finish_match": true,
+        "clock_normalized_match": true,
+        "final3f_match": true
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 4,
+      "card_ordinal": 1,
+      "event": [
+        "2026-10-25",
+        "東京",
+        8
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "71caa9a2-8029-4422-9aac-3510c9e7fa70",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-25 04:50:03.045+00",
+        "finish_match": true,
+        "clock_literal_match": null,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 4,
+      "card_ordinal": 2,
+      "event": [
+        "2026-10-12",
+        "東京",
+        9
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "4974731c-d168-48d0-8732-da31fe4812cd",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-12 05:30:02.968+00",
+        "finish_match": true,
+        "clock_literal_match": null,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 4,
+      "card_ordinal": 3,
+      "event": [
+        "2026-09-13",
+        "中山",
+        7
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "ARCHIVE_EVENT_ABSENT",
+      "details": null,
+      "formal_usable": false
+    },
+    {
+      "current_no": 5,
+      "card_ordinal": 1,
+      "event": [
+        "2026-09-13",
+        "中山",
+        7
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "ARCHIVE_EVENT_ABSENT",
+      "details": null,
+      "formal_usable": false
+    },
+    {
+      "current_no": 7,
+      "card_ordinal": 1,
+      "event": [
+        "2026-10-17",
+        "新潟",
+        8
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "5579b7af-fc7a-4976-81fc-5c48b06490dd",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-17 04:50:02.8+00",
+        "finish_match": true,
+        "clock_literal_match": null,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 8,
+      "card_ordinal": 1,
+      "event": [
+        "2026-11-07",
+        "東京",
+        12
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "97061bc8-c634-4684-8eee-3cc45f9c23bc",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-11-07 07:20:04.773+00",
+        "finish_match": true,
+        "clock_literal_match": null,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 8,
+      "card_ordinal": 2,
+      "event": [
+        "2026-09-13",
+        "中山",
+        4
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "ARCHIVE_EVENT_ABSENT",
+      "details": null,
+      "formal_usable": false
+    },
+    {
+      "current_no": 9,
+      "card_ordinal": 1,
+      "event": [
+        "2026-11-07",
+        "東京",
+        12
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "97061bc8-c634-4684-8eee-3cc45f9c23bc",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-11-07 07:20:04.773+00",
+        "finish_match": true,
+        "clock_literal_match": null,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 9,
+      "card_ordinal": 2,
+      "event": [
+        "2026-10-25",
+        "東京",
+        8
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "71caa9a2-8029-4422-9aac-3510c9e7fa70",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-25 04:50:03.045+00",
+        "finish_match": true,
+        "clock_literal_match": null,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 10,
+      "card_ordinal": 1,
+      "event": [
+        "2026-08-30",
+        "札幌",
+        8
+      ],
+      "previous_status": "RUNNER_ID_NUMBER_OR_RESULT_CONFLICT",
+      "next_status": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "details": {
+        "native_ref": null,
+        "official_page_fetch": "CACHE_MISS"
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 10,
+      "card_ordinal": 3,
+      "event": [
+        "2026-07-26",
+        "札幌",
+        8
+      ],
+      "previous_status": "RUNNER_ID_NUMBER_OR_RESULT_CONFLICT",
+      "next_status": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "details": {
+        "native_ref": null,
+        "official_page_fetch": "CACHE_MISS"
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 11,
+      "card_ordinal": 1,
+      "event": [
+        "2026-09-06",
+        "札幌",
+        7
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "ARCHIVE_EVENT_ABSENT",
+      "details": null,
+      "formal_usable": false
+    },
+    {
+      "current_no": 12,
+      "card_ordinal": 1,
+      "event": [
+        "2026-10-24",
+        "新潟",
+        7
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "59a44aa0-4755-4ecf-b5d2-6fec4d900ba3",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-24 04:20:02.722+00",
+        "finish_match": true,
+        "clock_literal_match": true,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 12,
+      "card_ordinal": 3,
+      "event": [
+        "2026-07-26",
+        "新潟",
+        4
+      ],
+      "previous_status": "RUNNER_ID_NUMBER_OR_RESULT_CONFLICT",
+      "next_status": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "details": {
+        "native_ref": null,
+        "official_page_fetch": "CACHE_MISS"
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 14,
+      "card_ordinal": 1,
+      "event": [
+        "2026-10-18",
+        "東京",
+        7
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "8d21c34d-5c17-4942-8d7f-3ba0391ed53c",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-18 04:20:02.752+00",
+        "finish_match": true,
+        "clock_literal_match": true,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 14,
+      "card_ordinal": 3,
+      "event": [
+        "2026-05-31",
+        "東京",
+        4
+      ],
+      "previous_status": "RUNNER_ID_NUMBER_OR_RESULT_CONFLICT",
+      "next_status": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "details": {
+        "native_ref": null,
+        "official_page_fetch": "CACHE_MISS"
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 16,
+      "card_ordinal": 4,
+      "event": [
+        "2023-10-28",
+        "京都",
+        8
+      ],
+      "previous_status": "NONNUMERIC_OR_MISSING_RESULT",
+      "next_status": "STORED_CARD_EXCLUSION_MARKER_NOT_PERFORMANCE",
+      "details": {
+        "stored_raw_excluded_marker": true,
+        "official_page_fetch": "UNICODE_DECODING_ERROR"
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 17,
+      "card_ordinal": 1,
+      "event": [
+        "2026-10-04",
+        "東京",
+        8
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "77c3eb73-c4c9-47e5-a8e0-72f87660aca2",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-04 05:20:02.37+00",
+        "finish_match": true,
+        "clock_literal_match": true,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 18,
+      "card_ordinal": 1,
+      "event": [
+        "2026-10-12",
+        "東京",
+        9
+      ],
+      "previous_status": "ARCHIVE_EVENT_ABSENT",
+      "next_status": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "details": {
+        "settlement_id": "4974731c-d168-48d0-8732-da31fe4812cd",
+        "source": "JRA_OFFICIAL",
+        "settled_at": "2026-10-12 05:30:02.968+00",
+        "finish_match": true,
+        "clock_literal_match": null,
+        "native_id": false
+      },
+      "formal_usable": false
+    },
+    {
+      "current_no": 18,
+      "card_ordinal": 4,
+      "event": [
+        "2026-04-26",
+        "東京",
+        6
+      ],
+      "previous_status": "RUNNER_ID_NUMBER_OR_RESULT_CONFLICT",
+      "next_status": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "details": {
+        "native_ref": null,
+        "official_page_fetch": "CACHE_MISS"
+      },
+      "formal_usable": false
+    }
+  ],
+  "course_version": {
+    "source_url": "https://www.jra.go.jp/keiba/baba/overview/2026_4-5_tokyo.html",
+    "direct_open": "CACHE_MISS",
+    "search_body": "OFFICIAL_INDEX_FULL_TABLE_OBSERVED",
+    "as_of_date": "2026-09-28",
+    "meeting": "第5回東京 後5日",
+    "rail": "C",
+    "lap_m": 2120.8,
+    "straight_m": 525.9,
+    "width_m": [
+      25,
+      35
+    ],
+    "rail_offset_m": 6,
+    "exact_publication_at": null,
+    "original_bytes_hash": null,
+    "formal_usable": false
+  },
+  "codex_intake": {
+    "prior_contract_commit": "9bd275f4b2621504e543d083ca3055978f86c9ad",
+    "actual_eligible_values": [],
+    "source_tiers": [
+      "NATIVE_AUTHENTICATED_ASOF_AND_PERMISSION (none)",
+      "STORED_STRUCTURED_WITNESS",
+      "STORED_TRANSCRIPTION",
+      "LOCATOR_ONLY",
+      "UNAVAILABLE"
+    ],
+    "no_source_value_export": true,
+    "required": "issuer and exact horse/event/row IDs; original source bytes or authenticated immutable equivalent; digest algorithm + input encoding + version; observed/publication cutoff; permission scoped to AI/processing; applicable conditions; missingness explicit",
+    "saga55_refs": [
+      {
+        "no": 1,
+        "horse_id_candidate": "30003409076",
+        "history_pointers": [
+          "/runners/0/recent_card_entries/0",
+          "/runners/0/recent_card_entries/1",
+          "/runners/0/recent_card_entries/2",
+          "/runners/0/recent_card_entries/3",
+          "/runners/0/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 2,
+        "horse_id_candidate": "40011403066",
+        "history_pointers": [
+          "/runners/1/recent_card_entries/0",
+          "/runners/1/recent_card_entries/1",
+          "/runners/1/recent_card_entries/2",
+          "/runners/1/recent_card_entries/3",
+          "/runners/1/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 3,
+        "horse_id_candidate": "40060402976",
+        "history_pointers": [
+          "/runners/2/recent_card_entries/0",
+          "/runners/2/recent_card_entries/1",
+          "/runners/2/recent_card_entries/2",
+          "/runners/2/recent_card_entries/3",
+          "/runners/2/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 4,
+        "horse_id_candidate": "30035405986",
+        "history_pointers": [
+          "/runners/3/recent_card_entries/0",
+          "/runners/3/recent_card_entries/1",
+          "/runners/3/recent_card_entries/2",
+          "/runners/3/recent_card_entries/3",
+          "/runners/3/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 5,
+        "horse_id_candidate": "30014400486",
+        "history_pointers": [
+          "/runners/4/recent_card_entries/0",
+          "/runners/4/recent_card_entries/1",
+          "/runners/4/recent_card_entries/2",
+          "/runners/4/recent_card_entries/3",
+          "/runners/4/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 6,
+        "horse_id_candidate": "30086402866",
+        "history_pointers": [
+          "/runners/5/recent_card_entries/0",
+          "/runners/5/recent_card_entries/1",
+          "/runners/5/recent_card_entries/2",
+          "/runners/5/recent_card_entries/3",
+          "/runners/5/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 7,
+        "horse_id_candidate": "30092401666",
+        "history_pointers": [
+          "/runners/6/recent_card_entries/0",
+          "/runners/6/recent_card_entries/1",
+          "/runners/6/recent_card_entries/2",
+          "/runners/6/recent_card_entries/3",
+          "/runners/6/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 8,
+        "horse_id_candidate": "40081403946",
+        "history_pointers": [
+          "/runners/7/recent_card_entries/0",
+          "/runners/7/recent_card_entries/1",
+          "/runners/7/recent_card_entries/2",
+          "/runners/7/recent_card_entries/3",
+          "/runners/7/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 9,
+        "horse_id_candidate": "30088408796",
+        "history_pointers": [
+          "/runners/8/recent_card_entries/0",
+          "/runners/8/recent_card_entries/1",
+          "/runners/8/recent_card_entries/2",
+          "/runners/8/recent_card_entries/3",
+          "/runners/8/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 10,
+        "horse_id_candidate": "30026408496",
+        "history_pointers": [
+          "/runners/9/recent_card_entries/0",
+          "/runners/9/recent_card_entries/1",
+          "/runners/9/recent_card_entries/2",
+          "/runners/9/recent_card_entries/3",
+          "/runners/9/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      },
+      {
+        "no": 11,
+        "horse_id_candidate": "30098407876",
+        "history_pointers": [
+          "/runners/10/recent_card_entries/0",
+          "/runners/10/recent_card_entries/1",
+          "/runners/10/recent_card_entries/2",
+          "/runners/10/recent_card_entries/3",
+          "/runners/10/recent_card_entries/4"
+        ],
+        "formal_usable": false
+      }
+    ],
+    "tokyo18_candidate_index": [
+      {
+        "current_no": 1,
+        "horse_id_candidate": "2022104875",
+        "history_rows": [
+          "a0d0191f-fa8e-4861-a19d-60e8c43e7c0a",
+          "b91fe8e3-d758-4e95-8e2a-2a47617d63bc",
+          "3f837475-122f-40d7-a7c1-9f36d2185442",
+          "9a6f7de8-a955-4ff6-b14a-01be2fc0cd6d",
+          "90ab71e8-6f74-43ed-a54e-1546001f2502",
+          "be77b6c3-45b9-4686-a20c-338e6ac40d63",
+          "677a9f45-200e-4f0f-88ea-d45b25c18a96",
+          "920c224c-0e46-4820-9d19-cd091c14ca77",
+          "a66a4911-458b-4bc3-a230-ae85befbac55",
+          "bdbf9cb8-934b-4142-84ca-0308f0675443",
+          "ebd76a8f-1842-427d-a5a3-ca61d12ca5a8",
+          "0de8ef1b-c005-4a83-9218-74c8bd73caf0"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 2,
+        "horse_id_candidate": "2023107285",
+        "history_rows": [
+          "4806e230-4734-489a-85f1-49a80e065872"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 3,
+        "horse_id_candidate": "2022104869",
+        "history_rows": [
+          "31a1b85f-2ff4-4fa2-aa76-04d69e24d467",
+          "4e618d71-6f01-4bd6-af30-928fc6049408",
+          "93135622-0036-424b-bfa4-922b3359e436",
+          "a6b7369a-03bf-472c-b112-9cab715c1710",
+          "070859e6-ef62-4a25-9e5d-1b7d2b20462e"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 4,
+        "horse_id_candidate": "2023103917",
+        "history_rows": [
+          "d8864da2-f551-45a6-9da1-3dbdeb1b8bb3",
+          "0662b5e0-a228-4ada-93b2-4788a1e2aeba",
+          "7359ef34-6a1b-4391-ab28-7e06040cedf1",
+          "180a98d0-3bfa-4f08-aefc-275fb44cd2d3",
+          "bc88af90-60e0-4ee4-a064-13fdceb53806",
+          "3bead886-9463-40d2-9000-a2156f1be517",
+          "274a9baa-f308-456d-8ca9-8d2587151409",
+          "ddf41c4e-0828-43a9-be02-12a5f5d1cb59"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 5,
+        "horse_id_candidate": "2023106829",
+        "history_rows": [
+          "8099186c-7a68-4c98-a52c-8ac576181306",
+          "6f9b0592-a5db-45f1-aa87-fbf8c4c7e29a",
+          "80c14aff-a963-4ed6-aebe-3f113c643f98",
+          "3decabf4-462a-48f4-aede-226bb26fb566",
+          "663280b3-d48f-482c-bed9-32c7fd1770bb",
+          "2018db67-f175-4169-987c-d62b3b8ee321",
+          "80f07c50-da2f-4bc4-9c5b-6c9daf695954",
+          "89195ca3-69d5-4afb-9c52-49e7fbf7a633",
+          "f44769cb-e918-4755-9478-04349a68c45a",
+          "104c055b-f925-4c52-9e1f-4c90e11d971a",
+          "79857786-a7e6-4129-ad1a-417b260d7eb6",
+          "1b05c14c-0df3-493d-84a6-bc2bf86de084",
+          "b52ef276-3e75-44d1-b359-ba7b416e42aa",
+          "152fc1ab-a530-49e9-9fcc-4eb2a89d995a"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 6,
+        "horse_id_candidate": "2023101102",
+        "history_rows": [
+          "1e8aed48-2752-4b7d-863d-52bcafea2595",
+          "e3932986-57b0-464e-bdea-e11918a2a7c2",
+          "be965793-ee2f-496c-9981-24775c1f1caf"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 7,
+        "horse_id_candidate": "2022104953",
+        "history_rows": [
+          "74e2cd94-55fa-40f5-9eb2-511daa0b458c",
+          "4a32b8f9-a9f4-4726-895b-0668bf77f13d",
+          "ec0547b9-fea0-4495-8938-8de3558ca56a",
+          "675a2db8-9aa2-4fcc-b4ab-0e2e6f024a9a",
+          "c243826f-56ca-4ab9-8cbe-befef1ad27c0",
+          "5571cf63-e2e0-4356-8342-3d45319b349f",
+          "0e7c54e9-201e-429c-9b42-7adedd6742d5",
+          "d908a432-e54a-41e4-a516-a04091606c07",
+          "b00ad171-c089-481d-b9dc-45565639a33b",
+          "451eeb09-0ad2-475b-9c1b-d9a5d243ae9d"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 8,
+        "horse_id_candidate": "2023106620",
+        "history_rows": [
+          "f402e0fe-3555-4896-b899-1c193aa68efa",
+          "55b4858a-6014-4330-972b-fda41ca3f629",
+          "005c73d8-e5d7-4199-9090-f9fe762891b6",
+          "8f94e30d-797d-482f-ad24-1ce8ca766bbf",
+          "defda25a-eb79-49f9-a343-a27665881213",
+          "cd971638-358d-41a7-aefc-a11d970ddbfc",
+          "01576c39-b247-41ed-b59a-e23ae71db378",
+          "a2710ae0-dbb4-4bf3-be6d-d40b37564848",
+          "608d441f-d4c2-4ac0-bcb2-dba540cb124a",
+          "7b53262c-01cf-4610-9a32-c42c5c1418a5"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 9,
+        "horse_id_candidate": "2022102305",
+        "history_rows": [
+          "5c71f14a-1ac6-4533-95f8-ba22ecb92319",
+          "89157e12-c26e-4447-845c-580e42526af3",
+          "9ef80227-081b-454a-a2a8-a283fd0e9518",
+          "8c8d32a5-d3e4-4532-a6d6-a0a44a845e07",
+          "214f01a8-9240-40cb-84f5-fdd019cab24e",
+          "8bf8e939-0bcc-4e90-b61e-acd2335d0398",
+          "4b63717c-cd32-4026-91df-81e95eb7d211",
+          "40d25372-8ee6-4f56-bed5-f9f5d588f1bd",
+          "347beec4-ef32-4056-8a0e-b8ec4e6aaad1",
+          "3d656303-c1f5-4dbf-8d11-5cfb19e210d1",
+          "855db8f1-90e5-4f31-8030-71ca67cb9a13"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 10,
+        "horse_id_candidate": "2021101100",
+        "history_rows": [
+          "04b5890a-99c9-40a8-b009-d18017b38e2d",
+          "5bef38b4-d795-4e00-86c5-927413483ea9",
+          "ba286f5f-dcfd-4cd9-9dd7-a837914cdefa",
+          "18838833-779b-4e59-bd72-627c6597451e",
+          "515e80c9-475a-4dfe-857a-bfe59e9df70b",
+          "954af668-2154-4d8e-abe6-3860ec9063ce",
+          "6d039c06-4fce-4f0b-a89d-1e0e33445cf3",
+          "214f0b87-6d7a-455f-a615-a29525ee8bb5",
+          "a2fba00f-0399-40d5-bbb2-3e50b4d7e288",
+          "7439b6e9-3283-4b3a-8b5c-2818551ebda5",
+          "60a9ad03-e764-4de0-842a-f1df2c90e5c1",
+          "7f60f754-d1a4-496c-906b-062d862f5229",
+          "9aedc702-f27b-403e-9e94-c4d49c559d0e",
+          "b58119b0-c06f-48cb-80fd-198cb69a21a7",
+          "d3fd8d53-98f5-4d35-a1e1-2ac3d071ecb8",
+          "5569513f-25b7-420b-831e-0a4ad8a996d5",
+          "f02cc80d-28d5-4752-b26e-739a3bda09e2",
+          "cac2484d-a7b0-4f53-ab64-b67d2a4700b0",
+          "38d367fc-19ea-48ca-9313-40b286e38e3d",
+          "e5ed0ee4-dd3e-4303-8d05-7b78de8f4187",
+          "c5fbff7f-83fd-41d8-b43e-ac126db5ecc5",
+          "74e7f9e1-c8e3-4445-b254-4a9f48efbc3a"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 11,
+        "horse_id_candidate": "2023107220",
+        "history_rows": [
+          "c4a378bc-4951-43a5-ab2e-e44966e8f12a",
+          "366dee19-fcec-4101-9544-409312a74367",
+          "356cb458-c888-42db-a088-7cd7275e051d",
+          "1065fff2-fa5f-45ff-b13b-1fd4eedac436"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 12,
+        "horse_id_candidate": "2023106836",
+        "history_rows": [
+          "0bb44095-d470-4b0f-9a50-80947d09dd9c",
+          "97b23920-d262-4e9f-9c2f-95742dd86bbe",
+          "1d3c91b8-cf61-4dd5-9a6f-d881f39ca7c5",
+          "ea1313a4-7c55-44d0-9d58-55e07750ebb2",
+          "bcec4fe9-ec39-4c45-9d62-8d9cd2973d63",
+          "a3beab0d-93b3-401d-8f2f-d67732a886ca",
+          "1891edb0-ff95-4448-9b27-016477519285",
+          "8418a1b0-fd33-476c-85fc-49e2f445c44f"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 13,
+        "horse_id_candidate": "2022101749",
+        "history_rows": [
+          "d712d501-84c3-46d2-843b-99f559dc2db3",
+          "2467c820-ea17-4009-8934-23af34e6d0e7",
+          "d03efefc-691e-45f3-b710-bd3006dd83ac",
+          "c738bbc0-71f7-4696-afe9-48874df28e70",
+          "9451776a-e08a-4c20-864c-e7b5214106fd",
+          "a393b0c8-ee47-4077-a6da-7886209eef2d",
+          "9fee59a5-d6c8-47b1-b892-4988ea6d317d",
+          "982f97bd-c483-4b61-b1af-c580bc3f331b",
+          "5450e920-cb71-48d9-b53e-e06deaca8ef4",
+          "c7aa7213-16c3-4ec0-ae98-1824d58a53bd",
+          "6b15f553-96af-4259-b6ad-cb7e8b7831ed",
+          "a5a01781-2c56-41fb-87ed-d40d556fa3ee",
+          "5373ab8b-bc5f-48fb-bc3b-10744c170b3c",
+          "bd72fb0d-4433-4fdd-83b6-cf02a81946b8",
+          "c7ea82fc-0e7c-4000-9b10-c61294ef9512",
+          "8c3d511c-bf49-49f5-81ee-7e081d2475e7"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 14,
+        "horse_id_candidate": "2023103584",
+        "history_rows": [
+          "b9757054-4d5b-4c4b-bed3-044df0d2c14f",
+          "c471ec75-766a-4d79-a1a7-9ef94676890c",
+          "7b9670bd-87a6-4571-8358-7473b97bc0d8",
+          "e767f06f-4210-4b99-a6b7-ff3629869631",
+          "277094af-cc57-4167-8897-a0a40c7f08f8",
+          "f71f34a4-0ca1-451c-9734-821ee09e24b1"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 15,
+        "horse_id_candidate": "2023105820",
+        "history_rows": [
+          "2dfc3a1c-25ce-4e7d-86dd-75abf86ce7a9",
+          "3d16bf51-46f9-4bad-b2f8-1d40c92790a7",
+          "5058bb4f-6300-49eb-9392-f8788b6042e5",
+          "5103121f-2931-48ba-a30a-c68cbb9b1a19",
+          "8cc6b976-20a9-495a-915f-889af66ebee7"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 16,
+        "horse_id_candidate": "2021105611",
+        "history_rows": [
+          "c1ba7341-d7ee-4299-8c44-0b19d915d9e8",
+          "7c018417-e459-49c6-8c5e-02bc7f3d6c2c",
+          "1b18d556-3b8a-42bc-afc9-69333949630a",
+          "2c179339-c51b-4abf-950b-8b5ce94c8688",
+          "c132e095-b40b-4de1-8800-1d07c94ba9fe"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 17,
+        "horse_id_candidate": "2023105650",
+        "history_rows": [
+          "6ebe3558-5d75-4ccc-994e-dbbd01a9f680",
+          "2de8bb5e-1b45-4f05-85d8-b02ad36e3f36",
+          "62c178d2-e0ca-4570-977b-055877e9c001",
+          "50b524d0-2c37-44fa-9f10-b0a962a06e30"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 18,
+        "horse_id_candidate": "2023103413",
+        "history_rows": [
+          "1d1e18c6-9e92-4f76-a53b-be1922cab415",
+          "f75718a6-51bd-462c-b442-2cddf559e984",
+          "a0863476-65c0-47fe-ad1d-32475a79110e"
+        ],
+        "formal_usable": false
+      }
+    ],
+    "no_rank_or_analysis_runtime": true
+  },
+  "permissions": {
+    "draft_path": "research/reborn2-official-sources/stage17-permission-inquiry-drafts-20261127.md",
+    "draft_blob": "248333a735dc919a13e34ebf35636b2159f1dcb8",
+    "sent": false,
+    "contract": false,
+    "charge": false,
+    "scope": "unchanged; separate individual research AI cloud continuous storage and each HUB publication mode"
+  },
+  "work_escalation": {
+    "technical_blocker": "ordinary chat cannot open inaccessible prior local Work storage/browser cache or historical DB backup; lawful authorized existing backup search only; raw bytes never stored by observed functions so no guarantee",
+    "dedicated_work_possible": "inspect user-authorized historical workspace files and archive versions; native JRA pages with permitted browser access can corroborate historic result links but not fabricate prestart original/hash; no entitlement change",
+    "permission_not_solvable_by_work": true,
+    "nar_direct_calls": 0
+  },
+  "local_candidate_comparison": {
+    "saga": "11/55 derived recovered, 39 events, current conditions two missing, original source missing",
+    "oi": "2026-11-19 大井5R 10/38/8 lap records, current card poststart",
+    "sonoda": "2026-11-19 園田4R 10/28/13 lap records, current card poststart",
+    "saga8": "12/29/1 held; current card poststart"
+  },
+  "checks": {
+    "prior_118_826_held": true,
+    "prior_card_rows_69": true,
+    "missing_26": true,
+    "settlement_11": true,
+    "settlement_clock_4": true,
+    "saga_runners_11": true,
+    "saga_histories_55": true,
+    "saga_event_39": true,
+    "saga_all_prior": true,
+    "saga_all_race_no": true,
+    "saga_one_missing_corner": true,
+    "saga_going_weather_null": true,
+    "saga_blocked": true,
+    "formal_values_empty": true
+  },
+  "prior_gates": {
+    "groups": 118,
+    "flags": 826,
+    "all_held": true
+  },
+  "canonical_items": 115,
+  "research_test_baseline": 206,
+  "formal_admissions": 0,
+  "production_changes": 0,
+  "formal_replays": 0,
+  "limits": [
+    "All 26 previous unresolved card rows still lack formal admission. Eleven alternative settlement witnesses, two normalized LOCAL candidates and one exclusion marker clarify causes without native official authentication. Five cache misses and one decode error are availability only. No target outcome, popularity or odds selected in SQL; no NAR race-data requests; no production writes; no unauthorized source redistribution. Source code read-only inspection is not invocation. No complete official full-field analysis."
+  ]
+}
