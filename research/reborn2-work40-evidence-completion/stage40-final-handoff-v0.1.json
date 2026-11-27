@@ -1,0 +1,58 @@
+{
+  "schema": "REBORN2_STAGE40_EVIDENCE_COMPLETION_HANDOFF_0.1",
+  "generated_at_jst": "2026-11-28",
+  "scope": "SYNTHETIC_AND_ALREADY_HELD_RESEARCH_ONLY",
+  "status": "PARTIAL_RESEARCH_COMPLETE_NOT_FORMAL",
+  "preserved": {
+    "accepted_work_ledger": 723,
+    "work38_evidence_rows": 885,
+    "work38_comparisons": 20,
+    "work38_independent_clock_checks": "40/40",
+    "benchmark_groups_held": 118,
+    "conditions_held": 826,
+    "official_observations_added": 0,
+    "formal_adoptions_added": 0
+  },
+  "new_execution": {
+    "supply_and_blind_tests": "23/23 PASS",
+    "native_parser_tests": "10/10 PASS",
+    "local_rfc3161_tests": "11/11 PASS",
+    "total": "44/44 PASS",
+    "external_tsa": false,
+    "live_official_fetch": false,
+    "real_race_analysis": false
+  },
+  "completed": [
+    "common JRA/LOCAL typed evidence contract",
+    "five-state availability and contradiction model",
+    "individual splits versus race-leader laps separation",
+    "115-item multi-source dependency map",
+    "same early pace / different late-load synthetic control",
+    "opponent-composition control with fixed target roster",
+    "condition improvement and deterioration controls",
+    "all EYE15 support/counter/duplicate/irrelevant material matrix",
+    "pre-race analysis and sealed-result partition",
+    "raw/parser/identity/cutoff dependency gates",
+    "local RFC3161 digest, policy, nonce, trust, EKU, validity, accuracy and cutoff checks"
+  ],
+  "not_completed": [
+    "live official JRA/NAR native format validation",
+    "approved automated acquisition",
+    "external RFC3161 timestamp",
+    "actual blind race execution",
+    "Codex analyzer run against this bundle",
+    "formal adoption or production use"
+  ],
+  "work39": {
+    "run": 46069751283,
+    "conclusion": "FAILURE",
+    "failure": "BRANCH_ROSTER",
+    "classification": "supply fixture must keep target roster fixed",
+    "accepted_increment": 0
+  },
+  "production_changes": 0,
+  "db_changes": 0,
+  "frozen_changes": 0,
+  "deployments": 0,
+  "paid_api_calls": 0
+}
