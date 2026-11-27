@@ -1,0 +1,222 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "checks": [
+    {
+      "name": "readback_exact_3",
+      "pass": true
+    },
+    {
+      "name": "dependencies_3",
+      "pass": true
+    },
+    {
+      "name": "readback_exact_5",
+      "pass": true
+    },
+    {
+      "name": "dependencies_5",
+      "pass": true
+    },
+    {
+      "name": "readback_exact_12",
+      "pass": true
+    },
+    {
+      "name": "dependencies_12",
+      "pass": true
+    },
+    {
+      "name": "seven_variants_replayed",
+      "pass": true
+    },
+    {
+      "name": "pair_classification_dependency",
+      "pass": true
+    },
+    {
+      "name": "derived_id_changes_with_card_dependency",
+      "pass": true
+    },
+    {
+      "name": "invalid_lap_only_held",
+      "pass": true
+    },
+    {
+      "name": "invalid_classification_blocks_pair",
+      "pass": true
+    },
+    {
+      "name": "unsafe_nested_rejected",
+      "pass": true
+    }
+  ],
+  "readback_checks": [
+    {
+      "name": "readback_exact_3",
+      "pass": true
+    },
+    {
+      "name": "dependencies_3",
+      "pass": true
+    },
+    {
+      "name": "readback_exact_5",
+      "pass": true
+    },
+    {
+      "name": "dependencies_5",
+      "pass": true
+    },
+    {
+      "name": "readback_exact_12",
+      "pass": true
+    },
+    {
+      "name": "dependencies_12",
+      "pass": true
+    }
+  ],
+  "additional_checks": [
+    {
+      "name": "seven_variants_replayed",
+      "pass": true
+    },
+    {
+      "name": "pair_classification_dependency",
+      "pass": true
+    },
+    {
+      "name": "derived_id_changes_with_card_dependency",
+      "pass": true
+    },
+    {
+      "name": "invalid_lap_only_held",
+      "pass": true
+    },
+    {
+      "name": "invalid_classification_blocks_pair",
+      "pass": true
+    },
+    {
+      "name": "unsafe_nested_rejected",
+      "pass": true
+    }
+  ],
+  "variants": [
+    {
+      "digest": "70e42e9560acaf05b0dcac9891eeade317ff202de50a98323424f5f3c00dc523",
+      "issues": [
+        {
+          "event": "TEST:H1",
+          "field": "race_leader_laps",
+          "subject": null,
+          "state": "MISSING",
+          "reason": "NOT_SUPPLIED"
+        }
+      ]
+    },
+    {
+      "digest": "bd76d3ab025e1c5ff91887c1c01c6dd8ff31953bb43f271220886aa64399dd6b",
+      "issues": [
+        {
+          "event": "TEST:H1",
+          "field": "passing_order",
+          "subject": null,
+          "state": "MISSING",
+          "reason": "NOT_SUPPLIED"
+        }
+      ]
+    },
+    {
+      "digest": "e91937517fa9f1f1fc4758c4699d42403874ded4cfda0535fc4f7bb397a71c49",
+      "issues": [
+        {
+          "event": "TEST:H1",
+          "field": "finish_clock",
+          "subject": "TEST:H1",
+          "state": "MISSING",
+          "reason": "NOT_SUPPLIED"
+        },
+        {
+          "event": "TEST:H1",
+          "field": "winner_clock_difference",
+          "subject": null,
+          "state": "HELD",
+          "reason": "WINNER_CLASSIFICATION_OR_CLOCK"
+        }
+      ]
+    },
+    {
+      "digest": "c2765c2395d605fd80d6cb6c7fa3e5b95b177828577a1070280c018f50e0579e",
+      "issues": [
+        {
+          "event": "TEST:H1",
+          "field": "finish",
+          "subject": "TEST:H1",
+          "state": "MISSING",
+          "reason": "NOT_SUPPLIED"
+        },
+        {
+          "event": "TEST:H1",
+          "field": "finish_classification",
+          "subject": null,
+          "state": "HELD",
+          "reason": "INCOMPLETE_OR_INCONSISTENT"
+        },
+        {
+          "event": "TEST:H1",
+          "field": "winner_clock_difference",
+          "subject": null,
+          "state": "HELD",
+          "reason": "WINNER_CLASSIFICATION_OR_CLOCK"
+        }
+      ]
+    },
+    {
+      "digest": "17cde698d24029c48adf09c4487bca1e8548007f3ed0e0a7c86f7524407542d0",
+      "issues": [
+        {
+          "event": "TEST:H1",
+          "field": "winner_clock_difference",
+          "subject": null,
+          "state": "HELD",
+          "reason": "WINNER_CLASSIFICATION_OR_CLOCK"
+        }
+      ]
+    },
+    {
+      "digest": "8a217c4a166acf90438e8de4650864fcc28af6d9ea91921a399bd1beeddca079",
+      "issues": []
+    },
+    {
+      "digest": "7b0a34dec426810aee9ebab1a61df90eb51a52610ccb5304d84ad3e0506d5d1a",
+      "issues": []
+    }
+  ],
+  "summary": [
+    {
+      "n": 3,
+      "digest": "cc9e8619920b80911d5846d4f1e929452de805cac9910f7213d863550db6e6a3",
+      "evidence": 99,
+      "items": 575,
+      "available": 30
+    },
+    {
+      "n": 5,
+      "digest": "4bbd4d713c3e33f014bea09226c1abc55eaa7ee17f2d5468a8f65994d3e9bdcd",
+      "evidence": 163,
+      "items": 805,
+      "available": 50
+    },
+    {
+      "n": 12,
+      "digest": "664325fec3d68f6bcbd305a2945f6eece8e4dfb6cea001c7c0b2e2e8a5c508ea",
+      "evidence": 513,
+      "items": 1610,
+      "available": 120
+    }
+  ],
+  "limits": [
+    "Revised packets reconstructed exactly; old oversize original remains preserved but content unavailable via connector. Initial38 tests recorded on v0.1, not all rerun on revised code."
+  ]
+}
