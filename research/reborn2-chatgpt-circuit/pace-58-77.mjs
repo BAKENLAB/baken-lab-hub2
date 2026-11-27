@@ -1,19 +1,22 @@
+import {fixtureCommon,historyKnown,segmentKnown,segmentComplete,gateKnown} from './fictional-research-context.mjs';
 import {common} from './common-evidence.mjs';
-export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],gates=[],course=[],today=[],paceBenchmarks=[]}){
- const c=common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
+export function analyzePace58to77(args){return analyzePace58to77Core(args,false);}
+export function analyzePace58to77Fixture(args){return analyzePace58to77Core(args,true);}
+function analyzePace58to77Core({target,roster,evidence=[],runs=[],history=[],gates=[],course=[],today=[],paceBenchmarks=[]},fictional){
+ const c=fictional?fixtureCommon(target,roster,evidence):common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
  const validRuns=unique(runs.filter(prior),r=>r.horse_id+"|"+r.race_id);
  const position=r=>{if(!Number.isInteger(r.field_size)||r.field_size<1||!Array.isArray(r.positions))return [];return unique(r.positions.filter(p=>Number.isInteger(p.segment)&&p.segment>0&&Number.isInteger(p.rank_min)&&Number.isInteger(p.rank_max)&&p.rank_min>=1&&p.rank_max>=p.rank_min&&p.rank_max<=r.field_size),p=>p.segment).sort((a,b)=>a.segment-b.segment)};
- const early=r=>position(r).find(p=>p.segment===r.first_segment&&r.segment_definition_verified===true);
+ const early=r=>position(r).find(p=>p.segment===r.first_segment&&segmentKnown(target,r));
  const exact=(a,b)=>["course_id","course_version","surface","distance","going","class_key"].every(k=>a[k]!=null&&a[k]===b[k]);
  const allStates=roster.map(entry=>{
  const h=identities.find(x=>x.horse_no===entry.horse_no),own=validRuns.filter(r=>r.horse_id===h?.horse_id).sort((a,b)=>ts(b.started_at)-ts(a.started_at));
- const w=unique(history.filter(x=>h&&bound(x,h.horse_id,target.race_id)&&x.chronology_verified===true&&Array.isArray(x.ordered_race_ids)),x=>x.horse_id).find(x=>x.horse_id===h?.horse_id);
+ const w=unique(history.filter(x=>h&&bound(x,h.horse_id,target.race_id)&&historyKnown(target,x)&&Array.isArray(x.ordered_race_ids)),x=>x.horse_id).find(x=>x.horse_id===h?.horse_id);
  const last=w&&own[0]?.race_id===w.ordered_race_ids[0]?own[0]:null;
  const p=last?position(last):[],ep=last?early(last):null;
- const full=last?.all_segments_verified===true&&Number.isInteger(last.expected_segments)&&last.expected_segments>0&&p.length===last.expected_segments&&last.segment_definition_verified===true;
+ const full=segmentComplete(target,last)&&Number.isInteger(last.expected_segments)&&last.expected_segments>0&&p.length===last.expected_segments&&segmentKnown(target,last);
  const front=p.some(q=>q.rank_max<=3)?"YES":full&&p.every(q=>q.rank_min>3)?"NO":"UNKNOWN";
  const lead=own.filter(r=>early(r)?.rank_max===1);
- const g=unique(gates.filter(x=>h&&x.horse_id===h.horse_id&&bound(x,h.horse_id,target.race_id)&&x.actual_gate_verified===true&&Number.isInteger(x.gate)&&x.gate>=1&&x.gate<=target.field_size),x=>x.horse_id)[0];
+ const g=unique(gates.filter(x=>h&&x.horse_id===h.horse_id&&bound(x,h.horse_id,target.race_id)&&gateKnown(target,x)&&Number.isInteger(x.gate)&&x.gate>=1&&x.gate<=target.field_size),x=>x.horse_id)[0];
  return {entry,h,own,w,last,p,ep,front,lead,g};
  });
  const states=allStates.filter(s=>s.entry.active!==false);
@@ -22,7 +25,7 @@ export function analyzePace58to77({target,roster,evidence=[],runs=[],history=[],
  const sorted=allGate?states.slice().sort((a,b)=>a.g.gate-b.g.gate):[];
  const lead=states.filter(s=>s.lead.some(r=>exact(r,target)));
  const allRefs=states.flatMap(s=>[s.last?.evidence_id,s.w?.evidence_id,s.g?.evidence_id].filter(Boolean));
- const g=unique(course.filter(x=>bound(x,null,target.race_id)&&x.course_id===target.course_id&&x.course_version===target.course_version&&x.distance===target.distance&&ts(x.effective_from)<=ts(target.started_at)&&ts(target.started_at)<ts(x.effective_until)),x=>x.course_id)[0];
+ const g=unique(course.filter(x=>bound(x,null,target.race_id)&&x.course_id===target.course_id&&x.course_version===target.course_version&&x.distance===target.distance&&(fictional?x.fixture_geometry_observed===true:ts(x.effective_from)<=ts(target.started_at)&&ts(target.started_at)<ts(x.effective_until))),x=>x.course_id)[0];
  const todayRaces=unique(today.filter(r=>bound(r,null,r.race_id)&&r.race_id!==target.race_id&&r.circuit===target.circuit&&r.local_date===target.local_date&&r.course_id===target.course_id&&r.course_version===target.course_version&&r.surface===target.surface&&ts(r.started_at)<c.cutoff&&ts(c.byId.get(r.evidence_id).published_at_or_null)>ts(r.started_at)&&r.complete_field_verified===true&&Array.isArray(r.results)&&r.results.length===r.field_size&&unique(r.results,q=>q.horse_id).length===r.field_size),r=>r.race_id);
  const positionRefs=new Map(validRuns.filter(r=>r.position_evidence_id&&c.byId.has(r.position_evidence_id)).map(r=>[r.evidence_id,r.position_evidence_id]));
  const runners=allStates.map(s=>{

@@ -1,7 +1,10 @@
+import {fixtureCommon,historyKnown,segmentKnown,segmentComplete,gateKnown} from './fictional-research-context.mjs';
 import {personIdentity} from './person-identity.mjs';
 import {common} from './common-evidence.mjs';
-export function analyzeState78to92({target,roster,evidence=[],runs=[],history=[],current=[],workouts=[],riderResults=[],trainerResults=[],pedigrees=[],offspringResults=[],travel=[],personAttestations=[]}){
- const c=common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
+export function analyzeState78to92(args){return analyzeState78to92Core(args,false);}
+export function analyzeState78to92Fixture(args){return analyzeState78to92Core(args,true);}
+function analyzeState78to92Core({target,roster,evidence=[],runs=[],history=[],current=[],workouts=[],riderResults=[],trainerResults=[],pedigrees=[],offspringResults=[],travel=[],personAttestations=[]},fictional){
+ const c=fictional?fixtureCommon(target,roster,evidence):common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
  const past=unique(runs.filter(prior),r=>r.horse_id+"|"+r.race_id);
  const pos=x=>typeof x==="number"&&Number.isFinite(x)&&x>0;
  const key=x=>typeof x==="string"&&x.length>0;
@@ -21,7 +24,7 @@ export function analyzeState78to92({target,roster,evidence=[],runs=[],history=[]
   if(!h){for(const x of Object.values(I))x.unknowns.push("IDENTITY_UNVERIFIED");return {horse_no:entry.horse_no,horse_id:null,items:I};}
   const id=h.horse_id;
   const own=past.filter(r=>r.horse_id===id).sort((a,b)=>ts(b.started_at)-ts(a.started_at));
-  const w=unique(history.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&x.chronology_verified===true&&Array.isArray(x.ordered_race_ids)&&new Set(x.ordered_race_ids).size===x.ordered_race_ids.length),x=>x.horse_id)[0];
+  const w=unique(history.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&historyKnown(target,x)&&Array.isArray(x.ordered_race_ids)&&new Set(x.ordered_race_ids).size===x.ordered_race_ids.length),x=>x.horse_id)[0];
   const last=w&&own.find(r=>r.race_id===w.ordered_race_ids[0]);
   const curr=unique(current.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)),x=>x.horse_id)[0];
   const refs=[h.evidence_id,curr?.evidence_id,w?.evidence_id,last?.evidence_id];

@@ -1,17 +1,22 @@
+import {assertFictionalTarget,fictionalTime,fixtureHorse,localAdmission,historyKnown,gateKnown} from './fictional-research-context.mjs';
 // Research-only descriptive condition circuit. No external I/O or grade.
-export function analyzeConditions43to57({target,roster,runs=[],historyWitnesses=[],geometry=[],exposures=[],draws=[],benchmarks=[]}){
- const ts=x=>typeof x==="string"&&/(Z|[+-]\d\d:\d\d)$/.test(x)?Date.parse(x):NaN;
+export function analyzeConditions43to57(args){return analyzeConditions43to57Core(args,false);}
+export function analyzeConditions43to57Fixture(args){return analyzeConditions43to57Core(args,true);}
+function analyzeConditions43to57Core({target,roster,runs=[],historyWitnesses=[],geometry=[],exposures=[],draws=[],benchmarks=[]},fictional){
+ if(fictional)assertFictionalTarget(target,roster);
+ const ts=x=>fictional?fictionalTime(x):typeof x==="string"&&/(Z|[+-]\d\d:\d\d)$/.test(x)?Date.parse(x):NaN;
  const cutoff=ts(target.cutoff),start=ts(target.started_at);
  const str=x=>typeof x==="string"&&x.trim().length>0;
  const num=x=>typeof x==="number"&&Number.isFinite(x);
  const positive=x=>num(x)&&x>0;
- const horse=x=>typeof x==="string"&&/^(JRA|LOCAL):\d+$/.test(x);
+ const horse=x=>fictional?fixtureHorse(x):typeof x==="string"&&/^(JRA|LOCAL):\d+$/.test(x);
+ const scoped=(x,c)=>horse(x)&&(fictional?c==="FIXTURE":x.startsWith(c+":"));
  const unique=(arr,k)=>{const n=new Map();for(const x of arr)n.set(k(x),(n.get(k(x))||0)+1);return arr.filter(x=>n.get(k(x))===1);};
- const admitted=e=>e?.source_verified===true&&e?.identity_status==="VERIFIED"&&str(e.evidence_id)&&str(e.source_ref)&&str(e.source_version)&&ts(e.published_at)<=ts(e.observed_at)&&ts(e.observed_at)<=cutoff;
- if(!["JRA","LOCAL"].includes(target.circuit)||!str(target.race_id)||!Number.isFinite(cutoff)||!Number.isFinite(start)||cutoff>=start)throw Error("TARGET_INVALID");
+ const admitted=e=>fictional?localAdmission(target,e):e?.source_verified===true&&e?.identity_status==="VERIFIED"&&str(e.evidence_id)&&str(e.source_ref)&&str(e.source_version)&&ts(e.published_at)<=ts(e.observed_at)&&ts(e.observed_at)<=cutoff;
+ if(!(fictional?target.circuit==="FIXTURE":["JRA","LOCAL"].includes(target.circuit))||!str(target.race_id)||!Number.isFinite(cutoff)||!Number.isFinite(start)||cutoff>=start)throw Error("TARGET_INVALID");
  if(!Number.isInteger(target.field_size)||target.field_size<1||roster.length!==target.field_size||roster.some(h=>!Number.isInteger(h.horse_no)||h.horse_no<1)||unique(roster,h=>h.horse_no).length!==roster.length)throw Error("ROSTER_CONFLICT");
- const ids=unique(roster.filter(h=>admitted(h)&&horse(h.horse_id)&&h.horse_id.startsWith(target.circuit+":")&&h.race_id===target.race_id),h=>h.horse_id);
- const allowed=r=>admitted(r)&&horse(r.horse_id)&&r.horse_id.startsWith(target.circuit+":")&&r.circuit===target.circuit&&str(r.race_id)&&r.race_id!==target.race_id&&ts(r.started_at)<ts(r.published_at)&&ts(r.started_at)<start&&Number.isInteger(r.field_size)&&r.field_size>0&&((r.status==="FINISHED"&&Number.isInteger(r.finish)&&r.finish>=1&&r.finish<=r.field_size)||(["DNF","DQ","DNS"].includes(r.status)&&r.finish===null))&&r.conditions_verified===true;
+ const ids=unique(roster.filter(h=>admitted(h)&&scoped(h.horse_id,target.circuit)&&h.race_id===target.race_id),h=>h.horse_id);
+ const allowed=r=>admitted(r)&&scoped(r.horse_id,target.circuit)&&r.circuit===target.circuit&&str(r.race_id)&&r.race_id!==target.race_id&&ts(r.started_at)<ts(r.published_at)&&ts(r.started_at)<start&&Number.isInteger(r.field_size)&&r.field_size>0&&((r.status==="FINISHED"&&Number.isInteger(r.finish)&&r.finish>=1&&r.finish<=r.field_size)||(["DNF","DQ","DNS"].includes(r.status)&&r.finish===null))&&(fictional?r.conditions_observed===true:r.conditions_verified===true);
  const accepted=unique(runs.filter(allowed),r=>r.horse_id+"|"+r.race_id);
  const conditionKeys=["track","course_id","surface","distance","going","turn","class_key","layout","rule_version","eligibility"];
  const known=x=>x!==undefined&&x!==null&&x!=="";
@@ -28,7 +33,7 @@ export function analyzeConditions43to57({target,roster,runs=[],historyWitnesses=
   const h=ids.find(x=>x.horse_no===entry.horse_no)?.horse_id;
   if(!h){for(const n in items)unknown(n,"IDENTITY_UNVERIFIED_OR_CONFLICT");return {horse_no:entry.horse_no,horse_id:null,items};}
   const own=accepted.filter(r=>r.horse_id===h).sort((a,b)=>ts(a.started_at)-ts(b.started_at));
-  const current=target.conditions_verified===true?target:{};
+  const current=(fictional?target.conditions_observed===true:target.conditions_verified===true)?target:{};
   for(const [id,k] of [["43","distance"],["45","track"],["47","surface"],["48","going"],["49","turn"]]){
    const material=own.filter(r=>k==="distance"?positive(r[k]):str(r[k]));
    if(material.length)put(id,{profiles:profile(material,k),current_value:current[k]??null,exact_condition_races:material.filter(r=>differences(r,current).length===0).map(r=>r.race_id),missing:own.length-material.length},material.map(r=>r.evidence_id));
@@ -45,7 +50,7 @@ export function analyzeConditions43to57({target,roster,runs=[],historyWitnesses=
    }
    if(positive(r.weight_kg))put("54",{race_id:r.race_id,weight_kg:r.weight_kg,finish:r.finish,conditions:record(r).conditions},[r.evidence_id]);
   }
-  const witness=unique(historyWitnesses.filter(w=>admitted(w)&&w.horse_id===h&&w.target_race_id===target.race_id&&w.chronology_verified===true&&Array.isArray(w.ordered_race_ids)&&w.ordered_race_ids.length===own.length&&w.ordered_race_ids.every((v,i)=>v===own[i].race_id)),w=>w.horse_id)[0];
+  const witness=unique(historyWitnesses.filter(w=>admitted(w)&&w.horse_id===h&&w.target_race_id===target.race_id&&historyKnown(target,w)&&Array.isArray(w.ordered_race_ids)&&w.ordered_race_ids.length===own.length&&w.ordered_race_ids.every((v,i)=>v===own[i].race_id)),w=>w.horse_id)[0];
   if(witness){
    for(let i=1;i<own.length;i++){
     const a=own[i-1],b=own[i],ref=[a.evidence_id,b.evidence_id,witness.evidence_id];
@@ -57,8 +62,8 @@ export function analyzeConditions43to57({target,roster,runs=[],historyWitnesses=
    const last=own.at(-1);
    if(last&&positive(last.distance)&&positive(current.distance))put("44",{current_transition:true,delta_m:current.distance-last.distance,direction:direction(current.distance-last.distance),confounders:differences(last,current,["distance"])},[last.evidence_id,witness.evidence_id]);
   }else for(const n of ["44","46","54"])unknown(n,"CONTIGUOUS_HISTORY_NOT_ATTESTED");
-  const d=unique(draws.filter(x=>admitted(x)&&x.horse_id===h&&x.race_id===target.race_id&&x.field_size===target.field_size&&Number.isInteger(x.gate_position)&&x.gate_position>0&&x.gate_position<=target.field_size&&x.actual_gate_verified===true),x=>x.horse_id)[0];
-  if(d&&draws.filter(x=>admitted(x)&&x.race_id===target.race_id&&x.actual_gate_verified===true&&x.gate_position===d.gate_position).length===1)put("53",{gate_position:d.gate_position,normalized_draw:target.field_size===1?null:(d.gate_position-1)/(target.field_size-1),style_profile:null,draw_interaction:null},[d.evidence_id]);
+  const d=unique(draws.filter(x=>admitted(x)&&x.horse_id===h&&x.race_id===target.race_id&&x.field_size===target.field_size&&Number.isInteger(x.gate_position)&&x.gate_position>0&&x.gate_position<=target.field_size&&gateKnown(target,x)),x=>x.horse_id)[0];
+  if(d&&draws.filter(x=>admitted(x)&&x.race_id===target.race_id&&gateKnown(target,x)&&x.gate_position===d.gate_position).length===1)put("53",{gate_position:d.gate_position,normalized_draw:target.field_size===1?null:(d.gate_position-1)/(target.field_size-1),style_profile:null,draw_interaction:null},[d.evidence_id]);
   for(const e of unique(exposures.filter(e=>admitted(e)&&e.horse_id===h&&own.some(r=>r.race_id===e.race_id)&&["OFFICIAL_REPORT","AUTHORIZED_VIDEO"].includes(e.source_scope)&&["SAND","TRAFFIC"].includes(e.type)&&["EXPOSED","NOT_EXPOSED"].includes(e.exposure_status)&&str(e.response_observation)),e=>e.evidence_id)){
    const r=own.find(r=>r.race_id===e.race_id);if(!(ts(e.published_at)>ts(r.started_at)))continue;if(e.type==="SAND"&&r.surface!=="DIRT")continue;
    put(e.type==="SAND"?"55":"56",{race_id:e.race_id,exposure_status:e.exposure_status,response_observation:e.response_observation,source_scope:e.source_scope},[r.evidence_id,e.evidence_id]);

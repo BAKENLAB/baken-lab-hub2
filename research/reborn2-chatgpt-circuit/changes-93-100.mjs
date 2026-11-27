@@ -1,7 +1,10 @@
+import {fixtureCommon,historyKnown,segmentKnown,segmentComplete,gateKnown} from './fictional-research-context.mjs';
 import {personIdentity} from './person-identity.mjs';
 import {common} from './common-evidence.mjs';
-export function analyzeChanges93to100({target,roster,evidence=[],runs=[],history=[],currentConditions=[],mechanisms=[],upstream=[],personAttestations=[],traceRead=()=>{}}){
- const c=common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
+export function analyzeChanges93to100(args){return analyzeChanges93to100Core(args,false);}
+export function analyzeChanges93to100Fixture(args){return analyzeChanges93to100Core(args,true);}
+function analyzeChanges93to100Core({target,roster,evidence=[],runs=[],history=[],currentConditions=[],mechanisms=[],upstream=[],personAttestations=[],traceRead=()=>{}},fictional){
+ const c=fictional?fixtureCommon(target,roster,evidence):common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
  const past=unique(runs.filter(prior),r=>r.horse_id+"|"+r.race_id);
  const keys=["course_id","course_version","distance","surface","going","turn","class_key","weight_kg","actual_gate","jockey_id","equipment_version"];
  const known=v=>v!=null&&v!=="";
@@ -11,9 +14,9 @@ export function analyzeChanges93to100({target,roster,evidence=[],runs=[],history
   const h=identities.find(x=>x.horse_no===entry.horse_no),I=c.items(93,100),put=(n,v,refs,kind="facts")=>add(I,n,kind,v,refs);
   if(!h){for(const x of Object.values(I))x.unknowns.push("IDENTITY_UNVERIFIED");return {horse_no:entry.horse_no,horse_id:null,items:I}}
   const id=h.horse_id,own=past.filter(r=>r.horse_id===id).sort((a,b)=>ts(b.started_at)-ts(a.started_at));
-  const w=unique(history.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&x.chronology_verified===true&&Array.isArray(x.ordered_race_ids)),x=>x.horse_id)[0];
+  const w=unique(history.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&historyKnown(target,x)&&Array.isArray(x.ordered_race_ids)),x=>x.horse_id)[0];
   const last=w&&own[0]?.race_id===w.ordered_race_ids[0]?own[0]:null;
-  const curr=unique(currentConditions.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&x.conditions_verified===true),x=>x.horse_id)[0];
+  const curr=unique(currentConditions.filter(x=>x.horse_id===id&&bound(x,id,target.race_id)&&(fictional?x.conditions_observed===true:x.conditions_verified===true)),x=>x.horse_id)[0];
   const personVerified=(row,k)=>personIdentity({row,kind:k,target,context:c,attestations:personAttestations}).id!==null;
   const delta=last&&curr?keys.filter(k=>known(last[k])&&known(curr[k])&&last[k]!==curr[k]&&(k!=="jockey_id"||personVerified(last,"jockey")&&personVerified({...curr,race_id:target.race_id},"jockey"))).map(k=>({field:k,prior:last[k],current:curr[k]})):[];
   const refs=[h.evidence_id,w?.evidence_id,last?.evidence_id,curr?.evidence_id];

@@ -1,3 +1,4 @@
+import {historyKnown} from './fictional-research-context.mjs';
 import {historyDenominators} from './evidence-semantics.mjs';
 // Typed research overlay. A missing measurement is not a negative ability conclusion.
 export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
@@ -12,7 +13,7 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const byKind=k=>own.filter(g=>g.record.kind===k);
  const results=byKind('RESULT'),finished=results.filter(g=>g.record.fact.start_status==='FINISHED');
  const card=byKind('CURRENT_CARD').filter(g=>g.record.race_id===target.race_id),curr=card.length===1?card[0].record.fact:null;
- const chronological=byKind('HISTORY').filter(g=>g.record.race_id===target.race_id&&g.record.fact.chronology_verified===true&&Array.isArray(g.record.fact.ordered_actual_start_race_ids));
+ const chronological=byKind('HISTORY').filter(g=>g.record.race_id===target.race_id&&historyKnown(target,g.record.fact)&&Array.isArray(g.record.fact.ordered_actual_start_race_ids));
  const declaredOrder=chronological.length===1?chronological[0].record.fact.ordered_actual_start_race_ids:[];
  const order=new Set(declaredOrder).size===declaredOrder.length?declaredOrder:[];
  const get=(xs,race)=>{const rs=xs.filter(g=>g.record.race_id===race);return rs.length===1?rs[0]:undefined;};

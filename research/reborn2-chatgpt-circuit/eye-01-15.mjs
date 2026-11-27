@@ -1,3 +1,4 @@
+import {historyKnown} from './fictional-research-context.mjs';
 export function inspectEye15({target,roster,rankAudit,intake,catalog,traceRead=()=>{}}){
  const defs=catalog.filter(x=>x.id.startsWith("EYE-"));
  if(defs.length!==15||!rankAudit?.runners||rankAudit.runners.length!==roster.length)throw Error("EYE_CONTEXT");
@@ -18,7 +19,7 @@ export function inspectEye15({target,roster,rankAudit,intake,catalog,traceRead=(
  const currentFact=current.length===1?current[0].record.fact:null;
  const fullCond=["course_id","course_version","distance_m","surface","going","class_key"];
  const same=(a,b,keys=fullCond)=>!!a&&!!b&&keys.every(k=>a[k]!=null&&a[k]===b[k]);
- const chronological=own.filter(g=>g.record.kind==="HISTORY"&&g.record.race_id===target.race_id&&g.record.fact.chronology_verified===true&&Array.isArray(g.record.fact.ordered_actual_start_race_ids));
+ const chronological=own.filter(g=>g.record.kind==="HISTORY"&&g.record.race_id===target.race_id&&historyKnown(target,g.record.fact)&&Array.isArray(g.record.fact.ordered_actual_start_race_ids));
  const lastId=chronological.length===1?chronological[0].record.fact.ordered_actual_start_race_ids[0]:null;
  const last=rowResults.find(r=>r.race_id===lastId);
  const items=defs.map(d=>{
