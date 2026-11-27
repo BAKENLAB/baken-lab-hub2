@@ -1,0 +1,65 @@
+{
+  "schema": "stage16-verification-receipt-v1.3",
+  "research_only": true,
+  "formal_admissions": 0,
+  "production_changes": false,
+  "permission": "NOT_CLEARED",
+  "row_receipt": {
+    "commit": "cadfa222abd2ce3098299cc3aa0aba1c82480a34",
+    "blob": "476fe4470f4933210627dfd508c1660ff0792f70",
+    "path": "research/reborn2-official-sources/stage16-derived-row-receipt-v1.3.json",
+    "exact_readback": true
+  },
+  "local_package": {
+    "filename": "REBORN2-stage16-derived-handoff.zip",
+    "sha256": "0505b5b11667c4aab00014c45b00bc318f763b452ea12005a5859cf194271247",
+    "members": 6,
+    "archive_integrity_test": true,
+    "manifest": {
+      "stage16_build.py": "09ad2cd0c16f8739c1db4f03baf985b56268ce48d07d3fb4a6835475e11f07e9",
+      "stage15_verify.py": "ff8c1ff51df1cc7244be172088d6a4e4cc9bdfac8bf37d305b5e1794a4493e62",
+      "stage16-derived-row-handoff.json": "74af58d5163b04f19503f7f7c34e2fb571a8017b384dd87058a8f1b8597d81fd",
+      "stage16-execution.log": "e1e8fc5849314424e11ef7d34713621d757fd28e4c3228aa8ebf39fe63aaf151",
+      "stage16-README.md": "27dbc40ed430d42c81a04f3f5058f5082809dc8d818e8c692cf4a57a73f425a8"
+    },
+    "delivery": "Conversation attachment; no original source or previous source ZIP redistribution. Local JSON not byte-identical to GitHub receipt. Requires prior authorized source files to reparse originals."
+  },
+  "execution_result": [
+    "VERIFIED 52 21 118 18 relations 137 Counter({'AFTER_DATE_ONLY': 84, 'BEFORE_REFERENCE': 41, 'SAME_EVENT': 12}) races 49",
+    "roots with eligible date order 65",
+    "root with both before and after 28",
+    "STAGE16 PASS: gates 826 JC 18 historical IDs 21 direct edge rows 233 chronology 137 negative/control 23"
+  ],
+  "queries": {
+    "mode": "BEGIN READ ONLY; SELECT; ROLLBACK",
+    "canonical_commit": "a0844cd0d93b39e0d809cc686e3329085e21b78f",
+    "source_sql": [
+      "research/reborn2-evidence-01-12/jra-target-condition-02-06.sql",
+      "research/reborn2-evidence-01-12/jra-card-fullfield-02-06.sql",
+      "research/reborn2-evidence-01-12/jra-pace-context-07-11.sql",
+      "research/reborn2-evidence-01-12/local-prestart-snapshot-coverage.sql"
+    ],
+    "adaptation": "Only roster counts and historical aggregates; target outcomes, market and legacy ranks not selected. Raw_context 147 nonnull race-level laps and corner fields; 126 complete numeric field rows, not a fresh numeric lap reconciliation. Saga 29 stored prior rows and one race-level lap."
+  },
+  "permission_review": [
+    {
+      "url": "https://www.keiba.go.jp/terms.html",
+      "status": "OFFICIAL_TERMS_BODY_OBSERVED",
+      "summary": "Terms apply to published content; prior permission required for copying and republication; abnormal access may be blocked.",
+      "new_direct_race_data_requests": 0
+    },
+    {
+      "url": "https://www.jra.go.jp/use/",
+      "status": "OFFICIAL_TERMS_BODY_OBSERVED",
+      "summary": "Copyright section covers official internet media; express video secondary use requires permission outside permitted legal use, corporate application. Not a grant for automated race data."
+    }
+  ],
+  "permission_inquiry_sent": false,
+  "blocked": [
+    "NAR 429 remains; no bypass",
+    "JRA Tokyo meeting overview refetch cache miss in this turn; existing candidate version retained",
+    "JC current native identity/person validity unchanged",
+    "JRA/LOCAL actual eligible prestart full field replay still 0",
+    "Runtime connection and accuracy evaluation not executed"
+  ]
+}
