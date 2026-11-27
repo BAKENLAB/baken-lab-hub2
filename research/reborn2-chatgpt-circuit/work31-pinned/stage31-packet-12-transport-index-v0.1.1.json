@@ -1,0 +1,17 @@
+{
+  "pins": [
+    {
+      "path": "research/reborn2-official-sources/stage31-packet-12-compact-v0.1.1.json",
+      "ref": "b1faea879193f0578b5aa48278cd6ff2d8fcb8d4",
+      "sha256": "51a7d0c19fe99b8a78faac068c9d411908799abb05aa57e84fd53f66736fac0b"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage31-packet-12-common-v0.1.1.json",
+      "ref": "cb82bf098bea56ab3f9e108a26ae54d3481695f8",
+      "sha256": "5b603a6b0f0a2e824eec6340e4d5cabbd74dc387bdacbabb74186fbfc297ae50"
+    }
+  ],
+  "packetDigest": "664325fec3d68f6bcbd305a2945f6eece8e4dfb6cea001c7c0b2e2e8a5c508ea",
+  "fullOutputSha256": "2bb082754b3544facb786064a7b4441800dc8b002611401b572605bac4e7b8c2",
+  "reconstruction": "Expand evidence receipt index with receipts[index]; set packet keys in fieldOrder from meta, evidence, runners and common; return {state:envelope.state,packet,digest:envelope.digest,resultTimestamp:envelope.resultTimestamp}. Exact JSON key order preserved."
+}
