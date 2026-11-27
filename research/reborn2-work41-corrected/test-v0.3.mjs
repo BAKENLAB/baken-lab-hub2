@@ -22,6 +22,15 @@ const mutateRaw=(x,i,fn)=>{const d=JSON.parse(x.documents[i].raw);fn(d);x.docume
 t('EXACT_REJECTED_SOURCE_PIN',()=>assert.equal(blob(oldSource),'56033c2f8319e57759027d4b38218361644c3223'));
 const malformed=makeValidRace();
 reject('ORIGINAL_1400MS_CONTRADICTION',()=>validateLeader(malformed.result.observations.rows,[200,800,1200],1400,malformed.laps.observations.values_ms,malformed.laps.observations.boundaries_m,'clock_ms','checkpoint_ms'),/LEADER_CROSSING_1200/);
+// Repair only the two erroneous leader-lap intervals of the original Work41 race;
+// retain literal individual values and ranks, translate old schema to canonical.
+const originalRows=malformed.result.observations.rows;
+const repaired=copy(docs[1]);repaired.eventId='TEST:WORK41_REPAIRED';repaired.eventAt=8;repaired.publishedAt=9;repaired.updatedAt=10;
+repaired.rows=originalRows.map((r,i)=>({nativeId:'TEST:H'+(i+1),no:r.horse_no,status:'FINISHED',gate:i+1,weightG:55000,finish:r.finish,clockMs:r.clock_ms,final600Ms:r.final600_ms,checkpointMs:r.checkpoint_ms,checkpointRanks:r.checkpoint_ranks,officialMargin:r.finish===1?null:'TEST_LITERAL'}));
+repaired.leaderLaps.valuesMs=[11600,35000,26400,12000];
+repaired.passing.groups=[...repaired.rows].sort((a,b)=>a.checkpointMs[0]-b.checkpointMs[0]).map(r=>[r.no]);
+const repairedEnv=makeEnvelope([docs[0],repaired]);
+t('EXACT_WORK41_REPAIR_INDIVIDUAL_CLOCKS_UNCHANGED',()=>{assert.deepEqual(repaired.rows.map(r=>[r.clockMs,r.final600Ms,r.checkpointMs,r.checkpointRanks,r.finish]),originalRows.map(r=>[r.clock_ms,r.final600_ms,r.checkpoint_ms,r.checkpoint_ranks,r.finish]));assert.deepEqual(repaired.leaderLaps.valuesMs.map((v,i)=>v-malformed.laps.observations.values_ms[i]),[0,0,1400,-1400]);assert.equal(validateEnvelope(repairedEnv).docs.length,2);});
 const w40=oldResult('BASE'),w40lap=oldLaps('BASE');
 reject('ORIGINAL_WORK40_MALFORMED_SOURCE',()=>validateLeader(w40.observations.rows,[200,800,1200],1400,w40lap.observations.values_ms,w40lap.observations.boundaries_m,'clock_ms','checkpoint_ms'),/LEADER_CROSSING/);
 t('ALL_BOUNDARIES_CORRECTED',()=>assert.equal(validateEnvelope(env).docs.length,6));
@@ -69,9 +78,10 @@ try{
  t('PHYSICAL_RESULT_READ_DENIED',()=>{assert.notEqual(probe.status,0);assert.match(probe.stderr,/ERR_ACCESS_DENIED/);});
  const g=worker(genericEnv,true),k=worker(makeEnvelope(changed),true);
  t('GENERIC_NEW_ISSUER_EVENT_ROSTER',()=>{assert.equal(g.decision.runners.length,3);assert.equal(k.decision.runners.length,3);assert.ok(g.decision.runners.every(h=>h.horse.startsWith('TEST:JRA|TEST:OTHER_')));assert.ok(k.decision.runners.some(h=>h.horse.endsWith('TEST:NO_HISTORY')));assert.notEqual(g.commonSha256,k.commonSha256);});
+ const repairedResult=worker(repairedEnv,true);t('ORIGINAL_REPAIRED_COMMON_EXECUTION',()=>{assert.equal(repairedResult.decision.runners.length,5);assert.ok(repairedResult.evidence.some(e=>e.event==='TEST:WORK41_REPAIRED'&&e.field==='race_leader_laps'));});
  const off=worker(env,false);t('SAME_PACKET_EYE_FLAG',()=>{assert.equal(a.commonSha256,off.commonSha256);assert.deepEqual(a.categories,off.categories);assert.deepEqual(a.evidence,off.evidence);});
  const compact=x=>({analysisSha256:x.analysisSha256,commonSha256:x.commonSha256,groups:x.groups,held:x.held,roots:x.roots.length,evidence:x.evidence.length,runners:x.decision.runners.map(h=>({horse:h.horse,items:h.items.length,eye:h.eye.map(e=>e.item),paths:h.paths.length,current:h.current_grade,conditional:h.conditional_grade})),categories:x.categories.map(h=>({horse:h.horse,categories:h.categories.map(c=>({category:c.category,observations:c.observations.length,directions:[...new Set(c.observations.map(o=>o.direction))],missing:c.missing}))}))});
- const receipt={scope:'SYNTHETIC_ONLY',priorAccepted:778,addedAccepted:0,checks:pass,base:compact(a),generic:compact(g),changed:compact(k),off:compact(off),fullOutputSha256:a.fullOutputSha256,resultBefore:before,resultAfter:after,formal:false};
+ const receipt={scope:'SYNTHETIC_ONLY',priorAccepted:778,addedAccepted:0,checks:pass,base:compact(a),generic:compact(g),changed:compact(k),repaired:compact(repairedResult),off:compact(off),fullOutputSha256:a.fullOutputSha256,resultBefore:before,resultAfter:after,formal:false};
  console.log('WORK41_FIX_SUMMARY '+JSON.stringify(receipt));
- if(process.env.WORK41_FIX_RECEIPT)writeFileSync(process.env.WORK41_FIX_RECEIPT,JSON.stringify({receipt,base:a,generic:g,changed:k,off},null,2));
+ if(process.env.WORK41_FIX_RECEIPT)writeFileSync(process.env.WORK41_FIX_RECEIPT,JSON.stringify({receipt,base:a,generic:g,changed:k,repaired:repairedResult,off},null,2));
 }finally{rmSync(dir,{recursive:true,force:true});}
