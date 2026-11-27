@@ -24,10 +24,10 @@ function rootBound(packet,q){
  assert.deepEqual(uniq([...seen]),uniq(q.evidence_ids),'V46_CLAIM_CLOSURE');
  return {refs:uniq([...seen]),roots:uniq(q.direct_evidence_ids.map(k=>m.get(k).root))};
 }
-function analyzeClaim(q,docs,packet,h){
+function analyzeClaim(q,docs,packet,h,strict=false){
  const c=docs[0],hist=docs.slice(1).sort((a,b)=>a.eventAt-b.eventAt),f=q.observed_facts,horse=id(h),own=hist.filter(d=>row(d,horse)),last=own.at(-1);
  const d=hist.find(d=>d.eventId===f.event),r=row(d,horse),t=row(c,horse),b=rootBound(packet,q);
- const has=(e,s,field)=>q.evidence_ids.some(k=>packet.evidence.some(n=>n.evidenceId===k&&n.event===e&&n.subject===s&&n.field===field));
+ const has=(e,s,field)=>(strict?q.direct_evidence_ids:q.evidence_ids).some(k=>packet.evidence.some(n=>n.evidenceId===k&&n.event===e&&n.subject===s&&n.field===field));
  const need=(e,s,fields)=>fields.every(k=>has(e,s,k));
  const emit=(item,predicate,state,value,missing=[])=>{
   assert.ok(q.upstream_item_ids.includes(item),'V46_CANONICAL_TARGET');
@@ -59,10 +59,11 @@ function analyzeClaim(q,docs,packet,h){
   const keys=n===7?['distance_m','surface','going']:geo;
   const part=x=>n===7?x.conditions:x.geometry;
   if(!d||!last||!r||!need(d.eventId,horse,['finish','finish_clock']))return held('CONDITION_RESPONSE_UNBOUND');
+  const contextKnown=keys.every(k=>part(d)?.[k]!=null&&part(c)?.[k]!=null);
   const match=same(part(d),part(c),keys),changed=keys.filter(k=>comparison(part(last)?.[k],part(c)?.[k])==='CHANGED');
   const laterKnown=keys.every(k=>part(last)?.[k]!=null&&part(c)?.[k]!=null);
   const previous=row(last,horse),g=finite(r.clockMs)&&d.rows.every(x=>finite(x.clockMs))?bound(r.clockMs-Math.min(...d.rows.map(x=>x.clockMs)),2*d.precisionMs):null;
-  const state=!match?'OTHER_CONTEXT':!laterKnown||!g?'UNRESOLVED':!changed.length?'NO_RETURN_CHANGE':r.finish===1&&previous?.finish>1?'CONDITION_RETURN_ANTECEDENT':'RETURN_BENEFIT_UNPROVEN';
+  const state=strict&&(!contextKnown||!laterKnown)?'UNRESOLVED':!match?'OTHER_CONTEXT':!laterKnown||!g?'UNRESOLVED':!changed.length?'NO_RETURN_CHANGE':r.finish===1&&previous?.finish>1?'CONDITION_RETURN_ANTECEDENT':'RETURN_BENEFIT_UNPROVEN';
   return emit(n===7?'RANK95':'RANK45',n===7?'CONDITION_RETURN_CONTRAST':'COURSE_RETURN_CONTRAST',state,{event:d.eventId,last:last.eventId,changed,priorFinish:previous?.finish??null,finish:r.finish,gap:g},['ISOLATED_CONDITION_EFFECT_NOT_PROVEN']);
  }
  if(n===9){
@@ -93,22 +94,23 @@ function analyzeClaim(q,docs,packet,h){
   const a=hist.find(d=>d.eventId===f.earlier),z=hist.find(d=>d.eventId===f.later),x=row(a,horse),y=row(z,horse);
   if(!a||!z||!x||!y||!need(a.eventId,horse,['individual_final600','finish'])||!need(z.eventId,horse,['individual_final600','finish']))return held('SECTION_CONTRAST_UNBOUND');
   if(own.indexOf(z)!==own.indexOf(a)+1)return held('NONCONSECUTIVE_HISTORY');
-  const peerMatch=eq(a.rows.map(r=>[r.nativeId,r.gate,r.weightG]),z.rows.map(r=>[r.nativeId,r.gate,r.weightG]));
+  const peerMatch=eq(a.rows.map(r=>[r.nativeId,r.gate,r.weightG]).sort((a,b)=>a[0].localeCompare(b[0])),z.rows.map(r=>[r.nativeId,r.gate,r.weightG]).sort((a,b)=>a[0].localeCompare(b[0])));
+  const contextKnown=[a,z].every(d=>dims.every(k=>d.conditions?.[k]!=null)&&geo.every(k=>d.geometry?.[k]!=null)&&d.rows.every(r=>r.gate!=null&&r.weightG!=null));
   const prefix=a.leaderLaps?.valuesMs&&z.leaderLaps?.valuesMs, u=a.precisionMs+z.precisionMs;
   const pace=!!prefix&&a.leaderLaps.valuesMs.slice(0,2).every((v,i)=>Math.abs(v-z.leaderLaps.valuesMs[i])<=(i===0?u:2*u));
   const delta=finite(x.final600Ms)&&finite(y.final600Ms)?bound(y.final600Ms-x.final600Ms,u):null;
-  const state=!matched(a,z)||!peerMatch||!pace?'OTHER_CONTEXT':!delta||!finite(x.finish)||!finite(y.finish)?'UNRESOLVED':sign(delta)==='NEGATIVE'&&y.finish>=x.finish?'SECTION_IMPROVEMENT_ANTECEDENT':sign(delta)==='POSITIVE'?'SECTION_WORSENED':'NO_HIDDEN_SECTION_IMPROVEMENT';
+  const state=strict&&(!contextKnown||!prefix)?'UNRESOLVED':!matched(a,z)||!peerMatch||!pace?'OTHER_CONTEXT':!delta||!finite(x.finish)||!finite(y.finish)?'UNRESOLVED':sign(delta)==='NEGATIVE'&&y.finish>=x.finish?'SECTION_IMPROVEMENT_ANTECEDENT':sign(delta)==='POSITIVE'?'SECTION_WORSENED':'NO_HIDDEN_SECTION_IMPROVEMENT';
   return emit('RANK32','SECTION_AND_PLACING_CONTRAST',state,{earlier:a.eventId,later:z.eventId,delta,placing:[x.finish,y.finish],peerMatch,pace},['PEER_RESPONSE_AND_CURRENT_FORM_NOT_PROVEN']);
  }
  return held(n===14?'FORMAL_CLASS_AND_CURRENT_PEER_STRENGTH_REQUIRED':'INDEPENDENT_JOINT_BENEFICIAL_MECHANISMS_REQUIRED');
 }
 // Shared item kernels: canonical target actually recalculated; different
 // predicates from same roots remain correlated observations, not votes.
-export function semanticItems(compiled,docs,packet,horse){
+export function semanticItems(compiled,docs,packet,horse,{strict=false}={}){
  const claims=new Map(compiled.items.flatMap(i=>i.claims).map(q=>[q.claim_id,q]));
  const out=new Map(),holds=[];
  for(const q of claims.values()){
-  const a=analyzeClaim(q,docs,packet,horse);
+  const a=analyzeClaim(q,docs,packet,horse,strict);
   if(!a.item){holds.push(a);continue;}
   const key=JSON.stringify([a.item,a.predicate,a.value,a.rootKeys]);
   if(!out.has(key))out.set(key,a);
