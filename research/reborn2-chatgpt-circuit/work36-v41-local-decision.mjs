@@ -97,16 +97,36 @@ function gradeTrace(h,history,eye,threshold){
  const unknown=history.flatMap(s=>s.edges.filter(e=>(e.a===h.slot||e.b===h.slot)&&e.transfer==='HELD_DEPENDENT_TRANSFER'));
  const axis=[
   {axis:'A',support:local.map(e=>({scope:e.scope,refs:e.refs})),counter:[],unknown:!local.length},
-  {axis:'B',support:local.filter(e=>e.unaffected).map(e=>({scope:e.scope,refs:e.refs})),counter:[],unknown:unknown.length>0||true},
+  {axis:'B',support:local.filter(e=>e.unaffected).map(e=>({scope:e.scope,refs:e.refs})),counter:[],unknown:true,missing:['CURRENT_FORM','CURRENT_ROLE_PACE']},
   {axis:'C',support:place.map(p=>p.id),counter:counter.map(p=>p.id),unknown:unknown.length>0||!routes.length},
   {axis:'D',support:win.filter(p=>p.axes.find(a=>a.axis==='D')?.support?.length).map(p=>p.id),counter:counter.map(p=>p.id),unknown:held.length>0||!routes.length},
   {axis:'E',support:eye.flatMap(e=>e.returned),counter:eye.flatMap(e=>e.counter),unknown:eye.some(e=>e.state!=='CONDITIONAL_DISCOVERY_RETURNED')}
  ];
- // Actual current role/form and supported scenario coverage are not provided
- // by the fixed fixtures. A/B conditional diagnostic is preserved separately.
- // S/C require actual relevant coverage, not absence of data or number of wins.
- return {axes:axis,conditionalCandidate:h.research_grade??null,research_grade:null,formal_grade:null,
-  decisions:{S:'HELD_CURRENT_ROUTE_COVERAGE',A:win.length?'CONDITIONAL_WIN_ONLY':'NO_SUPPORTED_WIN_ROUTE',B:place.length?'CONDITIONAL_PLACE_ONLY':'NO_SUPPORTED_PLACE_ROUTE',C:counter.length?'COUNTER_ROUTE_NOT_GLOBAL_DISADVANTAGE':'NO_AFFIRMATIVE_DISADVANTAGE'},
+ // Evaluate each claim against all applicable/held alternatives sharing the
+ // observed start. A counter does not erase another supported start.
+ const review=(p,claim)=>{
+  const thresholdClaim=claim==='WIN'?1:threshold;
+  const same=(h.history_v40??[]).find(q=>q.event===p.start_event);
+  const alternatives=routes.filter(q=>q.start_event===p.start_event);
+  const adverse=alternatives.filter(q=>q.applicable&&q.env?.min>thresholdClaim);
+  const unresolved=alternatives.filter(q=>!q.applicable||!q.env||q.env.min<=thresholdClaim&&q.env.max>thresholdClaim);
+  const a=p.axes.find(q=>q.axis==='A'),b=p.axes.find(q=>q.axis==='B'),cc=p.axes.find(q=>q.axis==='C'),d=p.axes.find(q=>q.axis==='D'),e=p.axes.find(q=>q.axis==='E');
+  const axisUse={A:!!a?.support.length,B:!!b?.support.length,C:!!cc?.support.length,D:!!d?.support.length,E:!e?.counter.length||!!e?.refs.length};
+  const sameCounter=!!same&&same.env.min>thresholdClaim;
+  const sameSupport=!!same&&same.env.max<=thresholdClaim;
+  const basis=Object.values(axisUse).every(Boolean)&&p.applicable&&sameSupport&&!sameCounter;
+  return {route:p.id,start:p.start_event,response:p.response_event,claim,axisUse,sameSupport,sameCounter,counter:adverse.map(q=>q.id),held:unresolved.map(q=>q.id),basis,
+   coherent:basis&&!adverse.length&&!unresolved.length,refs:uniq(p.axes.flatMap(q=>q.refs??[])),scope:'CONDITIONAL_HISTORICAL_ANTECEDENT'};
+ };
+ const winReviews=win.map(p=>review(p,'WIN')),placeReviews=place.map(p=>review(p,'PLACE'));
+ const supportedWin=winReviews.filter(p=>p.coherent),supportedPlace=placeReviews.filter(p=>p.coherent);
+ // No historical event count or point tally decides this. Actual current
+ // applicability is distinct from the conditional historical candidate.
+ const research_grade=supportedWin.length?'A':supportedPlace.length?'B':null;
+ const currentEvidence={rolePace:false,form:false,scenarioCoverage:false};
+ return {axes:axis,priorConditionalCandidate:h.research_grade??null,conditionalCandidate:research_grade,research_grade,current_grade:null,formal_grade:null,
+  decisions:{S:'HELD_CURRENT_ROUTE_COVERAGE',A:supportedWin.length?'SUPPORTED_CONDITIONAL_WIN':win.length?'WIN_ALTERNATIVES_UNRESOLVED':'NO_SUPPORTED_WIN_ROUTE',B:supportedPlace.length?'SUPPORTED_CONDITIONAL_PLACE':place.length?'PLACE_ALTERNATIVES_UNRESOLVED':'NO_SUPPORTED_PLACE_ROUTE',C:counter.length?'COUNTER_ROUTE_NOT_GLOBAL_DISADVANTAGE':'NO_AFFIRMATIVE_DISADVANTAGE'},
+  currentEvidence,winReviews,placeReviews,
   decisiveUnknown:['CURRENT_FORM','CURRENT_ROLE_PACE','CURRENT_ROUTE_COVERAGE',...(unknown.length?['DEPENDENT_CONDITION_TRANSFER']:[])],
   heldRoutes:held.map(p=>p.id),winRoutes:win.map(p=>p.id),placeRoutes:place.map(p=>p.id),counterRoutes:counter.map(p=>p.id),threshold,formal:false};
 }
@@ -201,11 +221,22 @@ t('F41-05',()=>{
  for(const x of [...all,...masks.map(m=>m.x)])for(const h of x.runners_v41){
   assert.equal(new Set(h.eye.map(e=>e.item)).size,15);
   assert.ok(h.eye.every(e=>!e.canonical_positive&&!e.formal));
-  assert.ok(h.decision.axes.length===5&&h.decision.research_grade===null);
+  assert.ok(h.decision.axes.length===5&&h.decision.current_grade===null);
   assert.ok(h.decision.decisiveUnknown.includes('CURRENT_ROUTE_COVERAGE'));
  }
  const b=masks[0].x.runners_v41.find(h=>h.horse===H(4)),p=masks[1].x.runners_v41.find(h=>h.horse===H(4));
  assert.ok(p.eye.find(e=>e.item==='EYE03').returned.length>b.eye.find(e=>e.item==='EYE03').returned.length);
+});
+t('F41-06',()=>{
+ for(const x of [...all,...masks.map(m=>m.x)])for(const h of x.runners_v41){
+  const d=h.decision;
+  if(d.research_grade==='A')assert.ok(d.winReviews.some(p=>p.coherent&&Object.values(p.axisUse).every(Boolean)&&!p.held.length&&!p.counter.length));
+  if(d.research_grade==='B'){assert.ok(!d.winReviews.some(p=>p.coherent));assert.ok(d.placeReviews.some(p=>p.coherent));}
+  assert.ok(d.winReviews.every(p=>!p.coherent||!p.sameCounter));
+  assert.ok(d.current_grade===null&&d.formal_grade===null);
+ }
+ const unknown=by('FK34_UNKNOWN');assert.ok(unknown.runners_v41.every(h=>h.decision.research_grade===null));
+ const bad=by('W36_SHARED_CONFLICT');assert.ok(bad.runners_v41.every(h=>h.decision.current_grade===null));
 });
 const compact=x=>({id:x.id,digest:x.source_digest,history:x.history_v41.map(s=>({id:s.id,shared:s.shared.filter(q=>q.state!=='MATCHED'),fieldChanged:s.fieldChanged,measured:s.edges.filter(e=>e.measured).length,local:s.edges.filter(e=>e.unaffected).length,edges:s.edges.map(e=>({a:e.a,b:e.b,scope:e.scope,interval:e.interval_ms,transfer:e.transfer})),bounds:s.conditionalField.envelopes.map(e=>[e.slot,e.min,e.max])})),runners:x.runners_v41.map(h=>({horse:h.horse,contrast:h.contrast,eye:h.eye.map(e=>({item:e.item,state:e.state,returned:e.returned.length,counter:e.counter.length,incidents:e.incidentIds})),decision:{...h.decision,axes:h.decision.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown}))}}))});
 for(const x of all)console.log('V41_CASE '+JSON.stringify(compact(x)));
