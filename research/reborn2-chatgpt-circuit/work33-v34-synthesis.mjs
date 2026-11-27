@@ -39,6 +39,9 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled,localize=fal
  const {get,lineage}=dependencyReader(all,withdraw,e=>e.subject_id===null||e.field==='id'?[]:[field(e.event_id,e.subject_id,'id')?.evidence_id,...(e.field==='status'?[]:[field(e.event_id,e.subject_id,'status')?.evidence_id])].filter(Boolean));
  const val=e=>e&&get(e.evidence_id)&&e.state==='SYNTHETIC_OBSERVATION'?e.value:null,refs=xs=>lineage(xs.filter(Boolean).map(x=>typeof x==='string'?x:x.evidence_id)).map(x=>x.evidence_id);
  const fullRoster=roster.length===raw.roster.known_active.length;
+ // Incomplete official classification is not permission to create a finish rank.
+ // Original verified literal individual ranks remain separately traceable.
+ const literalFinish=(ev,h)=>p.o.evidence.find(e=>e.event_id===ev&&e.typed_source?.field==='finish'&&ev.startsWith(h.split('|')[0]+'|')&&e.typed_source?.subject===h.split('|').at(-1));
  const pairs=roster.flatMap((a,i)=>roster.slice(i+1).map(b=>({a,b})));
  const byEvent=history.map(e=>{
   const ev=e.event_id,ctx=base.contexts.find(x=>x.event===ev),g=val(e.geometry),tc=val(target.conditions),pc=val(e.conditions),u=p.r.measurement.clock_uncertainty_ms;
@@ -57,13 +60,23 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled,localize=fal
   let rankClockConflict=false;
   const edges=pairs.map(({a,b})=>{
    const pa=field(x.ev,a,'checkpoint_ms'),pb=field(x.ev,b,'checkpoint_ms'),fa=field(x.ev,a,'finish_ms'),fb=field(x.ev,b,'finish_ms'),av=val(pa),bv=val(pb),af=val(fa),bf=val(fb);
-   const d=base.pairResponse.find(k=>k.a===a&&k.b===b)?.comparisons.find(k=>k.event===x.ev);
+   let d=base.pairResponse.find(k=>k.a===a&&k.b===b)?.comparisons.find(k=>k.event===x.ev);
+   if(localize&&!d&&x.knownField){
+    const ra=literalFinish(x.ev,a),rb=literalFinish(x.ev,b),ar=val(ra),br=val(rb);
+    const supplied=roster.map(h=>val(literalFinish(x.ev,h))).filter(Number.isInteger);
+    // Do not use incomplete or inconsistent literal ranks as a complete official classification.
+    // Independently supplied unique ranks can corroborate only this pair's clock order.
+    if(Number.isInteger(ar)&&Number.isInteger(br)&&ar!==br&&new Set(supplied).size===supplied.length&&supplied.length<roster.length){
+     const roots=refs([ra,rb,field(x.ev,a,'id'),field(x.ev,b,'id'),field(x.ev,a,'status'),field(x.ev,b,'status'),...x.ctx.refs]);
+     d={order:ar<br?'AHEAD':'BEHIND',rank_refs:roots,refs:roots,pair_context:'PARTIAL_LITERAL_RANK_CLOCK_ONLY'};
+    }
+   }
    if(!x.knownField||!d||!Number.isFinite(av?.[j])||!Number.isFinite(bv?.[j])||!Number.isFinite(af)||!Number.isFinite(bf)||!Number.isFinite(x.u))return {a,b,order:'UNKNOWN',refs:[],interval_ms:null};
    const change=(bf-af)-(bv[j]-av[j]),roots=refs([pa,pb,fa,fb,...d.rank_refs,...(localize?d.refs:x.refs)]);
    const z=stressScenario({path:{relations:[{rival:b,net_change_ms:change,change_bound_ms:4*x.u,refs:roots}]},subject:a,rivals:[b],starts,threshold:null}).relations[0];
    // Preserve literal rank and numeric evidence separately. An incompatible numeric edge is withheld.
    if(z.order!=='UNKNOWN'&&z.order!==d.order)rankClockConflict=true;
-   return {a,b,order:z.order!=='UNKNOWN'&&z.order!==d.order?'UNKNOWN':z.order,refs:roots,interval_ms:z.interval_ms,observed_order:d.order,change_ms:change,checkpoint_m:checkpoint,pair_context:d.pair_context};
+   return {a,b,order:z.order!=='UNKNOWN'&&z.order!==d.order?'UNKNOWN':z.order,refs:roots,interval_ms:z.interval_ms,observed_order:d.order,change_ms:change,checkpoint_m:checkpoint,...(localize?{pair_context:d.pair_context}:{})};
   });
   const numeric=jointClockFeasibility(roster,edges.filter(e=>e.interval_ms).map(e=>({a:e.a,b:e.b,delta:(e.interval_ms[0]+e.interval_ms[1])/2,bound:(e.interval_ms[1]-e.interval_ms[0])/2,refs:e.refs})));
   const f=jointField(roster,edges,threshold),valid=f.state!=='CONTRADICTED_SHARED_ORDER'&&numeric.state!=='CONTRADICTED_NUMERIC_DIFFERENCES'&&(!localize||(!rankClockConflict&&!x.sharedPaceConflict));
@@ -180,7 +193,7 @@ export function analyzeV35(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true,
   const complete=roster.every(h=>b.starts[h])&&edges.every(e=>e.interval_ms);
   return {id:b.id,checkpoint_m:b.checkpoint_m,response_event:b.response_event,starts:b.starts,
    antecedent:'EXPLICIT_SYNTHETIC_START_ASSUMPTION',observed_current_pace:false,prediction:false,
-   comparable,partial,roleConflicts,complete,valid,edges,field,numeric,
+   comparable,...(localize?{partial}:{}),roleConflicts,complete,valid,edges,field,numeric,
    condition_refs:comparable?base.contexts.find(c=>c.event===s.event)?.refs??[]:[],
    historical_role_refs:comparable?uniq(s.roleEvidence.flatMap(r=>r.refs)):[],
    actual_current_applicability:'UNPROVEN'};
