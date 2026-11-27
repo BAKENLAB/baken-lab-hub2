@@ -19,8 +19,8 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8
-          path: fixed-v48
+          ref: f565e88af3404c84328a6cd035d2f21df3ea49dc
+          path: fixed-final
           persist-credentials: false
       - uses: actions/checkout@v4
         with:
@@ -33,7 +33,7 @@ jobs:
           git rev-parse HEAD
           node --version
           set +e
-          node research/reborn2-independent-tests/probe-v44-prepared.mjs fixed-v48 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8 fixed-work42 1f185f879bc58ca5d0665d90419981dac9b73bf6 > "$RUNNER_TEMP/v44-prepared.log" 2>&1
+          node research/reborn2-independent-tests/probe-v44-prepared.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc fixed-work42 1f185f879bc58ca5d0665d90419981dac9b73bf6 > "$RUNNER_TEMP/v44-prepared.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/v44-prepared.log"
           echo "PREPARED_EXIT=$rc"
@@ -43,7 +43,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          node research/reborn2-independent-tests/probe-v44-supplement.mjs fixed-v48 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8 > "$RUNNER_TEMP/v44-supplement.log" 2>&1
+          node research/reborn2-independent-tests/probe-v44-supplement.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v44-supplement.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/v44-supplement.log"
           echo "SUPPLEMENT_EXIT=$rc"
@@ -53,7 +53,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          node research/reborn2-independent-tests/probe-v45-independent.mjs fixed-v48 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8 > "$RUNNER_TEMP/v45-independent.log" 2>&1
+          node research/reborn2-independent-tests/probe-v45-independent.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v45-independent.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/v45-independent.log"
           echo "V45_EXIT=$rc"
@@ -63,7 +63,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          node research/reborn2-independent-tests/probe-v46-independent.mjs fixed-v48 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8 > "$RUNNER_TEMP/v46-independent.log" 2>&1
+          node research/reborn2-independent-tests/probe-v46-independent.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v46-independent.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/v46-independent.log"
           echo "V46_EXIT=$rc"
@@ -71,7 +71,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: main48-v48-regression
+          name: main48-final-regression
           path: |
             ${{ runner.temp }}/v44-prepared.log
             ${{ runner.temp }}/v44-supplement.log
@@ -92,8 +92,8 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8
-          path: fixed-v48
+          ref: f565e88af3404c84328a6cd035d2f21df3ea49dc
+          path: fixed-final
           persist-credentials: false
       - name: V47 independent route and boundary controls
         shell: bash
@@ -101,7 +101,7 @@ jobs:
           git rev-parse HEAD
           node --version
           set +e
-          node research/reborn2-independent-tests/probe-v47-independent.mjs fixed-v48 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8 > "$RUNNER_TEMP/v47-independent.log" 2>&1
+          node research/reborn2-independent-tests/probe-v47-independent.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v47-independent.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/v47-independent.log"
           echo "V47_EXIT=$rc"
@@ -109,7 +109,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: main48-v48-v47-regression
+          name: main48-final-v47-regression
           path: ${{ runner.temp }}/v47-independent.log
 
   v48-independent:
@@ -126,8 +126,8 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8
-          path: fixed-v48
+          ref: f565e88af3404c84328a6cd035d2f21df3ea49dc
+          path: fixed-final
           persist-credentials: false
       - name: V48 independent common-peer and outcome boundary controls
         shell: bash
@@ -135,7 +135,7 @@ jobs:
           git rev-parse HEAD
           node --version
           set +e
-          node research/reborn2-independent-tests/probe-v48-independent.mjs fixed-v48 4f594cc7344c2158f09e2106c0d0e1364a4fc7b8 > "$RUNNER_TEMP/v48-independent.log" 2>&1
+          node research/reborn2-independent-tests/probe-v48-independent.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v48-independent.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/v48-independent.log"
           echo "V48_EXIT=$rc"
@@ -143,5 +143,39 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: main48-v48-independent
+          name: main48-final-independent
           path: ${{ runner.temp }}/v48-independent.log
+
+  final-partial:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: f565e88af3404c84328a6cd035d2f21df3ea49dc
+          path: fixed-final
+          persist-credentials: false
+      - name: Final independent Work44 partial consumer
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node research/reborn2-independent-tests/probe-v48-final-partial.mjs fixed-final f565e88af3404c84328a6cd035d2f21df3ea49dc > "$RUNNER_TEMP/v48-final-partial.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/v48-final-partial.log"
+          echo "FINAL_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: main48-final-partial
+          path: ${{ runner.temp }}/v48-final-partial.log
