@@ -19,8 +19,11 @@ jobs:
       - run: node implementation/reborn2-pilot/test-v2.mjs
         env:
           PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview
+      - run: node implementation/reborn2-pilot/test-mobile-browser.mjs
+        env:
+          PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview
       - uses: actions/upload-artifact@v4
         with:
           name: reborn2-codex02-list-preview
-          path: ${{ runner.temp }}/reborn2-preview/*.html
+          path: ${{ runner.temp }}/reborn2-preview/
           retention-days: 7

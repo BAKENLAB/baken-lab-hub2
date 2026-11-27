@@ -3,7 +3,7 @@ const reasons={CURRENT_STATUS_UNCERTIFIED:'今回の出走状態を確認でき�
 const gradeText={S:'複数の条件で勝ち筋を支持',A:'条件付きの勝ち筋を支持',B:'条件付きの好走筋を支持',C:'比較可能な条件で劣勢を支持',UNASSESSED:'判断に必要な証拠が不足'};
 const statusText={ACTIVE:'出走確認済み（架空）',UNKNOWN:'出走状態未確認',CANCELLED:'出走取消'};
 const rank=p=>p.rank?.length===2?p.rank[0]===p.rank[1]?p.rank[0]+'着相当':p.rank.join('〜')+'着相当':null;
-const clock=v=>Array.isArray(v)&&v.length===2&&v.every(Number.isFinite)?v.map(x=>(Math.abs(x)/1000).toFixed(2)).join('〜')+'秒':null;
+const clock=v=>Array.isArray(v)&&v.length===2&&v.every(Number.isFinite)?v.map(x=>Math.abs(x)/1000).sort((a,b)=>a-b).map(x=>x.toFixed(2)).join('〜')+'秒':null;
 function pairs(p,dir){const a=p?.axes?.find(x=>x.axis==='A');return p?.own?.filter(q=>dir==='support'?q.finish?.[0]>0:q.finish?.[1]<0)??(a?.[dir]??[]).flatMap(q=>Array.isArray(q.value)?q.value:[]);}
 const display=(id,roster)=>roster.find(r=>r.horseId===id||r.horseId.split('|').at(-1)===id)?.name??'比較対象馬';
 const line=(p,dir,roster)=>{const q=pairs(p,dir).find(q=>clock(q.finish));if(!q)return '';return display(q.rival,roster)+'との相対時計差は'+clock(q.finish)+(dir==='support'?'先着側':'後着側')+'。';};
@@ -22,11 +22,11 @@ export function summarizeRunner(r,roster,mode){
   }
   push('保留','今回の出走状態と個馬通過時計等を確認できないため、勝ち筋・好走筋とSABCは保留。',{field:'missingness'});
  }else{
-  const paths=r.paths??[],win=paths.find(p=>r.winPaths.includes(p.id)),place=paths.find(p=>r.placePaths.includes(p.id)&&p.id!==win?.id),counter=paths.find(p=>r.counterPaths.includes(p.id)&&pairs(p,'counter').some(q=>clock(q.finish)))??paths.find(p=>r.counterPaths.includes(p.id));
+  const paths=r.paths??[],win=paths.find(p=>r.winPaths.includes(p.id)),place=paths.find(p=>r.placePaths.includes(p.id)&&p.id!==win?.id&&p.state==='SUPPORTED_CONDITIONAL_PLACE')??(!win?paths.find(p=>r.placePaths.includes(p.id)):undefined),counter=paths.find(p=>r.counterPaths.includes(p.id)&&pairs(p,'counter').some(q=>clock(q.finish)))??paths.find(p=>r.counterPaths.includes(p.id));
   const pathLink=p=>({field:'paths',route:p.id});
   if(win)push('勝ち筋','過去の反応を今回と同条件で再現できる場合、'+(rank(win)??'勝ち筋')+'の比較範囲。'+line(win,'support',roster)+'実際の着順を保証するものではない。',pathLink(win));
   if(place)push('好走筋','比較可能な条件で'+(rank(place)??'好走筋')+'の範囲。'+line(place,'support',roster)+'展開が異なれば再現できない可能性がある。',pathLink(place));
-  if(counter)push('反証','別の比較経路では'+(rank(counter)?rank(counter)+'の範囲。':'反証または再現性の注意がある。')+line(counter,'counter',roster)+'支持材料だけで判断しない。',pathLink(counter));
+  if(counter)push('反証','反証・再現性の確認では'+(rank(counter)?rank(counter)+'の範囲。':'反証または再現性の注意がある。')+line(counter,'counter',roster)+'支持材料だけで判断しない。',pathLink(counter));
   if(!win&&!place&&!counter)push('判断','確認可能な材料では今回の勝ち筋・好走筋を確定できない。',{field:'missingness'});
   if(r.holdReasons.length)push('保留',r.holdReasons.map(x=>reasons[x]??'追加確認が必要な分析条件').filter((x,i,a)=>a.indexOf(x)===i).join('。')+'。',{field:'holdReasons'});
  }

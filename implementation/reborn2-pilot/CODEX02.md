@@ -33,3 +33,7 @@ same fixture identity. No public hosting. test-v2.mjs verifies three
 existing fixtures, exact snapshot roundtrip, tamper rejection, list size,
 actual HTTP detail links, no detail load during list, metadata gate.
 No research scope expansion, no production/DB/FROZEN/CLAIM/merge/deploy.
+
+Optional local Chromium smoke uses 390x844 mobile viewport, real loopback
+navigation, horizontal overflow check and on-demand detail page; screenshot
+artifact if Chrome exists. No device/network speed benchmark.
