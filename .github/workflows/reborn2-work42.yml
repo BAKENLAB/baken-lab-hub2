@@ -1,0 +1,45 @@
+name: Work42 final evidence supply research
+on:
+  pull_request:
+    branches: [research/reborn2-work41-corrected-20261128]
+    paths:
+      - 'research/reborn2-work42/**'
+      - '.github/workflows/reborn2-work42.yml'
+permissions:
+  contents: read
+jobs:
+  work42:
+    if: github.event.pull_request.head.ref == 'research/reborn2-work42-final-supply-20261128'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Accepted Work41 regression unchanged
+        env:
+          WORK41_FIX_RECEIPT: ${{ runner.temp }}/work41-receipt.json
+        run: node research/reborn2-work41-corrected/test-v0.3.mjs
+      - uses: actions/checkout@v4
+        with:
+          ref: de895a633ec098a28b9014065231dd54d3ec6f89
+          path: pinned-v43
+          persist-credentials: false
+      - name: Work42 supply and actual V43 intake
+        env:
+          V43_ROOT: ${{ github.workspace }}/pinned-v43
+          WORK42_RECEIPT: ${{ runner.temp }}/work42-receipt.json
+        run: node research/reborn2-work42/test-v0.4.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: work42-receipts
+          path: |
+            ${{ runner.temp }}/work41-receipt.json
+            ${{ runner.temp }}/work42-receipt.json
+          if-no-files-found: warn
+          retention-days: 7
