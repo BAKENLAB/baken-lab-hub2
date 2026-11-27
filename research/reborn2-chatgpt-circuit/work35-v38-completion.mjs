@@ -102,6 +102,12 @@ t('F38-03',()=>{
  assert.ok(s,'LOCAL_RESPONSE_TRANSFER');assert.ok(local.runners.find(h=>h.slot===H(5)).paths_v38.find(p=>p.id===s.id).possible_winner);
  assert.ok(local.runners.filter(h=>h.slot!==H(5)).some(h=>h.paths_v38.some(p=>p.id===s.id&&p.WIN==='COUNTER')));
  const bad=jointField(['A','B','C'],[{a:'A',b:'B',order:'AHEAD'},{a:'B',b:'C',order:'AHEAD'},{a:'A',b:'C',order:'BEHIND'}],2);assert.equal(bad.state,'CONTRADICTED_SHARED_ORDER');
+ const m=missing.historical_scenarios.find(s=>s.valid&&s.edges.filter(e=>e.interval_ms).length===6);
+ assert.ok(m,'LOCAL_INDIVIDUAL_PERFORMANCE_WITHOUT_COMPLETE_CLASSIFICATION');
+ const original=byId(full,m.id);assert.ok(original);
+ for(const e of m.edges.filter(e=>e.interval_ms)){assert.equal(e.pair_context,'PARTIAL_LITERAL_RANK_CLOCK_ONLY');assert.deepEqual(e.interval_ms,original.edges.find(q=>q.a===e.a&&q.b===e.b).interval_ms);}
+ assert.equal(m.applicability,'LOCAL_OBSERVED_RESPONSE_ONLY');
+ const mh=m.field.envelopes.find(e=>e.slot===H(5));assert.deepEqual([mh.min,mh.max],[1,5]);
  assert.ok(missing.runners.every(h=>h.grade===null));
 });
 t('F38-04',()=>{const e=all.find(x=>x.id==='FK35_EYE'),c=all.find(x=>x.id==='FK35_EYE_COUNTER');assert.ok(e.source_packet.evidence.some(r=>r.event==='TEST:DISCOVERED'));assert.ok(c.source_packet.evidence.some(r=>r.event==='TEST:NEW_COUNTER'));assert.ok(e.runners.every(h=>h.research_grade===null));assert.ok(c.runners.every(h=>h.research_grade===null));});
