@@ -36,6 +36,12 @@ export function terminalSegment({a,b,lastA,lastB,finishA,finishB,rankA,rankB,dis
  const dtA=finishA-lastA,dtB=finishB-lastB,m=distance-checkpoint;
  return {state:'OBSERVED_TERMINAL',segment:{...s,from_m:checkpoint,to_m:distance,a,b,elapsed_a_ms:dtA,elapsed_b_ms:dtB,average_a_mps:m*1000/dtA,average_b_mps:m*1000/dtB,average_a_bounds_mps:[m*1000/(dtA+u),m*1000/(dtA-u)],average_b_bounds_mps:[m*1000/(dtB+u),m*1000/(dtB-u)],finish_order:rankOrder,checkpoint_persistence:s.start_order!=='UNKNOWN'&&rankOrder!=='UNKNOWN'?(s.start_order===rankOrder?'OBSERVED_CONSISTENT':'OBSERVED_COUNTEREXAMPLE'):'UNRESOLVED'}};
 }
+// Strict entry used by the shared analyzer. The older mathematical primitive remains for V30 regression.
+export function validatedTerminalSegment(x){
+ if(typeof x.a!=='string'||typeof x.b!=='string'||!x.a||!x.b||x.a===x.b||!Number.isInteger(x.actualStarters)||x.actualStarters<2||!Number.isInteger(x.rankA)||!Number.isInteger(x.rankB)||x.rankA<1||x.rankB<1||x.rankA>x.actualStarters||x.rankB>x.actualStarters||x.scope!=='COURSE_DISTANCE_CROSSING_ELAPSED_FROM_COMMON_START'||typeof x.event!=='string'||!x.event)return {state:'UNBOUND_TERMINAL_IDENTITY_FIELD_OR_SCOPE',segment:null};
+ if(x.rankA===x.rankB)return {state:'TIED_CLASSIFICATION_REQUIRES_EXPLICIT_DEAD_HEAT',segment:null};
+ return terminalSegment(x);
+}
 export function analyzeV30(L,name,withdraw=null,options={}){
  const threshold=options.placeThreshold??null,out=analyzeV29(L,name,withdraw,options),{r,o}=L.cases.get(name),[target,...history]=o.events,active=out.roster.possible_active;
  const field=(ev,h,k)=>o.evidence.find(e=>e.event_id===ev&&e.subject_id===h&&e.field===k),id=e=>e?.evidence_id,all=new Map(o.evidence.map(e=>[id(e),e]));
@@ -51,15 +57,19 @@ export function analyzeV30(L,name,withdraw=null,options={}){
    const a=active[i],b=active[j],p=out.pair_progress_v29.find(x=>x.event===ev&&x.a===a&&x.b===b),last=p?.intervals.at(-1);
    const ca=field(ev,a,'checkpoint_ms'),cb=field(ev,b,'checkpoint_ms'),fa=field(ev,a,'finish_ms'),fb=field(ev,b,'finish_ms'),ra=field(ev,a,'finish'),rb=field(ev,b,'finish');
    const ta=v(ca),tb=v(cb),ha=hs(ev,a),hb=hs(ev,b);
-   const t=p&&last&&last.to_m===checkpoint&&r.measurement.checkpoint_scope==='COURSE_DISTANCE_CROSSING_ELAPSED_FROM_COMMON_START'?terminalSegment({a,b,lastA:ta?.at(-1),lastB:tb?.at(-1),finishA:v(fa),finishB:v(fb),rankA:ha?.finish,rankB:hb?.finish,distance,checkpoint,uncertainty:r.measurement.clock_uncertainty_ms}):{state:'MISSING_OR_INVALID_TERMINAL',segment:null};
+   const count=v(e.actual_starters),known=x=>out.runners.some(h=>h.slot===x&&h.identity_known&&h.status==='ACTIVE'),validRank=x=>Number.isInteger(x)&&Number.isInteger(count)&&x>=1&&x<=count;
+   const t=p&&last&&last.to_m===checkpoint&&known(a)&&known(b)?validatedTerminalSegment({a,b,event:ev,actualStarters:count,scope:r.measurement.checkpoint_scope,lastA:ta?.at(-1),lastB:tb?.at(-1),finishA:v(fa),finishB:v(fb),rankA:ha?.finish,rankB:hb?.finish,distance,checkpoint,uncertainty:r.measurement.clock_uncertainty_ms}):{state:'MISSING_OR_INVALID_TERMINAL',segment:null};
    const termRefs=t.segment?refs([ca,cb,fa,fb,ra,rb,e.geometry,e.conditions]):[];
-   const rankOrder=p&&Number.isInteger(ha?.finish)&&Number.isInteger(hb?.finish)?ha.finish<hb.finish?'AHEAD':ha.finish>hb.finish?'BEHIND':'UNKNOWN':'UNKNOWN';
-   const rankRefs=rankOrder==='UNKNOWN'?[]:refs([ra,rb]);
+   const rawRankOrder=known(a)&&known(b)&&validRank(ha?.finish)&&validRank(hb?.finish)?ha.finish<hb.finish?'AHEAD':ha.finish>hb.finish?'BEHIND':'UNKNOWN':'UNKNOWN';
+   const clockOrder=finite(v(fa))&&finite(v(fb))&&finite(r.measurement.clock_uncertainty_ms)?order(v(fb)-v(fa),2*r.measurement.clock_uncertainty_ms):'UNKNOWN';
+   const finishConflict=t.state==='CLOCK_FINISH_CONTRADICTION'||(rawRankOrder!=='UNKNOWN'&&clockOrder!=='UNKNOWN'&&rawRankOrder!==clockOrder);
+   const rankOrder=finishConflict?'UNKNOWN':rawRankOrder;
+   const rankRefs=rankOrder==='UNKNOWN'?[]:refs([ra,rb,e.actual_starters,field(target.event_id,a,'status'),field(target.event_id,b,'status')]);
    const checkpointOrder=last?.end_order??'UNKNOWN';
    const persistence=checkpointOrder!=='UNKNOWN'&&rankOrder!=='UNKNOWN'?(checkpointOrder===rankOrder?'OBSERVED_CONSISTENT':'OBSERVED_COUNTEREXAMPLE'):'UNRESOLVED';
    const first=p?.intervals[0],net=first&&t.segment?t.segment.end-first.start:null,netBound=first&&t.segment?Math.max(first.changeBound,t.segment.changeBound):null;
    const priorRecovery={a:!!p?.intervals.some(x=>x.change==='LOSS'),b:!!p?.intervals.some(x=>x.change==='GAIN')};
-   const row={event:ev,a,b,checkpoint,distance,target_distance:targetDistance,net_first_to_finish_ms:net,net_bound_ms:netBound,priorRecovery,transfer:distance!==null&&targetDistance!==null&&distance===targetDistance?'SAME_DISTANCE_NOT_TRANSFER_PROOF':'DISTANCE_CHANGED_OR_UNKNOWN',checkpoint_order:checkpointOrder,finish_order:rankOrder,persistence,terminal:t,checkpoint_refs:p?.intervalRefs??[],finish_refs:rankRefs,terminal_refs:termRefs,refs:uniq([...(p?.intervalRefs??[]),...rankRefs,...termRefs])};
+   const row={event:ev,a,b,checkpoint,distance,target_distance:targetDistance,net_first_to_finish_ms:net,net_bound_ms:netBound,priorRecovery,transfer:distance!==null&&targetDistance!==null&&distance===targetDistance?'SAME_DISTANCE_NOT_TRANSFER_PROOF':'DISTANCE_CHANGED_OR_UNKNOWN',checkpoint_order:checkpointOrder,finish_order:rankOrder,finish_conflict:finishConflict,persistence,terminal:t,checkpoint_refs:p?.intervalRefs??[],finish_refs:rankRefs,terminal_refs:termRefs,refs:uniq([...(p?.intervalRefs??[]),...rankRefs,...termRefs])};
    pairs.push(row);terminal.push(row);
   }
   const known=h=>out.runners.find(x=>x.slot===h)?.identity_known&&out.runners.find(x=>x.slot===h)?.status==='ACTIVE';
@@ -100,7 +110,10 @@ export function analyzeV30(L,name,withdraw=null,options={}){
     if(p.finish_order==='BEHIND'&&z.change==='GAIN')add('RANK29','TERMINAL_GAIN_DESPITE_PAIR_LOSS_REVIEW',p.terminal_refs,z);
    }
   }
-  for(const path of paths.filter(p=>p.kind==='CHECKPOINT_PERSISTS_TO_FINISH'&&p.state==='CONTRADICTED_BY_OBSERVED_FINISH'))findings.push({item:'RANK100',state:'SHARED_PATH_REJECTED_BY_TERMINAL_COUNTEREVIDENCE',refs:path.refs,observation:{event:path.event},formal:false,current_relevance:'UNPROVEN'});
+  for(const path of paths.filter(p=>p.kind==='CHECKPOINT_PERSISTS_TO_FINISH'&&p.state==='CONTRADICTED_BY_OBSERVED_FINISH')){
+   const related=path.counterexamples.filter(p=>p.a===h.slot||p.b===h.slot);
+   if(related.length)findings.push({item:'RANK100',state:'SHARED_PATH_REJECTED_BY_TERMINAL_COUNTEREVIDENCE',refs:uniq(related.flatMap(p=>p.refs)),observation:{event:path.event,related_pairs:related.map(p=>[p.a,p.b])},formal:false,current_relevance:'UNPROVEN'});
+  }
   h.terminal_v30=rows;h.scenarios_v30=paths;h.findings_v30=findings;
   // Preserve old data only as explicitly superseded diagnostics, not competing decision outputs.
   h.legacy_v29={conditional_scenarios:h.conditional_scenarios,findings:h.v29_findings,semantic_effects:h.semantic_effects_v29,WIN:h.WIN?{...h.WIN}:null,PLACE:h.PLACE?{...h.PLACE}:null,scope:'SUPERSEDED_FOR_FINISH_DECISIONS'};
