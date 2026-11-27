@@ -154,12 +154,12 @@ export function heterogeneous(seed=20261127,{n=6,distance=1800,missing=true}={})
   const leader=Array.from({length:m},(_,j)=>Math.min(...clocks.map(x=>x[j])));
   const corners=[0,1,m-4,m-2];
   const rows=order.map((id,k)=>({id,runner:k+1,kg:54,finish:k+1,clock_tenths:clocks[k].at(-1),margin_tenths:k?clocks[k].at(-1)-leader.at(-1):null,final3f_tenths:clocks[k].at(-1)-clocks[k][m-4],corners:corners.map(j=>1+clocks.filter(a=>a[j]<clocks[k][j]).length)}));
-  return {id:'SYN18-'+seed+'-'+i,date:'2026-10-'+String(i*3).padStart(2,'0'),start:'13:00',published:'13:20',conditions,field_count:order.length,full_result_rows:true,lap_kind:'synthetic_race_leader',lap_segment_m:Array(m).fill(200),lap_tenths:leader.map((x,j)=>x-(leader[j-1]??0)),rows};
+  return {id:'FK-SYN18-'+seed+'-'+i,date:'2026-10-'+String(i*3).padStart(2,'0'),start:'13:00',published:'13:20',conditions,field_count:order.length,full_result_rows:true,lap_kind:'synthetic_race_leader',lap_segment_m:Array(m).fill(200),lap_tenths:leader.map((x,j)=>x-(leader[j-1]??0)),rows};
  };
  const active=missing?ids.slice(0,-1):ids;
  const different={...c,distance_m:1400,layout:'SYN-1400',venue:'Synthetic Other Track',going:'重'};
  const history=[make(1,[active[0],ext,active[1],ext2],different),make(2,[ext,active[2],active[0],active[1]],c),make(3,[ext2,...active],c)];
  const reserve=[make(4,[ext,active[1],ext2],c)];
- const p={id:'HET18-'+seed,target:{...base.target,id:'SYN18-TARGET-'+seed,conditions:c,entrants},history};
+ const p={id:'HET18-'+seed,target:{...base.target,id:'FK-SYN18-TARGET-'+seed,conditions:c,entrants},history};
  check({...p,history:[...history,...reserve]});return {p,reserve};
 }
