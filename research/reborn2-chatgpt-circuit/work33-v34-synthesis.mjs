@@ -79,7 +79,7 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled,localize=fal
    const change=(bf-af)-(bv[j]-av[j]);
     // Historical observations must not depend on the target card. Keep
     // transfer assumptions separately, and do not interpret this bound as a prediction.
-    const roots=refs([pa,pb,fa,fb,...d.rank_refs,...x.historicalRefs]);
+    const roots=refs([pa,pb,fa,fb,...d.rank_refs.filter(id=>all.get(id)?.event_id===x.ev),...x.historicalRefs]);
     const transferRefs=refs([...d.refs,...x.refs]);
    const z=stressScenario({path:{relations:[{rival:b,net_change_ms:change,change_bound_ms:4*x.u,refs:roots}]},subject:a,rivals:[b],starts,threshold:null}).relations[0];
    // Preserve literal rank and numeric evidence separately. An incompatible numeric edge is withheld.
