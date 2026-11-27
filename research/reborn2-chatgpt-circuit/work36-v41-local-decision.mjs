@@ -1,6 +1,8 @@
 // V41 partial research: localized condition response and generic all-runner EYE provenance.
 // Fixed synthetic evidence only. No formal grade, score, odds or current observation inference.
 import assert from 'node:assert/strict';
+import {fileURLToPath} from 'node:url';
+import {resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import {loadV40,analyze as analyzeV40} from './work36-v40-integrated.mjs';
 import {jointField} from './work29-v30-terminal.mjs';
@@ -148,7 +150,7 @@ function gradeTrace(h,history,eye,threshold){
   decisiveUnknown:['CURRENT_FORM','CURRENT_ROLE_PACE','CURRENT_ROUTE_COVERAGE',...(unknown.length?['DEPENDENT_CONDITION_TRANSFER']:[])],
   heldRoutes:held.map(p=>p.id),winRoutes:win.map(p=>p.id),placeRoutes:place.map(p=>p.id),counterRoutes:counter.map(p=>p.id),threshold,formal:false};
 }
-function analyze(V,id){
+export function analyze(V,id){
  const x=analyzeV40(V,id),f=V.C.fixtures.find(f=>f.id===id),history=localScenarios(x,f.docs);
  const runners=x.runners.map(h=>{
   const contrast=responseContrast(history,h.slot),eye=eyeAudit(h,x.source_packet,history),decision=gradeTrace(h,history,eye,x.placeThreshold);
@@ -158,7 +160,7 @@ function analyze(V,id){
 }
 // Generic event availability review over exact verified master. Selection is
 // source availability/validity, NOT a predicted benefit or expected grade.
-function admission(V,available){
+export function admission(V,available){
  const packet=V.master.out.packet,docs=V.master.f.docs,base=V.generated.find(g=>g.f.id==='W36_BASE').f.docs;
  const baseIds=new Set(base.map(d=>d.eventId));
  const candidateDocs=docs.filter(d=>d.kind==='HISTORICAL_RESULT'&&!baseIds.has(d.eventId));
@@ -184,7 +186,7 @@ function admission(V,available){
 // Audit known excluded source AND derived alias identifiers in every returned
 // decision branch, including nested findings and scenarios. Raw source packet,
 // explicit admission audit and immutable source digest are provenance exemptions.
-function leakAudit(x){
+export function leakAudit(x){
  const a=x.admissionTrace;assert.ok(a,'ADMISSION_TRACE_REQUIRED');
  const excluded=new Set(a.excluded.map(e=>e.id)),retained=new Set(a.retained.map(e=>e.id)),denied=new Set(a.deniedEvents);
  const leaks=[],events=[];
@@ -197,6 +199,7 @@ function leakAudit(x){
  const broken=a.retained.flatMap(e=>e.depends.filter(d=>!retained.has(d)).map(d=>({id:e.id,dependency:d})));
  return {excluded:excluded.size,retained:retained.size,leaks,events,broken};
 }
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
 const V=await loadV40();
 const all=V.C.fixtures.filter(f=>f.id!=='W36_MASTER_IMMUTABLE').map(f=>analyze(V,f.id));
 const by=id=>all.find(x=>x.id===id);
@@ -267,3 +270,5 @@ t('F41-07',()=>{
 const compact=x=>({id:x.id,digest:x.source_digest,history:x.history_v41.map(s=>({id:s.id,shared:s.shared.filter(q=>q.state!=='MATCHED'),fieldChanged:s.fieldChanged,measured:s.edges.filter(e=>e.measured).length,local:s.edges.filter(e=>e.unaffected).length,edges:s.edges.map(e=>({a:e.a,b:e.b,scope:e.scope,interval:e.interval_ms,transfer:e.transfer})),bounds:s.conditionalField.envelopes.map(e=>[e.slot,e.min,e.max])})),runners:x.runners_v41.map(h=>({horse:h.horse,contrast:h.contrast,role:h.role,eye:h.eye.map(e=>({item:e.item,state:e.state,returned:e.returned.length,counter:e.counter.length,incidents:e.incidentIds})),decision:{...h.decision,axes:h.decision.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown}))}}))});
 for(const x of all)console.log('V41_CASE '+JSON.stringify(compact(x)));
 for(let i=0;i<masks.length;i++)console.log('V41_MASK '+JSON.stringify({available:masks[i].reviewed,admitted:masks[i].admitted,audit:audits[i],result:compact(masks[i].x)}));
+
+}
