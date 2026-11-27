@@ -1,0 +1,968 @@
+{
+  "scope": "SYNTHETIC_HISTORICAL_CONTROL_ONLY_NOT_CURRENT_OBSERVATION",
+  "source": {
+    "commit": "890a1a822f82c6aae2f5cecd7e01fccaef320765",
+    "path": "research/reborn2-chatgpt-circuit/work34-pinned/stage34-raw-fixtures-v0.2.json",
+    "blob": "21fc312418165985504fb6c230ebeb3321ae9ae6",
+    "case": "FK34_FULL"
+  },
+  "design": "Two literal fabricated historical observation controls with full-field compression; no target outcome or expected grade. These are test inputs, not real evidence or proof of current applicability. Independent synthetic historical records by event ID only; not statistically independent real observations.",
+  "newDocs": [
+    {
+      "kind": "HISTORICAL_RESULT",
+      "issuer": "TEST:NAR",
+      "eventId": "TEST:W38_COMP_A",
+      "eventAt": 60,
+      "version": 1,
+      "publishedAt": 61,
+      "updatedAt": 62,
+      "distanceM": 1400,
+      "registeredCount": 5,
+      "actualStarters": 5,
+      "precisionMs": 50,
+      "rows": [
+        {
+          "nativeId": "TEST:H1",
+          "no": 1,
+          "status": "FINISHED",
+          "gate": 1,
+          "weightG": 55000,
+          "clockMs": 85000,
+          "final600Ms": 37250,
+          "checkpointMs": [
+            12600,
+            47750,
+            73300
+          ],
+          "finish": 1,
+          "checkpointRanks": [
+            3,
+            3,
+            1
+          ],
+          "officialMargin": null
+        },
+        {
+          "nativeId": "TEST:H2",
+          "no": 2,
+          "status": "FINISHED",
+          "gate": 2,
+          "weightG": 55000,
+          "clockMs": 86200,
+          "final600Ms": 38700,
+          "checkpointMs": [
+            11500,
+            47500,
+            73500
+          ],
+          "finish": 4,
+          "checkpointRanks": [
+            1,
+            1,
+            3
+          ],
+          "officialMargin": "TEST_LITERAL"
+        },
+        {
+          "nativeId": "TEST:H3",
+          "no": 3,
+          "status": "FINISHED",
+          "gate": 3,
+          "weightG": 55000,
+          "clockMs": 85500,
+          "final600Ms": 37500,
+          "checkpointMs": [
+            13500,
+            48000,
+            73600
+          ],
+          "finish": 3,
+          "checkpointRanks": [
+            5,
+            4,
+            4
+          ],
+          "officialMargin": "TEST_LITERAL"
+        },
+        {
+          "nativeId": "TEST:H4",
+          "no": 4,
+          "status": "FINISHED",
+          "gate": 4,
+          "weightG": 55000,
+          "clockMs": 85300,
+          "final600Ms": 37200,
+          "checkpointMs": [
+            12900,
+            48100,
+            73400
+          ],
+          "finish": 2,
+          "checkpointRanks": [
+            4,
+            5,
+            2
+          ],
+          "officialMargin": "TEST_LITERAL"
+        },
+        {
+          "nativeId": "TEST:H5",
+          "no": 5,
+          "status": "FINISHED",
+          "gate": 5,
+          "weightG": 55000,
+          "clockMs": 87400,
+          "final600Ms": 39800,
+          "checkpointMs": [
+            11600,
+            47600,
+            74700
+          ],
+          "finish": 5,
+          "checkpointRanks": [
+            2,
+            2,
+            5
+          ],
+          "officialMargin": "TEST_LITERAL"
+        }
+      ],
+      "conditions": {
+        "distance_m": 1400,
+        "surface": "DIRT",
+        "going": "TEST:GOOD",
+        "venue": "TEST:VENUE_A",
+        "class_label": "TEST:FIELD_CLASS",
+        "class_version": "TEST:CLASS_V1",
+        "effective_from": 0,
+        "effective_until": 120
+      },
+      "geometry": {
+        "direction": "RIGHT",
+        "first_turn_m": 200,
+        "straight_m": 300,
+        "checkpoints_m": [
+          200,
+          800,
+          1200
+        ],
+        "course_version": "TEST:COURSE_A",
+        "effective_from": 0,
+        "effective_until": 120
+      },
+      "leaderLaps": {
+        "unit": "ms",
+        "scope": "RACE_LEADER",
+        "boundariesM": [
+          0,
+          200,
+          800,
+          1200,
+          1400
+        ],
+        "valuesMs": [
+          11500,
+          36000,
+          25800,
+          11700
+        ]
+      },
+      "passing": {
+        "checkpointM": 200,
+        "groups": [
+          [
+            2
+          ],
+          [
+            5
+          ],
+          [
+            1
+          ],
+          [
+            4
+          ],
+          [
+            3
+          ]
+        ],
+        "semantics": "SOURCE_GROUPED_ORDER"
+      }
+    },
+    {
+      "kind": "HISTORICAL_RESULT",
+      "issuer": "TEST:NAR",
+      "eventId": "TEST:W38_COMP_B",
+      "eventAt": 64,
+      "version": 1,
+      "publishedAt": 65,
+      "updatedAt": 66,
+      "distanceM": 1400,
+      "registeredCount": 5,
+      "actualStarters": 5,
+      "precisionMs": 50,
+      "rows": [
+        {
+          "nativeId": "TEST:H1",
+          "no": 1,
+          "status": "FINISHED",
+          "gate": 1,
+          "weightG": 55000,
+          "clockMs": 85600,
+          "final600Ms": 37700,
+          "checkpointMs": [
+            12700,
+            47900,
+            73500
+          ],
+          "finish": 2,
+          "checkpointRanks": [
+            3,
+            3,
+            1
+          ],
+          "officialMargin": "TEST_LITERAL"
+        },
+        {
+          "nativeId": "TEST:H2",
+          "no": 2,
+          "status": "FINISHED",
+          "gate": 2,
+          "weightG": 55000,
+          "clockMs": 86500,
+          "final600Ms": 38900,
+          "checkpointMs": [
+            11600,
+            47600,
+            73700
+          ],
+          "finish": 4,
+          "checkpointRanks": [
+            1,
+            1,
+            3
+          ],
+          "officialMargin": "TEST_LITERAL"
+        },
+        {
+          "nativeId": "TEST:H3",
+          "no": 3,
+          "status": "FINISHED",
+          "gate": 3,
+          "weightG": 55000,
+          "clockMs": 85900,
+          "final600Ms": 37700,
+          "checkpointMs": [
+            13600,
+            48200,
+            73800
+          ],
+          "finish": 3,
+          "checkpointRanks": [
+            5,
+            4,
+            4
+          ],
+          "officialMargin": "TEST_LITERAL"
+        },
+        {
+          "nativeId": "TEST:H4",
+          "no": 4,
+          "status": "FINISHED",
+          "gate": 4,
+          "weightG": 55000,
+          "clockMs": 85400,
+          "final600Ms": 37100,
+          "checkpointMs": [
+            13000,
+            48300,
+            73600
+          ],
+          "finish": 1,
+          "checkpointRanks": [
+            4,
+            5,
+            2
+          ],
+          "officialMargin": null
+        },
+        {
+          "nativeId": "TEST:H5",
+          "no": 5,
+          "status": "FINISHED",
+          "gate": 5,
+          "weightG": 55000,
+          "clockMs": 87900,
+          "final600Ms": 40200,
+          "checkpointMs": [
+            11700,
+            47700,
+            74900
+          ],
+          "finish": 5,
+          "checkpointRanks": [
+            2,
+            2,
+            5
+          ],
+          "officialMargin": "TEST_LITERAL"
+        }
+      ],
+      "conditions": {
+        "distance_m": 1400,
+        "surface": "DIRT",
+        "going": "TEST:GOOD",
+        "venue": "TEST:VENUE_A",
+        "class_label": "TEST:FIELD_CLASS",
+        "class_version": "TEST:CLASS_V1",
+        "effective_from": 0,
+        "effective_until": 120
+      },
+      "geometry": {
+        "direction": "RIGHT",
+        "first_turn_m": 200,
+        "straight_m": 300,
+        "checkpoints_m": [
+          200,
+          800,
+          1200
+        ],
+        "course_version": "TEST:COURSE_A",
+        "effective_from": 0,
+        "effective_until": 120
+      },
+      "leaderLaps": {
+        "unit": "ms",
+        "scope": "RACE_LEADER",
+        "boundariesM": [
+          0,
+          200,
+          800,
+          1200,
+          1400
+        ],
+        "valuesMs": [
+          11600,
+          36000,
+          25900,
+          11900
+        ]
+      },
+      "passing": {
+        "checkpointM": 200,
+        "groups": [
+          [
+            2
+          ],
+          [
+            5
+          ],
+          [
+            1
+          ],
+          [
+            4
+          ],
+          [
+            3
+          ]
+        ],
+        "semantics": "SOURCE_GROUPED_ORDER"
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "event": "TEST:CONTEST",
+      "spread200": 2000,
+      "spread800": 3100,
+      "h3Gap800": 2900,
+      "spreadChange": -1100,
+      "measurementErrorBound": 200,
+      "roles200": [
+        [
+          "TEST:H1",
+          3
+        ],
+        [
+          "TEST:H2",
+          1
+        ],
+        [
+          "TEST:H3",
+          5
+        ],
+        [
+          "TEST:H4",
+          4
+        ],
+        [
+          "TEST:H5",
+          2
+        ]
+      ],
+      "pace": [
+        11500,
+        36000
+      ],
+      "h3Finish": 2
+    },
+    {
+      "event": "TEST:LONE",
+      "spread200": 2000,
+      "spread800": 3000,
+      "h3Gap800": 2600,
+      "spreadChange": -1000,
+      "measurementErrorBound": 200,
+      "roles200": [
+        [
+          "TEST:H1",
+          2
+        ],
+        [
+          "TEST:H2",
+          1
+        ],
+        [
+          "TEST:H3",
+          5
+        ],
+        [
+          "TEST:H4",
+          3
+        ],
+        [
+          "TEST:H5",
+          4
+        ]
+      ],
+      "pace": [
+        11700,
+        36200
+      ],
+      "h3Finish": 2
+    },
+    {
+      "event": "TEST:RECOVERY_A",
+      "spread200": 1800,
+      "spread800": 3200,
+      "h3Gap800": 2600,
+      "spreadChange": -1400,
+      "measurementErrorBound": 200,
+      "roles200": [
+        [
+          "TEST:H1",
+          4
+        ],
+        [
+          "TEST:H2",
+          1
+        ],
+        [
+          "TEST:H3",
+          5
+        ],
+        [
+          "TEST:H4",
+          3
+        ],
+        [
+          "TEST:H5",
+          2
+        ]
+      ],
+      "pace": [
+        11700,
+        36200
+      ],
+      "h3Finish": 3
+    },
+    {
+      "event": "TEST:RECOVERY_B",
+      "spread200": 1800,
+      "spread800": 3300,
+      "h3Gap800": 2700,
+      "spreadChange": -1500,
+      "measurementErrorBound": 200,
+      "roles200": [
+        [
+          "TEST:H1",
+          4
+        ],
+        [
+          "TEST:H2",
+          1
+        ],
+        [
+          "TEST:H3",
+          5
+        ],
+        [
+          "TEST:H4",
+          3
+        ],
+        [
+          "TEST:H5",
+          2
+        ]
+      ],
+      "pace": [
+        11800,
+        36200
+      ],
+      "h3Finish": 3
+    },
+    {
+      "event": "TEST:COUNTER",
+      "spread200": 2000,
+      "spread800": 3100,
+      "h3Gap800": 2600,
+      "spreadChange": -1100,
+      "measurementErrorBound": 200,
+      "roles200": [
+        [
+          "TEST:H1",
+          4
+        ],
+        [
+          "TEST:H2",
+          1
+        ],
+        [
+          "TEST:H3",
+          5
+        ],
+        [
+          "TEST:H4",
+          3
+        ],
+        [
+          "TEST:H5",
+          2
+        ]
+      ],
+      "pace": [
+        11600,
+        36300
+      ],
+      "h3Finish": 3
+    },
+    {
+      "event": "TEST:W38_COMP_A",
+      "spread200": 2000,
+      "spread800": 600,
+      "h3Gap800": 500,
+      "spreadChange": 1400,
+      "measurementErrorBound": 200,
+      "roles200": [
+        [
+          "TEST:H1",
+          3
+        ],
+        [
+          "TEST:H2",
+          1
+        ],
+        [
+          "TEST:H3",
+          5
+        ],
+        [
+          "TEST:H4",
+          4
+        ],
+        [
+          "TEST:H5",
+          2
+        ]
+      ],
+      "pace": [
+        11500,
+        36000
+      ],
+      "h3Finish": 3
+    },
+    {
+      "event": "TEST:W38_COMP_B",
+      "spread200": 2000,
+      "spread800": 700,
+      "h3Gap800": 600,
+      "spreadChange": 1300,
+      "measurementErrorBound": 200,
+      "roles200": [
+        [
+          "TEST:H1",
+          3
+        ],
+        [
+          "TEST:H2",
+          1
+        ],
+        [
+          "TEST:H3",
+          5
+        ],
+        [
+          "TEST:H4",
+          4
+        ],
+        [
+          "TEST:H5",
+          2
+        ]
+      ],
+      "pace": [
+        11600,
+        36000
+      ],
+      "h3Finish": 3
+    }
+  ],
+  "h3Cross": [
+    {
+      "start": "TEST:W38_COMP_A",
+      "response": "TEST:CONTEST",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            150,
+            750
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            3300,
+            3900
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            100,
+            700
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4400,
+            5000
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_B",
+      "response": "TEST:CONTEST",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            100,
+            700
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            3200,
+            3800
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            100,
+            700
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4300,
+            4900
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_A",
+      "response": "TEST:LONE",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            1150,
+            1750
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            600,
+            1200
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            400,
+            1000
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            5000,
+            5600
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_B",
+      "response": "TEST:LONE",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            1100,
+            1700
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            500,
+            1100
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            400,
+            1000
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4900,
+            5500
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_A",
+      "response": "TEST:RECOVERY_A",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            450,
+            1050
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            2300,
+            2900
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            -2100,
+            -1500
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4300,
+            4900
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_B",
+      "response": "TEST:RECOVERY_A",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            400,
+            1000
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            2200,
+            2800
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            -2100,
+            -1500
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4200,
+            4800
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_A",
+      "response": "TEST:RECOVERY_B",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            450,
+            1050
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            2400,
+            3000
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            -2100,
+            -1500
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4400,
+            5000
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_B",
+      "response": "TEST:RECOVERY_B",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            400,
+            1000
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            2300,
+            2900
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            -2100,
+            -1500
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4300,
+            4900
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_A",
+      "response": "TEST:COUNTER",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            350,
+            950
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            0,
+            600
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            400,
+            1000
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4800,
+            5400
+          ]
+        }
+      ]
+    },
+    {
+      "start": "TEST:W38_COMP_B",
+      "response": "TEST:COUNTER",
+      "intervals": [
+        {
+          "rival": "TEST:H1",
+          "interval": [
+            300,
+            900
+          ]
+        },
+        {
+          "rival": "TEST:H2",
+          "interval": [
+            -100,
+            500
+          ]
+        },
+        {
+          "rival": "TEST:H4",
+          "interval": [
+            400,
+            1000
+          ]
+        },
+        {
+          "rival": "TEST:H5",
+          "interval": [
+            4700,
+            5300
+          ]
+        }
+      ]
+    }
+  ],
+  "priorLedger": 699,
+  "addedAccepted": 0,
+  "canonical": 115,
+  "groups": 118,
+  "held": 826
+}

@@ -1,0 +1,1060 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "priorWork38": {
+    "commit": "49526296da0aa780d7248912831a79ff3a78b7a7",
+    "rawBlob": "b9e1b465f5e3836c3f2161ab2cd462060ea657f4",
+    "oldRawBlob": "21fc312418165985504fb6c230ebeb3321ae9ae6",
+    "run": 46069180255,
+    "job": 140741719549,
+    "artifact": 15232755242,
+    "archiveDigest": "sha256:0cee8491cfe35dee85801cc8e59e65d6786fc14e08fbf02c414ad6cee96a4ef7",
+    "archiveBytesRetrieved": false,
+    "namedPass": [
+      "2026-11-27T21:16:16.0747320Z WORK38 PINNED_SOURCE PASS",
+      "2026-11-27T21:16:17.8420509Z WORK38 NO_TARGET_OUTCOME_AND_PRE_CUTOFF PASS",
+      "2026-11-27T21:16:17.8421220Z WORK38 INDEPENDENT_COMPRESSION_BOUNDS PASS",
+      "2026-11-27T21:16:17.9190267Z WORK38 COMMON_PACKET_VERIFIED PASS",
+      "2026-11-27T21:16:26.1277200Z WORK38 IMMUTABLE_MASTER_MASKS PASS",
+      "2026-11-27T21:16:26.1278801Z WORK38 H3_DIRECT_V42_NUMERIC_CROSS PASS",
+      "2026-11-27T21:16:27.7797499Z WORK38 CONTROL_FK34_UNKNOWN PASS",
+      "2026-11-27T21:16:28.1338686Z WORK38 CONTROL_W36_BASE PASS",
+      "2026-11-27T21:16:28.4661506Z WORK38 CONTROL_W36_CONTEXT_WEIGHT PASS",
+      "2026-11-27T21:16:28.7865264Z WORK38 CONTROL_W36_CONTEXT_GATE PASS",
+      "2026-11-27T21:16:29.0873832Z WORK38 CONTROL_W36_CONTEXT_GOING PASS",
+      "2026-11-27T21:16:29.3924587Z WORK38 CONTROL_W36_CONTEXT_COURSE PASS",
+      "2026-11-27T21:16:29.7269763Z WORK38 CONTROL_W36_CONTEXT_DISTANCE PASS",
+      "2026-11-27T21:16:30.0338020Z WORK38 CONTROL_W36_CONTEXT_JOINT PASS",
+      "2026-11-27T21:16:32.3029908Z WORK38 CONTROL_W36_PEER_CLASS PASS",
+      "2026-11-27T21:16:32.6175227Z WORK38 CONTROL_W36_LOCAL_MISSING PASS",
+      "2026-11-27T21:16:33.1648387Z WORK38 EYE_BASE PASS",
+      "2026-11-27T21:16:33.9957027Z WORK38 EYE_ONE_POS PASS",
+      "2026-11-27T21:16:35.1670221Z WORK38 EYE_POSITIVE PASS",
+      "2026-11-27T21:16:35.7349285Z WORK38 EYE_WITHDRAWN PASS",
+      "2026-11-27T21:16:37.4573770Z WORK38 EYE_MATCHED_COUNTER PASS",
+      "2026-11-27T21:16:43.7230085Z WORK38 EYE_OTHER_COUNTER PASS",
+      "2026-11-27T21:16:44.5276100Z WORK38 EYE_NEGATIVE_ONLY PASS",
+      "2026-11-27T21:16:44.5312822Z WORK38 EYE_WITHDRAWAL_SEMANTIC_EQUALITY PASS"
+    ],
+    "summary": {
+      "checks": [
+        "PINNED_SOURCE",
+        "NO_TARGET_OUTCOME_AND_PRE_CUTOFF",
+        "INDEPENDENT_COMPRESSION_BOUNDS",
+        "COMMON_PACKET_VERIFIED",
+        "IMMUTABLE_MASTER_MASKS",
+        "H3_DIRECT_V42_NUMERIC_CROSS",
+        "CONTROL_FK34_UNKNOWN",
+        "CONTROL_W36_BASE",
+        "CONTROL_W36_CONTEXT_WEIGHT",
+        "CONTROL_W36_CONTEXT_GATE",
+        "CONTROL_W36_CONTEXT_GOING",
+        "CONTROL_W36_CONTEXT_COURSE",
+        "CONTROL_W36_CONTEXT_DISTANCE",
+        "CONTROL_W36_CONTEXT_JOINT",
+        "CONTROL_W36_PEER_CLASS",
+        "CONTROL_W36_LOCAL_MISSING",
+        "EYE_BASE",
+        "EYE_ONE_POS",
+        "EYE_POSITIVE",
+        "EYE_WITHDRAWN",
+        "EYE_MATCHED_COUNTER",
+        "EYE_OTHER_COUNTER",
+        "EYE_NEGATIVE_ONLY",
+        "EYE_WITHDRAWAL_SEMANTIC_EQUALITY"
+      ],
+      "records": [
+        {
+          "kind": "COMPRESSION_MASK",
+          "name": "W38_COMPRESSION_MASTER",
+          "admitted": [],
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "H3": []
+        },
+        {
+          "kind": "COMPRESSION_MASK",
+          "name": "W38_COMPRESSION_MASTER",
+          "admitted": [
+            "TEST:W38_COMP_A"
+          ],
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "H3": [
+            {
+              "id": "TEST:NAR|TEST:CONTEST@800>TEST:NAR|TEST:W38_COMP_A@800",
+              "decision": "CONDITIONAL_COUNTER",
+              "field": {
+                "slot": "TEST:NAR|TEST:H3",
+                "min": 4,
+                "max": 5,
+                "rival_ahead": 3,
+                "rival_behind": 0,
+                "unknown": 1,
+                "win": "CONTRADICTED_UNDER_ASSUMPTIONS",
+                "place": "CONTRADICTED_UNDER_ASSUMPTIONS",
+                "threshold": 2,
+                "current_feasibility": "UNRESOLVED",
+                "prediction": false
+              },
+              "full": true
+            },
+            {
+              "id": "TEST:NAR|TEST:W38_COMP_A@800>TEST:NAR|TEST:CONTEST@800",
+              "decision": "CONDITIONAL_WIN",
+              "field": {
+                "slot": "TEST:NAR|TEST:H3",
+                "min": 1,
+                "max": 1,
+                "rival_ahead": 0,
+                "rival_behind": 4,
+                "unknown": 0,
+                "win": "SUPPORTED_UNDER_ASSUMPTIONS",
+                "place": "SUPPORTED_UNDER_ASSUMPTIONS",
+                "threshold": 2,
+                "current_feasibility": "UNRESOLVED",
+                "prediction": false
+              },
+              "full": true
+            }
+          ]
+        },
+        {
+          "kind": "COMPRESSION_MASK",
+          "name": "W38_COMPRESSION_MASTER",
+          "admitted": [
+            "TEST:W38_COMP_A",
+            "TEST:W38_COMP_B"
+          ],
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "H3": [
+            {
+              "id": "TEST:NAR|TEST:CONTEST@800>TEST:NAR|TEST:W38_COMP_A@800",
+              "decision": "CONDITIONAL_COUNTER",
+              "field": {
+                "slot": "TEST:NAR|TEST:H3",
+                "min": 4,
+                "max": 5,
+                "rival_ahead": 3,
+                "rival_behind": 0,
+                "unknown": 1,
+                "win": "CONTRADICTED_UNDER_ASSUMPTIONS",
+                "place": "CONTRADICTED_UNDER_ASSUMPTIONS",
+                "threshold": 2,
+                "current_feasibility": "UNRESOLVED",
+                "prediction": false
+              },
+              "full": true
+            },
+            {
+              "id": "TEST:NAR|TEST:CONTEST@800>TEST:NAR|TEST:W38_COMP_B@800",
+              "decision": "CONDITIONAL_COUNTER",
+              "field": {
+                "slot": "TEST:NAR|TEST:H3",
+                "min": 4,
+                "max": 5,
+                "rival_ahead": 3,
+                "rival_behind": 0,
+                "unknown": 1,
+                "win": "CONTRADICTED_UNDER_ASSUMPTIONS",
+                "place": "CONTRADICTED_UNDER_ASSUMPTIONS",
+                "threshold": 2,
+                "current_feasibility": "UNRESOLVED",
+                "prediction": false
+              },
+              "full": true
+            },
+            {
+              "id": "TEST:NAR|TEST:W38_COMP_A@800>TEST:NAR|TEST:CONTEST@800",
+              "decision": "CONDITIONAL_WIN",
+              "field": {
+                "slot": "TEST:NAR|TEST:H3",
+                "min": 1,
+                "max": 1,
+                "rival_ahead": 0,
+                "rival_behind": 4,
+                "unknown": 0,
+                "win": "SUPPORTED_UNDER_ASSUMPTIONS",
+                "place": "SUPPORTED_UNDER_ASSUMPTIONS",
+                "threshold": 2,
+                "current_feasibility": "UNRESOLVED",
+                "prediction": false
+              },
+              "full": true
+            },
+            {
+              "id": "TEST:NAR|TEST:W38_COMP_B@800>TEST:NAR|TEST:CONTEST@800",
+              "decision": "CONDITIONAL_WIN",
+              "field": {
+                "slot": "TEST:NAR|TEST:H3",
+                "min": 1,
+                "max": 1,
+                "rival_ahead": 0,
+                "rival_behind": 4,
+                "unknown": 0,
+                "win": "SUPPORTED_UNDER_ASSUMPTIONS",
+                "place": "SUPPORTED_UNDER_ASSUMPTIONS",
+                "threshold": 2,
+                "current_feasibility": "UNRESOLVED",
+                "prediction": false
+              },
+              "full": true
+            }
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "FK34_UNKNOWN",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_BASE",
+          "admitted": null,
+          "grades": [
+            null,
+            "A",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_CONTEXT_WEIGHT",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_CONTEXT_GATE",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_CONTEXT_GOING",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_CONTEXT_COURSE",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_CONTEXT_DISTANCE",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_CONTEXT_JOINT",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_PEER_CLASS",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "FIXED_CONTROL",
+          "name": "W36_LOCAL_MISSING",
+          "admitted": null,
+          "grades": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "EYE_MASK",
+          "name": "BASE",
+          "admitted": [],
+          "grades": [
+            null,
+            "A",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "EYE_MASK",
+          "name": "ONE_POS",
+          "admitted": [
+            "TEST:W36_POS_A"
+          ],
+          "grades": [
+            null,
+            "B",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "EYE_MASK",
+          "name": "POSITIVE",
+          "admitted": [
+            "TEST:W36_POS_A",
+            "TEST:W36_POS_B"
+          ],
+          "grades": [
+            null,
+            "B",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "EYE_MASK",
+          "name": "WITHDRAWN",
+          "admitted": [],
+          "grades": [
+            null,
+            "A",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "EYE_MASK",
+          "name": "MATCHED_COUNTER",
+          "admitted": [
+            "TEST:W36_POS_A",
+            "TEST:W36_POS_B",
+            "TEST:W36_COUNTER_MATCHED"
+          ],
+          "grades": [
+            null,
+            "B",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "EYE_MASK",
+          "name": "OTHER_COUNTER",
+          "admitted": [
+            "TEST:W36_POS_A",
+            "TEST:W36_POS_B",
+            "TEST:W36_COUNTER_OTHER_GOING"
+          ],
+          "grades": [
+            null,
+            "B",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "kind": "EYE_MASK",
+          "name": "NEGATIVE_ONLY",
+          "admitted": [
+            "TEST:W36_COUNTER_MATCHED"
+          ],
+          "grades": [
+            null,
+            "A",
+            null,
+            null,
+            null
+          ]
+        }
+      ],
+      "newEvidence": 885,
+      "priorLedger": 699,
+      "addedAccepted": 0
+    }
+  },
+  "lateContrast": {
+    "kind": "HISTORICAL_RESULT",
+    "issuer": "TEST:NAR",
+    "eventId": "TEST:W39_PREFIX_LATE",
+    "eventAt": 66,
+    "version": 1,
+    "publishedAt": 67,
+    "updatedAt": 68,
+    "distanceM": 1400,
+    "registeredCount": 5,
+    "actualStarters": 5,
+    "precisionMs": 50,
+    "rows": [
+      {
+        "nativeId": "TEST:H1",
+        "no": 1,
+        "status": "FINISHED",
+        "gate": 1,
+        "weightG": 55000,
+        "clockMs": 85500,
+        "final600Ms": 37750,
+        "checkpointMs": [
+          12600,
+          47750,
+          73500
+        ],
+        "finish": 2,
+        "checkpointRanks": [
+          3,
+          3,
+          2
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H2",
+        "no": 2,
+        "status": "FINISHED",
+        "gate": 2,
+        "weightG": 55000,
+        "clockMs": 84700,
+        "final600Ms": 37200,
+        "checkpointMs": [
+          11500,
+          47500,
+          73000
+        ],
+        "finish": 1,
+        "checkpointRanks": [
+          1,
+          1,
+          1
+        ],
+        "officialMargin": null
+      },
+      {
+        "nativeId": "TEST:H3",
+        "no": 3,
+        "status": "FINISHED",
+        "gate": 3,
+        "weightG": 55000,
+        "clockMs": 87300,
+        "final600Ms": 39300,
+        "checkpointMs": [
+          13500,
+          48000,
+          75100
+        ],
+        "finish": 5,
+        "checkpointRanks": [
+          5,
+          4,
+          5
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H4",
+        "no": 4,
+        "status": "FINISHED",
+        "gate": 4,
+        "weightG": 55000,
+        "clockMs": 86000,
+        "final600Ms": 37900,
+        "checkpointMs": [
+          12900,
+          48100,
+          74400
+        ],
+        "finish": 4,
+        "checkpointRanks": [
+          4,
+          5,
+          4
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H5",
+        "no": 5,
+        "status": "FINISHED",
+        "gate": 5,
+        "weightG": 55000,
+        "clockMs": 85600,
+        "final600Ms": 38000,
+        "checkpointMs": [
+          11600,
+          47600,
+          74000
+        ],
+        "finish": 3,
+        "checkpointRanks": [
+          2,
+          2,
+          3
+        ],
+        "officialMargin": "TEST_LITERAL"
+      }
+    ],
+    "conditions": {
+      "distance_m": 1400,
+      "surface": "DIRT",
+      "going": "TEST:GOOD",
+      "venue": "TEST:VENUE_A",
+      "class_label": "TEST:FIELD_CLASS",
+      "class_version": "TEST:CLASS_V1",
+      "effective_from": 0,
+      "effective_until": 120
+    },
+    "geometry": {
+      "direction": "RIGHT",
+      "first_turn_m": 200,
+      "straight_m": 300,
+      "checkpoints_m": [
+        200,
+        800,
+        1200
+      ],
+      "course_version": "TEST:COURSE_A",
+      "effective_from": 0,
+      "effective_until": 120
+    },
+    "leaderLaps": {
+      "unit": "ms",
+      "scope": "RACE_LEADER",
+      "boundariesM": [
+        0,
+        200,
+        800,
+        1200,
+        1400
+      ],
+      "valuesMs": [
+        11500,
+        36000,
+        25500,
+        11700
+      ]
+    },
+    "passing": {
+      "checkpointM": 200,
+      "groups": [
+        [
+          2
+        ],
+        [
+          5
+        ],
+        [
+          1
+        ],
+        [
+          4
+        ],
+        [
+          3
+        ]
+      ],
+      "semantics": "SOURCE_GROUPED_ORDER"
+    }
+  },
+  "peerContrast": {
+    "kind": "HISTORICAL_RESULT",
+    "issuer": "TEST:NAR",
+    "eventId": "TEST:W39_PEER_SWAP",
+    "eventAt": 67,
+    "version": 1,
+    "publishedAt": 68,
+    "updatedAt": 69,
+    "distanceM": 1400,
+    "registeredCount": 5,
+    "actualStarters": 5,
+    "precisionMs": 50,
+    "rows": [
+      {
+        "nativeId": "TEST:H1",
+        "no": 1,
+        "status": "FINISHED",
+        "gate": 1,
+        "weightG": 55000,
+        "clockMs": 85600,
+        "final600Ms": 37700,
+        "checkpointMs": [
+          12700,
+          47900,
+          73500
+        ],
+        "finish": 2,
+        "checkpointRanks": [
+          3,
+          3,
+          1
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H2",
+        "no": 2,
+        "status": "FINISHED",
+        "gate": 2,
+        "weightG": 55000,
+        "clockMs": 86500,
+        "final600Ms": 38900,
+        "checkpointMs": [
+          11600,
+          47600,
+          73700
+        ],
+        "finish": 4,
+        "checkpointRanks": [
+          1,
+          1,
+          3
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H3",
+        "no": 3,
+        "status": "FINISHED",
+        "gate": 3,
+        "weightG": 55000,
+        "clockMs": 85900,
+        "final600Ms": 37700,
+        "checkpointMs": [
+          13600,
+          48200,
+          73800
+        ],
+        "finish": 3,
+        "checkpointRanks": [
+          5,
+          4,
+          4
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H4",
+        "no": 4,
+        "status": "FINISHED",
+        "gate": 4,
+        "weightG": 55000,
+        "clockMs": 85400,
+        "final600Ms": 37100,
+        "checkpointMs": [
+          13000,
+          48300,
+          73600
+        ],
+        "finish": 1,
+        "checkpointRanks": [
+          4,
+          5,
+          2
+        ],
+        "officialMargin": null
+      },
+      {
+        "nativeId": "TEST:H6",
+        "no": 5,
+        "status": "FINISHED",
+        "gate": 5,
+        "weightG": 55000,
+        "clockMs": 87900,
+        "final600Ms": 40200,
+        "checkpointMs": [
+          11700,
+          47700,
+          74900
+        ],
+        "finish": 5,
+        "checkpointRanks": [
+          2,
+          2,
+          5
+        ],
+        "officialMargin": "TEST_LITERAL"
+      }
+    ],
+    "conditions": {
+      "distance_m": 1400,
+      "surface": "DIRT",
+      "going": "TEST:GOOD",
+      "venue": "TEST:VENUE_A",
+      "class_label": "TEST:CLASS_HIGH",
+      "class_version": "TEST:CLASS_V2",
+      "effective_from": 0,
+      "effective_until": 120
+    },
+    "geometry": {
+      "direction": "RIGHT",
+      "first_turn_m": 200,
+      "straight_m": 300,
+      "checkpoints_m": [
+        200,
+        800,
+        1200
+      ],
+      "course_version": "TEST:COURSE_A",
+      "effective_from": 0,
+      "effective_until": 120
+    },
+    "leaderLaps": {
+      "unit": "ms",
+      "scope": "RACE_LEADER",
+      "boundariesM": [
+        0,
+        200,
+        800,
+        1200,
+        1400
+      ],
+      "valuesMs": [
+        11600,
+        36000,
+        25900,
+        11900
+      ]
+    },
+    "passing": {
+      "checkpointM": 200,
+      "groups": [
+        [
+          2
+        ],
+        [
+          5
+        ],
+        [
+          1
+        ],
+        [
+          4
+        ],
+        [
+          3
+        ]
+      ],
+      "semantics": "SOURCE_GROUPED_ORDER"
+    }
+  },
+  "excludedFuturePeer": {
+    "kind": "HISTORICAL_RESULT",
+    "issuer": "TEST:NAR",
+    "eventId": "TEST:W39_PEER_AFTER_CUTOFF",
+    "eventAt": 101,
+    "version": 1,
+    "publishedAt": 102,
+    "updatedAt": 103,
+    "distanceM": 1400,
+    "registeredCount": 5,
+    "actualStarters": 5,
+    "precisionMs": 50,
+    "rows": [
+      {
+        "nativeId": "TEST:H1",
+        "no": 1,
+        "status": "FINISHED",
+        "gate": 1,
+        "weightG": 55000,
+        "clockMs": 85600,
+        "final600Ms": 37700,
+        "checkpointMs": [
+          12700,
+          47900,
+          73500
+        ],
+        "finish": 2,
+        "checkpointRanks": [
+          3,
+          3,
+          1
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H2",
+        "no": 2,
+        "status": "FINISHED",
+        "gate": 2,
+        "weightG": 55000,
+        "clockMs": 86500,
+        "final600Ms": 38900,
+        "checkpointMs": [
+          11600,
+          47600,
+          73700
+        ],
+        "finish": 4,
+        "checkpointRanks": [
+          1,
+          1,
+          3
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H3",
+        "no": 3,
+        "status": "FINISHED",
+        "gate": 3,
+        "weightG": 55000,
+        "clockMs": 85900,
+        "final600Ms": 37700,
+        "checkpointMs": [
+          13600,
+          48200,
+          73800
+        ],
+        "finish": 3,
+        "checkpointRanks": [
+          5,
+          4,
+          4
+        ],
+        "officialMargin": "TEST_LITERAL"
+      },
+      {
+        "nativeId": "TEST:H4",
+        "no": 4,
+        "status": "FINISHED",
+        "gate": 4,
+        "weightG": 55000,
+        "clockMs": 85400,
+        "final600Ms": 37100,
+        "checkpointMs": [
+          13000,
+          48300,
+          73600
+        ],
+        "finish": 1,
+        "checkpointRanks": [
+          4,
+          5,
+          2
+        ],
+        "officialMargin": null
+      },
+      {
+        "nativeId": "TEST:H6",
+        "no": 5,
+        "status": "FINISHED",
+        "gate": 5,
+        "weightG": 55000,
+        "clockMs": 87900,
+        "final600Ms": 40200,
+        "checkpointMs": [
+          11700,
+          47700,
+          74900
+        ],
+        "finish": 5,
+        "checkpointRanks": [
+          2,
+          2,
+          5
+        ],
+        "officialMargin": "TEST_LITERAL"
+      }
+    ],
+    "conditions": {
+      "distance_m": 1400,
+      "surface": "DIRT",
+      "going": "TEST:GOOD",
+      "venue": "TEST:VENUE_A",
+      "class_label": "TEST:CLASS_HIGH",
+      "class_version": "TEST:CLASS_V2",
+      "effective_from": 0,
+      "effective_until": 120
+    },
+    "geometry": {
+      "direction": "RIGHT",
+      "first_turn_m": 200,
+      "straight_m": 300,
+      "checkpoints_m": [
+        200,
+        800,
+        1200
+      ],
+      "course_version": "TEST:COURSE_A",
+      "effective_from": 0,
+      "effective_until": 120
+    },
+    "leaderLaps": {
+      "unit": "ms",
+      "scope": "RACE_LEADER",
+      "boundariesM": [
+        0,
+        200,
+        800,
+        1200,
+        1400
+      ],
+      "valuesMs": [
+        11600,
+        36000,
+        25900,
+        11900
+      ]
+    },
+    "passing": {
+      "checkpointM": 200,
+      "groups": [
+        [
+          2
+        ],
+        [
+          5
+        ],
+        [
+          1
+        ],
+        [
+          4
+        ],
+        [
+          3
+        ]
+      ],
+      "semantics": "SOURCE_GROUPED_ORDER"
+    }
+  },
+  "changedCard": {
+    "kind": "TARGET_CARD",
+    "issuer": "TEST:NAR",
+    "eventId": "TEST:T",
+    "version": 1,
+    "publishedAt": 70,
+    "updatedAt": 70,
+    "scheduledPost": 100,
+    "conditions": {
+      "distance_m": 1400,
+      "surface": "DIRT",
+      "going": "TEST:GOOD",
+      "venue": "TEST:VENUE_A",
+      "class_label": "TEST:FIELD_CLASS",
+      "class_version": "TEST:CLASS_V1",
+      "effective_from": 0,
+      "effective_until": 120
+    },
+    "geometry": {
+      "direction": "RIGHT",
+      "first_turn_m": 200,
+      "straight_m": 300,
+      "checkpoints_m": [
+        200,
+        800,
+        1200
+      ],
+      "course_version": "TEST:COURSE_A",
+      "effective_from": 0,
+      "effective_until": 120
+    },
+    "rows": [
+      {
+        "nativeId": "TEST:H1",
+        "no": 1,
+        "status": "ACTIVE",
+        "gate": 1,
+        "weightG": 55000
+      },
+      {
+        "nativeId": "TEST:H2",
+        "no": 2,
+        "status": "ACTIVE",
+        "gate": 2,
+        "weightG": 55000
+      },
+      {
+        "nativeId": "TEST:H3",
+        "no": 3,
+        "status": "ACTIVE",
+        "gate": 3,
+        "weightG": 55000
+      },
+      {
+        "nativeId": "TEST:H4",
+        "no": 4,
+        "status": "ACTIVE",
+        "gate": 4,
+        "weightG": 55000
+      },
+      {
+        "nativeId": "TEST:H6",
+        "no": 5,
+        "status": "ACTIVE",
+        "gate": 5,
+        "weightG": 55000
+      }
+    ]
+  },
+  "design": "Same 200/800m entire vector as COMP_A with different late response; replacement H6 and different historical class deliberately confounded, not causal class transfer. Target card has no outcome. After-cutoff peer held out by supply rule. No expected grades.",
+  "priorLedger": 723,
+  "addedAccepted": 0
+}
