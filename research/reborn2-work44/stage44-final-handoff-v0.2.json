@@ -1,0 +1,267 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "mainAudit": "ceab194c30c677b9485ab561a113ddb28184af02",
+  "priorAccepted": 864,
+  "addedAccepted": 0,
+  "work43Pinned": "ad6b80df572d13f5f852e344be47e059a3850bc0",
+  "codexAtDesign": "984c6fbad8841938aab6de48b5523255ad6dfa06",
+  "codexAtHandoff": "12917f22284e93d41ed31486184b744332adf175",
+  "executedCommit": "5ac5b2253bf87366a36e5cc59418f66f4468d357",
+  "run": 46081193815,
+  "job": 140780309491,
+  "conclusion": "success",
+  "work43Pass": [
+    "2026-11-27T23:12:53.8792022Z WORK43 CANONICAL_115_NAMES PASS",
+    "2026-11-27T23:12:53.8792959Z WORK43 NAR_DOCUMENTED_COLUMN_FIXTURE PASS",
+    "2026-11-27T23:12:53.8799243Z WORK43 ROW_BYTES_AND_DEPENDENCIES PASS",
+    "2026-11-27T23:12:53.8960148Z WORK43 CSV_QUOTES_AND_CP932_BYTES PASS",
+    "2026-11-27T23:12:53.8981320Z WORK43 INVALID_DATE PASS",
+    "2026-11-27T23:12:53.8995758Z WORK43 LATE_CAPTURE_UNCERTAINTY PASS",
+    "2026-11-27T23:12:53.9007531Z WORK43 CUTOFF_AFTER_START PASS",
+    "2026-11-27T23:12:53.9019581Z WORK43 PUBLICATION_AFTER_CAPTURE PASS",
+    "2026-11-27T23:12:53.9031571Z WORK43 EXPIRED_OR_REVOKED_RIGHTS PASS",
+    "2026-11-27T23:12:53.9052701Z WORK43 NO_RETENTION_RIGHT PASS",
+    "2026-11-27T23:12:53.9064029Z WORK43 SOURCE_URL_OUTSIDE_SCOPE PASS",
+    "2026-11-27T23:12:53.9075731Z WORK43 STALE_SIGNED_POLICY PASS",
+    "2026-11-27T23:12:53.9082122Z WORK43 MANIFEST_SIGNATURE_TAMPER PASS",
+    "2026-11-27T23:12:53.9094543Z WORK43 NEWER_VERSION_REQUIRED PASS",
+    "2026-11-27T23:12:53.9104824Z WORK43 INCOMPLETE_INVENTORY PASS",
+    "2026-11-27T23:12:53.9116432Z WORK43 RAW_BYTE_CHANGE PASS",
+    "2026-11-27T23:12:53.9129529Z WORK43 NO_NATIVE_ID_JOIN PASS",
+    "2026-11-27T23:12:53.9140058Z WORK43 NAME_ONLY_JOIN PASS",
+    "2026-11-27T23:12:53.9150198Z WORK43 DUPLICATE_IDENTITY PASS",
+    "2026-11-27T23:12:53.9165294Z WORK43 TARGET_HORSELIST_RESULT_COLUMNS PASS",
+    "2026-11-27T23:12:53.9181846Z WORK43 TARGET_HORSELIST_POPULARITY PASS",
+    "2026-11-27T23:12:53.9204688Z WORK43 TARGET_RACELIST_RESULT_LAPS PASS",
+    "2026-11-27T23:12:53.9215919Z WORK43 TARGET_RESULT_ROLE_ALIAS PASS",
+    "2026-11-27T23:12:53.9238475Z WORK43 ROSTER_INCOMPLETE PASS",
+    "2026-11-27T23:12:53.9255312Z WORK43 TARGET_POST_MISMATCH PASS",
+    "2026-11-27T23:12:53.9258912Z WORK43 REAL_DISABLED PASS",
+    "2026-11-27T23:12:53.9269767Z WORK43 REAL_TRUST_DISABLED PASS",
+    "2026-11-27T23:12:53.9279472Z WORK43 JRA_UNVERIFIED_NATIVE_FORMAT_HELD PASS",
+    "2026-11-27T23:12:53.9281159Z WORK43 INSUFFICIENT_EYE_EXPLICIT_HOLD PASS",
+    "2026-11-27T23:12:53.9347141Z WORK43 RESULT_PARTITION_SAME_REVIEW_OUTPUT PASS",
+    "2026-11-27T23:12:53.9350683Z WORK43 RESULT_OBJECT_NOT_ACCEPTED PASS",
+    "2026-11-27T23:12:57.1545141Z WORK43 WORK42_CONTRACT_TEST:JRA PASS",
+    "2026-11-27T23:12:57.3142519Z WORK43 WORK42_CONTRACT_TEST:NAR PASS"
+  ],
+  "work44Pass": [
+    "2026-11-27T23:12:57.4388003Z WORK44 BIDIRECTIONAL_IDENTITY_AND_PARTIAL_PACKET PASS",
+    "2026-11-27T23:12:57.4409261Z WORK44 TARGET_NATIVE_RACE_ALIAS PASS",
+    "2026-11-27T23:12:57.4432375Z WORK44 SAME_ID_WRONG_RACE_KEY PASS",
+    "2026-11-27T23:12:57.4444269Z WORK44 VENUE_ALIAS PASS",
+    "2026-11-27T23:12:57.4456166Z WORK44 HISTORICAL_DATE_FALSE PASS",
+    "2026-11-27T23:12:57.4474425Z WORK44 HORSE_IDENTITY_WRONG_RACE PASS",
+    "2026-11-27T23:12:57.4485297Z WORK44 INVENTORY_TIME_AFTER_START PASS",
+    "2026-11-27T23:12:57.4496874Z WORK44 INVENTORY_TIME_BEFORE_ASOF PASS",
+    "2026-11-27T23:12:57.4507818Z WORK44 IDENTITY_TIME_AFTER_SEAL PASS",
+    "2026-11-27T23:12:57.4522940Z WORK44 RIGHTS_NOT_VALID_AT_CAPTURE PASS",
+    "2026-11-27T23:12:57.4533490Z WORK44 RIGHTS_REVOKED_AT_USE PASS",
+    "2026-11-27T23:12:57.4545251Z WORK44 UNBOUND_EXTRA_INVENTORY PASS",
+    "2026-11-27T23:12:57.4572645Z WORK44 HISTORICAL_WRONG_POST PASS",
+    "2026-11-27T23:12:57.4607747Z WORK44 HISTORICAL_ROSTER_SHORT PASS",
+    "2026-11-27T23:12:57.4623813Z WORK44 TARGET_RESULT_COLUMNS_STILL_REJECT PASS",
+    "2026-11-27T23:12:57.4674992Z WORK44 BLANK_LAP_AND_CORNER_SLOTS PASS",
+    "2026-11-27T23:12:57.4679216Z WORK44 FULL_PROVENANCE_GRAPH PASS",
+    "2026-11-27T23:12:57.4680483Z WORK44 NO_INDIVIDUAL_CLOCK_FABRICATION PASS",
+    "2026-11-27T23:12:57.4931381Z WORK44 TAMPERED_PARTIAL_REPLAY PASS",
+    "2026-11-27T23:12:57.4932450Z WORK44 REAL_INTAKE_STILL_DISABLED PASS"
+  ],
+  "summary": {
+    "priorAccepted": 864,
+    "addedAccepted": 0,
+    "checks": [
+      "BIDIRECTIONAL_IDENTITY_AND_PARTIAL_PACKET",
+      "TARGET_NATIVE_RACE_ALIAS",
+      "SAME_ID_WRONG_RACE_KEY",
+      "VENUE_ALIAS",
+      "HISTORICAL_DATE_FALSE",
+      "HORSE_IDENTITY_WRONG_RACE",
+      "INVENTORY_TIME_AFTER_START",
+      "INVENTORY_TIME_BEFORE_ASOF",
+      "IDENTITY_TIME_AFTER_SEAL",
+      "RIGHTS_NOT_VALID_AT_CAPTURE",
+      "RIGHTS_REVOKED_AT_USE",
+      "UNBOUND_EXTRA_INVENTORY",
+      "HISTORICAL_WRONG_POST",
+      "HISTORICAL_ROSTER_SHORT",
+      "TARGET_RESULT_COLUMNS_STILL_REJECT",
+      "BLANK_LAP_AND_CORNER_SLOTS",
+      "FULL_PROVENANCE_GRAPH",
+      "NO_INDIVIDUAL_CLOCK_FABRICATION",
+      "TAMPERED_PARTIAL_REPLAY",
+      "REAL_INTAKE_STILL_DISABLED"
+    ],
+    "events": [
+      {
+        "eventId": "TEST:T",
+        "role": "TARGET_CARD",
+        "rows": 2,
+        "eventFields": [
+          "postLiteral",
+          "surfaceLiteral",
+          "directionLiteral",
+          "distanceM",
+          "goingLiteral",
+          "declaredCount",
+          "classLiteral"
+        ],
+        "rowFields": [
+          "gate",
+          "no",
+          "displayName",
+          "sexLiteral",
+          "age",
+          "birthDateLiteral",
+          "weightG",
+          "bodyWeightKg",
+          "bodyWeightDeltaKg"
+        ]
+      },
+      {
+        "eventId": "TEST:H",
+        "role": "HISTORICAL_RESULT",
+        "rows": 2,
+        "eventFields": [
+          "postLiteral",
+          "surfaceLiteral",
+          "directionLiteral",
+          "distanceM",
+          "goingLiteral",
+          "declaredCount",
+          "classLiteral",
+          "raceFinal4fMs",
+          "raceFinal3fMs",
+          "leaderLapSlots",
+          "cornerGroupSlots"
+        ],
+        "rowFields": [
+          "gate",
+          "no",
+          "displayName",
+          "sexLiteral",
+          "age",
+          "birthDateLiteral",
+          "weightG",
+          "bodyWeightKg",
+          "bodyWeightDeltaKg",
+          "finish",
+          "finishClockLiteral",
+          "officialMarginLiteral",
+          "final600Ms"
+        ]
+      }
+    ],
+    "roots": 77,
+    "observations": 62,
+    "items": 115,
+    "groups": 118,
+    "held": 826,
+    "availability": {
+      "directDocumented": [
+        "finish",
+        "clock_literal",
+        "margin_literal",
+        "final600_ms",
+        "gate",
+        "horse_no",
+        "weight_g",
+        "body_weight_kg",
+        "body_weight_delta_kg",
+        "sex",
+        "age",
+        "birth_date",
+        "display_name",
+        "scheduled_post_literal",
+        "surface",
+        "direction",
+        "distance_m",
+        "going",
+        "declared_count",
+        "class_literal",
+        "race_final4f_ms",
+        "race_final3f_ms",
+        "leader_laps_literal",
+        "corner_groups_literal"
+      ],
+      "unavailable": [
+        [
+          "checkpointMs",
+          "GENERAL_OFFICIAL_INDIVIDUAL_CROSSING_CLOCK_NOT_VERIFIED"
+        ],
+        [
+          "checkpointRanks",
+          "GROUPED_CORNER_ORDER_NOT_VERIFIED_AS_INDIVIDUAL_DISTANCE_RANK"
+        ],
+        [
+          "leaderLaps",
+          "LITERAL_SLOTS_REQUIRE_VERIFIED_UNIT_AND_BOUNDARIES"
+        ],
+        [
+          "passing",
+          "CORNER_GROUPS_REQUIRE_VERIFIED_CHECKPOINT_DISTANCE"
+        ],
+        [
+          "clockMs",
+          "NATIVE_CLOCK_LITERAL_FORMAT_NOT_CERTIFIED"
+        ],
+        [
+          "status",
+          "START_STATUS_NOT_CERTIFIED_FROM_CURRENT_COLUMNS"
+        ],
+        [
+          "geometry",
+          "HISTORICAL_COURSE_VERSION_REQUIRED"
+        ],
+        [
+          "rating",
+          "SELECTED_PUBLICATION_ONLY"
+        ],
+        [
+          "incident",
+          "SEPARATE_REPORT_AND_ROLE_REQUIRED"
+        ],
+        [
+          "peerStrength",
+          "INDEPENDENT_COMPARISON_REQUIRED"
+        ],
+        [
+          "training",
+          "COVERAGE_AND_RIGHTS_UNCONFIRMED"
+        ],
+        [
+          "pedigree",
+          "SEPARATE_IDENTITY_BOUND_PROFILE_REQUIRED"
+        ]
+      ],
+      "canonicalItems": 115
+    },
+    "digest": "0ed0e87596b50cd863e417bc18cbe6024a336670b0b2f3157a6baa87416051d2",
+    "realAdmission": false,
+    "engineInput": null,
+    "formal": false
+  },
+  "artifacts": [
+    {
+      "id": 15237536769,
+      "name": "work44-receipt",
+      "digest": "sha256:e33a6c7873ca893d3b4ba79f05aa7bdbe6b953bb4ec2578b5a8c0fc35eb496ed",
+      "expires_at": "2026-12-04T23:12:57Z",
+      "size_in_bytes": 20535
+    }
+  ],
+  "limitations": [
+    "Synthetic signed registry only; actual official race identity, external time, permissions and full inventory not established.",
+    "24 documented positional input fields, not verified actual native files; JRA native parser unavailable. Status, official time literal normalization, actual course geometry and individual checkpoint clocks held.",
+    "Full 115 inventory is not full per-item verified source dependencies or engine execution. engineInput remains null; no real packet passed into V47/V48. Current common entry is synthetic-only; requires approved partial real intake and semantic kernel support.",
+    "20 focused test results are pending Main acceptance; old 33 regression not added. No official raw acquired, no actual race analyzed, no production/DB/FROZEN/Cron/merge/formal adoption or explicit deployment. Artifact metadata only; ZIP not independently retrieved. External repository integrations not controlled."
+  ],
+  "v48IntakeAudit": {
+    "commit": "12917f22284e93d41ed31486184b744332adf175",
+    "path": "research/reborn2-independent-engine/main47-integration/v43-generic.mjs",
+    "blob": "1912553fc649f8edfde38c9415f53d7b4fab1fdd",
+    "observed": "semanticVersion=48 dispatch present; verifyIntake still explicitly requires SYNTHETIC_ONLY and TEST_PACKET",
+    "realConnection": "HELD",
+    "scope": "static inspection, no engine execution"
+  }
+}

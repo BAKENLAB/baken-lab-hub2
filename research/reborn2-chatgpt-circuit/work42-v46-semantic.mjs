@@ -108,14 +108,22 @@ function analyzeClaim(q,docs,packet,h,strict=false){
 // predicates from same roots remain correlated observations, not votes.
 export function semanticItems(compiled,docs,packet,horse,{strict=false}={}){
  const claims=new Map(compiled.items.flatMap(i=>i.claims).map(q=>[q.claim_id,q]));
- const out=new Map(),holds=[];
+ const out=new Map(),holds=new Map();
  for(const q of claims.values()){
   const a=analyzeClaim(q,docs,packet,horse,strict);
-  if(!a.item){holds.push(a);continue;}
+  if(!a.item){
+   // Same semantic hold, same subject/context and native dependency closure:
+   // a changed claim ID cannot multiply it. Distinct reasons/contexts stay.
+   const stable=v=>Array.isArray(v)?v.map(stable):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v;
+   const context=stable(q.observed_facts??null),mechanism=q.mechanism??null;
+   const key=JSON.stringify([horse,a.category,a.reason,mechanism,context,a.rootKeys,a.refs]);
+   if(!holds.has(key))holds.set(key,{...a,context,mechanism});
+   continue;
+  }
   const key=JSON.stringify([a.item,a.predicate,a.value,a.rootKeys]);
   if(!out.has(key))out.set(key,a);
  }
- return {items:[...out.values()],holds};
+ return {items:[...out.values()],holds:[...holds.values()]};
 }
 // The scenario uses a real historical full-field vector as a conditional
 // antecedent, with today's roster/gate/weight/context verified by V41/V42.

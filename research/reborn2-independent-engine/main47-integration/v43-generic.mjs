@@ -273,3 +273,6 @@ export async function analyzeVerified(V,request,receipt,{eyeEnabled=true,work42E
  return {schema:'V43_VERIFIED_SYNTHETIC_RESEARCH_V1',...(candidate?{candidate}:{} ),id:request.id,...(work42?{work42}:{}),digest:decision.digest,evidence:packet.evidence.length,groups:common.groups,held:common.held,roster:common.roster,placeThreshold:decision.threshold,thresholdScope:'SYNTHETIC_FIXTURE_CONTROL_NOT_CANONICAL',runners,formal:false};
 }
 export {loadV40};
+
+// Separate verified partial entry: no bypass of the full synthetic intake.
+export {analyzePartialVerified} from '../../reborn2-chatgpt-circuit/work44-partial-consumer.mjs';
