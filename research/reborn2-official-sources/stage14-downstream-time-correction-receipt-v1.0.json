@@ -1,0 +1,246 @@
+{
+  "version": "1.0.0",
+  "acceptance_commit": "0427dd0",
+  "prior_commit": "fa479a92ab0d7b0a313d3f2bf1b7f7e7d6a5813d",
+  "audit_source_sha256": "605af6be108a40bbbff7a5057beb4b6822667210ec47527810c53d93226a4b99",
+  "peer_ledger_sha256": "3a1f367f08e7d0c75ea61a16ecb492cf9b047c4f9dac053d26ebc7927aae9e9d",
+  "source_packs": [
+    {
+      "pack": "stage10",
+      "sha256": "1edb850d452eb8a2c62564546f3373cb39dac87a6e682b733b72cfb5ebec9672"
+    },
+    {
+      "pack": "stage9",
+      "sha256": "7bc674eb2004d4836666b12aa803b6bd5ed649450d349502d96f499309e21fbb"
+    },
+    {
+      "pack": "stage8",
+      "sha256": "48df059c10a5c62e18352a7768215e3599634735a096887e85679376b5c03cd6"
+    },
+    {
+      "pack": "urawa",
+      "sha256": "df09365de5862ac07474ed653adfd3e5d22b86975fc12a3366a4d83c26fb1831"
+    }
+  ],
+  "corrected_zip": {
+    "filename": "REBORN2-stage14-corrected-research-v1.zip",
+    "sha256": "3f50eb331edd832c7713a3803f0c9f068cf1bee8160a56e41f868bc5e85e8284",
+    "manifest_sha256": "6435a407adc5837f449df567575332c36c7402b031eac88f91add645f118faa8",
+    "file_count": 17,
+    "storage": "conversation attachment; no raw official HTML or original source redistribution in GitHub"
+  },
+  "patches": [
+    {
+      "original_file": "ACCEPTANCE_9ffbec4_RECEIPT.json",
+      "original_sha256": "f42282e198ffcdde9b85c863d9a061805e06e08022df7fcb1a0fb9bc1417a318",
+      "expected_value": "2026-11-27T17:00:00+09:00",
+      "paths": [
+        "/reviewed_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_ACCEPTANCE_9ffbec4_RECEIPT.json",
+      "corrected_sha256": "b8fa6221c76a030881c5400b4709dd4d972aa1e2008d572a2585eece403cd29a"
+    },
+    {
+      "original_file": "JRA_JAPAN_CUP_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+      "original_sha256": "0fb1e34931eb4dd53e89b222b8f25a3c756d3557d8906553c0ef05ea3886f22e",
+      "expected_value": "2026-11-27T17:00:00+09:00",
+      "paths": [
+        "/observed_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_JRA_JAPAN_CUP_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+      "corrected_sha256": "f9c70b8fd3dd40acf66b321e66f2e5591612dbd4633f80d9ee9f7dabb1a92e5e"
+    },
+    {
+      "original_file": "LOCAL_URAWA11_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+      "original_sha256": "263e4ee30c87e4c129bfc26bff26f63baae9aef4d99fcd329eb9de9dd9aa90d1",
+      "expected_value": "2026-11-27T17:00:00+09:00",
+      "paths": [
+        "/evidence_observed_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_LOCAL_URAWA11_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+      "corrected_sha256": "18338571f238986f58b828e041d4054d5f2ad291a003998a79a60c00ee3e9bb3"
+    },
+    {
+      "original_file": "OFFICIAL_PERSON_RESULT_ROW_JOINS_V1.json",
+      "original_sha256": "9dea3b3cc66dac1a704b5f2de18aeebcf9d53d0c6bb2bb5b1ede846d0ba96725",
+      "expected_value": "2026-11-27T17:30:00+09:00",
+      "paths": [
+        "/generated_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_OFFICIAL_PERSON_RESULT_ROW_JOINS_V1.json",
+      "corrected_sha256": "2cb9b58c4602ba806937f030cca69e09047e73315490109f3687330415f649b9"
+    },
+    {
+      "original_file": "PERMISSION_STATUS_JRA_NAR_V1.json",
+      "original_sha256": "7375de1e74e79c75ca31d4ab4935ac70869791abdf53d02633930eef6530fe8d",
+      "expected_value": "2026-11-27T17:00:00+09:00",
+      "paths": [
+        "/observed_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_PERMISSION_STATUS_JRA_NAR_V1.json",
+      "corrected_sha256": "bb89f25f19e1bb46151790b83323b977f9fa06c3a4b2c29d736afa932606faa5"
+    },
+    {
+      "original_file": "STAGE10_MANIFEST_V2.json",
+      "original_sha256": "b4d4e99920ec9791f982a2e6c0a57946fc0334d0439d6052c00ca33d716bb349",
+      "expected_value": "2026-11-27T17:00:00+09:00",
+      "paths": [
+        "/created_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_STAGE10_MANIFEST_V2.json",
+      "corrected_sha256": "287b8e48b90513df7078a16b58d34c74ad51db40936b3b91e0b990c15cf1ecb9"
+    },
+    {
+      "original_file": "LOCAL30_CURRENT_OBSERVATION_V1.json",
+      "original_sha256": "3d0134753002a3add2082f04d6914acddd8721a866fddae365734473af6c6dad",
+      "expected_value": "2026-11-27T15:30:00+09:00",
+      "paths": [
+        "/observed_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_LOCAL30_CURRENT_OBSERVATION_V1.json",
+      "corrected_sha256": "ca4c130d5b4e82552359985a0e336c56247390a8968852fae259d2a64315f9f4"
+    },
+    {
+      "original_file": "LOCAL30_REPRODUCTION_AUDIT_V1.json",
+      "original_sha256": "50d5acd80fe0378bdfe933e26d9f80759a41b4e0049bd83c35f0bc196526fee3",
+      "expected_value": "2026-11-27T16:20:00+09:00",
+      "paths": [
+        "/generated_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_LOCAL30_REPRODUCTION_AUDIT_V1.json",
+      "corrected_sha256": "2f57a0c8e56b12450d311536dae1c3402a1d2ebfee0ceb6c7b5a5def224e0470"
+    },
+    {
+      "original_file": "CODEX_LONG_TERM_CLOCK_INPUT_CONTRACT_V1.json",
+      "original_sha256": "6a0ab61554ac8c64733003b28bc638ea7d133d2092f96eaa7172e5df78632c6f",
+      "expected_value": "2026-11-27T07:30:00+09:00",
+      "paths": [
+        "/generated_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_CODEX_LONG_TERM_CLOCK_INPUT_CONTRACT_V1.json",
+      "corrected_sha256": "fd6b964cb6a646556bd9aa399b21a8bf2d2d339c83ea3e219833b4196bedbb63"
+    },
+    {
+      "original_file": "LONG_TERM_BENCHMARK_PRIORITY_RESEARCH_V3.json",
+      "original_sha256": "c496651a9e01b4fa67818762170224cef46ae5bb3771507b4be8cb40265e36a1",
+      "expected_value": "2026-11-27T07:30:00+09:00",
+      "paths": [
+        "/generated_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_LONG_TERM_BENCHMARK_PRIORITY_RESEARCH_V3.json",
+      "corrected_sha256": "755654ed09157b1746eea033fcdd4b16fba541c2ca4318c4df69cc428011a472"
+    },
+    {
+      "original_file": "ARTIFACT_MANIFEST_V3.json",
+      "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+      "expected_value": "2026-11-27T07:45:00+09:00",
+      "paths": [
+        "/generated_at_jst",
+        "/files/0/observed_at_jst",
+        "/files/1/observed_at_jst",
+        "/files/2/observed_at_jst",
+        "/files/3/observed_at_jst",
+        "/files/4/observed_at_jst",
+        "/files/5/observed_at_jst",
+        "/files/6/observed_at_jst",
+        "/files/7/observed_at_jst",
+        "/files/8/observed_at_jst",
+        "/files/9/observed_at_jst",
+        "/files/10/observed_at_jst",
+        "/files/11/observed_at_jst",
+        "/files/12/observed_at_jst",
+        "/files/13/observed_at_jst",
+        "/files/14/observed_at_jst",
+        "/files/15/observed_at_jst",
+        "/files/16/observed_at_jst",
+        "/files/17/observed_at_jst",
+        "/files/18/observed_at_jst",
+        "/files/19/observed_at_jst",
+        "/files/20/observed_at_jst",
+        "/files/21/observed_at_jst",
+        "/files/22/observed_at_jst",
+        "/files/23/observed_at_jst",
+        "/files/24/observed_at_jst",
+        "/files/25/observed_at_jst",
+        "/files/26/observed_at_jst",
+        "/files/27/observed_at_jst",
+        "/files/28/observed_at_jst",
+        "/files/29/observed_at_jst",
+        "/files/30/observed_at_jst",
+        "/files/31/observed_at_jst",
+        "/files/32/observed_at_jst",
+        "/files/33/observed_at_jst",
+        "/files/34/observed_at_jst",
+        "/files/35/observed_at_jst",
+        "/files/36/observed_at_jst",
+        "/files/37/observed_at_jst",
+        "/files/38/observed_at_jst",
+        "/files/39/observed_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+      "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c"
+    },
+    {
+      "original_file": "JRA_88_PRIORITY_GROUPS_DISTRIBUTION_V1.json",
+      "original_sha256": "b8b26c6eccdd711809d7228e9c57fbb05478e6f8a0c4c9f0630114fcd41ebc7e",
+      "expected_value": "2026-11-27T07:20:00+09:00",
+      "paths": [
+        "/generated_at_jst"
+      ],
+      "replacement": null,
+      "corrected_file": "stage14_JRA_88_PRIORITY_GROUPS_DISTRIBUTION_V1.json",
+      "corrected_sha256": "841ea780e5af87f9cbb88408c830f93dbe7e495b04b46d1e17978e2d88329ce2"
+    }
+  ],
+  "downstream": [
+    {
+      "file": "stage14_FORMAL_ADOPTION_EVIDENCE_GATES_V3.json",
+      "sha256": "ba63574daea3add8b06b8617bae2c81cfe23e54da04d72ef320521407ac75f1a"
+    },
+    {
+      "file": "stage14_FORMAL_ADOPTION_EVIDENCE_GATES_V3.csv",
+      "sha256": "2f25d1fb94faa9d117a3dad1b4b75bb527058bd7e92281937ac15e0b70e3fc25"
+    },
+    {
+      "file": "stage14_CODEX_LOCAL30_REPRODUCED_INPUT_CONTRACT_V2.json",
+      "sha256": "f10392396b7cd5161168fa976c3b9ffb47dc53f317c27e9bb7ea2bfce0d2fe56"
+    },
+    {
+      "file": "stage14_priority_118_gates.json",
+      "sha256": "78dfd5f75c837e1b96422083cdf8a020a6c6ee2e3a0a73a5a1a4ddffeb32de26"
+    }
+  ],
+  "rules": [
+    "Reject original hash or old field value mismatch; never apply correction twice.",
+    "Keep original source manifest separate; do not claim original manifest hashes describe corrected copies.",
+    "JC original capture time unknown; old true verification flags disabled, false means not authenticated, not proof capture never happened. All 18 original row-observed flags retained as reported separately and new verified value null.",
+    "Urawa dates remain reported publication-date-only; no prestart capture.",
+    "21 past rows use explicit historical_runner_no separate from target_runner_no, source stage11; verified_acquired_at null, person_profile_verified false.",
+    "Original workbooks and reports remain historical-only; do not load into scoring. Revised JSON/CSV replace research downstream input only.",
+    "118 group gates all formal_admission false and scoring_authorized false; stage14 CodeX runtime integration not executed."
+  ],
+  "validation": {
+    "pack_hashes": 4,
+    "original_member_hashes": 12,
+    "field_patches": 52,
+    "output_field_null_rechecks": 52,
+    "group_unique": 118,
+    "jra_groups": 88,
+    "local_groups": 30,
+    "original_archive_unchanged": true,
+    "zip_integrity_test": true,
+    "formal_admissions": 0,
+    "production_changes": false
+  }
+}
