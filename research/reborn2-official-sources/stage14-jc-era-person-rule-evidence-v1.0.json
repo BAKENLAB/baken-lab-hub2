@@ -1,0 +1,301 @@
+{
+  "version": "1.0.0",
+  "acceptance_commit": "0427dd0",
+  "prior_commit": "fa479a92ab0d7b0a313d3f2bf1b7f7e7d6a5813d",
+  "observed_date_jst": "2026-11-27",
+  "observed_at": null,
+  "publication_at": null,
+  "formal_admissions": 0,
+  "production_changes": false,
+  "permission_status": "NOT_CLEARED",
+  "japan_cup": {
+    "target": "JRA:2026-11-29:東京:12",
+    "current_card_body": "CACHE_MISS",
+    "official_barrier_draw_index": {
+      "url": "https://japanracing.jp/en/japancup/news_results/news2026/261127.html",
+      "date": "2026-11-27",
+      "state": "INDEX_ONLY_DIRECT_BODY_CACHE_MISS"
+    },
+    "retained_booklet_profiles": 18,
+    "current_native_horse_id_matches": 0,
+    "current_native_person_id_matches": 0,
+    "era_id_candidates": [
+      {
+        "target_no": 9,
+        "issuer": "Emirates Racing Authority",
+        "role": "horse",
+        "id": "h-74059",
+        "name": "CALANDAGAN",
+        "url": "https://emiratesracing.com/horses/h-74059",
+        "country": "IRE",
+        "age_in_cached_profile": 5,
+        "sex": "gelding",
+        "sire": "Gleneagles",
+        "dam": "Calayana",
+        "damsire": "Sinndar",
+        "attribute_match": "prior JRA booklet name/country/sex/age/pedigree",
+        "stage": "OFFICIAL_CACHED_PROFILE_BODY_ATTRIBUTE_MATCH; not origin registry or current JRA card ID"
+      },
+      {
+        "target_no": 16,
+        "issuer": "Emirates Racing Authority",
+        "role": "horse",
+        "id": "h-74061",
+        "name": "DANON DECILE",
+        "url": "https://emiratesracing.com/horses/h-74061",
+        "country": "JPN",
+        "age_in_cached_profile": 5,
+        "sire": "Epiphaneia",
+        "dam": "Top Decile",
+        "damsire": "Congrats",
+        "attribute_match": "prior JRA booklet name/country/age/pedigree",
+        "stage": "OFFICIAL_CACHED_PROFILE_BODY_ATTRIBUTE_MATCH; not current JRA card ID"
+      },
+      {
+        "target_no": 18,
+        "issuer": "Emirates Racing Authority",
+        "role": "horse",
+        "id": "h-76534",
+        "name": "ETHICAL DIAMOND",
+        "url": "https://emiratesracing.com/horses/h-76534",
+        "stage": "INDEX_ONLY_DIRECT_PROFILE_TIMEOUT; no verified crosswalk"
+      }
+    ],
+    "comparisons": [
+      {
+        "race": "ERA:2025-04-05:Meydan:8",
+        "distance_m": 2410,
+        "surface": "turf",
+        "grade": "G1",
+        "evidence_status": "TWO_PROFILE_ROWS_MUTUAL_LINKS_OBSERVED; race page body accessible but result rows not rendered",
+        "race_url": "https://emiratesracing.com/racecard/2025-04-05/8/results",
+        "rows": [
+          {
+            "id": "h-74061",
+            "finish": 1,
+            "field": 9,
+            "weight_kg": 57,
+            "draw": 3
+          },
+          {
+            "id": "h-74059",
+            "finish": 2,
+            "field": 9,
+            "weight_kg": 57,
+            "draw": 2
+          }
+        ],
+        "winner_time_literal": "2:27.05",
+        "margin_lengths": 1.28,
+        "individual_loser_time": null,
+        "source_urls": [
+          "https://emiratesracing.com/horses/h-74059",
+          "https://emiratesracing.com/horses/h-74061"
+        ],
+        "note": "Profile history column is Winner's time, never assign that time to losing horse. Draw distinct from runner number."
+      },
+      {
+        "race": "JRA:2025-11-30:東京:12",
+        "distance_m": 2400,
+        "first_id": "h-74059",
+        "first_finish": 1,
+        "second_id": "h-74061",
+        "second_finish": 3,
+        "stage": "PREVIOUS_JRA_RESULT_TEXT_PLUS_ERA_PROFILE_ROWS",
+        "note": "Order reversal vs 2025 Dubai. Cannot infer same current relative ability."
+      },
+      {
+        "race": "ERA:2026-03-28:Meydan:8",
+        "race_url": "https://emiratesracing.com/racecard/2026-03-28/8/results",
+        "distance_m": 2410,
+        "surface": "turf",
+        "grade": "G1",
+        "going_era_literal": "Good",
+        "going_prior_booklet_literal": "Good to Firm",
+        "going_status": "SOURCE_DISAGREEMENT_PENDING",
+        "winner": {
+          "id": "h-74059",
+          "finish": 1,
+          "field": 6,
+          "carried_weight_kg": 57,
+          "winner_time_literal": "2:27.88",
+          "source": "ERA profile body"
+        },
+        "peer": {
+          "id": "h-76534",
+          "finish": 5,
+          "individual_time_literal": "2:29.03",
+          "carried_weight_kg": 57,
+          "stage": "INDEX_ONLY"
+        },
+        "stage": "RACE_PAGE_BODY_BUT_RESULT_TABLE_NOT_RENDERED; PDF fetch cache miss; no full-result binding",
+        "note": "Do not conflate ERA local rating with annual IFHA or JRA race performance rating; preserve hundredths and source literals."
+      }
+    ],
+    "ratings": [
+      {
+        "id": "h-74059",
+        "race": "ERA:2026-03-28:Meydan:8",
+        "value": 130,
+        "scope": "ERA profile race row rating column, not independently established postrace performance",
+        "source": "https://emiratesracing.com/horses/h-74059"
+      },
+      {
+        "id": "h-74061",
+        "race": "ERA:2025-04-05:Meydan:8",
+        "value": 120,
+        "scope": "ERA profile race row rating column",
+        "source": "https://emiratesracing.com/horses/h-74061"
+      }
+    ],
+    "indirect_rank_adopted": false
+  },
+  "persons": [
+    {
+      "issuer": "ERA",
+      "role": "jockey",
+      "id": "acc-00029097-12102023",
+      "name": "Mickael Barzalona",
+      "url": "https://emiratesracing.com/jockeys/acc-00029097-12102023",
+      "link_source": "https://emiratesracing.com/horses/h-74059",
+      "link_race": "ERA:2026-03-28:Meydan:8",
+      "source_stage": "CACHED_PROFILE_BODY_AND_HORSE_HISTORY_LINK",
+      "career_reported": {
+        "rides": 929,
+        "wins": 134
+      },
+      "season_2025_26_reported": {
+        "rides": 29,
+        "wins": 3
+      },
+      "stats_scope": "ERA page scope, cached 8 months, not current global stats",
+      "valid_period": null
+    },
+    {
+      "issuer": "ERA",
+      "role": "trainer",
+      "id": "acc-00017849-12102023",
+      "name": "Francis Henri Graffard",
+      "url": "https://emiratesracing.com/trainers/acc-00017849-12102023",
+      "link_source": "https://emiratesracing.com/horses/h-74059",
+      "link_race": "ERA:2026-03-28:Meydan:8",
+      "source_stage": "CACHED_PROFILE_BODY_AND_HORSE_HISTORY_LINK",
+      "valid_period": null
+    }
+  ],
+  "benchmark": {
+    "local": {
+      "all_groups": 30,
+      "sonoda": {
+        "groups": 17,
+        "races": 608,
+        "new_2025_regulation_url": "https://www.sonoda-himeji.jp/resources/pdfs/outline/2025/1746004829_e7a809653fbdf6beb511.pdf",
+        "source_stage": "PDF_TEXT_AND_SCREENSHOT_PAGE_INDEX_3_OBSERVED",
+        "general_4plus": {
+          "C2": [
+            100,
+            229
+          ],
+          "C3": [
+            0,
+            99
+          ]
+        },
+        "general_3plus_from": "2025-07-05",
+        "separate_3yo_C2": [
+          0,
+          129
+        ],
+        "two_year_old": "not graded; prize-order basis",
+        "note": "Prior FY2026 general C2/C3 thresholds coincide. Exact validity of document revisions and January–March 2025 prior fiscal rule still pending. Subdivision '一/二/三' and horse eligibility not verified. No retrospective class equivalence."
+      },
+      "iwate_correction": {
+        "notice_url": "https://www.iwatekeiba.or.jp/news/0421-2",
+        "publication_date": "2026-04-22",
+        "affected_meetings": [
+          "FY2025 11th Mizusawa",
+          "FY2026 1st Mizusawa"
+        ],
+        "corrected_from_meeting": "FY2026 2nd Mizusawa",
+        "effective_meeting_start_date": "2026-04-14",
+        "meeting_end_date": "2026-04-29",
+        "meeting_date_source": "https://www.iwatekeiba.or.jp/news/260415n01",
+        "effective_date_precision": "meeting start, not exact administrative processing timestamp",
+        "note": "Correction applied from meeting; notice dated 2026-04-22, no earlier disclosure inferred. No retroactive substitution."
+      },
+      "formal_admissions": 0
+    },
+    "jra": {
+      "all_groups": 88,
+      "dirt_groups": 49,
+      "tokyo_dirt": {
+        "groups": 7,
+        "races": 256,
+        "group_ids": [
+          "JRA-053",
+          "JRA-054",
+          "JRA-055",
+          "JRA-056",
+          "JRA-057",
+          "JRA-058",
+          "JRA-059"
+        ],
+        "distance_m": [
+          1400,
+          1600
+        ],
+        "geometry_observations": [
+          {
+            "year": 2024,
+            "meeting": 1,
+            "url": "https://www.jra.go.jp/keiba/baba/overview/2024_1_tokyo.html",
+            "lap_m": 1899,
+            "straight_m": 501.6,
+            "width_m": 25,
+            "cushion_sand_cm": 9,
+            "stage": "OFFICIAL_MEETING_OVERVIEW_BODY"
+          },
+          {
+            "year": 2025,
+            "meeting": 1,
+            "url": "https://www.jra.go.jp/keiba/baba/overview/2025_1_tokyo.html",
+            "lap_m": 1899,
+            "straight_m": 501.6,
+            "width_m": 25,
+            "cushion_sand_cm": 9,
+            "stage": "OFFICIAL_MEETING_OVERVIEW_BODY"
+          },
+          {
+            "year": 2026,
+            "meeting": 1,
+            "url": "https://www.jra.go.jp/keiba/baba/overview/2026_1_tokyo.html",
+            "lap_m": 1899,
+            "straight_m": 501.6,
+            "width_m": 25,
+            "cushion_sand_cm": 9,
+            "stage": "OFFICIAL_MEETING_OVERVIEW_BODY"
+          }
+        ],
+        "course_description": {
+          "url": "https://www.jra.go.jp/facilities/race/tokyo/course/",
+          "text_as_of": "2019-09",
+          "dirt1600_turf_start": true
+        },
+        "note": "Same layout numbers for first meetings in three years, not proof for all races/meetings. 1600m turf start distinct from 1400m; full group race-to-meeting binding pending."
+      },
+      "formal_admissions": 0
+    }
+  },
+  "permission": {
+    "jra_source": "https://www.jra.go.jp/use/",
+    "status": "NO_STRUCTURED_DATA_LICENSE_ESTABLISHED",
+    "nar_status": "PRIOR_PERMISSION_STATUS_RETAINED; no new direct NAR acquisition after 429",
+    "era_scope": "NOT_CLEARED",
+    "inquiry_sent": false
+  },
+  "limitations": [
+    "No source original HTTP bytes, source hashes or actual publication times for new web observations. Historical source versions not authenticated.",
+    "Person keys belong to ERA, not current home authority or JRA license. No causal rider/trainer effect.",
+    "No scoring, production or PR94 changes."
+  ]
+}
