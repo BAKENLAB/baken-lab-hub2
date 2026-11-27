@@ -1,0 +1,3522 @@
+{
+  "schema": "REAL_WORK_115_OFFICIAL_SUPPLY_MAP_0.2",
+  "scope": "RESEARCH_ONLY",
+  "counts": {
+    "rank": 100,
+    "eye": 15,
+    "total": 115,
+    "groups_held": 118,
+    "conditions_held": 826
+  },
+  "items": [
+    {
+      "id": "01",
+      "name": "基礎競走能力",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "02",
+      "name": "近走成績・着順",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "03",
+      "name": "勝ち馬との着差",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "04",
+      "name": "後続馬との着差",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "05",
+      "name": "走破時計",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "06",
+      "name": "上がりタイム",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "07",
+      "name": "瞬発力",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "08",
+      "name": "持続力",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "09",
+      "name": "スタートの安定性",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "10",
+      "name": "二の脚・加速力",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "11",
+      "name": "距離別の消耗傾向",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "12",
+      "name": "勝ち切る能力",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "13",
+      "name": "成績の安定性",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "14",
+      "name": "成長・衰え",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "15",
+      "name": "潜在能力",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "16",
+      "name": "公式レーティング",
+      "source_key": "rating",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/datafile/ranking/",
+        "LOCAL": "NAR/organizer/IFHA selected publications"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "official_rating"
+      ],
+      "publication": "selected races/horses only",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "17",
+      "name": "各コーナーの通過順位",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "18",
+      "name": "道中の位置取り変化",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "19",
+      "name": "実ラップ・ペース",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "20",
+      "name": "過去走の展開有利・不利",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "21",
+      "name": "道中での後退からの巻き返し",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "22",
+      "name": "コーナーでの進出",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "23",
+      "name": "先行争いによる消耗",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "24",
+      "name": "終盤の失速原因",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "25",
+      "name": "差し損ね・脚の余力",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "26",
+      "name": "出遅れ・進路などの不利",
+      "source_key": "incident",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "incident",
+        "steward_text",
+        "affected_horse",
+        "causing_horse"
+      ],
+      "publication": "post-race; may update",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "27",
+      "name": "不利を克服した好走",
+      "source_key": "incident",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "incident",
+        "steward_text",
+        "affected_horse",
+        "causing_horse"
+      ],
+      "publication": "post-race; may update",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "28",
+      "name": "僅差の凡走",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "29",
+      "name": "負けて強し",
+      "source_key": "incident",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "incident",
+        "steward_text",
+        "affected_horse",
+        "causing_horse"
+      ],
+      "publication": "post-race; may update",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "30",
+      "name": "勝利内容の価値",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "31",
+      "name": "特殊条件による凡走",
+      "source_key": "incident",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "incident",
+        "steward_text",
+        "affected_horse",
+        "causing_horse"
+      ],
+      "publication": "post-race; may update",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "32",
+      "name": "前走からの内容改善",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "33",
+      "name": "過去走のクラス水準",
+      "source_key": "rules",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/keiba/program/",
+        "LOCAL": "NAR/organizer official rules and race programs"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "class",
+        "eligibility",
+        "weight_rule",
+        "effective_period"
+      ],
+      "publication": "program/rule effective period",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "34",
+      "name": "過去の対戦相手の能力",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "35",
+      "name": "今回の出走馬同士の直接対戦",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "36",
+      "name": "共通対戦馬による間接比較",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "37",
+      "name": "過去の対戦相手の後続実績",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "38",
+      "name": "対戦相手の公式レーティング",
+      "source_key": "rating",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/datafile/ranking/",
+        "LOCAL": "NAR/organizer/IFHA selected publications"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "official_rating"
+      ],
+      "publication": "selected races/horses only",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "39",
+      "name": "昇級・降級",
+      "source_key": "rules",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/keiba/program/",
+        "LOCAL": "NAR/organizer official rules and race programs"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "class",
+        "eligibility",
+        "weight_rule",
+        "effective_period"
+      ],
+      "publication": "program/rule effective period",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "40",
+      "name": "今回の相手強化・弱化",
+      "source_key": "rules",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/keiba/program/",
+        "LOCAL": "NAR/organizer official rules and race programs"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "class",
+        "eligibility",
+        "weight_rule",
+        "effective_period"
+      ],
+      "publication": "program/rule effective period",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "41",
+      "name": "上位クラスでの通用可能性",
+      "source_key": "rules",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/keiba/program/",
+        "LOCAL": "NAR/organizer official rules and race programs"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "class",
+        "eligibility",
+        "weight_rule",
+        "effective_period"
+      ],
+      "publication": "program/rule effective period",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "42",
+      "name": "中央・地方転入による水準変化",
+      "source_key": "rules",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/keiba/program/",
+        "LOCAL": "NAR/organizer official rules and race programs"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "class",
+        "eligibility",
+        "weight_rule",
+        "effective_period"
+      ],
+      "publication": "program/rule effective period",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "43",
+      "name": "距離適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "44",
+      "name": "距離延長・短縮への適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "45",
+      "name": "競馬場適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "46",
+      "name": "コース間相関",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "47",
+      "name": "芝・ダート適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "48",
+      "name": "馬場状態別適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "49",
+      "name": "左回り・右回り適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "50",
+      "name": "直線の長さへの適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "51",
+      "name": "坂・高低差への適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "52",
+      "name": "コーナー形状への適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "53",
+      "name": "枠順と脚質の相性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "54",
+      "name": "斤量・斤量増減への適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "55",
+      "name": "砂被り耐性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "56",
+      "name": "馬群・揉まれ耐性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "57",
+      "name": "季節適性",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "58",
+      "name": "各馬の脚質",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "59",
+      "name": "前走の先行判定",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "60",
+      "name": "先行力の再現性",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "61",
+      "name": "逃げ候補の特定",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "62",
+      "name": "逃げへの依存度",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "63",
+      "name": "先行馬占有率",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "64",
+      "name": "先行馬の内外配置",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "65",
+      "name": "同型馬の競合",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "66",
+      "name": "逃げハサミ",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "67",
+      "name": "最初のコーナーまでの距離",
+      "source_key": "course",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/facilities/race/",
+        "LOCAL": "organizer official course pages"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "surface",
+        "turn",
+        "straight",
+        "elevation",
+        "course_version"
+      ],
+      "publication": "current; historical version separately required",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "68",
+      "name": "序盤の位置取り争い",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "69",
+      "name": "想定ペース",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "70",
+      "name": "想定隊列",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "71",
+      "name": "想定される距離ロス",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "72",
+      "name": "今回の先行争いによる消耗",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "73",
+      "name": "各馬の展開有利・不利",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "74",
+      "name": "展開対応力",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "75",
+      "name": "展開依存度",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "76",
+      "name": "当日の内外馬場傾向",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "77",
+      "name": "当日の前残り・差し傾向",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "78",
+      "name": "休養期間",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "79",
+      "name": "出走間隔・連闘",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "80",
+      "name": "休養明けからの出走回数",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "81",
+      "name": "馬体重・増減",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "82",
+      "name": "過去の好走時馬体重",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "83",
+      "name": "調教内容",
+      "source_key": "training",
+      "official_url": {
+        "JRA": "official race-week releases where offered",
+        "LOCAL": "organizer official releases where offered"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "training"
+      ],
+      "publication": "limited/varies",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "84",
+      "name": "馬具変更",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "85",
+      "name": "騎手の能力・実績",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "86",
+      "name": "騎手のコース別適性",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "87",
+      "name": "馬と騎手の相性",
+      "source_key": "result",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF/official CSV where offered",
+      "direct_fields": [
+        "finish",
+        "clock",
+        "margin",
+        "final_section",
+        "corner_order",
+        "race_laps",
+        "going",
+        "body_weight"
+      ],
+      "publication": "post-race; corrections possible",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "88",
+      "name": "乗り替わり",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "89",
+      "name": "調教師・厩舎の傾向",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "90",
+      "name": "血統",
+      "source_key": "profile",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessU.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo/HorseMarkInfoTop"
+      },
+      "format": "HTML",
+      "direct_fields": [
+        "profile",
+        "pedigree",
+        "history",
+        "identity_link"
+      ],
+      "publication": "current/historical",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "91",
+      "name": "年齢・性別・成長段階",
+      "source_key": "profile",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessU.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo/HorseMarkInfoTop"
+      },
+      "format": "HTML",
+      "direct_fields": [
+        "profile",
+        "pedigree",
+        "history",
+        "identity_link"
+      ],
+      "publication": "current/historical",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "92",
+      "name": "輸送・遠征",
+      "source_key": "card",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessD.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "entry",
+        "horse_identity",
+        "gate",
+        "horse_no",
+        "carried_weight",
+        "jockey",
+        "trainer",
+        "equipment",
+        "conditions"
+      ],
+      "publication": "declarations through pre-race changes",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "93",
+      "name": "前走からの条件好転",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "94",
+      "name": "前走からの条件悪化",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "95",
+      "name": "過去の好走条件への復帰",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "96",
+      "name": "前走の敗因解消",
+      "source_key": "incident",
+      "official_url": {
+        "JRA": "https://www.jra.go.jp/JRADB/accessS.html",
+        "LOCAL": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/TodayRaceInfoTop"
+      },
+      "format": "HTML/PDF",
+      "direct_fields": [
+        "incident",
+        "steward_text",
+        "affected_horse",
+        "causing_horse"
+      ],
+      "publication": "post-race; may update",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "manual official review or licensed provider after permission decision",
+      "formal": false
+    },
+    {
+      "id": "97",
+      "name": "複数の好転材料の重なり",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "98",
+      "name": "潜在能力を発揮できる可能性",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "99",
+      "name": "過去の好走の再現性",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "100",
+      "name": "今回の勝ち切り可能性",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-01",
+      "name": "着順と着差のギャップ",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-02",
+      "name": "着順と過去走内容のギャップ",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-03",
+      "name": "道中後退からの巻き返し",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-04",
+      "name": "強い相手との僅差敗戦",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-05",
+      "name": "対戦相手の後続実績",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-06",
+      "name": "前走の展開不利の解消",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-07",
+      "name": "得意距離・条件への復帰",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-08",
+      "name": "コース変更による適性向上",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-09",
+      "name": "先行馬占有率による恩恵",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-10",
+      "name": "逃げハサミによる恩恵",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-11",
+      "name": "同型馬の減少",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-12",
+      "name": "想定隊列による位置取り改善",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-13",
+      "name": "着順に表れていない能力上昇",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-14",
+      "name": "転入・クラス変更による相手弱化",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    },
+    {
+      "id": "EYE-15",
+      "name": "複数の条件好転の組み合わせ",
+      "source_key": "derived",
+      "official_url": {
+        "JRA": "verified official rows only",
+        "LOCAL": "verified official rows only"
+      },
+      "format": "DERIVED_TYPED_OBSERVATION",
+      "direct_fields": [
+        "derived_only"
+      ],
+      "publication": "all dependencies must precede target cutoff",
+      "correction_rule": "retain immutable raw versions; select latest version published before target cutoff",
+      "identity": "issuer + event ID + official native horse ID + row pointer; name-only forbidden",
+      "rights": {
+        "public_view": "route identified",
+        "acquire": "UNRESOLVED_FOR_AUTOMATION",
+        "retain": "UNRESOLVED",
+        "external_ai": "UNRESOLVED",
+        "publish_derived": "UNRESOLVED",
+        "commercial": "UNRESOLVED"
+      },
+      "unavailable_rule": "MISSING; never infer an official measurement",
+      "lawful_alternative": "derive only from admitted typed official observations",
+      "formal": false
+    }
+  ]
+}
