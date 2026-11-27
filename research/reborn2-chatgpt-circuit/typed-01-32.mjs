@@ -29,6 +29,11 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
   put('05','DISPLAY_CLOCK',{race_id:g.record.race_id,tenths:f.clock_tenths},[g]);
   traceRead({consumer:'analyzeTyped01to32.work22PartialClock',consumer_item_id:'05',horse_no:h.horse_no,item_id:'05',value:{race_id:g.record.race_id,tenths:f.clock_tenths},reason:'Read actual producer historical clock only; no full result or ability conclusion'});
  }
+ if(target.work22_partial_clock===true){
+  if(!fictional||accepted.some(g=>g.record.kind!=='WORK22_FINISH_CLOCK'||g.record.work22_validated_partial!==true))throw Error('WORK22_PARTIAL_SCOPE');
+  for(const id of ids)if(!items[id].observations.length)unknown(id,'WORK22_REQUIRED_MATERIAL_NOT_PROVIDED');
+  return {horse_no:h.horse_no,horse_id:h.horse_id,items};
+ }
  for(const g of results){
  const f=g.record.fact,r=g.record.race_id;
  put('02',fictional?'FIXTURE_FINISH_STATE':'OFFICIAL_START_STATE',{race_id:r,start_status:f.start_status,finish:f.finish,field_size:f.field_size??null},[g]);
