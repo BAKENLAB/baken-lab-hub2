@@ -1,0 +1,2165 @@
+{
+  "version": "1.2",
+  "stage": 15,
+  "scope": "DERIVED_RESEARCH_METADATA_ONLY",
+  "acceptance": "ded296af7ce775f1064c753b28bd3104add720de",
+  "parent": "2c904e5cdc96656e5155e675b6fa22ac0411f2a3",
+  "observed_date_jst": "2026-11-27",
+  "verified_observed_at": null,
+  "publication_at": null,
+  "formal_admissions": 0,
+  "scoring_authorized": false,
+  "permission": "NOT_CLEARED",
+  "production_changes": false,
+  "originals_unchanged": true,
+  "zip": {
+    "filename": "REBORN2-stage14-corrected-research-v1.zip",
+    "sha256": "3f50eb331edd832c7713a3803f0c9f068cf1bee8160a56e41f868bc5e85e8284",
+    "manifest_sha256": "6435a407adc5837f449df567575332c36c7402b031eac88f91add645f118faa8",
+    "file_count": 17,
+    "storage": "conversation attachment; no raw official HTML or original source redistribution in GitHub",
+    "member_hashes": [
+      {
+        "file": "stage14_ACCEPTANCE_9ffbec4_RECEIPT.json",
+        "sha256": "b8fa6221c76a030881c5400b4709dd4d972aa1e2008d572a2585eece403cd29a"
+      },
+      {
+        "file": "stage14_JRA_JAPAN_CUP_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+        "sha256": "f9c70b8fd3dd40acf66b321e66f2e5591612dbd4633f80d9ee9f7dabb1a92e5e"
+      },
+      {
+        "file": "stage14_LOCAL_URAWA11_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+        "sha256": "18338571f238986f58b828e041d4054d5f2ad291a003998a79a60c00ee3e9bb3"
+      },
+      {
+        "file": "stage14_OFFICIAL_PERSON_RESULT_ROW_JOINS_V1.json",
+        "sha256": "2cb9b58c4602ba806937f030cca69e09047e73315490109f3687330415f649b9"
+      },
+      {
+        "file": "stage14_PERMISSION_STATUS_JRA_NAR_V1.json",
+        "sha256": "bb89f25f19e1bb46151790b83323b977f9fa06c3a4b2c29d736afa932606faa5"
+      },
+      {
+        "file": "stage14_STAGE10_MANIFEST_V2.json",
+        "sha256": "287b8e48b90513df7078a16b58d34c74ad51db40936b3b91e0b990c15cf1ecb9"
+      },
+      {
+        "file": "stage14_LOCAL30_CURRENT_OBSERVATION_V1.json",
+        "sha256": "ca4c130d5b4e82552359985a0e336c56247390a8968852fae259d2a64315f9f4"
+      },
+      {
+        "file": "stage14_LOCAL30_REPRODUCTION_AUDIT_V1.json",
+        "sha256": "2f57a0c8e56b12450d311536dae1c3402a1d2ebfee0ceb6c7b5a5def224e0470"
+      },
+      {
+        "file": "stage14_CODEX_LONG_TERM_CLOCK_INPUT_CONTRACT_V1.json",
+        "sha256": "fd6b964cb6a646556bd9aa399b21a8bf2d2d339c83ea3e219833b4196bedbb63"
+      },
+      {
+        "file": "stage14_LONG_TERM_BENCHMARK_PRIORITY_RESEARCH_V3.json",
+        "sha256": "755654ed09157b1746eea033fcdd4b16fba541c2ca4318c4df69cc428011a472"
+      },
+      {
+        "file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c"
+      },
+      {
+        "file": "stage14_JRA_88_PRIORITY_GROUPS_DISTRIBUTION_V1.json",
+        "sha256": "841ea780e5af87f9cbb88408c830f93dbe7e495b04b46d1e17978e2d88329ce2"
+      },
+      {
+        "file": "stage14_FORMAL_ADOPTION_EVIDENCE_GATES_V3.json",
+        "sha256": "ba63574daea3add8b06b8617bae2c81cfe23e54da04d72ef320521407ac75f1a"
+      },
+      {
+        "file": "stage14_FORMAL_ADOPTION_EVIDENCE_GATES_V3.csv",
+        "sha256": "2f25d1fb94faa9d117a3dad1b4b75bb527058bd7e92281937ac15e0b70e3fc25"
+      },
+      {
+        "file": "stage14_CODEX_LOCAL30_REPRODUCED_INPUT_CONTRACT_V2.json",
+        "sha256": "f10392396b7cd5161168fa976c3b9ffb47dc53f317c27e9bb7ea2bfce0d2fe56"
+      },
+      {
+        "file": "stage14_priority_118_gates.json",
+        "sha256": "78dfd5f75c837e1b96422083cdf8a020a6c6ee2e3a0a73a5a1a4ddffeb32de26"
+      }
+    ],
+    "integrity_verified": true,
+    "member_hash_matches": 16,
+    "original_pack_hashes_verified": 4
+  },
+  "source_contract": {
+    "time_receipt_blob": "a5533344b0e496f3b5f1741f10ffce85f830fd48",
+    "historical_correction_blob": "cb51392b9e2c9dad125a6a3d40ed452d74c77bc8",
+    "local_independent_derived_audit_sha256": "099808578c6aca31e01ac01b16c27c3fe630da494941d7ebf1e1d99bf62e5585",
+    "local_audit_contains_all_137_relations": true,
+    "raw_official_data_redistributed": false
+  },
+  "time_patch_contract": {
+    "original_members": 12,
+    "pointers": 52,
+    "independent_old_value_and_new_null_matches": 52,
+    "patches": [
+      {
+        "original_file": "ACCEPTANCE_9ffbec4_RECEIPT.json",
+        "original_sha256": "f42282e198ffcdde9b85c863d9a061805e06e08022df7fcb1a0fb9bc1417a318",
+        "corrected_file": "stage14_ACCEPTANCE_9ffbec4_RECEIPT.json",
+        "corrected_sha256": "b8fa6221c76a030881c5400b4709dd4d972aa1e2008d572a2585eece403cd29a",
+        "pointer": "/reviewed_at_jst",
+        "expected_old": "2026-11-27T17:00:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "JRA_JAPAN_CUP_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+        "original_sha256": "0fb1e34931eb4dd53e89b222b8f25a3c756d3557d8906553c0ef05ea3886f22e",
+        "corrected_file": "stage14_JRA_JAPAN_CUP_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+        "corrected_sha256": "f9c70b8fd3dd40acf66b321e66f2e5591612dbd4633f80d9ee9f7dabb1a92e5e",
+        "pointer": "/observed_at_jst",
+        "expected_old": "2026-11-27T17:00:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "LOCAL_URAWA11_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+        "original_sha256": "263e4ee30c87e4c129bfc26bff26f63baae9aef4d99fcd329eb9de9dd9aa90d1",
+        "corrected_file": "stage14_LOCAL_URAWA11_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+        "corrected_sha256": "18338571f238986f58b828e041d4054d5f2ad291a003998a79a60c00ee3e9bb3",
+        "pointer": "/evidence_observed_at_jst",
+        "expected_old": "2026-11-27T17:00:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "OFFICIAL_PERSON_RESULT_ROW_JOINS_V1.json",
+        "original_sha256": "9dea3b3cc66dac1a704b5f2de18aeebcf9d53d0c6bb2bb5b1ede846d0ba96725",
+        "corrected_file": "stage14_OFFICIAL_PERSON_RESULT_ROW_JOINS_V1.json",
+        "corrected_sha256": "2cb9b58c4602ba806937f030cca69e09047e73315490109f3687330415f649b9",
+        "pointer": "/generated_at_jst",
+        "expected_old": "2026-11-27T17:30:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "PERMISSION_STATUS_JRA_NAR_V1.json",
+        "original_sha256": "7375de1e74e79c75ca31d4ab4935ac70869791abdf53d02633930eef6530fe8d",
+        "corrected_file": "stage14_PERMISSION_STATUS_JRA_NAR_V1.json",
+        "corrected_sha256": "bb89f25f19e1bb46151790b83323b977f9fa06c3a4b2c29d736afa932606faa5",
+        "pointer": "/observed_at_jst",
+        "expected_old": "2026-11-27T17:00:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "STAGE10_MANIFEST_V2.json",
+        "original_sha256": "b4d4e99920ec9791f982a2e6c0a57946fc0334d0439d6052c00ca33d716bb349",
+        "corrected_file": "stage14_STAGE10_MANIFEST_V2.json",
+        "corrected_sha256": "287b8e48b90513df7078a16b58d34c74ad51db40936b3b91e0b990c15cf1ecb9",
+        "pointer": "/created_at_jst",
+        "expected_old": "2026-11-27T17:00:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "LOCAL30_CURRENT_OBSERVATION_V1.json",
+        "original_sha256": "3d0134753002a3add2082f04d6914acddd8721a866fddae365734473af6c6dad",
+        "corrected_file": "stage14_LOCAL30_CURRENT_OBSERVATION_V1.json",
+        "corrected_sha256": "ca4c130d5b4e82552359985a0e336c56247390a8968852fae259d2a64315f9f4",
+        "pointer": "/observed_at_jst",
+        "expected_old": "2026-11-27T15:30:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "LOCAL30_REPRODUCTION_AUDIT_V1.json",
+        "original_sha256": "50d5acd80fe0378bdfe933e26d9f80759a41b4e0049bd83c35f0bc196526fee3",
+        "corrected_file": "stage14_LOCAL30_REPRODUCTION_AUDIT_V1.json",
+        "corrected_sha256": "2f57a0c8e56b12450d311536dae1c3402a1d2ebfee0ceb6c7b5a5def224e0470",
+        "pointer": "/generated_at_jst",
+        "expected_old": "2026-11-27T16:20:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "CODEX_LONG_TERM_CLOCK_INPUT_CONTRACT_V1.json",
+        "original_sha256": "6a0ab61554ac8c64733003b28bc638ea7d133d2092f96eaa7172e5df78632c6f",
+        "corrected_file": "stage14_CODEX_LONG_TERM_CLOCK_INPUT_CONTRACT_V1.json",
+        "corrected_sha256": "fd6b964cb6a646556bd9aa399b21a8bf2d2d339c83ea3e219833b4196bedbb63",
+        "pointer": "/generated_at_jst",
+        "expected_old": "2026-11-27T07:30:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "LONG_TERM_BENCHMARK_PRIORITY_RESEARCH_V3.json",
+        "original_sha256": "c496651a9e01b4fa67818762170224cef46ae5bb3771507b4be8cb40265e36a1",
+        "corrected_file": "stage14_LONG_TERM_BENCHMARK_PRIORITY_RESEARCH_V3.json",
+        "corrected_sha256": "755654ed09157b1746eea033fcdd4b16fba541c2ca4318c4df69cc428011a472",
+        "pointer": "/generated_at_jst",
+        "expected_old": "2026-11-27T07:30:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/generated_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/0/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/1/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/2/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/3/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/4/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/5/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/6/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/7/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/8/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/9/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/10/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/11/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/12/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/13/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/14/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/15/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/16/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/17/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/18/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/19/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/20/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/21/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/22/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/23/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/24/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/25/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/26/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/27/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/28/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/29/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/30/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/31/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/32/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/33/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/34/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/35/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/36/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/37/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/38/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "ARTIFACT_MANIFEST_V3.json",
+        "original_sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "corrected_file": "stage14_ARTIFACT_MANIFEST_V3.json",
+        "corrected_sha256": "b06f8061f2c3ca2b09b0d84c58e61e3e939d622028f91bb0611b73049674827c",
+        "pointer": "/files/39/observed_at_jst",
+        "expected_old": "2026-11-27T07:45:00+09:00",
+        "replacement": null
+      },
+      {
+        "original_file": "JRA_88_PRIORITY_GROUPS_DISTRIBUTION_V1.json",
+        "original_sha256": "b8b26c6eccdd711809d7228e9c57fbb05478e6f8a0c4c9f0630114fcd41ebc7e",
+        "corrected_file": "stage14_JRA_88_PRIORITY_GROUPS_DISTRIBUTION_V1.json",
+        "corrected_sha256": "841ea780e5af87f9cbb88408c830f93dbe7e495b04b46d1e17978e2d88329ce2",
+        "pointer": "/generated_at_jst",
+        "expected_old": "2026-11-27T07:20:00+09:00",
+        "replacement": null
+      }
+    ],
+    "load_policy": "Only pinned corrected hashes and explicit research source type may be loaded. Original hashes, unknown hashes, duplicate correction, missing or non-null corrected fields are rejected. Reported time is never a verified time."
+  },
+  "gate_contract": {
+    "groups": 118,
+    "unique": 118,
+    "JRA": 88,
+    "LOCAL": 30,
+    "required_flags": [
+      "course_version_verified",
+      "eligibility_verified",
+      "historical_publication_verified",
+      "capture_time_verified",
+      "permission_cleared",
+      "benchmark_admitted",
+      "scoring_authorized"
+    ],
+    "expected_values": {
+      "course_version_verified": false,
+      "eligibility_verified": false,
+      "historical_publication_verified": false,
+      "capture_time_verified": false,
+      "permission_cleared": false,
+      "benchmark_admitted": false,
+      "scoring_authorized": false
+    },
+    "verified_flag_values": 826,
+    "unknown_missing_flag_reject": true,
+    "formal_class_and_source_version_independently_required": true,
+    "old_xlsx": "HISTORICAL_ONLY",
+    "all_formal_disabled": true
+  },
+  "jc_contract": {
+    "horse_rows": 18,
+    "publication": {
+      "outcard_observed_before_race": false,
+      "verified_published_at": null
+    },
+    "course": {
+      "officially_observed_before_race": false
+    },
+    "per_horse": {
+      "official_outcard_row_observed": null,
+      "reported_official_outcard_row_observed": true,
+      "verified_capture_at": null,
+      "jra_native_horse_id": null
+    },
+    "note": "Applies to stage14 invalidated capture only; stage15 fresh text observation separate and not native ID or verified publication."
+  },
+  "historical_runner_contract": {
+    "rows": [
+      {
+        "evidence_id": "LOCAL:2026-03-11:船橋:11:1",
+        "target_runner_no": 1,
+        "historical_runner_no": 2,
+        "source_sha256": "6d114ad34a62e6265ed27510451dc4fc35e33cd4eec797b6f6446b2d91b9b89a",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-10-28:大井:11:2",
+        "target_runner_no": 2,
+        "historical_runner_no": 4,
+        "source_sha256": "79e6cc354ee237265280426f0dcbf500977a49a33d4d261b5d21e8c08e68d0c8",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-11-08:盛岡:11:3",
+        "target_runner_no": 3,
+        "historical_runner_no": 1,
+        "source_sha256": "51182143d02ba93a4332302ceea1bfe7d987be6f8c5055986b2668300f7f34a8",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-09-10:川崎:10:4",
+        "target_runner_no": 4,
+        "historical_runner_no": 4,
+        "source_sha256": "ea5905396dc8d22dc051992a07b575f3ee3a25783fdc009dc7dc8d8ec2c6100c",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-11-03:船橋:11:5",
+        "target_runner_no": 5,
+        "historical_runner_no": 7,
+        "source_sha256": "e8930de798a969f69d0140c508b926b4d4d280bff42d211825cc9415a380a28b",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2025-09-02:盛岡:10:6",
+        "target_runner_no": 6,
+        "historical_runner_no": 11,
+        "source_sha256": "3093301bec2a2ea61821dcedddb6cf04565d347b4e3b6ae4962a4118808850c9",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-11-10:川崎:11:7",
+        "target_runner_no": 7,
+        "historical_runner_no": 7,
+        "source_sha256": "3114fb83124760273e081a2ff5da5cf16718c06f6148d13ae7db75155da3d5b6",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-10-07:大井:11:9",
+        "target_runner_no": 9,
+        "historical_runner_no": 15,
+        "source_sha256": "320f19e36f9971e4d4147fb6d3a89e044237e7cd614f60d16d8cc43e500f177d",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2025-12-29:大井:9:1",
+        "target_runner_no": 1,
+        "historical_runner_no": 3,
+        "source_sha256": "6e7e75822ad33ae315e4da6bf66faf36909aaf5c63f2924cc6d7d6d1286227f9",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2025-10-08:大井:11:1",
+        "target_runner_no": 1,
+        "historical_runner_no": 5,
+        "source_sha256": "aaad6aee02336f43b3bb001970d677ff59071b9aa5f8074069745db7ff335205",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-10-21:浦和:11:2",
+        "target_runner_no": 2,
+        "historical_runner_no": 2,
+        "source_sha256": "3bceb67ae023661a5020678940d48e1a4e0a04981d5573ff559715e644272712",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-07-22:大井:11:2",
+        "target_runner_no": 2,
+        "historical_runner_no": 9,
+        "source_sha256": "4f87b9ede2cef134acb7da4d3d8185ea5f3871a10790ff4b2edbbe112ea6b374",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-07-20:盛岡:12:3",
+        "target_runner_no": 3,
+        "historical_runner_no": 2,
+        "source_sha256": "5efa79faa7d1cd93f71a5ffce37d691d599b33580e01a1a4c83974f6e07f80ec",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-06-21:水沢:11:3",
+        "target_runner_no": 3,
+        "historical_runner_no": 9,
+        "source_sha256": "8376eab9b7254bb0cf30b891ac76e9577200f28d5900a4ff39f2089bdb7ab107",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-08-28:船橋:11:4",
+        "target_runner_no": 4,
+        "historical_runner_no": 3,
+        "source_sha256": "df2ac2b392bb5761ee574ff62cf7c931efb04dceb9ad1687e1592e4b621572b4",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-07-15:浦和:12:4",
+        "target_runner_no": 4,
+        "historical_runner_no": 4,
+        "source_sha256": "31e167b27529076caa007234763ad1437dfbe89e7ecd055fd66c8e5506821a5f",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-10-22:浦和:11:5",
+        "target_runner_no": 5,
+        "historical_runner_no": 6,
+        "source_sha256": "a076009f1b7f10c1721ff3841e2193e85146c371c2c645d8044a293f51fffb23",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-09-09:川崎:11:5",
+        "target_runner_no": 5,
+        "historical_runner_no": 2,
+        "source_sha256": "6cb2a983fa6e3b2d1015c8b3ee56b22c962109cd2a76ffc7ee24a27617ecc314",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-10-21:浦和:11:7",
+        "target_runner_no": 7,
+        "historical_runner_no": 5,
+        "source_sha256": "3bceb67ae023661a5020678940d48e1a4e0a04981d5573ff559715e644272712",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-09-30:船橋:11:7",
+        "target_runner_no": 7,
+        "historical_runner_no": 5,
+        "source_sha256": "fdecc51d963f3d62ad5b94abd0081f614e88b9534abe9c9dbc1ce9fce4acdef9",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      },
+      {
+        "evidence_id": "LOCAL:2026-09-01:盛岡:10:9",
+        "target_runner_no": 9,
+        "historical_runner_no": 2,
+        "source_sha256": "015dc82e46134fb66f23912bfb102eb35f727885554b7182af5194e9cef6b805",
+        "verified_acquired_at": null,
+        "formal_admission": false
+      }
+    ],
+    "raw_rendered_dom_reparsed": 21,
+    "same_row_horse_jockey_trainer_ids_match": 21,
+    "changed_runner_number": 17,
+    "rule": "Keep evidence_id unchanged; suffix is target number only. Never use target number to bind historical incident. Require race, source hash and same row native ID. Person registration validity remains unknown."
+  },
+  "peer_chronology": {
+    "source_ledger_sha256": "3a1f367f08e7d0c75ea61a16ecb492cf9b047c4f9dac053d26ebc7927aae9e9d",
+    "old": 34,
+    "new": 31,
+    "unique_events": 65,
+    "unique_races": 49,
+    "source_peer_horses": 17,
+    "relations": [
+      {
+        "peer_id": "30007404886",
+        "later_race": "LOCAL:2026-10-16:川崎:11",
+        "reference_race": "LOCAL:2026-09-10:川崎:10",
+        "reference_subject_id": "30036405496",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30011400966",
+        "later_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_race": "LOCAL:2026-10-21:浦和:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30013403596",
+        "later_race": "JRA:2025-12-07:中京:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30013403596",
+        "later_race": "JRA:2026-05-23:京都:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30013403596",
+        "later_race": "LOCAL:2025-10-08:大井:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30013403596",
+        "later_race": "LOCAL:2025-12-29:大井:9",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30013403596",
+        "later_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2025-11-26:浦和:11",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2025-11-26:浦和:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2025-11-26:浦和:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2025-11-26:浦和:11",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2025-12-29:大井:9",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2025-12-29:大井:9",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2025-12-29:大井:9",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2025-12-29:大井:9",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-04-07:名古屋:10",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-04-07:名古屋:10",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-04-07:名古屋:10",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-04-07:名古屋:10",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-05-20:大井:11",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-05-20:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-05-20:大井:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-05-20:大井:11",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-07-01:大井:11",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-07-01:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-07-01:大井:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-07-01:大井:11",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30015407796",
+        "later_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022406496",
+        "later_race": "LOCAL:2026-08-03:盛岡:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022406496",
+        "later_race": "LOCAL:2026-08-03:盛岡:11",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022408596",
+        "later_race": "JRA:2025-11-30:京都:10",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022408596",
+        "later_race": "JRA:2025-12-21:阪神:10",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022408596",
+        "later_race": "JRA:2026-03-22:阪神:10",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022408596",
+        "later_race": "JRA:2026-04-18:阪神:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022408596",
+        "later_race": "LOCAL:2026-05-04:名古屋:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-10-07:大井:11",
+        "reference_race": "LOCAL:2026-09-01:盛岡:10",
+        "reference_subject_id": "30015407007",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-10-07:大井:11",
+        "reference_race": "LOCAL:2026-10-07:大井:11",
+        "reference_subject_id": "30015407007",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-10-07:大井:11",
+        "reference_race": "LOCAL:2026-11-08:盛岡:11",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-11-08:盛岡:11",
+        "reference_race": "LOCAL:2026-09-01:盛岡:10",
+        "reference_subject_id": "30015407007",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-11-08:盛岡:11",
+        "reference_race": "LOCAL:2026-10-07:大井:11",
+        "reference_subject_id": "30015407007",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-11-08:盛岡:11",
+        "reference_race": "LOCAL:2026-11-08:盛岡:11",
+        "reference_subject_id": "30054405596",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-11-23:水沢:12",
+        "reference_race": "LOCAL:2026-09-01:盛岡:10",
+        "reference_subject_id": "30015407007",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-11-23:水沢:12",
+        "reference_race": "LOCAL:2026-10-07:大井:11",
+        "reference_subject_id": "30015407007",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30022409707",
+        "later_race": "LOCAL:2026-11-23:水沢:12",
+        "reference_race": "LOCAL:2026-11-08:盛岡:11",
+        "reference_subject_id": "30054405596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30042403196",
+        "later_race": "LOCAL:2026-04-02:船橋:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30042403196",
+        "later_race": "LOCAL:2026-04-02:船橋:11",
+        "reference_race": "LOCAL:2026-08-28:船橋:11",
+        "reference_subject_id": "30036405496",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2025-10-19:盛岡:12",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2025-11-09:金沢:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2025-11-30:水沢:12",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2025-12-31:水沢:12",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2026-04-14:水沢:12",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2026-05-24:盛岡:12",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2026-06-21:水沢:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30054405596",
+        "later_race": "LOCAL:2026-11-08:盛岡:11",
+        "reference_race": "LOCAL:2025-09-02:盛岡:10",
+        "reference_subject_id": "30022409096",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "JRA:2025-11-15:京都:10",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "JRA:2025-11-15:京都:10",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2025-12-09:船橋:11",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2025-12-09:船橋:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2026-01-02:川崎:11",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2026-01-02:川崎:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2026-01-28:大井:11",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2026-01-28:大井:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2026-04-02:船橋:12",
+        "reference_race": "LOCAL:2025-10-08:大井:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30058408796",
+        "later_race": "LOCAL:2026-04-02:船橋:12",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30064405366",
+        "later_race": "LOCAL:2026-05-04:名古屋:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30064405366",
+        "later_race": "LOCAL:2026-09-22:金沢:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30064405366",
+        "later_race": "LOCAL:2026-11-03:金沢:9",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-04-08:川崎:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-04-08:川崎:11",
+        "reference_race": "LOCAL:2026-06-21:水沢:11",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-04-08:川崎:11",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-05-24:盛岡:12",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-05-24:盛岡:12",
+        "reference_race": "LOCAL:2026-06-21:水沢:11",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-05-24:盛岡:12",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-06-21:水沢:11",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-06-21:水沢:11",
+        "reference_race": "LOCAL:2026-06-21:水沢:11",
+        "reference_subject_id": "30054405596",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-06-21:水沢:11",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_race": "LOCAL:2026-03-11:船橋:11",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_race": "LOCAL:2026-06-21:水沢:11",
+        "reference_subject_id": "30054405596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30068409786",
+        "later_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_race": "LOCAL:2026-07-20:盛岡:12",
+        "reference_subject_id": "30054405596",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-02-04:川崎:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-02-04:川崎:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-02-04:川崎:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-02-17:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-02-17:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-02-17:大井:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-04-16:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-04-16:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-04-16:大井:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-04-23:浦和:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-04-23:浦和:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-04-23:浦和:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-06-18:川崎:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-06-18:川崎:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-06-18:川崎:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-07-22:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-07-22:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-07-22:大井:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-08-04:船橋:9",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-08-04:船橋:9",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-08-04:船橋:9",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-08-26:船橋:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-08-26:船橋:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-08-26:船橋:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-09-16:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-09-16:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-09-16:大井:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30076401076",
+        "later_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_race": "LOCAL:2026-11-10:川崎:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30085406656",
+        "later_race": "LOCAL:2026-10-28:大井:11",
+        "reference_race": "LOCAL:2026-10-21:浦和:11",
+        "reference_subject_id": "30011400966",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30097406476",
+        "later_race": "LOCAL:2026-04-08:川崎:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30097406476",
+        "later_race": "LOCAL:2026-05-04:名古屋:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "30097406476",
+        "later_race": "LOCAL:2026-07-01:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40031405986",
+        "later_race": "LOCAL:2026-10-28:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40031405986",
+        "later_race": "LOCAL:2026-10-28:大井:11",
+        "reference_race": "LOCAL:2026-10-28:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-04-28:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-04-28:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-04-28:大井:11",
+        "reference_race": "LOCAL:2026-10-28:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-05-20:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-05-20:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-05-20:大井:11",
+        "reference_race": "LOCAL:2026-10-28:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-07-02:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-07-02:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-07-02:大井:11",
+        "reference_race": "LOCAL:2026-10-28:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-07-22:大井:11",
+        "reference_race": "LOCAL:2025-12-29:大井:9",
+        "reference_subject_id": "30013403596",
+        "date_order": "AFTER_DATE_ONLY",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-07-22:大井:11",
+        "reference_race": "LOCAL:2026-07-22:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "SAME_EVENT",
+        "verified_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "peer_id": "40091400866",
+        "later_race": "LOCAL:2026-07-22:大井:11",
+        "reference_race": "LOCAL:2026-10-28:大井:11",
+        "reference_subject_id": "30085406656",
+        "date_order": "BEFORE_REFERENCE",
+        "verified_publication_at": null,
+        "formal_usable": false
+      }
+    ],
+    "counts": {
+      "AFTER_DATE_ONLY": 84,
+      "BEFORE_REFERENCE": 41,
+      "SAME_EVENT": 12
+    },
+    "roots_both_before_and_after": 28,
+    "relation_rule": "Same horse/race root may serve multiple hypotheses, never independent duplicate support. AFTER_DATE_ONLY does not prove verified prestart publication or comparative condition. Earlier race and same event not later evidence. Same day missing timestamp blocked."
+  },
+  "new_official_research": {
+    "dubai_2026": {
+      "race": "ERA:2026-03-28:Meydan:8",
+      "sources": [
+        {
+          "url": "https://emiratesracing.com/racecard/2026-03-28/8/results",
+          "going": "Good",
+          "stage": "EXTRACTED_BODY"
+        },
+        {
+          "url": "https://jra.jp/news/202603/pdf/032903_02.pdf",
+          "going": "良",
+          "stage": "PDF_TEXT_AND_PAGE_0_IMAGE",
+          "field": 6
+        },
+        {
+          "url": "https://japanracing.jp/en/japancup/news_results/news2026/pdf/261126.pdf",
+          "going": "Good",
+          "page_indexes": [
+            42,
+            77
+          ],
+          "stage": "PDF_PAGE_IMAGES_BOTH_HORSES"
+        }
+      ],
+      "old_going_literal": "Good to Firm",
+      "status": "OLD_RESEARCH_LITERAL_NOT_REPRODUCED; CURRENT_ERA_AND_BOTH_BOOKLET_ROWS_AGREE_GOOD; JRA_RESULT_JAPANESE_GOOD_CATEGORY; OLD_VERSION_OR_TRANSCRIPTION_UNKNOWN",
+      "comparison": {
+        "distance_m": 2410,
+        "surface": "turf",
+        "winner": "CALANDAGAN",
+        "peer": "ETHICAL DIAMOND",
+        "finish_pair": [
+          1,
+          5
+        ],
+        "carried_weight_kg": [
+          57,
+          57
+        ],
+        "winner_time_seconds": 147.88,
+        "peer_individual_time_seconds": null,
+        "peer_margin_behind_winner_lengths": 6.85,
+        "runner_numbers": [
+          1,
+          2
+        ],
+        "draws": [
+          2,
+          6
+        ],
+        "organizer_url": "https://dubairacingclub.com/race-result/?date=2026-03-28",
+        "stage": "JRA_RESULT_PDF_AND_DRC_BODY_AGREE_FINISH; JRA_RUNNER_NUMBERS_DISTINCT_FROM_DRC_GATE; not native card joins"
+      },
+      "raw_sha256": null,
+      "publication_at": null
+    },
+    "ethical_diamond": {
+      "issuer": "ERA",
+      "id": "h-76534",
+      "url": "https://emiratesracing.com/horses/h-76534",
+      "stage": "PROFILE_BODY_ATTRIBUTE_MATCH_WITH_JRA_BOOKLET_PAGE_75",
+      "attributes_matched": [
+        "name",
+        "country",
+        "age",
+        "sex",
+        "sire",
+        "dam",
+        "damsire",
+        "owner",
+        "breeder"
+      ],
+      "birth_from_jra_only": "2020-03-27",
+      "era_birth_verified": false,
+      "current_jra_native_id": null,
+      "source_raw_sha256": null,
+      "scope": "issuer scoped profile key only, no global ID; ERA 16 runs vs JRA 20 starts not equivalent, no valid-period inference",
+      "repeat_fetch": "TIMEOUT"
+    },
+    "tokyo_course": {
+      "url": "https://www.jra.go.jp/keiba/baba/overview/2026_4-5_tokyo.html",
+      "geometry_m": [
+        1899,
+        501.6,
+        25
+      ],
+      "sand_cm": 9,
+      "maintenance": "sand washed and roadbed inspected/partially repaired after meeting 3",
+      "stage": "OFFICIAL_TEXT_BODY",
+      "overview_documents_total": 9,
+      "meeting_number_coverage": 15,
+      "priority_256_race_join_verified": 0,
+      "publication_at": null
+    }
+  },
+  "unresolved": {
+    "nar_unmatched": 163,
+    "nar_cached_pending_raw": 8,
+    "nar_all_raw_pending": 171,
+    "old_result_body_pending": 19,
+    "old_result_raw_pending": 21,
+    "current_jc_native_horse_ids": 0,
+    "current_jc_person_ids": 0,
+    "person_valid_periods": "UNVERIFIED",
+    "formal_benchmark_groups": 0,
+    "permission_inquiries_sent": 0,
+    "nar_new_direct_requests": 0,
+    "codex_runtime_integration": false
+  },
+  "acceptance_test_requirements": [
+    "exact source hash check; reject stale originals and unknown source types",
+    "all 52 pointers null; 12 unique originals; refuse applying twice",
+    "all 118 unique groups with 7 exact false flags; reject missing and any true flag",
+    "JC 18 rows require null capture and false prestart flags",
+    "21 historical number rows match source reparse; wrong historical number rejected",
+    "all 137 relationships recomputed from 65 roots; no same-event or earlier event promotion",
+    "publication unknown stays unverified; no official data or ranking publication"
+  ]
+}
