@@ -1,7 +1,7 @@
 name: Work43 offline evidence research
 on:
-  push:
-    branches: [research/reborn2-work43-official-intake-20261128]
+  pull_request:
+    branches: [research/reborn2-work42-final-supply-20261128]
     paths:
       - 'research/reborn2-work43/**'
       - '.github/workflows/reborn2-work43.yml'
@@ -9,11 +9,13 @@ permissions:
   contents: read
 jobs:
   offline:
+    if: github.event.pull_request.head.ref == 'research/reborn2-work43-official-intake-20261128'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
