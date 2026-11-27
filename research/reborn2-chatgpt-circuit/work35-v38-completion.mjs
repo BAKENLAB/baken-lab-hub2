@@ -46,7 +46,7 @@ export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,
  const historicalBranches=observed.map(s=>({id:'OBS:'+s.id,checkpoint_m:s.checkpoint_m,response_event:s.event,starts:targetStarts(s.starts)}));
  // A named stress scenario refers to specific horses and cannot be reused
  // when any of those participants is absent from the target card.
- const applicableTemplates=branches35(f).filter(b=>Object.keys(b.starts).every(h=>targetSlots.has(h)));
+ const applicableTemplates=V.C.genericNoTemplates?[]:branches35(f).filter(b=>Object.keys(b.starts).every(h=>targetSlots.has(h)));
  const branches=[...applicableTemplates,...historicalBranches];
  // Optional, explicitly hypothetical gap-width contrast. No current observations
  // are created. All eligible 800m vectors receive the same scale grid.
