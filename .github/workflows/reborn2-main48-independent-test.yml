@@ -37,3 +37,36 @@ jobs:
         with:
           name: reborn2-practical-test01
           path: ${{ runner.temp }}/test01.log
+
+  test01-negative:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 5ffaba5d8a8d5892adb2b2721092d1e3a4984842
+          path: fixed-codex02
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test01 result and identity negative controls
+        shell: bash
+        run: |
+          set +e
+          node research/reborn2-independent-tests/probe-practical-test01-negative.mjs fixed-codex02 5ffaba5d8a8d5892adb2b2721092d1e3a4984842 > "$RUNNER_TEMP/test01-negative.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/test01-negative.log"
+          echo "TEST01_NEGATIVE_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-practical-test01-negative
+          path: ${{ runner.temp }}/test01-negative.log
