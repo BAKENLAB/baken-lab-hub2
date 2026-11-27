@@ -1,0 +1,65 @@
+{
+  "schema": "WORK23_HANDOFF_VALIDATION_PART1",
+  "commit": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+  "checks": {
+    "new_named_27": true,
+    "previous_135_pinned": true,
+    "canonical115": true,
+    "all826": true,
+    "circuit_counts": true,
+    "legacy_reconstruction": true,
+    "fixture_bytes_match": true,
+    "actual_log_matches": true
+  },
+  "source_pins": [
+    {
+      "name": "stage23-producer-v0.2.1.mjs",
+      "ref": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+      "blob": "feb966cc4052c18eb451e27695c110bc66b1863a",
+      "sha256": "bd0df5cdcd8bd7acd2786c98effc477cca3e90781d0f1b3b986d8254b20ce71f"
+    },
+    {
+      "name": "stage23-producer-execution-v0.2.1.json",
+      "ref": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+      "blob": "e060ba7ccec2356843ee748dbc86bae57a629b89",
+      "sha256": "fa64ae00de2776b5bd6a840b42dfb4464acd6087860fcd540cdd835904597ae1"
+    },
+    {
+      "name": "stage23-fixture-bundles-v0.2.1.json",
+      "ref": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+      "blob": "9fa86016cbe578868ff2d7b89df1cbdbbd46eb24",
+      "sha256": "6594e579e1f55aab6a2b26cf8f2dcfb79277b8d03d64baae23147cbef867c7e4"
+    },
+    {
+      "name": "stage23-work22-v0.1-reconstruction-verified.json",
+      "ref": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+      "blob": "d43ad7e4f7eb1285654022eeddcd52ee763335b0",
+      "sha256": "6904b3ce4a56e8c268cfe9f9a7fb767551c72e6b48b6f72987d8ec6335f09a1d"
+    },
+    {
+      "name": "stage22-custody-to-115-contract-v0.1.json",
+      "ref": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+      "blob": "7fff865e11517d6e6da74506cb3ad8175e584f88",
+      "sha256": null
+    },
+    {
+      "name": "stage22-handoff-execution-summary.json",
+      "ref": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+      "blob": "dc19e4de9fb835b4510826346d351cd3000a0486",
+      "sha256": "ea8874a7c28c72158485deefbe5aac254ccd112f17063390e90e3f11ba6d4025"
+    },
+    {
+      "name": "stage16-derived-row-receipt-v1.3.json",
+      "ref": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+      "blob": "476fe4470f4933210627dfd508c1660ff0792f70",
+      "sha256": null
+    },
+    {
+      "name": "stage22-additional-handoff-receipt-v0.1.json",
+      "ref": "c40bc4f6d8ae9c2bd38df25ecb0bd6e8d83569a0",
+      "blob": "86e7f292deb853e565d6b3618993fd221873639c",
+      "sha256": "3ecb6ea7791005d39e87c89d876212e1a34e1fea11b270940bd15846113a7642"
+    }
+  ],
+  "note": "Non-ASCII prior source JSON uses Git blob only because test SHA routine accepts ASCII byte strings. Actual producer files ASCII."
+}
