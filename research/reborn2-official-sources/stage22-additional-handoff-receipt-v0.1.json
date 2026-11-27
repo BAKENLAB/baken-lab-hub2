@@ -1,0 +1,92 @@
+{
+  "schema": "WORK22_ADDITIONAL_HANDOFF_RECEIPT_0.1",
+  "acceptance": "ab781584eeb4965bfb916e78803ef2333f5ad623",
+  "prior_work": "1efae1a4e75280eca62c705201aa6801f27524c4",
+  "source_pins": [
+    {
+      "path": "research/reborn2-official-sources/stage22_handoff_probe.py",
+      "ref": "0c65bf5ff6c9ddf05431b9e3169fc6652098407c",
+      "blob": "e4c6c945c29f71091c6100adf43d196576bd1376"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage22-custody-to-115-contract-v0.1.json",
+      "ref": "0c65bf5ff6c9ddf05431b9e3169fc6652098407c",
+      "blob": "7fff865e11517d6e6da74506cb3ad8175e584f88"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage22-handoff-execution-summary.json",
+      "ref": "0c65bf5ff6c9ddf05431b9e3169fc6652098407c",
+      "blob": "dc19e4de9fb835b4510826346d351cd3000a0486"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage22_probe.py",
+      "ref": "0c65bf5ff6c9ddf05431b9e3169fc6652098407c",
+      "blob": "c1761138bd9b9d6f4eb7eb53495a3fb5d590c724"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage21_offline_probe.py",
+      "ref": "0c65bf5ff6c9ddf05431b9e3169fc6652098407c",
+      "blob": "fa20296be3e441d8a33e492af402a39abb36fefc"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage22-final-research-receipt-v2.0.json",
+      "ref": "0c65bf5ff6c9ddf05431b9e3169fc6652098407c",
+      "blob": "0733afeaf1a024e89f2558f3f0af13753ed0cac7"
+    },
+    {
+      "path": "research/reborn2-official-sources/stage16-derived-row-receipt-v1.3.json",
+      "ref": "0c65bf5ff6c9ddf05431b9e3169fc6652098407c",
+      "blob": "476fe4470f4933210627dfd508c1660ff0792f70"
+    }
+  ],
+  "checks": {
+    "code_exact": true,
+    "summary_exact": true,
+    "contract_115": true,
+    "legacy_pinned": true,
+    "baseline110": true,
+    "new25": true,
+    "all826": true,
+    "group88_30": true,
+    "jra_local_positive": true,
+    "missing": true,
+    "held": true,
+    "correction": true,
+    "formal_zero": true
+  },
+  "execution": {
+    "legacy37": 37,
+    "v03_73": 73,
+    "additional25": 25,
+    "total135": 135,
+    "scope": "OFFLINE_SYNTHETIC_ONLY",
+    "local_code_sha256": "4d22d2c2d36dde3de7599f040c3de51a819fae5b5f1e1f83e6bd16b81e47dff6",
+    "full_stdout_sha256": "897793c36924692b90331c34951db7fe3fae147beb89182f2714d91fcba35751",
+    "full_stdout_bytes": 145405,
+    "summary_sha256": "ea8874a7c28c72158485deefbe5aac254ccd112f17063390e90e3f11ba6d4025",
+    "note": "Exact local Python code and derived execution summary with all named tests and representative evidence/status counts saved and read back; full raw stdout retained locally in execution environment, not committed; reproducible by running probe next to pinned stage22_probe.py. Prior 110 rerun on matching local code; previous logs preserved, no new duplicate log files."
+  },
+  "handoff": {
+    "items": 115,
+    "rank": 100,
+    "eye": 15,
+    "implemented_input_type": "finish_clock -> RANK05 synthetic input only",
+    "analysis_consumed": 0,
+    "formal_admissions": 0,
+    "all_other_item_routes": "declared planned requirements, unimplemented/held or missing",
+    "gate_group_match": null,
+    "prior_groups": 118,
+    "held_gates": 826,
+    "codex_baseline": "249 partial V22 as noted in main audit, not rerun or integrated here"
+  },
+  "limits": [
+    "Registry uses a different public test HMAC key; caller-supplied digest/sequence/time anchor and complete flag are fictional, not external authentication. Cannot detect omitted correction if trusted registry itself falsely claims completeness; actual latest authoritative inventory and trusted time required.",
+    "Selected version checked by old separate verifier, then raw pointer/value and counts crosschecked; latest inventory/rights validation in bridge parent, same OS account, no independent actual custodian. Registry filesystem read and anchor transport not hardened for production; TOCTOU, symlink ancestors, concurrent state changes, per-field revocation/deletion and official parser remain unresolved.",
+    "No official capture, exact official publication, cross-issuer proof, real permissions, source URL, applicable group, full field conditions or real analysis runtime. Synthetic clocks are not ability judgments. Current packet held globally on any fatal error, only missing history shows per-runner missing; granular per-field hold/rejection remains design work. Latest rights at analysis checked, separate actual later output recheck requires new authoritative state.",
+    "Historical originals not searched; no new locator. No provider contact, contracts, charge, production, DB, MCP, FROZEN, Cron, deploy or formal adoption."
+  ],
+  "next": "Codex review packet shape and missingness semantics before integration; add genuine typed source fields with exact material and identity scopes, per-field reasons and downstream semantic trace only after research approval; independent trusted inventory/time/rights design remains pending.",
+  "formal_admissions": 0,
+  "formal_replays": 0,
+  "production_changes": 0
+}
