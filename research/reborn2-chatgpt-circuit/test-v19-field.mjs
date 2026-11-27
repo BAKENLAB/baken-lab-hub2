@@ -59,7 +59,8 @@ test('F19-09',()=>{
  const b=horse(a,'FIXTURE-B');assert.equal(b.views.D.state,'MIXED');assert.ok(b.views.D.counter.some(x=>x.kind==='WIN'&&x.path==='LEAD'));
  const s=a.field.scenarios.find(s=>s.id==='CONTEST-SUSTAIN:FIXTURE-B'),e=a.field.scenarios.find(s=>s.id==='CONTEST-EASE:FIXTURE-B');
  assert.ok(s.interactions.some(q=>q.rival==='FIXTURE-A'&&q.pattern==='RIVAL_TAKES_LEAD'&&q.leader_finish===2&&q.rival_finish===1));
- assert.ok(s.interactions.some((q,i)=>q.compatible_position_proxy!==e.interactions[i].compatible_position_proxy));
+ const sa=a.field.scenarios.find(s=>s.id==='CONTEST-SUSTAIN:FIXTURE-A'),ea=a.field.scenarios.find(s=>s.id==='CONTEST-EASE:FIXTURE-A');
+ assert.ok(sa.interactions.some((q,i)=>q.compatible_position_proxy!==ea.interactions[i].compatible_position_proxy));
  assert.ok(s.interactions.every(q=>q.actual_pace===null&&q.causal_pressure===null));
  const q=structuredClone(p);
  // Change only the first corner observations of the two named runners;
@@ -83,6 +84,14 @@ test('F19-10',()=>{
  assert.ok(a.decisions.some(h=>h.comparisons.later.some(x=>x.state==='CONDITIONAL_SUPPORT')));
  assert.ok(a.decisions.some(h=>h.comparisons.later.some(x=>x.state==='SCOPED_COUNTER')));
  assert.ok(a.decisions.some(h=>h.comparisons.later.some(x=>x.state==='NEUTRAL_CONTEXT')));
+ // Paired intervention on an actual later race: swap the two finish/clock
+ // bundles, preserving corners, field size, winner clock and race leader lap.
+ const changed=structuredClone(p),later=changed.history.find(x=>x.id==='FK-GEN-3'),b3=later.rows.find(x=>x.id==='FIXTURE-B'),c3=later.rows.find(x=>x.id==='FIXTURE-C');
+ for(const k of ['finish','clock_tenths','margin_tenths','final3f_tenths'])[b3[k],c3[k]]=[c3[k],b3[k]];
+ const changedResult=analyzeV19(changed);
+ const findLater=o=>horse(o,'FIXTURE-A').comparisons.later.find(x=>x.prior==='FK-GEN-1'&&x.later==='FK-GEN-3'&&x.peer==='FIXTURE-C');
+ assert.equal(findLater(a).state,'CONDITIONAL_SUPPORT');assert.equal(findLater(changedResult).state,'NEUTRAL_CONTEXT');
+ assert.deepEqual(horse(changedResult,'FIXTURE-A').history,horse(a,'FIXTURE-A').history);
  const z=structuredClone(h.p),unrelated=structuredClone(h.reserve[0]);unrelated.id='FK-SYN19-UNRELATED';unrelated.rows=unrelated.rows.map((r,i)=>({...r,id:'FIXTURE-Z'+(100+i)}));
  const u=analyzeV19(z,{reserve:[unrelated]});assert.deepEqual(u.disclosed,[]);assert.deepEqual(u.decisions,analyzeV19(z).decisions);
 });
