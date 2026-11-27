@@ -1,0 +1,68 @@
+{
+  "schema": "REBORN2_HISTORICAL_RAW_EVIDENCE_RECOVERY_V1",
+  "investigated_at_jst": "2026-11-27",
+  "acceptance_commit": "1568a09381601b87a235291e446dfc09ea654833",
+  "mode": "READ_ONLY_EXISTING_ARTIFACTS_ONLY",
+  "current_page_refetch_performed": false,
+  "production_mutations": 0,
+  "scope": {
+    "workspace_files_scanned": 497,
+    "archives_scanned": 24,
+    "saga_named_files": 22,
+    "saga_related_archive_members": 15,
+    "tokyo_named_files_found": 0,
+    "library_search_performed": true,
+    "pr92_files_reviewed": true
+  },
+  "tokyo_2026_11_23_r12": {
+    "expected_html_receipts": 18,
+    "raw_html_bodies_recovered": 0,
+    "runner_status_record_jst": "2026-11-23T06:50:04+09:00",
+    "receipt_hash_consistency": "CONFIRMED_BY_V19_ACCEPTANCE",
+    "body_hash_recalculation": "NOT_POSSIBLE_NO_BYTES",
+    "encoding_verification": "NOT_POSSIBLE_NO_BYTES",
+    "hash_scope_verification": "NOT_POSSIBLE_NO_BYTES",
+    "status": "RAW_BODY_NOT_RECOVERED"
+  },
+  "saga_2026_10_10_r11": {
+    "race_post_time_jst": "2026-10-10T20:10:00+09:00",
+    "initial_capture_jst": "2026-10-10T00:43:39+09:00",
+    "card_reaudit_jst": "2026-10-10T08:31:39+09:00",
+    "official_card_raw_response_html_recovered": false,
+    "official_card_rendered_dom_html_recovered": false,
+    "rendered_dom_char_count": 241344,
+    "rendered_dom_sha256": "78efdcf842f7c41df00ab9d2ba7239834ec4ea00751872f94a4a88a249350969",
+    "rendered_dom_hash_scope": "FULL_RENDERED_DOM_OUTERHTML",
+    "profiles_expected": 11,
+    "profile_originals_recovered": 0,
+    "derived_profile_ids_recovered": 11,
+    "past_runs_expected": 55,
+    "past_run_originals_recovered": 0,
+    "derived_past_runs_recovered": 55,
+    "card_status_at_reaudit": {
+      "active": 11,
+      "cancelled": 0,
+      "excluded": 0,
+      "unknown": 0
+    },
+    "status_correction": {
+      "horse_no": 4,
+      "horse_name": "ノーブルビーチ",
+      "nar_lineage_id": "30035405986",
+      "initial_derived_status": "CANCELLED",
+      "official_display_reaudit_status": "ACTIVE"
+    },
+    "weather_at_initial_capture": null,
+    "going_at_initial_capture": null,
+    "weather_going_reason": "NOT_PUBLISHED_AT_CAPTURE",
+    "final_runner_status_original_recovered": false,
+    "status": "DERIVED_EVIDENCE_RECOVERED_RAW_ORIGINALS_NOT_RECOVERED"
+  },
+  "unavailable_locations": [
+    "past Work ephemeral filesystems",
+    "past Cloud Browser cache and downloads",
+    "production database backups",
+    "Supabase Storage or external backups without an authorized locator"
+  ],
+  "formal_adoption": "PROHIBITED_RAW_ORIGINALS_MISSING"
+}
