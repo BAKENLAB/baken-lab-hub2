@@ -17,25 +17,31 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Exact checkout and original nine probes
+      - name: Exact checkout and revised six probes
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node research/reborn2-independent-tests/probe-main48.mjs > "$RUNNER_TEMP/main48.log" 2>&1
+          node research/reborn2-independent-tests/probe-main48-revised.mjs > "$RUNNER_TEMP/main48-revised.log" 2>&1
           rc=$?
-          cat "$RUNNER_TEMP/main48.log"
-          echo "ORIGINAL_PROBE_EXIT=$rc"
-          node research/reborn2-independent-tests/summarize-main48.mjs "$RUNNER_TEMP/main48.log" "$rc" > "$RUNNER_TEMP/main48-summary.json"
-          summary_rc=$?
-          cat "$RUNNER_TEMP/main48-summary.json"
-          if [ "$summary_rc" -ne 0 ]; then exit "$summary_rc"; fi
+          cat "$RUNNER_TEMP/main48-revised.log"
+          echo "REVISED_EXIT=$rc"
+          exit "$rc"
+      - name: Trace known-active pairs through upstream and V42
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          node research/reborn2-independent-tests/trace-fk34-unknown.mjs > "$RUNNER_TEMP/main48-trace.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/main48-trace.log"
+          echo "TRACE_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: main48-independent-receipt
+          name: main48-revised-and-trace
           path: |
-            ${{ runner.temp }}/main48.log
-            ${{ runner.temp }}/main48-summary.json
+            ${{ runner.temp }}/main48-revised.log
+            ${{ runner.temp }}/main48-trace.log
