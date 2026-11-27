@@ -1,0 +1,1375 @@
+{
+  "version": "2.0-partial-main-audit",
+  "source": "user-forwarded Gemini fictional V2 2026-11-27",
+  "classification": "SYNTHETIC_RESEARCH_ONLY",
+  "formal_admission": false,
+  "scope": "partial unit test only, not official and not full 115 assessment; invalid fields null; no fallback to V1",
+  "time_zone": "not explicit in received timestamps; local synthetic ordering only",
+  "cases": [
+    {
+      "id": "V01",
+      "target": {
+        "id": "FK-20261120-V01",
+        "date": "2026-11-20",
+        "start": "15:00",
+        "published": "14:30",
+        "conditions": {
+          "venue": "青葉ダート",
+          "course_version": "2026A",
+          "distance_m": 1400,
+          "surface": "dirt",
+          "turn": "right",
+          "first_corner_m": 285,
+          "going": "良",
+          "grade": "GRD-C2-MIX"
+        },
+        "field_complete": false,
+        "candidate_ids": [
+          "V1-H1",
+          "V1-H2"
+        ],
+        "entrants": null
+      },
+      "history": [
+        {
+          "id": "FK-20260910-V11",
+          "date": "2026-09-10",
+          "start": "14:40",
+          "published": "15:00",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            125,
+            117,
+            124,
+            128,
+            129,
+            130,
+            127
+          ],
+          "rows": [
+            {
+              "runner": 2,
+              "id": "V1-H2",
+              "kg": 56,
+              "clock_tenths": 880,
+              "margin_tenths": null,
+              "final3f_tenths": 379,
+              "corners": [
+                2,
+                2,
+                2,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 1,
+              "id": "V1-H1",
+              "kg": 56,
+              "clock_tenths": 882,
+              "margin_tenths": 2,
+              "final3f_tenths": 377,
+              "corners": [
+                4,
+                4,
+                3,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 3,
+              "id": "V1-S1",
+              "kg": 56,
+              "clock_tenths": 885,
+              "margin_tenths": 5,
+              "final3f_tenths": 384,
+              "corners": [
+                1,
+                1,
+                1,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 4,
+              "id": "V1-S2",
+              "kg": 54,
+              "clock_tenths": 889,
+              "margin_tenths": 9,
+              "final3f_tenths": 388,
+              "corners": [
+                3,
+                3,
+                4,
+                4
+              ],
+              "finish": 4
+            }
+          ]
+        },
+        {
+          "id": "FK-20261025-V12",
+          "date": "2026-10-25",
+          "start": "14:50",
+          "published": "15:10",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "稍重",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            123,
+            114,
+            121,
+            125,
+            127,
+            130,
+            136
+          ],
+          "rows": [
+            {
+              "runner": 1,
+              "id": "CM-1",
+              "kg": 56,
+              "clock_tenths": 876,
+              "margin_tenths": null,
+              "final3f_tenths": 383,
+              "corners": [
+                null,
+                4,
+                4,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 3,
+              "id": "V1-S3",
+              "kg": 54,
+              "clock_tenths": 879,
+              "margin_tenths": 3,
+              "final3f_tenths": 385,
+              "corners": [
+                null,
+                2,
+                2,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 2,
+              "id": "V1-H2",
+              "kg": 56,
+              "clock_tenths": 881,
+              "margin_tenths": 5,
+              "final3f_tenths": 384,
+              "corners": [
+                null,
+                3,
+                3,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 4,
+              "id": "V1-S4",
+              "kg": 56,
+              "clock_tenths": 885,
+              "margin_tenths": 9,
+              "final3f_tenths": 389,
+              "corners": [
+                null,
+                1,
+                1,
+                4
+              ],
+              "finish": 4
+            }
+          ],
+          "quarantine": [
+            "entire first corner; original CM-1 rank5 in field4"
+          ]
+        },
+        {
+          "id": "FK-20261004-V13",
+          "date": "2026-10-04",
+          "start": "14:35",
+          "published": "15:05",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            124,
+            116,
+            122,
+            126,
+            128,
+            130,
+            132
+          ],
+          "rows": [
+            {
+              "runner": 4,
+              "id": "CM-1",
+              "kg": 56,
+              "clock_tenths": 878,
+              "margin_tenths": null,
+              "final3f_tenths": 382,
+              "corners": [
+                3,
+                3,
+                2,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 1,
+              "id": "V1-H1",
+              "kg": 56,
+              "clock_tenths": 879,
+              "margin_tenths": 1,
+              "final3f_tenths": 376,
+              "corners": [
+                4,
+                4,
+                3,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 2,
+              "id": "V1-S5",
+              "kg": 54,
+              "clock_tenths": 883,
+              "margin_tenths": 5,
+              "final3f_tenths": 385,
+              "corners": [
+                1,
+                1,
+                1,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 3,
+              "id": "V1-S6",
+              "kg": 56,
+              "clock_tenths": 887,
+              "margin_tenths": 9,
+              "final3f_tenths": 387,
+              "corners": [
+                2,
+                2,
+                4,
+                4
+              ],
+              "finish": 4
+            }
+          ]
+        },
+        {
+          "id": "FK-20260820-V14",
+          "date": "2026-08-20",
+          "start": null,
+          "published": "15:00",
+          "conditions": {
+            "venue": "架空北沢ダート",
+            "course_version": "北沢B",
+            "surface": "dirt",
+            "distance_m": 1200,
+            "turn": "left",
+            "going": "不良",
+            "grade": "GRD-C3-STD"
+          },
+          "field_count": null,
+          "full_result_rows": false,
+          "rows": [
+            {
+              "id": "V1-H2",
+              "finish": 1,
+              "kg": 54,
+              "clock_tenths": 724
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V02",
+      "target": {
+        "id": "FK-20261121-V02",
+        "date": "2026-11-21",
+        "start": "15:15",
+        "published": "14:45",
+        "conditions": {
+          "venue": "青葉ダート",
+          "course_version": "2026A",
+          "distance_m": 1400,
+          "surface": "dirt",
+          "turn": "right",
+          "first_corner_m": 285,
+          "going": "良",
+          "grade": "GRD-C2-MIX"
+        },
+        "field_complete": true,
+        "entrants": [
+          {
+            "id": "V2-H3",
+            "runner": 1,
+            "draw": 1,
+            "sex": "牡",
+            "age": 4,
+            "kg": 56,
+            "status": "ACTIVE"
+          },
+          {
+            "id": "V2-H4",
+            "runner": 2,
+            "draw": 2,
+            "sex": "牡",
+            "age": 5,
+            "kg": 56,
+            "status": "ACTIVE"
+          },
+          {
+            "id": "V2-H1",
+            "runner": 3,
+            "draw": 3,
+            "sex": "牡",
+            "age": 5,
+            "kg": 56,
+            "status": "ACTIVE"
+          },
+          {
+            "id": "V2-H2",
+            "runner": 4,
+            "draw": 4,
+            "sex": "牝",
+            "age": 4,
+            "kg": 54,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      "history": [
+        {
+          "id": "FK-20261028-V23",
+          "date": "2026-10-28",
+          "start": null,
+          "published": "15:05",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            122,
+            113,
+            120,
+            126,
+            129,
+            132,
+            135
+          ],
+          "rows": [
+            {
+              "runner": 4,
+              "id": "V2-S1",
+              "kg": 56,
+              "clock_tenths": 877,
+              "margin_tenths": null,
+              "final3f_tenths": 384,
+              "corners": [
+                3,
+                3,
+                2,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 1,
+              "id": "V2-H3",
+              "kg": 56,
+              "clock_tenths": 879,
+              "margin_tenths": 2,
+              "final3f_tenths": 391,
+              "corners": [
+                1,
+                1,
+                1,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 2,
+              "id": "V2-S2",
+              "kg": 54,
+              "clock_tenths": 882,
+              "margin_tenths": 5,
+              "final3f_tenths": 387,
+              "corners": [
+                4,
+                4,
+                4,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 3,
+              "id": "V2-S3",
+              "kg": 56,
+              "clock_tenths": 886,
+              "margin_tenths": 9,
+              "final3f_tenths": 390,
+              "corners": [
+                2,
+                2,
+                3,
+                4
+              ],
+              "finish": 4
+            }
+          ]
+        },
+        {
+          "id": "FK-20261029-V24",
+          "date": "2026-10-29",
+          "start": null,
+          "published": "15:10",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            123,
+            114,
+            121,
+            125,
+            128,
+            131,
+            134
+          ],
+          "rows": [
+            {
+              "runner": 2,
+              "id": "V2-H4",
+              "kg": 56,
+              "clock_tenths": 876,
+              "margin_tenths": null,
+              "final3f_tenths": 387,
+              "corners": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 3,
+              "id": "V2-S4",
+              "kg": 54,
+              "clock_tenths": 878,
+              "margin_tenths": 2,
+              "final3f_tenths": 385,
+              "corners": [
+                2,
+                2,
+                2,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 1,
+              "id": "V2-S5",
+              "kg": 56,
+              "clock_tenths": 881,
+              "margin_tenths": 5,
+              "final3f_tenths": 388,
+              "corners": [
+                4,
+                4,
+                3,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 4,
+              "id": "V2-S6",
+              "kg": 54,
+              "clock_tenths": 885,
+              "margin_tenths": 9,
+              "final3f_tenths": 390,
+              "corners": [
+                3,
+                3,
+                4,
+                4
+              ],
+              "finish": 4
+            }
+          ]
+        },
+        {
+          "id": "FK-20261019-V21",
+          "date": "2026-10-19",
+          "start": null,
+          "published": "15:00",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": null,
+          "rows": [
+            {
+              "runner": 3,
+              "id": "V2-H1",
+              "kg": 56,
+              "clock_tenths": 880,
+              "margin_tenths": null,
+              "final3f_tenths": 374,
+              "corners": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 1,
+              "id": "V2-S7",
+              "kg": 54,
+              "clock_tenths": 882,
+              "margin_tenths": 2,
+              "final3f_tenths": null,
+              "corners": [
+                2,
+                2,
+                2,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 4,
+              "id": "V2-S8",
+              "kg": 56,
+              "clock_tenths": 885,
+              "margin_tenths": 5,
+              "final3f_tenths": 379,
+              "corners": [
+                3,
+                3,
+                3,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 2,
+              "id": "V2-S9",
+              "kg": 54,
+              "clock_tenths": 889,
+              "margin_tenths": 9,
+              "final3f_tenths": 382,
+              "corners": [
+                4,
+                4,
+                4,
+                4
+              ],
+              "finish": 4
+            }
+          ],
+          "quarantine": [
+            "lap vector and S7 final3f withheld from execution pending exact timing/rounding clarification; do not infer pace class"
+          ]
+        },
+        {
+          "id": "FK-20261019-V22",
+          "date": "2026-10-19",
+          "start": null,
+          "published": "15:20",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": null,
+          "rows": [
+            {
+              "runner": 2,
+              "id": "V2-S10",
+              "kg": 56,
+              "clock_tenths": 874,
+              "margin_tenths": null,
+              "final3f_tenths": 385,
+              "corners": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 4,
+              "id": "V2-H2",
+              "kg": 54,
+              "clock_tenths": 876,
+              "margin_tenths": 2,
+              "final3f_tenths": 372,
+              "corners": [
+                4,
+                4,
+                3,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 1,
+              "id": "V2-S11",
+              "kg": 56,
+              "clock_tenths": 879,
+              "margin_tenths": 5,
+              "final3f_tenths": 389,
+              "corners": [
+                2,
+                2,
+                2,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 3,
+              "id": "V2-S12",
+              "kg": 54,
+              "clock_tenths": 883,
+              "margin_tenths": 9,
+              "final3f_tenths": 391,
+              "corners": [
+                3,
+                3,
+                4,
+                4
+              ],
+              "finish": 4
+            }
+          ],
+          "quarantine": [
+            "lap sum 872 vs winner874; no pace derived from invalid vector"
+          ]
+        }
+      ],
+      "synthetic_pace_reference": {
+        "first600_normal_tenths": [
+          358,
+          363
+        ],
+        "fast_max": 357,
+        "slow_min": 364,
+        "validated": false,
+        "scope": "fixture assumption only; no reference sample"
+      },
+      "scenarios": [
+        {
+          "id": "V02-A",
+          "kind": "HYPOTHETICAL",
+          "assumed_early_contenders": [
+            "V2-H3",
+            "V2-H4",
+            "V2-H1"
+          ],
+          "pace_assumption": "fast",
+          "observed": false
+        },
+        {
+          "id": "V02-B",
+          "kind": "HYPOTHETICAL",
+          "assumed_leader_one_of": [
+            "V2-H3",
+            "V2-H4"
+          ],
+          "other_of_pair": "holds back",
+          "pace_assumption": "moderate-to-slow",
+          "H1_position": null,
+          "observed": false
+        }
+      ]
+    },
+    {
+      "id": "V03",
+      "target": {
+        "id": "FK-20261122-V03",
+        "date": "2026-11-22",
+        "start": "15:20",
+        "published": "14:50",
+        "conditions": {
+          "venue": "青葉ダート",
+          "course_version": "2026A",
+          "distance_m": 1400,
+          "surface": "dirt",
+          "turn": "right",
+          "first_corner_m": 285,
+          "going": "良",
+          "grade": "GRD-C2-MIX"
+        },
+        "field_complete": false,
+        "candidate_ids": [
+          "V3-H1"
+        ],
+        "entrants": null
+      },
+      "history": [
+        {
+          "id": "FK-20261020-V31",
+          "date": "2026-10-20",
+          "start": "15:00",
+          "published": "15:05",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            124,
+            116,
+            123,
+            127,
+            128,
+            130,
+            130
+          ],
+          "rows": [
+            {
+              "runner": 2,
+              "id": "V3-S1",
+              "kg": 56,
+              "clock_tenths": 878,
+              "margin_tenths": null,
+              "final3f_tenths": 380,
+              "corners": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 3,
+              "id": "V3-S2",
+              "kg": 54,
+              "clock_tenths": 881,
+              "margin_tenths": 3,
+              "final3f_tenths": 382,
+              "corners": [
+                2,
+                2,
+                2,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 4,
+              "id": "V3-S3",
+              "kg": 56,
+              "clock_tenths": 885,
+              "margin_tenths": 7,
+              "final3f_tenths": 385,
+              "corners": [
+                4,
+                4,
+                3,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 1,
+              "id": "V3-H1",
+              "kg": 56,
+              "clock_tenths": 892,
+              "margin_tenths": 14,
+              "final3f_tenths": 391,
+              "corners": [
+                3,
+                3,
+                4,
+                4
+              ],
+              "finish": 4
+            }
+          ],
+          "incident": {
+            "id": "裁決FK-1020-31",
+            "published": "2026-10-20T15:05",
+            "corner": 3,
+            "actor": "V3-S2",
+            "victim": "V3-H1",
+            "reported_fact": "接触・進路狭窄、体勢を崩した。進路注意、降着・失格なし"
+          }
+        },
+        {
+          "id": "FK-20260929-V32",
+          "date": "2026-09-29",
+          "start": "14:35",
+          "published": "14:55",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": true,
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": null,
+          "rows": [
+            {
+              "runner": 2,
+              "id": "V3-X2",
+              "kg": 56,
+              "clock_tenths": 878,
+              "margin_tenths": null,
+              "final3f_tenths": 377,
+              "corners": [
+                2,
+                2,
+                2,
+                1
+              ],
+              "finish": 1
+            },
+            {
+              "runner": 1,
+              "id": "V3-H1",
+              "kg": 56,
+              "clock_tenths": 879,
+              "margin_tenths": 1,
+              "final3f_tenths": 376,
+              "corners": [
+                4,
+                4,
+                3,
+                2
+              ],
+              "finish": 2
+            },
+            {
+              "runner": 3,
+              "id": "V3-S4",
+              "kg": 54,
+              "clock_tenths": 883,
+              "margin_tenths": 5,
+              "final3f_tenths": 383,
+              "corners": [
+                1,
+                1,
+                1,
+                3
+              ],
+              "finish": 3
+            },
+            {
+              "runner": 4,
+              "id": "V3-S5",
+              "kg": 56,
+              "clock_tenths": 887,
+              "margin_tenths": 9,
+              "final3f_tenths": 386,
+              "corners": [
+                3,
+                3,
+                4,
+                4
+              ],
+              "finish": 4
+            }
+          ],
+          "quarantine": [
+            "lap sum879 vs winner878"
+          ]
+        },
+        {
+          "id": "FK-20261022-V33",
+          "date": "2026-10-22",
+          "start": null,
+          "published": "15:15",
+          "conditions": {
+            "distance_m": 1400,
+            "going": "良",
+            "grade": "GRD-C1-MIX",
+            "venue": null,
+            "course_version": null,
+            "surface": "dirt"
+          },
+          "field_count": null,
+          "full_result_rows": false,
+          "rows": [
+            {
+              "id": "V3-X2",
+              "finish": 1,
+              "kg": 56,
+              "clock_tenths": 872
+            },
+            {
+              "id": "V3-S6",
+              "finish": 2,
+              "margin_tenths": 2
+            }
+          ],
+          "lap_tenths": null,
+          "quarantine": [
+            "lap sum868 vs winner872; all other rows absent"
+          ]
+        }
+      ],
+      "stage_partition": {
+        "initial": "race rows only",
+        "additional": [
+          "V31 incident",
+          "V33 opponent later row"
+        ],
+        "note": "main-defined research reveal order, not actual acquisition order"
+      }
+    },
+    {
+      "id": "V04",
+      "target": {
+        "id": "FK-20261123-V04",
+        "date": "2026-11-23",
+        "start": "15:25",
+        "published": "14:55",
+        "conditions": {
+          "venue": "青葉ダート",
+          "course_version": "2026A",
+          "distance_m": 1400,
+          "surface": "dirt",
+          "turn": "right",
+          "first_corner_m": 285,
+          "going": "良",
+          "grade": "GRD-C2-MIX"
+        },
+        "field_complete": false,
+        "candidate_ids": [
+          "V4-H1"
+        ],
+        "entrants": null
+      },
+      "history": [
+        {
+          "id": "FK-20260912-V41",
+          "date": "2026-09-12",
+          "start": null,
+          "published": "15:00",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": false,
+          "rows": [
+            {
+              "id": "V4-H1",
+              "finish": 1,
+              "kg": 56,
+              "clock_tenths": 876,
+              "final3f_tenths": 377,
+              "corners": [
+                2,
+                2,
+                2,
+                1
+              ],
+              "body_weight": 472,
+              "measured": "2026-09-12T14:10"
+            }
+          ],
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            123,
+            114,
+            121,
+            125,
+            128,
+            130,
+            135
+          ]
+        },
+        {
+          "id": "FK-20261003-V42",
+          "date": "2026-10-03",
+          "start": null,
+          "published": "15:05",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": false,
+          "rows": [
+            {
+              "id": "V4-H1",
+              "finish": 2,
+              "kg": 56,
+              "clock_tenths": 878,
+              "margin_tenths": 1,
+              "final3f_tenths": 378,
+              "corners": [
+                3,
+                3,
+                2,
+                2
+              ],
+              "body_weight": 474,
+              "measured": "2026-10-03T14:15"
+            },
+            {
+              "id": "V4-S1",
+              "finish": 1
+            }
+          ],
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            124,
+            115,
+            122,
+            126,
+            128,
+            130,
+            132
+          ]
+        },
+        {
+          "id": "FK-20261024-V43",
+          "date": "2026-10-24",
+          "start": null,
+          "published": "15:30",
+          "conditions": {
+            "venue": "青葉ダート",
+            "course_version": "2026A",
+            "distance_m": 1400,
+            "surface": "dirt",
+            "turn": "right",
+            "first_corner_m": 285,
+            "going": "良",
+            "grade": "GRD-C2-MIX"
+          },
+          "field_count": 4,
+          "full_result_rows": false,
+          "rows": [
+            {
+              "id": "V4-H1",
+              "finish": 4,
+              "kg": 56,
+              "clock_tenths": 886,
+              "margin_tenths": 9,
+              "final3f_tenths": 394,
+              "corners": [
+                1,
+                1,
+                2,
+                4
+              ],
+              "body_weight": 472,
+              "measured": "2026-10-24T14:40"
+            },
+            {
+              "id": "V4-S2",
+              "finish": 1,
+              "clock_tenths": 877
+            }
+          ],
+          "lap_kind": "synthetic_race_leader",
+          "lap_segment_m": [
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200
+          ],
+          "lap_tenths": [
+            124,
+            115,
+            122,
+            126,
+            128,
+            130,
+            132
+          ],
+          "incident": {
+            "id": "裁決FK-1024-43",
+            "published": "2026-10-24T15:30",
+            "reported": "走行妨害・不利なし"
+          }
+        }
+      ],
+      "weight_report": {
+        "measurement": "2026-11-23T14:20",
+        "publication": null,
+        "kg": 486,
+        "prior_kg": 472,
+        "change": 14
+      },
+      "workout": {
+        "course": "青葉ダート調教コース",
+        "effort": "強め",
+        "reference_4f_tenths": [
+          520,
+          528
+        ],
+        "reference_final1f_tenths": [
+          122,
+          126
+        ],
+        "reference_validated": false,
+        "rows": [
+          {
+            "date": "2026-09-09",
+            "reported_4f": 523,
+            "unlabeled_middle": 376,
+            "final1f": 123
+          },
+          {
+            "date": "2026-09-30",
+            "reported_4f": 525,
+            "unlabeled_middle": 378,
+            "final1f": 124
+          },
+          {
+            "date": "2026-11-19",
+            "reported_4f": 536,
+            "unlabeled_middle": 395,
+            "final1f": 141
+          }
+        ],
+        "publication": null
+      },
+      "stage_partition": {
+        "initial": [
+          "V41",
+          "V42",
+          "historical workouts"
+        ],
+        "additional": [
+          "V43",
+          "weight_report",
+          "current workout"
+        ],
+        "note": "synthetic staged revelation, exact reveal timestamps absent"
+      }
+    }
+  ],
+  "rules": [
+    "No target observed laps/results or market data. No expected outcomes in input.",
+    "Missing or quarantined fields stay unknown; no automatic C or formal rank.",
+    "Do not treat reported hypothetical conditions as observations; no deterministic scenario outcome.",
+    "No use of invalid lap vectors from audit. Do not backfill V1 or assign unidentified target field."
+  ]
+}

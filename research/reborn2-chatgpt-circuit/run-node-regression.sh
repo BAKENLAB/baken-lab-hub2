@@ -32,3 +32,5 @@ node test-v12-shared-stage.mjs
 node test-v13-corrected-stage.mjs
 
 node test-four-partial-research.mjs
+
+node test-v15-research.mjs
