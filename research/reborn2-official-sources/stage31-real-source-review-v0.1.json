@@ -1,0 +1,42 @@
+{
+  "scope": "PUBLIC_DOCUMENT_REVIEW_ONLY",
+  "date": "2026-11-28",
+  "sources": [
+    {
+      "url": "https://www.keiba.go.jp/pdf/manual/data_pdf_manual.pdf",
+      "finding": "Rendered PDF FAQ updated 2026-09-16 states race/odds ZIP downloads separate, daily recommended no more frequently than about two minutes, monthly at most daily; files are full snapshots; no unique horse/jockey/trainer ID provided. PDF text cache differs in revision date from rendered pages; record visible revision and do not infer header schema from this."
+    },
+    {
+      "url": "https://www.keiba.go.jp/terms.html",
+      "finding": "Prior permission required for reproduction/republication under stated terms; no blanket AI/cloud scope inferred."
+    },
+    {
+      "url": "https://www.jra.go.jp/use/",
+      "finding": "Copyright notice and distinct video-specific permission process; no blanket race-data acquisition/AI authorization inferred."
+    },
+    {
+      "url": "https://www.freetsa.org/index_en.php",
+      "finding": "Public RFC3161 candidate; provider certificate/policy, signature/imprint, nonce, accuracy, revocation and trust-chain verification required; no request sent."
+    },
+    {
+      "url": "https://docs.openssl.org/master/man1/openssl-ts/",
+      "finding": "Offline verification tool supports digest/query response verification with trust chain; actual real TSA verification remains unimplemented."
+    }
+  ],
+  "plan": [
+    "NAR approved download of race-only ZIP; keep exact raw in restricted custody if permitted. Separate target/market/result before analyst access; native ID must be bound from independently approved official profile/result row, CSV alone insufficient.",
+    "JRA approved card/history method and immutable edition; no paid service assumed.",
+    "TSA request only digest of sealed manifest after approval; independently verify policy and time bounds. Existence commitment is not proof of acquisition/publication or truth.",
+    "Separate user authorization and provider applicable rights for acquisition/retention, external AI/cloud/hash disclosure, publication. Existing draft remains unsent."
+  ],
+  "holds": {
+    "Tokyo12": "HELD",
+    "Saga8": "HELD",
+    "groups": 118,
+    "conditions": 826
+  },
+  "no_contact": true,
+  "no_acquisition": true,
+  "no_payment": true,
+  "actual_race_selected": false
+}
