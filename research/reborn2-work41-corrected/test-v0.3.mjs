@@ -56,7 +56,7 @@ t('OTHER_CONDITION_NOT_SAME_SUPPORT',()=>assert.ok(es.every(h=>h.categories[6].o
 function worker(envelope,eyeEnabled){
  const exe=new URL('./analysis-worker.mjs',import.meta.url);
  const p=spawnSync(process.execPath,['--experimental-permission','--allow-fs-read='+root,fileURLToPath(exe)],{cwd:root,input:JSON.stringify({envelope,eyeEnabled}),encoding:'utf8',maxBuffer:96*1024*1024,env:{PATH:process.env.PATH??''}});
- assert.equal(p.status,0,p.stderr);return JSON.parse(p.stdout);
+ assert.equal(p.status,0,JSON.stringify({error:p.error?.message,signal:p.signal,stderr:p.stderr?.slice(-2000),stdoutLength:p.stdout?.length}));return JSON.parse(p.stdout);
 }
 try{
  const resultFile=join(dir,'target-results.json');
@@ -67,11 +67,11 @@ try{
  t('SAME_FLAG_FULL_OUTPUT_RESULT_MUTATION',()=>{assert.notEqual(before,after);assert.deepEqual(a,b);assert.equal(a.evidence.length,537);assert.ok(a.decision.runners.every(h=>h.items.length===115&&h.grade===null));});
  const probe=spawnSync(process.execPath,['--experimental-permission','--allow-fs-read='+root,'-e','require("node:fs").readFileSync(process.argv[1])',resultFile],{encoding:'utf8'});
  t('PHYSICAL_RESULT_READ_DENIED',()=>{assert.notEqual(probe.status,0);assert.match(probe.stderr,/ERR_ACCESS_DENIED/);});
- const g=await analyzeSupply(genericEnv,{eyeEnabled:true}),k=await analyzeSupply(makeEnvelope(changed),{eyeEnabled:true});
+ const g=worker(genericEnv,true),k=worker(makeEnvelope(changed),true);
  t('GENERIC_NEW_ISSUER_EVENT_ROSTER',()=>{assert.equal(g.decision.runners.length,3);assert.equal(k.decision.runners.length,3);assert.ok(g.decision.runners.every(h=>h.horse.startsWith('TEST:JRA|TEST:OTHER_')));assert.ok(k.decision.runners.some(h=>h.horse.endsWith('TEST:NO_HISTORY')));assert.notEqual(g.commonSha256,k.commonSha256);});
- const off=await analyzeSupply(env,{eyeEnabled:false});t('SAME_PACKET_EYE_FLAG',()=>{assert.equal(a.commonSha256,off.commonSha256);assert.deepEqual(a.categories,off.categories);assert.deepEqual(a.evidence,off.evidence);});
+ const off=worker(env,false);t('SAME_PACKET_EYE_FLAG',()=>{assert.equal(a.commonSha256,off.commonSha256);assert.deepEqual(a.categories,off.categories);assert.deepEqual(a.evidence,off.evidence);});
  const compact=x=>({analysisSha256:x.analysisSha256,commonSha256:x.commonSha256,groups:x.groups,held:x.held,roots:x.roots.length,evidence:x.evidence.length,runners:x.decision.runners.map(h=>({horse:h.horse,items:h.items.length,eye:h.eye.map(e=>e.item),paths:h.paths.length,current:h.current_grade,conditional:h.conditional_grade})),categories:x.categories.map(h=>({horse:h.horse,categories:h.categories.map(c=>({category:c.category,observations:c.observations.length,directions:[...new Set(c.observations.map(o=>o.direction))],missing:c.missing}))}))});
- const receipt={scope:'SYNTHETIC_ONLY',priorAccepted:778,addedAccepted:0,checks:pass,base:compact(a),generic:compact(g),changed:compact(k),off:compact(off),fullOutputSha256:sha(JSON.stringify(a)),resultBefore:before,resultAfter:after,formal:false};
+ const receipt={scope:'SYNTHETIC_ONLY',priorAccepted:778,addedAccepted:0,checks:pass,base:compact(a),generic:compact(g),changed:compact(k),off:compact(off),fullOutputSha256:a.fullOutputSha256,resultBefore:before,resultAfter:after,formal:false};
  console.log('WORK41_FIX_SUMMARY '+JSON.stringify(receipt));
  if(process.env.WORK41_FIX_RECEIPT)writeFileSync(process.env.WORK41_FIX_RECEIPT,JSON.stringify({receipt,base:a,generic:g,changed:k,off},null,2));
 }finally{rmSync(dir,{recursive:true,force:true});}
