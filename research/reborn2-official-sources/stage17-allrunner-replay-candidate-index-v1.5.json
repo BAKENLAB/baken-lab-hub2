@@ -1,0 +1,2423 @@
+{
+  "schema": "stage17.2-replay-candidate-index",
+  "purpose": "All-runner, source-bound locator packet for ordinary research adapter; no official performance payload transferred. Re-execute pinned source SELECT only when rights and authorized DB access allow.",
+  "acceptance_commit": "f25fab4",
+  "canonical_items": {
+    "RANK": 100,
+    "EYE": 15
+  },
+  "research_test_baseline": 192,
+  "formal_admissions": 0,
+  "production_changes": false,
+  "formal_replay_eligible": false,
+  "permission": "NOT_CLEARED",
+  "source_values_external_transfer": false,
+  "source_files": [
+    {
+      "name": "stage17-jra-history-locator-audit-v1.4.json",
+      "ref": "01f1f0bb0bba4fe7c7c249322a3bac7db337d0eb",
+      "blob": "4fb9129da9283ebb2b689828d2b27b0d2159ec8f"
+    },
+    {
+      "name": "stage17-local-history-locator-audit-v1.4.json",
+      "ref": "01f1f0bb0bba4fe7c7c249322a3bac7db337d0eb",
+      "blob": "067c816cf65987aead56ffa0320221243aa75a23"
+    },
+    {
+      "name": "stage17-jra-relation-locator-audit-v1.4.json",
+      "ref": "01f1f0bb0bba4fe7c7c249322a3bac7db337d0eb",
+      "blob": "fdba923dfa16f4efff15f74245e095f7e999f5d2"
+    },
+    {
+      "name": "stage17-card-peer-locator-audit-v1.4.json",
+      "ref": "01f1f0bb0bba4fe7c7c249322a3bac7db337d0eb",
+      "blob": "b15f1a19218900cb99827f97cdda6d879d8d0cc9"
+    }
+  ],
+  "new_files": {
+    "stage17-card-peer-locator-audit-v1.5.json": {
+      "commit": "83f1fbc7a7b7f4724089cfb2ecd8d3c6951e0729",
+      "blob": "21d09e5ccec15973bb786a94cc0c1810c335eab9",
+      "exact_readback": true
+    },
+    "stage17-jra-history-research-readonly-v2.sql": {
+      "commit": "9581c3131db075b0d7c96416d3dd24735ee8c4ef",
+      "blob": "579a15580d434eb52648bcd260bc628e4940c76d",
+      "exact_readback": true
+    },
+    "stage17-jra-roster-readonly.sql": {
+      "commit": "70b94d0820011cba43608a8e63539ae9d55e52d6",
+      "blob": "e7e503f6356f27d770475d28c558330923f67d42",
+      "exact_readback": true
+    }
+  },
+  "typed_contract": {
+    "scope": "DIAGNOSTIC_LOCATORS_ONLY",
+    "target_results_forbidden": true,
+    "market_forbidden": true,
+    "actual_data_from_authorized_source_only": true,
+    "asof_proof": "stored witness only",
+    "race_leader_lap_unit": "integer tenths of second in v2 query; previous query array was seconds strings",
+    "individual_sectional": "not inferred",
+    "missing": "null/held not C",
+    "evidence_root": [
+      "issuer",
+      "prior_race",
+      "source_row_id"
+    ],
+    "comparison_scope": "candidate facts only; dedup same root; no transitive strength; explicit condition and weight differences",
+    "runtime": "NOT_EXECUTED"
+  },
+  "JRA": {
+    "target": {
+      "id": "e6e6ae52-a6e2-4a41-975b-7cac80129efe",
+      "race_key": "20261123_東京_12R",
+      "official_card_key": "pw01dde0105202605061220261123/E9",
+      "date": "2026-11-23",
+      "track": "東京",
+      "race_no": 12,
+      "field_size": 18,
+      "source_checked_at": "2026-11-23 07:00:08.352+00",
+      "updated_at": "2026-11-23 07:00:08.352+00",
+      "post_at": "2026-11-23 07:05:00+00",
+      "surface": "芝",
+      "distance": 1600,
+      "going": "良",
+      "class_literal": "1勝クラス",
+      "course_layout": null
+    },
+    "planned_class_context": {
+      "url": "https://www.jra.go.jp/keiba/calendar2026/2026/11/1123.html",
+      "status": "OFFICIAL_PROGRAM_TEXT_BODY",
+      "age": "3歳以上",
+      "class_literal": "1勝クラス",
+      "weight_rule": "定量",
+      "not_individual_eligibility": true
+    },
+    "course_version_candidate": {
+      "course": "C",
+      "status": "OFFICIAL_SEARCH_INDEX_ONLY",
+      "overview_url": "https://www.jra.go.jp/keiba/baba/overview/2026_4-5_tokyo.html",
+      "daily_url": "https://www.jra.go.jp/keiba/baba/index.html",
+      "raw_version_and_exact_publication": null,
+      "body_refetch": "CACHE_MISS"
+    },
+    "summary": {
+      "runners": 18,
+      "histories": 147,
+      "full_numeric": 126,
+      "update_before_cutoff": 147,
+      "lap_shape": 139,
+      "lap_sum_matches_winner": 139,
+      "corners_valid": 144,
+      "checkpoint_conflict": 0,
+      "layout_known": 0,
+      "archive_complete": 0,
+      "combined": 119,
+      "integer_lap_arrays": 139,
+      "card": {
+        "roster": 18,
+        "history_rows": 69,
+        "matched": 43,
+        "class_label_matched": 30,
+        "unmatched": 26
+      },
+      "relations": {
+        "valid_hist_rows": 144,
+        "direct_count": 13,
+        "common_candidate_count": 424,
+        "common_same_visible_count": 114,
+        "common_pair_sample": 89,
+        "later_candidate_count": 77,
+        "later_sample": 22
+      }
+    },
+    "runners": [
+      {
+        "current_no": 1,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002022104875/C9",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "98c6d67b-d7a9-4bdd-a43c-e53d60976daa",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2022104875",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "a0d0191f-fa8e-4861-a19d-60e8c43e7c0a",
+          "b91fe8e3-d758-4e95-8e2a-2a47617d63bc",
+          "3f837475-122f-40d7-a7c1-9f36d2185442",
+          "9a6f7de8-a955-4ff6-b14a-01be2fc0cd6d",
+          "90ab71e8-6f74-43ed-a54e-1546001f2502",
+          "be77b6c3-45b9-4686-a20c-338e6ac40d63",
+          "677a9f45-200e-4f0f-88ea-d45b25c18a96",
+          "920c224c-0e46-4820-9d19-cd091c14ca77",
+          "a66a4911-458b-4bc3-a230-ae85befbac55",
+          "bdbf9cb8-934b-4142-84ca-0308f0675443",
+          "ebd76a8f-1842-427d-a5a3-ca61d12ca5a8",
+          "0de8ef1b-c005-4a83-9218-74c8bd73caf0"
+        ],
+        "strict_history_refs": [
+          "a0d0191f-fa8e-4861-a19d-60e8c43e7c0a",
+          "b91fe8e3-d758-4e95-8e2a-2a47617d63bc",
+          "3f837475-122f-40d7-a7c1-9f36d2185442",
+          "9a6f7de8-a955-4ff6-b14a-01be2fc0cd6d",
+          "90ab71e8-6f74-43ed-a54e-1546001f2502",
+          "be77b6c3-45b9-4686-a20c-338e6ac40d63",
+          "677a9f45-200e-4f0f-88ea-d45b25c18a96",
+          "920c224c-0e46-4820-9d19-cd091c14ca77",
+          "a66a4911-458b-4bc3-a230-ae85befbac55",
+          "ebd76a8f-1842-427d-a5a3-ca61d12ca5a8",
+          "0de8ef1b-c005-4a83-9218-74c8bd73caf0"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "10",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "e37bd1bf-3503-47cb-90dc-3a852ec3c606",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "3",
+            "linked_expanded_history_row_ids": [
+              "a0d0191f-fa8e-4861-a19d-60e8c43e7c0a"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "3e236ca9-7ff9-4bae-988d-e8098d16c513",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "7",
+            "linked_expanded_history_row_ids": [
+              "b91fe8e3-d758-4e95-8e2a-2a47617d63bc"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "90af5595-1d45-4a8f-ad97-9cd3713db17a",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "15",
+            "linked_expanded_history_row_ids": [
+              "3f837475-122f-40d7-a7c1-9f36d2185442"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          0,
+          1
+        ],
+        "common_relation_refs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "later_relation_refs": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 2,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023107285/0C",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "c84e4850-386b-4790-b607-eca21a6742bc",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023107285",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "4806e230-4734-489a-85f1-49a80e065872"
+        ],
+        "strict_history_refs": [
+          "4806e230-4734-489a-85f1-49a80e065872"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "11",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "6ce3e461-2f89-4c9d-994b-3ffbaf03aec4",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "15",
+            "linked_expanded_history_row_ids": [
+              "4806e230-4734-489a-85f1-49a80e065872"
+            ]
+          }
+        ],
+        "direct_relation_refs": [],
+        "common_relation_refs": [
+          12,
+          13,
+          14,
+          15
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 3,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002022104869/85",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "95b935cb-aa4a-4274-bcbd-0e9e737a2bc6",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2022104869",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "31a1b85f-2ff4-4fa2-aa76-04d69e24d467",
+          "4e618d71-6f01-4bd6-af30-928fc6049408",
+          "93135622-0036-424b-bfa4-922b3359e436",
+          "a6b7369a-03bf-472c-b112-9cab715c1710",
+          "070859e6-ef62-4a25-9e5d-1b7d2b20462e"
+        ],
+        "strict_history_refs": [
+          "31a1b85f-2ff4-4fa2-aa76-04d69e24d467",
+          "4e618d71-6f01-4bd6-af30-928fc6049408",
+          "93135622-0036-424b-bfa4-922b3359e436",
+          "a6b7369a-03bf-472c-b112-9cab715c1710",
+          "070859e6-ef62-4a25-9e5d-1b7d2b20462e"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": null,
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "3",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "10",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "5",
+            "linked_expanded_history_row_ids": []
+          }
+        ],
+        "direct_relation_refs": [],
+        "common_relation_refs": [
+          16,
+          17,
+          18
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 4,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023103917/1D",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "8000bc2c-3151-4ac2-8c4c-eec182b74834",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023103917",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "d8864da2-f551-45a6-9da1-3dbdeb1b8bb3",
+          "0662b5e0-a228-4ada-93b2-4788a1e2aeba",
+          "7359ef34-6a1b-4391-ab28-7e06040cedf1",
+          "180a98d0-3bfa-4f08-aefc-275fb44cd2d3",
+          "bc88af90-60e0-4ee4-a064-13fdceb53806",
+          "3bead886-9463-40d2-9000-a2156f1be517",
+          "274a9baa-f308-456d-8ca9-8d2587151409",
+          "ddf41c4e-0828-43a9-be02-12a5f5d1cb59"
+        ],
+        "strict_history_refs": [
+          "d8864da2-f551-45a6-9da1-3dbdeb1b8bb3",
+          "0662b5e0-a228-4ada-93b2-4788a1e2aeba",
+          "7359ef34-6a1b-4391-ab28-7e06040cedf1",
+          "180a98d0-3bfa-4f08-aefc-275fb44cd2d3",
+          "bc88af90-60e0-4ee4-a064-13fdceb53806",
+          "274a9baa-f308-456d-8ca9-8d2587151409",
+          "ddf41c4e-0828-43a9-be02-12a5f5d1cb59"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "12",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "4",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "15",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "cae95d43-7c0d-438c-9786-ca03716b7294",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "14",
+            "linked_expanded_history_row_ids": [
+              "d8864da2-f551-45a6-9da1-3dbdeb1b8bb3"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "common_relation_refs": [
+          0,
+          12,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ],
+        "later_relation_refs": [
+          0,
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 5,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023106829/AF",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "8e5cbed7-5b35-4547-8695-652a0263a645",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023106829",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "8099186c-7a68-4c98-a52c-8ac576181306",
+          "6f9b0592-a5db-45f1-aa87-fbf8c4c7e29a",
+          "80c14aff-a963-4ed6-aebe-3f113c643f98",
+          "3decabf4-462a-48f4-aede-226bb26fb566",
+          "663280b3-d48f-482c-bed9-32c7fd1770bb",
+          "2018db67-f175-4169-987c-d62b3b8ee321",
+          "80f07c50-da2f-4bc4-9c5b-6c9daf695954",
+          "89195ca3-69d5-4afb-9c52-49e7fbf7a633",
+          "f44769cb-e918-4755-9478-04349a68c45a",
+          "104c055b-f925-4c52-9e1f-4c90e11d971a",
+          "79857786-a7e6-4129-ad1a-417b260d7eb6",
+          "1b05c14c-0df3-493d-84a6-bc2bf86de084",
+          "b52ef276-3e75-44d1-b359-ba7b416e42aa",
+          "152fc1ab-a530-49e9-9fcc-4eb2a89d995a"
+        ],
+        "strict_history_refs": [
+          "80c14aff-a963-4ed6-aebe-3f113c643f98",
+          "3decabf4-462a-48f4-aede-226bb26fb566",
+          "663280b3-d48f-482c-bed9-32c7fd1770bb",
+          "80f07c50-da2f-4bc4-9c5b-6c9daf695954",
+          "89195ca3-69d5-4afb-9c52-49e7fbf7a633",
+          "f44769cb-e918-4755-9478-04349a68c45a",
+          "104c055b-f925-4c52-9e1f-4c90e11d971a",
+          "79857786-a7e6-4129-ad1a-417b260d7eb6",
+          "1b05c14c-0df3-493d-84a6-bc2bf86de084",
+          "b52ef276-3e75-44d1-b359-ba7b416e42aa",
+          "152fc1ab-a530-49e9-9fcc-4eb2a89d995a"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "8",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "d9093cd2-af9b-4c51-9732-b109a5f78eec",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "14",
+            "linked_expanded_history_row_ids": [
+              "8099186c-7a68-4c98-a52c-8ac576181306"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "1f869791-5497-460a-8dd1-392f752e8165",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "14",
+            "linked_expanded_history_row_ids": [
+              "6f9b0592-a5db-45f1-aa87-fbf8c4c7e29a"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "a2d61a47-5a60-4e19-9b04-9b5cb9dc2442",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "1",
+            "linked_expanded_history_row_ids": [
+              "80c14aff-a963-4ed6-aebe-3f113c643f98"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          2,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "common_relation_refs": [
+          1,
+          13,
+          19,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40
+        ],
+        "later_relation_refs": [
+          4,
+          5,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 6,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023101102/68",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "a2824d4d-203d-4906-9277-b60e63dc52d4",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023101102",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "1e8aed48-2752-4b7d-863d-52bcafea2595",
+          "e3932986-57b0-464e-bdea-e11918a2a7c2",
+          "be965793-ee2f-496c-9981-24775c1f1caf"
+        ],
+        "strict_history_refs": [
+          "1e8aed48-2752-4b7d-863d-52bcafea2595",
+          "e3932986-57b0-464e-bdea-e11918a2a7c2",
+          "be965793-ee2f-496c-9981-24775c1f1caf"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": "a37e5425-f9f5-434b-9f0a-9db6f770ae99",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "13",
+            "linked_expanded_history_row_ids": [
+              "1e8aed48-2752-4b7d-863d-52bcafea2595"
+            ]
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "cdc7e428-4fbd-4010-b35f-f27c73cd7958",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "14",
+            "linked_expanded_history_row_ids": [
+              "e3932986-57b0-464e-bdea-e11918a2a7c2"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "93f265e7-26d1-413b-b282-855a61d4789f",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "15",
+            "linked_expanded_history_row_ids": [
+              "be965793-ee2f-496c-9981-24775c1f1caf"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          11
+        ],
+        "common_relation_refs": [
+          14,
+          20,
+          31,
+          41,
+          42,
+          43
+        ],
+        "later_relation_refs": [
+          18,
+          19
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 7,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002022104953/F4",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "7c108d35-df7a-476f-955f-e52fd624d976",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2022104953",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "74e2cd94-55fa-40f5-9eb2-511daa0b458c",
+          "4a32b8f9-a9f4-4726-895b-0668bf77f13d",
+          "ec0547b9-fea0-4495-8938-8de3558ca56a",
+          "675a2db8-9aa2-4fcc-b4ab-0e2e6f024a9a",
+          "c243826f-56ca-4ab9-8cbe-befef1ad27c0",
+          "5571cf63-e2e0-4356-8342-3d45319b349f",
+          "0e7c54e9-201e-429c-9b42-7adedd6742d5",
+          "d908a432-e54a-41e4-a516-a04091606c07",
+          "b00ad171-c089-481d-b9dc-45565639a33b",
+          "451eeb09-0ad2-475b-9c1b-d9a5d243ae9d"
+        ],
+        "strict_history_refs": [
+          "74e2cd94-55fa-40f5-9eb2-511daa0b458c",
+          "ec0547b9-fea0-4495-8938-8de3558ca56a",
+          "675a2db8-9aa2-4fcc-b4ab-0e2e6f024a9a",
+          "c243826f-56ca-4ab9-8cbe-befef1ad27c0",
+          "5571cf63-e2e0-4356-8342-3d45319b349f",
+          "0e7c54e9-201e-429c-9b42-7adedd6742d5",
+          "d908a432-e54a-41e4-a516-a04091606c07"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "4",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "2bc2177c-b75b-404b-b037-31a48c1a9fa7",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "2",
+            "linked_expanded_history_row_ids": [
+              "74e2cd94-55fa-40f5-9eb2-511daa0b458c"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "d25b2f12-554a-44ef-894c-ed1329a957da",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "12",
+            "linked_expanded_history_row_ids": [
+              "4a32b8f9-a9f4-4726-895b-0668bf77f13d"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "f04c28c6-0860-4201-96cc-27c7733c3a45",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "2",
+            "linked_expanded_history_row_ids": [
+              "ec0547b9-fea0-4495-8938-8de3558ca56a"
+            ]
+          }
+        ],
+        "direct_relation_refs": [],
+        "common_relation_refs": [
+          2,
+          21,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 8,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023106620/42",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "b0120055-0432-47ab-bc45-ae4fc4c5866d",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023106620",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "f402e0fe-3555-4896-b899-1c193aa68efa",
+          "55b4858a-6014-4330-972b-fda41ca3f629",
+          "005c73d8-e5d7-4199-9090-f9fe762891b6",
+          "8f94e30d-797d-482f-ad24-1ce8ca766bbf",
+          "defda25a-eb79-49f9-a343-a27665881213",
+          "cd971638-358d-41a7-aefc-a11d970ddbfc",
+          "01576c39-b247-41ed-b59a-e23ae71db378",
+          "a2710ae0-dbb4-4bf3-be6d-d40b37564848",
+          "608d441f-d4c2-4ac0-bcb2-dba540cb124a",
+          "7b53262c-01cf-4610-9a32-c42c5c1418a5"
+        ],
+        "strict_history_refs": [
+          "005c73d8-e5d7-4199-9090-f9fe762891b6",
+          "8f94e30d-797d-482f-ad24-1ce8ca766bbf",
+          "defda25a-eb79-49f9-a343-a27665881213",
+          "cd971638-358d-41a7-aefc-a11d970ddbfc",
+          "a2710ae0-dbb4-4bf3-be6d-d40b37564848",
+          "608d441f-d4c2-4ac0-bcb2-dba540cb124a",
+          "7b53262c-01cf-4610-9a32-c42c5c1418a5"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "18",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "6",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "ac8d0f87-9092-452a-951a-80deb89f5efb",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "10",
+            "linked_expanded_history_row_ids": [
+              "f402e0fe-3555-4896-b899-1c193aa68efa"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "41f5f5c8-afbf-4f43-8571-7c7014f7557a",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "11",
+            "linked_expanded_history_row_ids": [
+              "55b4858a-6014-4330-972b-fda41ca3f629"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          11
+        ],
+        "common_relation_refs": [
+          15,
+          22,
+          32,
+          41,
+          53,
+          54,
+          55,
+          56,
+          57
+        ],
+        "later_relation_refs": [
+          18,
+          19
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 9,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002022102305/86",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "5dcec746-49fc-4aa7-a2e9-b0202a90c4ef",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2022102305",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "5c71f14a-1ac6-4533-95f8-ba22ecb92319",
+          "89157e12-c26e-4447-845c-580e42526af3",
+          "9ef80227-081b-454a-a2a8-a283fd0e9518",
+          "8c8d32a5-d3e4-4532-a6d6-a0a44a845e07",
+          "214f01a8-9240-40cb-84f5-fdd019cab24e",
+          "8bf8e939-0bcc-4e90-b61e-acd2335d0398",
+          "4b63717c-cd32-4026-91df-81e95eb7d211",
+          "40d25372-8ee6-4f56-bed5-f9f5d588f1bd",
+          "347beec4-ef32-4056-8a0e-b8ec4e6aaad1",
+          "3d656303-c1f5-4dbf-8d11-5cfb19e210d1",
+          "855db8f1-90e5-4f31-8030-71ca67cb9a13"
+        ],
+        "strict_history_refs": [
+          "5c71f14a-1ac6-4533-95f8-ba22ecb92319",
+          "89157e12-c26e-4447-845c-580e42526af3",
+          "9ef80227-081b-454a-a2a8-a283fd0e9518",
+          "8c8d32a5-d3e4-4532-a6d6-a0a44a845e07",
+          "214f01a8-9240-40cb-84f5-fdd019cab24e",
+          "8bf8e939-0bcc-4e90-b61e-acd2335d0398",
+          "40d25372-8ee6-4f56-bed5-f9f5d588f1bd",
+          "347beec4-ef32-4056-8a0e-b8ec4e6aaad1"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "5",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "14",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "cd7d1164-2736-47a0-84fd-fa949ac4cae7",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "17",
+            "linked_expanded_history_row_ids": [
+              "5c71f14a-1ac6-4533-95f8-ba22ecb92319"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "4f2fb74c-2f9d-4c5c-85a2-1f2223cd07fa",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "1",
+            "linked_expanded_history_row_ids": [
+              "89157e12-c26e-4447-845c-580e42526af3"
+            ]
+          }
+        ],
+        "direct_relation_refs": [],
+        "common_relation_refs": [
+          3,
+          16,
+          33,
+          44,
+          58,
+          59,
+          60
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 10,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002021101100/6A",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "724f3ae5-79d8-4c02-8301-4bad22dd6340",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2021101100",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "04b5890a-99c9-40a8-b009-d18017b38e2d",
+          "5bef38b4-d795-4e00-86c5-927413483ea9",
+          "ba286f5f-dcfd-4cd9-9dd7-a837914cdefa",
+          "18838833-779b-4e59-bd72-627c6597451e",
+          "515e80c9-475a-4dfe-857a-bfe59e9df70b",
+          "954af668-2154-4d8e-abe6-3860ec9063ce",
+          "6d039c06-4fce-4f0b-a89d-1e0e33445cf3",
+          "214f0b87-6d7a-455f-a615-a29525ee8bb5",
+          "a2fba00f-0399-40d5-bbb2-3e50b4d7e288",
+          "7439b6e9-3283-4b3a-8b5c-2818551ebda5",
+          "60a9ad03-e764-4de0-842a-f1df2c90e5c1",
+          "7f60f754-d1a4-496c-906b-062d862f5229",
+          "9aedc702-f27b-403e-9e94-c4d49c559d0e",
+          "b58119b0-c06f-48cb-80fd-198cb69a21a7",
+          "d3fd8d53-98f5-4d35-a1e1-2ac3d071ecb8",
+          "5569513f-25b7-420b-831e-0a4ad8a996d5",
+          "f02cc80d-28d5-4752-b26e-739a3bda09e2",
+          "cac2484d-a7b0-4f53-ab64-b67d2a4700b0",
+          "38d367fc-19ea-48ca-9313-40b286e38e3d",
+          "e5ed0ee4-dd3e-4303-8d05-7b78de8f4187",
+          "c5fbff7f-83fd-41d8-b43e-ac126db5ecc5",
+          "74e7f9e1-c8e3-4445-b254-4a9f48efbc3a"
+        ],
+        "strict_history_refs": [
+          "5bef38b4-d795-4e00-86c5-927413483ea9",
+          "ba286f5f-dcfd-4cd9-9dd7-a837914cdefa",
+          "18838833-779b-4e59-bd72-627c6597451e",
+          "515e80c9-475a-4dfe-857a-bfe59e9df70b",
+          "954af668-2154-4d8e-abe6-3860ec9063ce",
+          "6d039c06-4fce-4f0b-a89d-1e0e33445cf3",
+          "a2fba00f-0399-40d5-bbb2-3e50b4d7e288",
+          "7f60f754-d1a4-496c-906b-062d862f5229",
+          "9aedc702-f27b-403e-9e94-c4d49c559d0e",
+          "d3fd8d53-98f5-4d35-a1e1-2ac3d071ecb8",
+          "5569513f-25b7-420b-831e-0a4ad8a996d5",
+          "f02cc80d-28d5-4752-b26e-739a3bda09e2",
+          "cac2484d-a7b0-4f53-ab64-b67d2a4700b0",
+          "38d367fc-19ea-48ca-9313-40b286e38e3d",
+          "c5fbff7f-83fd-41d8-b43e-ac126db5ecc5",
+          "74e7f9e1-c8e3-4445-b254-4a9f48efbc3a"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": "ca41748f-6349-4135-9b0d-65ecd79d7c86",
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "14",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "d9093cd2-af9b-4c51-9732-b109a5f78eec",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "5",
+            "linked_expanded_history_row_ids": [
+              "04b5890a-99c9-40a8-b009-d18017b38e2d"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "6455ad80-58b4-49b1-9fff-b9ec69db5980",
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "7",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "349a33fd-f1af-4c6a-aae3-52eaaa823332",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "14",
+            "linked_expanded_history_row_ids": [
+              "5bef38b4-d795-4e00-86c5-927413483ea9"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          5
+        ],
+        "common_relation_refs": [
+          4,
+          17,
+          23,
+          45,
+          58,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 11,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023107220/6D",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "122cb759-3f31-4a53-af0a-9a604d0ee97a",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023107220",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "c4a378bc-4951-43a5-ab2e-e44966e8f12a",
+          "366dee19-fcec-4101-9544-409312a74367",
+          "356cb458-c888-42db-a088-7cd7275e051d",
+          "1065fff2-fa5f-45ff-b13b-1fd4eedac436"
+        ],
+        "strict_history_refs": [
+          "c4a378bc-4951-43a5-ab2e-e44966e8f12a",
+          "356cb458-c888-42db-a088-7cd7275e051d",
+          "1065fff2-fa5f-45ff-b13b-1fd4eedac436"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "11",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "ebbb8642-52b9-44e4-9d7c-595bc54ee4c7",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "15",
+            "linked_expanded_history_row_ids": [
+              "c4a378bc-4951-43a5-ab2e-e44966e8f12a"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "53f6346f-2cbe-4a46-8ea0-f3f8ac7e0459",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "15",
+            "linked_expanded_history_row_ids": [
+              "366dee19-fcec-4101-9544-409312a74367"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "0525903b-a255-47cd-a721-b93fc756a073",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "1",
+            "linked_expanded_history_row_ids": [
+              "356cb458-c888-42db-a088-7cd7275e051d"
+            ]
+          }
+        ],
+        "direct_relation_refs": [],
+        "common_relation_refs": [
+          34,
+          68,
+          69,
+          70
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 12,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023106836/66",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "5d9ed073-78a6-45db-bffd-256c02527c1d",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023106836",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "equipment",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "0bb44095-d470-4b0f-9a50-80947d09dd9c",
+          "97b23920-d262-4e9f-9c2f-95742dd86bbe",
+          "1d3c91b8-cf61-4dd5-9a6f-d881f39ca7c5",
+          "ea1313a4-7c55-44d0-9d58-55e07750ebb2",
+          "bcec4fe9-ec39-4c45-9d62-8d9cd2973d63",
+          "a3beab0d-93b3-401d-8f2f-d67732a886ca",
+          "1891edb0-ff95-4448-9b27-016477519285",
+          "8418a1b0-fd33-476c-85fc-49e2f445c44f"
+        ],
+        "strict_history_refs": [
+          "0bb44095-d470-4b0f-9a50-80947d09dd9c",
+          "1d3c91b8-cf61-4dd5-9a6f-d881f39ca7c5",
+          "ea1313a4-7c55-44d0-9d58-55e07750ebb2",
+          "bcec4fe9-ec39-4c45-9d62-8d9cd2973d63",
+          "a3beab0d-93b3-401d-8f2f-d67732a886ca"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "4",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "cae95d43-7c0d-438c-9786-ca03716b7294",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "2",
+            "linked_expanded_history_row_ids": [
+              "0bb44095-d470-4b0f-9a50-80947d09dd9c"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "a4ab4634-d8b8-4aca-90fb-c9799ed5a3a9",
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "1",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "ad8403ee-f55e-4e35-af7e-4a385fa8507e",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "15",
+            "linked_expanded_history_row_ids": [
+              "97b23920-d262-4e9f-9c2f-95742dd86bbe"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          3
+        ],
+        "common_relation_refs": [
+          5,
+          24,
+          35,
+          42,
+          46,
+          53,
+          61,
+          68,
+          71,
+          72,
+          73,
+          74,
+          75
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 13,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002022101749/67",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "b00e9278-4617-4767-bdc2-8e508263c145",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2022101749",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "d712d501-84c3-46d2-843b-99f559dc2db3",
+          "2467c820-ea17-4009-8934-23af34e6d0e7",
+          "d03efefc-691e-45f3-b710-bd3006dd83ac",
+          "c738bbc0-71f7-4696-afe9-48874df28e70",
+          "9451776a-e08a-4c20-864c-e7b5214106fd",
+          "a393b0c8-ee47-4077-a6da-7886209eef2d",
+          "9fee59a5-d6c8-47b1-b892-4988ea6d317d",
+          "982f97bd-c483-4b61-b1af-c580bc3f331b",
+          "5450e920-cb71-48d9-b53e-e06deaca8ef4",
+          "c7aa7213-16c3-4ec0-ae98-1824d58a53bd",
+          "6b15f553-96af-4259-b6ad-cb7e8b7831ed",
+          "a5a01781-2c56-41fb-87ed-d40d556fa3ee",
+          "5373ab8b-bc5f-48fb-bc3b-10744c170b3c",
+          "bd72fb0d-4433-4fdd-83b6-cf02a81946b8",
+          "c7ea82fc-0e7c-4000-9b10-c61294ef9512",
+          "8c3d511c-bf49-49f5-81ee-7e081d2475e7"
+        ],
+        "strict_history_refs": [
+          "2467c820-ea17-4009-8934-23af34e6d0e7",
+          "d03efefc-691e-45f3-b710-bd3006dd83ac",
+          "c738bbc0-71f7-4696-afe9-48874df28e70",
+          "9451776a-e08a-4c20-864c-e7b5214106fd",
+          "a393b0c8-ee47-4077-a6da-7886209eef2d",
+          "9fee59a5-d6c8-47b1-b892-4988ea6d317d",
+          "982f97bd-c483-4b61-b1af-c580bc3f331b",
+          "5450e920-cb71-48d9-b53e-e06deaca8ef4",
+          "c7aa7213-16c3-4ec0-ae98-1824d58a53bd",
+          "a5a01781-2c56-41fb-87ed-d40d556fa3ee",
+          "5373ab8b-bc5f-48fb-bc3b-10744c170b3c",
+          "bd72fb0d-4433-4fdd-83b6-cf02a81946b8",
+          "c7ea82fc-0e7c-4000-9b10-c61294ef9512",
+          "8c3d511c-bf49-49f5-81ee-7e081d2475e7"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": "277c87d7-9564-479b-a98b-d4fda1b61f5f",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "1",
+            "linked_expanded_history_row_ids": [
+              "d712d501-84c3-46d2-843b-99f559dc2db3"
+            ]
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "76dc325d-7e82-432b-8fe1-ad748709403b",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "16",
+            "linked_expanded_history_row_ids": [
+              "2467c820-ea17-4009-8934-23af34e6d0e7"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "0958d433-f046-44c3-aa1a-8d58e73a43e0",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "13",
+            "linked_expanded_history_row_ids": [
+              "d03efefc-691e-45f3-b710-bd3006dd83ac"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "ccc1260d-911e-4a87-bce7-90ab6f8c8c53",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "2",
+            "linked_expanded_history_row_ids": [
+              "c738bbc0-71f7-4696-afe9-48874df28e70"
+            ]
+          }
+        ],
+        "direct_relation_refs": [],
+        "common_relation_refs": [
+          6,
+          18,
+          25,
+          36,
+          47,
+          54,
+          59,
+          62,
+          71,
+          76,
+          77,
+          78,
+          79,
+          80
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 14,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023103584/70",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "4a50316e-a100-4704-9418-094930845544",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023103584",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "b9757054-4d5b-4c4b-bed3-044df0d2c14f",
+          "c471ec75-766a-4d79-a1a7-9ef94676890c",
+          "7b9670bd-87a6-4571-8358-7473b97bc0d8",
+          "e767f06f-4210-4b99-a6b7-ff3629869631",
+          "277094af-cc57-4167-8897-a0a40c7f08f8",
+          "f71f34a4-0ca1-451c-9734-821ee09e24b1"
+        ],
+        "strict_history_refs": [
+          "b9757054-4d5b-4c4b-bed3-044df0d2c14f",
+          "c471ec75-766a-4d79-a1a7-9ef94676890c",
+          "7b9670bd-87a6-4571-8358-7473b97bc0d8",
+          "e767f06f-4210-4b99-a6b7-ff3629869631",
+          "277094af-cc57-4167-8897-a0a40c7f08f8",
+          "f71f34a4-0ca1-451c-9734-821ee09e24b1"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "8",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "a7a1df6f-8c88-40eb-bc33-b1316e04b5ff",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "5",
+            "linked_expanded_history_row_ids": [
+              "b9757054-4d5b-4c4b-bed3-044df0d2c14f"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "3ab88483-c0db-4b45-8792-1a1c0894aaad",
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "12",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "e0f61b45-70ce-4ff2-8223-2851ca0eaba6",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "4",
+            "linked_expanded_history_row_ids": [
+              "c471ec75-766a-4d79-a1a7-9ef94676890c"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          6,
+          7,
+          12
+        ],
+        "common_relation_refs": [
+          7,
+          26,
+          37,
+          43,
+          48,
+          55,
+          63,
+          72,
+          76,
+          81,
+          82,
+          83,
+          84
+        ],
+        "later_relation_refs": [
+          8,
+          9,
+          10,
+          11,
+          20,
+          21
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 15,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023105820/B5",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "a3e74acc-1a10-44f5-83d6-1ac0048aa219",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023105820",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "2dfc3a1c-25ce-4e7d-86dd-75abf86ce7a9",
+          "3d16bf51-46f9-4bad-b2f8-1d40c92790a7",
+          "5058bb4f-6300-49eb-9392-f8788b6042e5",
+          "5103121f-2931-48ba-a30a-c68cbb9b1a19",
+          "8cc6b976-20a9-495a-915f-889af66ebee7"
+        ],
+        "strict_history_refs": [
+          "3d16bf51-46f9-4bad-b2f8-1d40c92790a7",
+          "5058bb4f-6300-49eb-9392-f8788b6042e5",
+          "5103121f-2931-48ba-a30a-c68cbb9b1a19",
+          "8cc6b976-20a9-495a-915f-889af66ebee7"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": "a14be4cd-5790-4f18-bf65-265cbec06ce1",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "7",
+            "linked_expanded_history_row_ids": [
+              "2dfc3a1c-25ce-4e7d-86dd-75abf86ce7a9"
+            ]
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "09a43203-1907-4f7a-8670-1225e27a697b",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "3",
+            "linked_expanded_history_row_ids": [
+              "3d16bf51-46f9-4bad-b2f8-1d40c92790a7"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "74f80a34-d940-470d-a279-8c7ab8747fe9",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "3",
+            "linked_expanded_history_row_ids": [
+              "5058bb4f-6300-49eb-9392-f8788b6042e5"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "2853fc9d-1ea1-447d-a697-9df487a08386",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "5",
+            "linked_expanded_history_row_ids": [
+              "5103121f-2931-48ba-a30a-c68cbb9b1a19"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          8
+        ],
+        "common_relation_refs": [
+          8,
+          27,
+          38,
+          49,
+          56,
+          64,
+          69,
+          73,
+          77,
+          81,
+          85,
+          86
+        ],
+        "later_relation_refs": [
+          12,
+          13
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 16,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002021105611/9E",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "8e18605e-34ce-443e-b23d-55647db13e38",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2021105611",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "c1ba7341-d7ee-4299-8c44-0b19d915d9e8",
+          "7c018417-e459-49c6-8c5e-02bc7f3d6c2c",
+          "1b18d556-3b8a-42bc-afc9-69333949630a",
+          "2c179339-c51b-4abf-950b-8b5ce94c8688",
+          "c132e095-b40b-4de1-8800-1d07c94ba9fe"
+        ],
+        "strict_history_refs": [
+          "c1ba7341-d7ee-4299-8c44-0b19d915d9e8",
+          "7c018417-e459-49c6-8c5e-02bc7f3d6c2c",
+          "1b18d556-3b8a-42bc-afc9-69333949630a",
+          "c132e095-b40b-4de1-8800-1d07c94ba9fe"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": "643761ab-88ef-4ec4-8806-0565135dc4b4",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "6",
+            "linked_expanded_history_row_ids": [
+              "c1ba7341-d7ee-4299-8c44-0b19d915d9e8"
+            ]
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "dc8d6e0c-e411-4ac9-826d-cb0b15e18270",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "15",
+            "linked_expanded_history_row_ids": [
+              "7c018417-e459-49c6-8c5e-02bc7f3d6c2c"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "6f612682-b0f5-4c11-ba04-cbe93473ef5f",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "9",
+            "linked_expanded_history_row_ids": [
+              "1b18d556-3b8a-42bc-afc9-69333949630a"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "e87082bc-8223-4c61-8e96-cb7a370106c6",
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": null,
+            "linked_expanded_history_row_ids": []
+          }
+        ],
+        "direct_relation_refs": [],
+        "common_relation_refs": [
+          9,
+          28,
+          50,
+          60,
+          65,
+          78,
+          82,
+          87
+        ],
+        "later_relation_refs": [],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 17,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023105650/83",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "54534878-58ac-409f-be9a-66f80b7c6a38",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023105650",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "6ebe3558-5d75-4ccc-994e-dbbd01a9f680",
+          "2de8bb5e-1b45-4f05-85d8-b02ad36e3f36",
+          "62c178d2-e0ca-4570-977b-055877e9c001",
+          "50b524d0-2c37-44fa-9f10-b0a962a06e30"
+        ],
+        "strict_history_refs": [
+          "6ebe3558-5d75-4ccc-994e-dbbd01a9f680",
+          "2de8bb5e-1b45-4f05-85d8-b02ad36e3f36",
+          "62c178d2-e0ca-4570-977b-055877e9c001",
+          "50b524d0-2c37-44fa-9f10-b0a962a06e30"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "9",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "d0487f63-2a4f-44f9-9402-23a62cf1f0fe",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "4",
+            "linked_expanded_history_row_ids": [
+              "6ebe3558-5d75-4ccc-994e-dbbd01a9f680"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "01fdb5e3-97bc-4328-9255-ad0528be80aa",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "1",
+            "linked_expanded_history_row_ids": [
+              "2de8bb5e-1b45-4f05-85d8-b02ad36e3f36"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "0a2eb696-eab6-4682-8a1e-ca5747254e0b",
+            "status": "ARCHIVE_MATCH_CLASS_CONFLICT",
+            "prior_no": "12",
+            "linked_expanded_history_row_ids": [
+              "62c178d2-e0ca-4570-977b-055877e9c001"
+            ]
+          }
+        ],
+        "direct_relation_refs": [
+          9
+        ],
+        "common_relation_refs": [
+          10,
+          29,
+          39,
+          51,
+          57,
+          66,
+          70,
+          74,
+          79,
+          83,
+          85,
+          88
+        ],
+        "later_relation_refs": [
+          14,
+          15
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": 18,
+        "source_ref": "/JRADB/accessU.html?CNAME=pw01dud002023103413/5C",
+        "updated_at": "2026-11-23T07:00:08.606+00:00",
+        "card_row_id": "d860ba21-a948-43d4-9c8c-a71ec8e50e1f",
+        "source_checked_at": "2026-11-23T07:00:08.606+00:00",
+        "horse_id_candidate": "2023103413",
+        "card_fields_available": [
+          "draw",
+          "sex_age",
+          "weight_kg",
+          "body_weight_kg",
+          "body_weight_change"
+        ],
+        "active_status": "NOT_EXPLICIT_IN_STORED_CARD",
+        "history_refs": [
+          "1d1e18c6-9e92-4f76-a53b-be1922cab415",
+          "f75718a6-51bd-462c-b442-2cddf559e984",
+          "a0863476-65c0-47fe-ad1d-32475a79110e"
+        ],
+        "strict_history_refs": [
+          "1d1e18c6-9e92-4f76-a53b-be1922cab415",
+          "f75718a6-51bd-462c-b442-2cddf559e984",
+          "a0863476-65c0-47fe-ad1d-32475a79110e"
+        ],
+        "card_history_refs": [
+          {
+            "ordinal": 1,
+            "archive_race_id": null,
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "10",
+            "linked_expanded_history_row_ids": []
+          },
+          {
+            "ordinal": 2,
+            "archive_race_id": "05b581f9-abc6-492d-afac-7c5d0a071ddb",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "4",
+            "linked_expanded_history_row_ids": [
+              "1d1e18c6-9e92-4f76-a53b-be1922cab415"
+            ]
+          },
+          {
+            "ordinal": 3,
+            "archive_race_id": "90af5595-1d45-4a8f-ad97-9cd3713db17a",
+            "status": "ARCHIVE_MATCH_CLASS_LITERAL_MATCH",
+            "prior_no": "14",
+            "linked_expanded_history_row_ids": [
+              "f75718a6-51bd-462c-b442-2cddf559e984"
+            ]
+          },
+          {
+            "ordinal": 4,
+            "archive_race_id": "50701b47-f4fe-4174-9861-8ac0f4471b3f",
+            "status": "ARCHIVE_ID_OR_RESULT_MISSING_OR_MISMATCH",
+            "prior_no": "4",
+            "linked_expanded_history_row_ids": []
+          }
+        ],
+        "direct_relation_refs": [
+          1,
+          4,
+          10,
+          12
+        ],
+        "common_relation_refs": [
+          11,
+          30,
+          40,
+          52,
+          67,
+          75,
+          80,
+          84,
+          86,
+          87,
+          88
+        ],
+        "later_relation_refs": [
+          2,
+          3,
+          6,
+          7,
+          16,
+          17,
+          20,
+          21
+        ],
+        "missing": [
+          "native original card/horse authentication",
+          "explicit active/withdrawal state",
+          "historical publication/version",
+          "historical course rail/version",
+          "exact eligibility/class applicability",
+          "person native IDs/validity",
+          "permission"
+        ],
+        "formal_usable": false
+      }
+    ]
+  },
+  "LOCAL": {
+    "target": {
+      "race": "LOCAL:2026-11-22:佐賀:8",
+      "snapshot": "f2274744-6506-49a3-9c85-329ca55c9cac",
+      "as_of": "2026-11-22T16:16:53.433+09:00",
+      "post": "2026-11-22T19:10:00+09:00",
+      "current_card_capture": "2026-11-22T19:20:07.493+09:00",
+      "current_card": null,
+      "current_card_status": "POSTSTART_RETRIEVAL_REJECTED"
+    },
+    "summary": {
+      "runners": 12,
+      "distinct_ids": 12,
+      "rows": 29,
+      "duplicate_rows": 0,
+      "corner_rows": 29,
+      "settlement_unique_own": 10,
+      "settlement_clock_present": 7,
+      "archive_unique": 3,
+      "archive_f3_present": 3,
+      "lap_linked": 1,
+      "peer": {
+        "rows": 13,
+        "linked": 13,
+        "both": 1
+      },
+      "direct_pairs": 8,
+      "direct_both_own_rows": 2
+    },
+    "direct_pairs": [
+      {
+        "a_no": "1",
+        "b_no": "2",
+        "prior_race": {
+          "track": "佐賀",
+          "raceNo": 11,
+          "raceDate": "2026-10-24"
+        },
+        "a_witness": 1,
+        "b_witness": 3,
+        "settlement_both_own_rows": true,
+        "formal_usable": false
+      },
+      {
+        "a_no": "1",
+        "b_no": "3",
+        "prior_race": {
+          "track": "佐賀",
+          "raceNo": 11,
+          "raceDate": "2026-10-24"
+        },
+        "a_witness": 1,
+        "b_witness": 5,
+        "settlement_both_own_rows": false,
+        "formal_usable": false
+      },
+      {
+        "a_no": "1",
+        "b_no": "9",
+        "prior_race": {
+          "track": "佐賀",
+          "raceNo": 11,
+          "raceDate": "2026-10-24"
+        },
+        "a_witness": 1,
+        "b_witness": 18,
+        "settlement_both_own_rows": false,
+        "formal_usable": false
+      },
+      {
+        "a_no": "2",
+        "b_no": "3",
+        "prior_race": {
+          "track": "佐賀",
+          "raceNo": 11,
+          "raceDate": "2026-10-24"
+        },
+        "a_witness": 3,
+        "b_witness": 5,
+        "settlement_both_own_rows": false,
+        "formal_usable": false
+      },
+      {
+        "a_no": "2",
+        "b_no": "9",
+        "prior_race": {
+          "track": "佐賀",
+          "raceNo": 11,
+          "raceDate": "2026-10-24"
+        },
+        "a_witness": 3,
+        "b_witness": 18,
+        "settlement_both_own_rows": false,
+        "formal_usable": false
+      },
+      {
+        "a_no": "3",
+        "b_no": "9",
+        "prior_race": {
+          "track": "佐賀",
+          "raceNo": 11,
+          "raceDate": "2026-10-24"
+        },
+        "a_witness": 5,
+        "b_witness": 18,
+        "settlement_both_own_rows": false,
+        "formal_usable": false
+      },
+      {
+        "a_no": "5",
+        "b_no": "9",
+        "prior_race": {
+          "track": "佐賀",
+          "raceNo": 8,
+          "raceDate": "2026-08-29"
+        },
+        "a_witness": 11,
+        "b_witness": 20,
+        "settlement_both_own_rows": false,
+        "formal_usable": false
+      },
+      {
+        "a_no": "6",
+        "b_no": "12",
+        "prior_race": {
+          "track": "佐賀",
+          "raceNo": 8,
+          "raceDate": "2026-10-25"
+        },
+        "a_witness": 12,
+        "b_witness": 26,
+        "settlement_both_own_rows": true,
+        "formal_usable": false
+      }
+    ],
+    "runners": [
+      {
+        "current_no": "1",
+        "horse_id_candidate": "30068403696",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          1,
+          2
+        ],
+        "settlement_row_refs": [
+          "6b69e7f2-62cc-42a8-a350-cc6404083762"
+        ],
+        "lap_refs": [],
+        "held_archive_refs": [],
+        "direct_relation_refs": [
+          0,
+          1,
+          2
+        ],
+        "peer_relation_refs": [
+          0
+        ],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "2",
+        "horse_id_candidate": "30052406007",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          3,
+          4
+        ],
+        "settlement_row_refs": [
+          "6b69e7f2-62cc-42a8-a350-cc6404083762",
+          "ae4ac85c-3e16-4418-9983-f1cfd17892a0"
+        ],
+        "lap_refs": [],
+        "held_archive_refs": [],
+        "direct_relation_refs": [
+          0,
+          3,
+          4
+        ],
+        "peer_relation_refs": [
+          1
+        ],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "3",
+        "horse_id_candidate": "30093405256",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          5
+        ],
+        "settlement_row_refs": [],
+        "lap_refs": [],
+        "held_archive_refs": [],
+        "direct_relation_refs": [
+          1,
+          3,
+          5
+        ],
+        "peer_relation_refs": [],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no unique settlement own-row corroboration",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "4",
+        "horse_id_candidate": "30046409686",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          6,
+          7
+        ],
+        "settlement_row_refs": [],
+        "lap_refs": [],
+        "held_archive_refs": [],
+        "direct_relation_refs": [],
+        "peer_relation_refs": [
+          2,
+          3,
+          4
+        ],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no unique settlement own-row corroboration",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "5",
+        "horse_id_candidate": "30014401107",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "settlement_row_refs": [
+          "7a1753e8-3953-458a-96b3-21fd74ca5e48",
+          "8e7d49f0-e7fb-4634-a41d-f061ec3ff55c"
+        ],
+        "lap_refs": [],
+        "held_archive_refs": [
+          257375
+        ],
+        "direct_relation_refs": [
+          6
+        ],
+        "peer_relation_refs": [
+          5,
+          6
+        ],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "6",
+        "horse_id_candidate": "30058403507",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          12,
+          13,
+          14
+        ],
+        "settlement_row_refs": [
+          "63784d28-dc56-45ac-ac0e-b88e68a49262"
+        ],
+        "lap_refs": [
+          1
+        ],
+        "held_archive_refs": [],
+        "direct_relation_refs": [
+          7
+        ],
+        "peer_relation_refs": [
+          7
+        ],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "7",
+        "horse_id_candidate": "40041406096",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          15,
+          16
+        ],
+        "settlement_row_refs": [],
+        "lap_refs": [],
+        "held_archive_refs": [],
+        "direct_relation_refs": [],
+        "peer_relation_refs": [],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no unique settlement own-row corroboration",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "8",
+        "horse_id_candidate": "30037402907",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          17
+        ],
+        "settlement_row_refs": [
+          "77a5884d-3825-466d-9ec3-67caa24b46a1"
+        ],
+        "lap_refs": [],
+        "held_archive_refs": [],
+        "direct_relation_refs": [],
+        "peer_relation_refs": [],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "9",
+        "horse_id_candidate": "30044408907",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          18,
+          19,
+          20
+        ],
+        "settlement_row_refs": [],
+        "lap_refs": [],
+        "held_archive_refs": [
+          257370
+        ],
+        "direct_relation_refs": [
+          2,
+          4,
+          5,
+          6
+        ],
+        "peer_relation_refs": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no unique settlement own-row corroboration",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "10",
+        "horse_id_candidate": "30043401107",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          21,
+          22
+        ],
+        "settlement_row_refs": [],
+        "lap_refs": [],
+        "held_archive_refs": [
+          209765
+        ],
+        "direct_relation_refs": [],
+        "peer_relation_refs": [],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no unique settlement own-row corroboration",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "11",
+        "horse_id_candidate": "30002404096",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          23,
+          24,
+          25
+        ],
+        "settlement_row_refs": [
+          "54b054f5-f7af-49a8-9c94-b3c1b11fc634"
+        ],
+        "lap_refs": [],
+        "held_archive_refs": [],
+        "direct_relation_refs": [],
+        "peer_relation_refs": [],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      },
+      {
+        "current_no": "12",
+        "horse_id_candidate": "30018406276",
+        "current_card": null,
+        "active_status": "ATTESTED_BY_PRESTART_SNAPSHOT_NOT_RECONCILED_TO_NATIVE_CARD",
+        "history_witness_refs": [
+          26,
+          27,
+          28,
+          29
+        ],
+        "settlement_row_refs": [
+          "63784d28-dc56-45ac-ac0e-b88e68a49262",
+          "5eb590e2-ed80-46af-a862-94d27767ac5b"
+        ],
+        "lap_refs": [],
+        "held_archive_refs": [],
+        "direct_relation_refs": [
+          7
+        ],
+        "peer_relation_refs": [
+          12
+        ],
+        "missing": [
+          "immutable native prestart full card and current condition/weight fields",
+          "native result ID crosscheck",
+          "historical publication/version",
+          "official class/course applicability",
+          "permission",
+          "no linked race leader lap"
+        ],
+        "formal_usable": false
+      }
+    ]
+  },
+  "routing": [
+    {
+      "items": "RANK02–06,17–19",
+      "source": "historical observation values only from approved SELECT; no direct use of summary counts",
+      "blockers": "native original/asof/permission; lap/corner missing per row"
+    },
+    {
+      "items": "RANK33–42,EYE04–05",
+      "source": "direct/common/peer row references",
+      "blockers": "class/weights/identity/relative comparability; no automated ability effect"
+    },
+    {
+      "items": "RANK43–77",
+      "source": "roster and history observations",
+      "blockers": "course version, scenario, latest run completeness and current local conditions"
+    },
+    {
+      "items": "RANK78–100,EYE remaining",
+      "source": "partial card fields and history",
+      "blockers": "state/person/authenticated current context; item-specific effects not tested"
+    }
+  ],
+  "unresolved": {
+    "official_full_field_replay_eligible": 0,
+    "prior_benchmark_118_held": true,
+    "permission_inquiry_sent": false,
+    "nar_direct_race_requests": 0,
+    "urawa": "RETROSPECTIVE_ONLY",
+    "prior_sources_unchanged": true
+  }
+}
