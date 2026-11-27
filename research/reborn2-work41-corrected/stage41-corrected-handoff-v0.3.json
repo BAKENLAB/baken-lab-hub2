@@ -1,0 +1,3507 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "baseline": "64adddcc5c3fdae704031782bd0b4425ccd3a23a",
+  "executedCommit": "c6efaf773ef8fd5c35a63d8fb9bf049ce2c88a7c",
+  "run": 46077377106,
+  "job": 140768155586,
+  "conclusion": "success",
+  "nativePassLines": [
+    "2026-11-27T22:33:39.6660145Z WORK41_FIX EXACT_REJECTED_SOURCE_PIN PASS",
+    "2026-11-27T22:33:39.6666640Z WORK41_FIX ORIGINAL_1400MS_CONTRADICTION PASS",
+    "2026-11-27T22:33:39.6693190Z WORK41_FIX EXACT_WORK41_REPAIR_INDIVIDUAL_CLOCKS_UNCHANGED PASS",
+    "2026-11-27T22:33:39.6694506Z WORK41_FIX ORIGINAL_WORK40_MALFORMED_SOURCE PASS",
+    "2026-11-27T22:33:39.6711101Z WORK41_FIX ALL_BOUNDARIES_CORRECTED PASS",
+    "2026-11-27T22:33:39.6717024Z WORK41_FIX LEADER_200 PASS",
+    "2026-11-27T22:33:39.6721989Z WORK41_FIX LEADER_800 PASS",
+    "2026-11-27T22:33:39.6726638Z WORK41_FIX LEADER_1200 PASS",
+    "2026-11-27T22:33:39.6730991Z WORK41_FIX LEADER_1400 PASS",
+    "2026-11-27T22:33:39.6736843Z WORK41_FIX RAW_MUTATION_WITHOUT_HASH PASS",
+    "2026-11-27T22:33:39.6744439Z WORK41_FIX RAW_OBSERVATION_MISMATCH PASS",
+    "2026-11-27T22:33:39.6748628Z WORK41_FIX RAW_IDENTITY_ALIAS PASS",
+    "2026-11-27T22:33:39.6752164Z WORK41_FIX RAW_ROW_ALIAS PASS",
+    "2026-11-27T22:33:39.6755716Z WORK41_FIX RAW_ROW_DUPLICATE PASS",
+    "2026-11-27T22:33:39.6758556Z WORK41_FIX RAW_NONCANONICAL_DUPLICATE_KEY PASS",
+    "2026-11-27T22:33:39.6759555Z WORK41_FIX INVALID_CALENDAR PASS",
+    "2026-11-27T22:33:39.6760405Z WORK41_FIX INVALID_CUTOFF PASS",
+    "2026-11-27T22:33:39.6763877Z WORK41_FIX LATE_CAPTURE PASS",
+    "2026-11-27T22:33:39.6766929Z WORK41_FIX UNCERTAINTY_CROSSES_CUTOFF PASS",
+    "2026-11-27T22:33:39.6770162Z WORK41_FIX FALSE_PUBLICATION PASS",
+    "2026-11-27T22:33:39.6781339Z WORK41_FIX DUPLICATE_EVENT PASS",
+    "2026-11-27T22:33:39.6784178Z WORK41_FIX TARGET_OUTCOME_FIELD PASS",
+    "2026-11-27T22:33:39.6788617Z WORK41_FIX TARGET_RESULT_EVENT PASS",
+    "2026-11-27T22:33:39.6791035Z WORK41_FIX MARKET_ALIAS PASS",
+    "2026-11-27T22:33:39.6886264Z WORK41_FIX ALL_CATEGORY_SPECIFIC_KINDS PASS",
+    "2026-11-27T22:33:39.6888909Z WORK41_FIX SOURCE_ROOT_BINDING PASS",
+    "2026-11-27T22:33:39.6925522Z WORK41_FIX CHANGED_ROSTER_NO_FALSE_IDENTITY PASS",
+    "2026-11-27T22:33:39.6970000Z WORK41_FIX OTHER_CONDITION_NOT_SAME_SUPPORT PASS",
+    "2026-11-27T22:33:54.0824484Z WORK41_FIX SAME_FLAG_FULL_OUTPUT_RESULT_MUTATION PASS",
+    "2026-11-27T22:33:54.1116451Z WORK41_FIX PHYSICAL_RESULT_READ_DENIED PASS",
+    "2026-11-27T22:34:01.9053539Z WORK41_FIX GENERIC_NEW_ISSUER_EVENT_ROSTER PASS",
+    "2026-11-27T22:34:05.2050116Z WORK41_FIX ORIGINAL_REPAIRED_COMMON_EXECUTION PASS",
+    "2026-11-27T22:34:12.1189478Z WORK41_FIX SAME_PACKET_EYE_FLAG PASS"
+  ],
+  "summary": {
+    "scope": "SYNTHETIC_ONLY",
+    "priorAccepted": 778,
+    "addedAccepted": 0,
+    "checks": [
+      "EXACT_REJECTED_SOURCE_PIN",
+      "ORIGINAL_1400MS_CONTRADICTION",
+      "EXACT_WORK41_REPAIR_INDIVIDUAL_CLOCKS_UNCHANGED",
+      "ORIGINAL_WORK40_MALFORMED_SOURCE",
+      "ALL_BOUNDARIES_CORRECTED",
+      "LEADER_200",
+      "LEADER_800",
+      "LEADER_1200",
+      "LEADER_1400",
+      "RAW_MUTATION_WITHOUT_HASH",
+      "RAW_OBSERVATION_MISMATCH",
+      "RAW_IDENTITY_ALIAS",
+      "RAW_ROW_ALIAS",
+      "RAW_ROW_DUPLICATE",
+      "RAW_NONCANONICAL_DUPLICATE_KEY",
+      "INVALID_CALENDAR",
+      "INVALID_CUTOFF",
+      "LATE_CAPTURE",
+      "UNCERTAINTY_CROSSES_CUTOFF",
+      "FALSE_PUBLICATION",
+      "DUPLICATE_EVENT",
+      "TARGET_OUTCOME_FIELD",
+      "TARGET_RESULT_EVENT",
+      "MARKET_ALIAS",
+      "ALL_CATEGORY_SPECIFIC_KINDS",
+      "SOURCE_ROOT_BINDING",
+      "CHANGED_ROSTER_NO_FALSE_IDENTITY",
+      "OTHER_CONDITION_NOT_SAME_SUPPORT",
+      "SAME_FLAG_FULL_OUTPUT_RESULT_MUTATION",
+      "PHYSICAL_RESULT_READ_DENIED",
+      "GENERIC_NEW_ISSUER_EVENT_ROSTER",
+      "ORIGINAL_REPAIRED_COMMON_EXECUTION",
+      "SAME_PACKET_EYE_FLAG"
+    ],
+    "base": {
+      "analysisSha256": "fe172eeb06c6f91462850737f0e7444fa0a6f26e7ac61b2b18616683da968d9d",
+      "commonSha256": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+      "groups": 118,
+      "held": 826,
+      "roots": 36,
+      "evidence": 537,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "items": 115,
+          "eye": [
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03",
+            "EYE03"
+          ],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        }
+      ],
+      "categories": [
+        {
+          "horse": "TEST:H1",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "NO_DEFEAT",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 9,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NEUTRAL"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H2",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NO_DEFEAT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 9,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 21,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CAUSALITY_UNPROVEN",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "NEUTRAL",
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H3",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 8,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 13,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_ANTECEDENT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H4",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NO_DEFEAT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "NEUTRAL"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 8,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 17,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H5",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "NEUTRAL"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 20,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 40,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CAUSALITY_UNPROVEN",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "generic": {
+      "analysisSha256": "5fe9a9de69d12d5c640e103fb3c97c0ec7d88228c0de90d1da7278a6da888cea",
+      "commonSha256": "55000d76613830642904cf652831580cba151b686675018ab36cf1b1717e6baf",
+      "groups": 118,
+      "held": 826,
+      "roots": 24,
+      "evidence": 256,
+      "runners": [
+        {
+          "horse": "TEST:JRA|TEST:OTHER_0",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:JRA|TEST:OTHER_1",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:JRA|TEST:OTHER_2",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        }
+      ],
+      "categories": [
+        {
+          "horse": "TEST:OTHER_0",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "NO_DEFEAT",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NEUTRAL"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 3,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 6,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NEUTRAL"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:OTHER_1",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NO_DEFEAT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 6,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 14,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_ANTECEDENT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "NEUTRAL",
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:OTHER_2",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 6,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 10,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "changed": {
+      "analysisSha256": "3b3850b576c17b17d25883a662137aae894f1c1051772f840ac899b01b8ccbae",
+      "commonSha256": "c2c2d60471ae19d746c376b4291989f820d966734bfa15dbbc89a3065ab68370",
+      "groups": 118,
+      "held": 826,
+      "roots": 24,
+      "evidence": 236,
+      "runners": [
+        {
+          "horse": "TEST:JRA|TEST:OTHER_0",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:JRA|TEST:OTHER_1",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:JRA|TEST:NO_HISTORY",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        }
+      ],
+      "categories": [
+        {
+          "horse": "TEST:OTHER_0",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "NO_DEFEAT",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NEUTRAL"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 3,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 6,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "MISSING_FIELD_ROLE"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_ANTECEDENT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NEUTRAL"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:OTHER_1",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NO_DEFEAT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 6,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 14,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "MISSING_FIELD_ROLE"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "MISSING_FIELD_ROLE"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_ANTECEDENT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "NEUTRAL",
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:NO_HISTORY",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE02",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE03",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE04",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "PEER_STRENGTH_SCALE_UNVERIFIED",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE06",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE08",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "ISOLATED_COURSE_EFFECT_UNPROVEN",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "MISSING_FIELD_ROLE"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CURRENT_ROLE_UNOBSERVED",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CURRENT_POSITION_UNOBSERVED",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CLASS_STRENGTH_ORDER_UNVERIFIED",
+                "NO_HORSE_HISTORY"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN",
+                "NO_HORSE_HISTORY"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "repaired": {
+      "analysisSha256": "d3e043163b59c04b49918e5020781f6daeb78f864e5ac0c2c8a4c285e205d313",
+      "commonSha256": "7d0c680956cffad8037fc8d62dadef411a21bb99bc02362ec55fe02726a76208",
+      "groups": 118,
+      "held": 826,
+      "roots": 12,
+      "evidence": 81,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "items": 115,
+          "eye": [],
+          "paths": 3,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "items": 115,
+          "eye": [],
+          "paths": 3,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "items": 115,
+          "eye": [],
+          "paths": 3,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "items": 115,
+          "eye": [],
+          "paths": 3,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "items": 115,
+          "eye": [],
+          "paths": 3,
+          "current": null,
+          "conditional": null
+        }
+      ],
+      "categories": [
+        {
+          "horse": "TEST:H1",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 1,
+              "directions": [
+                "NO_DEFEAT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 1,
+              "directions": [
+                "NEUTRAL"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION"
+              ]
+            },
+            {
+              "category": "EYE06",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H2",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 1,
+              "directions": [
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION"
+              ]
+            },
+            {
+              "category": "EYE06",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H3",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 2,
+              "directions": [
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION"
+              ]
+            },
+            {
+              "category": "EYE06",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_ANTECEDENT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H4",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 1,
+              "directions": [
+                "NEUTRAL"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 3,
+              "directions": [
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION"
+              ]
+            },
+            {
+              "category": "EYE06",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H5",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 4,
+              "directions": [
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION"
+              ]
+            },
+            {
+              "category": "EYE06",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 0,
+              "directions": [],
+              "missing": [
+                "NO_LINKED_OBSERVATION",
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "off": {
+      "analysisSha256": "fe172eeb06c6f91462850737f0e7444fa0a6f26e7ac61b2b18616683da968d9d",
+      "commonSha256": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+      "groups": 118,
+      "held": 826,
+      "roots": 36,
+      "evidence": 537,
+      "runners": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "items": 115,
+          "eye": [],
+          "paths": 75,
+          "current": null,
+          "conditional": null
+        }
+      ],
+      "categories": [
+        {
+          "horse": "TEST:H1",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "NO_DEFEAT",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 9,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NEUTRAL"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H2",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NO_DEFEAT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 9,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 21,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CAUSALITY_UNPROVEN",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "NEUTRAL",
+                "SUPPORTING_OBSERVATION",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H3",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 8,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 13,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "SUPPORTING_ANTECEDENT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H4",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "NO_DEFEAT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "NEUTRAL"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 8,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 17,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "SUPPORTING_OBSERVATION",
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        },
+        {
+          "horse": "TEST:H5",
+          "categories": [
+            {
+              "category": "EYE01",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE02",
+              "observations": 5,
+              "directions": [
+                "NEUTRAL"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE03",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE04",
+              "observations": 20,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN",
+                "MISSING_FOLLOWUP"
+              ],
+              "missing": [
+                "PEER_STRENGTH_SCALE_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE05",
+              "observations": 40,
+              "directions": [
+                "COUNTER_OR_LIMIT",
+                "SUPPORTING_OBSERVATION"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE06",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CAUSALITY_UNPROVEN",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_TROUBLE_AND_CURRENT_RESOLUTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE07",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": []
+            },
+            {
+              "category": "EYE08",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "ISOLATED_COURSE_EFFECT_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE09",
+              "observations": 1,
+              "directions": [
+                "RELEVANT_FACT_BENEFIT_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_PACE_AND_BENEFIT_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE10",
+              "observations": 1,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_FLANK_INTERACTION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE11",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CURRENT_ROLE_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE12",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_CURRENT_ROLE_UNPROVEN"
+              ],
+              "missing": [
+                "CURRENT_POSITION_UNOBSERVED"
+              ]
+            },
+            {
+              "category": "EYE13",
+              "observations": 10,
+              "directions": [
+                "NEUTRAL",
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "CAUSAL_ABILITY_CHANGE_UNPROVEN"
+              ]
+            },
+            {
+              "category": "EYE14",
+              "observations": 5,
+              "directions": [
+                "RELEVANT_FACT_STRENGTH_UNPROVEN"
+              ],
+              "missing": [
+                "CLASS_STRENGTH_ORDER_UNVERIFIED"
+              ]
+            },
+            {
+              "category": "EYE15",
+              "observations": 5,
+              "directions": [
+                "COUNTER_OR_LIMIT"
+              ],
+              "missing": [
+                "JOINT_CAUSAL_BENEFIT_UNPROVEN"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "fullOutputSha256": "570a3f77a31a4dbf58954e318c3bcdb348b5796a62dbac32e1cb570591b1b577",
+    "resultBefore": "d15dbee9a2ca83af89b8e0440e999fa5ce6d38516320f7b46578ebe5bfff2ba4",
+    "resultAfter": "20df81c9f3e2b0cdae0839e259c8961a0a019b370f636749d5a25401ce2601fe",
+    "formal": false
+  },
+  "artifacts": [
+    {
+      "id": 15236095896,
+      "name": "work41-corrected-receipt",
+      "size_in_bytes": 196071,
+      "digest": "sha256:abf267a7b343e4d1130d6d73e268befa26b15670aa2959b51c4a293286fe9c77",
+      "expires_at": "2026-12-04T22:34:12Z",
+      "expired": false
+    }
+  ],
+  "priorAccepted": 778,
+  "addedAccepted": 0,
+  "limitations": [
+    "Native receipt artifact metadata observed; original artifact bytes not independently downloaded.",
+    "Generalized synthetic strict canonical envelope with fixed common logical clock, fully measured historical rows and three-checkpoint common support; arbitrary real-race formats, missing partial row values, external acquisition and authentication not established.",
+    "15 distinct category fact types supplied with row/event refs and observed directional classifications; not all 15 positive/counter semantic effects proven in existing common analyzer. Sidecar category facts not automatically converted to RANK decisions.",
+    "Outcome isolation tested with same EYE flag and full JSON-semantic hash of all output fields; Node permission read denial probe, not an adversarial OS-grade sandbox.",
+    "All current/conditional grades null; no current ability or SABC completion claim.",
+    "First CI failed at oversized child transfer after 27 named PASS; rerun 31 PASS; latest 33 PASS supersedes, not additive.",
+    "No production, DB, FROZEN, merge, formal adoption, paid API or acquisition."
+  ]
+}
