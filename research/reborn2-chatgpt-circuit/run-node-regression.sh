@@ -62,3 +62,5 @@ node test-work23-v24-bridge.mjs
 node test-work23-v25-current.mjs
 
 node test-work23-v26-integrated.mjs
+
+node test-work26-v27-integrated.mjs

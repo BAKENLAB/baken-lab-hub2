@@ -1,5 +1,6 @@
 // V26 additive synthetic research only. Never used in production or formal SABC.
 import {createHash} from 'node:crypto';
+import {dependencyReader,relativePosition,conditionDelta} from './research-ability-core.mjs';
 import {readFileSync} from 'node:fs';
 import {loadWork23} from './work23-v24-bridge.mjs';
 import {work23} from './work23-pinned/stage23-producer-v0.2.2.mjs';
@@ -52,11 +53,11 @@ export function analyzeV26(loaded,name,withdraw=null){
  if(p.status==='HELD'){need(withdraw===null,'HELD_VIEW');return {name,status:'HELD',runners:[],trace:[],formal:false,grade:null,ordinal_paths:0,followup_links:0};}
  const all=new Map([...p.evidence,...s.extensions.filter(e=>e.state==='TEST_INPUT_AVAILABLE')].map(e=>[e.evidence_id,e]));
  if(withdraw!==null)need(all.has(withdraw),'UNKNOWN_WITHDRAWAL');
- const get=id=>{const e=all.get(id);return e&&id!==withdraw&&(e.depends_on??[]).every(k=>all.has(k)&&k!==withdraw)?e:null};
+ const {get,lineage}=dependencyReader(all,withdraw);
  const f=(event,horse,field)=>get([...all.values()].find(e=>e.event_id===event&&e.subject_id===horse&&e.field===field)?.evidence_id);
  const validObs=x=>x&&get(x.ref)&&['OBSERVED','OBSERVED_LABEL_ONLY'].includes(x.state);
  const trace=[];
- const note=(horse,item,meaning,refs,missing=[])=>{const es=uniq(refs.filter(Boolean)).map(get).filter(Boolean);const deps=uniq(es.flatMap(e=>[e.evidence_id,...(e.depends_on??[])])).map(get).filter(Boolean);const row={horse,item,meaning,refs:deps.map(e=>e.evidence_id),roots:uniq(deps.map(e=>e.root)),missing,formal:false};trace.push(row);return row};
+ const note=(horse,item,meaning,refs,missing=[])=>{const es=uniq(refs.filter(Boolean)).map(get).filter(Boolean);const deps=lineage(es.map(e=>e.evidence_id));const row={horse,item,meaning,refs:deps.map(e=>e.evidence_id),roots:uniq(deps.map(e=>e.root)),missing,formal:false};trace.push(row);return row};
  const target=o.events.find(e=>e.current),targetMeta=s.events.find(e=>e.event_role==='CURRENT_CARD');
  const active=o.runners.filter(h=>h.status==='ACTIVE'),registered=get(targetMeta.field_count_ref),activeCount=get(targetMeta.active_count_ref);
  const rosterComplete=!!activeCount&&activeCount.value===active.length&&!!registered&&registered.value===o.runners.length&&target.rows.every(r=>get(r.identity.ref));
@@ -66,11 +67,11 @@ export function analyzeV26(loaded,name,withdraw=null){
    const ident=get(row.identity.ref),pos=f(event.id,row.id,'checkpoint_positions');
    if(!ident)continue;
    const rp=row.rank_path,known=rp.state==='OBSERVED_ORDINAL_ONLY'&&rp.refs.every(k=>get(k));
-   const points=known?rp.points.map(x=>({...x,relative_from_front:x.field_count>1?(x.rank-1)/(x.field_count-1):null})):null;
+   const points=known?rp.points.map(x=>({...x,...relativePosition(x.rank,x.field_count)})):null;
    // Unlocated rank is retained only with its own authenticated synthetic identity and field.
    const rawOrdinal=pos&&Array.isArray(pos.value)?pos.value:null;
    const old=event.conditions,now=target.conditions;
-   const distance=validObs(old)&&validObs(now)?now.value.distance_m-old.value.distance_m:null;
+   const distance=validObs(old)&&validObs(now)?conditionDelta(old.value.distance_m,now.value.distance_m):null;
    const geom=validObs(event.geometry)&&validObs(target.geometry)&&effective(event.geometry.value.effective,event.at)&&effective(target.geometry.value.effective,target.at);
    const cls=validObs(event.class_label)&&validObs(target.class_label)&&effective(event.class_label.effective,event.at)&&effective(target.class_label.effective,target.at);
    const contextRefs=[old.ref,now.ref,event.geometry.ref,target.geometry.ref,event.class_label.ref,target.class_label.ref];
@@ -80,7 +81,7 @@ export function analyzeV26(loaded,name,withdraw=null){
    note(row.id,'RANK18','ORDINAL_TRANSITIONS_NOT_ACCELERATION',rankRefs,known?[]:['LOCATED_FIELD_PATH_UNAVAILABLE']);
    note(row.id,'RANK44','DISTANCE_DELTA_NOT_CAUSAL_RESPONSE',[ident.evidence_id,old.ref,now.ref],distance===null?['CONDITIONS_UNAVAILABLE']:[]);
    note(row.id,'RANK67','GEOMETRY_CONTEXT_ONLY',[ident.evidence_id,...contextRefs],geom?[]:['GEOMETRY_UNAVAILABLE']);
-   historical.push({horse:row.id,event:event.id,points,raw_ordinal:rawOrdinal,transitions,first_checkpoint:points?.[0]??null,first_observed_leader:points?points[0].rank===1:null,observed_ahead_count:points?points[0].field_count-points[0].rank:null,observed_behind_count:points?points[0].rank-1:null,distance_delta_m:distance,distance_kind:distance===null?'UNKNOWN':distance>0?'EXTENSION':distance<0?'SHORTENING':'SAME_DISTANCE',geometry_same:geom?eq(event.geometry.value,target.geometry.value):null,class_label_same:cls?event.class_label.value===target.class_label.value:null,field_strength:null,finish:f(event.id,row.id,'finish')?.value??null,finish_clock:f(event.id,row.id,'finish_clock')?.value??null,final600:f(event.id,row.id,'individual_final3f')?.value??null,weight:f(event.id,row.id,'weight')?.value??null,refs:uniq([...rankRefs,...contextRefs].filter(k=>get(k))),acceleration:null,physical_gain:null,individual_intermediate_clock:null});
+   historical.push({horse:row.id,event:event.id,points,raw_ordinal:rawOrdinal,transitions,first_checkpoint:points?.[0]??null,first_observed_leader:points?points[0].rank===1:null,observed_ahead_count:points?points[0].horses_ahead_of_subject:null,observed_behind_count:points?points[0].horses_behind_subject:null,horses_ahead_of_subject:points?points[0].horses_ahead_of_subject:null,horses_behind_subject:points?points[0].horses_behind_subject:null,distance_delta_m:distance,distance_kind:distance===null?'UNKNOWN':distance>0?'EXTENSION':distance<0?'SHORTENING':'SAME_DISTANCE',geometry_same:geom?eq(event.geometry.value,target.geometry.value):null,class_label_same:cls?event.class_label.value===target.class_label.value:null,field_strength:null,finish:f(event.id,row.id,'finish')?.value??null,finish_clock:f(event.id,row.id,'finish_clock')?.value??null,final600:f(event.id,row.id,'individual_final3f')?.value??null,weight:f(event.id,row.id,'weight')?.value??null,refs:uniq([...rankRefs,...contextRefs].filter(k=>get(k))),acceleration:null,physical_gain:null,individual_intermediate_clock:null});
   }
  }
  const relations=[],byRoot=new Map();
@@ -104,9 +105,9 @@ export function analyzeV26(loaded,name,withdraw=null){
   const admissible=rel.evidence_ids.every(k=>get(k))&&identity.every(Boolean)&&finish.every(Boolean);
   const old=f(event,null,'conditions'),now=f(p.event,null,'conditions'),count=f(event,null,'historical_field_count'),oldGeometry=f(event,null,'course_geometry'),nowGeometry=f(p.event,null,'course_geometry');
   const labelMatch=old&&now&&['venue','surface','distance_m','going','direction','class_id'].every(k=>old.value[k]===now.value[k]);
-  const contextKnown=!!(admissible&&labelMatch&&count&&ctx.every(z=>z?.geometry_same===true&&z?.class_label_same===true)&&weight.every(Boolean)&&nowWeight.every(Boolean)&&rosterComplete);
+  const contextKnown=!!(admissible&&labelMatch&&count&&ctx.every(z=>z?.points&&z.geometry_same===true&&z.class_label_same===true)&&weight.every(Boolean)&&nowWeight.every(Boolean)&&rosterComplete);
   const rivals=horses.every(h=>active.some(a=>a.id===h));
-  const refs=admissible?[...rel.evidence_ids,...[...identity,...finish,...clock,...terminal,...weight,...nowWeight,old,now,count,oldGeometry,nowGeometry,registered,activeCount].map(e=>e?.evidence_id)]:[];
+  const refs=admissible?[...rel.evidence_ids,...[...identity,...finish,...clock,...terminal,...weight,...nowWeight,old,now,count,oldGeometry,nowGeometry,registered,activeCount].map(e=>e?.evidence_id),...ctx.flatMap(z=>z?.refs??[])]:[];
   const traces=horses.map(h=>note(h,'RANK35','HISTORICAL_PAIR_AND_CURRENT_CONTEXT',refs,admissible?contextKnown?[]:['CURRENT_COMPARISON_CONTEXT_INCOMPLETE']:['RELATION_DEPENDENCY_UNAVAILABLE']));
   const order=admissible&&finish[0].value!==finish[1].value?horses[finish[0].value<finish[1].value?0:1]:null;
   direct.push({horses,event,state:admissible?'OBSERVED_HISTORICAL_PAIR':'HELD_RELATION',current_rivals:rivals,context_known:contextKnown,past_order:order,clock_gap_b_minus_a:admissible&&clock.every(Boolean)?clock[1].value-clock[0].value:null,terminal_gap_b_minus_a:admissible&&terminal.every(Boolean)?terminal[1].value-terminal[0].value:null,roots:uniq(traces.flatMap(t=>t.roots)),current_order:null});
@@ -131,5 +132,5 @@ export function analyzeV26(loaded,name,withdraw=null){
   for(const item of ['EYE04','EYE14','EYE15'])note(h.id,item,'REVIEW_ONLY_NO_CANONICAL_RETURN',[],['INDEPENDENT_CURRENT_RELEVANCE_UNPROVEN']);
   return {horse:h.id,status:h.status,historical:hist,position:own,competitors:others.map(z=>z.horse),branches:[{condition:'IF_PAST_RELATIVE_POSITION_RECURS',participants:profiles.map(z=>z.horse),state:'CONDITIONAL_NOT_PACE_PREDICTION'},{condition:'IF_ACTIVE_RIVAL_CHANGES_POSITION_OR_UNKNOWN_ROLE',participants:profiles.map(z=>z.horse),state:'OPEN_COUNTER'}],WIN:{state:'UNRESOLVED',past_wins:winObs,pair_repeat_support:pairRepeat,pair_reverse_counter:pairReverse,required:'FINISH_AHEAD_OF_EVERY_ACTIVE_RIVAL',counter:others.map(z=>z.horse),missing:[...missing,'WIN_STANDARD']},PLACE:{state:'UNRESOLVED',past_finishes:placeObs,required:'SPECIFIED_PLACE_THRESHOLD_AND_FEASIBLE_FINISH_POSITION',counter:others.map(z=>z.horse),missing:[...missing,'PLACE_THRESHOLD']},peer_observation_roots:uniq(peer),items:s.runners.find(z=>z.id===h.id||z.subject_id===h.id||z.no===h.no)?.items.map(i=>({item:i.item,material_state:i.material_state,observation_status:i.observation_status,runtime_reads:trace.filter(t=>t.horse===h.id&&t.item===i.item),semantic_effect_proven:false,grade_effect_proven:false}))??[],eye04:'HELD',eye14:'HELD',eye15:'HELD',grade:null};
  });
- return {name,status:'RESEARCH_PARTIAL',roster:{registered:registered?.value??null,active_count:activeCount?.value??null,active:active.map(h=>h.id),complete:rosterComplete},runners,profiles,historical,trace,direct,relations,unique_later_observations:[...byRoot.values()],ordinal_paths:historical.filter(z=>z.points).length,followup_links:o.followups.length,withdrawal:withdraw?{source_id:withdraw,kind:'RESEARCH_WITHHOLD_ONLY',authenticated:false}:null,formal:false,grade:null};
+ return {name,status:'RESEARCH_PARTIAL',roster:{registered:registered?.value??null,active_count:activeCount?.value??null,declared_active_count:activeCount?.value??null,actual_starters:null,active:active.map(h=>h.id),complete:rosterComplete},runners,profiles,historical,trace,direct,relations,unique_later_observations:[...byRoot.values()],ordinal_paths:historical.filter(z=>z.points).length,followup_links:o.followups.length,withdrawal:withdraw?{source_id:withdraw,kind:'RESEARCH_WITHHOLD_ONLY',authenticated:false}:null,formal:false,grade:null};
 }
