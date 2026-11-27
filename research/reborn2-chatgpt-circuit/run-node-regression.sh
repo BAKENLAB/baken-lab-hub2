@@ -70,3 +70,5 @@ node test-work27-v28-contrast.mjs
 node test-work30-v31-integrated.mjs
 
 node test-work31-v32-integrated.mjs
+
+node test-work32-v33-current.mjs

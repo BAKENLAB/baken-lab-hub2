@@ -1,0 +1,33 @@
+{
+  "schema": "WORK32_LOSSLESS_TRANSPORT_INDEX_0.1",
+  "parts": [
+    {
+      "path": "research/reborn2-official-sources/stage32-packet-12-meta-v0.1.2.json",
+      "ref": "d9cd60d61852e51d0e71a1e29d0d825f54cc4bbf",
+      "sha256": "b9b89d75f427595f243133ec7c553111953fc29ef39d9929e0647416ce10ea34",
+      "chars": 56054
+    },
+    {
+      "path": "research/reborn2-official-sources/stage32-packet-12-evidence-v0.1.2.json",
+      "ref": "d7857e4bca6f0ed8b74d5197d8d800d3ae8abcd4",
+      "sha256": "a58398eed6a06a462db0dbb13bd278105dc6c555437e73fcee3ced96e2a981a5",
+      "chars": 457312
+    },
+    {
+      "path": "research/reborn2-official-sources/stage32-packet-12-runners-v0.1.2.json",
+      "ref": "bedfd67eeffab9a8fc479567538b8ea578cc6b03",
+      "sha256": "56d5c3fcbb9bdff03972f9683bbc067bbfae26d94a4e4825d36c1b5a18dc7e1f",
+      "chars": 406113
+    },
+    {
+      "path": "research/reborn2-official-sources/stage32-packet-12-common-v0.1.2.json",
+      "ref": "4f79a977a59c51e807e580df3d8a0effe5d02ff6",
+      "sha256": "c252e8c4317ee91fd2e0e705283cac9498ac8230cbb425206d9e875b7235a4ea",
+      "chars": 599425
+    }
+  ],
+  "packetDigest": "b63b22a5a90c47e6b182e303bf48f782942eeb1f489383143eb201e2c310ffc5",
+  "fullEnvelopeSha256": "c8a89b27f41da17973867d7bd72ec23d1d9c2e2f6c7bac240bb8ffc512c05c4e",
+  "encoding": "UTF-8; file SHA256 includes one trailing LF; packet digest JSON.stringify(packet) without LF; no normalization or pretty reformat",
+  "reconstruct": "Replace numeric evidence.receipt with receipts[index]. Rebuild packet in fieldOrder, using evidence,runners,common arrays and meta values. Rebuild {state:envelope.state,packet,digest:envelope.digest,resultTimestamp:envelope.resultTimestamp}."
+}

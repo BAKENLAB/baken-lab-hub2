@@ -1,0 +1,511 @@
+{
+  "scope": "EXACT_CODEX_V27_TO_V31_ANALYSIS_FUNCTION_CHAIN_SYNTHETIC_ONLY",
+  "runtime": "JS isolate; imports resolved from pinned fetched source; SHA256-only createHash compatibility adapter; no Node filesystem loaders or CI",
+  "pins": [
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/research-ability-core.mjs",
+      "blob": "92112f6c5e0a38c38aa8d1eff997127bae7d191d",
+      "sha256": "93b1515e2e2f3796296f650cdc8d64f005828521a9b450492827558682e2ca4f",
+      "exports": [
+        "uniq",
+        "dependencyReader",
+        "relativePosition",
+        "ordinalPath",
+        "signedGap",
+        "conditionDelta",
+        "winPlaceRequirements",
+        "repeatEnvelope"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work26-v27-integrated.mjs",
+      "blob": "5b1e805f605879321e2ae5176c29021bc26f7ac9",
+      "sha256": "a59020167726d590f5b378c4d26907c9cdd37fc401ebf4dd2c8cc2cf4ab5c7ab",
+      "exports": [
+        "analyzeV27"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work27-v28-contrast.mjs",
+      "blob": "42fda8b93261079fbb09a053463657af7ca8b703",
+      "sha256": "69029b5020f59158135cad2269c17c0fc09080f9376c3246340cd963c7459ab7",
+      "exports": [
+        "analyzeV28"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work28-v29-feasibility.mjs",
+      "blob": "d7275c6c06f9ed7aac49bc0017ad008cc6cf6de2",
+      "sha256": "ba4f1e1091cc36eabc2c1e67da90982d349ef8b934f1293002da16aa8b6f47b4",
+      "exports": [
+        "analyzeV29",
+        "classifyInterval"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work29-v30-terminal.mjs",
+      "blob": "c3048ab248ae11f5c6c0d981a62c8b8633f7c49c",
+      "sha256": "c78cf46d856564dc2026117b7869100d3e13dd3f20b4660c1f54c89fe6b496df",
+      "exports": [
+        "analyzeV30",
+        "jointField"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work30-v31-integrated.mjs",
+      "blob": "6e812e54ea096f55b2307d05659faaf4824711f2",
+      "sha256": "a1e67df2b40e943991ddf2cde7dcbbfe9f2c6f9f2d9fe19362894b69a91c1b8e",
+      "exports": [
+        "analyzeV31",
+        "compareV31Response"
+      ]
+    }
+  ],
+  "producer": {
+    "ref": "06f880061144b05e5fb4e546a211ac44c60291c8",
+    "path": "research/reborn2-official-sources/stage32-condition-pipeline-v0.1.2.mjs",
+    "blob": "93d87bb022dae3bae021ba62fc433504bc16f924",
+    "sha256": "2d1a8a6c6d6f15504a660478f60a626d47ec3ec6dee8a94175b82e920dd7fa23"
+  },
+  "bundle": {
+    "ref": "06f880061144b05e5fb4e546a211ac44c60291c8",
+    "path": "research/reborn2-official-sources/stage32-bundles-v0.1.2.json",
+    "blob": "b7795dc91ebe203827b1054448068a8e2465069f",
+    "sha256": "befda1231124e5c9aef088659436077c5c9027c7301ff66d29e6ae8827b1af69"
+  },
+  "adapter": {
+    "ref": "06f880061144b05e5fb4e546a211ac44c60291c8",
+    "path": "research/reborn2-official-sources/stage32-verified-common-adapter-v0.1.2.mjs",
+    "blob": "1693dfd4657483a1f9e457188c28b38b9d8b2166",
+    "sha256": "098f94a2738d68d30030403788dc15f707dba4438719256f08b846403fba0e92"
+  },
+  "checks": [
+    {
+      "name": "complete_envelope_common_analysis_3",
+      "pass": true
+    },
+    {
+      "name": "canonical_and_no_grade_3",
+      "pass": true
+    },
+    {
+      "name": "all_known_rivals_3",
+      "pass": true
+    },
+    {
+      "name": "complete_envelope_common_analysis_5",
+      "pass": true
+    },
+    {
+      "name": "canonical_and_no_grade_5",
+      "pass": true
+    },
+    {
+      "name": "all_known_rivals_5",
+      "pass": true
+    },
+    {
+      "name": "complete_envelope_common_analysis_12",
+      "pass": true
+    },
+    {
+      "name": "canonical_and_no_grade_12",
+      "pass": true
+    },
+    {
+      "name": "all_known_rivals_12",
+      "pass": true
+    }
+  ],
+  "results": [
+    {
+      "n": 3,
+      "packetDigest": "02c36c1fc4b6008fbbea5fffec8af358ea5a35a2bd90e94827ac1ae4988c73e8",
+      "fullEnvelopeSha256": "6f5a0b63bfec731e7f33e00e0a2c1403197b209da61057ce7769ad1a7fb43ea8",
+      "evidence": 156,
+      "itemRows": 575,
+      "available": 72,
+      "known": 3,
+      "possible": 4,
+      "historical": 10,
+      "direct": 6,
+      "indirect": 12,
+      "followups": 15,
+      "terminal": 6,
+      "traceRows": 220,
+      "referenceItemRows": 66,
+      "semanticFlags": 3,
+      "gradeFlags": 0,
+      "conditions": [
+        {
+          "event": "TEST:JRA|TEST:H1",
+          "mismatches": [
+            "gate"
+          ],
+          "unknown": [],
+          "context": "TRANSFER_REQUIRES_CONDITION_RESPONSE"
+        },
+        {
+          "event": "TEST:JRA|TEST:H2",
+          "mismatches": [
+            "distance",
+            "surface",
+            "going",
+            "venue",
+            "class_label",
+            "direction",
+            "straight",
+            "weight"
+          ],
+          "unknown": [],
+          "context": "TRANSFER_REQUIRES_CONDITION_RESPONSE"
+        }
+      ],
+      "pair": [
+        {
+          "event": "TEST:H1",
+          "value": {
+            "a": "TEST:H1",
+            "b": "TEST:H2",
+            "finishA": 1,
+            "finishB": 2,
+            "historicalNoA": 1,
+            "historicalNoB": 2,
+            "currentNoA": 3,
+            "currentNoB": 2,
+            "currentDirect": true,
+            "clockConflict": false
+          }
+        },
+        {
+          "event": "TEST:H2",
+          "value": {
+            "a": "TEST:H1",
+            "b": "TEST:H2",
+            "finishA": 4,
+            "finishB": 3,
+            "historicalNoA": 4,
+            "historicalNoB": 3,
+            "currentNoA": 3,
+            "currentNoB": 2,
+            "currentDirect": true,
+            "clockConflict": false
+          }
+        }
+      ],
+      "history": [
+        {
+          "event": "TEST:JRA|TEST:H1",
+          "horse": "TEST:JRA|TEST:H1",
+          "finish": 1,
+          "clock": 73000,
+          "terminal": 37000
+        },
+        {
+          "event": "TEST:JRA|TEST:H1",
+          "horse": "TEST:JRA|TEST:H2",
+          "finish": 2,
+          "clock": 73300,
+          "terminal": 37140
+        },
+        {
+          "event": "TEST:JRA|TEST:H2",
+          "horse": "TEST:JRA|TEST:H2",
+          "finish": 3,
+          "clock": 92600,
+          "terminal": 36280
+        },
+        {
+          "event": "TEST:JRA|TEST:H2",
+          "horse": "TEST:JRA|TEST:H1",
+          "finish": 4,
+          "clock": 92900,
+          "terminal": 36420
+        }
+      ],
+      "directExample": [
+        {
+          "event": "TEST:JRA|TEST:H1",
+          "order": "TEST:JRA|TEST:H1",
+          "clockGap": 300
+        },
+        {
+          "event": "TEST:JRA|TEST:H2",
+          "order": "TEST:JRA|TEST:H2",
+          "clockGap": -300
+        }
+      ],
+      "issues": [
+        {
+          "event": "TEST:T",
+          "field": "gate_number",
+          "subject": "TEST:UNKNOWN",
+          "state": "MISSING",
+          "reason": "NOT_SUPPLIED"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "packetDigest": "8a85f71e8a170df879e39b9a820d8ec05575d9981c60f10c481a01f2671377da",
+      "fullEnvelopeSha256": "000885b5a533fc1703f98d7f52e0cc9694c634f246b7763f5a07ae05f98048ff",
+      "evidence": 240,
+      "itemRows": 805,
+      "available": 120,
+      "known": 5,
+      "possible": 6,
+      "historical": 14,
+      "direct": 20,
+      "indirect": 80,
+      "followups": 35,
+      "terminal": 20,
+      "traceRows": 510,
+      "referenceItemRows": 110,
+      "semanticFlags": 5,
+      "gradeFlags": 0,
+      "conditions": [
+        {
+          "event": "TEST:JRA|TEST:H1",
+          "mismatches": [
+            "gate"
+          ],
+          "unknown": [],
+          "context": "TRANSFER_REQUIRES_CONDITION_RESPONSE"
+        },
+        {
+          "event": "TEST:JRA|TEST:H2",
+          "mismatches": [
+            "distance",
+            "surface",
+            "going",
+            "venue",
+            "class_label",
+            "direction",
+            "straight",
+            "weight"
+          ],
+          "unknown": [],
+          "context": "TRANSFER_REQUIRES_CONDITION_RESPONSE"
+        }
+      ],
+      "pair": [
+        {
+          "event": "TEST:H1",
+          "value": {
+            "a": "TEST:H1",
+            "b": "TEST:H2",
+            "finishA": 1,
+            "finishB": 2,
+            "historicalNoA": 1,
+            "historicalNoB": 2,
+            "currentNoA": 5,
+            "currentNoB": 4,
+            "currentDirect": true,
+            "clockConflict": false
+          }
+        },
+        {
+          "event": "TEST:H2",
+          "value": {
+            "a": "TEST:H1",
+            "b": "TEST:H2",
+            "finishA": 6,
+            "finishB": 5,
+            "historicalNoA": 6,
+            "historicalNoB": 5,
+            "currentNoA": 5,
+            "currentNoB": 4,
+            "currentDirect": true,
+            "clockConflict": false
+          }
+        }
+      ],
+      "history": [
+        {
+          "event": "TEST:JRA|TEST:H1",
+          "horse": "TEST:JRA|TEST:H1",
+          "finish": 1,
+          "clock": 73000,
+          "terminal": 37000
+        },
+        {
+          "event": "TEST:JRA|TEST:H1",
+          "horse": "TEST:JRA|TEST:H2",
+          "finish": 2,
+          "clock": 73300,
+          "terminal": 37140
+        },
+        {
+          "event": "TEST:JRA|TEST:H2",
+          "horse": "TEST:JRA|TEST:H2",
+          "finish": 5,
+          "clock": 93200,
+          "terminal": 36560
+        },
+        {
+          "event": "TEST:JRA|TEST:H2",
+          "horse": "TEST:JRA|TEST:H1",
+          "finish": 6,
+          "clock": 93500,
+          "terminal": 36700
+        }
+      ],
+      "directExample": [
+        {
+          "event": "TEST:JRA|TEST:H1",
+          "order": "TEST:JRA|TEST:H1",
+          "clockGap": 300
+        },
+        {
+          "event": "TEST:JRA|TEST:H2",
+          "order": "TEST:JRA|TEST:H2",
+          "clockGap": -300
+        }
+      ],
+      "issues": [
+        {
+          "event": "TEST:T",
+          "field": "gate_number",
+          "subject": "TEST:UNKNOWN",
+          "state": "MISSING",
+          "reason": "NOT_SUPPLIED"
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "packetDigest": "b63b22a5a90c47e6b182e303bf48f782942eeb1f489383143eb201e2c310ffc5",
+      "fullEnvelopeSha256": "c8a89b27f41da17973867d7bd72ec23d1d9c2e2f6c7bac240bb8ffc512c05c4e",
+      "evidence": 660,
+      "itemRows": 1610,
+      "available": 288,
+      "known": 12,
+      "possible": 13,
+      "historical": 28,
+      "direct": 132,
+      "indirect": 1452,
+      "followups": 168,
+      "terminal": 132,
+      "traceRows": 4108,
+      "referenceItemRows": 264,
+      "semanticFlags": 12,
+      "gradeFlags": 0,
+      "conditions": [
+        {
+          "event": "TEST:NAR|TEST:H1",
+          "mismatches": [
+            "gate"
+          ],
+          "unknown": [],
+          "context": "TRANSFER_REQUIRES_CONDITION_RESPONSE"
+        },
+        {
+          "event": "TEST:NAR|TEST:H2",
+          "mismatches": [
+            "distance",
+            "going",
+            "venue",
+            "class_label",
+            "direction",
+            "first_turn",
+            "straight",
+            "gate",
+            "weight"
+          ],
+          "unknown": [],
+          "context": "TRANSFER_REQUIRES_CONDITION_RESPONSE"
+        }
+      ],
+      "pair": [
+        {
+          "event": "TEST:H1",
+          "value": {
+            "a": "TEST:H1",
+            "b": "TEST:H2",
+            "finishA": 1,
+            "finishB": 2,
+            "historicalNoA": 1,
+            "historicalNoB": 2,
+            "currentNoA": 12,
+            "currentNoB": 11,
+            "currentDirect": true,
+            "clockConflict": false
+          }
+        },
+        {
+          "event": "TEST:H2",
+          "value": {
+            "a": "TEST:H1",
+            "b": "TEST:H2",
+            "finishA": 13,
+            "finishB": 12,
+            "historicalNoA": 13,
+            "historicalNoB": 12,
+            "currentNoA": 12,
+            "currentNoB": 11,
+            "currentDirect": true,
+            "clockConflict": false
+          }
+        }
+      ],
+      "history": [
+        {
+          "event": "TEST:NAR|TEST:H1",
+          "horse": "TEST:NAR|TEST:H1",
+          "finish": 1,
+          "clock": 55000,
+          "terminal": 36700
+        },
+        {
+          "event": "TEST:NAR|TEST:H1",
+          "horse": "TEST:NAR|TEST:H2",
+          "finish": 2,
+          "clock": 55300,
+          "terminal": 36840
+        },
+        {
+          "event": "TEST:NAR|TEST:H2",
+          "horse": "TEST:NAR|TEST:H2",
+          "finish": 12,
+          "clock": 76300,
+          "terminal": 37540
+        },
+        {
+          "event": "TEST:NAR|TEST:H2",
+          "horse": "TEST:NAR|TEST:H1",
+          "finish": 13,
+          "clock": 76600,
+          "terminal": 37680
+        }
+      ],
+      "directExample": [
+        {
+          "event": "TEST:NAR|TEST:H1",
+          "order": "TEST:NAR|TEST:H1",
+          "clockGap": 300
+        },
+        {
+          "event": "TEST:NAR|TEST:H2",
+          "order": "TEST:NAR|TEST:H2",
+          "clockGap": -300
+        }
+      ],
+      "issues": [
+        {
+          "event": "TEST:T",
+          "field": "gate_number",
+          "subject": "TEST:UNKNOWN",
+          "state": "MISSING",
+          "reason": "NOT_SUPPLIED"
+        }
+      ]
+    }
+  ],
+  "formal": 0
+}
