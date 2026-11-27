@@ -128,14 +128,15 @@ function factsFor(x,docs,h){
    historicalClass:d.conditions?.class_label??null,currentClass:card.conditions?.class_label??null,
    scope:matched?'REPORTED_CONTEXT_MATCHED_POSSIBLE_ROLE_VECTOR':'HISTORICAL_ONLY_OR_INCOMPLETE',refs};
  });
- const own=h.paths.filter(p=>!p.replay);
+ const own=h.paths;
+ const matching=f=>scenarios.some(s=>s.event===f.start&&s.checkpoint===f.checkpoint&&s.scope==='REPORTED_CONTEXT_MATCHED_POSSIBLE_ROLE_VECTOR');
  // Current strength cannot be inferred from class label alone. The same-rival
  // field comparison is meaningful, but no extrapolation to a stronger field.
- const compatible=own.filter(p=>p.full&&scenarios.some(s=>s.event===p.start&&s.checkpoint===p.checkpoint&&s.scope==='REPORTED_CONTEXT_MATCHED_POSSIBLE_ROLE_VECTOR'));
+ const compatible=own.filter(p=>p.full&&matching(p));
  const support=compatible.filter(p=>p.decision==='CONDITIONAL_WIN');
  const placing=compatible.filter(p=>['CONDITIONAL_WIN','CONDITIONAL_PLACE'].includes(p.decision));
  const counter=compatible.filter(p=>p.decision==='CONDITIONAL_COUNTER');
- return {scenarios,compatible,support,placing,counter};
+ return {scenarios,compatible,support,placing,counter,matchedStarts:scenarios.filter(s=>s.scope==='REPORTED_CONTEXT_MATCHED_POSSIBLE_ROLE_VECTOR')};
 }
 // The actual shared EYE feedback has re-run the field solver using the range of
 // every comparable response, including adverse observations. Consume the new
@@ -177,14 +178,42 @@ function synthesize(x,z,docs,packet){
   assert.ok(axes.every(a=>states.includes(a.state)));
   const used=uniq([...routes.flatMap(p=>p.refs),...feedback.flatMap(q=>q.refs),...f.scenarios.flatMap(s=>s.refs)]);
   const rootGroups=lineage(packet,used);
-  // Canonical research grade requires actual current evidence adequacy. No
-  // fabricated S/C or forced rank for historical-only data. Conditional
-  // win/place/counter are explicit alternative claims, not grades.
-  const currentUnknown=['CURRENT_FORM','CURRENT_SCENARIO_APPLICABILITY_AND_COVERAGE','CURRENT_OPPONENT_STRENGTH'];
-  const win=routes.filter(p=>p.decision==='CONDITIONAL_WIN'),place=routes.filter(p=>p.decision==='CONDITIONAL_PLACE'),negative=routes.filter(p=>p.decision==='CONDITIONAL_COUNTER');
-  const gradeReasons={S:'CURRENT_STRONG_SUPPORT_AND_ROBUSTNESS_UNESTABLISHED',A:win.length?'CONCRETE_HISTORICAL_WIN_PATHS_CURRENT_APPLICABILITY_UNESTABLISHED':'NO_CONCRETE_SUPPORTED_WIN_PATH',B:place.length?'CONCRETE_HISTORICAL_PLACE_PATHS_CURRENT_APPLICABILITY_UNESTABLISHED':'NO_CONCRETE_SUPPORTED_PLACE_PATH',C:negative.length?'HISTORICAL_COUNTERS_NOT_GLOBAL_CURRENT_DISADVANTAGE':'NO_AFFIRMATIVE_CURRENT_DISADVANTAGE'};
+  // Current-card-anchored conditional RESEARCH candidate, not actual current
+  // grade. A comparison class label alone is not an external strength index;
+  // these decisions require direct same-field historical counterpart evidence.
+  const currentUnknown=['CURRENT_FORM_NOT_DIRECTLY_OBSERVED','CURRENT_SCENARIO_COVERAGE_BEYOND_RECORDED_ANTECEDENTS','INDEPENDENT_OPPONENT_STRENGTH'];
+  const win=routes.filter(p=>p.decision==='CONDITIONAL_WIN'&&p.start!==p.response);
+  const place=routes.filter(p=>['CONDITIONAL_WIN','CONDITIONAL_PLACE'].includes(p.decision)&&p.start!==p.response);
+  const negative=routes.filter(p=>p.decision==='CONDITIONAL_COUNTER');
+  const replay=f.compatible.filter(p=>p.replay);
+  const replayWin=replay.filter(p=>p.decision==='CONDITIONAL_WIN'),replayPlace=replay.filter(p=>['CONDITIONAL_WIN','CONDITIONAL_PLACE'].includes(p.decision));
+  const directWin=win.filter(p=>replayWin.some(q=>q.response===p.response&&q.checkpoint===p.checkpoint));
+  const directPlace=place.filter(p=>replayPlace.some(q=>q.response===p.response&&q.checkpoint===p.checkpoint));
+  // Review each observed early role/pace situation rather than count wins.
+  // Same event across checkpoints is one antecedent.
+  const firstStarts=f.matchedStarts.filter(s=>s.checkpoint===Math.min(...f.matchedStarts.filter(q=>q.event===s.event).map(q=>q.checkpoint)));
+  const startReviews=firstStarts.map(s=>{
+   const alternatives=routes.filter(p=>p.start===s.event);
+   const supported=alternatives.filter(p=>['CONDITIONAL_WIN','CONDITIONAL_PLACE'].includes(p.decision));
+   const bad=alternatives.filter(p=>p.decision==='CONDITIONAL_COUNTER'||p.materialCounter);
+   const unresolved=!alternatives.length||alternatives.some(p=>p.decision==='HELD');
+   return {event:s.event,role:s.leaderClockOverlap.length>1?'CLOCK_OVERLAP':'CLOCK_SEPARATED',supported:supported.map(p=>p.id),counter:bad.map(p=>p.id),unresolved,refs:s.refs};
+  });
+  const sourceComplete=f.scenarios.length>0&&f.scenarios.every(s=>s.scope==='REPORTED_CONTEXT_MATCHED_POSSIBLE_ROLE_VECTOR')&&x.roster.known_active.length===x.roster.possible_active.length;
+  const roleWin=new Set(directWin.map(p=>startReviews.find(q=>q.event===p.start)?.role).filter(Boolean));
+  const allObservedCompetitive=startReviews.length>0&&startReviews.every(q=>q.supported.length&&!q.counter.length&&!q.unresolved);
+  const robustWins=directWin.filter(p=>p.robustClaim);
+  // S requires distinct role contexts with a strong recovery review, and
+  // no materially adverse observed role. This is a provisional strict rule,
+  // not an approved policy. Multiple horses may satisfy it independently.
+  const S=sourceComplete&&allObservedCompetitive&&roleWin.has('CLOCK_OVERLAP')&&roleWin.has('CLOCK_SEPARATED')&&robustWins.length>0;
+  const Aok=directWin.length>0;
+  const Bok=directPlace.length>0;
+  const allObservedAdverse=sourceComplete&&startReviews.length>0&&startReviews.every(q=>q.counter.length&&!q.supported.length&&!q.unresolved)&&replay.length>0&&replay.every(p=>p.decision==='CONDITIONAL_COUNTER')&&routes.length>0&&routes.every(p=>p.decision==='CONDITIONAL_COUNTER');
+  const candidate=S?'S':Aok?'A':Bok?'B':allObservedAdverse?'C':null;
+  const gradeReasons={S:S?'DISTINCT_SUPPORTED_ROLE_CONTEXTS_AND_ROBUST_RECOVERY_WITH_NO_OBSERVED_MATERIAL_COUNTER':'STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED',A:Aok?'NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE':'NO_CORROBORATED_NONREPLAY_WIN_PATH',B:Bok?'NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE':'NO_CORROBORATED_NONREPLAY_PLACE_PATH',C:allObservedAdverse?'ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE':'CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE'};
   const itemConsumption=h.items.map(i=>({item:i.item,base:i.state,semantic:i.v33_findings??[],routeFacts:i.v42?.routeFacts??[],conditionFacts:i.v42?.changed??[],eye:i.v42?.effects??[],scope:'EXISTING_COMMON_ANALYSIS_NOT_ALL_ITEMS_PROVEN'}));
-  return {horse:h.horse,axes,paths:routes,feedback,grade:null,current_grade:null,research_grade:null,assessment:'UNASSESSED_CURRENT',gradeReasons,currentUnknown,rootGroups,itemConsumption,formal:false,
+  return {horse:h.horse,axes,paths:routes,feedback,grade:null,current_grade:null,research_grade:candidate,assessment:candidate?'CURRENT_CARD_ANCHORED_CONDITIONAL_RESEARCH':'UNASSESSED_CURRENT',gradeReasons,currentUnknown,rootGroups,itemConsumption,startReviews,sourceComplete,formal:false,
    summary:{win:win.length,place:place.length,counter:negative.length,held:h.paths.filter(p=>p.decision==='HELD').length,robust:routes.filter(p=>p.robustClaim).length,materialCounter:routes.filter(p=>p.materialCounter).length}};
  });
 }
