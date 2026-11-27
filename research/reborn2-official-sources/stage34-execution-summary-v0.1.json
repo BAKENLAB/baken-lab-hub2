@@ -1,0 +1,456 @@
+{
+  "pins": [
+    {
+      "ref": "68f3b6e54b3a3ad2439d2e53c8aa3ac3344db505",
+      "path": "research/reborn2-official-sources/stage26-varied-synthetic-producer-v0.1.mjs",
+      "blob": "6f5e90c60982f517fa38c2739083d8cf0edbb682",
+      "sha256": "6036f937849a6db3f512d79648b57fc9b2a1019961630aacd8243728f849bc31"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-condition-pipeline-v0.1.2.mjs",
+      "blob": "93d87bb022dae3bae021ba62fc433504bc16f924",
+      "sha256": "2d1a8a6c6d6f15504a660478f60a626d47ec3ec6dee8a94175b82e920dd7fa23"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-bundles-v0.1.2.json",
+      "blob": "b7795dc91ebe203827b1054448068a8e2465069f",
+      "sha256": "befda1231124e5c9aef088659436077c5c9027c7301ff66d29e6ae8827b1af69"
+    },
+    {
+      "ref": "2f48a3c09fc8a8a0c6f32a227a523e0b2d5632aa",
+      "path": "research/reborn2-official-sources/stage32-verified-common-adapter-v0.1.2.mjs",
+      "blob": "1693dfd4657483a1f9e457188c28b38b9d8b2166",
+      "sha256": "098f94a2738d68d30030403788dc15f707dba4438719256f08b846403fba0e92"
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/research-ability-core.mjs",
+      "blob": "92112f6c5e0a38c38aa8d1eff997127bae7d191d",
+      "sha256": "93b1515e2e2f3796296f650cdc8d64f005828521a9b450492827558682e2ca4f",
+      "exports": [
+        "uniq",
+        "dependencyReader",
+        "relativePosition",
+        "ordinalPath",
+        "signedGap",
+        "conditionDelta",
+        "winPlaceRequirements",
+        "repeatEnvelope"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work26-v27-integrated.mjs",
+      "blob": "5b1e805f605879321e2ae5176c29021bc26f7ac9",
+      "sha256": "a59020167726d590f5b378c4d26907c9cdd37fc401ebf4dd2c8cc2cf4ab5c7ab",
+      "exports": [
+        "analyzeV27"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work27-v28-contrast.mjs",
+      "blob": "42fda8b93261079fbb09a053463657af7ca8b703",
+      "sha256": "69029b5020f59158135cad2269c17c0fc09080f9376c3246340cd963c7459ab7",
+      "exports": [
+        "analyzeV28"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work28-v29-feasibility.mjs",
+      "blob": "d7275c6c06f9ed7aac49bc0017ad008cc6cf6de2",
+      "sha256": "ba4f1e1091cc36eabc2c1e67da90982d349ef8b934f1293002da16aa8b6f47b4",
+      "exports": [
+        "analyzeV29",
+        "classifyInterval"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work29-v30-terminal.mjs",
+      "blob": "c3048ab248ae11f5c6c0d981a62c8b8633f7c49c",
+      "sha256": "c78cf46d856564dc2026117b7869100d3e13dd3f20b4660c1f54c89fe6b496df",
+      "exports": [
+        "analyzeV30",
+        "jointField"
+      ]
+    },
+    {
+      "ref": "9365ce00bc20d41790a7e1c540ac3236fd2784bf",
+      "path": "research/reborn2-chatgpt-circuit/work30-v31-integrated.mjs",
+      "blob": "6e812e54ea096f55b2307d05659faaf4824711f2",
+      "sha256": "a1e67df2b40e943991ddf2cde7dcbbfe9f2c6f9f2d9fe19362894b69a91c1b8e",
+      "exports": [
+        "analyzeV31",
+        "compareV31Response"
+      ]
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-chatgpt-circuit/work32-v33-current.mjs",
+      "blob": "80e33a31e8f5c032f591fc1c43bf958a6fceb90f",
+      "sha256": "ecb59e243bc32c547247003f45fd5083147a6a5bf49085ae355eb90f345754c0"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+      "blob": "e652dcde2cf73577bc0a9d4fa4cfc1fc6d8ea228",
+      "sha256": "1241ffc9af725965f3e305b5fc6c52ce8e740ac9ed9f21a65188b7186b2db19d"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-v34-codex-pinned/engine.mjs",
+      "blob": "6fcfe19dbdbb052b87b73186d6c2a0df44460939",
+      "sha256": "612719a57bd40aa560c8ef05d9aaaa2ed43043208898a08e80d119610fcfb1d3"
+    },
+    {
+      "ref": "f6de3f8de25564cd900fca781b1a0585c813eb88",
+      "path": "research/reborn2-v34-codex-pinned/synthesis.mjs",
+      "blob": "fa23a3c606ce636f1663a499d76dcbe339bffcc5",
+      "sha256": "51a64613e1c691c26e6fdab56406cfbfa9497e4259677931d44827835e652a95"
+    },
+    {
+      "ref": "5bf999efafb5224352458607ba42d6abaa04ec5f",
+      "path": "research/reborn2-official-sources/stage34-five-field-v0.1.mjs",
+      "blob": "dff2e1a2f756489b9748ab931bf215bac27e6ecd",
+      "sha256": "b0990d5bf21c2eac088fe67d680be99f3c81781cd5248fe2853a8182276c2a3d"
+    }
+  ],
+  "checks": [
+    {
+      "name": "FK34_FULL:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:COMMON_V34",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:BASELINE_STABLE",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:FULL_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_FULL:WITHDRAW_REPLAY",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:COMMON_V34",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:BASELINE_STABLE",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:FULL_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_DISCOVERY:WITHDRAW_REPLAY",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:COMMON_V34",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:BASELINE_STABLE",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:FULL_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_UNKNOWN:WITHDRAW_REPLAY",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:COMMON_V34",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:BASELINE_STABLE",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_ONLY:FULL_FIELD",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:PACKET",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:VERIFIED",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:REHASH_REJECTED",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:COMMON_V34",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:BASELINE_STABLE",
+      "pass": true
+    },
+    {
+      "name": "FK34_NEGATIVE_REMOVED:FULL_FIELD",
+      "pass": true
+    }
+  ],
+  "summary": [
+    {
+      "id": "FK34_FULL",
+      "source_digest": "bc921e742d9fb6b4cf2fc2f9c1d1b54c8fe116f66ea5a09d181a53fd9fb7254f",
+      "bundle_sha256": "1e3c864abb0ef4ecb8f3f3db738fa362b1bd61639300a742766d91941f57abaa",
+      "evidence": 537,
+      "itemRows": 575,
+      "grades": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ],
+      "feedback": [
+        {
+          "id": "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H1:800",
+          "state": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW",
+          "changed": true,
+          "order_changed": true,
+          "before": [
+            1,
+            1
+          ],
+          "after": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H2:800",
+          "state": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW",
+          "changed": true,
+          "order_changed": true,
+          "before": [
+            3,
+            3
+          ],
+          "after": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H3:800",
+          "state": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW",
+          "changed": true,
+          "order_changed": true,
+          "before": [
+            1,
+            1
+          ],
+          "after": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H5:800",
+          "state": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW",
+          "changed": true,
+          "order_changed": true,
+          "before": [
+            3,
+            3
+          ],
+          "after": [
+            1,
+            5
+          ]
+        }
+      ],
+      "withdrawn": [
+        "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H2:800",
+        "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H5:800"
+      ]
+    },
+    {
+      "id": "FK34_DISCOVERY",
+      "source_digest": "291fb71b2b5d48bc0fbf582f44c6204ff13fe8d868358f01115c6205bb47e635",
+      "bundle_sha256": "3d98ed0dfa6f2094cc535dcde49231b7e6cf24689ca5ef001c35d3fce6991d87",
+      "evidence": 393,
+      "itemRows": 575,
+      "grades": [
+        "A",
+        "A",
+        "B",
+        "A",
+        "C"
+      ],
+      "feedback": [
+        {
+          "id": "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H1:800",
+          "state": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW",
+          "changed": true,
+          "order_changed": true,
+          "before": [
+            1,
+            1
+          ],
+          "after": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H2:800",
+          "state": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW",
+          "changed": true,
+          "order_changed": true,
+          "before": [
+            3,
+            3
+          ],
+          "after": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H3:800",
+          "state": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW",
+          "changed": true,
+          "order_changed": true,
+          "before": [
+            1,
+            1
+          ],
+          "after": [
+            1,
+            5
+          ]
+        },
+        {
+          "id": "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H5:800",
+          "state": "RECOVERY_ROUTE_UNRESOLVED_AFTER_COUNTER_REVIEW",
+          "changed": true,
+          "order_changed": true,
+          "before": [
+            3,
+            3
+          ],
+          "after": [
+            1,
+            5
+          ]
+        }
+      ],
+      "withdrawn": [
+        "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H2:800",
+        "EYE03:TEST:NAR|TEST:H4:TEST:NAR|TEST:H5:800"
+      ]
+    },
+    {
+      "id": "FK34_UNKNOWN",
+      "source_digest": "5093a7d47b3c99d24c3a466b8e48a0a6eb10ddcd5473e3d8647e6ba9a01e5be9",
+      "bundle_sha256": "bd5202ef7559a0f85856282381e18cd280d5237ffa9af3298f2f1cc3cda465c5",
+      "evidence": 497,
+      "itemRows": 575,
+      "grades": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "feedback": [],
+      "withdrawn": []
+    },
+    {
+      "id": "FK34_NEGATIVE_ONLY",
+      "source_digest": "cc5816da077f1eba7f10774375be9061de388440d314b53648e9d33efaa5767f",
+      "bundle_sha256": "e87010d0d736ac511e7fc4df05476f8ca18ad2acd54a0a7d63b0821e051298e4",
+      "evidence": 81,
+      "itemRows": 575,
+      "grades": [
+        "B",
+        "A",
+        "C",
+        "C",
+        "C"
+      ],
+      "feedback": []
+    },
+    {
+      "id": "FK34_NEGATIVE_REMOVED",
+      "source_digest": "6370b35a24d859be6b19b0725531951128a622491393ace572ef80548ae5daf0",
+      "bundle_sha256": "268fd0a5564f68ae45a610683b3772d659c53631805cdc8de926ca24ac79e677",
+      "evidence": 59,
+      "itemRows": 575,
+      "grades": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "feedback": []
+    }
+  ]
+}
