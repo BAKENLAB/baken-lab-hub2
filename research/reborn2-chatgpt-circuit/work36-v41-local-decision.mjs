@@ -51,23 +51,41 @@ function localScenarios(x,docs){
   });
   const field=jointField(roster,edges.map(e=>({a:e.a,b:e.b,order:e.order})),x.placeThreshold??2);
   const roles=d.rows.filter(r=>roster.includes(p.issuer+'|'+r.nativeId)).map(r=>({horse:p.issuer+'|'+r.nativeId,firstRank:r.checkpointRanks?.[0]??null,firstMs:r.checkpointMs?.[0]??null,refs:sourceRefs(p,d.eventId,r.nativeId,['checkpoint_ms','ranks'])}));
-  return {id:s.id,event:s.event,checkpoint:s.checkpoint_m,shared,individual,fieldChanged,rosterMatched,roles,leader:s.leader??null,sourceValid,edges,conditionalField:field,actual_current:'UNPROVEN',formal:false};
+  return {id:s.id,event:s.event,checkpoint:s.checkpoint_m,distance:d.conditions?.distance_m??null,precision:d.precisionMs??null,shared,individual,fieldChanged,rosterMatched,roles,leader:s.leader??null,sourceValid,edges,conditionalField:field,actual_current:'UNPROVEN',formal:false};
  });
 }
 // Search for a measured direction change on the SAME pair across different
 // recorded conditions. Do not call a multifactor contrast a single-factor effect.
 function responseContrast(history,horse){
- const rows=history.filter(s=>s.checkpoint===800).flatMap(s=>s.edges.filter(e=>e.measured&&(e.a===horse||e.b===horse)).map(e=>{
+ const rows=history.flatMap(s=>s.edges.filter(e=>e.measured&&(e.a===horse||e.b===horse)).map(e=>{
   const sign=e.a===horse?1:-1;
-  return {event:s.event,rival:sign===1?e.b:e.a,finish:sign===1?e.interval_ms:[-e.interval_ms[1],-e.interval_ms[0]],scope:e.scope,shared:s.shared,individual:e.local,refs:e.refs};
+  return {event:s.event,checkpoint:s.checkpoint,remaining:s.distance-s.checkpoint,rival:sign===1?e.b:e.a,finish:sign===1?e.interval_ms:[-e.interval_ms[1],-e.interval_ms[0]],scope:e.scope,shared:s.shared,individual:e.local,refs:e.refs};
  }));
- return rows.flatMap((a,i)=>rows.slice(i+1).filter(b=>a.rival===b.rival).flatMap(b=>{
+ return rows.flatMap((a,i)=>rows.slice(i+1).filter(b=>a.rival===b.rival&&a.checkpoint===b.checkpoint&&a.remaining===b.remaining).flatMap(b=>{
   const changed=a.shared.flatMap((q,j)=>eq(q.past,b.shared[j].past)?[]:[q.dimension]).concat(a.individual.flatMap((q,j)=>eq(q.past,b.individual[j].past)?[]:[q.dimension]));
   if(!changed.length)return [];
-  return [{rival:a.rival,events:[a.event,b.event],changed,finish:[a.finish,b.finish],
+  return [{rival:a.rival,checkpoint:a.checkpoint,remaining:a.remaining,events:[a.event,b.event],changed,finish:[a.finish,b.finish],
    reversal:a.finish[0]>0&&b.finish[1]<0||a.finish[1]<0&&b.finish[0]>0,
    scope:'OBSERVED_ASSOCIATION_NOT_ISOLATED_CAUSAL_EFFECT',refs:uniq([...a.refs,...b.refs])}];
  }));
+}
+// Separate observed early competition from a future pace prediction. One
+// event contributes one role vector regardless of how many checkpoints exist.
+function roleReview(history,horse){
+ const seen=new Set();
+ return history.flatMap(s=>{
+  if(seen.has(s.event))return [];seen.add(s.event);
+  const own=s.roles.find(r=>r.horse===horse),others=s.roles.filter(r=>r.horse!==horse);
+  const valid=s.sourceValid&&Number.isFinite(s.precision)&&Number.isFinite(own?.firstMs)&&own.refs.length;
+  const peers=valid?others.filter(r=>Number.isFinite(r.firstMs)&&r.refs.length).map(r=>({rival:r.horse,gap_ms:r.firstMs-own.firstMs,bound_ms:2*s.precision,refs:uniq([...own.refs,...r.refs])})):[];
+  const sharedMatch=s.shared.every(q=>q.state==='MATCHED'),ownMatch=(s.individual[horse]??[]).every(q=>q.state==='MATCHED');
+  const targetRivals=peers.filter(p=>p.gap_ms>=-p.bound_ms&&p.gap_ms<=p.bound_ms);
+  const observedFront=valid&&own.firstRank===1;
+  return [{event:s.event,firstRank:own?.firstRank??null,firstMs:own?.firstMs??null,
+   state:!valid?'UNKNOWN':observedFront?(targetRivals.length?'FRONT_CLOCK_OVERLAP':'FRONT_CLOCK_SEPARATED'):'OBSERVED_NONLEADING_POSITION',
+   clockOverlap:targetRivals,peers,sharedMatch,ownMatch,fieldChanged:s.fieldChanged,
+   relevance:valid&&sharedMatch&&ownMatch?'POSSIBLE_ROLE_ANTECEDENT_NOT_CURRENT_PACE':'TRANSFER_HELD_DEPENDENT_CONDITIONS',refs:uniq([...(own?.refs??[]),...peers.flatMap(p=>p.refs)]),formal:false}];
+ });
 }
 // All 15 canonical categories, every horse. Existing common findings are
 // consumed; unsupported categories remain explicitly held, not guessed.
@@ -134,7 +152,7 @@ function analyze(V,id){
  const x=analyzeV40(V,id),f=V.C.fixtures.find(f=>f.id===id),history=localScenarios(x,f.docs);
  const runners=x.runners.map(h=>{
   const contrast=responseContrast(history,h.slot),eye=eyeAudit(h,x.source_packet,history),decision=gradeTrace(h,history,eye,x.placeThreshold);
-  return {horse:h.slot,items:h.items,contrast,eye,decision,grade:null,formal:false};
+  return {horse:h.slot,items:h.items,contrast,role:roleReview(history,h.slot),eye,decision,grade:null,formal:false};
  });
  return {...x,history_v41:history,runners_v41:runners,formal:false};
 }
@@ -238,6 +256,14 @@ t('F41-06',()=>{
  const unknown=by('FK34_UNKNOWN');assert.ok(unknown.runners_v41.every(h=>h.decision.research_grade===null));
  const bad=by('W36_SHARED_CONFLICT');assert.ok(bad.runners_v41.every(h=>h.decision.current_grade===null));
 });
-const compact=x=>({id:x.id,digest:x.source_digest,history:x.history_v41.map(s=>({id:s.id,shared:s.shared.filter(q=>q.state!=='MATCHED'),fieldChanged:s.fieldChanged,measured:s.edges.filter(e=>e.measured).length,local:s.edges.filter(e=>e.unaffected).length,edges:s.edges.map(e=>({a:e.a,b:e.b,scope:e.scope,interval:e.interval_ms,transfer:e.transfer})),bounds:s.conditionalField.envelopes.map(e=>[e.slot,e.min,e.max])})),runners:x.runners_v41.map(h=>({horse:h.horse,contrast:h.contrast,eye:h.eye.map(e=>({item:e.item,state:e.state,returned:e.returned.length,counter:e.counter.length,incidents:e.incidentIds})),decision:{...h.decision,axes:h.decision.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown}))}}))});
+t('F41-07',()=>{
+ const x=by('FK34_FULL'),h=x.runners_v41.find(h=>h.horse===H(2));
+ const a=h.role.find(q=>q.event.endsWith('TEST:CONTEST')),b=h.role.find(q=>q.event.endsWith('TEST:LONE'));
+ assert.ok(a&&b);assert.equal(a.state,'FRONT_CLOCK_OVERLAP');assert.equal(b.state,'FRONT_CLOCK_SEPARATED');
+ assert.ok(a.clockOverlap.some(q=>q.rival===H(5)&&q.gap_ms===100));
+ assert.equal(b.clockOverlap.length,0);
+ assert.ok(h.role.every(q=>q.relevance!=='CURRENT_PACE_OBSERVED'));
+});
+const compact=x=>({id:x.id,digest:x.source_digest,history:x.history_v41.map(s=>({id:s.id,shared:s.shared.filter(q=>q.state!=='MATCHED'),fieldChanged:s.fieldChanged,measured:s.edges.filter(e=>e.measured).length,local:s.edges.filter(e=>e.unaffected).length,edges:s.edges.map(e=>({a:e.a,b:e.b,scope:e.scope,interval:e.interval_ms,transfer:e.transfer})),bounds:s.conditionalField.envelopes.map(e=>[e.slot,e.min,e.max])})),runners:x.runners_v41.map(h=>({horse:h.horse,contrast:h.contrast,role:h.role,eye:h.eye.map(e=>({item:e.item,state:e.state,returned:e.returned.length,counter:e.counter.length,incidents:e.incidentIds})),decision:{...h.decision,axes:h.decision.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown}))}}))});
 for(const x of all)console.log('V41_CASE '+JSON.stringify(compact(x)));
 for(let i=0;i<masks.length;i++)console.log('V41_MASK '+JSON.stringify({available:masks[i].reviewed,admitted:masks[i].admitted,audit:audits[i],result:compact(masks[i].x)}));
