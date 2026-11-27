@@ -34,11 +34,12 @@ export function inspectWork16(c){
  const oldKey=r=>key(r.peer_id,r.later_race,r.reference_race,r.reference_subject_id);
  const prev=new Set(old.relations.map(oldKey));
  const rel=c.peer_relations.map(r=>({...r,later_race:r.candidate_event}));
- unique(rel,oldKey,137,'REL_ID');unique(rel,r=>r.ledger_pointer,137,'REL_POINTER');
+ unique(rel,oldKey,137,'REL_ID');
+ const pointers=new Map(pinned.peer_relations.map(r=>[oldKey({...r,later_race:r.candidate_event}),r.ledger_pointer]));
  if(c.peer_ledger_sha256!==pinned.peer_ledger_sha256)fail('REL_SOURCE');
  for(const r of rel){
  const h=hist.get(r.reference_evidence_id),race=h?.evidence_id?.split(':').slice(0,-1).join(':');
- if(!prev.has(oldKey(r))||!h||race!==r.reference_race||h.horse_id.id!==r.reference_subject_id||h.source_sha256!==r.reference_result_dom_sha256||h.historical_runner_no!==r.reference_subject_runner_no||!Number.isInteger(r.reference_peer_runner_no)||r.reference_peer_runner_no<1||r.reference_peer_runner_no===r.reference_subject_runner_no||r.peer_id===r.reference_subject_id||r.target_cutoff_verified_at!==null||r.comparability_verified!==false||r.target_cutoff_exclusive_date!=='2026-11-25')fail('REL_LINK');
+ if(!prev.has(oldKey(r))||pointers.get(oldKey(r))!==r.ledger_pointer||!h||race!==r.reference_race||h.horse_id.id!==r.reference_subject_id||h.source_sha256!==r.reference_result_dom_sha256||h.historical_runner_no!==r.reference_subject_runner_no||!Number.isInteger(r.reference_peer_runner_no)||r.reference_peer_runner_no<1||r.reference_peer_runner_no===r.reference_subject_runner_no||r.peer_id===r.reference_subject_id||r.target_cutoff_verified_at!==null||r.comparability_verified!==false||r.target_cutoff_exclusive_date!=='2026-11-25')fail('REL_LINK');
  }
  const priorDiag=workDiagnostics({...old,patches:c.source_contract.patches,relations:rel});
  const inventory=c.item_inventory.items;unique(inventory,r=>key(r.domain,r.id),115,'CATALOG');
