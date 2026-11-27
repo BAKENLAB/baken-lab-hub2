@@ -88,6 +88,8 @@ function discoveries(h,x,routes){
   if(i<0||!rows[i]||!rows[j])return [];
   const matched=rows[i].edges.find(e=>[e.a,e.b].includes(h.horse)&&[e.a,e.b].includes(c.rival));
   if(!matched?.unaffected)return [];
+  const adverse=rows[j].edges.find(e=>[e.a,e.b].includes(h.horse)&&[e.a,e.b].includes(c.rival));
+  if(!adverse||adverse.unaffected)return [];
   const favorable=rows[i].shared.every(q=>q.state==='MATCHED');
   if(!favorable)return [];
   const groups=[];
@@ -97,7 +99,8 @@ function discoveries(h,x,routes){
  });
  // EYE03 actual upstream shared positive return; tie each incident to the
  // route's response, not a blanket bonus.
- const existing=h.eye.filter(e=>e.item==='EYE03').flatMap(e=>e.returned.flatMap(q=>q.events.map(ev=>({item:'EYE03',kind:'SHARED_RECOVERY_RETURN',horse:h.horse,event:ev,refs:q.refs,scope:'CONDITIONAL_RECOVERY',targets:q.targets}))));
+ const upstream=x.runners.find(q=>q.slot===h.horse);
+ const existing=(upstream?.findings_v33??[]).filter(f=>f.item==='RANK18'&&f.eye_id).flatMap(f=>(f.observation?.measurements??[]).filter(m=>m.supported).map(m=>({item:'EYE03',kind:'SHARED_RECOVERY_RETURN',horse:h.horse,rival:f.observation.rival,event:m.event,checkpoint:m.checkpoint_m,refs:m.refs,scope:'CONDITIONAL_RECOVERY',targets:['RANK18','RANK21','RANK100'],counterEvents:(f.observation.counterexamples??[]).map(q=>q.event)})));
  const all=[...candidates,...existing];
  const unique=new Map();
  for(const q of all){const k=JSON.stringify([q.item,q.horse,q.rival??null,q.event,q.counterEvent??null,q.checkpoint??null]);if(!unique.has(k))unique.set(k,q);}
@@ -138,16 +141,16 @@ function integrate(x,docs){
   });
   // The research judgement distinguishes conditional route evidence from
   // supported current applicability. No fabricated coverage or grade.
-  const win=rr.filter(p=>!p.replay&&p.decision==='CONDITIONAL_WIN'),place=rr.filter(p=>!p.replay&&p.decision==='CONDITIONAL_PLACE');
+  const win=rr.filter(p=>!p.replay&&p.decision==='CONDITIONAL_WIN'),place=rr.filter(p=>!p.replay&&['CONDITIONAL_PLACE','CONDITIONAL_WIN'].includes(p.decision));
   const counter=rr.filter(p=>p.decision==='CONDITIONAL_COUNTER'),held=rr.filter(p=>p.decision==='HELD');
-  const coherent=p=>{
+  const coherent=(p,claim)=>{
    const related=rr.filter(q=>q.start===p.start&&q.checkpoint===p.checkpoint);
-   const adverse=related.filter(q=>q.decision==='HELD'||q.decision==='CONDITIONAL_COUNTER'||(p.decision==='CONDITIONAL_WIN'&&q.decision!=='CONDITIONAL_WIN'));
+   const adverse=related.filter(q=>q.decision==='HELD'||q.decision==='CONDITIONAL_COUNTER'||(claim==='WIN'&&q.decision!=='CONDITIONAL_WIN'));
    return {id:p.id,adverse:adverse.map(q=>q.id),supported:!adverse.length&&related.some(q=>q.replay)};
   };
-  const winReview=win.map(coherent),placeReview=place.map(coherent);
+  const winReview=win.map(p=>coherent(p,'WIN')),placeReview=place.map(p=>coherent(p,'PLACE'));
   const conditional=winReview.some(q=>q.supported)?'A':placeReview.some(q=>q.supported)?'B':null;
-  return {horse:h.horse,items,eye,paths:rr,conditional_grade:conditional,research_grade:null,current_grade:null,grade:null,formal:false,
+  return {horse:h.horse,items,eye,paths:rr,conditional_grade:conditional,research_grade:conditional,research_scope:'HISTORICAL_ANTECEDENT_CONDITIONAL_ONLY',current_grade:null,grade:null,formal:false,
    reasons:{win:winReview,place:placeReview,counter:counter.map(q=>q.id),held:held.map(q=>q.id),S:'CURRENT_SUPPORT_AND_ROBUSTNESS_NOT_PROVEN',C:'CURRENT_DISADVANTAGE_NOT_PROVEN',unknown:['CURRENT_FORM','CURRENT_ROLE_AND_PACE_APPLICABILITY','CURRENT_SCENARIO_COVERAGE']}};
  });
  return {id:x.id,digest:x.source_digest,routes,runners,formal:false,grade:null,threshold};
@@ -198,9 +201,26 @@ t('F42-05',()=>{
 t('F42-06',()=>{
  for(const {z} of all)for(const h of z.runners){
   for(const p of h.paths)if(p.decision!=='HELD'){assert.ok(p.full);assert.equal(p.axes.length,5);}
-  assert.equal(h.research_grade,null);assert.equal(h.current_grade,null);
+  assert.equal(h.research_grade,h.conditional_grade);assert.equal(h.current_grade,null);if(h.research_grade==='A')assert.ok(h.reasons.win.some(q=>q.supported));if(h.research_grade==='B'){assert.ok(!h.reasons.win.some(q=>q.supported));assert.ok(h.reasons.place.some(q=>q.supported));}
  }
  const q=get('FK34_UNKNOWN');assert.ok(q.z.runners.every(h=>h.conditional_grade===null));
+});
+t('F42-07',()=>{
+ const q=get('FK34_FULL'),docs=V.C.fixtures.find(f=>f.id===q.z.id).docs;
+ for(const r of q.z.routes){
+  const a=docs.find(d=>d.eventId===id(r.start)),b=docs.find(d=>d.eventId===id(r.response));
+  const j=a.geometry.checkpoints_m.indexOf(r.checkpoint),k=b.geometry.checkpoints_m.indexOf(r.checkpoint);
+  for(const e of r.edges.filter(e=>e.measurement)){
+   const [u,v]=[e.a,e.b].map(h=>a.rows.find(q=>q.nativeId===id(h)));
+   const [w,z]=[e.a,e.b].map(h=>b.rows.find(q=>q.nativeId===id(h)));
+   const mid=r.replay?z.clockMs-w.clockMs:(v.checkpointMs[j]-u.checkpointMs[j])+(z.clockMs-w.clockMs)-(z.checkpointMs[k]-w.checkpointMs[k]);
+   const bound=r.replay?2*b.precisionMs:2*a.precisionMs+4*b.precisionMs;
+   assert.deepEqual(e.finish,[mid-bound,mid+bound]);
+  }
+  const forward=fieldOrder(q.base.roster.possible_active,r.edges.map(e=>({...e,order:e.fieldOrder})),q.z.threshold);
+  const reversed=fieldOrder([...q.base.roster.possible_active].reverse(),[...r.edges].reverse().map(e=>({...e,order:e.fieldOrder})),q.z.threshold);
+  for(const e of forward.envelopes){const v=reversed.envelopes.find(q=>q.slot===e.slot);assert.deepEqual([e.min,e.max],[v.min,v.max]);}
+ }
 });
 const compact=z=>({id:z.id,digest:z.digest,routes:z.routes.map(r=>({id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,local:r.edges.filter(e=>e.local).length,full:r.edges.filter(e=>e.full).length,valid:r.valid})),runners:z.runners.map(h=>({horse:h.horse,conditional:h.conditional_grade,eye:h.eye,reason:h.reasons,paths:h.paths.map(p=>({id:p.id,decision:p.decision,field:p.field&&[p.field.min,p.field.max],local:p.local&&[p.local.min,p.local.max],axes:p.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown.length}))}))}))});
 for(const {z} of all)console.log('V42_CASE '+JSON.stringify(compact(z)));
