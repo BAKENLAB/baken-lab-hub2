@@ -1,0 +1,41 @@
+name: REBORN2 Main48 independent diagnostics
+on:
+  pull_request:
+    branches: [research/reborn2-main48-test-ci-base]
+permissions:
+  contents: read
+jobs:
+  independent:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Exact checkout and original nine probes
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node research/reborn2-independent-tests/probe-main48.mjs > "$RUNNER_TEMP/main48.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/main48.log"
+          echo "ORIGINAL_PROBE_EXIT=$rc"
+          node research/reborn2-independent-tests/summarize-main48.mjs "$RUNNER_TEMP/main48.log" "$rc" > "$RUNNER_TEMP/main48-summary.json"
+          summary_rc=$?
+          cat "$RUNNER_TEMP/main48-summary.json"
+          if [ "$summary_rc" -ne 0 ]; then exit "$summary_rc"; fi
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: main48-independent-receipt
+          path: |
+            ${{ runner.temp }}/main48.log
+            ${{ runner.temp }}/main48-summary.json
