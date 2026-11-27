@@ -34,8 +34,8 @@ export async function openDetail(root,m,h,field,params){
  const extra={...(route?{route}:{}),...(item?{item}:{})};
  return shell(fieldNames[field],'<a class="link" href="/">一覧に戻る</a><h1>'+esc(summary.no+' '+summary.name)+'</h1><h2>'+esc(fieldNames[field])+'</h2><p class="muted">根拠データ（原文・'+p+'/'+number+'ページ）。全データは保存済み。'+(field==='axes'&&m.header.mode==='FULL'?' 各経路の根拠：':'')+'</p>'+overview+(field==='axes'&&m.header.mode==='FULL'?link(h,'paths','経路別の詳細'):'')+'<pre>'+esc(raw.slice((p-1)*size,p*size))+'</pre><nav>'+(p>1?link(h,field,'前へ',{...extra,page:p-1}):'')+(p<number?link(h,field,'次へ',{...extra,page:p+1}):'')+'</nav>');
 }
-export async function startPreview(root,digest,port=0){
- const m=await readManifest(root,digest);
+export async function startPreview(root,digest,port=0,trust=null){
+ const m=await readManifest(root,digest,trust);
  let detailReads=0;
  const server=createServer(async(req,res)=>{
   const head={'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"};

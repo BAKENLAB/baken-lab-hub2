@@ -20,6 +20,7 @@ jobs:
         env:
           PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview
       - run: node implementation/reborn2-pilot/test-v3.mjs
+      - run: node implementation/reborn2-pilot/test-integrity.mjs
       - run: node implementation/reborn2-pilot/test-mobile-browser.mjs
         env:
           PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview
@@ -28,3 +29,16 @@ jobs:
           name: reborn2-codex02-list-preview
           path: ${{ runner.temp }}/reborn2-preview/
           retention-days: 7
+
+  original-test01-negative:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node implementation/reborn2-pilot/pinned-test01-negative.mjs . "$GITHUB_SHA"

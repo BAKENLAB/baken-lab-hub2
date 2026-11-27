@@ -8,7 +8,7 @@ import {gzipSync,gunzipSync} from 'node:zlib';
 import {sha,ENGINE,validateSnapshot} from './adapter.mjs';
 import {readManifest,restoreSnapshot} from './compact-store.mjs';
 const bytes=x=>Buffer.from(JSON.stringify(x));
-const keyOf=s=>sha([s.engineCommit,s.race.circuit,s.race.raceId]); // no mode/cutoff bypass
+// Canonical identity is bound to the verified native source by the archive.
 const exact=(v,k)=>assert.deepEqual(Object.keys(v).sort(),[...k].sort());
 export function makeSealPlan(snapshot,archive,proof){
  const s=validateSnapshot(snapshot);
@@ -17,7 +17,8 @@ export function makeSealPlan(snapshot,archive,proof){
  // Validate source packet hash, not just a declared sourceDigest.
  if(proof.mode==='PARTIAL')assert.equal(sha(proof.packet),proof.sourceDigest);
  else assert.equal(sha(proof.packet),proof.packetDigest);
- const payload={schema:'REBORN2_PRESTART_SEAL_PLAN_1',scope:'FIXTURE_ONLY',raceKey:keyOf(s),race:s.race,engineCommit:ENGINE,sourceDigest:s.sourceDigest,sourceProofDigest:sha(proof),snapshotDigest:s.snapshotDigest,manifestDigest:archive.manifestDigest,time:s.time,externalTimestampVerified:false,prospective:false,realAdmission:false};
+ assert.equal(archive.nativeArtifacts.sourceProof.digest,sha(proof),'SOURCE_PROOF_ORIGIN');
+ const payload={schema:'REBORN2_PRESTART_SEAL_PLAN_1',scope:'FIXTURE_ONLY',raceKey:archive.identity,race:s.race,engineCommit:ENGINE,sourceDigest:s.sourceDigest,sourceProofDigest:sha(proof),nativeOutputDigest:archive.nativeArtifacts.nativeOutput.digest,verifiedInputDigest:archive.nativeArtifacts.verifiedInput.digest,snapshotDigest:s.snapshotDigest,manifestDigest:archive.manifestDigest,time:s.time,externalTimestampVerified:false,prospective:false,realAdmission:false};
  return {payload,digest:sha(payload),timestampRequest:{algorithm:'SHA256',messageImprint:sha(payload),state:'NOT_SENT'}};
 }
 export function signFixtureSeal(plan,privateKey){

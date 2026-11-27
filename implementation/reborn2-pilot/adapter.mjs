@@ -1,6 +1,7 @@
 // Isolated implementation wrapper, never alters the V48 FINAL engine.
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {gzipSync} from 'node:zlib';
 import {execFileSync} from 'node:child_process';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
@@ -51,6 +52,8 @@ export function inspectRealSupply(m){
  }
  assert.ok(m.sourceDocuments.some(d=>d.role==='TARGET_CARD'));
  assert.ok(Array.isArray(m.permissionEvidence)&&Array.isArray(m.custodyEvidence));
+ // Metadata-only stage cannot validate a supplied rights or custody object.
+ assert.ok(m.permissionEvidence.length===0&&m.custodyEvidence.length===0,'UNVERIFIED_PERMISSION_OR_CUSTODY_OBJECT');
  return {state:'HELD_REAL_ADMISSION',circuit:m.circuit,raceId:m.race.nativeRaceId,sourceDigest:m.sourceDigest,blockers:['APPROVED_SOURCE_RIGHTS_AND_PROCESSING_SCOPE','NATIVE_FORMAT_AND_IDENTITY_CONFORMANCE','EXTERNAL_CUSTODY_TIME_AND_COMPLETE_ASOF_INVENTORY','VERIFIED_REAL_STATUS_AND_START_BOUNDARY','APPROVED_REAL_ENGINE_ADAPTER'],realAdmission:false,analysisAllowed:false,persistenceAllowed:false};
 }
 const fixtureClock=(cutoff,post)=>({domain:'SYNTHETIC_FIXTURE_TICKS',cutoff,analysisAt:cutoff+1,startLower:post,scheduledPost:post,prospective:false});
@@ -114,6 +117,28 @@ function build({race,time,sourceDigest,mode,roster,analysis}){
  const body=wireBody({schema:VERSION,mode,scope:'FIXTURE_ONLY',engineCommit:ENGINE,sourceDigest,race,time,runners,realAdmission:false,formal:false});
  return {...body,snapshotDigest:sha(body)};
 }
+// Only this module can register an actual engine return. A caller may
+// calculate a JSON hash but cannot mint a registered engine-origin snapshot.
+// Process-local capability, not a hostile-process or external custody claim.
+const origins=new WeakMap(),issuedPartial=new WeakSet();
+function artifact(value){
+ const raw=JSON.stringify(value),buffer=gzipSync(raw,{level:1});
+ return {digest:sha(raw),rawBytes:Buffer.byteLength(raw),compressedBytes:buffer.length,buffer};
+}
+function register(snapshot,proof,nativeOutput,verifiedInput,issuer,eventId){
+ const identity=sha([ENGINE,issuer,eventId]);
+ const artifacts={nativeOutput:artifact(nativeOutput),sourceProof:artifact(proof),verifiedInput:artifact(verifiedInput)};
+ origins.set(snapshot,{identity,issuer,eventId,snapshotDigest:snapshot.snapshotDigest,sourceDigest:snapshot.sourceDigest,artifacts});
+ return {snapshot,sourceProof:proof};
+}
+export function verifiedOrigin(snapshot){
+ const o=origins.get(snapshot);
+ assert.ok(o,'UNAUTHENTICATED_ENGINE_ORIGIN');
+ assert.equal(snapshot.snapshotDigest,o.snapshotDigest,'ENGINE_OUTPUT_CHANGED');
+ assert.equal(snapshot.sourceDigest,o.sourceDigest,'ENGINE_SOURCE_CHANGED');
+ validateSnapshot(snapshot);
+ return {...o,artifacts:Object.fromEntries(Object.entries(o.artifacts).map(([k,v])=>[k,{...v,buffer:Buffer.from(v.buffer)}]))};
+}
 // The only executable path remains the pinned fixture verifier. The
 // caller cannot turn a real envelope into a fixture by changing a flag.
 export async function executeVerifiedSupply(input){
@@ -123,12 +148,16 @@ export async function executeVerifiedSupply(input){
  assert.equal(input.scope,'FIXTURE_ONLY','REAL_ENGINE_ADMISSION_CLOSED');
  if(input.mode==='PARTIAL'){
   exact(input,partialKeys);
+  assert.ok(issuedPartial.has(input),'PARTIAL_FIXTURE_AUTHORITY_NOT_ISSUED');
+  issuedPartial.delete(input);
   const {bundle:b,trust,candidate}=input;
   const z=analyzePartialVerified(b,trust,candidate),p=z.sourcePacket;
   const card=p.events.find(e=>e.role==='TARGET_CARD'),val=(r,k)=>r.observations[k]?.state==='OBSERVED_TEST_FORMAT'?r.observations[k].value:null;
   const roster=card.rows.map(r=>({horseId:r.nativeId,no:val(r,'no'),name:val(r,'displayName'),status:'UNKNOWN'}));
   const snapshot=build({race:{raceId:p.target.eventId,circuit:'LOCAL',label:'Work44 架空競走'},time:{domain:'SYNTHETIC_SIGNED_FIXTURE_TIME',cutoff:p.cutoff,analysisAt:trust.now,startLower:b.manifest.payload.startLower,scheduledPost:p.target.scheduledPost,prospective:false},sourceDigest:z.sourceDigest,mode:'PARTIAL',roster,analysis:z.runners});
-  return {snapshot,sourceProof:{scope:'FIXTURE_ONLY',mode:'PARTIAL',sourceDigest:z.sourceDigest,packet:p,receipt:{manifest:trust.expectedManifestSha256,rights:trust.expectedRightsSha256,inventory:trust.expectedInventorySha256,identity:trust.expectedIdentitySha256}}};
+  const proof={scope:'FIXTURE_ONLY',mode:'PARTIAL',sourceDigest:z.sourceDigest,packet:p,receipt:{manifest:trust.expectedManifestSha256,rights:trust.expectedRightsSha256,inventory:trust.expectedInventorySha256,identity:trust.expectedIdentitySha256}};
+  const portableTrust={...trust,authorityKey:trust.authorityKey.export({type:'spki',format:'pem'}),custodyKey:trust.custodyKey.export({type:'spki',format:'pem'})};
+  return register(snapshot,proof,z,{bundle:b,trust:portableTrust,candidate},p.target.issuer,p.target.eventId);
  }
  assert.equal(input.mode,'FULL');exact(input,fullKeys);
  const {request,receipt,work42Envelope}=input,V=await loadV40();
@@ -141,12 +170,14 @@ export async function executeVerifiedSupply(input){
  const z=await analyzeVerified(V,request,receipt,{semanticVersion:48,work42Envelope});
  const roster=card.rows.map(r=>({horseId:card.issuer+'|'+r.nativeId,no:r.no,name:'架空馬 '+r.nativeId.split(':').at(-1),status:r.status}));
  const snapshot=build({race:{raceId:card.eventId,circuit:card.issuer==='TEST:JRA'?'JRA':'LOCAL',label:'V48 '+request.id+' 架空競走'},time:fixtureClock(JSON.parse(request.bundleText).cases[0].input.manifest.cutoff,card.scheduledPost),sourceDigest:z.digest,mode:'FULL',roster,analysis:z.candidate.runners});
- return {snapshot,sourceProof:{scope:'FIXTURE_ONLY',mode:'FULL',sourceDigest:z.digest,packet:verified.packet,packetDigest:receipt.source_digest,bundleDigest:receipt.bundle_sha256,receipt}};
+ const proof={scope:'FIXTURE_ONLY',mode:'FULL',sourceDigest:z.digest,packet:verified.packet,packetDigest:receipt.source_digest,bundleDigest:receipt.bundle_sha256,receipt};
+ return register(snapshot,proof,z,{request,receipt,work42Envelope},card.issuer,card.eventId);
 }
 export async function executeFixtureWithProof(name='FK34_FULL'){
  if(name==='WORK44_PARTIAL'){
   const {b,trust}=partialFixture();
-  return executeVerifiedSupply({scope:'FIXTURE_ONLY',mode:'PARTIAL',bundle:b,trust,candidate:preparePartial(b,trust)});
+  const input={scope:'FIXTURE_ONLY',mode:'PARTIAL',bundle:b,trust,candidate:preparePartial(b,trust)};
+  issuedPartial.add(input);return executeVerifiedSupply(input);
  }
  assert.ok(['FK34_FULL','FK34_UNKNOWN'].includes(name),'FIXTURE_NOT_ALLOWLISTED');
  const V=await loadV40(),{request,receipt}=acceptedRequest(V,name),verified=verifyIntake(V,request,receipt);
