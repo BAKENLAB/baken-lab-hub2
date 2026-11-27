@@ -23,7 +23,7 @@ export function analyzeWork29(candidates,withdraw=null){
    const value={boundaries_m:o.boundariesM,segments_ms:q.value,distance_m:o.distanceM};
    const old=shared.get(root);
    if(old){if(JSON.stringify(old.observation)!==JSON.stringify(value))old.conflict=true;if(!old.row_roots.includes(q.root))old.row_roots.push(q.root);continue;}
-   shared.set(root,{...base,root,row_roots:[q.root],subject:null,item:'RANK69',state:'HISTORICAL_RACE_LEADER_PACE_ONLY',observation:value,conflict:false});
+   shared.set(root,{...base,root,row_roots:[q.root],subject:null,item:'RANK19',state:'HISTORICAL_RACE_LEADER_PACE_ONLY',observation:value,conflict:false});
    continue;
   }
   if([q.root,...q.dependencies].includes(withdraw)){held.push({state:'HELD',reason:'WITHDRAWN_DEPENDENCY'});continue;}
@@ -36,7 +36,19 @@ export function analyzeWork29(candidates,withdraw=null){
   else findings.push({...base,item:o.field==='peer_followup'?'RANK37':'RANK36',state:'PEER_LINK_REVIEW_ONLY',observation:q.value});
  }
  for(const p of shared.values())if(p.conflict)held.push({state:'HELD',reason:'SHARED_RACE_MEASUREMENT_CONFLICT',root:p.root});else findings.push(p);
- return {scope:'WORK29_SYNTHETIC_TYPED_FINDINGS_ONLY',findings,held,formal:0,grade:null,prediction:false};
+ // Canonical root dedup; conflicting versions/values and their dependent observations are held.
+ const roots=new Map(),blocked=new Set();
+ for(const q of findings){
+  const prior=roots.get(q.root);
+  if(!prior){roots.set(q.root,q);continue;}
+  if(JSON.stringify([prior.observation,prior.unit,prior.scope,prior.version,prior.sourceDigest,prior.pointer])!==JSON.stringify([q.observation,q.unit,q.scope,q.version,q.sourceDigest,q.pointer]))blocked.add(q.root);
+  else prior.dependencies=[...new Set([...prior.dependencies,...q.dependencies])];
+ }
+ for(const h of held)if(h.root)blocked.add(h.root);
+ if(withdraw!==null)blocked.add(withdraw);
+ let changed=true;while(changed){changed=false;for(const q of roots.values())if(!blocked.has(q.root)&&q.dependencies.some(d=>blocked.has(d))){blocked.add(q.root);changed=true;}}
+ for(const q of roots.values())if(blocked.has(q.root))held.push({state:'HELD',reason:'ROOT_CONFLICT_OR_WITHDRAWN_DEPENDENCY',root:q.root});
+ return {scope:'WORK29_SYNTHETIC_TYPED_FINDINGS_ONLY',findings:[...roots.values()].filter(q=>!blocked.has(q.root)),held,formal:0,grade:null,prediction:false};
 }
 // Attach typed findings as a separate analysis namespace. Never conflate TEST native IDs with S26 IDs.
 export function analyzeV30WithWork29(L,name,candidates,withdraw=null,options={}){
