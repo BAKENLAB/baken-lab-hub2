@@ -1,4 +1,4 @@
-name: REBORN2 Codex01 isolated implementation
+name: REBORN2 Codex02 isolated implementation
 on:
   push:
     branches: [implementation/reborn2-pilot-01-20261128]
@@ -16,11 +16,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node implementation/reborn2-pilot/test.mjs
+      - run: node implementation/reborn2-pilot/test-v2.mjs
         env:
           PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview
       - uses: actions/upload-artifact@v4
         with:
-          name: reborn2-codex01-fixture-preview
+          name: reborn2-codex02-list-preview
           path: ${{ runner.temp }}/reborn2-preview/*.html
           retention-days: 7
