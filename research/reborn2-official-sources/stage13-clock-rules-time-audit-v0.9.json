@@ -1,0 +1,296 @@
+{
+  "version": "0.9.0",
+  "acceptance_commit": "9bfed3c3d812fda966f54a43e7155ef5022563fe",
+  "prior_commit": "c82b1373d39ac98624fa8a542ba604d8c8e6ccd0",
+  "observed_date_jst": "2026-11-27",
+  "observed_at": null,
+  "formal_admissions": 0,
+  "production_changes": false,
+  "time_audit": {
+    "scope": "4 saved tar archives; structured JSON, JSONL, NDJSON, CSV leaf keys indicating acquisition, observation, generation or related timestamps. No complete HTML/workbook field scan, no source browser logs.",
+    "pack_counts": [
+      {
+        "pack": "stage10",
+        "members": 11,
+        "structured": 8,
+        "zoned_fields": 27,
+        "conflicts": 6,
+        "library_created_utc": "2026-11-26T23:15:32+00:00",
+        "sha256": "1edb850d452eb8a2c62564546f3373cb39dac87a6e682b733b72cfb5ebec9672"
+      },
+      {
+        "pack": "stage9",
+        "members": 14,
+        "structured": 9,
+        "zoned_fields": 2,
+        "conflicts": 2,
+        "library_created_utc": "2026-11-26T23:00:17+00:00",
+        "sha256": "7bc674eb2004d4836666b12aa803b6bd5ed649450d349502d96f499309e21fbb"
+      },
+      {
+        "pack": "stage8",
+        "members": 41,
+        "structured": 19,
+        "zoned_fields": 87,
+        "conflicts": 44,
+        "library_created_utc": "2026-11-26T22:15:55+00:00",
+        "sha256": "48df059c10a5c62e18352a7768215e3599634735a096887e85679376b5c03cd6"
+      },
+      {
+        "pack": "urawa",
+        "members": 35,
+        "structured": 9,
+        "zoned_fields": 235,
+        "conflicts": 0,
+        "library_created_utc": "2026-11-26T13:36:10+00:00",
+        "sha256": "df09365de5862ac07474ed653adfd3e5d22b86975fc12a3366a4d83c26fb1831"
+      }
+    ],
+    "fields": 351,
+    "conflict_fields": 52,
+    "conflict_files": 12,
+    "all_conflicts_after_library_creation": true,
+    "parse_errors": 0,
+    "manifest_repeated_timestamp_count": 41,
+    "invalid_fields": [
+      {
+        "file": "ACCEPTANCE_9ffbec4_RECEIPT.json",
+        "reported": "2026-11-27T17:00:00+09:00",
+        "count": 1,
+        "sha256": "f42282e198ffcdde9b85c863d9a061805e06e08022df7fcb1a0fb9bc1417a318",
+        "verified_time": null
+      },
+      {
+        "file": "JRA_JAPAN_CUP_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+        "reported": "2026-11-27T17:00:00+09:00",
+        "count": 1,
+        "sha256": "0fb1e34931eb4dd53e89b222b8f25a3c756d3557d8906553c0ef05ea3886f22e",
+        "verified_time": null
+      },
+      {
+        "file": "LOCAL_URAWA11_FULLFIELD_FORMAL_EVIDENCE_V1.json",
+        "reported": "2026-11-27T17:00:00+09:00",
+        "count": 1,
+        "sha256": "263e4ee30c87e4c129bfc26bff26f63baae9aef4d99fcd329eb9de9dd9aa90d1",
+        "verified_time": null
+      },
+      {
+        "file": "OFFICIAL_PERSON_RESULT_ROW_JOINS_V1.json",
+        "reported": "2026-11-27T17:30:00+09:00",
+        "count": 1,
+        "sha256": "9dea3b3cc66dac1a704b5f2de18aeebcf9d53d0c6bb2bb5b1ede846d0ba96725",
+        "verified_time": null
+      },
+      {
+        "file": "PERMISSION_STATUS_JRA_NAR_V1.json",
+        "reported": "2026-11-27T17:00:00+09:00",
+        "count": 1,
+        "sha256": "7375de1e74e79c75ca31d4ab4935ac70869791abdf53d02633930eef6530fe8d",
+        "verified_time": null
+      },
+      {
+        "file": "STAGE10_MANIFEST_V2.json",
+        "reported": "2026-11-27T17:00:00+09:00",
+        "count": 1,
+        "sha256": "b4d4e99920ec9791f982a2e6c0a57946fc0334d0439d6052c00ca33d716bb349",
+        "verified_time": null
+      },
+      {
+        "file": "LOCAL30_CURRENT_OBSERVATION_V1.json",
+        "reported": "2026-11-27T15:30:00+09:00",
+        "count": 1,
+        "sha256": "3d0134753002a3add2082f04d6914acddd8721a866fddae365734473af6c6dad",
+        "verified_time": null
+      },
+      {
+        "file": "LOCAL30_REPRODUCTION_AUDIT_V1.json",
+        "reported": "2026-11-27T16:20:00+09:00",
+        "count": 1,
+        "sha256": "50d5acd80fe0378bdfe933e26d9f80759a41b4e0049bd83c35f0bc196526fee3",
+        "verified_time": null
+      },
+      {
+        "file": "CODEX_LONG_TERM_CLOCK_INPUT_CONTRACT_V1.json",
+        "reported": "2026-11-27T07:30:00+09:00",
+        "count": 1,
+        "sha256": "6a0ab61554ac8c64733003b28bc638ea7d133d2092f96eaa7172e5df78632c6f",
+        "verified_time": null
+      },
+      {
+        "file": "LONG_TERM_BENCHMARK_PRIORITY_RESEARCH_V3.json",
+        "reported": "2026-11-27T07:30:00+09:00",
+        "count": 1,
+        "sha256": "c496651a9e01b4fa67818762170224cef46ae5bb3771507b4be8cb40265e36a1",
+        "verified_time": null
+      },
+      {
+        "file": "ARTIFACT_MANIFEST_V3.json",
+        "reported": "2026-11-27T07:45:00+09:00",
+        "count": 41,
+        "sha256": "832aadebd28b442c5ddac940640098b25a083da634bdea493617c1e5a514d8b2",
+        "verified_time": null
+      },
+      {
+        "file": "JRA_88_PRIORITY_GROUPS_DISTRIBUTION_V1.json",
+        "reported": "2026-11-27T07:20:00+09:00",
+        "count": 1,
+        "sha256": "b8b26c6eccdd711809d7228e9c57fbb05478e6f8a0c4c9f0630114fcd41ebc7e",
+        "verified_time": null
+      }
+    ],
+    "detail_file": "stage13-cross-pack-time-audit-v0.9.json",
+    "detail_sha256": "605af6be108a40bbbff7a5057beb4b6822667210ec47527810c53d93226a4b99",
+    "rule": "Do not infer exact acquisition or publication from archive mtime, library registration or filename; preserve originals; invalidate conflicted fields in research consumption; chronology-compatible fields not authenticated by this test alone."
+  },
+  "benchmark": {
+    "local": {
+      "groups": 30,
+      "races": 963,
+      "group_routes": [
+        {
+          "venue": "園田",
+          "groups": 17,
+          "races": 608,
+          "distance_m": [
+            1400
+          ],
+          "raw_classes": [
+            "C2",
+            "C3"
+          ],
+          "source_2026": "https://www.sonoda-himeji.jp/race/rank/",
+          "points_2026": {
+            "C2": [
+              100,
+              229
+            ],
+            "C3": [
+              0,
+              99
+            ]
+          },
+          "source_2025_program_candidate": "https://www.sonoda-himeji.jp/resources/pdfs/program/2025/1763371915_37fc45b8e7643237c29c.pdf",
+          "version_2025": "NOT_VERIFIED",
+          "geometry": "2024 NAR course description lap 1051m and 1400m start near fourth corner pocket; date-specific version pending",
+          "geometry_source": "https://www.keiba.go.jp/jbc2024/race/hyougozyubenairucup.html"
+        },
+        {
+          "venue": "門別",
+          "groups": 6,
+          "races": 144,
+          "distance_m": [
+            1000
+          ],
+          "raw_classes": [
+            "2歳 未勝利",
+            "3歳以上 C4-2",
+            "3歳以上 C4-3"
+          ],
+          "source_2025": "https://www.hokkaidokeiba.net/hkj/henseiyouryou/2025henseiyouryou.pdf",
+          "effective_2025": [
+            "2025-04-16",
+            "2025-11-13"
+          ],
+          "source_2026": "https://www.hokkaidokeiba.net/hkj/henseiyouryou/2026henseiyouryou.pdf",
+          "effective_2026": [
+            "2026-04-15",
+            "2026-11-12"
+          ],
+          "screenshot_pages": [
+            0,
+            1
+          ],
+          "class_rule": "C4 program-prize upper limit 800000 JPY; 2yo maiden separate; both year tables agree; individual -2/-3 subdivision not verified; 3yo general category transfer after meeting 4; no per-run eligibility pass",
+          "layout": "outside 1000m candidate, exact historical revision not proven"
+        },
+        {
+          "venue": "盛岡",
+          "groups": 4,
+          "races": 118,
+          "distance_m": [
+            1000,
+            1200,
+            1400
+          ],
+          "raw_classes": [
+            "C1",
+            "C2",
+            "C2三組"
+          ],
+          "rule_system": "岩手",
+          "year_sources": [
+            "https://www.iwatekeiba.or.jp/dir/wp-content/uploads/2025/02/2025_iwate_hensei_yoryo.pdf",
+            "https://www.iwatekeiba.or.jp/dir/wp-content/uploads/2026/03/2026_iwate_hensei_yoryo.pdf"
+          ],
+          "status": "2025 source located, not fully read; 2026 text examined"
+        },
+        {
+          "venue": "水沢",
+          "groups": 3,
+          "races": 93,
+          "distance_m": [
+            850,
+            1400
+          ],
+          "raw_classes": [
+            "C1",
+            "C2"
+          ],
+          "rule_system": "岩手",
+          "course_source": "https://www.iwatekeiba.or.jp/mizu_01",
+          "status": "2026 class rules read, individual race-version binding pending"
+        }
+      ],
+      "iwate_2026": {
+        "class_names": [
+          "A",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ],
+        "reclassification": "normally after every two meetings",
+        "age_change": "meeting 14 onward 3+ instead of 4+ with exceptions",
+        "prize_window_change": {
+          "before_meeting_12": "15 previous races for established residents before 2026-03-08 plus subsequent prize",
+          "from_meeting_12": "12 previous races before 2026-08-23 plus subsequent prize",
+          "note": "subject to residency and other rule provisions"
+        },
+        "correction": {
+          "horse": "ミヤギヴォイジャー",
+          "notice_date": "2026-04-22",
+          "affected": "FY2025 meeting 11 Mizusawa; FY2026 meeting 1 Mizusawa",
+          "corrected_from": "FY2026 meeting 2 Mizusawa",
+          "source": "https://www.iwatekeiba.or.jp/news/0421-2"
+        },
+        "admission": "annual rules insufficient; corrected version must be attached with effective date and availability; no retroactive rewrite of prediction-time evidence"
+      }
+    },
+    "jra": {
+      "groups": 88,
+      "races": 2836,
+      "runners": 40333,
+      "dirt_groups": 49,
+      "turf_groups": 39,
+      "raw_class_counts": {
+        "未勝利": 43,
+        "1勝クラス": 30,
+        "2勝クラス": 8,
+        "新馬": 5,
+        "オープン": 2
+      },
+      "course_version_present": 0,
+      "formal_admissions": 0,
+      "action": "prioritize 49 dirt groups for fixed-layout witnesses, then turf rail/inner/outer by meeting; age and sex eligibility not inferred from raw class; original source time still blocked"
+    },
+    "formal_admissions": 0
+  },
+  "permission": {
+    "nar_url": "https://www.keiba.go.jp/terms.html",
+    "jra_url": "https://www.jra.go.jp/use/",
+    "status": "NOT_CLEARED",
+    "nar_terms_observation": "prior permission required for reproduction and republication; no blanket authorization for derived use or recurring collection established",
+    "jra_terms_observation": "page observed; no explicit general license established",
+    "inquiry": "previous draft preserved, not sent"
+  }
+}
