@@ -21,6 +21,14 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const get=(xs,race)=>{const rs=xs.filter(g=>g.record.race_id===race);return rs.length===1?rs[0]:undefined;};
  const put=(id,kind,value,groups,upstream=[])=>{if(!groups.length)return;items[id].observations.push({kind,value,evidence_ids:uniq(groups.flatMap(g=>g.evidence_ids)),original_event_keys:uniq(groups.map(g=>g.event_key)),upstream_item_ids:upstream,status:fictional?'FICTIONAL_OBSERVATION_ONLY':'STRUCTURAL_RESEARCH_CANDIDATE'});items[id].status='CANDIDATE_OUTPUT';};
  const unknown=(id,reason)=>items[id].unknowns.push(reason);
+ // V23: explicitly partial synthetic producer evidence. No result row,
+ // finish rank, field size or current conditions may be inferred from a clock.
+ if(fictional)for(const g of byKind('WORK22_FINISH_CLOCK')){
+  const f=g.record.fact;
+  if(g.record.work22_validated_partial!==true||f.unit!=='0.1_second'||!Number.isSafeInteger(f.clock_tenths)||f.clock_tenths<=0||g.record.race_id===target.race_id||typeof g.event_key!=='string')throw Error('WORK22_CLOCK_PARTIAL_INVALID');
+  put('05','DISPLAY_CLOCK',{race_id:g.record.race_id,tenths:f.clock_tenths},[g]);
+  traceRead({consumer:'analyzeTyped01to32.work22PartialClock',consumer_item_id:'05',horse_no:h.horse_no,item_id:'05',value:{race_id:g.record.race_id,tenths:f.clock_tenths},reason:'Read actual producer historical clock only; no full result or ability conclusion'});
+ }
  for(const g of results){
  const f=g.record.fact,r=g.record.race_id;
  put('02',fictional?'FIXTURE_FINISH_STATE':'OFFICIAL_START_STATE',{race_id:r,start_status:f.start_status,finish:f.finish,field_size:f.field_size??null},[g]);
