@@ -56,3 +56,5 @@ node test-capability-depth-v22.mjs
 node test-work22-v23-bridge.mjs
 
 node test-opponent-context-v23.mjs
+
+node test-work23-v24-bridge.mjs

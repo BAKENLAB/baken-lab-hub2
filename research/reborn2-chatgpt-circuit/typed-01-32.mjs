@@ -21,6 +21,20 @@ export function analyzeTyped01to32({target,roster,intake,traceRead=()=>{}}){
  const get=(xs,race)=>{const rs=xs.filter(g=>g.record.race_id===race);return rs.length===1?rs[0]:undefined;};
  const put=(id,kind,value,groups,upstream=[])=>{if(!groups.length)return;items[id].observations.push({kind,value,evidence_ids:uniq(groups.flatMap(g=>g.evidence_ids)),original_event_keys:uniq(groups.map(g=>g.event_key)),upstream_item_ids:upstream,status:fictional?'FICTIONAL_OBSERVATION_ONLY':'STRUCTURAL_RESEARCH_CANDIDATE'});items[id].status='CANDIDATE_OUTPUT';};
  const unknown=(id,reason)=>items[id].unknowns.push(reason);
+ // V24: strictly separate Work23 partial measurements from full result rows.
+ if(target.work23_partial===true){
+  if(!fictional||accepted.some(g=>g.record.kind!=='WORK23_TYPED_FIELD'||g.record.work23_validated_partial!==true))throw Error('WORK23_PARTIAL_SCOPE');
+  const map={finish:['02','RECORDED_FINISH'],margin_to_winner:['03','TYPED_WINNER_MARGIN'],margin_to_next:['04','TYPED_NEXT_MARGIN'],finish_clock:['05','DISPLAY_CLOCK'],individual_final3f:['06','INDIVIDUAL_FINAL3F'],checkpoint_positions:['17','CHECKPOINT_RANKS'],race_leader_laps:['19','RACE_LEADER_LAPS']};
+  for(const g of byKind('WORK23_TYPED_FIELD')){
+   const f=g.record.fact,def=map[f.field];if(!def)continue;
+   const [id,kind]=def;
+   const value={race_id:g.record.race_id,measurement:f.value,unit:f.unit,scope:f.field==='race_leader_laps'?'RACE_LEADER':'INDIVIDUAL',...(f.field==='checkpoint_positions'?{checkpoints_m:f.checkpoints_m}:{} )};
+   put(id,kind,value,[g]);
+   traceRead({consumer:'analyzeTyped01to32.work23Partial',consumer_item_id:id,horse_no:h.horse_no,item_id:id,value,evidence_ids:g.evidence_ids,roots:g.record.roots,reason:'Typed partial measurement, no invented full result'});
+  }
+  for(const id of ids)if(!items[id].observations.length)unknown(id,'WORK23_REQUIRED_MATERIAL_NOT_PROVIDED');
+  return {horse_no:h.horse_no,horse_id:h.horse_id,items};
+ }
  // V23: explicitly partial synthetic producer evidence. No result row,
  // finish rank, field size or current conditions may be inferred from a clock.
  if(fictional)for(const g of byKind('WORK22_FINISH_CLOCK')){
