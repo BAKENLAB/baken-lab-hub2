@@ -1,0 +1,502 @@
+{
+  "schema": "stage20-tokyo-alternate-witness-v1.8",
+  "scope": "READ_ONLY_STORED_DIAGNOSTICS",
+  "acceptance": "1568a09381601b87a235291e446dfc09ea654833",
+  "query": "BEGIN READ ONLY;\nWITH t AS (SELECT id,race_date FROM public.jra_live_races WHERE race_date='2026-11-23' AND track='東京' AND race_no=12),\nc AS (SELECT h.horse_no no,h.horse_name,h.horse_ref,h.source_checked_at cutoff,j,ord,substring(j->>'source_ref' from '([0-9]{2})[0-9]{8}/[0-9A-F]{2}$')::int rno FROM t JOIN public.jra_live_runners h ON h.live_race_id=t.id CROSS JOIN LATERAL jsonb_array_elements(h.past_runs) WITH ORDINALITY p(j,ord) WHERE j->>'race_date'<t.race_date::text AND (h.horse_no,ord) IN ((1,1),(2,1),(3,2),(3,3),(3,4),(4,1),(4,2),(4,3),(5,1),(7,1),(8,1),(8,2),(9,1),(9,2),(10,1),(10,3),(11,1),(12,1),(12,3),(14,1),(14,3),(17,1),(18,1),(18,4))),\na AS (SELECT c.*,coalesce(l.rows,'[]'::jsonb) prior_card_rows,coalesce(h.rows,'[]'::jsonb) generic_rows,coalesce(w.rows,'[]'::jsonb) other_card_witnesses\nFROM c LEFT JOIN LATERAL (\n SELECT jsonb_agg(jsonb_build_object('race_id',r.id,'runner_id',u.id,'same_native_id',coalesce(substring(u.horse_ref from 'CNAME=pw01dud[01]0([0-9]{10})/')=substring(c.horse_ref from 'CNAME=pw01dud[01]0([0-9]{10})/'),false),'capture',u.source_checked_at,'updated',u.updated_at,'pre_cutoff',r.updated_at<=c.cutoff AND u.updated_at<=c.cutoff AND u.source_checked_at<=c.cutoff)) rows FROM public.jra_live_races r JOIN public.jra_live_runners u ON u.live_race_id=r.id WHERE r.race_date::text=c.j->>'race_date' AND r.track=c.j->>'track' AND r.race_no=c.rno AND u.horse_no::text=c.j->>'horse_no' AND u.horse_name=c.horse_name\n) l ON true LEFT JOIN LATERAL (\n SELECT jsonb_agg(jsonb_build_object('row_id',h.id,'race_no',h.race_no,'finish_match',coalesce(h.finish::text=c.j->>'finish',false),'clock_literal_match',coalesce(h.time_raw=c.j->>'time_raw',false),'native_id_and_capture_available',false)) rows FROM public.horse_runs h WHERE h.race_date::text=c.j->>'race_date' AND h.track=c.j->>'track' AND (c.rno IS NULL OR h.race_no=c.rno) AND h.horse_no::text=c.j->>'horse_no' AND h.horse_name=c.horse_name\n) h ON true LEFT JOIN LATERAL (\n SELECT jsonb_agg(jsonb_build_object('race_id',r.id,'runner_id',u.id,'ordinal',k.ord,'capture',u.source_checked_at,'updated',u.updated_at,'finish_match',coalesce(k.j->>'finish'=c.j->>'finish',false),'clock_match',coalesce(k.j->>'time_raw'=c.j->>'time_raw',false))) rows\n FROM public.jra_live_runners u JOIN public.jra_live_races r ON r.id=u.live_race_id CROSS JOIN LATERAL jsonb_array_elements(u.past_runs) WITH ORDINALITY k(j,ord)\n WHERE r.race_date>'2026-01-01' AND r.race_date<'2026-11-23' AND r.race_date::text>c.j->>'race_date' AND r.updated_at<=c.cutoff AND u.updated_at<=c.cutoff AND u.source_checked_at<=c.cutoff AND u.horse_name=c.horse_name AND substring(u.horse_ref from 'CNAME=pw01dud[01]0([0-9]{10})/')=substring(c.horse_ref from 'CNAME=pw01dud[01]0([0-9]{10})/') AND k.j->>'race_date'=c.j->>'race_date' AND k.j->>'track'=c.j->>'track' AND k.j->>'horse_no'=c.j->>'horse_no' AND (c.rno IS NULL OR substring(k.j->>'source_ref' from '([0-9]{2})[0-9]{8}/[0-9A-F]{2}$')::int=c.rno)\n) w ON true)\nSELECT no,ord,j->>'race_date' date,j->>'track' track,rno,prior_card_rows,generic_rows,other_card_witnesses FROM a ORDER BY no,ord;\nROLLBACK;",
+  "rows": [
+    {
+      "no": 1,
+      "ord": 1,
+      "date": "2026-10-31",
+      "track": "東京",
+      "rno": 12,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-31T07:01:01.393+00:00",
+          "race_id": "a208d080-b57b-43fd-9890-b1c81701fee5",
+          "updated": "2026-10-31T07:01:01.393+00:00",
+          "runner_id": "a82c0da6-455d-46fb-9611-3fe056f39644",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 2,
+      "ord": 1,
+      "date": "2026-09-20",
+      "track": "中山",
+      "rno": 7,
+      "prior_card_rows": [
+        {
+          "capture": "2026-09-20T14:37:02.167+00:00",
+          "race_id": "31ee989d-e722-4932-95aa-95df59bcb7f7",
+          "updated": "2026-09-20T14:37:02.167+00:00",
+          "runner_id": "e786b88c-3fae-4908-99ce-8d7b77deaf4f",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "ARCHIVE_EVENT_ABSENT",
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 2,
+      "date": "2026-09-11",
+      "track": "笠松",
+      "rno": null,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "CROSS_CIRCUIT_NATIVE_LINK_REQUIRED",
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 3,
+      "date": "2026-06-12",
+      "track": "笠松",
+      "rno": null,
+      "prior_card_rows": [],
+      "generic_rows": [
+        {
+          "row_id": 225636,
+          "race_no": 9,
+          "finish_match": true,
+          "clock_literal_match": false,
+          "native_id_and_capture_available": false
+        }
+      ],
+      "other_card_witnesses": [],
+      "previous": "LOCAL_CLOCK_NORMALIZED_CORROBORATION_ID_TIME_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 3,
+      "ord": 4,
+      "date": "2026-05-13",
+      "track": "笠松",
+      "rno": null,
+      "prior_card_rows": [],
+      "generic_rows": [
+        {
+          "row_id": 211136,
+          "race_no": 7,
+          "finish_match": true,
+          "clock_literal_match": false,
+          "native_id_and_capture_available": false
+        }
+      ],
+      "other_card_witnesses": [],
+      "previous": "LOCAL_CLOCK_NORMALIZED_CORROBORATION_ID_TIME_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 1,
+      "date": "2026-10-25",
+      "track": "東京",
+      "rno": 8,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-25T04:10:07.068+00:00",
+          "race_id": "503d41de-5c24-4a67-8929-42647fdd6185",
+          "updated": "2026-10-25T04:10:07.068+00:00",
+          "runner_id": "d630a414-121d-4161-954a-458797329308",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 2,
+      "date": "2026-10-12",
+      "track": "東京",
+      "rno": 9,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-12T05:06:02.039+00:00",
+          "race_id": "e3885f75-0f87-4a50-82ce-73d06bf8808d",
+          "updated": "2026-10-12T05:06:02.039+00:00",
+          "runner_id": "182337aa-179f-49de-a2ca-3ffe7b93eaa7",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [
+        {
+          "capture": "2026-10-25T04:10:07.068+00:00",
+          "ordinal": 1,
+          "race_id": "503d41de-5c24-4a67-8929-42647fdd6185",
+          "updated": "2026-10-25T04:10:07.068+00:00",
+          "runner_id": "d630a414-121d-4161-954a-458797329308",
+          "clock_match": true,
+          "finish_match": true
+        }
+      ],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 4,
+      "ord": 3,
+      "date": "2026-09-13",
+      "track": "中山",
+      "rno": 7,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [
+        {
+          "capture": "2026-10-12T05:06:02.039+00:00",
+          "ordinal": 1,
+          "race_id": "e3885f75-0f87-4a50-82ce-73d06bf8808d",
+          "updated": "2026-10-12T05:06:02.039+00:00",
+          "runner_id": "182337aa-179f-49de-a2ca-3ffe7b93eaa7",
+          "clock_match": true,
+          "finish_match": true
+        },
+        {
+          "capture": "2026-10-25T04:10:07.068+00:00",
+          "ordinal": 2,
+          "race_id": "503d41de-5c24-4a67-8929-42647fdd6185",
+          "updated": "2026-10-25T04:10:07.068+00:00",
+          "runner_id": "d630a414-121d-4161-954a-458797329308",
+          "clock_match": true,
+          "finish_match": true
+        }
+      ],
+      "previous": "ARCHIVE_EVENT_ABSENT",
+      "formal_usable": false
+    },
+    {
+      "no": 5,
+      "ord": 1,
+      "date": "2026-09-13",
+      "track": "中山",
+      "rno": 7,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "ARCHIVE_EVENT_ABSENT",
+      "formal_usable": false
+    },
+    {
+      "no": 7,
+      "ord": 1,
+      "date": "2026-10-17",
+      "track": "新潟",
+      "rno": 8,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-17T04:21:01.774+00:00",
+          "race_id": "3e6de7fe-a73b-49d2-9bd4-d9fb02b42995",
+          "updated": "2026-10-17T04:21:01.774+00:00",
+          "runner_id": "b4c39f7b-bca8-4f53-908e-1c4d07e00c4a",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 1,
+      "date": "2026-11-07",
+      "track": "東京",
+      "rno": 12,
+      "prior_card_rows": [
+        {
+          "capture": "2026-11-07T07:01:01.464+00:00",
+          "race_id": "b9674251-85f4-475b-acf5-bf290131686e",
+          "updated": "2026-11-07T07:01:01.464+00:00",
+          "runner_id": "a01da5f7-ffb3-4325-88ac-c54c80ac9496",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 8,
+      "ord": 2,
+      "date": "2026-09-13",
+      "track": "中山",
+      "rno": 4,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [
+        {
+          "capture": "2026-11-07T07:01:01.464+00:00",
+          "ordinal": 1,
+          "race_id": "b9674251-85f4-475b-acf5-bf290131686e",
+          "updated": "2026-11-07T07:01:01.464+00:00",
+          "runner_id": "a01da5f7-ffb3-4325-88ac-c54c80ac9496",
+          "clock_match": true,
+          "finish_match": true
+        }
+      ],
+      "previous": "ARCHIVE_EVENT_ABSENT",
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 1,
+      "date": "2026-11-07",
+      "track": "東京",
+      "rno": 12,
+      "prior_card_rows": [
+        {
+          "capture": "2026-11-07T07:01:01.464+00:00",
+          "race_id": "b9674251-85f4-475b-acf5-bf290131686e",
+          "updated": "2026-11-07T07:01:01.464+00:00",
+          "runner_id": "7d55a099-b8f1-4e75-bcca-66685ff74e0d",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 9,
+      "ord": 2,
+      "date": "2026-10-25",
+      "track": "東京",
+      "rno": 8,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-25T04:10:07.068+00:00",
+          "race_id": "503d41de-5c24-4a67-8929-42647fdd6185",
+          "updated": "2026-10-25T04:10:07.068+00:00",
+          "runner_id": "a7c396b2-914a-4395-9b3b-a0d199cbb7bb",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [
+        {
+          "capture": "2026-11-07T07:01:01.464+00:00",
+          "ordinal": 1,
+          "race_id": "b9674251-85f4-475b-acf5-bf290131686e",
+          "updated": "2026-11-07T07:01:01.464+00:00",
+          "runner_id": "7d55a099-b8f1-4e75-bcca-66685ff74e0d",
+          "clock_match": true,
+          "finish_match": true
+        }
+      ],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 1,
+      "date": "2026-08-30",
+      "track": "札幌",
+      "rno": 8,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "formal_usable": false
+    },
+    {
+      "no": 10,
+      "ord": 3,
+      "date": "2026-07-26",
+      "track": "札幌",
+      "rno": 8,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "formal_usable": false
+    },
+    {
+      "no": 11,
+      "ord": 1,
+      "date": "2026-09-06",
+      "track": "札幌",
+      "rno": 7,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "ARCHIVE_EVENT_ABSENT",
+      "formal_usable": false
+    },
+    {
+      "no": 12,
+      "ord": 1,
+      "date": "2026-10-24",
+      "track": "新潟",
+      "rno": 7,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-24T03:36:02.09+00:00",
+          "race_id": "516f721f-d8d9-49d4-864a-d5b04ab7b0a2",
+          "updated": "2026-10-24T03:36:02.09+00:00",
+          "runner_id": "d836d6b1-e65d-4bee-8a3a-e7ab78f9c22a",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 12,
+      "ord": 3,
+      "date": "2026-07-26",
+      "track": "新潟",
+      "rno": 4,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [
+        {
+          "capture": "2026-10-24T03:36:02.09+00:00",
+          "ordinal": 2,
+          "race_id": "516f721f-d8d9-49d4-864a-d5b04ab7b0a2",
+          "updated": "2026-10-24T03:36:02.09+00:00",
+          "runner_id": "d836d6b1-e65d-4bee-8a3a-e7ab78f9c22a",
+          "clock_match": true,
+          "finish_match": true
+        }
+      ],
+      "previous": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "formal_usable": false
+    },
+    {
+      "no": 14,
+      "ord": 1,
+      "date": "2026-10-18",
+      "track": "東京",
+      "rno": 7,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-18T03:32:02.049+00:00",
+          "race_id": "65d6857b-6b8a-4d32-9b2d-55b5e9c10cb9",
+          "updated": "2026-10-18T03:32:02.049+00:00",
+          "runner_id": "fea42668-6e30-47a4-8b98-c6e62955b064",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 14,
+      "ord": 3,
+      "date": "2026-05-31",
+      "track": "東京",
+      "rno": 4,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [
+        {
+          "capture": "2026-10-18T03:32:02.049+00:00",
+          "ordinal": 2,
+          "race_id": "65d6857b-6b8a-4d32-9b2d-55b5e9c10cb9",
+          "updated": "2026-10-18T03:32:02.049+00:00",
+          "runner_id": "fea42668-6e30-47a4-8b98-c6e62955b064",
+          "clock_match": true,
+          "finish_match": true
+        }
+      ],
+      "previous": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "formal_usable": false
+    },
+    {
+      "no": 17,
+      "ord": 1,
+      "date": "2026-10-04",
+      "track": "東京",
+      "rno": 8,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-04T05:37:02.937+00:00",
+          "race_id": "ba4e39fc-d1aa-44e4-883d-50c6309dca60",
+          "updated": "2026-10-04T05:37:02.937+00:00",
+          "runner_id": "b5b44c9f-accb-422b-a648-071e6f39d160",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 18,
+      "ord": 1,
+      "date": "2026-10-12",
+      "track": "東京",
+      "rno": 9,
+      "prior_card_rows": [
+        {
+          "capture": "2026-10-12T05:06:02.039+00:00",
+          "race_id": "e3885f75-0f87-4a50-82ce-73d06bf8808d",
+          "updated": "2026-10-12T05:06:02.039+00:00",
+          "runner_id": "194af967-4b0d-43f8-a5d0-5d4354811deb",
+          "pre_cutoff": true,
+          "same_native_id": true
+        }
+      ],
+      "generic_rows": [],
+      "other_card_witnesses": [],
+      "previous": "STORED_PRIOR_SETTLEMENT_CORROBORATION_ID_HELD",
+      "formal_usable": false
+    },
+    {
+      "no": 18,
+      "ord": 4,
+      "date": "2026-04-26",
+      "track": "東京",
+      "rno": 6,
+      "prior_card_rows": [],
+      "generic_rows": [],
+      "other_card_witnesses": [
+        {
+          "capture": "2026-10-12T05:06:02.039+00:00",
+          "ordinal": 3,
+          "race_id": "e3885f75-0f87-4a50-82ce-73d06bf8808d",
+          "updated": "2026-10-12T05:06:02.039+00:00",
+          "runner_id": "194af967-4b0d-43f8-a5d0-5d4354811deb",
+          "clock_match": true,
+          "finish_match": true
+        }
+      ],
+      "previous": "NATIVE_ID_MISSING_NOT_CONFLICT_PROVEN",
+      "formal_usable": false
+    }
+  ],
+  "formal_admissions": 0,
+  "permission": "NOT_CLEARED",
+  "limitations": "Prior cards and other historical card copies may corroborate identity, not official result-row native link. Generic archive lacks native ID and capture timestamp. No target result/market. No re-fetch. Publication null and final admission false."
+}
