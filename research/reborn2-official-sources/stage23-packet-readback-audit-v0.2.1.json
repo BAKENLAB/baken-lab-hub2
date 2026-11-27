@@ -1,0 +1,918 @@
+{
+  "schema": "WORK23_PACKET_READBACK_AUDIT_0.2.1",
+  "readback_commit": "425f3c53c5742eb81a76e165a9c57acf4bac0a62",
+  "producer_blob": "feb966cc4052c18eb451e27695c110bc66b1863a",
+  "fixture_blob": "9fa86016cbe578868ff2d7b89df1cbdbbd46eb24",
+  "actual_saved_packets": [
+    {
+      "name": "jra_full",
+      "path": "research/reborn2-official-sources/stage23-jra_full-packet-v0.2.1.json",
+      "blob": "f6b85de17791d4814d16ecc5082862fdcd41686b",
+      "sha256": "17e65acd8602b2417047faeacf1e78baac94088c8623f1e1a9251ea1c2215206",
+      "bytes": 253180,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 85,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 85,
+        "NOT_APPLICABLE": 1,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "runner_items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK04",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "input_items": [],
+          "states": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "margin_to_next",
+        "individual_final3f",
+        "checkpoint_positions"
+      ]
+    },
+    {
+      "name": "local_full",
+      "path": "research/reborn2-official-sources/stage23-local_full-packet-v0.2.1.json",
+      "blob": "0004df712b6253dda1ea395c1b3e7707c0370428",
+      "sha256": "4bac8ff27c2fe91e2b9275bf5ce618ea0d4368993ac955c859f43688b22c3775",
+      "bytes": 254286,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 85,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 85,
+        "NOT_APPLICABLE": 1,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "runner_items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK04",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "input_items": [],
+          "states": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "margin_to_next",
+        "individual_final3f",
+        "checkpoint_positions"
+      ]
+    },
+    {
+      "name": "missing_clock",
+      "path": "research/reborn2-official-sources/stage23-missing_clock-packet-v0.2.1.json",
+      "blob": "af5486d3dd4d60ab4ca786f14d4b43f30cc7ecb4",
+      "sha256": "3357cd8a56cdf64c3d50453b0bcf88d64d86a41138960edda9a97697efd01439",
+      "bytes": 244128,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 75,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 75,
+        "NOT_APPLICABLE": 1,
+        "REJECTED": 8,
+        "MISSING": 5
+      },
+      "item_rows": 345,
+      "runner_items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 19,
+            "REJECTED": 3
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "input_items": [],
+          "states": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "individual_final3f",
+        "checkpoint_positions",
+        "margin_to_next"
+      ]
+    },
+    {
+      "name": "bad_margin_unit",
+      "path": "research/reborn2-official-sources/stage23-bad_margin_unit-packet-v0.2.1.json",
+      "blob": "576e3d47981a0cc9f8ba529427aa01aeea2b187c",
+      "sha256": "2806bf7e5608f506064d884b5065ab21ed3e4c780c6c258a3de386b706650628",
+      "bytes": 252144,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 84,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 84,
+        "NOT_APPLICABLE": 1,
+        "REJECTED": 1,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "runner_items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK04",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "input_items": [],
+          "states": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "margin_to_next",
+        "individual_final3f",
+        "checkpoint_positions"
+      ]
+    },
+    {
+      "name": "revoked",
+      "path": "research/reborn2-official-sources/stage23-revoked-packet-v0.2.1.json",
+      "blob": "77a072ed999e4044cbd977554220372c8681cdaa",
+      "sha256": "831875b1aa32058db223c093ae52ec9ddb7f4f3e60a749d517e61e1482372dce",
+      "bytes": 15338,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "HELD",
+      "reason": "LATEST_RIGHTS_DENIED",
+      "evidence": 0,
+      "field_states": 0,
+      "field_state_counts": {},
+      "item_rows": 115,
+      "runner_items": [],
+      "relation_counts": {},
+      "fields": []
+    },
+    {
+      "name": "correction_before",
+      "path": "research/reborn2-official-sources/stage23-correction_before-packet-v0.2.1.json",
+      "blob": "45ead26b5d24da57797ffa57b91844011d68ffab",
+      "sha256": "4c4937ab320e4012868b7076cf07a3d2646cc3082d86b268cd9d7b1b44731c46",
+      "bytes": 235180,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 84,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 84,
+        "NOT_APPLICABLE": 2,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "runner_items": [
+        {
+          "no": 1,
+          "status": "EXCLUDED",
+          "input_items": [],
+          "states": {
+            "NOT_APPLICABLE": 115
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 94,
+            "TEST_INPUT_AVAILABLE": 21
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "input_items": [],
+          "states": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 1,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 3,
+        "DIRECT_CURRENT_RIVALS": 1
+      },
+      "fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "margin_to_next",
+        "individual_final3f",
+        "checkpoint_positions"
+      ]
+    },
+    {
+      "name": "correction_after",
+      "path": "research/reborn2-official-sources/stage23-correction_after-packet-v0.2.1.json",
+      "blob": "9d20f9bb8193049d04aab30ad305c25a2fb38a11",
+      "sha256": "397d2ca199f3796267a75e408b487cd4fa6330c700ecc5106f30c1db62bbce0d",
+      "bytes": 253180,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 85,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 85,
+        "NOT_APPLICABLE": 1,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "runner_items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK04",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 22
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "input_items": [],
+          "states": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "margin_to_next",
+        "individual_final3f",
+        "checkpoint_positions"
+      ]
+    },
+    {
+      "name": "malformed_target_market",
+      "path": "research/reborn2-official-sources/stage23-malformed_target_market-packet-v0.2.1.json",
+      "blob": "e1cd8250612301075e9cea7b3a7ac6ae7827e7a9",
+      "sha256": "821acf693e5b6956e4e88290b12835904116ecdcd9567f3dc91faca9186e3f94",
+      "bytes": 14410,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "HELD",
+      "reason": "TARGET_SCOPE",
+      "evidence": 0,
+      "field_states": 0,
+      "field_state_counts": {},
+      "item_rows": 115,
+      "runner_items": [],
+      "relation_counts": {},
+      "fields": []
+    },
+    {
+      "name": "nested_geometry_market_rejected",
+      "path": "research/reborn2-official-sources/stage23-nested_geometry_market_rejected-packet-v0.2.1.json",
+      "blob": "a375f204ce9ea7deb0b9767e77ae0800597eaca5",
+      "sha256": "5726b2399a9a0f993115dcc354a0a862a715cacfeec3e8a2d5189c12142ef57f",
+      "bytes": 247381,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 80,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 80,
+        "NOT_APPLICABLE": 1,
+        "REJECTED": 5,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "runner_items": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK04",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 92,
+            "TEST_INPUT_AVAILABLE": 23
+          }
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "input_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "states": {
+            "MISSING": 93,
+            "TEST_INPUT_AVAILABLE": 21,
+            "REJECTED": 1
+          }
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "input_items": [],
+          "states": {
+            "NOT_APPLICABLE": 115
+          }
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "margin_to_next",
+        "individual_final3f",
+        "checkpoint_positions"
+      ]
+    }
+  ],
+  "checks_passed": 90,
+  "checks_total": 90,
+  "formal_admissions": 0,
+  "limits": "Deterministic rerun from same producer + explicit structural cross-check; not independent official source/custody or downstream Codex execution. Raw fixtures ASCII, synthetic public keys. Root overlaps across aggregate conditions/geometry and relations share evidence, not independent ability factors."
+}
