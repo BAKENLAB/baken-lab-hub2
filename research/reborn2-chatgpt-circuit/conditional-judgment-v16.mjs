@@ -35,7 +35,7 @@ export function synthesizeV16(packet,common,{useEye=true}={}){
  const outcomes={win:x.finish===1,place:x.finish<=3};
  const make=(kind,mechanism,scenario,state,reason,items,extra={})=>{
  const route={id:root+'|'+kind+'|'+mechanism+'|'+scenario,horse_id:id,root,kind,mechanism,scenario,state,reason,items,refs,...extra};routes.push(route);
- if(state!=='UNKNOWN')trace(items,root,state,route.id);
+ if(state!=='UNKNOWN')trace(items.filter(k=>['35','58','99','EYE-02'].includes(k)),root,state,route.id);
  };
  // Each historical placing/win stays factual regardless of present applicability.
  for(const kind of ['WIN','PLACE']){
@@ -71,16 +71,17 @@ export function synthesizeV16(packet,common,{useEye=true}={}){
  }
  const supporting=routes.filter(r=>r.state==='CONDITIONAL_SUPPORT'),counter=routes.filter(r=>r.state==='COUNTER_CONTEXT'),unk=routes.filter(r=>r.state==='UNKNOWN');
  const by=kind=>supporting.filter(r=>r.kind===kind).map(r=>r.id);
+ const mechanism_review=uniq(routes.map(r=>r.kind+'|'+r.mechanism+'|'+r.scenario)).map(k=>{const a=routes.filter(r=>r.kind+'|'+r.mechanism+'|'+r.scenario===k),s=a.filter(r=>r.state==='CONDITIONAL_SUPPORT'),c=a.filter(r=>r.state==='COUNTER_CONTEXT');return {key:k,status:s.length?(c.length?'MIXED':'CONDITIONAL_SUPPORT'):c.length?'COUNTER_CONTEXT':a.some(r=>r.state==='CONDITIONAL_HYPOTHESIS')?'CONDITIONAL_HYPOTHESIS':'UNKNOWN',support:s.map(r=>r.id),counter:c.map(r=>r.id),roots:uniq(a.flatMap(r=>r.root?[r.root]:r.roots??[]))};});
  const observed=own.map(({r,x})=>({race:r.id,finish:x.finish,margin_tenths:x.margin_tenths,root:JSON.stringify([r.id,id])}));
  const current=routes.filter(r=>r.mechanism==='ADVANCE'),fieldEarly=profiles.map(p=>({id:p.id,early:p.early_top3,any:p.any_top3,refs:p.latest_refs}));
  const perspectives={
  A:{status:observed.some(r=>r.finish<=3)?'SUPPORT':'UNKNOWN',historical:observed,items:['35','99']},
  B:{status:supporting.length?'SUPPORT':'UNKNOWN',routes:supporting.map(r=>r.id),essential_unknown:unk.map(r=>r.id),peripheral_unknown:['unmeasured current workout not used for historical conditional route'],items:['58','99']},
- C:{status:comparison.some(q=>q.v.comparable_conditions&&q.v.outcome==='AHEAD')?'SUPPORT':'UNKNOWN',direct:comparison,items:['35']},
+ C:{status:comparison.some(q=>q.v.comparable_conditions&&q.v.outcome==='AHEAD')?(comparison.some(q=>q.v.comparable_conditions&&q.v.outcome==='BEHIND')?'MIXED':'SUPPORT'):comparison.some(q=>q.v.comparable_conditions&&q.v.outcome==='BEHIND')?'COUNTER':'UNKNOWN',direct:comparison,items:['35']},
  D:{status:supporting.length&&counter.length?'MIXED':supporting.length?'SUPPORT':counter.length?'COUNTER':'UNKNOWN',fieldEarly,lead_candidates:leaders,routes:routes.map(r=>r.id),items:['58','59','61','65']},
  E:{status:current.length&&counter.length?'MIXED':current.length?'SUPPORT':counter.length?'COUNTER':'UNKNOWN',eye_return:current.map(r=>r.id),counter:counter.map(r=>r.id),items:['EYE-02','58','99']}
  };
- return {id,observed,routes,winning_conditional:by('WIN'),placing_conditional:by('PLACE'),perspectives,consumed,formal:false,current_strength:null,candidate_rank:null,eye_candidate:null};
+ return {id,observed,routes,mechanism_review,winning_conditional:by('WIN'),placing_conditional:by('PLACE'),perspectives,consumed,formal:false,current_strength:null,candidate_rank:null,eye_candidate:null};
  });
 }
 export function analyzeV16(packet,options={}){const common=runGenerated(toCommonV16(packet));return {common,decisions:synthesizeV16(packet,common,options),formal:false};}
