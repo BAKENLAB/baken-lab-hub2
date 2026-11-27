@@ -1,0 +1,149 @@
+{
+  "tests": [
+    {
+      "name": "TEST:JRA:full_pipeline",
+      "pass": true
+    },
+    {
+      "name": "TEST:NAR:full_pipeline",
+      "pass": true
+    },
+    {
+      "name": "115_each",
+      "pass": true
+    },
+    {
+      "name": "one_event_lap_shared",
+      "pass": true
+    },
+    {
+      "name": "issuer_distinct",
+      "pass": true
+    },
+    {
+      "name": "typed_finish_no_clock",
+      "pass": true
+    },
+    {
+      "name": "lap_boundaries_downstream",
+      "pass": true
+    },
+    {
+      "name": "margin_dependencies",
+      "pass": true
+    },
+    {
+      "name": "cancelled_no_values",
+      "pass": true
+    },
+    {
+      "name": "no_formal",
+      "pass": true
+    },
+    {
+      "name": "late_processing",
+      "pass": true
+    },
+    {
+      "name": "cutoff_tamper",
+      "pass": true
+    },
+    {
+      "name": "raw_byte_change",
+      "pass": true
+    },
+    {
+      "name": "missing_registry",
+      "pass": true
+    },
+    {
+      "name": "real_scope",
+      "pass": true
+    },
+    {
+      "name": "missing_timestamp",
+      "pass": true
+    },
+    {
+      "name": "late_timestamp",
+      "pass": true
+    },
+    {
+      "name": "late_result_stamp",
+      "pass": true
+    },
+    {
+      "name": "rights_capture",
+      "pass": true
+    },
+    {
+      "name": "revoked",
+      "pass": true
+    },
+    {
+      "name": "ambiguous_correction",
+      "pass": true
+    },
+    {
+      "name": "native_id_mismatch",
+      "pass": true
+    },
+    {
+      "name": "canonical_name_mutation",
+      "pass": true
+    },
+    {
+      "name": "finish_999",
+      "pass": true
+    },
+    {
+      "name": "starter_count",
+      "pass": true
+    },
+    {
+      "name": "cancelled_clock",
+      "pass": true
+    },
+    {
+      "name": "lap_no_unit",
+      "pass": true
+    },
+    {
+      "name": "bad_boundaries",
+      "pass": true
+    },
+    {
+      "name": "duplicate_passing",
+      "pass": true
+    },
+    {
+      "name": "target_result",
+      "pass": true
+    },
+    {
+      "name": "malformed_bytes",
+      "pass": true
+    }
+  ],
+  "passed": 31,
+  "prior374_not_rerun": true,
+  "summary": [
+    {
+      "issuer": "TEST:JRA",
+      "observations": 12,
+      "items": 345,
+      "available": 14,
+      "packetDigest": "697881a0c739970b15f2f68e60edf98cf9aa50f78117ee6234be3c5328a7c489"
+    },
+    {
+      "issuer": "TEST:NAR",
+      "observations": 12,
+      "items": 345,
+      "available": 14,
+      "packetDigest": "b28941fee0b28b64a041f3b7a378c7706cd6f5876252e3bd72a2a055e4d42bad"
+    }
+  ],
+  "limits": [
+    "ASCII-only fictional JSON, not official HTML/CSV; no actual authority signature, timestamp service, independent registry, or Codex runtime. Result stamp initially simulated, then verified against fixed registry. Strict complete finish groups only, dead heat not implemented; DNF passing semantics limited. No current market/outcome. Seven narrow item routes only."
+  ]
+}
