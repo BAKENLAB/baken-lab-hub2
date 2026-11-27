@@ -1,0 +1,93 @@
+{
+  "schema": "WORK29_FINAL_RESEARCH_HANDOFF_0.1",
+  "scope": "PROSPECTIVE_PLAN_AND_SYNTHETIC_CONTRACT_ONLY",
+  "acceptance": {
+    "ref": "e53a859b6bbb528f4757007dbad2762411274a75",
+    "path": "research/reborn2-canonical/RESEARCH-WORK28-341-REAL-READINESS-MAIN40-AUDIT-20261128.md",
+    "blob": "5f5a019e163d17d9514ac5e49415501247e84bd6"
+  },
+  "parent": {
+    "ref": "667f6f1c2604fbaa1a3003161fe875a6c844acb5",
+    "path": "research/reborn2-official-sources/stage28-final-handoff-v0.1.json",
+    "blob": "064c5118cdb859e9a1df16e5f9cf39f3d5a4a00a"
+  },
+  "branch": "research/reborn2-work29-authorized-evidence-20261128",
+  "pins": [
+    {
+      "ref": "2599380b2170da06063e652453e865dba2c44e95",
+      "path": "research/reborn2-official-sources/stage29-canonical-locator-audit-v0.1.json",
+      "blob": "0351d341d922941ba793245bd86bb3a8aa390d9c",
+      "sha256": "d5e20066e6ece6596a6a11a784017e3590e50399e7eef396660f8ad20e06d629"
+    },
+    {
+      "ref": "2599380b2170da06063e652453e865dba2c44e95",
+      "path": "research/reborn2-official-sources/stage29-observation-contract-v0.1.mjs",
+      "blob": "60bd7e95f13a77a606f494e5f8b04b77fdd5a957",
+      "sha256": "6f802e227cafda160275e0aa17d67360e00b3ae80e252bc80d2afcac620a8e97"
+    },
+    {
+      "ref": "2599380b2170da06063e652453e865dba2c44e95",
+      "path": "research/reborn2-official-sources/stage29-observation-execution-v0.1.json",
+      "blob": "c77ba38804e6ba3396b98da7410ae1cfdc6d007b",
+      "sha256": "c8de728285313dbf9cbe14dfad05b118b3424d7e63329add8a13b83a6e4ad893"
+    },
+    {
+      "ref": "2599380b2170da06063e652453e865dba2c44e95",
+      "path": "research/reborn2-official-sources/stage29-prospective-capture-plan-v0.1.json",
+      "blob": "43aaf3c42ca59f12e3d74a6a6054179c6031e1e1",
+      "sha256": "6664a9924bf3a6805704c799f9362fc680b5964db6c763d8e32ebff14c9dbb60"
+    }
+  ],
+  "readback_checks": {
+    "canonical115": true,
+    "refs290": true,
+    "groups826": true,
+    "recorded33": true,
+    "permissions_held": true,
+    "real_blocked": true,
+    "positive_narrow": true,
+    "rights_capture": true,
+    "update_publication": true,
+    "lap_unit": true,
+    "native_id": true,
+    "peer_ref": true
+  },
+  "execution": {
+    "prior_recorded": 341,
+    "prior_rerun": false,
+    "new_named_checks": 33,
+    "passed": 33,
+    "combined_recorded_if_accepted": 374,
+    "readback_checks_separate": 12,
+    "official_values": 0,
+    "official_replays": 0,
+    "formal_admissions": 0,
+    "ci_executed": false,
+    "codex_executed": false
+  },
+  "summary": {
+    "canonical_ids_and_names": 115,
+    "roster_candidates": 30,
+    "history_locators": 176,
+    "relation_refs": 290,
+    "relation_by_item": {
+      "RANK35": 42,
+      "RANK36": 178,
+      "RANK37": 35,
+      "EYE05": 35
+    },
+    "formal_admissions": 0,
+    "group_gates_held": 826
+  },
+  "consumer": [
+    "Canonical ID/name exact comparison against pinned recovered originals; all 115 candidate routes, not full dependencies validated; Work28 counts unchanged. Relation pointer audit scope is existing metadata only, not native proof.",
+    "Test-only positive narrow observation separate from benchmark and grade. Real scope disabled; independently verified real custody/rights/identity/version/parser and explicit user approval required before any real adapter.",
+    "Use exact original source version and raw byte hash domain, independent time evidence, cutoff and correction inventory; require rights at capture, retention, AI and relevant release. Never reuse later version for earlier replay.",
+    "Peer registry receipts are fictional placeholders; actual peer rows need full independent evidence validation, rights and native event linkage. Current test contract not production-safe or cryptographic authority verifier.",
+    "No actual race ID chosen; proposed earliest lawful JRA candidate (Tokyo preference conditional) plus LOCAL candidate (Saga conditional). No actual capture or external inquiry. Proposed cutoff post minus 10 min subject to approval."
+  ],
+  "limits": [
+    "No official source access, archive recovery, permission determination, CI, actual Codex intake, or timestamp authority integration. Existing inquiry draft unsent. No DB/production changes, no merges.",
+    "No full official parser or peer receipt trust implemented; no actual official observation value. 33 executed checks, 12 separate readback checks; inherited 341 not rerun."
+  ]
+}
