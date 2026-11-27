@@ -1,0 +1,23 @@
+{
+  "schema":"REAL_WORK_RIGHTS_DECISION_0.2","as_of_jst":"2026-11-28","legal_conclusion":false,
+  "decisions":[
+    {"use":"public human viewing","JRA":"public route exists; private use/quotation boundaries still apply","NAR":"public route exists; reuse restrictions apply","action":"do not equate visibility with automation rights"},
+    {"use":"automated acquisition and raw retention","JRA":"not specifically authorized by general terms","NAR":"CSV route exists; continued automated reuse scope unresolved","action":"written confirmation or licensed service"},
+    {"use":"local-only processing","JRA":"lower disclosure risk, permission not established","NAR":"lower disclosure risk, permission not established","action":"preferred staged option after permission decision"},
+    {"use":"external cloud AI","JRA":"unresolved","NAR":"unresolved","action":"explicit permission before raw transfer"},
+    {"use":"hash-only timestamp disclosure","JRA":"content not sent; acquisition/retention rights remain separate","NAR":"same","action":"proves existence only, not official authenticity"},
+    {"use":"derived publication/commercial","JRA":"unresolved; licensed data route may be required","NAR":"unresolved; data-provision agreement may be required","action":"future written decision/contract"}
+  ],
+  "official_contacts":[
+    {"body":"JRA","url":"https://www.jra.go.jp/faq/contact.html","channel":"JRA Information Desk; request routing to data/copyright owner","send_status":"NOT_SENT"},
+    {"body":"JRA-VAN/JRADB","url":"https://jra-van.jp/","channel":"official data service inquiry","send_status":"NOT_SENT"},
+    {"body":"NAR","url":"https://www.keiba.go.jp/qa.html","channel":"official FAQ/opinion contact; request data-provision routing","send_status":"NOT_SENT"},
+    {"body":"local organizer","url":"organizer official contact listed by NAR","channel":"organizer-owned course/steward material only","send_status":"NOT_SENT"}
+  ],
+  "user_choices":[
+    {"id":"A","label":"local-only one-race pilot","requires":"permission for acquisition and temporary retention","external_raw_transfer":false},
+    {"id":"B","label":"hash-only independent timestamp pilot","requires":"A plus approval to disclose digest","external_raw_transfer":false},
+    {"id":"C","label":"external AI pilot","requires":"explicit third-party cloud-processing permission","external_raw_transfer":true},
+    {"id":"D","label":"publication/commercial design","requires":"written terms or licensed provider contract","external_raw_transfer":"contract-dependent"}
+  ]
+}
