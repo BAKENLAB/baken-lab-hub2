@@ -43,3 +43,15 @@ jobs:
           git apply --include=research/reborn2-chatgpt-circuit/work35-v38-completion.mjs "$patch"
           node research/reborn2-work38/native-replay.mjs
           node research/reborn2-work39/native-replay.mjs
+
+  v43-generic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node research/reborn2-independent-engine/main47-integration/test-v43-generic.mjs
