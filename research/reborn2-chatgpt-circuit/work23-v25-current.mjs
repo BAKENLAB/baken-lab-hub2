@@ -82,11 +82,14 @@ export function analyzeCurrentV25(loaded,name,change=null){
   const missing=r.evidence_ids.filter(id=>!byId(id)),validRelation=missing.length===0&&!!laterId&&!!oldId;
   const state=!later||!laterId?'MISSING_LATER_RESULT':!validRelation?'HELD_RELATION_DEPENDENCY':later.value===1?'OBSERVED_WIN':'OBSERVED_NONWIN';
   const same=c1&&c2?keys.every(k=>c1.value[k]===c2.value[k]):null;
-  const es=[self,oldPeer,margin,c1,c2,g1,g2,later,lm,lc,lf,lp,lw,ow,laterId,oldId,...r.evidence_ids.map(byId)];
+  const followupRows=evidence.filter(e=>e.event_id===next&&e.field==='historical_runner_identity').map(e=>({identity:e,finish:find(next,e.subject_id,'finish'),margin:find(next,e.subject_id,'margin_to_winner'),clock:find(next,e.subject_id,'finish_clock'),weight:find(next,e.subject_id,'weight')}));
+  const classEffective=!!(c1&&c2&&rangeOK(c1.value.class_effective,c1.event_at)&&rangeOK(c2.value.class_effective,c2.event_at));
+  const geometryEffective=!!(g1&&g2&&rangeOK(g1.value.effective,g1.event_at)&&rangeOK(g2.value.effective,g2.event_at));
+  const es=[self,oldPeer,margin,c1,c2,g1,g2,later,lm,lc,lf,lp,lw,ow,laterId,oldId,...followupRows.flatMap(z=>[z.identity,z.finish,z.margin,z.clock,z.weight]),...r.evidence_ids.map(byId)];
   note(h,'RANK37','GENERAL_LATER_OPPONENT:'+next,es,missing);
   const narrowCandidate=validRelation&&!!self&&!!oldPeer&&self.value>oldPeer.value&&!!margin&&oldPeer.value===1;
   if(narrowCandidate)note(h,'EYE04','NARROWNESS_AND_STRENGTH_REVIEW',es,['NARROWNESS_CONTEXT','STABLE_OPPONENT_STRENGTH']);
-  followups.push({horse:h,peer,event:ev,followup:next,state,finish:val(later),margin:val(lm),clock:val(lc),final3f:val(lf),positions:val(lp),weight_delta_grams:lw&&ow?lw.value-ow.value:null,scope_labels_same:same,geometry_same:g1&&g2?eq(g1.value,g2.value):null,relation_missing:missing,large_defeat:null,stable_strength:null,eye04_review:narrowCandidate,eye04_return:false,eye05_return:false});
+  followups.push({horse:h,peer,event:ev,followup:next,state,finish:val(later),margin:val(lm),clock:val(lc),final3f:val(lf),positions:val(lp),weight_delta_grams:lw&&ow?lw.value-ow.value:null,scope_labels_same:same,class_scope_valid:classEffective,geometry_scope_valid:geometryEffective,geometry_same:geometryEffective?eq(g1.value,g2.value):null,followup_field_rows:followupRows.map(z=>({horse:z.identity.subject_id,finish:val(z.finish),margin:val(z.margin),clock:val(z.clock),weight:val(z.weight)})),full_field_strength:null,pre_cutoff:laterId?laterId.seal_at+laterId.uncertainty<=p.cutoff:null,relation_missing:missing,large_defeat:null,large_defeat_state:state==='OBSERVED_NONWIN'?'UNRESOLVED_NO_VALIDATED_DEFEAT_STANDARD':'NOT_INFERRED',stable_strength:null,eye04_review:narrowCandidate,eye04_return:false,eye05_return:false});
  }
  const field=active.map(h=>{
   const past=histories.get(h.id)??[];
