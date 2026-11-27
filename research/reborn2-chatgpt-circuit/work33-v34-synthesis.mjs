@@ -134,3 +134,95 @@ export function analyzeV34(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true}
  const runners=common.runners.map(h=>summarizeHorse(h,common,legacy.runners.find(x=>x.slot===h.slot),shared,placeThreshold));
  return {schema:'REBORN2_V34_RESEARCH_SYNTHESIS',id,source_digest:base.source_digest,source_packet:base.source_packet,roster:common.roster,baseline:base.runners.map(h=>({slot:h.slot,WIN:h.WIN,PLACE:h.PLACE,items:h.items,axes:h.axes})),scenarios:shared.scenarios,feedback:shared.feedback,runners,groups:118,held:826,formal:false,grade:null,policy:'PROVISIONAL_RESEARCH_CANDIDATE_NOT_FORMAL_SABC',source_pin:f.pin.blob};
 }
+
+
+
+// V35 step 1: independent hypothetical starts, on the SAME verified shared circuit.
+// A branch is a stress antecedent, never an observation or a forecast. An event's
+// complete response is kept together, rather than cherry-picking each rival.
+export function analyzeV35(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true,branches=[]}={}){
+ const common=analyzeV34(V,id,{withdraw,placeThreshold,eyeEnabled}),roster=common.roster.possible_active;
+ const observations=common.scenarios.filter(s=>s.kind==='OBSERVED_FIELD_RESPONSE_SCENARIO');
+ const {base,L}=prepare(V,id,withdraw,placeThreshold);
+ const p=L.cases.get(id),u=p.r.measurement.clock_uncertainty_ms;
+ const pairs=roster.flatMap((a,i)=>roster.slice(i+1).map(b=>({a,b})));
+ const active=new Set(common.roster.known_active);
+ const branchesSeen=new Set();
+ const scenarios=branches.map(b=>{
+  assert.ok(typeof b.id==='string'&&b.id&&!branchesSeen.has(b.id),'BRANCH_ID');branchesSeen.add(b.id);
+  assert.ok(b.starts&&Object.keys(b.starts).every(h=>roster.includes(h)),'BRANCH_ROSTER');
+  for(const v of Object.values(b.starts))assert.ok(Array.isArray(v)&&v.length===2&&v.every(t=>Number.isFinite(t)&&t>=0)&&v[0]<=v[1],'BRANCH_START');
+  assert.ok(Number.isFinite(b.checkpoint_m),'BRANCH_CHECKPOINT');
+  // The source event identifies a response alternative, not an observed current role.
+  const s=observations.find(x=>x.event===b.response_event&&x.checkpoint_m===b.checkpoint_m);
+  const comparable=!!s&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE';
+  const edges=pairs.map(({a,b:other})=>{
+   const e=s?.edges.find(x=>x.a===a&&x.b===other);
+   const oldOrder=e?.interval_ms?.[0]>0?'AHEAD':e?.interval_ms?.[1]<0?'BEHIND':'UNKNOWN';
+   const consistent=oldOrder==='UNKNOWN'||oldOrder===e?.observed_order;
+   const usable=comparable&&active.has(a)&&active.has(other)&&consistent&&Number.isFinite(e?.change_ms)&&Number.isFinite(u)&&u>=0&&e.refs.length;
+   const z=stressScenario({path:usable?{relations:[{rival:other,net_change_ms:e.change_ms,change_bound_ms:4*u,refs:e.refs}]}:null,subject:a,rivals:[other],starts:b.starts,threshold:null}).relations[0];
+   return {a,b:other,order:z.order,interval_ms:z.interval_ms,refs:z.refs,change_ms:usable?e.change_ms:null,change_bound_ms:usable?4*u:null};
+  });
+  const numeric=jointClockFeasibility(roster,edges.filter(e=>e.interval_ms).map(e=>({a:e.a,b:e.b,delta:(e.interval_ms[0]+e.interval_ms[1])/2,bound:(e.interval_ms[1]-e.interval_ms[0])/2,refs:e.refs})));
+  const field=jointField(roster,edges,placeThreshold),valid=field.state!=='CONTRADICTED_SHARED_ORDER'&&numeric.state!=='CONTRADICTED_NUMERIC_DIFFERENCES';
+  // Check whether the declared start order is consistent with the historical role.
+  // Matching role order is evidence of a comparable alternative, NOT today's actual pace.
+  // Source checkpoint ranks come from verified V34 roleEvidence; use source starts for ordering only.
+  const roleConflicts=pairs.filter(({a,b:other})=>{
+   const a0=b.starts[a],b0=b.starts[other],pa=s?.starts?.[a],pb=s?.starts?.[other];
+   if(!a0||!b0||!pa||!pb)return false;
+   return (a0[1]<b0[0]&&pa[0]>pb[1])||(b0[1]<a0[0]&&pb[0]>pa[1]);
+  });
+  const complete=roster.every(h=>b.starts[h])&&edges.every(e=>e.interval_ms);
+  return {id:b.id,checkpoint_m:b.checkpoint_m,response_event:b.response_event,starts:b.starts,
+   antecedent:'EXPLICIT_SYNTHETIC_START_ASSUMPTION',observed_current_pace:false,prediction:false,
+   comparable,roleConflicts,complete,valid,edges,field,numeric,
+   condition_refs:comparable?base.contexts.find(c=>c.event===s.event)?.refs??[]:[],
+   historical_role_refs:comparable?uniq(s.roleEvidence.flatMap(r=>r.refs)):[],
+   actual_current_applicability:'UNPROVEN'};
+ });
+ const runners=common.runners.map(h=>{
+  const paths=scenarios.map(s=>{
+   const e=s.field.envelopes.find(x=>x.slot===h.slot);
+   const historical=observations.find(o=>o.event===s.response_event&&o.checkpoint_m===s.checkpoint_m);
+   const past=historical?.field.envelopes.find(x=>x.slot===h.slot);
+   const involved=s.edges.filter(x=>x.a===h.slot||x.b===h.slot);
+   const roots=uniq(involved.flatMap(x=>x.refs));
+   const oriented=involved.map(x=>({rival:x.a===h.slot?x.b:x.a,gain:x.change_ms===null?null:x.a===h.slot?x.change_ms:-x.change_ms,bound:x.change_bound_ms,refs:x.refs}));
+   const recovery=oriented.filter(x=>x.gain!==null&&x.gain>x.bound&&s.starts[h.slot]?.[0]>s.starts[x.rival]?.[1]);
+   const losses=oriented.filter(x=>x.gain!==null&&x.gain< -x.bound);
+   const eye=common.feedback.filter(f=>f.subject===h.slot&&f.checkpoint_m===s.checkpoint_m);
+   const eyeCounters=eye.filter(f=>f.counter_refs.length||f.state==='RECOVERY_ROUTE_COUNTERED');
+   const axes=[
+    {axis:'A',state:past?.max<=placeThreshold?'SUPPORT':past?.min>placeThreshold?'COUNTER':'UNKNOWN',refs:historical?.edges.filter(x=>x.a===h.slot||x.b===h.slot).flatMap(x=>x.refs)??[],fact:{observed_historical_envelope:past??null}},
+    {axis:'B',state:s.comparable&&s.complete&&!s.roleConflicts.length?'CONDITIONAL_SUPPORT':'UNKNOWN',refs:uniq([...s.condition_refs,...s.historical_role_refs]),fact:{context_match:s.comparable,role_conflicts:s.roleConflicts,actual_current:'UNPROVEN'}},
+    {axis:'C',state:!e||!s.valid?'UNKNOWN':e.max<=placeThreshold?'CONDITIONAL_SUPPORT':e.min>placeThreshold?'COUNTER':'UNKNOWN',refs:roots,fact:{conditional_field_envelope:e??null}},
+    {axis:'D',state:recovery.length&&losses.length?'MIXED':recovery.length?'CONDITIONAL_RECOVERY':losses.length?'ROUTE_COUNTER':oriented.every(x=>x.gain!==null)&&oriented.length?'MEASURED_RESPONSE':'UNKNOWN',refs:uniq(oriented.flatMap(x=>x.refs)),fact:{recovery,losses,relative_changes:oriented}},
+    {axis:'E',state:eyeCounters.length?'COUNTER_REVIEW_REQUIRED':eye.length?'DISCOVERY_REVIEW_UNRESOLVED':'UNKNOWN',refs:uniq(eye.flatMap(x=>[...x.refs,...x.counter_refs])),fact:{feedback:eye.map(x=>({id:x.id,state:x.state,counter_refs:x.counter_refs}))}}
+   ];
+   const [a,b,c,d,f]=axes;
+   // This conservative bridge makes five assessments causal inputs to a
+   // conditional route candidate. It is not a calibrated or canonical SABC rule.
+   // Unknown E is not itself a negative; an unresolved material EYE review holds.
+   const blocked=[];
+   if(!active.has(h.slot)||!s.valid||!e)blocked.push('INVALID_OR_UNKNOWN_RUNNER');
+   if(a.state!=='SUPPORT')blocked.push('HISTORICAL_ABILITY_NOT_SUPPORTED_FOR_THIS_ROUTE');
+   if(b.state!=='CONDITIONAL_SUPPORT')blocked.push('TRANSFER_ANTECEDENT_NOT_SUPPORTED');
+   if(c.state!=='CONDITIONAL_SUPPORT')blocked.push('COMPARATIVE_ROUTE_NOT_SUPPORTED');
+   if(d.state==='UNKNOWN')blocked.push('RESPONSE_NOT_MEASURED');
+   if(f.state==='COUNTER_REVIEW_REQUIRED')blocked.push('UNRESOLVED_DISCOVERY_COUNTER');
+   if(f.state==='DISCOVERY_REVIEW_UNRESOLVED')blocked.push('UNRESOLVED_DISCOVERY_APPLICABILITY');
+   const win=!blocked.length&&e.max===1,place=!blocked.length&&e.max<=placeThreshold;
+   return {scenario:s.id,axes,envelope:e??null,blocked,WIN:win?'CONDITIONALLY_SUPPORTED':'UNRESOLVED',PLACE:place?'CONDITIONALLY_SUPPORTED':'UNRESOLVED',candidate:win?'A':place?'B':null,scope:'RESEARCH_ANTECEDENT_ONLY',prediction:false};
+  });
+  const candidate=paths.some(x=>x.candidate==='A')?'A':paths.some(x=>x.candidate==='B')?'B':null;
+  return {...h,historical_candidate_v34:h.research_grade,research_grade:candidate,grade:null,formal:false,
+   conditional_paths_v35:paths,WIN:{...h.WIN,conditional_paths:paths.filter(x=>x.WIN==='CONDITIONALLY_SUPPORTED'),overall:'UNRESOLVED'},
+   PLACE:{...h.PLACE,conditional_paths:paths.filter(x=>x.PLACE==='CONDITIONALLY_SUPPORTED'),overall:'UNRESOLVED'},
+   research_reason:candidate?'CONDITIONAL_STRESS_ROUTE_ONLY':'INSUFFICIENT_CONDITIONAL_ROUTE_SUPPORT',
+   unresolved:['CURRENT_FORM','CURRENT_ROLE_PACE','ALTERNATIVE_COVERAGE','S_ROBUSTNESS','C_VS_UNKNOWN','POSITIVE_EYE_DAG_ADMISSION']};
+ });
+ return {...common,schema:'REBORN2_V35_PARTIAL_CURRENT_TRANSFER',historical_scenarios:observations,conditional_scenarios:scenarios,runners,
+  formal:false,grade:null,policy:'PARTIAL_STRESS_BRIDGE_NOT_CANONICAL_SABC'};
+}
