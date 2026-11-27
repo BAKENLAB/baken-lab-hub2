@@ -1,0 +1,75 @@
+{
+  "schema": "stage20-clock-crossissuer-delta-v1.8",
+  "scope": "DIAGNOSTIC_ONLY",
+  "saga_clock_correction": {
+    "supersedes": "stage20-saga-row-crosscheck-v1.8.json clock_match null for rows 257451 and 257449 only",
+    "rows": [
+      {
+        "no": 8,
+        "id": 257451,
+        "ordinal": 2,
+        "subminute_format": true,
+        "clock_normalized_match": true
+      },
+      {
+        "no": 9,
+        "id": 257449,
+        "ordinal": 2,
+        "subminute_format": true,
+        "clock_normalized_match": true
+      }
+    ],
+    "archive_four_match_before": 40,
+    "archive_four_match_after": 42,
+    "parser_rule": "Only declared archive M:SS.d or compact M...SSd or SSd within source schema; SS must be 00..59; exact 0.1s integer. No inferred unit for ambiguous source.",
+    "formal_usable": false
+  },
+  "tokyo_horse3": {
+    "jra_id_candidate": "2022104869",
+    "nar_id_candidate": "30046404796",
+    "jbis_candidate": "0001360220",
+    "source_refs": [
+      {
+        "url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30046404796",
+        "access": "SEARCH_INDEX_ONLY",
+        "role": "NAR profile candidate and Sep11 history"
+      },
+      {
+        "url": "https://www.keiba.go.jp/KeibaWeb_IPAT/TodayRaceInfo/RaceMarkTable_ipat?k_babaCode=23&k_raceDate=2026%2F09%2F11&k_raceNo=11",
+        "access": "SEARCH_INDEX_ONLY",
+        "role": "prior official result candidate"
+      },
+      {
+        "url": "https://sp.jra.jp/JRADB/accessU.html?CNAME=sj01ude002022104869%2FFA",
+        "access": "SEARCH_INDEX_ONLY; direct cache miss",
+        "role": "JRA profile and transfer marker"
+      },
+      {
+        "url": "https://www.jbis.or.jp/horse/0001360220/",
+        "access": "BODY; historical as-of dates 2026-06-07 JRA and 2026-06-13 LOCAL",
+        "role": "pedigree and both circuits on one third-party profile; not native issuer mapping"
+      }
+    ],
+    "prior_event": "2026-09-11:笠松:11",
+    "past_horse_no": 3,
+    "stored_card_checks": {
+      "date_match": true,
+      "track_match": true,
+      "prior_no_match": true,
+      "finish_match": true,
+      "clock_match": true,
+      "f3_match": true
+    },
+    "cross_issuer_identity": "CANDIDATE_CORROBORATED_NOT_CERTIFIED",
+    "prior_three_local_runs": "2 normalized archive corroborations + 1 official index result corroboration; all held",
+    "prior_five_jra_2025": "separate",
+    "official_publication_at": null,
+    "raw_sha256": null,
+    "formal_usable": false
+  },
+  "limits": [
+    "No NAR direct fetch; no access restriction bypass. Public search index included incidental market and target result snippets; excluded, not used or saved. Current retrieval cannot prove historical publication or immutable prestart version. No source performance table exported. JBIS sex/owner may be different across version; do not assume stable."
+  ],
+  "formal_admissions": 0,
+  "production_changes": 0
+}
