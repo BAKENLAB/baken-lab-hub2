@@ -1,0 +1,35 @@
+name: Work44 partial input research
+on:
+  pull_request:
+    branches: [research/reborn2-work43-official-intake-20261128]
+    paths:
+      - 'research/reborn2-work44/**'
+      - '.github/workflows/reborn2-work44.yml'
+permissions:
+  contents: read
+jobs:
+  partial:
+    if: github.event.pull_request.head.ref == 'research/reborn2-work44-real-bridge-20261128'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preserve Work43 accepted regression
+        run: node research/reborn2-work43/test-offline-intake.mjs
+      - name: Work44 minimal native identity and partial bridge
+        env:
+          WORK44_RECEIPT: ${{ runner.temp }}/work44-receipt.json
+        run: node research/reborn2-work44/test-v0.2.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: work44-receipt
+          path: ${{ runner.temp }}/work44-receipt.json
+          if-no-files-found: warn
+          retention-days: 7
