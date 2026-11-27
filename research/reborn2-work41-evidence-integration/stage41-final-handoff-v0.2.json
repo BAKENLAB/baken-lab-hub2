@@ -1,0 +1,29 @@
+{
+  "schema": "REBORN2_WORK41_HANDOFF_0.2",
+  "date_jst": "2026-11-28",
+  "audit_base": "23480f18566f095739b3c93ef6f36fb5186ae165",
+  "codex_candidate": "310b78ee526567c3a19ab2958d67743648fa125b",
+  "research_branch": "research/reborn2-work41-evidence-integration-20261128",
+  "prior_accepted_ledger": 767,
+  "added_accepted": 0,
+  "local_checks": {"passed": 11, "failed": 0},
+  "completed": [
+    "raw-byte SHA-256 verification",
+    "race arithmetic validation",
+    "malformed Work40 rejection fixture",
+    "EYE15 concrete synthetic source documents",
+    "strict chronology and cutoff",
+    "recursive target-result and market rejection",
+    "physical analysis/result separation",
+    "result mutation invariance",
+    "fixed historical peer contrast separated from target roster change"
+  ],
+  "not_completed": [
+    "repository-native execution through Codex common analysis patch",
+    "exact candidate GitHub Actions success",
+    "official JRA or NAR observation",
+    "formal blind validation"
+  ],
+  "counts": {"official_observations": 0, "formal_blind_races": 0, "production_changes": 0},
+  "formal": false
+}
