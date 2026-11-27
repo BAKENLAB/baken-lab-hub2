@@ -12,7 +12,7 @@ export function leaderWindows(splits){
 export function observedRoutePropositions({horse,kind,scenario,history,partialMatch,card,typed,peerContext,traceRead}){
  const id=horse.horse_id, read=(item,obs,reason)=>{if(obs.length)traceRead({consumer:'observedRoutePropositions',consumer_item_id:'100',horse_no:horse.horse_no,item_id:item,value:obs,reason});};
  const vals=(item,r)=>typed?.items?.[item]?.observations?.filter(o=>o.value.race_id===r)??[];
- const facts=[],supports=[],counters=[],unknowns=[],peerEvidence=[];
+ const facts=[],supports=[],counters=[],unknowns=[],peerEvidence=[],shapeSupports=[],shapeCounters=[],shapeUnknowns=[];
  const pred=n=>kind==='WIN'?n===1:n<=3;
  for(const g of history){const f=g.record.fact,r=g.record.race_id;if(!validRank(f.finish,f.field_size)||f.start_status!=='FINISHED')continue;
   const same=partialMatch(g);
@@ -35,7 +35,12 @@ export function observedRoutePropositions({horse,kind,scenario,history,partialMa
   if(complete){
    const routeCode=early==='LEAD'?'EARLY_LEAD_ROUTE':early==='FORWARD'?'FORWARD_ROUTE':'OUTSIDE_TOP3_ROUTE';
    (pred(f.finish)?supports:counters).push({...event,code:routeCode,polarity:pred(f.finish)?'SUPPORT':'COUNTER',scope:'OBSERVED_POSITION_AND_FINISH_NOT_CAUSAL'});
-  }else unknowns.push({code:'COMPLETE_POSITION_PATTERN_MISSING',race_id:r,evidence_ids:refs});
+     if(lap?.late_minus_early_tenths!=null){
+    const paceShape=lap.late_minus_early_tenths>0?'LEADER_LAST600_SLOWER':lap.late_minus_early_tenths<0?'LEADER_LAST600_FASTER':'LEADER_600_EQUAL';
+    const e={...event,code:routeCode+'|'+paceShape,position_route:routeCode,leader_shape:paceShape,polarity:pred(f.finish)?'SUPPORT':'COUNTER',scope:'OBSERVED_FINISH_UNDER_MEASURED_LEADER_SHAPE_NOT_CAUSAL',current_effect:null};
+    (pred(f.finish)?shapeSupports:shapeCounters).push(e);
+   }else shapeUnknowns.push({race_id:r,code:'EQUAL_DISTANCE_LEADER_WINDOWS_MISSING',position_route:routeCode,evidence_ids:refs});
+  }else{unknowns.push({code:'COMPLETE_POSITION_PATTERN_MISSING',race_id:r,evidence_ids:refs});shapeUnknowns.push({race_id:r,code:'COMPLETE_POSITION_PATTERN_MISSING',evidence_ids:refs});}
  }
  // An identified opponent's later result supports or contradicts ONLY a narrow
  // retrospective peer-performance proposition, never the subject's current win ability.
@@ -52,5 +57,6 @@ export function observedRoutePropositions({horse,kind,scenario,history,partialMa
  if(!supports.length&&!counters.length)unknowns.push({code:'NO_APPLICABLE_FINISH_ROUTE_OBSERVATION',evidence_ids:[]});
  const frontFacts=facts.filter(x=>x.same_recorded_conditions&&x.position_pattern!=='UNKNOWN');
  const families=['EARLY_LEAD_ROUTE','FORWARD_ROUTE','OUTSIDE_TOP3_ROUTE'].map(code=>{const s=supports.filter(x=>x.code===code),c=counters.filter(x=>x.code===code);return {code,support_race_ids:s.map(x=>x.race_id),counter_race_ids:c.map(x=>x.race_id),historical_status:s.length&&c.length?'MIXED':s.length?'SUPPORT':c.length?'COUNTER':'UNKNOWN'};});
- return {scope:'HISTORICAL_RESEARCH_ONLY',historical_observations:facts,finish_and_position_support:supports,finish_and_position_counter:counters,route_families:families,peer_proposition_support:peerEvidence.filter(x=>x.polarity==='SUPPORT'),peer_proposition_counter:peerEvidence.filter(x=>x.polarity==='COUNTER'),unknowns,scenario_witness_status:scenario==='CONDITION_MATCH_ONLY'?'NOT_REQUIRED':'UNKNOWN',current_support_strength:null,formal_effect:null};
+ const shapeFamilies=uniq([...shapeSupports,...shapeCounters].map(x=>x.code)).map(code=>{const s=shapeSupports.filter(x=>x.code===code),c=shapeCounters.filter(x=>x.code===code);return {code,support_race_ids:s.map(x=>x.race_id),counter_race_ids:c.map(x=>x.race_id),historical_status:s.length&&c.length?'MIXED':s.length?'SUPPORT':'COUNTER'};});
+ return {scope:'HISTORICAL_RESEARCH_ONLY',leader_shape_support:shapeSupports,leader_shape_counter:shapeCounters,leader_shape_families:shapeFamilies,leader_shape_unknowns:shapeUnknowns,historical_observations:facts,finish_and_position_support:supports,finish_and_position_counter:counters,route_families:families,peer_proposition_support:peerEvidence.filter(x=>x.polarity==='SUPPORT'),peer_proposition_counter:peerEvidence.filter(x=>x.polarity==='COUNTER'),unknowns,scenario_witness_status:scenario==='CONDITION_MATCH_ONLY'?'NOT_REQUIRED':'UNKNOWN',current_support_strength:null,formal_effect:null};
 }
