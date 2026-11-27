@@ -184,6 +184,7 @@ export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,can
  const q={n:id,input,registry,expectedDigest:out.digest},text=JSON.stringify({scope:'SYNTHETIC_ONLY',canonical:C.canonical,cases:[q]})+'\n';
  const v=C.verify32(text,id,candidate??out,sha,pipeline31,verifier31,sha(text));assert.equal(v.state,'VERIFIED_SYNTHETIC_ENVELOPE',v.reason);
  const p=C.adapt32(v,sha);
+ let admissionTrace=null;
  // V40: only the analysis view is masked AFTER exact immutable envelope verification.
  // All aliases transitively depending on an unavailable incident are excluded.
  // No evidence is created, no source packet or expected digest is changed.
@@ -199,7 +200,11 @@ export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,can
   const denied=new Set([...candidates].filter(e=>!admitted.has(e)).map(e=>issuer+e));
   const allowed=new Map(p.o.evidence.filter(e=>!denied.has(e.event_id)).map(e=>[e.evidence_id,e]));
   const read=dependencyReader(allowed);
-  p.o.evidence=p.o.evidence.filter(e=>read.get(e.evidence_id));
+  const original=p.o.evidence;
+  p.o.evidence=original.filter(e=>read.get(e.evidence_id));
+  const retained=new Set(p.o.evidence.map(e=>e.evidence_id));
+  admissionTrace={deniedEvents:[...denied].sort(),excluded:original.filter(e=>!retained.has(e.evidence_id)).map(e=>({id:e.evidence_id,event:e.event_id,depends:e.depends_on??[]})),retained:p.o.evidence.map(e=>({id:e.evidence_id,event:e.event_id,depends:e.depends_on??[]}))};
+  assert.ok(admissionTrace.retained.every(e=>e.depends.every(d=>retained.has(d))),'RETAINED_DEPENDS_ON_DENIED');
   p.o.events=p.o.events.filter(e=>!denied.has(e.event_id));
   p.o.followups=p.o.followups.filter(f=>!denied.has(f.reference_event)&&!denied.has(f.followup_event)&&read.get(f.source_ref));
   // Keep immutable packet for source provenance; conflict lookups in enrich
@@ -211,5 +216,5 @@ export function analyzeControlledWork33(C,id,{withdraw=null,placeThreshold=3,can
  const L={cases:new Map([[id,p]]),canonical:C.canonical,work30:new Map(),work27:new Map()};
  const r=enrich(L,id,withdraw,{placeThreshold,eyeEnabled}),expected=C.receipt.summary.find(x=>x.id===id);
  assert.equal(r.source_evidence,expected.evidence);assert.equal(r.source_item_rows,expected.itemRows);
- return {...r,source_digest:out.digest,source_packet:out.packet,source_envelope:out,source_bundle_sha256:sha(text),...(includePack?{loaded:L}: {})};
+ return {...r,...(admissionTrace?{admissionTrace}:{}),source_digest:out.digest,source_packet:out.packet,source_envelope:out,source_bundle_sha256:sha(text),...(includePack?{loaded:L}: {})};
 }
