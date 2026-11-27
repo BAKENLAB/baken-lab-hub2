@@ -6,6 +6,7 @@ for f in *.mjs; do node --check "$f"; done
 node work35-v38-completion.mjs
 node work35-v39-decision.mjs
 node work36-v40-integrated.mjs
+node work36-v41-local-decision.mjs
 node work34-v37-completion.mjs
 node test-work34-v36-current.mjs
 node test-opposition-33-42.mjs
