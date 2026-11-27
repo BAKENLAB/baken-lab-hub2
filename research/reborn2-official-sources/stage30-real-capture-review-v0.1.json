@@ -1,0 +1,116 @@
+{
+  "schema": "WORK30_REAL_CAPTURE_REVIEW_0.1",
+  "as_of": "2026-11-28 JST",
+  "scope": "PUBLIC_TERMS_AND_SCHEDULE_REVIEW_ONLY_NO_RACE_CAPTURE",
+  "sources": [
+    {
+      "url": "https://www.jra.go.jp/use/",
+      "finding": "Official site copyright and update/removal notice; video secondary-use permission provisions are not blanket rules for every factual race datum. Exact research/retention/AI scope remains unresolved."
+    },
+    {
+      "url": "https://www.keiba.go.jp/terms.html",
+      "finding": "NAR terms restrict unapproved reproduction/republication of site content; organizer rights also relevant."
+    },
+    {
+      "url": "https://www.keiba.go.jp/pdf/manual/data_pdf_manual.pdf",
+      "finding": "Search-index excerpt only: official ZIP/CSV download feature and separate terms reference; manual not fully inspected, no actual download or permission inferred."
+    },
+    {
+      "url": "https://jra-van.jp/info/rule.html",
+      "finding": "Separate JRA-VAN service and terms, not authorization for official website data."
+    },
+    {
+      "url": "https://developer.jra-van.jp/t/topic/899",
+      "finding": "DataLab staff describes redistribution restrictions and JRADB separate corporate route; no purchase."
+    },
+    {
+      "url": "https://jra.jp/keiba/calendar2026/2026/11/1128.html",
+      "finding": "Public schedule lists fifth Tokyo day seven on 2026-11-28; subject to change."
+    },
+    {
+      "url": "https://www.sagakeiba.net/raceinfo/start/",
+      "finding": "Public schedule index lists Saga 2026-11-28 meeting14 day4; exact target race not selected."
+    },
+    {
+      "url": "https://www.freetsa.org/freetsa.html",
+      "finding": "Public RFC3161 service limit one request per second per IP, best effort/no SLA; commercial timestamp use allowed by operator, voluntary donation; not proof of Japanese accredited status."
+    },
+    {
+      "url": "https://www.freetsa.org/index_en.php",
+      "finding": "RFC3161 documentation and cert rotation, verify message imprint, TSA signature, trusted cert, policy, time accuracy, revocation, archive token and trust chain."
+    },
+    {
+      "url": "https://opentimestamps.org/",
+      "finding": "Free calendars, no registration/API key; Bitcoin attestation pending until confirmed; not sufficient alone for tight prestart cutoff."
+    }
+  ],
+  "candidate_workflows": [
+    {
+      "issuer": "JRA",
+      "candidate": "2026-11-28 Tokyo meeting day7",
+      "state": "SCHEDULE_CANDIDATE_ONLY",
+      "steps": [
+        "verify approved scope",
+        "choose earliest eligible ordinary race before any target result access",
+        "official schedule/version, native roster, prior result rows, applicable program and course notices",
+        "approved storage and proof route",
+        "seal cutoff and output before conservative start"
+      ]
+    },
+    {
+      "issuer": "LOCAL",
+      "candidate": "2026-11-28 Saga meeting14 day4",
+      "state": "SCHEDULE_CANDIDATE_ONLY",
+      "steps": [
+        "verify NAR and organizer rights and approved CSV/manual method",
+        "choose earliest eligible ordinary race before any target result access",
+        "native IDs, prestart card and dated class/course docs",
+        "approved storage and proof route",
+        "seal cutoff and output before conservative start"
+      ]
+    }
+  ],
+  "timestamp_options": {
+    "recommended_for_evaluation": "RFC3161 FreeTSA with digest-only request after approval; do not assume qualified/accredited status; first verify trust policy, cert revocation, accuracy, signature and nonce/imprint; hold if no timely proof",
+    "secondary": "OpenTimestamps as supplementary long-term commitment, not pending-proof cutoff gate; block times not exact civil-time guarantees",
+    "not_sufficient": [
+      "SHA256 alone",
+      "local clock",
+      "Git commit author timestamp",
+      "pending OTS proof"
+    ],
+    "real_requests_sent": 0
+  },
+  "permission_decision": [
+    {
+      "id": "A",
+      "scope": "one race nonpublic acquisition, structured retention and private analysis",
+      "state": "UNCONFIRMED"
+    },
+    {
+      "id": "B",
+      "scope": "external AI/cloud processing and metadata/hash disclosure to timestamp service",
+      "state": "UNCONFIRMED_SEPARATE"
+    },
+    {
+      "id": "C",
+      "scope": "derived HUB publication, free/limited/public/paid separated",
+      "state": "UNCONFIRMED_SEPARATE"
+    }
+  ],
+  "inquiry": {
+    "sent": false,
+    "text": "競馬公式情報を正確に扱うため、まず1競走のみを対象に発走前の出馬表と必要な過去成績を原本の版・取得時刻・SHA-256とともに非公開保存し、独自の能力研究を行う場合の利用条件をご教示ください。取得方法、保存期間、訂正・過去版取得、固有ID、外部AI・クラウド処理、原本を送らずハッシュのみを時刻証明サービスへ送信する場合、独自分析の限定／一般／有料公開はそれぞれ分けて確認したいと考えています。費用が必要な場合は案内のみを希望し、契約は別途判断します。"
+  },
+  "holds": {
+    "Tokyo12": "HELD",
+    "Saga8": "HELD",
+    "formal_admissions": 0,
+    "groups": 118,
+    "conditions": 826
+  },
+  "limits": [
+    "Only public terms/schedule research, no race cards downloaded or current race data stored. Exact race, post, cutoff and rights not approved; if approval unavailable before capture window, defer to next eligible race.",
+    "No TSA requests or accounts, no actual independent timestamp validation; not legal advice. Existing raw archive recovery remains blocked absent lawful original bytes."
+  ]
+}
