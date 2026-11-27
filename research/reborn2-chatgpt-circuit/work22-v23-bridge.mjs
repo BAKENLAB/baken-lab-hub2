@@ -58,7 +58,7 @@ export function consumeWorkPacket(p,expectedDigest){
  const active=p.runners.filter(h=>h.status==='ACTIVE'),roster=active.map(h=>({horse_id:h.id,horse_no:h.no})),trace=[];
  const accepted=p.evidence.map(e=>({fixture_only:true,formal_admission:false,event_key:e.root,evidence_ids:[e.evidence_id],record:{official_evidence:false,work22_validated_partial:true,kind:'WORK22_FINISH_CLOCK',horse_id:e.subject_id,race_id:e.historical_event,fact:{clock_tenths:e.value,unit:e.unit}}}));
  // No CURRENT_CARD or RESULT synthesized; existing 01-32 shared kernel runs on a partial input.
- const typed=analyzeTyped01to32({target:{circuit:'FIXTURE',race_id:p.event},roster,intake:{fixture_only:true,accepted},traceRead:x=>trace.push(x)});
+ const typed=analyzeTyped01to32({target:{circuit:'FIXTURE',race_id:p.event,work22_partial_clock:true},roster,intake:{fixture_only:true,accepted},traceRead:x=>trace.push(x)});
  const runners=p.runners.map(h=>{
   const found=typed.find(x=>x.horse_id===h.id),observations=found?.items['05'].observations??[];
   const consumed=observations.flatMap(o=>o.evidence_ids);
