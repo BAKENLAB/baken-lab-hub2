@@ -1,0 +1,833 @@
+{
+  "version": "0.8.0",
+  "acceptance_commit": "2c1c4e7",
+  "prior_commit": "261a1bf498d93ee06d82a7dd72ba25f1942e1502",
+  "observed_date_jst": "2026-11-27",
+  "observed_at": null,
+  "source_pack_sha256": {
+    "urawa": "df09365de5862ac07474ed653adfd3e5d22b86975fc12a3366a4d83c26fb1831",
+    "stage8": "48df059c10a5c62e18352a7768215e3599634735a095887e85679376b5c03cd6"
+  },
+  "derived_ledger_sha256": "3a1f367f08e7d0c75ea61a16ecb492cf9b047c4f9dac053d26ebc7927aae9e9d",
+  "derived_ledger_filename": "REBORN2-stage12-peer-ledger-v0.8.json",
+  "counts": {
+    "subject_rows": 21,
+    "races": 20,
+    "all_rows": 249,
+    "numeric_peer_edges": 233,
+    "distinct_peer_ids": 182,
+    "non_numeric_edges": 4,
+    "saved_profiles_matched_to_peer_ids": 11,
+    "exact_profile_result_edges": 16,
+    "profile_edge_conflicts": 0,
+    "edges_with_later_profile_rows": 12,
+    "distinct_later_horse_races": 34,
+    "later_result_dom_matches": 13,
+    "later_result_dom_missing": 21,
+    "later_result_dom_conflicts": 0
+  },
+  "unique_later_finish_counts": {
+    "1": 7,
+    "2": 8,
+    "3": 5,
+    "4": 2,
+    "5": 1,
+    "6": 1,
+    "7": 3,
+    "8": 2,
+    "9": 1,
+    "10": 1,
+    "12": 1,
+    "13": 2
+  },
+  "peer_queue": [
+    {
+      "id": "30002404756",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30003404607",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30003405576",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30003409007",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30004403196",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30005401576",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30005402366",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30006405607",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30006408466",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30007402966",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30007404886",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30008400096",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30008400896",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30008401207",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30008407986",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30008409876",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30009409307",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30011400966",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30011407907",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30012400576",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30012402296",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30012405966",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30012407607",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30012407907",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30013403386",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30013403596",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30013405286",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30013406876",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30014408107",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30015401207",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30015401496",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30015405086",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30015406896",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30015407796",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30015408866",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30016401076",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30016402366",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30016408696",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30017401596",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30018407896",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30018408907",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30022405186",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30022406496",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30022408596",
+      "status": "OFFICIAL_CACHED_PROFILE_ROW_MATCH"
+    },
+    {
+      "id": "30022409707",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30023401996",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30023408507",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30024400676",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30024401196",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30024403866",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30027400476",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30027401666",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30027403356",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30027406156",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30027408456",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30033403607",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30033404186",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30033407896",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30034406166",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30036400986",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30036405976",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30036407356",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30037401766",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30037409056",
+      "status": "CACHED_PROFILE_TOO_OLD_FOR_EDGE"
+    },
+    {
+      "id": "30038407186",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30039405096",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30039407007",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30041401996",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30042403196",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30042404086",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30043401266",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30043407676",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30044407046",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30045402196",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30048400156",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30048406456",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30048407196",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30049405086",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30052404407",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30052407507",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30052409076",
+      "status": "CACHED_PROFILE_TOO_OLD_FOR_EDGE"
+    },
+    {
+      "id": "30052409107",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30053403386",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30053405246",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30053406186",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30053408407",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30054402607",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30054404996",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30054405596",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30054407707",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30055408866",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30056400007",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30056401276",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30056402186",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30056404286",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30056409496",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30058400596",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30058401676",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30058405896",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30058408796",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30058409686",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30059407076",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30062401196",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30062403256",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30062404896",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30062407107",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30063400796",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30063406186",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30064401976",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30064405366",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30065401466",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30065401596",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30065407456",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30066402207",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30066404786",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30067400807",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30067406486",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30068409786",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30072400996",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30072403076",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30072405896",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30073403076",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30073409786",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30074408556",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30075400176",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30075400696",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30075402196",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30075403596",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30075405276",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30075407146",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30076400307",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30076401076",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30076402946",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30076404986",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30077408707",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30078402307",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30078402686",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30078405396",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30082400776",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30082401456",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30082401676",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30082405686",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30083401707",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30083403196",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30084407086",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30084408607",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30085406656",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30085409466",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30085409696",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30086404186",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30086404556",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30086408766",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30086409207",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30087401386",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30088400007",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "30088406486",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30091407807",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30091409907",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30092403676",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30093403307",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30093408396",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30094401107",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30094405886",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30095401207",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30095405507",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30095406176",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30095406856",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30096401166",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30096409607",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30097400486",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30097404896",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30097406476",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30098401607",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30098409996",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "30099409207",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "40000403946",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "40002408086",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "40022400096",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "40031402996",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "40031405986",
+      "status": "SAVED_PROFILE_DOM_AND_RACE_ROW_MATCH"
+    },
+    {
+      "id": "40051408996",
+      "status": "RESULT_LINK_ONLY"
+    },
+    {
+      "id": "40091400866",
+      "status": "RESULT_LINK_ONLY"
+    }
+  ],
+  "additional_cached_profile_checks": [
+    {
+      "id": "30022408596",
+      "name": "ロードラビリンス",
+      "state": "OFFICIAL_CACHED_PROFILE_ROW_MATCH",
+      "source_race": "LOCAL:2025-09-02:盛岡:10",
+      "runner_no": 8,
+      "finish": 4,
+      "clock_tenths": 1223,
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30022408596",
+      "self_profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/RaceHorseInfo?k_activeCode=1&k_lineageLoginCode=30022408596",
+      "later_observed": [
+        [
+          "JRA:2025-11-30:京都:10",
+          1
+        ],
+        [
+          "JRA:2025-12-21:阪神:10",
+          7
+        ],
+        [
+          "JRA:2026-03-22:阪神:10",
+          9
+        ],
+        [
+          "JRA:2026-04-18:阪神:11",
+          9
+        ],
+        [
+          "LOCAL:2026-05-04:名古屋:11",
+          9
+        ]
+      ],
+      "note": "Cache crawled five months ago; not exhaustive, prior research includes later Oct row. Separate from saved-DOM 34."
+    },
+    {
+      "id": "30037409056",
+      "name": "スレイマン",
+      "state": "CACHED_PROFILE_TOO_OLD_FOR_EDGE",
+      "latest_visible": "2026-05-20",
+      "required_edge": "2026-10-21",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30037409056"
+    },
+    {
+      "id": "30052409076",
+      "name": "オピニオンリーダー",
+      "state": "CACHED_PROFILE_TOO_OLD_FOR_EDGE",
+      "latest_visible": "2026-04-23",
+      "required_edges": [
+        "2026-10-21",
+        "2026-11-10"
+      ],
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30052409076"
+    }
+  ],
+  "method": "Reparse preserved HTML in tar files with BeautifulSoup, match profile internal RaceHorseInfo ID, rehash saved profile against manifest, match race key/runner_no/finish/clock, filter source date < later date < target date 2026-11-25, deduplicate by (peer ID, race key). Separate 13 individual result DOM corroborations from 21 profile-only later rows. Cache observations separate.",
+  "permission_status": "NOT_CLEARED",
+  "publication_at": null,
+  "formal_admission": 0,
+  "production_changes": false
+}
