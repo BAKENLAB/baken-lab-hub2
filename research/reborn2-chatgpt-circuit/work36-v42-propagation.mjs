@@ -124,8 +124,17 @@ function assess(h,r,eye,threshold){
  // Material effect: applicable matched whole-field response and explicit
  // demonstrated response to deficit/advantage. EYE is not a second vote.
  const winResponse=own.every(q=>q.recovered||q.retained||q.finish?.[0]>0&&q.initial?.[0]<=0&&q.initial?.[1]>=0);
- const decision=fullWin&&winResponse?'CONDITIONAL_WIN':fullPlace&&positive.length?'CONDITIONAL_PLACE':fullCounter?'CONDITIONAL_COUNTER':'HELD';
- return {id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,start:r.start,response:r.response,replay:r.replay,decision,axes,field:e??null,local:l??null,full,own,
+ // Each required axis has a directional, route-specific role. Discovery
+ // corroborates the relevant response or exposes a contradiction; absence of
+ // new discovery is not negative evidence. Do not add discovery as a vote.
+ const [A,B,C,D,E]=axes;
+ const contradiction=E.support.some(q=>E.counter.some(v=>q.item===v.item&&q.event===v.event&&q.rival===v.rival));
+ const basis={ability:A.support.length>0&&A.unknown.length===0,applicability:B.unknown.length===0&&r.pace.state==='OVERLAPPING_OBSERVED_PACE',comparison:C.support.length>0,response:D.unknown.length===0&&winResponse,discovery:!contradiction};
+ const winGate=Object.values(basis).every(Boolean);
+ const placeGate=basis.ability&&basis.applicability&&basis.comparison&&D.unknown.length===0&&positive.length>0&&basis.discovery;
+ const counterGate=full&&A.counter.length>0&&C.counter.length>0&&D.unknown.length===0&&basis.discovery;
+ const decision=fullWin&&winGate?'CONDITIONAL_WIN':fullPlace&&placeGate?'CONDITIONAL_PLACE':fullCounter&&counterGate?'CONDITIONAL_COUNTER':'HELD';
+ return {id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,start:r.start,response:r.response,replay:r.replay,decision,axes,basis,field:e??null,local:l??null,full,own,
   actual_current:'UNPROVEN',formal:false};
 }
 function integrate(x,docs){
@@ -221,6 +230,18 @@ t('F42-07',()=>{
   const reversed=fieldOrder([...q.base.roster.possible_active].reverse(),[...r.edges].reverse().map(e=>({...e,order:e.fieldOrder})),q.z.threshold);
   for(const e of forward.envelopes){const v=reversed.envelopes.find(q=>q.slot===e.slot);assert.deepEqual([e.min,e.max],[v.min,v.max]);}
  }
+});
+t('F42-08',()=>{
+ const h=n=>masks[n].z.runners.find(q=>q.horse===H(4));
+ const routeId='TEST:NAR|TEST:COUNTER@800>TEST:NAR|TEST:W36_POS_B@800';
+ const b=h(0).paths.find(p=>p.id===routeId),p=h(1).paths.find(p=>p.id===routeId),o=h(4).paths.find(p=>p.id===routeId);
+ assert.equal(b,undefined);assert.ok(p&&o);
+ assert.equal(p.decision,'CONDITIONAL_WIN');assert.equal(o.decision,p.decision);
+ const pair=p.own.find(e=>e.rival===H(2));assert.deepEqual(pair.finish,[1000,1600]);
+ assert.ok(p.axes.find(a=>a.axis==='E').support.some(e=>e.item==='EYE03'&&e.rival===H(2)));
+ assert.deepEqual(o.own.map(e=>e.finish),p.own.map(e=>e.finish));
+ assert.ok(h(3).paths.some(q=>q.response.endsWith('W36_COUNTER_MATCHED')&&q.decision==='CONDITIONAL_COUNTER'));
+ assert.ok(p.basis.discovery&&p.basis.ability&&p.basis.applicability&&p.basis.comparison&&p.basis.response);
 });
 const compact=z=>({id:z.id,digest:z.digest,routes:z.routes.map(r=>({id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,local:r.edges.filter(e=>e.local).length,full:r.edges.filter(e=>e.full).length,valid:r.valid})),runners:z.runners.map(h=>({horse:h.horse,conditional:h.conditional_grade,eye:h.eye,reason:h.reasons,paths:h.paths.map(p=>({id:p.id,decision:p.decision,field:p.field&&[p.field.min,p.field.max],local:p.local&&[p.local.min,p.local.max],axes:p.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown.length}))}))}))});
 for(const {z} of all)console.log('V42_CASE '+JSON.stringify(compact(z)));
