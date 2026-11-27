@@ -65,9 +65,9 @@ test('F20-06',()=>{
 });
 test('F20-07',()=>{
  const no=analyzeV20(p,{disableEye01:true});
- assert.ok(a.trace.length>0&&a.trace.every(t=>t.eye==='EYE-01'&&t.roots.length>0));
- assert.equal(no.trace.length,0);
- assert.ok(a.decisions.some(h=>h.views.A.defeat_context.some(x=>x.interpretation==='COUNTER_TO_COMPETITIVE_PLACING')));
+ assert.ok(a.trace.some(t=>t.eye==='EYE-01'&&t.roots.length>0));
+ assert.equal(no.trace.filter(t=>t.eye==='EYE-01').length,0);
+ assert.ok(a.decisions.some(h=>h.views.A.defeat_context.some(x=>x.interpretation==='COUNTER_TO_BEATING_A_RIVAL')));
  assert.ok(a.decisions.some(h=>h.views.A.defeat_context.some(x=>x.interpretation==='NEUTRAL_MEASURED_DEFEAT_CONTEXT')));
  for(const h of a.decisions){const n=horse(no,h.id);assert.deepEqual(h.views.B,n.views.B);assert.deepEqual(h.views.D,n.views.D);assert.deepEqual(h.views.A.observations,n.views.A.observations);}
 });
@@ -86,5 +86,22 @@ test('F20-10',()=>{
  const w=JSON.parse(readFileSync(new URL('./work19-v20-diagnostic.json',import.meta.url)));
  assert.equal(w.unresolved,26);assert.equal(w.saga_histories,55);assert.equal(w.saga_locators,55);assert.equal(w.eligible,0);assert.equal(w.formal,0);assert.equal(w.flags,826);assert.equal(w.all_held,true);assert.equal(w.raw_bytes,false);
  assert.equal(a.formal,false);assert.equal(a.release_eligible,false);
+});
+test('F20-11',()=>{
+ const paths=a.decisions.flatMap(h=>h.views.D.paths.map(p=>({id:h.id,...p})));
+ assert.ok(paths.some(p=>p.witness.some(w=>w.status==='PATH_MOVEMENT_DIFFERS_NOT_ABILITY_COUNTER')));
+ assert.ok(paths.some(p=>p.witness.some(w=>w.pair.some(q=>q.status==='NO_SHARED_RACE'))));
+ for(const path of paths){const s=a.field.scenarios.find(x=>x.id===path.scenario);const expected=[...new Set([s.leader,...s.challengers,...(s.mover?[s.mover]:[])].filter(id=>id!==path.id))].sort();for(const w of path.witness)assert.deepEqual(w.pair.map(x=>x.rival),expected);}
+ assert.ok(paths.some(p=>p.witness.some(w=>w.historicalCounter==='NO_BEATEN_RIVAL')));
+});
+test('F20-12',()=>{
+ const off=analyzeV20(p,{disableEye12:true});
+ assert.ok(off.trace.every(t=>t.eye!=='EYE-12'));
+ for(const h of a.decisions){const n=horse(off,h.id);assert.deepEqual(h.views.A,n.views.A);assert.deepEqual(h.views.B,n.views.B);assert.deepEqual(h.views.D.paths.map(({eyeReview,...x})=>x),n.views.D.paths.map(({eyeReview,...x})=>x));}
+ const reviews=a.decisions.flatMap(h=>h.views.D.paths.flatMap(x=>x.eyeReview));
+ assert.equal(a.trace.filter(x=>x.eye==='EYE-12').length,reviews.length);
+ assert.ok(reviews.every(x=>x.actual_improvement===null&&x.roots.length>0));
+ // Lack of a canonical source is explicitly not a claimed EYE12 material success.
+ console.log('F20_EYE12_ACTUAL_REVIEWS '+reviews.length);
 });
 console.log('F20_SUMMARY '+JSON.stringify({formal:false,measured:a.measured,pace_intervention:{before:race(a,changed.id),after:race(b,changed.id)},position_intervention:{before:horse(a,'FIXTURE-B').history[0].positions,after:horse(c,'FIXTURE-B').history[0].positions},scenarios:a.field.scenarios,trace:a.trace,decisions:a.decisions.map(h=>({id:h.id,A:h.views.A.observations.map(o=>({race:o.race,finish:o.finish,positions:o.positions,role:o.role})),B:h.views.B.observations,paths:h.views.D.paths}))}));
