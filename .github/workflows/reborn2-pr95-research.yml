@@ -17,6 +17,7 @@ jobs:
           node-version: '22'
       - run: bash research/reborn2-chatgpt-circuit/run-node-regression.sh
       - run: node research/reborn2-chatgpt-circuit/test-v42-eye-intervention.mjs
+      - run: node research/reborn2-independent-engine/main47-integration/test-work40-common.mjs
   work39:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -27,5 +28,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: git fetch origin 9c8401e9735f102a3d25c49aef524681a29d7b2d
-      - run: bash research/reborn2-independent-engine/main47-integration/replay.sh --work39
+      - uses: actions/checkout@v4
+        with:
+          ref: 9c8401e9735f102a3d25c49aef524681a29d7b2d
+          path: fixed-work39
+          persist-credentials: false
+      - name: Apply only the roster correction and execute fixed replays
+        working-directory: fixed-work39
+        env:
+          WORK38_RECEIPT: ${{ runner.temp }}/work38-receipt.json
+        run: |
+          patch="$GITHUB_WORKSPACE/research/reborn2-independent-engine/main47-integration/v42-research.patch"
+          git apply --check --include=research/reborn2-chatgpt-circuit/work35-v38-completion.mjs "$patch"
+          git apply --include=research/reborn2-chatgpt-circuit/work35-v38-completion.mjs "$patch"
+          node research/reborn2-work38/native-replay.mjs
+          node research/reborn2-work39/native-replay.mjs
