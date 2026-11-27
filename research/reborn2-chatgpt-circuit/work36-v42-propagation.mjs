@@ -1,6 +1,8 @@
 // V42 research: route construction consumes V41 local comparisons rather than V40 candidate labels.
 // Fixed synthetic observations only. No market, point tally, rank quota, formal grade or future observation.
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {loadV40} from './work36-v40-integrated.mjs';
 import {analyze as analyzeV41,admission,leakAudit} from './work36-v41-local-decision.mjs';
 import {jointField} from './work29-v30-terminal.mjs';
@@ -255,6 +257,37 @@ t('F42-09',()=>{
  const h=masks[3].z.runners.find(q=>q.horse===H(4));
  assert.ok(h.eye.some(e=>e.kind==='SHARED_RECOVERY_COUNTER'&&e.event.endsWith('W36_COUNTER_MATCHED')));
  assert.ok(h.paths.some(p=>p.response.endsWith('W36_COUNTER_MATCHED')&&p.axes.find(a=>a.axis==='E').counter.length));
+});
+t('F42-10',()=>{
+ const read=(n,blob,sha)=>{
+  const b=readFileSync(new URL('./work37-pinned/'+n,import.meta.url));
+  assert.equal(createHash('sha1').update('blob '+b.length+'\0').update(b).digest('hex'),blob);
+  if(sha)assert.equal(createHash('sha256').update(b).digest('hex'),sha);
+  return JSON.parse(b);
+ };
+ const handoff=read('stage37-final-handoff-v0.1.json','95aa9c8906aef6a6398e3f749f3bd19e8632c780');
+ const pin=read('work36-independent-pins-v0.1.json','ca1ad8f0a2059f0226cfdb7f78122ddce39cca27','0811e22bac17e6c49ff13b91747cc96e55042e7496e4be3f39ed438c99cf9e13');
+ const h3=read('work36-original-crosscheck-h3-v0.1.json','b6b0a5979b0f13c100bd1721c4b6d71618498da6','caec36b32fc37075f6057cea2cc9bbf1818d931d3d82972309fe13da88c84b8b');
+ assert.equal(handoff.priorWorkLedger,699);assert.equal(handoff.addedWorkTests,0);assert.equal(pin.cases.length,15);
+ for(const p of pin.cases){
+  const g=V.generated.find(q=>q.p.id===p.id);assert.ok(g);
+  for(const k of ['source_digest','bundle_sha256','evidence'])assert.equal(g.p[k],p[k]);
+  assert.deepEqual(g.f.docs.map(d=>d.eventId),p.event_ids);
+  for(const e of p.root_map){
+   const a=g.out.packet.evidence.find(q=>q.evidenceId===e.id);assert.ok(a);
+   for(const k of ['event','subject','field','root','dependencies'])assert.deepEqual(a[k],e[k]);
+  }
+ }
+ assert.equal(handoff.cases.length,25);
+ for(const p of handoff.cases){const a=get(p.id);assert.equal(a.z.digest,p.digest);assert.equal(a.base.source_packet.evidence.length,p.evidence);}
+ const h=get('FK34_FULL').z.runners.find(q=>q.horse===H(3));
+ assert.equal(h3.cross.length,20);
+ for(const q of h3.cross){
+  const r=h.paths.find(p=>p.checkpoint===800&&id(p.start)===q.start&&id(p.response)===q.response);assert.ok(r);
+  for(const e of q.edges){const a=r.own.find(p=>id(p.rival)===e.rival);assert.deepEqual(a.finish,e.interval);}
+  assert.equal(r.own.every(p=>p.finish&&p.finish[0]>0),false);
+ }
+ console.log('V42_WORK37_INDEPENDENT_CHECK '+JSON.stringify({packets:15,casePins:25,H3Cross:20,H3PairIntervals:80,clearWins:0,scope:'RECORDED_800M_CROSSES_ONLY'}));
 });
 const compact=z=>({id:z.id,digest:z.digest,routes:z.routes.map(r=>({id:r.id,checkpoint:r.checkpoint,remaining:r.remaining,local:r.edges.filter(e=>e.local).length,full:r.edges.filter(e=>e.full).length,valid:r.valid})),runners:z.runners.map(h=>({horse:h.horse,conditional:h.conditional_grade,eye:h.eye,reason:h.reasons,paths:h.paths.map(p=>({id:p.id,decision:p.decision,field:p.field&&[p.field.min,p.field.max],local:p.local&&[p.local.min,p.local.max],axes:p.axes.map(a=>({axis:a.axis,support:a.support.length,counter:a.counter.length,unknown:a.unknown.length}))}))}))});
 for(const {z} of all)console.log('V42_CASE '+JSON.stringify(compact(z)));
