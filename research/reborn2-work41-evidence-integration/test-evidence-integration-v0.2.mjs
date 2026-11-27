@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict'; import {makeValidRace,malformedWork40,validateRaceMath,makeEye15,buildAnalysis,sealResults,deterministicAdapter,rawDocument,validateDocument,compareHistoricalPeers} from './evidence-integration-v0.2.mjs';
+let pass=0; const t=(n,f)=>{try{f();pass++;console.log('PASS',n)}catch(e){console.error('FAIL',n,e.message);process.exitCode=1}}; const reject=(n,f,c)=>t(n,()=>assert.throws(f,new RegExp(c)));
+const valid=makeValidRace(); t('valid race arithmetic',()=>validateRaceMath(valid.result,valid.laps,valid.splits));
+reject('old Work40 malformed is retained and rejected',()=>{const x=malformedWork40();validateRaceMath(x.result,x.laps,x.splits)},'FINISH_CLOCK_ORDER|FINAL600');
+t('all raw hashes are actual byte hashes',()=>[valid.result,valid.laps,...valid.splits].forEach(d=>validateDocument(d,{cutoff:'2026-11-28T00:20:00Z'})));
+const eyes=makeEye15(); t('EYE15 concrete source documents',()=>{assert.equal(eyes.length,15); for(const d of eyes){assert.ok(d.observations.support.metrics);assert.ok(d.observations.counter.metrics);assert.ok(d.observations.irrelevant.fact);}});
+reject('invalid date rejected',()=>validateDocument({...valid.result,captured_at:'not-a-date'},{cutoff:'2026-11-28T00:20:00Z'}),'INVALID_TIME');
+reject('hash mismatch rejected',()=>validateDocument({...valid.result,raw_sha256:'0'.repeat(64)},{cutoff:'2026-11-28T00:20:00Z'}),'RAW_HASH');
+reject('target result rejected',()=>validateDocument({...valid.result,event_id:'SYN:T'},{cutoff:'2026-11-28T00:20:00Z',targetEvent:'SYN:T'}),'TARGET_RESULT_LEAK');
+reject('alias market rejected',()=>validateDocument(rawDocument({evidence_id:'BAD',kind:'HORSE_PROFILE',observations:{predicted_market:3}}),{cutoff:'2026-11-28T00:20:00Z'}),'FORBIDDEN_FIELD');
+const target={issuer:'SYNTHETIC',event_id:'SYN:T',scheduled_post:'2026-11-28T01:00:00Z'}; const env=buildAnalysis({target,documents:[valid.result,valid.laps,...valid.splits,...eyes],cutoff:'2026-11-28T00:20:00Z',roster:['SYN:H1','SYN:H2','SYN:H3','SYN:H4','SYN:H5']});
+const out=deterministicAdapter(env); const r1=sealResults({target_event_id:'SYN:T',documents:[{finish:1}]}); const r2=sealResults({target_event_id:'SYN:T',documents:[{finish:5}]});
+t('results physically separated',()=>{assert.notEqual(r1.result_sha256,r2.result_sha256);assert.equal(env.analysis_sha256,out.analysis_sha256);assert.equal(deterministicAdapter(env).analysis_sha256,out.analysis_sha256);assert.equal('artifact' in env,false)});
+t('fixed target roster versus historical peer change',()=>assert.deepEqual(compareHistoricalPeers({targetRoster:['H1','H2'],historicalPeers:['P1']},{targetRoster:['H1','H2'],historicalPeers:['P2']}),{target_roster_fixed:true,historical_peer_changed:true}));
+t('changed target roster is separate',()=>assert.equal(compareHistoricalPeers({targetRoster:['H1','H2'],historicalPeers:['P1']},{targetRoster:['H1','H3'],historicalPeers:['P1']}).target_roster_fixed,false));
+console.log(JSON.stringify({schema:'WORK41_TEST_RECEIPT_0.2',passed:pass,failed:process.exitCode?1:0,prior_accepted_ledger:767,added_accepted:0,formal:false}));

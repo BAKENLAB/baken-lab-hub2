@@ -1,0 +1,17 @@
+name: REBORN2 Work41 evidence integration
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/reborn2-work41-evidence-integration-20261128]
+    paths:
+      - 'research/reborn2-work41-evidence-integration/**'
+      - '.github/workflows/reborn2-work41-evidence-integration.yml'
+jobs:
+  research-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '20'}
+      - run: bash research/reborn2-work41-evidence-integration/replay.sh
