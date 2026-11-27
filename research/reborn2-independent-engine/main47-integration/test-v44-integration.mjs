@@ -48,3 +48,15 @@ assert.ok(a.work41.supplyReview.every(h=>h.categories.length===15&&h.categories.
 await assert.rejects(()=>analyzeWork41Verified(V,envelope,{...pin,work41_analysis_sha256:'wrong'}),/INDEPENDENT_WORK41_PIN/);
 console.log('V44_WORK41_V43_BRIDGE PASS');
 console.log('V44_FIELD '+JSON.stringify({digest:a.digest,evidence:a.evidence,groups:a.groups,held:a.held,runners:a.runners.map(h=>({horse:h.horse,research:h.research_grade,formal:h.grade,axes:h.axes.map(a=>({axis:a.axis,state:a.state})),reasons:h.gradeReasons,summary:h.summary})),semanticReturn:a.work41.semanticReturn}));
+
+const crossWin=[];
+for(const h of a.runners){
+ assert.ok(h.paths.every(p=>p.historicalWinRequired===false));
+ const routes=h.paths.filter(p=>p.claimSupport==='VERIFIED_CONDITIONAL_ROUTE'&&p.start!==p.response);
+ assert.deepEqual(h.acceptedWinRoutes,routes.filter(p=>p.decision==='CONDITIONAL_WIN').map(p=>p.id));
+ assert.ok(h.paths.filter(p=>p.materialCounter||p.materialUnknown).every(p=>!h.acceptedWinRoutes.includes(p.id)&&!h.acceptedPlaceRoutes.includes(p.id)));
+ if(['S','A'].includes(h.research_grade))assert.ok(h.acceptedWinRoutes.length);
+ if(h.research_grade==='B'){assert.equal(h.acceptedWinRoutes.length,0);assert.ok(h.acceptedPlaceRoutes.length);}
+ for(const p of routes.filter(p=>p.decision==='CONDITIONAL_WIN'&&p.historicalReplayDecision!=='CONDITIONAL_WIN'))crossWin.push({horse:h.horse,id:p.id,priorReplay:p.historicalReplayDecision});
+}
+console.log('V44_ROUTE_PREMISE PASS '+JSON.stringify({crossWin,scope:'conditional historical contrast; no official or current outcome proof'}));

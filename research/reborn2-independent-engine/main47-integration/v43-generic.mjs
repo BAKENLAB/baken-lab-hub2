@@ -166,9 +166,18 @@ function synthesize(x,z,docs,packet,adapted){
    // Does not delete a mathematically feasible win. A robust claim about a
    // recovery-dependent route cannot survive a demonstrated counter-range.
    const recoveryDependent=p.own.some(e=>e.recovered&&fragile.some(q=>q.rival===e.rival));
+   const refs=uniq(p.axes.flatMap(a=>a.refs)),proof=lineage(packet,adapted,refs);
+   // A measured cross-event response can support a conditional win even if
+   // the response race was a defeat. The start vector and response intervals,
+   // not the historical placing, are the claim premises.
+   const historyReplay=h.paths.find(q=>q.replay&&q.response===p.response&&q.checkpoint===p.checkpoint);
+   const materialUnknown=proof.unresolved.length>0||proof.roots.length===0;
+   const claimSupport=p.decision==='HELD'?'HELD_ENGINE_PREMISE':recoveryDependent?'HELD_RECOVERY_COUNTER':materialUnknown?'HELD_SOURCE_LINEAGE':'VERIFIED_CONDITIONAL_ROUTE';
    return {id:p.id,start:p.start,response:p.response,checkpoint:p.checkpoint,remaining:p.remaining,decision:p.decision,
-    review,robustClaim:p.decision==='CONDITIONAL_WIN'&&!recoveryDependent&&robust.length>0,
-    materialCounter:recoveryDependent,feedback:relevant,refs:uniq(p.axes.flatMap(a=>a.refs))};
+    review,robustClaim:p.decision==='CONDITIONAL_WIN'&&!recoveryDependent&&!materialUnknown&&robust.length>0,
+    materialCounter:recoveryDependent,materialUnknown,claimSupport,unresolvedRouteLineage:proof.unresolved,
+    historicalReplayDecision:historyReplay?.decision??null,historicalWinRequired:false,
+    feedback:relevant,refs};
   });
   const A=axis('A',f.placing.map(p=>({route:p.id,measured:p.own,refs:p.axes[0].refs})),f.counter.map(p=>({route:p.id,measured:p.own,refs:p.axes[0].refs})),['NO_INDEPENDENT_CURRENT_FORM_MEASUREMENT']);
   const B=axis('B',f.scenarios.filter(s=>s.scope==='REPORTED_CONTEXT_MATCHED_POSSIBLE_ROLE_VECTOR'),[],['CURRENT_ROLE_AND_PACE_NOT_OBSERVED','CURRENT_PHYSICAL_FORM_UNVERIFIED']);
@@ -188,16 +197,19 @@ function synthesize(x,z,docs,packet,adapted){
   const negative=routes.filter(p=>p.decision==='CONDITIONAL_COUNTER');
   const replay=f.compatible.filter(p=>p.replay);
   const replayWin=replay.filter(p=>p.decision==='CONDITIONAL_WIN'),replayPlace=replay.filter(p=>['CONDITIONAL_WIN','CONDITIONAL_PLACE'].includes(p.decision));
-  const directWin=win.filter(p=>replayWin.some(q=>q.response===p.response&&q.checkpoint===p.checkpoint));
-  const directPlace=place.filter(p=>replayPlace.some(q=>q.response===p.response&&q.checkpoint===p.checkpoint));
+  // Replay is a diagnostic comparison, not a win or placing prerequisite.
+  // Independent start/response event vectors and existing full-field bounds
+  // must support the route, with its own material counter/lineage reviewed.
+  const directWin=win.filter(p=>p.claimSupport==='VERIFIED_CONDITIONAL_ROUTE');
+  const directPlace=place.filter(p=>p.claimSupport==='VERIFIED_CONDITIONAL_ROUTE');
   // Review each observed early role/pace situation rather than count wins.
   // Same event across checkpoints is one antecedent.
   const firstStarts=f.matchedStarts.filter(s=>s.checkpoint===Math.min(...f.matchedStarts.filter(q=>q.event===s.event).map(q=>q.checkpoint)));
   const startReviews=firstStarts.map(s=>{
    const alternatives=routes.filter(p=>p.start===s.event);
-   const supported=alternatives.filter(p=>['CONDITIONAL_WIN','CONDITIONAL_PLACE'].includes(p.decision));
+   const supported=alternatives.filter(p=>['CONDITIONAL_WIN','CONDITIONAL_PLACE'].includes(p.decision)&&p.claimSupport==='VERIFIED_CONDITIONAL_ROUTE');
    const bad=alternatives.filter(p=>p.decision==='CONDITIONAL_COUNTER'||p.materialCounter);
-   const unresolved=!alternatives.length||alternatives.some(p=>p.decision==='HELD');
+   const unresolved=!alternatives.length||alternatives.some(p=>p.claimSupport!=='VERIFIED_CONDITIONAL_ROUTE');
    return {event:s.event,role:s.leaderClockOverlap.length>1?'CLOCK_OVERLAP':'CLOCK_SEPARATED',supported:supported.map(p=>p.id),counter:bad.map(p=>p.id),unresolved,refs:s.refs};
   });
   const sourceComplete=f.scenarios.length>0&&f.scenarios.every(s=>s.scope==='REPORTED_CONTEXT_MATCHED_POSSIBLE_ROLE_VECTOR')&&x.roster.known_active.length===x.roster.possible_active.length;
@@ -211,9 +223,11 @@ function synthesize(x,z,docs,packet,adapted){
   const Bok=directPlace.length>0;
   const allObservedAdverse=sourceComplete&&startReviews.length>0&&startReviews.every(q=>q.counter.length&&!q.supported.length&&!q.unresolved)&&replay.length>0&&replay.every(p=>p.decision==='CONDITIONAL_COUNTER')&&routes.length>0&&routes.every(p=>p.decision==='CONDITIONAL_COUNTER');
   const candidate=S?'S':Aok?'A':Bok?'B':allObservedAdverse?'C':null;
-  const gradeReasons={S:S?'DISTINCT_SUPPORTED_ROLE_CONTEXTS_WITH_NO_OBSERVED_MATERIAL_COUNTER':'STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED',A:Aok?'NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE':'NO_CORROBORATED_NONREPLAY_WIN_PATH',B:Bok?'NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE':'NO_CORROBORATED_NONREPLAY_PLACE_PATH',C:allObservedAdverse?'ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE':'CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE'};
+  const gradeReasons={S:S?'DISTINCT_SUPPORTED_ROLE_CONTEXTS_WITH_NO_OBSERVED_MATERIAL_COUNTER':'STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED',A:Aok?'VERIFIED_NONREPLAY_WIN_ROUTE_WITH_REVIEWED_PREMISES':'NO_CORROBORATED_NONREPLAY_WIN_PATH',B:Bok?'VERIFIED_NONREPLAY_PLACE_ROUTE_WITH_REVIEWED_PREMISES':'NO_CORROBORATED_NONREPLAY_PLACE_PATH',C:allObservedAdverse?'ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE':'CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE'};
   const itemConsumption=h.items.map(i=>({item:i.item,base:i.state,semantic:i.v33_findings??[],routeFacts:i.v42?.routeFacts??[],conditionFacts:i.v42?.changed??[],eye:i.v42?.effects??[],scope:'EXISTING_COMMON_ANALYSIS_NOT_ALL_ITEMS_PROVEN'}));
-  return {horse:h.horse,axes,paths:routes,feedback,grade:null,current_grade:null,research_grade:candidate,assessment:candidate?'CURRENT_CARD_ANCHORED_CONDITIONAL_RESEARCH':'UNASSESSED_CURRENT',gradeReasons,currentUnknown,rootGroups,unresolvedLineage:audit.unresolved,itemConsumption,startReviews,sourceComplete,formal:false,
+  return {horse:h.horse,axes,paths:routes,feedback,grade:null,current_grade:null,research_grade:candidate,assessment:candidate?'CURRENT_CARD_ANCHORED_CONDITIONAL_RESEARCH':'UNASSESSED_CURRENT',gradeReasons,currentUnknown,rootGroups,unresolvedLineage:audit.unresolved,itemConsumption,startReviews,sourceComplete,
+    routeDecisionPolicy:'V44_ROUTE_PREMISE_REVIEW_NOT_HISTORICAL_WIN_GATE',
+    acceptedWinRoutes:directWin.map(p=>p.id),acceptedPlaceRoutes:directPlace.map(p=>p.id),formal:false,
    summary:{win:win.length,place:place.length,counter:negative.length,held:h.paths.filter(p=>p.decision==='HELD').length,robust:routes.filter(p=>p.robustClaim).length,materialCounter:routes.filter(p=>p.materialCounter).length}};
  });
 }
