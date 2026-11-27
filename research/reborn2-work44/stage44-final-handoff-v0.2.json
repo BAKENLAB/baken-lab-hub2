@@ -252,8 +252,16 @@
   ],
   "limitations": [
     "Synthetic signed registry only; actual official race identity, external time, permissions and full inventory not established.",
-    "23 documented positional input fields, not verified actual native files; JRA native parser unavailable. Status, official time literal normalization, actual course geometry and individual checkpoint clocks held.",
+    "24 documented positional input fields, not verified actual native files; JRA native parser unavailable. Status, official time literal normalization, actual course geometry and individual checkpoint clocks held.",
     "Full 115 inventory is not full per-item verified source dependencies or engine execution. engineInput remains null; no real packet passed into V47/V48. Current common entry is synthetic-only; requires approved partial real intake and semantic kernel support.",
     "20 focused test results are pending Main acceptance; old 33 regression not added. No official raw acquired, no actual race analyzed, no production/DB/FROZEN/Cron/merge/formal adoption or explicit deployment. Artifact metadata only; ZIP not independently retrieved. External repository integrations not controlled."
-  ]
+  ],
+  "v48IntakeAudit": {
+    "commit": "12917f22284e93d41ed31486184b744332adf175",
+    "path": "research/reborn2-independent-engine/main47-integration/v43-generic.mjs",
+    "blob": "1912553fc649f8edfde38c9415f53d7b4fab1fdd",
+    "observed": "semanticVersion=48 dispatch present; verifyIntake still explicitly requires SYNTHETIC_ONLY and TEST_PACKET",
+    "realConnection": "HELD",
+    "scope": "static inspection, no engine execution"
+  }
 }
