@@ -1,0 +1,68 @@
+{
+  "schema": "WORK31_SPLIT_PACKET_0.1",
+  "parts": [
+    {
+      "ref": "4caecce3bdfa764849f4262a9a4e7c7da583c32c",
+      "path": "research/reborn2-official-sources/stage31-packet-12-meta-v0.1.1.json",
+      "sha256": "3065214b75fbc9c0f67917a588f154b99e09f5964200d35f5b460e1ac2e4459b",
+      "chars": 52689
+    },
+    {
+      "ref": "98fa6d8c8d2b07565cd107ccee3f38d0dca144a7",
+      "path": "research/reborn2-official-sources/stage31-packet-12-evidence-1-v0.1.1.json",
+      "sha256": "77be9ac601c8b7a83b32aa8909bc5c7cc1889aa41ed61c4af6a3adbc3450dac2",
+      "chars": 192314
+    },
+    {
+      "ref": "46058a24334c15fb636f9d4bfea656d226cd1024",
+      "path": "research/reborn2-official-sources/stage31-packet-12-evidence-2-v0.1.1.json",
+      "sha256": "695d7bea1210be1bfe27b6c82154096b5fe4f9d0260dfe724f71158cb618c43d",
+      "chars": 197930
+    },
+    {
+      "ref": "e73be5c1fdd9edc90fe053938b67ff3e9048f2e3",
+      "path": "research/reborn2-official-sources/stage31-packet-12-evidence-3-v0.1.1.json",
+      "sha256": "61bb88165ecad71c9385c4c49ad764c2a86d30ced00c89a0e6ccb5a0412bccc9",
+      "chars": 212497
+    },
+    {
+      "ref": "5bdbf2a375ca1fb20b3651ef4268f454a75734ce",
+      "path": "research/reborn2-official-sources/stage31-packet-12-evidence-4-v0.1.1.json",
+      "sha256": "9ca7cafc0a22e2bafb09cb38f43a1e1c0d3b1db664889398abecd57612c9e4ad",
+      "chars": 90212
+    },
+    {
+      "ref": "5cf1926f36c7622b954e8b579571622fae2edbf1",
+      "path": "research/reborn2-official-sources/stage31-packet-12-common-1-v0.1.1.json",
+      "sha256": "c04c75cf64d1512c9a7f8de4d44cb67ca9e196458c25e3b74100b09681075149",
+      "chars": 206338
+    },
+    {
+      "ref": "2c3bffdc76e37e4444e48553c4448771d5cd9167",
+      "path": "research/reborn2-official-sources/stage31-packet-12-common-2-v0.1.1.json",
+      "sha256": "57ddf39fe6d4dec1f94ae4a0f85afe897a289123f075718af7769e1654f5bab0",
+      "chars": 206404
+    },
+    {
+      "ref": "8fdf5eb194d178cb5f6643c188734fa010620308",
+      "path": "research/reborn2-official-sources/stage31-packet-12-common-3-v0.1.1.json",
+      "sha256": "855f40b1121217bc8b0ef4270a7437f556ea4f4e8b28dc2551495e4c37048afa",
+      "chars": 186795
+    },
+    {
+      "ref": "1d6372893a7c43168b4d4f800e7f4886b105f04b",
+      "path": "research/reborn2-official-sources/stage31-packet-12-runners-1-v0.1.1.json",
+      "sha256": "0309734800ec5fce8901371248f74a32b3271f2a36630fa854fd8847688b6245",
+      "chars": 190801
+    },
+    {
+      "ref": "4346fba3595a8383ca273b73e7a53a86ae283b2e",
+      "path": "research/reborn2-official-sources/stage31-packet-12-runners-2-v0.1.1.json",
+      "sha256": "1e067bf655f785a30bd0bbf7b8b149536815a6c2cf1b9c2c6c21f240a1f40fd6",
+      "chars": 161704
+    }
+  ],
+  "packetDigest": "664325fec3d68f6bcbd305a2945f6eece8e4dfb6cea001c7c0b2e2e8a5c508ea",
+  "reassembly": "Read meta, concatenate arrays by start, reconstruct packet in fieldOrder, return {state,packet,digest,resultTimestamp} preserving order.",
+  "fullOutputSha256": "2bb082754b3544facb786064a7b4441800dc8b002611401b572605bac4e7b8c2"
+}
