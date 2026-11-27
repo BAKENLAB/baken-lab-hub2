@@ -1,6 +1,7 @@
 // V43: research-only, verified synthetic input. No official intake or production.
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {candidateV48} from '../../reborn2-chatgpt-circuit/work42-v48-candidate.mjs';
 import {refineV47} from '../../reborn2-chatgpt-circuit/work42-v47-judgment.mjs';
 import {refineV46} from '../../reborn2-chatgpt-circuit/work42-v46-semantic.mjs';
 import {prepareSupply,compileReturn} from '../../reborn2-work42/codex-contract-v0.4.mjs';
@@ -265,9 +266,10 @@ export async function analyzeVerified(V,request,receipt,{eyeEnabled=true,work42E
  assert.equal(decision.digest,receipt.source_digest);
  assert.equal(common.groups,118);assert.equal(common.held,826);
  let runners=synthesize(common,decision,docs,packet,adapted);
- if(semanticVersion===46||semanticVersion===47){assert.ok(work42,'V46_REQUIRES_VERIFIED_WORK42');runners=refineV46(common,decision,docs,packet,runners,work42.returns);}
- if(semanticVersion===47){runners=refineV47(common,decision,docs,packet,runners,work42.returns);}
+ if(semanticVersion===46||semanticVersion===47||semanticVersion===48){assert.ok(work42,'V46_REQUIRES_VERIFIED_WORK42');runners=refineV46(common,decision,docs,packet,runners,work42.returns);}
+ if(semanticVersion===47||semanticVersion===48){runners=refineV47(common,decision,docs,packet,runners,work42.returns);}
  assert.ok(runners.every(h=>h.itemConsumption.length===115));
- return {schema:'V43_VERIFIED_SYNTHETIC_RESEARCH_V1',id:request.id,...(work42?{work42}:{}),digest:decision.digest,evidence:packet.evidence.length,groups:common.groups,held:common.held,roster:common.roster,placeThreshold:decision.threshold,thresholdScope:'SYNTHETIC_FIXTURE_CONTROL_NOT_CANONICAL',runners,formal:false};
+ const candidate=semanticVersion===48?candidateV48(docs,packet,runners,decision):null;
+ return {schema:'V43_VERIFIED_SYNTHETIC_RESEARCH_V1',...(candidate?{candidate}:{} ),id:request.id,...(work42?{work42}:{}),digest:decision.digest,evidence:packet.evidence.length,groups:common.groups,held:common.held,roster:common.roster,placeThreshold:decision.threshold,thresholdScope:'SYNTHETIC_FIXTURE_CONTROL_NOT_CANONICAL',runners,formal:false};
 }
 export {loadV40};

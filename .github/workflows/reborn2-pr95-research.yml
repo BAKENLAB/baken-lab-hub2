@@ -123,3 +123,15 @@ jobs:
         with:
           node-version: '22'
       - run: node research/reborn2-independent-engine/main47-integration/test-v47-integration.mjs
+
+  v48-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node research/reborn2-independent-engine/main47-integration/test-v48-candidate.mjs
