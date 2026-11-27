@@ -1,0 +1,4757 @@
+{
+  "schema": "V19-field-interaction-audit-v1",
+  "tested_commit": "75540ccbfce72406e566b6b36d5ef5a06b40b938",
+  "ci_run": 45974241976,
+  "ci_job": 140421898284,
+  "prior_named_tests": 206,
+  "additional_named_tests": [
+    "F19-01",
+    "F19-02",
+    "F19-03",
+    "F19-04",
+    "F19-05",
+    "F19-06",
+    "F19-07",
+    "F19-08",
+    "F19-09",
+    "F19-10"
+  ],
+  "total_named_tests": 216,
+  "metrics": {
+    "prototype": {
+      "horses": 4,
+      "item_rows": 460,
+      "output": 270,
+      "reads": 177,
+      "changed": 67,
+      "missing": 190,
+      "scenarios": 7,
+      "formal": 0
+    },
+    "heterogeneous": {
+      "horses": 6,
+      "item_rows": 690,
+      "output": 351,
+      "reads": 220,
+      "changed": 156,
+      "missing": 339,
+      "scenarios": 10,
+      "formal": 0
+    }
+  },
+  "tracePairs": {
+    "EYE-05 -> 37": 41,
+    "EYE-07 -> 43": 8,
+    "EYE-07 -> 48": 8,
+    "EYE-03 -> 73": 5,
+    "EYE-09 -> 69": 4
+  },
+  "summary": {
+    "formal": false,
+    "work": {
+      "runners": 18,
+      "histories": 147,
+      "card": 69,
+      "counts": {
+        "ARCHIVE_EVENT_ABSENT": 16,
+        "EXACT_ID_NUMBER_FINISH_CLOCK_CANDIDATE": 43,
+        "TRANSFER_EVENT_NOT_RACE": 1,
+        "CROSS_CIRCUIT_NATIVE_LINK_REQUIRED": 3,
+        "RUNNER_ID_NUMBER_OR_RESULT_CONFLICT": 5,
+        "NONNUMERIC_OR_MISSING_RESULT": 1
+      },
+      "prestart_receipts": 18,
+      "status_witness": 3647,
+      "raw_bytes": false,
+      "local_reported_races": 44,
+      "local_reported_allrunner": 23,
+      "local_reported_prestart_card": 0,
+      "eligible_values": [],
+      "formal_admissions": 0,
+      "required_fields": [
+        "issuer",
+        "subject_id",
+        "target_race",
+        "historical_event",
+        "source_row_id",
+        "source_version",
+        "source_url",
+        "source_digest",
+        "observed_at",
+        "published_at_or_immutable_prestart_witness",
+        "valid_from",
+        "valid_until",
+        "correction_chain",
+        "evidence_kind",
+        "observations",
+        "permission_scope",
+        "missing_fields"
+      ],
+      "scope": "DIAGNOSTIC_ONLY"
+    },
+    "positive_test_records": 22,
+    "prototype": {
+      "field": {
+        "leaders": [
+          "FIXTURE-A",
+          "FIXTURE-B"
+        ],
+        "forward": [
+          "FIXTURE-A",
+          "FIXTURE-C",
+          "FIXTURE-D"
+        ],
+        "unknown": [],
+        "scenarios": [
+          {
+            "id": "SETTLE:FIXTURE-A",
+            "leader": "FIXTURE-A",
+            "pressure": "SETTLE",
+            "pace_hypothesis": "UNRESOLVED",
+            "challengers": [],
+            "roster": [
+              "FIXTURE-A",
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "unknown_profiles": [],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "No other runner insists on early lead",
+              "No pace assertion"
+            ],
+            "interactions": [
+              {
+                "race": "FK-GEN-2",
+                "source_family": "FK-GEN-2",
+                "leader": "FIXTURE-A",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  3,
+                  1,
+                  1
+                ],
+                "rival_positions": [
+                  3,
+                  1,
+                  3,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  1,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 1,
+                "rival_finish": 2,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-2",
+                "source_family": "FK-GEN-2",
+                "leader": "FIXTURE-A",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  3,
+                  1,
+                  1
+                ],
+                "rival_positions": [
+                  2,
+                  2,
+                  2,
+                  3
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  1,
+                  3
+                ],
+                "pattern": "EARLY_PAIR_SEPARATES",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 1,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "CONTEST-SUSTAIN:FIXTURE-A",
+            "leader": "FIXTURE-A",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "SUSTAINED_PRESSURE_POSSIBLE",
+            "challengers": [
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "roster": [
+              "FIXTURE-A",
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "unknown_profiles": [],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": [
+              {
+                "race": "FK-GEN-2",
+                "source_family": "FK-GEN-2",
+                "leader": "FIXTURE-A",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  3,
+                  1,
+                  1
+                ],
+                "rival_positions": [
+                  3,
+                  1,
+                  3,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  1,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 1,
+                "rival_finish": 2,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-2",
+                "source_family": "FK-GEN-2",
+                "leader": "FIXTURE-A",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  3,
+                  1,
+                  1
+                ],
+                "rival_positions": [
+                  2,
+                  2,
+                  2,
+                  3
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  1,
+                  3
+                ],
+                "pattern": "EARLY_PAIR_SEPARATES",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 1,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "CONTEST-EASE:FIXTURE-A",
+            "leader": "FIXTURE-A",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "PRESSURE_EASES_POSSIBLE",
+            "challengers": [
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "roster": [
+              "FIXTURE-A",
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "unknown_profiles": [],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": [
+              {
+                "race": "FK-GEN-2",
+                "source_family": "FK-GEN-2",
+                "leader": "FIXTURE-A",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  3,
+                  1,
+                  1
+                ],
+                "rival_positions": [
+                  3,
+                  1,
+                  3,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  1,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 1,
+                "rival_finish": 2,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-2",
+                "source_family": "FK-GEN-2",
+                "leader": "FIXTURE-A",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  3,
+                  1,
+                  1
+                ],
+                "rival_positions": [
+                  2,
+                  2,
+                  2,
+                  3
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  1,
+                  3
+                ],
+                "pattern": "EARLY_PAIR_SEPARATES",
+                "compatible_position_proxy": true,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 1,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-A",
+                  "fixture-v2:result:FK-GEN-2:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-2:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "SETTLE:FIXTURE-B",
+            "leader": "FIXTURE-B",
+            "pressure": "SETTLE",
+            "pace_hypothesis": "UNRESOLVED",
+            "challengers": [],
+            "roster": [
+              "FIXTURE-A",
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "unknown_profiles": [],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "No other runner insists on early lead",
+              "No pace assertion"
+            ],
+            "interactions": [
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-A",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  1,
+                  4,
+                  1
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-A"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -3,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-3",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-4",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [
+                    "going"
+                  ],
+                  "state": "PARTIAL_HYPOTHESIS",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  4,
+                  4,
+                  3,
+                  4
+                ],
+                "early": [
+                  1,
+                  4
+                ],
+                "last": [
+                  3,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -6,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-3",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-4",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [
+                    "going"
+                  ],
+                  "state": "PARTIAL_HYPOTHESIS",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "CONTEST-SUSTAIN:FIXTURE-B",
+            "leader": "FIXTURE-B",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "SUSTAINED_PRESSURE_POSSIBLE",
+            "challengers": [
+              "FIXTURE-A",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "roster": [
+              "FIXTURE-A",
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "unknown_profiles": [],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": [
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-A",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  1,
+                  4,
+                  1
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-A"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -3,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-3",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-4",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [
+                    "going"
+                  ],
+                  "state": "PARTIAL_HYPOTHESIS",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  4,
+                  4,
+                  3,
+                  4
+                ],
+                "early": [
+                  1,
+                  4
+                ],
+                "last": [
+                  3,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -6,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-3",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-4",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [
+                    "going"
+                  ],
+                  "state": "PARTIAL_HYPOTHESIS",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "CONTEST-EASE:FIXTURE-B",
+            "leader": "FIXTURE-B",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "PRESSURE_EASES_POSSIBLE",
+            "challengers": [
+              "FIXTURE-A",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "roster": [
+              "FIXTURE-A",
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "unknown_profiles": [],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": [
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-A",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  1,
+                  4,
+                  1
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-A",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-A"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -3,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-3",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-4",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-C",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  3,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [
+                    "going"
+                  ],
+                  "state": "PARTIAL_HYPOTHESIS",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 1,
+                "clock_gap_tenths": 2,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-C",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-C"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-1",
+                "source_family": "FK-GEN-1",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  2,
+                  1,
+                  3
+                ],
+                "rival_positions": [
+                  4,
+                  4,
+                  3,
+                  4
+                ],
+                "early": [
+                  1,
+                  4
+                ],
+                "last": [
+                  3,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -6,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-1:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-1:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-3",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-3:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-3:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-GEN-4",
+                "source_family": "CONTROLLED_CLONE_FK-GEN-3",
+                "leader": "FIXTURE-B",
+                "rival": "FIXTURE-D",
+                "field": 3,
+                "leader_positions": [
+                  1,
+                  2,
+                  3,
+                  3
+                ],
+                "rival_positions": [
+                  3,
+                  3,
+                  2,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  3,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [
+                    "going"
+                  ],
+                  "state": "PARTIAL_HYPOTHESIS",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -1,
+                "roots": [
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-B",
+                  "fixture-v2:result:FK-GEN-4:FIXTURE-D",
+                  "fixture-v2:pos:FK-GEN-4:FIXTURE-D"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "LEADER-UNKNOWN",
+            "leader": null,
+            "pressure": "UNRESOLVED",
+            "pace_hypothesis": "UNRESOLVED",
+            "challengers": [],
+            "roster": [
+              "FIXTURE-A",
+              "FIXTURE-B",
+              "FIXTURE-C",
+              "FIXTURE-D"
+            ],
+            "unknown_profiles": [],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Leader not assigned",
+              "No other runner insists on early lead",
+              "No pace assertion"
+            ],
+            "interactions": []
+          }
+        ],
+        "exclusive_scenarios": true,
+        "pace_inferred_from_count": false
+      },
+      "returns": [
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-03",
+          "kind": "POSITION_RECOVERY",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-03",
+          "kind": "POSITION_RECOVERY",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-A",
+          "eye": "EYE-09",
+          "kind": "FIELD_SHARE",
+          "race": null
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-03",
+          "kind": "POSITION_RECOVERY",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-07",
+          "kind": "CONDITION_RETURN",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-07",
+          "kind": "CONDITION_RETURN",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-B",
+          "eye": "EYE-09",
+          "kind": "FIELD_SHARE",
+          "race": null
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-03",
+          "kind": "POSITION_RECOVERY",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-03",
+          "kind": "POSITION_RECOVERY",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-07",
+          "kind": "CONDITION_RETURN",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-07",
+          "kind": "CONDITION_RETURN",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-07",
+          "kind": "CONDITION_RETURN",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-C",
+          "eye": "EYE-09",
+          "kind": "FIELD_SHARE",
+          "race": null
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-05",
+          "kind": "PEER_FOLLOWUP",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-07",
+          "kind": "CONDITION_RETURN",
+          "race": "FK-GEN-1"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-07",
+          "kind": "CONDITION_RETURN",
+          "race": "FK-GEN-2"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-07",
+          "kind": "CONDITION_RETURN",
+          "race": "FK-GEN-3"
+        },
+        {
+          "id": "FIXTURE-D",
+          "eye": "EYE-09",
+          "kind": "FIELD_SHARE",
+          "race": null
+        }
+      ],
+      "traces": [
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 1,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 2,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 3,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeOpposition33to42Fixture.followupReturn",
+          "consumer_item_id": "37",
+          "horse_no": 4,
+          "item_id": "EYE-05",
+          "reason": "Recomputed later-result context and reversal from actual shared-race evidence"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "43",
+          "horse_no": 2,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "48",
+          "horse_no": 2,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "43",
+          "horse_no": 2,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "48",
+          "horse_no": 2,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "43",
+          "horse_no": 3,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "48",
+          "horse_no": 3,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "43",
+          "horse_no": 3,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "48",
+          "horse_no": 3,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "43",
+          "horse_no": 3,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "48",
+          "horse_no": 3,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "43",
+          "horse_no": 4,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "48",
+          "horse_no": 4,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "43",
+          "horse_no": 4,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "48",
+          "horse_no": 4,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "43",
+          "horse_no": 4,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzeConditions43to57Fixture.conditionReturn",
+          "consumer_item_id": "48",
+          "horse_no": 4,
+          "item_id": "EYE-07",
+          "reason": "Rebound matched prior condition and mismatched latest result, not a causal advantage"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.recoveryReturn",
+          "consumer_item_id": "73",
+          "horse_no": 1,
+          "item_id": "EYE-03",
+          "reason": "Recomputed recovery and position loss from bound historical positions; no inferred pace"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.recoveryReturn",
+          "consumer_item_id": "73",
+          "horse_no": 1,
+          "item_id": "EYE-03",
+          "reason": "Recomputed recovery and position loss from bound historical positions; no inferred pace"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.fieldShareReturn",
+          "consumer_item_id": "69",
+          "horse_no": 1,
+          "item_id": "EYE-09",
+          "reason": "Recomputed actual full-field front/unknown composition; neutral pace evidence"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.recoveryReturn",
+          "consumer_item_id": "73",
+          "horse_no": 2,
+          "item_id": "EYE-03",
+          "reason": "Recomputed recovery and position loss from bound historical positions; no inferred pace"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.fieldShareReturn",
+          "consumer_item_id": "69",
+          "horse_no": 2,
+          "item_id": "EYE-09",
+          "reason": "Recomputed actual full-field front/unknown composition; neutral pace evidence"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.recoveryReturn",
+          "consumer_item_id": "73",
+          "horse_no": 3,
+          "item_id": "EYE-03",
+          "reason": "Recomputed recovery and position loss from bound historical positions; no inferred pace"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.recoveryReturn",
+          "consumer_item_id": "73",
+          "horse_no": 3,
+          "item_id": "EYE-03",
+          "reason": "Recomputed recovery and position loss from bound historical positions; no inferred pace"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.fieldShareReturn",
+          "consumer_item_id": "69",
+          "horse_no": 3,
+          "item_id": "EYE-09",
+          "reason": "Recomputed actual full-field front/unknown composition; neutral pace evidence"
+        },
+        {
+          "consumer": "analyzePace58to77Fixture.fieldShareReturn",
+          "consumer_item_id": "69",
+          "horse_no": 4,
+          "item_id": "EYE-09",
+          "reason": "Recomputed actual full-field front/unknown composition; neutral pace evidence"
+        }
+      ],
+      "horse": [
+        {
+          "id": "FIXTURE-A",
+          "history": [
+            {
+              "race": "FK-GEN-2",
+              "finish": 1,
+              "field": 3,
+              "beaten": 2,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                1,
+                3,
+                1,
+                1
+              ]
+            },
+            {
+              "race": "FK-GEN-1",
+              "finish": 1,
+              "field": 4,
+              "beaten": 3,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                3,
+                1,
+                4,
+                1
+              ]
+            }
+          ],
+          "before": {
+            "A": "SUPPORT",
+            "B": "SUPPORT",
+            "C": "SUPPORT",
+            "D": "SUPPORT",
+            "E": "SUPPORT"
+          },
+          "after": {
+            "A": "CONDITIONAL_SUPPORT",
+            "B": "CONDITIONAL_SUPPORT",
+            "C": "CONDITIONAL_SUPPORT",
+            "D": "CONDITIONAL_SUPPORT",
+            "E": "MIXED"
+          },
+          "scenarios": [
+            {
+              "id": "SETTLE:FIXTURE-A",
+              "role": "ASSUMED_LEADER",
+              "support": [
+                {
+                  "race": "FK-GEN-2",
+                  "path": "LEAD",
+                  "kind": "WIN"
+                }
+              ],
+              "counter": [
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Historical early position conflicts with assigned scenario role"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-SUSTAIN:FIXTURE-A",
+              "role": "ASSUMED_LEADER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Observed pair position sequence conflicts with this particular positional proxy, not with ability or measured pace"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Historical early position conflicts with assigned scenario role"
+                }
+              ],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-2",
+                  "path": "LEAD",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-EASE:FIXTURE-A",
+              "role": "ASSUMED_LEADER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Historical early position conflicts with assigned scenario role"
+                }
+              ],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-2",
+                  "path": "LEAD",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "SETTLE:FIXTURE-B",
+              "role": "NONLEAD_OR_YIELD",
+              "support": [
+                {
+                  "race": "FK-GEN-1",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                }
+              ],
+              "counter": [
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Historical early position conflicts with assigned scenario role"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-SUSTAIN:FIXTURE-B",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-2",
+                  "path": "LEAD",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-EASE:FIXTURE-B",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-2",
+                  "path": "LEAD",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "LEADER-UNKNOWN",
+              "role": "UNRESOLVED",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-2",
+                  "path": "LEAD",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            }
+          ]
+        },
+        {
+          "id": "FIXTURE-B",
+          "history": [
+            {
+              "race": "FK-GEN-4",
+              "finish": 2,
+              "field": 3,
+              "beaten": 1,
+              "scope": "PARTIAL_HYPOTHESIS",
+              "positions": [
+                1,
+                2,
+                3,
+                3
+              ]
+            },
+            {
+              "race": "FK-GEN-3",
+              "finish": 2,
+              "field": 3,
+              "beaten": 1,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                1,
+                2,
+                3,
+                3
+              ]
+            },
+            {
+              "race": "FK-GEN-1",
+              "finish": 2,
+              "field": 4,
+              "beaten": 2,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                1,
+                2,
+                1,
+                3
+              ]
+            }
+          ],
+          "before": {
+            "A": "SUPPORT",
+            "B": "SUPPORT",
+            "C": "MIXED",
+            "D": "MIXED",
+            "E": "SUPPORT"
+          },
+          "after": {
+            "A": "CONDITIONAL_SUPPORT",
+            "B": "CONDITIONAL_SUPPORT",
+            "C": "MIXED",
+            "D": "MIXED",
+            "E": "MIXED"
+          },
+          "scenarios": [
+            {
+              "id": "SETTLE:FIXTURE-A",
+              "role": "NONLEAD_OR_YIELD",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Historical early position conflicts with assigned scenario role"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Historical early position conflicts with assigned scenario role"
+                }
+              ],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-SUSTAIN:FIXTURE-A",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                }
+              ],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-3",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-EASE:FIXTURE-A",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                }
+              ],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-3",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "SETTLE:FIXTURE-B",
+              "role": "ASSUMED_LEADER",
+              "support": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                }
+              ],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                }
+              ],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-SUSTAIN:FIXTURE-B",
+              "role": "ASSUMED_LEADER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                }
+              ],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-3",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-EASE:FIXTURE-B",
+              "role": "ASSUMED_LEADER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Led early but did not win; placing evidence remains separate"
+                }
+              ],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-3",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "LEADER-UNKNOWN",
+              "role": "UNRESOLVED",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "LEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-3",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            }
+          ]
+        },
+        {
+          "id": "FIXTURE-C",
+          "history": [
+            {
+              "race": "FK-GEN-4",
+              "finish": 1,
+              "field": 3,
+              "beaten": 2,
+              "scope": "PARTIAL_HYPOTHESIS",
+              "positions": [
+                2,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "race": "FK-GEN-3",
+              "finish": 1,
+              "field": 3,
+              "beaten": 2,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                2,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "race": "FK-GEN-2",
+              "finish": 2,
+              "field": 3,
+              "beaten": 1,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                3,
+                1,
+                3,
+                2
+              ]
+            },
+            {
+              "race": "FK-GEN-1",
+              "finish": 3,
+              "field": 4,
+              "beaten": 1,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                2,
+                3,
+                2,
+                2
+              ]
+            }
+          ],
+          "before": {
+            "A": "SUPPORT",
+            "B": "SUPPORT",
+            "C": "MIXED",
+            "D": "SUPPORT",
+            "E": "SUPPORT"
+          },
+          "after": {
+            "A": "CONDITIONAL_SUPPORT",
+            "B": "CONDITIONAL_SUPPORT",
+            "C": "MIXED",
+            "D": "CONDITIONAL_SUPPORT",
+            "E": "SCOPED_COUNTER"
+          },
+          "scenarios": [
+            {
+              "id": "SETTLE:FIXTURE-A",
+              "role": "NONLEAD_OR_YIELD",
+              "support": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "ADVANCE",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "NONLEAD",
+                  "kind": "PLACE"
+                }
+              ],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-2",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-SUSTAIN:FIXTURE-A",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "ADVANCE",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "NONLEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-EASE:FIXTURE-A",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "ADVANCE",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "NONLEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "SETTLE:FIXTURE-B",
+              "role": "NONLEAD_OR_YIELD",
+              "support": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "ADVANCE",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "NONLEAD",
+                  "kind": "PLACE"
+                }
+              ],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-2",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-SUSTAIN:FIXTURE-B",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "ADVANCE",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "NONLEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-EASE:FIXTURE-B",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "ADVANCE",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "NONLEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            },
+            {
+              "id": "LEADER-UNKNOWN",
+              "role": "UNRESOLVED",
+              "support": [],
+              "counter": [],
+              "unestablished": [
+                {
+                  "race": "FK-GEN-3",
+                  "path": "ADVANCE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "ADVANCE",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "NONLEAD",
+                  "kind": "PLACE"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "path": "PAIRWISE_ALTERNATIVE",
+                  "kind": "WIN"
+                }
+              ],
+              "unknown": []
+            }
+          ]
+        },
+        {
+          "id": "FIXTURE-D",
+          "history": [
+            {
+              "race": "FK-GEN-4",
+              "finish": 3,
+              "field": 3,
+              "beaten": 0,
+              "scope": "PARTIAL_HYPOTHESIS",
+              "positions": [
+                3,
+                3,
+                2,
+                2
+              ]
+            },
+            {
+              "race": "FK-GEN-3",
+              "finish": 3,
+              "field": 3,
+              "beaten": 0,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                3,
+                3,
+                2,
+                2
+              ]
+            },
+            {
+              "race": "FK-GEN-2",
+              "finish": 3,
+              "field": 3,
+              "beaten": 0,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                2,
+                2,
+                2,
+                3
+              ]
+            },
+            {
+              "race": "FK-GEN-1",
+              "finish": 4,
+              "field": 4,
+              "beaten": 0,
+              "scope": "MATCHED_HISTORICAL",
+              "positions": [
+                4,
+                4,
+                3,
+                4
+              ]
+            }
+          ],
+          "before": {
+            "A": "SUPPORT",
+            "B": "UNKNOWN",
+            "C": "COUNTER",
+            "D": "UNKNOWN",
+            "E": "SUPPORT"
+          },
+          "after": {
+            "A": "SCOPED_COUNTER",
+            "B": "SCOPED_COUNTER",
+            "C": "SCOPED_COUNTER",
+            "D": "SCOPED_COUNTER",
+            "E": "APPLICABILITY_UNESTABLISHED"
+          },
+          "scenarios": [
+            {
+              "id": "SETTLE:FIXTURE-A",
+              "role": "NONLEAD_OR_YIELD",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-SUSTAIN:FIXTURE-A",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-EASE:FIXTURE-A",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            },
+            {
+              "id": "SETTLE:FIXTURE-B",
+              "role": "NONLEAD_OR_YIELD",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-SUSTAIN:FIXTURE-B",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            },
+            {
+              "id": "CONTEST-EASE:FIXTURE-B",
+              "role": "POSSIBLE_CHALLENGER",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            },
+            {
+              "id": "LEADER-UNKNOWN",
+              "role": "UNRESOLVED",
+              "support": [],
+              "counter": [
+                {
+                  "race": "FK-GEN-3",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-2",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                },
+                {
+                  "race": "FK-GEN-1",
+                  "reason": "Finished last in historical field; raw top3 does not establish competitive placing"
+                }
+              ],
+              "unestablished": [],
+              "unknown": []
+            }
+          ]
+        }
+      ]
+    },
+    "heterogeneous": {
+      "field": {
+        "leaders": [
+          "FIXTURE-A1",
+          "FIXTURE-A2",
+          "FIXTURE-A3"
+        ],
+        "forward": [
+          "FIXTURE-A1",
+          "FIXTURE-A2",
+          "FIXTURE-A3"
+        ],
+        "unknown": [
+          "FIXTURE-A6"
+        ],
+        "scenarios": [
+          {
+            "id": "SETTLE:FIXTURE-A1",
+            "leader": "FIXTURE-A1",
+            "pressure": "SETTLE",
+            "pace_hypothesis": "UNRESOLVED",
+            "challengers": [],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "No other runner insists on early lead",
+              "No pace assertion"
+            ],
+            "interactions": [
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A2",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  3,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  6,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A2",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A2"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A3",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  3,
+                  2,
+                  4,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  6,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -4,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A3"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A4",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  4,
+                  3,
+                  5,
+                  3
+                ],
+                "early": [
+                  1,
+                  4
+                ],
+                "last": [
+                  6,
+                  3
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 5,
+                "clock_gap_tenths": -6,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A4",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A4"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A5",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  5,
+                  4,
+                  6,
+                  4
+                ],
+                "early": [
+                  1,
+                  5
+                ],
+                "last": [
+                  6,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 6,
+                "clock_gap_tenths": -8,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A5",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A5"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "CONTEST-SUSTAIN:FIXTURE-A1",
+            "leader": "FIXTURE-A1",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "SUSTAINED_PRESSURE_POSSIBLE",
+            "challengers": [
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A6"
+            ],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": [
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A2",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  3,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  6,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A2",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A2"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A3",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  3,
+                  2,
+                  4,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  6,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -4,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A3"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A4",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  4,
+                  3,
+                  5,
+                  3
+                ],
+                "early": [
+                  1,
+                  4
+                ],
+                "last": [
+                  6,
+                  3
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 5,
+                "clock_gap_tenths": -6,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A4",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A4"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A5",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  5,
+                  4,
+                  6,
+                  4
+                ],
+                "early": [
+                  1,
+                  5
+                ],
+                "last": [
+                  6,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 6,
+                "clock_gap_tenths": -8,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A5",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A5"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "CONTEST-EASE:FIXTURE-A1",
+            "leader": "FIXTURE-A1",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "PRESSURE_EASES_POSSIBLE",
+            "challengers": [
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A6"
+            ],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": [
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A2",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  3,
+                  1
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  6,
+                  1
+                ],
+                "pattern": "RIVAL_TAKES_LEAD",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A2",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A2"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A3",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  3,
+                  2,
+                  4,
+                  2
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  6,
+                  2
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -4,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A3"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A4",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  4,
+                  3,
+                  5,
+                  3
+                ],
+                "early": [
+                  1,
+                  4
+                ],
+                "last": [
+                  6,
+                  3
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 5,
+                "clock_gap_tenths": -6,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A4",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A4"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-3",
+                "source_family": "FK-SYN18-20261127-3",
+                "leader": "FIXTURE-A1",
+                "rival": "FIXTURE-A5",
+                "field": 6,
+                "leader_positions": [
+                  1,
+                  6,
+                  2,
+                  6
+                ],
+                "rival_positions": [
+                  5,
+                  4,
+                  6,
+                  4
+                ],
+                "early": [
+                  1,
+                  5
+                ],
+                "last": [
+                  6,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 6,
+                "clock_gap_tenths": -8,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A1",
+                  "fixture-v2:result:FK-SYN18-20261127-3:FIXTURE-A5",
+                  "fixture-v2:pos:FK-SYN18-20261127-3:FIXTURE-A5"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "SETTLE:FIXTURE-A2",
+            "leader": "FIXTURE-A2",
+            "pressure": "SETTLE",
+            "pace_hypothesis": "UNRESOLVED",
+            "challengers": [],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "No other runner insists on early lead",
+              "No pace assertion"
+            ],
+            "interactions": []
+          },
+          {
+            "id": "CONTEST-SUSTAIN:FIXTURE-A2",
+            "leader": "FIXTURE-A2",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "SUSTAINED_PRESSURE_POSSIBLE",
+            "challengers": [
+              "FIXTURE-A1",
+              "FIXTURE-A3",
+              "FIXTURE-A6"
+            ],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": []
+          },
+          {
+            "id": "CONTEST-EASE:FIXTURE-A2",
+            "leader": "FIXTURE-A2",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "PRESSURE_EASES_POSSIBLE",
+            "challengers": [
+              "FIXTURE-A1",
+              "FIXTURE-A3",
+              "FIXTURE-A6"
+            ],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": []
+          },
+          {
+            "id": "SETTLE:FIXTURE-A3",
+            "leader": "FIXTURE-A3",
+            "pressure": "SETTLE",
+            "pace_hypothesis": "UNRESOLVED",
+            "challengers": [],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "No other runner insists on early lead",
+              "No pace assertion"
+            ],
+            "interactions": [
+              {
+                "race": "FK-SYN18-20261127-2",
+                "source_family": "FK-SYN18-20261127-2",
+                "leader": "FIXTURE-A3",
+                "rival": "FIXTURE-A1",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  4,
+                  4,
+                  2
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  3
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  2,
+                  3
+                ],
+                "pattern": "EARLY_PAIR_SEPARATES",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A1"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-2",
+                "source_family": "FK-SYN18-20261127-2",
+                "leader": "FIXTURE-A3",
+                "rival": "FIXTURE-A2",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  4,
+                  4,
+                  2
+                ],
+                "rival_positions": [
+                  3,
+                  2,
+                  2,
+                  4
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  2,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": null,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -4,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A2",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A2"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "CONTEST-SUSTAIN:FIXTURE-A3",
+            "leader": "FIXTURE-A3",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "SUSTAINED_PRESSURE_POSSIBLE",
+            "challengers": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A6"
+            ],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": [
+              {
+                "race": "FK-SYN18-20261127-2",
+                "source_family": "FK-SYN18-20261127-2",
+                "leader": "FIXTURE-A3",
+                "rival": "FIXTURE-A1",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  4,
+                  4,
+                  2
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  3
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  2,
+                  3
+                ],
+                "pattern": "EARLY_PAIR_SEPARATES",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A1"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-2",
+                "source_family": "FK-SYN18-20261127-2",
+                "leader": "FIXTURE-A3",
+                "rival": "FIXTURE-A2",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  4,
+                  4,
+                  2
+                ],
+                "rival_positions": [
+                  3,
+                  2,
+                  2,
+                  4
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  2,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -4,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A2",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A2"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "CONTEST-EASE:FIXTURE-A3",
+            "leader": "FIXTURE-A3",
+            "pressure": "CONTEST",
+            "pace_hypothesis": "PRESSURE_EASES_POSSIBLE",
+            "challengers": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A6"
+            ],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Only one leader at early checkpoint",
+              "Named challengers try to advance; leader may change",
+              "Pace is independent scenario assumption, not inferred from challenger count"
+            ],
+            "interactions": [
+              {
+                "race": "FK-SYN18-20261127-2",
+                "source_family": "FK-SYN18-20261127-2",
+                "leader": "FIXTURE-A3",
+                "rival": "FIXTURE-A1",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  4,
+                  4,
+                  2
+                ],
+                "rival_positions": [
+                  2,
+                  1,
+                  1,
+                  3
+                ],
+                "early": [
+                  1,
+                  2
+                ],
+                "last": [
+                  2,
+                  3
+                ],
+                "pattern": "EARLY_PAIR_SEPARATES",
+                "compatible_position_proxy": true,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 3,
+                "clock_gap_tenths": -2,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A1",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A1"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              },
+              {
+                "race": "FK-SYN18-20261127-2",
+                "source_family": "FK-SYN18-20261127-2",
+                "leader": "FIXTURE-A3",
+                "rival": "FIXTURE-A2",
+                "field": 4,
+                "leader_positions": [
+                  1,
+                  4,
+                  4,
+                  2
+                ],
+                "rival_positions": [
+                  3,
+                  2,
+                  2,
+                  4
+                ],
+                "early": [
+                  1,
+                  3
+                ],
+                "last": [
+                  2,
+                  4
+                ],
+                "pattern": "OTHER_POSITION_SEQUENCE",
+                "compatible_position_proxy": false,
+                "scope": {
+                  "missing": [],
+                  "different": [],
+                  "state": "MATCHED_HISTORICAL",
+                  "actual_current_suitability": null
+                },
+                "relative_weight_matched": true,
+                "leader_finish": 2,
+                "rival_finish": 4,
+                "clock_gap_tenths": -4,
+                "roots": [
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A3",
+                  "fixture-v2:result:FK-SYN18-20261127-2:FIXTURE-A2",
+                  "fixture-v2:pos:FK-SYN18-20261127-2:FIXTURE-A2"
+                ],
+                "causal_pressure": null,
+                "actual_pace": null
+              }
+            ]
+          },
+          {
+            "id": "LEADER-UNKNOWN",
+            "leader": null,
+            "pressure": "UNRESOLVED",
+            "pace_hypothesis": "UNRESOLVED",
+            "challengers": [],
+            "roster": [
+              "FIXTURE-A1",
+              "FIXTURE-A2",
+              "FIXTURE-A3",
+              "FIXTURE-A4",
+              "FIXTURE-A5",
+              "FIXTURE-A6"
+            ],
+            "unknown_profiles": [
+              "FIXTURE-A6"
+            ],
+            "assumed": true,
+            "probability": null,
+            "actual_pace": null,
+            "assumptions": [
+              "Leader not assigned",
+              "No other runner insists on early lead",
+              "No pace assertion"
+            ],
+            "interactions": []
+          }
+        ],
+        "exclusive_scenarios": true,
+        "pace_inferred_from_count": false
+      },
+      "disclosed": [
+        "FK-SYN18-20261127-4"
+      ],
+      "returns": 47,
+      "trace": 47,
+      "horse": [
+        {
+          "id": "FIXTURE-A1",
+          "views": {
+            "A": "CONDITIONAL_SUPPORT",
+            "B": "CONDITIONAL_SUPPORT",
+            "C": "MIXED",
+            "D": "MIXED",
+            "E": "SCOPED_COUNTER"
+          },
+          "history": 3
+        },
+        {
+          "id": "FIXTURE-A2",
+          "views": {
+            "A": "MIXED",
+            "B": "MIXED",
+            "C": "MIXED",
+            "D": "MIXED",
+            "E": "SCOPED_COUNTER"
+          },
+          "history": 4
+        },
+        {
+          "id": "FIXTURE-A3",
+          "views": {
+            "A": "CONDITIONAL_SUPPORT",
+            "B": "CONDITIONAL_SUPPORT",
+            "C": "MIXED",
+            "D": "MIXED",
+            "E": "SCOPED_COUNTER"
+          },
+          "history": 2
+        },
+        {
+          "id": "FIXTURE-A4",
+          "views": {
+            "A": "NO_SUPPORT_OBSERVED",
+            "B": "NO_SUPPORT_OBSERVED",
+            "C": "MIXED",
+            "D": "UNKNOWN",
+            "E": "SCOPED_COUNTER"
+          },
+          "history": 1
+        },
+        {
+          "id": "FIXTURE-A5",
+          "views": {
+            "A": "SCOPED_COUNTER",
+            "B": "SCOPED_COUNTER",
+            "C": "SCOPED_COUNTER",
+            "D": "SCOPED_COUNTER",
+            "E": "SCOPED_COUNTER"
+          },
+          "history": 1
+        },
+        {
+          "id": "FIXTURE-A6",
+          "views": {
+            "A": "UNKNOWN",
+            "B": "UNKNOWN",
+            "C": "UNKNOWN",
+            "D": "UNKNOWN",
+            "E": "UNKNOWN"
+          },
+          "history": 0
+        }
+      ]
+    }
+  },
+  "files": [
+    {
+      "label": "prototype",
+      "id": "FIXTURE-A",
+      "file": "v19-audit/prototype-FIXTURE-A.json",
+      "rows": 115
+    },
+    {
+      "label": "prototype",
+      "id": "FIXTURE-B",
+      "file": "v19-audit/prototype-FIXTURE-B.json",
+      "rows": 115
+    },
+    {
+      "label": "prototype",
+      "id": "FIXTURE-C",
+      "file": "v19-audit/prototype-FIXTURE-C.json",
+      "rows": 115
+    },
+    {
+      "label": "prototype",
+      "id": "FIXTURE-D",
+      "file": "v19-audit/prototype-FIXTURE-D.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A1",
+      "file": "v19-audit/heterogeneous-FIXTURE-A1.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A2",
+      "file": "v19-audit/heterogeneous-FIXTURE-A2.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A3",
+      "file": "v19-audit/heterogeneous-FIXTURE-A3.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A4",
+      "file": "v19-audit/heterogeneous-FIXTURE-A4.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A5",
+      "file": "v19-audit/heterogeneous-FIXTURE-A5.json",
+      "rows": 115
+    },
+    {
+      "label": "heterogeneous",
+      "id": "FIXTURE-A6",
+      "file": "v19-audit/heterogeneous-FIXTURE-A6.json",
+      "rows": 115
+    }
+  ],
+  "strict_individual_semantic_proof": 0,
+  "formal_admissions": 0,
+  "formal": false
+}
