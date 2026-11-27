@@ -29,3 +29,33 @@ const u='FK34_UNKNOWN',q=acceptedRequest(V,u),ue=makeEnvelope(V.C.fixtures.find(
 const unknown=await analyzeVerified(V,q.request,q.receipt,{semanticVersion:46,work42Envelope:ue});
 assert.ok(unknown.runners.every(h=>h.v46.conditionalCurrentResearchGrade===null&&h.v46.cardRoutes.every(p=>p.state==='HELD')));
 console.log('V46_UNKNOWN_HOLD PASS');
+
+// Same synthetic control domain as V45: two competitive horses, two
+// observed early-role contexts, four independent past response events.
+// Expected labels are assertions only, never engine inputs.
+function scenario(name,time,first,end){
+ const d=structuredClone(docs[1]);d.eventId='TEST:'+name;d.eventAt=time;d.publishedAt=time+1;d.updatedAt=time+2;
+ const starts=[48000,48050,49000,49200,49400];
+ d.rows=d.rows.map((r,i)=>({...r,clockMs:end[i],final600Ms:end[i]-starts[i],checkpointMs:[first[i],starts[i],starts[i]+Math.round((end[i]-starts[i])*2/3)]}));
+ for(const r of d.rows){r.finish=1+d.rows.filter(q=>q.clockMs<r.clockMs).length;r.officialMargin=r.finish===1?null:'TEST_LITERAL';r.checkpointRanks=r.checkpointMs.map((v,j)=>1+d.rows.filter(q=>q.checkpointMs[j]<v).length);}
+ const v=[0,...[0,1,2].map(j=>Math.min(...d.rows.map(r=>r.checkpointMs[j]))),Math.min(...end)];d.leaderLaps.valuesMs=v.slice(1).map((x,i)=>x-v[i]);
+ d.passing.groups=[...d.rows].sort((a,b)=>a.checkpointMs[0]-b.checkpointMs[0]).map(r=>[r.no]);
+ return d;
+}
+const card=structuredClone(docs[0]);card.eventId='TEST:V46_TARGET';
+const overlap=[12000,12050,12400,12600,12800],separate=[12000,12150,12400,12600,12800];
+const aw=[84000,85000,86500,87000,87500],bw=[85000,84000,86500,87000,87500];
+const sd=[card,scenario('V46_OA',10,overlap,aw),scenario('V46_OB',20,overlap,bw),scenario('V46_SA',30,separate,aw),scenario('V46_SB',40,separate,bw)];
+async function synthetic(name,docs,options={}){
+ const envelope=makeEnvelope(docs),p=await prepareSupply(envelope,{id:name});
+ return analyzeVerified(V,p.request,p.receipt,{semanticVersion:46,work42Envelope:envelope,...options});
+}
+const multi=await synthetic('V46_MULTI',sd);
+const compact=h=>({horse:h.horse,old:h.research_grade,grade:h.v46.conditionalCurrentResearchGrade,roles:h.v46.decisionBasis.roles,complete:h.v46.decisionBasis.complete,allCompetitive:h.v46.decisionBasis.allCompetitive,unknown:h.v46.decisionBasis.materialUnknown.length,excluded:h.v46.decisionBasis.excluded.length,win:h.v46.decisionBasis.win.length,place:h.v46.decisionBasis.place.length,responseChanges:h.v46.decisionBasis.responseSensitivity.map(q=>({before:q.before,after:q.after,earlier:q.earlier,later:q.later,materialCounter:q.materialCounter}))});
+console.log('V46_BOUNDARY_DETAIL '+JSON.stringify({baseline:on.runners.map(compact),multi:multi.runners.map(compact)}));
+assert.ok(multi.runners.filter(h=>h.v46.conditionalCurrentResearchGrade==='S').length>=2,'S_MULTIPLE_WITNESS');
+assert.ok(multi.runners.some(h=>h.v46.conditionalCurrentResearchGrade==='C'),'AFFIRMATIVE_C_WITNESS');
+assert.ok(on.runners.every(h=>h.v46.conditionalCurrentResearchGrade!=='S'),'S_ABSENT_WITNESS');
+assert.ok(unknown.runners.every(h=>h.v46.conditionalCurrentResearchGrade===null));
+assert.ok(multi.runners.every(h=>h.grade===null&&h.current_grade===null));
+console.log('V46_GRADE_BOUNDARIES PASS');

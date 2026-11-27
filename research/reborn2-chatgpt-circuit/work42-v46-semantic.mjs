@@ -128,8 +128,14 @@ export function assessCardRoutes(common,decision,docs,horse,items){
   const matchedCard=!!sameField&&[a,b].every(d=>matched(d,card)&&d.rows.every(v=>{const w=row(card,v.nativeId);return w?.status==='ACTIVE'&&w.gate!=null&&w.weightG!=null&&w.gate===v.gate&&w.weightG===v.weightG;}));
   const k=a?.geometry?.checkpoints_m?.indexOf(p.checkpoint)??-1;
   const complete=k>=0&&a.rows.every(v=>finite(v.checkpointMs?.[k]));
-  const sourceValid=!!r?.valid&&r.edges.every(e=>e.full&&e.measurement&&e.refs.length);
+  const observedComplete=!!r?.valid&&r.edges.length>0&&r.edges.every(e=>e.measurement&&e.refs.length);
+  const sourceValid=observedComplete&&r.edges.every(e=>e.full);
   const supported=all&&matchedCard&&complete&&sourceValid&&r.pace.state==='OVERLAPPING_OBSERVED_PACE';
+  // A fully observed but incompatible transfer is not missing history.
+  // Exclusion applies only to this particular cross-event assumption.
+  const excluded=all&&matchedCard&&complete&&observedComplete&&!supported&&
+   (r.pace.state==='OBSERVED_PACE_DIFFERS'||r.edges.some(e=>e.roleConflict));
+  const exclusionReasons=excluded?[...(r.pace.state==='OBSERVED_PACE_DIFFERS'?['MEASURED_PREFIX_PACE_DIFFERS']:[]),...(r.edges.some(e=>e.roleConflict)?['MEASURED_RELATIVE_POSITION_CONFLICT']:[])]:[];
   const own=p.own.map(e=>({rival:e.rival,initial:e.initial,finish:e.finish,relativeGain:e.gain,kind:e.recovered?'DEFICIT_OVERTURNED':e.retained?'ADVANTAGE_RETAINED':e.lost?'ADVANTAGE_LOST':'UNRESOLVED_OR_OVERLAP',physicalLoad:'NOT_OBSERVED'}));
   // Re-evaluate the route's ability claims with only relevant item kernels;
   // a faster final section in another context is not a new current claim.
@@ -137,28 +143,62 @@ export function assessCardRoutes(common,decision,docs,horse,items){
   const recovery=own.some(e=>e.kind==='DEFICIT_OVERTURNED'),retained=own.some(e=>e.kind==='ADVANTAGE_RETAINED');
   const itemReview=relevant.filter(i=>['RANK25','RANK32','RANK95','RANK45'].includes(i.item)).map(i=>({item:i.item,predicate:i.predicate,state:i.state,scope:'ANTECEDENT_ONLY',refs:i.refs}));
   const unresolved=own.filter(e=>!e.initial||!e.finish);
-  const materialUnknown=!supported||unresolved.length>0||p.decision==='HELD';
+  const materialUnknown=!excluded&&(!supported||unresolved.length>0||p.decision==='HELD');
   const axes={A:p.basis.ability&&sourceValid,B:supported&&p.basis.applicability,C:p.basis.comparison&&sourceValid,D:p.basis.response&&own.every(e=>e.initial&&e.finish),E:p.basis.discovery};
-  const state=materialUnknown?'HELD':p.decision==='CONDITIONAL_WIN'&&Object.values(axes).every(Boolean)?'SUPPORTED_CONDITIONAL_WIN':p.decision==='CONDITIONAL_PLACE'&&axes.A&&axes.B&&axes.C&&axes.E?'SUPPORTED_CONDITIONAL_PLACE':p.decision==='CONDITIONAL_COUNTER'?'SUPPORTED_ADVERSE_CONDITIONAL':'HELD';
-  return {id:p.id,start:p.start,response:p.response,checkpoint:p.checkpoint,replay:p.replay,state,axes,matchedCard,sourceValid,field:r?.field?.envelopes.find(x=>x.slot===horse)??null,roleVector:complete?a.rows.map(v=>({horse:card.issuer+'|'+v.nativeId,elapsed:v.checkpointMs[k]})):[],own,recovery,retained,itemReview,materialUnknown,physicalLoad:'UNOBSERVED_CAUSAL_BURDEN',scope:'PRE_RACE_ANTECEDENT_CONDITIONAL_NOT_CURRENT_OBSERVATION'};
+  const adverseAxes={A:sourceValid&&own.some(e=>e.finish?.[1]<0),B:supported,C:sourceValid&&p.field?.min>decision.threshold,D:own.every(e=>e.initial&&e.finish),E:p.basis.discovery};
+  const state=excluded?'EXCLUDED_INCOMPATIBLE_HYPOTHESIS':materialUnknown?'HELD':p.decision==='CONDITIONAL_WIN'&&Object.values(axes).every(Boolean)?'SUPPORTED_CONDITIONAL_WIN':p.decision==='CONDITIONAL_PLACE'&&axes.A&&axes.B&&axes.C&&axes.E?'SUPPORTED_CONDITIONAL_PLACE':p.decision==='CONDITIONAL_COUNTER'&&Object.values(adverseAxes).every(Boolean)?'SUPPORTED_ADVERSE_CONDITIONAL':'HELD';
+  const first=a?.rows.map(v=>v.checkpointMs?.[0])??[],leader=Math.min(...first.filter(finite)),roleContext=first.length&&first.every(finite)?first.filter(v=>v-leader<=2*a.precisionMs).length>1?'CLOCK_OVERLAP':'CLOCK_SEPARATED':null;
+  return {id:p.id,start:p.start,response:p.response,checkpoint:p.checkpoint,replay:p.replay,state,axes,adverseAxes,matchedCard,sourceValid,observedComplete,excluded,exclusionReasons,roleContext,field:r?.field?.envelopes.find(x=>x.slot===horse)??null,roleVector:complete?a.rows.map(v=>({horse:card.issuer+'|'+v.nativeId,elapsed:v.checkpointMs[k]})):[],own,recovery,retained,itemReview,materialUnknown:materialUnknown||state==='HELD',physicalLoad:'UNOBSERVED_CAUSAL_BURDEN',scope:'PRE_RACE_ANTECEDENT_CONDITIONAL_NOT_CURRENT_OBSERVATION'};
  });
+}
+// EYE13 compares actual common solver results under the SAME start vector
+// and two measured response events. This changes a route's robustness
+// judgment, not the literal finish interval of either underlying response.
+function sectionSensitivity(routes,items){
+ const records=[];
+ for(const f of items.filter(i=>i.category==='EYE13'&&['SECTION_IMPROVEMENT_ANTECEDENT','SECTION_WORSENED'].includes(i.state))){
+  for(const a of routes.filter(p=>id(p.response)===f.value.earlier&&p.field&&p.sourceValid)){
+   const b=routes.find(p=>p.start===a.start&&p.checkpoint===a.checkpoint&&id(p.response)===f.value.later&&p.field&&p.sourceValid);
+   if(!b)continue;
+   const before=[a.field.min,a.field.max],after=[b.field.min,b.field.max];
+   if(eq(before,after)&&a.state===b.state)continue;
+   const relevant=a.checkpoint===800&&a.roleVector.length===b.roleVector.length&&eq(a.roleVector,b.roleVector);
+   if(!relevant)continue;
+   const adverse=a.state==='SUPPORTED_ADVERSE_CONDITIONAL'||b.state==='SUPPORTED_ADVERSE_CONDITIONAL'||a.state==='HELD'||b.state==='HELD';
+   records.push({category:'EYE13',item:'RANK32',start:a.start,checkpoint:a.checkpoint,earlier:a.id,later:b.id,before,after,beforeState:a.state,afterState:b.state,delta:f.value.delta,materialCounter:adverse,verdict:'RESPONSE_SENSITIVE_NOT_ISOLATED_CAUSAL_CHANGE',refs:f.refs,independent_vote:false});
+  }
+ }
+ return [...new Map(records.map(r=>[JSON.stringify([r.earlier,r.later,r.start]),r])).values()];
 }
 export function refineV46(common,decision,docs,packet,runners,returns){
  return runners.map(h=>{
   const s=semanticItems(returns[h.horse],docs,packet,h.horse);
-  const cardRoutes=assessCardRoutes(common,decision,docs,h.horse,s.items);
+  const initialRoutes=assessCardRoutes(common,decision,docs,h.horse,s.items);
+  const sensitivity=sectionSensitivity(initialRoutes,s.items);
+  const cardRoutes=initialRoutes.map(p=>{
+   const responseReview=sensitivity.filter(q=>q.earlier===p.id||q.later===p.id);
+   return {...p,responseReview,robustAcrossReviewedResponses:responseReview.length?responseReview.every(q=>!q.materialCounter&&q.beforeState===q.afterState):null};
+  });
   const accepted=new Set([...h.acceptedWinRoutes,...h.acceptedPlaceRoutes]);
   const win=cardRoutes.filter(p=>!p.replay&&p.state==='SUPPORTED_CONDITIONAL_WIN'&&accepted.has(p.id));
   const place=cardRoutes.filter(p=>!p.replay&&['SUPPORTED_CONDITIONAL_WIN','SUPPORTED_CONDITIONAL_PLACE'].includes(p.state)&&accepted.has(p.id));
-  const complete=h.sourceComplete&&cardRoutes.length>0&&cardRoutes.every(p=>p.sourceValid&&p.matchedCard);
-  const C=complete&&h.research_grade==='C'&&cardRoutes.every(p=>p.state==='SUPPORTED_ADVERSE_CONDITIONAL');
-  const S=h.research_grade==='S'&&win.length>0&&complete&&!cardRoutes.some(p=>p.materialUnknown||p.state==='SUPPORTED_ADVERSE_CONDITIONAL');
+  const eligible=cardRoutes.filter(p=>!p.excluded);
+  const complete=h.sourceComplete&&eligible.length>0&&cardRoutes.every(p=>p.observedComplete&&p.matchedCard)&&!eligible.some(p=>p.materialUnknown);
+  // C is affirmative adverse evidence across the admissible recorded
+  // alternatives; absence of a positive path is never enough.
+  const C=complete&&eligible.every(p=>p.state==='SUPPORTED_ADVERSE_CONDITIONAL')&&eligible.some(p=>p.replay)&&eligible.some(p=>!p.replay);
+  // Distinct supported roles and responses, all admissible recorded
+  // alternatives competitive. No quota and no requirement that one horse
+  // be the unique winner in every role. This remains a research boundary.
+  const roles=new Set(win.map(p=>p.roleContext).filter(Boolean)),starts=new Set(win.map(p=>p.start)),responses=new Set(win.map(p=>p.response));
+  const allCompetitive=eligible.every(p=>['SUPPORTED_CONDITIONAL_WIN','SUPPORTED_CONDITIONAL_PLACE'].includes(p.state));
+  const S=complete&&roles.has('CLOCK_OVERLAP')&&roles.has('CLOCK_SEPARATED')&&starts.size>1&&responses.size>1&&allCompetitive&&!sensitivity.some(q=>q.materialCounter)&&!h.paths.some(p=>p.materialCounter);
   const conditional=S?'S':win.length?'A':place.length?'B':C?'C':null;
-  const items=h.itemConsumption.map(i=>({...i,semanticV46:s.items.filter(q=>q.item===i.item),...(i.item==='RANK100'?{currentCardRouteJudgments:cardRoutes.map(p=>({id:p.id,state:p.state,axes:p.axes,materialUnknown:p.materialUnknown}))}:{})}));
+  const items=h.itemConsumption.map(i=>({...i,semanticV46:s.items.filter(q=>q.item===i.item),...(['RANK32','RANK100'].includes(i.item)?{responseSensitivity:sensitivity}:{}),...(i.item==='RANK100'?{currentCardRouteJudgments:cardRoutes.map(p=>({id:p.id,state:p.state,axes:p.axes,adverseAxes:p.adverseAxes,materialUnknown:p.materialUnknown,robustAcrossReviewedResponses:p.robustAcrossReviewedResponses}))}:{})}));
   const categoryReview=Array.from({length:15},(_,i)=>{
    const category='EYE'+String(i+1).padStart(2,'0'),facts=s.items.filter(q=>q.category===category),held=s.holds.filter(q=>q.category===category);
    return {category,state:category==='EYE03'?'EXISTING_SHARED_RECOVERY_KERNEL':facts.length?'RECOMPUTED_ANTECEDENT':held.length?'INSUFFICIENT_EVIDENCE':'NO_SELECTED_CLAIM',facts,held};
   });
-  return {...h,itemConsumption:items,v46:{categoryReview,cardRoutes,conditionalCurrentResearchGrade:conditional,scope:'CURRENT_CARD_CONDITIONAL_RESEARCH_NOT_ACTUAL_CURRENT_GRADE',decisionBasis:{win:win.map(p=>p.id),place:place.map(p=>p.id),C,S,materialUnknown:cardRoutes.filter(p=>p.materialUnknown).map(p=>p.id),unmeasured:['CURRENT_FORM','CURRENT_ROLE_REPRODUCTION','CAUSAL_LOAD','SCENARIO_COVERAGE_OUTSIDE_OBSERVED_ANTECEDENTS']},formal:false}};
+  return {...h,itemConsumption:items,v46:{categoryReview,cardRoutes,conditionalCurrentResearchGrade:conditional,scope:'CURRENT_CARD_CONDITIONAL_RESEARCH_NOT_ACTUAL_CURRENT_GRADE',decisionBasis:{win:win.map(p=>p.id),place:place.map(p=>p.id),C,S,roles:[...roles],complete,allCompetitive,excluded:cardRoutes.filter(p=>p.excluded).map(p=>p.id),responseSensitivity:sensitivity,materialUnknown:cardRoutes.filter(p=>p.materialUnknown).map(p=>p.id),unmeasured:['CURRENT_FORM','CURRENT_ROLE_REPRODUCTION','CAUSAL_LOAD','SCENARIO_COVERAGE_OUTSIDE_OBSERVED_ANTECEDENTS']},formal:false}};
  });
 }
