@@ -8,13 +8,15 @@ const probe=s=>researchReplay({loaded,fixture:'CONTROL',scenarios:[{id:'declared
 const own=x=>x.runners.find(h=>h.slot===A);
 const relation=x=>own(x).paths[0].relations.find(r=>r.rival===B);
 assert.equal(relation(probe(starts)).order,'AHEAD');
-assert.equal(relation(probe({...starts,[B]:[-5000,-5000]})).order,'BEHIND');
-assert.equal(relation(probe({...starts,[B]:[-2000,-2000]})).order,'UNKNOWN');
+assert.equal(relation(probe({...starts,[A]:[5000,5000]})).order,'BEHIND');
+assert.equal(relation(probe({...starts,[A]:[2000,2000]})).order,'UNKNOWN');
 assert.equal(relation(probe({[A]:[0,0]})).order,'UNKNOWN');
 const id=loaded.work27.get('CONTROL').o.evidence.find(e=>e.event_id===H&&e.subject_id===A&&e.field==='checkpoint_ms').evidence_id;
 assert.equal(relation(researchReplay({loaded,fixture:'CONTROL',scenarios:[{id:'declared',event:H,starts}],withdraw:id})).order,'UNKNOWN');
 assert.deepEqual(probe(Object.fromEntries(Object.entries(starts).reverse())),probe(starts));
 assert.throws(()=>stressScenario({subject:A,rivals:[B,B],starts}));
+assert.equal(stressScenario({subject:A,rivals:[],starts}).rank_bounds_under_assumptions,null);
+assert.throws(()=>stressScenario({subject:A,rivals:[B],starts:{[A]:[-1,0]}}),/INTERVAL/);
 const direct=order=>stressScenario({subject:A,rivals:[B],starts,path:{relations:order},threshold:1});
 const witness={rival:B,net_change_ms:200,change_bound_ms:80,refs:['same','same']};
 assert.equal(direct([witness]).rank_bounds_under_assumptions.win,'SUPPORTED_UNDER_ASSUMPTIONS');

@@ -13,9 +13,11 @@ export function stressScenario({path,subject,rivals,starts,threshold=null}){
   const range=slot=>{
     const r=starts?.[slot];
     if(r===undefined)return null;
-    if(!Array.isArray(r)||r.length!==2||!r.every(Number.isFinite)||r[0]>r[1])throw Error('SCENARIO_INTERVAL');
+    if(!Array.isArray(r)||r.length!==2||!r.every(x=>Number.isFinite(x)&&x>=0)||r[0]>r[1])throw Error('SCENARIO_INTERVAL');
     return r;
   };
+  if(!rivals.length)return {relations:[],rank_bounds_under_assumptions:null,
+    assumption:'NOT_APPLICABLE_SINGLE_RUNNER',observed_current_pace:false,prediction:false};
   const own=range(subject);
   const relations=rivals.slice().sort().map(rival=>{
     const other=range(rival);
