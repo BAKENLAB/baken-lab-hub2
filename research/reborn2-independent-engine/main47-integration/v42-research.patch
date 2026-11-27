@@ -66,10 +66,10 @@ index 0000000..41d3899
 +console.log('FULL_FIELD '+JSON.stringify({schema:'REBORN2_SYNTHETIC_REVIEW_V1',sourceDigest:a.digest,
 +  admittedEvents:on.admitted,route,scope:'HISTORICAL_SCENARIO_ONLY',formal:false,field}));
 diff --git a/research/reborn2-chatgpt-circuit/work35-v38-completion.mjs b/research/reborn2-chatgpt-circuit/work35-v38-completion.mjs
-index 5542f75..e349b6a 100644
+index 5542f75..761da67 100644
 --- a/research/reborn2-chatgpt-circuit/work35-v38-completion.mjs
 +++ b/research/reborn2-chatgpt-circuit/work35-v38-completion.mjs
-@@ -38,11 +38,16 @@ export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,
+@@ -38,11 +38,20 @@ export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,
   // Preserve local observed bounds even when there is no independent current
   // pace evidence. V35 shared numeric solver still consumes the actual pair edges.
   const observed=common.scenarios.filter(s=>s.valid&&['COMPARABLE_SYNTHETIC_RESPONSE','LOCAL_OBSERVED_RESPONSE_ONLY'].includes(s.applicability));
@@ -79,7 +79,11 @@ index 5542f75..e349b6a 100644
 + // and retains the original historical field for applicability checks.
 + const targetSlots=new Set(common.roster.possible_active);
 + const targetStarts=starts=>Object.fromEntries(Object.entries(starts).filter(([horse])=>targetSlots.has(horse)));
-+ const branches=[...branches35(f),...observed.map(s=>({id:'OBS:'+s.id,checkpoint_m:s.checkpoint_m,response_event:s.event,starts:targetStarts(s.starts)}))];
++ const historicalBranches=observed.map(s=>({id:'OBS:'+s.id,checkpoint_m:s.checkpoint_m,response_event:s.event,starts:targetStarts(s.starts)}));
++ // A named stress scenario refers to specific horses and cannot be reused
++ // when any of those participants is absent from the target card.
++ const applicableTemplates=branches35(f).filter(b=>Object.keys(b.starts).every(h=>targetSlots.has(h)));
++ const branches=[...applicableTemplates,...historicalBranches];
   // Optional, explicitly hypothetical gap-width contrast. No current observations
   // are created. All eligible 800m vectors receive the same scale grid.
   if(gapStress)for(const s of observed.filter(s=>s.checkpoint_m===800&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE')){
@@ -88,7 +92,7 @@ index 5542f75..e349b6a 100644
    const center=x=>(x[0]+x[1])/2,origin=Math.min(...v.map(([,a])=>center(a)));
    for(const k of [0.25,0.5,1.5]){
     const starts=Object.fromEntries(v.map(([h,a])=>{const m=origin+k*(center(a)-origin),u=(a[1]-a[0])/2;return [h,[m-u,m+u]];}));
-@@ -55,7 +60,7 @@ export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,
+@@ -55,7 +64,7 @@ export function analyzeV38(V,id,{withdraw=null,eyeEnabled=true,placeThreshold=2,
    const eligible=observed.filter(s=>s.checkpoint_m===800&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE');
    for(const a of eligible)for(const b of eligible){
     if(a.event===b.event)continue;

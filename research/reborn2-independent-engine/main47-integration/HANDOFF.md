@@ -21,3 +21,5 @@ Work39の別相手構成で発生したBRANCH_ROSTERに対し、過去走の観�
 PR #94の固定コミットをローカルで取得した状態で `bash research/reborn2-independent-engine/main47-integration/replay.sh --full`。一時チェックアウトへ候補パッチを適用し既存回帰とEYE対照を実行する。別途 Work39 を固定コミットから実行する場合は、パッチのV38の変更だけを適用し、Work38の既存レシートと元のV40/V41/V42ソースのピンを保持する。
 
 未完了はEYE還元による勝ち筋・好走筋自体の肯定的変化、15分類すべての非空検査、今回能力の裏付け、今回評価のS複数・S不在・A/B・C/未評価の一貫実証、本番入出力の接続。今回の成果は研究候補であり、正式採用を含まない。
+
+Work39側は固定コミットをローカル取得して `bash research/reborn2-independent-engine/main47-integration/replay.sh --work39`。元CIの `BRANCH_ROSTER` はH5からH6への交代で発生した。過去走の開始位置を射影するだけでは、H5を名指しする固定仮説が残り再失敗した。特定馬を前提とする仮説はその馬が今回いない場合に除外し、同じWork39の `W39_CHANGED_PEER` がローカルでPASSした。V35の手入力に対する検証と元のWork39テストは不変。
