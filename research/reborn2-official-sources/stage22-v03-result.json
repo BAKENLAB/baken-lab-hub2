@@ -1,0 +1,519 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "total": 73,
+  "passed": 73,
+  "tests": [
+    {
+      "name": "separate_process_exact_readback",
+      "expected": null,
+      "actual": "TEST_ONLY_PASS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_unexpected_1",
+      "expected": "SCHEMA",
+      "actual": "SCHEMA",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_start_True",
+      "expected": "TYPE",
+      "actual": "TYPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_cutoff_19.5",
+      "expected": "TYPE",
+      "actual": "TYPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_published_None",
+      "expected": "TYPE",
+      "actual": "TYPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_start_13",
+      "expected": "TIME",
+      "actual": "TIME",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_seal_20",
+      "expected": "TIME",
+      "actual": "TIME",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_post_20",
+      "expected": "TIME",
+      "actual": "TIME",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_course_[0, 30]",
+      "expected": "EFFECTIVE_PERIOD",
+      "actual": "EFFECTIVE_PERIOD",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_grade_[0, 30]",
+      "expected": "EFFECTIVE_PERIOD",
+      "actual": "EFFECTIVE_PERIOD",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_count_3",
+      "expected": "ROSTER",
+      "actual": "ROSTER",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_raw_name_../v1.bin",
+      "expected": "PATH",
+      "actual": "PATH",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_raw_name_/tmp/v1.bin",
+      "expected": "PATH",
+      "actual": "PATH",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_domain_DECODED_UTF8",
+      "expected": "DOMAIN",
+      "actual": "DOMAIN",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_previous_fake",
+      "expected": "CHAIN",
+      "actual": "CHAIN",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_scope_REAL",
+      "expected": "SCOPE",
+      "actual": "SCOPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_ai_1",
+      "expected": "TYPE",
+      "actual": "TYPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_ai_False",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_processor_False",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_capture_False",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_storage_False",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_revoked_at_21",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_deleted_at_21",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_retain_until_21",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "rights_valid_until_21",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "deny_limited",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "allow_limited",
+      "expected": null,
+      "actual": "TEST_ONLY_PASS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "deny_free",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "allow_free",
+      "expected": null,
+      "actual": "TEST_ONLY_PASS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "deny_paid",
+      "expected": "RIGHTS",
+      "actual": "RIGHTS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "allow_paid",
+      "expected": null,
+      "actual": "TEST_ONLY_PASS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "row_status",
+      "expected": "ROSTER",
+      "actual": "ROSTER",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "row_no",
+      "expected": "TYPE",
+      "actual": "TYPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "row_id",
+      "expected": "TYPE",
+      "actual": "TYPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "row_historical",
+      "expected": "SCHEMA",
+      "actual": "SCHEMA",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "row_odds",
+      "expected": "SCHEMA",
+      "actual": "SCHEMA",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_at_31",
+      "expected": "HISTORY",
+      "actual": "HISTORY",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_observed_21",
+      "expected": "HISTORY",
+      "actual": "HISTORY",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_published_6",
+      "expected": "HISTORY",
+      "actual": "HISTORY",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_no_True",
+      "expected": "TYPE",
+      "actual": "TYPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_ticks_True",
+      "expected": "TYPE",
+      "actual": "TYPE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_subject_TEST:JRA:B",
+      "expected": "HISTORY",
+      "actual": "HISTORY",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_event_TEST:TARGET",
+      "expected": "HISTORY",
+      "actual": "HISTORY",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_grade_[4, 9]",
+      "expected": "EFFECTIVE_PERIOD",
+      "actual": "EFFECTIVE_PERIOD",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_status_UNKNOWN",
+      "expected": "HISTORY",
+      "actual": "HISTORY",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_status_DNF",
+      "expected": "NONPERFORMANCE",
+      "actual": "NONPERFORMANCE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "history_popularity_1",
+      "expected": "SCHEMA",
+      "actual": "SCHEMA",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "missing_row_key",
+      "expected": "SCHEMA",
+      "actual": "SCHEMA",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "duplicate_history_root",
+      "expected": "DUPLICATE_ROOT",
+      "actual": "DUPLICATE_ROOT",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "duplicate_native_id",
+      "expected": "ROSTER",
+      "actual": "ROSTER",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "target_result",
+      "expected": "SCHEMA",
+      "actual": "SCHEMA",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "raw_tamper",
+      "expected": "RAW",
+      "actual": "RAW",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "raw_deleted",
+      "expected": "MALFORMED_OR_IO",
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "duplicate_raw_key",
+      "expected": "DUPLICATE_KEY",
+      "actual": "DUPLICATE_KEY",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "nonfinite",
+      "expected": "NONFINITE",
+      "actual": "NONFINITE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "bad_encoding",
+      "expected": "MALFORMED_OR_IO",
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "raw_symlink",
+      "expected": "MALFORMED_OR_IO",
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "duplicate_manifest_key",
+      "expected": "DUPLICATE_KEY",
+      "actual": "DUPLICATE_KEY",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "partial_receipt",
+      "expected": "MALFORMED_OR_IO",
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "manifest_mac_tamper",
+      "expected": "MAC",
+      "actual": "MAC",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "raw_hardlink",
+      "expected": "PATH",
+      "actual": "PATH",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "missing_right",
+      "expected": "SCHEMA",
+      "actual": "SCHEMA",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "malformed_history_entry",
+      "expected": "SCHEMA",
+      "actual": "SCHEMA",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "oversize_raw",
+      "expected": "SIZE",
+      "actual": "SIZE",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "duplicate_number",
+      "expected": "ROSTER",
+      "actual": "ROSTER",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "valid_correction_old_snapshot_preserved",
+      "expected": null,
+      "actual": "TEST_ONLY_PASS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "broken_predecessor",
+      "expected": null,
+      "actual": "CHAIN",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "after_cutoff_correction_no_rewrite",
+      "expected": null,
+      "actual": "TIME",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "replay_before_cutoff",
+      "expected": null,
+      "actual": "TIME",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "nonperformance_no_clock_extracted",
+      "expected": null,
+      "actual": "TEST_ONLY_PASS",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "concurrent_exclusive_write",
+      "expected": null,
+      "actual": "[0, 3]",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "orphan_raw_without_receipt",
+      "expected": null,
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true
+    },
+    {
+      "name": "writer_crash_partial_raw",
+      "expected": null,
+      "actual": "MALFORMED_OR_IO",
+      "pass_": true,
+      "distinct_process": true
+    }
+  ],
+  "formal_admissions": 0
+}
