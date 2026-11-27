@@ -19,8 +19,8 @@ export function analyzeWork29(candidates,withdraw=null){
    if([root,q.root,...q.dependencies].includes(withdraw)){held.push({state:'HELD',reason:'WITHDRAWN_DEPENDENCY'});continue;}
    const value={boundaries_m:o.boundariesM,segments_ms:q.value,distance_m:o.distanceM};
    const old=shared.get(root);
-   if(old){if(JSON.stringify(old.observation)!==JSON.stringify(value))old.conflict=true;old.row_roots.push(q.root);continue;}
-   shared.set(root,{...base,root,row_roots:[q.root],subject:null,item:'RANK58',state:'RACE_LEADER_PACE_ONLY',observation:value,conflict:false});
+   if(old){if(JSON.stringify(old.observation)!==JSON.stringify(value))old.conflict=true;if(!old.row_roots.includes(q.root))old.row_roots.push(q.root);continue;}
+   shared.set(root,{...base,root,row_roots:[q.root],subject:null,item:'RANK69',state:'HISTORICAL_RACE_LEADER_PACE_ONLY',observation:value,conflict:false});
    continue;
   }
   if([q.root,...q.dependencies].includes(withdraw)){held.push({state:'HELD',reason:'WITHDRAWN_DEPENDENCY'});continue;}
