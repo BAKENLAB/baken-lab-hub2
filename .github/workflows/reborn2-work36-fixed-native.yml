@@ -1,0 +1,36 @@
+name: Work36 fixed native research replay
+on:
+  pull_request:
+    branches:
+      - research/reborn2-chatgpt-33-100-20261126
+    paths:
+      - 'research/reborn2-work36/**'
+      - '.github/workflows/reborn2-work36-fixed-native.yml'
+permissions:
+  contents: read
+jobs:
+  work36-research-only:
+    if: github.event.pull_request.head.ref == 'research/reborn2-work36-native-20261128' && github.event.pull_request.base.ref == 'research/reborn2-chatgpt-33-100-20261126'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fixed source and native replay
+        env:
+          WORK36_RECEIPT: ${{ runner.temp }}/work36-native-receipt.json
+        run: node research/reborn2-work36/native-replay.mjs .
+      - name: Preserve research receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: work36-native-receipt
+          path: ${{ runner.temp }}/work36-native-receipt.json
+          if-no-files-found: warn
+          retention-days: 3
