@@ -71,7 +71,15 @@ function analyzePace58to77Core({target,roster,evidence=[],runs=[],history=[],gat
  // V19 research-only return. Rebind each requested observation to the actual
  // accepted subject run and position data; never accept a caller's conclusion.
  if(fictional)for(const m of researchReturn.filter(x=>x.horse_id===h.horse_id)){
-  if(m.kind==='V21_INCIDENT'||m.kind==='V21_STYLE'){
+  if(m.kind==='V22_SANDWICH'){
+   // Recompute from the same bound canonical item 66 inputs, never accept the requested benefit.
+   if(!allGate||!g)continue;
+   const j=sorted.indexOf(s),left=sorted[j-1],right=sorted[j+1];
+   if(!left||!right||s.front!=='NO'||left.front!=='YES'||right.front!=='YES')continue;
+   const value={research_return:'EYE-10',proposition:'TWO_ADJACENT_OBSERVED_FRONT_PEERS_WITH_NONFRONT_SUBJECT',left_right_ids:[left.h.horse_id,right.h.horse_id],first_turn_m:g.first_turn_m,state:'SUPPORT_PATTERN_ONLY',route_opening:null,actual_benefit:null};
+   put('73',value,[...allRefs,g.evidence_id],'hypotheses');
+   traceRead({consumer:'analyzePace58to77Fixture.v22Sandwich',consumer_item_id:'73',horse_no:s.entry.horse_no,item_id:'EYE-10',value,reason:'Recompute gate adjacency and observed prior style; no path benefit inference'});
+  }else if(m.kind==='V21_INCIDENT'||m.kind==='V21_STYLE'){
    const e=c.byId.get(m.ref),f=e?.research_v21_fact;
    if(!e||!f||e.horse_id!==h.horse_id||!Array.isArray(f.source_refs)||!f.source_refs.every(x=>c.byId.has(x)))continue;
    if(m.kind==='V21_INCIDENT'&&e.race_id===last?.race_id&&f.role==='SUFFERED'&&f.incident_code==='FIXTURE_PATH_PRESSURE'){
