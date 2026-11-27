@@ -60,3 +60,5 @@ node test-opponent-context-v23.mjs
 node test-work23-v24-bridge.mjs
 
 node test-work23-v25-current.mjs
+
+node test-work23-v26-integrated.mjs

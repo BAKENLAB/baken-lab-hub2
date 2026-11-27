@@ -1,0 +1,742 @@
+{
+  "schema": "WORK23_FINAL_HANDOFF_0.2.2",
+  "acceptance": "60997534c1622fa2d151dac0c1bd49f7c10f1c79",
+  "prior_work": "faafdf7a89ac307b6c9feba04f5cb29b176ef388",
+  "scope": "SYNTHETIC_ONLY_OFFLINE_NO_OFFICIAL_ADMISSION",
+  "producer_version": "0.2.2",
+  "packet_schema": "WORK23_SYNTHETIC_HANDOFF_0.2",
+  "source_pins": [
+    {
+      "name": "stage23-producer-v0.2.2.mjs",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "c310caf7d9cb5803cb486e6184450e09e5407a62",
+      "sha256": "8d2d2a296e20302f25a92df39e41f4cf264f5223541c10b8ed8d5c5784fdc0eb"
+    },
+    {
+      "name": "stage22-custody-to-115-contract-v0.1.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "7fff865e11517d6e6da74506cb3ad8175e584f88",
+      "sha256": null
+    },
+    {
+      "name": "stage22-handoff-execution-summary.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "dc19e4de9fb835b4510826346d351cd3000a0486",
+      "sha256": "ea8874a7c28c72158485deefbe5aac254ccd112f17063390e90e3f11ba6d4025"
+    },
+    {
+      "name": "stage23-fixture-bundles-v0.2.2.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "bb1e2f961a75adfa4a4e49f585149cba0aba7b56",
+      "sha256": "fc986c52ee0cb39b2fe4b7c82a5df3b09c216e3c24f72d84ade1e1113c4795a2"
+    },
+    {
+      "name": "stage23-final-readback-part-a-v0.2.2.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "1c93b19c8b0fdf4a9866c8f60f049c31e4b8d17e",
+      "sha256": "ca4a175d06af8e901a9e4a524e75d955096a811b7e58d491d211d5ebfebbcbbc"
+    },
+    {
+      "name": "stage23-work22-v0.1-reconstruction-verified.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "d43ad7e4f7eb1285654022eeddcd52ee763335b0",
+      "sha256": "6904b3ce4a56e8c268cfe9f9a7fb767551c72e6b48b6f72987d8ec6335f09a1d"
+    }
+  ],
+  "packet_index": [
+    {
+      "name": "jra_full",
+      "path": "research/reborn2-official-sources/stage23-jra_full-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "f6b85de17791d4814d16ecc5082862fdcd41686b",
+      "sha256": "17e65acd8602b2417047faeacf1e78baac94088c8623f1e1a9251ea1c2215206",
+      "bytes": 253180,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85,
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "local_full",
+      "path": "research/reborn2-official-sources/stage23-local_full-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "0004df712b6253dda1ea395c1b3e7707c0370428",
+      "sha256": "4bac8ff27c2fe91e2b9275bf5ce618ea0d4368993ac955c859f43688b22c3775",
+      "bytes": 254286,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85,
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "missing_clock",
+      "path": "research/reborn2-official-sources/stage23-missing_clock-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "af5486d3dd4d60ab4ca786f14d4b43f30cc7ecb4",
+      "sha256": "3357cd8a56cdf64c3d50453b0bcf88d64d86a41138960edda9a97697efd01439",
+      "bytes": 244128,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 75,
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "bad_margin_unit",
+      "path": "research/reborn2-official-sources/stage23-bad_margin_unit-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "576e3d47981a0cc9f8ba529427aa01aeea2b187c",
+      "sha256": "2806bf7e5608f506064d884b5065ab21ed3e4c780c6c258a3de386b706650628",
+      "bytes": 252144,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 84,
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "revoked",
+      "path": "research/reborn2-official-sources/stage23-revoked-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "77a072ed999e4044cbd977554220372c8681cdaa",
+      "sha256": "831875b1aa32058db223c093ae52ec9ddb7f4f3e60a749d517e61e1482372dce",
+      "bytes": 15338,
+      "status": "HELD",
+      "evidence": 0,
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "correction_after",
+      "path": "research/reborn2-official-sources/stage23-correction_after-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "9d20f9bb8193049d04aab30ad305c25a2fb38a11",
+      "sha256": "397d2ca199f3796267a75e408b487cd4fa6330c700ecc5106f30c1db62bbce0d",
+      "bytes": 253180,
+      "status": "TEST_ONLY_PACKET",
+      "evidence": 85,
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "malformed_target_market",
+      "path": "research/reborn2-official-sources/stage23-malformed_target_market-packet-v0.2.1.json",
+      "ref": "7bfcb255ca5ad3b0b1c4f2d3d084897669b3fefc",
+      "blob": "e1cd8250612301075e9cea7b3a7ac6ae7827e7a9",
+      "sha256": "821acf693e5b6956e4e88290b12835904116ecdcd9567f3dc91faca9186e3f94",
+      "bytes": 14410,
+      "status": "HELD",
+      "evidence": 0,
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "correction_before",
+      "path": "research/reborn2-official-sources/stage23-correction_before-packet-v0.2.2.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "2df92483cbe06d2919665bdf9709048307e29961",
+      "sha256": "c407fd569eda9bd44e2f058d2b9c5d5840e9624547fc55df1c3f42fc8cbf2341",
+      "bytes": 234898,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 84,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 84,
+        "NOT_APPLICABLE": 2,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 2,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 3
+      },
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "nested_geometry_market_rejected",
+      "path": "research/reborn2-official-sources/stage23-nested_geometry_market_rejected-packet-v0.2.2.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "bb0a63fb53f0d2dd09d35731e9f5f6f7a8907ef5",
+      "sha256": "86f50dd6cf78bae255784a9068b7de9931b8c7ecdd02077ca9484b8f83eabab1",
+      "bytes": 247364,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 80,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 80,
+        "NOT_APPLICABLE": 1,
+        "REJECTED": 2,
+        "HELD": 3,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "wrong_identity",
+      "path": "research/reborn2-official-sources/stage23-wrong_identity-packet-v0.2.2.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "a00c4cdd746a1e7ea8324b200c0304a693ee8aff",
+      "sha256": "ecc0405734dfa4c3204b66d2ab96438f2f93d58c3845cfdfded9a66747f50f4a",
+      "bytes": 237490,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 76,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 76,
+        "NOT_APPLICABLE": 1,
+        "REJECTED": 9,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 3,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 4,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "length_margin",
+      "path": "research/reborn2-official-sources/stage23-length_margin-packet-v0.2.2.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "0e8c8009a8e43b734086e67360c2ccccc47130e4",
+      "sha256": "5711eb4a49c0b90d9d8f7bb950cb550c968d29b1dc642b2615a95e8ba242f659",
+      "bytes": 253190,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 85,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 85,
+        "NOT_APPLICABLE": 1,
+        "MISSING": 3
+      },
+      "item_rows": 345,
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    },
+    {
+      "name": "geometry_missing_field_held",
+      "path": "research/reborn2-official-sources/stage23-geometry_missing_field_held-packet-v0.2.2.json",
+      "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+      "blob": "66cb1c026f568f8976eea4018e99a1a2b171f361",
+      "sha256": "7a24bbdaccd125a25b8c53de14487e165909505bc584947efdf0b615b1181ac1",
+      "bytes": 249738,
+      "checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "all_pass": true,
+      "status": "TEST_ONLY_PACKET",
+      "reason": null,
+      "evidence": 81,
+      "field_states": 89,
+      "field_state_counts": {
+        "TEST_INPUT_AVAILABLE": 81,
+        "NOT_APPLICABLE": 1,
+        "MISSING": 4,
+        "HELD": 3
+      },
+      "item_rows": 345,
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "readback_checks": {
+        "exact_reproduction": true,
+        "all_item_ids": true,
+        "no_formal": true,
+        "all_evidence_unique": true,
+        "all_state_values": true,
+        "all_refs_resolve": true,
+        "raw_and_pointer": true,
+        "historical_and_current_scope": true,
+        "clock_and_lap_scope": true,
+        "market_rejection": true
+      },
+      "exact_final_producer": true
+    }
+  ],
+  "checks": {
+    "all12": true,
+    "all120": true,
+    "excluded_not_direct": true,
+    "length_typed": true,
+    "geometry_missing_held": true,
+    "wrong_identity_no_values": true,
+    "all_prior_gates_held": true,
+    "all_formal_false": true
+  },
+  "readback": {
+    "final_packets": 12,
+    "packet_checks": 120,
+    "passed": 120,
+    "method": "Seven final outputs exactly match v0.2.1 and are re-read at final commit; five changed/new independently crosschecked with same structural checks. Same producer deterministic replay, not independent official authentication."
+  },
+  "execution": {
+    "previous_135_preserved_not_rerun_in_work23": 135,
+    "new_named_actual_tests": 30,
+    "new_passed": 30,
+    "recorded_total": 165,
+    "codex_baseline": 263,
+    "codex_test_rerun": false,
+    "analysis_runtime_executed": false
+  },
+  "positive": [
+    {
+      "name": "jra_full",
+      "evidence": 85,
+      "field_states": 89,
+      "registered": 3,
+      "active": 2,
+      "item_rows": 345,
+      "by_runner": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "available_material_items": [
+            "RANK02",
+            "RANK03",
+            "RANK04",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "missing": 92,
+          "not_applicable": 0
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "available_material_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "missing": 93,
+          "not_applicable": 0
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "available_material_items": [],
+          "missing": 0,
+          "not_applicable": 115
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "available_fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "margin_to_next",
+        "individual_final3f",
+        "checkpoint_positions"
+      ]
+    },
+    {
+      "name": "local_full",
+      "evidence": 85,
+      "field_states": 89,
+      "registered": 3,
+      "active": 2,
+      "item_rows": 345,
+      "by_runner": [
+        {
+          "no": 1,
+          "status": "ACTIVE",
+          "available_material_items": [
+            "RANK02",
+            "RANK03",
+            "RANK04",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "missing": 92,
+          "not_applicable": 0
+        },
+        {
+          "no": 2,
+          "status": "ACTIVE",
+          "available_material_items": [
+            "RANK02",
+            "RANK03",
+            "RANK05",
+            "RANK06",
+            "RANK17",
+            "RANK19",
+            "RANK33",
+            "RANK34",
+            "RANK35",
+            "RANK36",
+            "RANK37",
+            "RANK43",
+            "RANK44",
+            "RANK45",
+            "RANK47",
+            "RANK48",
+            "RANK49",
+            "RANK50",
+            "RANK51",
+            "RANK52",
+            "RANK54",
+            "RANK67"
+          ],
+          "missing": 93,
+          "not_applicable": 0
+        },
+        {
+          "no": 4,
+          "status": "CANCELLED",
+          "available_material_items": [],
+          "missing": 0,
+          "not_applicable": 115
+        }
+      ],
+      "relation_counts": {
+        "HISTORICAL_OPPONENT": 4,
+        "OPPONENT_LATER_PRIOR_TO_CUTOFF": 7,
+        "DIRECT_CURRENT_RIVALS": 2,
+        "COMMON_OPPONENT_DIFFERENT_EVENTS": 1
+      },
+      "available_fields": [
+        "conditions",
+        "course_geometry",
+        "current_runner",
+        "weight",
+        "race_leader_laps",
+        "historical_runner_identity",
+        "finish",
+        "finish_clock",
+        "margin_to_winner",
+        "margin_to_next",
+        "individual_final3f",
+        "checkpoint_positions"
+      ]
+    }
+  ],
+  "contract": {
+    "canonical_items": 115,
+    "canonical_definition_pin": "7fff865e11517d6e6da74506cb3ad8175e584f88",
+    "group_gates_pin": "7fff865e11517d6e6da74506cb3ad8175e584f88",
+    "groups": {
+      "JRA": 88,
+      "LOCAL": 30,
+      "total": 118
+    },
+    "held": 826,
+    "official_group_id": null,
+    "formal_admissions": 0,
+    "entrypoint": "Load only exact packet JSON from packet_index. No raw bundle or source fixture in analyst input. For legacy packet, read cases[name].packet in verified reconstruction artifact; label reconstruction, not original stdout.",
+    "reproduction": "Import work23 from stage23-producer-v0.2.2.mjs; pass JSON.parse(stage22-custody-to-115-contract-v0.1.json).items and JSON.parse(stage22-handoff-execution-summary.json).examples. Compare JSON.stringify(result.packets[name])+'\\n' exact SHA256 to packet_index. No live collection.",
+    "fields": {
+      "finish": "place integer; no tie parser certified",
+      "finish_clock": "0.1_second integer",
+      "margin_to_winner": "typed_margin {unit:0.1_second or 0.01_length,value:integer}; no cross-unit conversion",
+      "margin_to_next": "same typed margin; seconds checked against next clock",
+      "individual_final3f": "0.1_second integer; no individual split inferred",
+      "race_leader_laps": "race-scoped ordered segments distance_m,ticks 0.1s; sum distance/clock verified against winner",
+      "checkpoint_positions": "integer rank at explicit geometry checkpoints; dependent missing geometry HELD",
+      "course_geometry": "version,effective interval,first turn/straight/checkpoints metres,elevation change mm",
+      "conditions": "venue,surface,distance_m,going,direction,class/effective interval,geometry; CURRENT_CARD and HISTORICAL_RACE distinct",
+      "weight": "gram integer",
+      "historical_runner_identity": "issuer scoped native fictional ID, historical_no separate from current_no",
+      "current_runner": "registered identity/status and weight as provided"
+    },
+    "relations": "Directed same-event current-active rival, historical opponent, common opponent across different events, opponent later prior-to-cutoff. IDs refer to actual packet evidence; no implied ability transitivity, independent votes or official peer strength.",
+    "state_semantics": {
+      "TEST_INPUT_AVAILABLE": "at least one typed material, not sufficient analysis, no consumption",
+      "MISSING": "no field value; not zero",
+      "HELD": "dependent evidence not verified or entire packet held on rights/time; no numeric value",
+      "REJECTED": "invalid type/unit/scope/identity; no numeric value",
+      "NOT_APPLICABLE": "nonactive/nonperformance; no ability judgment"
+    },
+    "identity_and_provenance": "root stable issuer/event/subject/actual number/field; evidence_id includes version/raw hash/pointer; overlaps and relation copies do not create independent factors. Registry anchor and public test HMAC simulated; capture/publication/observation/seal/cutoff/analysis timestamps fictional integer clock; no real rights."
+  },
+  "legacy": {
+    "verified_reconstruction_path": "research/reborn2-official-sources/stage23-work22-v0.1-reconstruction-verified.json",
+    "ref": "bb8071f323d104d95829a04c7966cf7c679666f0",
+    "blob": "d43ad7e4f7eb1285654022eeddcd52ee763335b0",
+    "original_full_stdout_available": false,
+    "positive_raw_hash_matches": 2,
+    "registry_hash_matches": 4,
+    "summary_state_matches": 5,
+    "limitations": "Reconstructed from pinned code and compact summary, not actual old Python execution stdout. Revoked case has no prior registry hash for comparison. New v0.2 packet is actual producer output; schema adapter not yet integrated with Codex."
+  },
+  "supersession": "Use ONLY paths in packet_index; earlier v0.2 draft files (combined raw+packet) and superseded v0.2.1 correction_before/nested_geometry files retained but not final. Seven v0.2.1 files byte-identical to final producer.",
+  "limits": [
+    "Prototype is actual JS execution with in-memory ASCII fixture bytes and synthetic receipts, not the existing Python separate filesystem verifier and not production-safe. Full v0.3/Work22 Python 135 tests preserved but not rerun here.",
+    "No external time, real issuer, actual authorization, verified crossissuer mapping or authoritative inventory completeness. No live official source access or original search. Registry check is mock; permission at later output would require new independently trusted state.",
+    "No full official parser, duplicate-key parsing of external raw, physical race feasibility or actual pace interpretation; no tie/DNF parser certified. Conditions and geometry are overlapping facts, not independent signals. No individual sectionals derived from race leader.",
+    "RANK/EYE material routes not semantic consumption; positive active runners have 23/22 item material routes (of115), EYE 0, no ability judgment, no rank/score/probability. Codex must implement/verify partial-input adapter, not assume direct schema compatibility.",
+    "No production, main/PR merge, DB, MCP, FROZEN, Cron, deploy, formal adoption, contracts, payments or provider inquiry."
+  ],
+  "formal_admissions": 0,
+  "formal_replays": 0,
+  "production_changes": 0
+}

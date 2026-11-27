@@ -1,0 +1,105 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "execution": "Actual offline JS run of Work24 dependency producer on deterministic Work23 packets; SHA256 of each parent matches original index; original bytes separately readback before final save.",
+  "tests": [
+    {
+      "name": "positive_full_field",
+      "pass": true
+    },
+    {
+      "name": "positive_narrow_clock",
+      "pass": true
+    },
+    {
+      "name": "missing_geometry_sibling",
+      "pass": true
+    },
+    {
+      "name": "missing_geometry_clock_invariant",
+      "pass": true
+    },
+    {
+      "name": "missing_clock_not_zero",
+      "pass": true
+    },
+    {
+      "name": "wrong_identity_full_field_incomplete",
+      "pass": true
+    },
+    {
+      "name": "revoked_no_leak",
+      "pass": true
+    },
+    {
+      "name": "nonactive_all_not_applicable",
+      "pass": true
+    },
+    {
+      "name": "class_effective_not_strength",
+      "pass": true
+    },
+    {
+      "name": "leader_laps_no_individual_clock",
+      "pass": true
+    },
+    {
+      "name": "final3f_scope",
+      "pass": true
+    },
+    {
+      "name": "followup_is_later",
+      "pass": true
+    },
+    {
+      "name": "all_formal_false",
+      "pass": true
+    },
+    {
+      "name": "malformed_global_no_leak",
+      "pass": true
+    },
+    {
+      "name": "before_correction_excluded",
+      "pass": true
+    },
+    {
+      "name": "after_correction_observation_invariant",
+      "pass": true
+    },
+    {
+      "name": "typed_length_no_conversion",
+      "pass": true
+    },
+    {
+      "name": "bad_margin_sibling_visible",
+      "pass": true
+    },
+    {
+      "name": "nested_market_no_value",
+      "pass": true
+    },
+    {
+      "name": "peer_context_dependency",
+      "pass": true
+    },
+    {
+      "name": "wrong_peer_comparison_held",
+      "pass": true
+    },
+    {
+      "name": "source_reference_retained",
+      "pass": true
+    },
+    {
+      "name": "no_new_independent_sectionals",
+      "pass": true
+    }
+  ],
+  "total": 23,
+  "passed": 23,
+  "work23_producer_rerun": {
+    "total": 30,
+    "passed": 30
+  },
+  "formal_admissions": 0
+}
