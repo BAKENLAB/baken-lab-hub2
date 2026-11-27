@@ -1,0 +1,476 @@
+{
+  "schema": "stage21-final-research-receipt-v1.9",
+  "acceptance": "a4b0022cc17cc5edb46b1232d47e1ae6a4a9ef96",
+  "sources": [
+    {
+      "name": "stage21-index-corroboration-v1.9.json",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "fff15c9daa294cbb6cbb8b35fb341b7d31539697"
+    },
+    {
+      "name": "stage21_offline_probe.py",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "fa20296be3e441d8a33e492af402a39abb36fefc"
+    },
+    {
+      "name": "stage21-jra-lap-candidate-check-v1.9.json",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "90ad7227ffce0e20311f2fb141f046a66fb094b3"
+    },
+    {
+      "name": "stage21-prospective-evidence-retention-design-v0.2.md",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "6e74b52f5b90d3e925fdc7962c1b684317ef45ab"
+    },
+    {
+      "name": "stage20-saga-row-crosscheck-v1.8.json",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "7d5d9036342d685f9b5c555b779ba3265fdaeef7"
+    },
+    {
+      "name": "stage20-saga-field-relations-v1.8.json",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "9442a5c2d40edbd0cc18c493f9812c9b8126ab3b"
+    },
+    {
+      "name": "stage20-clock-and-crossissuer-delta-v1.8.json",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "2b93285044c6e3ada2d1f440be97c234bf9dfba7"
+    },
+    {
+      "name": "stage16-derived-row-receipt-v1.3.json",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "476fe4470f4933210627dfd508c1660ff0792f70"
+    },
+    {
+      "name": "stage17-permission-inquiry-drafts-20261127.md",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "248333a735dc919a13e34ebf35636b2159f1dcb8"
+    },
+    {
+      "name": "stage20-final-research-receipt-v1.8.json",
+      "ref": "48e75edc03c9d69eb964c8daba44146e1a4496d4",
+      "blob": "ba61a0667c23486461a0f3b9b3a8ab4217993197"
+    }
+  ],
+  "checks": {
+    "prior_gates": true,
+    "prior_44": true,
+    "new_11": true,
+    "unique_union_55": true,
+    "tokyo_two": true,
+    "pair_26": true,
+    "pair_13": true,
+    "full_field_25": true,
+    "lap_2": true,
+    "probe_exact_local_blob": true,
+    "no_formal": true
+  },
+  "offline_probe": {
+    "scope": "SYNTHETIC_ONLY",
+    "execution": "python standard library in isolated local temporary directories; actual filesystem writes/readback and hash/HMAC calculations; no networking",
+    "code_sha256": "6687634b078cc7b85edd39d09fe833bd79b18e547f243c147882e0933ef51de5",
+    "local_code_blob": "fa20296be3e441d8a33e492af402a39abb36fefc",
+    "local_stdout_sha256": "89eea499a3a4a55b8d62b20949c420c03fff98c714efe7b9bcbdeeefe13a0b82",
+    "tests": [
+      {
+        "name": "exact_bytes_and_independent_readback",
+        "expected": null,
+        "errors": [],
+        "pass": true
+      },
+      {
+        "name": "exclusive_create",
+        "expected": null,
+        "errors": [],
+        "pass": true
+      },
+      {
+        "name": "append_correction_preserves_old_bytes",
+        "expected": null,
+        "errors": [],
+        "pass": true
+      },
+      {
+        "name": "wrong_domain",
+        "expected": "DOMAIN",
+        "errors": [
+          "DOMAIN"
+        ],
+        "pass": true
+      },
+      {
+        "name": "wrong_charset",
+        "expected": "DOMAIN",
+        "errors": [
+          "DOMAIN",
+          "DECODE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "start_after_end",
+        "expected": "TIME",
+        "errors": [
+          "TIME"
+        ],
+        "pass": true
+      },
+      {
+        "name": "late_seal",
+        "expected": "TIME",
+        "errors": [
+          "TIME"
+        ],
+        "pass": true
+      },
+      {
+        "name": "uncertain_cutoff",
+        "expected": "TIME",
+        "errors": [
+          "TIME"
+        ],
+        "pass": true
+      },
+      {
+        "name": "cutoff_at_post",
+        "expected": "TIME",
+        "errors": [
+          "TIME"
+        ],
+        "pass": true
+      },
+      {
+        "name": "publication_missing",
+        "expected": "TIME",
+        "errors": [
+          "TIME"
+        ],
+        "pass": true
+      },
+      {
+        "name": "late_publication",
+        "expected": "TIME",
+        "errors": [
+          "TIME"
+        ],
+        "pass": true
+      },
+      {
+        "name": "post_version_mismatch",
+        "expected": "VERSION",
+        "errors": [
+          "VERSION"
+        ],
+        "pass": true
+      },
+      {
+        "name": "late_correction",
+        "expected": "VERSION",
+        "errors": [
+          "VERSION"
+        ],
+        "pass": true
+      },
+      {
+        "name": "course_expired",
+        "expected": "VERSION",
+        "errors": [
+          "VERSION"
+        ],
+        "pass": true
+      },
+      {
+        "name": "class_expired",
+        "expected": "VERSION",
+        "errors": [
+          "VERSION"
+        ],
+        "pass": true
+      },
+      {
+        "name": "public_without_right",
+        "expected": "RIGHTS",
+        "errors": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "nonfiction_scope",
+        "expected": "SCOPE",
+        "errors": [
+          "SCOPE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "length_mismatch",
+        "expected": "RAW",
+        "errors": [
+          "RAW"
+        ],
+        "pass": true
+      },
+      {
+        "name": "rights_capture",
+        "expected": "RIGHTS",
+        "errors": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "rights_storage",
+        "expected": "RIGHTS",
+        "errors": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "rights_ai",
+        "expected": "RIGHTS",
+        "errors": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "rights_processor",
+        "expected": "RIGHTS",
+        "errors": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "rights_revoked_at",
+        "expected": "RIGHTS",
+        "errors": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "rights_retain_until",
+        "expected": "RIGHTS",
+        "errors": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "rights_valid_until",
+        "expected": "RIGHTS",
+        "errors": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "raw_changed",
+        "expected": "RAW",
+        "errors": [
+          "RAW"
+        ],
+        "pass": true
+      },
+      {
+        "name": "raw_missing",
+        "expected": "MISSING_RAW",
+        "errors": [
+          "MISSING_RAW"
+        ],
+        "pass": true
+      },
+      {
+        "name": "receipt_modified",
+        "expected": "MAC",
+        "errors": [
+          "MAC"
+        ],
+        "pass": true
+      },
+      {
+        "name": "roster_mismatch",
+        "expected": "ROSTER",
+        "errors": [
+          "ROSTER"
+        ],
+        "pass": true
+      },
+      {
+        "name": "duplicate_native_id",
+        "expected": "ROSTER",
+        "errors": [
+          "HISTORY",
+          "ROSTER"
+        ],
+        "pass": true
+      },
+      {
+        "name": "unknown_status",
+        "expected": "ROSTER",
+        "errors": [
+          "ROSTER"
+        ],
+        "pass": true
+      },
+      {
+        "name": "market_field",
+        "expected": "ALLOWLIST",
+        "errors": [
+          "ALLOWLIST"
+        ],
+        "pass": true
+      },
+      {
+        "name": "target_result_field",
+        "expected": "ALLOWLIST",
+        "errors": [
+          "ALLOWLIST"
+        ],
+        "pass": true
+      },
+      {
+        "name": "target_event_in_history",
+        "expected": "HISTORY",
+        "errors": [
+          "HISTORY"
+        ],
+        "pass": true
+      },
+      {
+        "name": "late_history",
+        "expected": "HISTORY",
+        "errors": [
+          "HISTORY"
+        ],
+        "pass": true
+      },
+      {
+        "name": "wrong_subject",
+        "expected": "HISTORY",
+        "errors": [
+          "HISTORY"
+        ],
+        "pass": true
+      },
+      {
+        "name": "nested_market",
+        "expected": "ALLOWLIST",
+        "errors": [
+          "ALLOWLIST"
+        ],
+        "pass": true
+      }
+    ],
+    "total": 37,
+    "passed": 37,
+    "limitations": "Results transcribed from actual local stdout. Same process separate readback function, not independent trusted custodian. Known test HMAC key and synthetic clock, not official time/signature/rights. Exclusive create and append correction preserve old bytes in test, not WORM. Not deployed, not production-safe."
+  },
+  "tokyo": {
+    "prior_16_all_have_some_lead": true,
+    "new_search_index_rows": [
+      {
+        "no": 5,
+        "prior_no": "8",
+        "finish_match": true,
+        "clock_match": true,
+        "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde1006202604040720260913%2F54",
+        "source_kind": "OFFICIAL_SEARCH_INDEX_ONLY",
+        "native_result_link_verified": false,
+        "official_publication_at": null,
+        "formal_usable": false
+      },
+      {
+        "no": 11,
+        "prior_no": "11",
+        "finish_match": true,
+        "clock_match": true,
+        "source_url": "https://www.jra.go.jp/JRADB/accessS.html?CNAME=pw01sde0101202602060720260906%2F64",
+        "source_kind": "OFFICIAL_SEARCH_INDEX_ONLY",
+        "native_result_link_verified": false,
+        "official_publication_at": null,
+        "formal_usable": false
+      }
+    ],
+    "official_result_native_id_missing_5": "unchanged; no new certified source link",
+    "horse3": "stage20 candidate cross-issuer link held; no new lawful original locator",
+    "publication": "exact original publication/capture unverified",
+    "formal_usable": false
+  },
+  "saga": {
+    "rows": 55,
+    "archive_candidates_44": 44,
+    "index_only_new_11": 11,
+    "all_unique_locator_rows": 55,
+    "official_original_certified": 0,
+    "prior_event_count": 39,
+    "direct_candidates": 26,
+    "archive_both_rows": 13,
+    "full_numeric_candidates": 25,
+    "jra_race_lap_arithmetic_candidates": 2,
+    "local_laps_verified": 0,
+    "going": null,
+    "weather": null,
+    "profile_index_corroboration_candidates": [
+      {
+        "no": 2,
+        "id": "40011403066"
+      },
+      {
+        "no": 4,
+        "id": "30035405986"
+      },
+      {
+        "no": 6,
+        "id": "30086402866"
+      },
+      {
+        "no": 7,
+        "id": "30092401666"
+      },
+      {
+        "no": 9,
+        "id": "30088408796"
+      },
+      {
+        "no": 10,
+        "id": "30026408496"
+      }
+    ],
+    "identity_link_authenticated": false,
+    "actual_eligible_values": [],
+    "formal_usable": false
+  },
+  "dedicated_recovery": {
+    "reported_files": 497,
+    "reported_archives": 24,
+    "scope": "accepted report, not independently rerun",
+    "repeated_search": false,
+    "new_original_location": false
+  },
+  "permission": {
+    "status": "NOT_CLEARED",
+    "draft_blob": "248333a735dc919a13e34ebf35636b2159f1dcb8",
+    "sent": false,
+    "contract": false,
+    "charge": false
+  },
+  "pilot": "DESIGN_ONLY; one future JRA and one LOCAL after permission; no live acquisition or service",
+  "canonical_items": 115,
+  "codex_test_baseline": 229,
+  "prior_gates": {
+    "groups": 118,
+    "flags": 826,
+    "all_held": true
+  },
+  "formal_admissions": 0,
+  "formal_replays": 0,
+  "production_changes": 0,
+  "limits": [
+    "No official raw source or verified native identity acquired. New official search index snippets may contain market/target incidental information; excluded from evidence and analysis. No target outcome/market selected in SQL. No repeated original recovery; new index/alternate URL routes only, tested cache misses held. Existing 44/26/13/25 remain diagnostic. No official source values redistributed. No actual acquisition service contracted, no current collector or DB changed."
+  ]
+}
