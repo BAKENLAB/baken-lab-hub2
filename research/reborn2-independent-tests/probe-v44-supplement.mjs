@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import {resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+const [dir,sha]=process.argv.slice(2);assert.equal(execFileSync('git',['-C',dir,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),sha);
+const imp=p=>import(pathToFileURL(resolve(dir,'research/reborn2-chatgpt-circuit',p)));
+const {loadV40}=await imp('work36-v40-integrated.mjs');
+const {analyze}=await imp('work36-v41-local-decision.mjs');
+const {integrate}=await imp('work36-v42-propagation.mjs');
+const {analyzeV34}=await imp('work33-v34-synthesis.mjs');
+const {run31}=await imp('work32-pinned/stage32-condition-pipeline-v0.1.2.mjs');
+const V=await loadV40(),records=[];
+const H=n=>'TEST:NAR|TEST:H'+n;
+const fixture=id=>V.C.fixtures.find(f=>f.id===id);
+async function probe(id,f){let r;try{r={id,status:'PASS',detail:await f()}}catch(e){r={id,status:e.code==='ERR_ASSERTION'?'FAIL':'EXECUTION_ERROR',error:e.message}}records.push(r);console.log('V44_SUPPLEMENT '+JSON.stringify(r))}
+const x=analyze(V,'FK34_UNKNOWN',{eyeEnabled:true}),z=integrate(x,fixture('FK34_UNKNOWN').docs,{eyeEnabled:true});
+await probe('IT48-07-retest-original',()=>{assert.equal(z.runners.length,5);assert.ok(z.routes.some(r=>r.edges.some(e=>e.local)),'No surviving unaffected local comparison');return {local:z.routes.flatMap(r=>r.edges).filter(e=>e.local).length,held:z.runners.filter(h=>h.current_grade===null).length};});
+await probe('IT48-07-retest-known-pairs',()=>{const edges=z.routes.flatMap(r=>r.edges).filter(e=>e.a!==H(5)&&e.b!==H(5));assert.ok(edges.some(e=>e.local));assert.ok(edges.every(e=>!e.full));return {measured:edges.filter(e=>e.measurement).length,local:edges.filter(e=>e.local).length,full:edges.filter(e=>e.full).length,scope:'local historical response not guaranteed current outcome'};});
+await probe('V44-cancel-vs-unknown',()=>{
+ const docs=structuredClone(fixture('FK34_UNKNOWN').docs);docs[0].rows.find(r=>r.nativeId==='TEST:H5').status='CANCELLED';
+ const id='V44_TEST_CANCEL_ONLY',hash=s=>createHash('sha256').update(s).digest('hex');
+ const {input,registry,out}=run31(docs,V.C.canonical,hash);assert.equal(out.state,'TEST_PACKET');
+ const bundle=JSON.stringify({scope:'SYNTHETIC_ONLY',canonical:V.C.canonical,cases:[{n:id,input,registry,expectedDigest:out.digest}]})+'\n';
+ const pin={id,source_digest:out.digest,bundle_sha256:hash(bundle),evidence:out.packet.evidence.length,itemRows:out.packet.runners.length*115,blob:null};
+ const W={...V,C:{...V.C,fixtures:[{id,docs}],receipt:{summary:[pin]},genericNoTemplates:true},fixed:new Map([[id,{raw:{raw:docs},pin}]])};
+ const a=analyzeV34(W,id,{localize:true,eyeEnabled:false}),b=analyzeV34(V,'FK34_UNKNOWN',{localize:true,eyeEnabled:false});
+ assert.equal(a.roster.possible_active.length,4);assert.equal(a.roster.known_active.length,4);assert.ok(!a.roster.possible_active.includes(H(5)));assert.ok(b.roster.possible_active.includes(H(5)));assert.ok(!b.roster.known_active.includes(H(5)));
+ const projection=q=>q.scenarios.filter(s=>s.kind==='OBSERVED_FIELD_RESPONSE_SCENARIO').flatMap(s=>s.edges.filter(e=>e.a!==H(5)&&e.b!==H(5)).map(e=>[s.id,e.a,e.b,e.interval_ms,e.change_ms,e.historical_refs]));
+ const p=projection(a),r=projection(b);assert.equal(p.length,90);assert.ok(p.every(e=>e[3]));assert.deepEqual(p,r);
+ return {cancelled:a.roster,unknown:b.roster,identicalHistory:p.length,scope:'synthetic status-only intervention, no current full transfer inferred'};
+});
+console.log('V44_SUPPLEMENT_RECEIPT '+JSON.stringify({sha,records,formal:false}));process.exitCode=records.some(r=>r.status==='EXECUTION_ERROR')?2:records.some(r=>r.status==='FAIL')?1:0;
