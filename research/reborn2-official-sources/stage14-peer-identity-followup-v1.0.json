@@ -1,0 +1,362 @@
+{
+  "version": "1.0.0",
+  "acceptance_commit": "0427dd0",
+  "prior_commit": "fa479a92ab0d7b0a313d3f2bf1b7f7e7d6a5813d",
+  "observed_date_jst": "2026-11-27",
+  "observed_at": null,
+  "publication_at": null,
+  "permission_status": "NOT_CLEARED",
+  "formal_admissions": 0,
+  "production_changes": false,
+  "source_peer_ledger_sha256": "3a1f367f08e7d0c75ea61a16ecb492cf9b047c4f9dac053d26ebc7927aae9e9d",
+  "new_profile_observations": [
+    {
+      "id": "30022406496",
+      "name": "タカマキファイブ",
+      "matches": [
+        [
+          "LOCAL:2026-07-20:盛岡:12",
+          6,
+          12,
+          1279
+        ]
+      ],
+      "later": [
+        [
+          "LOCAL:2026-08-03:盛岡:11",
+          2,
+          6,
+          991
+        ]
+      ],
+      "other_edge_unchecked": "2025-09-02 盛岡10R; not checked in returned excerpt",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30022406496",
+      "stage": "OFFICIAL_CACHED_HISTORY_BODY_MATCHES_PRIOR_LEDGER",
+      "raw_sha256": null,
+      "source_cache_age": "3 months per tool",
+      "later_scope": "visible rows after earliest matched edge only, not exhaustive, numeric finishes and no market fields"
+    },
+    {
+      "id": "30042403196",
+      "name": "マキシマムパワー",
+      "matches": [
+        [
+          "LOCAL:2026-03-11:船橋:11",
+          10,
+          7,
+          1593
+        ]
+      ],
+      "later": [
+        [
+          "LOCAL:2026-04-02:船橋:11",
+          7,
+          3,
+          1170
+        ]
+      ],
+      "other_edge_unchecked": "2026-08-28 船橋11R beyond visible cached history",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30042403196",
+      "stage": "OFFICIAL_CACHED_HISTORY_BODY_MATCHES_PRIOR_LEDGER",
+      "raw_sha256": null,
+      "source_cache_age": "3 months per tool",
+      "later_scope": "visible rows after earliest matched edge only, not exhaustive, numeric finishes and no market fields"
+    },
+    {
+      "id": "30058408796",
+      "name": "ケンシレインボー",
+      "matches": [
+        [
+          "LOCAL:2026-03-11:船橋:11",
+          7,
+          10,
+          1641
+        ],
+        [
+          "LOCAL:2025-10-08:大井:11",
+          9,
+          6,
+          1267
+        ]
+      ],
+      "later": [
+        [
+          "JRA:2025-11-15:京都:10",
+          11,
+          15,
+          1206
+        ],
+        [
+          "LOCAL:2025-12-09:船橋:11",
+          3,
+          8,
+          1176
+        ],
+        [
+          "LOCAL:2026-01-02:川崎:11",
+          5,
+          6,
+          1442
+        ],
+        [
+          "LOCAL:2026-01-28:大井:11",
+          2,
+          6,
+          1722
+        ],
+        [
+          "LOCAL:2026-03-11:船橋:11",
+          7,
+          10,
+          1641
+        ],
+        [
+          "LOCAL:2026-04-02:船橋:12",
+          2,
+          8,
+          1173
+        ]
+      ],
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30058408796",
+      "stage": "OFFICIAL_CACHED_HISTORY_BODY_MATCHES_PRIOR_LEDGER",
+      "raw_sha256": null,
+      "source_cache_age": "3 months per tool",
+      "later_scope": "visible rows after earliest matched edge only, not exhaustive, numeric finishes and no market fields"
+    }
+  ],
+  "cache_rechecks": [
+    {
+      "id": "30015407796",
+      "state": "UnexpectedStatusCode"
+    },
+    {
+      "id": "30068409786",
+      "state": "CACHED_BODY_RETURNED"
+    },
+    {
+      "id": "40091400866",
+      "state": "CACHED_BODY_RETURNED"
+    },
+    {
+      "id": "30097406476",
+      "state": "CACHED_BODY_RETURNED"
+    },
+    {
+      "id": "30022408596",
+      "state": "CACHED_BODY_RETURNED"
+    }
+  ],
+  "new_profile_failures": [
+    {
+      "id": "30008400896",
+      "state": "429_TOO_MANY_REQUESTS"
+    },
+    {
+      "id": "30076402946",
+      "state": "404_NOT_FOUND"
+    }
+  ],
+  "rate_limit_action": "No further direct NAR profile acquisitions after 429 batch; no bypass. User permission not established.",
+  "new_followup_body_text": [
+    {
+      "id": "30013403596",
+      "race": "JRA:2025-12-07:中京:11",
+      "runner_no": 12,
+      "finish": 13,
+      "clock_tenths": 1126,
+      "corner_positions": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "final3f_tenths": 394,
+      "carried_weight_kg": 57,
+      "body_weight_kg": 508,
+      "source_url": "https://www.jra.go.jp/datafile/seiseki/g1/jcd/result/jcd2025.html",
+      "rating": 96,
+      "rating_source": "https://www.jra.go.jp/datafile/ranking/jyusyo/2025/12-g1.html",
+      "stage": "OFFICIAL_RESULT_PAGE_TEXT_ROW_MATCH",
+      "native_result_horse_link": false,
+      "raw_sha256": null,
+      "exact_source_version_and_time_unverified": true,
+      "rating_scope": "race_specific; separate indexed observation"
+    },
+    {
+      "id": "30013403596",
+      "race": "JRA:2026-05-23:京都:11",
+      "runner_no": 15,
+      "finish": 8,
+      "clock_tenths": 1185,
+      "corner_positions": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "final3f_tenths": 394,
+      "carried_weight_kg": 59,
+      "body_weight_kg": 504,
+      "source_url": "https://www.jra.go.jp/datafile/seiseki/replay/2026/052.html",
+      "rating": 105,
+      "rating_source": "https://www.jra.go.jp/JRADB/accessU.html?CNAME=pw01dud002022101638%2FB3",
+      "stage": "OFFICIAL_RESULT_PAGE_TEXT_ROW_MATCH",
+      "native_result_horse_link": false,
+      "raw_sha256": null,
+      "exact_source_version_and_time_unverified": true,
+      "rating_scope": "race_specific; separate indexed observation"
+    }
+  ],
+  "new_followup_index": {
+    "id": "30054405596",
+    "race": "LOCAL:2025-11-09:金沢:11",
+    "runner_no": 10,
+    "finish": 3,
+    "clock_tenths": 1706,
+    "source_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode=22&k_raceDate=2025%2F11%2F09&k_raceNo=11",
+    "stage": "INDEX_ONLY_DIRECT_BODY_CACHE_MISS"
+  },
+  "original_21_queue": [
+    {
+      "id": "30007404886",
+      "race": "LOCAL:2026-10-16:川崎:11",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30013403596",
+      "race": "JRA:2025-12-07:中京:11",
+      "state": "OFFICIAL_RESULT_TEXT_MATCH_RAW_DOM_PENDING"
+    },
+    {
+      "id": "30013403596",
+      "race": "JRA:2026-05-23:京都:11",
+      "state": "OFFICIAL_RESULT_TEXT_MATCH_RAW_DOM_PENDING"
+    },
+    {
+      "id": "30022409707",
+      "race": "LOCAL:2026-11-23:水沢:12",
+      "state": "INDEX_ONLY"
+    },
+    {
+      "id": "30054405596",
+      "race": "LOCAL:2025-10-19:盛岡:12",
+      "state": "INDEX_ONLY"
+    },
+    {
+      "id": "30054405596",
+      "race": "LOCAL:2025-11-09:金沢:11",
+      "state": "INDEX_ONLY"
+    },
+    {
+      "id": "30054405596",
+      "race": "LOCAL:2025-11-30:水沢:12",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30054405596",
+      "race": "LOCAL:2025-12-31:水沢:12",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30054405596",
+      "race": "LOCAL:2026-04-14:水沢:12",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30054405596",
+      "race": "LOCAL:2026-05-24:盛岡:12",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30064405366",
+      "race": "LOCAL:2026-05-04:名古屋:11",
+      "state": "INDEX_ONLY"
+    },
+    {
+      "id": "30064405366",
+      "race": "LOCAL:2026-09-22:金沢:11",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30064405366",
+      "race": "LOCAL:2026-11-03:金沢:9",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30076401076",
+      "race": "LOCAL:2026-02-04:川崎:11",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30076401076",
+      "race": "LOCAL:2026-02-17:大井:11",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30076401076",
+      "race": "LOCAL:2026-04-16:大井:11",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30076401076",
+      "race": "LOCAL:2026-04-23:浦和:11",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30076401076",
+      "race": "LOCAL:2026-06-18:川崎:11",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30076401076",
+      "race": "LOCAL:2026-08-04:船橋:9",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30076401076",
+      "race": "LOCAL:2026-08-26:船橋:11",
+      "state": "FULL_RESULT_PENDING"
+    },
+    {
+      "id": "30076401076",
+      "race": "LOCAL:2026-09-16:大井:11",
+      "state": "FULL_RESULT_PENDING"
+    }
+  ],
+  "additional_context": {
+    "race": "LOCAL:2026-05-04:名古屋:11",
+    "rating_source": "https://www.keiba.go.jp/dirtgraderace/2026/rating/dirtgraderacerating/index.html",
+    "observed_race_ratings": [
+      {
+        "id": "30097406476",
+        "finish": 1,
+        "rating": 113
+      },
+      {
+        "id": "30064405366",
+        "finish": 2,
+        "rating": 112
+      }
+    ],
+    "stage": "CACHED_OFFICIAL_RATING_INDEX_BODY; not result body or native link"
+  },
+  "counts": {
+    "previous_saved_DOM": 11,
+    "previous_cached": 5,
+    "new_cached": 3,
+    "cumulative_profile_match_candidates": 19,
+    "saved_DOM_pending": 171,
+    "profile_candidate_pending": 163,
+    "new_edge_matches": 4,
+    "new_later_profile_candidates": 8,
+    "original_followup_34_saved_DOM": 13,
+    "original_followup_34_new_official_body_text": 2,
+    "original_followup_34_index_only": 4,
+    "original_followup_34_other_pending": 15,
+    "original_followup_34_raw_DOM_pending": 21,
+    "original_followup_34_body_pending": 19
+  },
+  "notes": [
+    "New profile observations are not newly preserved original bytes. Raw original 5 cache profiles still pending. Old 34 and new 8 later profile candidates kept separate. Full result body text is not raw DOM, source hash or historical publication authentication. No market inputs retained."
+  ]
+}
