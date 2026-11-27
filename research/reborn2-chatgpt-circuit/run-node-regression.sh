@@ -52,3 +52,5 @@ node test-v22-expression.mjs
 node test-v22-continuation.mjs
 
 node test-capability-depth-v22.mjs
+
+node test-work22-v23-bridge.mjs
