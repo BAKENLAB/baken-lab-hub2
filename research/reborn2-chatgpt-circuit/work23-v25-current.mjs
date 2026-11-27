@@ -45,12 +45,16 @@ export function analyzeCurrentV25(loaded,name,change=null){
   const geoScope=!!(og&&ng&&rangeOK(og.value.effective,og.event_at)&&rangeOK(ng.value.effective,ng.event_at));
   const observations={finish:val(finish),clock:val(clock),final3f:val(end),positions:val(pos),leader_laps:val(lap)};
   const geometry=geoScope?{same:eq(og.value,ng.value),past:og.value,current:ng.value}:null;
+  const historicalGeometry=og&&rangeOK(og.value.effective,og.event_at)?og.value:null;
+  const rankChange=Array.isArray(observations.positions)&&observations.positions.length&&historicalGeometry?.checkpoints_m?.length===observations.positions.length?{first:observations.positions[0],last:observations.positions.at(-1),positions_gained:observations.positions[0]-observations.positions.at(-1),last_to_finish:observations.finish===null?null:observations.positions.at(-1)-observations.finish}:null;
+  const leader=observations.leader_laps?.scope==='RACE_LEADER'?observations.leader_laps.segments:null;
+  const leaderSummary=Array.isArray(leader)&&leader.length?{first_segment:leader[0],last_segment:leader.at(-1),total_ticks:leader.reduce((n,s)=>n+s.ticks,0),scope:'RACE_LEADER_NOT_INDIVIDUAL_LOAD'}:null;
   const weight=ow&&nw?{past:ow.value,current:nw.value,delta_grams:nw.value-ow.value}:null;
   const routes={'RANK33':[old,now],'RANK43':[old,now,...measures],'RANK44':[old,now,...measures],'RANK45':[old,now,og,ng,...measures],'RANK47':[old,now,...measures],'RANK48':[old,now,...measures],'RANK49':[old,now,og,ng,...measures],'RANK50':[og,ng,pos,end,id],'RANK51':[og,ng,end,id],'RANK52':[og,ng,pos,id],'RANK54':[ow,nw,old,now,...measures],'RANK67':[og,ng]};
   for(const [item,es] of Object.entries(routes))note(h,item,'CONTEXT_OBSERVATION:'+ev,es,es.some(x=>!x)?['PARTIAL_CONTEXT']:[]);
   const peers=evidence.filter(e=>e.event_id===ev&&e.field==='historical_runner_identity').map(e=>({id:e.subject_id,identity:e,finish:find(ev,e.subject_id,'finish'),margin:find(ev,e.subject_id,'margin_to_winner'),clock:find(ev,e.subject_id,'finish_clock'),position:find(ev,e.subject_id,'checkpoint_positions'),weight:find(ev,e.subject_id,'weight')}));
   note(h,'RANK34','OBSERVED_PEER_ROWS_NOT_FIELD_STRENGTH',peers.flatMap(q=>[q.identity,q.finish,q.margin,q.clock,q.position,q.weight]),['PRIOR_PEER_ABILITY','FULL_FIELD_COVERAGE']);
-  return {event:ev,observations,diff,class_scope_valid:classScope,geometry,weight,known_labels_match:classScope&&geoScope&&geometry?.same===true&&Object.values(diff).every(v=>v?.same===true),peer_rows:peers.map(q=>({id:q.id,finish:val(q.finish),margin:val(q.margin),clock:val(q.clock),position:val(q.position),weight:val(q.weight)})),field_strength:null,individual_load:null,individual_checkpoint_clocks:null,es:[old,now,og,ng,ow,nw,...measures]};
+  return {event:ev,observations,diff,class_scope_valid:classScope,geometry,historical_geometry:historicalGeometry,rank_change:rankChange,leader_summary:leaderSummary,weight,known_labels_match:classScope&&geoScope&&geometry?.same===true&&Object.values(diff).every(v=>v?.same===true),peer_rows:peers.map(q=>({id:q.id,finish:val(q.finish),margin:val(q.margin),clock:val(q.clock),position:val(q.position),weight:val(q.weight)})),field_strength:null,individual_load:null,individual_checkpoint_clocks:null,es:[old,now,og,ng,ow,nw,...measures]};
  };
  const histories=new Map(roster.map(h=>[h.id,uniq(p.evidence.filter(e=>e.subject_id===h.id&&e.field==='historical_runner_identity').map(e=>e.event_id)).filter(ev=>find(ev,h.id,'historical_runner_identity')).map(ev=>scope(ev,h.id))]));
  const direct=[],seen=new Set();
@@ -86,7 +90,7 @@ export function analyzeCurrentV25(loaded,name,change=null){
  }
  const field=active.map(h=>{
   const past=histories.get(h.id)??[];
-  const starts=past.filter(s=>s.geometry&&s.observations.positions?.length===s.geometry.past.checkpoints_m.length).map(s=>({event:s.event,first_rank:s.observations.positions[0],first_checkpoint_m:s.geometry.past.checkpoints_m[0],positions:s.observations.positions,finish:s.observations.finish,final3f:s.observations.final3f,labels_match:s.known_labels_match}));
+  const starts=past.filter(s=>s.rank_change&&s.historical_geometry).map(s=>({event:s.event,first_rank:s.rank_change.first,first_checkpoint_m:s.historical_geometry.checkpoints_m[0],positions:s.observations.positions,finish:s.observations.finish,final3f:s.observations.final3f,labels_match:s.known_labels_match}));
   const comparable=starts.filter(s=>s.labels_match);
   const leaderSeen=comparable.some(s=>s.first_rank===1);
   const observedFront=comparable.some(s=>s.first_rank<=3);
@@ -95,7 +99,17 @@ export function analyzeCurrentV25(loaded,name,change=null){
   return {horse:h.id,state,starts,unknown:!comparable.length,leader_seen:leaderSeen,front_seen:observedFront};
  });
  const front=field.filter(h=>h.front_seen).map(h=>h.horse),unknown=field.filter(h=>h.unknown).map(h=>h.horse);
- const branchDefs=[{id:'REPEAT_OBSERVED_FORWARD_POSITIONS',participants:front,condition:'If observed forward positioning repeats; actual lead/pace unknown',state:front.length>=2?'POSSIBLE_POSITION_COMPETITION':front.length===1?'ONE_OBSERVED_FORWARD_PROFILE_NOT_SOLO_LEAD':'UNRESOLVED'},{id:'UNKNOWN_OR_CHANGED_START',participants:active.map(h=>h.id),condition:'Any active runner may alter early order; unknown histories remain competitors',state:'OPEN_COUNTER_SCENARIO'}];
+ const branchDefs=[{id:'REPEAT_OBSERVED_FORWARD_POSITIONS',participants:front,condition:'If observed top-three checkpoint positions recur AND horses seek an overlapping slot; historical field size and actual lead/pace unknown',state:front.length>=2?'CONDITIONAL_FORWARD_INTERACTION_NOT_PROVEN':front.length===1?'ONE_OBSERVED_FORWARD_PROFILE_NOT_SOLO_LEAD':'UNRESOLVED'},{id:'UNKNOWN_OR_CHANGED_START',participants:active.map(h=>h.id),condition:'Any active runner may alter early order; unknown histories remain competitors',state:'OPEN_COUNTER_SCENARIO'}];
+ // Pair-specific conditional order; a top-three checkpoint alone does not prove a same-style contest.
+ for(const d of direct.filter(z=>z.current_rivals&&z.state==='HISTORICAL_RELATION_OBSERVED'&&z.contexts.every(c=>c?.labels_match))){
+  const ps=d.measured?.position_ranks;
+  if(!ps?.every(a=>Array.isArray(a)&&a.length&&Number.isInteger(a[0])))continue;
+  const [a,b]=ps.map(a=>a[0]);
+  if(a===b)continue;
+  const earlier=a<b?d.horses[0]:d.horses[1],later=a<b?d.horses[1]:d.horses[0];
+  branchDefs.push({id:'REPEAT_PAIR_ORDER:'+d.event+':'+earlier+':'+later,participants:d.horses,condition:'If their observed checkpoint order repeats, '+earlier+' is ahead of '+later+' at that point; not a lead or pace prediction',state:'HISTORICAL_PAIR_ORDER_CONDITIONAL',event:d.event,earlier,later,first_ranks:[a,b]});
+  branchDefs.push({id:'REVERSE_PAIR_ORDER:'+d.event+':'+earlier+':'+later,participants:d.horses,condition:'If '+later+' takes an earlier position than '+earlier+', this past comparison does not establish the outcome',state:'COUNTER_BRANCH_UNPROVEN',event:d.event,earlier:later,later:earlier,first_ranks:[a,b]});
+ }
  const current=roster.map(h=>{
   const historical=histories.get(h.id)??[];
   if(!active.some(a=>a.id===h.id))return {horse:h.id,status:h.currentStatus,historical:historical.map(({es,...s})=>s),WIN:null,PLACE:null,grade:null,branches:[],reason:'NOT_CURRENT_COMPETITOR'};
@@ -115,9 +129,12 @@ export function analyzeCurrentV25(loaded,name,change=null){
   if(change&&decisionReads.some(t=>t.derived_ids.includes(lineage.derived_id)))decisionDeps.push(evidence.find(e=>e.derived));
 
   const changedWeight=historical.filter(s=>s.weight?.delta_grams!==0&&s.weight).map(s=>({event:s.event,delta:s.weight.delta_grams}));
-  const branches=branchDefs.map(b=>({...b,rivals:rivals.map(r=>r.horse),support:own.front_seen&&b.id==='REPEAT_OBSERVED_FORWARD_POSITIONS'?['PRIOR_FORWARD_POSITION_OBSERVED']:[],counter:rivals.filter(r=>r.front_seen||r.unknown).map(r=>r.horse),missing}));
+  const eye04Candidates=followups.filter(f=>f.horse===h.id&&f.eye04_review).map(f=>({event:f.event,peer:f.peer,followup:f.followup,state:f.state,return:false}));
+  note(h.id,'EYE14','CLASS_LABEL_CHANGE_NOT_RELATIVE_WEAKENING',historical.flatMap(s=>s.es.slice(0,4)),['CLASS_LEVEL','CURRENT_OPPONENT_ABILITY','CROSS_CLASS_OR_TRANSFER_COMPARABILITY']);
+  note(h.id,'EYE15','CONDITION_CHANGE_NOT_PROVEN_IMPROVEMENT',historical.flatMap(s=>s.es.slice(0,6)),['INDEPENDENT_FAVORABLE_EFFECTS','SHARED_ROOT_CHECK']);
+  const branches=branchDefs.filter(b=>b.participants.includes(h.id)||b.id==='REPEAT_OBSERVED_FORWARD_POSITIONS').map(b=>({...b,rivals:rivals.map(r=>r.horse),support:b.state==='HISTORICAL_PAIR_ORDER_CONDITIONAL'&&b.earlier===h.id?['OBSERVED_RELATIVE_CHECKPOINT_ORDER']:own.front_seen&&b.id==='REPEAT_OBSERVED_FORWARD_POSITIONS'?['PRIOR_TOP3_CHECKPOINT_OBSERVED_NOT_STYLE']:[],counter:rivals.filter(r=>r.front_seen||r.unknown).map(r=>r.horse),missing}));
   note(h.id,'WIN_PLACE','CONDITIONAL_RELATIVE_PATHS',[...deps,...decisionDeps],missing);
-  return {horse:h.id,status:h.currentStatus,historical:historical.map(({es,...s})=>s),position_profile:own,branches,WIN:{state:'UNRESOLVED',conditional_relative_support:support,counter,peer_context:peerContext,missing},PLACE:{state:'UNRESOLVED',historical_places:historical.filter(s=>s.observations.finish!==null).map(s=>({event:s.event,finish:s.observations.finish})),conditional_relative_support:support,counter,peer_context:peerContext,missing},weight_changes:changedWeight,eye04:{state:'REVIEW_ONLY',return:false},eye14:{state:'HELD',reason:'NO_PROVEN_CURRENT_FIELD_WEAKENING'},eye15:{state:'HELD',reason:'NO_INDEPENDENT_PROVEN_BENEFITS'},grade:null};
+  return {horse:h.id,status:h.currentStatus,historical:historical.map(({es,...s})=>s),position_profile:own,branches,WIN:{state:'UNRESOLVED',conditional_relative_support:support,counter,peer_context:peerContext,missing},PLACE:{state:'UNRESOLVED',historical_places:historical.filter(s=>s.observations.finish!==null).map(s=>({event:s.event,finish:s.observations.finish})),conditional_relative_support:support,counter,peer_context:peerContext,missing},weight_changes:changedWeight,eye04:{state:eye04Candidates.length?'REVIEW_ONLY':'NO_SUPPORTED_NARROW_DEFEAT_CANDIDATE',candidates:eye04Candidates,return:false},eye14:{state:'HELD',reason:'NO_PROVEN_CURRENT_FIELD_WEAKENING'},eye15:{state:'HELD',reason:'NO_INDEPENDENT_PROVEN_BENEFITS'},grade:null};
  });
  const runners=current.map(h=>({...h,items:p.runners.find(r=>r.id===h.horse).items.map(i=>{
   const reads=trace.filter(t=>t.horse===h.horse&&t.item===i.item);
