@@ -6,13 +6,14 @@ const horse=x=>x.runners.find(h=>h.slot===A);
 const monitored=x=>horse(x).paths.find(p=>p.event===H&&p.kind==='CHECKPOINT_PERSISTS_TO_FINISH');
 const base=synthesize({loaded,fixture:'CONTROL',placeThreshold:3});
 assert.equal(monitored(base).state,'CONTRADICTED_BY_OBSERVED_FINISH');
-assert.ok(horse(base).axes[4].facts.some(f=>f.predicate==='DECISIVE_FOR_ASSUMPTION'));
+assert.ok(horse(base).grade_decision.decisive_historical_counterexamples.some(x=>x.event===H));
+assert.ok(!horse(base).axes[4].facts.some(f=>f.item==='RANK100'));
 assert.equal(horse(base).grade_decision.grade,null);
 const removed=loaded.cases.get('CONTROL').o.evidence.find(e=>e.event_id===H&&e.subject_id===A&&e.field==='finish').evidence_id;
 const variant=synthesize({loaded,fixture:'CONTROL',placeThreshold:3,withdraw:removed});
 assert.ok(!horse(variant).evidence_roots.includes(removed));
 assert.ok(!horse(variant).axes[4].facts.some(f=>f.evidence_refs.includes(removed)));
-assert.notDeepEqual(horse(variant).axes[4].facts,horse(base).axes[4].facts);
+assert.equal(monitored(variant).state,'CONSISTENT_PARTIAL_ORDER');
 assert.ok(horse(base).audit.some(a=>a.id==='RANK100'&&a.conditional_path_effect));
 assert.equal(horse(base).axes[3].current_support.length,0);
 assert.ok(horse(base).eye_feedback.every(f=>!f.conditional_path_effect));
@@ -23,6 +24,12 @@ for(const fixture of loaded.cases.keys()){
  assert.equal(result.held,826);
  assert.equal(result.groups,118);
  assert.ok(result.runners.every(h=>h.axes.length===5&&h.grade_decision.grade===null));
+ for(const h of result.runners) {
+   if(h.grade_decision.state==='NOT_APPLICABLE' || h.grade_decision.state==='HOLD_IDENTITY_OR_STATUS') {
+     assert.ok(h.axes.every(x=>!x.facts.length&&!x.conditions_or_pace.length));
+     assert.ok(h.audit.every(x=>!x.historical_capability_effect&&!x.conditional_path_effect));
+   }
+ }
  totals.fixtures++;
  totals.runners+=result.runners.length;
  for(const item of Object.values(result.byItem)){

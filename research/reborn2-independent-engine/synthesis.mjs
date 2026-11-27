@@ -15,11 +15,13 @@ const predicate=f=>f.state==='SHARED_PATH_REJECTED_BY_TERMINAL_COUNTEREVIDENCE'?
 
 function axesFor(horse){
   return Object.entries(dimensions).map(([axis,ids])=>{
-    const facts=horse.findings_v30.filter(f=>ids.includes(f.item)&&f.refs.length).map(f=>({
+    const eligible=horse.status==='ACTIVE'&&horse.identity_known===true;
+    const facts=horse.findings_v30.filter(f=>eligible&&ids.includes(f.item)&&f.item!=='RANK100'&&f.refs.length).map(f=>({
       item:f.item,predicate:predicate(f),evidence_refs:sharedRoots(f.refs),observation:f.observation,
       applicability:'HISTORICAL_ONLY'
     }));
-    const other=axis==='B'?horse.condition_paths??[]:axis==='D'?horse.pace_paths??[]:[];
+    const other=(eligible?(axis==='B'?horse.condition_paths??[]:axis==='D'?horse.pace_paths??[]:[]):[])
+      .filter(p=>p.refs?.length&&p.state!=='UNKNOWN');
     const state=horse.status==='CANCELLED'?'NOT_APPLICABLE':
       horse.status!=='ACTIVE'||!horse.identity_known?'UNKNOWN_IDENTITY_OR_STATUS':
       facts.length||other.length?'OBSERVED_CURRENT_RELEVANCE_UNPROVEN':'MISSING';
@@ -29,16 +31,17 @@ function axesFor(horse){
 
 function semanticAudit(horse,names){
   return horse.items.map(item=>{
-    const findings=horse.findings_v30.filter(f=>f.item===item.item&&f.refs.length);
+    const eligible=horse.status==='ACTIVE'&&horse.identity_known===true;
+    const findings=horse.findings_v30.filter(f=>eligible&&f.item===item.item&&f.refs.length);
     const pathEffect=findings.some(f=>predicate(f)==='DECISIVE_FOR_ASSUMPTION');
     const capabilityEffect=findings.some(f=>['HISTORICAL_SUPPORT','MIXED_HISTORICAL'].includes(predicate(f)));
     const currentEffect=false;
     return {id:item.item,name:names.get(item.item),state:horse.status==='CANCELLED'?'NOT_APPLICABLE':
-      findings.length?'OBSERVED_FINDING':item.refs.length?'REFERENCED':'MISSING',
-      refs:sharedRoots(item.refs),historical_capability_effect:capabilityEffect,
+      !eligible?'HELD_STATUS_OR_IDENTITY':findings.length?'OBSERVED_FINDING':item.refs.length?'REFERENCED':'MISSING',
+      refs:eligible?sharedRoots(item.refs):[],historical_capability_effect:capabilityEffect,
       current_condition_effect:currentEffect,conditional_path_effect:pathEffect,grade_effect:false,
       effect_origin:pathEffect?'V30_TERMINAL_COUNTEREXAMPLE':capabilityEffect?'V30_FINDING_CONSUMED_BY_AXIS':null,
-      inherited_v29_conditional_effect:item.semantic_effect_proven===true,missing:item.missing};
+      inherited_v29_conditional_effect:eligible&&item.semantic_effect_proven===true,missing:item.missing};
   });
 }
 

@@ -1,0 +1,194 @@
+{
+  "schema": "WORK31_FINAL_RESEARCH_HANDOFF_0.1",
+  "scope": "SYNTHETIC_ONLY_WITH_PUBLIC_TERMS_REVIEW",
+  "acceptance": {
+    "ref": "d22bd9b62356b8297636c6658bb39bea02290e51",
+    "path": "research/reborn2-canonical/RESEARCH-WORK30-405-BYTE-PIPELINE-MAIN40-AUDIT-20261128.md",
+    "blob": "0d7b144044ab8cf9c594ed54abd8f6a50b12cf58"
+  },
+  "parent": {
+    "ref": "21306a42c93a62d4876777b88c56ad33e1cb4ee0",
+    "path": "research/reborn2-official-sources/stage30-final-handoff-v0.1.json"
+  },
+  "branch": "research/reborn2-work31-multifield-20261128",
+  "pins": [
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-execution-v0.1.json",
+      "blob": "22c7a850e5c94c818d281ada07cfa0594e05b1c2",
+      "sha256": "a7c9a52090f2a42a1f55f6560b662f94d7d19a905c7af7fb04ab3559d7293500"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-multifield-pipeline-v0.1.1.mjs",
+      "blob": "370290cbb1b1c2ebb0f5688944c6ce2d19d26eb0",
+      "sha256": "2a90a34871340ff6be8c29f36d6f2911a743827bb98de1198358f77ac9dcefff"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-multifield-bundles-v0.1.1.json",
+      "blob": "1a9c3a29484af2135aa39610625263214e5c193d",
+      "sha256": "f9df1d7d76b2c50d94aa3e0587032ebf2867ee52d138a9a8e328e5cfa30c85b6"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-packet-3-v0.1.1.json",
+      "blob": "357582695a418e834254c62343dc17cd87e68879",
+      "sha256": "6239357e4557b8fa49c973bb12ec62ecb8dd5bb9d576c3493cbdc003445e4391"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-packet-5-v0.1.1.json",
+      "blob": "bb55fc283947664fbc75de9df5b79187bd7fd884",
+      "sha256": "00e048a9670ba3ab5df0c8a02c0f2b9430cb7bcc41e5cf1edfff346144495ce5"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-packet-12-transport-index-v0.1.1.json",
+      "blob": "a69ae2eb5ba3c4b3462be0df474d41e909670a45",
+      "sha256": "0c17e79c512c43c7e5526687bf937336e264742d6c3102fae0615fcb45b2184b"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-revised-readback-v0.1.1.json",
+      "blob": "b44b4b2949efc3f163452027b29b509384f0b375",
+      "sha256": "42c98c745522213b76b3a35f4dc3a07fb7df284c0a1eaac5ad0a8a52e612d3bc"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-guarded-v30-bridge-v0.1.1.mjs",
+      "blob": "048fbc34e8cce8fa3c818394b0346bffe93cd4b4",
+      "sha256": "96f66776de5cb74c24936a83246f2428a0a14b5365748df15ffc96c5de5f610a"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-guarded-v30-execution-v0.1.1.json",
+      "blob": "74ba5880eeaeb2204f7568e5c4d03be088df7b6c",
+      "sha256": "a0873c05194c91c068b7fc35145f666f8ee9e8fa543348e4b045f7b8fb8f5d47"
+    },
+    {
+      "ref": "17f05e91600a80d0d0480551cc028ec8b28f0483",
+      "path": "research/reborn2-official-sources/stage31-real-source-review-v0.1.json",
+      "blob": "26d106cbee605e85d62808cafba7398afdd3cf34",
+      "sha256": "c78ff5a06acb5e6a63f2540cdb6b77fbd855d4888a015225c8bf4b841e87b419"
+    }
+  ],
+  "transport": {
+    "pins": [
+      {
+        "path": "research/reborn2-official-sources/stage31-packet-12-compact-v0.1.1.json",
+        "ref": "b1faea879193f0578b5aa48278cd6ff2d8fcb8d4",
+        "sha256": "51a7d0c19fe99b8a78faac068c9d411908799abb05aa57e84fd53f66736fac0b"
+      },
+      {
+        "path": "research/reborn2-official-sources/stage31-packet-12-common-v0.1.1.json",
+        "ref": "cb82bf098bea56ab3f9e108a26ae54d3481695f8",
+        "sha256": "5b603a6b0f0a2e824eec6340e4d5cabbd74dc387bdacbabb74186fbfc297ae50"
+      }
+    ],
+    "packetDigest": "664325fec3d68f6bcbd305a2945f6eece8e4dfb6cea001c7c0b2e2e8a5c508ea",
+    "fullOutputSha256": "2bb082754b3544facb786064a7b4441800dc8b002611401b572605bac4e7b8c2",
+    "reconstruction": "Expand evidence receipt index with receipts[index]; set packet keys in fieldOrder from meta, evidence, runners and common; return {state:envelope.state,packet,digest:envelope.digest,resultTimestamp:envelope.resultTimestamp}. Exact JSON key order preserved."
+  },
+  "execution": {
+    "prior_recorded": 405,
+    "prior_rerun": false,
+    "initial_version_38_named_pass": 38,
+    "revision_additional_distinct_5_named_pass": 5,
+    "combined_new_recorded": 43,
+    "combined_if_accepted": 448,
+    "revision_readback_separate": 7,
+    "guarded_v30_checks_separate": 5,
+    "prior38_not_all_rerun_on_revision": true,
+    "ci_executed": false,
+    "full_codex_analyzer_executed": false,
+    "exact_codex_jointField_executed": true
+  },
+  "summary": {
+    "cases": [
+      {
+        "n": 3,
+        "roster": 5,
+        "history": 3,
+        "evidence": 99,
+        "pairs": 13,
+        "currentPairs": 6,
+        "common": 12,
+        "followups": 15,
+        "items": 575,
+        "available": 30
+      },
+      {
+        "n": 5,
+        "roster": 7,
+        "history": 3,
+        "evidence": 163,
+        "pairs": 31,
+        "currentPairs": 20,
+        "common": 80,
+        "followups": 35,
+        "items": 805,
+        "available": 50
+      },
+      {
+        "n": 12,
+        "roster": 14,
+        "history": 3,
+        "evidence": 513,
+        "pairs": 157,
+        "currentPairs": 132,
+        "common": 1452,
+        "followups": 168,
+        "items": 1610,
+        "available": 120
+      }
+    ],
+    "revision": [
+      {
+        "n": 3,
+        "digest": "cc9e8619920b80911d5846d4f1e929452de805cac9910f7213d863550db6e6a3",
+        "evidence": 99,
+        "items": 575,
+        "available": 30
+      },
+      {
+        "n": 5,
+        "digest": "4bbd4d713c3e33f014bea09226c1abc55eaa7ee17f2d5468a8f65994d3e9bdcd",
+        "evidence": 163,
+        "items": 805,
+        "available": 50
+      },
+      {
+        "n": 12,
+        "digest": "664325fec3d68f6bcbd305a2945f6eece8e4dfb6cea001c7c0b2e2e8a5c508ea",
+        "evidence": 513,
+        "items": 1610,
+        "available": 120
+      }
+    ],
+    "total_evidence": 775,
+    "total_item_rows": 2990,
+    "available_item_rows": 200,
+    "active_missing_item_rows": 2100,
+    "unknown_held_item_rows": 345,
+    "cancelled_na_item_rows": 345,
+    "canonical": 115,
+    "groups": 118,
+    "held": 826,
+    "formal_admissions": 0,
+    "Tokyo12": "HELD",
+    "Saga8": "HELD"
+  },
+  "consumer": [
+    "Use v0.1.1 producer, exact fixed bundles, revised packet3/5 and lossless 12 transport index. Recover receipt objects and common array in exact packet key order; verify full JSON and digest. Older v0.1 output preserved; 12 original too large for connector. Partial abandoned split files are not canonical transport; use lossless transport index only.",
+    "Revised typed evidence uses pair IDs including native IDs and dependencies; issuer/event namespace; current card refs and classification dependencies. 3,5,12 known active plus one unknown and one cancelled each, three historical events each. Current-direct pairs over two events, outside peer followups and common-peer links are historical and not independent votes.",
+    "Exact V30 jointField from pinned source was executed in isolation, not full V30 analyzer. Prefer guarded bridge on v0.1.1 packet, Work30 legacy via prior bridge only, card provenance missing. Withdrawal invalidates historical event classification dependencies conservatively; does not imply real rank or probability.",
+    "RANK18 grouped checkpoint candidate not authenticated corner; RANK19 leader laps observation only; current transfer, pace tolerance, full 115 semantic usage and formal approvals remain unproven. 10 candidate item routes, 200 supplied item rows across cases, no score or grade.",
+    "No live source ingestion. NAR PDF FAQ explicitly no unique horse/jockey/trainer IDs; approved native mapping required. Official permission scopes remain pending; FreeTSA remains candidate only, no TSA request. No production/DB/merge/paid/contact."
+  ],
+  "limitations": [
+    "Synthetic ASCII JSON not native JRA/NAR parser, no actual cryptographic independent proof. Registry timestamps simulated; lower bound tests prove model only, not acquisition truth. Full actual signature integration, trusted roster manifest and crossissuer crosswalk, real parser, provider correction inventory remain open.",
+    "Strict full result classification for pair comparisons; tied winners withhold derived winner clock differences. DNF checkpoint participation may be partial; no actual DNF timing. Official margin is stored literal only; clock difference error bound conservative resolution-based model not certified physical precision. Cross-race peer links do not prove strength. No actual current-condition suitability or benchmark.",
+    "Initial38 checks v0.1, revised five distinct additions, 7 separate saved-readback checks and 5 guarded bridge checks; not full regression rerun, not CI. Real Work branch untouched. No formal source adoption."
+  ]
+}

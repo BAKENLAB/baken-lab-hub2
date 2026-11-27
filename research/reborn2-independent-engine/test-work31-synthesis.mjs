@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {pipeline31,verifier31} from './work31-pinned/stage31-multifield-pipeline-v0.1.1.mjs';
+import {replayPinnedWork31} from './work31-synthesis.mjs';
+const sha=x=>createHash('sha256').update(x).digest('hex');
+const b=JSON.parse(readFileSync(new URL('./work31-pinned/stage31-multifield-bundles-v0.1.1.json',import.meta.url)));
+const sums={evidence:0,items:0};
+let actual;
+for(const n of [3,5,12]){
+ const run=replayPinnedWork31(n);if(n===12)actual=run;
+ assert.equal(run.runners.length,n+2);
+ assert.equal(run.runners.filter(h=>h.status==='CANCELLED')[0].state,'NOT_APPLICABLE');
+ assert.equal(run.runners.filter(h=>h.status==='UNKNOWN')[0].state,'HELD_STATUS_OR_IDENTITY');
+ assert.ok(run.runners.every(h=>h.grade===null&&h.audit.length===115));
+ assert.ok(run.runners.filter(h=>h.status!=='ACTIVE').every(h=>!h.axes.A.observed.length&&!h.axes.C.rival.length));
+ sums.evidence+=run.evidence_count;sums.items+=run.item_rows;
+}
+assert.deepEqual(sums,{evidence:775,items:2990});
+const fixtures=b.cases.find(c=>c.n===12);
+const p=pipeline31(fixtures.input,fixtures.registry,b.canonical,sha,verifier31);
+const subject=h=>h.slot==='TEST:H1';
+const prior=(r,event)=>r.runners.find(subject).axes.C.rival.find(x=>x.event===event);
+const ref=p.packet.evidence.find(e=>e.subject==='TEST:H1'&&e.event==='TEST:H1'&&e.field==='finish').evidenceId;
+const withdrawn=replayPinnedWork31(12,{withdraw:ref});
+assert.equal(prior(actual,'TEST:H1').envelope.max,2);
+assert.equal(prior(withdrawn,'TEST:H1').envelope.max,13);
+assert.deepEqual(prior(actual,'TEST:H2'),prior(withdrawn,'TEST:H2'));
+assert.equal(prior(actual,'TEST:H1').historical_comparison,'AHEAD_OF_OBSERVED_RIVALS');
+assert.equal(prior(withdrawn,'TEST:H1').historical_comparison,'UNRESOLVED');
+assert.ok(actual.runners.find(subject).axes.A.observed_wins.includes('TEST:H1'));
+assert.ok(!withdrawn.runners.find(subject).axes.A.observed_wins.includes('TEST:H1'));
+const altered=structuredClone(fixtures.input);
+altered.documents[1].bytes[2]^=1;
+assert.notEqual(pipeline31(altered,fixtures.registry,b.canonical,sha,verifier31).state,'TEST_PACKET');
+console.log(JSON.stringify({work31:sums,h1_bounds_before:[1,2],h1_bounds_after:[1,13],h2_unchanged:true,formal:0}));
