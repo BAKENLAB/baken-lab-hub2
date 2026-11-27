@@ -1,0 +1,71 @@
+{
+  "schema": "stage17-final-handoff-receipt-v1.5",
+  "accepted_spec": "f25fab4",
+  "allrunner_index": {
+    "commit": "3f5e2aa7cb2e7ab61ea321ea16f23248ca444cfe",
+    "blob": "73afbb0b2f99f655228e3c0e639c7722d4f70ab8"
+  },
+  "readback_crosslink_checks": {
+    "jra_roster_unique": true,
+    "local_roster_unique": true,
+    "jra_history_all_rows": true,
+    "jra_strict_119": true,
+    "jra_all_horse_strict": true,
+    "jra_card_69": true,
+    "direct_13_links": true,
+    "common_89_links": true,
+    "later_22_links": true,
+    "local_history_29": true,
+    "local_direct_8": true,
+    "local_peer_13": true,
+    "local_both_numeric_1": true,
+    "all_formal_held": true,
+    "no_poststart_local_card": true,
+    "no_runtime_claim": true
+  },
+  "checks_passed": 16,
+  "checks_total": 16,
+  "source_files": [
+    {
+      "name": "stage17-allrunner-replay-candidate-index-v1.5.json",
+      "ref": "3f5e2aa7cb2e7ab61ea321ea16f23248ca444cfe",
+      "blob": "73afbb0b2f99f655228e3c0e639c7722d4f70ab8"
+    },
+    {
+      "name": "stage17-jra-history-locator-audit-v1.4.json",
+      "ref": "3f5e2aa7cb2e7ab61ea321ea16f23248ca444cfe",
+      "blob": "4fb9129da9283ebb2b689828d2b27b0d2159ec8f"
+    },
+    {
+      "name": "stage17-local-history-locator-audit-v1.4.json",
+      "ref": "3f5e2aa7cb2e7ab61ea321ea16f23248ca444cfe",
+      "blob": "067c816cf65987aead56ffa0320221243aa75a23"
+    },
+    {
+      "name": "stage17-jra-relation-locator-audit-v1.4.json",
+      "ref": "3f5e2aa7cb2e7ab61ea321ea16f23248ca444cfe",
+      "blob": "fdba923dfa16f4efff15f74245e095f7e999f5d2"
+    },
+    {
+      "name": "stage17-card-peer-locator-audit-v1.5.json",
+      "ref": "3f5e2aa7cb2e7ab61ea321ea16f23248ca444cfe",
+      "blob": "21d09e5ccec15973bb786a94cc0c1810c335eab9"
+    }
+  ],
+  "permission_draft": {
+    "commit": "34d727582c772e1dd7d0da3b2f99ec83b0a9490a",
+    "blob": "248333a735dc919a13e34ebf35636b2159f1dcb8",
+    "exact_readback": true,
+    "sent": false
+  },
+  "notes": [
+    "Read-only queries executed against existing stored sources; target results/markets/legacy ranks not selected. Web search returned incidental result-page/profile snippets; those were excluded from all packet contents and analysis.",
+    "This is an independent derived metadata cross-link audit, not raw official DOM reparse or Codex runtime proof.",
+    "No new official NAR race-data network acquisition. Current legal scope not established. Original files retained; corrected count and integer lap units use new versions.",
+    "Tokyo program official body checked; C course candidate from search index, exact effective official version body cache miss.",
+    "Saga public start-time page returned August version; November native current card still not proven. Do not replace target with poststart card."
+  ],
+  "formal_admissions": 0,
+  "production_changes": false,
+  "eligible_official_replays": 0
+}
