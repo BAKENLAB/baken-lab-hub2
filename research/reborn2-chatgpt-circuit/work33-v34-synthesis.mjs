@@ -33,7 +33,7 @@ function prepare(V,id,withdraw,threshold){
  return {base,after,L:base.loaded,f};
 }
 // A full-field shared scenario is constructed from observed historical response, never projected as a current measured result.
-function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled){
+function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled,localize=false){
  const p=L.cases.get(id),raw=analyzeV31(L,id,withdraw,{placeThreshold:threshold}),[target,...history]=p.o.events,roster=raw.roster.possible_active;
  const all=new Map(p.o.evidence.map(e=>[e.evidence_id,e])),field=(ev,h,k)=>p.o.evidence.find(e=>e.event_id===ev&&e.subject_id===h&&e.field===k);
  const {get,lineage}=dependencyReader(all,withdraw,e=>e.subject_id===null||e.field==='id'?[]:[field(e.event_id,e.subject_id,'id')?.evidence_id,...(e.field==='status'?[]:[field(e.event_id,e.subject_id,'status')?.evidence_id])].filter(Boolean));
@@ -47,25 +47,27 @@ function assessShared(L,id,base,after,withdraw,threshold,eyeEnabled){
   const gateWeight=roster.every(h=>['gate_number','weight_grams'].every(k=>{const a=val(field(ev,h,k)),b=val(field(target.event_id,h,k));return a!==null&&b!==null&&a===b;}));
   const contextMatched=ctx?.state==='SAME_REPORTED_RACE_CONTEXT'&&gateWeight;
   const roleEvidence=roster.map(h=>{const r=field(ev,h,'ranks'),cp=field(ev,h,'checkpoint_ms'),rr=val(r),cc=val(cp);return {horse:h,ranks:rr,checkpoints:cc,refs:rr&&cc?refs([r,cp]):[]};});
-  const leader=field(ev,null,'leader_crossings'),lc=val(leader),pace=base.cross_measurement_review.find(x=>x.event===ev),paceUsable=!!lc&&pace?.state!=='CONFLICT_HOLD_JOINED_PACE_INFERENCE'&&roleEvidence.every(r=>Array.isArray(r.ranks)&&Array.isArray(r.checkpoints));
-  return {ev,ctx,g,tc,pc,u,knownField,contextMatched,gateWeight,roleEvidence,paceUsable,leader:lc,leaderRefs:lc?refs([leader]):[],comparison,refs:refs([e.conditions,target.conditions,e.geometry,target.geometry,e.actual_starters,...roster.flatMap(h=>['id','status','gate_number','weight_grams'].flatMap(k=>[field(ev,h,k),field(target.event_id,h,k)]))])};
+  const leader=field(ev,null,'leader_crossings'),lc=val(leader),pace=base.cross_measurement_review.find(x=>x.event===ev),sharedPaceConflict=pace?.state==='CONFLICT_HOLD_JOINED_PACE_INFERENCE',paceUsable=!!lc&&!sharedPaceConflict&&roleEvidence.every(r=>Array.isArray(r.ranks)&&Array.isArray(r.checkpoints));
+  return {ev,ctx,g,tc,pc,u,knownField,contextMatched,gateWeight,roleEvidence,paceUsable,sharedPaceConflict,leader:lc,leaderRefs:lc?refs([leader]):[],comparison,refs:refs([e.conditions,target.conditions,e.geometry,target.geometry,e.actual_starters,...roster.flatMap(h=>['id','status','gate_number','weight_grams'].flatMap(k=>[field(ev,h,k),field(target.event_id,h,k)]))])};
  });
  // Every historically observed field trajectory is an alternative, not a predicted starting queue.
  // Explicit current conditions, exact field identity, and comparable role/pace observations are required for a supported research path.
  const scenarios=byEvent.flatMap(x=>(x.g?.checkpoints_m??[null]).map((checkpoint,j)=>{
   const starts=Object.fromEntries(x.roleEvidence.filter(r=>Number.isFinite(r.checkpoints?.[j])).map(r=>[r.horse,[r.checkpoints[j]-x.u,r.checkpoints[j]+x.u]]));
+  let rankClockConflict=false;
   const edges=pairs.map(({a,b})=>{
    const pa=field(x.ev,a,'checkpoint_ms'),pb=field(x.ev,b,'checkpoint_ms'),fa=field(x.ev,a,'finish_ms'),fb=field(x.ev,b,'finish_ms'),av=val(pa),bv=val(pb),af=val(fa),bf=val(fb);
    const d=base.pairResponse.find(k=>k.a===a&&k.b===b)?.comparisons.find(k=>k.event===x.ev);
    if(!x.knownField||!d||!Number.isFinite(av?.[j])||!Number.isFinite(bv?.[j])||!Number.isFinite(af)||!Number.isFinite(bf)||!Number.isFinite(x.u))return {a,b,order:'UNKNOWN',refs:[],interval_ms:null};
-   const change=(bf-af)-(bv[j]-av[j]),roots=refs([pa,pb,fa,fb,...d.rank_refs,...x.refs]);
+   const change=(bf-af)-(bv[j]-av[j]),roots=refs([pa,pb,fa,fb,...d.rank_refs,...(localize?d.refs:x.refs)]);
    const z=stressScenario({path:{relations:[{rival:b,net_change_ms:change,change_bound_ms:4*x.u,refs:roots}]},subject:a,rivals:[b],starts,threshold:null}).relations[0];
    // Preserve literal rank and numeric evidence separately. An incompatible numeric edge is withheld.
-   return {a,b,order:z.order!=='UNKNOWN'&&z.order!==d.order?'UNKNOWN':z.order,refs:roots,interval_ms:z.interval_ms,observed_order:d.order,change_ms:change,checkpoint_m:checkpoint};
+   if(z.order!=='UNKNOWN'&&z.order!==d.order)rankClockConflict=true;
+   return {a,b,order:z.order!=='UNKNOWN'&&z.order!==d.order?'UNKNOWN':z.order,refs:roots,interval_ms:z.interval_ms,observed_order:d.order,change_ms:change,checkpoint_m:checkpoint,pair_context:d.pair_context};
   });
   const numeric=jointClockFeasibility(roster,edges.filter(e=>e.interval_ms).map(e=>({a:e.a,b:e.b,delta:(e.interval_ms[0]+e.interval_ms[1])/2,bound:(e.interval_ms[1]-e.interval_ms[0])/2,refs:e.refs})));
-  const f=jointField(roster,edges,threshold),valid=f.state!=='CONTRADICTED_SHARED_ORDER'&&numeric.state!=='CONTRADICTED_NUMERIC_DIFFERENCES';
-  return {id:x.ev+'@'+checkpoint,event:x.ev,kind:'OBSERVED_FIELD_RESPONSE_SCENARIO',checkpoint_m:checkpoint,starts,edges,field:f,numeric,valid,contextMatched:x.contextMatched,knownField:x.knownField,paceUsable:x.paceUsable,leader:x.leader,roleEvidence:x.roleEvidence,refs:uniq([...x.refs,...x.leaderRefs,...edges.flatMap(e=>e.refs),...x.roleEvidence.flatMap(r=>r.refs)]),applicability:x.contextMatched&&x.knownField&&x.paceUsable&&valid?'COMPARABLE_SYNTHETIC_RESPONSE':'CONDITIONAL_OR_HELD',prediction:false,actual_current_feasibility:'UNRESOLVED'};
+  const f=jointField(roster,edges,threshold),valid=f.state!=='CONTRADICTED_SHARED_ORDER'&&numeric.state!=='CONTRADICTED_NUMERIC_DIFFERENCES'&&(!localize||(!rankClockConflict&&!x.sharedPaceConflict));
+  return {id:x.ev+'@'+checkpoint,event:x.ev,kind:'OBSERVED_FIELD_RESPONSE_SCENARIO',checkpoint_m:checkpoint,starts,edges,field:f,numeric,valid,contextMatched:x.contextMatched,knownField:x.knownField,paceUsable:x.paceUsable,leader:x.leader,roleEvidence:x.roleEvidence,refs:uniq([...x.refs,...x.leaderRefs,...edges.flatMap(e=>e.refs),...x.roleEvidence.flatMap(r=>r.refs)]),applicability:x.contextMatched&&x.knownField&&x.paceUsable&&valid?'COMPARABLE_SYNTHETIC_RESPONSE':localize&&x.knownField&&valid&&edges.some(e=>e.interval_ms)?'LOCAL_OBSERVED_RESPONSE_ONLY':'CONDITIONAL_OR_HELD',prediction:false,actual_current_feasibility:'UNRESOLVED'};
  }));
  // EYE discovery returns an earlier, explicitly bounded checkpoint response to the same shared scenario analyzer.
  // Baseline and addition run the real common analyzer, preserve baseline paths, and add only verified discovery predicates.
@@ -125,12 +127,12 @@ function summarizeHorse(h,common,legacy,shared,threshold){
  const used=new Set([...gradeEvidence,...relevantFeedback.flatMap(x=>x.refs)]),audit=h.items.map(i=>{const rerun=['RANK18','RANK21','RANK100'].includes(i.item)?relevantFeedback.map(f=>({state:f.state,checkpoint_m:f.checkpoint_m,before:f.before.envelope,after:f.after.envelope,refs:f.refs,order_changed:f.order_changed})):[];return {...i,v34_reanalysis:rerun,decision_refs:i.refs.filter(r=>used.has(r)),decision_effect:rerun.length?'SHARED_SCENARIO_RECOMPUTED_CONDITIONAL_ONLY':i.refs.some(r=>used.has(r))?'REFERENCED_BY_RESEARCH_PATH_NOT_ISOLATED_EFFECT':'NO_PROVEN_DECISION_EFFECT',grade_effect_proven:false};});
  return {...h,axes,items:audit,WIN:{...h.WIN,comparable_paths:positives,counter_paths:negative,discovery_paths:relevantFeedback.map(f=>({id:f.id,state:f.state,envelope:f.after.envelope,refs:f.refs})),overall:'UNRESOLVED'},PLACE:{...h.PLACE,comparable_paths:places,counter_paths:badPlace,discovery_paths:relevantFeedback.map(f=>({id:f.id,state:f.state,envelope:f.after.envelope,refs:f.refs})),overall:'UNRESOLVED'},eye_reanalysis:relevantFeedback,research_grade:candidate,research_reason:reason,grade:null,formal:false,decision_refs:gradeEvidence,pr95_boundary_probe:boundary,material_unknowns:['CURRENT_PACE_AND_ROLE','CURRENT_FORM_AND_FULL_SCENARIO_COVERAGE',...(possibleUnknown?['UNKNOWN_RIVAL']:[])]};
 }
-export function analyzeV34(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true}={}){
+export function analyzeV34(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true,localize=false}={}){
  const {base,after,L,f}=prepare(V,id,withdraw,placeThreshold);
  // Exact PR95 five-axis synthesis consumes the same verified common input; no independent fixture or market data.
  L.diagnostics={groups:118,held:826};
  const legacy=synthesize({loaded:L,fixture:id,withdraw,placeThreshold});
- const shared=assessShared(L,id,base,after,withdraw,placeThreshold,eyeEnabled),common=eyeEnabled?after:base;
+ const shared=assessShared(L,id,base,after,withdraw,placeThreshold,eyeEnabled,localize),common=eyeEnabled?after:base;
  const runners=common.runners.map(h=>summarizeHorse(h,common,legacy.runners.find(x=>x.slot===h.slot),shared,placeThreshold));
  return {schema:'REBORN2_V34_RESEARCH_SYNTHESIS',id,source_digest:base.source_digest,source_packet:base.source_packet,roster:common.roster,baseline:base.runners.map(h=>({slot:h.slot,WIN:h.WIN,PLACE:h.PLACE,items:h.items,axes:h.axes})),scenarios:shared.scenarios,feedback:shared.feedback,runners,groups:118,held:826,formal:false,grade:null,policy:'PROVISIONAL_RESEARCH_CANDIDATE_NOT_FORMAL_SABC',source_pin:f.pin.blob};
 }
@@ -140,8 +142,8 @@ export function analyzeV34(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true}
 // V35 step 1: independent hypothetical starts, on the SAME verified shared circuit.
 // A branch is a stress antecedent, never an observation or a forecast. An event's
 // complete response is kept together, rather than cherry-picking each rival.
-export function analyzeV35(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true,branches=[]}={}){
- const common=analyzeV34(V,id,{withdraw,placeThreshold,eyeEnabled}),roster=common.roster.possible_active;
+export function analyzeV35(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true,branches=[],localize=false}={}){
+ const common=analyzeV34(V,id,{withdraw,placeThreshold,eyeEnabled,localize}),roster=common.roster.possible_active;
  const observations=common.scenarios.filter(s=>s.kind==='OBSERVED_FIELD_RESPONSE_SCENARIO');
  const {base,L}=prepare(V,id,withdraw,placeThreshold);
  const p=L.cases.get(id),u=p.r.measurement.clock_uncertainty_ms;
@@ -156,16 +158,17 @@ export function analyzeV35(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true,
   // The source event identifies a response alternative, not an observed current role.
   const s=observations.find(x=>x.event===b.response_event&&x.checkpoint_m===b.checkpoint_m);
   const comparable=!!s&&s.applicability==='COMPARABLE_SYNTHETIC_RESPONSE';
+  const partial=localize&&s?.applicability==='LOCAL_OBSERVED_RESPONSE_ONLY';
   const edges=pairs.map(({a,b:other})=>{
    const e=s?.edges.find(x=>x.a===a&&x.b===other);
    const oldOrder=e?.interval_ms?.[0]>0?'AHEAD':e?.interval_ms?.[1]<0?'BEHIND':'UNKNOWN';
    const consistent=oldOrder==='UNKNOWN'||oldOrder===e?.observed_order;
-   const usable=comparable&&active.has(a)&&active.has(other)&&consistent&&Number.isFinite(e?.change_ms)&&Number.isFinite(u)&&u>=0&&e.refs.length;
+   const usable=(comparable||partial)&&active.has(a)&&active.has(other)&&consistent&&Number.isFinite(e?.change_ms)&&Number.isFinite(u)&&u>=0&&e.refs.length;
    const z=stressScenario({path:usable?{relations:[{rival:other,net_change_ms:e.change_ms,change_bound_ms:4*u,refs:e.refs}]}:null,subject:a,rivals:[other],starts:b.starts,threshold:null}).relations[0];
    return {a,b:other,order:z.order,interval_ms:z.interval_ms,refs:z.refs,change_ms:usable?e.change_ms:null,change_bound_ms:usable?4*u:null};
   });
   const numeric=jointClockFeasibility(roster,edges.filter(e=>e.interval_ms).map(e=>({a:e.a,b:e.b,delta:(e.interval_ms[0]+e.interval_ms[1])/2,bound:(e.interval_ms[1]-e.interval_ms[0])/2,refs:e.refs})));
-  const field=jointField(roster,edges,placeThreshold),valid=field.state!=='CONTRADICTED_SHARED_ORDER'&&numeric.state!=='CONTRADICTED_NUMERIC_DIFFERENCES';
+  const field=jointField(roster,edges,placeThreshold),valid=field.state!=='CONTRADICTED_SHARED_ORDER'&&numeric.state!=='CONTRADICTED_NUMERIC_DIFFERENCES'&&(!localize||s?.valid===true);
   // Check whether the declared start order is consistent with the historical role.
   // Matching role order is evidence of a comparable alternative, NOT today's actual pace.
   // Source checkpoint ranks come from verified V34 roleEvidence; use source starts for ordering only.
@@ -177,7 +180,7 @@ export function analyzeV35(V,id,{withdraw=null,placeThreshold=2,eyeEnabled=true,
   const complete=roster.every(h=>b.starts[h])&&edges.every(e=>e.interval_ms);
   return {id:b.id,checkpoint_m:b.checkpoint_m,response_event:b.response_event,starts:b.starts,
    antecedent:'EXPLICIT_SYNTHETIC_START_ASSUMPTION',observed_current_pace:false,prediction:false,
-   comparable,roleConflicts,complete,valid,edges,field,numeric,
+   comparable,partial,roleConflicts,complete,valid,edges,field,numeric,
    condition_refs:comparable?base.contexts.find(c=>c.event===s.event)?.refs??[]:[],
    historical_role_refs:comparable?uniq(s.roleEvidence.flatMap(r=>r.refs)):[],
    actual_current_applicability:'UNPROVEN'};
