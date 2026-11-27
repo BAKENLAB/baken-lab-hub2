@@ -41,6 +41,22 @@ export async function loadV40(){
  assert.equal(fixtures.length,15);assert.equal(new Set(fixtures.map(f=>f.id)).size,15);
  const masterFixture={id:'W36_MASTER_IMMUTABLE',docs:master};
  const generated=[...fixtures,masterFixture].map(f=>buildPacket(W.C,f));
+ // Independently recovered from original CI artifact 15228065171, not
+ // produced by this analysis execution. Pin exact raw docs and 15 packets.
+ const receipt=JSON.parse(read('./work36-pinned/native-receipt-pins.json'));
+ assert.equal(receipt.source.zip_sha256,m.ci.artifact.digest.split(':')[1]);
+ assert.equal(sha(JSON.stringify(master)),receipt.source.master_sha256);
+ assert.equal(sha(JSON.stringify(fixtures)),receipt.source.fixtures_sha256);
+ assert.equal(receipt.rows.length,15);
+ for(const p of receipt.rows){
+  const g=generated.find(g=>g.p.id===p.id);assert.ok(g);
+  for(const k of ['source_digest','bundle_sha256','evidence'])assert.equal(g.p[k],p[k],p.id+':'+k);
+ }
+ assert.equal(receipt.rows.reduce((n,p)=>n+p.evidence,0),3756);
+ const p=generated.find(g=>g.p.id==='W36_POSITIVE').out.packet;
+ const mRoots=new Set(generated.at(-1).out.packet.evidence.map(e=>e.evidenceId));
+ for(const id of receipt.positiveRoots){assert.ok(p.evidence.some(e=>e.evidenceId===id));assert.ok(mRoots.has(id));}
+ console.log('V40_INDEPENDENT_WORK36_PINS 15/15 evidence=3756 roots=12');
  const C={...W.C,fixtures:[...W.C.fixtures,...fixtures,masterFixture],receipt:{summary:[...W.C.receipt.summary,...generated.map(g=>g.p)]}};
  const fixed=new Map([...W.fixed,...generated.map(g=>[g.f.id,{raw:{raw:g.f.docs},pin:g.p}])]);
  return {C,fixed,manifest:W.manifest,work36:m,generated,master:generated.at(-1)};
@@ -175,7 +191,7 @@ const V=await loadV40();
 const all=V.C.fixtures.filter(f=>f.id!=='W36_MASTER_IMMUTABLE').map(f=>analyze(V,f.id));
 const by=id=>all.find(x=>x.id===id);
 t('F40-01',()=>{
- assert.equal(all.length,25);assert.equal(all.filter(x=>x.id.startsWith('W36_')).length,15);
+ assert.equal(all.length,25);assert.equal(all.filter(x=>x.id.startsWith('W36_')).length,15);assert.equal(all.reduce((n,x)=>n+x.source_packet.evidence.length,0),8190);
  for(const x of all){const p=V.fixed.get(x.id).pin;assert.equal(x.source_digest,p.source_digest);assert.equal(x.source_packet.evidence.length,p.evidence);assert.equal(x.groups,118);assert.equal(x.held,826);assert.equal(x.runners.length,5);assert.ok(x.runners.every(h=>h.items.length===115&&h.grade===null&&h.current_grade===null));}
  assert.equal(all.filter(x=>!x.id.startsWith('W36_')).reduce((n,x)=>n+x.source_packet.evidence.length,0),4434);
 });
