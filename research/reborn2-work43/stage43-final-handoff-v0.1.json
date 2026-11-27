@@ -1,0 +1,209 @@
+{
+  "scope": "RESEARCH_ONLY_SYNTHETIC",
+  "mainAudit": "00ae46be0ba8928a966cb3cbfe5a6b56fc68fca6",
+  "work42Accepted": 831,
+  "addedAccepted": 0,
+  "work42Pinned": "b7c2c5ee284f43b4c907dcfd486e2d661b80d686",
+  "codexObserved": "bc687adb9e091073cef53097e5aa67e3ca6c80e9",
+  "executedCommit": "8775d1baac8b806678b0443943598154514f458c",
+  "run": 46080818671,
+  "job": 140779123567,
+  "conclusion": "success",
+  "nativePass": [
+    "2026-11-27T23:09:01.0587275Z WORK43 CANONICAL_115_NAMES PASS",
+    "2026-11-27T23:09:01.0588458Z WORK43 NAR_DOCUMENTED_COLUMN_FIXTURE PASS",
+    "2026-11-27T23:09:01.0591469Z WORK43 ROW_BYTES_AND_DEPENDENCIES PASS",
+    "2026-11-27T23:09:01.0603711Z WORK43 CSV_QUOTES_AND_CP932_BYTES PASS",
+    "2026-11-27T23:09:01.0619085Z WORK43 INVALID_DATE PASS",
+    "2026-11-27T23:09:01.0629449Z WORK43 LATE_CAPTURE_UNCERTAINTY PASS",
+    "2026-11-27T23:09:01.0638308Z WORK43 CUTOFF_AFTER_START PASS",
+    "2026-11-27T23:09:01.0647377Z WORK43 PUBLICATION_AFTER_CAPTURE PASS",
+    "2026-11-27T23:09:01.0656432Z WORK43 EXPIRED_OR_REVOKED_RIGHTS PASS",
+    "2026-11-27T23:09:01.0671467Z WORK43 NO_RETENTION_RIGHT PASS",
+    "2026-11-27T23:09:01.0680002Z WORK43 SOURCE_URL_OUTSIDE_SCOPE PASS",
+    "2026-11-27T23:09:01.0688560Z WORK43 STALE_SIGNED_POLICY PASS",
+    "2026-11-27T23:09:01.0693032Z WORK43 MANIFEST_SIGNATURE_TAMPER PASS",
+    "2026-11-27T23:09:01.0702810Z WORK43 NEWER_VERSION_REQUIRED PASS",
+    "2026-11-27T23:09:01.0710579Z WORK43 INCOMPLETE_INVENTORY PASS",
+    "2026-11-27T23:09:01.0719170Z WORK43 RAW_BYTE_CHANGE PASS",
+    "2026-11-27T23:09:01.0728966Z WORK43 NO_NATIVE_ID_JOIN PASS",
+    "2026-11-27T23:09:01.0737084Z WORK43 NAME_ONLY_JOIN PASS",
+    "2026-11-27T23:09:01.0745222Z WORK43 DUPLICATE_IDENTITY PASS",
+    "2026-11-27T23:09:01.0756567Z WORK43 TARGET_HORSELIST_RESULT_COLUMNS PASS",
+    "2026-11-27T23:09:01.0767491Z WORK43 TARGET_HORSELIST_POPULARITY PASS",
+    "2026-11-27T23:09:01.0783970Z WORK43 TARGET_RACELIST_RESULT_LAPS PASS",
+    "2026-11-27T23:09:01.0793130Z WORK43 TARGET_RESULT_ROLE_ALIAS PASS",
+    "2026-11-27T23:09:01.0810405Z WORK43 ROSTER_INCOMPLETE PASS",
+    "2026-11-27T23:09:01.0823721Z WORK43 TARGET_POST_MISMATCH PASS",
+    "2026-11-27T23:09:01.0832128Z WORK43 REAL_DISABLED PASS",
+    "2026-11-27T23:09:01.0835088Z WORK43 REAL_TRUST_DISABLED PASS",
+    "2026-11-27T23:09:01.0843142Z WORK43 JRA_UNVERIFIED_NATIVE_FORMAT_HELD PASS",
+    "2026-11-27T23:09:01.0844379Z WORK43 INSUFFICIENT_EYE_EXPLICIT_HOLD PASS",
+    "2026-11-27T23:09:01.0894569Z WORK43 RESULT_PARTITION_SAME_REVIEW_OUTPUT PASS",
+    "2026-11-27T23:09:01.0897324Z WORK43 RESULT_OBJECT_NOT_ACCEPTED PASS",
+    "2026-11-27T23:09:03.3960676Z WORK43 WORK42_CONTRACT_TEST:JRA PASS",
+    "2026-11-27T23:09:03.5199268Z WORK43 WORK42_CONTRACT_TEST:NAR PASS"
+  ],
+  "summary": {
+    "scope": "SYNTHETIC_ONLY",
+    "priorAccepted": 831,
+    "addedAccepted": 0,
+    "checks": [
+      "CANONICAL_115_NAMES",
+      "NAR_DOCUMENTED_COLUMN_FIXTURE",
+      "ROW_BYTES_AND_DEPENDENCIES",
+      "CSV_QUOTES_AND_CP932_BYTES",
+      "INVALID_DATE",
+      "LATE_CAPTURE_UNCERTAINTY",
+      "CUTOFF_AFTER_START",
+      "PUBLICATION_AFTER_CAPTURE",
+      "EXPIRED_OR_REVOKED_RIGHTS",
+      "NO_RETENTION_RIGHT",
+      "SOURCE_URL_OUTSIDE_SCOPE",
+      "STALE_SIGNED_POLICY",
+      "MANIFEST_SIGNATURE_TAMPER",
+      "NEWER_VERSION_REQUIRED",
+      "INCOMPLETE_INVENTORY",
+      "RAW_BYTE_CHANGE",
+      "NO_NATIVE_ID_JOIN",
+      "NAME_ONLY_JOIN",
+      "DUPLICATE_IDENTITY",
+      "TARGET_HORSELIST_RESULT_COLUMNS",
+      "TARGET_HORSELIST_POPULARITY",
+      "TARGET_RACELIST_RESULT_LAPS",
+      "TARGET_RESULT_ROLE_ALIAS",
+      "ROSTER_INCOMPLETE",
+      "TARGET_POST_MISMATCH",
+      "REAL_DISABLED",
+      "REAL_TRUST_DISABLED",
+      "JRA_UNVERIFIED_NATIVE_FORMAT_HELD",
+      "INSUFFICIENT_EYE_EXPLICIT_HOLD",
+      "RESULT_PARTITION_SAME_REVIEW_OUTPUT",
+      "RESULT_OBJECT_NOT_ACCEPTED",
+      "WORK42_CONTRACT_TEST:JRA",
+      "WORK42_CONTRACT_TEST:NAR"
+    ],
+    "offline": {
+      "documents": 4,
+      "roots": 4,
+      "observations": 62,
+      "runners": 2,
+      "items": 115,
+      "held": 826,
+      "groups": 118,
+      "analysisSha256": "02e2fb5f549a6db17c229c8ade49ccf8c72e311e9405b8906db6e8dde38e1af6"
+    },
+    "commonResults": [
+      {
+        "issuer": "TEST:JRA",
+        "digest": "152fc5e3aaf6b8520e12a62fe9d3f32625459f18322ce7f6fd80454b5c296462",
+        "evidence": 537,
+        "runners": 5,
+        "returnItems": 71,
+        "formal": false
+      },
+      {
+        "issuer": "TEST:NAR",
+        "digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+        "evidence": 537,
+        "runners": 5,
+        "returnItems": 71,
+        "formal": false
+      }
+    ],
+    "heldEYE": {
+      "EYE04": {
+        "needs": [
+          "historical_finish",
+          "literal_margin",
+          "verified_peer_identity",
+          "peer_followup_before_cutoff",
+          "independent_strength_reference",
+          "same_condition_gap_distribution"
+        ],
+        "sources": [
+          "JRA result, ratings and class rules",
+          "NAR result, selected published ratings and organizer rules"
+        ],
+        "block": "rating coverage incomplete; opponent win or class label alone does not prove strength"
+      },
+      "EYE06": {
+        "needs": [
+          "last_race_incident_with_horse_role",
+          "passing_order",
+          "individual_final_section",
+          "current_roster",
+          "course_version",
+          "admissible_current_scenario"
+        ],
+        "sources": [
+          "JRA race events and steward record",
+          "NAR/organizer steward record where published"
+        ],
+        "block": "unreported incident is unknown; rank and clock do not measure physical load or confirm relief"
+      },
+      "EYE14": {
+        "needs": [
+          "cross_registry_identity",
+          "effective_class_rule",
+          "historical_field_strength",
+          "current_all_peer_strength",
+          "before_cutoff_versions"
+        ],
+        "sources": [
+          "JRA program/rating",
+          "NAR organizer rules and race results"
+        ],
+        "block": "no verified universal class conversion or all-horse ratings; same-name join forbidden"
+      },
+      "EYE15": {
+        "needs": [
+          "two_or_more_distinct_observed_mechanisms_if_supported",
+          "mechanism_dependencies",
+          "counter_observations",
+          "joint_current_scenario"
+        ],
+        "sources": [
+          "joined admitted card, history, course, incident and rules"
+        ],
+        "block": "no fixed required number authorized; joint benefit derived, not an official column; do not count overlapping roots twice"
+      }
+    },
+    "officialValues": 0,
+    "realAdmission": false,
+    "formal": false,
+    "limitations": [
+      "NAR positional parser tested only on generated rows based on public manual; no actual official file, actual header or encoding certification. JRA native parser unavailable and rejected.",
+      "Ed25519 synthetic separate keys and pins verify integrity, not independent official origin/time/permission. No real RFC3161 or external authority.",
+      "All 115 mapped, all held; partial field mapping not full multi-source semantic requirements. Review packet never enters engine.",
+      "Result separation logical API only; earlier Work41 process isolation unchanged.",
+      "Work42 TEST:JRA/NAR verified supply is unchanged synthetic interface, not real intake. No real acquisition or race analysis."
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 15237351309,
+      "name": "work43-receipt",
+      "digest": "sha256:84dd267b405470f167a14e9497ffd21eebf0833a72c10b169fcf4c6b0385548e",
+      "expires_at": "2026-12-04T23:09:03Z",
+      "size_in_bytes": 15503
+    }
+  ],
+  "officialDocumentation": [
+    "https://www.jra.go.jp/JRADB/mikata/result.html",
+    "https://www.jra.go.jp/JRADB/mikata/index.html",
+    "https://www.jra.go.jp/use/",
+    "https://www.keiba.go.jp/pdf/manual/data_pdf_manual.pdf",
+    "https://www.keiba.go.jp/terms.html"
+  ],
+  "limitations": [
+    "NAR positional parser tested only on generated rows based on public manual; no actual official file, actual header or encoding certification. JRA native parser unavailable and rejected.",
+    "Ed25519 synthetic separate keys and pins verify integrity, not independent official origin/time/permission. No real RFC3161 or external authority.",
+    "All 115 mapped, all held; partial field mapping not full multi-source semantic requirements. Review packet never enters engine.",
+    "Result separation logical API only; earlier Work41 process isolation unchanged.",
+    "Work42 TEST:JRA/NAR verified supply is unchanged synthetic interface, not real intake. No real acquisition or race analysis.",
+    "Existing Work42 complete 20-test suite not rerun here; two native supply compatibility controls executed against unchanged Work42 files. Prior ledger not increased before Main approval.",
+    "No actual official raw race file acquired or transferred. Public documentation/terms only intentionally viewed; no actual pilot selected.",
+    "No deployment tool invoked; external repository integrations are not controlled by this research workflow. Artifact metadata retrieved, ZIP content not independently downloaded."
+  ]
+}
