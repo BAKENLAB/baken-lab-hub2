@@ -3,6 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 node --version
 for f in *.mjs; do node --check "$f"; done
+node test-work34-v36-current.mjs
 node test-opposition-33-42.mjs
 node test-conditions-43-57.mjs
 node test-pace-58-77.mjs
@@ -77,4 +78,3 @@ node test-work33-v33-controlled.mjs
 
 node test-work33-v34-synthesis.mjs
 
-node test-work34-v36-current.mjs

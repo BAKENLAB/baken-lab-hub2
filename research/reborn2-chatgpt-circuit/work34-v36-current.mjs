@@ -14,7 +14,8 @@ export async function loadV36(){
  assert.equal(blob(bytes),'8615fcf19e2de1002200a43c5c668a16162b9403');
  const m=JSON.parse(bytes);
  assert.equal(m.scope,'SYNTHETIC_ONLY');assert.equal(m.canonical,115);assert.equal(m.groups,118);assert.equal(m.held,826);
- for(const f of m.files){const b=read(f.path.split('/').at(-1));assert.equal(blob(b),f.blob);assert.equal(sha(b),f.sha256);assert.equal(b.length,f.bytes);}
+ for(const f of m.files){const b=read(f.path.split('/').at(-1));assert.equal(blob(b),f.blob);assert.equal(sha(b),f.sha256);// Work34's recorded size is UTF-16 text length; the blob and SHA256 bind the exact UTF-8 bytes.
+  assert.equal(b.toString('utf8').length,f.bytes);}
  const raw=JSON.parse(read('stage34-raw-fixtures-v0.2.json'));
  const {make34}=await import('./work34-pinned/stage34-five-field-v0.2.mjs');
  const prior=await loadControlledWork33();
