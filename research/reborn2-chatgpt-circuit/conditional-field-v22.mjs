@@ -30,16 +30,28 @@ function indirect(p,m,a,b){
 }
 function role(h){const path=h.historical.individual.path;return path[0].rank===1?'EARLY_LEAD':path.slice(1).some(x=>x.rank===1)?'NONLEAD_TO_LEAD':'NONLEAD_NO_LEAD';}
 function phaseClock(r,m,id){const ends=r.lap_segment_m.map((_,i)=>sum(r.lap_segment_m.slice(0,i+1))),cl=m.clocks[r.id][id];let last=0;return m.geometry[r.id].phases.map(end=>{const t=cl[ends.indexOf(end)],delta=t-last;last=t;return {end_m:end,elapsed_tenths:delta};});}
+// Compare actual individual elapsed differences, not rank changes as a speed proxy.
+// A narrowed proposition is whether the subject closed a measured time deficit
+// to the same current rival over the historical final 600m.
+function closingWitness(r,m,p,id,peer){
+ const a=row(r,id),b=row(r,peer);if(!a||!b)return null;
+ const d=r.conditions.distance_m,ends=r.lap_segment_m.map((_,i)=>sum(r.lap_segment_m.slice(0,i+1))),k=ends.indexOf(d-600);
+ if(k<0)return null;const x=m.clocks[r.id][id],y=m.clocks[r.id][peer],start=x[k]-y[k],finish=x.at(-1)-y.at(-1),closed=start-finish;
+ const fit=compatibility(r,p.target,m),weightFit=p.target.entrants.find(x=>x.id===id).kg===a.kg&&p.target.entrants.find(x=>x.id===peer).kg===b.kg;
+ const comparable=fit.compatible&&weightFit&&r.field_count===p.target.entrants.length;
+ const state=start<=0?'NOT_APPLICABLE':!comparable?'UNKNOWN':closed>0?'SUPPORT':closed<0?'COUNTER':'NEUTRAL';
+ return {peer,start_gap_tenths:start,finish_gap_tenths:finish,closed_tenths:closed,subject_final600:a.final3f_tenths,peer_final600:b.final3f_tenths,proposition:'CLOSED_POSITIVE_MEASURED_FINAL600_DEFICIT_TO_NAMED_RIVAL',state,passed_rival:start>0&&finish<0,WIN_support:state==='SUPPORT'&&a.finish===1?'SUPPORT_HISTORICAL_JOINT_WITNESS':state==='SUPPORT'?'COUNTER_TO_SUFFICIENT_FOR_WIN':'UNKNOWN',PLACE_support:state==='SUPPORT'&&a.finish<=3&&a.finish<r.field_count?'SUPPORT_HISTORICAL_JOINT_WITNESS':state==='SUPPORT'?'COUNTER_TO_SUFFICIENT_FOR_PLACE':'UNKNOWN',current_effect:null,effort:null,roots:uniq([...roots(r,id),...roots(r,peer),'fixture-v2:laps:'+r.id,'fixture-v2:card:'+id,'fixture-v2:card:'+peer,'fixture-v2:geometry'])};
+}
 function roleWitness(h,transfer,r,p,m,assumedRole,assumedLeader){
  const id=h.historical.individual,own=transfer.peers.find(x=>x.id===assumedLeader),leaderRow=row(r,assumedLeader),subject=p.target.entrants.find(x=>x.id===h.subject);
  const observedRole=role(h),roleFit=observedRole===assumedRole,scope=compatibility(r,p.target,m),weightFit=subject.kg===h.historical.kg,fieldFit=r.field_count===p.target.entrants.length;
- const leaderObserved=!!leaderRow&&leaderRow.corners[0]===1,leaderFit=assumedRole==='EARLY_LEAD'||leaderObserved;
+ const leaderObserved=!!leaderRow&&leaderRow.corners[0]===1,leaderWeightFit=!!leaderRow&&p.target.entrants.find(x=>x.id===assumedLeader).kg===leaderRow.kg,leaderFit=assumedRole==='EARLY_LEAD'||leaderObserved&&leaderWeightFit;
  // Nonlead witness against a different leader is evidence of the role, not the named matchup.
  const baseFit=scope.compatible&&weightFit&&fieldFit&&roleFit;
  const status=baseFit?'MATCHED_ROLE_CONTEXT':!scope.compatible||!weightFit||!fieldFit?'TRANSFER_UNESTABLISHED':'ROLE_DIFFERS';
  const WIN=baseFit?(id.finish===1?'SUPPORT':'COUNTER'):'UNKNOWN';
  const PLACE=baseFit?(id.finish<=3&&id.finish<r.field_count?'SUPPORT':'COUNTER'):'UNKNOWN';
- return {race:r.id,observed_role:observedRole,role_fit:roleFit,scope,weight_fit:weightFit,field_fit:fieldFit,rest_delta:transfer.rest_delta,rest_applicability:null,leader_match:leaderFit?'OBSERVED_NAMED_ROLE':'NAMED_LEADER_UNESTABLISHED',named_peer_shared:own?.shared??null,status,WIN,PLACE,meaning:'HISTORICAL_ROLE_CAPACITY_WITNESS_ONLY',named_matchup_WIN:baseFit&&leaderFit?WIN:'UNKNOWN',named_matchup_PLACE:baseFit&&leaderFit?PLACE:'UNKNOWN',phase_clocks:phaseClock(r,m,h.subject),individual:id,opponents:h.historical.opponents,roots:uniq([...h.roots,'fixture-v2:laps:'+r.id,'fixture-v2:race:'+r.id,'fixture-v2:card:'+h.subject,'fixture-v2:geometry']),actual_viability:null};
+ return {race:r.id,observed_role:observedRole,role_fit:roleFit,scope,weight_fit:weightFit,field_fit:fieldFit,rest_delta:transfer.rest_delta,rest_applicability:null,leader_match:leaderFit?'OBSERVED_NAMED_ROLE':'NAMED_LEADER_UNESTABLISHED',named_peer_shared:own?.shared??null,status,WIN,PLACE,meaning:'HISTORICAL_ROLE_CAPACITY_WITNESS_ONLY',named_matchup_WIN:baseFit&&leaderFit?WIN:'UNKNOWN',named_matchup_PLACE:baseFit&&leaderFit?PLACE:'UNKNOWN',phase_clocks:phaseClock(r,m,h.subject),closing_context:p.target.entrants.filter(x=>x.id!==h.subject).flatMap(x=>{const q=closingWitness(r,m,p,h.subject,x.id);return q?[q]:[];}),individual:id,opponents:h.historical.opponents,roots:uniq([...h.roots,'fixture-v2:laps:'+r.id,'fixture-v2:race:'+r.id,'fixture-v2:card:'+h.subject,'fixture-v2:geometry']),actual_viability:null};
 }
 function scenarioPaths(p,m,base){
  const ids=p.target.entrants.map(h=>h.id).sort(),eligible=base.decisions.filter(h=>h.views.A.joint_history.some(q=>role(q)==='EARLY_LEAD')).map(h=>h.id).sort();
@@ -55,7 +67,7 @@ export function analyzeV22Continuation(packet,meta,{disabled=[]}={}){
  const eye10=base.eye.flatMap(h=>h.items.filter(e=>e.eye_item_id==='EYE-10').flatMap(e=>e.observed_facts.filter(x=>x.type==='SANDWICH_WITH_GEOMETRY'&&x.value.first_turn.length>0).map(x=>({horse_id:h.horse_id,kind:'V22_SANDWICH',roots:x.evidence_ids}))));
  const all=runGenerated(p,{...options,researchReturn:[...prior.returns,...base.returns,...(disabled.includes('EYE-10')?[]:eye10)]}),{scenarios,decisions}=scenarioPaths(p,m,base),bound=new Set(all.evidence_index.map(x=>x.evidence_id));
  for(const h of decisions){const returned=all.merged.find(x=>x.horse_id===h.id).items['73'].hypotheses.filter(x=>x.value.research_return==='EYE-10');h.views.B.sandwich=returned;h.views.D.sandwich_context=returned.map(x=>({proposition:x.value.proposition,state:x.value.state,roots:x.evidence_ids,actual_benefit:null}));}
- const refs=uniq([...base.constraints.flatMap(q=>q.pairs.flatMap(x=>x.witnesses.flatMap(w=>w.roots))),...decisions.flatMap(h=>[...h.views.C.relations.flatMap(x=>x.indirect.flatMap(y=>y.roots)),...h.views.D.role_paths.flatMap(x=>x.roles.flatMap(y=>y.witnesses.flatMap(z=>z.roots))),...h.views.D.sandwich_context.flatMap(x=>x.roots)])]);
+ const refs=uniq([...base.constraints.flatMap(q=>q.pairs.flatMap(x=>x.witnesses.flatMap(w=>w.roots))),...decisions.flatMap(h=>[...h.views.C.relations.flatMap(x=>x.indirect.flatMap(y=>y.roots)),...h.views.D.role_paths.flatMap(x=>x.roles.flatMap(y=>y.witnesses.flatMap(z=>[...z.roots,...z.closing_context.flatMap(v=>v.roots)]))),...h.views.D.sandwich_context.flatMap(x=>x.roots)])]);
  const unbound=refs.filter(x=>!bound.has(x));if(unbound.length)throw Error('V22_CONT_UNBOUND:'+unbound);
  return {...base,common:all.merged,eye:all.eye,audit:all.ledger,decisions,scenarios,quarantine:{excluded,duplicates},root_check:{distinct:refs.length,unbound},formal:false,semantic_proof_complete:false};
 }
