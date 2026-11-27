@@ -1,0 +1,5706 @@
+{
+  "schema": "gemini-synthetic-field-observations-v2-supplement",
+  "fixture_only": true,
+  "official_evidence": false,
+  "production_admission": false,
+  "parent_input_commit": "83fba73a3a35faafdf9fa37880620d873dc9bf43",
+  "source": "user-transcribed Gemini correction supplement 2026-11-27; source values preserved, audit separate",
+  "time_basis": "local fictional clock; UTC offset not explicitly supplied; do not certify actual capture",
+  "target": {
+    "race_id": "FK-20261115-T10",
+    "date": "2026-11-15",
+    "scheduled_start_local": "2026-11-15T15:30:00",
+    "snapshot_publication_local": "2026-11-15T14:45:00",
+    "track": "青葉ダート",
+    "course_version": "Course-Ver.2026A",
+    "surface": "ダート",
+    "distance_m": 1400,
+    "turn": "右",
+    "first_turn_m": 285,
+    "geometry_narrative": "向正面直線短め・3〜4角スパイラル緩傾斜",
+    "going": "良",
+    "moisture_percent": 6.8,
+    "sand_depth_cm": 9.5,
+    "class_key": "GRD-C2-MIX",
+    "class_points": [
+      180,
+      239
+    ],
+    "eligibility": "C2格付馬・転入/特例枠を含む定量/別定戦",
+    "field_size": 7,
+    "prior_same_day_races": [
+      {
+        "race_no": 1,
+        "race_id": "FK-20261115-T01",
+        "distance_m": 1400,
+        "going": "良",
+        "winner_tenths": 881,
+        "top3_fourth_corner": [
+          1,
+          3,
+          2
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      },
+      {
+        "race_no": 2,
+        "race_id": "FK-20261115-T02",
+        "distance_m": 1400,
+        "going": "良",
+        "winner_tenths": 879,
+        "top3_fourth_corner": [
+          2,
+          4,
+          1
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      },
+      {
+        "race_no": 3,
+        "race_id": "FK-20261115-T03",
+        "distance_m": 1200,
+        "going": "良",
+        "winner_tenths": 737,
+        "top3_fourth_corner": [
+          3,
+          1,
+          6
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      },
+      {
+        "race_no": 4,
+        "race_id": "FK-20261115-T04",
+        "distance_m": 1400,
+        "going": "良",
+        "winner_tenths": 880,
+        "top3_fourth_corner": [
+          2,
+          5,
+          3
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      },
+      {
+        "race_no": 5,
+        "race_id": "FK-20261115-T05",
+        "distance_m": 1600,
+        "going": "良",
+        "winner_tenths": 1019,
+        "top3_fourth_corner": [
+          4,
+          2,
+          7
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      },
+      {
+        "race_no": 6,
+        "race_id": "FK-20261115-T06",
+        "distance_m": 1400,
+        "going": "良",
+        "winner_tenths": 878,
+        "top3_fourth_corner": [
+          1,
+          2,
+          4
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      },
+      {
+        "race_no": 7,
+        "race_id": "FK-20261115-T07",
+        "distance_m": 1400,
+        "going": "良",
+        "winner_tenths": 882,
+        "top3_fourth_corner": [
+          3,
+          6,
+          2
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      },
+      {
+        "race_no": 8,
+        "race_id": "FK-20261115-T08",
+        "distance_m": 1400,
+        "going": "良",
+        "winner_tenths": 877,
+        "top3_fourth_corner": [
+          2,
+          1,
+          5
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      },
+      {
+        "race_no": 9,
+        "race_id": "FK-20261115-T09",
+        "distance_m": 1400,
+        "going": "良",
+        "winner_tenths": 883,
+        "top3_fourth_corner": [
+          4,
+          2,
+          3
+        ],
+        "publication_local": null,
+        "reported_before_snapshot": true,
+        "full_result": null
+      }
+    ],
+    "reported_same_day_tendency": "3着内27頭中4角4番手以内19、1400m21頭中16との申告。外6〜8枠の早め進出馬が伸びを欠くとの記述。",
+    "reported_same_day_counts": {
+      "all_top3": 27,
+      "all_le4": 19,
+      "at1400_top3": 21,
+      "at1400_le4": 16
+    }
+  },
+  "runners": [
+    {
+      "horse_id": "FIXTURE-A",
+      "horse_no": 1,
+      "frame_no": 1,
+      "reported_gate": 1,
+      "active": true,
+      "sex": "牡",
+      "age": 4,
+      "weight_kg": 56,
+      "reported_interval_days": 28,
+      "reported_interval": "中4週",
+      "current_body_weight_kg": 484,
+      "reported_body_weight_delta_kg": 2,
+      "gear_narrative": "届出なし（前走と変更なし）",
+      "workout_narrative": null,
+      "sire_label": "アオバキング",
+      "damsire_label": "サナダトップ",
+      "transport_narrative": "場内厩舎(移動なし)",
+      "jockey_registration": {
+        "issuer": "FICTIONAL",
+        "role": "jockey",
+        "id": "J-104",
+        "reported_stats": "C2ダ1400m 勝率18%・複勝42%",
+        "denominator": 100,
+        "wins": 18,
+        "top3": 42,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_rides": null
+      },
+      "trainer_registration": {
+        "issuer": "FICTIONAL",
+        "role": "trainer",
+        "id": "T-201",
+        "reported_stats": "C2勝率19%・複勝44%",
+        "denominator": 110,
+        "wins": 21,
+        "top3": 48,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_starts": null
+      },
+      "reported_transfer_first": null,
+      "history_race_ids": [
+        "FK-20261018-T08",
+        "FK-20260927-T07",
+        "FK-20260906-T06"
+      ],
+      "history_complete": false,
+      "workout_records": [
+        {
+          "text": "11/12 坂路単走・強め：39.2-25.4-12.3",
+          "measured_at_local": null,
+          "section_distances_m": null
+        },
+        {
+          "text": "11/08 コース併せ：5F 66.8-51.5-37.4-12.1（併入）",
+          "measured_at_local": null,
+          "section_distances_m": null
+        }
+      ]
+    },
+    {
+      "horse_id": "FIXTURE-B",
+      "horse_no": 2,
+      "frame_no": 2,
+      "reported_gate": 2,
+      "active": true,
+      "sex": "牝",
+      "age": 5,
+      "weight_kg": 54,
+      "reported_interval_days": 14,
+      "reported_interval": "中2週",
+      "current_body_weight_kg": 455,
+      "reported_body_weight_delta_kg": -1,
+      "gear_narrative": "チークピーシズ（2走前着用→前走外す→今回再着用）",
+      "workout_narrative": null,
+      "sire_label": "トウカイメイト",
+      "damsire_label": "ギンガスター",
+      "transport_narrative": "場内厩舎(移動なし)",
+      "jockey_registration": {
+        "issuer": "FICTIONAL",
+        "role": "jockey",
+        "id": "J-118",
+        "reported_stats": "C2ダ1400m 勝率9%・複勝38%",
+        "denominator": 89,
+        "wins": 8,
+        "top3": 34,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_rides": null
+      },
+      "trainer_registration": {
+        "issuer": "FICTIONAL",
+        "role": "trainer",
+        "id": "T-205",
+        "reported_stats": "C2勝率12%・複勝35%",
+        "denominator": 83,
+        "wins": 10,
+        "top3": 29,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_starts": null
+      },
+      "reported_transfer_first": null,
+      "history_race_ids": [
+        "FK-20261101-T09",
+        "FK-20261011-T08",
+        "FK-20260920-T07"
+      ],
+      "history_complete": false,
+      "workout_records": [
+        {
+          "text": "11/12 コース単走・馬なり：4F 52.6-38.1-12.4",
+          "measured_at_local": null,
+          "section_distances_m": null
+        },
+        {
+          "text": "11/09 コース単走・軽め：4F 54.1-39.2-12.9",
+          "measured_at_local": null,
+          "section_distances_m": null
+        }
+      ]
+    },
+    {
+      "horse_id": "FIXTURE-C",
+      "horse_no": 3,
+      "frame_no": 3,
+      "reported_gate": 3,
+      "active": true,
+      "sex": "牡",
+      "age": 3,
+      "weight_kg": 56,
+      "reported_interval_days": 35,
+      "reported_interval": "中5週",
+      "current_body_weight_kg": 494,
+      "reported_body_weight_delta_kg": 4,
+      "gear_narrative": "ブリンカー（3走前なし→2走前初着用→前走・今回継続）",
+      "workout_narrative": null,
+      "sire_label": "カゼノオウ",
+      "damsire_label": "ミドリヒメ",
+      "transport_narrative": "近隣外厩(輸送45km・1.5h)",
+      "jockey_registration": {
+        "issuer": "FICTIONAL",
+        "role": "jockey",
+        "id": "J-129",
+        "reported_stats": "C2全条件 勝率11%・複勝27%",
+        "denominator": 64,
+        "wins": 7,
+        "top3": 17,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_rides": null
+      },
+      "trainer_registration": {
+        "issuer": "FICTIONAL",
+        "role": "trainer",
+        "id": "T-212",
+        "reported_stats": "C2勝率10%・複勝25%",
+        "denominator": 60,
+        "wins": 6,
+        "top3": 15,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_starts": null
+      },
+      "reported_transfer_first": null,
+      "history_race_ids": [
+        "FK-20261015-T08",
+        "FK-20260924-T05",
+        "FK-20260903-T04"
+      ],
+      "history_complete": false,
+      "workout_records": [
+        {
+          "text": "11/11 坂路単走・一杯：40.8-26.9-13.4",
+          "measured_at_local": null,
+          "section_distances_m": null
+        },
+        {
+          "text": "11/06 コース単走・馬なり：4F 54.8-40.1-13.2",
+          "measured_at_local": null,
+          "section_distances_m": null
+        }
+      ]
+    },
+    {
+      "horse_id": "FIXTURE-D",
+      "horse_no": 4,
+      "frame_no": 4,
+      "reported_gate": 4,
+      "active": true,
+      "sex": "セン",
+      "age": 6,
+      "weight_kg": 56,
+      "reported_interval_days": 13,
+      "reported_interval": "中1週",
+      "current_body_weight_kg": 476,
+      "reported_body_weight_delta_kg": -2,
+      "gear_narrative": "メンコ・ノーズバンド（前走と変更なし）",
+      "workout_narrative": null,
+      "sire_label": "ハヤテダッシュ",
+      "damsire_label": "ソラノカゼ",
+      "transport_narrative": "場内厩舎(移動なし)",
+      "jockey_registration": {
+        "issuer": "FICTIONAL",
+        "role": "jockey",
+        "id": "J-109",
+        "reported_stats": "C2全条件 勝率16%・複勝36%",
+        "denominator": 88,
+        "wins": 14,
+        "top3": 32,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_rides": null
+      },
+      "trainer_registration": {
+        "issuer": "FICTIONAL",
+        "role": "trainer",
+        "id": "T-208",
+        "reported_stats": "C2勝率14%・複勝33%",
+        "denominator": 79,
+        "wins": 11,
+        "top3": 26,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_starts": null
+      },
+      "reported_transfer_first": null,
+      "history_race_ids": [
+        "FK-20261102-T09",
+        "FK-20261012-T07",
+        "FK-20260921-T08"
+      ],
+      "history_complete": false,
+      "workout_records": [
+        {
+          "text": "11/12 コース単走・軽め：4F 54.5-39.8-13.0",
+          "measured_at_local": null,
+          "section_distances_m": null
+        },
+        {
+          "text": "11/09 走路歩行・軽め(時計計測なし)",
+          "measured_at_local": null,
+          "section_distances_m": null
+        }
+      ]
+    },
+    {
+      "horse_id": "FIXTURE-E",
+      "horse_no": 5,
+      "frame_no": 5,
+      "reported_gate": 5,
+      "active": true,
+      "sex": "牝",
+      "age": 4,
+      "weight_kg": 54,
+      "reported_interval_days": 29,
+      "reported_interval": "中4週",
+      "current_body_weight_kg": 470,
+      "reported_body_weight_delta_kg": 2,
+      "gear_narrative": "届出なし（前走と変更なし）",
+      "workout_narrative": null,
+      "sire_label": "シオカゼボーイ",
+      "damsire_label": "ユメノハナ",
+      "transport_narrative": "場内厩舎(移動なし)",
+      "jockey_registration": {
+        "issuer": "FICTIONAL",
+        "role": "jockey",
+        "id": "J-122",
+        "reported_stats": "C2全条件 勝率13%・複勝31%",
+        "denominator": 77,
+        "wins": 10,
+        "top3": 24,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_rides": null
+      },
+      "trainer_registration": {
+        "issuer": "FICTIONAL",
+        "role": "trainer",
+        "id": "T-204",
+        "reported_stats": "C2勝率15%・複勝37%",
+        "denominator": 87,
+        "wins": 13,
+        "top3": 32,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_starts": null
+      },
+      "reported_transfer_first": null,
+      "history_race_ids": [
+        "FK-20261017-T09",
+        "FK-20260926-T08",
+        "FK-20260905-T07"
+      ],
+      "history_complete": false,
+      "workout_records": [
+        {
+          "text": "11/12 コース併せ・強め：4F 51.9-37.6-12.2（先着）",
+          "measured_at_local": null,
+          "section_distances_m": null
+        },
+        {
+          "text": "11/08 コース単走・馬なり：4F 53.3-38.5-12.6",
+          "measured_at_local": null,
+          "section_distances_m": null
+        }
+      ]
+    },
+    {
+      "horse_id": "FIXTURE-F",
+      "horse_no": 6,
+      "frame_no": 6,
+      "reported_gate": 6,
+      "active": true,
+      "sex": "牡",
+      "age": 5,
+      "weight_kg": 56,
+      "reported_interval_days": 28,
+      "reported_interval": "中4週",
+      "current_body_weight_kg": 495,
+      "reported_body_weight_delta_kg": -1,
+      "gear_narrative": "リングハミ（今回新規着用・過去使用歴なし）",
+      "workout_narrative": null,
+      "sire_label": "イナズマロード",
+      "damsire_label": "クロフネ系架空",
+      "transport_narrative": "場内厩舎(移動なし)",
+      "jockey_registration": {
+        "issuer": "FICTIONAL",
+        "role": "jockey",
+        "id": "J-135",
+        "reported_stats": "C2全条件 勝率8%・複勝22%",
+        "denominator": 62,
+        "wins": 5,
+        "top3": 14,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_rides": null
+      },
+      "trainer_registration": {
+        "issuer": "FICTIONAL",
+        "role": "trainer",
+        "id": "T-219",
+        "reported_stats": "C2勝率9%・複勝24%",
+        "denominator": 55,
+        "wins": 5,
+        "top3": 13,
+        "period": [
+          "2026-01-01",
+          "2026-11-14"
+        ],
+        "raw_starts": null
+      },
+      "reported_transfer_first": null,
+      "history_race_ids": [
+        "FK-20261018-T07",
+        "FK-20260927-T08",
+        "FK-20260906-T07"
+      ],
+      "history_complete": false,
+      "workout_records": [
+        {
+          "text": "11/12 コース単走・軽め：4F 54.9-40.2-13.3",
+          "measured_at_local": null,
+          "section_distances_m": null
+        },
+        {
+          "text": "11/07 コース単走・馬なり：4F 54.2-39.6-12.9",
+          "measured_at_local": null,
+          "section_distances_m": null
+        }
+      ]
+    },
+    {
+      "horse_id": "FIXTURE-G",
+      "horse_no": 7,
+      "frame_no": 7,
+      "reported_gate": 7,
+      "active": true,
+      "sex": "牡",
+      "age": 3,
+      "weight_kg": 56,
+      "reported_interval_days": null,
+      "reported_interval": null,
+      "current_body_weight_kg": null,
+      "reported_body_weight_delta_kg": null,
+      "gear_narrative": null,
+      "workout_narrative": null,
+      "sire_label": "モウコノヒカリ",
+      "damsire_label": null,
+      "transport_narrative": "他地区転入(移動距離不明)",
+      "jockey_registration": {
+        "issuer": "FICTIONAL",
+        "role": "jockey",
+        "id": "J-990",
+        "reported_stats": "他地区所属・当場実績欠損",
+        "denominator": null
+      },
+      "trainer_registration": {
+        "issuer": "FICTIONAL",
+        "role": "trainer",
+        "id": "T-230",
+        "reported_stats": "転入受入・当場実績欠損",
+        "denominator": null
+      },
+      "reported_transfer_first": true,
+      "history_race_ids": [],
+      "history_complete": false
+    }
+  ],
+  "past_races": [
+    {
+      "race_id": "FK-20261018-T08",
+      "subject_horse_id": "FIXTURE-A",
+      "relative_run": 1,
+      "date": "2026-10-18",
+      "scheduled_start_local": "2026-10-18T14:55:00",
+      "publication_local": "2026-10-18T15:25:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1600,
+      "turn": "右",
+      "first_turn_m": 385,
+      "going": "重",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 8,
+      "reported_winner_clock_tenths": 1016,
+      "reported_race_laps_tenths": [
+        126,
+        118,
+        124,
+        128,
+        130,
+        131,
+        129,
+        128
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-A2",
+          "weight_kg": 56,
+          "elapsed_tenths": 1016,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 387,
+          "positions": [
+            2,
+            2,
+            2,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-A3",
+          "weight_kg": 54,
+          "elapsed_tenths": 1019,
+          "reported_winner_gap_tenths": 3,
+          "final3f_tenths": 388,
+          "positions": [
+            4,
+            4,
+            3,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-A4",
+          "weight_kg": 56,
+          "elapsed_tenths": 1022,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 385,
+          "positions": [
+            6,
+            6,
+            5,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-A5",
+          "weight_kg": 56,
+          "elapsed_tenths": 1024,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 390,
+          "positions": [
+            3,
+            3,
+            4,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-A6",
+          "weight_kg": 55,
+          "elapsed_tenths": 1027,
+          "reported_winner_gap_tenths": 11,
+          "final3f_tenths": 387,
+          "positions": [
+            7,
+            7,
+            6,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-A",
+          "weight_kg": 56,
+          "elapsed_tenths": 1029,
+          "reported_winner_gap_tenths": 13,
+          "final3f_tenths": 395,
+          "positions": [
+            2,
+            2,
+            5,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-A7",
+          "weight_kg": 56,
+          "elapsed_tenths": 1032,
+          "reported_winner_gap_tenths": 16,
+          "final3f_tenths": 394,
+          "positions": [
+            5,
+            5,
+            8,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-A8",
+          "weight_kg": 54,
+          "elapsed_tenths": 1038,
+          "reported_winner_gap_tenths": 22,
+          "final3f_tenths": 398,
+          "positions": [
+            1,
+            1,
+            7,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-1018-08",
+        "text": "3コーナー外から5番馬A3が並びかけた際、1番馬Aは外へ張られる形となり3〜4角で後退（被害馬1番／原因馬5番の進路取り注意・降着なし）"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260927-T07",
+      "subject_horse_id": "FIXTURE-A",
+      "relative_run": 2,
+      "date": "2026-09-27",
+      "scheduled_start_local": "2026-09-27T14:20:00",
+      "publication_local": "2026-09-27T14:50:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "稍重",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 8,
+      "reported_winner_clock_tenths": 874,
+      "reported_race_laps_tenths": [
+        123,
+        114,
+        121,
+        125,
+        126,
+        129,
+        134
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-A9",
+          "weight_kg": 56,
+          "elapsed_tenths": 874,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 389,
+          "positions": [
+            5,
+            5,
+            4,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-A",
+          "weight_kg": 56,
+          "elapsed_tenths": 875,
+          "reported_winner_gap_tenths": 1,
+          "final3f_tenths": 378,
+          "positions": [
+            3,
+            3,
+            2,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-A10",
+          "weight_kg": 54,
+          "elapsed_tenths": 878,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 384,
+          "positions": [
+            2,
+            2,
+            3,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-A11",
+          "weight_kg": 56,
+          "elapsed_tenths": 880,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 386,
+          "positions": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-A12",
+          "weight_kg": 54,
+          "elapsed_tenths": 883,
+          "reported_winner_gap_tenths": 9,
+          "final3f_tenths": 385,
+          "positions": [
+            6,
+            6,
+            6,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-A13",
+          "weight_kg": 56,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 11,
+          "final3f_tenths": 388,
+          "positions": [
+            4,
+            4,
+            5,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-A14",
+          "weight_kg": 54,
+          "elapsed_tenths": 888,
+          "reported_winner_gap_tenths": 14,
+          "final3f_tenths": 387,
+          "positions": [
+            7,
+            7,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-A15",
+          "weight_kg": 56,
+          "elapsed_tenths": 891,
+          "reported_winner_gap_tenths": 17,
+          "final3f_tenths": 389,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0927-07",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260906-T06",
+      "subject_horse_id": "FIXTURE-A",
+      "relative_run": 3,
+      "date": "2026-09-06",
+      "scheduled_start_local": "2026-09-06T13:55:00",
+      "publication_local": "2026-09-06T14:25:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 8,
+      "reported_winner_clock_tenths": 878,
+      "reported_race_laps_tenths": [
+        125,
+        116,
+        123,
+        127,
+        128,
+        130,
+        129
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-A",
+          "weight_kg": 56,
+          "elapsed_tenths": 878,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 376,
+          "positions": [
+            2,
+            2,
+            2,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-B1",
+          "weight_kg": 56,
+          "elapsed_tenths": 882,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 381,
+          "positions": [
+            4,
+            4,
+            3,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-B2",
+          "weight_kg": 54,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 7,
+          "final3f_tenths": 383,
+          "positions": [
+            6,
+            6,
+            5,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-B3",
+          "weight_kg": 56,
+          "elapsed_tenths": 887,
+          "reported_winner_gap_tenths": 9,
+          "final3f_tenths": 389,
+          "positions": [
+            1,
+            1,
+            1,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-B4",
+          "weight_kg": 54,
+          "elapsed_tenths": 889,
+          "reported_winner_gap_tenths": 11,
+          "final3f_tenths": 384,
+          "positions": [
+            5,
+            5,
+            6,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-B5",
+          "weight_kg": 56,
+          "elapsed_tenths": 891,
+          "reported_winner_gap_tenths": 13,
+          "final3f_tenths": 388,
+          "positions": [
+            3,
+            3,
+            4,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-B6",
+          "weight_kg": 54,
+          "elapsed_tenths": 894,
+          "reported_winner_gap_tenths": 16,
+          "final3f_tenths": 387,
+          "positions": [
+            7,
+            7,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-B7",
+          "weight_kg": 56,
+          "elapsed_tenths": 897,
+          "reported_winner_gap_tenths": 19,
+          "final3f_tenths": 389,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0906-06",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261101-T09",
+      "subject_horse_id": "FIXTURE-B",
+      "relative_run": 1,
+      "date": "2026-11-01",
+      "scheduled_start_local": "2026-11-01T15:10:00",
+      "publication_local": "2026-11-01T15:40:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "稍重",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 10,
+      "reported_winner_clock_tenths": 877,
+      "reported_race_laps_tenths": [
+        124,
+        115,
+        122,
+        126,
+        127,
+        130,
+        133
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-B10",
+          "weight_kg": 56,
+          "elapsed_tenths": 877,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 387,
+          "positions": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-B11",
+          "weight_kg": 54,
+          "elapsed_tenths": 878,
+          "reported_winner_gap_tenths": 1,
+          "final3f_tenths": 382,
+          "positions": [
+            5,
+            5,
+            4,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-B",
+          "weight_kg": 54,
+          "elapsed_tenths": 879,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 373,
+          "positions": [
+            10,
+            9,
+            7,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-B12",
+          "weight_kg": 56,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 383,
+          "positions": [
+            4,
+            4,
+            3,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-B13",
+          "weight_kg": 54,
+          "elapsed_tenths": 883,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 384,
+          "positions": [
+            3,
+            3,
+            5,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-B14",
+          "weight_kg": 56,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 388,
+          "positions": [
+            2,
+            2,
+            2,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-B15",
+          "weight_kg": 54,
+          "elapsed_tenths": 887,
+          "reported_winner_gap_tenths": 10,
+          "final3f_tenths": 383,
+          "positions": [
+            7,
+            7,
+            6,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-B16",
+          "weight_kg": 56,
+          "elapsed_tenths": 890,
+          "reported_winner_gap_tenths": 13,
+          "final3f_tenths": 386,
+          "positions": [
+            6,
+            6,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-B17",
+          "weight_kg": 54,
+          "elapsed_tenths": 892,
+          "reported_winner_gap_tenths": 15,
+          "final3f_tenths": 385,
+          "positions": [
+            8,
+            8,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 10,
+          "horse_no": 10,
+          "horse_id": "FIXTURE-B18",
+          "weight_kg": 56,
+          "elapsed_tenths": 895,
+          "reported_winner_gap_tenths": 18,
+          "final3f_tenths": 387,
+          "positions": [
+            9,
+            10,
+            10,
+            10
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-1101-09",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261011-T08",
+      "subject_horse_id": "FIXTURE-B",
+      "relative_run": 2,
+      "date": "2026-10-11",
+      "scheduled_start_local": "2026-10-11T14:40:00",
+      "publication_local": "2026-10-11T15:10:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 10,
+      "reported_winner_clock_tenths": 880,
+      "reported_race_laps_tenths": [
+        125,
+        117,
+        124,
+        128,
+        129,
+        130,
+        126
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-B19",
+          "weight_kg": 56,
+          "elapsed_tenths": 880,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 384,
+          "positions": [
+            3,
+            3,
+            2,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-B",
+          "weight_kg": 54,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 1,
+          "final3f_tenths": 371,
+          "positions": [
+            8,
+            8,
+            6,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-B20",
+          "weight_kg": 54,
+          "elapsed_tenths": 883,
+          "reported_winner_gap_tenths": 3,
+          "final3f_tenths": 383,
+          "positions": [
+            5,
+            5,
+            4,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-B21",
+          "weight_kg": 56,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 5,
+          "final3f_tenths": 389,
+          "positions": [
+            1,
+            1,
+            1,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-B22",
+          "weight_kg": 54,
+          "elapsed_tenths": 887,
+          "reported_winner_gap_tenths": 7,
+          "final3f_tenths": 386,
+          "positions": [
+            4,
+            4,
+            3,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-B23",
+          "weight_kg": 56,
+          "elapsed_tenths": 889,
+          "reported_winner_gap_tenths": 9,
+          "final3f_tenths": 385,
+          "positions": [
+            6,
+            6,
+            5,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-B24",
+          "weight_kg": 54,
+          "elapsed_tenths": 891,
+          "reported_winner_gap_tenths": 11,
+          "final3f_tenths": 389,
+          "positions": [
+            2,
+            2,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-B25",
+          "weight_kg": 56,
+          "elapsed_tenths": 893,
+          "reported_winner_gap_tenths": 13,
+          "final3f_tenths": 386,
+          "positions": [
+            7,
+            7,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-B26",
+          "weight_kg": 54,
+          "elapsed_tenths": 895,
+          "reported_winner_gap_tenths": 15,
+          "final3f_tenths": 386,
+          "positions": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 10,
+          "horse_no": 10,
+          "horse_id": "FIXTURE-B27",
+          "weight_kg": 56,
+          "elapsed_tenths": 897,
+          "reported_winner_gap_tenths": 17,
+          "final3f_tenths": 387,
+          "positions": [
+            10,
+            10,
+            10,
+            10
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-1011-08",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260920-T07",
+      "subject_horse_id": "FIXTURE-B",
+      "relative_run": 3,
+      "date": "2026-09-20",
+      "scheduled_start_local": "2026-09-20T14:15:00",
+      "publication_local": "2026-09-20T14:45:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 10,
+      "reported_winner_clock_tenths": 881,
+      "reported_race_laps_tenths": [
+        126,
+        118,
+        125,
+        127,
+        128,
+        130,
+        127
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-B28",
+          "weight_kg": 56,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 385,
+          "positions": [
+            2,
+            2,
+            2,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-B29",
+          "weight_kg": 54,
+          "elapsed_tenths": 882,
+          "reported_winner_gap_tenths": 1,
+          "final3f_tenths": 380,
+          "positions": [
+            4,
+            4,
+            3,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-B",
+          "weight_kg": 54,
+          "elapsed_tenths": 883,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 372,
+          "positions": [
+            9,
+            9,
+            7,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-B30",
+          "weight_kg": 56,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 387,
+          "positions": [
+            1,
+            1,
+            1,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-B31",
+          "weight_kg": 54,
+          "elapsed_tenths": 887,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 385,
+          "positions": [
+            5,
+            5,
+            4,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-B32",
+          "weight_kg": 56,
+          "elapsed_tenths": 890,
+          "reported_winner_gap_tenths": 9,
+          "final3f_tenths": 386,
+          "positions": [
+            6,
+            6,
+            6,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-B33",
+          "weight_kg": 54,
+          "elapsed_tenths": 893,
+          "reported_winner_gap_tenths": 12,
+          "final3f_tenths": 391,
+          "positions": [
+            3,
+            3,
+            5,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-B34",
+          "weight_kg": 56,
+          "elapsed_tenths": 895,
+          "reported_winner_gap_tenths": 14,
+          "final3f_tenths": 387,
+          "positions": [
+            7,
+            7,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-B35",
+          "weight_kg": 54,
+          "elapsed_tenths": 898,
+          "reported_winner_gap_tenths": 17,
+          "final3f_tenths": 388,
+          "positions": [
+            8,
+            8,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 10,
+          "horse_no": 10,
+          "horse_id": "FIXTURE-B36",
+          "weight_kg": 56,
+          "elapsed_tenths": 900,
+          "reported_winner_gap_tenths": 19,
+          "final3f_tenths": 388,
+          "positions": [
+            10,
+            10,
+            10,
+            10
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0920-07",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261015-T08",
+      "subject_horse_id": "FIXTURE-C",
+      "relative_run": 1,
+      "date": "2026-10-15",
+      "scheduled_start_local": "2026-10-15T14:50:00",
+      "publication_local": "2026-10-15T15:20:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 9,
+      "reported_winner_clock_tenths": 878,
+      "reported_race_laps_tenths": [
+        125,
+        116,
+        124,
+        127,
+        128,
+        129,
+        129
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-C1",
+          "weight_kg": 56,
+          "elapsed_tenths": 878,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 379,
+          "positions": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-C2",
+          "weight_kg": 54,
+          "elapsed_tenths": 880,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 376,
+          "positions": [
+            5,
+            5,
+            4,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-C3",
+          "weight_kg": 56,
+          "elapsed_tenths": 882,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 380,
+          "positions": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-C4",
+          "weight_kg": 56,
+          "elapsed_tenths": 884,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 384,
+          "positions": [
+            2,
+            2,
+            2,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-C5",
+          "weight_kg": 54,
+          "elapsed_tenths": 886,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 382,
+          "positions": [
+            6,
+            6,
+            5,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-C6",
+          "weight_kg": 56,
+          "elapsed_tenths": 887,
+          "reported_winner_gap_tenths": 9,
+          "final3f_tenths": 380,
+          "positions": [
+            7,
+            7,
+            7,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-C",
+          "weight_kg": 56,
+          "elapsed_tenths": 889,
+          "reported_winner_gap_tenths": 11,
+          "final3f_tenths": 386,
+          "positions": [
+            4,
+            4,
+            6,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-C7",
+          "weight_kg": 54,
+          "elapsed_tenths": 891,
+          "reported_winner_gap_tenths": 13,
+          "final3f_tenths": 384,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-C8",
+          "weight_kg": 56,
+          "elapsed_tenths": 894,
+          "reported_winner_gap_tenths": 16,
+          "final3f_tenths": 386,
+          "positions": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-1015-08",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260924-T05",
+      "subject_horse_id": "FIXTURE-C",
+      "relative_run": 2,
+      "date": "2026-09-24",
+      "scheduled_start_local": "2026-09-24T13:30:00",
+      "publication_local": "2026-09-24T14:00:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "不良",
+      "class_key": "GRD-C3-STD",
+      "field_size": 9,
+      "reported_winner_clock_tenths": 864,
+      "reported_race_laps_tenths": [
+        121,
+        112,
+        119,
+        123,
+        125,
+        127,
+        127
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-C",
+          "weight_kg": 56,
+          "elapsed_tenths": 864,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 370,
+          "positions": [
+            5,
+            4,
+            3,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-C9",
+          "weight_kg": 54,
+          "elapsed_tenths": 870,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 379,
+          "positions": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-C10",
+          "weight_kg": 56,
+          "elapsed_tenths": 872,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 384,
+          "positions": [
+            1,
+            1,
+            1,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-C11",
+          "weight_kg": 54,
+          "elapsed_tenths": 874,
+          "reported_winner_gap_tenths": 10,
+          "final3f_tenths": 379,
+          "positions": [
+            4,
+            5,
+            4,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-C12",
+          "weight_kg": 56,
+          "elapsed_tenths": 877,
+          "reported_winner_gap_tenths": 13,
+          "final3f_tenths": 381,
+          "positions": [
+            6,
+            6,
+            6,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-C13",
+          "weight_kg": 54,
+          "elapsed_tenths": 879,
+          "reported_winner_gap_tenths": 15,
+          "final3f_tenths": 388,
+          "positions": [
+            3,
+            3,
+            5,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-C14",
+          "weight_kg": 56,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 17,
+          "final3f_tenths": 383,
+          "positions": [
+            7,
+            7,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-C15",
+          "weight_kg": 54,
+          "elapsed_tenths": 883,
+          "reported_winner_gap_tenths": 19,
+          "final3f_tenths": 384,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-C16",
+          "weight_kg": 56,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 21,
+          "final3f_tenths": 384,
+          "positions": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0924-05",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260903-T04",
+      "subject_horse_id": "FIXTURE-C",
+      "relative_run": 3,
+      "date": "2026-09-03",
+      "scheduled_start_local": "2026-09-03T13:05:00",
+      "publication_local": "2026-09-03T13:35:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1200,
+      "turn": "右",
+      "first_turn_m": 210,
+      "going": "良",
+      "class_key": "GRD-C3-STD",
+      "field_size": 8,
+      "reported_winner_clock_tenths": 735,
+      "reported_race_laps_tenths": [
+        122,
+        111,
+        118,
+        123,
+        126,
+        115
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-C17",
+          "weight_kg": 56,
+          "elapsed_tenths": 735,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 367,
+          "positions": [
+            2,
+            2,
+            1,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-C18",
+          "weight_kg": 54,
+          "elapsed_tenths": 736,
+          "reported_winner_gap_tenths": 1,
+          "final3f_tenths": 370,
+          "positions": [
+            1,
+            1,
+            2,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-C19",
+          "weight_kg": 54,
+          "elapsed_tenths": 737,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 368,
+          "positions": [
+            4,
+            4,
+            3,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-C",
+          "weight_kg": 56,
+          "elapsed_tenths": 738,
+          "reported_winner_gap_tenths": 3,
+          "final3f_tenths": 369,
+          "positions": [
+            6,
+            6,
+            5,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-C20",
+          "weight_kg": 56,
+          "elapsed_tenths": 740,
+          "reported_winner_gap_tenths": 5,
+          "final3f_tenths": 372,
+          "positions": [
+            3,
+            3,
+            4,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-C21",
+          "weight_kg": 54,
+          "elapsed_tenths": 743,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 373,
+          "positions": [
+            5,
+            5,
+            6,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-C22",
+          "weight_kg": 56,
+          "elapsed_tenths": 746,
+          "reported_winner_gap_tenths": 11,
+          "final3f_tenths": 375,
+          "positions": [
+            7,
+            7,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-C23",
+          "weight_kg": 54,
+          "elapsed_tenths": 750,
+          "reported_winner_gap_tenths": 15,
+          "final3f_tenths": 377,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0903-04",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261102-T09",
+      "subject_horse_id": "FIXTURE-D",
+      "relative_run": 1,
+      "date": "2026-11-02",
+      "scheduled_start_local": "2026-11-02T15:15:00",
+      "publication_local": "2026-11-02T15:45:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "重",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 9,
+      "reported_winner_clock_tenths": 873,
+      "reported_race_laps_tenths": [
+        129,
+        121,
+        127,
+        128,
+        126,
+        122,
+        120
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": "単騎逃げスロー",
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-D1",
+          "weight_kg": 55,
+          "elapsed_tenths": 873,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 368,
+          "positions": [
+            4,
+            4,
+            3,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-D",
+          "weight_kg": 56,
+          "elapsed_tenths": 874,
+          "reported_winner_gap_tenths": 1,
+          "final3f_tenths": 374,
+          "positions": [
+            1,
+            1,
+            1,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-D2",
+          "weight_kg": 56,
+          "elapsed_tenths": 878,
+          "reported_winner_gap_tenths": 5,
+          "final3f_tenths": 373,
+          "positions": [
+            5,
+            5,
+            4,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-D3",
+          "weight_kg": 54,
+          "elapsed_tenths": 880,
+          "reported_winner_gap_tenths": 7,
+          "final3f_tenths": 378,
+          "positions": [
+            2,
+            2,
+            2,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-D4",
+          "weight_kg": 56,
+          "elapsed_tenths": 883,
+          "reported_winner_gap_tenths": 10,
+          "final3f_tenths": 379,
+          "positions": [
+            6,
+            6,
+            5,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-D5",
+          "weight_kg": 54,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 12,
+          "final3f_tenths": 377,
+          "positions": [
+            7,
+            7,
+            6,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-D6",
+          "weight_kg": 56,
+          "elapsed_tenths": 888,
+          "reported_winner_gap_tenths": 15,
+          "final3f_tenths": 382,
+          "positions": [
+            3,
+            3,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-D7",
+          "weight_kg": 54,
+          "elapsed_tenths": 890,
+          "reported_winner_gap_tenths": 17,
+          "final3f_tenths": 380,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-D8",
+          "weight_kg": 56,
+          "elapsed_tenths": 892,
+          "reported_winner_gap_tenths": 19,
+          "final3f_tenths": 381,
+          "positions": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-1102-09",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261012-T07",
+      "subject_horse_id": "FIXTURE-D",
+      "relative_run": 2,
+      "date": "2026-10-12",
+      "scheduled_start_local": "2026-10-12T14:25:00",
+      "publication_local": "2026-10-12T14:55:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1300,
+      "turn": "右",
+      "first_turn_m": 245,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 9,
+      "reported_winner_clock_tenths": 810,
+      "reported_race_laps_tenths": [
+        68,
+        113,
+        120,
+        125,
+        128,
+        130,
+        126
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-D9",
+          "weight_kg": 56,
+          "elapsed_tenths": 810,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 378,
+          "positions": [
+            5,
+            5,
+            4,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-D10",
+          "weight_kg": 54,
+          "elapsed_tenths": 812,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 381,
+          "positions": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-D11",
+          "weight_kg": 56,
+          "elapsed_tenths": 813,
+          "reported_winner_gap_tenths": 3,
+          "final3f_tenths": 379,
+          "positions": [
+            6,
+            6,
+            5,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-D",
+          "weight_kg": 56,
+          "elapsed_tenths": 814,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 386,
+          "positions": [
+            1,
+            1,
+            1,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-D12",
+          "weight_kg": 54,
+          "elapsed_tenths": 816,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 387,
+          "positions": [
+            3,
+            3,
+            3,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-D13",
+          "weight_kg": 56,
+          "elapsed_tenths": 819,
+          "reported_winner_gap_tenths": 9,
+          "final3f_tenths": 385,
+          "positions": [
+            7,
+            7,
+            7,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-D14",
+          "weight_kg": 54,
+          "elapsed_tenths": 822,
+          "reported_winner_gap_tenths": 12,
+          "final3f_tenths": 389,
+          "positions": [
+            4,
+            4,
+            6,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-D15",
+          "weight_kg": 56,
+          "elapsed_tenths": 825,
+          "reported_winner_gap_tenths": 15,
+          "final3f_tenths": 388,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-D16",
+          "weight_kg": 54,
+          "elapsed_tenths": 828,
+          "reported_winner_gap_tenths": 18,
+          "final3f_tenths": 389,
+          "positions": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-1012-07",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        100,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260921-T08",
+      "subject_horse_id": "FIXTURE-D",
+      "relative_run": 3,
+      "date": "2026-09-21",
+      "scheduled_start_local": "2026-09-21T14:45:00",
+      "publication_local": "2026-09-21T15:15:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 9,
+      "reported_winner_clock_tenths": 879,
+      "reported_race_laps_tenths": [
+        124,
+        115,
+        122,
+        126,
+        128,
+        131,
+        133
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-D17",
+          "weight_kg": 56,
+          "elapsed_tenths": 879,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 382,
+          "positions": [
+            3,
+            3,
+            2,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-D18",
+          "weight_kg": 54,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 385,
+          "positions": [
+            2,
+            2,
+            3,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-D19",
+          "weight_kg": 56,
+          "elapsed_tenths": 882,
+          "reported_winner_gap_tenths": 3,
+          "final3f_tenths": 381,
+          "positions": [
+            5,
+            5,
+            4,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-D20",
+          "weight_kg": 54,
+          "elapsed_tenths": 884,
+          "reported_winner_gap_tenths": 5,
+          "final3f_tenths": 384,
+          "positions": [
+            4,
+            4,
+            5,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-D",
+          "weight_kg": 56,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 391,
+          "positions": [
+            1,
+            1,
+            1,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-D21",
+          "weight_kg": 56,
+          "elapsed_tenths": 887,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 388,
+          "positions": [
+            6,
+            6,
+            6,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-D22",
+          "weight_kg": 54,
+          "elapsed_tenths": 890,
+          "reported_winner_gap_tenths": 11,
+          "final3f_tenths": 387,
+          "positions": [
+            7,
+            7,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-D23",
+          "weight_kg": 56,
+          "elapsed_tenths": 893,
+          "reported_winner_gap_tenths": 14,
+          "final3f_tenths": 389,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-D24",
+          "weight_kg": 54,
+          "elapsed_tenths": 899,
+          "reported_winner_gap_tenths": 20,
+          "final3f_tenths": 392,
+          "positions": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0921-08",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261017-T09",
+      "subject_horse_id": "FIXTURE-E",
+      "relative_run": 1,
+      "date": "2026-10-17",
+      "scheduled_start_local": "2026-10-17T15:05:00",
+      "publication_local": "2026-10-17T15:35:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 10,
+      "reported_winner_clock_tenths": 878,
+      "reported_race_laps_tenths": [
+        125,
+        117,
+        124,
+        127,
+        128,
+        129,
+        128
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-E1",
+          "weight_kg": 54,
+          "elapsed_tenths": 878,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 377,
+          "positions": [
+            3,
+            3,
+            2,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-E2",
+          "weight_kg": 56,
+          "elapsed_tenths": 879,
+          "reported_winner_gap_tenths": 1,
+          "final3f_tenths": 376,
+          "positions": [
+            6,
+            6,
+            5,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-E3",
+          "weight_kg": 54,
+          "elapsed_tenths": 880,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 378,
+          "positions": [
+            5,
+            5,
+            3,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-E4",
+          "weight_kg": 56,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 3,
+          "final3f_tenths": 379,
+          "positions": [
+            2,
+            2,
+            4,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-E",
+          "weight_kg": 54,
+          "elapsed_tenths": 882,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 375,
+          "positions": [
+            7,
+            6,
+            4,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-E5",
+          "weight_kg": 56,
+          "elapsed_tenths": 884,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 385,
+          "positions": [
+            1,
+            1,
+            1,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-E6",
+          "weight_kg": 54,
+          "elapsed_tenths": 886,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 383,
+          "positions": [
+            8,
+            8,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-E7",
+          "weight_kg": 56,
+          "elapsed_tenths": 888,
+          "reported_winner_gap_tenths": 10,
+          "final3f_tenths": 385,
+          "positions": [
+            4,
+            4,
+            6,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-E8",
+          "weight_kg": 54,
+          "elapsed_tenths": 891,
+          "reported_winner_gap_tenths": 13,
+          "final3f_tenths": 386,
+          "positions": [
+            9,
+            9,
+            8,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 10,
+          "horse_no": 10,
+          "horse_id": "FIXTURE-E9",
+          "weight_kg": 56,
+          "elapsed_tenths": 895,
+          "reported_winner_gap_tenths": 17,
+          "final3f_tenths": 387,
+          "positions": [
+            10,
+            10,
+            10,
+            10
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-1017-09",
+        "text": "4コーナーで前が壁になり6番馬Eは進路を内へ切り替えるロスあり（自己事象・進路詰まり、降着・制裁なし）"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260926-T08",
+      "subject_horse_id": "FIXTURE-E",
+      "relative_run": 2,
+      "date": "2026-09-26",
+      "scheduled_start_local": "2026-09-26T14:40:00",
+      "publication_local": "2026-09-26T15:10:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1500,
+      "turn": "右",
+      "first_turn_m": 335,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 9,
+      "reported_winner_clock_tenths": 950,
+      "reported_race_laps_tenths": [
+        67,
+        120,
+        118,
+        125,
+        128,
+        129,
+        131,
+        127
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-E10",
+          "weight_kg": 54,
+          "elapsed_tenths": 950,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 382,
+          "positions": [
+            2,
+            2,
+            1,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-E11",
+          "weight_kg": 56,
+          "elapsed_tenths": 952,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 383,
+          "positions": [
+            3,
+            3,
+            2,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-E12",
+          "weight_kg": 54,
+          "elapsed_tenths": 954,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 387,
+          "positions": [
+            1,
+            1,
+            3,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-E13",
+          "weight_kg": 56,
+          "elapsed_tenths": 956,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 384,
+          "positions": [
+            5,
+            5,
+            4,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-E14",
+          "weight_kg": 54,
+          "elapsed_tenths": 958,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 386,
+          "positions": [
+            6,
+            6,
+            6,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-E15",
+          "weight_kg": 56,
+          "elapsed_tenths": 960,
+          "reported_winner_gap_tenths": 10,
+          "final3f_tenths": 389,
+          "positions": [
+            4,
+            4,
+            5,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-E",
+          "weight_kg": 54,
+          "elapsed_tenths": 962,
+          "reported_winner_gap_tenths": 12,
+          "final3f_tenths": 387,
+          "positions": [
+            7,
+            7,
+            7,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-E16",
+          "weight_kg": 56,
+          "elapsed_tenths": 964,
+          "reported_winner_gap_tenths": 14,
+          "final3f_tenths": 388,
+          "positions": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-E17",
+          "weight_kg": 56,
+          "elapsed_tenths": 969,
+          "reported_winner_gap_tenths": 19,
+          "final3f_tenths": 390,
+          "positions": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0926-08",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        100,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260905-T07",
+      "subject_horse_id": "FIXTURE-E",
+      "relative_run": 3,
+      "date": "2026-09-05",
+      "scheduled_start_local": "2026-09-05T14:20:00",
+      "publication_local": "2026-09-05T14:50:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 10,
+      "reported_winner_clock_tenths": 879,
+      "reported_race_laps_tenths": [
+        124,
+        115,
+        123,
+        127,
+        129,
+        130,
+        131
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-E18",
+          "weight_kg": 56,
+          "elapsed_tenths": 879,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 383,
+          "positions": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-E19",
+          "weight_kg": 54,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 384,
+          "positions": [
+            4,
+            4,
+            3,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-E20",
+          "weight_kg": 56,
+          "elapsed_tenths": 882,
+          "reported_winner_gap_tenths": 3,
+          "final3f_tenths": 385,
+          "positions": [
+            2,
+            2,
+            2,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-E21",
+          "weight_kg": 54,
+          "elapsed_tenths": 884,
+          "reported_winner_gap_tenths": 5,
+          "final3f_tenths": 386,
+          "positions": [
+            5,
+            5,
+            4,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-E22",
+          "weight_kg": 56,
+          "elapsed_tenths": 886,
+          "reported_winner_gap_tenths": 7,
+          "final3f_tenths": 387,
+          "positions": [
+            6,
+            6,
+            5,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-E23",
+          "weight_kg": 54,
+          "elapsed_tenths": 889,
+          "reported_winner_gap_tenths": 10,
+          "final3f_tenths": 388,
+          "positions": [
+            7,
+            7,
+            7,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-E24",
+          "weight_kg": 56,
+          "elapsed_tenths": 892,
+          "reported_winner_gap_tenths": 13,
+          "final3f_tenths": 390,
+          "positions": [
+            8,
+            8,
+            8,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-E",
+          "weight_kg": 54,
+          "elapsed_tenths": 894,
+          "reported_winner_gap_tenths": 15,
+          "final3f_tenths": 392,
+          "positions": [
+            3,
+            4,
+            6,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-E25",
+          "weight_kg": 54,
+          "elapsed_tenths": 896,
+          "reported_winner_gap_tenths": 17,
+          "final3f_tenths": 389,
+          "positions": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 10,
+          "horse_no": 10,
+          "horse_id": "FIXTURE-E26",
+          "weight_kg": 56,
+          "elapsed_tenths": 901,
+          "reported_winner_gap_tenths": 22,
+          "final3f_tenths": 393,
+          "positions": [
+            10,
+            10,
+            10,
+            10
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0905-07",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20261018-T07",
+      "subject_horse_id": "FIXTURE-F",
+      "relative_run": 1,
+      "date": "2026-10-18",
+      "scheduled_start_local": "2026-10-18T14:30:00",
+      "publication_local": "2026-10-18T15:00:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "重",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 10,
+      "reported_winner_clock_tenths": 873,
+      "reported_race_laps_tenths": [
+        122,
+        113,
+        120,
+        125,
+        127,
+        129,
+        127
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-F1",
+          "weight_kg": 56,
+          "elapsed_tenths": 873,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 381,
+          "positions": [
+            2,
+            2,
+            1,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-F2",
+          "weight_kg": 54,
+          "elapsed_tenths": 875,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 382,
+          "positions": [
+            3,
+            3,
+            2,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-F3",
+          "weight_kg": 56,
+          "elapsed_tenths": 877,
+          "reported_winner_gap_tenths": 4,
+          "final3f_tenths": 384,
+          "positions": [
+            1,
+            1,
+            3,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-F4",
+          "weight_kg": 54,
+          "elapsed_tenths": 879,
+          "reported_winner_gap_tenths": 6,
+          "final3f_tenths": 385,
+          "positions": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-F5",
+          "weight_kg": 56,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 8,
+          "final3f_tenths": 386,
+          "positions": [
+            6,
+            6,
+            5,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-F6",
+          "weight_kg": 54,
+          "elapsed_tenths": 883,
+          "reported_winner_gap_tenths": 10,
+          "final3f_tenths": 387,
+          "positions": [
+            7,
+            7,
+            7,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-F7",
+          "weight_kg": 56,
+          "elapsed_tenths": 885,
+          "reported_winner_gap_tenths": 12,
+          "final3f_tenths": 388,
+          "positions": [
+            8,
+            8,
+            8,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-F",
+          "weight_kg": 56,
+          "elapsed_tenths": 887,
+          "reported_winner_gap_tenths": 14,
+          "final3f_tenths": 388,
+          "positions": [
+            5,
+            6,
+            9,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-F8",
+          "weight_kg": 54,
+          "elapsed_tenths": 889,
+          "reported_winner_gap_tenths": 16,
+          "final3f_tenths": 387,
+          "positions": [
+            9,
+            9,
+            6,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 10,
+          "horse_no": 10,
+          "horse_id": "FIXTURE-F9",
+          "weight_kg": 56,
+          "elapsed_tenths": 893,
+          "reported_winner_gap_tenths": 20,
+          "final3f_tenths": 391,
+          "positions": [
+            10,
+            10,
+            10,
+            10
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-1018-07",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260927-T08",
+      "subject_horse_id": "FIXTURE-F",
+      "relative_run": 2,
+      "date": "2026-09-27",
+      "scheduled_start_local": "2026-09-27T14:45:00",
+      "publication_local": "2026-09-27T15:15:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 10,
+      "reported_winner_clock_tenths": 879,
+      "reported_race_laps_tenths": [
+        125,
+        116,
+        123,
+        127,
+        129,
+        130,
+        124
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-F10",
+          "weight_kg": 56,
+          "elapsed_tenths": 879,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 382,
+          "positions": [
+            3,
+            3,
+            2,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-F11",
+          "weight_kg": 54,
+          "elapsed_tenths": 881,
+          "reported_winner_gap_tenths": 2,
+          "final3f_tenths": 383,
+          "positions": [
+            4,
+            4,
+            3,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-F12",
+          "weight_kg": 56,
+          "elapsed_tenths": 882,
+          "reported_winner_gap_tenths": 3,
+          "final3f_tenths": 385,
+          "positions": [
+            1,
+            1,
+            1,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-F13",
+          "weight_kg": 54,
+          "elapsed_tenths": 884,
+          "reported_winner_gap_tenths": 5,
+          "final3f_tenths": 386,
+          "positions": [
+            2,
+            2,
+            4,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-F14",
+          "weight_kg": 56,
+          "elapsed_tenths": 886,
+          "reported_winner_gap_tenths": 7,
+          "final3f_tenths": 387,
+          "positions": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-F15",
+          "weight_kg": 54,
+          "elapsed_tenths": 888,
+          "reported_winner_gap_tenths": 9,
+          "final3f_tenths": 388,
+          "positions": [
+            7,
+            7,
+            7,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-F16",
+          "weight_kg": 56,
+          "elapsed_tenths": 891,
+          "reported_winner_gap_tenths": 12,
+          "final3f_tenths": 389,
+          "positions": [
+            8,
+            8,
+            8,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-F17",
+          "weight_kg": 54,
+          "elapsed_tenths": 894,
+          "reported_winner_gap_tenths": 15,
+          "final3f_tenths": 390,
+          "positions": [
+            9,
+            9,
+            9,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-F",
+          "weight_kg": 56,
+          "elapsed_tenths": 896,
+          "reported_winner_gap_tenths": 17,
+          "final3f_tenths": 394,
+          "positions": [
+            6,
+            7,
+            6,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 10,
+          "horse_no": 10,
+          "horse_id": "FIXTURE-F18",
+          "weight_kg": 56,
+          "elapsed_tenths": 900,
+          "reported_winner_gap_tenths": 21,
+          "final3f_tenths": 393,
+          "positions": [
+            10,
+            10,
+            10,
+            10
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0927-08",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    },
+    {
+      "race_id": "FK-20260906-T07",
+      "subject_horse_id": "FIXTURE-F",
+      "relative_run": 3,
+      "date": "2026-09-06",
+      "scheduled_start_local": "2026-09-06T14:20:00",
+      "publication_local": "2026-09-06T14:50:00",
+      "track": "青葉ダート",
+      "course_version": "Course-Ver.2026A",
+      "surface": "ダート",
+      "distance_m": 1400,
+      "turn": "右",
+      "first_turn_m": 285,
+      "going": "不良",
+      "class_key": "GRD-C2-MIX",
+      "field_size": 10,
+      "reported_winner_clock_tenths": 862,
+      "reported_race_laps_tenths": [
+        120,
+        111,
+        118,
+        122,
+        125,
+        127,
+        117
+      ],
+      "reported_lap_segment_m": null,
+      "reported_pace_label": null,
+      "rows": [
+        {
+          "finish": 1,
+          "horse_no": 4,
+          "horse_id": "FIXTURE-F",
+          "weight_kg": 56,
+          "elapsed_tenths": 862,
+          "reported_winner_gap_tenths": 0,
+          "final3f_tenths": 368,
+          "positions": [
+            7,
+            6,
+            4,
+            1
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 2,
+          "horse_no": 8,
+          "horse_id": "FIXTURE-F19",
+          "weight_kg": 54,
+          "elapsed_tenths": 867,
+          "reported_winner_gap_tenths": 5,
+          "final3f_tenths": 376,
+          "positions": [
+            4,
+            4,
+            3,
+            2
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 3,
+          "horse_no": 2,
+          "horse_id": "FIXTURE-F20",
+          "weight_kg": 56,
+          "elapsed_tenths": 869,
+          "reported_winner_gap_tenths": 7,
+          "final3f_tenths": 379,
+          "positions": [
+            2,
+            2,
+            2,
+            3
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 4,
+          "horse_no": 6,
+          "horse_id": "FIXTURE-F21",
+          "weight_kg": 54,
+          "elapsed_tenths": 871,
+          "reported_winner_gap_tenths": 9,
+          "final3f_tenths": 380,
+          "positions": [
+            1,
+            1,
+            1,
+            4
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 5,
+          "horse_no": 1,
+          "horse_id": "FIXTURE-F22",
+          "weight_kg": 56,
+          "elapsed_tenths": 874,
+          "reported_winner_gap_tenths": 12,
+          "final3f_tenths": 382,
+          "positions": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 6,
+          "horse_no": 5,
+          "horse_id": "FIXTURE-F23",
+          "weight_kg": 54,
+          "elapsed_tenths": 876,
+          "reported_winner_gap_tenths": 14,
+          "final3f_tenths": 383,
+          "positions": [
+            3,
+            3,
+            6,
+            6
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 7,
+          "horse_no": 3,
+          "horse_id": "FIXTURE-F24",
+          "weight_kg": 56,
+          "elapsed_tenths": 878,
+          "reported_winner_gap_tenths": 16,
+          "final3f_tenths": 384,
+          "positions": [
+            8,
+            8,
+            8,
+            7
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 8,
+          "horse_no": 7,
+          "horse_id": "FIXTURE-F25",
+          "weight_kg": 54,
+          "elapsed_tenths": 880,
+          "reported_winner_gap_tenths": 18,
+          "final3f_tenths": 385,
+          "positions": [
+            9,
+            9,
+            9,
+            8
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 9,
+          "horse_no": 9,
+          "horse_id": "FIXTURE-F26",
+          "weight_kg": 56,
+          "elapsed_tenths": 882,
+          "reported_winner_gap_tenths": 20,
+          "final3f_tenths": 386,
+          "positions": [
+            6,
+            7,
+            7,
+            9
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        },
+        {
+          "finish": 10,
+          "horse_no": 10,
+          "horse_id": "FIXTURE-F27",
+          "weight_kg": 54,
+          "elapsed_tenths": 884,
+          "reported_winner_gap_tenths": 22,
+          "final3f_tenths": 387,
+          "positions": [
+            10,
+            10,
+            10,
+            10
+          ],
+          "position_labels": [
+            "1角",
+            "2角",
+            "3角",
+            "4角"
+          ]
+        }
+      ],
+      "omitted_rank_ranges": [],
+      "ruling": {
+        "id": "FK-0906-07",
+        "text": "該当事象なし"
+      },
+      "fixture_only": true,
+      "lap_segment_distances_m": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "reported_lap_kind": null
+    }
+  ],
+  "peer_followups": [
+    {
+      "subject_horse_id": "FIXTURE-A",
+      "prior_race_id": "FK-20260906-T06",
+      "peer_horse_id": "FIXTURE-B1",
+      "race_id": "FK-20260928-T07",
+      "date": "2026-09-28",
+      "publication_local": "2026-09-28T15:00:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 1,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-A",
+      "prior_race_id": "FK-20260906-T06",
+      "peer_horse_id": "FIXTURE-B2",
+      "race_id": "FK-20261001-T06",
+      "date": "2026-10-01",
+      "publication_local": "2026-10-01T14:40:00",
+      "distance_m": 1400,
+      "going": "稍重",
+      "class_label": "C2",
+      "finish": 2,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-B",
+      "prior_race_id": "FK-20261101-T09",
+      "peer_horse_id": "FIXTURE-B11",
+      "race_id": "FK-20261110-T08",
+      "date": "2026-11-10",
+      "publication_local": "2026-11-10T15:15:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 2,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-B",
+      "prior_race_id": "FK-20261011-T08",
+      "peer_horse_id": "FIXTURE-B19",
+      "race_id": "FK-20261103-T09",
+      "date": "2026-11-03",
+      "publication_local": "2026-11-03T15:30:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 3,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-C",
+      "prior_race_id": "FK-20260924-T05",
+      "peer_horse_id": "FIXTURE-C9",
+      "race_id": "FK-20261014-T08",
+      "date": "2026-10-14",
+      "publication_local": "2026-10-14T15:10:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 8,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-C",
+      "prior_race_id": "FK-20261015-T08",
+      "peer_horse_id": "FIXTURE-C1",
+      "race_id": "FK-20261105-T10",
+      "date": "2026-11-05",
+      "publication_local": "2026-11-05T15:45:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 2,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-D",
+      "prior_race_id": "FK-20261102-T09",
+      "peer_horse_id": "FIXTURE-D1",
+      "race_id": "FK-20261112-T10",
+      "date": "2026-11-12",
+      "publication_local": "2026-11-12T15:50:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 3,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-D",
+      "prior_race_id": "FK-20261012-T07",
+      "peer_horse_id": "FIXTURE-D9",
+      "race_id": "FK-20261104-T10",
+      "date": "2026-11-04",
+      "publication_local": "2026-11-04T15:40:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 4,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-E",
+      "prior_race_id": "FK-20261017-T09",
+      "peer_horse_id": "FIXTURE-E1",
+      "race_id": "FK-20261107-T10",
+      "date": "2026-11-07",
+      "publication_local": "2026-11-07T15:50:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 1,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-E",
+      "prior_race_id": "FK-20261017-T09",
+      "peer_horse_id": "FIXTURE-E2",
+      "race_id": "FK-20261108-T09",
+      "date": "2026-11-08",
+      "publication_local": "2026-11-08T15:30:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 2,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-F",
+      "prior_race_id": "FK-20261018-T07",
+      "peer_horse_id": "FIXTURE-F1",
+      "race_id": "FK-20261109-T09",
+      "date": "2026-11-09",
+      "publication_local": "2026-11-09T15:25:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 6,
+      "horse_no": null,
+      "full_result": null
+    },
+    {
+      "subject_horse_id": "FIXTURE-F",
+      "prior_race_id": "FK-20260906-T07",
+      "peer_horse_id": "FIXTURE-F19",
+      "race_id": "FK-20260929-T08",
+      "date": "2026-09-29",
+      "publication_local": "2026-09-29T15:10:00",
+      "distance_m": 1400,
+      "going": "良",
+      "class_label": "C2",
+      "finish": 7,
+      "horse_no": null,
+      "full_result": null
+    }
+  ],
+  "peer_followup_narratives": [
+    {
+      "peer": "FIXTURE-B10",
+      "text": "2026-11-15 14:45時点後続出走記録なし"
+    }
+  ],
+  "comparison_claim": "A〜Fの提供3走は別競走。対象馬間の直接対戦・共通相手なしとの記述。全履歴・省略行の本人照合なし。馬番一致は本人馬一致ではない。",
+  "declared_corrections": [
+    {
+      "horse": "C",
+      "field": "last_gap",
+      "value_tenths": 11,
+      "reason": "勝馬87.8秒、本人88.9秒に統一"
+    },
+    {
+      "horse": "F",
+      "field": "last_going",
+      "value": "重",
+      "reason": "第1版過去走表と一致"
+    },
+    {
+      "horse": "E",
+      "field": "interval_days",
+      "value": 29,
+      "reason": "10/17から11/15まで"
+    },
+    {
+      "horse": "D",
+      "field": "interval_days",
+      "value": 13
+    },
+    {
+      "field": "lap distances",
+      "description": "1300=100+6×200、1500=100+7×200; section 0 gives competing lap lists for D2 and E2",
+      "alternate_laps_tenths": {
+        "D2": [
+          68,
+          113,
+          120,
+          125,
+          128,
+          130,
+          132
+        ],
+        "E2": [
+          67,
+          120,
+          118,
+          125,
+          128,
+          129,
+          131,
+          134
+        ]
+      }
+    },
+    {
+      "field": "E2 winner clock",
+      "old": 946,
+      "new": 950
+    }
+  ],
+  "audit": {
+    "per_race": [
+      {
+        "race_id": "FK-20261018-T08",
+        "rows": 8,
+        "field_size": 8,
+        "lap_sum_tenths": 1014,
+        "winner_tenths": 1016,
+        "lap_delta_tenths": -2,
+        "segment_distance_m": 1600,
+        "corner_errors": [
+          {
+            "corner": 1,
+            "duplicate": [
+              2
+            ],
+            "missing": [
+              8
+            ]
+          },
+          {
+            "corner": 2,
+            "duplicate": [
+              2
+            ],
+            "missing": [
+              8
+            ]
+          },
+          {
+            "corner": 3,
+            "duplicate": [
+              5
+            ],
+            "missing": [
+              1
+            ]
+          }
+        ],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-A2",
+            "field": "final3f_tenths",
+            "old": 391,
+            "new": 387
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20260927-T07",
+        "rows": 8,
+        "field_size": 8,
+        "lap_sum_tenths": 872,
+        "winner_tenths": 874,
+        "lap_delta_tenths": -2,
+        "segment_distance_m": 1400,
+        "corner_errors": [
+          {
+            "corner": 4,
+            "duplicate": [
+              2
+            ],
+            "missing": [
+              4
+            ]
+          }
+        ],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-A9",
+            "field": "final3f_tenths",
+            "old": 390,
+            "new": 389
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20260906-T06",
+        "rows": 8,
+        "field_size": 8,
+        "lap_sum_tenths": 878,
+        "winner_tenths": 878,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      },
+      {
+        "race_id": "FK-20261101-T09",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 877,
+        "winner_tenths": 877,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      },
+      {
+        "race_id": "FK-20261011-T08",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 879,
+        "winner_tenths": 880,
+        "lap_delta_tenths": -1,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      },
+      {
+        "race_id": "FK-20260920-T07",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 881,
+        "winner_tenths": 881,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      },
+      {
+        "race_id": "FK-20261015-T08",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 878,
+        "winner_tenths": 878,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      },
+      {
+        "race_id": "FK-20260924-T05",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 854,
+        "winner_tenths": 864,
+        "lap_delta_tenths": -10,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      },
+      {
+        "race_id": "FK-20260903-T04",
+        "rows": 8,
+        "field_size": 8,
+        "lap_sum_tenths": 715,
+        "winner_tenths": 735,
+        "lap_delta_tenths": -20,
+        "segment_distance_m": 1200,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      },
+      {
+        "race_id": "FK-20261102-T09",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 873,
+        "winner_tenths": 873,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-D1",
+            "field": "final3f_tenths",
+            "old": 374,
+            "new": 368
+          },
+          {
+            "horse_id": "FIXTURE-D",
+            "field": "final3f_tenths",
+            "old": 380,
+            "new": 374
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20261012-T07",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 810,
+        "winner_tenths": 810,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1300,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-D",
+            "field": "final3f_tenths",
+            "old": 382,
+            "new": 386
+          },
+          {
+            "horse_id": "FIXTURE-D",
+            "field": "positions",
+            "old": [
+              1,
+              1,
+              2,
+              4
+            ],
+            "new": [
+              1,
+              1,
+              1,
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20260921-T08",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 879,
+        "winner_tenths": 879,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-D",
+            "field": "final3f_tenths",
+            "old": 389,
+            "new": 391
+          },
+          {
+            "horse_id": "FIXTURE-D",
+            "field": "positions",
+            "old": [
+              1,
+              1,
+              1,
+              3
+            ],
+            "new": [
+              1,
+              1,
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20261017-T09",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 878,
+        "winner_tenths": 878,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [
+          {
+            "corner": 2,
+            "duplicate": [
+              6
+            ],
+            "missing": [
+              7
+            ]
+          },
+          {
+            "corner": 3,
+            "duplicate": [
+              4
+            ],
+            "missing": [
+              9
+            ]
+          }
+        ],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-E",
+            "field": "positions",
+            "old": [
+              7,
+              6,
+              4,
+              4
+            ],
+            "new": [
+              7,
+              6,
+              4,
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20260926-T08",
+        "rows": 9,
+        "field_size": 9,
+        "lap_sum_tenths": 945,
+        "winner_tenths": 950,
+        "lap_delta_tenths": -5,
+        "segment_distance_m": 1500,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-E10",
+            "field": "elapsed_tenths",
+            "old": 946,
+            "new": 950
+          },
+          {
+            "horse_id": "FIXTURE-E",
+            "field": "elapsed_tenths",
+            "old": 958,
+            "new": 962
+          },
+          {
+            "horse_id": "FIXTURE-E",
+            "field": "positions",
+            "old": [
+              4,
+              5,
+              7,
+              7
+            ],
+            "new": [
+              7,
+              7,
+              7,
+              7
+            ]
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20260905-T07",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 879,
+        "winner_tenths": 879,
+        "lap_delta_tenths": 0,
+        "segment_distance_m": 1400,
+        "corner_errors": [
+          {
+            "corner": 2,
+            "duplicate": [
+              4
+            ],
+            "missing": [
+              3
+            ]
+          }
+        ],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      },
+      {
+        "race_id": "FK-20261018-T07",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 863,
+        "winner_tenths": 873,
+        "lap_delta_tenths": -10,
+        "segment_distance_m": 1400,
+        "corner_errors": [
+          {
+            "corner": 2,
+            "duplicate": [
+              6
+            ],
+            "missing": [
+              5
+            ]
+          }
+        ],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-F",
+            "field": "positions",
+            "old": [
+              5,
+              6,
+              8,
+              8
+            ],
+            "new": [
+              5,
+              6,
+              9,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20260927-T08",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 874,
+        "winner_tenths": 879,
+        "lap_delta_tenths": -5,
+        "segment_distance_m": 1400,
+        "corner_errors": [
+          {
+            "corner": 2,
+            "duplicate": [
+              7
+            ],
+            "missing": [
+              6
+            ]
+          }
+        ],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": [
+          {
+            "horse_id": "FIXTURE-F",
+            "field": "positions",
+            "old": [
+              6,
+              7,
+              9,
+              9
+            ],
+            "new": [
+              6,
+              7,
+              6,
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "race_id": "FK-20260906-T07",
+        "rows": 10,
+        "field_size": 10,
+        "lap_sum_tenths": 840,
+        "winner_tenths": 862,
+        "lap_delta_tenths": -22,
+        "segment_distance_m": 1400,
+        "corner_errors": [],
+        "gap_errors": [],
+        "horse_no_unique": true,
+        "prior_row_changes": []
+      }
+    ],
+    "intervals": [
+      {
+        "horse_id": "FIXTURE-A",
+        "reported": 28,
+        "computed": 28
+      },
+      {
+        "horse_id": "FIXTURE-B",
+        "reported": 14,
+        "computed": 14
+      },
+      {
+        "horse_id": "FIXTURE-C",
+        "reported": 35,
+        "computed": 31
+      },
+      {
+        "horse_id": "FIXTURE-D",
+        "reported": 13,
+        "computed": 13
+      },
+      {
+        "horse_id": "FIXTURE-E",
+        "reported": 29,
+        "computed": 29
+      },
+      {
+        "horse_id": "FIXTURE-F",
+        "reported": 28,
+        "computed": 28
+      }
+    ],
+    "day": {
+      "all_top3": 27,
+      "all_le4": 22,
+      "at1400_top3": 21,
+      "at1400_le4": 18,
+      "reported_all_le4": 19,
+      "reported_1400_le4": 16
+    },
+    "source_preservation": "section 1 detailed race rows used, conflicting section 0 values retained separately; no repairs made",
+    "unresolved": [
+      "競走ラップ種別未明示",
+      "当日1〜9Rは各公開時刻と全出走馬行なし",
+      "後続12件の個別馬番・全頭行・発走時刻なし",
+      "人物集計の原騎乗行なし",
+      "調教時計の区間距離・計測方法が一部不明",
+      "血統ID・過去馬体重・C3資格版等なし",
+      "第1版/第2版からの後続記述変更と個別走内容変更は履歴を保持"
+    ]
+  }
+}
