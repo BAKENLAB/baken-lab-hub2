@@ -62,3 +62,20 @@ console.log('V48_ANCHOR_CONTEXT_HOLD PASS');
 const z=await analyzeVerified(V,structuredClone(request),receipt,{semanticVersion:48,work42Envelope:envelope});assert.deepEqual(z,on);
 await assert.rejects(()=>analyzeVerified(V,{...request,result:{winner:'TEST:H1'}},receipt,{semanticVersion:48,work42Envelope:envelope}));
 console.log('V48_RESULT_BOUNDARY PASS');
+
+// An additional compatible response is not independent bonus evidence.
+// Preserve the same peer calibration and early clocks, but change H1's
+// actual finishing response, recompute all derived ranks/laps.
+const adverse=scenario('V48_FIELD_A_COUNTER',30,first,[85500,84000,86500,87000,88000]);
+adverse.rows[2].nativeId='TEST:X3';adverse.rows[3].nativeId='TEST:X4';
+const alternative=await synthetic('V48_ALTERNATIVE_RESPONSE',[target,a,b,adverse]);
+const ah=alternative.candidate.runners[0],ap=ah.paths.find(p=>p.kind==='COMMON_PEER'&&p.events.includes('TEST:V48_FIELD_A_COUNTER'));
+console.log('V48_ALTERNATIVE_DETAIL '+JSON.stringify({grade:ah.grade,rank:ah.rankBoundsAcrossReviewedScenarios,scenarios:alternative.candidate.bridge.scenarios.map(s=>({anchor:s.anchor,events:s.events,vector:s.vector.map(v=>({horse:v.horse,finish:v.finish,alternatives:v.alternatives.map(p=>({event:p.event,finish:p.finish}))}))})),eye05:ah.eye.find(c=>c.category==='EYE05').crossReviews.map(q=>({state:q.state,events:q.events}))}));
+assert.ok(ap&&ap.rank[0]===1&&ap.rank[1]===2);
+assert.equal(ah.grade,'B');
+assert.equal(ah.winPaths.length,0);
+assert.ok(ah.analysisItems.length===115);
+assert.ok(ah.analysisItems.find(i=>i.item==='RANK36').v48.comparisons.some(q=>q.rival.endsWith('|TEST:H3')));
+assert.equal(ah.analysisItems.find(i=>i.item==='RANK100').v48.grade,'B');
+assert.ok(alternative.candidate.runners.every(h=>h.analysisItems.length===115&&h.formalGrade===null));
+console.log('V48_ALTERNATIVE_RESPONSE PASS');

@@ -88,7 +88,8 @@ function rankScenarios(docs,packet,threshold){
   for(let i=0;i<vector.length;i++)for(let j=i+1;j<vector.length;j++){
    const a=vector[i],b=vector[j],known=!!a.finish&&!!b.finish;
    const initial=known?sub(b.initial,a.initial):null,finish=known?sub(b.finish,a.finish):null,response=known?sub(b.response,a.response):null;
-   pairs.push({a:a.horse,b:b.horse,initial,finish,response,order:order(finish),refs:uniq([...a.refs,...b.refs]),scope:known?'COMMON_PEER_CONDITIONAL_OUTER_BOUND':'UNRESOLVED_COMPARISON'});
+   const commonEvents=uniq(a.alternatives.map(p=>p.event).filter(e=>b.alternatives.some(p=>p.event===e)));
+   pairs.push({a:a.horse,b:b.horse,initial,finish,response,order:order(finish),refs:uniq([...a.refs,...b.refs]),commonEvents,comparison:!known?'UNRESOLVED':commonEvents.length?'DIRECT_ANTECEDENT_AND_COMMON_PEER_RANGE':'INDIRECT_COMMON_PEER_RANGE',scope:known?'COMMON_PEER_CONDITIONAL_OUTER_BOUND':'UNRESOLVED_COMPARISON'});
   }
   const numeric=jointClockFeasibility(roster,pairs.filter(p=>p.finish).map(p=>({a:p.a,b:p.b,delta:(p.finish[0]+p.finish[1])/2,bound:(p.finish[1]-p.finish[0])/2,refs:p.refs})));
   const field=jointField(roster,pairs,threshold);
@@ -105,7 +106,7 @@ function bridgeJudgment(h,s,threshold){
  const v=s.vector.find(v=>v.horse===h.horse),bound=s.field.envelopes.find(v=>v.slot===h.horse);
  const own=s.pairs.filter(p=>p.a===h.horse||p.b===h.horse).map(p=>{
   const reverse=a=>a&&[-a[1],-a[0]];
-  return {rival:p.a===h.horse?p.b:p.a,initial:p.a===h.horse?p.initial:reverse(p.initial),finish:p.a===h.horse?p.finish:reverse(p.finish),response:p.a===h.horse?p.response:reverse(p.response),refs:p.refs};
+  return {rival:p.a===h.horse?p.b:p.a,initial:p.a===h.horse?p.initial:reverse(p.initial),finish:p.a===h.horse?p.finish:reverse(p.finish),response:p.a===h.horse?p.response:reverse(p.response),refs:p.refs,comparison:p.comparison,commonEvents:p.commonEvents};
  });
  const positive=own.filter(p=>p.finish?.[0]>0),negative=own.filter(p=>p.finish?.[1]<0);
  const recovery=positive.filter(p=>p.initial?.[1]<0&&p.response?.[0]>0),retention=positive.filter(p=>p.initial?.[0]>0),overlap=positive.filter(p=>p.initial&&p.initial[0]<=0&&p.initial[1]>=0&&p.response?.[0]>0);
@@ -117,24 +118,37 @@ function bridgeJudgment(h,s,threshold){
  // it remains decisive for any tighter claim whose boundary is crossed.
  const boundary=t=>({threshold:t,rank:[bound.min,bound.max],unknownRivals:missing,status:bound.max<=t?'SUPPORTED_AT_WORST_BOUND':bound.min>t?'COUNTER_AT_BEST_BOUND':'UNRESOLVED_BOUND_CROSSES_THRESHOLD'});
  const winBoundary=boundary(1),placeBoundary=boundary(threshold);
+ // EYE05 is not a second vote. Only a selected native claim involving
+ // this calibrated peer and two actually included responses can review
+ // their range. Both observations remain in the base bound even if omitted.
+ const followups=(h.v47.categories.find(c=>c.category==='EYE05')?.facts??[]).flatMap(f=>{
+  const q=f.value;
+  if(q.peer!==id(s.anchor))return [];
+  const a=v.alternatives.find(p=>p.event===q.event),b=v.alternatives.find(p=>p.event===q.laterEvent);
+  if(!a||!b||a.event===b.event)return [];
+  const proof=uniq([...f.refs,...a.refs,...b.refs]);
+  const reversal=a.finish[1]<0&&b.finish[0]>0||a.finish[0]>0&&b.finish[1]<0;
+  return [{category:'EYE05',predicate:'CALIBRATED_PEER_FOLLOWUP_RANGE',before:a.finish,after:b.finish,range:v.finish,events:[a.event,b.event],state:reversal?'RELATIVE_RESPONSE_REVERSAL_ALREADY_IN_BOUND':'REVIEWED_RESPONSES_ALREADY_IN_BOUND',refs:proof,independent_vote:false}];
+ });
  const axes=[
   axis('A',positive,negative,v.alternatives.length?[]:['NO_SUBJECT_MATCHED_RESPONSE']),
   axis('B',v.alternatives.map(p=>({event:p.event,anchor:p.anchor,refs:p.refs})),[],v.alternatives.length?['NEW_FIELD_INTERACTION_UNOBSERVED']:['NO_MATCHED_CONTEXT']),
   axis('C',win||place?[{rank:[bound.min,bound.max],refs}]:[],bound.min>threshold?[{rank:[bound.min,bound.max],refs}]:[],placeBoundary.status==='UNRESOLVED_BOUND_CROSSES_THRESHOLD'?missing.length?missing:['RELATIVE_CLOCK_OVERLAP']:[]),
   axis('D',[...recovery.map(p=>({...p,kind:'RELATIVE_DEFICIT_OVERTURNED'})),...retention.map(p=>({...p,kind:'RELATIVE_ADVANTAGE_RETAINED'})),...overlap.map(p=>({...p,kind:'RELATIVE_GAIN_FROM_OVERLAP'}))],own.filter(p=>p.initial?.[0]>0&&p.finish?.[1]<0),response?['CAUSAL_LOAD_NOT_OBSERVED']:['NO_SUPPORTED_DIRECTIONAL_RESPONSE']),
-  axis('E',[],[],['NO_ADDITIONAL_EYE_TRANSFER_PROVEN_FOR_NEW_FIELD'])
+  axis('E',followups.filter(q=>q.state==='REVIEWED_RESPONSES_ALREADY_IN_BOUND'),followups.filter(q=>q.state==='RELATIVE_RESPONSE_REVERSAL_ALREADY_IN_BOUND'),followups.length?[]:['NO_ADDITIONAL_EYE_TRANSFER_PROVEN_FOR_NEW_FIELD'])
  ];
- return {id:s.id,kind:'COMMON_PEER',state:win?'SUPPORTED_CONDITIONAL_WIN':place?'SUPPORTED_CONDITIONAL_PLACE':bound.min>threshold&&v.alternatives.length?'OBSERVED_RELATIVE_ADVERSE':'HELD',rank:[bound.min,bound.max],winBoundary,placeBoundary,axes,own,refs,events:s.events,anchor:s.anchor,missing,assumptions:s.assumptions,scope:s.scope,formal:false};
+ return {id:s.id,kind:'COMMON_PEER',state:win?'SUPPORTED_CONDITIONAL_WIN':place?'SUPPORTED_CONDITIONAL_PLACE':bound.min>threshold&&v.alternatives.length?'OBSERVED_RELATIVE_ADVERSE':'HELD',rank:[bound.min,bound.max],winBoundary,placeBoundary,axes,own,refs,events:s.events,anchor:s.anchor,missing,eyeReviews:followups,assumptions:s.assumptions,scope:s.scope,formal:false};
 }
-function eyeReasons(h){
+function eyeReasons(h,cross){
  const routes=h.v47.cardRoutes;
  return h.v47.categories.map(c=>{
   const reviews=routes.flatMap(p=>p.eyeReviews.filter(q=>q.category===c.category));
   const nonheld=reviews.filter(q=>!q.state.startsWith('HELD'));
   const material=reviews.filter(q=>['COUNTER_TO_LITERAL_REPLAY','COUNTER_TO_SECTION_ARITHMETIC','MEASURED_PEER_REVERSAL_COUNTER'].includes(q.state));
   const prior=c.category==='EYE03'?h.feedback:c.category==='EYE13'?h.v46.decisionBasis.responseSensitivity:[];
-  const decisionEffects=prior.length?'EXISTING_SHARED_RESPONSE_REVIEW':material.length?'COUNTER_OR_ROBUSTNESS_REVIEW':nonheld.length?'REVIEWED_NO_NEW_ROUTE_PROOF':c.required.length?'HELD_REQUIRED_EVIDENCE':'NO_QUALIFIED_RELEVANT_MATERIAL';
-  return {category:c.category,state:c.state,reason:decisionEffects,required:c.required,reviewStates:c.reviewStates,materialReviews:material.map(q=>({predicate:q.predicate,state:q.state,value:q.value,refs:q.refs})),priorEffects:prior,independent_vote:false};
+  const crossReviews=cross.flatMap(p=>p.eyeReviews.filter(q=>q.category===c.category));
+  const decisionEffects=prior.length?'EXISTING_SHARED_RESPONSE_REVIEW':material.length?'COUNTER_OR_ROBUSTNESS_REVIEW':crossReviews.length?'ALREADY_CONSUMED_IN_COMMON_PEER_RESPONSE_RANGE':nonheld.length?'REVIEWED_NO_NEW_ROUTE_PROOF':c.required.length?'HELD_REQUIRED_EVIDENCE':'NO_QUALIFIED_RELEVANT_MATERIAL';
+  return {category:c.category,state:c.state,reason:decisionEffects,required:c.required,reviewStates:c.reviewStates,materialReviews:material.map(q=>({predicate:q.predicate,state:q.state,value:q.value,refs:q.refs})),priorEffects:prior,crossReviews,independent_vote:false};
  });
 }
 export function candidateV48(docs,packet,runners,decision){
@@ -165,7 +179,7 @@ export function candidateV48(docs,packet,runners,decision){
    winPaths:wins.map(p=>p.id),placePaths:places.map(p=>p.id),counterPaths:counter.map(p=>p.id),rankBoundsAcrossReviewedScenarios:range.length?union(range):null,
    coverage:{matchedField:prior.length,commonPeer:cross.length,held:held.length,unresolvedSourceContexts:bridge.unresolved,notFullFutureScenarioCoverage:true},
    missingness:{decisive:!known?['CURRENT_PARTICIPATION']:finalGrade?[]:['NO_SUPPORTED_WIN_OR_PLACE_OR_AFFIRMATIVE_ADVERSE_DECISION'],claimBounds:cross.map(p=>({route:p.id,win:p.winBoundary,place:p.placeBoundary})),futureUncertainty:['FUTURE_PACE','FORM_VARIATION','UNOBSERVED_FIELD_INTERACTION']},
-   eye:eyeReasons(h),paths,decisionReason:finalGrade==='S'?'MULTIPLE_SUPPORTED_ROLE_CONTEXTS':finalGrade==='A'?'SUPPORTED_CONDITIONAL_WIN_PATH':finalGrade==='B'?'SUPPORTED_CONDITIONAL_PLACE_PATH':finalGrade==='C'?'AFFIRMATIVE_ADVERSE_MATCHED_CONTEXTS':'UNRESOLVED_OR_INSUFFICIENT_DECISION_EVIDENCE',formal:false};
+   eye:eyeReasons(h,cross),paths,analysisItems:h.itemConsumption.map(i=>i.item==='RANK36'?{...i,v48:{comparisons:cross.flatMap(p=>p.own.filter(q=>q.comparison==='INDIRECT_COMMON_PEER_RANGE').map(q=>({scenario:p.id,anchor:p.anchor,events:p.events,...q}))),scope:'CONDITIONAL_INDIRECT_RESPONSE'}}:i.item==='RANK100'?{...i,v48:{grade:finalGrade??'UNASSESSED',win:wins.map(p=>p.id),place:places.map(p=>p.id),counter:counter.map(p=>p.id),held:held.map(p=>p.id),formal:false}}:i),decisionReason:finalGrade==='S'?'MULTIPLE_SUPPORTED_ROLE_CONTEXTS':finalGrade==='A'?'SUPPORTED_CONDITIONAL_WIN_PATH':finalGrade==='B'?'SUPPORTED_CONDITIONAL_PLACE_PATH':finalGrade==='C'?'AFFIRMATIVE_ADVERSE_MATCHED_CONTEXTS':'UNRESOLVED_OR_INSUFFICIENT_DECISION_EVIDENCE',formal:false};
  });
  assert.equal(out.length,runners.length);
  return {schema:'REBORN2_V48_RESEARCH_CANDIDATE_V1',scope:'VERIFIED_SYNTHETIC_PRE_RACE_RESEARCH',candidate:true,formal:false,threshold:decision.threshold,thresholdScope:'SYNTHETIC_CONTROL_NOT_CANONICAL',roster:docs[0].rows.map(r=>({horse:docs[0].issuer+'|'+r.nativeId,status:r.status})),runners:out,bridge,limitations:['NO_OFFICIAL_SOURCE_ADMISSION','NO_PROSPECTIVE_ACCURACY_VALIDATION','COMMON_PEER_MATCHED_CONTEXT_ONLY','NO_CAUSAL_LOAD_OR_FUTURE_OUTCOME_ASSERTION','NO_MARKET_OR_FIXED_RANK_QUOTA']};
