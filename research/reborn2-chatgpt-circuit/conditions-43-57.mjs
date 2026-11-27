@@ -58,6 +58,18 @@ function analyzeConditions43to57Core({target,roster,runs=[],historyWitnesses=[],
    const value={research_return:'EYE-07',race_id:r.race_id,previous_race_id:last.race_id,restored_fields:differences(last,current),historical_finish:r.finish,historical_field:r.field_size,previous_finish:last.finish,previous_field:last.field_size,relative_finish:r.field_size>1?(r.field_size-r.finish)/(r.field_size-1):null,previous_relative_finish:last.field_size>1?(last.field_size-last.finish)/(last.field_size-1):null,cause:null,scope:'OBSERVED_RETURN_NOT_CAUSAL'};
    for(const k of ['43','48'])if(k==='43'||value.restored_fields.includes('going')){put(k,value,[r.evidence_id,last.evidence_id,entry.evidence_id]);traceRead({consumer:'analyzeConditions43to57Fixture.conditionReturn',consumer_item_id:k,horse_no:entry.horse_no,item_id:'EYE-07',value,reason:'Rebound matched prior condition and mismatched latest result, not a causal advantage'});}
   }
+  // EYE08: re-evaluate a recorded directed transition; no causal course advantage.
+  if(fictional&&researchReturn.some(x=>x.kind==='V22_COURSE_TRANSITION'&&x.horse_id===h)){
+   const last=own.at(-1);
+   if(last&&last.course_id!==current.course_id){
+    for(let i=1;i<own.length;i++){const a=own[i-1],b=own[i];
+     if(a.course_id!==last.course_id||b.course_id!==current.course_id||b.course_version!==current.course_version||a.course_version!==last.course_version)continue;
+     const changed=differences(a,b,['track','course_id']),targetDiff=differences(b,current),matched=!changed.length&&!targetDiff.length&&a.field_size===b.field_size&&b.field_size===target.field_size&&a.weight_kg===b.weight_kg;
+     const value={research_return:'EYE-08',proposition:'RECORDED_FINISH_CHANGE_IN_SAME_DIRECTED_COURSE_TRANSITION',from:a.race_id,to:b.race_id,source_course:a.course_id,target_course:b.course_id,finishes:[a.finish,b.finish],other_condition_differences:changed,target_differences:targetDiff,state:!matched?'UNKNOWN':b.finish<a.finish?'SUPPORT_OBSERVED_ASSOCIATION':b.finish>a.finish?'COUNTER_OBSERVED_ASSOCIATION':'NEUTRAL',course_caused_improvement:null,current_benefit:null};
+     put('46',value,[a.evidence_id,b.evidence_id,last.evidence_id,entry.evidence_id]);traceRead({consumer:'analyzeConditions43to57Fixture.v22CourseTransition',consumer_item_id:'46',horse_no:entry.horse_no,item_id:'EYE-08',value,reason:'Recompute historical directed course transition; no causal effect'});
+    }
+   }
+  }
   const witness=unique(historyWitnesses.filter(w=>admitted(w)&&w.horse_id===h&&w.target_race_id===target.race_id&&historyKnown(target,w)&&Array.isArray(w.ordered_race_ids)&&w.ordered_race_ids.length===own.length&&w.ordered_race_ids.every((v,i)=>v===own[i].race_id)),w=>w.horse_id)[0];
   if(witness){
    for(let i=1;i<own.length;i++){
