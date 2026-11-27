@@ -1,0 +1,6571 @@
+{
+  "scope": "ACTUAL_CI_LOG_EXTRACT",
+  "executed": "61d317a7fdbd925c00f3a722f1a748252fb978e9",
+  "engine": "ba4d85bb248e810969ddc321d9d7485474a38d10",
+  "work": "2d7e9e59706acb749b7b5b7e13be5c3be16f5469",
+  "run": 46078335533,
+  "job": 140771226445,
+  "artifact": 15236132320,
+  "artifact_zip_sha256": "603e5c6a80d120e3c1be1c3d2af600421a5b93f86a6de91e295dd46b294d3e85",
+  "exit": 1,
+  "pair90": [
+    {
+      "id": "FK34_FULL",
+      "out": [
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1900,
+          "change": 3000,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": [
+            1600,
+            2200
+          ],
+          "actualChange": 3000,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 700,
+          "change": -200,
+          "wanted": [
+            400,
+            1000
+          ],
+          "actual": [
+            400,
+            1000
+          ],
+          "actualChange": -200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1200,
+          "change": 900,
+          "wanted": [
+            900,
+            1500
+          ],
+          "actual": [
+            900,
+            1500
+          ],
+          "actualChange": 900,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -1200,
+          "change": -3200,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": [
+            -1500,
+            -900
+          ],
+          "actualChange": -3200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -2100,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -2100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": 1100,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": [
+            200,
+            800
+          ],
+          "actualChange": 1100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1900,
+          "change": 3400,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": [
+            1600,
+            2200
+          ],
+          "actualChange": 3400,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 700,
+          "change": -700,
+          "wanted": [
+            400,
+            1000
+          ],
+          "actual": [
+            400,
+            1000
+          ],
+          "actualChange": -700,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1200,
+          "change": -400,
+          "wanted": [
+            900,
+            1500
+          ],
+          "actual": [
+            900,
+            1500
+          ],
+          "actualChange": -400,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -1200,
+          "change": -4100,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": [
+            -1500,
+            -900
+          ],
+          "actualChange": -4100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -3800,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -3800,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": 300,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": [
+            200,
+            800
+          ],
+          "actualChange": 300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1900,
+          "change": 2200,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": [
+            1600,
+            2200
+          ],
+          "actualChange": 2200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 700,
+          "change": 0,
+          "wanted": [
+            400,
+            1000
+          ],
+          "actual": [
+            400,
+            1000
+          ],
+          "actualChange": 0,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1200,
+          "change": 0,
+          "wanted": [
+            900,
+            1500
+          ],
+          "actual": [
+            900,
+            1500
+          ],
+          "actualChange": 0,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -1200,
+          "change": -2200,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": [
+            -1500,
+            -900
+          ],
+          "actualChange": -2200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -2200,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -2200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": 0,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": [
+            200,
+            800
+          ],
+          "actualChange": 0,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1400,
+          "change": -400,
+          "wanted": [
+            -1700,
+            -1100
+          ],
+          "actual": [
+            -1700,
+            -1100
+          ],
+          "actualChange": -400,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1500,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -1500,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": 200,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": [
+            200,
+            800
+          ],
+          "actualChange": 200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 900,
+          "change": -1100,
+          "wanted": [
+            600,
+            1200
+          ],
+          "actual": [
+            600,
+            1200
+          ],
+          "actualChange": -1100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1900,
+          "change": 600,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": [
+            1600,
+            2200
+          ],
+          "actualChange": 600,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1000,
+          "change": 1700,
+          "wanted": [
+            700,
+            1300
+          ],
+          "actual": [
+            700,
+            1300
+          ],
+          "actualChange": 1700,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1400,
+          "change": -300,
+          "wanted": [
+            -1700,
+            -1100
+          ],
+          "actual": [
+            -1700,
+            -1100
+          ],
+          "actualChange": -300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1700,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -1700,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": -1100,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": [
+            200,
+            800
+          ],
+          "actualChange": -1100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 900,
+          "change": -1400,
+          "wanted": [
+            600,
+            1200
+          ],
+          "actual": [
+            600,
+            1200
+          ],
+          "actualChange": -1400,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1900,
+          "change": -800,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": [
+            1600,
+            2200
+          ],
+          "actualChange": -800,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1000,
+          "change": 600,
+          "wanted": [
+            700,
+            1300
+          ],
+          "actual": [
+            700,
+            1300
+          ],
+          "actualChange": 600,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1400,
+          "change": 300,
+          "wanted": [
+            -1700,
+            -1100
+          ],
+          "actual": [
+            -1700,
+            -1100
+          ],
+          "actualChange": 300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1000,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -1000,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": -800,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": [
+            200,
+            800
+          ],
+          "actualChange": -800,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 900,
+          "change": -1300,
+          "wanted": [
+            600,
+            1200
+          ],
+          "actual": [
+            600,
+            1200
+          ],
+          "actualChange": -1300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1900,
+          "change": -1100,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": [
+            1600,
+            2200
+          ],
+          "actualChange": -1100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1000,
+          "change": 200,
+          "wanted": [
+            700,
+            1300
+          ],
+          "actual": [
+            700,
+            1300
+          ],
+          "actualChange": 200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 2000,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": 2000,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -300,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -200,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -2300,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -2300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -2200,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": [
+            -2100,
+            -1500
+          ],
+          "actualChange": -2200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": 100,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": [
+            -1600,
+            -1000
+          ],
+          "actualChange": 100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 2100,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": 2100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -1000,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -1000,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -2900,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -2900,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -3100,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -3100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -5000,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": [
+            -2100,
+            -1500
+          ],
+          "actualChange": -5000,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": -1900,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": [
+            -1600,
+            -1000
+          ],
+          "actualChange": -1900,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 1400,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": 1400,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -100,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -1700,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -1700,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1500,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -1500,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -3100,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": [
+            -2100,
+            -1500
+          ],
+          "actualChange": -3100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": -1600,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": [
+            -1600,
+            -1000
+          ],
+          "actualChange": -1600,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 2000,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": 2000,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -300,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -200,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -2300,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -2300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -2200,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": [
+            -2100,
+            -1500
+          ],
+          "actualChange": -2200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": 100,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": [
+            -1600,
+            -1000
+          ],
+          "actualChange": 100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 2200,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": 2200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -1000,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -1000,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -2900,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -2900,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -3200,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -3200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -5100,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": [
+            -2100,
+            -1500
+          ],
+          "actualChange": -5100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": -1900,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": [
+            -1600,
+            -1000
+          ],
+          "actualChange": -1900,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 1400,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": 1400,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -100,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -1700,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": [
+            -1000,
+            -400
+          ],
+          "actualChange": -1700,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1500,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": [
+            -800,
+            -200
+          ],
+          "actualChange": -1500,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -3100,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": [
+            -2100,
+            -1500
+          ],
+          "actualChange": -3100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": -1600,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": [
+            -1600,
+            -1000
+          ],
+          "actualChange": -1600,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1200,
+          "change": -200,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": [
+            -1500,
+            -900
+          ],
+          "actualChange": -200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -400,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -400,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1700,
+          "change": 2200,
+          "wanted": [
+            1400,
+            2000
+          ],
+          "actual": [
+            1400,
+            2000
+          ],
+          "actualChange": 2200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 1800,
+          "change": -200,
+          "wanted": [
+            1500,
+            2100
+          ],
+          "actual": [
+            1500,
+            2100
+          ],
+          "actualChange": -200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 2900,
+          "change": 2400,
+          "wanted": [
+            2600,
+            3200
+          ],
+          "actual": [
+            2600,
+            3200
+          ],
+          "actualChange": 2400,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1100,
+          "change": 2600,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": 2600,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1200,
+          "change": -100,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": [
+            -1500,
+            -900
+          ],
+          "actualChange": -100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -900,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -900,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1700,
+          "change": -300,
+          "wanted": [
+            1400,
+            2000
+          ],
+          "actual": [
+            1400,
+            2000
+          ],
+          "actualChange": -300,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 1800,
+          "change": -800,
+          "wanted": [
+            1500,
+            2100
+          ],
+          "actual": [
+            1500,
+            2100
+          ],
+          "actualChange": -800,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 2900,
+          "change": -200,
+          "wanted": [
+            2600,
+            3200
+          ],
+          "actual": [
+            2600,
+            3200
+          ],
+          "actualChange": -200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1100,
+          "change": 600,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": 600,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1200,
+          "change": -100,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": [
+            -1500,
+            -900
+          ],
+          "actualChange": -100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H2"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -100,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": [
+            300,
+            900
+          ],
+          "actualChange": -100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1700,
+          "change": -200,
+          "wanted": [
+            1400,
+            2000
+          ],
+          "actual": [
+            1400,
+            2000
+          ],
+          "actualChange": -200,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H1",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 1800,
+          "change": 0,
+          "wanted": [
+            1500,
+            2100
+          ],
+          "actual": [
+            1500,
+            2100
+          ],
+          "actualChange": 0,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H3"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 2900,
+          "change": -100,
+          "wanted": [
+            2600,
+            3200
+          ],
+          "actual": [
+            2600,
+            3200
+          ],
+          "actualChange": -100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H2",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1100,
+          "change": -100,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": [
+            800,
+            1400
+          ],
+          "actualChange": -100,
+          "u": 50,
+          "required": true,
+          "unresolved": [],
+          "currentStatusRefs": [
+            "TEST:NAR|TEST:H3",
+            "TEST:NAR|TEST:H4"
+          ],
+          "measured": true,
+          "local": true
+        }
+      ],
+      "roster": {
+        "registered": 5,
+        "declared_active_count": 5,
+        "actual_starters": null,
+        "known_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "possible_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "unknown_slots": []
+      },
+      "fullCurrent": 370,
+      "currentGrades": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "FK34_UNKNOWN",
+      "out": [
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1900,
+          "change": 3000,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 700,
+          "change": -200,
+          "wanted": [
+            400,
+            1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1200,
+          "change": 900,
+          "wanted": [
+            900,
+            1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -1200,
+          "change": -3200,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -2100,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": 1100,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1900,
+          "change": 3400,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 700,
+          "change": -700,
+          "wanted": [
+            400,
+            1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1200,
+          "change": -400,
+          "wanted": [
+            900,
+            1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -1200,
+          "change": -4100,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -3800,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": 300,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1900,
+          "change": 2200,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 700,
+          "change": 0,
+          "wanted": [
+            400,
+            1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1200,
+          "change": 0,
+          "wanted": [
+            900,
+            1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -1200,
+          "change": -2200,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -2200,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:CONTEST",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": 0,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1400,
+          "change": -400,
+          "wanted": [
+            -1700,
+            -1100
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1500,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": 200,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 900,
+          "change": -1100,
+          "wanted": [
+            600,
+            1200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1900,
+          "change": 600,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1000,
+          "change": 1700,
+          "wanted": [
+            700,
+            1300
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1400,
+          "change": -300,
+          "wanted": [
+            -1700,
+            -1100
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1700,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": -1100,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 900,
+          "change": -1400,
+          "wanted": [
+            600,
+            1200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1900,
+          "change": -800,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1000,
+          "change": 600,
+          "wanted": [
+            700,
+            1300
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1400,
+          "change": 300,
+          "wanted": [
+            -1700,
+            -1100
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1000,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 500,
+          "change": -800,
+          "wanted": [
+            200,
+            800
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 900,
+          "change": -1300,
+          "wanted": [
+            600,
+            1200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1900,
+          "change": -1100,
+          "wanted": [
+            1600,
+            2200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:LONE",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1000,
+          "change": 200,
+          "wanted": [
+            700,
+            1300
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 2000,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -300,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -200,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -2300,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -2200,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": 100,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 2100,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -1000,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -2900,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -3100,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -5000,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": -1900,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 1400,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -100,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -1700,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1500,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -3100,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_A",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": -1600,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 2000,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -300,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -200,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -2300,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -2200,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": 100,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 2200,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -1000,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -2900,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -3200,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -5100,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": -1900,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": 1100,
+          "change": 1400,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -100,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -700,
+          "change": -1700,
+          "wanted": [
+            -1000,
+            -400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": -500,
+          "change": -1500,
+          "wanted": [
+            -800,
+            -200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1800,
+          "change": -3100,
+          "wanted": [
+            -2100,
+            -1500
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:RECOVERY_B",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": -1300,
+          "change": -1600,
+          "wanted": [
+            -1600,
+            -1000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1200,
+          "change": -200,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -400,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1700,
+          "change": 2200,
+          "wanted": [
+            1400,
+            2000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 1800,
+          "change": -200,
+          "wanted": [
+            1500,
+            2100
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 2900,
+          "change": 2400,
+          "wanted": [
+            2600,
+            3200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1100,
+          "change": 2600,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1200,
+          "change": -100,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -900,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1700,
+          "change": -300,
+          "wanted": [
+            1400,
+            2000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 1800,
+          "change": -800,
+          "wanted": [
+            1500,
+            2100
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 2900,
+          "change": -200,
+          "wanted": [
+            2600,
+            3200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 800,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1100,
+          "change": 600,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H2",
+          "center": -1200,
+          "change": -100,
+          "wanted": [
+            -1500,
+            -900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 600,
+          "change": -100,
+          "wanted": [
+            300,
+            900
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H1",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1700,
+          "change": -200,
+          "wanted": [
+            1400,
+            2000
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H3",
+          "center": 1800,
+          "change": 0,
+          "wanted": [
+            1500,
+            2100
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H2",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 2900,
+          "change": -100,
+          "wanted": [
+            2600,
+            3200
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        },
+        {
+          "event": "TEST:COUNTER",
+          "cp": 1200,
+          "a": "TEST:NAR|TEST:H3",
+          "b": "TEST:NAR|TEST:H4",
+          "center": 1100,
+          "change": -100,
+          "wanted": [
+            800,
+            1400
+          ],
+          "actual": null,
+          "actualChange": null,
+          "u": 50,
+          "required": false,
+          "unresolved": [],
+          "currentStatusRefs": [],
+          "measured": false,
+          "local": false
+        }
+      ],
+      "roster": {
+        "registered": 5,
+        "declared_active_count": 4,
+        "actual_starters": null,
+        "known_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4"
+        ],
+        "possible_active": [
+          "TEST:NAR|TEST:H1",
+          "TEST:NAR|TEST:H2",
+          "TEST:NAR|TEST:H3",
+          "TEST:NAR|TEST:H4",
+          "TEST:NAR|TEST:H5"
+        ],
+        "unknown_slots": [
+          "TEST:NAR|TEST:H5"
+        ]
+      },
+      "fullCurrent": 0,
+      "currentGrades": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "v43": [
+    {
+      "id": "FK34_FULL",
+      "on": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "research": "B",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 22,
+              "counter": 3
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 22,
+              "counter": 3
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 69,
+              "counter": 3
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 31
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 17,
+              "counter": 22
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 17,
+              "counter": 22
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 57,
+              "counter": 63
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 39
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 6,
+              "counter": 24
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 6,
+              "counter": 24
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 18,
+              "counter": 9
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 39
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 16,
+              "counter": 15
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 16,
+              "counter": 15
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 64,
+              "counter": 6
+            },
+            {
+              "axis": "E",
+              "state": "MIXED",
+              "support": 1,
+              "counter": 3
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 4,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 31
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "research": "C",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 33
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 33
+            },
+            {
+              "axis": "D",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 82
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE"
+          },
+          "paths": 33
+        }
+      ],
+      "off": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "research": "B",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 22,
+              "counter": 3
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 22,
+              "counter": 3
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 69,
+              "counter": 3
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 31
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 17,
+              "counter": 22
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 17,
+              "counter": 22
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 57,
+              "counter": 63
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 39
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 6,
+              "counter": 24
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 6,
+              "counter": 24
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 18,
+              "counter": 9
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 39
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 16,
+              "counter": 15
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 16,
+              "counter": 15
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 64,
+              "counter": 6
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 31
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "research": "C",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 33
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 15,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 33
+            },
+            {
+              "axis": "D",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 82
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 207,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE"
+          },
+          "paths": 33
+        }
+      ],
+      "changes": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": [
+            "B",
+            "B"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": [
+            "A",
+            "A"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": [
+            null,
+            null
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": [
+            "A",
+            "A"
+          ],
+          "changedAxes": [
+            "E"
+          ],
+          "semanticItems": [
+            "RANK18",
+            "RANK21",
+            "RANK100"
+          ],
+          "changedRoute": 5
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": [
+            "C",
+            "C"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        }
+      ],
+      "digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15"
+    },
+    {
+      "id": "FK34_UNKNOWN",
+      "on": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        }
+      ],
+      "off": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 102,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 0
+        }
+      ],
+      "changes": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": [
+            null,
+            null
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": [
+            null,
+            null
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": [
+            null,
+            null
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": [
+            null,
+            null
+          ],
+          "changedAxes": [],
+          "semanticItems": [
+            "RANK18",
+            "RANK21",
+            "RANK100"
+          ],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": [
+            null,
+            null
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        }
+      ],
+      "digest": "ee05bf601bd1cf091643b4553cce2954b23dc64c4fd31972e6cdf2f2ac5d0937"
+    },
+    {
+      "id": "FK34_DISCOVERY",
+      "on": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "research": "B",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 15,
+              "counter": 3
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 15,
+              "counter": 3
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 48,
+              "counter": 3
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 22
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 7,
+              "counter": 19
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 7,
+              "counter": 19
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 24,
+              "counter": 55
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 26
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 6,
+              "counter": 14
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 6,
+              "counter": 14
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 18,
+              "counter": 8
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 26
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 14,
+              "counter": 8
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 14,
+              "counter": 8
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 56,
+              "counter": 2
+            },
+            {
+              "axis": "E",
+              "state": "MIXED",
+              "support": 1,
+              "counter": 3
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 4,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 22
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "research": "C",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 22
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 22
+            },
+            {
+              "axis": "D",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 50
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE"
+          },
+          "paths": 22
+        }
+      ],
+      "off": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "research": "B",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 15,
+              "counter": 3
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 15,
+              "counter": 3
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 48,
+              "counter": 3
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 22
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 7,
+              "counter": 19
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 7,
+              "counter": 19
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 24,
+              "counter": 55
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 26
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 6,
+              "counter": 14
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 6,
+              "counter": 14
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 18,
+              "counter": 8
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 26
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 14,
+              "counter": 8
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 14,
+              "counter": 8
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 56,
+              "counter": 2
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 22
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "research": "C",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 22
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 22
+            },
+            {
+              "axis": "D",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 50
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE"
+          },
+          "paths": 22
+        }
+      ],
+      "changes": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": [
+            "B",
+            "B"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": [
+            "A",
+            "A"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": [
+            null,
+            null
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": [
+            "A",
+            "A"
+          ],
+          "changedAxes": [
+            "E"
+          ],
+          "semanticItems": [
+            "RANK18",
+            "RANK21",
+            "RANK100"
+          ],
+          "changedRoute": 4
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": [
+            "C",
+            "C"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        }
+      ],
+      "digest": "96a444d913920031add473845fd2e5682b88fb9c1f77afa8314a996020d19f1a"
+    },
+    {
+      "id": "W36_POSITIVE",
+      "on": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "research": "B",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 5,
+              "counter": 17
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 5,
+              "counter": 17
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 15,
+              "counter": 13
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 28
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "SUPPORT",
+              "support": 30,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "SUPPORT",
+              "support": 30,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "SUPPORT",
+              "support": 102,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 34
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 3,
+              "counter": 16
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 3,
+              "counter": 16
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 9,
+              "counter": 3
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 28
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 11,
+              "counter": 11
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 11,
+              "counter": 11
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 44,
+              "counter": 7
+            },
+            {
+              "axis": "E",
+              "state": "MIXED",
+              "support": 1,
+              "counter": 1
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 2,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 22
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "research": "C",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 26
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 26
+            },
+            {
+              "axis": "D",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 67
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE"
+          },
+          "paths": 26
+        }
+      ],
+      "off": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "research": "B",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 5,
+              "counter": 17
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 5,
+              "counter": 17
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 15,
+              "counter": 13
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 28
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "SUPPORT",
+              "support": 30,
+              "counter": 0
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "SUPPORT",
+              "support": 30,
+              "counter": 0
+            },
+            {
+              "axis": "D",
+              "state": "SUPPORT",
+              "support": 102,
+              "counter": 0
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 34
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "research": null,
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 3,
+              "counter": 16
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 3,
+              "counter": 16
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 9,
+              "counter": 3
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 28
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "research": "A",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "MIXED",
+              "support": 11,
+              "counter": 11
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "MIXED",
+              "support": 11,
+              "counter": 11
+            },
+            {
+              "axis": "D",
+              "state": "MIXED",
+              "support": 44,
+              "counter": 7
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NONREPLAY_WIN_PATH_AND_ACTUAL_SAME_FIELD_WIN_RESPONSE",
+            "B": "NONREPLAY_PLACE_PATH_AND_ACTUAL_SAME_FIELD_PLACE_RESPONSE",
+            "C": "CURRENT_DISADVANTAGE_NOT_ESTABLISHED_OR_SCOPE_INCOMPLETE"
+          },
+          "paths": 22
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "research": "C",
+          "current": null,
+          "formal": null,
+          "axes": [
+            {
+              "axis": "A",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 26
+            },
+            {
+              "axis": "B",
+              "state": "SUPPORT",
+              "support": 12,
+              "counter": 0
+            },
+            {
+              "axis": "C",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 26
+            },
+            {
+              "axis": "D",
+              "state": "COUNTER",
+              "support": 0,
+              "counter": 67
+            },
+            {
+              "axis": "E",
+              "state": "UNKNOWN",
+              "support": 0,
+              "counter": 0
+            }
+          ],
+          "roots": 169,
+          "unresolved": [],
+          "feedback": 0,
+          "items": 115,
+          "reasons": {
+            "S": "STRONG_MULTI_CONTEXT_SUPPORT_NOT_ESTABLISHED",
+            "A": "NO_CORROBORATED_NONREPLAY_WIN_PATH",
+            "B": "NO_CORROBORATED_NONREPLAY_PLACE_PATH",
+            "C": "ALL_ADMISSIBLE_RECORDED_CONTEXTS_SHOW_RELATIVE_DISADVANTAGE"
+          },
+          "paths": 26
+        }
+      ],
+      "changes": [
+        {
+          "horse": "TEST:NAR|TEST:H1",
+          "grade": [
+            "B",
+            "B"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H2",
+          "grade": [
+            "A",
+            "A"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H3",
+          "grade": [
+            null,
+            null
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        },
+        {
+          "horse": "TEST:NAR|TEST:H4",
+          "grade": [
+            "A",
+            "A"
+          ],
+          "changedAxes": [
+            "E"
+          ],
+          "semanticItems": [
+            "RANK18",
+            "RANK21",
+            "RANK100"
+          ],
+          "changedRoute": 3
+        },
+        {
+          "horse": "TEST:NAR|TEST:H5",
+          "grade": [
+            "C",
+            "C"
+          ],
+          "changedAxes": [],
+          "semanticItems": [],
+          "changedRoute": 0
+        }
+      ],
+      "digest": "d6573c64b2b3e5efa928f6a55f4418fc5876edc5f9ee4160d808e46fb6f391cb"
+    }
+  ],
+  "probes": [
+    {
+      "id": "P90-full-literal-clock-bound",
+      "status": "PASS",
+      "detail": {
+        "records": 90,
+        "policy": "V34 conservative 6u; no claim this is only valid uncertainty convention"
+      }
+    },
+    {
+      "id": "P90-unknown-history-preserved",
+      "status": "FAIL",
+      "message": "historical valid comparisons restored 0/90\n\n0 !== 90\n"
+    },
+    {
+      "id": "P90-unknown-current-hold",
+      "status": "PASS",
+      "detail": "historical preservation separately checked; no current full transfer"
+    },
+    {
+      "id": "V43-fixed-execution",
+      "status": "PASS",
+      "detail": {
+        "cases": 4
+      }
+    },
+    {
+      "id": "V43-current-grade-completion",
+      "status": "FAIL",
+      "message": "No actual current grade witness; research candidate is distinct"
+    },
+    {
+      "id": "V43-root-resolution",
+      "status": "PASS"
+    },
+    {
+      "id": "WORK41-native-to-v43",
+      "status": "PASS",
+      "detail": {
+        "nativeEvidence": 537,
+        "roots": 36,
+        "categories": [
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+        "scope": "independent test adapter from Work validated docs to V43; category-specific supply not consumed by V43 API, not development integration"
+      }
+    }
+  ],
+  "receipt": [
+    {
+      "engSha": "ba4d85bb248e810969ddc321d9d7485474a38d10",
+      "workSha": "2d7e9e59706acb749b7b5b7e13be5c3be16f5469",
+      "rows": [
+        {
+          "id": "P90-full-literal-clock-bound",
+          "status": "PASS",
+          "detail": {
+            "records": 90,
+            "policy": "V34 conservative 6u; no claim this is only valid uncertainty convention"
+          }
+        },
+        {
+          "id": "P90-unknown-history-preserved",
+          "status": "FAIL",
+          "message": "historical valid comparisons restored 0/90\n\n0 !== 90\n"
+        },
+        {
+          "id": "P90-unknown-current-hold",
+          "status": "PASS",
+          "detail": "historical preservation separately checked; no current full transfer"
+        },
+        {
+          "id": "V43-fixed-execution",
+          "status": "PASS",
+          "detail": {
+            "cases": 4
+          }
+        },
+        {
+          "id": "V43-current-grade-completion",
+          "status": "FAIL",
+          "message": "No actual current grade witness; research candidate is distinct"
+        },
+        {
+          "id": "V43-root-resolution",
+          "status": "PASS"
+        },
+        {
+          "id": "WORK41-native-to-v43",
+          "status": "PASS",
+          "detail": {
+            "nativeEvidence": 537,
+            "roots": 36,
+            "categories": [
+              15,
+              15,
+              15,
+              15,
+              15
+            ],
+            "digest": "2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15",
+            "scope": "independent test adapter from Work validated docs to V43; category-specific supply not consumed by V43 API, not development integration"
+          }
+        }
+      ],
+      "formal": false
+    }
+  ],
+  "errors": [],
+  "raw_summary_lines": [
+    "2026-11-27T22:44:01.5556013Z FINAL_PROBE {\"id\":\"P90-full-literal-clock-bound\",\"status\":\"PASS\",\"detail\":{\"records\":90,\"policy\":\"V34 conservative 6u; no claim this is only valid uncertainty convention\"}}",
+    "2026-11-27T22:44:01.5557208Z FINAL_PROBE {\"id\":\"P90-unknown-history-preserved\",\"status\":\"FAIL\",\"message\":\"historical valid comparisons restored 0/90\\n\\n0 !== 90\\n\"}",
+    "2026-11-27T22:44:01.5558310Z FINAL_PROBE {\"id\":\"P90-unknown-current-hold\",\"status\":\"PASS\",\"detail\":\"historical preservation separately checked; no current full transfer\"}",
+    "2026-11-27T22:44:01.5759824Z FINAL_PROBE {\"id\":\"V43-fixed-execution\",\"status\":\"PASS\",\"detail\":{\"cases\":4}}",
+    "2026-11-27T22:44:01.5760720Z FINAL_PROBE {\"id\":\"V43-current-grade-completion\",\"status\":\"FAIL\",\"message\":\"No actual current grade witness; research candidate is distinct\"}",
+    "2026-11-27T22:44:01.5761536Z FINAL_PROBE {\"id\":\"V43-root-resolution\",\"status\":\"PASS\"}",
+    "2026-11-27T22:44:01.5763812Z FINAL_PROBE {\"id\":\"WORK41-native-to-v43\",\"status\":\"PASS\",\"detail\":{\"nativeEvidence\":537,\"roots\":36,\"categories\":[15,15,15,15,15],\"digest\":\"2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15\",\"scope\":\"independent test adapter from Work validated docs to V43; category-specific supply not consumed by V43 API, not development integration\"}}",
+    "2026-11-27T22:44:01.5769871Z FINAL_RECEIPT {\"engSha\":\"ba4d85bb248e810969ddc321d9d7485474a38d10\",\"workSha\":\"2d7e9e59706acb749b7b5b7e13be5c3be16f5469\",\"rows\":[{\"id\":\"P90-full-literal-clock-bound\",\"status\":\"PASS\",\"detail\":{\"records\":90,\"policy\":\"V34 conservative 6u; no claim this is only valid uncertainty convention\"}},{\"id\":\"P90-unknown-history-preserved\",\"status\":\"FAIL\",\"message\":\"historical valid comparisons restored 0/90\\n\\n0 !== 90\\n\"},{\"id\":\"P90-unknown-current-hold\",\"status\":\"PASS\",\"detail\":\"historical preservation separately checked; no current full transfer\"},{\"id\":\"V43-fixed-execution\",\"status\":\"PASS\",\"detail\":{\"cases\":4}},{\"id\":\"V43-current-grade-completion\",\"status\":\"FAIL\",\"message\":\"No actual current grade witness; research candidate is distinct\"},{\"id\":\"V43-root-resolution\",\"status\":\"PASS\"},{\"id\":\"WORK41-native-to-v43\",\"status\":\"PASS\",\"detail\":{\"nativeEvidence\":537,\"roots\":36,\"categories\":[15,15,15,15,15],\"digest\":\"2ec523d7a78fe8d7cca6e2a00c3d8355defa17d0f32a6c67b70d95642b9b7d15\",\"scope\":\"independent test adapter from Work validated docs to V43; category-specific supply not consumed by V43 API, not development integration\"}}],\"formal\":false}",
+    "2026-11-27T22:44:01.5774125Z FINAL_EXIT=1",
+    "2026-11-27T22:44:02.0748786Z SHA256 digest of uploaded artifact zip is 603e5c6a80d120e3c1be1c3d2af600421a5b93f86a6de91e295dd46b294d3e85",
+    "2026-11-27T22:44:02.3924008Z Artifact main48-final-fixed-v43-work41.zip successfully finalized. Artifact ID 15236132320"
+  ]
+}
