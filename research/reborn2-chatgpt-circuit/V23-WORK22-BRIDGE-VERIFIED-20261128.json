@@ -1,0 +1,145 @@
+{
+  "schema": "V23_RESEARCH_BRIDGE_RECEIPT_1",
+  "scope": "SYNTHETIC_ONLY",
+  "main_acceptance": "60997534c1622fa2d151dac0c1bd49f7c10f1c79",
+  "producer_commit": "faafdf7a89ac307b6c9feba04f5cb29b176ef388",
+  "tested_commit": "e68dbd28eec9c91232d5f76ffe9ea957ed5664e3",
+  "ci": {
+    "run": 46028062270,
+    "job": 140604476172,
+    "conclusion": "success",
+    "log_characters": 19541029,
+    "pass_lines": [
+      "2026-11-27T15:48:37.4877480Z F23-01 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:48:37.4896035Z F23-02 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:48:37.4904157Z F23-03 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:48:37.4918655Z F23-04 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:48:37.4929824Z F23-05 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:48:37.5067721Z F23-06 PASS (V23 actual Work bridge)",
+      "2026-11-27T15:48:37.5170084Z F23-07 PASS (V23 actual Work bridge)"
+    ]
+  },
+  "configured_tests": {
+    "inherited": 263,
+    "new": 7,
+    "total": 270
+  },
+  "actual": {
+    "producer_tests": 25,
+    "stdout_sha256": "897793c36924692b90331c34951db7fe3fae147beb89182f2714d91fcba35751",
+    "pins": {
+      "stage22_probe.py": "c1761138bd9b9d6f4eb7eb53495a3fb5d590c724",
+      "stage22_handoff_probe.py": "e4c6c945c29f71091c6100adf43d196576bd1376",
+      "stage22-handoff-execution-summary.json": "dc19e4de9fb835b4510826346d351cd3000a0486"
+    },
+    "packet_digests": {
+      "jra_clock": "64e817775d65139ea75337a96bbb171125380269e180e2b97b336a6d65579a1c",
+      "local_clock": "1aed66b10a066829d6bfbc8881385e31eef02995e23c4b43472e4ecb66b106d8",
+      "local_missing": "5ca8c1fc26df50051520228b4925299732e92f94130e33cbb8f4efefa4b3f99d",
+      "before_cutoff_select_latest": "9674bddb71bfd66d02b6727bc72a6dadda61f06aa0734d7a201bf51638acec86",
+      "revoked_after_capture": "eb6425a4c3190b81e7248a5c20b66d1b48c8e7c149f3be1de4a2be02206931b6"
+    },
+    "outputs": {
+      "jra_clock": {
+        "status": "RESEARCH_PARTIAL_OBSERVATIONS",
+        "observations": [
+          {
+            "kind": "DISPLAY_CLOCK",
+            "value": {
+              "race_id": "TEST:JRA:PRIOR",
+              "tenths": 557
+            },
+            "evidence_ids": [
+              "TEST:4aec1ee85856801ceb412c97d13ad083c96f9fa8494d559e398f8cff34766468"
+            ],
+            "original_event_keys": [
+              "TEST:4aec1ee85856801ceb412c97d13ad083c96f9fa8494d559e398f8cff34766468"
+            ],
+            "upstream_item_ids": [],
+            "status": "FICTIONAL_OBSERVATION_ONLY"
+          }
+        ],
+        "trace": [
+          {
+            "consumer": "analyzeTyped01to32.work22PartialClock",
+            "consumer_item_id": "05",
+            "horse_no": 1,
+            "item_id": "05",
+            "value": {
+              "race_id": "TEST:JRA:PRIOR",
+              "tenths": 557
+            },
+            "reason": "Read actual producer historical clock only; no full result or ability conclusion"
+          }
+        ],
+        "grade": null,
+        "formal": false
+      },
+      "local_clock": {
+        "status": "RESEARCH_PARTIAL_OBSERVATIONS",
+        "observations": [
+          {
+            "kind": "DISPLAY_CLOCK",
+            "value": {
+              "race_id": "TEST:LOCAL:PRIOR",
+              "tenths": 557
+            },
+            "evidence_ids": [
+              "TEST:de400d62414588af0c0849c66173fa9138d8068c22196da355c7337ae2143371"
+            ],
+            "original_event_keys": [
+              "TEST:de400d62414588af0c0849c66173fa9138d8068c22196da355c7337ae2143371"
+            ],
+            "upstream_item_ids": [],
+            "status": "FICTIONAL_OBSERVATION_ONLY"
+          }
+        ],
+        "trace": [
+          {
+            "consumer": "analyzeTyped01to32.work22PartialClock",
+            "consumer_item_id": "05",
+            "horse_no": 1,
+            "item_id": "05",
+            "value": {
+              "race_id": "TEST:LOCAL:PRIOR",
+              "tenths": 557
+            },
+            "reason": "Read actual producer historical clock only; no full result or ability conclusion"
+          }
+        ],
+        "grade": null,
+        "formal": false
+      },
+      "local_missing": {
+        "status": "RESEARCH_PARTIAL_OBSERVATIONS",
+        "observations": [],
+        "trace": [],
+        "grade": null,
+        "formal": false
+      },
+      "before_cutoff_select_latest": {
+        "status": "RESEARCH_PARTIAL_OBSERVATIONS",
+        "observations": [],
+        "trace": [],
+        "grade": null,
+        "formal": false
+      },
+      "revoked_after_capture": {
+        "status": "HELD",
+        "observations": [],
+        "trace": [],
+        "grade": null,
+        "formal": false
+      }
+    }
+  },
+  "formal_admissions": 0,
+  "comparison_ability_proven": false,
+  "grade_assignment": false,
+  "limitations": [
+    "Existing 263 count inherited from accepted prior configured suite; full CI success, seven new actual named lines directly inspected, not independently counted all baseline lines.",
+    "Work output digest matches saved producer receipt; synthetic test keys, not official authority or trusted external time.",
+    "Only RANK05 observation consumed; no other item semantic effect, no grade or comparative ability.",
+    "Next opponent extension at c8ede5472e1acffdc2c9d45cce4672c0e2efe94d has separate CI pending."
+  ]
+}
