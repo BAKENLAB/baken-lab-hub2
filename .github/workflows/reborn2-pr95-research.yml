@@ -99,3 +99,15 @@ jobs:
       - run: node research/reborn2-work42/test-v0.4.mjs
         env:
           V43_ROOT: ${{ github.workspace }}/pinned-v43
+
+  v46-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node research/reborn2-independent-engine/main47-integration/test-v46-integration.mjs

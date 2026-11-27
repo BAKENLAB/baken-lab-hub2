@@ -1,6 +1,7 @@
 // V43: research-only, verified synthetic input. No official intake or production.
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {refineV46} from '../../reborn2-chatgpt-circuit/work42-v46-semantic.mjs';
 import {prepareSupply,compileReturn} from '../../reborn2-work42/codex-contract-v0.4.mjs';
 import {loadV40} from '../../reborn2-chatgpt-circuit/work36-v40-integrated.mjs';
 import {analyze} from '../../reborn2-chatgpt-circuit/work36-v41-local-decision.mjs';
@@ -239,7 +240,7 @@ function synthesize(x,z,docs,packet,adapted){
    summary:{win:win.length,place:place.length,counter:negative.length,held:h.paths.filter(p=>p.decision==='HELD').length,robust:routes.filter(p=>p.robustClaim).length,materialCounter:routes.filter(p=>p.materialCounter).length}};
  });
 }
-export async function analyzeVerified(V,request,receipt,{eyeEnabled=true,work42Envelope=null,work42Selection=null}={}){
+export async function analyzeVerified(V,request,receipt,{eyeEnabled=true,work42Envelope=null,work42Selection=null,semanticVersion=45}={}){
  const {W,docs,packet,adapted}=verifyIntake(V,request,receipt);
  let work42=null;
  if(work42Envelope!==null){
@@ -262,7 +263,8 @@ export async function analyzeVerified(V,request,receipt,{eyeEnabled=true,work42E
  const decision=integrate(common,docs,{eyeEnabled});
  assert.equal(decision.digest,receipt.source_digest);
  assert.equal(common.groups,118);assert.equal(common.held,826);
- const runners=synthesize(common,decision,docs,packet,adapted);
+ let runners=synthesize(common,decision,docs,packet,adapted);
+ if(semanticVersion===46){assert.ok(work42,'V46_REQUIRES_VERIFIED_WORK42');runners=refineV46(common,decision,docs,packet,runners,work42.returns);}
  assert.ok(runners.every(h=>h.itemConsumption.length===115));
  return {schema:'V43_VERIFIED_SYNTHETIC_RESEARCH_V1',id:request.id,...(work42?{work42}:{}),digest:decision.digest,evidence:packet.evidence.length,groups:common.groups,held:common.held,roster:common.roster,placeThreshold:decision.threshold,thresholdScope:'SYNTHETIC_FIXTURE_CONTROL_NOT_CANONICAL',runners,formal:false};
 }
