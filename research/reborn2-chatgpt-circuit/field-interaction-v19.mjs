@@ -11,7 +11,7 @@ const ref=(r,id)=>'fixture-v2:result:'+r+':'+id;
 const posref=(r,id)=>'fixture-v2:pos:'+r+':'+id;
 const facts=(h,k)=>h.items[k]?.facts??[];
 const cond=['venue','course_version','distance_m','surface','turn','going','grade','layout','rule_version','eligibility'];
-const observation=(r,x)=>({race:r.id,finish:x.finish,field:r.field_count,beaten:r.field_count-x.finish,relative_finish:r.field_count>1?(r.field_count-x.finish)/(r.field_count-1):null,gap_tenths:x.margin_tenths,clock_tenths:x.clock_tenths,final3f_tenths:x.final3f_tenths,positions:x.corners,early:x.corners[0],last:x.corners.at(-1),normalized_early:r.field_count>1?(x.corners[0]-1)/(r.field_count-1):null,roots:[ref(r.id,x.id),posref(r.id,x.id)],source_family:r.id==='FK-GEN-4'?'CONTROLLED_CLONE_FK-GEN-3':r.id});
+const observation=(r,x)=>({race:r.id,finish:x.finish,field:r.field_count,beaten:r.field_count-x.finish,relative_finish:r.field_count>1?(r.field_count-x.finish)/(r.field_count-1):null,gap_tenths:x.margin_tenths,clock_tenths:x.clock_tenths,final3f_tenths:x.final3f_tenths,positions:x.corners,early:x.corners[0],last:x.corners.at(-1),normalized_early:r.field_count>1?(x.corners[0]-1)/(r.field_count-1):null,roots:[ref(r.id,x.id),posref(r.id,x.id)],source_family:['FK-GEN-3','FK-GEN-4'].includes(r.id)?'CONTROLLED_CLONE_FK-GEN-3':r.id});
 function scope(a,b){
  const missing=cond.filter(k=>a[k]==null||b[k]==null||a[k]===''||b[k]===''),different=cond.filter(k=>!missing.includes(k)&&a[k]!==b[k]);
  const hard=different.filter(k=>['surface','grade','rule_version','eligibility'].includes(k));
@@ -87,19 +87,69 @@ function comparisons(p,id,h){
 }
 const state=(s,c,u,a)=>s.length&&c.length?'MIXED':c.length?'SCOPED_COUNTER':s.length?'CONDITIONAL_SUPPORT':a.length?'APPLICABILITY_UNESTABLISHED':u.length?'UNKNOWN':'NO_SUPPORT_OBSERVED';
 const view=(s=[],c=[],u=[],a=[],neutral=[])=>({state:state(s,c,u,a),support:s,counter:c,unknown:u,unestablished:a,neutral,actual_current_suitability:null});
+// Pairwise historical position sequences under a single assumed leader.
+// Positional coexistence is not measured tactical pressure or pace.
+function jointInteraction(p,s){
+ if(!s.leader)return [];
+ const leaderCard=p.target.entrants.find(x=>x.id===s.leader),out=[];
+ for(const rival of p.target.entrants.filter(x=>x.id!==s.leader)){
+  for(const r of p.history){
+   const a=row(r,s.leader),b=row(r,rival.id);
+   if(!a||!b||a.corners[0]!==1)continue;
+   const sc=scope(r.conditions,p.target.conditions),weight=a.kg-b.kg===leaderCard.kg-rival.kg;
+   const early=[a.corners[0],b.corners[0]],last=[a.corners.at(-1),b.corners.at(-1)];
+   const closeEarly=b.corners[0]===2&&r.field_count>2;
+   const coexist=closeEarly&&last.every(x=>x<=2),separation=closeEarly&&last[0]<=2&&last[1]>2;
+   const takeover=last[1]===1&&last[0]>1;
+   const pattern=coexist?'FRONT_PAIR_PERSISTS':separation?'EARLY_PAIR_SEPARATES':takeover?'RIVAL_TAKES_LEAD':'OTHER_POSITION_SEQUENCE';
+   const compatible=s.pace_hypothesis==='SUSTAINED_PRESSURE_POSSIBLE'?coexist:s.pace_hypothesis==='PRESSURE_EASES_POSSIBLE'?separation:null;
+   out.push({race:r.id,source_family:r.id==='FK-GEN-4'?'CONTROLLED_CLONE_FK-GEN-3':r.id==='FK-GEN-3'?'CONTROLLED_CLONE_FK-GEN-3':r.id,leader:s.leader,rival:rival.id,field:r.field_count,leader_positions:a.corners,rival_positions:b.corners,early,last,pattern,compatible_position_proxy:sc.state==='MATCHED_HISTORICAL'&&weight?compatible:null,scope:sc,relative_weight_matched:weight,leader_finish:a.finish,rival_finish:b.finish,clock_gap_tenths:a.clock_tenths-b.clock_tenths,roots:[ref(r.id,a.id),posref(r.id,a.id),ref(r.id,b.id),posref(r.id,b.id)],causal_pressure:null,actual_pace:null});
+  }
+ }
+ return out;
+}
+// Evidence family grouping: scenario variants and controlled cloned races
+// never supply extra independent votes. Raw roots remain auditable.
+function groupWitnesses(rows){
+ const g=new Map();
+ for(const x of rows){
+  const family=x.source_family??(x.race==='FK-GEN-3'||x.race==='FK-GEN-4'?'CONTROLLED_CLONE_FK-GEN-3':x.race??null);
+  if(!family)continue;
+  if(!g.has(family))g.set(family,new Set());
+  for(const r of x.roots??[])g.get(family).add(r);
+ }
+ return [...g].map(([family,roots])=>({family,roots:[...roots].sort(),independent_vote:false}));
+}
+function conditionAssociation(p,id,f){
+ const v=f.value,a=p.history.find(r=>r.id===v.race_id),b=p.history.find(r=>r.id===v.previous_race_id),x=row(a,id),y=row(b,id);
+ const family=r=>['FK-GEN-3','FK-GEN-4'].includes(r.id)?'CONTROLLED_CLONE_FK-GEN-3':r.id;
+ if(!x||!y)return {value:v,roots:f.evidence_ids,positive:false,negative:false,state:'UNKNOWN'};
+ const peers=a.rows.filter(q=>q.id!==id&&row(b,q.id)).flatMap(q=>{
+  const z=row(b,q.id);if(x.kg-q.kg!==y.kg-z.kg)return [];
+  return [{peer:q.id,earlier_order:Math.sign(q.finish-x.finish),latest_order:Math.sign(z.finish-y.finish),roots:[ref(a.id,id),ref(a.id,q.id),ref(b.id,id),ref(b.id,q.id)]}];
+ });
+ const independent=family(a)!==family(b),better=v.relative_finish>v.previous_relative_finish&&v.relative_finish>0,worse=v.relative_finish<v.previous_relative_finish;
+ const positive=independent&&better&&peers.some(q=>q.earlier_order>0&&q.latest_order<0),negative=independent&&worse&&peers.some(q=>q.earlier_order<0&&q.latest_order>0);
+ return {value:v,roots:uniq([...f.evidence_ids,...peers.flatMap(q=>q.roots)]),positive,negative,paired_rivals:peers,independent_fixture_family:independent,state:positive?'CORROBORATED_HISTORICAL_RETURN':negative?'COUNTER_TO_RETURN_ADVANTAGE':independent?'ASSOCIATION_UNRESOLVED':'CONTROLLED_DUPLICATE_NEUTRAL',causal_effect:null};
+}
+
 function evaluate(p,common,field,profiles,old){
  return profiles.map(pr=>{
   const id=pr.id,h=common.merged.find(x=>x.horse_id===id),comp=comparisons(p,id,h),prior=old?.find(x=>x.id===id);
   const own=pr.observed,matching=pr.matched,good=matching.filter(o=>o.finish<=3&&o.beaten>0),last=matching.filter(o=>o.finish===o.field),partial=own.filter(o=>o.applicability.state==='PARTIAL_HYPOTHESIS'),held=own.filter(o=>!['MATCHED_HISTORICAL','PARTIAL_HYPOTHESIS'].includes(o.applicability.state));
-  const conditionReturn=facts(h,'43').filter(f=>f.value.research_return==='EYE-07').map(f=>({value:f.value,roots:f.evidence_ids,positive:f.value.relative_finish>f.value.previous_relative_finish&&f.value.relative_finish>0,negative:f.value.relative_finish<f.value.previous_relative_finish}));
+  const conditionReturn=facts(h,'43').filter(f=>f.value.research_return==='EYE-07').map(f=>conditionAssociation(p,id,f));
   const scopedSupport=comp.direct.filter(x=>x.state==='CONDITIONAL_SUPPORT'),scopedCounter=comp.direct.filter(x=>x.state==='SCOPED_COUNTER'),pair=comp.indirect.filter(x=>x.state==='CONDITIONAL_SUPPORT'),pairCounter=comp.indirect.filter(x=>x.state==='SCOPED_COUNTER');
   const laterSupport=comp.later.filter(x=>x.state==='CONDITIONAL_SUPPORT'),laterCounter=comp.later.filter(x=>x.state==='SCOPED_COUNTER');
   const derived100=h.items['100'].hypotheses.flatMap(x=>x.value.winning_paths??[]);
   const peerReturn=facts(h,'37').filter(f=>f.value.research_return==='EYE-05');
+  const fieldReturn=h.items['69'].hypotheses.filter(f=>f.value.research_return==='EYE-09');
+  const leadFailure=matching.filter(o=>o.early===1&&o.finish!==1).map(o=>({race:o.race,path:'LEAD',kind:'WIN',roots:o.roots,scope:'HISTORICAL_COUNTER_CONTEXT',reason:'Led early but did not win; placing evidence remains separate'}));
   const review=h.items['73'].hypotheses.filter(f=>f.value.research_return==='EYE-03').map(f=>({value:f.value,roots:f.evidence_ids}));
   const cases=field.scenarios.map(s=>{
    const isLead=s.leader===id,challenger=s.challengers.includes(id),otherLeader=s.leader&&s.leader!==id;
    const compatible=[],conflicts=[],unknown=[],conditional=[];
+   const interaction=s.interactions.filter(x=>x.leader===id||x.rival===id);
+   if(isLead||challenger)conflicts.push(...leadFailure);
    for(const o of matching){
     const lead=o.early===1,progress=o.early>o.last,competitive=o.finish<=3&&o.beaten>0;
     const path=lead?'LEAD':progress?'ADVANCE':'NONLEAD';
@@ -107,9 +157,16 @@ function evaluate(p,common,field,profiles,old){
     if((lead&&otherLeader&&!challenger)||(!lead&&isLead)){conflicts.push({race:o.race,path,reason:'Historical early position conflicts with assigned scenario role',roots,scope:'PATH_CONFLICT_NOT_ABILITY_COUNTER'});continue;}
     if(o.finish===o.field){conflicts.push({race:o.race,path,reason:'Finished last in historical field; raw top3 does not establish competitive placing',roots,scope:'HISTORICAL_COUNTER_CONTEXT'});continue;}
     if(!competitive){unknown.push({race:o.race,path,reason:'No top3 competitive historical witness in this run',roots});continue;}
-    if(s.pressure==='CONTEST'&&(lead||challenger)){conditional.push({race:o.race,path,kind:o.finish===1?'WIN':'PLACE',roots,reason:'Position pattern observed, but pressure persistence and rival responses not measured',state:'APPLICABILITY_UNESTABLISHED'});continue;}
+    if(s.pressure==='CONTEST'&&(lead||challenger)){
+     const proxies=interaction.filter(q=>q.race===o.race&&q.compatible_position_proxy===true);
+     const opposite=interaction.filter(q=>q.race===o.race&&q.compatible_position_proxy===false&&['FRONT_PAIR_PERSISTS','EARLY_PAIR_SEPARATES'].includes(q.pattern));
+     conditional.push({race:o.race,path,kind:o.finish===1?'WIN':'PLACE',roots:uniq([...roots,...proxies.flatMap(q=>q.roots)]),reason:proxies.length?'Historical pair position sequence is compatible with this pressure hypothesis; actual pressure and pace are not measured.':'No matching pair position sequence confirms this pressure hypothesis; rival response unmeasured',state:'APPLICABILITY_UNESTABLISHED',position_proxy:proxies});
+     for(const q of opposite)conflicts.push({race:o.race,path,reason:'Observed pair position sequence conflicts with this particular positional proxy, not with ability or measured pace',roots:q.roots,scope:'PATH_CONFLICT_NOT_ABILITY_COUNTER'});
+     continue;
+    }
     if(s.leader===null){conditional.push({race:o.race,path,kind:o.finish===1?'WIN':'PLACE',roots,reason:'Early field order unresolved',state:'APPLICABILITY_UNESTABLISHED'});continue;}
-    compatible.push({race:o.race,path,kind:o.finish===1?'WIN':'PLACE',roots,reason:'Matched historical position/result pattern compatible with assigned early role; other runners and current finish unproven',state:'CONDITIONAL_SUPPORT'});
+    const derived=derived100.filter(x=>x.prior_race===o.race&&x.eye_id==='EYE-02');
+    compatible.push({race:o.race,path,kind:o.finish===1?'WIN':'PLACE',roots:uniq([...roots,...derived.flatMap(x=>x.evidence_ids)]),reason:'Matched historical position/result pattern compatible with assigned early role; other runners and current finish unproven',state:'CONDITIONAL_SUPPORT',eye_reanalysis:derived.map(x=>x.mechanism_id),independent_vote:false});
    }
    // No prior win is required, but beating a single rival cannot establish
    // whole-field viability. Require competitive matched placing + actual current rival.
@@ -119,14 +176,15 @@ function evaluate(p,common,field,profiles,old){
    if(field.unknown.some(x=>x!==id))unknown.push({reason:'Unresolved rival early profile',rivals:field.unknown.filter(x=>x!==id)});
    const others=comp.rivalCoverage.filter(x=>!x.direct&&!x.indirect).map(x=>x.id);
    if(others.length)unknown.push({reason:'Pairwise comparison coverage missing',rivals:others});
-   return {scenario:s.id,role:isLead?'ASSUMED_LEADER':challenger?'POSSIBLE_CHALLENGER':s.leader?'NONLEAD_OR_YIELD':'UNRESOLVED',support:compatible,unestablished:conditional,counter:conflicts,unknown,rival_edges:comp.direct,other_runners:s.roster.filter(x=>x!==id),actual_win_viability:'NOT_ESTABLISHED',joint_winner:null};
+   return {scenario:s.id,role:isLead?'ASSUMED_LEADER':challenger?'POSSIBLE_CHALLENGER':s.leader?'NONLEAD_OR_YIELD':'UNRESOLVED',support:compatible,unestablished:conditional,counter:conflicts,unknown,rival_edges:comp.direct,other_runners:s.roster.filter(x=>x!==id),actual_win_viability:'NOT_ESTABLISHED',joint_winner:null,interaction,witness_families:groupWitnesses([...compatible,...conditional,...conflicts,...interaction])};
   });
   const unestablished=[...partial,...held,...own.filter(o=>!o.weight_match)],missing=own.length?[]:[{reason:'NO_HISTORY'}];
   const A=view(good,last,missing,unestablished);
   const B=view(good, last,missing,unestablished,conditionReturn);
   const C=view([...scopedSupport,...pair],[...scopedCounter,...pairCounter],comp.rivalCoverage.filter(x=>!x.direct&&!x.indirect),[...comp.direct,...comp.indirect].filter(x=>x.state==='APPLICABILITY_UNESTABLISHED'));
-  const D=view(cases.flatMap(c=>c.support),cases.flatMap(c=>c.counter.filter(x=>x.scope==='HISTORICAL_COUNTER_CONTEXT')),cases.flatMap(c=>c.unknown),cases.flatMap(c=>c.unestablished));
-  const E=view([...laterSupport,...conditionReturn.filter(x=>x.positive)], [...laterCounter,...conditionReturn.filter(x=>x.negative),...review.map(x=>({...x,reason:'Position loss observed before recovery; not a current ability rejection'}))],missing,comp.later.filter(x=>x.state==='APPLICABILITY_UNESTABLISHED'),[...comp.later.filter(x=>x.state==='NEUTRAL_CONTEXT'),...conditionReturn.filter(x=>!x.positive&&!x.negative),...review]);
+  const D=view(cases.flatMap(c=>c.support),[...leadFailure,...cases.flatMap(c=>c.counter.filter(x=>x.scope==='HISTORICAL_COUNTER_CONTEXT'&&x.kind!=='WIN'))],cases.flatMap(c=>c.unknown),cases.flatMap(c=>c.unestablished));
+  const linkedPeer=(x)=>({...x,recomputed_context:peerReturn.filter(f=>f.value.prior_race_id===x.prior&&f.value.later_race_id===x.later&&f.value.peer_id===x.peer).map(f=>f.value)});
+  const E=view([...laterSupport.map(linkedPeer),...conditionReturn.filter(x=>x.positive)], [...laterCounter.map(linkedPeer),...conditionReturn.filter(x=>x.negative),...review.map(x=>({...x,reason:'Position loss observed before recovery; counter to uninterrupted advance only, not a current ability rejection'}))],missing,comp.later.filter(x=>x.state==='APPLICABILITY_UNESTABLISHED'),[...comp.later.filter(x=>x.state==='NEUTRAL_CONTEXT').map(linkedPeer),...conditionReturn.filter(x=>!x.positive&&!x.negative),...review,...fieldReturn]);
   return {id,history:own,profile:{lead:pr.lead,forward:pr.forward,advance:pr.advance,latest:pr.latest,unknown:pr.unknown},comparisons:comp,conditionReturn,recoveryReview:review,peerReturn,derived100,scenarios:cases,views:{A,B,C,D,E},priorV18:prior?{perspectives:Object.fromEntries(Object.entries(prior.perspectives).map(([k,v])=>[k,v.status])),counter_routes:prior.routes.filter(x=>x.state==='COUNTER_CONTEXT'),historical_facts:prior.observed}:null,rank:null,formal:false};
  });
 }
@@ -143,6 +201,7 @@ export function analyzeV19(packet,{disabled=[],compareV18=false,reserve=[]}={}){
  const mechanisms=analyzeV18(expanded,{disabled}).mechanisms.filter(m=>m.eye_id==='EYE-02'&&m.applicability.scope==='MATCHED_CONDITIONS');
  const final=run(expanded,rr,mechanisms);
  const profiles=final.merged.map(h=>profile(expanded,h)),field=scenarios(profiles);
+ for(const s of field.scenarios)s.interactions=jointInteraction(expanded,s);
  const old=compareV18?analyzeV18(p).after:null;
  const decisions=evaluate(expanded,final,field,profiles,old);
  const audit=final.ledger.map(l=>{const eye=l.item.startsWith('EYE-'),get=c=>eye?c.eye.find(x=>x.horse_id===l.horse).items.find(x=>x.eye_item_id===l.item):c.merged.find(x=>x.horse_id===l.horse).items[l.item];return {id:l.horse,item:l.item,output:l.output_count,reads:l.instrumented_reads,changed:digest(get(first))!==digest(get(final)),missing:l.output_count===0,semantic_proof:false};});

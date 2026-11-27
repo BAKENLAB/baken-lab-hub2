@@ -55,6 +55,38 @@ test('F19-08',()=>{
  const x=structuredClone(env);mutate(x);assert.throws(()=>routeFixtureEnvelope(x),new RegExp(reason));}
  assert.throws(()=>routeFixtureEnvelope({schema:'evidence-v1',scope:'DIAGNOSTIC_ONLY',records:[]}),/TEST_SCOPE/);
 });
+test('F19-09',()=>{
+ const b=horse(a,'FIXTURE-B');assert.equal(b.views.D.state,'MIXED');assert.ok(b.views.D.counter.some(x=>x.kind==='WIN'&&x.path==='LEAD'));
+ const s=a.field.scenarios.find(s=>s.id==='CONTEST-SUSTAIN:FIXTURE-B'),e=a.field.scenarios.find(s=>s.id==='CONTEST-EASE:FIXTURE-B');
+ assert.ok(s.interactions.some(q=>q.rival==='FIXTURE-A'&&q.pattern==='RIVAL_TAKES_LEAD'&&q.leader_finish===2&&q.rival_finish===1));
+ assert.ok(s.interactions.some((q,i)=>q.compatible_position_proxy!==e.interactions[i].compatible_position_proxy));
+ assert.ok(s.interactions.every(q=>q.actual_pace===null&&q.causal_pressure===null));
+ const q=structuredClone(p);
+ // Change only the first corner observations of the two named runners;
+ // historical finish/clock/late positions remain exact. No individual
+ // sectional clock was supplied to this normalized fixture.
+ const r=q.history.find(x=>x.id==='FK-GEN-1'),br=r.rows.find(x=>x.id==='FIXTURE-B'),cr=r.rows.find(x=>x.id==='FIXTURE-C');
+ [br.corners[0],cr.corners[0]]=[cr.corners[0],br.corners[0]];
+ const n=analyzeV19(q);
+ assert.ok(n.field.leaders.includes('FIXTURE-C')&&!a.field.leaders.includes('FIXTURE-C'));
+ assert.deepEqual(horse(n,'FIXTURE-A').history,horse(a,'FIXTURE-A').history);
+ assert.deepEqual(horse(n,'FIXTURE-D').history,horse(a,'FIXTURE-D').history);
+ assert.ok(n.field.scenarios.some(s=>s.leader==='FIXTURE-C'));
+});
+test('F19-10',()=>{
+ const q=structuredClone(p);q.history=q.history.filter(x=>x.id!=='FK-GEN-4');q.history.find(x=>x.id==='FK-GEN-3').conditions.going='重';
+ const n=analyzeV19(q),b=horse(n,'FIXTURE-B');
+ assert.ok(b.conditionReturn.some(x=>x.positive&&x.state==='CORROBORATED_HISTORICAL_RETURN'&&x.paired_rivals.some(y=>y.peer==='FIXTURE-C')));
+ assert.ok(b.conditionReturn.every(x=>x.causal_effect===null));
+ const c=horse(a,'FIXTURE-C');assert.ok(c.conditionReturn.some(x=>x.state==='CONTROLLED_DUPLICATE_NEUTRAL'&&!x.positive&&!x.negative));
+ assert.ok(a.decisions.every(h=>h.scenarios.every(s=>new Set(s.witness_families.map(x=>x.family)).size===s.witness_families.length&&s.witness_families.every(x=>x.independent_vote===false))));
+ assert.ok(a.decisions.some(h=>h.comparisons.later.some(x=>x.state==='CONDITIONAL_SUPPORT')));
+ assert.ok(a.decisions.some(h=>h.comparisons.later.some(x=>x.state==='SCOPED_COUNTER')));
+ assert.ok(a.decisions.some(h=>h.comparisons.later.some(x=>x.state==='NEUTRAL_CONTEXT')));
+ const z=structuredClone(h.p),unrelated=structuredClone(h.reserve[0]);unrelated.id='FK-SYN19-UNRELATED';unrelated.rows=unrelated.rows.map((r,i)=>({...r,id:'FIXTURE-Z'+(100+i)}));
+ const u=analyzeV19(z,{reserve:[unrelated]});assert.deepEqual(u.disclosed,[]);assert.deepEqual(u.decisions,analyzeV19(z).decisions);
+});
+
 const summary={formal:false,work,positive_test_records:positive.accepted_test_records,prototype:{field:a.field,returns:a.returns.map(r=>({id:r.horse_id,eye:r.eye,kind:r.kind,race:r.race_id})),traces:a.traces,horse:a.decisions.map(h=>({id:h.id,history:h.history.map(o=>({race:o.race,finish:o.finish,field:o.field,beaten:o.beaten,scope:o.applicability.state,positions:o.positions})),before:h.priorV18.perspectives,after:Object.fromEntries(Object.entries(h.views).map(([k,v])=>[k,v.state])),scenarios:h.scenarios.map(s=>({id:s.scenario,role:s.role,support:s.support.map(x=>({race:x.race,path:x.path,kind:x.kind})),counter:s.counter.map(x=>({race:x.race,reason:x.reason})),unestablished:s.unestablished.map(x=>({race:x.race,path:x.path,kind:x.kind})),unknown:s.unknown.map(x=>x.reason)}))}))},heterogeneous:{field:b.field,disclosed:b.disclosed,returns:b.returns.length,trace:b.traces.length,horse:b.decisions.map(h=>({id:h.id,views:Object.fromEntries(Object.entries(h.views).map(([k,v])=>[k,v.state])),history:h.history.length}))}};
 console.log('F19_SUMMARY '+JSON.stringify(summary));
 for(const [label,out] of [['prototype',a],['heterogeneous',b]])for(const h of out.decisions)console.log('F19_HORSE '+JSON.stringify({label,horse:h,audit:out.audit.filter(x=>x.id===h.id),formal:false}));
