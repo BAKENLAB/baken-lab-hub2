@@ -71,7 +71,20 @@ function analyzePace58to77Core({target,roster,evidence=[],runs=[],history=[],gat
  // V19 research-only return. Rebind each requested observation to the actual
  // accepted subject run and position data; never accept a caller's conclusion.
  if(fictional)for(const m of researchReturn.filter(x=>x.horse_id===h.horse_id)){
-  if(m.kind==='POSITION_RECOVERY'){
+  if(m.kind==='V21_INCIDENT'||m.kind==='V21_STYLE'){
+   const e=c.byId.get(m.ref),f=e?.research_v21_fact;
+   if(!e||!f||e.horse_id!==h.horse_id||!Array.isArray(f.source_refs)||!f.source_refs.every(x=>c.byId.has(x)))continue;
+   if(m.kind==='V21_INCIDENT'&&e.race_id===last?.race_id&&f.role==='SUFFERED'&&f.incident_code==='FIXTURE_PATH_PRESSURE'){
+    const present=states.some(s=>s.h?.horse_id===f.actor);
+    const value={research_return:'EYE-06',prior_race_id:e.race_id,actor:f.actor,actor_present:present,prior_incident_at_m:f.at_m,conditions_match:exact(last,target),state:present?'COUNTER':'SUPPORT',proposition:'NAMED_PRIOR_ACTOR_ABSENT_FROM_CURRENT_ROSTER',actual_disadvantage_removed:null,actual_improvement:null};
+    put('73',value,[m.ref,...f.source_refs,...allRefs],'hypotheses');
+    traceRead({consumer:'analyzePace58to77Fixture.v21IncidentReturn',consumer_item_id:'73',horse_no:s.entry.horse_no,item_id:'EYE-06',value,reason:'Bound recorded prior incident to current roster; named actor absence only'});
+   }else if(m.kind==='V21_STYLE'&&e.race_id===target.race_id&&f.subtype==='SAME_STYLE_POPULATION'&&f.prior_race_id===last?.race_id&&f.complete_prior===true&&f.complete_current===true&&f.definition_version==='FIRST_OBSERVED_TOP3_NOT_LAST_V21'&&f.current_peer_ids.every(id=>states.some(s=>s.h?.horse_id===id))){
+    const delta=f.current_peer_ids.length-f.prior_peer_ids.length,value={research_return:'EYE-11',prior_race_id:f.prior_race_id,prior_count:f.prior_peer_ids.length,current_count:f.current_peer_ids.length,removed:f.prior_peer_ids.filter(x=>!f.current_peer_ids.includes(x)),added:f.current_peer_ids.filter(x=>!f.prior_peer_ids.includes(x)),delta,state:delta<0?'SUPPORT':delta>0?'COUNTER':'NEUTRAL',proposition:'FEWER_PEERS_MEETING_SAME_PRE_RACE_OBSERVED_FRONT_DEFINITION',actual_competition:null,actual_benefit:null};
+    put('65',value,[m.ref,...f.source_refs,...allRefs],'hypotheses');
+    traceRead({consumer:'analyzePace58to77Fixture.v21StyleReturn',consumer_item_id:'65',horse_no:s.entry.horse_no,item_id:'EYE-11',value,reason:'Recomputed delta from source-bound comparable synthetic populations; no pressure inference'});
+   }
+  }else if(m.kind==='POSITION_RECOVERY'){
    const r=own.find(x=>x.race_id===m.race_id),q=r?position(r):[],rec=q.slice(1).flatMap((x,i)=>x.rank_min>q[i].rank_max?q.slice(i+1).filter(y=>y.rank_max<x.rank_min).map(y=>({loss:[q[i].rank_max,x.rank_min],recovery:y.rank_max})):[]);
    if(!r||!rec.length||!c.byId.has(r.position_evidence_id))continue;
    const value={research_return:'EYE-03',race_id:r.race_id,observed_recovery:rec,finish:r.finish,field_size:r.field_size,scope:exact(r,target)?'MATCHED_HISTORICAL':'TRANSFER_UNRESOLVED',counter_context:'POSITION_LOSS_ALSO_OBSERVED',cause:null,pace_fit:null};
