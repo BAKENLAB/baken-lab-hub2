@@ -3,6 +3,8 @@
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {resolve} from 'node:path';
 import {loadV38,analyzeV38} from './work35-v38-completion.mjs';
 import {completionFixtures} from './work36-pinned/completion-controls.mjs';
 import {run31,pipeline31,verifier31} from './work32-pinned/stage32-condition-pipeline-v0.1.2.mjs';
@@ -120,7 +122,7 @@ function route(x,h,s,threshold){
   win==='SUPPORT'&&dWin?'WIN_SUPPORT':place==='SUPPORT'?'PLACE_SUPPORT':place==='COUNTER'?'PLACE_COUNTER':'HELD':'HELD';
  return {id:s.id,horse:h.slot,start_event:a?.event??null,response_event:s.response_event,env,axes,decision,paceComparable,conditions,roles,measured,applicable,WIN:win,PLACE:place,pairs,formal:false,actual_current:'UNPROVEN'};
 }
-function analyze(V,id,threshold=2){
+export function analyze(V,id,threshold=2){
  const x=analyzeV38(V,id,{eyeEnabled:true,placeThreshold:threshold,evidenceCross:true});
  const runners=x.runners.map(h=>{
   const routes=x.conditional_scenarios.filter(s=>s.id.startsWith('EVIDENCE_CROSS:')).map(s=>route(x,h,s,threshold));
@@ -187,6 +189,7 @@ function delta(b,a){
  }));
  return {changes,routeChanges,grades:a.runners.map(h=>({horse:h.slot,before:b.runners.find(z=>z.slot===h.slot).research_grade,after:h.research_grade}))};
 }
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
 const V=await loadV40();
 const all=V.C.fixtures.filter(f=>f.id!=='W36_MASTER_IMMUTABLE').map(f=>analyze(V,f.id));
 const by=id=>all.find(x=>x.id===id);
@@ -268,3 +271,5 @@ for(const g of V.generated)console.log('V40_PIN '+JSON.stringify({...g.p,rootMap
  const brief=d=>({...d,changes:d.changes.map(q=>({horse:q.horse,item:q.item}))});
 for(const [label,m] of [['BASE',base],['POSITIVE',pos],['NEGATIVE',negative],['COUNTER',counter],['OTHER',other]])console.log('V40_MASK '+JSON.stringify({label,reviews:m.reviews,admitted:m.admitted,result:compact(m.x)}));
 console.log('V40_DELTA '+JSON.stringify({positive:brief(dp),counter:brief(dc),other:brief(doo),scope:'SAME_MASTER_PRE_ANALYSIS_MASK_NOT_OFFICIAL_ADMISSION'}));
+
+}
