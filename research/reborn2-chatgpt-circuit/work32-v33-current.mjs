@@ -94,8 +94,8 @@ function enrich(L,name,withdraw,options){
    if(!times||!ranks||!g)continue;
    for(let j=0;j<times.length;j++){const i=v.distances_m.indexOf(g.checkpoints_m[j]);if(i<0||ranks[j]!==1)continue;const bound=2*p.r.measurement.clock_uncertainty_ms;if(Math.abs(times[j]-v.elapsed_ms[i])>bound)problems.push({horse:h,checkpoint:g.checkpoints_m[j],individual:times[j],leader:v.elapsed_ms[i],bound,refs:refs([ck,r,leader,e.geometry])});}
   }
-  const conflicts=sourceConflicts.filter(x=>p.packet.issuer+'|'+x.event===e.event_id);
-  return {event:e.event_id,state:problems.length||conflicts.length?'CONFLICT_HOLD_JOINED_PACE_INFERENCE':!v?'MISSING_LEADER_CLOCK':'NO_TESTED_CONFLICT_NOT_TRANSFER_PROOF',problems,conflicts,refs:uniq(problems.flatMap(x=>x.refs)),current_pace:null};
+  const conflicts=sourceConflicts.filter(x=>p.packet.issuer+'|'+x.event===e.event_id),sourceIssues=(p.packet.issues??[]).filter(x=>p.packet.issuer+'|'+x.event===e.event_id&&x.reason==='LEADER_INDIVIDUAL_CROSSING_CONFLICT');
+  return {event:e.event_id,state:problems.length||conflicts.length||sourceIssues.length?'CONFLICT_HOLD_JOINED_PACE_INFERENCE':!v?'MISSING_LEADER_CLOCK':'NO_TESTED_CONFLICT_NOT_TRANSFER_PROOF',problems,conflicts,sourceIssues,refs:uniq(problems.flatMap(x=>x.refs)),current_pace:null};
  });
  const historicalScenarios=out.shared_scenarios_v30.map(s=>({...s,joined_pace_state:paceHold.find(x=>x.event===s.event)?.state??'UNKNOWN',current_pace:null,actual_current_feasibility:'UNRESOLVED'}));
  const runners=out.runners.map(h=>{
@@ -106,7 +106,7 @@ function enrich(L,name,withdraw,options){
   const axes=[['A',['RANK02','RANK03','RANK05','RANK06']],['B',['RANK43','RANK53','RANK54']],['C',['RANK35','RANK36','RANK37']],['D',['RANK18','RANK19','RANK21']],['E',[]]].map(([axis,items])=>{
    const f=axis==='E'?findings:trace.filter(x=>items.includes(x.item)).map(x=>({item:x.item,state:x.decision,observation:x.observation??null,refs:x.refs}));
    const facts=f.map(x=>({item:x.item,predicate:x.state,evidence_refs:x.refs,root_keys:uniq(x.refs.map(k=>all.get(k)?.root).filter(Boolean)),independent_vote:false,observation:x.observation,applicability:axis==='E'?'CONDITIONAL_ONLY':'HISTORICAL_ONLY'}));
-   return {axis,state:!active?'NOT_EVALUATED':facts.length?'OBSERVED_CURRENT_RELEVANCE_UNPROVEN':'MISSING',facts,conditions_or_pace:!active?[]:axis==='B'?h.condition_paths??[]:axis==='D'?h.pace_paths??[]:[],current_support:[],current_counter:[],grade_effect:false};
+   return {axis,state:!active?'NOT_EVALUATED':facts.length?'OBSERVED_CURRENT_RELEVANCE_UNPROVEN':'MISSING',facts,conditions_or_pace:!active?[]:axis==='B'?h.condition_paths??[]:axis==='D'?(h.pace_paths??[]).map(x=>{const hold=paceHold.find(y=>y.event===x.event);return hold?.state==='CONFLICT_HOLD_JOINED_PACE_INFERENCE'?{...x,literal_observations:x.comparisons,comparisons:[],state:hold.state,current_pace:null}:x}):[],current_support:[],current_counter:[],grade_effect:false};
   });
   const eye=active?(h.eye??[]).map(x=>({item:x.item,targets:x.upstream,refs:uniq(x.observations.flatMap(z=>z.refs)),state:x.observations.length?'HISTORICAL_REVIEW_ONLY':'HELD',returned_to_current_analysis:false,conditional_path_effect:false,independent_vote:false})):[];
   return {slot:h.slot,status:h.status,identity_known:h.identity_known,axes,rival_paths:response,paths,findings_v33:findings,eye_feedback:eye,items:h.items.map(i=>({...i,refs:active?uniq([...i.refs,...findings.filter(f=>f.item===i.item).flatMap(f=>f.refs)]):[],v33_findings:findings.filter(f=>f.item===i.item),grade_effect_proven:false})),WIN:active?{state:'UNRESOLVED',paths}:null,PLACE:active?{state:threshold===null?'THRESHOLD_UNSPECIFIED':'UNRESOLVED',threshold,paths:threshold===null?[]:paths}:null,grade:null,formal:false};
