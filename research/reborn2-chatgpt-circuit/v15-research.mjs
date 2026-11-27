@@ -95,7 +95,7 @@ export function replayV2(c,{reveal=true}={}){
  return {id:c.id,decisions,field,scenarios,strict_time_races:used.filter(r=>r.start!=null).map(r=>r.id),date_only_races:used.filter(r=>r.start==null).map(r=>r.id),laps:used.filter(r=>lap(r)).map(r=>({race:r.id,...leaderWindows(lap(r)),time_scope:r.start?'LOCAL_START':'DATE_ONLY'})),formal:false};
 }
 // Full generated data only: use real common research kernels with explicitly synthetic identity and exact times.
-export function runGenerated(c,{mechanisms=[],allowExternalPeers=false,versioned=false}={}){
+export function runGenerated(c,{mechanisms=[],allowExternalPeers=false,versioned=false,researchReturn=[]}={}){
  const checked=validateGenerated(c,{allowExternalPeers});if(!checked.valid)throw Error('INVALID_GENERATED:'+checked.errors.join(','));
  const t=c.target,cv=r=>({track:r.venue,course_id:r.venue,course_version:r.course_version,surface:r.surface,distance:r.distance_m,distance_m:r.distance_m,going:r.going,turn:r.turn,class_key:r.grade,layout:r.layout,rule_version:r.rule_version,eligibility:r.eligibility,conditions_observed:true});
  const target={...stamp,...cv(t.conditions),circuit:'FIXTURE',race_id:t.id,field_size:t.entrants.length,cutoff:local(t.date,t.published),started_at:local(t.date,t.start),early_segment_m:600,local_date:t.date};
@@ -112,7 +112,7 @@ export function runGenerated(c,{mechanisms=[],allowExternalPeers=false,versioned
  const ce=ev('geometry',null,t.id,target.cutoff),course=[{...ce,...cv(t.conditions),fixture_geometry_observed:true,first_turn_m:t.conditions.first_corner_m,first_turn_precision:'reported'}],intake={...stamp,accepted:groups},trace=[];
  const typed=analyzeTyped01to32({target,roster,intake,traceRead:x=>trace.push(x)});
  if(versioned)for(const r of races)r.row_evidence_ids=evidence.filter(e=>e.race_id===r.race_id&&e.horse_id&&e.evidence_id.startsWith('fixture-v2:result:')).map(e=>e.evidence_id);
- const opp=analyzeOpposition33to42Fixture({target,roster,races,histories:history}),conditions=analyzeConditions43to57Fixture({target,roster,runs,historyWitnesses:history,draws:gates}),pace=analyzePace58to77Fixture({target,roster,evidence,runs,history,gates,course,paceBenchmarks}),state=analyzeState78to92Fixture({target,roster,evidence,runs,history,current});
+ const opp=analyzeOpposition33to42Fixture({target,roster,races,histories:history}),conditions=analyzeConditions43to57Fixture({target,roster,runs,historyWitnesses:history,draws:gates,researchReturn,traceRead:x=>trace.push(x)}),pace=analyzePace58to77Fixture({target,roster,evidence,runs,history,gates,course,paceBenchmarks,researchReturn,traceRead:x=>trace.push(x)}),state=analyzeState78to92Fixture({target,roster,evidence,runs,history,current});
  const merged=roster.map(h=>{const items=Object.fromEntries(Object.entries(typed.find(x=>x.horse_id===h.horse_id).items).map(([k,v])=>[k,{facts:v.observations.map(o=>({value:o.value,evidence_ids:o.evidence_ids})),hypotheses:[],counterevidence:[],unknowns:v.unknowns}]));for(const z of [opp,conditions,pace,state])Object.assign(items,z.runners.find(x=>x.horse_id===h.horse_id).items);return {...h,items};});
  const facts=x=>[...(x?.facts??[]),...(x?.hypotheses??[]),...(x?.counterevidence??[])];
  const upstream=merged.flatMap(h=>Object.entries(h.items).map(([item_id,x])=>({horse_id:h.horse_id,item_id,source_cutoff:target.cutoff,evidence_ids:uniq(facts(x).flatMap(o=>o.evidence_ids)),analysis_status:facts(x).length?'OUTPUT_CANDIDATE':'UNKNOWN'})));

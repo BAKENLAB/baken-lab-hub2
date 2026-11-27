@@ -2,7 +2,7 @@ import {assertFictionalTarget,fictionalTime,fixtureHorse,localAdmission,historyK
 // Research-only descriptive condition circuit. No external I/O or grade.
 export function analyzeConditions43to57(args){return analyzeConditions43to57Core(args,false);}
 export function analyzeConditions43to57Fixture(args){return analyzeConditions43to57Core(args,true);}
-function analyzeConditions43to57Core({target,roster,runs=[],historyWitnesses=[],geometry=[],exposures=[],draws=[],benchmarks=[]},fictional){
+function analyzeConditions43to57Core({target,roster,runs=[],historyWitnesses=[],geometry=[],exposures=[],draws=[],benchmarks=[],researchReturn=[],traceRead=()=>{}},fictional){
  if(fictional)assertFictionalTarget(target,roster);
  const ts=x=>fictional?fictionalTime(x):typeof x==="string"&&/(Z|[+-]\d\d:\d\d)$/.test(x)?Date.parse(x):NaN;
  const cutoff=ts(target.cutoff),start=ts(target.started_at);
@@ -49,6 +49,14 @@ function analyzeConditions43to57Core({target,roster,runs=[],historyWitnesses=[],
      if(observations.length)put("52",{race_id:r.race_id,geometry:g.corners,observations,distance_traveled_measured:false},[r.evidence_id,g.evidence_id]);
    }
    if(positive(r.weight_kg))put("54",{race_id:r.race_id,weight_kg:r.weight_kg,finish:r.finish,conditions:record(r).conditions},[r.evidence_id]);
+  }
+  // EYE07 requests a scoped re-review, not a new raw fact. Rebind to
+  // accepted history and current condition; return association and counter.
+  if(fictional)for(const m of researchReturn.filter(x=>x.kind==='CONDITION_RETURN'&&x.horse_id===h)){
+   const r=own.find(x=>x.race_id===m.race_id),last=own.at(-1);
+   if(!r||!last||r===last||differences(r,current).length||!differences(last,current).length||r.course_version!==current.course_version)continue;
+   const value={research_return:'EYE-07',race_id:r.race_id,previous_race_id:last.race_id,restored_fields:differences(last,current),historical_finish:r.finish,historical_field:r.field_size,previous_finish:last.finish,previous_field:last.field_size,relative_finish:r.field_size>1?(r.field_size-r.finish)/(r.field_size-1):null,previous_relative_finish:last.field_size>1?(last.field_size-last.finish)/(last.field_size-1):null,cause:null,scope:'OBSERVED_RETURN_NOT_CAUSAL'};
+   for(const k of ['43','48'])if(k==='43'||value.restored_fields.includes('going')){put(k,value,[r.evidence_id,last.evidence_id,entry.evidence_id]);traceRead({consumer:'analyzeConditions43to57Fixture.conditionReturn',consumer_item_id:k,horse_no:entry.horse_no,item_id:'EYE-07',value,reason:'Rebound matched prior condition and mismatched latest result, not a causal advantage'});}
   }
   const witness=unique(historyWitnesses.filter(w=>admitted(w)&&w.horse_id===h&&w.target_race_id===target.race_id&&historyKnown(target,w)&&Array.isArray(w.ordered_race_ids)&&w.ordered_race_ids.length===own.length&&w.ordered_race_ids.every((v,i)=>v===own[i].race_id)),w=>w.horse_id)[0];
   if(witness){

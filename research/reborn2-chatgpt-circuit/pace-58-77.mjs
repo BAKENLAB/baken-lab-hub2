@@ -2,7 +2,7 @@ import {fixtureCommon,historyKnown,segmentKnown,segmentComplete,gateKnown} from 
 import {common} from './common-evidence.mjs';
 export function analyzePace58to77(args){return analyzePace58to77Core(args,false);}
 export function analyzePace58to77Fixture(args){return analyzePace58to77Core(args,true);}
-function analyzePace58to77Core({target,roster,evidence=[],runs=[],history=[],gates=[],course=[],today=[],paceBenchmarks=[]},fictional){
+function analyzePace58to77Core({target,roster,evidence=[],runs=[],history=[],gates=[],course=[],today=[],paceBenchmarks=[],researchReturn=[],traceRead=()=>{}},fictional){
  const c=fictional?fixtureCommon(target,roster,evidence):common(target,roster,evidence),{ts,unique,bound,identities,prior,add,close}=c;
  const validRuns=unique(runs.filter(prior),r=>r.horse_id+"|"+r.race_id);
  const position=r=>{if(!Number.isInteger(r.field_size)||r.field_size<1||!Array.isArray(r.positions))return [];return unique(r.positions.filter(p=>Number.isInteger(p.segment)&&p.segment>0&&Number.isInteger(p.rank_min)&&Number.isInteger(p.rank_max)&&p.rank_min>=1&&p.rank_max>=p.rank_min&&p.rank_max<=r.field_size),p=>p.segment).sort((a,b)=>a.segment-b.segment)};
@@ -67,6 +67,21 @@ function analyzePace58to77Core({target,roster,evidence=[],runs=[],history=[],gat
    put("69",{benchmark_n:values.length,observed_range_seconds:[values[0],values.at(-1)],median_seconds:middle,early_segment_m:target.early_segment_m,scenario_assumptions:hypotheses,pace_band:null,probability:null,race_level_only:true},[...benchmark.map(b=>b.evidence_id),...allRefs],"hypotheses");
    const sample=own.filter(r=>exact(r,target)&&early(r)&&Number.isInteger(r.finish)&&r.finish>=1&&r.finish<=r.field_size&&benchmark.some(b=>b.race_id===r.race_id));
    if(sample.length)put("73",{scenario_candidates:hypotheses,historical_observations:sample.map(r=>({race_id:r.race_id,early_rank:early(r),finish:r.finish,early_seconds:benchmark.find(b=>b.race_id===r.race_id).early_seconds})),scenario_fit:null,uncertainty:"UNVALIDATED_CURRENT_ABILITY"},[...sample.map(r=>r.evidence_id),...benchmark.map(b=>b.evidence_id)],"hypotheses");
+ }
+ // V19 research-only return. Rebind each requested observation to the actual
+ // accepted subject run and position data; never accept a caller's conclusion.
+ if(fictional)for(const m of researchReturn.filter(x=>x.horse_id===h.horse_id)){
+  if(m.kind==='POSITION_RECOVERY'){
+   const r=own.find(x=>x.race_id===m.race_id),q=r?position(r):[],rec=q.slice(1).flatMap((x,i)=>x.rank_min>q[i].rank_max?q.slice(i+1).filter(y=>y.rank_max<x.rank_min).map(y=>({loss:[q[i].rank_max,x.rank_min],recovery:y.rank_max})):[]);
+   if(!r||!rec.length||!c.byId.has(r.position_evidence_id))continue;
+   const value={research_return:'EYE-03',race_id:r.race_id,observed_recovery:rec,finish:r.finish,field_size:r.field_size,scope:exact(r,target)?'MATCHED_HISTORICAL':'TRANSFER_UNRESOLVED',counter_context:'POSITION_LOSS_ALSO_OBSERVED',cause:null,pace_fit:null};
+   put("73",value,[r.evidence_id,r.position_evidence_id],"hypotheses");
+   traceRead({consumer:'analyzePace58to77Fixture.recoveryReturn',consumer_item_id:'73',horse_no:s.entry.horse_no,item_id:'EYE-03',value,reason:'Recomputed recovery and position loss from bound historical positions; no inferred pace'});
+  }else if(m.kind==='FIELD_SHARE'){
+   const value={research_return:'EYE-09',active_n:states.length,known_any_corner_front:known,unknown_any_corner:unknown,observed_early_leaders:lead.map(x=>x.h.horse_id).sort(),other_observed_forward:otherForward.map(x=>x.h.horse_id).sort(),unresolved:unresolvedFront.map(x=>x.h.horse_id).sort(),pace_conclusion:null,benefit:null,scope:'JOINT_SCENARIOS_REQUIRED'};
+   put("69",value,allRefs,"hypotheses");
+   traceRead({consumer:'analyzePace58to77Fixture.fieldShareReturn',consumer_item_id:'69',horse_no:s.entry.horse_no,item_id:'EYE-09',value,reason:'Recomputed actual full-field front/unknown composition; neutral pace evidence'});
+  }
  }
  I["69"].unknowns.push("PACE_SCENARIO_CALIBRATION_REQUIRED");I["73"].unknowns.push("SCENARIO_FIT_REQUIRES_ABILITY_AND_COUNTEREVIDENCE_BINDING");
  return {horse_no:s.entry.horse_no,horse_id:h.horse_id,items:close(I)};
