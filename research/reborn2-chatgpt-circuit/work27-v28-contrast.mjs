@@ -59,7 +59,7 @@ export function analyzeV28(L,name,withdraw=null,options={}){
  const leaders=[];
  for(const e of H){
   const m=field(e.event_id,null,'leader_crossings'),v=value(m);if(!v)continue;
-  const seg=v.elapsed_ms.slice(1).map((n,j)=>{const dt=n-v.elapsed_ms[j],d=v.distances_m[j+1]-v.distances_m[j],u=2*v.uncertainty_ms;return {from_m:v.distances_m[j],to_m:v.distances_m[j+1],ms:dt,mps:d*1000/dt,low:dt>u?d*1000/(dt+u):null,high:dt>u?d*1000/(dt-u):null}});
+  const seg=v.elapsed_ms.slice(1).map((n,j)=>{const dt=n-v.elapsed_ms[j],d=v.distances_m[j+1]-v.distances_m[j],u=Number.isFinite(v.uncertainty_ms)&&v.uncertainty_ms>=0?2*v.uncertainty_ms:null;return {from_m:v.distances_m[j],to_m:v.distances_m[j+1],ms:dt,mps:d*1000/dt,low:u!==null&&dt>u?d*1000/(dt+u):null,high:u!==null&&dt>u?d*1000/(dt-u):null}});
   leaders.push({event:e.event_id,segments:seg,refs:refs([id(m)]),scope:v.scope,individual_clock_inference:false});
  }
  const proximity=[];
