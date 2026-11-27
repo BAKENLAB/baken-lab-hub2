@@ -1,0 +1,724 @@
+{
+  "schema": "stage20-final-research-receipt-v1.8",
+  "acceptance": "1568a09381601b87a235291e446dfc09ea654833",
+  "source_pins": [
+    {
+      "name": "stage20-tokyo-alternate-witness-v1.8.json",
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "blob": "db364156f40fdaa180bbb1eb71155319b1c989d8"
+    },
+    {
+      "name": "stage20-saga-row-crosscheck-v1.8.json",
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "blob": "7d5d9036342d685f9b5c555b779ba3265fdaeef7"
+    },
+    {
+      "name": "stage20-saga-field-relations-v1.8.json",
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "blob": "9442a5c2d40edbd0cc18c493f9812c9b8126ab3b"
+    },
+    {
+      "name": "stage20-clock-and-crossissuer-delta-v1.8.json",
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "blob": "2b93285044c6e3ada2d1f440be97c234bf9dfba7"
+    },
+    {
+      "name": "stage20-prospective-evidence-retention-design-v0.1.md",
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "blob": "3dad5fd3e52ffef546867fdf71351f5a7070e529"
+    },
+    {
+      "name": "stage16-derived-row-receipt-v1.3.json",
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "blob": "476fe4470f4933210627dfd508c1660ff0792f70"
+    },
+    {
+      "name": "stage19-replay-blocker-update-v1.7.json",
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "blob": "98853d2ac851d1735bf096d69c9f248573b74f9c"
+    },
+    {
+      "name": "stage17-permission-inquiry-drafts-20261127.md",
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "blob": "248333a735dc919a13e34ebf35636b2159f1dcb8"
+    }
+  ],
+  "checks": {
+    "prior_groups_118": true,
+    "prior_gates_826_held": true,
+    "tokyo_24_distinct": true,
+    "prior_26_maintained": true,
+    "remaining_5": true,
+    "new_witness_3": true,
+    "settlement_id_link_11": true,
+    "missing_id_card_match_3": true,
+    "saga_55_39": true,
+    "saga_all_prior": true,
+    "saga_four_fields_44": true,
+    "saga_pair_26": true,
+    "shared_event_13": true,
+    "clock_delta_2": true,
+    "tokyo3_six_fields": true,
+    "no_admissions": true
+  },
+  "synthetic_design_policy_tests": {
+    "scope": "ILLUSTRATIVE_PURE_PREDICATE_ONLY",
+    "function_source": "function policyReasons(x){\n const out=[];\n if(x.fixture!==\"SYNTHETIC_TEST_ONLY\")out.push(\"NON_TEST_SCOPE\");\n if(!x.rights?.capture||!x.rights?.store||!x.rights?.ai||!x.rights?.processor||x.rights.revoked||!(x.rights.validFrom<=x.capture&&x.cutoff<x.rights.validUntil)||!(x.cutoff<x.rights.retentionUntil))out.push(\"RIGHTS\");\n if(!x.rawAvailable||!x.independentHashMatch||!x.byteLengthMatch||![\"RESPONSE_ENTITY_BYTES\",\"WIRE_BYTES\"].includes(x.hashInputKind)||!x.charsetRecorded)out.push(\"RAW\");\n if(!x.trustedSeal||!(x.capture<=x.seal&&x.seal+x.uncertainty<=x.cutoff&&x.cutoff<x.post)||x.uncertainty<0)out.push(\"ASOF\");\n if(x.published!==null&&!(x.published<=x.capture))out.push(\"PUBLICATION\");\n if(x.published===null&&!x.observedOnlyPolicyAccepted)out.push(\"PUBLICATION_UNKNOWN\");\n if(x.rosterHash!==x.captureHash||!x.allRowsReviewed||!x.explicitStatuses||!x.uniqueNativeIds||!x.uniqueNumbers||!x.rosterCountReconciled)out.push(\"ROSTER\");\n if(!x.nativeIdentity||!x.extractionBound||!x.courseApplicable||!x.classApplicable||!x.correctionChainValid||x.correctionObserved>x.cutoff)out.push(\"SCOPE\");\n if(!x.priorEvent||x.targetResult||x.market||!x.allowlistedFields)out.push(\"LEAKAGE\");\n return out;\n}",
+    "fixture": {
+      "fixture": "SYNTHETIC_TEST_ONLY",
+      "rights": {
+        "capture": true,
+        "store": true,
+        "ai": true,
+        "processor": true,
+        "revoked": false,
+        "validFrom": 0,
+        "validUntil": 100,
+        "retentionUntil": 120
+      },
+      "capture": 20,
+      "seal": 25,
+      "uncertainty": 1,
+      "cutoff": 30,
+      "post": 40,
+      "published": 10,
+      "observedOnlyPolicyAccepted": false,
+      "rawAvailable": true,
+      "independentHashMatch": true,
+      "byteLengthMatch": true,
+      "hashInputKind": "RESPONSE_ENTITY_BYTES",
+      "charsetRecorded": true,
+      "trustedSeal": true,
+      "rosterHash": "fictional-hash-a",
+      "captureHash": "fictional-hash-a",
+      "allRowsReviewed": true,
+      "explicitStatuses": true,
+      "uniqueNativeIds": true,
+      "uniqueNumbers": true,
+      "rosterCountReconciled": true,
+      "nativeIdentity": true,
+      "extractionBound": true,
+      "courseApplicable": true,
+      "classApplicable": true,
+      "correctionChainValid": true,
+      "correctionObserved": 20,
+      "priorEvent": true,
+      "targetResult": false,
+      "market": false,
+      "allowlistedFields": true
+    },
+    "cases": [
+      [
+        "clean_test_only",
+        {},
+        null
+      ],
+      [
+        "missing_raw",
+        {
+          "rawAvailable": false
+        },
+        "RAW"
+      ],
+      [
+        "wrong_digest",
+        {
+          "independentHashMatch": false
+        },
+        "RAW"
+      ],
+      [
+        "decoded_hash_domain",
+        {
+          "hashInputKind": "DECODED_UTF8"
+        },
+        "RAW"
+      ],
+      [
+        "unknown_charset",
+        {
+          "charsetRecorded": false
+        },
+        "RAW"
+      ],
+      [
+        "wrong_length",
+        {
+          "byteLengthMatch": false
+        },
+        "RAW"
+      ],
+      [
+        "untrusted_seal",
+        {
+          "trustedSeal": false
+        },
+        "ASOF"
+      ],
+      [
+        "late_seal",
+        {
+          "seal": 31
+        },
+        "ASOF"
+      ],
+      [
+        "uncertainty_over_cutoff",
+        {
+          "uncertainty": 6
+        },
+        "ASOF"
+      ],
+      [
+        "poststart_cutoff",
+        {
+          "cutoff": 40
+        },
+        "ASOF"
+      ],
+      [
+        "unknown_publication",
+        {
+          "published": null
+        },
+        "PUBLICATION_UNKNOWN"
+      ],
+      [
+        "observed_only_explicit_test_policy",
+        {
+          "published": null,
+          "observedOnlyPolicyAccepted": true
+        },
+        null
+      ],
+      [
+        "publication_after_capture",
+        {
+          "published": 21
+        },
+        "PUBLICATION"
+      ],
+      [
+        "stale_roster_hash",
+        {
+          "rosterHash": "other"
+        },
+        "ROSTER"
+      ],
+      [
+        "duplicate_id",
+        {
+          "uniqueNativeIds": false
+        },
+        "ROSTER"
+      ],
+      [
+        "unknown_status",
+        {
+          "explicitStatuses": false
+        },
+        "ROSTER"
+      ],
+      [
+        "incomplete_field",
+        {
+          "rosterCountReconciled": false
+        },
+        "ROSTER"
+      ],
+      [
+        "identity_unverified",
+        {
+          "nativeIdentity": false
+        },
+        "SCOPE"
+      ],
+      [
+        "wrong_course",
+        {
+          "courseApplicable": false
+        },
+        "SCOPE"
+      ],
+      [
+        "late_correction",
+        {
+          "correctionObserved": 31
+        },
+        "SCOPE"
+      ],
+      [
+        "target_result",
+        {
+          "targetResult": true
+        },
+        "LEAKAGE"
+      ],
+      [
+        "market",
+        {
+          "market": true
+        },
+        "LEAKAGE"
+      ],
+      [
+        "not_prior",
+        {
+          "priorEvent": false
+        },
+        "LEAKAGE"
+      ],
+      [
+        "raw_fields_not_allowlisted",
+        {
+          "allowlistedFields": false
+        },
+        "LEAKAGE"
+      ],
+      [
+        "ai_not_allowed",
+        {
+          "rights": {
+            "capture": true,
+            "store": true,
+            "ai": false,
+            "processor": true,
+            "revoked": false,
+            "validFrom": 0,
+            "validUntil": 100,
+            "retentionUntil": 120
+          }
+        },
+        "RIGHTS"
+      ],
+      [
+        "revoked",
+        {
+          "rights": {
+            "capture": true,
+            "store": true,
+            "ai": true,
+            "processor": true,
+            "revoked": true,
+            "validFrom": 0,
+            "validUntil": 100,
+            "retentionUntil": 120
+          }
+        },
+        "RIGHTS"
+      ],
+      [
+        "retention_expired",
+        {
+          "rights": {
+            "capture": true,
+            "store": true,
+            "ai": true,
+            "processor": true,
+            "revoked": false,
+            "validFrom": 0,
+            "validUntil": 100,
+            "retentionUntil": 29
+          }
+        },
+        "RIGHTS"
+      ],
+      [
+        "actual_scope_never_tested",
+        {
+          "fixture": "REAL"
+        },
+        "NON_TEST_SCOPE"
+      ]
+    ],
+    "results": [
+      {
+        "name": "clean_test_only",
+        "expected": null,
+        "reasons": [],
+        "pass": true
+      },
+      {
+        "name": "missing_raw",
+        "expected": "RAW",
+        "reasons": [
+          "RAW"
+        ],
+        "pass": true
+      },
+      {
+        "name": "wrong_digest",
+        "expected": "RAW",
+        "reasons": [
+          "RAW"
+        ],
+        "pass": true
+      },
+      {
+        "name": "decoded_hash_domain",
+        "expected": "RAW",
+        "reasons": [
+          "RAW"
+        ],
+        "pass": true
+      },
+      {
+        "name": "unknown_charset",
+        "expected": "RAW",
+        "reasons": [
+          "RAW"
+        ],
+        "pass": true
+      },
+      {
+        "name": "wrong_length",
+        "expected": "RAW",
+        "reasons": [
+          "RAW"
+        ],
+        "pass": true
+      },
+      {
+        "name": "untrusted_seal",
+        "expected": "ASOF",
+        "reasons": [
+          "ASOF"
+        ],
+        "pass": true
+      },
+      {
+        "name": "late_seal",
+        "expected": "ASOF",
+        "reasons": [
+          "ASOF"
+        ],
+        "pass": true
+      },
+      {
+        "name": "uncertainty_over_cutoff",
+        "expected": "ASOF",
+        "reasons": [
+          "ASOF"
+        ],
+        "pass": true
+      },
+      {
+        "name": "poststart_cutoff",
+        "expected": "ASOF",
+        "reasons": [
+          "ASOF"
+        ],
+        "pass": true
+      },
+      {
+        "name": "unknown_publication",
+        "expected": "PUBLICATION_UNKNOWN",
+        "reasons": [
+          "PUBLICATION_UNKNOWN"
+        ],
+        "pass": true
+      },
+      {
+        "name": "observed_only_explicit_test_policy",
+        "expected": null,
+        "reasons": [],
+        "pass": true
+      },
+      {
+        "name": "publication_after_capture",
+        "expected": "PUBLICATION",
+        "reasons": [
+          "PUBLICATION"
+        ],
+        "pass": true
+      },
+      {
+        "name": "stale_roster_hash",
+        "expected": "ROSTER",
+        "reasons": [
+          "ROSTER"
+        ],
+        "pass": true
+      },
+      {
+        "name": "duplicate_id",
+        "expected": "ROSTER",
+        "reasons": [
+          "ROSTER"
+        ],
+        "pass": true
+      },
+      {
+        "name": "unknown_status",
+        "expected": "ROSTER",
+        "reasons": [
+          "ROSTER"
+        ],
+        "pass": true
+      },
+      {
+        "name": "incomplete_field",
+        "expected": "ROSTER",
+        "reasons": [
+          "ROSTER"
+        ],
+        "pass": true
+      },
+      {
+        "name": "identity_unverified",
+        "expected": "SCOPE",
+        "reasons": [
+          "SCOPE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "wrong_course",
+        "expected": "SCOPE",
+        "reasons": [
+          "SCOPE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "late_correction",
+        "expected": "SCOPE",
+        "reasons": [
+          "SCOPE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "target_result",
+        "expected": "LEAKAGE",
+        "reasons": [
+          "LEAKAGE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "market",
+        "expected": "LEAKAGE",
+        "reasons": [
+          "LEAKAGE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "not_prior",
+        "expected": "LEAKAGE",
+        "reasons": [
+          "LEAKAGE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "raw_fields_not_allowlisted",
+        "expected": "LEAKAGE",
+        "reasons": [
+          "LEAKAGE"
+        ],
+        "pass": true
+      },
+      {
+        "name": "ai_not_allowed",
+        "expected": "RIGHTS",
+        "reasons": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "revoked",
+        "expected": "RIGHTS",
+        "reasons": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "retention_expired",
+        "expected": "RIGHTS",
+        "reasons": [
+          "RIGHTS"
+        ],
+        "pass": true
+      },
+      {
+        "name": "actual_scope_never_tested",
+        "expected": "NON_TEST_SCOPE",
+        "reasons": [
+          "NON_TEST_SCOPE"
+        ],
+        "pass": true
+      }
+    ],
+    "pass": 28,
+    "total": 28,
+    "limitations": "Mock booleans and numeric times only; no raw byte or signature verifier, actual permission or deployed storage. Not Codex CI, no formal intake, not an approval. Observed-only case is hypothetical separately accepted policy, not current REBORN2 authorization."
+  },
+  "tokyo": {
+    "remaining_5": [
+      {
+        "no": 2,
+        "ordinal": 1,
+        "event": [
+          "2026-09-20",
+          "中山",
+          7
+        ],
+        "prior_card_identity_witness": true,
+        "other_card_performance_witness": false,
+        "formal_usable": false
+      },
+      {
+        "no": 4,
+        "ordinal": 3,
+        "event": [
+          "2026-09-13",
+          "中山",
+          7
+        ],
+        "prior_card_identity_witness": false,
+        "other_card_performance_witness": true,
+        "formal_usable": false
+      },
+      {
+        "no": 5,
+        "ordinal": 1,
+        "event": [
+          "2026-09-13",
+          "中山",
+          7
+        ],
+        "prior_card_identity_witness": false,
+        "other_card_performance_witness": false,
+        "formal_usable": false
+      },
+      {
+        "no": 8,
+        "ordinal": 2,
+        "event": [
+          "2026-09-13",
+          "中山",
+          4
+        ],
+        "prior_card_identity_witness": false,
+        "other_card_performance_witness": true,
+        "formal_usable": false
+      },
+      {
+        "no": 11,
+        "ordinal": 1,
+        "event": [
+          "2026-09-06",
+          "札幌",
+          7
+        ],
+        "prior_card_identity_witness": false,
+        "other_card_performance_witness": false,
+        "formal_usable": false
+      }
+    ],
+    "settlement_11_with_prior_card_id": 11,
+    "prior_native_id_missing_5_other_card_witness": 3,
+    "horse3": {
+      "jra_id_candidate": "2022104869",
+      "nar_id_candidate": "30046404796",
+      "jbis_candidate": "0001360220",
+      "source_refs": [
+        {
+          "url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30046404796",
+          "access": "SEARCH_INDEX_ONLY",
+          "role": "NAR profile candidate and Sep11 history"
+        },
+        {
+          "url": "https://www.keiba.go.jp/KeibaWeb_IPAT/TodayRaceInfo/RaceMarkTable_ipat?k_babaCode=23&k_raceDate=2026%2F09%2F11&k_raceNo=11",
+          "access": "SEARCH_INDEX_ONLY",
+          "role": "prior official result candidate"
+        },
+        {
+          "url": "https://sp.jra.jp/JRADB/accessU.html?CNAME=sj01ude002022104869%2FFA",
+          "access": "SEARCH_INDEX_ONLY; direct cache miss",
+          "role": "JRA profile and transfer marker"
+        },
+        {
+          "url": "https://www.jbis.or.jp/horse/0001360220/",
+          "access": "BODY; historical as-of dates 2026-06-07 JRA and 2026-06-13 LOCAL",
+          "role": "pedigree and both circuits on one third-party profile; not native issuer mapping"
+        }
+      ],
+      "prior_event": "2026-09-11:笠松:11",
+      "past_horse_no": 3,
+      "stored_card_checks": {
+        "date_match": true,
+        "track_match": true,
+        "prior_no_match": true,
+        "finish_match": true,
+        "clock_match": true,
+        "f3_match": true
+      },
+      "cross_issuer_identity": "CANDIDATE_CORROBORATED_NOT_CERTIFIED",
+      "prior_three_local_runs": "2 normalized archive corroborations + 1 official index result corroboration; all held",
+      "prior_five_jra_2025": "separate",
+      "official_publication_at": null,
+      "raw_sha256": null,
+      "formal_usable": false
+    },
+    "nonperformance": "transfer and exclusion remain separate",
+    "capture_raw_recovery": "Dedicated Work separate, not invoked; no repeated CACHE_MISS request",
+    "course_version": "prior held C course candidate unchanged"
+  },
+  "saga": {
+    "rows": 55,
+    "events": 39,
+    "archive_42_clock_corrected_all_match": true,
+    "jra_2_cross_issuer_held": true,
+    "total_four_fields_44": 44,
+    "rows_without_generic_or_jra_archive": 11,
+    "shared_archive_pairs": 13,
+    "full_numeric_candidate_events": 25,
+    "lap_availability_jra": 2,
+    "local_verified_laps": 0,
+    "going": null,
+    "weather": null,
+    "original_raw_verified": false,
+    "formal_eligible": false
+  },
+  "permissions": {
+    "draft_pin": {
+      "ref": "3c1104c4479b1a8f6563fa721a12f69e12c78838",
+      "path": "research/reborn2-official-sources/stage17-permission-inquiry-drafts-20261127.md",
+      "blob": "248333a735dc919a13e34ebf35636b2159f1dcb8"
+    },
+    "sent": false,
+    "contracts": false,
+    "charges": false,
+    "actual_scope": "NOT_CLEARED"
+  },
+  "handoff": {
+    "actual_eligible_values": [],
+    "source_state": "ALL_HELD",
+    "dedicated_work_assignment": [
+      "User-authorized past workspace and backup inventory; no assumption of access",
+      "Compare exact original byte domain and prior digest; no poststart substitution",
+      "If source never persisted or unavailable document scope and stop",
+      "Permission not obtainable by Work itself; no bypass, no production restore"
+    ],
+    "ordinary_work": "prospective design and stored evidence diagnostics only",
+    "next": "Separate explicit provider permission and isolated prospective pilot proposal; no implementation until authorized."
+  },
+  "canonical_items": 115,
+  "research_test_baseline": 216,
+  "prior_gates": {
+    "groups": 118,
+    "flags": 826,
+    "all_held": true
+  },
+  "formal_admissions": 0,
+  "production_changes": 0,
+  "formal_replays": 0,
+  "limitations": [
+    "No actual raw bytes or final official identity acquired. New search index results include incidental target result/market snippets, excluded from saved evidence and analysis. No NAR direct request, no acquisition rate bypass. Existing original data kept; no raw performance payload exported. No Codex runtime or tests rerun. No production acquisition program, database, MCP, cron or FROZEN changes."
+  ]
+}
