@@ -75,7 +75,7 @@ export function runGeminiV2(bytes,{sharedRoutes=false}={}){
  }
  const upstream=before.flatMap(h=>Object.entries(h.items).map(([id,i])=>({horse_id:h.horse_id,item_id:id,evidence_ids:uniq(fval(i).flatMap(x=>x.evidence_ids)),source_cutoff:target.cutoff,analysis_status:fval(i).length?'OUTPUT_CANDIDATE':'UNKNOWN'})));
  const changes=analyzeChanges93to100Fixture({target,roster,evidence,runs,history:histories,currentConditions:current,upstream,traceRead});
- const commonWinning=sharedRoutes?researchWinningPathsFixture({target,roster,intake,typedAnalysis:typed,pace}):null;
+ const commonWinning=sharedRoutes?researchWinningPathsFixture({target,roster,intake,typedAnalysis:typed,pace,traceRead,analysisRows:before.map(h=>({...h,items:{...h.items,...changes.runners.find(x=>x.horse_no===h.horse_no).items}}))}):null;
  const rankRunners=before.map(h=>{Object.assign(h.items,changes.runners.find(x=>x.horse_no===h.horse_no).items);
  const incident=fval(h.items['26']),scenario=[...fval(h.items['65']),...fval(h.items['70'])];
  if(incident.length&&scenario.length){for(const id of ['26','65','70'])if(fval(h.items[id]).length)traceRead({consumer:'fixtureRecurrenceContext',consumer_item_id:'96',horse_no:h.horse_no,item_id:id,value:h.items[id],reason:'Ruling context and present scenario prerequisites, no causal resolution'});add(h,'96',{prior_incident_context:incident.map(x=>x.value),current_scenario_context:scenario.map(x=>x.value),causal_loss:null,recurrence_resolution:null,materiality:'UNVALIDATED'},[...incident,...scenario].flatMap(x=>x.evidence_ids),'hypotheses');}
@@ -89,7 +89,6 @@ export function runGeminiV2(bytes,{sharedRoutes=false}={}){
  // No history means no individual route output, while field context stays available.
  if(!own.length){paths.winning_paths=[];paths.placing_paths=[];}
  h.paths=paths;
- if(sharedRoutes&&own.length)for(const id of ['12','35','65'])if(fval(h.items[id]).length)traceRead({consumer:'sharedWinningContextAudit',consumer_item_id:'100',horse_no:h.horse_no,item_id:id,value:h.items[id],reason:'Context inspected alongside common route kernel; not proof of path computation or causal effect'});
  if(!sharedRoutes&&own.length)add(h,'100',{type:'RECORDED_KEY_PATHS_NOT_CURRENT_JUDGMENT',winning_paths:paths.winning_paths,placing_paths:paths.placing_paths},[o.evidence_id,...own.map(r=>r.evidence_id)],'hypotheses');
  return {horse_no:h.horse_no,horse_id:h.horse_id,active:o.active,items:defs.filter(d=>!d.id.startsWith('EYE-')).map(d=>({item_id:d.id,finding:h.items[d.id],evidence_ids:uniq(fval(h.items[d.id]).flatMap(x=>x.evidence_ids)),unknowns:h.items[d.id]?.unknowns??[],implementation:'SHARED_RESEARCH_KERNEL'}))};});
  const rankAudit={runners:rankRunners};
