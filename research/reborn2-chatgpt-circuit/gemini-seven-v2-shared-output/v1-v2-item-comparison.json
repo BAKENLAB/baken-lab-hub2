@@ -20,7 +20,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.A"
           ],
-          "v2_output_hash": "de68f3a56fc7b9e6c7fbea3dd21b04b34b7d11308f9518181863f9d8b8e446e2",
+          "v2_output_hash": "1b98ab5cbfe9536cead4e31ec52db7b2e509d2e16de587e36d7c4ee19d26c591",
           "formal_consumption": false
         },
         {
@@ -245,18 +245,24 @@
         {
           "item_id": "14",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "01",
             "EYE-13",
             "AXIS-A"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "analyzeTyped01to32.baseBundle",
+            "inspectEye15"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.A"
+          ],
+          "v2_output_hash": "201d47aa4f60f310b950a15a5124393dd9b1cc248322b0453b08bc328bc09019",
           "formal_consumption": false
         },
         {
@@ -451,6 +457,7 @@
             "AXIS-A"
           ],
           "v2_analysis_function_consumers": [
+            "fixtureRecurrenceContext",
             "inspectEye15"
           ],
           "v2_synthesis_consumers": [
@@ -560,7 +567,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.A"
           ],
-          "v2_output_hash": "e7585020f26123479850006477d306e1f1e15ae6a0b9318c8eb45fca38a34f45",
+          "v2_output_hash": "046f622655a1cd7da4ba32a86898d527656e20cd897474b6cc69d8dc4a7bbc0a",
           "formal_consumption": false
         },
         {
@@ -959,7 +966,7 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 5,
+          "v2_output_count": 6,
           "v1_consumers": [
             "AXIS-B"
           ],
@@ -968,7 +975,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.B"
           ],
-          "v2_output_hash": "70b9d983f411f446c71110c736412d38b2e5c41ae2968eacbe1c180f4e709c7d",
+          "v2_output_hash": "a05379a68aef23021ee1b5ac38bf07622ae187e42ee2f4b5bd7a562ae8c9bcb4",
           "formal_consumption": false
         },
         {
@@ -1185,6 +1192,7 @@
             "AXIS-D"
           ],
           "v2_analysis_function_consumers": [
+            "fixtureRecurrenceContext",
             "inspectEye15",
             "inspectEye15.counter_and_scenario"
           ],
@@ -1283,6 +1291,7 @@
             "AXIS-D"
           ],
           "v2_analysis_function_consumers": [
+            "fixtureRecurrenceContext",
             "inspectEye15",
             "inspectEye15.counter_and_scenario"
           ],
@@ -1720,18 +1729,24 @@
         {
           "item_id": "96",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "97",
             "EYE-06",
             "AXIS-E"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "inspectEye15",
+            "inspectEye15.counter_and_scenario"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.E"
+          ],
+          "v2_output_hash": "b5e819e009e40bbc3b2bb1fb2909b75b6c4338e8b0ffbef163d857f50f2d6bff",
           "formal_consumption": false
         },
         {
@@ -1901,14 +1916,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 7,
+          "v2_output_count": 8,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "bb714256128f2489529ee2347128e0d805afd5153138980aae2b1b4d00434bb8",
+          "v2_output_hash": "9163f8ba0b68f5d8195129cfc29a222a082db19555c3f25963ba33dbc81135fb",
           "formal_consumption": false
         },
         {
@@ -2013,14 +2028,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 4,
+          "v2_output_count": 5,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "030334d1c3b83020bc64a5423beba22fc9d5c2625f165e7d87363f84a0a69703",
+          "v2_output_hash": "acedd4f0178bf7744e4efdff8f29e1d1a9db86ae535bd83bf72943caf9df4226",
           "formal_consumption": false
         },
         {
@@ -2045,14 +2060,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 4,
+          "v2_output_count": 5,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "a3f1bf3d95c4b246c8fb63b9dacfab22da0c3543ebc4e66598c933fcd0c41ab7",
+          "v2_output_hash": "1280f56b7fe704f2c45b482fb49f749de1dc9ff0d63d01eda4202dbacaa4019b",
           "formal_consumption": false
         }
       ]
@@ -2076,7 +2091,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.A"
           ],
-          "v2_output_hash": "205e906f3928f1e5694052983c3dd4b9d92008362bd0c29284cc92b8e58ea543",
+          "v2_output_hash": "cdf117a4e6fe21634786256b210d4f4b769048549500cd6753144b13cc9d7723",
           "formal_consumption": false
         },
         {
@@ -2300,18 +2315,24 @@
         {
           "item_id": "14",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 2,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "01",
             "EYE-13",
             "AXIS-A"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "analyzeTyped01to32.baseBundle",
+            "inspectEye15"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.A"
+          ],
+          "v2_output_hash": "0b3783a617cafe3a50b3ef0a534000d3944f83b9002e525434e65150de7028c4",
           "formal_consumption": false
         },
         {
@@ -2978,7 +2999,7 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 5,
+          "v2_output_count": 6,
           "v1_consumers": [
             "AXIS-B"
           ],
@@ -2987,7 +3008,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.B"
           ],
-          "v2_output_hash": "fa3438ac54bb6d9fb8c03a9a19d11ed4949d38f2d146cdef76986f675cf9b4d2",
+          "v2_output_hash": "82516f47e793f4e306d9fe1f0a9f6e4d5c5d19de7693c7b50ebbcb04e76c589e",
           "formal_consumption": false
         },
         {
@@ -4034,14 +4055,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 9,
+          "v2_output_count": 10,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "fadbe1e0f90d4a8fc4dd843b7d7d1afa3cd2493c41dccee940bfe28e37ea0f04",
+          "v2_output_hash": "4c37d33cef08280ea96a2443fdabb63846cf8f84a66f5ef007da71d0a0fce2ca",
           "formal_consumption": false
         },
         {
@@ -4097,7 +4118,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.A"
           ],
-          "v2_output_hash": "82bd8c031635d81931cf98d7bf0478147584ab1da5de97c6c248562da3ab510e",
+          "v2_output_hash": "4c7654735a275ba6b729b841c1e5541333aea6187de6ea4afe5896e0932013e2",
           "formal_consumption": false
         },
         {
@@ -4317,18 +4338,24 @@
         {
           "item_id": "14",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "01",
             "EYE-13",
             "AXIS-A"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "analyzeTyped01to32.baseBundle",
+            "inspectEye15"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.A"
+          ],
+          "v2_output_hash": "76d35ac9bd3a8f5cd8c34447602209b2a51df8f58cd5931794c34856525198b8",
           "formal_consumption": false
         },
         {
@@ -5008,7 +5035,7 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 5,
+          "v2_output_count": 6,
           "v1_consumers": [
             "AXIS-B"
           ],
@@ -5017,7 +5044,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.B"
           ],
-          "v2_output_hash": "26f77b70747fc03d0bf49b97c08bfb60cfa2d4ae389fb203042a01869dfefa38",
+          "v2_output_hash": "c1670e9ea7969ade0fc5dfa8e28599b92a58abd708eb994c7cc87cd10866d39b",
           "formal_consumption": false
         },
         {
@@ -6039,14 +6066,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 4,
+          "v2_output_count": 5,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "e62bac3f7387620a200d5dbe31948faf3a7b3be99d3806d7749c7d590beb5b49",
+          "v2_output_hash": "aa1c894f8b8c61d3d2b6f18afa7cf7cf7d93bed7a7e617096836b1a7b099598f",
           "formal_consumption": false
         },
         {
@@ -6102,7 +6129,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.A"
           ],
-          "v2_output_hash": "11a12c523db7c38ae48fe48c702dc2484185362ebecb5167de090a7b7b5cc23e",
+          "v2_output_hash": "1241d71d7d1b6ffb99c7ab775ff57f40763c7f477bcd35b28ab99213adeb21cd",
           "formal_consumption": false
         },
         {
@@ -6319,18 +6346,24 @@
         {
           "item_id": "14",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "01",
             "EYE-13",
             "AXIS-A"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "analyzeTyped01to32.baseBundle",
+            "inspectEye15"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.A"
+          ],
+          "v2_output_hash": "b33fca9a86433f757bb5200a9883b2c076e31d0298a8a2369bedef74c9611fe4",
           "formal_consumption": false
         },
         {
@@ -6999,7 +7032,7 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 5,
+          "v2_output_count": 6,
           "v1_consumers": [
             "AXIS-B"
           ],
@@ -7008,7 +7041,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.B"
           ],
-          "v2_output_hash": "f54222edf6846e54081429e22fb3f289337831ae6b7ab940765315388a337143",
+          "v2_output_hash": "8141c830aabdea06efdfa0258632eb018cf816a1209953f7faa5ca7faf0c31f6",
           "formal_consumption": false
         },
         {
@@ -8068,14 +8101,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 4,
+          "v2_output_count": 5,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "7b98d6b3b25fd00ac13bd31c6b4cde8538d83b2ba1c203f25ee444c8ca65f640",
+          "v2_output_hash": "bbd35e36f5ca667055d605b64ca5eba422d18d9c83a679912567bc78b36106f6",
           "formal_consumption": false
         },
         {
@@ -8131,7 +8164,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.A"
           ],
-          "v2_output_hash": "0d2f2e21a80c00494130d7143a9f3868524d3d9a5b7eb853674dada64a26a847",
+          "v2_output_hash": "894825122fb5a15770b0642253580729f0b71dfbd896ca7eb296a7e858ef2095",
           "formal_consumption": false
         },
         {
@@ -8363,18 +8396,24 @@
         {
           "item_id": "14",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 2,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "01",
             "EYE-13",
             "AXIS-A"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "analyzeTyped01to32.baseBundle",
+            "inspectEye15"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.A"
+          ],
+          "v2_output_hash": "611ce88f6729b24e568ced4fa7ec7b0633bfb8f01be8ea8fe4a9b3112a7b13e3",
           "formal_consumption": false
         },
         {
@@ -8569,6 +8608,7 @@
             "AXIS-A"
           ],
           "v2_analysis_function_consumers": [
+            "fixtureRecurrenceContext",
             "inspectEye15"
           ],
           "v2_synthesis_consumers": [
@@ -8581,16 +8621,21 @@
         {
           "item_id": "27",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "AXIS-A"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "inspectEye15"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.A"
+          ],
+          "v2_output_hash": "5be762750063851da86edae136f3901d8d35e0ff1d902efb931a2bdc1b059a79",
           "formal_consumption": false
         },
         {
@@ -8653,16 +8698,21 @@
         {
           "item_id": "31",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "AXIS-A"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "inspectEye15"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.A"
+          ],
+          "v2_output_hash": "75da8e1c5ae108f1501991ad23128aa3d911a866ece252261da09f19ad9cf534",
           "formal_consumption": false
         },
         {
@@ -9066,7 +9116,7 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 5,
+          "v2_output_count": 6,
           "v1_consumers": [
             "AXIS-B"
           ],
@@ -9075,7 +9125,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.B"
           ],
-          "v2_output_hash": "e558795b66ce1484748b1a18230eab7986a078871fa59f680614e4a8a02d834f",
+          "v2_output_hash": "8e3dcc5a7d5de4e9b296bc80346776df969336e2ef5c65992cbc4c6810bf6cbe",
           "formal_consumption": false
         },
         {
@@ -9292,6 +9342,7 @@
             "AXIS-D"
           ],
           "v2_analysis_function_consumers": [
+            "fixtureRecurrenceContext",
             "inspectEye15",
             "inspectEye15.counter_and_scenario"
           ],
@@ -9399,6 +9450,7 @@
             "AXIS-D"
           ],
           "v2_analysis_function_consumers": [
+            "fixtureRecurrenceContext",
             "inspectEye15",
             "inspectEye15.counter_and_scenario"
           ],
@@ -9818,18 +9870,24 @@
         {
           "item_id": "96",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "97",
             "EYE-06",
             "AXIS-E"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "inspectEye15",
+            "inspectEye15.counter_and_scenario"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.E"
+          ],
+          "v2_output_hash": "06038641ad1fe5373639d907c56f3d5e8237ca16b6ac78ca8d50824edabbb6b8",
           "formal_consumption": false
         },
         {
@@ -9934,14 +9992,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 8,
+          "v2_output_count": 9,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "c666b41b6c0bc40d65e4790cdd4015e3890d2db74bda30894a19590fb2972b06",
+          "v2_output_hash": "211ba81c71276fa1d41de5ae049fb9260adf87d1b8cd687d1bb05c7813496ad2",
           "formal_consumption": false
         },
         {
@@ -9950,14 +10008,14 @@
           "v2_output": true,
           "presence_change": "NEW_OUTPUT",
           "v1_output_count": 0,
-          "v2_output_count": 3,
+          "v2_output_count": 4,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "51a8a1cb612b80371af3cddda5ddf32bc9ae373150ac9322c978a103e5fdd01b",
+          "v2_output_hash": "6db2b3ecd17d8938ba762b0792260e1aa3cf1ef958510caca2855d06b03009d2",
           "formal_consumption": false
         },
         {
@@ -9999,14 +10057,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 5,
+          "v2_output_count": 8,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "e199d4ef8b1d04b90f93a079eed491e343c6e95b1b96a5465d98dd9e1b7d0c75",
+          "v2_output_hash": "359dcb113a1ed5ad77de0a07606131fc4323eb41bb4f342c31a3fb43349436dd",
           "formal_consumption": false
         },
         {
@@ -10111,14 +10169,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 6,
+          "v2_output_count": 7,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "19fe273802f2b8e02b122786ecac5ef48ff9eb21bf707f8f1dabdd15e7f0fb43",
+          "v2_output_hash": "5b2c5763defa4b496ac7d83c5d996216b3b1dc56b7049fd8f604b25a2e8fe56d",
           "formal_consumption": false
         },
         {
@@ -10143,14 +10201,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 3,
+          "v2_output_count": 4,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "9936e83587af07b907e69afc6798ef2a38953f32b2d2e594ad587754d4bab943",
+          "v2_output_hash": "56b98a4ee90e8625a084b4bce6b9261066d45ce618c0a54f6c5d03b46b7e073e",
           "formal_consumption": false
         }
       ]
@@ -10174,7 +10232,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.A"
           ],
-          "v2_output_hash": "79c8f5e9a062ebbbf52a63ab11d0bbf5367a6ae30f097f50f0adf71825f2d5bb",
+          "v2_output_hash": "c76b973e3252e4976ee908e9d0492d306452538d9a5a6c3ddb51fe07281f6ad4",
           "formal_consumption": false
         },
         {
@@ -10391,18 +10449,24 @@
         {
           "item_id": "14",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "01",
             "EYE-13",
             "AXIS-A"
           ],
-          "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_analysis_function_consumers": [
+            "analyzeTyped01to32.baseBundle",
+            "inspectEye15"
+          ],
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.A"
+          ],
+          "v2_output_hash": "e3bf8bf3b4059b03046fb39941aff6571e91b8c0a5b1a5bbc8c339df4718f3eb",
           "formal_consumption": false
         },
         {
@@ -11072,7 +11136,7 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 5,
+          "v2_output_count": 6,
           "v1_consumers": [
             "AXIS-B"
           ],
@@ -11081,7 +11145,7 @@
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.axis.B"
           ],
-          "v2_output_hash": "58bea89f9098a3455bf9646e88d3d51a5dd1ab39aa2f7b83347dfd48f5fb8883",
+          "v2_output_hash": "1130c919d982ab9b36674eeb5212cd25cfdd2ecb72f56b0dbfe2afccf466f791",
           "formal_consumption": false
         },
         {
@@ -12117,14 +12181,14 @@
           "v2_output": true,
           "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 4,
+          "v2_output_count": 5,
           "v1_consumers": [],
           "v2_analysis_function_consumers": [],
           "v2_synthesis_consumers": [
             "deriveResearchV5.itemRationale",
             "deriveResearchV5.eyeCurrentRelevance"
           ],
-          "v2_output_hash": "d691ebeb2426dc1b661f193cca72dd0472d43bb994086edf844e835abdcbe5eb",
+          "v2_output_hash": "a2037879c2d325ee3a86702375384432504cc103bf35a142699a6823fdf91046",
           "formal_consumption": false
         },
         {
@@ -12891,16 +12955,19 @@
         {
           "item_id": "54",
           "v1_output": true,
-          "v2_output": false,
-          "presence_change": "NO_LONGER_OUTPUT",
+          "v2_output": true,
+          "presence_change": "UNCHANGED",
           "v1_output_count": 1,
-          "v2_output_count": 0,
+          "v2_output_count": 1,
           "v1_consumers": [
             "AXIS-B"
           ],
           "v2_analysis_function_consumers": [],
-          "v2_synthesis_consumers": [],
-          "v2_output_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "v2_synthesis_consumers": [
+            "deriveResearchV5.itemRationale",
+            "deriveResearchV5.axis.B"
+          ],
+          "v2_output_hash": "637f84e7685c9b8bee9e6296af4aead29fc24abc231521ee62df106f9fdaa8e3",
           "formal_consumption": false
         },
         {

@@ -1235,16 +1235,16 @@
     "linked_partial_followups": 12,
     "audit_rows": 805,
     "shared_function_rows": 805,
-    "rows_with_output": 466,
-    "rows_with_structural_refs": 466,
-    "rows_with_actual_research_reads": 466,
+    "rows_with_output": 477,
+    "rows_with_structural_refs": 477,
+    "rows_with_actual_research_reads": 477,
     "formal_consumption": 0
   },
   "rank_candidate": null,
   "eye_candidate": null,
-  "execution_code": "d51fc53280fbe001fd6b66256f110b9147f0ad7a",
-  "ci_run": 45932018604,
-  "ci_job": 140286572419,
+  "execution_code": "c517f11e1469df2ad2880f2ee2b3e48050330d30",
+  "ci_run": 45932370917,
+  "ci_job": 140287673073,
   "named_tests": {
     "T": 15,
     "W": 13,
@@ -1255,9 +1255,9 @@
     "v4": 7,
     "v5": 16,
     "GF": 10,
-    "GS": 12
+    "GS": 14
   },
-  "named_tests_total": 132,
+  "named_tests_total": 134,
   "first_v2_run": {
     "code": "59e72bd623b532e2fda22cca95e37bd29041f9ba",
     "ci_run": 45931685258,
@@ -1271,19 +1271,19 @@
     "post_review_computations": 560
   },
   "read_counts": {
-    "shared": 672,
-    "synthesis": 1220,
+    "shared": 704,
+    "synthesis": 1242,
     "raw": 6
   },
-  "analysis_function_read_rows": 238,
-  "synthesis_read_rows": 466,
+  "analysis_function_read_rows": 248,
+  "synthesis_read_rows": 477,
   "per_horse": [
     {
       "horse_id": "FIXTURE-A",
       "v1_output": 70,
-      "v2_output": 78,
-      "v2_analysis_function_read_rows": 40,
-      "v2_synthesis_read_rows": 78,
+      "v2_output": 80,
+      "v2_analysis_function_read_rows": 42,
+      "v2_synthesis_read_rows": 80,
       "gained_items": [
         "09",
         "25",
@@ -1307,7 +1307,6 @@
         "EYE-10"
       ],
       "lost_items": [
-        "14",
         "20",
         "23",
         "24",
@@ -1316,7 +1315,6 @@
         "69",
         "72",
         "73",
-        "96",
         "97",
         "98"
       ],
@@ -1375,9 +1373,9 @@
     {
       "horse_id": "FIXTURE-B",
       "v1_output": 61,
-      "v2_output": 75,
-      "v2_analysis_function_read_rows": 38,
-      "v2_synthesis_read_rows": 75,
+      "v2_output": 76,
+      "v2_analysis_function_read_rows": 39,
+      "v2_synthesis_read_rows": 76,
       "gained_items": [
         "04",
         "11",
@@ -1400,7 +1398,6 @@
         "EYE-10"
       ],
       "lost_items": [
-        "14",
         "69",
         "73",
         "97",
@@ -1469,9 +1466,9 @@
     {
       "horse_id": "FIXTURE-C",
       "v1_output": 60,
-      "v2_output": 71,
-      "v2_analysis_function_read_rows": 37,
-      "v2_synthesis_read_rows": 71,
+      "v2_output": 72,
+      "v2_analysis_function_read_rows": 38,
+      "v2_synthesis_read_rows": 72,
       "gained_items": [
         "45",
         "46",
@@ -1493,7 +1490,6 @@
         "EYE-15"
       ],
       "lost_items": [
-        "14",
         "32",
         "69",
         "73",
@@ -1555,9 +1551,9 @@
     {
       "horse_id": "FIXTURE-D",
       "v1_output": 65,
-      "v2_output": 74,
-      "v2_analysis_function_read_rows": 38,
-      "v2_synthesis_read_rows": 74,
+      "v2_output": 75,
+      "v2_analysis_function_read_rows": 39,
+      "v2_synthesis_read_rows": 75,
       "gained_items": [
         "04",
         "22",
@@ -1579,7 +1575,6 @@
         "EYE-10"
       ],
       "lost_items": [
-        "14",
         "20",
         "23",
         "32",
@@ -1633,9 +1628,9 @@
     {
       "horse_id": "FIXTURE-E",
       "v1_output": 65,
-      "v2_output": 76,
-      "v2_analysis_function_read_rows": 40,
-      "v2_synthesis_read_rows": 76,
+      "v2_output": 80,
+      "v2_analysis_function_read_rows": 44,
+      "v2_synthesis_read_rows": 80,
       "gained_items": [
         "04",
         "09",
@@ -1661,15 +1656,11 @@
         "EYE-10"
       ],
       "lost_items": [
-        "14",
         "20",
         "23",
-        "27",
-        "31",
         "69",
         "72",
         "73",
-        "96",
         "97",
         "98"
       ],
@@ -1716,9 +1707,9 @@
     {
       "horse_id": "FIXTURE-F",
       "v1_output": 57,
-      "v2_output": 74,
-      "v2_analysis_function_read_rows": 37,
-      "v2_synthesis_read_rows": 74,
+      "v2_output": 75,
+      "v2_analysis_function_read_rows": 38,
+      "v2_synthesis_read_rows": 75,
       "gained_items": [
         "11",
         "24",
@@ -1744,7 +1735,6 @@
         "EYE-15"
       ],
       "lost_items": [
-        "14",
         "32",
         "69",
         "73",
@@ -1805,9 +1795,9 @@
     {
       "horse_id": "FIXTURE-G",
       "v1_output": 21,
-      "v2_output": 18,
+      "v2_output": 19,
       "v2_analysis_function_read_rows": 8,
-      "v2_synthesis_read_rows": 18,
+      "v2_synthesis_read_rows": 19,
       "gained_items": [
         "66",
         "67",
@@ -1820,7 +1810,6 @@
         "34",
         "37",
         "40",
-        "54",
         "68",
         "69",
         "73",
@@ -1842,8 +1831,8 @@
   ],
   "output_presence_comparison": {
     "gained": 125,
-    "lost": 58,
-    "net": 67,
+    "lost": 47,
+    "net": 78,
     "not_accuracy_comparison": true
   },
   "position_grids": {
@@ -1856,5 +1845,15 @@
     "held": 82
   },
   "formal_admissions": 0,
-  "production_changes": false
+  "production_changes": false,
+  "intermediate_v2_capture": "b66b3dc09e3ffa9583480ad7226168e55d8c8ce2",
+  "work_v11": {
+    "candidate_rows": 21,
+    "shape_matches": 21,
+    "historical_number_differences": 17,
+    "unique_historical_races": 20,
+    "verified_acquired_at": 0,
+    "formal_admissions": 0,
+    "scope": "SAVED_ROWS_NOT_INDEPENDENT_RAW_DOM_REVERIFICATION"
+  }
 }
