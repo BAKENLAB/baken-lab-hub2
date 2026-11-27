@@ -1,0 +1,1499 @@
+{
+  "schema": "stage19-saga-recovered-derived-audit-v1.7",
+  "scope": "DERIVED_LOCATORS_ONLY",
+  "target": "LOCAL:2026-10-10:佐賀:11",
+  "source_files": [
+    {
+      "name": "SAGA11_PRERACE_SHADOW_2026-10-10.json",
+      "library_id": "file_00000000c62482098d032974cddca678",
+      "sha256": "60247a3423279141a2deb58db586394ba476d74a7c92d563b8ed139f4b52db2e"
+    },
+    {
+      "name": "SAGA11_PRERACE_SHADOW_2026-10-10(1).json",
+      "library_id": "file_00000000db6c820691d30e8ed395beba",
+      "sha256": "60247a3423279141a2deb58db586394ba476d74a7c92d563b8ed139f4b52db2e"
+    },
+    {
+      "name": "build-saga11-prerace-shadow.mjs",
+      "library_id": "file_0000000009288206b8dfe03cbc2f940f",
+      "sha256": "22d9749f4196f86f82dba51c3d426c641187c04f96d82be4ea11107201b57cb0"
+    },
+    {
+      "name": "SAGA11_PRERACE_SHADOW_REPORT_2026-10-10.md",
+      "library_id": "file_00000000eacc8206b412c52983895cb6",
+      "sha256": "27b3662b05116a6698ff0a009d9dde384656ef396d7abca9ed9e07030b03c8db"
+    },
+    {
+      "name": "SAGA11_PRERACE_REAUDIT_2026-10-10.json",
+      "library_id": "file_00000000eb448206a2003f7d716b04d9",
+      "sha256": "b9a67c5f748613cc3b88566f051689f8337dc47a525d49aea93914520a953ef3"
+    },
+    {
+      "name": "SAGA11_PRERACE_REAUDIT_PACKAGE_2026-10-10.zip",
+      "library_id": "file_0000000096d88209968087b8f2f96926",
+      "sha256": "bd88cb374acc4beed9d2ec1f238014d92181f1704ce24cbfd64685c4ee9e2c5d"
+    },
+    {
+      "name": "SAGA11_PRERACE_REAUDIT_REVIEWED_2026-10-10.zip",
+      "library_id": "file_0000000004ec8209ab08ab1d36a488d1",
+      "sha256": "20cc52b49f3a1245da061a93ad11850e2613f26ec45c9b2bd7a65687a32f6053"
+    }
+  ],
+  "reconstruction": {
+    "actual_existing_original_recovered": true,
+    "original_two_copies_and_regenerated_exact_bytes": true,
+    "zip_integrity_both_pass": true,
+    "reaudit_json_same_in_two_zips_and_library": true,
+    "original_vs_reaudit_all_55_core_values_match": true,
+    "original_race_no_present": 5,
+    "reaudit_race_no_present": 55,
+    "original_race_no_missing": 50,
+    "unique_events": 39,
+    "prior_rows": 55,
+    "corner_rows": 54,
+    "clock_rows": 55,
+    "horse_id_candidates": 11,
+    "raw_official_html_recovered": false,
+    "individual_source_hashes_verified": 0,
+    "claimed_initial_capture": "2026-10-10T00:43:39+09:00",
+    "claimed_race_no_capture": "2026-10-10T00:49:16+09:00",
+    "post": "2026-10-10T20:10:00+09:00",
+    "tests": {
+      "initial_3_pass": 3,
+      "reaudit_and_review_first_run": "6 pass, 1 suite ENOENT because review expected fixture in same dir",
+      "after_exact_file_copy": 30,
+      "source_files_unchanged": true,
+      "not_prediction_accuracy": true
+    }
+  },
+  "target_conditions": {
+    "surface": "ダート",
+    "distance": 1400,
+    "turn": "右",
+    "class_literal": "Ａ２・Ｂ",
+    "going": null,
+    "weather": null
+  },
+  "runners": [
+    {
+      "current_no": 1,
+      "issuer": "NAR",
+      "horse_id_candidate": "30003409076",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30003409076",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/0/recent_card_entries/0",
+          "historical_event": [
+            "2026-08-15",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30003409076",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/0/recent_card_entries/1",
+          "historical_event": [
+            "2026-07-20",
+            "大井",
+            12
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30003409076",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/0/recent_card_entries/2",
+          "historical_event": [
+            "2026-07-02",
+            "大井",
+            10
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30003409076",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/0/recent_card_entries/3",
+          "historical_event": [
+            "2026-03-10",
+            "高知",
+            4
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30003409076",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/0/recent_card_entries/4",
+          "historical_event": [
+            "2026-02-17",
+            "高知",
+            5
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30003409076",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 2,
+      "issuer": "NAR",
+      "horse_id_candidate": "40011403066",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40011403066",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/1/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-19",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40011403066",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/1/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-29",
+            "佐賀",
+            5
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40011403066",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/1/recent_card_entries/2",
+          "historical_event": [
+            "2026-07-16",
+            "佐賀",
+            3
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40011403066",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/1/recent_card_entries/3",
+          "historical_event": [
+            "2026-06-25",
+            "浦和",
+            11
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40011403066",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/1/recent_card_entries/4",
+          "historical_event": [
+            "2026-04-21",
+            "浦和",
+            12
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40011403066",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 3,
+      "issuer": "NAR",
+      "horse_id_candidate": "40060402976",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40060402976",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/2/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-20",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40060402976",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/2/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-15",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40060402976",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/2/recent_card_entries/2",
+          "historical_event": [
+            "2026-07-11",
+            "佐賀",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40060402976",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/2/recent_card_entries/3",
+          "historical_event": [
+            "2026-06-21",
+            "佐賀",
+            3
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40060402976",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/2/recent_card_entries/4",
+          "historical_event": [
+            "2026-05-30",
+            "佐賀",
+            4
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40060402976",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 4,
+      "issuer": "NAR",
+      "horse_id_candidate": "30035405986",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30035405986",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/3/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-26",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30035405986",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/3/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-29",
+            "佐賀",
+            4
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30035405986",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/3/recent_card_entries/2",
+          "historical_event": [
+            "2026-08-16",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30035405986",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/3/recent_card_entries/3",
+          "historical_event": [
+            "2026-05-09",
+            "佐賀",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30035405986",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/3/recent_card_entries/4",
+          "historical_event": [
+            "2026-04-25",
+            "佐賀",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30035405986",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 5,
+      "issuer": "NAR",
+      "horse_id_candidate": "30014400486",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30014400486",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/4/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-19",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30014400486",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/4/recent_card_entries/1",
+          "historical_event": [
+            "2026-09-03",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30014400486",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/4/recent_card_entries/2",
+          "historical_event": [
+            "2026-05-03",
+            "佐賀",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30014400486",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/4/recent_card_entries/3",
+          "historical_event": [
+            "2026-04-18",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30014400486",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/4/recent_card_entries/4",
+          "historical_event": [
+            "2026-04-05",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30014400486",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 6,
+      "issuer": "NAR",
+      "horse_id_candidate": "30086402866",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30086402866",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/5/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-19",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30086402866",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/5/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-29",
+            "佐賀",
+            5
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30086402866",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/5/recent_card_entries/2",
+          "historical_event": [
+            "2026-08-08",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30086402866",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/5/recent_card_entries/3",
+          "historical_event": [
+            "2026-07-04",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30086402866",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/5/recent_card_entries/4",
+          "historical_event": [
+            "2026-06-18",
+            "名古屋",
+            10
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30086402866",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 7,
+      "issuer": "NAR",
+      "horse_id_candidate": "30092401666",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30092401666",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/6/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-19",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30092401666",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/6/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-29",
+            "佐賀",
+            5
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30092401666",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/6/recent_card_entries/2",
+          "historical_event": [
+            "2026-08-15",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30092401666",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/6/recent_card_entries/3",
+          "historical_event": [
+            "2026-07-04",
+            "佐賀",
+            3
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30092401666",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/6/recent_card_entries/4",
+          "historical_event": [
+            "2026-06-13",
+            "佐賀",
+            4
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30092401666",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 8,
+      "issuer": "NAR",
+      "horse_id_candidate": "40081403946",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40081403946",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/7/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-20",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40081403946",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/7/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-30",
+            "佐賀",
+            6
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40081403946",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/7/recent_card_entries/2",
+          "historical_event": [
+            "2026-08-08",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40081403946",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/7/recent_card_entries/3",
+          "historical_event": [
+            "2026-07-11",
+            "佐賀",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40081403946",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/7/recent_card_entries/4",
+          "historical_event": [
+            "2026-02-18",
+            "大井",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=40081403946",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 9,
+      "issuer": "NAR",
+      "horse_id_candidate": "30088408796",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30088408796",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/8/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-19",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30088408796",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/8/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-30",
+            "佐賀",
+            6
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30088408796",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/8/recent_card_entries/2",
+          "historical_event": [
+            "2026-08-08",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30088408796",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/8/recent_card_entries/3",
+          "historical_event": [
+            "2026-07-05",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30088408796",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/8/recent_card_entries/4",
+          "historical_event": [
+            "2026-06-21",
+            "佐賀",
+            3
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30088408796",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 10,
+      "issuer": "NAR",
+      "horse_id_candidate": "30026408496",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30026408496",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/9/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-19",
+            "佐賀",
+            3
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30026408496",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/9/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-29",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30026408496",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/9/recent_card_entries/2",
+          "historical_event": [
+            "2026-08-09",
+            "佐賀",
+            10
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30026408496",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/9/recent_card_entries/3",
+          "historical_event": [
+            "2026-07-11",
+            "J小倉",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30026408496",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/9/recent_card_entries/4",
+          "historical_event": [
+            "2026-05-09",
+            "J新潟",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30026408496",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    },
+    {
+      "current_no": 11,
+      "issuer": "NAR",
+      "horse_id_candidate": "30098407876",
+      "profile_url": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30098407876",
+      "card_claimed_capture": "2026-10-10T00:43:39+09:00",
+      "active_status": "STORED_TRANSCRIPTION_NOT_AUTHENTICATED",
+      "current_card_raw": null,
+      "histories": [
+        {
+          "json_pointer": "/runners/10/recent_card_entries/0",
+          "historical_event": [
+            "2026-09-20",
+            "佐賀",
+            7
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30098407876",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/10/recent_card_entries/1",
+          "historical_event": [
+            "2026-08-29",
+            "佐賀",
+            4
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30098407876",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/10/recent_card_entries/2",
+          "historical_event": [
+            "2026-08-15",
+            "佐賀",
+            9
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30098407876",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/10/recent_card_entries/3",
+          "historical_event": [
+            "2026-06-20",
+            "佐賀",
+            10
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30098407876",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        },
+        {
+          "json_pointer": "/runners/10/recent_card_entries/4",
+          "historical_event": [
+            "2026-05-31",
+            "佐賀",
+            8
+          ],
+          "race_no_source": "https://www.keiba.go.jp/KeibaWeb/DataRoom/HorseMarkInfo?k_lineageLoginCode=30098407876",
+          "race_no_claimed_at": "2026-10-10T00:49:16+09:00",
+          "available_fields": [
+            "distance",
+            "going",
+            "finish",
+            "time",
+            "passing_order",
+            "final3f"
+          ],
+          "official_original_hash": null,
+          "publication_at": null,
+          "source_scope": "STORED_DERIVED_TRANSCRIPTION",
+          "formal_usable": false
+        }
+      ],
+      "missing": [
+        "native source bytes and profile evidence",
+        "current going/weather",
+        "final active roster verification",
+        "individual historical runner number and full result witness",
+        "permission"
+      ]
+    }
+  ],
+  "missing": [
+    "native prestart HTML and official profiles/result rows",
+    "final roster status",
+    "current weather and going",
+    "source permission",
+    "historical margin, race laps and weights absent in recovered history schema"
+  ],
+  "permission": "NOT_CLEARED",
+  "formal_admissions": 0,
+  "production_changes": 0,
+  "limits": [
+    "All actual historical performance values remain within prior Library and local authorized audit; no full historical values exported. Code is hardcoded transcription, not source capture; claimed source URLs/clock are not proof. Tests evaluate structure and fixtures only. Reviewed original ZIP did not include first shadow JSON; recovered from Library and exact copy used. One missing passing order horse4 fifth prior. No network execution of historic collector or refresh."
+  ]
+}
