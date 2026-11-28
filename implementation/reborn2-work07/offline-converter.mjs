@@ -37,16 +37,6 @@ function jraRace(v,role){
  return {venueId:m[2],track:JRA[Number(m[2])-1],dateJst:date,raceNo:Number(m[6])};
 }
 const ptr=(row,field)=>JSON.stringify({row,field});
-const allowed=(x,ks)=>{need(x&&typeof x==='object'&&!Array.isArray(x)&&Object.keys(x).every(k=>ks.includes(k)),'UNAPPROVED_SOURCE_FIELD');};
-function cardPost(v,date){
- if(validTime(v))return v;
- // Only explicit documented local time literals; not an arbitrary date parser.
- need(typeof v==='string'&&/^(?:[01]?\d|2[0-3]):[0-5]\d$/.test(v),'JRA_POST_LITERAL');
- const [h,m]=v.split(':');return new Date(date+'T'+h.padStart(2,'0')+':'+m+':00+09:00').toISOString();
-}
-const raceKeys=['race_date','track','race_no','surface','turn','distance','going','class_name','field_size'];
-const runnerKeys=['horse_no','horse_ref','horse_name','draw','weight_carried','body_weight','body_weight_diff','sex_age','equipment'];
-
 const scopeKeys=['schema','scope','circuit','targetId','cutoff','scheduledPost','startLower','events','roster','documents','rowWitnesses'];
 const eventKeys=supplyContract.package.event;
 const docKeys=supplyContract.package.document.concat(['format','encoding','venueLiteral']);
@@ -56,12 +46,12 @@ function convert(m,raws,{fixture=false}={}){
  need(m.scope===(fixture?'EXISTING_WORK44_FIXTURE':'APPROVED_LOCAL_SOURCE'),'SOURCE_SCOPE');
  const {circuit,targetId,cutoff,scheduledPost,startLower}=m;
  need(['JRA','LOCAL'].includes(circuit)&&[cutoff,scheduledPost,startLower].every(validTime)&&Date.parse(cutoff)<Date.parse(startLower)&&Date.parse(startLower)<=Date.parse(scheduledPost),'TIME_BOUNDARY');
- const es=new Map(),ds=new Map(),rowMap=new Map(),facts=new Map(),seenRows=new Map(),cardRows=new Set();
+ const es=new Map(),ds=new Map(),rowMap=new Map(),facts=new Map(),seenRows=new Map();
  need([m.events,m.roster,m.documents,m.rowWitnesses].every(Array.isArray),'MANIFEST_ARRAY');
  for(const e of m.events){exact(e,eventKeys);need(!es.has(e.id)&&e.issuer===(circuit==='JRA'?'JRA':'NAR'),'EVENT_ID');if(!fixture)need(!String(e.nativeId).startsWith('TEST:'),'FIXTURE_ID');es.set(e.id,e);}
  const target=es.get(targetId);need(target?.role==='TARGET_CARD'&&jst(scheduledPost)===target.dateJst,'TARGET_DATE');
  for(const w of m.rowWitnesses){exact(w,rowKeys);const k=JSON.stringify([w.eventId,w.horseNo]);need(es.has(w.eventId)&&!rowMap.has(k)&&num(w.horseNo,1,24)!==null&&typeof w.horseId==='string'&&w.horseId&&typeof w.proofRef==='string'&&w.proofRef,'ROW_WITNESS');if(!fixture)need(!w.horseId.startsWith('TEST:'),'FIXTURE_HORSE');rowMap.set(k,w);}
- const bind=(d,no,name,key=null)=>{const w=rowMap.get(JSON.stringify([d.eventId,no]));need(w&&w.displayName===name&&(key===null||w.horseId===key),'HORSE_ROW_WITNESS');const k=JSON.stringify([d.id,no]);need(!seenRows.has(k),'DUPLICATE_RAW_ROW');seenRows.set(k,w);if(d.role==='TARGET_CARD'&&d.format!=='OFFICIAL_CARD_STATUS_PROJECTION_1')cardRows.add(w.horseId);return w;};
+ const bind=(d,no,name,key=null)=>{const w=rowMap.get(JSON.stringify([d.eventId,no]));need(w&&w.displayName===name&&(key===null||w.horseId===key),'HORSE_ROW_WITNESS');const k=JSON.stringify([d.id,no]);need(!seenRows.has(k),'DUPLICATE_RAW_ROW');seenRows.set(k,w);return w;};
  for(const d of m.documents){exact(d,docKeys);need(!ds.has(d.id)&&es.get(d.eventId)?.role===d.role&&hex(d.sha256),'DOCUMENT_BINDING');ds.set(d.id,d);}
  need(raws instanceof Map&&raws.size===ds.size,'RAW_INVENTORY');
  const emit=(d,w,field,v,rawPointer,rawPresent=true)=>{
@@ -93,7 +83,7 @@ function convert(m,raws,{fixture=false}={}){
      for(const [i,f,fn] of [[21,'surfaceLiteral',surface],[22,'directionLiteral',direction],[23,'distanceM',x=>num(x,600,5000)],[25,'goingLiteral',going],[26,'declaredCount',x=>num(x,1,24)],[27,'classLiteral',lit]])put(d,null,f,a[i],fn,p(i+1));
      if(d.role==='HISTORICAL_RESULT'){
       put(d,null,'leaderLapSlots',a.slice(35,50),splitLaps,p(Array.from({length:15},(_,i)=>36+i)));
-      const groups=a.slice(58,66);put(d,null,'cornerGroupSlots',groups,x=>x.some(Boolean)&&x.every(v=>v===''||corner(v)!==null)?x.map(v=>v===''?null:corner(v)):null,p(Array.from({length:8},(_,i)=>59+i)));
+      const groups=a.slice(58,66);put(d,null,'cornerGroupSlots',groups,x=>x.some(Boolean)&&x.every(v=>v===''||corner(v)!==null)?x.map(v=>v===''?null:corner(v)):null,p(Array.from({length:16},(_,i)=>51+i)));
      }
     }
    }
@@ -128,30 +118,6 @@ function convert(m,raws,{fixture=false}={}){
     emit(d,w,'cornerPositionsLiteral',consecutive?cs.map(c=>c.position).join(','):null,JSON.stringify({row:'evidence.packet.evidence/'+i,field:'corners',cornerLabels:cs.map(c=>c.corner),sourceRef:x.sourceRef,sourceCheckedAt:x.sourceCheckedAt}),true);n++;
    }
    need(n>0,'LOCAL_SNAPSHOT_NO_MATCHED_ROWS');
-  }else if(d.format==='OFFICIAL_CARD_STATUS_PROJECTION_1'){
-   // Independently approved immutable projection of official card/cancellation
-   // source. This does not make the projection itself the official original.
-   need(d.role==='TARGET_CARD'&&d.encoding==='UTF8','STATUS_CARD_ROLE');
-   const z=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw));
-   exact(z,['nativeRaceId','dateJst','venueId','raceNo','scheduledPost','checkedAt','sourceRef','rows']);
-   need(z.nativeRaceId===e.nativeId&&z.dateJst===e.dateJst&&z.venueId===e.venueId&&z.raceNo===e.raceNo&&z.scheduledPost===scheduledPost&&validTime(z.checkedAt)&&Date.parse(z.checkedAt)<=Date.parse(d.capturedAt)&&Date.parse(z.checkedAt)<=Date.parse(cutoff)&&z.sourceRef===d.sourceRef,'STATUS_CARD_BINDING');
-   const url=new URL(z.sourceRef);
-   need(url.protocol==='https:'&&!url.username&&!url.password&&!url.port&&!url.hash,'STATUS_URL');
-   if(circuit==='JRA'){
-    need(url.hostname==='www.jra.go.jp'&&url.pathname==='/JRADB/accessD.html'&&url.searchParams.size===1&&url.searchParams.has('CNAME'),'JRA_STATUS_URL');
-    const ri=jraRace(url.searchParams.get('CNAME'),'TARGET_CARD');need(ri.dateJst===e.dateJst&&ri.venueId===e.venueId&&ri.raceNo===e.raceNo,'STATUS_EVENT');
-   }else{
-    const expected=new URL('https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable');
-    expected.searchParams.set('k_babaCode',e.venueId);expected.searchParams.set('k_raceDate',e.dateJst.replaceAll('-','/'));expected.searchParams.set('k_raceNo',String(e.raceNo));
-    need(url.href===expected.href,'NAR_STATUS_URL');
-   }
-   need(Array.isArray(z.rows)&&z.rows.length===m.roster.length,'STATUS_FULL_ROSTER');
-   for(const [i,h] of z.rows.entries()){
-    exact(h,['horseNo','horseId','displayName','status']);need(['ACTIVE','CANCELLED','UNKNOWN'].includes(h.status),'STATUS_LITERAL');
-    const w=bind(d,h.horseNo,h.displayName,h.horseId);
-    need(m.roster.some(q=>q.horseId===w.horseId&&q.horseNo===w.horseNo),'STATUS_ROSTER_ROW');
-    put(d,w,'status',h.status,x=>choice(x,['ACTIVE','CANCELLED','UNKNOWN']),ptr('rows/'+i,'status'));
-   }
   }else if(d.format==='JRA_STORED_ROW_JSON_1'){
    // An independently authorized immutable export of existing table rows.
    // This is not a parser of arbitrary JRA HTML; historical race rows and
@@ -159,24 +125,21 @@ function convert(m,raws,{fixture=false}={}){
    // or raw free text as proof of a different event.
    need(circuit==='JRA'&&d.encoding==='UTF8','JRA_FORMAT');
    const z=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw));exact(z,['race','runners']);need(z.race&&Array.isArray(z.runners),'ROW_EXPORT');
-   const q=z.race,card=d.role==='TARGET_CARD';allowed(q,raceKeys.concat(card?['cname','post_time']:['source_ref','halon_times']));
-   if(card)need(cardPost(q.post_time,e.dateJst)===scheduledPost,'JRA_TARGET_POST_MISMATCH');
-   const ref=card?q.cname:q.source_ref,ri=jraRace(ref,d.role);
+   const q=z.race,ref=d.role==='TARGET_CARD'?q.cname:q.source_ref,ri=jraRace(ref,d.role);
    need(ri.dateJst===e.dateJst&&ri.venueId===e.venueId&&ri.raceNo===e.raceNo&&q.race_date===e.dateJst&&q.track===ri.track&&q.race_no===e.raceNo&&d.venueLiteral===ri.track,'JRA_EVENT_ROW_BINDING');
    // Source descriptor must bind the actual ref, not just date/track.
    need(d.sourceRef===ref||d.sourceRef==='https://www.jra.go.jp/JRADB/access'+(d.role==='TARGET_CARD'?'D':'S')+'.html?CNAME='+ref.replace(/^\/JRADB\/access[DS]\.html\?CNAME=/,''),'JRA_DOCUMENT_REF');
    for(const [k,f,fn] of [['surface','surfaceLiteral',surface],['turn','directionLiteral',direction],['distance','distanceM',x=>num(x,600,5000)],['going','goingLiteral',going],['class_name','classLiteral',lit],['field_size','declaredCount',x=>num(x,1,24)]])put(d,null,f,q[k],fn,ptr('race',k));
    if(d.role==='HISTORICAL_RESULT')put(d,null,'leaderLapSlots',q.halon_times,splitLaps,ptr('race','halon_times'));
    for(const [i,h] of z.runners.entries()){
-    allowed(h,runnerKeys.concat(card?[]:['finish','time_raw','margin','final3f','corner_positions']));
     const no=num(h.horse_no,1,24),hk=jraHorse(h.horse_ref);need(no!==null&&hk!==null,'JRA_NATIVE_HORSE_REF');const w=bind(d,no,h.horse_name,hk);
-    for(const [k,f,fn] of [['horse_name','displayName',lit],['draw','gate',x=>num(x,1,8)],['weight_carried','weightG',x=>scaled(x,30000,90000)],['body_weight','bodyWeightKg',x=>num(x,200,900)],['body_weight_diff','bodyWeightDeltaKg',x=>num(x,-100,100)],['sex_age','sexAge',x=>/^[牡牝セ騸]\d{1,2}$/.test(x)?x:null],['equipment','equipmentLiteral',lit]])put(d,w,f,h[k],fn,ptr('runners/'+i,k));
+    for(const [k,f,fn] of [['horse_name','displayName',lit],['draw','gate',x=>num(x,1,8)],['weight_carried','weightG',x=>scaled(x,30000,90000)],['body_weight','bodyWeightKg',x=>num(x,200,900)],['body_weight_diff','bodyWeightDeltaKg',x=>num(x,-100,100)],['sex_age','sexAge',x=>/^[牡牝セ騸]\d{1,2}$/.test(x)?x:null],['equipment','equipmentLiteral',lit],['status','status',x=>choice(x,['ACTIVE','CANCELLED','UNKNOWN'])]])put(d,w,f,h[k],fn,ptr('runners/'+i,k));
     if(d.role==='HISTORICAL_RESULT')for(const [k,f,fn] of [['finish','finish',x=>num(x,1,24)],['time_raw','finishClockLiteral',clock],['margin','officialMarginLiteral',margin],['final3f','final600Ms',x=>scaled(x,10000,300000)],['corner_positions','cornerPositionsLiteral',corner]])put(d,w,f,h[k],fn,ptr('runners/'+i,k));
    }
   }else throw Error('UNSUPPORTED_SOURCE_FORMAT');
  }
  // Check every current roster row against actual extracted horse rows.
- const targetSeen=cardRows;
+ const targetSeen=new Set([...seenRows].filter(([k,w])=>w.eventId===targetId).map(([k,w])=>w.horseId));
  need(targetSeen.size===m.roster.length&&m.roster.every(h=>targetSeen.has(h.horseId)&&rowMap.get(JSON.stringify([targetId,h.horseNo]))?.horseId===h.horseId),'TARGET_ROSTER_COVERAGE');
  const observations=[],sourceStates=[];
  for(const arr of facts.values()){
