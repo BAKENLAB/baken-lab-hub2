@@ -15,7 +15,7 @@ import {convertExistingWork44 as convert07,convertApprovedLocal as local07} from
 import {convertExistingWork44 as convert08,convertApprovedLocal as local08} from '../reborn2-work08/offline-converter.mjs';
 export const WORK08='767a8e0bb90bd178e260d6b4b8bcc86fe341520e';
 import {convertApprovedLocal as local11} from '../reborn2-work11/offline-converter.mjs';
-const pins={'11':'a7e9b8d19a3363f1067341f8487933aeb4082fe1','07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
+const pins={'11':'2854de5e9c8a7f3730e0cb29b5abeda4c4f38195','07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
 for(const v of ['07','08','11']){
  const bytes=readFileSync(new URL('../reborn2-work'+v+'/offline-converter.mjs',import.meta.url));
  assert.equal(createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex'),pins[v],'CONVERTER_PIN');
