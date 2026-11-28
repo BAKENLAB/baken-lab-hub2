@@ -16,7 +16,8 @@ for(const v of ['07','08']){
  const bytes=readFileSync(new URL('../reborn2-work'+v+'/offline-converter.mjs',import.meta.url));
  assert.equal(createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex'),pins[v],'CONVERTER_PIN');
 }
-const names=new Map(JSON.parse(readFileSync(new URL('./work04-source-map.json',import.meta.url))).items.map(i=>[i.id.startsWith('EYE-')?i.id.replace('-',''):'RANK'+i.id,i.name]));
+const planning=new Map(JSON.parse(readFileSync(new URL('./work04-source-map.json',import.meta.url))).items.map(i=>[i.id.startsWith('EYE-')?i.id.replace('-',''):'RANK'+i.id,i]));
+const names=new Map([...planning].map(([id,i])=>[id,i.name]));
 const key=(...x)=>JSON.stringify(x),hex=x=>typeof x==='string'&&/^[a-f0-9]{64}$/.test(x);
 const exact=(o,keys)=>{assert.ok(o&&typeof o==='object'&&!Array.isArray(o));assert.deepEqual(Object.keys(o).sort(),[...keys].sort(),'GRAPH_EXACT_FIELDS');};
 const index=(xs,f)=>{const m=new Map(xs.map(x=>[f(x),x]));assert.equal(m.size,xs.length,'GRAPH_DUPLICATE_KEY');return m;};
@@ -164,6 +165,34 @@ export function issueNativeGraph(request){
  assert.ok(Date.now()<Date.parse(g.pkg.startLower),'NATIVE_POST_BOUNDARY');
  return issue(g,{fixture:false,approvalDigest});
 }
+// Review preparation deliberately does not issue a graph, run analysis, sign,
+// install authority, or persist. The independent source reviewer must obtain
+// source trust OUTSIDE this API and already have authorized local raw bytes.
+// Its caller-supplied trust is not used by issueNativeGraph.
+export function prepareNativeReviewOffline({version,signedManifest,raws,sourceTrust}){
+ assert.ok(['07','08'].includes(version));
+ exact(sourceTrust,['authorityPublicKeyPem','expectedManifestSha256']);
+ const manifestDigest=sha(signedManifest.payload);
+ assert.equal(manifestDigest,sourceTrust.expectedManifestSha256,'REVIEW_SOURCE_PIN');
+ const x=(version==='08'?local08:local07)(signedManifest,raws,sourceTrust);
+ assert.equal(x.scope,'LOCAL_EXTRACTION_NOT_ADMISSION');
+ const g=build(x,signedManifest.payload.rowWitnesses,{fixture:false,version,manifestDigest});
+ return reviewPreparation(g);
+}
+function reviewPreparation(g){
+ const closure=validateGraphClosure(g.packet),m=g.metadata;
+ const documents=g.pkg.documents.map(d=>({id:d.id,eventId:d.eventId,role:d.role,sha256:d.sha256,sourceRef:d.sourceRef,version:d.version,publishedAt:d.publishedAt,updatedAt:d.updatedAt,capturedAt:d.capturedAt,uncertaintyMs:d.uncertaintyMs,supersedes:d.supersedes,permissionRef:d.permissionRef,custodyRef:d.custodyRef}));
+ return {schema:'REBORN2_OFFLINE_REVIEW_DRAFT_1',scope:'LOCAL_REVIEW_ONLY_NOT_AUTHORITY',metadata:structuredClone(m),closure,documents,facts:structuredClone(g.facts),roots:structuredClone(g.packet.roots),requiredIndependentReviews:['rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest'],approvalPayloadBase:Object.fromEntries(['engineCommit','converterBlob','manifestDigest','packageDigest','sourceStatesDigest','sourceGraphDigest','factsDigest','rosterDigest','canonicalRaceKey'].map(k=>[k,m[k]])),analysisExecuted:false,approvalIssued:false,realAdmission:false,persistenceAllowed:false};
+}
+// Fixed fixture verifies reviewer and issuance calculate the same digests;
+// this is not a native approval and cannot register a capability.
+export function exerciseExistingReviewPreparation(version='08'){
+ assert.ok(['07','08'].includes(version));
+ const {b,trust}=partialFixture(),x=(version==='08'?convert08:convert07)(b,trust);
+ const witnesses=b.identity.payload.rows.map(w=>({eventId:w.eventId,horseNo:w.no,horseId:w.horseId,displayName:w.displayName,proofRef:trust.expectedIdentitySha256}));
+ return reviewPreparation(build(x,witnesses,{fixture:true,version,manifestDigest:trust.expectedManifestSha256}));
+}
+
 const lookup=c=>{const x=registry.get(c);assert.ok(x,'ISSUED_GRAPH_CAPABILITY_REQUIRED');return x;};
 export function readIssuedGraph(c){return structuredClone(lookup(c));}
 export function reviewAllHorses(c){
@@ -172,9 +201,40 @@ export function reviewAllHorses(c){
  return {horseId:h.horseId,horseNo:h.horseNo,displayName:card.observations.displayName?.value??null,status:h.status,grade:runner.grade,formalGrade:null,findings:runner.analysisItems.filter(i=>i.partialFindings.length).map(i=>({item:i.item,name:names.get(i.item),state:i.state,count:i.partialFindings.length})),held:runner.analysisItems.filter(i=>!i.partialFindings.length).length,axes:runner.ability.axes.map(a=>({axis:a.axis,state:a.state,count:a.observations.length})),winPaths:[],placePaths:[]};
  })});
 }
+// Source pointers are material candidates, never evidence of an item judgment.
+// Map all 115 items to their existing canonical group; narrow key routes
+// when the actual item is about a particular reported quantity.
+const groupFields=Object.freeze({
+ history:['finish','finishClockLiteral','officialMarginLiteral','final600Ms','cornerPositionsLiteral'],
+ peer:['finish','finishClockLiteral','officialMarginLiteral','final600Ms','declaredCount','status'],
+ history_compare:['finish','finishClockLiteral','officialMarginLiteral','final600Ms','cornerPositionsLiteral','cornerGroupSlots','leaderLapSlots','surfaceLiteral','distanceM','goingLiteral','directionLiteral','classLiteral','gate','weightG','status','declaredCount'],
+ split_or_context:['cornerPositionsLiteral','cornerGroupSlots','leaderLapSlots','final600Ms','finishClockLiteral','distanceM','courseVersion','declaredCount'],
+ course:['distanceM','surfaceLiteral','directionLiteral','goingLiteral','courseVersion','gate'],
+ class_rules:['classLiteral','courseVersion','finish','declaredCount'],
+ rating:[],incident:[],day:[],training:[],people:[],pedigree:[],travel:[]
+});
+const specific=Object.freeze({
+ RANK02:['finish','declaredCount','status'],RANK03:['officialMarginLiteral','finishClockLiteral','finish'],RANK05:['finishClockLiteral'],RANK06:['final600Ms'],RANK08:['finishClockLiteral','final600Ms','cornerPositionsLiteral','leaderLapSlots','courseVersion'],RANK17:['cornerPositionsLiteral','cornerGroupSlots'],RANK18:['cornerPositionsLiteral','cornerGroupSlots','declaredCount'],RANK19:['leaderLapSlots','distanceM'],RANK35:['finish','final600Ms','status','declaredCount'],RANK43:['distanceM'],RANK47:['surfaceLiteral'],RANK48:['goingLiteral'],RANK49:['directionLiteral','courseVersion'],RANK54:['weightG'],RANK81:['bodyWeightKg','bodyWeightDeltaKg'],EYE02:['finish','final600Ms','declaredCount','status']
+});
+function materialTrace(x,horseId,item){
+ const meta=planning.get(item),fields=specific[item]??groupFields[meta.group]??[];
+ const events=x.packet.events.filter(e=>e.rows.some(r=>r.nativeId===horseId));
+ const relevant=new Set(events.map(e=>e.eventId));
+ const facts=x.facts.filter(f=>{const [e,h,k]=JSON.parse(f.key);return relevant.has(e)&&(h===null||h===horseId)&&fields.includes(k);});
+ const m=new Map(x.packet.roots.map(r=>[r.id,r])),refs=new Set();
+ function visit(id){if(refs.has(id))return;const n=m.get(id);assert.ok(n,'TRACE_ROOT');refs.add(id);n.depends.forEach(visit);}
+ for(const f of facts){visit(f.factId);f.sourceRefs.forEach(visit);}
+ const trace=facts.map(f=>{const [eventId,subject,field]=JSON.parse(f.key);return {eventId,subject,field,state:f.state,value:f.value,reason:f.reason,factId:f.factId,sourceRefs:f.sourceRefs,chosenRefs:f.chosenRefs,sourcePresent:f.sourceRefs.length>0};});
+ return {group:meta.group,fields,trace,roots:[...refs].map(id=>m.get(id)),absentFields:fields.filter(f=>!trace.some(t=>t.field===f)),scope:'SOURCE_MATERIAL_ONLY_NOT_ITEM_SUPPORT'};
+}
+export function reviewHorseItems(c,horseId){
+ const x=lookup(c),h=x.runners.find(h=>h.horse===horseId);assert.ok(h,'HORSE_NOT_IN_ISSUED_ROSTER');
+ return structuredClone(h.analysisItems.map(i=>({item:i.item,name:names.get(i.item),state:i.state,findings:i.partialFindings.length})));
+}
+
 export function reviewHorseItem(c,horseId,item){
  const x=lookup(c),h=x.runners.find(h=>h.horse===horseId);assert.ok(h,'HORSE_NOT_IN_ISSUED_ROSTER');
  const i=h.analysisItems.find(i=>i.item===item);assert.ok(i,'UNKNOWN_ITEM');
  const refs=new Set(i.partialFindings.flatMap(f=>f.refs));
- return structuredClone({horseId,item,name:names.get(item),state:i.state,findings:i.partialFindings,roots:x.packet.roots.filter(r=>refs.has(r.id)),hold:i.reason,materialHolds:x.availability.requirements.filter(q=>q.items.includes(item)),formal:false});
+ return structuredClone({horseId,item,name:names.get(item),state:i.state,findings:i.partialFindings,roots:x.packet.roots.filter(r=>refs.has(r.id)),hold:i.reason,materialTrace:materialTrace(x,horseId,item),materialHolds:x.availability.requirements.filter(q=>q.items.includes(item)),formal:false});
 }
