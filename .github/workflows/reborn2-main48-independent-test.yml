@@ -1,4 +1,4 @@
-name: REBORN2 practical Test04 independent
+name: REBORN2 NORMAL Test05 independent
 on:
   pull_request:
     branches: [research/reborn2-main48-test-ci-base]
@@ -19,25 +19,25 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 regression fixed independent
+      - name: Test05 regression fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-regression.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa > "$RUNNER_TEMP/regression.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-regression.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/regression.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/regression.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-regression
+          name: reborn2-test05-regression
           path: ${{ runner.temp }}/regression.log
 
   original-negatives:
@@ -54,25 +54,25 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 original-negatives fixed independent
+      - name: Test05 original-negatives fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test01-negative.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa > "$RUNNER_TEMP/original-negatives.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test01-negative.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/original-negatives.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/original-negatives.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-original-negatives
+          name: reborn2-test05-original-negatives
           path: ${{ runner.temp }}/original-negatives.log
 
   integrity:
@@ -89,25 +89,25 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 integrity fixed independent
+      - name: Test05 integrity fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-integrity.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa > "$RUNNER_TEMP/integrity.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-integrity.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/integrity.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/integrity.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-integrity
+          name: reborn2-test05-integrity
           path: ${{ runner.temp }}/integrity.log
 
   native-full:
@@ -124,25 +124,25 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 native-full fixed independent
+      - name: Test05 native-full fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-native-full.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa > "$RUNNER_TEMP/native-full.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-native-full.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/native-full.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/native-full.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-native-full
+          name: reborn2-test05-native-full
           path: ${{ runner.temp }}/native-full.log
 
   browser:
@@ -159,25 +159,25 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 browser fixed independent
+      - name: Test05 browser fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-browser-retry.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa > "$RUNNER_TEMP/browser.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-browser-retry.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/browser.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/browser.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-browser
+          name: reborn2-test05-browser
           path: ${{ runner.temp }}/browser.log
 
   timestamp:
@@ -194,25 +194,25 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 timestamp fixed independent
+      - name: Test05 timestamp fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-timestamp.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa > "$RUNNER_TEMP/timestamp.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-timestamp.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/timestamp.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/timestamp.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-timestamp
+          name: reborn2-test05-timestamp
           path: ${{ runner.temp }}/timestamp.log
 
   work07-partial:
@@ -229,25 +229,25 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 work07-partial fixed independent
+      - name: Test05 work07-partial fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-partial.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa > "$RUNNER_TEMP/work07-partial.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-partial.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/work07-partial.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/work07-partial.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-work07-partial
+          name: reborn2-test05-work07-partial
           path: ${{ runner.temp }}/work07-partial.log
 
   graph-full:
@@ -264,25 +264,25 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 graph-full fixed independent
+      - name: Test05 graph-full fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-graph.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa FK34_FULL > "$RUNNER_TEMP/graph-full.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-graph.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 FK34_FULL > "$RUNNER_TEMP/graph-full.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/graph-full.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-graph-full
+          name: reborn2-test05-graph-full
           path: ${{ runner.temp }}/graph-full.log
 
   graph-unknown:
@@ -299,23 +299,93 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 2b47d6cb33c0268b566cc1638d7493c55d7896fa
-          path: fixed-codex06
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
           fetch-depth: 0
           persist-credentials: false
-      - name: Test04 graph-unknown fixed independent
+      - name: Test05 graph-unknown fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-graph.mjs fixed-codex06 2b47d6cb33c0268b566cc1638d7493c55d7896fa FK34_UNKNOWN > "$RUNNER_TEMP/graph-unknown.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-graph.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 FK34_UNKNOWN > "$RUNNER_TEMP/graph-unknown.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/graph-unknown.log"
-          echo "TEST04_EXIT=$rc"
+          echo "TEST05_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test04-graph-unknown
+          name: reborn2-test05-graph-unknown
           path: ${{ runner.temp }}/graph-unknown.log
+
+  normal-source:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test05 normal-source fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test05-source.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/normal-source.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-source.log"
+          echo "TEST05_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test05-normal-source
+          path: ${{ runner.temp }}/normal-source.log
+
+  normal-analysis:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: a1b9221b796641317931193c014c758f3a83b872
+          path: fixed-codex09
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test05 normal-analysis fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test05-analysis.mjs fixed-codex09 a1b9221b796641317931193c014c758f3a83b872 > "$RUNNER_TEMP/normal-analysis.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-analysis.log"
+          echo "TEST05_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test05-normal-analysis
+          path: ${{ runner.temp }}/normal-analysis.log
