@@ -1,0 +1,25 @@
+name: REBORN2 Work07 existing source conversion
+on:
+  pull_request:
+    branches: [implementation/reborn2-pilot-01-20261128]
+    paths:
+      - 'implementation/reborn2-work07/**'
+      - '.github/workflows/reborn2-work07-conversion.yml'
+permissions:
+  contents: read
+jobs:
+  existing-work44:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: git diff --exit-code f565e88af3404c84328a6cd035d2f21df3ea49dc -- research
+      - run: node --check implementation/reborn2-work07/offline-converter.mjs
+      - run: node --check implementation/reborn2-work07/convert-local.mjs
+      - run: node implementation/reborn2-work07/test-existing-work44.mjs
