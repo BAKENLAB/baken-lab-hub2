@@ -43,3 +43,21 @@ Separate shared registry/protected signer and independently trusted
 timestamp remain unconfigured; Codex04 local protocol and archive
 unchanged. No external proof, no real analysis, no production/DB/
 FROZEN/CLAIM/Cron/merge/deploy/paid API. Test02 independent on fixed pin.
+
+## Full judgment executable separation
+Extracted the exact lineage/factsFor/feedbackFor/synthesize functions
+from fixed v43-generic into derived-full-judgment.mjs; imports frozen
+refineV46, refineV47, candidateV48 without modifications. Executable
+downstream entry takes actual common+decision+docs+packet+adapted and
+Work42 returns. Development regression compares both full candidate
+and intermediate runners serialized digests with original analyzeVerified
+for existing FK34_FULL (no new race). It does NOT accept real context:
+the test obtains intermediate data from the original verified fixture
+path. Scope labels remain research. To complete actual full native
+route, derive approved graph construction/adapted observations at
+work32-v33-current.analyzeControlledWork33 (run31/verify32/adapt32),
+work33-v34-synthesis.prepare (receipt validation), and assessShared
+(SYNTHETIC_OBSERVATION state), and the Work42 supply layer; audit
+all downstream state predicates before invoking this tail on native
+context. No wholesale scope relabeling. Native full execution stays
+closed; current Work06 lacks required measurements.

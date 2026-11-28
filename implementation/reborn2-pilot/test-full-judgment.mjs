@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {readFileSync} from 'node:fs';
+import {loadV40,acceptedRequest,verifyIntake,analyzeVerified} from '../../research/reborn2-independent-engine/main47-integration/v43-generic.mjs';
+import {makeEnvelope} from '../../research/reborn2-work42/validate-v0.4.mjs';
+import {prepareSupply,compileReturn} from '../../research/reborn2-work42/codex-contract-v0.4.mjs';
+import {analyze} from '../../research/reborn2-chatgpt-circuit/work36-v41-local-decision.mjs';
+import {integrate} from '../../research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs';
+import {computeFullJudgment} from './derived-full-judgment.mjs';
+import {assertFrozenEngine,ENGINE,sha} from './adapter.mjs';
+assert.equal(assertFrozenEngine(),ENGINE);
+const original=readFileSync(new URL('../../research/reborn2-independent-engine/main47-integration/v43-generic.mjs',import.meta.url));
+assert.equal(createHash('sha1').update('blob '+original.length+'\0').update(original).digest('hex'),'eb108ef3508d8fc55de5b83619ee4217f154000d');
+const text=original.toString('utf8'),derived=readFileSync(new URL('./derived-full-judgment.mjs',import.meta.url),'utf8');
+assert.ok(derived.includes(text.slice(text.indexOf('function lineage('),text.indexOf('export async function analyzeVerified'))),'FROZEN_JUDGMENT_COMPUTATION_CHANGED');
+const V=await loadV40(),{request,receipt}=acceptedRequest(V,'FK34_FULL');
+const {W,docs,packet,adapted}=verifyIntake(V,request,receipt),envelope=makeEnvelope(docs);
+async function originalDigest(){
+ const result=await analyzeVerified(V,request,receipt,{semanticVersion:48,work42Envelope:envelope});
+ return {candidate:sha(result.candidate),runners:sha(result.runners),grades:result.candidate.runners.map(r=>r.grade)};
+}
+const expected=await originalDigest();
+const p=await prepareSupply(envelope,{id:request.id});
+assert.deepEqual(p.request,request);assert.equal(p.receipt.source_digest,receipt.source_digest);assert.equal(p.receipt.bundle_sha256,receipt.bundle_sha256);
+const returns=Object.fromEntries(p.supply.runners.map(h=>[h.horse_id,compileReturn(p.supply,h.horse_id,h.categories.flatMap(c=>c.claims.map(q=>q.claim_id)))]));
+W.C.work42Return=returns;
+const common=analyze(W,request.id,{eyeEnabled:true}),decision=integrate(common,docs,{eyeEnabled:true});
+assert.equal(decision.digest,receipt.source_digest);
+const z=computeFullJudgment({common,decision,docs,packet,adapted,work42:{returns}});
+const actual={candidate:sha(z.candidate),runners:sha(z.runners),grades:z.candidate.runners.map(r=>r.grade)};
+assert.deepEqual(actual,expected);assert.deepEqual(actual.grades,['B','A','UNASSESSED','A','C']);
+console.log('CODEX05_FULL_JUDGMENT_EQUIVALENCE PASS '+JSON.stringify({...actual,items:z.candidate.runners.map(h=>h.analysisItems.length),scope:'EXISTING_FIXED_FIXTURE_ONLY'}));
