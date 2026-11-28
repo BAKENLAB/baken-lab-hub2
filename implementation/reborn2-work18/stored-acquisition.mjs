@@ -85,10 +85,10 @@ export function bindJraArchive(input,history){
   const event=m?'JRA-'+m[1]+'-'+m[6]+'-'+m[5]:null;
   if(!m||!date(e.race_date)||e.race_date>=input.targetDate||m[6]!==e.race_date.replaceAll('-','')||jraTracks[m[1]]!==e.track||Number(m[5])!==e.race_no||[e.created_at,e.updated_at,e.source_checked_at].some(t=>tm(t)===null||tm(t)>cutoff)||seen.has(event)){held.push({event,reason:'EVENT_BINDING'});continue;}
   seen.add(event);
-  const rows=e.rows??[],numbers=new Set(),ids=new Set(),clean=[];let invalid=0;
+  const rows=e.rows??[],numbers=new Set(),ids=new Set(),clean=[],unboundRows=[];let invalid=0;
   for(const h of rows){
    const id=jraHorse.exec(h.horse_ref??'')?.[1];
-   if(!id||!int(h.horse_no,1,24)||numbers.has(h.horse_no)||ids.has(id)||h.record_role!=='full_runner'||[h.created_at,h.updated_at].some(t=>tm(t)===null||tm(t)>cutoff)){invalid++;continue;}
+   if(!id||!int(h.horse_no,1,24)||numbers.has(h.horse_no)||ids.has(id)||h.record_role!=='full_runner'||[h.created_at,h.updated_at].some(t=>tm(t)===null||tm(t)>cutoff)){invalid++;unboundRows.push({rowId:h.id,pastNo:h.horse_no,sourceRef:e.source_ref,observedAt:h.updated_at,reason:'IDENTITY_OR_ROW_BOUNDARY_HELD'});continue;}
    numbers.add(h.horse_no);ids.add(id);
    const root={event,sourceRef:e.source_ref,archiveRaceId:e.id,rowId:h.id,horseId:id,observedAt:h.updated_at};
    clean.push({horseId:id,pastNo:h.horse_no,root,facts:sourceFacts(h,{finish:'finish',clock:'time_raw',marginLiteral:'margin',final600:'final3f',ordinalUnlabeled:'corner_positions',draw:'draw',weight:'weight_carried',bodyWeight:'body_weight',bodyWeightDelta:'body_weight_diff',equipment:'equipment',sex_age:'sex_age',jockeyRef:'jockey_ref',trainerRef:'trainer_ref'},root,'STORED_ARCHIVE_ROW_NOT_ORIGINAL')});
@@ -96,18 +96,18 @@ export function bindJraArchive(input,history){
   const full=e.full_field===true&&e.archive_complete===true&&invalid===0&&int(e.field_size,1,24)&&clean.length===e.field_size&&clean.every(h=>int(Number(h.facts.finish?.value),1,e.field_size));
   const roots={event,archiveRaceId:e.id,sourceRef:e.source_ref,observedAt:e.source_checked_at};
   const context=sourceFacts(e,{distance:'distance',surface:'surface',going:'going',direction:'turn',classLiteral:'class_name',reportedFieldSize:'field_size',lap:'halon_times',courseText:'course_text',courseLayout:'course_layout'},roots,'STORED_ARCHIVE_CONTEXT');
-  const record={event,rows:clean,context,recordedFullFinishField:full,explicitStarterClassification:false,invalid};
+  const record={event,rows:clean,context,recordedFullFinishField:full,explicitStarterClassification:false,reportedFullField:e.full_field,reportedArchiveComplete:e.archive_complete,rawRowCount:rows.length,unboundRows,invalid};
   events.push(record);
   for(const x of history.accepted.filter(h=>h.event===event)){const matched=clean.filter(h=>h.horseId===x.horseId&&h.pastNo===x.pastNo);if(matched.length===1)own.push({currentNo:x.currentNo,horseId:x.horseId,event,pastNo:x.pastNo,matched:matched[0],recordedFullFinishField:full});}
  }
  return {events,own,held};
 }
 // Non-authority boundary. Each observation retains its source tier and key.
-export function makeSupply({target,roster,history,archive,local}){
- guard(target?.raceDate&&tm(target.cutoff)!==null&&tm(target.post)!==null&&tm(target.cutoff)<tm(target.post),'SUPPLY_TARGET');
- guard(Array.isArray(roster)&&roster.length>0&&new Set(roster.map(h=>h.no)).size===roster.length,'SUPPLY_ROSTER');
+export function makeSupply({target,roster,history,archive,local,cancelled=[],conflicts=[]}){
+ guard(date(target?.raceDate)&&tm(target.cutoff)!==null&&tm(target.post)!==null&&tm(target.cutoff)<tm(target.post),'SUPPLY_TARGET');
+ guard(Array.isArray(roster)&&roster.length>0&&new Set(roster.map(h=>h.no)).size===roster.length&&new Set(roster.filter(h=>h.horseId).map(h=>h.horseId)).size===roster.filter(h=>h.horseId).length,'SUPPLY_ROSTER');
  const byNo=new Map(roster.map(h=>[h.no,h])),held=[],rows=[];
  for(const x of history??[]){const h=byNo.get(x.currentNo);if(!h||!h.horseId||h.horseId!==x.horseId){held.push({no:x.currentNo,event:x.event,reason:'CURRENT_HORSE_ID_UNBOUND'});continue;}rows.push(x);}
- const pack={schema:'REBORN2_STAGE1_STORED_FACT_SUPPLY_1',scope:'PRIVATE_PARTIAL_CANDIDATE_NOT_NATIVE',target,roster,history:rows,archive:archive??[],local:local??null,held,formalAdmission:false,publicationAllowed:false,persistenceAllowed:false};
+ const pack={schema:'REBORN2_STAGE1_STORED_FACT_SUPPLY_1',scope:'PRIVATE_PARTIAL_CANDIDATE_NOT_NATIVE',target,roster,history:rows,archive:archive??[],local:local??null,cancelled,conflicts,held,formalAdmission:false,publicationAllowed:false,persistenceAllowed:false};
  return {...pack,digest:hashText(canonical(pack))};
 }
