@@ -1,11 +1,11 @@
-name: REBORN2 NORMAL Test07 independent
+name: REBORN2 NORMAL Test08 independent
 on:
   pull_request:
     branches: [research/reborn2-main48-test-ci-base]
 permissions:
   contents: read
 jobs:
-  operator:
+  c13-regression:
     if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -19,23 +19,1038 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 4b8c55bcc42585e4a889816f9055810b602cea7b
-          path: fixed-codex12
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
           fetch-depth: 0
           persist-credentials: false
-      - name: Test07 operator fixed independent
+      - name: Test08 c13 regression fixed independent
         shell: bash
         run: |
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test07-operator.mjs fixed-codex12 4b8c55bcc42585e4a889816f9055810b602cea7b > "$RUNNER_TEMP/operator.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-regression.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/regression.log" 2>&1
           rc=$?
-          cat "$RUNNER_TEMP/operator.log"
-          echo "TEST07_EXIT=$rc"
+          cat "$RUNNER_TEMP/regression.log"
+          echo "TEST08_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test07-operator
+          name: reborn2-test08-c13-regression
+          path: ${{ runner.temp }}/regression.log
+
+  c13-original-negatives:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 original-negatives fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test01-negative.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/original-negatives.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/original-negatives.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-original-negatives
+          path: ${{ runner.temp }}/original-negatives.log
+
+  c13-integrity:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 integrity fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-integrity.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/integrity.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/integrity.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-integrity
+          path: ${{ runner.temp }}/integrity.log
+
+  c13-native-full:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 native-full fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-native-full.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/native-full.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/native-full.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-native-full
+          path: ${{ runner.temp }}/native-full.log
+
+  c13-browser:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 browser fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-browser-retry.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/browser.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/browser.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-browser
+          path: ${{ runner.temp }}/browser.log
+
+  c13-timestamp:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 timestamp fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-timestamp.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/timestamp.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/timestamp.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-timestamp
+          path: ${{ runner.temp }}/timestamp.log
+
+  c13-work07-partial:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 work07-partial fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-partial.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/work07-partial.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/work07-partial.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-work07-partial
+          path: ${{ runner.temp }}/work07-partial.log
+
+  c13-graph-full:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 graph-full fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-graph.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d FK34_FULL > "$RUNNER_TEMP/graph-full.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/graph-full.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-graph-full
+          path: ${{ runner.temp }}/graph-full.log
+
+  c13-graph-unknown:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 graph-unknown fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-graph.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d FK34_UNKNOWN > "$RUNNER_TEMP/graph-unknown.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/graph-unknown.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-graph-unknown
+          path: ${{ runner.temp }}/graph-unknown.log
+
+  c13-normal-source:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 normal-source fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test05-source.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/normal-source.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-source.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-normal-source
+          path: ${{ runner.temp }}/normal-source.log
+
+  c13-normal-analysis:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 normal-analysis fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-regression.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/normal-analysis.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-analysis.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-normal-analysis
+          path: ${{ runner.temp }}/normal-analysis.log
+
+  c13-normal-path-full:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 normal-path-full fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-paths.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d FK34_FULL > "$RUNNER_TEMP/normal-path-full.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-path-full.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-normal-path-full
+          path: ${{ runner.temp }}/normal-path-full.log
+
+  c13-normal-path-unknown:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 normal-path-unknown fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-paths.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d FK34_UNKNOWN > "$RUNNER_TEMP/normal-path-unknown.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-path-unknown.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-normal-path-unknown
+          path: ${{ runner.temp }}/normal-path-unknown.log
+
+  c13-work11-retrospective:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 work11-retrospective fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-work11-retry.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/work11-retrospective.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/work11-retrospective.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-work11-retrospective
+          path: ${{ runner.temp }}/work11-retrospective.log
+
+  c13-operator:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: fcafbbc9e29efd36bb82906c93fac2f29aecdd7d
+          path: fixed-c13
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c13 operator fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test08-c13-operator.mjs fixed-c13 fcafbbc9e29efd36bb82906c93fac2f29aecdd7d > "$RUNNER_TEMP/operator.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/operator.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c13-operator
+          path: ${{ runner.temp }}/operator.log
+
+  c14-regression:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 regression fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-regression.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/regression.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/regression.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-regression
+          path: ${{ runner.temp }}/regression.log
+
+  c14-original-negatives:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 original-negatives fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test01-negative.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/original-negatives.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/original-negatives.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-original-negatives
+          path: ${{ runner.temp }}/original-negatives.log
+
+  c14-integrity:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 integrity fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-integrity.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/integrity.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/integrity.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-integrity
+          path: ${{ runner.temp }}/integrity.log
+
+  c14-native-full:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 native-full fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-native-full.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/native-full.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/native-full.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-native-full
+          path: ${{ runner.temp }}/native-full.log
+
+  c14-browser:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 browser fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-browser-retry.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/browser.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/browser.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-browser
+          path: ${{ runner.temp }}/browser.log
+
+  c14-timestamp:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 timestamp fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test03-timestamp.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/timestamp.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/timestamp.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-timestamp
+          path: ${{ runner.temp }}/timestamp.log
+
+  c14-work07-partial:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 work07-partial fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-partial.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/work07-partial.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/work07-partial.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-work07-partial
+          path: ${{ runner.temp }}/work07-partial.log
+
+  c14-graph-full:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 graph-full fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-graph.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f FK34_FULL > "$RUNNER_TEMP/graph-full.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/graph-full.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-graph-full
+          path: ${{ runner.temp }}/graph-full.log
+
+  c14-graph-unknown:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 graph-unknown fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test04-graph.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f FK34_UNKNOWN > "$RUNNER_TEMP/graph-unknown.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/graph-unknown.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-graph-unknown
+          path: ${{ runner.temp }}/graph-unknown.log
+
+  c14-normal-source:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 normal-source fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test05-source.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/normal-source.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-source.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-normal-source
+          path: ${{ runner.temp }}/normal-source.log
+
+  c14-normal-analysis:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 normal-analysis fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-regression.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/normal-analysis.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-analysis.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-normal-analysis
+          path: ${{ runner.temp }}/normal-analysis.log
+
+  c14-normal-path-full:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 normal-path-full fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-paths.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f FK34_FULL > "$RUNNER_TEMP/normal-path-full.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-path-full.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-normal-path-full
+          path: ${{ runner.temp }}/normal-path-full.log
+
+  c14-normal-path-unknown:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 normal-path-unknown fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-paths.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f FK34_UNKNOWN > "$RUNNER_TEMP/normal-path-unknown.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/normal-path-unknown.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-normal-path-unknown
+          path: ${{ runner.temp }}/normal-path-unknown.log
+
+  c14-work11-retrospective:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 work11-retrospective fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-work11-retry.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/work11-retrospective.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/work11-retrospective.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-work11-retrospective
+          path: ${{ runner.temp }}/work11-retrospective.log
+
+  c14-operator:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f
+          path: fixed-c14
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 c14 operator fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test08-c14-operator.mjs fixed-c14 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f > "$RUNNER_TEMP/operator.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/operator.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-c14-operator
           path: ${{ runner.temp }}/operator.log
