@@ -484,7 +484,7 @@ jobs:
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-work11.mjs fixed-codex12 4b8c55bcc42585e4a889816f9055810b602cea7b > "$RUNNER_TEMP/work11-retrospective.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test06-work11-retry.mjs fixed-codex12 4b8c55bcc42585e4a889816f9055810b602cea7b > "$RUNNER_TEMP/work11-retrospective.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/work11-retrospective.log"
           echo "TEST07_EXIT=$rc"
