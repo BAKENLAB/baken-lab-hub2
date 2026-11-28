@@ -7,8 +7,7 @@
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {readFileSync,writeFileSync,statSync,mkdtempSync,rmSync} from 'node:fs';
-import {tmpdir} from 'node:os';
-import {join} from 'node:path';
+import {join,dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {verifyApprovedManifest} from './offline-converter.mjs';
@@ -27,7 +26,7 @@ assert.deepEqual(Object.keys(paths).sort(),ids,'RAW_INVENTORY');
 const formats=new Set(['NAR_DEBA_HTML_PROJECTION_1','NAR_HISTORY_HTML_PROJECTION_1','JRA_CORNER_HTML_PROJECTION_1','NAR_RESULT_HTML_PROJECTION_1']);
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const raws=new Map(),replayed=[];
-const dir=mkdtempSync(join(tmpdir(),'reborn2-work11-'));
+const dir=mkdtempSync(join(dirname(resolve(out)),'.reborn2-work11-'));
 try{
  for(const d of approved.documents){
   const rec=paths[d.id],projected=formats.has(d.format);
