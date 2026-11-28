@@ -28,6 +28,8 @@ export async function loadV34(){
 function prepare(V,id,withdraw,threshold){
  const f=V.fixed.get(id);assert.ok(f);
  const g=freshFixtureGraph(V,id),L=g.loaded;
+ const p=L.cases.get(id),all=new Map(p.o.evidence.map(e=>[e.evidence_id,e])),{get}=dependencyReader(all,withdraw);
+ assert.ok(withdraw===null||all.has(withdraw),'WITHDRAW_ID');p.o.followups=p.o.followups.filter(x=>get(x.source_ref));
  const baseResult=enrich(L,id,withdraw,{placeThreshold:threshold,eyeEnabled:false,work42Return:V.C.work42Return});
  assert.equal(baseResult.source_evidence,g.receipt.evidence);
  assert.equal(baseResult.source_item_rows,g.receipt.itemRows);

@@ -21,7 +21,10 @@ export async function loadVerifiedFixtureGraph(name){
  // Retain the verified graph rather than rebuilding synthetic packet in
  // each analytical stage. Keep caller-visible copy separate.
  const p=structuredClone(v.adapted);
- const ctx={id:name,adapted:p,packet:structuredClone(v.packet),envelope:structuredClone(request.envelope),receipt:structuredClone(receipt),canonical:structuredClone(v.W.C.canonical),adaptedDigest:sha(p)};
+ const graphReceipt=v.W.C.receipt.summary.find(x=>x.id===name);
+ assert.ok(graphReceipt);assert.equal(graphReceipt.source_digest,receipt.source_digest);assert.equal(graphReceipt.bundle_sha256,receipt.bundle_sha256);
+ assert.equal(graphReceipt.itemRows,v.docs[0].rows.length*115);
+ const ctx={id:name,adapted:p,packet:structuredClone(v.packet),envelope:structuredClone(request.envelope),receipt:structuredClone(graphReceipt),canonical:structuredClone(v.W.C.canonical),adaptedDigest:sha(p)};
  contexts.set(v.W,ctx);domains.set(v.W,'FIXTURE');
  return {V:v.W,request,receipt,docs:v.docs,packet:v.packet,adapted:structuredClone(p),validated};
 }
