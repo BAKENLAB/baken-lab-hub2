@@ -282,5 +282,5 @@ export function inspectExistingOriginalField(rootId,version='08'){
 export function runNormalReview(c){
  const x=lookup(c);
  if(x.packet.scope==='FIXED_FIXTURE_GRAPH_ONLY')return computeNormal(x.packet,x.roster,{fixture:true});
- return computeNormalFromSupply(prepareNormalSupply(c),x.receipt.sourceGraphDigest);
+ return computeNormalFromSupply(prepareNormalSupply(c),x.receipt.sourceGraphDigest,x.packet);
 }

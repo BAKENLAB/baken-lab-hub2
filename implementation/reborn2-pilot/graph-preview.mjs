@@ -14,7 +14,7 @@ export async function startGraphPreview(capability,{port=0,normal=false}={}){
  const candidate=normal?runNormalReview(capability):null;
  let detailReads=0;
  const link=(p,q={})=>base+p+(Object.keys(q).length?'?'+new URLSearchParams(q):'');
- const header=(candidate?'<p>REBORN 2 NORMAL v0.1 開発候補・正式採用前</p>':'')+'<h1>BAKEN LAB REBORN 2｜証拠閲覧</h1><p>独立プレビュー・'+esc(overview.receipt.scope)+'・総合評価未確定</p><nav><a href="'+base+'/">全頭一覧</a></nav>';
+ const header=(candidate?'<p>REBORN 2 NORMAL v0.2 開発候補・正式採用前</p>':'')+'<h1>BAKEN LAB REBORN 2｜証拠閲覧</h1><p>独立プレビュー・'+esc(overview.receipt.scope)+'・総合評価未確定</p><nav><a href="'+base+'/">全頭一覧</a></nav>';
  const server=createServer((req,res)=>{
   res.setHeader('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'");
   res.setHeader('Cache-Control','no-store');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Content-Type-Options','nosniff');
@@ -29,7 +29,7 @@ export async function startGraphPreview(capability,{port=0,normal=false}={}){
    const id=u.searchParams.get('id');
    if(p===base+'/horse'){
     const h=overview.roster.find(h=>h.horseId===id);assert.ok(h);
-    const n=candidate?.runners.find(q=>q.horse===id);const normalDetail=n?'<section><h3>NORMAL候補 '+text(n.candidateGrade)+'</h3><p>'+esc(n.decisionReason)+'</p><p>勝ち筋 '+n.winPaths.length+'／好走筋 '+n.placePaths.length+'／反証 '+n.counterPaths.length+'</p>'+n.axes.map(a=>'<p>'+esc(a.axis)+' '+esc(a.state)+' '+esc(a.reason)+'</p>').join('')+'</section>':'';
+    const n=candidate?.runners.find(q=>q.horse===id);const normalDetail=n?'<section><h3>NORMAL候補 '+text(n.candidateGrade)+'</h3><p>'+esc(n.decisionReason)+'</p><p>勝ち筋 '+n.winPaths.length+'／好走筋 '+n.placePaths.length+'／反証 '+n.counterPaths.length+'</p>'+n.axes.map(a=>'<p>'+esc(a.axis)+' '+esc(a.state)+' '+esc(a.reason)+'</p>').join('')+'<p>未確認相手：'+esc(n.currentAbility.unresolvedRivals?.join('、')||'なし')+'</p><details><summary>条件付き経路と反証・EYE</summary><pre>'+esc(JSON.stringify({win:n.winPaths,place:n.placePaths,counter:n.counterPaths,feedback:n.feedback,comparisons:n.comparisons},null,2))+'</pre></details></section>':'';
     return send(200,page('個馬詳細',header+'<h2>'+esc(h.displayName??id)+'</h2><p>評価 '+text(h.grade)+'</p>'+normalDetail+'<section><h3>5観点</h3>'+h.axes.map(a=>'<p>'+esc(a.axis)+'：'+esc(a.state)+'／'+a.count+'所見</p>').join('')+'</section><section><h3>全115項目</h3><ol>'+reviewHorseItems(capability,id).map(i=>'<li><a href="'+esc(link('/item',{id,item:i.item}))+'">'+esc(i.item)+' '+esc(i.name)+'</a> — '+text(i.state)+'</li>').join('')+'</ol></section>'));
    }
    if(p===base+'/item'){

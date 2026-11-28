@@ -25,6 +25,7 @@ jobs:
       - run: node implementation/reborn2-pilot/test-codex07.mjs
       - run: node implementation/reborn2-pilot/test-codex08.mjs
       - run: node implementation/reborn2-pilot/test-codex09.mjs
+      - run: node implementation/reborn2-pilot/test-codex10.mjs
       - run: node implementation/reborn2-pilot/test-graph-browser.mjs
         env:
           PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview

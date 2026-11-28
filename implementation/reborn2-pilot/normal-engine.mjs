@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {ENGINE,sha} from './adapter.mjs';
+import {analyzeNormalContext} from './normal-context-v02.mjs';
 const raw=readFileSync(new URL('../reborn2-work09/normal-material-115.json',import.meta.url));
 export const MAP_BLOB='4a98a25b8ac6772ee78480a65d4aca22de4b1a20';
 assert.equal(createHash('sha1').update('blob '+raw.length+'\0').update(raw).digest('hex'),MAP_BLOB);
@@ -37,7 +38,8 @@ export function decideNormalGrade({eligible,completeField,allHistory,paceCovered
  return hold('NO_SUFFICIENT_CONDITIONAL_PATH');
 }
 // Work10 typed source supply is the native input, not a fixture wrapper.
-export function computeNormalFromSupply(supply,originalGraphDigest){
+export function computeNormalFromSupply(supply,originalGraphDigest,originalPacket){
+ assert.ok(originalPacket&&sha(originalPacket)===originalGraphDigest,'ORIGINAL_ISSUED_GRAPH_REQUIRED');
  assert.equal(supply.schema,'REBORN2_NORMAL_SUPPLY_1');
  assert.equal(supply.scope,'ISSUED_NATIVE_MATERIAL_ONLY_NOT_GRADE');
  assert.equal(supply.engineCommit,ENGINE);assert.equal(supply.sourceGraphDigest,originalGraphDigest);
@@ -46,10 +48,12 @@ export function computeNormalFromSupply(supply,originalGraphDigest){
  const asEvent=(e,role)=>({eventId:e.eventId,role,nativeRaceIdentity:e.identity,eventRoot:e.eventRef,observations:asObs(e.fields),rows:e.rows.map(h=>({nativeId:h.horseId,observations:{...asObs(h.fields),no:{state:'OBSERVED_NATIVE_VERIFIED',value:h.horseNo,evidenceId:h.identityRef}}}))});
  const packet={scope:'NATIVE_PARTIAL_GRAPH_VERIFIED',target:{eventId:supply.target.eventId},cutoff:supply.cutoff,events:[asEvent(supply.target,'TARGET_CARD'),...supply.history.map(e=>asEvent(e,'HISTORICAL_RESULT'))],roots:supply.roots};
  const roster=supply.field.map(h=>({horseId:h.horseId,horseNo:h.horseNo,status:h.status}));
+ const actual=new Map(originalPacket.roots.map(n=>[n.id,n]));for(const n of packet.roots)assert.deepEqual(n,actual.get(n.id),'WORK10_ORIGINAL_ROOT_BINDING');
+ for(const e of packet.events){const src=originalPacket.events.find(q=>q.eventId===e.eventId);assert.ok(src);assert.deepEqual(e.nativeRaceIdentity,src.nativeRaceIdentity);for(const [subject,x] of [[null,e],...e.rows.map(h=>[h.nativeId,h])]){const original=subject===null?src:src.rows.find(q=>q.nativeId===subject);assert.ok(original);for(const [k,f] of Object.entries(x.observations))if(f.state==='OBSERVED_NATIVE_VERIFIED')assert.deepEqual(f,original.observations[k],'WORK10_ORIGINAL_FIELD_BINDING');}}
  const result=computeNormal(packet,roster,{fixture:false});
  return {...result,sourceGraphDigest:originalGraphDigest,supplyDigest,work10Relations:{direct:supply.direct.length,common:supply.common.length,opponents:supply.opponents.length},supplyScope:supply.scope};
 }
-export function computeNormal(packet,roster,{fixture=false}={}){
+function computeNormalV01(packet,roster,{fixture=false}={}){
  assert.equal(packet.scope,fixture?'FIXED_FIXTURE_GRAPH_ONLY':'NATIVE_PARTIAL_GRAPH_VERIFIED');
  const observed=fixture?'OBSERVED_TEST_FORMAT':'OBSERVED_NATIVE_VERIFIED';
  const byId=new Map(packet.roots.map(r=>[r.id,r]));assert.equal(byId.size,packet.roots.length);
@@ -223,4 +227,8 @@ export function computeNormal(packet,roster,{fixture=false}={}){
   return {horse,horseNo:h.horseNo,status:h.status,candidateGrade:decision.grade,decisionReason:decision.reason,formalGrade:null,axes,winPaths,placePaths,counterPaths:[...win,...place].filter(p=>!p.supported),feedback,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:uniq([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedScenarios:scenarios.filter(s=>s.leader===null||![...winPaths,...placePaths].some(p=>p.scenario===s.id)).map(s=>s.id),matchedHistory:matched.map(runValue)},items:[...items.values()],formal:false};
  });
  return {schema:NORMAL_VERSION,scope:fixture?'EXISTING_FIXTURE_NORMAL_CANDIDATE_ONLY':'APPROVED_NATIVE_NORMAL_CANDIDATE_ONLY',engineCommit:ENGINE,mapBlob:MAP_BLOB,sourceGraphDigest:sha(packet),field:{completeField,allHistory,paceCovered,roles,scenarios,scenarioCoverage:'ORDINAL_GROUP_HYPOTHESIS_ONLY_NOT_EXHAUSTIVE'},runners,formal:false,persistenceAllowed:false};
+}
+
+export function computeNormal(packet,roster,{fixture=false,eyeEnabled=true}={}){
+ return analyzeNormalContext(packet,roster,computeNormalV01(packet,roster,{fixture}),{fixture,eyeEnabled});
 }
