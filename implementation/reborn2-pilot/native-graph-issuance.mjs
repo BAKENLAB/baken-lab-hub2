@@ -7,7 +7,8 @@ import {ENGINE,sha} from './adapter.mjs';
 import {inspectNativeFacts,supplyContract} from './work06/inspect-native-facts.mjs';
 import {inspectNativeStructureOffline} from './native-entry.mjs';
 import {computePartial} from './derived-partial-core.mjs';
-import {computeNormal} from './normal-engine.mjs';
+import {computeNormal,computeNormalFromSupply} from './normal-engine.mjs';
+import {prepareNormalSupply} from '../reborn2-work10/normal-supply.mjs';
 import {partialFixture} from './fixture-partial.mjs';
 import {csvRows} from '../../research/reborn2-work44/offline-intake-v0.2.mjs';
 import {convertExistingWork44 as convert07,convertApprovedLocal as local07} from '../reborn2-work07/offline-converter.mjs';
@@ -280,5 +281,6 @@ export function inspectExistingOriginalField(rootId,version='08'){
 // Only issued capabilities may enter NORMAL; no caller-constructed graph.
 export function runNormalReview(c){
  const x=lookup(c);
- return computeNormal(x.packet,x.roster,{fixture:x.packet.scope==='FIXED_FIXTURE_GRAPH_ONLY'});
+ if(x.packet.scope==='FIXED_FIXTURE_GRAPH_ONLY')return computeNormal(x.packet,x.roster,{fixture:true});
+ return computeNormalFromSupply(prepareNormalSupply(c),x.receipt.sourceGraphDigest);
 }

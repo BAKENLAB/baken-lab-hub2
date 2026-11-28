@@ -4,6 +4,7 @@ import {exerciseExistingGraph,runNormalReview,readIssuedGraph} from './native-gr
 import {startGraphPreview} from './graph-preview.mjs';
 import {decideNormalGrade} from './normal-engine.mjs';
 import {submitAnalysis} from './work04-intake.mjs';
+import {prepareNormalSupply} from '../reborn2-work10/normal-supply.mjs';
 assert.equal(assertFrozenEngine(),ENGINE);
 const cap=exerciseExistingGraph('08'),x=readIssuedGraph(cap),n=runNormalReview(cap);
 assert.equal(n.sourceGraphDigest,sha(x.packet));assert.equal(n.runners.length,2);
@@ -21,6 +22,7 @@ for(const h of n.runners){
  for(const i of h.items)for(const f of i.findings){const seen=new Set();function visit(id){if(seen.has(id))return;assert.ok(root.has(id));seen.add(id);root.get(id).depends.forEach(visit);}f.directRefs.forEach(visit);assert.deepEqual([...seen].sort(),f.refs);}
 }
 assert.throws(()=>runNormalReview({...cap}),/ISSUED_GRAPH_CAPABILITY_REQUIRED/);
+assert.throws(()=>prepareNormalSupply(cap),/NORMAL_NATIVE_GRAPH_REQUIRED/);
 await assert.rejects(()=>submitAnalysis({schema:'REBORN2_NORMAL_CANDIDATE_REQUEST_1',request:null}),/MAIN_NATIVE_APPROVAL_NOT_CONFIGURED/);
 // Decision truth-table only, not invented racing observations or a new race.
 // Exercise each explicit policy branch independent of the data extractor.

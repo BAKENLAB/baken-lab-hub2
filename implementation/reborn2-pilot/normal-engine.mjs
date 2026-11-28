@@ -18,7 +18,7 @@ const contextKeys=['surfaceLiteral','distanceM','goingLiteral','directionLiteral
 const clockMs=s=>{const m=typeof s==='string'&&s.match(/^(\d{1,2}):([0-5]\d)\.(\d{1,3})$/);return m?Number(m[1])*60000+Number(m[2])*1000+Number(m[3].padEnd(3,'0')):null;};
 const positions=s=>{if(typeof s!=='string'||!/^\d{1,2}(?:,\d{1,2})+$/.test(s))return null;const a=s.split(',').map(Number);return a.every(v=>v>=1&&v<=24)?a:null;};
 const day=s=>Date.parse(s+'T00:00:00Z')/86400000;
-const isTop3=(finish,count)=>finite(finish)&&finite(count)&&count>3&&finish<=3;
+const isTop3=(finish,count,reportedFinishers)=>finite(finish)&&finite(count)&&count>3&&reportedFinishers>=4&&finish<=3;
 // This policy is preregistered candidate logic, not a validated grading model.
 // Distinct comparable events establish repeatability, not proof counts.
 // No grade if current roster/history/role coverage or key context is unknown.
@@ -36,6 +36,19 @@ export function decideNormalGrade({eligible,completeField,allHistory,paceCovered
  if(placePaths.length&&a.A==='SUPPORT'&&a.B==='SUPPORT'&&a.C==='SUPPORT'&&a.D==='SUPPORT')return {grade:'B',reason:'REPEATED_MATCHED_TOP3_IN_FIELDS_OVER_THREE_WITH_ROLE_AND_RIVAL_SUPPORT'};
  return hold('NO_SUFFICIENT_CONDITIONAL_PATH');
 }
+// Work10 typed source supply is the native input, not a fixture wrapper.
+export function computeNormalFromSupply(supply,originalGraphDigest){
+ assert.equal(supply.schema,'REBORN2_NORMAL_SUPPLY_1');
+ assert.equal(supply.scope,'ISSUED_NATIVE_MATERIAL_ONLY_NOT_GRADE');
+ assert.equal(supply.engineCommit,ENGINE);assert.equal(supply.sourceGraphDigest,originalGraphDigest);
+ const {supplyDigest,...body}=supply;assert.equal(sha(body),supplyDigest);
+ const asObs=f=>Object.fromEntries(Object.entries(f).map(([k,v])=>[k,v.state==='OBSERVED'?{state:'OBSERVED_NATIVE_VERIFIED',value:v.value,evidenceId:v.refs[0]}:{state:v.state,value:null,reason:v.reason}]));
+ const asEvent=(e,role)=>({eventId:e.eventId,role,nativeRaceIdentity:e.identity,eventRoot:e.eventRef,observations:asObs(e.fields),rows:e.rows.map(h=>({nativeId:h.horseId,observations:{...asObs(h.fields),no:{state:'OBSERVED_NATIVE_VERIFIED',value:h.horseNo,evidenceId:h.identityRef}}}))});
+ const packet={scope:'NATIVE_PARTIAL_GRAPH_VERIFIED',target:{eventId:supply.target.eventId},cutoff:supply.cutoff,events:[asEvent(supply.target,'TARGET_CARD'),...supply.history.map(e=>asEvent(e,'HISTORICAL_RESULT'))],roots:supply.roots};
+ const roster=supply.field.map(h=>({horseId:h.horseId,horseNo:h.horseNo,status:h.status}));
+ const result=computeNormal(packet,roster,{fixture:false});
+ return {...result,sourceGraphDigest:originalGraphDigest,supplyDigest,work10Relations:{direct:supply.direct.length,common:supply.common.length,opponents:supply.opponents.length},supplyScope:supply.scope};
+}
 export function computeNormal(packet,roster,{fixture=false}={}){
  assert.equal(packet.scope,fixture?'FIXED_FIXTURE_GRAPH_ONLY':'NATIVE_PARTIAL_GRAPH_VERIFIED');
  const observed=fixture?'OBSERVED_TEST_FORMAT':'OBSERVED_NATIVE_VERIFIED';
@@ -47,21 +60,23 @@ export function computeNormal(packet,roster,{fixture=false}={}){
  const card=packet.events.find(e=>e.role==='TARGET_CARD'),history=packet.events.filter(e=>e.role==='HISTORICAL_RESULT').sort((a,b)=>a.nativeRaceIdentity.dateJst.localeCompare(b.nativeRaceIdentity.dateJst)||a.eventId.localeCompare(b.eventId));
  assert.ok(card&&card.eventId===packet.target.eventId);
  const row=(e,h)=>e.rows.find(r=>r.nativeId===h);
+ const cornerConvention=(o,len)=>{if(!o)return null;const roots=closure([o.evidenceId]).map(id=>byId.get(id)).filter(n=>n.kind.endsWith('_SOURCE_FIELD')&&n.payload.field==='cornerPositionsLiteral');const labels=roots.map(n=>{try{return JSON.parse(n.payload.root.rowPointer).cornerLabels;}catch{return null;}});if(!labels.length||!labels.every(a=>Array.isArray(a)&&a.length===len&&a.every((v,i)=>Number.isInteger(v)&&v>=1&&v<=4&&(i===0||v>a[i-1]))))return null;return labels.every(a=>JSON.stringify(a)===JSON.stringify(labels[0]))?labels[0]:null;};
  const context=e=>Object.fromEntries(contextKeys.map(k=>[k,v(e,k)]));
  const compare=e=>{const a=context(card),b=context(e),unknown=contextKeys.filter(k=>a[k]===null||b[k]===null),changed=contextKeys.filter(k=>a[k]!==null&&b[k]!==null&&a[k]!==b[k]);if(card.nativeRaceIdentity.venueId!==e.nativeRaceIdentity.venueId)changed.push('venue');return {state:unknown.length?'INCOMPLETE':changed.length?'DIFFERENT':'MATCHED_LITERAL',unknown,changed,current:a,historical:b,refs:ref(contextKeys.flatMap(k=>[obs(card,k),obs(e,k)]),{evidenceId:card.eventRoot},{evidenceId:e.eventRoot})};};
  const profile=new Map(roster.map(h=>[h.horseId,history.filter(e=>row(e,h.horseId)).map(e=>{
   const r=row(e,h.horseId),p=positions(v(r,'cornerPositionsLiteral')),count=v(e,'declaredCount'),finish=v(r,'finish');
   // Same reported ordinal sequence only. A single position has no
   // identifiable first/last comparison. No claim about actual start.
-  const role=p&&finite(count)&&p.every(n=>n<=count)?p[0]<=3?'FORWARD_REPORTED':'OTHER_REPORTED':null;
-  return {event:e.eventId,date:e.nativeRaceIdentity.dateJst,e,r,finish,count,final:v(r,'final600Ms'),clock:clockMs(v(r,'finishClockLiteral')),p,role,ctx:compare(e)};
+  const labels=p?cornerConvention(obs(r,'cornerPositionsLiteral'),p.length):null;
+  const role=p&&labels&&finite(count)&&p.every(n=>n<=count)?p[0]<=3?'FORWARD_REPORTED':'OTHER_REPORTED':null;
+  return {event:e.eventId,date:e.nativeRaceIdentity.dateJst,e,r,finish,count,reportedFinishers:e.rows.filter(q=>finite(v(q,'finish'))).length,labels,final:v(r,'final600Ms'),clock:clockMs(v(r,'finishClockLiteral')),p,role,ctx:compare(e)};
  })]));
  const active=roster.filter(h=>h.status==='ACTIVE'),possible=roster.filter(h=>h.status!=='CANCELLED');
  const completeField=possible.length>=2&&possible.every(h=>h.status==='ACTIVE'&&v(row(card,h.horseId),'status')==='ACTIVE')&&v(card,'declaredCount')===roster.length;
  // Role inference is an ordinal hypothesis from repeated same-reported
  // context, not a measured start, exact pace or current position.
- const roles=possible.map(h=>{const q=profile.get(h.horseId).filter(z=>z.ctx.state==='MATCHED_LITERAL'&&z.role),distinct=new Set(q.map(z=>z.event)),types=uniq(q.map(z=>z.role));return {horse:h.horseId,role:distinct.size>=2&&types.length===1?types[0]:'UNKNOWN',events:q.map(z=>z.event),refs:ref(q.map(z=>obs(z.r,'cornerPositionsLiteral')),q.map(z=>obs(z.e,'declaredCount')),q.flatMap(z=>z.ctx.refs.map(evidenceId=>({evidenceId}))),obs(row(card,h.horseId),'status'))};});
- const paceCovered=completeField&&roles.every(q=>q.role!=='UNKNOWN');
+ const roles=possible.map(h=>{const q=profile.get(h.horseId).filter(z=>z.ctx.state==='MATCHED_LITERAL'&&z.role),distinct=new Set(q.map(z=>z.event)),types=uniq(q.map(z=>z.role)),conventions=uniq(q.map(z=>JSON.stringify(z.labels)));return {horse:h.horseId,role:distinct.size>=2&&types.length===1&&conventions.length===1?types[0]:'UNKNOWN',convention:conventions.length===1?JSON.parse(conventions[0]):null,events:q.map(z=>z.event),refs:ref(q.map(z=>obs(z.r,'cornerPositionsLiteral')),q.map(z=>obs(z.e,'declaredCount')),q.flatMap(z=>z.ctx.refs.map(evidenceId=>({evidenceId}))),obs(row(card,h.horseId),'status'))};});
+ const paceCovered=completeField&&roles.every(q=>q.role!=='UNKNOWN')&&new Set(roles.map(q=>JSON.stringify(q.convention))).size===1;
  const forward=roles.filter(q=>q.role==='FORWARD_REPORTED'),others=roles.filter(q=>q.role==='OTHER_REPORTED');
  const scenarios=paceCovered?[{id:forward.length===1?'SINGLE_FORWARD_CANDIDATE':forward.length>1?'FORWARD_COMPETITION':'NO_IDENTIFIED_FORWARD',forward:forward.map(x=>x.horse),other:others.map(x=>x.horse),refs:closure(uniq(roles.flatMap(x=>x.refs))),scope:'CONDITIONAL_ORDINAL_ROLE_HYPOTHESIS_NOT_ACTUAL_PACE'}]:[];
  const allHistory=possible.every(h=>profile.get(h.horseId).some(z=>z.ctx.state==='MATCHED_LITERAL'&&finite(z.finish)));
@@ -75,8 +90,8 @@ export function computeNormal(packet,roster,{fixture=false}={}){
   };
   const put=(i,type,val,os,limits=[],state='OBSERVED_FACT')=>emit(i,type,val,ref(os),limits,state);
   const findings=i=>items.get(i).findings;
-  const knownRefs=z=>ref(obs(z.r,'finish'),obs(z.e,'declaredCount'),z.ctx.refs.map(evidenceId=>({evidenceId})));
-  const runValue=z=>({event:z.event,finish:z.finish,declaredCount:z.count});
+  const knownRefs=z=>ref(obs(z.r,'finish'),obs(z.e,'declaredCount'),z.e.rows.flatMap(q=>[obs(q,'no'),obs(q,'finish')]),z.ctx.refs.map(evidenceId=>({evidenceId})));
+  const runValue=z=>({event:z.event,finish:z.finish,declaredCount:z.count,reportedFinishers:z.reportedFinishers});
   for(const z of runs){
    const {e,r}=z;
    for(const [item,k] of [['RANK02','finish'],['RANK03','officialMarginLiteral'],['RANK06','final600Ms'],['RANK17','cornerPositionsLiteral']])if(obs(r,k))put(item,'REPORTED_'+k,{event:z.event,value:v(r,k)},[obs(r,k)],['REPORTED_HISTORICAL_FACT']);
@@ -93,6 +108,18 @@ export function computeNormal(packet,roster,{fixture=false}={}){
   }
   if(obs(t,'bodyWeightKg'))put('RANK81','BODY_WEIGHT',{kg:v(t,'bodyWeightKg'),deltaKg:v(t,'bodyWeightDeltaKg')},[obs(t,'bodyWeightKg'),obs(t,'bodyWeightDeltaKg')],['NO_FORM_INFERENCE']);
   if(obs(t,'sexAge'))put('RANK91','REPORTED_SEX_AGE',{literal:v(t,'sexAge')},[obs(t,'sexAge')],['NO_GROWTH_INFERENCE']);
+  for(const z of runs){
+   if(obs(z.r,'bodyWeightKg')&&finite(z.finish))put('RANK82','REPORTED_BODY_WEIGHT_AND_FINISH',{event:z.event,kg:v(z.r,'bodyWeightKg'),finish:z.finish},[obs(z.r,'bodyWeightKg'),obs(z.r,'finish')],['NO_OPTIMAL_WEIGHT_INFERENCE'],'DERIVED_COMPARISON');
+   if(obs(t,'equipmentLiteral')&&obs(z.r,'equipmentLiteral'))put('RANK84','EQUIPMENT_LITERAL_COMPARISON',{event:z.event,current:v(t,'equipmentLiteral'),historical:v(z.r,'equipmentLiteral'),changed:v(t,'equipmentLiteral')!==v(z.r,'equipmentLiteral')},[obs(t,'equipmentLiteral'),obs(z.r,'equipmentLiteral')],['NO_EQUIPMENT_EFFECT_INFERENCE'],'DERIVED_COMPARISON');
+   if(z.clock!==null)for(const q of z.e.rows.filter(q=>q.nativeId!==horse)){
+    const qc=clockMs(v(q,'finishClockLiteral')),qf=v(q,'finish');if(qc===null||!finite(qf)||!finite(z.finish))continue;
+    const diff=z.clock-qc;if(z.finish<qf&&diff<=0)put('RANK04','REPORTED_TRAILING_CLOCK_DIFFERENCE',{event:z.event,opponent:q.nativeId,ms:qc-z.clock},[obs(z.r,'finishClockLiteral'),obs(q,'finishClockLiteral'),obs(z.r,'finish'),obs(q,'finish')],['NOT_OFFICIAL_MARGIN_OR_PRECISE_DISTANCE'],'DERIVED_COMPARISON');
+   }
+  }
+  for(let i=1;i<runs.length;i++){
+   const a=runs[i-1],z=runs[i];if(a.date===z.date||a.ctx.state!=='MATCHED_LITERAL'||z.ctx.state!=='MATCHED_LITERAL'||!finite(a.finish)||!finite(z.finish))continue;
+   emit('RANK32','REPORTED_MATCHED_FINISH_CHANGE',{events:[a.event,z.event],finish:[a.finish,z.finish],final600DifferenceMs:finite(a.final)&&finite(z.final)?z.final-a.final:null},uniq([...knownRefs(a),...knownRefs(z),...ref(obs(a.r,'final600Ms'),obs(z.r,'final600Ms'))]),['NO_PHYSIOLOGICAL_GROWTH_OR_CAUSAL_CHANGE']);
+  }
   const latest=runs.at(-1);
   if(latest){const gap=day(card.nativeRaceIdentity.dateJst)-day(latest.date);if(finite(gap)&&gap>0){
    const dr=ref({evidenceId:card.eventRoot},{evidenceId:latest.e.eventRoot},obs(t,'no'),obs(latest.r,'no'));
@@ -122,6 +149,9 @@ export function computeNormal(packet,roster,{fixture=false}={}){
   // EYE03: genuine feedback of reported recovery only; does not establish
   // current benefit without comparable repeated role/conditions.
   const feedback=[];
+  // Subset rank only; do not turn equality or missing rivals into discovery.
+  for(const z of runs){if(!finite(z.finish)||!finite(z.final))continue;const measured=z.e.rows.filter(q=>finite(v(q,'final600Ms')));if(measured.length<2)continue;const lo=1+measured.filter(q=>v(q,'final600Ms')<z.final).length,hi=measured.filter(q=>v(q,'final600Ms')<=z.final).length;const refs=ref(obs(z.r,'finish'),obs(z.e,'declaredCount'),measured.flatMap(q=>[obs(q,'no'),obs(q,'final600Ms')]));const val={event:z.event,finish:z.finish,rankAmongReportedRows:[lo,hi],reportedRows:measured.length,declaredCount:z.count};emit('RANK25','REPORTED_SUBSET_SECTION_COMPARISON',val,refs,['SUBSET_RANK_NOT_ACTUAL_FIELD_RANK','NO_PHYSICAL_RESERVE']);if(hi<z.finish&&measured.length===z.e.rows.length&&z.count===measured.length){const eye=emit('EYE02','REPORTED_SECTION_FINISH_GAP',val,refs,['NO_ACTUAL_STARTER_CLASSIFICATION','NO_CURRENT_BENEFIT']);emit('RANK25','EYE02_REVIEWED_SECTION_FINISH_GAP',{...val,eyeId:eye.id},refs,['NO_GRADE_SUPPORT_FROM_SUBSET']);}}
+  for(const z of runs)for(const opponent of z.e.rows.filter(q=>q.nativeId!==horse&&finite(v(q,'finish'))))for(const later of history.filter(e=>e.nativeRaceIdentity.dateJst>z.date&&row(e,opponent.nativeId))){const q=row(later,opponent.nativeId);if(!finite(v(q,'finish')))continue;const refs=ref(obs(z.r,'finish'),obs(opponent,'finish'),obs(q,'finish'),obs(opponent,'no'),obs(q,'no'),{evidenceId:z.e.eventRoot},{evidenceId:later.eventRoot});const value={prior:z.event,later:later.event,opponent:opponent.nativeId,priorFinish:v(opponent,'finish'),laterFinish:v(q,'finish')};emit('RANK37','OPPONENT_LATER_REPORTED_RESULT',value,refs,['NOT_OPPONENT_STRENGTH']);const e=emit('EYE05','OPPONENT_LATER_RESULT_DISCOVERY',value,refs,['NO_CURRENT_RELEVANCE_ESTABLISHED']);emit('RANK37','EYE05_OPPONENT_RESULT_REVIEW',{...value,eyeId:e.id},refs,['NO_GRADE_SUPPORT_FROM_LATER_RESULT_ALONE']);}
   for(const f of findings('RANK21')){
    const z=runs.find(z=>z.event===f.value.event);
    const eye=emit('EYE03','ORDINAL_RECOVERY_DISCOVERY',f.value,f.directRefs,['NO_MEASURED_ACCELERATION_OR_CAUSAL_LOAD']);
@@ -132,19 +162,19 @@ export function computeNormal(packet,roster,{fixture=false}={}){
   // EYE07: return to earlier matched context after latest different context;
   // prior top3 and counter history both retained. No causal improvement.
   if(latest?.ctx.state==='DIFFERENT'){
-   const prior=matched.filter(z=>z.event!==latest.event&&isTop3(z.finish,z.count));
-   const counters=matched.filter(z=>!isTop3(z.finish,z.count)&&z.finish!==1);
+   const prior=matched.filter(z=>z.event!==latest.event&&isTop3(z.finish,z.count,z.reportedFinishers));
+   const counters=matched.filter(z=>!isTop3(z.finish,z.count,z.reportedFinishers)&&z.finish!==1);
    if(prior.length){const refs=uniq([...latest.ctx.refs,...prior.flatMap(knownRefs),...counters.flatMap(knownRefs)]);const e=emit('EYE07','RETURN_TO_REPORTED_SUCCESS_CONTEXT',{latest:latest.event,prior:prior.map(runValue),counters:counters.map(runValue)},refs,['NO_CAUSAL_BENEFIT']);
     const q=emit('RANK95','EYE07_CONTEXT_RETURN_REVIEW',{eyeId:e.id,prior:prior.map(runValue),counters:counters.map(runValue)},refs,['CONDITIONAL_CONTEXT_ONLY'],'CONDITIONAL_HYPOTHESIS');feedback.push({eye:'EYE07',target:'RANK95',findingId:q.id,event:prior[0].event,refs:q.refs});}
   }
   const matchedPairs=pairs.filter(p=>p.context==='MATCHED_LITERAL'),ahead=matchedPairs.filter(p=>p.order==='AHEAD'),behind=matchedPairs.filter(p=>p.order==='BEHIND');
-  const wins=matched.filter(z=>z.finish===1),places=matched.filter(z=>isTop3(z.finish,z.count)),nonplace=matched.filter(z=>finite(z.count)&&z.count>3&&z.finish>3);
-  const compatible=matched.filter(z=>role&&role.role!=='UNKNOWN'&&z.role===role.role);
+  const wins=matched.filter(z=>z.finish===1),places=matched.filter(z=>isTop3(z.finish,z.count,z.reportedFinishers)),nonplace=matched.filter(z=>finite(z.count)&&z.count>3&&z.reportedFinishers>=4&&z.finish>3);
+  const compatible=matched.filter(z=>role&&role.role!=='UNKNOWN'&&z.role===role.role&&JSON.stringify(z.labels)===JSON.stringify(role.convention));
   const repeat=zs=>new Set(zs.map(z=>z.event)).size>=2;
   const against=behind.length>0||nonplace.length>0;
   const paths=(kind,events)=>scenarios.flatMap(s=>{
    const supported=events.filter(z=>compatible.includes(z));if(!repeat(supported))return [];
-   const counter=compatible.filter(z=>kind==='WIN'?z.finish!==1:!isTop3(z.finish,z.count));
+   const counter=compatible.filter(z=>kind==='WIN'?z.finish!==1:!isTop3(z.finish,z.count,z.reportedFinishers));
    const e=feedback.filter(q=>supported.some(z=>z.event===q.event));
    const refs=uniq([...s.refs,...supported.flatMap(knownRefs),...counter.flatMap(knownRefs),...matchedPairs.flatMap(p=>p.refs),...e.flatMap(q=>q.refs)]);
    return [{kind,scenario:s.id,condition:'REPORTED_MATCHED_CONTEXT_AND_REPEATED_ORDINAL_ROLE',events:supported.map(runValue),counter:counter.map(runValue),rivals:matchedPairs,eyeFeedback:e.map(q=>q.findingId),refs,scope:'CONDITIONAL_NOT_PREDICTION',supported:counter.length===0&&behind.length===0}];
@@ -160,10 +190,10 @@ export function computeNormal(packet,roster,{fixture=false}={}){
    axis('E',feedback.length?'SUPPORT':'HELD',feedback.flatMap(q=>q.refs),'ONLY_RETURNED_EYE_FINDINGS_NO_EXTRA_VOTE')
   ];
   const allPeersAhead=possible.filter(q=>q.horseId!==horse).every(q=>ahead.some(p=>p.rival===q.horseId)&&!behind.some(p=>p.rival===q.horseId));
-  const decision=decideNormalGrade({eligible:h.status==='ACTIVE',completeField,allHistory,paceCovered,axes,winPaths,placePaths,against,allPeersAhead,allScenarioWin:scenarios.length>0&&winPaths.length===scenarios.length,eyeFeedback:feedback.length>0});
+  const decision=decideNormalGrade({eligible:h.status==='ACTIVE',completeField,allHistory,paceCovered,axes,winPaths,placePaths,against,allPeersAhead,allScenarioWin:false,eyeFeedback:feedback.length>0});
   if(winPaths.length)emit('RANK100','CONDITIONAL_WIN_PATH',winPaths,winPaths.flatMap(p=>p.refs),['NOT_FORMAL_GRADE'],'CONDITIONAL_HYPOTHESIS');
   if(placePaths.length)emit('RANK99','CONDITIONAL_PLACE_PATH',placePaths,placePaths.flatMap(p=>p.refs),['NOT_FORMAL_GRADE'],'CONDITIONAL_HYPOTHESIS');
   return {horse,horseNo:h.horseNo,status:h.status,candidateGrade:decision.grade,decisionReason:decision.reason,formalGrade:null,axes,winPaths,placePaths,counterPaths:[...win,...place].filter(p=>!p.supported),feedback,items:[...items.values()],formal:false};
  });
- return {schema:NORMAL_VERSION,scope:fixture?'EXISTING_FIXTURE_NORMAL_CANDIDATE_ONLY':'APPROVED_NATIVE_NORMAL_CANDIDATE_ONLY',engineCommit:ENGINE,mapBlob:MAP_BLOB,sourceGraphDigest:sha(packet),field:{completeField,allHistory,paceCovered,roles,scenarios},runners,formal:false,persistenceAllowed:false};
+ return {schema:NORMAL_VERSION,scope:fixture?'EXISTING_FIXTURE_NORMAL_CANDIDATE_ONLY':'APPROVED_NATIVE_NORMAL_CANDIDATE_ONLY',engineCommit:ENGINE,mapBlob:MAP_BLOB,sourceGraphDigest:sha(packet),field:{completeField,allHistory,paceCovered,roles,scenarios,scenarioCoverage:'ORDINAL_GROUP_HYPOTHESIS_ONLY_NOT_EXHAUSTIVE'},runners,formal:false,persistenceAllowed:false};
 }

@@ -53,3 +53,6 @@ Work10 integration, independent Test05 chronological holdout and
 calibration/coverage/outcome validation remain outstanding. V48 fixed,
 884/484 historical configuration preserved, Test04 fixed. No production/
 DB/FROZEN/CLAIM/Cron/merge/deploy/paid API.
+
+## Work10 interim supply integration (supersedes earlier role/grade caveats)
+Work10 41ba1d12eda8d8cab871eaa97974bcc7b5ee4b50, exact converter blob476efe2826d5c9d563beaa512aa25a9dc12f54c5. Native issued capability calls prepareNormalSupply, typed event/row/field facts and graph roots enter computation. Native adapter refuses fixture, no positive native execution. Added ordinary clock difference, bodyweight/finish, equipment, chronological finish change, opponent followups and reported subset section rank. EYE02/05 return to common items, not grade support. Explicit source-bound matching corner labels required for role; no labels, no role. Reported top3/nonplace needs four distinct reported finishers, not only declared count. S rule exists but engine deliberately holds S until alternative scenario coverage proven; one ordinal grouping cannot prove robustness. A/B/C remain unvalidated candidates. No actual source or positive race-grade proof.
