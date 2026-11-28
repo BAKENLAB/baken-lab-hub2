@@ -7,11 +7,12 @@ const unique=a=>[...new Set(a)].sort(),finite=Number.isFinite;
 const distinct=a=>new Set(a.map(x=>x.event)).size>=2;
 const ordinal=s=>typeof s==='string'&&/^\d{1,2}(?:,\d{1,2})+$/.test(s)?s.split(',').map(Number):null;
 const keys=['surfaceLiteral','distanceM','goingLiteral','directionLiteral','classLiteral'];
-export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnabled=true}={}){
- const expected=fixture?'FIXED_FIXTURE_GRAPH_ONLY':'NATIVE_PARTIAL_GRAPH_VERIFIED',state=fixture?'OBSERVED_TEST_FORMAT':'OBSERVED_NATIVE_VERIFIED';
+export function analyzeNormalContext(packet,roster,base,{fixture=false,diagnostic=false,eyeEnabled=true}={}){
+ assert.ok(!(fixture&&diagnostic));
+ const expected=diagnostic?'PRIVATE_REPORTED_FACT_GRAPH_ONLY':fixture?'FIXED_FIXTURE_GRAPH_ONLY':'NATIVE_PARTIAL_GRAPH_VERIFIED',state=diagnostic?'REPORTED_DIAGNOSTIC_FACT':fixture?'OBSERVED_TEST_FORMAT':'OBSERVED_NATIVE_VERIFIED';
  assert.equal(packet.scope,expected);
  const nodes=new Map(packet.roots.map(n=>[n.id,n]));assert.equal(nodes.size,packet.roots.length);
- for(const n of nodes.values()){assert.equal(n.id,sha([n.kind,n.payload,n.depends]),'NORMAL_ROOT_DIGEST');assert.ok(n.kind.startsWith(fixture?'FIXTURE_':'NATIVE_'),'NORMAL_ROOT_DOMAIN');}
+ for(const n of nodes.values()){assert.equal(n.id,sha([n.kind,n.payload,n.depends]),'NORMAL_ROOT_DIGEST');assert.ok(n.kind.startsWith(diagnostic?'DIAGNOSTIC_':fixture?'FIXTURE_':'NATIVE_'),'NORMAL_ROOT_DOMAIN');}
  const close=ids=>{const seen=new Set(),stack=new Set();function visit(id){assert.ok(!stack.has(id),'NORMAL_ROOT_CYCLE');if(seen.has(id))return;const n=nodes.get(id);assert.ok(n,'NORMAL_ROOT_MISSING');stack.add(id);n.depends.forEach(visit);stack.delete(id);seen.add(id);}ids.forEach(visit);return unique([...seen]);};
  const o=(x,k)=>x?.observations?.[k]?.state===state?x.observations[k]:null;
  const v=(x,k)=>o(x,k)?.value??null;
@@ -28,7 +29,7 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
   for(const [subject,x] of [[null,e],...e.rows.map(r=>[r.nativeId,r])])for(const [k,f] of Object.entries(x.observations)){
    if(f.state!==state)continue;const n=nodes.get(f.evidenceId);assert.ok(n,'NORMAL_OBSERVATION_ROOT');
    if(k==='no'){assert.equal(n.payload.eventId,e.eventId);assert.equal(n.payload.horseId,subject);assert.equal(n.payload.horseNo,f.value);}
-   else{assert.ok(n.kind.endsWith('_OBSERVATION'));assert.equal(n.payload.eventId,e.eventId);assert.equal(n.payload.horseId,subject);assert.equal(n.payload.field,k);assert.equal(n.payload.state,'OBSERVED');assert.deepEqual(n.payload.value,f.value);}
+   else{assert.ok(n.kind.endsWith('_OBSERVATION'));assert.equal(n.payload.eventId,e.eventId);assert.equal(n.payload.horseId,subject);assert.equal(n.payload.field,k);assert.equal(n.payload.state,diagnostic?'REPORTED':'OBSERVED');assert.deepEqual(n.payload.value,f.value);}
    close([f.evidenceId]);
   }
  }

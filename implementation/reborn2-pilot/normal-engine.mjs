@@ -53,9 +53,10 @@ export function computeNormalFromSupply(supply,originalGraphDigest,originalPacke
  const result=computeNormal(packet,roster,{fixture:false,eyeEnabled});
  return {...result,sourceGraphDigest:originalGraphDigest,supplyDigest,work10Relations:{direct:supply.direct.length,common:supply.common.length,opponents:supply.opponents.length},supplyScope:supply.scope};
 }
-function computeNormalV01(packet,roster,{fixture=false}={}){
- assert.equal(packet.scope,fixture?'FIXED_FIXTURE_GRAPH_ONLY':'NATIVE_PARTIAL_GRAPH_VERIFIED');
- const observed=fixture?'OBSERVED_TEST_FORMAT':'OBSERVED_NATIVE_VERIFIED';
+function computeNormalV01(packet,roster,{fixture=false,diagnostic=false}={}){
+ assert.ok(!(fixture&&diagnostic));
+ assert.equal(packet.scope,diagnostic?'PRIVATE_REPORTED_FACT_GRAPH_ONLY':fixture?'FIXED_FIXTURE_GRAPH_ONLY':'NATIVE_PARTIAL_GRAPH_VERIFIED');
+ const observed=diagnostic?'REPORTED_DIAGNOSTIC_FACT':fixture?'OBSERVED_TEST_FORMAT':'OBSERVED_NATIVE_VERIFIED';
  const byId=new Map(packet.roots.map(r=>[r.id,r]));assert.equal(byId.size,packet.roots.length);
  const closure=direct=>{const seen=new Set();function visit(i){if(seen.has(i))return;assert.ok(byId.has(i),'NORMAL_ROOT_MISSING');seen.add(i);byId.get(i).depends.forEach(visit);}direct.forEach(visit);return uniq([...seen]);};
  const obs=(x,k)=>x?.observations?.[k]?.state===observed?x.observations[k]:null;
@@ -226,9 +227,16 @@ function computeNormalV01(packet,roster,{fixture=false}={}){
   if(placePaths.length)emit('RANK99','CONDITIONAL_PLACE_PATH',placePaths,placePaths.flatMap(p=>p.refs),['NOT_FORMAL_GRADE'],'CONDITIONAL_HYPOTHESIS');
   return {horse,horseNo:h.horseNo,status:h.status,candidateGrade:decision.grade,decisionReason:decision.reason,formalGrade:null,axes,winPaths,placePaths,counterPaths:[...win,...place].filter(p=>!p.supported),feedback,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:uniq([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedScenarios:scenarios.filter(s=>s.leader===null||![...winPaths,...placePaths].some(p=>p.scenario===s.id)).map(s=>s.id),matchedHistory:matched.map(runValue)},items:[...items.values()],formal:false};
  });
- return {schema:NORMAL_VERSION,scope:fixture?'EXISTING_FIXTURE_NORMAL_CANDIDATE_ONLY':'APPROVED_NATIVE_NORMAL_CANDIDATE_ONLY',engineCommit:ENGINE,mapBlob:MAP_BLOB,sourceGraphDigest:sha(packet),field:{completeField,allHistory,paceCovered,roles,scenarios,scenarioCoverage:'ORDINAL_GROUP_HYPOTHESIS_ONLY_NOT_EXHAUSTIVE'},runners,formal:false,persistenceAllowed:false};
+ return {schema:NORMAL_VERSION,scope:diagnostic?'PRIVATE_REPORTED_FACT_DIAGNOSTIC_ONLY':fixture?'EXISTING_FIXTURE_NORMAL_CANDIDATE_ONLY':'APPROVED_NATIVE_NORMAL_CANDIDATE_ONLY',engineCommit:ENGINE,mapBlob:MAP_BLOB,sourceGraphDigest:sha(packet),field:{completeField,allHistory,paceCovered,roles,scenarios,scenarioCoverage:'ORDINAL_GROUP_HYPOTHESIS_ONLY_NOT_EXHAUSTIVE'},runners,formal:false,persistenceAllowed:false};
 }
 
 export function computeNormal(packet,roster,{fixture=false,eyeEnabled=true}={}){
  return analyzeNormalContext(packet,roster,computeNormalV01(packet,roster,{fixture}),{fixture,eyeEnabled});
+}
+
+// Separate computation domain, never issues a native capability or accepts
+// a diagnostic packet on the native API. Result is always private/held.
+export function computeNormalDiagnostic(packet,roster,{eyeEnabled=true}={}){
+ const out=analyzeNormalContext(packet,roster,computeNormalV01(packet,roster,{diagnostic:true}),{diagnostic:true,eyeEnabled});
+ return {...out,scope:'PRIVATE_REPORTED_FACT_DIAGNOSTIC_ONLY',runners:out.runners.map(h=>({...h,unapprovedCandidateGrade:h.candidateGrade,candidateGrade:'UNASSESSED',formalGrade:null})),realAdmission:false,publicationAllowed:false,persistenceAllowed:false};
 }
