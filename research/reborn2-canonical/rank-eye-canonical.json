@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0",
+  "title": "REBORN 2｜1レースの予想工程・RANKとLAB EYE",
+  "source": "2026-11-26 JST ユーザー再提示の過去メッセージ",
+  "status": "CANONICAL_RECOVERED_EXCERPT",
+  "rank": {
+    "purpose": "今回のレースで、本当に強い馬はどの馬なのか。",
+    "input": "100項目の分析材料から、馬自身の能力だけでなく、今回の条件で発揮できる能力まで評価する。",
+    "definitions": [
+      {
+        "rank": "S",
+        "title": "最有力馬",
+        "definition": "勝ち切る能力と今回条件に強い裏付けがある。"
+      },
+      {
+        "rank": "A",
+        "title": "有力馬",
+        "definition": "今回のレースで十分に勝ち負けできる。"
+      },
+      {
+        "rank": "B",
+        "title": "好走候補",
+        "definition": "条件や展開次第で上位に入る可能性がある。"
+      },
+      {
+        "rank": "C",
+        "title": "評価劣勢",
+        "definition": "今回の条件では他馬より評価を下げる根拠がある。"
+      }
+    ],
+    "market_input": false,
+    "fixed_100_point_scoring": false,
+    "ranking": false,
+    "fixed_top5": false,
+    "rank_quota": false,
+    "allow_no_s": true,
+    "insufficient_data": "未評価（Cと区別）"
+  },
+  "eye": {
+    "purpose": "一般的な予想では見落とされやすい、今回の好走理由はないか。",
+    "scope": "全出走馬を再検査する",
+    "items": [
+      {
+        "id": "01",
+        "name": "着順と着差のギャップ"
+      },
+      {
+        "id": "02",
+        "name": "着順と過去走内容のギャップ"
+      },
+      {
+        "id": "03",
+        "name": "道中後退からの巻き返し"
+      },
+      {
+        "id": "04",
+        "name": "強い相手との僅差敗戦"
+      },
+      {
+        "id": "05",
+        "name": "対戦相手の後続実績"
+      },
+      {
+        "id": "06",
+        "name": "前走の展開不利の解消"
+      },
+      {
+        "id": "07",
+        "name": "得意距離・条件への復帰"
+      },
+      {
+        "id": "08",
+        "name": "コース変更による適性向上"
+      },
+      {
+        "id": "09",
+        "name": "先行馬占有率による恩恵"
+      },
+      {
+        "id": "10",
+        "name": "逃げハサミによる恩恵"
+      },
+      {
+        "id": "11",
+        "name": "同型馬の減少"
+      },
+      {
+        "id": "12",
+        "name": "想定隊列による位置取り改善"
+      },
+      {
+        "id": "13",
+        "name": "着順に表れていない能力上昇"
+      },
+      {
+        "id": "14",
+        "name": "転入・クラス変更による相手弱化"
+      },
+      {
+        "id": "15",
+        "name": "複数の条件好転の組み合わせ"
+      }
+    ],
+    "market_gate": {
+      "market": "単勝",
+      "minimum_odds": 10,
+      "inclusive": true,
+      "timing": "確定時オッズ",
+      "stage": "発掘根拠の監査後"
+    },
+    "selection_method_status": "原典の提示範囲では具体的な分析方法・必要根拠数等は未確定"
+  },
+  "workflow": [
+    "公式データ取得",
+    "7大分類・100項目分析（全出走馬を同一基準で分析）",
+    "RANK総合能力分析・LAB EYE穴馬発掘専用監査",
+    "最終整合性監査（EYEで発見した能力材料も総合評価に反映、根拠の重複・評価矛盾・欠損を確認）",
+    "FROZEN（RANK・LAB EYE確定保存）"
+  ],
+  "release": {
+    "production_ready": false
+  }
+}

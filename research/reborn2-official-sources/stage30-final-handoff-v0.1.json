@@ -1,0 +1,37 @@
+{
+  "schema": "WORK_STAGE30_OFFICIAL_EVIDENCE_SUPPLY_HANDOFF_0.1",
+  "date_jst": "2026-11-28",
+  "scope": "RESEARCH_ONLY_SYNTHETIC_CONTRACT",
+  "inputs": {
+    "work29_audit": "886e18c77c5516a4491810acc223247a351cbeef",
+    "work29_handoff": "8aac063859953446acc431b0eb85caacadc20971",
+    "v28_audit": "0a8cb4c7c2cc90a619bda100ad0fab10e7d757a2"
+  },
+  "outputs": [
+    "stage30-official-source-registry-v0.1.json",
+    "stage30-evidence-supply-contract-v0.1.mjs",
+    "test-stage30-evidence-supply-contract-v0.1.mjs",
+    "RESEARCH-STAGE30-OFFICIAL-EVIDENCE-SUPPLY-20261128.md"
+  ],
+  "coverage": {"source_groups":25,"jra_groups":15,"local_groups":10},
+  "execution": {
+    "new_tests":16,"passed":16,"failed":0,
+    "prior_work29_recorded":374,"prior_rerun":false,
+    "official_values":0,"actual_race_replays":0,"formal_admissions":0
+  },
+  "rights": {
+    "public_view_routes_confirmed":true,
+    "raw_retention_fully_authorized":false,
+    "external_cloud_ai_authorized":false,
+    "derived_publication_authorized":false,
+    "commercial_use_authorized":false,
+    "inquiries_sent":false,
+    "contracts_started":false,
+    "paid_services_used":false
+  },
+  "safety": {
+    "production_changes":0,"database_changes":0,"mcp_calls":0,"frozen_changes":0,
+    "cron_changes":0,"deployments":0,"merges":0,"current_model_changes":0
+  },
+  "decision": "REAL_ADAPTER_DISABLED_PENDING_SEPARATE_RIGHTS_AND_RAW_CUSTODY_PROOF"
+}

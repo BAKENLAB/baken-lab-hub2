@@ -1,0 +1,9 @@
+# Read-only material supply
+
+The existing SQL readers now feed archive-materials.mjs, which supplies every requested runner with a material list and a 01–12 coverage ledger. Run the readers read-only and call supplyArchiveMaterials with the target roster and cutoff from the prestart record. Empty runners stay in the ledger.
+
+2026-11-26 JST query and Node handoff: Tokyo 11/23 R12 18/18 runners, 147 prior rows, 10 runners exceed five. Each had at least one candidate for 01–08 and 10–12. 147 rows had race-lap strings matching the archived winner clock and distance-derived segment count. The identity token and timing are archive candidates. The lap check does not independently verify official intervals or individual splits.
+
+Saga 11/22 R8 PARTIAL snapshot: exported 29 linked prior rows, all 12 snapshot runner numbers represented in material output. Item 02 had a timely settlement candidate for 7/12, item 10 a corner proxy for 12/12. Seven settlement clocks supplied and one linked race-level lap packet. Item 05 remains incomplete for want of bound surface/going, 06 lacks timely per-horse final3f, and 03/04 remain unset rather than combining incomplete sources. No runner had more than five rows. Both circuits had zero item 09 occurrences supplied. No finding of a normal start is inferred.
+
+No fresh official HTML or authorized CSV was available in the tested routes. Remaining steps are permitted fresh retrieval, exact identity and publication-time verification, bounded LOCAL profile pagination, and semantic incident extraction. Per-horse acceleration and second acceleration remain proxies. Items 01, 11 and 12 are derived inputs pending analysis, and 05 needs a validated benchmark. Run node test-archive-materials.mjs and node test-same-response-handoff.mjs. No raw source material is stored by this commit.

@@ -1,0 +1,532 @@
+{
+  "version": "1.0",
+  "source": "Gemini user-forwarded 2026-11-27; normalized partial transcription, not a corrected original",
+  "classification": "SYNTHETIC_RESEARCH_ONLY",
+  "formal_admission": false,
+  "scope": "partial unit-test fixtures only; full fields, source provenance and registration not established",
+  "units": {
+    "time": "integer tenths of seconds",
+    "distance": "m",
+    "weight": "kg"
+  },
+  "null_policy": "unknown, no imputation",
+  "cases": [
+    {
+      "id": "V01",
+      "target": {
+        "id": "FK-20261120-V01",
+        "date": "2026-11-20",
+        "start": "15:00",
+        "published": "14:30",
+        "course": "青葉ダート",
+        "course_version": "2026A",
+        "surface": "dirt",
+        "distance": 1400,
+        "turn": "right",
+        "first_corner": 285,
+        "going": "良",
+        "grade": "GRD-C2-MIX",
+        "field_complete": false,
+        "actual_laps": null
+      },
+      "entrants": [
+        {
+          "id": "V1-H1",
+          "sex": "牡",
+          "age": 4,
+          "weight": 56
+        },
+        {
+          "id": "V1-H2",
+          "sex": "牡",
+          "age": 4,
+          "weight": 56
+        }
+      ],
+      "history": [
+        {
+          "id": "FK-20260910-V11",
+          "published": "2026-09-10T15:00",
+          "distance": 1400,
+          "going": "良",
+          "field": 8,
+          "rows": [
+            {
+              "id": "V1-H1",
+              "finish": 2,
+              "clock": 882,
+              "margin": 2,
+              "corners": [
+                4,
+                4,
+                3,
+                2
+              ]
+            },
+            {
+              "id": "V1-H2",
+              "finish": 1,
+              "clock": 880,
+              "corners": [
+                2,
+                2,
+                2,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FK-20261025-V12",
+          "published": "2026-10-25T15:10",
+          "distance": 1400,
+          "going": "稍重",
+          "field": 9,
+          "rows": [
+            {
+              "id": "V1-H2",
+              "finish": 3,
+              "clock": 881,
+              "margin": 5,
+              "corners": [
+                3,
+                3,
+                3,
+                3
+              ]
+            },
+            {
+              "id": "CM-1",
+              "finish": 1,
+              "clock": 876,
+              "corners": [
+                5,
+                5,
+                4,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FK-20261004-V13",
+          "published": "2026-10-04T15:05",
+          "distance": 1400,
+          "going": "良",
+          "field": 8,
+          "rows": [
+            {
+              "id": "V1-H1",
+              "finish": 2,
+              "clock": 879,
+              "margin": 1,
+              "corners": null
+            },
+            {
+              "id": "CM-1",
+              "finish": 1,
+              "clock": 878,
+              "corners": null
+            }
+          ],
+          "unassigned_corners": [
+            6,
+            6,
+            4,
+            2
+          ]
+        }
+      ],
+      "missing": [
+        "historical venue/version/grade/weights",
+        "V13 corner subject ambiguous",
+        "full race rows",
+        "target field completeness",
+        "H1 latest run"
+      ]
+    },
+    {
+      "id": "V02",
+      "target": {
+        "id": "FK-20261121-V02",
+        "date": "2026-11-21",
+        "start": "15:15",
+        "published": "14:45",
+        "course": "青葉ダート",
+        "course_version": "2026A",
+        "surface": "dirt",
+        "distance": 1400,
+        "turn": "right",
+        "first_corner": 285,
+        "going": "良",
+        "field_complete": false,
+        "actual_laps": null
+      },
+      "entrants": [
+        {
+          "id": "V2-H1",
+          "sex": "牡",
+          "age": 5,
+          "weight": 56,
+          "draw": 4,
+          "runner": 4
+        },
+        {
+          "id": "V2-H2",
+          "sex": "牝",
+          "age": 4,
+          "weight": 54,
+          "draw": 6,
+          "runner": 6
+        },
+        {
+          "id": "V2-H3",
+          "draw": 1,
+          "runner": 1,
+          "unspecified_history_corners": [
+            1,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "V2-H4",
+          "draw": 3,
+          "runner": 3,
+          "unspecified_history_corners": [
+            2,
+            2,
+            1,
+            1
+          ]
+        }
+      ],
+      "history": [
+        {
+          "id": "FK-20261019-V21",
+          "published": "2026-10-19T15:00",
+          "distance": 1400,
+          "going": "良",
+          "field": 8,
+          "lap_kind": null,
+          "reported_laps": [
+            129,
+            120,
+            126,
+            128,
+            127,
+            125,
+            125
+          ],
+          "reported_total": 880,
+          "reported_pace_label": "単騎逃げスロー (unverified label)",
+          "rows": [
+            {
+              "id": "V2-H1",
+              "finish": 1,
+              "corners": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "final3f": 377
+            }
+          ]
+        },
+        {
+          "id": "FK-20261019-V22",
+          "published": "2026-10-19T15:20",
+          "distance": 1400,
+          "going": "良",
+          "field": 9,
+          "lap_kind": null,
+          "reported_laps": [
+            121,
+            112,
+            119,
+            124,
+            128,
+            132,
+            138
+          ],
+          "reported_total": 874,
+          "reported_pace_label": "ハイペース (unverified label)",
+          "rows": [
+            {
+              "id": "V2-H2",
+              "finish": 2,
+              "margin": 2,
+              "corners": [
+                8,
+                8,
+                6,
+                4
+              ],
+              "final3f": 372
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "full field, all ACTIVE status",
+        "H3/H4 source race IDs/dates/latest-run status",
+        "historical course/grade/weights",
+        "pace baseline and actual lap kind",
+        "counterfactual scenario inputs"
+      ]
+    },
+    {
+      "id": "V03",
+      "target": {
+        "id": "FK-20261122-V03",
+        "date": "2026-11-22",
+        "start": "15:20",
+        "published": "14:50",
+        "course": "青葉ダート",
+        "course_version": "2026A",
+        "surface": "dirt",
+        "distance": 1400,
+        "turn": "right",
+        "first_corner": 285,
+        "going": "良",
+        "grade": "GRD-C2-MIX",
+        "field_complete": false,
+        "actual_laps": null
+      },
+      "entrants": [
+        {
+          "id": "V3-H1",
+          "sex": "牡",
+          "age": 4,
+          "weight": 56,
+          "draw": 5,
+          "runner": 5,
+          "reported_body_weight_change": 1,
+          "body_weight_observed_at": null,
+          "reported_interval": "中4週"
+        }
+      ],
+      "history": [
+        {
+          "id": "FK-20261020-V31",
+          "published": "2026-10-20T15:05",
+          "distance": 1400,
+          "going": "良",
+          "field": 8,
+          "rows": [
+            {
+              "id": "V3-H1",
+              "finish": 8,
+              "clock": 892,
+              "margin": 14,
+              "corners": [
+                3,
+                4,
+                7,
+                8
+              ],
+              "final3f": 391
+            }
+          ],
+          "incident": {
+            "id": "裁決FK-1020-31",
+            "corner": 3,
+            "victim": "V3-H1",
+            "actor": "V3-X1",
+            "reported": "外から寄られ進路を失いブレーキ、進路注意・降着なし",
+            "published": null
+          }
+        },
+        {
+          "id": "FK-20260929-V32",
+          "published": "2026-09-29T14:55",
+          "distance": 1400,
+          "going": "良",
+          "field": 8,
+          "rows": [
+            {
+              "id": "V3-H1",
+              "finish": 2,
+              "clock": 879,
+              "margin": 1,
+              "corners": [
+                4,
+                4,
+                3,
+                2
+              ],
+              "final3f": 376
+            },
+            {
+              "id": "V3-X2",
+              "finish": 1
+            }
+          ]
+        },
+        {
+          "id": "FK-20261022-V33",
+          "published": "2026-10-22T15:15",
+          "distance": 1400,
+          "going": "良",
+          "grade": "C1",
+          "reported_class_change": "昇級",
+          "rows": [
+            {
+              "id": "V3-X2",
+              "finish": 1
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "incident publication time",
+        "prior class / actual promotion comparison",
+        "followup full field, margin, carried weight, clock",
+        "target body weight time",
+        "full target field"
+      ]
+    },
+    {
+      "id": "V04",
+      "target": {
+        "id": "FK-20261123-V04",
+        "date": "2026-11-23",
+        "start": "15:25",
+        "published": "14:55",
+        "course": "青葉ダート",
+        "course_version": "2026A",
+        "surface": "dirt",
+        "distance": 1400,
+        "turn": "right",
+        "first_corner": 285,
+        "going": "良",
+        "field_complete": false,
+        "actual_laps": null
+      },
+      "entrants": [
+        {
+          "id": "V4-H1",
+          "sex": "牡",
+          "age": 5,
+          "weight": 56,
+          "draw": 2,
+          "runner": 2
+        }
+      ],
+      "history": [
+        {
+          "id": "FK-20260912-V41",
+          "published": null,
+          "distance": 1400,
+          "going": "良",
+          "rows": [
+            {
+              "id": "V4-H1",
+              "finish": 1,
+              "clock": 876,
+              "corners": [
+                2,
+                2,
+                2,
+                1
+              ],
+              "final3f": 377
+            }
+          ]
+        },
+        {
+          "id": "FK-20261003-V42",
+          "published": null,
+          "distance": 1400,
+          "going": "良",
+          "rows": [
+            {
+              "id": "V4-H1",
+              "finish": 2,
+              "clock": 878,
+              "margin": 1,
+              "corners": [
+                3,
+                3,
+                2,
+                2
+              ],
+              "final3f": 378
+            }
+          ]
+        },
+        {
+          "id": "FK-20261024-V43",
+          "published": "2026-10-24T15:30",
+          "distance": 1400,
+          "going": "良",
+          "field": 9,
+          "rows": [
+            {
+              "id": "V4-H1",
+              "finish": 5,
+              "clock": 886,
+              "margin": 9,
+              "corners": [
+                2,
+                2,
+                3,
+                5
+              ],
+              "final3f": 394
+            }
+          ],
+          "incident": {
+            "id": "裁決FK-1024-43",
+            "reported": "走行妨害・不利なし、先行から直線で大きく失速",
+            "published": null
+          }
+        }
+      ],
+      "additional": [
+        {
+          "type": "body_weight_report",
+          "date": "2026-11-20",
+          "prior": 472,
+          "reported": 486,
+          "change": 14,
+          "reported_good_range": [
+            470,
+            474
+          ],
+          "measurement_time": null,
+          "scope": "not target race-day measurement"
+        },
+        {
+          "type": "workout_report",
+          "date": "2026-11-19",
+          "final1f": 141,
+          "reported_label": "終い失速",
+          "comparison_baseline": null,
+          "published": null
+        }
+      ],
+      "stage_partition": {
+        "initial": [
+          "FK-20260912-V41",
+          "FK-20261003-V42"
+        ],
+        "additional": [
+          "FK-20261024-V43",
+          "body_weight_report",
+          "workout_report"
+        ]
+      },
+      "missing": [
+        "initial history publication",
+        "workout course/method/conditions/splits",
+        "weight measurement context",
+        "historical class/venue/weights",
+        "full target field"
+      ]
+    }
+  ],
+  "quarantine": "Target actual lap values omitted completely; audit-only source literal kept separately. No expectation labels, odds, target outcomes or formal rank. Missing fields are blockers, not negative ability evidence."
+}
