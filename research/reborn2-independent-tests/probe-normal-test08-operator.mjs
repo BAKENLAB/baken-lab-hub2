@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {resolve} from 'node:path';
+import {execFileSync,spawnSync} from 'node:child_process';
+const [dir,pin]=process.argv.slice(2),root=resolve(dir),runner=resolve(root,'implementation/reborn2-pilot/run-approved-local.mjs');
+assert.equal(execFileSync('git',['-C',root,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),pin);
+const check=(args,pattern)=>{const r=spawnSync(process.execPath,[runner,...args],{encoding:'utf8',timeout:15000});assert.equal(r.error,undefined);assert.notEqual(r.status,0);assert.match(r.stderr,pattern);assert.equal(r.stdout.trim(),'');return {mode:args[0],exit:r.status,reason:r.stderr.trim().split('\n')[0]};};
+const missing='/__test07_missing_input__';
+const results=[check(['RETROSPECTIVE',missing,missing,missing],/MAIN_NATIVE_APPROVAL_NOT_CONFIGURED/),check(['PROSPECTIVE',missing,missing,missing],/MAIN_NATIVE_APPROVAL_NOT_CONFIGURED/),check(['FACT_DIAGNOSTIC',missing,missing,missing,missing],/FACT_DIAGNOSTIC_ARGUMENTS/),check(['INVALID',missing,missing,missing],/LOCAL_RUNNER_ARGUMENTS/),check(['FACT_DIAGNOSTIC',missing],/LOCAL_EXECUTION_FAILED/)];
+const permittedShapeMissingFile=check(['FACT_DIAGNOSTIC',missing,missing],/LOCAL_EXECUTION_FAILED/);
+assert.ok(results.slice(0,2).every(r=>!r.reason.includes('ENOENT')));
+console.log('TEST07_OPERATOR '+JSON.stringify({status:'PASS',results,permittedShapeMissingFile,scope:'closed authority and invalid arguments only; no source packet and no positive actual Node server'}));
