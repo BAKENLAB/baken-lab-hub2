@@ -1,0 +1,45 @@
+name: REBORN2 NORMAL Test08 independent
+on:
+  pull_request:
+    branches: [research/reborn2-main48-test-ci-base]
+permissions:
+  contents: read
+jobs:
+  operator:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    strategy:
+      fail-fast: false
+      matrix:
+        pin: [fcafbbc9e29efd36bb82906c93fac2f29aecdd7d, 3e5ef7a73d0834d6e929bffcc6de05a9caeb449f]
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.pin }}
+          path: fixed-normal
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test08 operator fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test08-operator.mjs fixed-normal ${{ matrix.pin }} > "$RUNNER_TEMP/operator.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/operator.log"
+          echo "TEST08_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test08-operator-${{ matrix.pin }}
+          path: ${{ runner.temp }}/operator.log

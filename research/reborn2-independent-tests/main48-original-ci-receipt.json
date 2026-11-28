@@ -1,0 +1,84 @@
+{
+  "scope": "ACTUAL_GITHUB_CI_LOG_EXTRACT",
+  "baseline": "64adddcc5c3fdae704031782bd0b4425ccd3a23a",
+  "executed": "1f266a2049ebc6e9b5e9afba6e6f62924adb0984",
+  "run": 46077245803,
+  "job": 140767740385,
+  "artifact": 15235702025,
+  "artifact_zip_sha256": "d4b46fabf8404e9cbd17da623657500068052349f21e628abac1a550d951388e",
+  "node": "v22.23.5",
+  "exit": 1,
+  "actual_receipt": {
+    "schema": "MAIN48_INDEPENDENT_PROBE",
+    "rows": [
+      {
+        "id": "IT48-01-sealed-same-flag",
+        "status": "PASS",
+        "detail": "Full output equality; pinned input only, not process isolation"
+      },
+      {
+        "id": "IT48-02-sealed-direct-reject",
+        "status": "PASS"
+      },
+      {
+        "id": "IT48-03-eye-semantic",
+        "status": "PASS"
+      },
+      {
+        "id": "IT48-04-current-grades",
+        "status": "FAIL",
+        "error": "All current grades null; current decision completion not demonstrated"
+      },
+      {
+        "id": "IT48-05-advantage-recovery",
+        "status": "PASS",
+        "detail": {
+          "recovered": 327,
+          "retained": 325,
+          "scope": "historical pair witnesses only"
+        }
+      },
+      {
+        "id": "IT48-06-ab-witness",
+        "status": "PASS",
+        "detail": {
+          "A": 3,
+          "B": 3,
+          "scope": "historical only"
+        }
+      },
+      {
+        "id": "IT48-07-missing-local",
+        "status": "FAIL",
+        "error": "No surviving unaffected local comparison"
+      },
+      {
+        "id": "IT48-08-peer-change",
+        "status": "PASS",
+        "detail": "Weight change affects peer transfer; new opponent strength still untested"
+      },
+      {
+        "id": "IT48-09-root-id-unique",
+        "status": "PASS",
+        "detail": "ID uniqueness only; same root under different IDs requires separate fixture"
+      }
+    ],
+    "formal": false
+  },
+  "raw_lines": [
+    "2026-11-27T22:32:26.0729140Z 1f266a2049ebc6e9b5e9afba6e6f62924adb0984",
+    "2026-11-27T22:33:21.4639576Z {\"id\":\"IT48-01-sealed-same-flag\",\"status\":\"PASS\",\"detail\":\"Full output equality; pinned input only, not process isolation\"}",
+    "2026-11-27T22:33:21.4657062Z {\"id\":\"IT48-02-sealed-direct-reject\",\"status\":\"PASS\"}",
+    "2026-11-27T22:33:21.4657442Z {\"id\":\"IT48-03-eye-semantic\",\"status\":\"PASS\"}",
+    "2026-11-27T22:33:21.4658041Z {\"id\":\"IT48-04-current-grades\",\"status\":\"FAIL\",\"error\":\"All current grades null; current decision completion not demonstrated\"}",
+    "2026-11-27T22:33:21.4658916Z {\"id\":\"IT48-05-advantage-recovery\",\"status\":\"PASS\",\"detail\":{\"recovered\":327,\"retained\":325,\"scope\":\"historical pair witnesses only\"}}",
+    "2026-11-27T22:33:21.4659628Z {\"id\":\"IT48-06-ab-witness\",\"status\":\"PASS\",\"detail\":{\"A\":3,\"B\":3,\"scope\":\"historical only\"}}",
+    "2026-11-27T22:33:21.4660190Z {\"id\":\"IT48-07-missing-local\",\"status\":\"FAIL\",\"error\":\"No surviving unaffected local comparison\"}",
+    "2026-11-27T22:33:21.4660905Z {\"id\":\"IT48-08-peer-change\",\"status\":\"PASS\",\"detail\":\"Weight change affects peer transfer; new opponent strength still untested\"}",
+    "2026-11-27T22:33:21.4662297Z {\"id\":\"IT48-09-root-id-unique\",\"status\":\"PASS\",\"detail\":\"ID uniqueness only; same root under different IDs requires separate fixture\"}",
+    "2026-11-27T22:33:21.4668414Z {\"schema\":\"MAIN48_INDEPENDENT_PROBE\",\"rows\":[{\"id\":\"IT48-01-sealed-same-flag\",\"status\":\"PASS\",\"detail\":\"Full output equality; pinned input only, not process isolation\"},{\"id\":\"IT48-02-sealed-direct-reject\",\"status\":\"PASS\"},{\"id\":\"IT48-03-eye-semantic\",\"status\":\"PASS\"},{\"id\":\"IT48-04-current-grades\",\"status\":\"FAIL\",\"error\":\"All current grades null; current decision completion not demonstrated\"},{\"id\":\"IT48-05-advantage-recovery\",\"status\":\"PASS\",\"detail\":{\"recovered\":327,\"retained\":325,\"scope\":\"historical pair witnesses only\"}},{\"id\":\"IT48-06-ab-witness\",\"status\":\"PASS\",\"detail\":{\"A\":3,\"B\":3,\"scope\":\"historical only\"}},{\"id\":\"IT48-07-missing-local\",\"status\":\"FAIL\",\"error\":\"No surviving unaffected local comparison\"},{\"id\":\"IT48-08-peer-change\",\"status\":\"PASS\",\"detail\":\"Weight change affects peer transfer; new opponent strength still untested\"},{\"id\":\"IT48-09-root-id-unique\",\"status\":\"PASS\",\"detail\":\"ID uniqueness only; same root under different IDs requires separate fixture\"}],\"formal\":false}",
+    "2026-11-27T22:33:21.4673187Z ORIGINAL_PROBE_EXIT=1",
+    "2026-11-27T22:33:22.2705842Z SHA256 digest of uploaded artifact zip is d4b46fabf8404e9cbd17da623657500068052349f21e628abac1a550d951388e",
+    "2026-11-27T22:33:22.6469309Z Artifact main48-independent-receipt.zip successfully finalized. Artifact ID 15235702025"
+  ]
+}
