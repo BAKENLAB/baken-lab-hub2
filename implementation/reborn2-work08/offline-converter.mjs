@@ -38,11 +38,17 @@ function jraRace(v,role){
 }
 const ptr=(row,field)=>JSON.stringify({row,field});
 const allowed=(x,ks)=>{need(x&&typeof x==='object'&&!Array.isArray(x)&&Object.keys(x).every(k=>ks.includes(k)),'UNAPPROVED_SOURCE_FIELD');};
-function cardPost(v,date){
+export function cardPost(v,date){
  if(validTime(v))return v;
- // Only explicit documented local time literals; not an arbitrary date parser.
- need(typeof v==='string'&&/^(?:[01]?\d|2[0-3]):[0-5]\d$/.test(v),'JRA_POST_LITERAL');
- const [h,m]=v.split(':');return new Date(date+'T'+h.padStart(2,'0')+':'+m+':00+09:00').toISOString();
+ // Match the actual stored Japanese hour/minute format or explicit HH:MM.
+ const m=typeof v==='string'?v.match(/^(\d{1,2})(?:時(\d{1,2})分|:([0-5]\d))$/):null;
+ need(m&&Number(m[1])<24&&Number(m[2]??m[3])<60,'JRA_POST_LITERAL');
+ const h=m[1].padStart(2,'0'),minute=(m[2]??m[3]).padStart(2,'0');
+ const stamp=date+'T'+h+':'+minute+':00+09:00';
+ need(/^\d{4}-\d{2}-\d{2}$/.test(date)&&Number.isFinite(Date.parse(stamp)),'JRA_POST_DATE');
+ const iso=new Date(stamp).toISOString();
+ need(jst(iso)===date,'JRA_POST_DATE');
+ return iso;
 }
 const raceKeys=['race_date','track','race_no','surface','turn','distance','going','class_name','field_size'];
 const runnerKeys=['horse_no','horse_ref','horse_name','draw','weight_carried','body_weight','body_weight_diff','sex_age','equipment'];
@@ -134,7 +140,7 @@ function convert(m,raws,{fixture=false}={}){
    need(d.role==='TARGET_CARD'&&d.encoding==='UTF8','STATUS_CARD_ROLE');
    const z=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw));
    exact(z,['nativeRaceId','dateJst','venueId','raceNo','scheduledPost','checkedAt','sourceRef','rows']);
-   need(z.nativeRaceId===e.nativeId&&z.dateJst===e.dateJst&&z.venueId===e.venueId&&z.raceNo===e.raceNo&&z.scheduledPost===scheduledPost&&validTime(z.checkedAt)&&Date.parse(z.checkedAt)<=Date.parse(d.capturedAt)&&Date.parse(z.checkedAt)<=Date.parse(cutoff)&&z.sourceRef===d.sourceRef,'STATUS_CARD_BINDING');
+   need(z.nativeRaceId===e.nativeId&&z.dateJst===e.dateJst&&z.venueId===e.venueId&&z.raceNo===e.raceNo&&z.scheduledPost===scheduledPost&&validTime(z.checkedAt)&&Date.parse(d.updatedAt)<=Date.parse(z.checkedAt)&&Date.parse(z.checkedAt)<=Date.parse(d.capturedAt)&&Date.parse(z.checkedAt)<=Date.parse(cutoff)&&z.sourceRef===d.sourceRef,'STATUS_CARD_BINDING');
    const url=new URL(z.sourceRef);
    need(url.protocol==='https:'&&!url.username&&!url.password&&!url.port&&!url.hash,'STATUS_URL');
    if(circuit==='JRA'){
