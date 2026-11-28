@@ -14,8 +14,9 @@ import {csvRows} from '../../research/reborn2-work44/offline-intake-v0.2.mjs';
 import {convertExistingWork44 as convert07,convertApprovedLocal as local07} from '../reborn2-work07/offline-converter.mjs';
 import {convertExistingWork44 as convert08,convertApprovedLocal as local08} from '../reborn2-work08/offline-converter.mjs';
 export const WORK08='767a8e0bb90bd178e260d6b4b8bcc86fe341520e';
-const pins={'07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
-for(const v of ['07','08']){
+import {convertApprovedLocal as local11} from '../reborn2-work11/offline-converter.mjs';
+const pins={'11':'fc1184949eb9eafbbea400fec30cbb3510f62dbc','07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
+for(const v of ['07','08','11']){
  const bytes=readFileSync(new URL('../reborn2-work'+v+'/offline-converter.mjs',import.meta.url));
  assert.equal(createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex'),pins[v],'CONVERTER_PIN');
 }
@@ -154,14 +155,14 @@ export function exerciseExistingGraph(version='08'){
 export function issueNativeGraph(request){
  assert.equal(authority.state,'CONFIGURED','MAIN_NATIVE_APPROVAL_NOT_CONFIGURED');
  exact(request,['version','signedManifest','raws','approval']);
- assert.ok(['07','08'].includes(request.version));
+ assert.ok(['07','08','11'].includes(request.version));
  const manifestDigest=verifyPinned(request.signedManifest,authority.sourceKey,authority.sourcePins);
  const approvalDigest=verifyPinned(request.approval,authority.reviewKey,authority.approvalPins),a=request.approval.payload;
  exact(a,['schema','engineCommit','converterBlob','manifestDigest','packageDigest','sourceStatesDigest','sourceGraphDigest','factsDigest','rosterDigest','canonicalRaceKey','rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest','validUntil']);
  assert.equal(a.schema,'REBORN2_NATIVE_GRAPH_APPROVAL_1');assert.equal(a.engineCommit,ENGINE);assert.equal(a.converterBlob,pins[request.version]);assert.equal(a.manifestDigest,manifestDigest);
  for(const k of ['rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest'])assert.ok(hex(a[k]),'INDEPENDENT_REVIEW_DIGEST');
  assert.ok(Date.now()<Date.parse(a.validUntil),'APPROVAL_EXPIRED');
- const x=(request.version==='08'?local08:local07)(request.signedManifest,request.raws,{authorityPublicKeyPem:authority.sourceKey,expectedManifestSha256:manifestDigest});
+ const x=(request.version==='11'?local11:request.version==='08'?local08:local07)(request.signedManifest,request.raws,{authorityPublicKeyPem:authority.sourceKey,expectedManifestSha256:manifestDigest});
  assert.equal(x.scope,'LOCAL_EXTRACTION_NOT_ADMISSION');
  const g=build(x,request.signedManifest.payload.rowWitnesses,{fixture:false,version:request.version,manifestDigest});
  for(const k of ['packageDigest','sourceStatesDigest','sourceGraphDigest','factsDigest','rosterDigest','canonicalRaceKey'])assert.equal(a[k],g.metadata[k],'APPROVAL_GRAPH_BINDING '+k);
@@ -173,11 +174,11 @@ export function issueNativeGraph(request){
 // source trust OUTSIDE this API and already have authorized local raw bytes.
 // Its caller-supplied trust is not used by issueNativeGraph.
 export function prepareNativeReviewOffline({version,signedManifest,raws,sourceTrust}){
- assert.ok(['07','08'].includes(version));
+ assert.ok(['07','08','11'].includes(version));
  exact(sourceTrust,['authorityPublicKeyPem','expectedManifestSha256']);
  const manifestDigest=sha(signedManifest.payload);
  assert.equal(manifestDigest,sourceTrust.expectedManifestSha256,'REVIEW_SOURCE_PIN');
- const x=(version==='08'?local08:local07)(signedManifest,raws,sourceTrust);
+ const x=(version==='11'?local11:version==='08'?local08:local07)(signedManifest,raws,sourceTrust);
  assert.equal(x.scope,'LOCAL_EXTRACTION_NOT_ADMISSION');
  const g=build(x,signedManifest.payload.rowWitnesses,{fixture:false,version,manifestDigest});
  return reviewPreparation(g);
@@ -259,7 +260,7 @@ function resolveOriginalField(draft,descriptors,raws,rootId){
   assert.ok(p.columns.every(i=>Number.isInteger(i)&&i>=1&&i<=row.fields.length),'REVIEW_CSV_COLUMNS');
   original=p.columns.map(column=>({column,literal:row.fields[column-1]}));
  }else{
-  assert.ok(['NAR_STORED_CORNER_SNAPSHOT_1','OFFICIAL_CARD_STATUS_PROJECTION_1','JRA_STORED_ROW_JSON_1'].includes(descriptor.format),'REVIEW_JSON_FORMAT');
+  assert.ok(['NAR_STORED_CORNER_SNAPSHOT_1','OFFICIAL_CARD_STATUS_PROJECTION_1','JRA_STORED_ROW_JSON_1','NAR_DEBA_HTML_PROJECTION_1','NAR_HISTORY_HTML_PROJECTION_1','JRA_CORNER_HTML_PROJECTION_1'].includes(descriptor.format),'REVIEW_JSON_FORMAT');
   assert.ok(typeof p.row==='string'&&typeof p.field==='string');
   const parts=[...p.row.split(/[./]/),p.field];
   assert.ok(parts.every(k=>/^[A-Za-z0-9_]+$/.test(k)&&!['__proto__','prototype','constructor'].includes(k)),'REVIEW_JSON_POINTER');
