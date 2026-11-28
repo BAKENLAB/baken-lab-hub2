@@ -34,6 +34,7 @@ assert.equal(decideNormalGrade({...w,winPaths:[],placePaths:[{}]}).grade,'B');
 assert.equal(decideNormalGrade({...w,axes:['A','B','C','D','E'].map(axis=>({axis,state:axis==='B'?'SUPPORT':axis==='E'?'HELD':'COUNTER'})),winPaths:[],against:true}).grade,'C');
 assert.equal(decideNormalGrade({...w,completeField:false}).grade,'UNASSESSED');
 assert.equal(decideNormalGrade({...w,against:true}).grade,'UNASSESSED');
+assert.equal(decideNormalGrade({...w,winPaths:[],placePaths:[{}],against:true,axes:support.map(a=>a.axis==='C'?{...a,state:'MIXED'}:a)}).grade,'B');
 const p=await startGraphPreview(cap,{normal:true});try{const h=await (await fetch(p.url)).text();assert.ok(h.includes('NORMAL候補')&&h.includes('開発候補'));const horse=new URL(h.match(/href="([^"]+)"[^>]*>全115項目を見る/)[1].replaceAll('&amp;','&'),p.url);const d=await(await fetch(horse)).text();assert.ok(d.includes('CURRENT_FIELD_OR_COMPARABLE_HISTORY_INCOMPLETE'));}finally{await new Promise(ok=>p.server.close(ok));}
 console.log('CODEX09_NORMAL_EXISTING_GRAPH PASS '+JSON.stringify({items:n.runners.map(h=>h.items.filter(i=>i.findings.length).length),findings:n.runners.map(h=>h.items.flatMap(i=>i.findings).length),grades:n.runners.map(h=>h.candidateGrade),formal:false}));
 console.log('CODEX09_NORMAL_DECISION_TRUTH_TABLE PASS');

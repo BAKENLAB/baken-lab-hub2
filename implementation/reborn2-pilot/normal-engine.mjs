@@ -28,12 +28,12 @@ export function decideNormalGrade({eligible,completeField,allHistory,paceCovered
  const a=Object.fromEntries(axes.map(x=>[x.axis,x.state]));
  if(['A','B','C','D'].some(k=>!a[k]||a[k]==='HELD'))return hold('DECISIVE_AXIS_UNRESOLVED');
  if(against&&a.A==='COUNTER'&&a.C==='COUNTER'&&a.D==='COUNTER'&&!winPaths.length&&!placePaths.length&&a.B!=='COUNTER'&&a.E!=='SUPPORT')return {grade:'C',reason:'REPEATED_MATCHED_NONPLACE_AND_DIRECT_DISADVANTAGE_UNDER_REVIEWED_SCENARIOS'};
- if(against||[a.A,a.B,a.C,a.D].some(s=>s==='COUNTER'||s==='MIXED'))return hold('MATERIAL_COUNTER_OR_MIXED');
- if(winPaths.length&&a.A==='SUPPORT'&&a.B==='SUPPORT'&&a.C==='SUPPORT'&&a.D==='SUPPORT'){
+ if([a.A,a.B,a.D].some(s=>s==='COUNTER'||s==='MIXED'))return hold('MATERIAL_COUNTER_OR_MIXED');
+ if(!against&&winPaths.length&&a.A==='SUPPORT'&&a.B==='SUPPORT'&&a.C==='SUPPORT'&&a.D==='SUPPORT'){
   if(allPeersAhead&&allScenarioWin&&eyeFeedback&&a.E==='SUPPORT')return {grade:'S',reason:'REPEATED_MATCHED_WINS_ALL_RIVALS_AND_REVIEWED_ROLES_SUPPORT_WITH_EYE_FEEDBACK'};
   return {grade:'A',reason:'REPEATED_MATCHED_WINS_WITH_CONDITIONAL_ROLE_AND_RIVAL_SUPPORT'};
  }
- if(placePaths.length&&a.A==='SUPPORT'&&a.B==='SUPPORT'&&a.C==='SUPPORT'&&a.D==='SUPPORT')return {grade:'B',reason:'REPEATED_MATCHED_TOP3_IN_FIELDS_OVER_THREE_WITH_ROLE_AND_RIVAL_SUPPORT'};
+ if(placePaths.length&&a.A==='SUPPORT'&&a.B==='SUPPORT'&&['SUPPORT','MIXED'].includes(a.C)&&a.D==='SUPPORT')return {grade:'B',reason:'REPEATED_MATCHED_TOP3_WITH_CONDITIONAL_ROLE_AND_NONBLOCKING_RIVAL_COUNTERS'};
  return hold('NO_SUFFICIENT_CONDITIONAL_PATH');
 }
 // Work10 typed source supply is the native input, not a fixture wrapper.
@@ -68,7 +68,7 @@ export function computeNormal(packet,roster,{fixture=false}={}){
   // Same reported ordinal sequence only. A single position has no
   // identifiable first/last comparison. No claim about actual start.
   const labels=p?cornerConvention(obs(r,'cornerPositionsLiteral'),p.length):null;
-  const role=p&&labels&&finite(count)&&p.every(n=>n<=count)?p[0]<=3?'FORWARD_REPORTED':'OTHER_REPORTED':null;
+  const role=p&&labels&&finite(count)&&count>3&&p.every(n=>n<=count)?p[0]<=3?'FORWARD_REPORTED':'OTHER_REPORTED':null;
   return {event:e.eventId,date:e.nativeRaceIdentity.dateJst,e,r,finish,count,reportedFinishers:e.rows.filter(q=>finite(v(q,'finish'))).length,labels,final:v(r,'final600Ms'),clock:clockMs(v(r,'finishClockLiteral')),p,role,ctx:compare(e)};
  })]));
  const active=roster.filter(h=>h.status==='ACTIVE'),possible=roster.filter(h=>h.status!=='CANCELLED');
@@ -78,7 +78,21 @@ export function computeNormal(packet,roster,{fixture=false}={}){
  const roles=possible.map(h=>{const q=profile.get(h.horseId).filter(z=>z.ctx.state==='MATCHED_LITERAL'&&z.role),distinct=new Set(q.map(z=>z.event)),types=uniq(q.map(z=>z.role)),conventions=uniq(q.map(z=>JSON.stringify(z.labels)));return {horse:h.horseId,role:distinct.size>=2&&types.length===1&&conventions.length===1?types[0]:'UNKNOWN',convention:conventions.length===1?JSON.parse(conventions[0]):null,events:q.map(z=>z.event),refs:ref(q.map(z=>obs(z.r,'cornerPositionsLiteral')),q.map(z=>obs(z.e,'declaredCount')),q.flatMap(z=>z.ctx.refs.map(evidenceId=>({evidenceId}))),obs(row(card,h.horseId),'status'))};});
  const paceCovered=completeField&&roles.every(q=>q.role!=='UNKNOWN')&&new Set(roles.map(q=>JSON.stringify(q.convention))).size===1;
  const forward=roles.filter(q=>q.role==='FORWARD_REPORTED'),others=roles.filter(q=>q.role==='OTHER_REPORTED');
- const scenarios=paceCovered?[{id:forward.length===1?'SINGLE_FORWARD_CANDIDATE':forward.length>1?'FORWARD_COMPETITION':'NO_IDENTIFIED_FORWARD',forward:forward.map(x=>x.horse),other:others.map(x=>x.horse),refs:closure(uniq(roles.flatMap(x=>x.refs))),scope:'CONDITIONAL_ORDINAL_ROLE_HYPOTHESIS_NOT_ACTUAL_PACE'}]:[];
+ const scenarios=[];
+ // Every possible current starter is retained. Alternate leader hypotheses
+ // are conditional on a documented past first-reported rank of 1, NOT a
+ // prediction of the actual start or tempo. A residual unknown hypothesis
+ // is retained; historical role does not rule out a different leader.
+ if(paceCovered){
+  const fieldRefs=closure(uniq(roles.flatMap(x=>x.refs)));
+  for(const h of forward){
+   const leads=profile.get(h.horse).filter(z=>z.ctx.state==='MATCHED_LITERAL'&&z.p?.[0]===1&&JSON.stringify(z.labels)===JSON.stringify(h.convention));
+   if(!leads.length)continue;
+   const leadRefs=ref(leads.map(z=>obs(z.r,'cornerPositionsLiteral')),leads.flatMap(z=>z.ctx.refs.map(evidenceId=>({evidenceId}))));
+   scenarios.push({id:'LEADER:'+h.horse,leader:h.horse,forward:forward.map(x=>x.horse),other:others.map(x=>x.horse),pastLeaderEvents:leads.map(z=>z.event),refs:closure(uniq([...fieldRefs,...leadRefs])),scope:'HYPOTHETICAL_FIRST_REPORTED_CORNER_LEADER_NOT_ACTUAL_PACE'});
+  }
+  scenarios.push({id:'OTHER_LEADER_OR_ROLE_CHANGE',leader:null,forward:forward.map(x=>x.horse),other:others.map(x=>x.horse),refs:fieldRefs,scope:'UNRESOLVED_ALTERNATIVE_NOT_EXCLUDED'});
+ }
  const allHistory=possible.every(h=>profile.get(h.horseId).some(z=>z.ctx.state==='MATCHED_LITERAL'&&finite(z.finish)));
  const runners=roster.map(h=>{
   const horse=h.horseId,t=row(card,horse),runs=profile.get(horse),matched=runs.filter(z=>z.ctx.state==='MATCHED_LITERAL'&&finite(z.finish)),items=new Map(definitions.map(i=>[i.item,{item:i.item,name:i.name,category:i.category,state:'HELD',reason:i.category==='M'?'SPECIAL_MEASUREMENT_UNAVAILABLE':i.category==='S'?'SEPARATE_SOURCE_UNVERIFIED':'NORMAL_COMPUTATION_OR_EVIDENCE_INSUFFICIENT',findings:[]}]));
@@ -171,13 +185,26 @@ export function computeNormal(packet,roster,{fixture=false}={}){
   const wins=matched.filter(z=>z.finish===1),places=matched.filter(z=>isTop3(z.finish,z.count,z.reportedFinishers)),nonplace=matched.filter(z=>finite(z.count)&&z.count>3&&z.reportedFinishers>=4&&z.finish>3);
   const compatible=matched.filter(z=>role&&role.role!=='UNKNOWN'&&z.role===role.role&&JSON.stringify(z.labels)===JSON.stringify(role.convention));
   const repeat=zs=>new Set(zs.map(z=>z.event)).size>=2;
-  const against=behind.length>0||nonplace.length>0;
+  const against=nonplace.length>0||behind.length>0;
   const paths=(kind,events)=>scenarios.flatMap(s=>{
-   const supported=events.filter(z=>compatible.includes(z));if(!repeat(supported))return [];
-   const counter=compatible.filter(z=>kind==='WIN'?z.finish!==1:!isTop3(z.finish,z.count,z.reportedFinishers));
+   if(s.leader===null)return [];
+   // Transfer only from a matched race where the proposed current leader
+   // actually had first reported corner rank 1 at the same labeled corner.
+   // The subject and leader both have same-event ordinal witnesses.
+   const related=compatible.filter(z=>{
+    const lead=row(z.e,s.leader),p=positions(v(lead,'cornerPositionsLiteral'));
+    return p?.[0]===1&&JSON.stringify(cornerConvention(obs(lead,'cornerPositionsLiteral'),p.length))===JSON.stringify(z.labels);
+   });
+   const supported=events.filter(z=>related.includes(z));if(!repeat(supported))return [];
+   const counter=related.filter(z=>kind==='WIN'?z.finish!==1:!isTop3(z.finish,z.count,z.reportedFinishers));
+   const scenarioPairs=matchedPairs.filter(p=>related.some(z=>z.event===p.event));
+   // Losing to one or two rivals is not a place-path contradiction.
+   // Never combine rivals ahead across separate races into one order.
+   const blockedByRivals=related.some(z=>new Set(scenarioPairs.filter(p=>p.event===z.event&&p.order==='BEHIND').map(p=>p.rival)).size>=(kind==='WIN'?1:3));
    const e=feedback.filter(q=>supported.some(z=>z.event===q.event));
-   const refs=uniq([...s.refs,...supported.flatMap(knownRefs),...counter.flatMap(knownRefs),...matchedPairs.flatMap(p=>p.refs),...e.flatMap(q=>q.refs)]);
-   return [{kind,scenario:s.id,condition:'REPORTED_MATCHED_CONTEXT_AND_REPEATED_ORDINAL_ROLE',events:supported.map(runValue),counter:counter.map(runValue),rivals:matchedPairs,eyeFeedback:e.map(q=>q.findingId),refs,scope:'CONDITIONAL_NOT_PREDICTION',supported:counter.length===0&&behind.length===0}];
+   const leadRefs=related.flatMap(z=>ref(obs(row(z.e,s.leader),'cornerPositionsLiteral'),obs(row(z.e,s.leader),'no'),obs(z.r,'cornerPositionsLiteral')));
+   const refs=closure(uniq([...s.refs,...supported.flatMap(knownRefs),...counter.flatMap(knownRefs),...scenarioPairs.flatMap(p=>p.refs),...leadRefs,...e.flatMap(q=>q.refs)]));
+   return [{kind,scenario:s.id,leader:s.leader,condition:'REPEATED_MATCHED_REPORTED_ROLE_WITH_SAME_EVENT_LEADER_WITNESS',events:supported.map(runValue),counter:counter.map(runValue),rivals:scenarioPairs,eyeFeedback:e.map(q=>q.findingId),refs,scope:'CONDITIONAL_NOT_PREDICTION',supported:counter.length===0&&!blockedByRivals}];
   });
   const win=paths('WIN',wins),place=paths('PLACE',places),winPaths=win.filter(p=>p.supported),placePaths=place.filter(p=>p.supported);
   const axis=(axis,state,refs,reason)=>({axis,state,refs:uniq(refs),reason});
@@ -193,7 +220,7 @@ export function computeNormal(packet,roster,{fixture=false}={}){
   const decision=decideNormalGrade({eligible:h.status==='ACTIVE',completeField,allHistory,paceCovered,axes,winPaths,placePaths,against,allPeersAhead,allScenarioWin:false,eyeFeedback:feedback.length>0});
   if(winPaths.length)emit('RANK100','CONDITIONAL_WIN_PATH',winPaths,winPaths.flatMap(p=>p.refs),['NOT_FORMAL_GRADE'],'CONDITIONAL_HYPOTHESIS');
   if(placePaths.length)emit('RANK99','CONDITIONAL_PLACE_PATH',placePaths,placePaths.flatMap(p=>p.refs),['NOT_FORMAL_GRADE'],'CONDITIONAL_HYPOTHESIS');
-  return {horse,horseNo:h.horseNo,status:h.status,candidateGrade:decision.grade,decisionReason:decision.reason,formalGrade:null,axes,winPaths,placePaths,counterPaths:[...win,...place].filter(p=>!p.supported),feedback,items:[...items.values()],formal:false};
+  return {horse,horseNo:h.horseNo,status:h.status,candidateGrade:decision.grade,decisionReason:decision.reason,formalGrade:null,axes,winPaths,placePaths,counterPaths:[...win,...place].filter(p=>!p.supported),feedback,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:uniq([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedScenarios:scenarios.filter(s=>s.leader===null||![...winPaths,...placePaths].some(p=>p.scenario===s.id)).map(s=>s.id),matchedHistory:matched.map(runValue)},items:[...items.values()],formal:false};
  });
  return {schema:NORMAL_VERSION,scope:fixture?'EXISTING_FIXTURE_NORMAL_CANDIDATE_ONLY':'APPROVED_NATIVE_NORMAL_CANDIDATE_ONLY',engineCommit:ENGINE,mapBlob:MAP_BLOB,sourceGraphDigest:sha(packet),field:{completeField,allHistory,paceCovered,roles,scenarios,scenarioCoverage:'ORDINAL_GROUP_HYPOTHESIS_ONLY_NOT_EXHAUSTIVE'},runners,formal:false,persistenceAllowed:false};
 }
