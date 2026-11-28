@@ -1,0 +1,26 @@
+{
+  "schema": "REBORN2_WORK16_EXISTING_ASSET_INVENTORY_1",
+  "checkedAtJst": "2026-11-28",
+  "work15": {
+    "commit": "04c82721c5477a8fb15a3335c4161401df6f9c29",
+    "report": "implementation/reborn2-work15/WORK15.md",
+    "privateArtifactSha256": "cd6bd74602447b1b671ff508f1f997633cf9e65428b4b0931a36f7bc6b44764d"
+  },
+  "readonlyAcquisitionCode": [
+    {"path":"production-snapshot/automation/local-worker-data.mjs","sha256":"5958dd378ca713af5039ca125b18eac1ddd3e748e65bce5ca2eb4ceac2842b61","verifiedFunctions":["collectClaimedContext","safeHistory","verifiedSnapshot","deriveRunningStyleReference"]},
+    {"path":"production-snapshot/automation/local-worker-db.mjs","sha256":"ea50a76821b73fd69cfff9deeef632703f76ccd54c7caa3ca402f3052f371fa7","verifiedFunctions":["readHorseRuns","readOfficialHistory"]},
+    {"path":"production-snapshot/automation/nar-official-data.mjs","sha256":"ba8e1b12f29c61dae17f955d7a86122aed080cb30e98c0c6831a204cd8cc2ee7","verifiedFunctions":["createNarOfficialReader","parseNarProbe","parseNarDomDiagnostic"]},
+    {"path":"production-snapshot/automation/history-boundary.mjs","sha256":"833d88d671e528acf99e152082c85eb9d656cf7436327d9528bfeef2d78c2ed3","verifiedFunctions":["historyBeforeRace"]}
+  ],
+  "actualResearchData": [
+    {"path":"outputs/reborn2-urawa11-fullfield-20261126/urawa11_full_history_rows.jsonl","sha256":"432417c9b7d440f96f0abb0de38232ebf7da75c7727de357aaddc2c6acc43aa5","scope":"LOCAL 9頭193走"},
+    {"path":"outputs/reborn2-research-v2-20261126/REBORN2_100_ITEM_OFFICIAL_SOURCE_MATRIX_V2.json","sha256":"fc4e8b13edf52a1cadfc19e54bbd4798650305400a5dc75e9b920004abb782d7","scope":"正式100項目情報源"},
+    {"path":"outputs/reborn2-official-data/raw/nar/2026-11/202611_nar_official_race.zip","sha256":"4e027c71a00ee5a77058da5159396e47e8e15363b42d059b31bc34084fb6efad","scope":"NAR月次公式CSV原本候補"}
+  ],
+  "identityConflict": {
+    "path":"work13-saga5-normal-fact-packet.json",
+    "observedSha256":"de76ede96692d4edb32789242256df340fe686f44c7c450c111663de94da23ae",
+    "work15ExpectedWork13Sha256":"5d364d4cc8c7843167390b1400058e85c8579f3dbc732084d7cee4b25ee97e17",
+    "state":"HOLD_NOT_SAME_BYTES"
+  }
+}
