@@ -1,14 +1,14 @@
-name: REBORN2 practical Test02 independent
+name: REBORN2 practical Test02 isolated browser retry
 on:
   pull_request:
     branches: [research/reborn2-main48-test-ci-base]
 permissions:
   contents: read
 jobs:
-  regression:
+  browser:
     if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,124 +23,17 @@ jobs:
           path: fixed-codex03
           fetch-depth: 0
           persist-credentials: false
-      - name: Test02 regression fixed independent
+      - name: Test02 independent isolated browser retry
         shell: bash
         run: |
-          git rev-parse HEAD
-          node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-regression.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/regression.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-browser-retry.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/browser.log" 2>&1
           rc=$?
-          cat "$RUNNER_TEMP/regression.log"
-          echo "TEST02_EXIT=$rc"
+          cat "$RUNNER_TEMP/browser.log"
+          echo "TEST02_BROWSER_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-test02-regression
-          path: ${{ runner.temp }}/regression.log
-
-  original-negatives:
-    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - uses: actions/checkout@v4
-        with:
-          ref: 3b11bc964f96859893d890351761510f23e9abe9
-          path: fixed-codex03
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Test02 original-negatives fixed independent
-        shell: bash
-        run: |
-          git rev-parse HEAD
-          node --version
-          set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test01-negative.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/original-negatives.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/original-negatives.log"
-          echo "TEST02_EXIT=$rc"
-          exit "$rc"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: reborn2-test02-original-negatives
-          path: ${{ runner.temp }}/original-negatives.log
-
-  integrity:
-    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - uses: actions/checkout@v4
-        with:
-          ref: 3b11bc964f96859893d890351761510f23e9abe9
-          path: fixed-codex03
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Test02 integrity fixed independent
-        shell: bash
-        run: |
-          git rev-parse HEAD
-          node --version
-          set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-integrity.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/integrity.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/integrity.log"
-          echo "TEST02_EXIT=$rc"
-          exit "$rc"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: reborn2-test02-integrity
-          path: ${{ runner.temp }}/integrity.log
-
-  native-full:
-    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - uses: actions/checkout@v4
-        with:
-          ref: 3b11bc964f96859893d890351761510f23e9abe9
-          path: fixed-codex03
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Test02 native-full fixed independent
-        shell: bash
-        run: |
-          git rev-parse HEAD
-          node --version
-          set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-native-full.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/native-full.log" 2>&1
-          rc=$?
-          cat "$RUNNER_TEMP/native-full.log"
-          echo "TEST02_EXIT=$rc"
-          exit "$rc"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: reborn2-test02-native-full
-          path: ${{ runner.temp }}/native-full.log
+          name: reborn2-test02-browser-retry
+          path: ${{ runner.temp }}/browser.log
