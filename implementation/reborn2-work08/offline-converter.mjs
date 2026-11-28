@@ -70,11 +70,11 @@ function convert(m,raws,{fixture=false}={}){
  const bind=(d,no,name,key=null)=>{const w=rowMap.get(JSON.stringify([d.eventId,no]));need(w&&w.displayName===name&&(key===null||w.horseId===key),'HORSE_ROW_WITNESS');const k=JSON.stringify([d.id,no]);need(!seenRows.has(k),'DUPLICATE_RAW_ROW');seenRows.set(k,w);if(d.role==='TARGET_CARD'&&d.format!=='OFFICIAL_CARD_STATUS_PROJECTION_1')cardRows.add(w.horseId);return w;};
  for(const d of m.documents){exact(d,docKeys);need(!ds.has(d.id)&&es.get(d.eventId)?.role===d.role&&hex(d.sha256),'DOCUMENT_BINDING');ds.set(d.id,d);}
  need(raws instanceof Map&&raws.size===ds.size,'RAW_INVENTORY');
- const emit=(d,w,field,v,rawPointer,rawPresent=true)=>{
+ const emit=(d,w,field,v,rawPointer,rawPresent=true,holdReason=null)=>{
   const horseId=w?.horseId??null,pastHorseNo=w&&d.role==='HISTORICAL_RESULT'?w.horseNo:null;
   need(!supplyContract.package.historicalOnly.includes(field)||d.role==='HISTORICAL_RESULT','TARGET_RESULT');
   const k=JSON.stringify([d.eventId,horseId,field]);const arr=facts.get(k)??[];
-  arr.push({eventId:d.eventId,horseId,pastHorseNo,field,value:v,state:v!==null?'OBSERVED':rawPresent?'HELD':'MISSING',reason:v!==null?null:rawPresent?'UNSUPPORTED_OR_UNCERTIFIED_LITERAL':'SOURCE_FIELD_MISSING',root:{documentId:d.id,rowPointer:rawPointer,field,proofRef:w?.proofRef??es.get(d.eventId).identityProofRefs[0]}});
+  arr.push({eventId:d.eventId,horseId,pastHorseNo,field,value:v,state:v!==null?'OBSERVED':rawPresent?'HELD':'MISSING',reason:v!==null?null:rawPresent?(holdReason??'UNSUPPORTED_OR_UNCERTIFIED_LITERAL'):'SOURCE_FIELD_MISSING',root:{documentId:d.id,rowPointer:rawPointer,field,proofRef:w?.proofRef??es.get(d.eventId).identityProofRefs[0]}});
   facts.set(k,arr);
  };
  const put=(d,w,field,raw,fn,pointer)=>emit(d,w,field,fn(raw),pointer,raw!==null&&raw!==undefined&&raw!==''&&(!Array.isArray(raw)||raw.length>0));
@@ -153,10 +153,11 @@ function convert(m,raws,{fixture=false}={}){
    }
    need(Array.isArray(z.rows)&&z.rows.length===m.roster.length,'STATUS_FULL_ROSTER');
    for(const [i,h] of z.rows.entries()){
-    exact(h,['horseNo','horseId','displayName','status']);need(['ACTIVE','CANCELLED','UNKNOWN'].includes(h.status),'STATUS_LITERAL');
+    exact(h,['horseNo','horseId','displayName','status']);need(['ACTIVE','CANCELLED','EXCLUDED','UNKNOWN'].includes(h.status),'STATUS_LITERAL');
     const w=bind(d,h.horseNo,h.displayName,h.horseId);
     need(m.roster.some(q=>q.horseId===w.horseId&&q.horseNo===w.horseNo),'STATUS_ROSTER_ROW');
-    put(d,w,'status',h.status,x=>choice(x,['ACTIVE','CANCELLED','UNKNOWN']),ptr('rows/'+i,'status'));
+    if(h.status==='EXCLUDED')emit(d,w,'status',null,ptr('rows/'+i,'status'),true,'OFFICIAL_EXCLUDED_OUTSIDE_FIXED_STATUS_ENUM');
+    else put(d,w,'status',h.status,x=>choice(x,['ACTIVE','CANCELLED','UNKNOWN']),ptr('rows/'+i,'status'));
    }
   }else if(d.format==='JRA_STORED_ROW_JSON_1'){
    // An independently authorized immutable export of existing table rows.
@@ -189,7 +190,8 @@ function convert(m,raws,{fixture=false}={}){
   const first=arr[0],observed=arr.filter(x=>x.state==='OBSERVED'),values=new Set(observed.map(x=>JSON.stringify(x.value)));
   // No latest-wins based on timestamps alone. Keep conflicting/missing source roots.
   sourceStates.push({eventId:first.eventId,horseId:first.horseId,field:first.field,sources:arr.map(x=>({state:x.state,reason:x.reason,root:x.root}))});
-  const state=values.size>1?'CONFLICT':values.size===1?'OBSERVED':arr.some(x=>x.state==='HELD')?'HELD':'MISSING';
+  const statusConflict=first.field==='status'&&observed.length>0&&arr.some(x=>x.reason==='OFFICIAL_EXCLUDED_OUTSIDE_FIXED_STATUS_ENUM');
+  const state=values.size>1||statusConflict?'CONFLICT':values.size===1?'OBSERVED':arr.some(x=>x.state==='HELD')?'HELD':'MISSING';
   observations.push({eventId:first.eventId,horseId:first.horseId,pastHorseNo:first.pastHorseNo,field:first.field,state,value:state==='OBSERVED'?observed[0].value:null,reason:state==='OBSERVED'?null:state==='CONFLICT'?'SOURCE_VALUES_CONFLICT':arr.find(x=>x.state===state).reason,roots:(state==='OBSERVED'?observed:arr).map(x=>x.root)});
  }
  const roster=m.roster.map(h=>{
