@@ -2,11 +2,13 @@
 // Usage: node convert-local.mjs manifest.json trust.json raw-index.json /private/output.json
 // raw-index is {documentId: localFilePath}; trust key and pin supplied separately.
 import {readFileSync,writeFileSync,statSync} from 'node:fs';
-import {convertApprovedLocal} from './offline-converter.mjs';
+import {convertApprovedLocal,verifyApprovedManifest} from './offline-converter.mjs';
 const [manifest,trust,index,out,...extra]=process.argv.slice(2);
 if(!manifest||!trust||!index||!out||extra.length)throw Error('LOCAL_ARGUMENTS_REQUIRED');
 const readJson=p=>{if(statSync(p).size>16*1024*1024)throw Error('JSON_LIMIT');return JSON.parse(readFileSync(p,'utf8'));};
 const signed=readJson(manifest),policy=readJson(trust),paths=readJson(index);
+const approved=verifyApprovedManifest(signed,policy);
+const ids=approved.documents.map(d=>d.id).sort();if(JSON.stringify(Object.keys(paths).sort())!==JSON.stringify(ids))throw Error('LOCAL_RAW_INDEX_MISMATCH');
 const raw=new Map(Object.entries(paths).map(([id,p])=>{if(typeof p!=='string'||statSync(p).size>16*1024*1024)throw Error('LOCAL_RAW_LIMIT');return [id,readFileSync(p)];}));
 const result=convertApprovedLocal(signed,raw,policy);
 // Exclusive file: never overwrite. Restricted local directory is operator responsibility.
