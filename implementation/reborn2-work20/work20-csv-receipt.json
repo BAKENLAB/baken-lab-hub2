@@ -1,0 +1,47 @@
+{
+  "schema": "REBORN2_WORK20_NAR_CSV_RECEIPT_1",
+  "created_at": "2026-11-28T21:25:00+09:00",
+  "source": {
+    "kind": "NAR_DAILY_RESULT_CSV_ZIP",
+    "sha256": "044931b45373025f5b5dc1fe30050dc8d82d3feb0fa64eddf7a68b9a9d7284c1",
+    "acquired_at": "2026-11-28T21:07:34+09:00",
+    "encoding": "UTF-8-SIG",
+    "raw_committed": false,
+    "raw_commit_reason": "利用条件と原本再配布可否が未確定のため、原本と全行派生データは非公開研究環境に限定"
+  },
+  "archive": {
+    "races": 36,
+    "horses": 366,
+    "race_columns": 66,
+    "horse_columns": 36,
+    "race_tracks": {"帯広ば": 12, "高知": 12, "佐賀": 12},
+    "horse_tracks": {"帯広ば": 114, "高知": 126, "佐賀": 126}
+  },
+  "flat_history_connection": {
+    "accepted_races": 23,
+    "accepted_runner_rows": 240,
+    "finished_rows": 234,
+    "recognized_nonfinish_rows": 6,
+    "races_with_corner_orders": 23,
+    "races_with_laps": 0,
+    "native_horse_ids": 0,
+    "excluded_banei_races": 12,
+    "excluded_banei_runner_rows": 114,
+    "withheld_incomplete_races": 1,
+    "withheld_incomplete_runner_rows": 12
+  },
+  "guards": {
+    "popularity_used": false,
+    "odds_used": false,
+    "payback_loaded": false,
+    "same_target_result_used": false,
+    "production_changed": false,
+    "profile_id_fabricated": false
+  },
+  "decision": {
+    "historical_material_connection": "PASS_WITH_GATE",
+    "formal_analysis_ready": false,
+    "remaining_gate": "NAR_PROFILE_ID_CROSSWALK_REQUIRED",
+    "stage1": "PARTIAL_NOT_COMPLETE"
+  }
+}
