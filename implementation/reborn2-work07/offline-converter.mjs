@@ -3,7 +3,7 @@
 // Native admission / field proof signatures remain Codex05's separate responsibility.
 import assert from 'node:assert/strict';
 import {createHash,verify,createPublicKey} from 'node:crypto';
-import {csvRows} from '../../research/reborn2-work44/offline-intake-v0.2.mjs';
+import {csvRows,reviewPacket} from '../../research/reborn2-work44/offline-intake-v0.2.mjs';
 import {inspectNativeFacts,supplyContract} from '../reborn2-pilot/work06/inspect-native-facts.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
@@ -66,6 +66,7 @@ function convert(m,raws,{fixture=false}={}){
   const e=es.get(d.eventId),raw=raws.get(d.id);need(Buffer.isBuffer(raw)&&raw.length>0&&raw.length<=16*1024*1024&&sha(raw)===d.sha256,'RAW_HASH');
   if(d.format==='NAR_HORSELIST_36'||d.format==='NAR_RACELIST_66'){
    need(circuit==='LOCAL'&&(fixture||NAR[d.venueLiteral]===e.venueId),'NAR_VENUE');
+   const url=new URL(d.sourceRef);need(url.protocol==='https:'&&url.hostname==='www.keiba.go.jp'&&!url.port&&!url.username&&!url.password&&!url.hash,'NAR_SOURCE_HOST');
    const horse=d.format==='NAR_HORSELIST_36',records=csvRows(raw,d.encoding);
    if(!horse)need(records.length===1,'RACE_ROW_COUNT');
    for(const rec of records){
@@ -109,10 +110,11 @@ function convert(m,raws,{fixture=false}={}){
  // Check every current roster row against actual extracted horse rows.
  const targetSeen=new Set([...seenRows].filter(([k,w])=>w.eventId===targetId).map(([k,w])=>w.horseId));
  need(targetSeen.size===m.roster.length&&m.roster.every(h=>targetSeen.has(h.horseId)&&rowMap.get(JSON.stringify([targetId,h.horseNo]))?.horseId===h.horseId),'TARGET_ROSTER_COVERAGE');
- const observations=[];
+ const observations=[],sourceStates=[];
  for(const arr of facts.values()){
   const first=arr[0],observed=arr.filter(x=>x.state==='OBSERVED'),values=new Set(observed.map(x=>JSON.stringify(x.value)));
   // No latest-wins based on timestamps alone. Keep conflicting/missing source roots.
+  sourceStates.push({eventId:first.eventId,horseId:first.horseId,field:first.field,sources:arr.map(x=>({state:x.state,reason:x.reason,root:x.root}))});
   const state=values.size>1?'CONFLICT':values.size===1?'OBSERVED':arr.some(x=>x.state==='HELD')?'HELD':'MISSING';
   observations.push({eventId:first.eventId,horseId:first.horseId,pastHorseNo:first.pastHorseNo,field:first.field,state,value:state==='OBSERVED'?observed[0].value:null,reason:state==='OBSERVED'?null:state==='CONFLICT'?'SOURCE_VALUES_CONFLICT':arr.find(x=>x.state===state).reason,roots:(state==='OBSERVED'?observed:arr).map(x=>x.root)});
  }
@@ -126,7 +128,7 @@ function convert(m,raws,{fixture=false}={}){
  const documents=m.documents.map(({format,encoding,venueLiteral,...d})=>d);
  const p={schema:supplyContract.package.schema,engineCommit:supplyContract.engineCommit,circuit,targetId,cutoff,scheduledPost,startLower,events:m.events,roster,documents,observations};
  const inspection=inspectNativeFacts(p);
- return {scope:fixture?'EXISTING_WORK44_FIXTURE_CONVERSION_ONLY':'LOCAL_EXTRACTION_NOT_ADMISSION',package:p,inspection,realAdmission:false};
+ return {scope:fixture?'EXISTING_WORK44_FIXTURE_CONVERSION_ONLY':'LOCAL_EXTRACTION_NOT_ADMISSION',package:p,inspection,sourceStates,realAdmission:false};
 }
 // The operator must obtain the pin and authority key independently (not
 // from the supplied raw files). This signature is not a Codex admission.
@@ -138,7 +140,7 @@ export function convertApprovedLocal(signed,raws,trust){
 }
 // Existing Work44 only: independent frozen verifier must be invoked first.
 // No synthetic identity may reach the actual native entry.
-export function convertExistingWork44(bundle,trust,reviewPacket){
+export function convertExistingWork44(bundle,trust){
  const v=reviewPacket(bundle,trust);need(v.scope==='SYNTHETIC_OFFICIAL_FORMAT_TEST','FIXTURE_SCOPE');
  const m=bundle.manifest.payload,i=bundle.identity.payload,reg=bundle.inventory.payload.raceRegistry;
  const events=reg.map(x=>({id:x.eventId,issuer:'NAR',nativeId:x.eventId,venueId:x.raceIdentity.venueId,dateJst:x.raceIdentity.dateJst.replace(/^(\d{4})(\d{2})(\d{2})$/,'$1-$2-$3'),raceNo:x.raceIdentity.raceNo,role:x.eventId===m.target.eventId?'TARGET_CARD':'HISTORICAL_RESULT',identityProofRefs:[trust.expectedIdentitySha256]}));
