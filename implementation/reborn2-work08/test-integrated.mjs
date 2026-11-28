@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {partialFixture} from '../reborn2-pilot/fixture-partial.mjs';
+import {reviewPacket} from '../../research/reborn2-work44/offline-intake-v0.2.mjs';
 import {preparePartial} from '../../research/reborn2-work44/partial-bridge.mjs';
 import {exerciseFixtureObservationCompiler,exerciseWork07EndToEnd,exerciseWork08EndToEnd,executeWork08NativePartial} from '../reborn2-pilot/native-partial-runtime.mjs';
 import {inspectNativeStructureOffline} from '../reborn2-pilot/native-entry.mjs';
@@ -35,6 +36,32 @@ const roots=new Map(w8.sourcePacket.roots.map(x=>[x.id,x]));
 for(const root of roots.values())assert.ok(root.kind.startsWith('FIXTURE_')&&root.depends.every(id=>roots.has(id)));
 for(const h of w8.runners)for(const f of view(h))assert.ok(f.item);
 for(const h of w8.runners)for(const i of h.analysisItems)for(const f of i.partialFindings)assert.ok(f.refs.length&&f.refs.every(id=>roots.has(id)));
+// Independently trace the extracted facts back to Work44's original
+// verified byte ranges, not only the new graph's self-consistent IDs.
+const reviewed=reviewPacket(b,trust), originalRoots=new Map(reviewed.roots.map(r=>[r.id,r]));
+const fieldMap={surfaceLiteral:'surface',directionLiteral:'direction',distanceM:'distance_m',goingLiteral:'going',declaredCount:'declared_count',classLiteral:'class_literal',gate:'gate',displayName:'display_name',weightG:'weight_g',bodyWeightKg:'body_weight_kg',bodyWeightDeltaKg:'body_weight_delta_kg',sexAge:'sex',finish:'finish',finishClockLiteral:'clock_literal',officialMarginLiteral:'margin_literal',final600Ms:'final600_ms',leaderLapSlots:'leader_laps_literal',cornerGroupSlots:'corner_groups_literal'};
+let originalPointerMatches=0;
+for(const o of w8.package.observations){
+ if(o.field==='status'){assert.equal(o.state,'MISSING');assert.equal(o.roots.length,0);continue;}
+ const fields=o.field==='sexAge'?['sex','age']:[fieldMap[o.field]];
+ assert.ok(fields.every(Boolean));
+ const prior=reviewed.observations.filter(q=>q.eventId===o.eventId&&q.horseId===o.horseId&&fields.includes(q.field));
+ assert.equal(prior.length,fields.length);
+ assert.equal(o.roots.length,1);
+ const root=o.roots[0],doc=w8.package.documents.find(d=>d.id===root.documentId),pointer=JSON.parse(root.rowPointer);
+ const expectedCols=[...new Set(prior.flatMap(q=>q.rowPointer.columns))].sort((a,b)=>a-b);
+ if(o.field==='cornerGroupSlots')assert.deepEqual(pointer.columns,[59,60,61,62,63,64,65,66]);
+ else assert.deepEqual(pointer.columns,expectedCols);
+ for(const q of prior){
+  const rawSource=originalRoots.get(q.sourceRoot);
+  assert.equal(doc.sha256,rawSource.payload.sha256);
+  assert.equal(doc.eventId,q.eventId);
+  for(const field of ['record','start','end'])assert.equal(pointer[field],q.rowPointer[field]);
+  assert.ok(pointer.columns.every(c=>expectedCols.includes(c)));
+ }
+ originalPointerMatches++;
+}
+assert.equal(originalPointerMatches,46);
 const corner=w8.package.observations.find(o=>o.field==='cornerGroupSlots');assert.deepEqual(JSON.parse(corner.roots[0].rowPointer).columns,[59,60,61,62,63,64,65,66]);
 assert.throws(()=>inspectNativeStructureOffline(w8.package),/RESEARCH_ID_FORBIDDEN/);
 assert.throws(()=>executeWork08NativePartial(null,null,null),/MAIN_NATIVE_APPROVAL_NOT_CONFIGURED/);
@@ -46,4 +73,4 @@ assert.throws(()=>cardPost('25時00分',date),/JRA_POST_LITERAL/);
 assert.throws(()=>cardPost(null,date),/JRA_POST_LITERAL/);
 await assert.rejects(()=>submitAnalysis({schema:'REBORN2_WORK08_ANALYSIS_REQUEST_1',mode:'PARTIAL',signedManifest:null,raws:null,approval:null}),/MAIN_NATIVE_APPROVAL_NOT_CONFIGURED/);
 console.log('WORK08_COMPARISON '+JSON.stringify(summary));
-console.log('WORK08_END_TO_END PASS '+JSON.stringify({old:41,new:48,counts:w8.inspection.counts,roots:roots.size,findings:w8.runners.map(h=>view(h).length),realAdmission:false}));
+console.log('WORK08_END_TO_END PASS '+JSON.stringify({old:41,new:48,counts:w8.inspection.counts,originalPointerMatches,roots:roots.size,findings:w8.runners.map(h=>view(h).length),realAdmission:false}));
