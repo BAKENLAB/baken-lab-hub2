@@ -196,7 +196,9 @@ function convert(m,raws,{fixture=false}={}){
      need(Array.isArray(labels)&&labels.length===positions.length&&labels.length>0&&labels.every((v,i)=>num(v,1,4)!==null&&(i===0||labels[i-1]<v))&&Array.isArray(p.groupRows)&&p.groupRows.length===labels.length,'WORK11_CORNER_LABELS');
      for(const [i,g] of p.groupRows.entries()){exact(g,['row','label','literal','positionRange']);need(g.label===labels[i]&&Number.isInteger(g.row)&&typeof g.literal==='string'&&Array.isArray(g.positionRange)&&g.positionRange.length===2&&g.positionRange.every(x=>num(x,1,24)!==null)&&g.positionRange[0]<=positions[i]&&positions[i]<=g.positionRange[1],'WORK11_GROUP_MATCH');}
     }else exact(p,['row','column']);
-    const pointer=JSON.stringify({row:rowPath,field:'literal',originalSha256:meta.originalSha256,originalPointer:p,...(labels?{cornerLabels:labels}:{})});
+    const originalPointer=labels?{row:p.row,column:p.column,groupRows:p.groupRows.map(g=>({row:g.row,label:g.label,positionRange:g.positionRange}))}:p;
+    const pointer=JSON.stringify({row:rowPath,field:'literal',originalSha256:meta.originalSha256,originalPointer,...(labels?{cornerLabels:labels}:{})});
+    need(pointer.length<=1024,'WORK11_POINTER_LIMIT');
     if(field==='status'&&obj.literal==='EXCLUDED')emit(d,w,field,null,pointer,true,'OFFICIAL_EXCLUDED_OUTSIDE_FIXED_STATUS_ENUM');
     else put(d,w,field,obj.literal,fn,pointer);
    };
