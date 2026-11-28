@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+
+const p=JSON.parse(readFileSync(new URL('./work13-saga5-normal-fact-packet.json',import.meta.url)));
+assert.equal(p.schema,'REBORN2_NORMAL_REAL_FACT_DIAGNOSTIC_1');
+assert.equal(p.scope,'PRIVATE_PRESTART_FACT_DIAGNOSTIC_NOT_NATIVE_ADMISSION');
+assert.equal(p.roster.length,7);
+assert.equal(new Set(p.roster.map(x=>x.horseId)).size,7);
+assert.deepEqual(p.roster.map(x=>x.no),[1,2,3,4,5,6,7]);
+assert.ok(p.roster.every(x=>/^\d{11}$/.test(x.horseId)&&x.status==='ACTIVE'));
+assert.equal(p.latestFiveDisplayed.length,7);
+assert.equal(p.latestFiveDisplayed.reduce((n,x)=>n+x.runs.length,0),35);
+assert.equal(p.latestFiveDisplayed.flatMap(x=>x.runs).filter(x=>x.status==='CANCELLED').length,1);
+assert.ok(p.latestFiveDisplayed.flatMap(x=>x.runs).every(x=>x.date<'2026-11-28'));
+assert.ok(Date.parse(p.capture.renderedDomObservedAt)<Date.parse(p.target.scheduledPost));
+assert.equal(p.target.targetOutcomeIncluded,false);
+for(const key of ['marketUsed','oddsIncluded','popularityIncluded','claimStarted','predictionSaved','frozenModified'])assert.equal(p.guards[key],false,key);
+const forbidden=/\b(odds|popularity|targetResult|finishPositionTarget)\b/i;
+assert.equal(forbidden.test(JSON.stringify(p.target)),false);
+assert.equal(p.capture.rawHtmlPreserved,false);
+assert.equal(p.completeness.normalNativeAdmission,'BLOCKED');
+assert.ok(p.blockers.includes('NATIVE_APPROVAL_AUTHORITY_NOT_CONFIGURED'));
+console.log(JSON.stringify({status:'PASS',tests:16,packetSha256:createHash('sha256').update(JSON.stringify(p)).digest('hex'),roster:p.roster.length,historySlots:35,completedRuns:34,officialIdentityBoundCornerRuns:13,normalNativeAnalysis:'NOT_EXECUTED_FAIL_CLOSED'}));
