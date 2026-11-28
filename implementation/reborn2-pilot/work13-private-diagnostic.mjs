@@ -4,6 +4,7 @@
 import assert from 'node:assert/strict';
 import {ENGINE,sha} from './adapter.mjs';
 import {computeNormalDiagnostic} from './normal-engine.mjs';
+import {auditLaterResultBindings} from './audit-later-results.mjs';
 import {analyzeWork13Snapshot} from './work13-snapshot-diagnostic.mjs';
 import {applyWork14} from './work14-private-enrichment.mjs';
 import {attachWork14PeerLap} from './normal-reported-evidence.mjs';
@@ -143,6 +144,7 @@ export function runWork13Diagnostic(p,{eyeEnabled=true,snapshot=null,work14=null
  const integrated=work14?attachWork14PeerLap(packet,roster,work14,snapshot):null;
  assertTargetOutcomeIsolation(packet);
  const normal=computeNormalDiagnostic(packet,roster,{eyeEnabled});
+ const laterResultAudit=auditLaterResultBindings(packet,normal,{eyeEnabled});
  const runners=normal.runners.map(h=>{
   const history=historical.get(h.horse),runs=history.filter(z=>z.status!=='CANCELLED');
   const same=runs.filter(z=>z.track===p.target.track&&z.distanceM===p.target.distanceM);
@@ -153,7 +155,7 @@ export function runWork13Diagnostic(p,{eyeEnabled=true,snapshot=null,work14=null
   const direct=h.items.find(i=>i.item==='RANK35').findings.map(f=>f.value);
   return {...h,displayName:roster.find(q=>q.horseId===h.horse).displayName,history,reportedAnalysis:{completed:runs.length,cancelled:history.length-runs.length,wins:runs.filter(z=>z.finish===1).length,reportedTop3:runs.filter(z=>z.finish<=3).length,sameVenueDistance:same.map(z=>({event:z.event,finish:z.finish,going:z.going})),sameVenueDistanceGoing:exactGoing.map(z=>({event:z.event,finish:z.finish})),ordinalDirections:directions,reportedRecovery:discoveries,recoveryReview:reviewRecovery(runs,discoveries,supplemental,h.horseNo,p.target.track,p.target.distanceM,p.target.going,eyeEnabled),direct,scope:'PARTIAL_REPORTED_FACT_COMPARISON_NOT_CURRENT_CAPACITY'},specificHolds:['OFFICIAL_DECLARED_COUNT_NOT_SUPPLIED','HISTORICAL_CLASS_SURFACE_DIRECTION_NOT_VERIFIED','HISTORICAL_FULL_STARTER_CLASSIFICATION_NOT_SUPPLIED',...(joined.some(q=>q.horse===h.horse)?[]:['NO_MATCHED_CORNER_LABEL_BINDING']),...(supplemental?.runners.find(q=>q.no===h.horseNo)?.peer?['PEER_FOLLOWUP_REPORTED_NOT_FULL_CLASS_COMPARISON']:['NO_MATCHED_PEER_FOLLOWUP']),'INDEPENDENT_FIELD_LEVEL_REVIEW_INCOMPLETE']};
  });
- const ended=new Date().toISOString(),body={...normal,runners,supplemental,work14:enrichment,cornerCorroboration:joined,sourcePacketDigest:WORK13_PACKET_DIGEST,sourceGraphDigest:sha(packet),sourceReview:'WORK13_REPORTED_FACTS_NOT_INDEPENDENT_FIELD_LEVEL_ADMISSION',analysisTiming:{featureCutoff:packet.cutoff,baseFeatureCutoff:cutoff,scheduledPost:post,analysisAt:began,completedAt:ended,mode:Date.parse(ended)<Date.parse(post)?'PRESTART_FACT_DIAGNOSTIC':'RETROSPECTIVE_FACT_DIAGNOSTIC',prospectiveForecast:false,externalTimestampVerified:false},coverage:{completed,cancelled,roster:roster.length,events:packet.events.length-1,roots:packet.roots.length,independentCornerAggregate:p.identityVerifiedCornerEvidence.count,peerFollowupAggregate:p.opponentFollowups.verifiedCount,independentlyMappedCornerRows:joined.length,independentlyMappedFollowups:supplemental?.coverage.peerMatched??0,peerRowsInsertedIntoNormal:integrated?.peerWitnesses??0,raceLapWitnessesInsertedIntoNormal:integrated?.raceLapWitnesses??0,work14ReportedContexts:enrichment?.reportedContexts.length??0,work14OrdinalConflicts:enrichment?.ordinalConflicts.length??0},publicationAllowed:false,persistenceAllowed:false,realAdmission:false};
+ const ended=new Date().toISOString(),body={...normal,runners,laterResultAudit,supplemental,work14:enrichment,cornerCorroboration:joined,sourcePacketDigest:WORK13_PACKET_DIGEST,sourceGraphDigest:sha(packet),sourceReview:'WORK13_REPORTED_FACTS_NOT_INDEPENDENT_FIELD_LEVEL_ADMISSION',analysisTiming:{featureCutoff:packet.cutoff,baseFeatureCutoff:cutoff,scheduledPost:post,analysisAt:began,completedAt:ended,mode:Date.parse(ended)<Date.parse(post)?'PRESTART_FACT_DIAGNOSTIC':'RETROSPECTIVE_FACT_DIAGNOSTIC',prospectiveForecast:false,externalTimestampVerified:false},coverage:{completed,cancelled,roster:roster.length,events:packet.events.length-1,roots:packet.roots.length,independentCornerAggregate:p.identityVerifiedCornerEvidence.count,peerFollowupAggregate:p.opponentFollowups.verifiedCount,independentlyMappedCornerRows:joined.length,independentlyMappedFollowups:supplemental?.coverage.peerMatched??0,peerRowsInsertedIntoNormal:integrated?.peerWitnesses??0,raceLapWitnessesInsertedIntoNormal:integrated?.raceLapWitnesses??0,work14ReportedContexts:enrichment?.reportedContexts.length??0,work14OrdinalConflicts:enrichment?.ordinalConflicts.length??0},publicationAllowed:false,persistenceAllowed:false,realAdmission:false};
  return {...body,analysisDigest:sha(body)};
 }
 const esc=x=>String(x??'未確認').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
