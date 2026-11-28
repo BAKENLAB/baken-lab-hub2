@@ -183,9 +183,9 @@ function convert(m,raws,{fixture=false}={}){
     need(circuit==='JRA'&&url.hostname==='www.jra.go.jp'&&url.pathname==='/JRADB/accessS.html'&&url.searchParams.size===1&&url.searchParams.has('CNAME'),'WORK11_JRA_URL');
     const q=jraRace(url.searchParams.get('CNAME'),'HISTORICAL_RESULT');need(q.dateJst===e.dateJst&&q.venueId===e.venueId&&q.raceNo===e.raceNo&&q.track===meta.track,'WORK11_JRA_TUPLE');
    }
-   const evFns={surfaceLiteral:surface,directionLiteral:direction,distanceM:x=>num(x,600,5000),goingLiteral:going,classLiteral:lit,declaredCount:x=>num(x,1,24)};
+   const evFns={surfaceLiteral:surface,directionLiteral:direction,distanceM:x=>num(x,600,5000),goingLiteral:going,classLiteral:lit,declaredCount:x=>num(x,1,24),leaderLapSlots:splitLaps};
    const hsFns={displayName:lit,gate:x=>num(x,1,8),weightG:x=>scaled(x,30000,90000),sexAge:x=>typeof x==='string'&&/^[牡牝セ騸]\d{1,2}$/.test(x)?x:null,finish:x=>num(x,1,24),finishClockLiteral:clock,officialMarginLiteral:margin,final600Ms:x=>scaled(x,10000,300000),bodyWeightKg:x=>num(x,200,900),status:x=>choice(x,['ACTIVE','CANCELLED','UNKNOWN']),cornerPositionsLiteral:x=>typeof x==='string'&&/^\d{1,2}(?:[\s,-]+\d{1,2})*$/.test(x)?x.match(/\d+/g).map(Number).join(','):null};
-   const eventAllowed=card||result?['surfaceLiteral','directionLiteral','distanceM','goingLiteral','classLiteral','declaredCount']:profile?['surfaceLiteral','distanceM','goingLiteral','classLiteral']:[];
+   const eventAllowed=card||result?['surfaceLiteral','directionLiteral','distanceM','goingLiteral','classLiteral','declaredCount',...(result?['leaderLapSlots']:[])]:profile?['surfaceLiteral','distanceM','goingLiteral','classLiteral']:[];
    const rowAllowed=card?['displayName','status','gate','weightG','sexAge']:profile?['finish','finishClockLiteral','officialMarginLiteral','final600Ms','bodyWeightKg','weightG']:result?['finish','finishClockLiteral','officialMarginLiteral','final600Ms','weightG','gate','cornerPositionsLiteral']:['cornerPositionsLiteral'];
    allowed(z.eventFields,eventAllowed);need(Array.isArray(z.rows)&&z.rows.length>0&&z.rows.length<=24&&(!profile||z.rows.length===1),'WORK11_ROWS');
    const emitField=(w,field,obj,rowPath,fn)=>{
