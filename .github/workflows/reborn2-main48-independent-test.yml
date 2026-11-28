@@ -579,7 +579,7 @@ jobs:
           git rev-parse HEAD
           node --version
           set +e
-          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test08-operator.mjs fixed-normal ${{ matrix.pin }} > "$RUNNER_TEMP/operator.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-normal-test07-operator.mjs fixed-normal ${{ matrix.pin }} > "$RUNNER_TEMP/operator.log" 2>&1
           rc=$?
           cat "$RUNNER_TEMP/operator.log"
           echo "TEST08_EXIT=$rc"
