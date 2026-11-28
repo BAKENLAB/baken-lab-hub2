@@ -15,7 +15,7 @@ import {convertExistingWork44 as convert07,convertApprovedLocal as local07} from
 import {convertExistingWork44 as convert08,convertApprovedLocal as local08} from '../reborn2-work08/offline-converter.mjs';
 export const WORK08='767a8e0bb90bd178e260d6b4b8bcc86fe341520e';
 import {convertApprovedLocal as local11} from '../reborn2-work11/offline-converter.mjs';
-const pins={'11':'28ace782dc36a263815d32b025ba4a6f0b07b38d','07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
+const pins={'11':'a7e9b8d19a3363f1067341f8487933aeb4082fe1','07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
 for(const v of ['07','08','11']){
  const bytes=readFileSync(new URL('../reborn2-work'+v+'/offline-converter.mjs',import.meta.url));
  assert.equal(createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex'),pins[v],'CONVERTER_PIN');
@@ -260,7 +260,7 @@ function resolveOriginalField(draft,descriptors,raws,rootId){
   assert.ok(p.columns.every(i=>Number.isInteger(i)&&i>=1&&i<=row.fields.length),'REVIEW_CSV_COLUMNS');
   original=p.columns.map(column=>({column,literal:row.fields[column-1]}));
  }else{
-  assert.ok(['NAR_STORED_CORNER_SNAPSHOT_1','OFFICIAL_CARD_STATUS_PROJECTION_1','JRA_STORED_ROW_JSON_1','NAR_DEBA_HTML_PROJECTION_1','NAR_HISTORY_HTML_PROJECTION_1','JRA_CORNER_HTML_PROJECTION_1'].includes(descriptor.format),'REVIEW_JSON_FORMAT');
+  assert.ok(['NAR_STORED_CORNER_SNAPSHOT_1','OFFICIAL_CARD_STATUS_PROJECTION_1','JRA_STORED_ROW_JSON_1','NAR_DEBA_HTML_PROJECTION_1','NAR_HISTORY_HTML_PROJECTION_1','JRA_CORNER_HTML_PROJECTION_1','NAR_RESULT_HTML_PROJECTION_1'].includes(descriptor.format),'REVIEW_JSON_FORMAT');
   assert.ok(typeof p.row==='string'&&typeof p.field==='string');
   const parts=[...p.row.split(/[./]/),p.field];
   assert.ok(parts.every(k=>/^[A-Za-z0-9_]+$/.test(k)&&!['__proto__','prototype','constructor'].includes(k)),'REVIEW_JSON_POINTER');
