@@ -37,4 +37,4 @@ try{
  assert.equal(detail.width,390);assert.ok(detail.scroll<=390);assert.ok(detail.chars<=12000);assert.equal(preview.detailReads(),1);
  await evaluate("document.querySelector('a[href=\"/\"]').click(); true");await ready("location.pathname==='/' && document.querySelectorAll('article').length===5");
  console.log('CODEX02_BROWSER_MOBILE PASS '+JSON.stringify({layout,detail,detailReads:preview.detailReads()}));
-}finally{ws?.close();if(child){child.kill('SIGTERM');await Promise.race([new Promise(ok=>child.once('exit',ok)),delay(2000)]);}if(preview)await new Promise(ok=>preview.server.close(ok));await rm(dir,{recursive:true,force:true});}
+}finally{ws?.close();if(child&&child.exitCode===null&&child.signalCode===null){const exited=new Promise(ok=>child.once('exit',ok));child.kill('SIGTERM');await Promise.race([exited,delay(3000)]);if(child.exitCode===null&&child.signalCode===null){child.kill('SIGKILL');await Promise.race([exited,delay(3000)]);}}if(preview)await new Promise(ok=>preview.server.close(ok));await rm(dir,{recursive:true,force:true,maxRetries:12,retryDelay:250});}

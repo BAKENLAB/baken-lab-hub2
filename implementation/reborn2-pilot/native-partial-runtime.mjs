@@ -8,9 +8,12 @@ import {ENGINE,sha} from './adapter.mjs';
 import {inspectNativeStructureOffline,WORK06} from './native-entry.mjs';
 import {supplyContract} from './work06/inspect-native-facts.mjs';
 import {computePartial} from './derived-partial-core.mjs';
+import {convertExistingWork44,convertApprovedLocal} from '../reborn2-work07/offline-converter.mjs';
+import {inspectNativeFacts} from './work06/inspect-native-facts.mjs';
+export const WORK07='3bd160c01d153f72c9f99a6e4d68eca9652cfcdd';
 const exact=(v,k)=>{assert.ok(v&&typeof v==='object'&&!Array.isArray(v));assert.deepEqual(Object.keys(v).sort(),[...k].sort(),'NATIVE_APPROVAL_FIELDS');};
 const hex=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
-const authority=Object.freeze({state:'NOT_CONFIGURED',publicKeyPem:null,allowedApprovalDigests:Object.freeze([])});
+const authority=Object.freeze({state:'NOT_CONFIGURED',publicKeyPem:null,allowedApprovalDigests:Object.freeze([]),sourceManifestDigests:Object.freeze([])});
 const observed='OBSERVED_NATIVE_VERIFIED';
 const typedLiteral=(field,v)=>{
  if(['surfaceLiteral','directionLiteral','goingLiteral'].includes(field)){
@@ -28,7 +31,7 @@ const itemIds=supplyContract.items.map(i=>i.id.startsWith('EYE-')?i.id.replace('
 function authorize(pkg,approval){
  assert.equal(authority.state,'CONFIGURED','MAIN_NATIVE_APPROVAL_NOT_CONFIGURED');
  exact(approval,['payload','signature']);const a=approval.payload;
- exact(a,['schema','engineCommit','work06Commit','packageDigest','rightsVerified','identityVerified','rosterVerified','custodyVerified','versionInventoryVerified','fieldProofs','eventProofs','rosterProofs','validUntil']);
+ exact(a,['schema','engineCommit','work06Commit','packageDigest','rightsVerified','identityVerified','rosterVerified','custodyVerified','versionInventoryVerified','fieldProofs','eventProofs','rosterProofs','rowProofs','validUntil']);
  assert.equal(a.schema,'REBORN2_NATIVE_PARTIAL_APPROVAL_1');assert.equal(a.engineCommit,ENGINE);assert.equal(a.work06Commit,WORK06);assert.equal(a.packageDigest,sha(pkg));
  for(const k of ['rightsVerified','identityVerified','rosterVerified','custodyVerified','versionInventoryVerified'])assert.equal(a[k],true);
  assert.ok(authority.allowedApprovalDigests.includes(sha(a)),'MAIN_APPROVAL_PIN');
@@ -39,7 +42,7 @@ function authorize(pkg,approval){
 // Map each admitted field to a source root whose identity is derived from
 // the complete native event, horse, source version, row and field binding.
 // Same field with many roots is a single observation, not extra votes.
-function compile(pkg,a,{fixture=false}={}){
+function compile(pkg,a,{fixture=false,strict=false}={}){
  const obsState=fixture?'OBSERVED_TEST_FORMAT':observed;
  const eventMap=new Map(pkg.events.map(e=>[e.id,e])),docs=new Map(pkg.documents.map(d=>[d.id,d]));
  const roots=new Map(),events=new Map(),byHorseNo=new Map();
@@ -50,39 +53,46 @@ function compile(pkg,a,{fixture=false}={}){
  assert.equal(fieldProofs.size,a.fieldProofs.length);assert.equal(eventProofs.size,a.eventProofs.length);assert.equal(rosterProofs.size,a.rosterProofs.length);
  for(const e of pkg.events){
   const proof=eventProofs.get(e.id);assert.ok(proof&&proof.identityDigest===sha(e),'OFFICIAL_EVENT_PROOF_BINDING');
-  const id=add('VERIFIED_NATIVE_EVENT',e);
+  const id=add(fixture?'FIXTURE_EVENT':'VERIFIED_NATIVE_EVENT',e);
   events.set(e.id,{eventId:e.id,role:e.role,nativeRaceIdentity:{issuer:e.issuer,nativeId:e.nativeId,venueId:e.venueId,dateJst:e.dateJst,raceNo:e.raceNo},observations:{},rows:[],eventRoot:id});
  }
  const target=events.get(pkg.targetId);
  for(const h of pkg.roster){
   const proof=rosterProofs.get(h.horseId);assert.ok(proof&&proof.identityDigest===sha(h),'OFFICIAL_ROSTER_PROOF_BINDING');
-  const rid=add('VERIFIED_NATIVE_ROSTER',h,[target.eventRoot]);
+  const rid=add(fixture?'FIXTURE_ROSTER':'VERIFIED_NATIVE_ROSTER',h,[target.eventRoot]);
   const row={nativeId:h.horseId,observations:{no:{state:obsState,value:h.horseNo,evidenceId:rid}},unavailable:[]};target.rows.push(row);
   byHorseNo.set(JSON.stringify([pkg.targetId,h.horseId]),row);
  }
- const missing=[];
+ const missing=[],rowProofs=new Map((a.rowProofs??[]).map(x=>[JSON.stringify([x.eventId,x.horseId]),x]));
+ const observedRows=new Set(pkg.observations.filter(x=>x.state==='OBSERVED'&&x.horseId!==null).map(x=>JSON.stringify([x.eventId,x.horseId])));
  for(const o of pkg.observations){
   const event=events.get(o.eventId),e=eventMap.get(o.eventId);
   let row=null,obs=event.observations;
   if(o.horseId!==null){
    const k=JSON.stringify([o.eventId,o.horseId]);row=byHorseNo.get(k);
    if(!row){
-    assert.equal(e.role,'HISTORICAL_RESULT');const rid=add('VERIFIED_NATIVE_HISTORICAL_ROW',{eventId:o.eventId,horseId:o.horseId,pastHorseNo:o.pastHorseNo},[event.eventRoot]);
+    assert.equal(e.role,'HISTORICAL_RESULT');
+    if(!observedRows.has(k)){missing.push({key:JSON.stringify([o.eventId,o.horseId,o.field]),state:o.state,reason:o.reason});continue;}
+    const rowWitness=rowProofs.get(k);
+    if(!fixture)assert.ok(rowWitness&&rowWitness.pastHorseNo===o.pastHorseNo&&hex(rowWitness.proofDigest),'HISTORICAL_NATIVE_ROW_PROOF_REQUIRED');
+    const rid=add(fixture?'FIXTURE_HISTORICAL_ROW':'VERIFIED_NATIVE_HISTORICAL_ROW',{eventId:o.eventId,horseId:o.horseId,pastHorseNo:o.pastHorseNo,...(rowWitness?{rowWitness}:{})},[event.eventRoot]);
     row={nativeId:o.horseId,observations:{no:{state:obsState,value:o.pastHorseNo,evidenceId:rid}},unavailable:[]};event.rows.push(row);byHorseNo.set(k,row);
    }
    obs=row.observations;
   }
   const key=JSON.stringify([o.eventId,o.horseId,o.field]);
   if(o.state!=='OBSERVED'){obs[o.field]={state:o.state,value:null,reason:o.reason};missing.push({key,state:o.state,reason:o.reason});if(row)row.unavailable.push({field:o.field,state:o.state,reason:o.reason});continue;}
-  if(!fixture)assert.ok(typedLiteral(o.field,o.value),'NATIVE_LITERAL_FORMAT');
+  if(!fixture||strict)assert.ok(typedLiteral(o.field,o.value),'NATIVE_LITERAL_FORMAT '+o.field);
   const proof=fieldProofs.get(key);assert.ok(proof&&proof.observationDigest===sha(o),'VERIFIED_FIELD_BINDING');
-  const refs=o.roots.map(root=>{const doc=docs.get(root.documentId);assert.ok(doc&&doc.eventId===o.eventId);const did=add('VERIFIED_NATIVE_DOCUMENT',doc,[event.eventRoot]);return add('VERIFIED_NATIVE_FIELD_ROOT',{eventId:o.eventId,horseId:o.horseId,pastHorseNo:o.pastHorseNo,...root},[did]);}).sort();
-  const rid=add('VERIFIED_NATIVE_OBSERVATION',{eventId:o.eventId,horseId:o.horseId,field:o.field,value:o.value},refs);
+  const refs=o.roots.map(root=>{const doc=docs.get(root.documentId);assert.ok(doc&&doc.eventId===o.eventId);const did=add(fixture?'FIXTURE_DOCUMENT':'VERIFIED_NATIVE_DOCUMENT',doc,[event.eventRoot]);return add(fixture?'FIXTURE_FIELD_ROOT':'VERIFIED_NATIVE_FIELD_ROOT',{eventId:o.eventId,horseId:o.horseId,pastHorseNo:o.pastHorseNo,...root},[did]);}).sort();
+  const rid=add(fixture?'FIXTURE_OBSERVATION':'VERIFIED_NATIVE_OBSERVATION',{eventId:o.eventId,horseId:o.horseId,field:o.field,value:o.value},refs);
   obs[o.field]={state:obsState,value:o.value,evidenceId:rid};
  }
  // Require every target row to have source-bound status; unknown remains
  // unknown rather than defaulting to ACTIVE. Full roster attestation needed.
- if(!fixture)for(const row of target.rows){const status=row.observations.status;assert.ok(status?.state===observed&&status.value===pkg.roster.find(h=>h.horseId===row.nativeId).status,'ROSTER_STATUS_NOT_BOUND');}
+ if(!fixture)for(const row of target.rows){const status=row.observations.status,expected=pkg.roster.find(h=>h.horseId===row.nativeId).status;
+  if(expected==='UNKNOWN'){assert.ok(status?.state!==observed||status.value==='UNKNOWN','ROSTER_STATUS_NOT_BOUND');}
+  else assert.ok(status?.state===observed&&status.value===expected,'ROSTER_STATUS_NOT_BOUND');}
  return {schema:'REBORN2_NATIVE_PARTIAL_OBSERVATIONS_1',scope:fixture?'FIXTURE_COMPILER_MAPPING_TEST_ONLY':'REAL_NATIVE_VERIFIED',target:{eventId:pkg.targetId},cutoff:pkg.cutoff,events:[target,...[...events.values()].filter(e=>e!==target)],roots:[...roots.values()],items:target.rows.map(h=>({horseId:h.nativeId,items:itemIds.map(item=>({item,state:'HELD',reason:'FULL_ITEM_JUDGMENT_NOT_ESTABLISHED'}))})),groups:118,held:826,missing,formal:false};
 }
 export function executeNativePartial(pkg,approval){
@@ -122,3 +132,27 @@ export function exerciseFixtureObservationCompiler(verifiedFixturePacket){
  return {scope:'FIXTURE_COMPILER_MAPPING_TEST_ONLY',eventCount:pkg.events.length,rosterCount:pkg.roster.length,observationCount:pkg.observations.length,fields:[...new Set(pkg.observations.map(o=>o.field))],runners:computePartial(compiled),compiled,realAdmission:false};
 }
 export function executeNativeFull(){throw new Error('FULL_NATIVE_KERNEL_DEPENDENCY_ON_SYNTHETIC_PACKET_NOT_REVIEWED');}
+
+// Actual Work07 handoff: no caller key or digest is trusted as authority.
+// A future reviewed protected configuration must supply the pinned manifest
+// and approval, separately. Before that, not even raw source conversion runs.
+export function executeWork07NativePartial(signed,raws,approval){
+ assert.equal(authority.state,'CONFIGURED','MAIN_NATIVE_APPROVAL_NOT_CONFIGURED');
+ const manifestDigest=sha(signed.payload);
+ assert.ok(authority.sourceManifestDigests.includes(manifestDigest),'WORK07_MANIFEST_AUTHORITY_PIN');
+ const converted=convertApprovedLocal(signed,raws,{authorityPublicKeyPem:authority.publicKeyPem,expectedManifestSha256:manifestDigest});
+ assert.equal(converted.scope,'LOCAL_EXTRACTION_NOT_ADMISSION');
+ const result=executeNativePartial(converted.package,approval);
+ return {...result,work07Commit:WORK07,sourceStates:converted.sourceStates,sourceManifestDigest:manifestDigest};
+}
+// Existing fixed Work44 bytes only, actual Work07 parser and Work06 complete
+// schema validation. Never mint native authority or native state from tests.
+export function exerciseWork07EndToEnd(bundle,trust){
+ const x=convertExistingWork44(bundle,trust),pkg=x.package;
+ assert.equal(x.scope,'EXISTING_WORK44_FIXTURE_CONVERSION_ONLY');
+ assert.deepEqual(inspectNativeFacts(pkg),x.inspection);
+ const a={eventProofs:pkg.events.map(e=>({eventId:e.id,identityDigest:sha(e)})),rosterProofs:pkg.roster.map(h=>({horseId:h.horseId,identityDigest:sha(h)})),fieldProofs:pkg.observations.filter(o=>o.state==='OBSERVED').map(o=>({key:JSON.stringify([o.eventId,o.horseId,o.field]),observationDigest:sha(o)}))};
+ const p=compile(pkg,a,{fixture:true,strict:true});
+ const runners=computePartial(p,{strictMissing:true});
+ return {scope:'EXISTING_WORK44_WORK07_ANALYSIS_TEST_ONLY',work07Commit:WORK07,package:pkg,inspection:x.inspection,sourceStates:x.sourceStates,sourcePacket:p,runners,formal:false,realAdmission:false,persistenceAllowed:false};
+}

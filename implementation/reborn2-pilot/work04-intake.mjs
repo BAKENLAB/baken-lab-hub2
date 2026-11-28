@@ -5,7 +5,7 @@ import {prepareSupplyPlan} from './work02-supply-plan.mjs';
 import {executeVerifiedSupply,ENGINE,sha} from './adapter.mjs';
 import {planWork05,WORK05,WORK05_BLOB,WORK05_DIGEST} from './work05-native-plan.mjs';
 import {inspectNativeAdmissionRequest,rejectNativeExecution} from './native-entry.mjs';
-import {executeNativePartial,executeNativeFull} from './native-partial-runtime.mjs';
+import {executeNativePartial,executeNativeFull,executeWork07NativePartial} from './native-partial-runtime.mjs';
 export const WORK04='fe0857f8590e06377273d922461217796dcd61a6';
 export const sourceMap=JSON.parse(readFileSync(new URL('./work04-source-map.json',import.meta.url),'utf8'));
 assert.equal(sourceMap.engine,ENGINE);assert.equal(sourceMap.scope,'METADATA_ONLY');assert.equal(sourceMap.items.length,115);assert.equal(sourceMap.counts.admitted,0);assert.equal(sourceMap.engineInput,null);assert.equal(sourceMap.realAdmission,false);
@@ -39,6 +39,7 @@ export function inspectWork05(input){
 }
 export async function submitAnalysis(input){
  if(input?.schema==='REBORN2_NATIVE_ADMISSION_PREFLIGHT_1')return inspectNativeAdmissionRequest(input);
+ if(input?.schema==='REBORN2_WORK07_ANALYSIS_REQUEST_1'){exact(input,['schema','mode','signedManifest','raws','approval']);assert.equal(input.mode,'PARTIAL');return executeWork07NativePartial(input.signedManifest,input.raws,input.approval);}
  if(input?.schema==='REBORN2_NATIVE_ANALYSIS_REQUEST_1'){exact(input,['schema','mode','package','approval']);if(input.mode==='PARTIAL')return executeNativePartial(input.package,input.approval);if(input.mode==='FULL')return executeNativeFull();throw new Error('NATIVE_MODE');}
  if(input?.schema==='REBORN2_NATIVE_FACT_PACKAGE_1'||input?.scope==='REAL_NATIVE')return rejectNativeExecution();
  if(input?.schema==='REBORN2_WORK05_NATIVE_PREFLIGHT_1')return inspectWork05(input);
