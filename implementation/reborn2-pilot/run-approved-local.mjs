@@ -16,10 +16,10 @@ const json=p=>JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(read(p)));
 async function main(){
  const [mode,manifestPath,approvalPath,indexPath,...extra]=process.argv.slice(2);
  if(mode==='FACT_DIAGNOSTIC'){
-  assert.ok(manifestPath&&!approvalPath&&!indexPath&&!extra.length,'FACT_DIAGNOSTIC_ARGUMENTS');
+  assert.ok(manifestPath&&!indexPath&&!extra.length,'FACT_DIAGNOSTIC_ARGUMENTS');
   // No native authority, no native graph, no raw acquisition. Exact fixed
   // ordinary factual handoff only, private loopback, no persistence.
-  const out=runWork13Diagnostic(json(manifestPath)),html=renderDiagnosticHtml(out),token='/'+randomBytes(24).toString('hex');
+  const out=runWork13Diagnostic(json(manifestPath),{snapshot:approvalPath?json(approvalPath):null}),html=renderDiagnosticHtml(out),token='/'+randomBytes(24).toString('hex');
   const server=createServer((req,res)=>{res.setHeader('Cache-Control','no-store');res.setHeader('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'");if(req.method!=='GET'||req.url!==token||req.headers.host!=='127.0.0.1:'+server.address().port){res.writeHead(404);return res.end();}res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});res.end(html);});
   await new Promise((ok,bad)=>{server.once('error',bad);server.listen(0,'127.0.0.1',ok);});
   console.log(JSON.stringify({scope:out.scope,url:'http://127.0.0.1:'+server.address().port+token,analysisDigest:out.analysisDigest,timing:out.analysisTiming,coverage:out.coverage,publicationAllowed:false}));
