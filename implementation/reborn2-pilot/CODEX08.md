@@ -39,3 +39,11 @@ explicit units, leader-lap distance boundaries and actual full field
 status missing or unverified. No new analytical thresholds, no SABC.
 Fixed V48/884/484 and Test04 fixed target unchanged. No production, DB,
 FROZEN, CLAIM, Cron, merge, deployment or paid API.
+
+Offline original field inspection also resolves a graph-owned source root
+to exactly the original CSV columns and verified byte record, or the
+converter's exact JSON path, with raw SHA-256 rechecked. Original fields
+are returned only to the separate offline reviewer, not the HTTP page.
+Fixed fixture regression reads held clock literal 1240/1245 without
+normalization, and rejects a nonexistent graph root. Actual JRA/LOCAL JSON
+source paths have not been exercised on authorized actual bytes.

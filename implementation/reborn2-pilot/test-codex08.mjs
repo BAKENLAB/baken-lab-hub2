@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {ENGINE,assertFrozenEngine} from './adapter.mjs';
-import {exerciseExistingGraph,exerciseExistingReviewPreparation,readIssuedGraph,reviewHorseItem,reviewHorseItems,issueNativeGraph,prepareNativeReviewOffline} from './native-graph-issuance.mjs';
+import {exerciseExistingGraph,exerciseExistingReviewPreparation,readIssuedGraph,reviewHorseItem,reviewHorseItems,issueNativeGraph,prepareNativeReviewOffline,inspectExistingOriginalField} from './native-graph-issuance.mjs';
 import {startGraphPreview} from './graph-preview.mjs';
 assert.equal(assertFrozenEngine(),ENGINE);
 const cap=exerciseExistingGraph('08'),x=readIssuedGraph(cap),draft=exerciseExistingReviewPreparation('08');
@@ -18,7 +18,12 @@ for(const h of x.roster){
  const status=reviewHorseItem(cap,h.horseId,'RANK02');
  assert.ok(status.materialTrace.trace.some(t=>t.field==='status'&&t.state==='MISSING'&&!t.sourcePresent));
 }
-console.log('CODEX08_OFFLINE_REVIEW_DIGEST_AND_115_TRACE PASS');
+const held=draft.roots.filter(n=>n.kind.endsWith('_SOURCE_FIELD')&&n.payload.field==='finishClockLiteral'&&n.payload.state==='HELD');
+assert.equal(held.length,2);
+const literals=held.map(n=>inspectExistingOriginalField(n.id).original[0].literal).sort();
+assert.deepEqual(literals,['1240','1245']);
+assert.throws(()=>inspectExistingOriginalField('unbound'),/SOURCE_FIELD_NOT_IN_REVIEW/);
+console.log('CODEX08_OFFLINE_REVIEW_DIGEST_AND_115_TRACE PASS '+JSON.stringify({roots:draft.closure.roots,heldOriginalLiterals:literals}));
 const p=await startGraphPreview(cap);
 try{
  const root=await fetch(p.url);assert.equal(root.status,200);const html=await root.text();assert.equal((html.match(/<article /g)||[]).length,2);assert.equal(p.detailReads(),0);

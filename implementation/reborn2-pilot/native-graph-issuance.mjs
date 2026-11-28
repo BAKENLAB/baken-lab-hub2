@@ -8,6 +8,7 @@ import {inspectNativeFacts,supplyContract} from './work06/inspect-native-facts.m
 import {inspectNativeStructureOffline} from './native-entry.mjs';
 import {computePartial} from './derived-partial-core.mjs';
 import {partialFixture} from './fixture-partial.mjs';
+import {csvRows} from '../../research/reborn2-work44/offline-intake-v0.2.mjs';
 import {convertExistingWork44 as convert07,convertApprovedLocal as local07} from '../reborn2-work07/offline-converter.mjs';
 import {convertExistingWork44 as convert08,convertApprovedLocal as local08} from '../reborn2-work08/offline-converter.mjs';
 export const WORK08='767a8e0bb90bd178e260d6b4b8bcc86fe341520e';
@@ -237,4 +238,40 @@ export function reviewHorseItem(c,horseId,item){
  const i=h.analysisItems.find(i=>i.item===item);assert.ok(i,'UNKNOWN_ITEM');
  const refs=new Set(i.partialFindings.flatMap(f=>f.refs));
  return structuredClone({horseId,item,name:names.get(item),state:i.state,findings:i.partialFindings,roots:x.packet.roots.filter(r=>refs.has(r.id)),hold:i.reason,materialTrace:materialTrace(x,horseId,item),materialHolds:x.availability.requirements.filter(q=>q.items.includes(item)),formal:false});
+}
+
+// Independent reviewer only. Resolve only the exact converter-emitted field
+// pointer, never a caller-defined arbitrary column or whole source document.
+// Raw bytes must match the reviewed document digest every time.
+function resolveOriginalField(draft,descriptors,raws,rootId){
+ const n=draft.roots.find(r=>r.id===rootId&&r.kind.endsWith('_SOURCE_FIELD'));
+ assert.ok(n,'SOURCE_FIELD_NOT_IN_REVIEW');
+ const root=n.payload.root,d=draft.documents.find(x=>x.id===root.documentId),descriptor=descriptors.find(x=>x.id===root.documentId),raw=raws.get(root.documentId);
+ assert.ok(d&&descriptor&&Buffer.isBuffer(raw),'REVIEW_ORIGINAL_MISSING');
+ assert.equal(createHash('sha256').update(raw).digest('hex'),d.sha256,'REVIEW_ORIGINAL_HASH');
+ const p=JSON.parse(root.rowPointer);let original;
+ if(Object.hasOwn(p,'columns')){
+  assert.ok(['NAR_HORSELIST_36','NAR_RACELIST_66'].includes(descriptor.format));
+  const row=csvRows(raw,descriptor.encoding).find(x=>x.record===p.record);
+  assert.ok(row&&row.start===p.start&&row.end===p.end,'REVIEW_CSV_POINTER');
+  assert.ok(p.columns.every(i=>Number.isInteger(i)&&i>=1&&i<=row.fields.length),'REVIEW_CSV_COLUMNS');
+  original=p.columns.map(column=>({column,literal:row.fields[column-1]}));
+ }else{
+  assert.ok(['NAR_STORED_CORNER_SNAPSHOT_1','OFFICIAL_CARD_STATUS_PROJECTION_1','JRA_STORED_ROW_JSON_1'].includes(descriptor.format),'REVIEW_JSON_FORMAT');
+  assert.ok(typeof p.row==='string'&&typeof p.field==='string');
+  const parts=[...p.row.split(/[./]/),p.field];
+  assert.ok(parts.every(k=>/^[A-Za-z0-9_]+$/.test(k)&&!['__proto__','prototype','constructor'].includes(k)),'REVIEW_JSON_POINTER');
+  let v=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw));
+  for(const k of parts){if(v===null||typeof v!=='object'||!Object.hasOwn(v,k)){v=undefined;break;}v=v[k];}
+  original=v===undefined?{present:false}:{present:true,literal:v};
+ }
+ return {scope:'OFFLINE_ORIGINAL_FIELD_REVIEW_NOT_ANALYSIS',rootId,documentId:d.id,sha256:d.sha256,sourceRef:d.sourceRef,rowPointer:p,state:n.payload.state,reason:n.payload.reason,original,realAdmission:false};
+}
+export function inspectNativeOriginalFieldOffline(request,rootId){
+ const draft=prepareNativeReviewOffline(request);
+ return resolveOriginalField(draft,request.signedManifest.payload.documents,request.raws,rootId);
+}
+export function inspectExistingOriginalField(rootId,version='08'){
+ const {b}=partialFixture(),draft=exerciseExistingReviewPreparation(version);
+ return resolveOriginalField(draft,b.manifest.payload.documents,new Map(b.rawFiles.map(x=>[x.id,Buffer.from(x.base64,'base64')])),rootId);
 }
