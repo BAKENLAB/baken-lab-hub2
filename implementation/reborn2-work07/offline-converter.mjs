@@ -87,6 +87,37 @@ function convert(m,raws,{fixture=false}={}){
      }
     }
    }
+  }else if(d.format==='NAR_STORED_CORNER_SNAPSHOT_1'){
+   // A stored derived snapshot is NOT the official result HTML. Bind its
+   // actual bytes and existing canonical payload digest, retain exact source
+   // record references; the separate official row witness remains required.
+   need(circuit==='LOCAL'&&d.role==='HISTORICAL_RESULT'&&d.encoding==='UTF8'&&NAR[d.venueLiteral]===e.venueId,'LOCAL_SNAPSHOT_FORMAT');
+   const z=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw));
+   const canonical=x=>x===null||typeof x!=='object'?JSON.stringify(x):Array.isArray(x)?'['+x.map(canonical).join(',')+']':'{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+canonical(x[k])).join(',')+'}';
+   need(typeof z.id==='string'&&d.sourceRef==='urn:bakenlab:local-preclaim:'+z.id&&z.circuit==='LOCAL'&&z.source_kind==='LOCAL_OFFICIAL_CORNERS'&&z.source_version==='LOCAL_CORNER_1','LOCAL_SNAPSHOT_IDENTITY');
+   need(hex(z.payload_digest)&&sha(canonical(z.evidence))===z.payload_digest&&hex(z.official_roster_digest),'LOCAL_PAYLOAD_DIGEST');
+   const times=[z.as_of,z.captured_at,z.official_post_time].map(Date.parse);
+   need(times.every(Number.isFinite)&&times[0]<=times[1]&&times[1]<times[2]&&times[1]<=Date.parse(d.capturedAt)&&times[1]<=Date.parse(cutoff)&&z.race_date<=target.dateJst&&e.dateJst<z.race_date,'LOCAL_SNAPSHOT_TIME');
+   const p=z.evidence?.packet;
+   need(z.evidence?.schemaVersion==='LOCAL_OFFICIAL_CORNERS_1'&&p?.status==='PREFETCH_ONLY'&&p.raceDate===z.race_date&&p.raceTrack===z.track&&p.raceNo===z.race_no&&['claimStarted','saveAuthorized','marketUsed','targetResultUsed','rankChanged'].every(k=>p[k]===false)&&Array.isArray(p.evidence)&&p.evidence.length===p.linkedRunEvidence,'LOCAL_SNAPSHOT_PACKET');
+   const historicalURL=new URL('https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable');
+   historicalURL.searchParams.set('k_babaCode',e.venueId);historicalURL.searchParams.set('k_raceDate',e.dateJst.replaceAll('-','/'));historicalURL.searchParams.set('k_raceNo',String(e.raceNo));
+   let n=0;
+   for(const [i,x] of p.evidence.entries()){
+    const h=x.pastRace;if(h?.raceDate!==e.dateJst||h.track!==d.venueLiteral||h.raceNo!==e.raceNo)continue;
+    need(x.source==='NAR_OFFICIAL_PAST_RACE_RESULT'&&x.sourceRef===historicalURL.href&&x.rankingEffect==='NONE_UNTIL_REVIEWED'&&x.identityVerifiedBy==='OFFICIAL_HORSE_REF'&&Number.isFinite(Date.parse(x.sourceCheckedAt))&&Date.parse(x.sourceCheckedAt)<=times[0],'LOCAL_SOURCE_BINDING');
+    const u=new URL(x.horseRef);const hk=u.searchParams.get('k_lineageLoginCode');
+    need(u.protocol==='https:'&&u.hostname==='www.keiba.go.jp'&&!u.port&&!u.username&&!u.password&&!u.hash&&u.pathname==='/KeibaWeb/DataRoom/HorseMarkInfo'&&/^[0-9]{1,30}$/.test(hk??'')&&u.searchParams.getAll('k_lineageLoginCode').length===1&&[...u.searchParams.keys()].every(k=>['k_lineageLoginCode','k_activeCode'].includes(k)),'LOCAL_HORSE_REF');
+    const no=num(x.pastHorseNo,1,24);need(no!==null,'PAST_HORSE_NO');
+    const w=bind(d,no,x.horseName,hk);const cs=x.corners;
+    need(Array.isArray(cs)&&cs.length>0&&cs.length<=4&&cs.every((c,j)=>num(c.corner,1,4)!==null&&num(c.position,1,24)!==null&&(j===0||cs[j-1].corner<c.corner))&&cs[0].position===x.earlyPos&&cs.at(-1).position===x.finalTurnPos,'LOCAL_CORNERS');
+    // Position-only literal, not distance ranks or a crossing clock. Corner
+    // labels remain in original row addressed by root; if there is a gap,
+    // avoid ambiguous compressed sequence and retain a held observation.
+    const consecutive=cs.every((c,j)=>j===0||cs[j-1].corner+1===c.corner);
+    emit(d,w,'cornerPositionsLiteral',consecutive?cs.map(c=>c.position).join(','):null,JSON.stringify({row:'evidence.packet.evidence/'+i,field:'corners',cornerLabels:cs.map(c=>c.corner),sourceRef:x.sourceRef,sourceCheckedAt:x.sourceCheckedAt}),true);n++;
+   }
+   need(n>0,'LOCAL_SNAPSHOT_NO_MATCHED_ROWS');
   }else if(d.format==='JRA_STORED_ROW_JSON_1'){
    // An independently authorized immutable export of existing table rows.
    // This is not a parser of arbitrary JRA HTML; historical race rows and
@@ -132,11 +163,16 @@ function convert(m,raws,{fixture=false}={}){
 }
 // The operator must obtain the pin and authority key independently (not
 // from the supplied raw files). This signature is not a Codex admission.
-export function convertApprovedLocal(signed,raws,trust){
+export function verifyApprovedManifest(signed,trust){
  exact(signed,['payload','signature']);exact(trust,['authorityPublicKeyPem','expectedManifestSha256']);
  const bytes=Buffer.from(JSON.stringify(signed.payload));need(hex(trust.expectedManifestSha256)&&sha(bytes)===trust.expectedManifestSha256,'MANIFEST_PIN');
  need(verify(null,bytes,createPublicKey(trust.authorityPublicKeyPem),Buffer.from(signed.signature,'base64')),'MANIFEST_SIGNATURE');
- return convert(signed.payload,raws);
+ exact(signed.payload,scopeKeys);need(signed.payload.schema==='WORK07_OFFLINE_SOURCE_MANIFEST_1'&&signed.payload.scope==='APPROVED_LOCAL_SOURCE','SOURCE_SCOPE');
+ need(Array.isArray(signed.payload.documents)&&signed.payload.documents.length>0,'DOCUMENTS_REQUIRED');
+ return signed.payload;
+}
+export function convertApprovedLocal(signed,raws,trust){
+ return convert(verifyApprovedManifest(signed,trust),raws);
 }
 // Existing Work44 only: independent frozen verifier must be invoked first.
 // No synthetic identity may reach the actual native entry.
