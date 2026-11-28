@@ -23,6 +23,7 @@ jobs:
       - run: node implementation/reborn2-pilot/test-codex06.mjs
       - run: node implementation/reborn2-pilot/test-codex05.mjs
       - run: node implementation/reborn2-pilot/test-full-judgment.mjs
+      - run: node implementation/reborn2-pilot/test-derived-graph.mjs
       - run: node implementation/reborn2-pilot/test-codex04.mjs
       - run: node implementation/reborn2-pilot/test-work05-plan.mjs
       - run: node implementation/reborn2-pilot/test-v3.mjs

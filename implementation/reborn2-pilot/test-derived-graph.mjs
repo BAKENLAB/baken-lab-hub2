@@ -1,0 +1,28 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {loadVerifiedFixtureGraph,stateVocabulary,freshFixtureGraph} from './derived-graph/graph-context.mjs';
+import {buildSupplyFromVerified} from './derived-graph/work42-supply.mjs';
+import {analyze} from './derived-graph/work36-v41-local-decision.mjs';
+import {computeFullJudgment} from './derived-full-judgment.mjs';
+import {integrate} from '../../research/reborn2-chatgpt-circuit/work36-v42-propagation.mjs';
+import {prepareSupply,compileReturn} from '../../research/reborn2-work42/codex-contract-v0.4.mjs';
+import {makeEnvelope} from '../../research/reborn2-work42/validate-v0.4.mjs';
+import {assertFrozenEngine,ENGINE,sha} from './adapter.mjs';
+assert.equal(assertFrozenEngine(),ENGINE);
+const pins=JSON.parse(readFileSync(new URL('./derived-graph/pins.json',import.meta.url),'utf8'));
+for(const p of pins){const b=readFileSync(new URL('../../'+p.original,import.meta.url));assert.equal(createHash('sha1').update('blob '+b.length+'\0').update(b).digest('hex'),p.blob);}
+assert.notEqual(stateVocabulary('NATIVE').observation,stateVocabulary('FIXTURE').observation);
+assert.throws(()=>freshFixtureGraph({},'FK34_FULL'),/VERIFIED_GRAPH_CAPABILITY_REQUIRED/);
+const g=await loadVerifiedFixtureGraph('FK34_FULL');
+const supply=buildSupplyFromVerified(g.validated,g.packet);
+const original=await prepareSupply(makeEnvelope(g.docs),{id:'FK34_FULL'});
+assert.deepEqual(supply,original.supply);
+const returns=Object.fromEntries(supply.runners.map(h=>[h.horse_id,compileReturn(supply,h.horse_id,h.categories.flatMap(c=>c.claims.map(q=>q.claim_id)))]));
+g.V.C.work42Return=returns;
+const common=analyze(g.V,'FK34_FULL',{eyeEnabled:true}),decision=integrate(common,g.docs,{eyeEnabled:true});
+const z=computeFullJudgment({common,decision,docs:g.docs,packet:g.packet,adapted:g.adapted,work42:{returns}});
+assert.equal(sha(z.candidate),'5b2ba542106a9f581962b869cc901cb713893b4a279f6d2f625aac3af629456e');
+assert.equal(sha(z.runners),'16b28645263e4d7a1b7e5c5d8ade70d21c818cf47dcbd805586b73b78c3aafe1');
+assert.deepEqual(z.candidate.runners.map(h=>h.grade),['B','A','UNASSESSED','A','C']);
+console.log('CODEX06_GRAPH_FULL_EQUIVALENCE PASS '+JSON.stringify({source:decision.digest,groups:common.groups,held:common.held,grades:z.candidate.runners.map(h=>h.grade),items:z.candidate.runners.map(h=>h.analysisItems.length),work42Equal:true,sourceGraphOnly:true,realAdmission:false}));

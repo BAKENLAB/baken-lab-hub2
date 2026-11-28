@@ -42,3 +42,21 @@ Browser test only: close process with bounded TERM/KILL and retry cleanup;
 research configuration unchanged. Test03 remains accepted at its prior
 pin, not an independent rerun on this candidate. No production/DB/
 FROZEN/CLAIM/Cron/merge/deploy/paid API.
+
+## Separated full graph computation
+Derived V27/V28/V29/V30/V31/V33/V34/V35/V36/V38/V40/V41 and Work42
+computational modules, with immutable original Git blob pin list.
+State predicates explicitly select registered graph domain; distinct native
+observation/comparison vocabulary, no native data relabeled as fixture.
+Graph context currently registers ONLY existing independently verified
+FK34 fixtures. V34 prepare reads a fresh copy of that verified graph
+rather than repeating run31/verify32/adapt32. Work42 supply calculation
+separated from its synthetic envelope validation; test compares exact
+supply to frozen original. Full graph -> common -> V42 integration ->
+V46/V47/V48 judgment test compares accepted candidate/runners digests.
+No native graph admission registered, no actual real source or complete
+measurement input. Real graph construction still requires independently
+verified event/row roots, statuses/geometry/clocks and approval. This is
+an executable graph calculation seam, not approval or a complete real
+full route. No new research version; copied math preserved, diff review
+required. No actual prospective analysis or publication.

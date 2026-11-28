@@ -1,0 +1,118 @@
+[
+  {
+    "original": "research/reborn2-chatgpt-circuit/work26-v27-integrated.mjs",
+    "blob": "5b1e805f605879321e2ae5176c29021bc26f7ac9",
+    "derived": "implementation/reborn2-pilot/derived-graph/work26-v27-integrated.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "2 state comparisons select registered graph domain"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work27-v28-contrast.mjs",
+    "blob": "42fda8b93261079fbb09a053463657af7ca8b703",
+    "derived": "implementation/reborn2-pilot/derived-graph/work27-v28-contrast.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "1 state comparisons select registered graph domain"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work28-v29-feasibility.mjs",
+    "blob": "d7275c6c06f9ed7aac49bc0017ad008cc6cf6de2",
+    "derived": "implementation/reborn2-pilot/derived-graph/work28-v29-feasibility.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "1 state comparisons select registered graph domain"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work29-v30-terminal.mjs",
+    "blob": "c3048ab248ae11f5c6c0d981a62c8b8633f7c49c",
+    "derived": "implementation/reborn2-pilot/derived-graph/work29-v30-terminal.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "1 state comparisons select registered graph domain"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work30-v31-integrated.mjs",
+    "blob": "6e812e54ea096f55b2307d05659faaf4824711f2",
+    "derived": "implementation/reborn2-pilot/derived-graph/work30-v31-integrated.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "1 state comparisons select registered graph domain"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work32-v33-current.mjs",
+    "blob": "c40697a577354503c3b34ae2c4089713cb77e6e7",
+    "derived": "implementation/reborn2-pilot/derived-graph/work32-v33-current.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "1 state comparisons select registered graph domain"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work33-v34-synthesis.mjs",
+    "blob": "32ad49829ff77baae990efb5b1a96a2861596761",
+    "derived": "implementation/reborn2-pilot/derived-graph/work33-v34-synthesis.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "1 state comparisons select registered graph domain",
+      "prepare reads independently verified graph instead of repeating synthetic generator; comparison tag scoped to graph"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work34-v36-current.mjs",
+    "blob": "8e98bbe0b586a23b84eb71e3a9f9a5ab01dd6336",
+    "derived": "implementation/reborn2-pilot/derived-graph/work34-v36-current.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "comparison tag scoped to registered graph"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work35-v38-completion.mjs",
+    "blob": "ba2433025e5f49188436cd1ac728c5ecd8eb5958",
+    "derived": "implementation/reborn2-pilot/derived-graph/work35-v38-completion.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "comparison tag scoped to registered graph"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work36-v40-integrated.mjs",
+    "blob": "ddc96730e5db21b7c70dbb3d34da92af8a2d1ce0",
+    "derived": "implementation/reborn2-pilot/derived-graph/work36-v40-integrated.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "comparison tag scoped to registered graph"
+    ]
+  },
+  {
+    "original": "research/reborn2-chatgpt-circuit/work36-v41-local-decision.mjs",
+    "blob": "d4c5d056713cfbad974833e4e3b9c877667d8075",
+    "derived": "implementation/reborn2-pilot/derived-graph/work36-v41-local-decision.mjs",
+    "transforms": [
+      "relative import/data path rebase"
+    ]
+  },
+  {
+    "original": "research/reborn2-v34-codex-pinned/synthesis.mjs",
+    "blob": "fa23a3c606ce636f1663a499d76dcbe339bffcc5",
+    "derived": "implementation/reborn2-pilot/derived-graph/v34-synthesis.mjs",
+    "transforms": [
+      "relative import/data path rebase"
+    ]
+  },
+  {
+    "original": "research/reborn2-work42/eye-supply-v0.4.mjs",
+    "blob": "a530e96c54a38db8968f28977dada4b2b4bcdb90",
+    "derived": "implementation/reborn2-pilot/derived-graph/work42-supply.mjs",
+    "transforms": [
+      "relative import/data path rebase",
+      "split verified-document computation from frozen envelope verifier"
+    ]
+  }
+]
