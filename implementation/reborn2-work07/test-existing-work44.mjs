@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import {partialFixture} from '../reborn2-pilot/fixture-partial.mjs';
+import {convertExistingWork44} from './offline-converter.mjs';
+import {inspectNativeFacts} from '../reborn2-pilot/work06/inspect-native-facts.mjs';
+import {inspectNativeStructureOffline} from '../reborn2-pilot/native-entry.mjs';
+const {b,trust}=partialFixture();
+const x=convertExistingWork44(b,trust),p=x.package;
+assert.equal(x.scope,'EXISTING_WORK44_FIXTURE_CONVERSION_ONLY');
+assert.equal(p.events.length,2);assert.equal(p.roster.length,2);assert.equal(p.documents.length,4);
+assert.deepEqual(x.inspection,inspectNativeFacts(p));
+const obs=(e,h,f)=>p.observations.find(o=>o.eventId===e&&o.horseId===h&&o.field===f);
+assert.equal(obs('TEST:H','TEST:HORSE_1','final600Ms').value,37000);
+assert.equal(obs('TEST:H','TEST:HORSE_2','final600Ms').value,37500);
+assert.equal(obs('TEST:H','TEST:HORSE_1','finishClockLiteral').state,'HELD'); // 1240 has no verified unit/format
+assert.equal(obs('TEST:T','TEST:HORSE_1','status').state,'MISSING');
+assert.ok(p.roster.every(h=>h.status==='UNKNOWN'));
+assert.equal(obs('TEST:T',null,'distanceM').value,1400);
+assert.equal(obs('TEST:H',null,'leaderLapSlots').value.length,15);
+assert.equal(obs('TEST:H',null,'cornerGroupSlots').value.length,8);
+assert.ok(p.observations.every(o=>o.eventId!=='TEST:T'||!['finish','finishClockLiteral','officialMarginLiteral','final600Ms','leaderLapSlots','cornerGroupSlots','cornerPositionsLiteral'].includes(o.field)));
+assert.ok(p.observations.filter(o=>o.state==='OBSERVED').every(o=>o.roots.length&&o.roots.every(r=>p.documents.some(d=>d.id===r.documentId&&d.eventId===o.eventId))));
+assert.equal(p.observations.length,new Set(p.observations.map(o=>JSON.stringify([o.eventId,o.horseId,o.field]))).size);
+assert.equal(x.realAdmission,false);assert.equal(x.inspection.engineInput,null);
+assert.throws(()=>inspectNativeStructureOffline(p),/RESEARCH_ID_FORBIDDEN/);
+const broken=structuredClone(b);broken.rawFiles[0].base64=broken.rawFiles[1].base64;assert.throws(()=>convertExistingWork44(broken,trust),/RAW_HASH/);
+console.log('WORK07_EXISTING_WORK44_CONVERSION PASS '+JSON.stringify({documents:p.documents.length,events:p.events.length,roster:p.roster.length,observations:p.observations.length,counts:x.inspection.counts,realAdmission:false}));
