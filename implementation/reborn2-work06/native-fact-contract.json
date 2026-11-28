@@ -1,0 +1,727 @@
+{
+  "schema": "REBORN2_WORK06_NATIVE_FACT_CONTRACT_1",
+  "engineCommit": "f565e88af3404c84328a6cd035d2f21df3ea49dc",
+  "ledger": 884,
+  "work04": {
+    "commit": "fe0857f8590e06377273d922461217796dcd61a6",
+    "blob": "224f4b7c3e1b2f89192af4eb7294723f39d2cfac"
+  },
+  "work05": {
+    "commit": "720b8de61098c78d9c31e0e422d89f45ce14687f",
+    "blob": "2dc7d544b915f3ecd2f8648121b87cb3646dfcf9"
+  },
+  "status": "PREPARATION_ONLY_NOT_ADMITTED",
+  "package": {
+    "schema": "REBORN2_NATIVE_FACT_PACKAGE_1",
+    "keys": [
+      "schema",
+      "engineCommit",
+      "circuit",
+      "targetId",
+      "cutoff",
+      "scheduledPost",
+      "startLower",
+      "events",
+      "roster",
+      "documents",
+      "observations"
+    ],
+    "event": [
+      "id",
+      "issuer",
+      "nativeId",
+      "venueId",
+      "dateJst",
+      "raceNo",
+      "role",
+      "identityProofRefs"
+    ],
+    "roster": [
+      "horseId",
+      "horseNo",
+      "status",
+      "proofRefs"
+    ],
+    "document": [
+      "id",
+      "eventId",
+      "role",
+      "sourceRef",
+      "version",
+      "supersedes",
+      "publishedAt",
+      "updatedAt",
+      "capturedAt",
+      "uncertaintyMs",
+      "sha256",
+      "permissionRef",
+      "custodyRef"
+    ],
+    "observation": [
+      "eventId",
+      "horseId",
+      "pastHorseNo",
+      "field",
+      "state",
+      "value",
+      "reason",
+      "roots"
+    ],
+    "root": [
+      "documentId",
+      "rowPointer",
+      "field",
+      "proofRef"
+    ],
+    "states": [
+      "OBSERVED",
+      "MISSING",
+      "HELD",
+      "CONFLICT"
+    ],
+    "statuses": [
+      "ACTIVE",
+      "CANCELLED",
+      "UNKNOWN"
+    ],
+    "eventFields": [
+      "surfaceLiteral",
+      "directionLiteral",
+      "distanceM",
+      "goingLiteral",
+      "classLiteral",
+      "courseVersion",
+      "declaredCount",
+      "leaderLapSlots",
+      "cornerGroupSlots"
+    ],
+    "horseFields": [
+      "displayName",
+      "gate",
+      "weightG",
+      "bodyWeightKg",
+      "bodyWeightDeltaKg",
+      "sexAge",
+      "equipmentLiteral",
+      "status",
+      "finish",
+      "finishClockLiteral",
+      "officialMarginLiteral",
+      "final600Ms",
+      "cornerPositionsLiteral"
+    ],
+    "historicalOnly": [
+      "finish",
+      "finishClockLiteral",
+      "officialMarginLiteral",
+      "final600Ms",
+      "cornerPositionsLiteral",
+      "leaderLapSlots",
+      "cornerGroupSlots"
+    ],
+    "heldByDefault": [
+      "checkpointMs",
+      "exactDistanceCheckpointRanks",
+      "normalizedFinishClockMs",
+      "geometry",
+      "rating",
+      "incident",
+      "training",
+      "pedigree",
+      "peerStrength"
+    ],
+    "note": "No arbitrary text, raw HTML, market, target outcome, legacy ranks. Literal fields must be parsed in separately reviewed official source adapter; no raw card text. All OBSERVED fields are structurally supplied only; no evidence admission by shape."
+  },
+  "gates": {
+    "rights": "Independent authority record verified outside caller packet, acquisition/retention/local processing scope",
+    "identity": "Independent official native event and horse/row witnesses; candidate alias equality alone insufficient",
+    "custody": "Original bytes or explicitly approved equivalent custody and externally verified timestamp; hash metadata not original",
+    "versions": "Complete as-of source inventory, version chain and cutoff; no implicit latest",
+    "roster": "Full official card including cancelled/unknown, no default ACTIVE",
+    "analysis": "Separate reviewed real admission boundary; no fixture relabel or V48 logic change"
+  },
+  "output": {
+    "structuralInspectionOnly": true,
+    "realAdmission": false,
+    "engineInput": null,
+    "projectionAllowed": false,
+    "persistenceAllowed": false
+  },
+  "items": [
+    {
+      "id": "01",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "02",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "03",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "04",
+      "group": "peer",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "05",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "06",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "07",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "08",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "09",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "10",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "11",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "12",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "13",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "14",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "15",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "16",
+      "group": "rating",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "17",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "18",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "19",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "20",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "21",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "22",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "23",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "24",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "25",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "26",
+      "group": "incident",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "27",
+      "group": "incident",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "28",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "29",
+      "group": "incident",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "30",
+      "group": "peer",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "31",
+      "group": "incident",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "32",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "33",
+      "group": "class_rules",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "34",
+      "group": "peer",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "35",
+      "group": "peer",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "36",
+      "group": "peer",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "37",
+      "group": "peer",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "38",
+      "group": "rating",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "39",
+      "group": "class_rules",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "40",
+      "group": "class_rules",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "41",
+      "group": "class_rules",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "42",
+      "group": "class_rules",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "43",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "44",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "45",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "46",
+      "group": "course",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "47",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "48",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "49",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "50",
+      "group": "course",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "51",
+      "group": "course",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "52",
+      "group": "course",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "53",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "54",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "55",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "56",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "57",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "58",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "59",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "60",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "61",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "62",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "63",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "64",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "65",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "66",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "67",
+      "group": "course",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "68",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "69",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "70",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "71",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "72",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "73",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "74",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "75",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "76",
+      "group": "day",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "77",
+      "group": "day",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "78",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "79",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "80",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "81",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "82",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "83",
+      "group": "training",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "84",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "85",
+      "group": "people",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "86",
+      "group": "people",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "87",
+      "group": "people",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "88",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "89",
+      "group": "people",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "90",
+      "group": "pedigree",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "91",
+      "group": "history",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "92",
+      "group": "travel",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "93",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "94",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "95",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "96",
+      "group": "incident",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "97",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "98",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "99",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "100",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-01",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-02",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-03",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-04",
+      "group": "peer",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-05",
+      "group": "peer",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-06",
+      "group": "split_or_context",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-07",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-08",
+      "group": "course",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-09",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-10",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-11",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-12",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-13",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-14",
+      "group": "class_rules",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    },
+    {
+      "id": "EYE-15",
+      "group": "history_compare",
+      "availability": "HELD_PENDING_NATIVE_ADMISSION"
+    }
+  ]
+}
