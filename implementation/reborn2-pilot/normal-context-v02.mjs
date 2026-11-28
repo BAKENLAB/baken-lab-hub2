@@ -2,6 +2,7 @@
 // Pure computation is not source authorization or production grade authority.
 import assert from 'node:assert/strict';
 import {sha} from './adapter.mjs';
+import {calculateReportedEvidence} from './normal-reported-evidence.mjs';
 export const VERSION='REBORN2_NORMAL_CANDIDATE_0.2';
 const unique=a=>[...new Set(a)].sort(),finite=Number.isFinite;
 const distinct=a=>new Set(a.map(x=>x.event)).size>=2;
@@ -224,7 +225,8 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,diagnosti
   }
   // A/B are conditional and may coexist with unknown other horses; S needs
   // both reviewed role modes and no unresolved rival. None is formal.
-  return {...old,candidateGrade:grade,decisionReason:reason,formalGrade:null,axes,items:[...items.values()],winPaths,placePaths,counterPaths,feedback,comparisons,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:unique([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedRivals:unresolved,unknownComparisons,matchedHistory:usable.map(report)},decisionEvidence:{refs:close(refs(fieldRefs,axes.map(a=>a.refs),paths.map(p=>p.refs))),allCompared,allAhead,sameRaceThreeAhead,exactAnchor,unresolved,unknownComparisons,winPeerSupport,placePeerSupport,peerSupport:peerSupports,peerCounter:peerCounters,eyeEnabled,formal:false}};
+  const reportedEvidence=diagnostic&&packet.roots.some(n=>n.kind==='DIAGNOSTIC_PEER_FOLLOWUP_WITNESS')?calculateReportedEvidence({packet,roster,horse,eyeEnabled,emit,close,refs}):null;
+  return {...old,candidateGrade:grade,decisionReason:reason,formalGrade:null,axes,items:[...items.values()],winPaths,placePaths,counterPaths,feedback,reportedEvidence,comparisons,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:unique([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedRivals:unresolved,unknownComparisons,matchedHistory:usable.map(report)},decisionEvidence:{refs:close(refs(fieldRefs,axes.map(a=>a.refs),paths.map(p=>p.refs))),allCompared,allAhead,sameRaceThreeAhead,exactAnchor,unresolved,unknownComparisons,winPeerSupport,placePeerSupport,peerSupport:peerSupports,peerCounter:peerCounters,eyeEnabled,formal:false}};
  });
  return {...base,schema:VERSION,field:{...base.field,rosterBound,roleOptions:field,forwardCandidateRange:[forwardMin,forwardMax],actualRolePossibilityRange,unresolved,reviewedRoleScenarios:scenarios,scenarioCoverage:'TWO_CONDITIONAL_SUBJECT_MODES_NOT_EXHAUSTIVE'},runners:result,eyeEnabled,formal:false};
 }
