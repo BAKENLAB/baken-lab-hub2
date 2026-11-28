@@ -20,3 +20,23 @@ is count. Explicit join requirements incorporated. No actual data admitted.
 Original negative probe exact blob c9e9cf661aedecf79e74ac88d4b1a7a1437e2c5f replayed without edits. Only in-process engine-origin capability can save; self-hash, cloned/injected fields, changed grade/time/alias/mode cannot mint authority. Local signer binds entire manifest to origin; process-local verification default, after restart requires separately trusted archiveTrust (public key + exact manifest digest returned by save). Caller-provided key is not independent identity proof. Real gate remains closed; arbitrary rights/custody objects rejected. Partial fixture authority only generated internally, not supplied by caller.
 Canonical key = engine+verified issuer+native event identity, no cutoff or mode. Within one authorized archive root, exclusive identity commit rejects second publication; different roots are not a common registry, real shared store still required. Local filesystem not WORM, local signature not trusted wall-clock. External timestamp NOT_SENT.
 Archive retains entire serialized JSON return of fixed engine (not just projected rows), verified input including raw fixture bytes and public verification keys, and source proof, in separate gzip objects, exact SHA256/raw length. Original per-field compact archive and list remain; native archives not loaded during list/detail. Report total native overhead separately; no claim of original 90.22% reduction on expanded full-output payload. Seal binds native output/input/source proof plus manifest and snapshot digest. No raw official data acquired.
+
+## Work05 audited native join design
+Main audit d30cb1123a3f8d2c48f139b9ace4f1ea6011324b. Exact source handoff
+720b8de61098c78d9c31e0e422d89f45ce14687f blob2dc7d544b915f3ecd2f8648121b87cb3646dfcf9
+stored byte-for-byte and checked by Git blob hash. The existing Work04
+metadata response now includes this pinned plan; explicit Work05 metadata
+handshake also requires commit, blob and SHA256. No supplied row or witness
+payload admitted. JRA 1930 event candidates, 1765 horse-number matches,
+1710 both finish/literal clock agreement, 55 not both confirmed; LOCAL
+1605 elements, 496 archive candidates, 1109 unmatched. Counts from audited
+handoff only. No candidate promoted to native identity proof.
+Separate target+alias, native horse+past no+row, field+version+source,
+correction witness and snapshot custody requirements. Fact grouping key
+issuer/canonicalNativeRaceId/nativeHorseId/field; separate source version
+key, retain original literals and roots. Same fact is not multiple votes.
+Hold conflicts, ambiguous aliases and missing/uncertified source; reject
+target aliases and after cutoff. Actual native parser, approved field
+allowlist, independent witnesses and dedup execution remain unimplemented
+pending Work06 and approval. No real rows read or written. Existing
+Test01 negative controls and integrity tests unchanged, V48 frozen.

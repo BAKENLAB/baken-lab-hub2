@@ -1,0 +1,119 @@
+{
+  "schema": "WORK05_NATIVE_JOIN_HANDOFF_1",
+  "engineCommit": "f565e88af3404c84328a6cd035d2f21df3ea49dc",
+  "work04Commit": "fe0857f8590e06377273d922461217796dcd61a6",
+  "work04MapBlob": "224f4b7c3e1b2f89192af4eb7294723f39d2cfac",
+  "codex03IntakeBlob": "8b190c3981aef1f111a2f6912d9a237183693897",
+  "scope": "METADATA_ONLY",
+  "jra": {
+    "source": "deployed jra-backfill parseResultCname",
+    "resultRefPattern": "^pw01sde(01|10)([0-9]{2})([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{8})/([0-9A-Fa-f]{2})$",
+    "livePrefix": "/JRADB/accessS.html?CNAME=",
+    "candidateTuple": [
+      "venueCode",
+      "year",
+      "meeting",
+      "meetingDay",
+      "raceNo",
+      "dateJst"
+    ],
+    "horseKeyPattern": "dud(?:00|10)([0-9]{10})/",
+    "require": [
+      "source reference provenance",
+      "full strict pattern",
+      "valid calendar and venue",
+      "year/date, venue, raceNo match stored metadata",
+      "unique event candidate on both sides",
+      "independent official event alias witness",
+      "non-null stable horse key + historical horse number + unique full_runner row",
+      "separate literal finish and clock agreement; discrepancy hold not overwrite"
+    ],
+    "counts": {
+      "history": 2999,
+      "parsed": 2905,
+      "archiveParsed": 30015,
+      "uniqueEventCandidate": 1930,
+      "uniqueHorseCandidate": 1765,
+      "bothFinishClockAgree": 1710,
+      "missingHorse": 165,
+      "finishAgree": 1755,
+      "clockAgree": 1710,
+      "notBothAgree": 55
+    }
+  },
+  "local": {
+    "source": "private.lab_preclaim_evidence_snapshots_v1.evidence.packet.evidence",
+    "nativeHorse": "k_lineageLoginCode",
+    "nativeRace": [
+      "issuer",
+      "official venue code",
+      "dateJst",
+      "raceNo"
+    ],
+    "require": [
+      "strict official host/path/query and venue mapping; pastRace tuple equals official URL",
+      "official horseRef and pastHorseNo witness; no name-only join",
+      "sourceCheckedAt<=as_of<=captured_at<post",
+      "recompute payload and roster digests with pinned canonical serializer and authorized roster",
+      "horse_runs unique race/horse number match is only candidate, independently prove archive row from native source before enrichment"
+    ],
+    "counts": {
+      "evidence": 1605,
+      "nativeIdCandidate": 1605,
+      "officialResultUrlShape": 1605,
+      "priorTimeBoundary": 1605,
+      "directRefRecorded": 1605,
+      "uniqueArchiveRaceHorseNoCandidate": 496,
+      "nameCorroboration": 496,
+      "noArchiveCandidate": 1109
+    }
+  },
+  "dedup": {
+    "key": [
+      "issuer",
+      "canonicalNativeRaceId",
+      "nativeHorseId"
+    ],
+    "versionKey": [
+      "sourceDocumentId",
+      "version",
+      "rowPointer",
+      "field"
+    ],
+    "rules": [
+      "retain all source roots and original literals",
+      "verified alias required before grouping; never group by date or name alone",
+      "same fact across sources shares one fact not independent votes",
+      "latest eligible verified version as of cutoff only when correction lineage proven",
+      "conflicting values without verified supersession held at field level",
+      "null remains missing; never replace with guessed value or treat missing as negative",
+      "unmatched eligible original facts remain independent partial records, not fabricated links",
+      "exclude target native identity and all aliases from history; market, popularity, legacy rank/TOP5 and raw free text excluded"
+    ]
+  },
+  "codex03": {
+    "entry": "submitAnalysis / inspectWork04",
+    "contract": "REBORN2_WORK04_REAL_INTAKE_1",
+    "map": "Work04 115 item map unchanged",
+    "fieldRefs": "target/roster/historical/context/provenance contract; attach native alias and dedup witness as separately verified provenance; current contract does not yet admit these real observations",
+    "full": "frozen verifyIntake SYNTHETIC_ONLY, TEST_PACKET, verified Work42 required for V48; no real entry",
+    "partial": "frozen analyzePartialVerified requires Work44 verified SYNTHETIC_OFFICIAL_FORMAT_TEST; partial findings only, all grades UNASSESSED; no real entry",
+    "preferredWhenApproved": "partial observation if material insufficient for full contract; do not relax fixed engine or assert SABC",
+    "realAdmission": false,
+    "engineInput": null,
+    "projectionAllowed": false
+  },
+  "candidate": {
+    "checkedAt": "2026-11-28T08:56:11.744307+09:00",
+    "tokyo9": {
+      "liveRows": 0
+    },
+    "saga9": {
+      "fieldStatus": "PENDING",
+      "runners": 0,
+      "fieldFetchedAt": null
+    },
+    "snapshots": 0
+  },
+  "admitted": 0
+}

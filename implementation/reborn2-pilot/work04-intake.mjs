@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {prepareSupplyPlan} from './work02-supply-plan.mjs';
 import {executeVerifiedSupply,ENGINE,sha} from './adapter.mjs';
+import {planWork05,WORK05,WORK05_BLOB,WORK05_DIGEST} from './work05-native-plan.mjs';
 export const WORK04='fe0857f8590e06377273d922461217796dcd61a6';
 export const sourceMap=JSON.parse(readFileSync(new URL('./work04-source-map.json',import.meta.url),'utf8'));
 assert.equal(sourceMap.engine,ENGINE);assert.equal(sourceMap.scope,'METADATA_ONLY');assert.equal(sourceMap.items.length,115);assert.equal(sourceMap.counts.admitted,0);assert.equal(sourceMap.engineInput,null);assert.equal(sourceMap.realAdmission,false);
@@ -21,10 +22,21 @@ export const realContract=Object.freeze({
 export function inspectWork04(input){
  exact(input,['schema','manifest','work04Commit','mapDigest']);
  assert.equal(input.schema,realContract.schema);assert.equal(input.work04Commit,WORK04);assert.equal(input.mapDigest,sha(sourceMap),'WORK04_MAP_PIN');
- const plan=prepareSupplyPlan(input.manifest);
- return {state:'HELD_REAL_ADMISSION',work04Commit:WORK04,engineCommit:ENGINE,mapDigest:sha(sourceMap),plan,contract:realContract,items:sourceMap.items.map(x=>({id:x.id,name:x.name,group:x.group,route:sourceMap.routes[x.group]??[],availability:input.manifest.circuit==='JRA'?x.jra:x.local,state:'HELD'})),blockers:[...plan.inspection.blockers,'WORK04_METADATA_ONLY_NO_ADMITTED_PACKET','FROZEN_V48_REAL_ADAPTER_NOT_APPROVED'],realAdmission:false,engineInput:null,projectionAllowed:false,persistenceAllowed:false};
+ const plan=prepareSupplyPlan(input.manifest),nativeJoin=planWork05(input.manifest.circuit);
+ return {state:'HELD_REAL_ADMISSION',work04Commit:WORK04,engineCommit:ENGINE,mapDigest:sha(sourceMap),plan,nativeJoin,contract:realContract,items:sourceMap.items.map(x=>({id:x.id,name:x.name,group:x.group,route:sourceMap.routes[x.group]??[],availability:input.manifest.circuit==='JRA'?x.jra:x.local,state:'HELD'})),blockers:[...plan.inspection.blockers,...nativeJoin.blockers,'WORK04_METADATA_ONLY_NO_ADMITTED_PACKET','FROZEN_V48_REAL_ADAPTER_NOT_APPROVED'],realAdmission:false,engineInput:null,projectionAllowed:false,persistenceAllowed:false};
+}
+// Explicit Work05 metadata handshake. No row/evidence payload is accepted.
+export function inspectWork05(input){
+ exact(input,['schema','work05Commit','work05Blob','work05Digest','work04']);
+ assert.equal(input.schema,'REBORN2_WORK05_NATIVE_PREFLIGHT_1');
+ assert.equal(input.work05Commit,WORK05,'WORK05_COMMIT_PIN');
+ assert.equal(input.work05Blob,WORK05_BLOB,'WORK05_BLOB_PIN');
+ assert.equal(input.work05Digest,WORK05_DIGEST,'WORK05_DIGEST_PIN');
+ const prior=inspectWork04(input.work04);
+ return {...prior,work05Commit:WORK05,work05Blob:WORK05_BLOB,work05Digest:WORK05_DIGEST};
 }
 export async function submitAnalysis(input){
+ if(input?.schema==='REBORN2_WORK05_NATIVE_PREFLIGHT_1')return inspectWork05(input);
  if(input?.scope==='FIXTURE_ONLY')return executeVerifiedSupply(input);
  // Check only metadata. No source loader, network, DB, CLAIM or permission
  // self-attestation is accepted here, even if the caller supplies a flag.

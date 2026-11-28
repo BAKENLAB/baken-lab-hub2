@@ -19,6 +19,7 @@ jobs:
       - run: node implementation/reborn2-pilot/test-v2.mjs
         env:
           PILOT_ARTIFACT_DIR: ${{ runner.temp }}/reborn2-preview
+      - run: node implementation/reborn2-pilot/test-work05-plan.mjs
       - run: node implementation/reborn2-pilot/test-v3.mjs
       - run: node implementation/reborn2-pilot/test-integrity.mjs
       - run: node implementation/reborn2-pilot/test-mobile-browser.mjs
