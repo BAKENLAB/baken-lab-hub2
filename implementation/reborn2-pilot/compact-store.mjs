@@ -11,16 +11,22 @@ const exact=(v,k)=>assert.deepEqual(Object.keys(v).sort(),[...k].sort());
 const localAuthority=generateKeyPairSync('ed25519');
 const publicPem=localAuthority.publicKey.export({type:'spki',format:'pem'}).toString();
 const verifiedManifests=new WeakSet();
+const deepFreeze=v=>{if(v&&typeof v==='object'&&!Object.isFrozen(v)){for(const x of Object.values(v))deepFreeze(x);Object.freeze(v);}return v;};
 const pack=async(file,buf,allowExisting=false)=>{
  const temp=file+'.'+randomUUID()+'.tmp',f=await open(temp,'wx',0o600);
  try{await f.writeFile(buf);await f.sync();}finally{await f.close();}
  try{await link(temp,file);}catch(e){if(e.code!=='EEXIST'||!allowExisting)throw e;assert.ok((await readFile(file)).equals(buf),'CONTENT_COLLISION');}finally{await unlink(temp);}
 };
 export async function saveCompact(root,snapshot){
- const s=validateSnapshot(snapshot),dir=resolve(root);
+ const dir=resolve(root);
  // Check the authenticated original before writing even one object. Exact
  // caller clones with self-issued hashes are not save capabilities.
- const origin=verifiedOrigin(s),identity=origin.identity;
+ const origin=verifiedOrigin(snapshot),identity=origin.identity;
+ // Capture the exact engine-issued bytes before any asynchronous boundary.
+ // Detached JSON cannot be changed through the caller's object while saving.
+ const s=JSON.parse(JSON.stringify(snapshot));
+ assert.equal(s.snapshotDigest,origin.snapshotDigest,'ENGINE_CAPTURE_DIGEST');
+ validateSnapshot(s);
  await mkdir(join(dir,'objects'),{recursive:true,mode:0o700});
  await mkdir(join(dir,'manifests'),{recursive:true,mode:0o700});
  await mkdir(join(dir,'identities'),{recursive:true,mode:0o700});
@@ -48,7 +54,7 @@ export async function saveCompact(root,snapshot){
  const attestation={scope:'LOCAL_FIXTURE_ENGINE_ORIGIN',manifestDigest:record.manifestDigest,signature:sign(null,Buffer.from(record.manifestDigest),localAuthority.privateKey).toString('base64')};
  await pack(join(dir,'attestations',record.manifestDigest+'.json'),Buffer.from(JSON.stringify(attestation)),true);
  // Commit the identity last. A second snapshot of the same logical
- // fixture race/model/cutoff/mode is rejected, even with another digest.
+ // fixture race/model (independent of cutoff/mode) is rejected, even with another digest.
  await pack(idFile,Buffer.from(JSON.stringify({identity,manifestDigest:record.manifestDigest})));
  return {root:dir,manifestDigest:record.manifestDigest,summaryBytes:bytes(JSON.stringify(summary)),manifestBytes:bytes(JSON.stringify(record)),rawBytes:manifest.rawBytes,objectBytes:manifest.objectBytes,objectCount:manifest.objectCount,nativeBytes:Object.values(nativeArtifacts).reduce((n,v)=>n+v.compressedBytes,0),nativeArtifacts,archiveTrust:{scope:'LOCAL_FIXTURE_ENGINE_ORIGIN',expectedManifestDigest:record.manifestDigest,publicKeyPem:publicPem}};
 }
@@ -65,7 +71,7 @@ export async function readManifest(root,digest,trust=null){
  assert.ok(verify(null,Buffer.from(digest),key,Buffer.from(att.signature,'base64')),'ARCHIVE_ENGINE_ORIGIN_SIGNATURE');
  const i=JSON.parse(await readFile(join(root,'identities',m.identity+'.json'),'utf8'));exact(i,['identity','manifestDigest']);assert.equal(i.identity,m.identity);assert.equal(i.manifestDigest,digest,'UNCOMMITTED_MANIFEST');
  assert.equal(m.summary.snapshotDigest,m.header.snapshotDigest);assert.equal(m.rows.length,m.summary.runners.length);
- verifiedManifests.add(m);return m;
+ deepFreeze(m);verifiedManifests.add(m);return m;
 }
 export async function readField(root,m,horseId,key){
  assert.ok(verifiedManifests.has(m),'UNVERIFIED_MANIFEST');
