@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {pathToFileURL} from 'node:url';
+import {auditSupply,normalizeInventory,digest} from './supply-audit.mjs';
+const input=JSON.parse(readFileSync(process.argv[2],'utf8'));
+const facts=(await import(pathToFileURL(process.argv[3]).href)).actualFacts();
+const rows=Array.isArray(input)?input:input.rows;
+const inv=normalizeInventory(rows);
+const canonicalForm=inv.map(x=>({id:x.id,inputs:x.inputs,work16Status:x.direct?'DIRECT_NOT_PUBLISHED':'OTHER'}));
+assert.deepEqual(normalizeInventory(canonicalForm),inv);
+const expected=['07','08','10','11','15','23','24','25','55','56','68','71','72','73','EYE-06'];
+assert.deepEqual(inv.filter(i=>i.direct).map(i=>i.id),expected);
+const runs=[];
+for(const [scope,n,post] of [['JRA-20261129-TOKYO-12',18,'2026-11-29T15:40:00+09:00'],['NAR-20261128-KOCHI-12',12,'2026-11-28T20:50:00+09:00']]){
+ const roster=Array.from({length:n},(_,i)=>({no:i+1,identityStatus:'WORK19_NUMBERED_CARD_ONLY'}));
+ const args={inventory:canonicalForm,scope,roster,expectedCount:n,facts,cutoff:'2026-11-28T20:20:12+09:00',post};
+ const a=auditSupply(args);
+ assert.equal(a.rows.length,n*115);
+ assert.equal(a.rows.filter(r=>r.directMeasureStatus==='DIRECT_MEASUREMENT_NOT_PUBLISHED').length,n*15);
+ assert(a.rows.every(r=>r.available.length===0&&r.judgment==='NOT_CERTIFIED'));
+ assert(a.rows.every(r=>r.missing.every(m=>m.reason!=='DIRECT_MEASUREMENT_NOT_PUBLISHED')));
+ assert(a.observations.every(o=>o.source&&o.unit&&o.observedAt));
+ assert.throws(()=>auditSupply({...args,roster:roster.slice(1)}),/FULL_DENOMINATOR/);
+ assert.throws(()=>auditSupply({...args,cutoff:post}),/PREPOST/);
+ const own=facts.find(f=>f.scope===scope);
+ assert.throws(()=>auditSupply({...args,facts:[...facts,{...own,observedAt:post}]}),/FACT_CUTOFF_OR_UNIT/);
+ assert.throws(()=>auditSupply({...args,facts:[...facts,{...own,unit:''}]}),/FACT_CUTOFF_OR_UNIT/);
+ assert.throws(()=>auditSupply({...args,facts:[...facts,{...own,no:n+1}]}),/SUBJECT_SCOPE/);
+ assert.equal(a.digest,digest(Object.fromEntries(Object.entries(a).filter(([k])=>k!=='digest'))));
+ runs.push({scope,subjects:n,itemSlots:a.rows.length,directLimitedSlots:n*15,withHeldCandidate:a.rows.filter(r=>r.candidateRefs.length).length,observations:a.observations.length,originalFacts:a.observations.filter(o=>!o.id.endsWith('-DATE')).length,unboundContext:a.unboundContext.length,formalItems:0,digest:a.digest});
+}
+console.log(JSON.stringify({node:process.version,checks:24,inventoryDigest:digest(inv),directIds:expected,runs,formalAdmission:false},null,2));
