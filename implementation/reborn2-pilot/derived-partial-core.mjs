@@ -6,7 +6,7 @@ const key=(e,k)=>e?.observations?.[k];
 const horse=(e,h)=>e.rows.find(r=>r.nativeId===h);
 const contextFields=['surfaceLiteral','directionLiteral','distanceM','goingLiteral','classLiteral'];
 
-export function computePartial(p,{native=false,strictMissing=native}={}){
+export function computePartial(p,{native=false,strictMissing=native,completeHistory=null}={}){
  const observedState=native?'OBSERVED_NATIVE_VERIFIED':'OBSERVED_TEST_FORMAT';
  const findingScope=native?'DOCUMENTED_NATIVE_OBSERVATION_NOT_CURRENT_ABILITY_PROOF':'DOCUMENTED_SYNTHETIC_OBSERVATION_NOT_CURRENT_ABILITY_PROOF';
  const eligibility=native?'PARTIAL_NATIVE_ONLY_CURRENT_ABILITY_UNCERTIFIED':'PARTIAL_RESEARCH_ONLY_CURRENT_STATUS_UNCERTIFIED';
@@ -53,7 +53,7 @@ export function computePartial(p,{native=false,strictMissing=native}={}){
     if(!num(finish)||!num(rf))continue;
     emit('RANK35','DIRECT_REPORTED_COMPARISON',e.eventId,{rival:rival.nativeId,finish,rivalFinish:rf,order:finish<rf?'AHEAD':finish>rf?'BEHIND':'UNRESOLVED_TIE',final600DifferenceMs:num(final)&&num(rf600)?final-rf600:null,context:cstate},[ro.finish,rr.finish,ro.final600Ms,rr.final600Ms,target.observations.no,horse(card,rival.nativeId).observations.no,...contextFields.flatMap(k=>[co[k],eo[k]])],['HISTORICAL_ONLY','NO_CURRENT_ORDER_INFERENCE']);
    }
-   if(num(final)&&num(finish)&&(!strictMissing||num(count)&&count===e.rows.length)){
+   if(num(final)&&num(finish)&&(!strictMissing||num(count)&&count===e.rows.length)&&(completeHistory===null||completeHistory.includes(e.eventId))){
     const rivals=e.rows.filter(q=>q.nativeId!==r.nativeId),measured=rivals.filter(q=>num(value(q.observations,'final600Ms')));
     const lo=1+measured.filter(q=>value(q.observations,'final600Ms')<final).length;
     const hi=1+measured.filter(q=>value(q.observations,'final600Ms')<=final).length+(rivals.length-measured.length);

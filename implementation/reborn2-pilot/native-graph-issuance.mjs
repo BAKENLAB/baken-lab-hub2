@@ -1,0 +1,180 @@
+// Codex07: executable graph issuance from exact Work07/08 parser output.
+// No native authority installed. Fixture capabilities cannot be used as native.
+import assert from 'node:assert/strict';
+import {verify,createPublicKey,createHash} from 'node:crypto';
+import {readFileSync} from 'node:fs';
+import {ENGINE,sha} from './adapter.mjs';
+import {inspectNativeFacts,supplyContract} from './work06/inspect-native-facts.mjs';
+import {inspectNativeStructureOffline} from './native-entry.mjs';
+import {computePartial} from './derived-partial-core.mjs';
+import {partialFixture} from './fixture-partial.mjs';
+import {convertExistingWork44 as convert07,convertApprovedLocal as local07} from '../reborn2-work07/offline-converter.mjs';
+import {convertExistingWork44 as convert08,convertApprovedLocal as local08} from '../reborn2-work08/offline-converter.mjs';
+export const WORK08='767a8e0bb90bd178e260d6b4b8bcc86fe341520e';
+const pins={'07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
+for(const v of ['07','08']){
+ const bytes=readFileSync(new URL('../reborn2-work'+v+'/offline-converter.mjs',import.meta.url));
+ assert.equal(createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex'),pins[v],'CONVERTER_PIN');
+}
+const names=new Map(JSON.parse(readFileSync(new URL('./work04-source-map.json',import.meta.url))).items.map(i=>[i.id.startsWith('EYE-')?i.id.replace('-',''):'RANK'+i.id,i.name]));
+const key=(...x)=>JSON.stringify(x),hex=x=>typeof x==='string'&&/^[a-f0-9]{64}$/.test(x);
+const exact=(o,keys)=>{assert.ok(o&&typeof o==='object'&&!Array.isArray(o));assert.deepEqual(Object.keys(o).sort(),[...keys].sort(),'GRAPH_EXACT_FIELDS');};
+const index=(xs,f)=>{const m=new Map(xs.map(x=>[f(x),x]));assert.equal(m.size,xs.length,'GRAPH_DUPLICATE_KEY');return m;};
+const freeze=x=>{if(x&&typeof x==='object'&&!Object.isFrozen(x)){for(const v of Object.values(x))freeze(v);Object.freeze(x);}return x;};
+const registry=new WeakMap();
+// Configuration must be independently reviewed and installed by Main, not
+// supplied by request. No environment-variable or user-key override.
+const authority=freeze({state:'NOT_CONFIGURED',sourceKey:null,reviewKey:null,sourcePins:[],approvalPins:[]});
+const verifyPinned=(signed,pem,allowed)=>{
+ exact(signed,['payload','signature']);const digest=sha(signed.payload);
+ assert.ok(allowed.includes(digest),'UNPINNED_APPROVAL');
+ assert.ok(verify(null,Buffer.from(JSON.stringify(signed.payload)),createPublicKey(pem),Buffer.from(signed.signature,'base64')),'APPROVAL_SIGNATURE');
+ return digest;
+};
+const itemIds=supplyContract.items.map(i=>i.id.startsWith('EYE-')?i.id.replace('-',''):'RANK'+i.id);
+const fullRequirements=freeze([
+ {id:'HISTORICAL_STARTER_STATUS',items:['RANK02','RANK04','RANK25','RANK33','RANK34','RANK35','RANK36','RANK37','EYE02','EYE04','EYE05','EYE14'],need:'全過去出走馬の正式な出走・完走・同着等の分類、実出走頭数',why:'登録頭数や着順だけでは正式分類と全頭順位を確定できない'},
+ {id:'INDIVIDUAL_DISTANCE_CROSSING_MS',items:['RANK07','RANK08','RANK09','RANK10','RANK11','RANK18','RANK21','RANK22','RANK23','RANK24','RANK25','RANK29','RANK69','RANK70','RANK72','RANK73','RANK74','RANK75','EYE02','EYE03','EYE06','EYE09','EYE10','EYE11'],need:'固有馬別・同一起点の距離別通過実測時計と計測誤差',why:'個別上がりや先頭馬ラップから個馬の途中時計は復元しない'},
+ {id:'EXACT_DISTANCE_RANKS',items:['RANK17','RANK18','RANK21','RANK22','RANK24','RANK58','RANK59','RANK60','RANK61','RANK63','RANK65','RANK66','RANK68','RANK70','EYE03','EYE09','EYE10','EYE11','EYE12'],need:'通過地点に対応する全頭順位と距離・順序の定義',why:'コーナー通過順の原文を距離別順位へ変換しない'},
+ {id:'EFFECTIVE_COURSE_AND_CLASS_VERSION',items:['RANK33','RANK39','RANK43','RANK44','RANK45','RANK46','RANK47','RANK48','RANK49','RANK50','RANK51','RANK52','RANK53','RANK67','RANK93','RANK95','EYE07','EYE08','EYE14','EYE15'],need:'適用時点付きコース形状・初角・直線・区間距離・クラス規則',why:'距離・馬場・回りの報告値は比較可能だが形状適性・クラス同等性は別'},
+ {id:'NORMALIZED_FINISH_CLOCK',items:['RANK03','RANK04','RANK05','RANK28','RANK29','RANK30','EYE01','EYE04'],need:'明示単位・精度のある個馬走破時計と正式勝馬分類',why:'着差の文字列や単位不明の時計を秒へ換算しない'},
+ {id:'RACE_LEADER_LAP_DISTANCE_BINDING',items:['RANK19','RANK20','RANK23','RANK69','RANK72','RANK73','EYE06'],need:'先頭馬ラップの区間境界・単位・精度',why:'レース全体のラップを個馬区間時計として扱わない'},
+ {id:'CURRENT_COMPLETE_STATUS_AND_FIELD',items:['RANK58','RANK59','RANK60','RANK61','RANK62','RANK63','RANK64','RANK65','RANK66','RANK67','RANK68','RANK69','RANK70','RANK71','RANK72','RANK73','RANK74','RANK75','RANK99','RANK100','EYE09','EYE10','EYE11','EYE12','EYE15'],need:'全頭の正式な発走前出走状態・同型・条件',why:'未確認はACTIVEにしない'},
+ {id:'INDEPENDENT_CURRENT_RELEVANCE',items:['RANK01','RANK12','RANK16','RANK26','RANK27','RANK37','RANK38','RANK40','RANK78','RANK79','RANK80','RANK82','RANK83','RANK84','RANK85','RANK86','RANK87','RANK88','RANK89','RANK90','RANK91','RANK92','RANK94','RANK96','RANK97','RANK98','RANK99','RANK100','EYE01','EYE05','EYE13','EYE15'],need:'独立した現時点の関連性・負荷・不利・状態・相手水準等の証拠',why:'過去走の観測だけでは今回の能力発揮を断定できない'}
+]);
+// This is an inventory of actual typed inputs, not an automatic full-grade
+// rule or a claim that every listed item is impossible without one field.
+function availability(pkg,runners){
+ const hist=pkg.events.filter(e=>e.role==='HISTORICAL_RESULT');
+ const known=pkg.roster.filter(h=>h.status!=='UNKNOWN').length;
+ return {fullEligible:false,commonNativeFullConnected:false,requirements:fullRequirements.map(q=>({...q,state:q.id==='CURRENT_COMPLETE_STATUS_AND_FIELD'&&known===pkg.roster.length?'REQUIRES_INDEPENDENT_COMPLETE_ROSTER_REVIEW':'HELD_NOT_ESTABLISHED_BY_WORK06_08'})),coverage:{targetRows:pkg.roster.length,knownStatus:known,historyEvents:hist.length,observed:pkg.observations.filter(o=>o.state==='OBSERVED').length,byHorse:runners.map(h=>({horse:h.horse,analyzed:h.analysisItems.filter(i=>i.partialFindings.length).length,held:h.analysisItems.filter(i=>!i.partialFindings.length).length}))},fullReasons:['NATIVE_FULL_PACKET_AND_WORK42_ROOT_MAPPING_NOT_ISSUED','INDIVIDUAL_MEASUREMENTS_AND_VERSIONED_GEOMETRY_NOT_IN_WORK06_SCHEMA','NATIVE_FULL_DOWNSTREAM_EQUIVALENCE_NOT_PROVEN']};
+}
+function build(converted,rowWitnesses,{fixture,version,manifestDigest}){
+ const pkg=converted.package;
+ assert.deepEqual(inspectNativeFacts(pkg),converted.inspection);
+ if(!fixture)inspectNativeStructureOffline(pkg);
+ const ev=index(pkg.events,e=>e.id),docs=index(pkg.documents,d=>d.id),roster=index(pkg.roster,h=>h.horseId);
+ const witness=index(rowWitnesses,w=>key(w.eventId,w.horseId));
+ const witnessNo=index(rowWitnesses,w=>key(w.eventId,w.horseNo));
+ const states=index(converted.sourceStates,s=>key(s.eventId,s.horseId,s.field));
+ const roots=new Map(),events=new Map(),rows=new Map(),nodeForDoc=new Map(),nodeForRow=new Map();
+ const label=fixture?'FIXTURE':'NATIVE',observed=fixture?'OBSERVED_TEST_FORMAT':'OBSERVED_NATIVE_VERIFIED';
+ const add=(kind,payload,depends=[])=>{
+  const body={kind:label+'_'+kind,payload,depends:[...new Set(depends)].sort()};
+  const id=sha([body.kind,body.payload,body.depends]);if(!roots.has(id))roots.set(id,{id,...body});return id;
+ };
+ for(const e of pkg.events){
+  const er=add('EVENT_IDENTITY',e);
+  events.set(e.id,{eventId:e.id,role:e.role,nativeRaceIdentity:{issuer:e.issuer,nativeId:e.nativeId,venueId:e.venueId,dateJst:e.dateJst,raceNo:e.raceNo},eventRoot:er,observations:{},rows:[]});
+ }
+ const docRoot=d=>{
+  if(nodeForDoc.has(d.id))return nodeForDoc.get(d.id);
+  const depends=[events.get(d.eventId).eventRoot];
+  if(d.supersedes!==null)depends.push(docRoot(docs.get(d.supersedes)));
+  const id=add('SOURCE_DOCUMENT',d,depends);nodeForDoc.set(d.id,id);return id;
+ };
+ for(const d of pkg.documents)docRoot(d);
+ const ensureRow=(eventId,horseId,no)=>{
+  const k=key(eventId,horseId);if(rows.has(k))return rows.get(k);
+  const w=witness.get(k);assert.ok(w&&w.horseNo===no&&witnessNo.get(key(eventId,no))===w,'NATIVE_ROW_WITNESS_BINDING');
+  const e=events.get(eventId),isTarget=eventId===pkg.targetId;
+  const h=isTarget?roster.get(horseId):null;
+  if(isTarget)assert.ok(h&&h.horseNo===no);
+  const rowId=add(isTarget?'TARGET_ROSTER_ROW':'HISTORICAL_ROW_IDENTITY',{eventId,horseId,horseNo:no,witness:w,...(h?{roster:h}:{})},[e.eventRoot]);
+  const row={nativeId:horseId,observations:{no:{state:observed,value:no,evidenceId:rowId}},unavailable:[]};
+  e.rows.push(row);rows.set(k,row);nodeForRow.set(k,rowId);return row;
+ };
+ for(const h of pkg.roster)ensureRow(pkg.targetId,h.horseId,h.horseNo);
+ // Preserve every authorized row identity, including rows with no usable
+ // performance. Never create performance/status from row identity.
+ for(const w of rowWitnesses){assert.ok(ev.has(w.eventId),'ROW_EVENT');if(w.eventId!==pkg.targetId)ensureRow(w.eventId,w.horseId,w.horseNo);}
+ const facts=[],missing=[];
+ for(const o of pkg.observations){
+  const k=key(o.eventId,o.horseId,o.field),e=events.get(o.eventId);
+  const row=o.horseId===null?null:ensureRow(o.eventId,o.horseId,o.eventId===pkg.targetId?roster.get(o.horseId).horseNo:o.pastHorseNo);
+  const dest=row?row.observations:e.observations,identity=row?nodeForRow.get(key(o.eventId,o.horseId)):e.eventRoot;
+  const state=states.get(k);
+  const allSourceRefs=(state?.sources??[]).map(s=>{
+   const root=s.root,d=docs.get(root.documentId);
+   assert.ok(d&&d.eventId===o.eventId&&root.field===o.field,'GRAPH_SOURCE_FIELD_BINDING');
+   return {source:s,ref:add('SOURCE_FIELD',{eventId:o.eventId,horseId:o.horseId,pastHorseNo:o.pastHorseNo,field:o.field,root,state:s.state,reason:s.reason},[docRoot(d),identity])};
+  });
+  const chosen=o.roots.map(root=>{const match=allSourceRefs.filter(s=>key(s.source.root)===key(root));assert.equal(match.length,1,'GRAPH_OBSERVATION_ROOT_BINDING');return match[0].ref;});
+  if(o.state==='OBSERVED')assert.ok(chosen.length&&allSourceRefs.filter(s=>chosen.includes(s.ref)).every(s=>s.source.state==='OBSERVED'),'GRAPH_OBSERVED_ONLY');
+  const factId=add(o.state==='OBSERVED'?'OBSERVATION':'UNAVAILABLE_FIELD',{eventId:o.eventId,horseId:o.horseId,pastHorseNo:o.pastHorseNo,field:o.field,state:o.state,value:o.value,reason:o.reason},[identity,...(o.state==='OBSERVED'?chosen:allSourceRefs.map(s=>s.ref))]);
+  facts.push({key:k,state:o.state,value:o.value,reason:o.reason,factId,sourceRefs:allSourceRefs.map(s=>s.ref),chosenRefs:chosen});
+  if(o.state==='OBSERVED')dest[o.field]={state:observed,value:o.value,evidenceId:factId};
+  else{dest[o.field]={state:o.state,value:null,reason:o.reason};missing.push({key:k,state:o.state,reason:o.reason,evidenceId:factId});if(row)row.unavailable.push({field:o.field,state:o.state,reason:o.reason});}
+ }
+ const target=events.get(pkg.targetId);
+ assert.equal(target.rows.length,pkg.roster.length);
+ const packet={schema:'REBORN2_ISSUED_PARTIAL_GRAPH_1',scope:fixture?'FIXED_FIXTURE_GRAPH_ONLY':'NATIVE_PARTIAL_GRAPH_VERIFIED',target:{eventId:pkg.targetId},cutoff:pkg.cutoff,events:[target,...[...events.values()].filter(e=>e!==target)],roots:[...roots.values()],items:target.rows.map(h=>({horseId:h.nativeId,items:itemIds.map(item=>({item,state:'HELD',reason:'FULL_ITEM_JUDGMENT_NOT_ESTABLISHED'}))})),groups:118,held:826,missing,formal:false};
+ const metadata={engineCommit:ENGINE,converterVersion:version,converterBlob:pins[version],manifestDigest,packageDigest:sha(pkg),sourceStatesDigest:sha(converted.sourceStates),canonicalRaceKey:sha([ENGINE,ev.get(pkg.targetId).issuer,ev.get(pkg.targetId).nativeId]),scheduledPost:pkg.scheduledPost,startLower:pkg.startLower,cutoff:pkg.cutoff,rosterDigest:sha(pkg.roster),sourceGraphDigest:sha(packet),factsDigest:sha(facts)};
+ return {packet,facts,metadata,pkg};
+}
+// Pure validation, never grants admission or a capability.
+export function validateGraphClosure(packet){
+ const m=index(packet.roots,r=>r.id),done=new Set(),visiting=new Set();
+ function visit(id){assert.ok(m.has(id),'MISSING_GRAPH_ROOT');assert.ok(!visiting.has(id),'GRAPH_CYCLE');if(done.has(id))return;const r=m.get(id);assert.equal(r.id,sha([r.kind,r.payload,r.depends]),'GRAPH_ROOT_HASH');visiting.add(id);r.depends.forEach(visit);visiting.delete(id);done.add(id);}
+ for(const id of m.keys())visit(id);
+ return {roots:m.size,verified:done.size};
+}
+function issue(g,{fixture,approvalDigest=null}){
+ const {packet,facts,metadata,pkg}=g;
+ validateGraphClosure(packet);
+ // Only fixture path may use count-based rank interval; native needs
+ // independent historical classification, absent in this schema.
+ const runners=computePartial(packet,{native:!fixture,strictMissing:true,completeHistory:fixture?null:[]});
+ const m=new Map(packet.roots.map(r=>[r.id,r]));
+ for(const h of runners)for(const i of h.analysisItems)for(const f of i.partialFindings){
+  const seen=new Set();function visit(id){if(seen.has(id))return;assert.ok(m.has(id));seen.add(id);m.get(id).depends.forEach(visit);}
+  f.directRefs.forEach(visit);assert.deepEqual([...seen].sort(),f.refs);
+ }
+ const receipt=freeze({...metadata,approvalDigest,scope:packet.scope,outputDigest:sha(runners),formal:false,realAdmission:false,persistenceAllowed:false});
+ const capability=Object.freeze({schema:'REBORN2_GRAPH_REVIEW_CAPABILITY_1',receiptDigest:sha(receipt)});
+ registry.set(capability,freeze({packet,facts,receipt,runners,roster:pkg.roster,availability:availability(pkg,runners)}));
+ return capability;
+}
+export function exerciseExistingGraph(version='08'){
+ assert.ok(['07','08'].includes(version));
+ const {b,trust}=partialFixture(),x=(version==='08'?convert08:convert07)(b,trust);
+ assert.equal(x.scope,'EXISTING_WORK44_FIXTURE_CONVERSION_ONLY');
+ const witnesses=b.identity.payload.rows.map(w=>({eventId:w.eventId,horseNo:w.no,horseId:w.horseId,displayName:w.displayName,proofRef:trust.expectedIdentitySha256}));
+ return issue(build(x,witnesses,{fixture:true,version,manifestDigest:trust.expectedManifestSha256}),{fixture:true});
+}
+// The two signatures and pins are independent. The analysis approval must
+// bind original descriptor, exact converter, package, evidence graph, rights,
+// custody, identities, complete roster and version inventory review. The
+// signature is an attestation of separately performed review, not proof by
+// itself of source authenticity. No key/pin or real source configured.
+export function issueNativeGraph(request){
+ assert.equal(authority.state,'CONFIGURED','MAIN_NATIVE_APPROVAL_NOT_CONFIGURED');
+ exact(request,['version','signedManifest','raws','approval']);
+ assert.ok(['07','08'].includes(request.version));
+ const manifestDigest=verifyPinned(request.signedManifest,authority.sourceKey,authority.sourcePins);
+ const approvalDigest=verifyPinned(request.approval,authority.reviewKey,authority.approvalPins),a=request.approval.payload;
+ exact(a,['schema','engineCommit','converterBlob','manifestDigest','packageDigest','sourceStatesDigest','sourceGraphDigest','factsDigest','rosterDigest','canonicalRaceKey','rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest','validUntil']);
+ assert.equal(a.schema,'REBORN2_NATIVE_GRAPH_APPROVAL_1');assert.equal(a.engineCommit,ENGINE);assert.equal(a.converterBlob,pins[request.version]);assert.equal(a.manifestDigest,manifestDigest);
+ for(const k of ['rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest'])assert.ok(hex(a[k]),'INDEPENDENT_REVIEW_DIGEST');
+ assert.ok(Date.now()<Date.parse(a.validUntil),'APPROVAL_EXPIRED');
+ const x=(request.version==='08'?local08:local07)(request.signedManifest,request.raws,{authorityPublicKeyPem:authority.sourceKey,expectedManifestSha256:manifestDigest});
+ assert.equal(x.scope,'LOCAL_EXTRACTION_NOT_ADMISSION');
+ const g=build(x,request.signedManifest.payload.rowWitnesses,{fixture:false,version:request.version,manifestDigest});
+ for(const k of ['packageDigest','sourceStatesDigest','sourceGraphDigest','factsDigest','rosterDigest','canonicalRaceKey'])assert.equal(a[k],g.metadata[k],'APPROVAL_GRAPH_BINDING '+k);
+ assert.ok(Date.now()<Date.parse(g.pkg.startLower),'NATIVE_POST_BOUNDARY');
+ return issue(g,{fixture:false,approvalDigest});
+}
+const lookup=c=>{const x=registry.get(c);assert.ok(x,'ISSUED_GRAPH_CAPABILITY_REQUIRED');return x;};
+export function readIssuedGraph(c){return structuredClone(lookup(c));}
+export function reviewAllHorses(c){
+ const x=lookup(c);return structuredClone({receipt:x.receipt,availability:x.availability,roster:x.roster.map(h=>{
+ const runner=x.runners.find(r=>r.horse===h.horseId),card=x.packet.events.find(e=>e.role==='TARGET_CARD').rows.find(r=>r.nativeId===h.horseId);
+ return {horseId:h.horseId,horseNo:h.horseNo,displayName:card.observations.displayName?.value??null,status:h.status,grade:runner.grade,formalGrade:null,findings:runner.analysisItems.filter(i=>i.partialFindings.length).map(i=>({item:i.item,name:names.get(i.item),state:i.state,count:i.partialFindings.length})),held:runner.analysisItems.filter(i=>!i.partialFindings.length).length,axes:runner.ability.axes.map(a=>({axis:a.axis,state:a.state,count:a.observations.length})),winPaths:[],placePaths:[]};
+ })});
+}
+export function reviewHorseItem(c,horseId,item){
+ const x=lookup(c),h=x.runners.find(h=>h.horse===horseId);assert.ok(h,'HORSE_NOT_IN_ISSUED_ROSTER');
+ const i=h.analysisItems.find(i=>i.item===item);assert.ok(i,'UNKNOWN_ITEM');
+ const refs=new Set(i.partialFindings.flatMap(f=>f.refs));
+ return structuredClone({horseId,item,name:names.get(item),state:i.state,findings:i.partialFindings,roots:x.packet.roots.filter(r=>refs.has(r.id)),hold:i.reason,materialHolds:x.availability.requirements.filter(q=>q.items.includes(item)),formal:false});
+}

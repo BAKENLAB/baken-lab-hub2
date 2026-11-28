@@ -10,6 +10,7 @@ import {supplyContract} from './work06/inspect-native-facts.mjs';
 import {computePartial} from './derived-partial-core.mjs';
 import {convertExistingWork44,convertApprovedLocal} from '../reborn2-work07/offline-converter.mjs';
 import {inspectNativeFacts} from './work06/inspect-native-facts.mjs';
+import {convertExistingWork44 as convertWork08Fixture,convertApprovedLocal as convertWork08Local} from '../reborn2-work08/offline-converter.mjs';
 export const WORK07='3bd160c01d153f72c9f99a6e4d68eca9652cfcdd';
 const exact=(v,k)=>{assert.ok(v&&typeof v==='object'&&!Array.isArray(v));assert.deepEqual(Object.keys(v).sort(),[...k].sort(),'NATIVE_APPROVAL_FIELDS');};
 const hex=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
@@ -156,3 +157,22 @@ export function exerciseWork07EndToEnd(bundle,trust){
  const runners=computePartial(p,{strictMissing:true});
  return {scope:'EXISTING_WORK44_WORK07_ANALYSIS_TEST_ONLY',work07Commit:WORK07,package:pkg,inspection:x.inspection,sourceStates:x.sourceStates,sourcePacket:p,runners,formal:false,realAdmission:false,persistenceAllowed:false};
 }
+
+ // Work08 uses the corrected converter; the original Work07 exercise remains
+ // independently runnable. Never accept a caller-supplied fixture package.
+ export function exerciseWork08EndToEnd(bundle,trust){
+  const x=convertWork08Fixture(bundle,trust),pkg=x.package;
+  assert.equal(x.scope,'EXISTING_WORK44_FIXTURE_CONVERSION_ONLY');
+  assert.deepEqual(inspectNativeFacts(pkg),x.inspection);
+  const a={eventProofs:pkg.events.map(e=>({eventId:e.id,identityDigest:sha(e)})),rosterProofs:pkg.roster.map(h=>({horseId:h.horseId,identityDigest:sha(h)})),fieldProofs:pkg.observations.filter(o=>o.state==='OBSERVED').map(o=>({key:JSON.stringify([o.eventId,o.horseId,o.field]),observationDigest:sha(o)}))};
+  const p=compile(pkg,a,{fixture:true,strict:true});
+  return {scope:'EXISTING_WORK44_WORK08_ANALYSIS_TEST_ONLY',package:pkg,inspection:x.inspection,sourceStates:x.sourceStates,sourcePacket:p,runners:computePartial(p,{strictMissing:true}),formal:false,realAdmission:false,persistenceAllowed:false};
+ }
+ export function executeWork08NativePartial(signed,raws,approval){
+  assert.equal(authority.state,'CONFIGURED','MAIN_NATIVE_APPROVAL_NOT_CONFIGURED');
+  const manifestDigest=sha(signed.payload);
+  assert.ok(authority.sourceManifestDigests.includes(manifestDigest),'WORK08_MANIFEST_AUTHORITY_PIN');
+  const x=convertWork08Local(signed,raws,{authorityPublicKeyPem:authority.publicKeyPem,expectedManifestSha256:manifestDigest});
+  assert.equal(x.scope,'LOCAL_EXTRACTION_NOT_ADMISSION');
+  return {...executeNativePartial(x.package,approval),sourceStates:x.sourceStates,sourceManifestDigest:manifestDigest};
+ }
