@@ -14,7 +14,7 @@ import {verifyApprovedManifest} from './offline-converter.mjs';
 import {prepareNativeReviewOffline} from '../reborn2-pilot/native-graph-issuance.mjs';
 const extractor=fileURLToPath(new URL('./extract_official.py',import.meta.url));
 const extractorBytes=readFileSync(extractor);
-assert.equal(createHash('sha1').update('blob '+extractorBytes.length+'\0').update(extractorBytes).digest('hex'),'4e50e8f9ec19788a44e92e2f986c4e78fdfb9008');
+assert.equal(createHash('sha1').update('blob '+extractorBytes.length+'\0').update(extractorBytes).digest('hex'),'f8ac393101023614a146aaa286fe58df49b55188');
 const [manifest,trust,index,out,...extra]=process.argv.slice(2);
 if(!manifest||!trust||!index||!out||extra.length)throw Error('LOCAL_ARGUMENTS_REQUIRED');
 const raw=p=>{assert.equal(typeof p,'string');const s=statSync(p);assert.ok(s.isFile()&&s.size>0&&s.size<=16*1024*1024,'FILE_LIMIT');return readFileSync(p);};
