@@ -3,6 +3,8 @@ import {partialFixture} from '../reborn2-pilot/fixture-partial.mjs';
 import {preparePartial} from '../../research/reborn2-work44/partial-bridge.mjs';
 import {exerciseFixtureObservationCompiler,exerciseWork07EndToEnd,exerciseWork08EndToEnd,executeWork08NativePartial} from '../reborn2-pilot/native-partial-runtime.mjs';
 import {inspectNativeStructureOffline} from '../reborn2-pilot/native-entry.mjs';
+import {cardPost} from './offline-converter.mjs';
+import {submitAnalysis} from '../reborn2-pilot/work04-intake.mjs';
 const {b,trust}=partialFixture(),original=preparePartial(b,trust).packet,old=exerciseFixtureObservationCompiler(original),w7=exerciseWork07EndToEnd(b,trust),w8=exerciseWork08EndToEnd(b,trust);
 assert.equal(old.observationCount,41);assert.equal(w7.package.observations.length,48);assert.equal(w8.package.observations.length,48);
 const k=(e,h,f)=>JSON.stringify([e,h,f]);
@@ -36,5 +38,12 @@ for(const h of w8.runners)for(const i of h.analysisItems)for(const f of i.partia
 const corner=w8.package.observations.find(o=>o.field==='cornerGroupSlots');assert.deepEqual(JSON.parse(corner.roots[0].rowPointer).columns,[59,60,61,62,63,64,65,66]);
 assert.throws(()=>inspectNativeStructureOffline(w8.package),/RESEARCH_ID_FORBIDDEN/);
 assert.throws(()=>executeWork08NativePartial(null,null,null),/MAIN_NATIVE_APPROVAL_NOT_CONFIGURED/);
+// Reuse existing fixture scheduled post, not a new race or actual source.
+const target=b.manifest.payload.target, date=target.raceIdentity.dateJst.replace(/^(\d{4})(\d{2})(\d{2})$/,'$1-$2-$3');
+assert.equal(cardPost('15時00分',date),target.scheduledPost);
+assert.equal(cardPost('15:00',date),target.scheduledPost);
+assert.throws(()=>cardPost('25時00分',date),/JRA_POST_LITERAL/);
+assert.throws(()=>cardPost(null,date),/JRA_POST_LITERAL/);
+await assert.rejects(()=>submitAnalysis({schema:'REBORN2_WORK08_ANALYSIS_REQUEST_1',mode:'PARTIAL',signedManifest:null,raws:null,approval:null}),/MAIN_NATIVE_APPROVAL_NOT_CONFIGURED/);
 console.log('WORK08_COMPARISON '+JSON.stringify(summary));
 console.log('WORK08_END_TO_END PASS '+JSON.stringify({old:41,new:48,counts:w8.inspection.counts,roots:roots.size,findings:w8.runners.map(h=>view(h).length),realAdmission:false}));
