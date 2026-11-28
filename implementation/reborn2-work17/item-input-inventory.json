@@ -1,0 +1,4041 @@
+{
+  "schema": "REBORN2_WORK17_ITEM_INPUT_INVENTORY_1",
+  "base": "28a7c4e1727511dc6504d876cb6383ecb0f8af92",
+  "scope": "candidate presence across separate actual target samples, never join different circuits or infer all-horse coverage",
+  "jra": {
+    "date": 48,
+    "track": 48,
+    "distance": 48,
+    "surface": 48,
+    "going": 48,
+    "classLiteral": 48,
+    "finish": 47,
+    "clock": 47,
+    "reportedWinnerGap": 47,
+    "final600": 47,
+    "ordinalUnlabeled": 48,
+    "weight": 48,
+    "bodyWeight": 48,
+    "jockeyName": 48,
+    "jockeyRef": 28,
+    "trainerRef": 30,
+    "equipment": 3,
+    "draw": 30,
+    "bodyWeightDelta": 30,
+    "earlier_results": 8
+  },
+  "local": {
+    "positions": 13,
+    "labels": 13,
+    "peers": 22,
+    "lap": 1
+  },
+  "summary": {
+    "total": 115,
+    "jraAny": 82,
+    "localAny": 57,
+    "unionAny": 105,
+    "jraAllListed": 16,
+    "localAllListed": 8,
+    "byWork16": {
+      "ROUTE_AVAILABLE": {
+        "total": 64,
+        "anyCandidate": 62
+      },
+      "EXISTING_EVIDENCE_CONNECTED": {
+        "total": 20,
+        "anyCandidate": 18
+      },
+      "DIRECT_NOT_PUBLISHED": {
+        "total": 15,
+        "anyCandidate": 15
+      },
+      "ROUTE_KNOWN_NOT_ACQUIRED": {
+        "total": 16,
+        "anyCandidate": 10
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "01",
+      "name": "基礎競走能力",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "clock",
+        "reportedWinnerGap",
+        "final600",
+        "distance",
+        "surface",
+        "going",
+        "classLiteral",
+        "field_identity"
+      ],
+      "limitation": "comparable_repeated_performance",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "reportedWinnerGap",
+            "count": 47
+          },
+          {
+            "key": "final600",
+            "count": 47
+          },
+          {
+            "key": "distance",
+            "count": 48
+          },
+          {
+            "key": "surface",
+            "count": 48
+          },
+          {
+            "key": "going",
+            "count": 48
+          },
+          {
+            "key": "classLiteral",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "clock",
+          "reportedWinnerGap",
+          "final600",
+          "distance",
+          "surface",
+          "going",
+          "classLiteral",
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "02",
+      "name": "近走成績・着順",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "finish",
+        "date"
+      ],
+      "limitation": "historical_finish",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "date",
+            "count": 48
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "date"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "03",
+      "name": "勝ち馬との着差",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "reportedWinnerGap"
+      ],
+      "limitation": "winner_gap_definition",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "reportedWinnerGap",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "reportedWinnerGap"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "04",
+      "name": "後続馬との着差",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "full_prior_result",
+        "margin_semantics"
+      ],
+      "limitation": "following_horse_gap",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "full_prior_result",
+          "margin_semantics"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "full_prior_result",
+          "margin_semantics"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "05",
+      "name": "走破時計",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "clock"
+      ],
+      "limitation": "clock_units",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "clock",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "clock"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "06",
+      "name": "上がりタイム",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "final600"
+      ],
+      "limitation": "final600_units",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "final600",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "final600"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "07",
+      "name": "瞬発力",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "final600",
+        "clock",
+        "ordinalUnlabeled"
+      ],
+      "limitation": "no_individual_acceleration_measurement",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "final600",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "ordinalUnlabeled",
+            "count": 48
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "final600",
+          "clock",
+          "ordinalUnlabeled"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "08",
+      "name": "持続力",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "clock",
+        "final600",
+        "positions",
+        "lap"
+      ],
+      "limitation": "no_individual_sustained_speed_measurement",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "final600",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "lap"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "clock",
+          "final600"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "09",
+      "name": "スタートの安定性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "field_identity"
+      ],
+      "limitation": "no_start_clock",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "10",
+      "name": "二の脚・加速力",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "lap"
+      ],
+      "limitation": "no_acceleration_measurement",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "lap"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": []
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "11",
+      "name": "距離別の消耗傾向",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "distance",
+        "clock",
+        "final600",
+        "lap"
+      ],
+      "limitation": "no_individual_fatigue_measurement",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "distance",
+            "count": 48
+          },
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "final600",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "lap"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "distance",
+          "clock",
+          "final600"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "12",
+      "name": "勝ち切る能力",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "clock",
+        "classLiteral"
+      ],
+      "limitation": "repeated_win_evidence",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "classLiteral",
+            "count": 48
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "clock",
+          "classLiteral"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "13",
+      "name": "成績の安定性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "date",
+        "classLiteral"
+      ],
+      "limitation": "repeated_comparable_history",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "date",
+            "count": 48
+          },
+          {
+            "key": "classLiteral",
+            "count": 48
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "date",
+          "classLiteral"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "14",
+      "name": "成長・衰え",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "date",
+        "finish",
+        "clock",
+        "classLiteral"
+      ],
+      "limitation": "time_series_context",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "classLiteral",
+            "count": 48
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "date",
+          "finish",
+          "clock",
+          "classLiteral"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "15",
+      "name": "潜在能力",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "finish",
+        "clock",
+        "final600",
+        "positions"
+      ],
+      "limitation": "latent_capacity_not_observed",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "final600",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish",
+          "clock",
+          "final600"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "16",
+      "name": "公式レーティング",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_rating",
+        "published_time"
+      ],
+      "limitation": "rating",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_rating",
+          "published_time"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_rating",
+          "published_time"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "17",
+      "name": "各コーナーの通過順位",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "positions",
+        "labels"
+      ],
+      "limitation": "labelled_ordinal",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": []
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "18",
+      "name": "道中の位置取り変化",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels"
+      ],
+      "limitation": "ordinal_change",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": []
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "19",
+      "name": "実ラップ・ペース",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "lap"
+      ],
+      "limitation": "race_level_only",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "lap"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": []
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "20",
+      "name": "過去走の展開有利・不利",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "lap",
+        "full_prior_result"
+      ],
+      "limitation": "context_not_causality",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "lap",
+          "full_prior_result"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "full_prior_result"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "21",
+      "name": "道中での後退からの巻き返し",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "finish"
+      ],
+      "limitation": "recovery",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "22",
+      "name": "コーナーでの進出",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels"
+      ],
+      "limitation": "corner_change",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": []
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "23",
+      "name": "先行争いによる消耗",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "lap",
+        "full_prior_result"
+      ],
+      "limitation": "cause_of_fatigue_not_observed",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "lap",
+          "full_prior_result"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "full_prior_result"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "24",
+      "name": "終盤の失速原因",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "final600",
+        "lap",
+        "official_incident"
+      ],
+      "limitation": "cause_of_deceleration_not_observed",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "final600",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "lap",
+          "official_incident"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "final600",
+          "official_incident"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "25",
+      "name": "差し損ね・脚の余力",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "finish",
+        "final600"
+      ],
+      "limitation": "reserve_not_observed",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "final600",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish",
+          "final600"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "26",
+      "name": "出遅れ・進路などの不利",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_incident",
+        "published_time"
+      ],
+      "limitation": "incident",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_incident",
+          "published_time"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_incident",
+          "published_time"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "27",
+      "name": "不利を克服した好走",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_incident",
+        "finish"
+      ],
+      "limitation": "incident_and_outcome",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "official_incident"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_incident",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "28",
+      "name": "僅差の凡走",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "finish",
+        "reportedWinnerGap"
+      ],
+      "limitation": "definition_and_context",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "reportedWinnerGap",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "reportedWinnerGap"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "29",
+      "name": "負けて強し",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_incident",
+        "finish",
+        "reportedWinnerGap"
+      ],
+      "limitation": "supported_not_assumed",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "reportedWinnerGap",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "official_incident"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_incident",
+          "finish",
+          "reportedWinnerGap"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "30",
+      "name": "勝利内容の価値",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "finish",
+        "full_prior_result",
+        "peers"
+      ],
+      "limitation": "win_context",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "full_prior_result",
+          "peers"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "peers",
+            "count": 22
+          }
+        ],
+        "notSupplied": [
+          "finish",
+          "full_prior_result"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "31",
+      "name": "特殊条件による凡走",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_incident",
+        "going",
+        "classLiteral"
+      ],
+      "limitation": "specific_context",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "going",
+            "count": 48
+          },
+          {
+            "key": "classLiteral",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "official_incident"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_incident",
+          "going",
+          "classLiteral"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "32",
+      "name": "前走からの内容改善",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "date",
+        "finish",
+        "clock",
+        "positions"
+      ],
+      "limitation": "chronological_change",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "date",
+          "finish",
+          "clock"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "33",
+      "name": "過去走のクラス水準",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "classLiteral",
+        "class_rule"
+      ],
+      "limitation": "effective_rules",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "classLiteral",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "class_rule"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "classLiteral",
+          "class_rule"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "34",
+      "name": "過去の対戦相手の能力",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "full_prior_result",
+        "peers"
+      ],
+      "limitation": "opponent_context",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "full_prior_result",
+          "peers"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "peers",
+            "count": 22
+          }
+        ],
+        "notSupplied": [
+          "full_prior_result"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "35",
+      "name": "今回の出走馬同士の直接対戦",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "full_prior_result",
+        "field_identity"
+      ],
+      "limitation": "same_event_identity",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "full_prior_result",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "full_prior_result",
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "36",
+      "name": "共通対戦馬による間接比較",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "full_prior_result",
+        "peers",
+        "field_identity"
+      ],
+      "limitation": "common_opponent",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "full_prior_result",
+          "peers",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "peers",
+            "count": 22
+          }
+        ],
+        "notSupplied": [
+          "full_prior_result",
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "37",
+      "name": "過去の対戦相手の後続実績",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "peers"
+      ],
+      "limitation": "followup",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "peers"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "peers",
+            "count": 22
+          }
+        ],
+        "notSupplied": []
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "38",
+      "name": "対戦相手の公式レーティング",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_rating",
+        "peers"
+      ],
+      "limitation": "peer_rating",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_rating",
+          "peers"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "peers",
+            "count": 22
+          }
+        ],
+        "notSupplied": [
+          "official_rating"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "39",
+      "name": "昇級・降級",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "classLiteral",
+        "class_rule",
+        "current_class"
+      ],
+      "limitation": "class_transition",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "classLiteral",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "class_rule",
+          "current_class"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "classLiteral",
+          "class_rule",
+          "current_class"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "40",
+      "name": "今回の相手強化・弱化",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "full_prior_result",
+        "field_identity",
+        "class_rule"
+      ],
+      "limitation": "field_strength",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "full_prior_result",
+          "field_identity",
+          "class_rule"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "full_prior_result",
+          "field_identity",
+          "class_rule"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "41",
+      "name": "上位クラスでの通用可能性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "classLiteral",
+        "class_rule",
+        "finish"
+      ],
+      "limitation": "class_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "classLiteral",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "class_rule"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "classLiteral",
+          "class_rule",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "42",
+      "name": "中央・地方転入による水準変化",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "track",
+        "class_rule",
+        "field_identity"
+      ],
+      "limitation": "transfer",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "track",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "class_rule",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "track",
+          "class_rule",
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "43",
+      "name": "距離適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "distance",
+        "finish"
+      ],
+      "limitation": "distance_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "distance",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "distance",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "44",
+      "name": "距離延長・短縮への適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "distance",
+        "finish",
+        "current_distance"
+      ],
+      "limitation": "distance_change",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "distance",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "current_distance"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "distance",
+          "finish",
+          "current_distance"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "45",
+      "name": "競馬場適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "track",
+        "finish"
+      ],
+      "limitation": "venue_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "track",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "track",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "46",
+      "name": "コース間相関",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "course_geometry",
+        "track",
+        "finish"
+      ],
+      "limitation": "course_comparison",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "track",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "course_geometry"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "course_geometry",
+          "track",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "47",
+      "name": "芝・ダート適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "surface",
+        "finish"
+      ],
+      "limitation": "surface_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "surface",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "surface",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "48",
+      "name": "馬場状態別適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "going",
+        "finish"
+      ],
+      "limitation": "going_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "going",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "going",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "49",
+      "name": "左回り・右回り適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "direction",
+        "finish"
+      ],
+      "limitation": "direction_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "direction"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "direction",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "50",
+      "name": "直線の長さへの適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "course_geometry",
+        "finish"
+      ],
+      "limitation": "straight_length",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "course_geometry"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "course_geometry",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "51",
+      "name": "坂・高低差への適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "course_geometry",
+        "finish"
+      ],
+      "limitation": "elevation",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "course_geometry"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "course_geometry",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "52",
+      "name": "コーナー形状への適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "course_geometry",
+        "positions"
+      ],
+      "limitation": "corner_geometry",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "course_geometry",
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "course_geometry"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "53",
+      "name": "枠順と脚質の相性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "draw",
+        "positions",
+        "field_identity"
+      ],
+      "limitation": "draw_role",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "draw",
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "54",
+      "name": "斤量・斤量増減への適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "weight",
+        "finish",
+        "current_weight"
+      ],
+      "limitation": "weight_change",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "weight",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "current_weight"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "weight",
+          "finish",
+          "current_weight"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "55",
+      "name": "砂被り耐性",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "draw",
+        "official_incident"
+      ],
+      "limitation": "sand_exposure_not_measured",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "official_incident"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "draw",
+          "official_incident"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "56",
+      "name": "馬群・揉まれ耐性",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "draw",
+        "official_incident"
+      ],
+      "limitation": "crowding_not_measured",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "official_incident"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "draw",
+          "official_incident"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "57",
+      "name": "季節適性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "date",
+        "finish"
+      ],
+      "limitation": "season_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "date",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "58",
+      "name": "各馬の脚質",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels"
+      ],
+      "limitation": "historical_role",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": []
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "59",
+      "name": "前走の先行判定",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "date"
+      ],
+      "limitation": "last_run_role",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "date"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "60",
+      "name": "先行力の再現性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "date"
+      ],
+      "limitation": "repeated_role",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "date"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "61",
+      "name": "逃げ候補の特定",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity"
+      ],
+      "limitation": "leader_candidates",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "62",
+      "name": "逃げへの依存度",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "finish"
+      ],
+      "limitation": "lead_dependence",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "63",
+      "name": "先行馬占有率",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity"
+      ],
+      "limitation": "forward_share",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "64",
+      "name": "先行馬の内外配置",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity",
+        "draw"
+      ],
+      "limitation": "forward_layout",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity",
+          "draw"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "65",
+      "name": "同型馬の競合",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity"
+      ],
+      "limitation": "competition",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "66",
+      "name": "逃げハサミ",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity",
+        "draw"
+      ],
+      "limitation": "adjacent_forward",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity",
+          "draw"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "67",
+      "name": "最初のコーナーまでの距離",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "course_geometry"
+      ],
+      "limitation": "first_corner_distance",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "course_geometry"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "course_geometry"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "68",
+      "name": "序盤の位置取り争い",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity",
+        "draw"
+      ],
+      "limitation": "actual_start_contest_not_observed",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity",
+          "draw"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "69",
+      "name": "想定ペース",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "lap",
+        "field_identity"
+      ],
+      "limitation": "conditional_pace",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "lap",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "70",
+      "name": "想定隊列",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity",
+        "draw"
+      ],
+      "limitation": "conditional_order",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity",
+          "draw"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "71",
+      "name": "想定される距離ロス",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "draw",
+        "course_geometry",
+        "positions"
+      ],
+      "limitation": "physical_path_loss_not_measured",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "course_geometry",
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "draw",
+          "course_geometry"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "72",
+      "name": "今回の先行争いによる消耗",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "lap",
+        "field_identity"
+      ],
+      "limitation": "future_fatigue_not_measured",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "lap",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "73",
+      "name": "各馬の展開有利・不利",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "finish",
+        "field_identity"
+      ],
+      "limitation": "future_causal_advantage_not_measured",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish",
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "74",
+      "name": "展開対応力",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "finish",
+        "lap"
+      ],
+      "limitation": "role_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "lap"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "75",
+      "name": "展開依存度",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "finish",
+        "lap"
+      ],
+      "limitation": "role_dependence",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "lap"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "lap",
+            "count": 1
+          }
+        ],
+        "notSupplied": [
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "76",
+      "name": "当日の内外馬場傾向",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "earlier_results",
+        "draw",
+        "course_geometry"
+      ],
+      "limitation": "day_lane_bias",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "earlier_results",
+            "count": 8
+          },
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "course_geometry"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "earlier_results",
+          "draw",
+          "course_geometry"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "77",
+      "name": "当日の前残り・差し傾向",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "earlier_results",
+        "positions"
+      ],
+      "limitation": "day_role_bias",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "earlier_results",
+            "count": 8
+          }
+        ],
+        "notSupplied": [
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "earlier_results"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "78",
+      "name": "休養期間",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "date",
+        "current_date"
+      ],
+      "limitation": "interval",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "current_date"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "date",
+          "current_date"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "79",
+      "name": "出走間隔・連闘",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "date",
+        "current_date"
+      ],
+      "limitation": "interval",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "current_date"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "date",
+          "current_date"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "80",
+      "name": "休養明けからの出走回数",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "date",
+        "current_date"
+      ],
+      "limitation": "return_sequence",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "current_date"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "date",
+          "current_date"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "81",
+      "name": "馬体重・増減",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "bodyWeight",
+        "bodyWeightDelta",
+        "current_weight_body"
+      ],
+      "limitation": "body_weight",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "bodyWeight",
+            "count": 48
+          },
+          {
+            "key": "bodyWeightDelta",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "current_weight_body"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "bodyWeight",
+          "bodyWeightDelta",
+          "current_weight_body"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "82",
+      "name": "過去の好走時馬体重",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "bodyWeight",
+        "finish"
+      ],
+      "limitation": "body_weight_response",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "bodyWeight",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "bodyWeight",
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "83",
+      "name": "調教内容",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_training",
+        "published_time"
+      ],
+      "limitation": "training",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_training",
+          "published_time"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_training",
+          "published_time"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "84",
+      "name": "馬具変更",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "equipment",
+        "current_equipment"
+      ],
+      "limitation": "equipment_change",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "equipment",
+            "count": 3
+          }
+        ],
+        "notSupplied": [
+          "current_equipment"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "equipment",
+          "current_equipment"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "85",
+      "name": "騎手の能力・実績",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "jockeyRef",
+        "person_registration",
+        "person_results"
+      ],
+      "limitation": "jockey_record",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "jockeyRef",
+            "count": 28
+          }
+        ],
+        "notSupplied": [
+          "person_registration",
+          "person_results"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "jockeyRef",
+          "person_registration",
+          "person_results"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "86",
+      "name": "騎手のコース別適性",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "jockeyRef",
+        "person_registration",
+        "person_results",
+        "course_geometry"
+      ],
+      "limitation": "jockey_course",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "jockeyRef",
+            "count": 28
+          }
+        ],
+        "notSupplied": [
+          "person_registration",
+          "person_results",
+          "course_geometry"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "jockeyRef",
+          "person_registration",
+          "person_results",
+          "course_geometry"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "87",
+      "name": "馬と騎手の相性",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "jockeyRef",
+        "person_registration",
+        "person_results",
+        "field_identity"
+      ],
+      "limitation": "horse_jockey",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "jockeyRef",
+            "count": 28
+          }
+        ],
+        "notSupplied": [
+          "person_registration",
+          "person_results",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "jockeyRef",
+          "person_registration",
+          "person_results",
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "88",
+      "name": "乗り替わり",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "jockeyRef",
+        "current_jockey"
+      ],
+      "limitation": "jockey_change",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "jockeyRef",
+            "count": 28
+          }
+        ],
+        "notSupplied": [
+          "current_jockey"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "jockeyRef",
+          "current_jockey"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "89",
+      "name": "調教師・厩舎の傾向",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "trainerRef",
+        "person_registration",
+        "person_results"
+      ],
+      "limitation": "trainer_record",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "trainerRef",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "person_registration",
+          "person_results"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "trainerRef",
+          "person_registration",
+          "person_results"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "90",
+      "name": "血統",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_pedigree",
+        "field_identity"
+      ],
+      "limitation": "pedigree",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_pedigree",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_pedigree",
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "91",
+      "name": "年齢・性別・成長段階",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "sex_age",
+        "date"
+      ],
+      "limitation": "age_sex",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "sex_age"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "sex_age",
+          "date"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "92",
+      "name": "輸送・遠征",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_travel",
+        "person_registration"
+      ],
+      "limitation": "explicit_travel_only",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_travel",
+          "person_registration"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_travel",
+          "person_registration"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "93",
+      "name": "前走からの条件好転",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "clock",
+        "going",
+        "current_class",
+        "current_distance"
+      ],
+      "limitation": "conditional_improvement",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "going",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "current_class",
+          "current_distance"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "clock",
+          "going",
+          "current_class",
+          "current_distance"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "94",
+      "name": "前走からの条件悪化",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "clock",
+        "going",
+        "current_class",
+        "current_distance"
+      ],
+      "limitation": "conditional_deterioration",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          },
+          {
+            "key": "going",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "current_class",
+          "current_distance"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "clock",
+          "going",
+          "current_class",
+          "current_distance"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "95",
+      "name": "過去の好走条件への復帰",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "distance",
+        "going",
+        "current_distance",
+        "current_class"
+      ],
+      "limitation": "return_condition",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "distance",
+            "count": 48
+          },
+          {
+            "key": "going",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "current_distance",
+          "current_class"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "distance",
+          "going",
+          "current_distance",
+          "current_class"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "96",
+      "name": "前走の敗因解消",
+      "work16Status": "ROUTE_KNOWN_NOT_ACQUIRED",
+      "inputs": [
+        "official_incident",
+        "current_condition"
+      ],
+      "limitation": "resolved_cause",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_incident",
+          "current_condition"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "official_incident",
+          "current_condition"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "97",
+      "name": "複数の好転材料の重なり",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "current_condition",
+        "finish",
+        "clock",
+        "positions"
+      ],
+      "limitation": "independent_factors",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "current_condition",
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "current_condition",
+          "finish",
+          "clock"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "98",
+      "name": "潜在能力を発揮できる可能性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "clock",
+        "positions",
+        "current_condition"
+      ],
+      "limitation": "conditional_capacity",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "current_condition"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish",
+          "clock",
+          "current_condition"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "99",
+      "name": "過去の好走の再現性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "positions",
+        "current_condition"
+      ],
+      "limitation": "repeatability",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "current_condition"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish",
+          "current_condition"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "100",
+      "name": "今回の勝ち切り可能性",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "clock",
+        "positions",
+        "field_identity",
+        "current_condition"
+      ],
+      "limitation": "conditional_win",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "field_identity",
+          "current_condition"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish",
+          "clock",
+          "field_identity",
+          "current_condition"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-01",
+      "name": "着順と着差のギャップ",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "reportedWinnerGap"
+      ],
+      "limitation": "gap",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "reportedWinnerGap",
+            "count": 47
+          }
+        ],
+        "notSupplied": []
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "reportedWinnerGap"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-02",
+      "name": "着順と過去走内容のギャップ",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "clock",
+        "positions"
+      ],
+      "limitation": "content",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish",
+          "clock"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-03",
+      "name": "道中後退からの巻き返し",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "finish"
+      ],
+      "limitation": "recovery",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "finish"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-04",
+      "name": "強い相手との僅差敗戦",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "reportedWinnerGap",
+        "peers",
+        "full_prior_result"
+      ],
+      "limitation": "strong_opponent",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "reportedWinnerGap",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "peers",
+          "full_prior_result"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "peers",
+            "count": 22
+          }
+        ],
+        "notSupplied": [
+          "reportedWinnerGap",
+          "full_prior_result"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-05",
+      "name": "対戦相手の後続実績",
+      "work16Status": "EXISTING_EVIDENCE_CONNECTED",
+      "inputs": [
+        "peers"
+      ],
+      "limitation": "followup",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "peers"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "peers",
+            "count": 22
+          }
+        ],
+        "notSupplied": []
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-06",
+      "name": "前走の展開不利の解消",
+      "work16Status": "DIRECT_NOT_PUBLISHED",
+      "inputs": [
+        "positions",
+        "official_incident",
+        "current_condition"
+      ],
+      "limitation": "cause_not_observed",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "official_incident",
+          "current_condition"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "official_incident",
+          "current_condition"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED",
+      "directMeasurement": "UNAVAILABLE",
+      "alternativesAreObservationOnly": true
+    },
+    {
+      "id": "EYE-07",
+      "name": "得意距離・条件への復帰",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "finish",
+        "distance",
+        "going",
+        "current_condition"
+      ],
+      "limitation": "return_condition",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "distance",
+            "count": 48
+          },
+          {
+            "key": "going",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "current_condition"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "finish",
+          "distance",
+          "going",
+          "current_condition"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-08",
+      "name": "コース変更による適性向上",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "course_geometry",
+        "finish",
+        "current_condition"
+      ],
+      "limitation": "course_change",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "course_geometry",
+          "current_condition"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "course_geometry",
+          "finish",
+          "current_condition"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-09",
+      "name": "先行馬占有率による恩恵",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity"
+      ],
+      "limitation": "forward_share",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-10",
+      "name": "逃げハサミによる恩恵",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity",
+        "draw"
+      ],
+      "limitation": "adjacent_forward",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity",
+          "draw"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-11",
+      "name": "同型馬の減少",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity"
+      ],
+      "limitation": "competition_change",
+      "jra": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-12",
+      "name": "想定隊列による位置取り改善",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "positions",
+        "labels",
+        "field_identity",
+        "draw"
+      ],
+      "limitation": "conditional_order",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "draw",
+            "count": 30
+          }
+        ],
+        "notSupplied": [
+          "positions",
+          "labels",
+          "field_identity"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          },
+          {
+            "key": "labels",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "field_identity",
+          "draw"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-13",
+      "name": "着順に表れていない能力上昇",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "date",
+        "finish",
+        "clock",
+        "positions"
+      ],
+      "limitation": "content_change",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "date",
+            "count": 48
+          },
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "date",
+          "finish",
+          "clock"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-14",
+      "name": "転入・クラス変更による相手弱化",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "classLiteral",
+        "class_rule",
+        "current_class"
+      ],
+      "limitation": "class_transfer",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "classLiteral",
+            "count": 48
+          }
+        ],
+        "notSupplied": [
+          "class_rule",
+          "current_class"
+        ]
+      },
+      "local": {
+        "observedCandidates": [],
+        "notSupplied": [
+          "classLiteral",
+          "class_rule",
+          "current_class"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    },
+    {
+      "id": "EYE-15",
+      "name": "複数の条件好転の組み合わせ",
+      "work16Status": "ROUTE_AVAILABLE",
+      "inputs": [
+        "current_condition",
+        "finish",
+        "clock",
+        "positions"
+      ],
+      "limitation": "independent_factors",
+      "jra": {
+        "observedCandidates": [
+          {
+            "key": "finish",
+            "count": 47
+          },
+          {
+            "key": "clock",
+            "count": 47
+          }
+        ],
+        "notSupplied": [
+          "current_condition",
+          "positions"
+        ]
+      },
+      "local": {
+        "observedCandidates": [
+          {
+            "key": "positions",
+            "count": 13
+          }
+        ],
+        "notSupplied": [
+          "current_condition",
+          "finish",
+          "clock"
+        ]
+      },
+      "judgment": "NOT_CERTIFIED"
+    }
+  ]
+}
