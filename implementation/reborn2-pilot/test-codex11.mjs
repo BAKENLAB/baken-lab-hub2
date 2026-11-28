@@ -3,7 +3,7 @@ import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {ENGINE,assertFrozenEngine} from './adapter.mjs';
 import {exerciseExistingGraph,readIssuedGraph,runNormalReview,issueRetrospectiveGraph,issueNativeGraph} from './native-graph-issuance.mjs';
-import {checkAnalysisTime,replayOfficialOriginals} from './work11-original-replay.mjs';
+import {checkAnalysisTime,replayOfficialOriginals,assertTargetOutcomeIsolation} from './work11-original-replay.mjs';
 import {submitAnalysis} from './work04-intake.mjs';
 import {startGraphPreview} from './graph-preview.mjs';
 assert.equal(assertFrozenEngine(),ENGINE);
@@ -12,9 +12,11 @@ const syntax=spawnSync('python3',['-I','-c','import ast,sys; ast.parse(open(sys.
 assert.equal(syntax.status,0,syntax.stderr);
 const a=exerciseExistingGraph('08'),b=exerciseExistingGraph('11'),x=readIssuedGraph(a),y=readIssuedGraph(b);
 assert.deepEqual(y.packet,x.packet);assert.deepEqual(y.facts,x.facts);assert.equal(y.receipt.converterVersion,'11');
+assertTargetOutcomeIsolation(y.packet);
+const leaked=structuredClone(y.packet);leaked.events.find(e=>e.role==='TARGET_CARD').rows[0].observations.finish={state:'HELD',value:null};assert.throws(()=>assertTargetOutcomeIsolation(leaked),/TARGET_HORSE_OUTCOME/);
 const before=runNormalReview(a),after=runNormalReview(b);
 assert.deepEqual(after,before);
-const off=runNormalReview(b,{eyeEnabled:false});assert.equal(off.eyeEnabled,false);assert.ok(off.runners.every(r=>r.items.filter(i=>i.item.startsWith('EYE')).every(i=>i.state==='HELD')));
+const off=runNormalReview(b,{eyeEnabled:false});assert.equal(off.eyeEnabled,false);assert.deepEqual(after.field.actualRolePossibilityRange,[0,2]);assert.ok(off.runners.every(r=>r.items.filter(i=>i.item.startsWith('EYE')).every(i=>i.state==='HELD')));
 const preview=await startGraphPreview(b,{normal:true});
 try{const p=await fetch(preview.url);assert.equal(p.status,200);assert.ok((await p.text()).includes('NORMAL候補'));}finally{await new Promise(ok=>preview.server.close(ok));}
 const timing={cutoff:'2026-11-23T05:00:00Z',startLower:'2026-11-23T05:59:00Z',scheduledPost:'2026-11-23T06:00:00Z',validUntil:'2026-12-01T00:00:00Z'};

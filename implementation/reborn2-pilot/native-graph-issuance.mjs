@@ -15,7 +15,7 @@ import {convertExistingWork44 as convert07,convertApprovedLocal as local07} from
 import {convertExistingWork44 as convert08,convertApprovedLocal as local08} from '../reborn2-work08/offline-converter.mjs';
 export const WORK08='767a8e0bb90bd178e260d6b4b8bcc86fe341520e';
 import {convertApprovedLocal as local11,convertExistingWork44 as convert11,verifyApprovedManifest as verify11} from '../reborn2-work11/offline-converter.mjs';
-import {replayOfficialOriginals,checkAnalysisTime} from './work11-original-replay.mjs';
+import {replayOfficialOriginals,checkAnalysisTime,assertTargetOutcomeIsolation} from './work11-original-replay.mjs';
 const pins={'11':'2854de5e9c8a7f3730e0cb29b5abeda4c4f38195','07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
 for(const v of ['07','08','11']){
  const bytes=readFileSync(new URL('../reborn2-work'+v+'/offline-converter.mjs',import.meta.url));
@@ -125,9 +125,10 @@ export function validateGraphClosure(packet){
  for(const id of m.keys())visit(id);
  return {roots:m.size,verified:done.size};
 }
-function issue(g,{fixture,approvalDigest=null,analysisTiming=null,replayReceipt=null}){
+function issue(g,{fixture,approvalDigest=null,analysisTiming=null,replayReceipt=null,validUntil=null}){
  const {packet,facts,metadata,pkg}=g;
  validateGraphClosure(packet);
+ if(!fixture)assertTargetOutcomeIsolation(packet);
  // Only fixture path may use count-based rank interval; native needs
  // independent historical classification, absent in this schema.
  const runners=computePartial(packet,{native:!fixture,strictMissing:true,completeHistory:fixture?null:[]});
@@ -136,7 +137,7 @@ function issue(g,{fixture,approvalDigest=null,analysisTiming=null,replayReceipt=
   const seen=new Set();function visit(id){if(seen.has(id))return;assert.ok(m.has(id));seen.add(id);m.get(id).depends.forEach(visit);}
   f.directRefs.forEach(visit);assert.deepEqual([...seen].sort(),f.refs);
  }
- const receipt=freeze({...metadata,approvalDigest,scope:packet.scope,outputDigest:sha(runners),...(analysisTiming?{analysisTiming,replayReceipt}:{}),formal:false,realAdmission:false,persistenceAllowed:false});
+ const receipt=freeze({...metadata,approvalDigest,scope:packet.scope,outputDigest:sha(runners),...(analysisTiming?{analysisTiming,replayReceipt,validUntil}:{}),formal:false,realAdmission:false,persistenceAllowed:false});
  const capability=Object.freeze({schema:'REBORN2_GRAPH_REVIEW_CAPABILITY_1',receiptDigest:sha(receipt)});
  registry.set(capability,freeze({packet,facts,receipt,runners,roster:pkg.roster,availability:availability(pkg,runners)}));
  return capability;
@@ -183,7 +184,7 @@ function issueNativeGraphMode(request,mode){
  checkAnalysisTime({mode,cutoff:g.pkg.cutoff,startLower:g.pkg.startLower,scheduledPost:g.pkg.scheduledPost,validUntil:a.validUntil},Date.now());
  // Outcome commitment is a signed external partition attestation, not an
  // outcome or proof of sealing by this process. Never enters packet/engine.
- return issue(g,{fixture:false,approvalDigest,analysisTiming:timing,replayReceipt});
+ return issue(g,{fixture:false,approvalDigest,analysisTiming:timing,replayReceipt,validUntil:a.validUntil});
 }
 // Review preparation deliberately does not issue a graph, run analysis, sign,
 // install authority, or persist. The independent source reviewer must obtain
@@ -303,8 +304,10 @@ export function runNormalReview(c,{eyeEnabled=true}={}){
  assert.equal(typeof eyeEnabled,'boolean');const x=lookup(c);
  if(x.packet.scope==='FIXED_FIXTURE_GRAPH_ONLY')return computeNormal(x.packet,x.roster,{fixture:true,eyeEnabled});
  const timing=x.receipt.analysisTiming;assert.ok(timing,'NATIVE_ANALYSIS_TIMING_REQUIRED');
- const began=Date.now();if(timing.mode==='PROSPECTIVE')assert.ok(began<Date.parse(timing.startLower),'NATIVE_POST_BOUNDARY');
+ assertTargetOutcomeIsolation(x.packet);
+ const began=Date.now();checkAnalysisTime({...timing,cutoff:timing.featureCutoff,validUntil:x.receipt.validUntil},began);
  const result=computeNormalFromSupply(prepareNormalSupply(c),x.receipt.sourceGraphDigest,x.packet,{eyeEnabled});
- const ended=Date.now();if(timing.mode==='PROSPECTIVE')assert.ok(ended<Date.parse(timing.startLower),'NATIVE_POST_BOUNDARY');
- return {...result,analysisTiming:{...timing,analysisAt:new Date(began).toISOString(),completedAt:new Date(ended).toISOString()},retrospective:timing.mode==='RETROSPECTIVE',publicationAllowed:false};
+ const ended=Date.now();checkAnalysisTime({...timing,cutoff:timing.featureCutoff,validUntil:x.receipt.validUntil},ended);
+ const output={...result,analysisTiming:{...timing,analysisAt:new Date(began).toISOString(),completedAt:new Date(ended).toISOString()},retrospective:timing.mode==='RETROSPECTIVE',publicationAllowed:false,approvalDigest:x.receipt.approvalDigest};
+ return {...output,analysisDigest:sha(output)};
 }

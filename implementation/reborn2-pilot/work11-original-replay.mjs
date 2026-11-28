@@ -52,3 +52,23 @@ export function checkAnalysisTime({mode,cutoff,startLower,scheduledPost,validUnt
  else throw Error('ANALYSIS_MODE');
  return {mode,featureCutoff:cutoff,scheduledPost,startLower,analysisAt:new Date(now).toISOString(),prospective:mode==='PROSPECTIVE',publishable:false,externalTimestampVerified:false};
 }
+
+// Independently enforce the feature/outcome partition immediately before
+// engine execution, including source-field nodes rather than only values.
+export function assertTargetOutcomeIsolation(packet){
+ const card=packet.events.filter(e=>e.role==='TARGET_CARD');
+ assert.equal(card.length,1,'TARGET_CARD_COUNT');assert.equal(card[0].eventId,packet.target.eventId);
+ const t=card[0],eventFields=new Set(['surfaceLiteral','directionLiteral','distanceM','goingLiteral','classLiteral','courseVersion','declaredCount']);
+ const horseFields=new Set(['no','displayName','gate','weightG','bodyWeightKg','bodyWeightDeltaKg','sexAge','equipmentLiteral','status']);
+ for(const e of packet.events.filter(e=>e!==t)){assert.equal(e.role,'HISTORICAL_RESULT');assert.ok(e.nativeRaceIdentity.dateJst<t.nativeRaceIdentity.dateJst,'TARGET_OR_LATER_HISTORY');}
+ for(const k of Object.keys(t.observations))assert.ok(eventFields.has(k),'TARGET_EVENT_OUTCOME_OR_UNKNOWN_FIELD');
+ for(const h of t.rows)for(const k of Object.keys(h.observations))assert.ok(horseFields.has(k),'TARGET_HORSE_OUTCOME_OR_UNKNOWN_FIELD');
+ for(const n of packet.roots){
+  const p=n.payload;if(p?.eventId!==t.eventId)continue;
+  if(n.kind.endsWith('_SOURCE_FIELD')||n.kind.endsWith('_OBSERVATION')||n.kind.endsWith('_UNAVAILABLE_FIELD')){
+   assert.ok((p.horseId===null?eventFields:horseFields).has(p.field),'TARGET_OUTCOME_SOURCE_ROOT');
+  }
+  if(n.kind.endsWith('_SOURCE_DOCUMENT'))assert.equal(p.role,'TARGET_CARD','TARGET_OUTCOME_DOCUMENT');
+ }
+ return true;
+}

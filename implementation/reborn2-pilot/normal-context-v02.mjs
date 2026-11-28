@@ -76,9 +76,12 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
  const unresolved=field.filter(x=>x.status!=='ACTIVE'||!x.roles.length).map(x=>x.horse);
  const forwardMin=field.filter(x=>x.status==='ACTIVE'&&x.roles.length===1&&x.roles[0]==='FORWARD').length;
  // This is a range of observed-role candidates, not a physical pace forecast.
- const forwardMax=field.filter(x=>!x.roles.length||x.roles.includes('FORWARD')).length;
+ const forwardMax=field.filter(x=>x.status!=='ACTIVE'||!x.roles.length||x.roles.includes('FORWARD')).length;
+ // A previously observed role is not a constraint on what the horse may
+ // do today. Actual scenario count is not bounded by this profile range.
+ const actualRolePossibilityRange=[0,possible.length];
  const fieldRefs=close(refs(card.eventRoot,o(card,'declaredCount'),field.map(x=>x.refs)));
- const scenarios=['FORWARD','OTHER'].map(role=>({id:'ORDINAL_'+role,role,forwardCandidateRange:[forwardMin,forwardMax],unknownRivals:unresolved,refs:fieldRefs,scope:'CONDITIONAL_SUBJECT_ROLE_NOT_EXHAUSTIVE_FIELD_PACE'}));
+ const scenarios=['FORWARD','OTHER'].map(role=>({id:'ORDINAL_'+role,role,forwardCandidateRange:[forwardMin,forwardMax],actualRolePossibilityRange,unknownRivals:unresolved,refs:fieldRefs,scope:'REPORTED_PROFILE_RANGE_NOT_ACTUAL_ROLE_BOUND'}));
  // Use historical rivals' PRIOR reported role histories, not their realized
  // first-three positions in this same race (that count is tautological).
  // Unknown prior roles widen the range; compare fractions across field sizes.
@@ -138,7 +141,7 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
   // reported finishers in the same family. No global class rating.
   for(const z of usable)for(const p of z.e.rows.filter(q=>q.nativeId!==horse&&finite(v(q,'finish'))))for(const e of hist.filter(e=>e.nativeRaceIdentity.dateJst>z.e.nativeRaceIdentity.dateJst&&compare(z.e,e).kind==='EXACT_REPORTED')){
    const later=past(e,p.nativeId);if(!later?.top3)continue;
-   const f=emit('RANK34','OPPONENT_LATER_COMPARABLE_TOP3',{event:z.event,later:later.event,opponent:p.nativeId,subjectFinish:z.finish,opponentFinish:v(p,'finish'),laterFinish:later.finish},refs(z.refs,later.refs,o(p,'finish'),o(p,'no')),['NOT_GLOBAL_STRENGTH_OR_TRANSITIVE_ORDER']);peerLevel.push({event:z.event,opponent:p.nativeId,refs:f.refs});
+   const f=emit('RANK34','OPPONENT_LATER_COMPARABLE_TOP3',{event:z.event,later:later.event,opponent:p.nativeId,subjectFinish:z.finish,opponentFinish:v(p,'finish'),laterFinish:later.finish},refs(z.refs,later.refs,o(p,'finish'),o(p,'no')),['NOT_GLOBAL_STRENGTH_OR_TRANSITIVE_ORDER']);peerLevel.push({event:z.event,opponent:p.nativeId,order:z.finish<v(p,'finish')?'SUPPORT':z.finish>v(p,'finish')?'COUNTER':'NEUTRAL',refs:f.refs});
   }
   // EYE03 unlocks a distinct late-ordinal-recovery response mode. Both
   // successful and failed runs with the same pattern enter its decision.
@@ -192,13 +195,19 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
   const unknownComparisons=comparisons.filter(c=>c.state==='HELD').map(c=>c.rival);
   const allCompared=comparisons.length>0&&!unknownComparisons.length;
   const allAhead=allCompared&&comparisons.every(c=>c.state==='SUPPORT');
+  const peerSupports=peerLevel.filter(p=>p.order==='SUPPORT'),peerCounters=peerLevel.filter(p=>p.order==='COUNTER');
+  // A later good result of a horse that beat the subject is NOT affirmative
+  // proof of the subject's ability to win. Require a direction and an
+  // actual winning-path event for a peer-only A candidate.
+  const winPeerSupport=winPaths.some(path=>path.events.some(e=>peerSupports.some(p=>p.event===e.event)));
+  const placePeerSupport=placePaths.some(path=>path.events.some(e=>peerSupports.some(p=>p.event===e.event)));
   const sameRaceThreeAhead=usable.some(z=>new Set(comparisons.flatMap(c=>c.direct.filter(d=>d.event===z.event&&d.order==='COUNTER').map(()=>c.rival))).size>=3);
   const perf=distinct(wins)||distinct(places),poor=distinct(bad),exactAnchor=usable.some(z=>z.c.kind==='EXACT_REPORTED'&&z.top3);
   const axis=(axis,state,rs,reason)=>({axis,state,refs:close(refs(rs)),reason});
   const axes=[
    axis('A',perf&&bad.length?'MIXED':perf?'SUPPORT':poor?'COUNTER':'HELD',usable.map(z=>z.refs),'REPEATED_COMPARABLE_OUTCOME_WITH_COUNTERS'),
    axis('B',exactAnchor?'SUPPORT':usable.some(z=>z.c.kind==='EXACT_REPORTED')?'OBSERVED_CONTEXT':'HELD',usable.map(z=>z.refs),'EXACT_ANCHOR_AND_CONDITIONAL_VARIATIONS'),
-   axis('C',supports.length&&counters.length?'MIXED':supports.length?'SUPPORT':counters.length?'COUNTER':peerLevel.length?'CONDITIONAL_PEER_WITNESS':'HELD',refs(comparisons.map(c=>c.refs),peerLevel.map(c=>c.refs)),'DIRECT_COMMON_AND_LATER_OPPONENT_WITNESSES'),
+   axis('C',supports.length&&counters.length?'MIXED':supports.length?'SUPPORT':counters.length?'COUNTER':peerSupports.length&&peerCounters.length?'MIXED_PEER_WITNESS':peerSupports.length?'CONDITIONAL_PEER_WITNESS':peerCounters.length?'COUNTER_PEER_WITNESS':'HELD',refs(comparisons.map(c=>c.refs),peerLevel.map(c=>c.refs)),'DIRECT_COMMON_AND_LATER_OPPONENT_WITNESSES'),
    axis('D',winPaths.length||placePaths.length?(counterPaths.some(p=>p.kind==='PLACE')?'MIXED':'SUPPORT'):counterPaths.some(p=>p.kind==='PLACE'&&p.state==='COUNTER')?'COUNTER':'HELD',refs(fieldRefs,paths.map(p=>p.refs)),'SIMILAR_ORDINAL_RESPONSE_MODES_WITH_UNRESOLVED_RIVALS'),
    axis('E',feedback.length?'CONDITIONAL_DISCOVERY':'HELD',feedback.map(f=>f.refs),'EYE_ADDS_RESPONSE_MODE_NOT_ADDITIONAL_VOTE')
   ];
@@ -209,12 +218,12 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
   else if(a.A==='SUPPORT'&&a.B==='SUPPORT'&&a.D==='SUPPORT'){
    const robustRoles=new Set(winPaths.filter(p=>p.fieldProfileComparisons.every(q=>q.state==='REPORTED_ROLE_PROFILE_OVERLAP')).map(p=>p.scenario)).size===2;
    if(distinct(wins)&&allAhead&&!unresolved.length&&robustRoles&&!bad.length&&!counterPaths.length){grade='S';reason='REPEATED_WIN_SUPPORT_BOTH_REVIEWED_ROLE_MODES_ALL_RIVALS_NO_COUNTER';}
-   else if(winPaths.length&&!bad.length&&!counters.length&&['SUPPORT','CONDITIONAL_PEER_WITNESS'].includes(a.C)){grade='A';reason='CONDITIONAL_WIN_WITH_ANCHORED_RIVAL_OR_PEER_SUPPORT';}
-   else if(placePaths.length&&!bad.length&&!sameRaceThreeAhead&&['SUPPORT','MIXED','COUNTER','CONDITIONAL_PEER_WITNESS'].includes(a.C)){grade='B';reason='CONDITIONAL_TOP3_WITH_NONBLOCKING_RIVAL_EVIDENCE';}
+   else if(winPaths.length&&!bad.length&&!counters.length&&!peerCounters.length&&(a.C==='SUPPORT'||a.C==='CONDITIONAL_PEER_WITNESS'&&winPeerSupport)){grade='A';reason='CONDITIONAL_WIN_WITH_ANCHORED_RIVAL_OR_PEER_SUPPORT';}
+   else if(placePaths.length&&!bad.length&&!sameRaceThreeAhead&&(['SUPPORT','MIXED','COUNTER'].includes(a.C)||a.C==='CONDITIONAL_PEER_WITNESS'&&placePeerSupport)){grade='B';reason='CONDITIONAL_TOP3_WITH_NONBLOCKING_RIVAL_EVIDENCE';}
   }
   // A/B are conditional and may coexist with unknown other horses; S needs
   // both reviewed role modes and no unresolved rival. None is formal.
-  return {...old,candidateGrade:grade,decisionReason:reason,formalGrade:null,axes,items:[...items.values()],winPaths,placePaths,counterPaths,feedback,comparisons,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:unique([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedRivals:unresolved,unknownComparisons,matchedHistory:usable.map(report)},decisionEvidence:{refs:close(refs(fieldRefs,axes.map(a=>a.refs),paths.map(p=>p.refs))),allCompared,allAhead,sameRaceThreeAhead,exactAnchor,unresolved,unknownComparisons,eyeEnabled,formal:false}};
+  return {...old,candidateGrade:grade,decisionReason:reason,formalGrade:null,axes,items:[...items.values()],winPaths,placePaths,counterPaths,feedback,comparisons,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:unique([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedRivals:unresolved,unknownComparisons,matchedHistory:usable.map(report)},decisionEvidence:{refs:close(refs(fieldRefs,axes.map(a=>a.refs),paths.map(p=>p.refs))),allCompared,allAhead,sameRaceThreeAhead,exactAnchor,unresolved,unknownComparisons,winPeerSupport,placePeerSupport,peerSupport:peerSupports,peerCounter:peerCounters,eyeEnabled,formal:false}};
  });
- return {...base,schema:VERSION,field:{...base.field,rosterBound,roleOptions:field,forwardCandidateRange:[forwardMin,forwardMax],unresolved,reviewedRoleScenarios:scenarios,scenarioCoverage:'TWO_CONDITIONAL_SUBJECT_MODES_NOT_EXHAUSTIVE'},runners:result,eyeEnabled,formal:false};
+ return {...base,schema:VERSION,field:{...base.field,rosterBound,roleOptions:field,forwardCandidateRange:[forwardMin,forwardMax],actualRolePossibilityRange,unresolved,reviewedRoleScenarios:scenarios,scenarioCoverage:'TWO_CONDITIONAL_SUBJECT_MODES_NOT_EXHAUSTIVE'},runners:result,eyeEnabled,formal:false};
 }

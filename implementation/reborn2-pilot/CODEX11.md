@@ -26,3 +26,7 @@ originals/authority not supplied. No actual source acquired or results read.
 Native EYE toggle goes through actual issued supply. V0.2 grade policy
 unchanged pending real evidence; S/A not proven. Test05 baseline39,
 V48/884/484 preserved. No DB/FROZEN/CLAIM/Cron/merge/deploy/paid API.
+
+## Work12 source availability and candidate safeguards
+Work12 original recovery report21733f682854a77c00b153b4897027331fce213c:
+Tokyo9 metadata id3644,195405 bytes, SHA abd9fc000f00a6bc30e6d34ba0888a36e163c14a38460be5cebd89059b63868e; original not recovered. Standard capture stored metadata only according to Work12, no independent re-query here. Alternative Saga5 17:00 candidate seven rows at Work12 14:16 check, not certified, permission and original bytes absent. No actual approved source can be used now; do not fetch or substitute post-cutoff originals. No source/DB query by Codex11. Actual analysis guard additionally verifies target outcome field absence incl roots, uses actual host beginning/end and approval expiry, output digest. Retrospective outcome commitment is external attestation only, no label input. Peer later performance now directional: A cannot use a horse that beat subject as affirmative winning witness; peer-only route requires supported actual path event. Unknown status role options included in documented profile range, actual possibility range distinct (not inferred role bounds). No evidence of real S/A or positive EYE change; prior EYE counter ablation preserved. No new races or performance claim.
