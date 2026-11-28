@@ -5,7 +5,7 @@ const contract=JSON.parse(readFileSync(new URL('./native-fact-contract.json',imp
 function inspectNativeFactShape(p,c){
  const fail=msg=>{throw new Error(msg)};
  const check=(v,msg)=>{if(!v)fail(msg)};
- const exact=(x,keys)=>check(x&&typeof x==="object"&&!Array.isArray(x)&&Object.keys(x).sort().join("|")===[...keys].sort().join("|"),"UNEXPECTED_KEYS");
+ const exact=(x,keys)=>check(x&&typeof x==="object"&&!Array.isArray(x)&&Object.keys(x).length===keys.length&&keys.every(k=>Object.hasOwn(x,k)),"UNEXPECTED_KEYS");
  const str=x=>typeof x==="string"&&x.length>0&&x.length<=1024&&!/[\x00-\x1f]/.test(x);
  const int=(x,min,max)=>Number.isSafeInteger(x)&&x>=min&&x<=max;
  const ts=x=>typeof x==="string"&&/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(x)&&Number.isFinite(Date.parse(x))&&new Date(x).toISOString()===x;
@@ -31,13 +31,13 @@ function inspectNativeFactShape(p,c){
  check(roster.size>0,"ROSTER_REQUIRED");
  const docs=new Map();
  for(const s of p.documents){
-  exact(s,d.document);check(str(s.id)&&!docs.has(s.id)&&events.has(s.eventId)&&s.role===events.get(s.eventId).role&&[s.sourceRef,s.permissionRef,s.custodyRef].every(str)&&int(s.version,1,Number.MAX_SAFE_INTEGER)&&/^[a-f0-9]{64}$/.test(s.sha256),"DOCUMENT_IDENTITY");
+  exact(s,d.document);check(str(s.id)&&!docs.has(s.id)&&events.has(s.eventId)&&s.role===events.get(s.eventId).role&&[s.sourceRef,s.permissionRef,s.custodyRef].every(str)&&int(s.version,1,Number.MAX_SAFE_INTEGER)&&typeof s.sha256==="string"&&/^[a-f0-9]{64}$/.test(s.sha256),"DOCUMENT_IDENTITY");
   check([s.publishedAt,s.updatedAt,s.capturedAt].every(ts)&&int(s.uncertaintyMs,0,Number.MAX_SAFE_INTEGER)&&t(s.publishedAt)<=t(s.updatedAt)&&t(s.updatedAt)<=t(s.capturedAt)&&t(s.capturedAt)+s.uncertaintyMs<=t(p.cutoff),"DOCUMENT_TIME");
   check(s.supersedes===null||str(s.supersedes),"VERSION_LINK");docs.set(s.id,s);
  }
  check([...docs.values()].some(s=>s.eventId===target.id),"TARGET_DOCUMENT_REQUIRED");
  for(const s of docs.values())if(s.supersedes!==null){const b=docs.get(s.supersedes);check(b&&b.eventId===s.eventId&&b.sourceRef===s.sourceRef&&b.version<s.version&&t(b.updatedAt)<=t(s.updatedAt),"VERSION_LINEAGE");}
- const seen=new Set(), counts={OBSERVED:0,MISSING:0,HELD:0,CONFLICT:0},histRows=new Map();
+ const seen=new Set(), verifiedStatusShapes=new Set(), counts={OBSERVED:0,MISSING:0,HELD:0,CONFLICT:0},histRows=new Map();
  const valueOK=(f,v)=>{
   if(["gate","declaredCount","finish"].includes(f))return int(v,1,24);
   if(["distanceM","weightG","final600Ms","bodyWeightKg"].includes(f))return int(v,1,1000000);
@@ -57,9 +57,10 @@ function inspectNativeFactShape(p,c){
   if(o.state==="OBSERVED")check(valueOK(o.field,o.value)&&o.reason===null&&o.roots.length>0,"OBSERVED_VALUE");
   else check(o.value===null&&str(o.reason),"MISSING_OR_CONFLICT_REASON");
   for(const root of o.roots){exact(root,d.root);check(docs.get(root.documentId)?.eventId===e.id&&root.field===o.field&&str(root.rowPointer)&&str(root.proofRef),"FIELD_ROOT_BINDING");}
+  if(e.role==="TARGET_CARD"&&o.field==="status"&&o.state==="OBSERVED"){check(roster.get(o.horseId)?.status===o.value,"STATUS_CONFLICT");verifiedStatusShapes.add(o.horseId);}
   counts[o.state]++;
  }
- const rosterMissing=p.roster.filter(h=>!seen.has(key(target.id,h.horseId,"status"))).length;
+ const rosterMissing=p.roster.filter(h=>!verifiedStatusShapes.has(h.horseId)).length;
  return {state:"HELD_REAL_ADMISSION",counts,rosterCount:roster.size,rosterStatusMissing:rosterMissing,historyRowCandidates:histRows.size,blockers:["INDEPENDENT_SOURCE_PERMISSION","OFFICIAL_NATIVE_EVENT_AND_ROW_WITNESSES","ORIGINAL_CUSTODY_AND_COMPLETE_ASOF_INVENTORY","INDEPENDENT_FULL_ROSTER_STATUS_VERIFICATION","REVIEWED_REAL_ADMISSION_AND_ANALYSIS_ADAPTER"],realAdmission:false,engineInput:null,projectionAllowed:false,persistenceAllowed:false};
 }
 export const inspectNativeFacts=p=>inspectNativeFactShape(p,contract);
