@@ -1,11 +1,11 @@
-name: REBORN2 practical Test01 independent
+name: REBORN2 practical Test02 independent
 on:
   pull_request:
     branches: [research/reborn2-main48-test-ci-base]
 permissions:
   contents: read
 jobs:
-  test01:
+  regression:
     if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -19,29 +19,31 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 5ffaba5d8a8d5892adb2b2721092d1e3a4984842
-          path: fixed-codex02
+          ref: 3b11bc964f96859893d890351761510f23e9abe9
+          path: fixed-codex03
           fetch-depth: 0
           persist-credentials: false
-      - name: Independent Test01 fixed implementation
+      - name: Test02 regression fixed independent
         shell: bash
         run: |
+          git rev-parse HEAD
+          node --version
           set +e
-          node research/reborn2-independent-tests/probe-practical-test01.mjs fixed-codex02 5ffaba5d8a8d5892adb2b2721092d1e3a4984842 > "$RUNNER_TEMP/test01.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-regression.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/regression.log" 2>&1
           rc=$?
-          cat "$RUNNER_TEMP/test01.log"
-          echo "TEST01_EXIT=$rc"
+          cat "$RUNNER_TEMP/regression.log"
+          echo "TEST02_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-practical-test01
-          path: ${{ runner.temp }}/test01.log
+          name: reborn2-test02-regression
+          path: ${{ runner.temp }}/regression.log
 
-  test01-negative:
+  original-negatives:
     if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -52,21 +54,93 @@ jobs:
           node-version: '22'
       - uses: actions/checkout@v4
         with:
-          ref: 5ffaba5d8a8d5892adb2b2721092d1e3a4984842
-          path: fixed-codex02
+          ref: 3b11bc964f96859893d890351761510f23e9abe9
+          path: fixed-codex03
           fetch-depth: 0
           persist-credentials: false
-      - name: Test01 result and identity negative controls
+      - name: Test02 original-negatives fixed independent
         shell: bash
         run: |
+          git rev-parse HEAD
+          node --version
           set +e
-          node research/reborn2-independent-tests/probe-practical-test01-negative.mjs fixed-codex02 5ffaba5d8a8d5892adb2b2721092d1e3a4984842 > "$RUNNER_TEMP/test01-negative.log" 2>&1
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test01-negative.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/original-negatives.log" 2>&1
           rc=$?
-          cat "$RUNNER_TEMP/test01-negative.log"
-          echo "TEST01_NEGATIVE_EXIT=$rc"
+          cat "$RUNNER_TEMP/original-negatives.log"
+          echo "TEST02_EXIT=$rc"
           exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: reborn2-practical-test01-negative
-          path: ${{ runner.temp }}/test01-negative.log
+          name: reborn2-test02-original-negatives
+          path: ${{ runner.temp }}/original-negatives.log
+
+  integrity:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3b11bc964f96859893d890351761510f23e9abe9
+          path: fixed-codex03
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test02 integrity fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-integrity.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/integrity.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/integrity.log"
+          echo "TEST02_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test02-integrity
+          path: ${{ runner.temp }}/integrity.log
+
+  native-full:
+    if: github.head_ref == 'research/reborn2-independent-main48-final-test' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          ref: 3b11bc964f96859893d890351761510f23e9abe9
+          path: fixed-codex03
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test02 native-full fixed independent
+        shell: bash
+        run: |
+          git rev-parse HEAD
+          node --version
+          set +e
+          node --max-old-space-size=4096 research/reborn2-independent-tests/probe-practical-test02-native-full.mjs fixed-codex03 3b11bc964f96859893d890351761510f23e9abe9 > "$RUNNER_TEMP/native-full.log" 2>&1
+          rc=$?
+          cat "$RUNNER_TEMP/native-full.log"
+          echo "TEST02_EXIT=$rc"
+          exit "$rc"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reborn2-test02-native-full
+          path: ${{ runner.temp }}/native-full.log
