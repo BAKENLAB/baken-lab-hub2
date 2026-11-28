@@ -30,3 +30,10 @@ await assert.rejects(()=>submitAnalysis({schema:'REBORN2_NORMAL_RETROSPECTIVE_RE
 assert.throws(()=>replayOfficialOriginals({documents:[{id:'missing',format:'JRA_CORNER_HTML_PROJECTION_1'}]},new Map(),new Map()),/WORK11_ORIGINAL_INVENTORY/);
 console.log('CODEX11_WORK11_FIXED_CSV_GRAPH_NORMAL_PREVIEW PASS '+JSON.stringify({facts:y.facts.length,roots:y.packet.roots.length,grades:after.runners.map(h=>h.candidateGrade),htmlReplayExecuted:false,realAdmission:false}));
 console.log('CODEX11_RETROSPECTIVE_BOUNDARY_AND_EXTRACTOR_SYNTAX PASS');
+
+// Actual local operator entry must fail before accessing even nonexistent
+// input paths when authority is not provisioned. No new race or raw data.
+const local=fileURLToPath(new URL('./run-approved-local.mjs',import.meta.url));
+const stopped=spawnSync(process.execPath,[local,'RETROSPECTIVE','/nonexistent-manifest','/nonexistent-approval','/nonexistent-index'],{encoding:'utf8',timeout:10000});
+assert.notEqual(stopped.status,0);assert.match(stopped.stderr,/MAIN_NATIVE_APPROVAL_NOT_CONFIGURED/);assert.ok(!stopped.stderr.includes('ENOENT'));
+console.log('CODEX11_LOCAL_OPERATOR_PREOPEN_GATE PASS');

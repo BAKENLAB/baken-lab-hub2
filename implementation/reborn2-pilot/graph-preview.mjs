@@ -45,5 +45,5 @@ export async function startGraphPreview(capability,{port=0,normal=false}={}){
   }catch{return send(404,'Not found');}
  });
  await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',resolve);});
- return {server,url:'http://127.0.0.1:'+server.address().port+base+'/',detailReads:()=>detailReads};
+ return {server,url:'http://127.0.0.1:'+server.address().port+base+'/',detailReads:()=>detailReads,analysisReceipt:candidate?.analysisTiming?{timing:candidate.analysisTiming,analysisDigest:candidate.analysisDigest,sourceGraphDigest:candidate.sourceGraphDigest,approvalDigest:candidate.approvalDigest,formal:false}:null};
 }

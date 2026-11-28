@@ -156,11 +156,11 @@ export function exerciseExistingGraph(version='08'){
 // itself of source authenticity. No key/pin or real source configured.
 export function issueNativeGraph(request){return issueNativeGraphMode(request,'PROSPECTIVE');}
 export function issueRetrospectiveGraph(request){return issueNativeGraphMode(request,'RETROSPECTIVE');}
-function issueNativeGraphMode(request,mode){
+function verifyAdmissionHeader(request,mode){
  assert.equal(authority.state,'CONFIGURED','MAIN_NATIVE_APPROVAL_NOT_CONFIGURED');
  const startAt=Date.now();
  const v11=request?.version==='11';
- exact(request,['version','signedManifest','raws','approval',...(v11?['originals']:[])]);
+ exact(request,['version','signedManifest','approval']);
  assert.ok(['07','08','11'].includes(request.version));
  const manifestDigest=verifyPinned(request.signedManifest,authority.sourceKey,authority.sourcePins);
  const approvalDigest=verifyPinned(request.approval,authority.reviewKey,authority.approvalPins),a=request.approval.payload;
@@ -171,6 +171,22 @@ function issueNativeGraphMode(request,mode){
  for(const k of ['rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest',...extra])assert.ok(hex(a[k]),'INDEPENDENT_REVIEW_DIGEST');
  const timing=checkAnalysisTime({mode,cutoff:request.signedManifest.payload.cutoff,startLower:request.signedManifest.payload.startLower,scheduledPost:request.signedManifest.payload.scheduledPost,validUntil:a.validUntil},startAt);
  const sourceTrust={authorityPublicKeyPem:authority.sourceKey,expectedManifestSha256:manifestDigest};
+ return {v11,manifestDigest,approvalDigest,a,timing,sourceTrust};
+}
+// The local operator can validate independently installed authority and
+// signed metadata BEFORE opening any original or derived source files.
+export function inspectApprovedLocalHeader(request,mode){
+ const h=verifyAdmissionHeader(request,mode);
+ assert.equal(request.version,'11','LOCAL_WORK11_REQUIRED');
+ const manifest=verify11(request.signedManifest,h.sourceTrust);
+ return {documents:structuredClone(manifest.documents),mode,sourceManifestDigest:h.manifestDigest,approvalDigest:h.approvalDigest,sourceFilesAuthorizedForLocalReview:true,analysisExecuted:false};
+}
+export function assertNativeAuthorityConfigured(){assert.equal(authority.state,'CONFIGURED','MAIN_NATIVE_APPROVAL_NOT_CONFIGURED');}
+function issueNativeGraphMode(request,mode){
+ assertNativeAuthorityConfigured();
+ const v11=request?.version==='11';
+ exact(request,['version','signedManifest','raws','approval',...(v11?['originals']:[])]);
+ const {manifestDigest,approvalDigest,a,timing,sourceTrust}=verifyAdmissionHeader({version:request.version,signedManifest:request.signedManifest,approval:request.approval},mode);
  let replayReceipt=null;
  if(v11){const manifest=verify11(request.signedManifest,sourceTrust);replayReceipt=replayOfficialOriginals(manifest,request.raws,request.originals);assert.equal(replayReceipt.replayDigest,a.originalReplayDigest,'APPROVAL_ORIGINAL_REPLAY_BINDING');}
  const x=(v11?local11:request.version==='08'?local08:local07)(request.signedManifest,request.raws,sourceTrust);
