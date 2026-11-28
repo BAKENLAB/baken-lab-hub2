@@ -52,11 +52,14 @@ export function itemSupplyIndex(inventory,supply){
  return {schema:'REBORN2_STAGE1_PER_RUN_ITEM_SUPPLY_1',supplyDigest:supply.digest,rows,formal:false};
 }
 export function relationCandidates(supply){
- const direct=[],adjacent=[],opponentContext=[];
+ const direct=[],adjacent=[],opponentContext=[],directKeys=new Set(),currentIds=new Set(supply.roster.filter(h=>h.horseId).map(h=>h.horseId));
  for(const e of supply.archive??[]){
   const own=supply.history.filter(h=>h.event===e.event).map(h=>({h,row:e.rows.find(x=>x.horseId===h.horseId&&x.pastNo===h.pastNo)})).filter(x=>x.row);
   for(const [i,a] of own.entries()){
-   for(const b of own.slice(i+1))if(a.h.horseId!==b.h.horseId&&a.row.facts.finish&&b.row.facts.finish)direct.push({event:e.event,a:a.row.root,b:b.row.root,finishA:a.row.facts.finish.value,finishB:b.row.facts.finish.value,tier:'EXACT_ROW_PAIR_NOT_GRADE'});
+   for(const b of e.rows.filter(q=>q.horseId!==a.h.horseId&&currentIds.has(q.horseId))){
+    const fa=Number(a.row.facts.finish?.value),fb=Number(b.facts.finish?.value),key=[e.event,...[a.h.horseId,b.horseId].sort()].join('|');
+    if(Number.isInteger(fa)&&fa>0&&Number.isInteger(fb)&&fb>0&&!directKeys.has(key)){directKeys.add(key);direct.push({event:e.event,a:a.row.root,b:b.root,finishA:fa,finishB:fb,tier:'EXACT_ROW_PAIR_NOT_GRADE'});}
+   }
    const rank=Number(a.row.facts.finish?.value);if(Number.isInteger(rank)&&rank>0){
     const next=e.rows.filter(x=>Number(x.facts.finish?.value)===rank+1);
     if(next.length===1&&a.row.facts.clock&&next[0].facts.clock)adjacent.push({event:e.event,own:a.row.root,other:next[0].root,ownClock:a.row.facts.clock.value,otherClock:next[0].facts.clock.value,tier:'OBSERVED_NEXT_RANK_CLOCK_PAIR_NOT_OFFICIAL_MARGIN'});
@@ -65,4 +68,32 @@ export function relationCandidates(supply){
   }
  }
  return {direct,adjacent,opponentContext,formal:false};
+}
+
+// Stored LOCAL historical result rows have no native horse ID. Preserve them
+// independently; bind only rows corroborated by the separate ID-bound snapshot.
+export function bindLocalArchive(input,card,snapshot){
+ const cutoff=Date.parse(card.target.cutoff),events=[],holds=[];
+ ok(Number.isFinite(cutoff)&&Array.isArray(input.events),'LOCAL_ARCHIVE_INPUT');
+ const seen=new Set();
+ for(const e of input.events){
+  const k=event({track:e.track,date:e.race_date,raceNo:e.race_no});
+  if(!codes[e.track]||e.race_date>=card.target.raceDate||!Number.isFinite(Date.parse(e.created_at))||Date.parse(e.created_at)>cutoff||e.source!=='NAR_OFFICIAL_RACEMARK'||seen.has(k)){holds.push({event:k,reason:'LOCAL_ARCHIVE_EVENT_HELD'});continue;}
+  seen.add(k);
+  const recorded=e.rows??[],numbers=new Set(),rows=[],unboundRows=[];
+  const eventRoot={event:k,sourceRef:'https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable?k_babaCode='+codes[e.track]+'&k_raceDate='+e.race_date.replaceAll('-','%2F')+'&k_raceNo='+e.race_no,storedResultId:e.id,observedAt:e.created_at};
+  for(const [i,z] of recorded.entries()){
+   const no=Number(z.no);
+   const root={...eventRoot,pastNo:no,pointer:'/finishers/'+i};
+   if(!Number.isInteger(no)||no<1||no>24||numbers.has(no)){unboundRows.push({root,reason:'ROW_NUMBER_HELD'});continue;}numbers.add(no);
+   const candidate=card.history.filter(h=>h.event===k&&h.pastNo===no&&Number(h.facts.finish?.value)===Number(z.finish)&&h.facts.clock?.value===z.clock);
+   const x=candidate.length===1?candidate[0]:null, witness=x?snapshot.accepted.filter(c=>c.event===k&&c.pastNo===no&&c.horseId===x.horseId):[];
+   const facts=Object.fromEntries(Object.entries({finish:z.finish,clock:z.clock,marginLiteral:z.margin}).filter(([f,v])=>v!==null&&v!==undefined&&v!=='').map(([f,v])=>[f,{value:v,root,tier:'STORED_RESULT_ROW_NOT_ORIGINAL'}]));
+   if(!x||witness.length!==1){unboundRows.push({root,facts,reason:'NATIVE_HORSE_ID_NOT_IN_STORED_RESULT'});continue;}
+   rows.push({horseId:x.horseId,pastNo:no,root:{...root,horseId:x.horseId,witness:witness[0].root},facts,tier:'CROSS_SOURCE_EVENT_NUMBER_FINISH_CLOCK_AND_ID_WITNESS_NOT_ORIGINAL'});
+  }
+  const context=Object.fromEntries(Object.entries({distance:e.metadata?.distance,surface:e.metadata?.surface,going:e.metadata?.going}).filter(([k,v])=>v!=null).map(([k,v])=>[k,{value:v,root:eventRoot,tier:'STORED_RESULT_METADATA'}]));
+  events.push({event:k,rows,context,unboundRows,rawRowCount:recorded.length,nonFinisherCount:e.nonfinishers?.length??null,recordedFullFinishField:false,explicitStarterClassification:false});
+ }
+ return {events,holds};
 }
