@@ -11,15 +11,16 @@ import {startPreview} from './mobile-preview.mjs';
 const chrome=['google-chrome','chromium','chromium-browser'].find(x=>spawnSync('which',[x],{stdio:'ignore'}).status===0);
 if(!chrome){console.log('CODEX02_BROWSER_NOT_AVAILABLE');process.exit(0);}
 const dir=await mkdtemp(join(tmpdir(),'reborn2-browser-'));
-let child,preview,ws;
+let child,preview,ws,stderr='';
 const delay=ms=>new Promise(ok=>setTimeout(ok,ms));
 try{
  const archive=await saveCompact(join(dir,'archive'),await executeFixture('FK34_FULL'));
  preview=await startPreview(archive.root,archive.manifestDigest);
- child=spawn(chrome,['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--disable-background-networking','--no-first-run','--no-default-browser-check','--remote-debugging-port=0','--remote-debugging-address=127.0.0.1','--user-data-dir='+join(dir,'profile'),'about:blank'],{stdio:'ignore'});
+ child=spawn(chrome,['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--disable-background-networking','--no-first-run','--no-default-browser-check','--remote-debugging-port=0','--remote-debugging-address=127.0.0.1','--user-data-dir='+join(dir,'profile'),'about:blank'],{stdio:['ignore','ignore','pipe']});
+ child.stderr.on('data',d=>{stderr=(stderr+d).slice(-4000);});
  let port;
- for(let n=0;n<100&&!port;n++){try{port=(await readFile(join(dir,'profile','DevToolsActivePort'),'utf8')).split('\n')[0];}catch{await delay(100);}}
- assert.ok(port,'CHROME_START');
+ for(let n=0;n<300&&!port;n++){if(child.exitCode!==null||child.signalCode!==null)break;try{port=(await readFile(join(dir,'profile','DevToolsActivePort'),'utf8')).split('\n')[0];}catch{await delay(100);}}
+ assert.ok(port,'CHROME_START '+stderr);
  const tabs=await (await fetch('http://127.0.0.1:'+port+'/json/list')).json(),tab=tabs.find(t=>t.type==='page');
  ws=new WebSocket(tab.webSocketDebuggerUrl);await new Promise((ok,fail)=>{ws.addEventListener('open',ok,{once:true});ws.addEventListener('error',fail,{once:true});});
  let seq=0;const pending=new Map();ws.addEventListener('message',e=>{const m=JSON.parse(e.data);if(m.id&&pending.has(m.id)){const {ok,fail,t}=pending.get(m.id);clearTimeout(t);pending.delete(m.id);m.error?fail(Error(JSON.stringify(m.error))):ok(m.result);}});
