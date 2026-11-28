@@ -79,6 +79,22 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
  const forwardMax=field.filter(x=>!x.roles.length||x.roles.includes('FORWARD')).length;
  const fieldRefs=close(refs(card.eventRoot,o(card,'declaredCount'),field.map(x=>x.refs)));
  const scenarios=['FORWARD','OTHER'].map(role=>({id:'ORDINAL_'+role,role,forwardCandidateRange:[forwardMin,forwardMax],unknownRivals:unresolved,refs:fieldRefs,scope:'CONDITIONAL_SUBJECT_ROLE_NOT_EXHAUSTIVE_FIELD_PACE'}));
+ // Use historical rivals' PRIOR reported role histories, not their realized
+ // first-three positions in this same race (that count is tautological).
+ // Unknown prior roles widen the range; compare fractions across field sizes.
+ // No inference from chronological order within a date.
+ function composition(z){
+  const e=z.e,rows=e.rows,count=v(e,'declaredCount'),subjectConvention=z.p?.convention;
+  if(!subjectConvention||!Number.isInteger(count)||count!==rows.length||count<4)return {state:'HISTORICAL_FIELD_PROFILE_UNVERIFIED',range:null,refs:z.refs};
+  const options=rows.map(r=>{
+   const prior=hist.filter(q=>q.nativeRaceIdentity.dateJst<e.nativeRaceIdentity.dateJst&&compare(e,q).kind==='EXACT_REPORTED').map(q=>{const h=row(q,r.nativeId),p=h?position(q,h):null;return p?.convention===subjectConvention?p:null;}).filter(Boolean);
+   return {horse:r.nativeId,roles:unique(prior.map(p=>p.role)),refs:refs(o(r,'no'),prior.map(p=>p.refs))};
+  });
+  const min=options.filter(q=>q.roles.length===1&&q.roles[0]==='FORWARD').length,max=options.filter(q=>!q.roles.length||q.roles.includes('FORWARD')).length;
+  const unknown=options.filter(q=>!q.roles.length).map(q=>q.horse);
+  const overlap=min*possible.length<=forwardMax*count&&forwardMin*count<=max*possible.length;
+  return {state:unknown.length?'HISTORICAL_FIELD_PROFILE_UNVERIFIED':overlap?'REPORTED_ROLE_PROFILE_OVERLAP':'REPORTED_ROLE_PROFILE_NONOVERLAP',range:[min,max],fieldSize:count,unknown,refs:refs(z.refs,options.map(q=>q.refs))};
+ }
  const result=base.runners.map(old=>{
   const horse=old.horse,h=roster.find(q=>q.horseId===horse),own=field.find(q=>q.horse===horse),runs=profiles.get(horse)??[];
   const items=new Map(old.items.map(i=>[i.item,{...i,findings:[...i.findings]}]));
@@ -87,6 +103,7 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
   for(const id of ['RANK01','RANK12','RANK13','RANK34','RANK36','RANK58','RANK60','RANK63','RANK65','RANK69','RANK70','RANK74','RANK95','RANK99','RANK100','EYE03','EYE07']){
    const i=items.get(id);i.findings=[];i.state='HELD';i.reason='NORMAL_V02_COMPARISON_NOT_ESTABLISHED';
   }
+  if(!eyeEnabled){for(const i of items.values()){if(i.item.startsWith('EYE')){i.findings=[];i.state='HELD';i.reason='EYE_ABLATION_OFF';}else{i.findings=i.findings.filter(f=>!f.type.startsWith('EYE'));if(!i.findings.length){i.state='HELD';i.reason='EYE_ABLATION_OFF_OR_NO_MATERIAL';}}}}
   const emit=(id,type,value,rs,limits=[],s='DERIVED_COMPARISON')=>{
    const i=items.get(id);assert.ok(i&&['F','C'].includes(i.category));const direct=refs(rs);if(!direct.length)return null;
    const f={id:sha([VERSION,horse,id,type,value,direct]),item:id,type,value,directRefs:direct,refs:close(direct),limits,state:s,formal:false};i.findings.push(f);i.state=s;i.reason=null;return f;
@@ -132,9 +149,9 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
    const byConvention=new Map();
    for(const z of usable.filter(z=>z.p?.role===scenario.role)){const a=byConvention.get(z.p.convention)??[];a.push(z);byConvention.set(z.p.convention,a);}
    for(const [convention,rs] of byConvention){
-    for(const mode of ['FRONT_AT_LAST_REPORTED_POINT','LATE_ORDINAL_RECOVERY']){
+    for(const mode of ['FRONT_AT_LAST_REPORTED_POINT','LATE_ORDINAL_RECOVERY','LATE_POSITION_NONRECOVERY_COUNTER']){
      if(mode==='LATE_ORDINAL_RECOVERY'&&!eyeEnabled)continue;
-     const related=rs.filter(z=>mode==='FRONT_AT_LAST_REPORTED_POINT'?z.p.last<=3:recovery(z));
+     const related=rs.filter(z=>mode==='FRONT_AT_LAST_REPORTED_POINT'?z.p.last<=3:mode==='LATE_ORDINAL_RECOVERY'?recovery(z):z.p.last>3&&!recovery(z));
      if(!related.length)continue;
      const recoverySuccess=related.filter(z=>z.top3&&z.finish<z.p.last);
      if(mode==='LATE_ORDINAL_RECOVERY'&&!distinct(recoverySuccess))continue;
@@ -146,14 +163,16 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
       feedback.push({eye:'EYE03',target:'RANK74',findingId:q.id,eyeId,scenario:scenario.id,mode,refs:q.refs});
      }
      for(const kind of ['WIN','PLACE']){
-      const support=related.filter(z=>kind==='WIN'?z.finish===1:z.top3);
+      const assessed=related.map(z=>({z,composition:composition(z)}));
+      const support=assessed.filter(q=>q.composition.state!=='REPORTED_ROLE_PROFILE_NONOVERLAP'&&(kind==='WIN'?q.z.finish===1:q.z.top3)).map(q=>q.z);
       const counter=related.filter(z=>kind==='WIN'?z.finish!==1:z.nonplace);
+      if(mode==='LATE_POSITION_NONRECOVERY_COUNTER'&&(kind!=='PLACE'||support.length))continue;
       if(!distinct(support)&&!distinct(counter))continue;
       const hasAnchor=support.some(z=>z.c.kind==='EXACT_REPORTED');
       // Variation transfer requires a current exact anchor; a change in
       // venue/going/direction alone is not grounds for positive grade.
       const pathState=distinct(support)&&hasAnchor?(counter.length?'MIXED':'SUPPORT'):distinct(counter)&&!support.length?'COUNTER':'HELD';
-      paths.push({kind,scenario:scenario.id,mode,convention,state:pathState,events:support.map(report),counter:counter.map(report),eyeId,unknownRivals:unresolved,refs:close(evidence),scope:'CONDITIONAL_SIMILAR_ORDINAL_RESPONSE_NOT_SAME_LEADER'});
+      paths.push({kind,scenario:scenario.id,mode,convention,state:pathState,events:support.map(report),counter:counter.map(report),eyeId,unknownRivals:unresolved,fieldProfileComparisons:assessed.map(q=>({event:q.z.event,...q.composition})),refs:close(refs(evidence,assessed.map(q=>q.composition.refs))),scope:'CONDITIONAL_SIMILAR_ORDINAL_RESPONSE_NOT_SAME_LEADER'});
      }
     }
    }
@@ -188,7 +207,7 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
   if(h.status!=='ACTIVE'||!knownStatus(h)||!rosterBound)reason='CURRENT_FIELD_OR_COMPARABLE_HISTORY_INCOMPLETE';
   else if(a.A==='COUNTER'&&a.C==='COUNTER'&&a.D==='COUNTER'&&counterPaths.some(p=>p.kind==='PLACE'&&p.state==='COUNTER')&&!winPaths.length&&!placePaths.length&&!feedback.length){grade='C';reason='REPEATED_COMPARABLE_NONPLACE_WITH_CONCRETE_ROLE_COUNTER_AND_RIVAL_COUNTER';}
   else if(a.A==='SUPPORT'&&a.B==='SUPPORT'&&a.D==='SUPPORT'){
-   const robustRoles=new Set(winPaths.map(p=>p.scenario)).size===2;
+   const robustRoles=new Set(winPaths.filter(p=>p.fieldProfileComparisons.every(q=>q.state==='REPORTED_ROLE_PROFILE_OVERLAP')).map(p=>p.scenario)).size===2;
    if(distinct(wins)&&allAhead&&!unresolved.length&&robustRoles&&!bad.length&&!counterPaths.length){grade='S';reason='REPEATED_WIN_SUPPORT_BOTH_REVIEWED_ROLE_MODES_ALL_RIVALS_NO_COUNTER';}
    else if(winPaths.length&&!bad.length&&!counters.length&&['SUPPORT','CONDITIONAL_PEER_WITNESS'].includes(a.C)){grade='A';reason='CONDITIONAL_WIN_WITH_ANCHORED_RIVAL_OR_PEER_SUPPORT';}
    else if(placePaths.length&&!bad.length&&!sameRaceThreeAhead&&['SUPPORT','MIXED','COUNTER','CONDITIONAL_PEER_WITNESS'].includes(a.C)){grade='B';reason='CONDITIONAL_TOP3_WITH_NONBLOCKING_RIVAL_EVIDENCE';}

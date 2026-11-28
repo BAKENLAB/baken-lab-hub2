@@ -36,6 +36,8 @@ for(const name of ['FK34_FULL','FK34_UNKNOWN']){
  assert.equal(on.runners.length,5);assert.ok(on.runners.every(h=>h.items.length===115&&h.formalGrade===null));
  assert.ok(on.runners.some(h=>h.placePaths.length>0),'EXISTING_ORDINAL_PLACE_PATH');
  assert.ok(on.runners.some(h=>h.candidateGrade==='B'),'EXISTING_ORDINAL_B');
+ if(name==='FK34_FULL')assert.equal(on.runners.find(h=>h.horse==='TEST:H5').candidateGrade,'C');
+ assert.ok(on.runners.flatMap(h=>h.placePaths).every(p=>p.fieldProfileComparisons.length>0));
  const recovery=on.runners.find(h=>h.horse==='TEST:H4'),prior=off.runners.find(h=>h.horse==='TEST:H4');
  assert.ok(recovery.feedback.some(f=>f.eye==='EYE03'),'EYE_RECOVERY');
  assert.ok(recovery.counterPaths.some(p=>p.mode==='LATE_ORDINAL_RECOVERY'),'EYE_MIXED_OR_COUNTER_PATH');
