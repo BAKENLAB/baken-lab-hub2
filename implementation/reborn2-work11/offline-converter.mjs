@@ -159,14 +159,14 @@ function convert(m,raws,{fixture=false}={}){
     if(h.status==='EXCLUDED')emit(d,w,'status',null,ptr('rows/'+i,'status'),true,'OFFICIAL_EXCLUDED_OUTSIDE_FIXED_STATUS_ENUM');
     else put(d,w,'status',h.status,x=>choice(x,['ACTIVE','CANCELLED','UNKNOWN']),ptr('rows/'+i,'status'));
    }
-  }else if(['NAR_DEBA_HTML_PROJECTION_1','NAR_HISTORY_HTML_PROJECTION_1','JRA_CORNER_HTML_PROJECTION_1'].includes(d.format)){
+  }else if(['NAR_DEBA_HTML_PROJECTION_1','NAR_HISTORY_HTML_PROJECTION_1','JRA_CORNER_HTML_PROJECTION_1','NAR_RESULT_HTML_PROJECTION_1'].includes(d.format)){
    // Signed reviewed derived projection. Hash binds projection bytes;
    // metadata.originalSha256 and pointer identify authorized original HTML.
    // Independent custody review must replay the fixed extractor on that original.
    // This branch never treats a projected JSON hash as an original HTML hash.
    need(!fixture&&d.encoding==='UTF8','WORK11_REAL_PROJECTION_ONLY');
    const z=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw));exact(z,['metadata','eventFields','rows']);
-   const meta=z.metadata,card=d.format==='NAR_DEBA_HTML_PROJECTION_1',profile=d.format==='NAR_HISTORY_HTML_PROJECTION_1';
+   const meta=z.metadata,card=d.format==='NAR_DEBA_HTML_PROJECTION_1',profile=d.format==='NAR_HISTORY_HTML_PROJECTION_1',result=d.format==='NAR_RESULT_HTML_PROJECTION_1';
    exact(meta,['format','sourceRef','originalSha256','encoding','nativeRaceId','dateJst','venueId','track','raceNo','checkedAt','targetDateJst',...(card?['scheduledPost']:profile?['horseId','horseNo','displayName']:[])]);
    need(meta.format===d.format&&meta.sourceRef===d.sourceRef&&hex(meta.originalSha256)&&meta.nativeRaceId===e.nativeId&&meta.dateJst===e.dateJst&&meta.venueId===e.venueId&&meta.track===d.venueLiteral&&meta.raceNo===e.raceNo&&meta.targetDateJst===target.dateJst,'WORK11_EVENT_BINDING');
    need(validTime(meta.checkedAt)&&Date.parse(meta.checkedAt)<=Date.parse(d.capturedAt)&&Date.parse(meta.checkedAt)<=Date.parse(cutoff)&&Date.parse(d.updatedAt)<=Date.parse(meta.checkedAt),'WORK11_TIME');
@@ -177,14 +177,16 @@ function convert(m,raws,{fixture=false}={}){
     const u=new URL('https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/DebaTable');u.searchParams.set('k_babaCode',e.venueId);u.searchParams.set('k_raceDate',e.dateJst.replaceAll('-','/'));u.searchParams.set('k_raceNo',String(e.raceNo));need(url.href===u.href&&NAR[meta.track]===e.venueId,'WORK11_CARD_URL');
    }else if(profile){
     need(circuit==='LOCAL'&&NAR[meta.track]===e.venueId&&url.hostname==='www.keiba.go.jp'&&url.pathname==='/KeibaWeb/DataRoom/HorseMarkInfo'&&url.searchParams.getAll('k_lineageLoginCode').length===1&&url.searchParams.get('k_lineageLoginCode')===meta.horseId&&/^[0-9]{1,30}$/.test(meta.horseId)&&[...url.searchParams.keys()].every(k=>['k_lineageLoginCode','k_activeCode'].includes(k))&&(!url.searchParams.has('k_activeCode')||url.searchParams.getAll('k_activeCode').length===1&&/^[0-9]{1,3}$/.test(url.searchParams.get('k_activeCode'))),'WORK11_PROFILE_URL');
+   }else if(result){
+    const u=new URL('https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceMarkTable');u.searchParams.set('k_babaCode',e.venueId);u.searchParams.set('k_raceDate',e.dateJst.replaceAll('-','/'));u.searchParams.set('k_raceNo',String(e.raceNo));need(circuit==='LOCAL'&&url.href===u.href&&NAR[meta.track]===e.venueId,'WORK11_RESULT_URL');
    }else{
     need(circuit==='JRA'&&url.hostname==='www.jra.go.jp'&&url.pathname==='/JRADB/accessS.html'&&url.searchParams.size===1&&url.searchParams.has('CNAME'),'WORK11_JRA_URL');
     const q=jraRace(url.searchParams.get('CNAME'),'HISTORICAL_RESULT');need(q.dateJst===e.dateJst&&q.venueId===e.venueId&&q.raceNo===e.raceNo&&q.track===meta.track,'WORK11_JRA_TUPLE');
    }
    const evFns={surfaceLiteral:surface,directionLiteral:direction,distanceM:x=>num(x,600,5000),goingLiteral:going,classLiteral:lit,declaredCount:x=>num(x,1,24)};
    const hsFns={displayName:lit,gate:x=>num(x,1,8),weightG:x=>scaled(x,30000,90000),sexAge:x=>typeof x==='string'&&/^[牡牝セ騸]\d{1,2}$/.test(x)?x:null,finish:x=>num(x,1,24),finishClockLiteral:clock,officialMarginLiteral:margin,final600Ms:x=>scaled(x,10000,300000),bodyWeightKg:x=>num(x,200,900),status:x=>choice(x,['ACTIVE','CANCELLED','UNKNOWN']),cornerPositionsLiteral:x=>typeof x==='string'&&/^\d{1,2}(?:[\s,-]+\d{1,2})*$/.test(x)?x.match(/\d+/g).map(Number).join(','):null};
-   const eventAllowed=card?['surfaceLiteral','directionLiteral','distanceM','goingLiteral','classLiteral','declaredCount']:profile?['surfaceLiteral','distanceM','goingLiteral','classLiteral']:[];
-   const rowAllowed=card?['displayName','status','gate','weightG','sexAge']:profile?['finish','finishClockLiteral','officialMarginLiteral','final600Ms','bodyWeightKg','weightG']:['cornerPositionsLiteral'];
+   const eventAllowed=card||result?['surfaceLiteral','directionLiteral','distanceM','goingLiteral','classLiteral','declaredCount']:profile?['surfaceLiteral','distanceM','goingLiteral','classLiteral']:[];
+   const rowAllowed=card?['displayName','status','gate','weightG','sexAge']:profile?['finish','finishClockLiteral','officialMarginLiteral','final600Ms','bodyWeightKg','weightG']:result?['finish','finishClockLiteral','officialMarginLiteral','final600Ms','weightG','gate','cornerPositionsLiteral']:['cornerPositionsLiteral'];
    allowed(z.eventFields,eventAllowed);need(Array.isArray(z.rows)&&z.rows.length>0&&z.rows.length<=24&&(!profile||z.rows.length===1),'WORK11_ROWS');
    const emitField=(w,field,obj,rowPath,fn)=>{
     exact(obj,['literal','pointer']);need(typeof obj.literal==='string'&&obj.literal.length<=128,'WORK11_LITERAL');
@@ -206,7 +208,7 @@ function convert(m,raws,{fixture=false}={}){
    for(const [i,h] of z.rows.entries()){
     exact(h,['horseId','horseNo','displayName','fields']);allowed(h.fields,rowAllowed);
     if(profile)need(h.horseId===meta.horseId&&h.horseNo===meta.horseNo&&h.displayName===meta.displayName,'WORK11_PROFILE_ROW');
-    need((card||profile)?/^[0-9]{1,30}$/.test(h.horseId):/^[0-9]{10}$/.test(h.horseId),'WORK11_HORSE_ID');
+    need((card||profile||result)?/^[0-9]{1,30}$/.test(h.horseId):/^[0-9]{10}$/.test(h.horseId),'WORK11_HORSE_ID');
     const w=bind(d,h.horseNo,h.displayName,h.horseId);
     for(const [field,obj] of Object.entries(h.fields))emitField(w,field,obj,'rows/'+i+'/fields/'+field,hsFns[field]);
    }
