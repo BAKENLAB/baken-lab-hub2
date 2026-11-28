@@ -93,9 +93,50 @@ export function buildWork13Diagnostic(p){
  assertTargetOutcomeIsolation(packet);
  return {packet,roster,historical,completed,cancelled,post,cutoff};
 }
+// Bind only the exactly matched stored corner rows. No horse-number
+// invention for the peer followups, and no race count or class inference.
+function integrateSnapshotCorners(packet,roster,supplemental,snapshot){
+ const roots=new Map(packet.roots.map(n=>[n.id,n])),eventByKey=new Map(packet.events.filter(e=>e.role==='HISTORICAL_RESULT').map(e=>[e.nativeRaceIdentity.dateJst+'|'+Object.keys(venue).find(k=>venue[k]===e.nativeRaceIdentity.venueId)+'|'+e.nativeRaceIdentity.raceNo,e]));
+ const add=(kind,payload,depends)=>{const k='DIAGNOSTIC_'+kind,d=unique(depends),id=sha([k,payload,d]);roots.set(id,{kind:k,payload,depends:d,id});return id;};
+ const joined=[];
+ for(const h of supplemental.runners)for(const c of h.verifiedEvents){
+  const e=eventByKey.get(c.event),r=e?.rows.find(q=>q.nativeId===roster.find(x=>x.horseNo===h.no)?.horseId);
+  assert.ok(e&&r,'SNAPSHOT_GRAPH_ROW');
+  const prior=r.observations.cornerPositionsLiteral;
+  assert.equal(prior.value,c.positions.join(','),'SNAPSHOT_GRAPH_LITERAL');
+  const raw=snapshot.evidence.packet.evidence[c.sourceIndex],doc=add('SOURCE_DOCUMENT',{eventId:e.eventId,role:'HISTORICAL_RESULT',id:'WORK13_STORED:'+snapshot.id+':'+e.eventId,sourceRef:c.sourceRef,sha256:snapshot.payload_digest,representation:'STORED_FACT_SNAPSHOT_NOT_HTML_ORIGINAL',capturedAt:snapshot.captured_at,sourceCheckedAt:raw.sourceCheckedAt},[e.eventRoot]);
+  const identity=r.observations.no.evidenceId;
+  const sr=add('SOURCE_FIELD',{eventId:e.eventId,horseId:r.nativeId,field:'cornerPositionsLiteral',root:{documentId:doc,field:'cornerPositionsLiteral',rowPointer:JSON.stringify({path:'/packet/evidence/'+c.sourceIndex+'/corners',cornerLabels:c.labels,sourceRef:c.sourceRef})},state:'REPORTED',reason:'STORED_OFFICIAL_ID_BOUND_CORNERS_MATCH_REPORTED_CARD',cardObservation:prior.evidenceId},[doc,identity]);
+  const n=add('OBSERVATION',{eventId:e.eventId,horseId:r.nativeId,field:'cornerPositionsLiteral',state:'REPORTED',value:prior.value},[identity,sr]);
+  // Retain the prior card observation in the graph and bind the two source
+  // channels with a separate corroboration witness. The chosen ordinal
+  // observation depends only on the explicitly labeled source.
+  const witness=add('CORNER_CORROBORATION',{eventId:e.eventId,horseId:r.nativeId,sourceIndex:c.sourceIndex},[n,prior.evidenceId]);
+  r.observations.cornerPositionsLiteral={state,value:prior.value,evidenceId:n};
+  joined.push({horse:r.nativeId,event:e.eventId,labels:c.labels,sourceIndex:c.sourceIndex,witness});
+ }
+ packet.roots=[...roots.values()];assertTargetOutcomeIsolation(packet);
+ return joined;
+}
+function reviewRecovery(runs,discoveries,supplemental,horseNo,track,distance,going,enabled){
+ if(!enabled)return [];
+ const s=supplemental?.runners.find(h=>h.no===horseNo);
+ return discoveries.map(q=>{
+  const z=runs.find(r=>r.event===q.event);assert.ok(z);
+  const key=r=>r.date+'|'+r.track+'|'+Number(r.event.split('-').at(-1));
+  const v=s?.verifiedEvents.find(r=>r.event===key(z));
+  const same=z.track===track&&z.distanceM===distance,exact=same&&z.going===going;
+  const comparable=runs.filter(r=>r.track===track&&r.distanceM===distance);
+  const counters=comparable.filter(r=>r.finish>3&&r.corners?.length>=2&&r.corners.some((n,i)=>i>0&&n>r.corners[0])).map(r=>({event:r.event,finish:r.finish,refs:r.refs}));
+  const state=!same?'OUTSIDE_CURRENT_VENUE_DISTANCE':z.finish>3?'RECOVERY_WITH_NONPLACE_COUNTER':!v?'REPORTED_TOP3_UNCORROBORATED_CORNERS':!exact?'CORROBORATED_TOP3_CONDITION_VARIATION':'CORROBORATED_TOP3_MATCHED_VENUE_DISTANCE_GOING';
+  return {...q,reviewState:state,sameVenueDistance:same,sameGoing:exact,identityBoundCorner:!!v,counters,gradeFeedbackApplied:false,limits:['HISTORICAL_CLASS_AND_STARTER_COUNT_UNVERIFIED','NO_CURRENT_PACE_CERTAINTY']};
+ });
+}
 export function runWork13Diagnostic(p,{eyeEnabled=true,snapshot=null}={}){
  const {packet,roster,historical,completed,cancelled,post,cutoff}=buildWork13Diagnostic(p);
- const began=new Date().toISOString(),normal=computeNormalDiagnostic(packet,roster,{eyeEnabled});
+ const began=new Date().toISOString(),supplemental=snapshot?analyzeWork13Snapshot(p,snapshot,{eyeEnabled}):null;
+ const joined=supplemental?integrateSnapshotCorners(packet,roster,supplemental,snapshot):[];
+ const normal=computeNormalDiagnostic(packet,roster,{eyeEnabled});
  const runners=normal.runners.map(h=>{
   const history=historical.get(h.horse),runs=history.filter(z=>z.status!=='CANCELLED');
   const same=runs.filter(z=>z.track===p.target.track&&z.distanceM===p.target.distanceM);
@@ -104,16 +145,15 @@ export function runWork13Diagnostic(p,{eyeEnabled=true,snapshot=null}={}){
   const directions=ordinal.map(z=>({event:z.event,delta:z.corners[0]-z.corners.at(-1),first:z.corners[0],last:z.corners.at(-1),finish:z.finish,refs:z.refs}));
   const discoveries=eyeEnabled?ordinal.filter(z=>z.corners.some((n,i)=>i>0&&n>z.corners[0])&&z.finish<Math.max(...z.corners)).map(z=>({event:z.event,finish:z.finish,positions:z.corners,refs:z.refs,scope:'REPORTED_RECOVERY_ONLY_CURRENT_RELEVANCE_UNVERIFIED'})):[];
   const direct=h.items.find(i=>i.item==='RANK35').findings.map(f=>f.value);
-  return {...h,displayName:roster.find(q=>q.horseId===h.horse).displayName,history,reportedAnalysis:{completed:runs.length,cancelled:history.length-runs.length,wins:runs.filter(z=>z.finish===1).length,reportedTop3:runs.filter(z=>z.finish<=3).length,sameVenueDistance:same.map(z=>({event:z.event,finish:z.finish,going:z.going})),sameVenueDistanceGoing:exactGoing.map(z=>({event:z.event,finish:z.finish})),ordinalDirections:directions,reportedRecovery:discoveries,direct,scope:'PARTIAL_REPORTED_FACT_COMPARISON_NOT_CURRENT_CAPACITY'},specificHolds:['OFFICIAL_DECLARED_COUNT_NOT_SUPPLIED','HISTORICAL_CLASS_SURFACE_DIRECTION_NOT_VERIFIED','HISTORICAL_FULL_STARTER_CLASSIFICATION_NOT_SUPPLIED','CORNER_LABEL_BINDING_NOT_IN_HANDOFF_13_AGGREGATE_ONLY','OPPONENT_FOLLOWUP_22_AGGREGATE_ONLY','INDEPENDENT_FIELD_LEVEL_REVIEW_INCOMPLETE']};
+  return {...h,displayName:roster.find(q=>q.horseId===h.horse).displayName,history,reportedAnalysis:{completed:runs.length,cancelled:history.length-runs.length,wins:runs.filter(z=>z.finish===1).length,reportedTop3:runs.filter(z=>z.finish<=3).length,sameVenueDistance:same.map(z=>({event:z.event,finish:z.finish,going:z.going})),sameVenueDistanceGoing:exactGoing.map(z=>({event:z.event,finish:z.finish})),ordinalDirections:directions,reportedRecovery:discoveries,recoveryReview:reviewRecovery(runs,discoveries,supplemental,h.horseNo,p.target.track,p.target.distanceM,p.target.going,eyeEnabled),direct,scope:'PARTIAL_REPORTED_FACT_COMPARISON_NOT_CURRENT_CAPACITY'},specificHolds:['OFFICIAL_DECLARED_COUNT_NOT_SUPPLIED','HISTORICAL_CLASS_SURFACE_DIRECTION_NOT_VERIFIED','HISTORICAL_FULL_STARTER_CLASSIFICATION_NOT_SUPPLIED',...(joined.some(q=>q.horse===h.horse)?[]:['NO_MATCHED_CORNER_LABEL_BINDING']),...(supplemental?.runners.find(q=>q.no===h.horseNo)?.peer?['PEER_FOLLOWUP_MAPPED_IN_SUPPLEMENT_NOT_FULL_CLASS_COMPARISON']:['NO_MATCHED_PEER_FOLLOWUP']),'INDEPENDENT_FIELD_LEVEL_REVIEW_INCOMPLETE']};
  });
- const supplemental=snapshot?analyzeWork13Snapshot(p,snapshot,{eyeEnabled}):null;
- const ended=new Date().toISOString(),body={...normal,runners,supplemental,sourcePacketDigest:WORK13_PACKET_DIGEST,sourceGraphDigest:sha(packet),sourceReview:'WORK13_REPORTED_FACTS_NOT_INDEPENDENT_FIELD_LEVEL_ADMISSION',analysisTiming:{featureCutoff:cutoff,scheduledPost:post,analysisAt:began,completedAt:ended,mode:Date.parse(ended)<Date.parse(post)?'PRESTART_FACT_DIAGNOSTIC':'RETROSPECTIVE_FACT_DIAGNOSTIC',prospectiveForecast:false,externalTimestampVerified:false},coverage:{completed,cancelled,roster:roster.length,events:packet.events.length-1,roots:packet.roots.length,independentCornerAggregate:p.identityVerifiedCornerEvidence.count,peerFollowupAggregate:p.opponentFollowups.verifiedCount,independentlyMappedCornerRows:0,independentlyMappedFollowups:0},publicationAllowed:false,persistenceAllowed:false,realAdmission:false};
+ const ended=new Date().toISOString(),body={...normal,runners,supplemental,cornerCorroboration:joined,sourcePacketDigest:WORK13_PACKET_DIGEST,sourceGraphDigest:sha(packet),sourceReview:'WORK13_REPORTED_FACTS_NOT_INDEPENDENT_FIELD_LEVEL_ADMISSION',analysisTiming:{featureCutoff:cutoff,scheduledPost:post,analysisAt:began,completedAt:ended,mode:Date.parse(ended)<Date.parse(post)?'PRESTART_FACT_DIAGNOSTIC':'RETROSPECTIVE_FACT_DIAGNOSTIC',prospectiveForecast:false,externalTimestampVerified:false},coverage:{completed,cancelled,roster:roster.length,events:packet.events.length-1,roots:packet.roots.length,independentCornerAggregate:p.identityVerifiedCornerEvidence.count,peerFollowupAggregate:p.opponentFollowups.verifiedCount,independentlyMappedCornerRows:joined.length,independentlyMappedFollowups:supplemental?.coverage.peerMatched??0,peerRowsInsertedIntoNormal:0},publicationAllowed:false,persistenceAllowed:false,realAdmission:false};
  return {...body,analysisDigest:sha(body)};
 }
 const esc=x=>String(x??'未確認').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function renderDiagnosticHtml(out){
  assert.equal(out.scope,'PRIVATE_REPORTED_FACT_DIAGNOSTIC_ONLY');assert.equal(out.publicationAllowed,false);
  const supplements=new Map((out.supplemental?.runners??[]).map(h=>[h.no,h]));
- const cards=out.runners.map(h=>'<article><h2>'+esc(h.horseNo)+'番 '+esc(h.displayName)+'</h2><p>候補評価：未評価／報告完走 '+h.reportedAnalysis.completed+'走</p><p>勝利 '+h.reportedAnalysis.wins+'／報告3着以内 '+h.reportedAnalysis.reportedTop3+'／同場同距離 '+h.reportedAnalysis.sameVenueDistance.length+'</p><p>成立した勝ち筋 '+h.winPaths.length+'／好走筋 '+h.placePaths.length+'</p><p>'+esc(h.decisionReason)+'</p><details><summary>今回能力・5観点・保留原因</summary><pre>'+esc(JSON.stringify({axes:h.axes.map(a=>({axis:a.axis,state:a.state,reason:a.reason})),holds:h.specificHolds},null,2))+'</pre></details><details><summary>過去走・展開材料・相手比較・EYE候補</summary><pre>'+esc(JSON.stringify(h.reportedAnalysis,null,2))+'</pre></details>'+ (supplements.has(h.horseNo)?'<details><summary>照合済み通過順・相手実績・5観点・条件付き経路</summary><pre>'+esc(JSON.stringify(supplements.get(h.horseNo),null,2))+'</pre></details>':'')+'<details><summary>115項目</summary>'+h.items.map(i=>'<details><summary>'+esc(i.item+' '+i.name+' '+i.state)+'</summary><pre>'+esc(JSON.stringify({reason:i.reason,findings:i.findings},null,2))+'</pre></details>').join('')+'</details></article>').join('');
+ const cards=out.runners.map(h=>'<article><h2>'+esc(h.horseNo)+'番 '+esc(h.displayName)+'</h2><p>内部計算候補：'+esc(h.unapprovedCandidateGrade==='UNASSESSED'?'未成立':h.unapprovedCandidateGrade)+'（未承認）／正式評価：保留</p><p>'+esc(h.internalGradeState==='COMPUTATION_HELD'?'材料・判断条件による未成立':'計算候補あり・正式評価のみ保留')+'／報告完走 '+h.reportedAnalysis.completed+'走</p><p>勝利 '+h.reportedAnalysis.wins+'／報告3着以内 '+h.reportedAnalysis.reportedTop3+'／同場同距離 '+h.reportedAnalysis.sameVenueDistance.length+'</p><p>成立した勝ち筋 '+h.winPaths.length+'／好走筋 '+h.placePaths.length+'</p><p>内部判断理由：'+esc(h.decisionReason)+'</p><p>正式保留理由：'+esc(h.formalHoldReason)+'</p><details><summary>今回能力・5観点・保留原因</summary><pre>'+esc(JSON.stringify({axes:h.axes.map(a=>({axis:a.axis,state:a.state,reason:a.reason})),holds:h.specificHolds},null,2))+'</pre></details><details><summary>過去走・展開材料・相手比較・EYE候補</summary><pre>'+esc(JSON.stringify(h.reportedAnalysis,null,2))+'</pre></details>'+ (supplements.has(h.horseNo)?'<details><summary>照合済み通過順・相手実績・5観点・条件付き経路</summary><pre>'+esc(JSON.stringify(supplements.get(h.horseNo),null,2))+'</pre></details>':'')+'<details><summary>115項目</summary>'+h.items.map(i=>'<details><summary>'+esc(i.item+' '+i.name+' '+i.state)+'</summary><pre>'+esc(JSON.stringify({reason:i.reason,findings:i.findings},null,2))+'</pre></details>').join('')+'</details></article>').join('');
  return '<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>REBORN2 NORMAL 非公開診断</title><style>body{font:16px/1.65 system-ui,sans-serif;max-width:800px;margin:auto;padding:16px;background:#eef2f2;color:#20352e}article{background:white;border:1px solid #ccd8d3;border-radius:12px;padding:14px;margin:12px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}summary{cursor:pointer}h1{font-size:22px}h2{font-size:18px}</style><h1>佐賀5R｜NORMAL 非公開事実診断</h1><p>正式予想・原本完全照合・実競走評価承認ではありません。材料時点 '+esc(out.analysisTiming.featureCutoff)+'／分析時刻 '+esc(out.analysisTiming.analysisAt)+'</p><p>未確認の証拠を補完していません。SABC正式評価なし。</p>'+cards+'</html>';
 }

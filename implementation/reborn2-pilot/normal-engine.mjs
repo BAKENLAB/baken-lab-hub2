@@ -238,5 +238,5 @@ export function computeNormal(packet,roster,{fixture=false,eyeEnabled=true}={}){
 // a diagnostic packet on the native API. Result is always private/held.
 export function computeNormalDiagnostic(packet,roster,{eyeEnabled=true}={}){
  const out=analyzeNormalContext(packet,roster,computeNormalV01(packet,roster,{diagnostic:true}),{diagnostic:true,eyeEnabled});
- return {...out,scope:'PRIVATE_REPORTED_FACT_DIAGNOSTIC_ONLY',runners:out.runners.map(h=>({...h,unapprovedCandidateGrade:h.candidateGrade,candidateGrade:'UNASSESSED',formalGrade:null})),realAdmission:false,publicationAllowed:false,persistenceAllowed:false};
+ return {...out,scope:'PRIVATE_REPORTED_FACT_DIAGNOSTIC_ONLY',runners:out.runners.map(h=>({...h,unapprovedCandidateGrade:h.candidateGrade,internalGradeState:h.candidateGrade==='UNASSESSED'?'COMPUTATION_HELD':'COMPUTED_UNAPPROVED',candidateGrade:'UNASSESSED',formalGrade:null,formalGradeState:'HELD_PRIVATE_DIAGNOSTIC',formalHoldReason:'NO_FORMAL_ADMISSION_OR_PUBLICATION_AUTHORITY'})),realAdmission:false,publicationAllowed:false,persistenceAllowed:false};
 }
