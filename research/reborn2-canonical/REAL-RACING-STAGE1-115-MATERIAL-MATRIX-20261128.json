@@ -1,0 +1,2853 @@
+{
+  "schema": "REBORN2_STAGE1_MATERIAL_ACQUISITION_MATRIX_1",
+  "generatedAtJst": "2026-11-28",
+  "fixedEngine": "V48",
+  "base": {
+    "sourceMapCommit": "714fc484614e7301899ebff00eefe5649489d5fa",
+    "sourceMapBlob": "224f4b7c3e1b2f89192af4eb7294723f39d2cfac",
+    "work13PacketSha256": "5d364d4cc8c7843167390b1400058e85c8579f3dbc732084d7cee4b25ee97e17",
+    "work15LibraryArtifact": "BAKEN_LAB_Work15_Saga5_priority_enrichment.json",
+    "work15Scope": "PRIVATE_RETROSPECTIVE_REPORTED_FACT_ENRICHMENT_NOT_NATIVE_ADMISSION",
+    "main49Audit": "6b3d436ab9d9df3cee204ae2d5a2ff9a67b18ace"
+  },
+  "guards": {
+    "targetRaceResultUsed": false,
+    "marketOrOddsUsed": false,
+    "productionChanged": false,
+    "formalGradeEmitted": false,
+    "officialNativeAdmission": false
+  },
+  "countSummary": {
+    "total": 115,
+    "取得可能": 64,
+    "取得済み": 20,
+    "取得不能": 15,
+    "未取得": 16
+  },
+  "decisiveGates": [
+    {
+      "id": "G1",
+      "name": "今回の正式全頭名簿・状態・公式頭数",
+      "state": "BLOCKED",
+      "evidence": "7頭ACTIVE記録はあるが公式declared/starter countはnull。登録11頭と最終7頭を混同しない。"
+    },
+    {
+      "id": "G2",
+      "name": "過去競走の全馬分類と完走/非完走母集団",
+      "state": "BLOCKED",
+      "evidence": "4競走の行照合はあるが、全34走で正式starter classificationとfinish-field bindingが未完。"
+    },
+    {
+      "id": "G3",
+      "name": "過去走の本人馬固有ID",
+      "state": "BLOCKED",
+      "evidence": "馬番・馬名・着順・時計の一致はあるが過去結果行のnativeHorseIdがnull。"
+    },
+    {
+      "id": "G4",
+      "name": "当時有効な正式クラス・出走資格・コース版",
+      "state": "BLOCKED",
+      "evidence": "登録競走情報とコース案内はあるが個馬格・歴史的effective versionを未証明。"
+    },
+    {
+      "id": "G5",
+      "name": "個馬区間時計/因果的な展開材料",
+      "state": "PARTIAL_ALTERNATIVE_ONLY",
+      "evidence": "レースラップ1組と通過順はあるが個馬実測区間時計は未確認。"
+    },
+    {
+      "id": "G6",
+      "name": "対象発走前の原本バイト列と外部時刻証明",
+      "state": "BLOCKED",
+      "evidence": "描画DOM/派生証拠はあるが生HTML原本未保存、外部時刻証明なし。"
+    }
+  ],
+  "functionReadiness": {
+    "currentAbility": {
+      "state": "BLOCKED",
+      "why": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ]
+    },
+    "winPlacePaths": {
+      "state": "BLOCKED",
+      "why": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ]
+    },
+    "sabc": {
+      "state": "BLOCKED",
+      "why": [
+        "currentAbility",
+        "winPlacePaths",
+        "counterevidence"
+      ],
+      "formalGrade": null
+    }
+  },
+  "items": [
+    {
+      "id": "01",
+      "name": "基礎競走能力",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "02",
+      "name": "近走成績・着順",
+      "group": "history",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "03",
+      "name": "勝ち馬との着差",
+      "group": "history",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "04",
+      "name": "後続馬との着差",
+      "group": "peer",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "過去競走の全出走馬集合",
+        "相手馬ID",
+        "相手の後続実績",
+        "同一競走版"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "22件の相手後続行と5件の重複対戦を保持するが、過去競走の全馬固有ID・完全出走分類が未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Complete prior race participants, stable IDs, official race versions, literal/typed margins and independently dated peer followups; local snapshot supports partial evidence."
+    },
+    {
+      "id": "05",
+      "name": "走破時計",
+      "group": "history",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "06",
+      "name": "上がりタイム",
+      "group": "history",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "07",
+      "name": "瞬発力",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "08",
+      "name": "持続力",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "09",
+      "name": "スタートの安定性",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "10",
+      "name": "二の脚・加速力",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "11",
+      "name": "距離別の消耗傾向",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "12",
+      "name": "勝ち切る能力",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "13",
+      "name": "成績の安定性",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "14",
+      "name": "成長・衰え",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "15",
+      "name": "潜在能力",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "16",
+      "name": "公式レーティング",
+      "group": "rating",
+      "canonicalSource": "rating",
+      "requiredMaterials": [
+        "公表日付き公式レーティング",
+        "本人馬ID"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate dated official rating publication; coverage not confirmed."
+    },
+    {
+      "id": "17",
+      "name": "各コーナーの通過順位",
+      "group": "history",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "18",
+      "name": "道中の位置取り変化",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "19",
+      "name": "実ラップ・ペース",
+      "group": "history",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "20",
+      "name": "過去走の展開有利・不利",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "21",
+      "name": "道中での後退からの巻き返し",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "22",
+      "name": "コーナーでの進出",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "23",
+      "name": "先行争いによる消耗",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "24",
+      "name": "終盤の失速原因",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "25",
+      "name": "差し損ね・脚の余力",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "26",
+      "name": "出遅れ・進路などの不利",
+      "group": "incident",
+      "canonicalSource": "incident",
+      "requiredMaterials": [
+        "公式裁決原文",
+        "受害馬/原因馬の区別",
+        "公表時刻"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate verified incident/steward record, role and current relevance; no inference from rank alone."
+    },
+    {
+      "id": "27",
+      "name": "不利を克服した好走",
+      "group": "incident",
+      "canonicalSource": "incident",
+      "requiredMaterials": [
+        "公式裁決原文",
+        "受害馬/原因馬の区別",
+        "公表時刻"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate verified incident/steward record, role and current relevance; no inference from rank alone."
+    },
+    {
+      "id": "28",
+      "name": "僅差の凡走",
+      "group": "history",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "29",
+      "name": "負けて強し",
+      "group": "incident",
+      "canonicalSource": "incident",
+      "requiredMaterials": [
+        "公式裁決原文",
+        "受害馬/原因馬の区別",
+        "公表時刻"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate verified incident/steward record, role and current relevance; no inference from rank alone."
+    },
+    {
+      "id": "30",
+      "name": "勝利内容の価値",
+      "group": "peer",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "過去競走の全出走馬集合",
+        "相手馬ID",
+        "相手の後続実績",
+        "同一競走版"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "22件の相手後続行と5件の重複対戦を保持するが、過去競走の全馬固有ID・完全出走分類が未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Complete prior race participants, stable IDs, official race versions, literal/typed margins and independently dated peer followups; local snapshot supports partial evidence."
+    },
+    {
+      "id": "31",
+      "name": "特殊条件による凡走",
+      "group": "incident",
+      "canonicalSource": "incident",
+      "requiredMaterials": [
+        "公式裁決原文",
+        "受害馬/原因馬の区別",
+        "公表時刻"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate verified incident/steward record, role and current relevance; no inference from rank alone."
+    },
+    {
+      "id": "32",
+      "name": "前走からの内容改善",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "33",
+      "name": "過去走のクラス水準",
+      "group": "class_rules",
+      "canonicalSource": "rules",
+      "requiredMaterials": [
+        "当時有効な格付・出走資格規程",
+        "競走クラス",
+        "馬の当時資格"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective official eligibility/class rule + historical/current all-peer strength; no universal JRA/LOCAL class equivalence."
+    },
+    {
+      "id": "34",
+      "name": "過去の対戦相手の能力",
+      "group": "peer",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "過去競走の全出走馬集合",
+        "相手馬ID",
+        "相手の後続実績",
+        "同一競走版"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "22件の相手後続行と5件の重複対戦を保持するが、過去競走の全馬固有ID・完全出走分類が未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Complete prior race participants, stable IDs, official race versions, literal/typed margins and independently dated peer followups; local snapshot supports partial evidence."
+    },
+    {
+      "id": "35",
+      "name": "今回の出走馬同士の直接対戦",
+      "group": "peer",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "過去競走の全出走馬集合",
+        "相手馬ID",
+        "相手の後続実績",
+        "同一競走版"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "22件の相手後続行と5件の重複対戦を保持するが、過去競走の全馬固有ID・完全出走分類が未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Complete prior race participants, stable IDs, official race versions, literal/typed margins and independently dated peer followups; local snapshot supports partial evidence."
+    },
+    {
+      "id": "36",
+      "name": "共通対戦馬による間接比較",
+      "group": "peer",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "過去競走の全出走馬集合",
+        "相手馬ID",
+        "相手の後続実績",
+        "同一競走版"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "22件の相手後続行と5件の重複対戦を保持するが、過去競走の全馬固有ID・完全出走分類が未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Complete prior race participants, stable IDs, official race versions, literal/typed margins and independently dated peer followups; local snapshot supports partial evidence."
+    },
+    {
+      "id": "37",
+      "name": "過去の対戦相手の後続実績",
+      "group": "peer",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "過去競走の全出走馬集合",
+        "相手馬ID",
+        "相手の後続実績",
+        "同一競走版"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "22件の相手後続行と5件の重複対戦を保持するが、過去競走の全馬固有ID・完全出走分類が未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Complete prior race participants, stable IDs, official race versions, literal/typed margins and independently dated peer followups; local snapshot supports partial evidence."
+    },
+    {
+      "id": "38",
+      "name": "対戦相手の公式レーティング",
+      "group": "rating",
+      "canonicalSource": "rating",
+      "requiredMaterials": [
+        "公表日付き公式レーティング",
+        "本人馬ID"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate dated official rating publication; coverage not confirmed."
+    },
+    {
+      "id": "39",
+      "name": "昇級・降級",
+      "group": "class_rules",
+      "canonicalSource": "rules",
+      "requiredMaterials": [
+        "当時有効な格付・出走資格規程",
+        "競走クラス",
+        "馬の当時資格"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective official eligibility/class rule + historical/current all-peer strength; no universal JRA/LOCAL class equivalence."
+    },
+    {
+      "id": "40",
+      "name": "今回の相手強化・弱化",
+      "group": "class_rules",
+      "canonicalSource": "rules",
+      "requiredMaterials": [
+        "当時有効な格付・出走資格規程",
+        "競走クラス",
+        "馬の当時資格"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective official eligibility/class rule + historical/current all-peer strength; no universal JRA/LOCAL class equivalence."
+    },
+    {
+      "id": "41",
+      "name": "上位クラスでの通用可能性",
+      "group": "class_rules",
+      "canonicalSource": "rules",
+      "requiredMaterials": [
+        "当時有効な格付・出走資格規程",
+        "競走クラス",
+        "馬の当時資格"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective official eligibility/class rule + historical/current all-peer strength; no universal JRA/LOCAL class equivalence."
+    },
+    {
+      "id": "42",
+      "name": "中央・地方転入による水準変化",
+      "group": "class_rules",
+      "canonicalSource": "rules",
+      "requiredMaterials": [
+        "当時有効な格付・出走資格規程",
+        "競走クラス",
+        "馬の当時資格"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective official eligibility/class rule + historical/current all-peer strength; no universal JRA/LOCAL class equivalence."
+    },
+    {
+      "id": "43",
+      "name": "距離適性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "44",
+      "name": "距離延長・短縮への適性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "45",
+      "name": "競馬場適性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "46",
+      "name": "コース間相関",
+      "group": "course",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "当時有効なコース図/距離/回り/直線/高低差",
+        "馬場条件"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective course geometry/layout/version + conditions and comparable performance; existing course statistics are not raw observations."
+    },
+    {
+      "id": "47",
+      "name": "芝・ダート適性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "48",
+      "name": "馬場状態別適性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "49",
+      "name": "左回り・右回り適性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "50",
+      "name": "直線の長さへの適性",
+      "group": "course",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "当時有効なコース図/距離/回り/直線/高低差",
+        "馬場条件"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective course geometry/layout/version + conditions and comparable performance; existing course statistics are not raw observations."
+    },
+    {
+      "id": "51",
+      "name": "坂・高低差への適性",
+      "group": "course",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "当時有効なコース図/距離/回り/直線/高低差",
+        "馬場条件"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective course geometry/layout/version + conditions and comparable performance; existing course statistics are not raw observations."
+    },
+    {
+      "id": "52",
+      "name": "コーナー形状への適性",
+      "group": "course",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "当時有効なコース図/距離/回り/直線/高低差",
+        "馬場条件"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective course geometry/layout/version + conditions and comparable performance; existing course statistics are not raw observations."
+    },
+    {
+      "id": "53",
+      "name": "枠順と脚質の相性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "54",
+      "name": "斤量・斤量増減への適性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "55",
+      "name": "砂被り耐性",
+      "group": "split_or_context",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "56",
+      "name": "馬群・揉まれ耐性",
+      "group": "split_or_context",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "57",
+      "name": "季節適性",
+      "group": "history_compare",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "58",
+      "name": "各馬の脚質",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "59",
+      "name": "前走の先行判定",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "60",
+      "name": "先行力の再現性",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "61",
+      "name": "逃げ候補の特定",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "62",
+      "name": "逃げへの依存度",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "63",
+      "name": "先行馬占有率",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "64",
+      "name": "先行馬の内外配置",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "65",
+      "name": "同型馬の競合",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "66",
+      "name": "逃げハサミ",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "67",
+      "name": "最初のコーナーまでの距離",
+      "group": "course",
+      "canonicalSource": "course",
+      "requiredMaterials": [
+        "当時有効なコース図/距離/回り/直線/高低差",
+        "馬場条件"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective course geometry/layout/version + conditions and comparable performance; existing course statistics are not raw observations."
+    },
+    {
+      "id": "68",
+      "name": "序盤の位置取り争い",
+      "group": "split_or_context",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "69",
+      "name": "想定ペース",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "70",
+      "name": "想定隊列",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "71",
+      "name": "想定される距離ロス",
+      "group": "split_or_context",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "72",
+      "name": "今回の先行争いによる消耗",
+      "group": "split_or_context",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "73",
+      "name": "各馬の展開有利・不利",
+      "group": "split_or_context",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "74",
+      "name": "展開対応力",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "75",
+      "name": "展開依存度",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "76",
+      "name": "当日の内外馬場傾向",
+      "group": "day",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "対象発走前に確定した同日先行レース結果",
+        "取得時刻"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Earlier same-day verified result and availability before target cutoff; not target result; insufficient coverage hold."
+    },
+    {
+      "id": "77",
+      "name": "当日の前残り・差し傾向",
+      "group": "day",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "対象発走前に確定した同日先行レース結果",
+        "取得時刻"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Earlier same-day verified result and availability before target cutoff; not target result; insufficient coverage hold."
+    },
+    {
+      "id": "78",
+      "name": "休養期間",
+      "group": "history",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "79",
+      "name": "出走間隔・連闘",
+      "group": "history",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "80",
+      "name": "休養明けからの出走回数",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "81",
+      "name": "馬体重・増減",
+      "group": "history",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "82",
+      "name": "過去の好走時馬体重",
+      "group": "history",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "83",
+      "name": "調教内容",
+      "group": "training",
+      "canonicalSource": "training",
+      "requiredMaterials": [
+        "対象発走前の公式調教記録",
+        "計測条件"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate verified official training data with effective time; missing source coverage."
+    },
+    {
+      "id": "84",
+      "name": "馬具変更",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "85",
+      "name": "騎手の能力・実績",
+      "group": "people",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "公式騎手/調教師ID",
+        "所属期間",
+        "条件別競走履歴"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Stable rider/trainer identity, effective historical records, conditions and pair results; names alone insufficient."
+    },
+    {
+      "id": "86",
+      "name": "騎手のコース別適性",
+      "group": "people",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "公式騎手/調教師ID",
+        "所属期間",
+        "条件別競走履歴"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Stable rider/trainer identity, effective historical records, conditions and pair results; names alone insufficient."
+    },
+    {
+      "id": "87",
+      "name": "馬と騎手の相性",
+      "group": "people",
+      "canonicalSource": "result",
+      "requiredMaterials": [
+        "公式騎手/調教師ID",
+        "所属期間",
+        "条件別競走履歴"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Stable rider/trainer identity, effective historical records, conditions and pair results; names alone insufficient."
+    },
+    {
+      "id": "88",
+      "name": "乗り替わり",
+      "group": "history_compare",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "89",
+      "name": "調教師・厩舎の傾向",
+      "group": "people",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "公式騎手/調教師ID",
+        "所属期間",
+        "条件別競走履歴"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Stable rider/trainer identity, effective historical records, conditions and pair results; names alone insufficient."
+    },
+    {
+      "id": "90",
+      "name": "血統",
+      "group": "pedigree",
+      "canonicalSource": "profile",
+      "requiredMaterials": [
+        "本人馬IDに結合した公式血統"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate identity-bound authoritative pedigree; old text is not verified genealogy."
+    },
+    {
+      "id": "91",
+      "name": "年齢・性別・成長段階",
+      "group": "history",
+      "canonicalSource": "profile",
+      "requiredMaterials": [
+        "本人馬IDで結合した過去走",
+        "着順/時計/上がり/通過順/斤量/馬場/距離",
+        "競走版と取得時刻"
+      ],
+      "jraRoute": "STORED_FIELD_CANDIDATE",
+      "localRoute": "STORED_FIELD_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "佐賀5Rで34完走履歴、13件の本人結合通過順、時計・上がり等の報告事実があるが、全履歴の公式原本・固有ID・正式競走文脈は未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Historical finish/margin/time/final600 and corner/lap literals, date and current profile; exact margin definition, units, full history coverage and current verification required."
+    },
+    {
+      "id": "92",
+      "name": "輸送・遠征",
+      "group": "travel",
+      "canonicalSource": "card",
+      "requiredMaterials": [
+        "明示された遠征/輸送事実",
+        "公表時刻"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Actual transport or verified itinerary/conditions; no inferred transport load."
+    },
+    {
+      "id": "93",
+      "name": "前走からの条件好転",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "94",
+      "name": "前走からの条件悪化",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "95",
+      "name": "過去の好走条件への復帰",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "96",
+      "name": "前走の敗因解消",
+      "group": "incident",
+      "canonicalSource": "incident",
+      "requiredMaterials": [
+        "公式裁決原文",
+        "受害馬/原因馬の区別",
+        "公表時刻"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "未取得",
+      "completeness": "BLOCKED",
+      "reason": "正規取得候補は特定済みだが、佐賀5Rの発走前証拠パケットには未収載または時点/本人結合が未証明。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Separate verified incident/steward record, role and current relevance; no inference from rank alone."
+    },
+    {
+      "id": "97",
+      "name": "複数の好転材料の重なり",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "98",
+      "name": "潜在能力を発揮できる可能性",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "99",
+      "name": "過去の好走の再現性",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "100",
+      "name": "今回の勝ち切り可能性",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回発揮できる能力",
+        "今回の勝ち筋・好走筋",
+        "SABC総合評価"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-01",
+      "name": "着順と着差のギャップ",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-02",
+      "name": "着順と過去走内容のギャップ",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-03",
+      "name": "道中後退からの巻き返し",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-04",
+      "name": "強い相手との僅差敗戦",
+      "group": "peer",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去競走の全出走馬集合",
+        "相手馬ID",
+        "相手の後続実績",
+        "同一競走版"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "22件の相手後続行と5件の重複対戦を保持するが、過去競走の全馬固有ID・完全出走分類が未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Complete prior race participants, stable IDs, official race versions, literal/typed margins and independently dated peer followups; local snapshot supports partial evidence."
+    },
+    {
+      "id": "EYE-05",
+      "name": "対戦相手の後続実績",
+      "group": "peer",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去競走の全出走馬集合",
+        "相手馬ID",
+        "相手の後続実績",
+        "同一競走版"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得済み",
+      "completeness": "PARTIAL",
+      "reason": "22件の相手後続行と5件の重複対戦を保持するが、過去競走の全馬固有ID・完全出走分類が未完。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Complete prior race participants, stable IDs, official race versions, literal/typed margins and independently dated peer followups; local snapshot supports partial evidence."
+    },
+    {
+      "id": "EYE-06",
+      "name": "前走の展開不利の解消",
+      "group": "split_or_context",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "通過順",
+        "レースラップ",
+        "個馬区間時計または明示的不利",
+        "因果を限定する反証"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得不能",
+      "completeness": "PARTIAL_ALTERNATIVE_ONLY",
+      "reason": "標準公式資料に個馬区間速度・余力・耐性等の直接測定値がなく、通過順やレースラップから同値を捏造できない。",
+      "alternative": "本人馬に結合した通過順、上がり、競走時計、公式裁決、反復条件別成績を別々の観測事実として使い、因果・個馬区間時計は主張しない。",
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Partial corner/finish/last600/race pace context only; need individual sectional observations or specific incident/position/load evidence for stronger claim; no fake split or causal inference."
+    },
+    {
+      "id": "EYE-07",
+      "name": "得意距離・条件への復帰",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-08",
+      "name": "コース変更による適性向上",
+      "group": "course",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "当時有効なコース図/距離/回り/直線/高低差",
+        "馬場条件"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective course geometry/layout/version + conditions and comparable performance; existing course statistics are not raw observations."
+    },
+    {
+      "id": "EYE-09",
+      "name": "先行馬占有率による恩恵",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-10",
+      "name": "逃げハサミによる恩恵",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-11",
+      "name": "同型馬の減少",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-12",
+      "name": "想定隊列による位置取り改善",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-13",
+      "name": "着順に表れていない能力上昇",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    },
+    {
+      "id": "EYE-14",
+      "name": "転入・クラス変更による相手弱化",
+      "group": "class_rules",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "当時有効な格付・出走資格規程",
+        "競走クラス",
+        "馬の当時資格"
+      ],
+      "jraRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "localRoute": "ADDITIONAL_EVIDENCE_OR_PARTIAL",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Effective official eligibility/class rule + historical/current all-peer strength; no universal JRA/LOCAL class equivalence."
+    },
+    {
+      "id": "EYE-15",
+      "name": "複数の条件好転の組み合わせ",
+      "group": "history_compare",
+      "canonicalSource": "derived",
+      "requiredMaterials": [
+        "過去走",
+        "今回の全頭名簿と状態",
+        "今回条件",
+        "比較可能性/反証"
+      ],
+      "jraRoute": "DERIVATION_INPUT_CANDIDATE",
+      "localRoute": "DERIVATION_INPUT_CANDIDATE_ID_BINDING_REQUIRED",
+      "acquisitionStatus": "取得可能",
+      "completeness": "PARTIAL_OR_BLOCKED",
+      "reason": "既存材料から一部導出できるが、正式頭数・全馬状態・当時有効クラス/コース版・反証が揃わず正式判断不可。",
+      "alternative": null,
+      "targetFunctions": [
+        "今回の勝ち筋・好走筋",
+        "LAB EYE"
+      ],
+      "fixedV48Admission": "HELD_UNTIL_EVIDENCE_GATE",
+      "notes": "Derived candidate using admitted history/target conditions/full roster/status, repeated comparable evidence and relevant counterevidence; no automatic grade or claim sufficient."
+    }
+  ]
+}
