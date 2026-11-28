@@ -1,0 +1,1912 @@
+{
+  "schema": "WORK09_NORMAL_MATERIAL_FEASIBILITY_1",
+  "engine": "f565e88af3404c84328a6cd035d2f21df3ea49dc",
+  "codex": "eb71c4649bd1896274d9846d10662f6705b727f7",
+  "sourceMapBlob": "224f4b7c3e1b2f89192af4eb7294723f39d2cfac",
+  "scope": "PROPOSED_SOURCE_AND_ANALYSIS_FEASIBILITY_NOT_SCORING_POLICY",
+  "categories": {
+    "F": "通常事実の直接観測・比較候補",
+    "C": "通常材料の複合比較・仮説候補、計算方法の承認と検証必要",
+    "S": "通常資料に加えて個別の公式資料・有効版確認が必要",
+    "M": "測定や直接記録なしには本来の物理・因果判断不可、代替の定性観測のみ"
+  },
+  "counts": {
+    "F": 11,
+    "C": 69,
+    "S": 26,
+    "M": 9
+  },
+  "items": [
+    {
+      "id": "01",
+      "name": "基礎競走能力",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "近走着順・時計・着差・上がり・相手・条件",
+      "proposedObservationOrHypothesis": "同条件の反復比較から能力の支持・反証",
+      "limit": "相手水準と今回発揮は別",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "02",
+      "name": "近走成績・着順",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "公式着順・出走分類・競走日",
+      "proposedObservationOrHypothesis": "近走着順の時系列",
+      "limit": "取消・中止・同着の分類",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "03",
+      "name": "勝ち馬との着差",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "勝馬・本人の公式着差または同単位走破時計",
+      "proposedObservationOrHypothesis": "着差原文・確認済み時計差",
+      "limit": "着差文字を秒へ推定しない",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "04",
+      "name": "後続馬との着差",
+      "group": "peer",
+      "category": "C",
+      "normalMaterial": "同競走全頭着順・時計・着差",
+      "proposedObservationOrHypothesis": "直後の相手との着差・時計差",
+      "limit": "公式着差の基準馬を確認",
+      "existingSources": [
+        "JRA:full_runner archive with official race identity",
+        "LOCAL:preclaim opponentFollowups where bound"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "05",
+      "name": "走破時計",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "走破時計・単位・距離",
+      "proposedObservationOrHypothesis": "時計原文と明示単位での比較",
+      "limit": "時計形式未確定なら保留",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "06",
+      "name": "上がりタイム",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "個馬上がり3F・単位",
+      "proposedObservationOrHypothesis": "実測終盤600m所要時間",
+      "limit": "途中地点時計ではない",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "07",
+      "name": "瞬発力",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "上がり3F・通過順",
+      "proposedObservationOrHypothesis": "終盤成績の支持材料に限定",
+      "limit": "瞬間加速度・瞬発力は実測なしに確定不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "08",
+      "name": "持続力",
+      "group": "split_or_context",
+      "category": "C",
+      "normalMaterial": "距離・通過順・時計・上がり・レースラップ",
+      "proposedObservationOrHypothesis": "位置維持と終盤成績を条件別比較",
+      "limit": "物理的持続力と区別",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "09",
+      "name": "スタートの安定性",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "出遅れ公式記録・初角通過順",
+      "proposedObservationOrHypothesis": "出遅れ記録の頻度・初角位置のばらつき",
+      "limit": "発馬反応時間を初角から推定しない",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "10",
+      "name": "二の脚・加速力",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "初角位置・序盤レースラップ",
+      "proposedObservationOrHypothesis": "早い位置取りの傾向のみ",
+      "limit": "個馬加速度を確定不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "11",
+      "name": "距離別の消耗傾向",
+      "group": "split_or_context",
+      "category": "C",
+      "normalMaterial": "距離・着差・時計・通過順・上がり",
+      "proposedObservationOrHypothesis": "距離別終盤成績の比較",
+      "limit": "消耗の原因・生理負荷は未確定",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "12",
+      "name": "勝ち切る能力",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "複数過去走・着順・着差・相手",
+      "proposedObservationOrHypothesis": "勝利機会と勝ち切り実績の比較",
+      "limit": "今回勝率と同一視しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "13",
+      "name": "成績の安定性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "複数過去走・着順・着差・条件",
+      "proposedObservationOrHypothesis": "条件別成績の分布・再現性",
+      "limit": "少数標本と取消を区別",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "14",
+      "name": "成長・衰え",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "年月日・年齢・条件・着差・上がり",
+      "proposedObservationOrHypothesis": "条件を揃えた成績推移",
+      "limit": "成長・衰えの原因は断定しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "15",
+      "name": "潜在能力",
+      "group": "split_or_context",
+      "category": "C",
+      "normalMaterial": "複数過去走・条件・不利記録・相手",
+      "proposedObservationOrHypothesis": "未発揮の可能性を支持反証で検討",
+      "limit": "潜在能力の直接測定ではない",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "16",
+      "name": "公式レーティング",
+      "group": "rating",
+      "category": "S",
+      "normalMaterial": "公表日付き公式レーティング",
+      "proposedObservationOrHypothesis": "公表値と対象条件の照合",
+      "limit": "未公表馬は欠損",
+      "existingSources": [
+        "official dated ratings"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "17",
+      "name": "各コーナーの通過順位",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "公式コーナー順・地点名・馬番",
+      "proposedObservationOrHypothesis": "原文・順位・観測地点を保持",
+      "limit": "距離別順位へ変換しない",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "18",
+      "name": "道中の位置取り変化",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "複数コーナー順位・同競走頭数",
+      "proposedObservationOrHypothesis": "観測地点間の順位変化",
+      "limit": "距離・速度差を推定しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "19",
+      "name": "実ラップ・ペース",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "公式レースラップ・距離・区間境界・単位",
+      "proposedObservationOrHypothesis": "レースペース構成",
+      "limit": "個馬ラップではない",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "20",
+      "name": "過去走の展開有利・不利",
+      "group": "split_or_context",
+      "category": "C",
+      "normalMaterial": "レースラップ・全頭通過順・結果・馬場",
+      "proposedObservationOrHypothesis": "過去ペースと位置の対応",
+      "limit": "因果的有利不利は保留",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "21",
+      "name": "道中での後退からの巻き返し",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "時系列コーナー順位・着順・上がり",
+      "proposedObservationOrHypothesis": "順位後退からの回復実績",
+      "limit": "物理的逆転量は不可",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "22",
+      "name": "コーナーでの進出",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "地点別通過順・同競走頭数",
+      "proposedObservationOrHypothesis": "コーナー間の順位進出",
+      "limit": "実距離の進出量とは別",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "23",
+      "name": "先行争いによる消耗",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "先行馬配置・序盤ラップ・終盤結果",
+      "proposedObservationOrHypothesis": "先行競合と結果の関連",
+      "limit": "個馬負荷・消耗量は測定なしに不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "24",
+      "name": "終盤の失速原因",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "終盤着順変化・上がり・ラップ・不利記録",
+      "proposedObservationOrHypothesis": "失速の観測と候補原因",
+      "limit": "原因・余力の断定不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "25",
+      "name": "差し損ね・脚の余力",
+      "group": "split_or_context",
+      "category": "C",
+      "normalMaterial": "全出走分類・個馬上がり・着順",
+      "proposedObservationOrHypothesis": "終盤順位と着順の差",
+      "limit": "余力の直接測定ではない",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "PARTIAL_CODE_EXISTS_NATIVE_COMPLETE_HISTORY_NOT_CONNECTED",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "26",
+      "name": "出遅れ・進路などの不利",
+      "group": "incident",
+      "category": "S",
+      "normalMaterial": "裁決・競走中の出来事・馬ID",
+      "proposedObservationOrHypothesis": "明記された不利の分類",
+      "limit": "記録なしを不利なしとしない",
+      "existingSources": [
+        "official steward evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "27",
+      "name": "不利を克服した好走",
+      "group": "incident",
+      "category": "S",
+      "normalMaterial": "裁決と同一走成績・相手",
+      "proposedObservationOrHypothesis": "記録された不利と好走の併存",
+      "limit": "不利克服の因果量は不可",
+      "existingSources": [
+        "official steward evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "28",
+      "name": "僅差の凡走",
+      "group": "history",
+      "category": "C",
+      "normalMaterial": "着差原文・着順・相手",
+      "proposedObservationOrHypothesis": "着順が低く着差小の候補",
+      "limit": "着差の尺度を揃える",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "29",
+      "name": "負けて強し",
+      "group": "incident",
+      "category": "C",
+      "normalMaterial": "相手・着差・時計・位置・不利記録",
+      "proposedObservationOrHypothesis": "敗戦内容の相対的評価",
+      "limit": "物理的負荷・原因は保留",
+      "existingSources": [
+        "official steward evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "30",
+      "name": "勝利内容の価値",
+      "group": "peer",
+      "category": "C",
+      "normalMaterial": "勝利時の全頭成績・相手後続実績",
+      "proposedObservationOrHypothesis": "相手・条件込みの勝利価値",
+      "limit": "クラス名だけで強さ確定不可",
+      "existingSources": [
+        "JRA:full_runner archive with official race identity",
+        "LOCAL:preclaim opponentFollowups where bound"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "31",
+      "name": "特殊条件による凡走",
+      "group": "incident",
+      "category": "S",
+      "normalMaterial": "公式不利・馬場・距離・競走条件",
+      "proposedObservationOrHypothesis": "特殊条件と成績の比較",
+      "limit": "凡走原因の断定不可",
+      "existingSources": [
+        "official steward evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "32",
+      "name": "前走からの内容改善",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "近走の同条件・着差・時計・上がり",
+      "proposedObservationOrHypothesis": "前走との差と反証",
+      "limit": "条件差の混同を避ける",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "33",
+      "name": "過去走のクラス水準",
+      "group": "class_rules",
+      "category": "S",
+      "normalMaterial": "有効日付きクラス規則・全頭成績",
+      "proposedObservationOrHypothesis": "所属クラスと相手実績の分離",
+      "limit": "異制度同等性は別",
+      "existingSources": [
+        "effective official class rules"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "34",
+      "name": "過去の対戦相手の能力",
+      "group": "peer",
+      "category": "C",
+      "normalMaterial": "対戦相手固有ID・過去成績",
+      "proposedObservationOrHypothesis": "対戦相手の確認済み実績比較",
+      "limit": "独立強度指標とは別",
+      "existingSources": [
+        "JRA:full_runner archive with official race identity",
+        "LOCAL:preclaim opponentFollowups where bound"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "35",
+      "name": "今回の出走馬同士の直接対戦",
+      "group": "peer",
+      "category": "F",
+      "normalMaterial": "同一競走・両馬固有ID・着順・上がり",
+      "proposedObservationOrHypothesis": "直接対戦の報告値比較",
+      "limit": "今回順位の確定ではない",
+      "existingSources": [
+        "JRA:full_runner archive with official race identity",
+        "LOCAL:preclaim opponentFollowups where bound"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "36",
+      "name": "共通対戦馬による間接比較",
+      "group": "peer",
+      "category": "C",
+      "normalMaterial": "共通対戦馬固有ID・競走条件・時系列",
+      "proposedObservationOrHypothesis": "間接比較の支持・反証",
+      "limit": "推移律で順位確定しない",
+      "existingSources": [
+        "JRA:full_runner archive with official race identity",
+        "LOCAL:preclaim opponentFollowups where bound"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "37",
+      "name": "過去の対戦相手の後続実績",
+      "group": "peer",
+      "category": "C",
+      "normalMaterial": "相手固有ID・後続走・基準時点",
+      "proposedObservationOrHypothesis": "基準時以前の後続実績",
+      "limit": "対象発走後を除外",
+      "existingSources": [
+        "JRA:full_runner archive with official race identity",
+        "LOCAL:preclaim opponentFollowups where bound"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "38",
+      "name": "対戦相手の公式レーティング",
+      "group": "rating",
+      "category": "S",
+      "normalMaterial": "相手の公表レーティング・有効日",
+      "proposedObservationOrHypothesis": "公表値の比較",
+      "limit": "欠損馬補完しない",
+      "existingSources": [
+        "official dated ratings"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "39",
+      "name": "昇級・降級",
+      "group": "class_rules",
+      "category": "S",
+      "normalMaterial": "有効クラス規則・過去今回所属",
+      "proposedObservationOrHypothesis": "正式昇降級の確認",
+      "limit": "制度変更時は保留",
+      "existingSources": [
+        "effective official class rules"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "40",
+      "name": "今回の相手強化・弱化",
+      "group": "class_rules",
+      "category": "C",
+      "normalMaterial": "今回全頭と過去相手の成績・クラス",
+      "proposedObservationOrHypothesis": "相手水準の変化候補",
+      "limit": "クラス名のみで断定不可",
+      "existingSources": [
+        "effective official class rules"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "41",
+      "name": "上位クラスでの通用可能性",
+      "group": "class_rules",
+      "category": "C",
+      "normalMaterial": "上位クラスでの直接/間接実績",
+      "proposedObservationOrHypothesis": "通用可能性の支持・反証",
+      "limit": "初挑戦は未確認",
+      "existingSources": [
+        "effective official class rules"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "42",
+      "name": "中央・地方転入による水準変化",
+      "group": "class_rules",
+      "category": "S",
+      "normalMaterial": "転入履歴・中央地方クラス規則・実績",
+      "proposedObservationOrHypothesis": "転入前後の条件差",
+      "limit": "単一換算式で比較不可",
+      "existingSources": [
+        "effective official class rules"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "43",
+      "name": "距離適性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "距離別成績・着差・上がり",
+      "proposedObservationOrHypothesis": "距離適性の支持・反証",
+      "limit": "距離一致だけでは適性確定不可",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "44",
+      "name": "距離延長・短縮への適性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "距離変化・条件・成績",
+      "proposedObservationOrHypothesis": "延長短縮時の反復実績",
+      "limit": "交絡と初条件を保持",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "45",
+      "name": "競馬場適性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "競馬場ID・成績・条件",
+      "proposedObservationOrHypothesis": "場別成績と今回条件の比較",
+      "limit": "コース形状同等ではない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "46",
+      "name": "コース間相関",
+      "group": "course",
+      "category": "S",
+      "normalMaterial": "公式コース形状・条件別成績・有効日",
+      "proposedObservationOrHypothesis": "事前に検証された条件相関",
+      "limit": "旧人気オッズ混入相関を使わない",
+      "existingSources": [
+        "effective course geometry"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "47",
+      "name": "芝・ダート適性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "芝ダート別成績・条件",
+      "proposedObservationOrHypothesis": "馬場種別の反復比較",
+      "limit": "未経験は保留",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "48",
+      "name": "馬場状態別適性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "馬場状態・条件別成績",
+      "proposedObservationOrHypothesis": "良重等の条件比較",
+      "limit": "異場の同表記を同一物理状態としない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "49",
+      "name": "左回り・右回り適性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "回り・コース形状・成績",
+      "proposedObservationOrHypothesis": "回り別成績比較",
+      "limit": "回りだけで形状適性確定不可",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "50",
+      "name": "直線の長さへの適性",
+      "group": "course",
+      "category": "S",
+      "normalMaterial": "有効直線距離・コース別成績",
+      "proposedObservationOrHypothesis": "直線長別実績",
+      "limit": "時点とコース区分必須",
+      "existingSources": [
+        "effective course geometry"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "51",
+      "name": "坂・高低差への適性",
+      "group": "course",
+      "category": "S",
+      "normalMaterial": "有効高低差・坂位置・成績",
+      "proposedObservationOrHypothesis": "形状別成績",
+      "limit": "坂耐性の因果は不可",
+      "existingSources": [
+        "effective course geometry"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "52",
+      "name": "コーナー形状への適性",
+      "group": "course",
+      "category": "S",
+      "normalMaterial": "有効コーナー形状・成績",
+      "proposedObservationOrHypothesis": "形状別実績",
+      "limit": "物理負荷量は不可",
+      "existingSources": [
+        "effective course geometry"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "53",
+      "name": "枠順と脚質の相性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "枠・通過順・コース・成績",
+      "proposedObservationOrHypothesis": "枠と位置取りの条件別対応",
+      "limit": "相互作用は条件付き",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "54",
+      "name": "斤量・斤量増減への適性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "今回過去斤量・成績・条件",
+      "proposedObservationOrHypothesis": "斤量変化と反復成績",
+      "limit": "単純なkg→秒換算不可",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "55",
+      "name": "砂被り耐性",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "映像・公式記録・位置・ダート成績",
+      "proposedObservationOrHypothesis": "砂被りが明示された事例のみ",
+      "limit": "順位だけで耐性断定不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "56",
+      "name": "馬群・揉まれ耐性",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "映像・公式記録・位置・成績",
+      "proposedObservationOrHypothesis": "馬群に関する記録事例のみ",
+      "limit": "順位から揉まれ負荷を断定不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "57",
+      "name": "季節適性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "季節・場・距離・馬場・成績",
+      "proposedObservationOrHypothesis": "季節別実績分布",
+      "limit": "気象・条件の交絡",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "58",
+      "name": "各馬の脚質",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "複数過去走の公式コーナー順位・頭数",
+      "proposedObservationOrHypothesis": "脚質の観測傾向",
+      "limit": "現在の位置取りは仮説",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "59",
+      "name": "前走の先行判定",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "前走の各通過地点順位・頭数",
+      "proposedObservationOrHypothesis": "先行の観測判定候補",
+      "limit": "判定閾値はMain承認",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "60",
+      "name": "先行力の再現性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "複数走の序盤順位・条件",
+      "proposedObservationOrHypothesis": "先行の再現性",
+      "limit": "初角までの距離差",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "61",
+      "name": "逃げ候補の特定",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "全頭序盤位置・枠・条件",
+      "proposedObservationOrHypothesis": "逃げ候補を条件付き列挙",
+      "limit": "逃げ確定としない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "62",
+      "name": "逃げへの依存度",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "先頭/非先頭時の成績・条件",
+      "proposedObservationOrHypothesis": "逃げ依存の実績比較",
+      "limit": "条件差を保持",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "63",
+      "name": "先行馬占有率",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "全頭正式状態・先行定義・履歴",
+      "proposedObservationOrHypothesis": "先行候補比率と未知頭数",
+      "limit": "欠損馬を非先行扱いしない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "64",
+      "name": "先行馬の内外配置",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "枠馬番・先行候補・取消",
+      "proposedObservationOrHypothesis": "内外配置",
+      "limit": "枠確定・取消更新必須",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "65",
+      "name": "同型馬の競合",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "全頭脚質・枠・条件",
+      "proposedObservationOrHypothesis": "同型候補の競合仮説",
+      "limit": "序盤の実測競合量は不可",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "66",
+      "name": "逃げハサミ",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "隣接馬番・脚質・取消",
+      "proposedObservationOrHypothesis": "逃げハサミ配置候補",
+      "limit": "恩恵は別途検証",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "67",
+      "name": "最初のコーナーまでの距離",
+      "group": "course",
+      "category": "S",
+      "normalMaterial": "公式コース・距離・発走地点・初角",
+      "proposedObservationOrHypothesis": "適用形状の実距離",
+      "limit": "コース名から推測不可",
+      "existingSources": [
+        "effective course geometry"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "68",
+      "name": "序盤の位置取り争い",
+      "group": "split_or_context",
+      "category": "C",
+      "normalMaterial": "全頭先行傾向・枠・初角情報",
+      "proposedObservationOrHypothesis": "序盤位置争いの複数シナリオ",
+      "limit": "順位は仮説、時計は不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "69",
+      "name": "想定ペース",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "全頭脚質・同条件過去ラップ",
+      "proposedObservationOrHypothesis": "ペース分岐の定性的仮説",
+      "limit": "具体秒数の断定不可",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "70",
+      "name": "想定隊列",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "全頭脚質・枠・位置再現性",
+      "proposedObservationOrHypothesis": "隊列の複数仮説",
+      "limit": "未評価馬も含める",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "71",
+      "name": "想定される距離ロス",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "枠・コース形状・実走軌跡",
+      "proposedObservationOrHypothesis": "外回りリスクの定性候補",
+      "limit": "実走距離・損失秒数は不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "72",
+      "name": "今回の先行争いによる消耗",
+      "group": "split_or_context",
+      "category": "M",
+      "normalMaterial": "先行競合・レースラップ・終盤成績",
+      "proposedObservationOrHypothesis": "先行競合時の成績関連",
+      "limit": "今回消耗量は不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "73",
+      "name": "各馬の展開有利・不利",
+      "group": "split_or_context",
+      "category": "C",
+      "normalMaterial": "全頭隊列仮説・各馬条件反応",
+      "proposedObservationOrHypothesis": "シナリオ別の支持反証",
+      "limit": "有利不利の断定不可",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "74",
+      "name": "展開対応力",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "異なるペース・位置での成績",
+      "proposedObservationOrHypothesis": "展開対応の反復事例",
+      "limit": "条件差を保持",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "75",
+      "name": "展開依存度",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "展開別成績・相手",
+      "proposedObservationOrHypothesis": "展開依存の実績比較",
+      "limit": "不足シナリオを明示",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "76",
+      "name": "当日の内外馬場傾向",
+      "group": "day",
+      "category": "S",
+      "normalMaterial": "同日先行競走・馬場・走路・基準時",
+      "proposedObservationOrHypothesis": "内外傾向の観測",
+      "limit": "対象競走結果・後発結果禁止",
+      "existingSources": [
+        "earlier verified same-day historical result"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "77",
+      "name": "当日の前残り・差し傾向",
+      "group": "day",
+      "category": "S",
+      "normalMaterial": "同日先行競走の通過順・成績・基準時",
+      "proposedObservationOrHypothesis": "前残り差しの観測傾向",
+      "limit": "少標本・条件差",
+      "existingSources": [
+        "earlier verified same-day historical result"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "78",
+      "name": "休養期間",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "直近の正式出走日・今回日",
+      "proposedObservationOrHypothesis": "休養日数",
+      "limit": "欠損走歴なら下限のみ",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "79",
+      "name": "出走間隔・連闘",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "公式出走日列",
+      "proposedObservationOrHypothesis": "間隔・連闘の確認",
+      "limit": "取消を出走扱いしない",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "80",
+      "name": "休養明けからの出走回数",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "完全な出走日列・休養定義",
+      "proposedObservationOrHypothesis": "復帰後走数",
+      "limit": "休養定義は別途承認",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "81",
+      "name": "馬体重・増減",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "今回公式馬体重・増減",
+      "proposedObservationOrHypothesis": "報告値の提示",
+      "limit": "調子を断定しない",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "EXISTING_PARTIAL_REPORTED_OBSERVATION_ONLY",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "82",
+      "name": "過去の好走時馬体重",
+      "group": "history",
+      "category": "C",
+      "normalMaterial": "好走時馬体重・成績・条件",
+      "proposedObservationOrHypothesis": "好走時の体重帯比較",
+      "limit": "相関を因果としない",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "83",
+      "name": "調教内容",
+      "group": "training",
+      "category": "S",
+      "normalMaterial": "公開調教時計・日付・コース・条件",
+      "proposedObservationOrHypothesis": "確認済み調教内容比較",
+      "limit": "非公開・欠損は保留",
+      "existingSources": [
+        "official training"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "84",
+      "name": "馬具変更",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "今回過去公式馬具・変更時点・成績",
+      "proposedObservationOrHypothesis": "変更事実と関連実績",
+      "limit": "効果は断定不可",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "85",
+      "name": "騎手の能力・実績",
+      "group": "people",
+      "category": "S",
+      "normalMaterial": "騎手固有ID・基準時以前成績",
+      "proposedObservationOrHypothesis": "条件付き実績比較",
+      "limit": "人気依存指標を使わない",
+      "existingSources": [
+        "official rider/trainer identities and records"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "86",
+      "name": "騎手のコース別適性",
+      "group": "people",
+      "category": "S",
+      "normalMaterial": "騎手ID・コース別成績",
+      "proposedObservationOrHypothesis": "条件別騎乗実績",
+      "limit": "少標本を保持",
+      "existingSources": [
+        "official rider/trainer identities and records"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "87",
+      "name": "馬と騎手の相性",
+      "group": "people",
+      "category": "S",
+      "normalMaterial": "馬騎手固有ID・組合せ成績",
+      "proposedObservationOrHypothesis": "コンビの確認済み実績",
+      "limit": "因果効果は不可",
+      "existingSources": [
+        "official rider/trainer identities and records"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "88",
+      "name": "乗り替わり",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "今回過去騎手固有ID",
+      "proposedObservationOrHypothesis": "乗り替わりの確認と実績",
+      "limit": "名前だけでID結合しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "89",
+      "name": "調教師・厩舎の傾向",
+      "group": "people",
+      "category": "S",
+      "normalMaterial": "調教師ID・基準時以前実績",
+      "proposedObservationOrHypothesis": "厩舎条件別傾向",
+      "limit": "現在性と標本を保持",
+      "existingSources": [
+        "official rider/trainer identities and records"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "90",
+      "name": "血統",
+      "group": "pedigree",
+      "category": "S",
+      "normalMaterial": "馬固有ID・公式血統",
+      "proposedObservationOrHypothesis": "血統事実・検証済み傾向",
+      "limit": "血統名だけで適性断定不可",
+      "existingSources": [
+        "official horse profile"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "91",
+      "name": "年齢・性別・成長段階",
+      "group": "history",
+      "category": "F",
+      "normalMaterial": "公式性齢・日付・成績",
+      "proposedObservationOrHypothesis": "性齢の事実と成績推移",
+      "limit": "成長段階の断定不可",
+      "existingSources": [
+        "JRA:jra_live_runners.past_runs",
+        "JRA:jra_lab_runs+jra_lab_races via strict stable ID",
+        "LOCAL:verified identity-bound history+private preclaim evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "92",
+      "name": "輸送・遠征",
+      "group": "travel",
+      "category": "S",
+      "normalMaterial": "所属・輸送記録・開催場・日程",
+      "proposedObservationOrHypothesis": "確認済み遠征/輸送事実",
+      "limit": "輸送負荷は推定しない",
+      "existingSources": [
+        "documented transport"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "93",
+      "name": "前走からの条件好転",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "前走今回条件・各条件実績",
+      "proposedObservationOrHypothesis": "改善候補と反証",
+      "limit": "単なる条件変更は好転としない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "94",
+      "name": "前走からの条件悪化",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "前走今回条件・各条件実績",
+      "proposedObservationOrHypothesis": "悪化候補と反証",
+      "limit": "条件差の符号を自動付与しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "95",
+      "name": "過去の好走条件への復帰",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "好走時条件・今回条件",
+      "proposedObservationOrHypothesis": "条件復帰事実と再現性",
+      "limit": "形状/クラス等未確認は保持",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "96",
+      "name": "前走の敗因解消",
+      "group": "incident",
+      "category": "S",
+      "normalMaterial": "前走公式不利・今回条件・原因証拠",
+      "proposedObservationOrHypothesis": "記録済み敗因の解消候補",
+      "limit": "原因未確認なら保留",
+      "existingSources": [
+        "official steward evidence"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "97",
+      "name": "複数の好転材料の重なり",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "複数独立した条件改善証拠",
+      "proposedObservationOrHypothesis": "好転の組合せ仮説",
+      "limit": "同じ原本を二重計上しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "98",
+      "name": "潜在能力を発揮できる可能性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "過去能力支持・今回条件・全頭仮説",
+      "proposedObservationOrHypothesis": "発揮可能性の条件付き評価",
+      "limit": "実測能力・勝率を断定しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "99",
+      "name": "過去の好走の再現性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "反復好走・今回条件・全頭比較",
+      "proposedObservationOrHypothesis": "好走再現の支持反証",
+      "limit": "異条件に無条件外挿しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "100",
+      "name": "今回の勝ち切り可能性",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "全頭比較・能力・展開・反証・欠損",
+      "proposedObservationOrHypothesis": "条件付き勝ち筋の候補",
+      "limit": "SABC/勝率は別承認",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-01",
+      "name": "着順と着差のギャップ",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "着順・着差・同条件相手",
+      "proposedObservationOrHypothesis": "着順着差の乖離候補",
+      "limit": "現在の恩恵と別",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-02",
+      "name": "着順と過去走内容のギャップ",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "着順・上がり・全頭正式出走分類",
+      "proposedObservationOrHypothesis": "上がり順位と着順の乖離",
+      "limit": "余力・肯定EYEは別",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "PARTIAL_CODE_EXISTS_NATIVE_COMPLETE_HISTORY_NOT_CONNECTED",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-03",
+      "name": "道中後退からの巻き返し",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "複数通過地点順位・着順・上がり",
+      "proposedObservationOrHypothesis": "巻き返しの観測候補",
+      "limit": "距離時計を復元しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-04",
+      "name": "強い相手との僅差敗戦",
+      "group": "peer",
+      "category": "C",
+      "normalMaterial": "相手固有ID・相手後続実績・着差",
+      "proposedObservationOrHypothesis": "相手水準と僅差の比較",
+      "limit": "独立強度と今回適合が必要",
+      "existingSources": [
+        "JRA:full_runner archive with official race identity",
+        "LOCAL:preclaim opponentFollowups where bound"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-05",
+      "name": "対戦相手の後続実績",
+      "group": "peer",
+      "category": "C",
+      "normalMaterial": "相手後続成績・基準時・条件",
+      "proposedObservationOrHypothesis": "対戦価値の再点検",
+      "limit": "対象発走後禁止",
+      "existingSources": [
+        "JRA:full_runner archive with official race identity",
+        "LOCAL:preclaim opponentFollowups where bound"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-06",
+      "name": "前走の展開不利の解消",
+      "group": "split_or_context",
+      "category": "S",
+      "normalMaterial": "公式不利・過去展開・今回全頭仮説",
+      "proposedObservationOrHypothesis": "不利解消の候補",
+      "limit": "原因と恩恵を断定しない",
+      "existingSources": [
+        "history",
+        "race-level laps",
+        "individual crossing clock not confirmed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-07",
+      "name": "得意距離・条件への復帰",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "過去好走条件・今回条件",
+      "proposedObservationOrHypothesis": "得意条件復帰候補",
+      "limit": "反復と反証必須",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-08",
+      "name": "コース変更による適性向上",
+      "group": "course",
+      "category": "S",
+      "normalMaterial": "有効コース形状・成績",
+      "proposedObservationOrHypothesis": "形状変更の適性候補",
+      "limit": "形状と能力の因果は別",
+      "existingSources": [
+        "effective course geometry"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-09",
+      "name": "先行馬占有率による恩恵",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "全頭先行候補・状態・過去対応",
+      "proposedObservationOrHypothesis": "先行占有率の恩恵仮説",
+      "limit": "閾値と検証はMain承認",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-10",
+      "name": "逃げハサミによる恩恵",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "隣接馬・脚質・状態・過去対応",
+      "proposedObservationOrHypothesis": "逃げハサミ恩恵仮説",
+      "limit": "配置だけで加点しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-11",
+      "name": "同型馬の減少",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "同型馬候補・過去今回条件",
+      "proposedObservationOrHypothesis": "同型減少の恩恵仮説",
+      "limit": "未知馬は無視しない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-12",
+      "name": "想定隊列による位置取り改善",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "全頭隊列仮説・位置再現性",
+      "proposedObservationOrHypothesis": "位置改善の条件付き仮説",
+      "limit": "実際の隊列ではない",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-13",
+      "name": "着順に表れていない能力上昇",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "着差・時計・上がり・相手・条件",
+      "proposedObservationOrHypothesis": "成績に隠れた改善候補",
+      "limit": "反証と条件差",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-14",
+      "name": "転入・クラス変更による相手弱化",
+      "group": "class_rules",
+      "category": "S",
+      "normalMaterial": "転入・クラス規則・相手実績",
+      "proposedObservationOrHypothesis": "相手弱化の候補",
+      "limit": "制度変換は別検証",
+      "existingSources": [
+        "effective official class rules"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    },
+    {
+      "id": "EYE-15",
+      "name": "複数の条件好転の組み合わせ",
+      "group": "history_compare",
+      "category": "C",
+      "normalMaterial": "独立好転証拠・反証・同一シナリオ",
+      "proposedObservationOrHypothesis": "組合せの候補",
+      "limit": "重複根拠・単純加算禁止",
+      "existingSources": [
+        "history",
+        "target verified roster",
+        "course/conditions where needed"
+      ],
+      "codex08": "NO_CURRENT_ITEM_COMPUTATION",
+      "formalJudgment": "NOT_APPROVED",
+      "gradeEffect": "NONE"
+    }
+  ]
+}
