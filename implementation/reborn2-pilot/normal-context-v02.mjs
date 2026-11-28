@@ -213,9 +213,72 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,diagnosti
    axis('D',winPaths.length||placePaths.length?(counterPaths.some(p=>p.kind==='PLACE')?'MIXED':'SUPPORT'):counterPaths.some(p=>p.kind==='PLACE'&&p.state==='COUNTER')?'COUNTER':'HELD',refs(fieldRefs,paths.map(p=>p.refs)),'SIMILAR_ORDINAL_RESPONSE_MODES_WITH_UNRESOLVED_RIVALS'),
    axis('E',feedback.length?'CONDITIONAL_DISCOVERY':'HELD',feedback.map(f=>f.refs),'EYE_ADDS_RESPONSE_MODE_NOT_ADDITIONAL_VOTE')
   ];
-  const a=Object.fromEntries(axes.map(q=>[q.axis,q.state]));
+  // Codex14: qualify every reported response against the SAME current-field,
+  // history, rival and strict path prerequisites before the decision. The
+  // ordinary-fact graph cannot certify absent class/count or role convention.
+  const reportedEvidence=diagnostic&&packet.roots.some(n=>n.kind==='DIAGNOSTIC_PEER_FOLLOWUP_WITNESS')?calculateReportedEvidence({packet,roster,horse,eyeEnabled,emit,close,refs}):null;
+  let integratedDecision=null;
+  if(reportedEvidence){
+   const reportedAxis=Object.fromEntries(reportedEvidence.axes.map(q=>[q.axis,q]));
+   const rosterWitnesses=packet.roots.filter(n=>n.kind==='DIAGNOSTIC_ROSTER_CORROBORATION'&&n.payload.eventId===card.eventId);
+   const currentHolds=[...(rosterBound?[]:['CURRENT_DECLARED_FIELD_NOT_BOUND']),...keys.filter(k=>v(card,k)==null).map(k=>'CURRENT_MISSING_'+k)];
+   const eventReview=new Map();
+   for(const e of hist){
+    const r=row(e,horse);if(!r||!finite(v(r,'finish')))continue;
+    const z=past(e,horse),missing=[...z.c.missing.map(k=>'CONTEXT_MISSING_'+k)];
+    if(!finite(z.count))missing.push('HISTORICAL_DECLARED_COUNT_UNVERIFIED');
+    if(!z.validFinish)missing.push('FINISH_FIELD_NOT_BOUND');
+    if(!z.p)missing.push(r.observations.cornerPositionsLiteral?.state==='CONFLICT'?'ORDINAL_CONFLICT':'ORDINAL_CONVENTION_OR_COUNT_UNBOUND');
+    const starterBound=Number.isInteger(z.count)&&e.rows.length===z.count&&e.rows.every(q=>['ACTIVE','CANCELLED','EXCLUDED'].includes(v(q,'status')));
+    if(!starterBound)missing.push('HISTORICAL_STARTER_CLASSIFICATION_UNVERIFIED');
+    if(!comparable(z.c))missing.push('CONTEXT_NOT_COMPARABLE');
+    const conflict=r.observations.cornerPositionsLiteral?.state==='CONFLICT'?r.observations.cornerPositionsLiteral.evidenceId:null;
+    eventReview.set(e.eventId,{event:e.eventId,finish:z.finish,context:z.c.kind,holds:unique(missing),refs:close(refs(z.refs,conflict,o(e,'declaredCount'),e.rows.map(q=>o(q,'status'))))});
+   }
+   const observedField=possible.map(q=>{
+    const rows=hist.filter(e=>e.nativeRaceIdentity.venueId===card.nativeRaceIdentity.venueId&&v(e,'distanceM')===v(card,'distanceM')).flatMap(e=>{
+     const r=row(e,q.horseId),f=o(r,'cornerPositionsLiteral'),p=ordinal(f?.value);
+     if(!p||p.length<2||p.some(n=>n<1||n>24))return [];
+     const witnesses=close([f.evidenceId]).map(id=>nodes.get(id)).filter(n=>n.kind.endsWith('_SOURCE_FIELD')&&n.payload.field==='cornerPositionsLiteral');
+     const labels=witnesses.map(n=>{try{return JSON.parse(n.payload.root.rowPointer).cornerLabels;}catch{return null;}});
+     const convention=labels.length&&labels.every(a=>Array.isArray(a)&&a.length===p.length&&JSON.stringify(a)===JSON.stringify(labels[0]))?'EXPLICIT_CORNERS:'+labels[0].join(','):'REPORTED_ORDER_UNLABELED';
+     return [{event:e.eventId,role:p[0]<=3?'FORWARD':'OTHER',convention,refs:close(refs(f,e.eventRoot,o(e,'distanceM')))}];
+    });
+    return {horse:q.horseId,status:q.status,roles:unique(rows.map(z=>z.role)),observations:rows,refs:close(refs(o(row(card,q.horseId),'status'),o(row(card,q.horseId),'no'),rows.map(z=>z.refs),rosterWitnesses.filter(n=>n.payload.horseId===q.horseId).map(n=>n.id)))};
+   });
+   const relative=possible.filter(q=>q.horseId!==horse).map(q=>{
+    const strict=comparisons.find(c=>c.rival===q.horseId);
+    const direct=reportedAxis.C.direct.filter(d=>d.rival===q.horseId);
+    const common=reportedAxis.C.common.filter(d=>d.rival===q.horseId);
+    const ds=unique(direct.map(d=>d.event+'|'+d.rival+'|'+d.order));
+    const cs=unique(common.map(d=>JSON.stringify([d.events,d.rival,d.peer,d.order])));
+    const orders=[...direct,...common].map(d=>d.order),support=orders.includes('SUPPORT'),counter=orders.includes('COUNTER');
+    return {rival:q.horseId,strictState:strict?.state??'HELD',reportedState:support&&counter?'MIXED':support?'SUPPORT':counter?'COUNTER':orders.length?'NEUTRAL':'HELD',directRelations:ds,commonRelations:cs,refs:close(refs(strict?.refs,direct.map(d=>d.refs),reportedAxis.C.refs))};
+   });
+   const currentFieldRefs=close(refs(fieldRefs,rosterWitnesses.map(n=>n.id),observedField.map(z=>z.refs)));
+   const proposed=[];
+   for(const response of reportedEvidence.paths){
+    const role=response.mode==='EYE03_REPORTED_RECOVERY'?null:response.mode;
+    const ownProfile=observedField.find(q=>q.horse===horse);
+    const relevantField=observedField.map(q=>({horse:q.horse,roles:q.roles,observations:q.observations,unresolved:!q.roles.length}));
+    for(const kind of ['WIN','PLACE']){
+     const sourceSupport=response[kind==='WIN'?'win':'place'],sourceCounter=kind==='WIN'?[...response.counter,...response.place.filter(z=>z.finish!==1)]:response.counter;
+     const evidenceFor=zs=>[...new Map(zs.map(z=>[z.event,eventReview.get(z.event)])).values()].filter(Boolean);
+     const support=evidenceFor(sourceSupport),counter=evidenceFor(sourceCounter);
+     if(!support.length&&!counter.length)continue;
+     const eligibleSupport=support.filter(z=>!z.holds.length),eligibleCounter=counter.filter(z=>!z.holds.length);
+     const existing=(kind==='WIN'?winPaths:placePaths).filter(p=>role?p.scenario==='ORDINAL_'+role:p.mode==='LATE_ORDINAL_RECOVERY');
+     const hasStrict=existing.some(p=>p.events.some(z=>eligibleSupport.some(q=>q.event===z.event)));
+     const holds=unique([...currentHolds,...(support.length&&eligibleSupport.length<2?['REPEATED_ELIGIBLE_SUPPORT_NOT_ESTABLISHED']:[]),...(!hasStrict?['NO_MATCHING_STRICT_CURRENT_PATH']:[]),...(!ownProfile?.roles.length?['SUBJECT_ROLE_NOT_ESTABLISHED']:[])]);
+     proposed.push({kind,mode:response.mode,state:hasStrict&&!holds.length?'STRICT_PATH_LINKED':support.length?'HISTORICAL_SUPPORT_CURRENT_HELD':'HISTORICAL_COUNTER_CURRENT_HELD',support,counter,eligibleSupport:eligibleSupport.map(z=>z.event),eligibleCounter:eligibleCounter.map(z=>z.event),holds,field:relevantField,actualForwardRange:[0,possible.length],reportedForwardCandidates:observedField.filter(q=>q.roles.includes('FORWARD')).map(q=>q.horse),refs:close(refs(response.refs,currentFieldRefs,support.map(z=>z.refs),counter.map(z=>z.refs))),gradeEligible:hasStrict&&!holds.length});
+    }
+   }
+   const combinedAxes=axes.map(q=>({axis:q.axis,state:q.state,reason:q.reason,strictRefs:q.refs,reported:reportedAxis[q.axis],refs:close(refs(q.refs,reportedAxis[q.axis].refs,q.axis==='C'?relative.map(z=>z.refs):q.axis==='D'?proposed.map(z=>z.refs):q.axis==='B'?currentFieldRefs:[]))}));
+   integratedDecision={currentHolds,history:[...eventReview.values()],field:observedField,relative,routes:proposed,axes:combinedAxes,eyeFeedback:reportedEvidence.feedback,refs:close(refs(currentFieldRefs,combinedAxes.map(q=>q.refs),proposed.map(q=>q.refs),[...eventReview.values()].map(z=>z.refs))),scope:'PRIVATE_CURRENT_APPLICABILITY_REVIEW_NOT_CERTIFIED_ABILITY'};
+  }
+  const a=Object.fromEntries((integratedDecision?.axes??axes).map(q=>[q.axis,q.state]));
   let grade='UNASSESSED',reason='NO_SUFFICIENT_CONDITIONAL_PATH';
-  if(h.status!=='ACTIVE'||!knownStatus(h)||!rosterBound)reason='CURRENT_FIELD_OR_COMPARABLE_HISTORY_INCOMPLETE';
+  if(h.status!=='ACTIVE'||!knownStatus(h)||!rosterBound||integratedDecision?.currentHolds.length)reason='CURRENT_FIELD_OR_COMPARABLE_HISTORY_INCOMPLETE';
   else if(a.A==='COUNTER'&&a.C==='COUNTER'&&a.D==='COUNTER'&&counterPaths.some(p=>p.kind==='PLACE'&&p.state==='COUNTER')&&!winPaths.length&&!placePaths.length&&!feedback.length){grade='C';reason='REPEATED_COMPARABLE_NONPLACE_WITH_CONCRETE_ROLE_COUNTER_AND_RIVAL_COUNTER';}
   else if(a.A==='SUPPORT'&&a.B==='SUPPORT'&&a.D==='SUPPORT'){
    const robustRoles=new Set(winPaths.filter(p=>p.fieldProfileComparisons.every(q=>q.state==='REPORTED_ROLE_PROFILE_OVERLAP')).map(p=>p.scenario)).size===2;
@@ -225,8 +288,8 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,diagnosti
   }
   // A/B are conditional and may coexist with unknown other horses; S needs
   // both reviewed role modes and no unresolved rival. None is formal.
-  const reportedEvidence=diagnostic&&packet.roots.some(n=>n.kind==='DIAGNOSTIC_PEER_FOLLOWUP_WITNESS')?calculateReportedEvidence({packet,roster,horse,eyeEnabled,emit,close,refs}):null;
-  return {...old,candidateGrade:grade,decisionReason:reason,formalGrade:null,axes,items:[...items.values()],winPaths,placePaths,counterPaths,feedback,reportedEvidence,comparisons,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:unique([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedRivals:unresolved,unknownComparisons,matchedHistory:usable.map(report)},decisionEvidence:{refs:close(refs(fieldRefs,axes.map(a=>a.refs),paths.map(p=>p.refs))),allCompared,allAhead,sameRaceThreeAhead,exactAnchor,unresolved,unknownComparisons,winPeerSupport,placePeerSupport,peerSupport:peerSupports,peerCounter:peerCounters,eyeEnabled,formal:false}};
+
+  return {...old,candidateGrade:grade,decisionReason:reason,formalGrade:null,axes:integratedDecision?.axes??axes,items:[...items.values()],winPaths,placePaths,counterPaths,feedback,reportedEvidence,comparisons,currentAbility:{state:winPaths.length||placePaths.length?'CONDITIONAL_REPORTED_PERFORMANCE_SUPPORT':'HELD',applicability:integratedDecision?{state:integratedDecision.routes.some(q=>q.gradeEligible)?'STRICT_PATH_LINKED':'HELD',currentHolds:integratedDecision.currentHolds,routes:integratedDecision.routes,field:integratedDecision.field,relative:integratedDecision.relative}:null,scope:'NOT_OBSERVED_CURRENT_ABILITY',supportedScenarios:unique([...winPaths,...placePaths].map(p=>p.scenario)),unresolvedRivals:unresolved,unknownComparisons,matchedHistory:usable.map(report)},decisionEvidence:{refs:close(refs(fieldRefs,axes.map(a=>a.refs),paths.map(p=>p.refs),integratedDecision?.refs)),integratedDecision,allCompared,allAhead,sameRaceThreeAhead,exactAnchor,unresolved,unknownComparisons,winPeerSupport,placePeerSupport,peerSupport:peerSupports,peerCounter:peerCounters,eyeEnabled,formal:false}};
  });
  return {...base,schema:VERSION,field:{...base.field,rosterBound,roleOptions:field,forwardCandidateRange:[forwardMin,forwardMax],actualRolePossibilityRange,unresolved,reviewedRoleScenarios:scenarios,scenarioCoverage:'TWO_CONDITIONAL_SUBJECT_MODES_NOT_EXHAUSTIVE'},runners:result,eyeEnabled,formal:false};
 }
