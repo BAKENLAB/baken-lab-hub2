@@ -9,17 +9,19 @@ import {assertNativeAuthorityConfigured,inspectApprovedLocalHeader,issueNativeGr
 import {startGraphPreview} from './graph-preview.mjs';
 import {runWork13Diagnostic,renderDiagnosticHtml} from './work13-private-diagnostic.mjs';
 import {createServer} from 'node:http';
-import {randomBytes} from 'node:crypto';
+import {randomBytes,createHash} from 'node:crypto';
+import {WORK14_FILE_SHA} from './work14-private-enrichment.mjs';
 const formats=new Set(['NAR_DEBA_HTML_PROJECTION_1','NAR_HISTORY_HTML_PROJECTION_1','JRA_CORNER_HTML_PROJECTION_1','NAR_RESULT_HTML_PROJECTION_1']);
 const read=p=>{const st=statSync(p);assert.ok(st.isFile()&&st.size>0&&st.size<=16*1024*1024,'LOCAL_FILE_LIMIT');const b=readFileSync(p);assert.ok(b.length>0&&b.length<=16*1024*1024,'LOCAL_FILE_LIMIT');return b;};
 const json=p=>JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(read(p)));
 async function main(){
  const [mode,manifestPath,approvalPath,indexPath,...extra]=process.argv.slice(2);
  if(mode==='FACT_DIAGNOSTIC'){
-  assert.ok(manifestPath&&!indexPath&&!extra.length,'FACT_DIAGNOSTIC_ARGUMENTS');
+  assert.ok(manifestPath&&!extra.length&&(!indexPath||approvalPath),'FACT_DIAGNOSTIC_ARGUMENTS');
   // No native authority, no native graph, no raw acquisition. Exact fixed
   // ordinary factual handoff only, private loopback, no persistence.
-  const out=runWork13Diagnostic(json(manifestPath),{snapshot:approvalPath?json(approvalPath):null}),html=renderDiagnosticHtml(out),token='/'+randomBytes(24).toString('hex');
+  const w=indexPath?read(indexPath):null;if(w)assert.equal(createHash('sha256').update(w).digest('hex'),WORK14_FILE_SHA,'WORK14_FILE_PIN');
+  const out=runWork13Diagnostic(json(manifestPath),{snapshot:approvalPath?json(approvalPath):null,work14:w?JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(w)):null}),html=renderDiagnosticHtml(out),token='/'+randomBytes(24).toString('hex');
   const server=createServer((req,res)=>{res.setHeader('Cache-Control','no-store');res.setHeader('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'");if(req.method!=='GET'||req.url!==token||req.headers.host!=='127.0.0.1:'+server.address().port){res.writeHead(404);return res.end();}res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});res.end(html);});
   await new Promise((ok,bad)=>{server.once('error',bad);server.listen(0,'127.0.0.1',ok);});
   console.log(JSON.stringify({scope:out.scope,url:'http://127.0.0.1:'+server.address().port+token,analysisDigest:out.analysisDigest,timing:out.analysisTiming,coverage:out.coverage,publicationAllowed:false}));
