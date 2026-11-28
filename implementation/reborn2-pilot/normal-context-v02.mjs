@@ -149,9 +149,9 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
    const byConvention=new Map();
    for(const z of usable.filter(z=>z.p?.role===scenario.role)){const a=byConvention.get(z.p.convention)??[];a.push(z);byConvention.set(z.p.convention,a);}
    for(const [convention,rs] of byConvention){
-    for(const mode of ['FRONT_AT_LAST_REPORTED_POINT','LATE_ORDINAL_RECOVERY','LATE_POSITION_NONRECOVERY_COUNTER']){
+    for(const mode of ['FRONT_AT_LAST_REPORTED_POINT','LATE_ORDINAL_RECOVERY','LATE_POSITION_NONPLACE_COUNTER']){
      if(mode==='LATE_ORDINAL_RECOVERY'&&!eyeEnabled)continue;
-     const related=rs.filter(z=>mode==='FRONT_AT_LAST_REPORTED_POINT'?z.p.last<=3:mode==='LATE_ORDINAL_RECOVERY'?recovery(z):z.p.last>3&&!recovery(z));
+     const related=rs.filter(z=>mode==='FRONT_AT_LAST_REPORTED_POINT'?z.p.last<=3:mode==='LATE_ORDINAL_RECOVERY'?recovery(z):z.p.last>3);
      if(!related.length)continue;
      const recoverySuccess=related.filter(z=>z.top3&&z.finish<z.p.last);
      if(mode==='LATE_ORDINAL_RECOVERY'&&!distinct(recoverySuccess))continue;
@@ -166,7 +166,7 @@ export function analyzeNormalContext(packet,roster,base,{fixture=false,eyeEnable
       const assessed=related.map(z=>({z,composition:composition(z)}));
       const support=assessed.filter(q=>q.composition.state!=='REPORTED_ROLE_PROFILE_NONOVERLAP'&&(kind==='WIN'?q.z.finish===1:q.z.top3)).map(q=>q.z);
       const counter=related.filter(z=>kind==='WIN'?z.finish!==1:z.nonplace);
-      if(mode==='LATE_POSITION_NONRECOVERY_COUNTER'&&(kind!=='PLACE'||support.length))continue;
+      if(mode==='LATE_POSITION_NONPLACE_COUNTER'&&(kind!=='PLACE'||support.length))continue;
       if(!distinct(support)&&!distinct(counter))continue;
       const hasAnchor=support.some(z=>z.c.kind==='EXACT_REPORTED');
       // Variation transfer requires a current exact anchor; a change in
