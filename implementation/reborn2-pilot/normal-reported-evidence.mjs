@@ -12,6 +12,13 @@ export function attachWork14PeerLap(packet,roster,w,snapshot){
  const hist=new Map(packet.events.filter(e=>e.role==='HISTORICAL_RESULT').map(e=>[e.eventId,e]));
  const add=(kind,payload,depends)=>{const k='DIAGNOSTIC_'+kind,d=unique(depends),id=sha([k,payload,d]);for(const q of d)assert.ok(roots.has(q),'PEER_LAP_DEPENDENCY');roots.set(id,{id,kind:k,payload,depends:d});return id;};
  const before=t=>Number.isFinite(Date.parse(t))&&Date.parse(t)<=Date.parse(w.snapshot.asOf);
+ const cornerRef=c=>{
+  const matches=[...roots.values()].filter(n=>c.matchState==='CONFLICT'
+   ?n.kind==='DIAGNOSTIC_UNAVAILABLE_FIELD'&&n.payload.eventId===c.eventId&&n.payload.horseId===c.horseId&&n.payload.field==='cornerPositionsLiteral'&&n.payload.state==='CONFLICT'
+   :n.kind==='DIAGNOSTIC_CORNER_CORROBORATION'&&n.payload.eventId===c.eventId&&n.payload.horseId===c.horseId&&n.payload.sourceIndex===c.index);
+  assert.equal(matches.length,1,'PEER_CORNER_WITNESS_CLOSURE');
+  return matches[0].id;
+ };
  const eventId=z=>{const map={'佐賀':'32','船橋':'19','園田':'27'};assert.ok(map[z.track]);return 'NAR-'+map[z.track]+'-'+z.raceDate.replaceAll('-','')+'-'+String(z.raceNo).padStart(2,'0');};
  assert.equal(new Set(w.peerFollowups.map(q=>q.index)).size,22);
  for(const z of w.peerFollowups){
@@ -30,7 +37,7 @@ export function attachWork14PeerLap(packet,roster,w,snapshot){
   const a1=add('PEER_SOURCE_FIELD',{eventId:e.eventId,horseId:z.peerHorseId,field:'finish',value:z.peerPriorFinish,sourcePath:z.sourcePointer+'/peerPriorFinish',sourceRef:z.sourceRef},[a]);
   const b1=add('PEER_SOURCE_FIELD',{eventId:later.eventId,horseId:z.peerHorseId,field:'finish',value:z.peerFollowupFinish,sourcePath:z.sourcePointer+'/peerFollowupFinish',sourceRef:z.followupSourceRef},[b]);
   // No invented peer horse number or peer row, subject finish remains card.
-  add('PEER_FOLLOWUP_WITNESS',{eventId:e.eventId,followupEventId:later.eventId,horseId:h.horseId,peerId:z.peerHorseId,subjectFinish:finish.value,peerPriorFinish:z.peerPriorFinish,peerFollowupFinish:z.peerFollowupFinish,strictSameSubjectWitness:z.strictSameSubjectWitness,ordinalConflictInPriorWitness:z.ordinalConflictInPriorWitness,sourceIndex:z.index,scope:'REPORTED_PEER_HISTORY_NOT_CLASS_CERTIFIED'},[a1,b1,finish.evidenceId,row.observations.no.evidenceId]);
+  add('PEER_FOLLOWUP_WITNESS',{eventId:e.eventId,followupEventId:later.eventId,horseId:h.horseId,peerId:z.peerHorseId,subjectFinish:finish.value,peerPriorFinish:z.peerPriorFinish,peerFollowupFinish:z.peerFollowupFinish,strictSameSubjectWitness:z.strictSameSubjectWitness,ordinalConflictInPriorWitness:z.ordinalConflictInPriorWitness,sourceIndex:z.index,scope:'REPORTED_PEER_HISTORY_NOT_CLASS_CERTIFIED'},[a1,b1,finish.evidenceId,row.observations.no.evidenceId,cornerRef(prior),...laterWitnesses.map(cornerRef)]);
  }
  const z=w.raceLevelLaps[0],x=snapshot.evidence.packet.officialRaceLaps[0],e=hist.get(z.eventId);
  assert.ok(e&&eventId(x.pastRace)===e.eventId&&before(x.sourceCheckedAt)&&x.individual_horse_sectionals===false&&z.individualHorseSectionals===false);
@@ -48,7 +55,7 @@ export function attachWork14PeerLap(packet,roster,w,snapshot){
 export function calculateReportedEvidence({packet,roster,horse,eyeEnabled,emit,close,refs}){
  assert.equal(packet.scope,'PRIVATE_REPORTED_FACT_GRAPH_ONLY');
  const card=packet.events.find(e=>e.role==='TARGET_CARD'),hist=packet.events.filter(e=>e.role==='HISTORICAL_RESULT');
- const nodes=new Map(packet.roots.map(n=>[n.id,n])),row=(e,h)=>e.rows.find(r=>r.nativeId===h),o=(e,k)=>observed(e?.observations?.[k]),v=(e,k)=>o(e,k)?.value??null;
+ const nodes=new Map(packet.roots.map(n=>[n.id,n])),row=(e,h)=>e?.rows.find(r=>r.nativeId===h),o=(e,k)=>observed(e?.observations?.[k]),v=(e,k)=>o(e,k)?.value??null;
  const ctx=hist.filter(e=>e.nativeRaceIdentity.venueId===card.nativeRaceIdentity.venueId&&v(e,'distanceM')===v(card,'distanceM'));
  const all=ctx.flatMap(e=>{const r=row(e,horse);if(!r||!Number.isInteger(v(r,'finish')))return [];
   const f=o(r,'cornerPositionsLiteral'),p=f?.value?.split(',').map(Number),labels=f?close([f.evidenceId]).map(id=>nodes.get(id)).filter(n=>n.kind==='DIAGNOSTIC_SOURCE_FIELD'&&n.payload.field==='cornerPositionsLiteral').map(n=>{try{return JSON.parse(n.payload.root.rowPointer).cornerLabels??null;}catch{return null;}}).filter(Boolean):[];
