@@ -160,11 +160,79 @@ def nar_history(root,meta):
     for k,col in [('finish',13),('finishClockLiteral',14),('officialMarginLiteral',15),('final600Ms',16),('bodyWeightKg',17),('weightG',19)]:
         if v[col]:ff[k]=field(v[col],i,col)
     return ef,[{'horseId':meta['horseId'],'horseNo':meta['horseNo'],'displayName':meta['displayName'],'fields':ff}]
+def nar_result(root,meta):
+    urlcheck(meta,'/KeibaWeb/TodayRaceInfo/RaceMarkTable',{'k_babaCode':meta['venueId'],'k_raceDate':meta['dateJst'].replace('-','/'),'k_raceNo':str(meta['raceNo'])})
+    need(meta['dateJst']<meta['targetDateJst'],'HISTORY_CUTOFF')
+    body=clean(root.text())
+    m=re.search(r'(\d{4})年(\d{1,2})月(\d{1,2})日\s*(?:\([^)]*\))?\s*'+re.escape(meta['track'])+r'\s*第\s*(\d+)競走.{0,80}?競走成績',body)
+    need(m and [int(m[1]),int(m[2]),int(m[3])]==list(map(int,meta['dateJst'].split('-'))) and int(m[4])==meta['raceNo'],'RESULT_HEADER')
+    rs=rows(root);headers=[]
+    for i,r,cs in rs:
+        names=[txt(c) for c in cs]
+        if all(k in names for k in ('着順','枠','馬番','馬名')) and all(names.count(k)==1 for k in ('着順','枠','馬番','馬名')):
+            parent=r.parent
+            while parent and parent.tag!='table':parent=parent.parent
+            headers.append((i,names,parent))
+    need(len(headers)==1,'RESULT_TABLE')
+    hi,headers,table=headers[0];cols={k:headers.index(k) for k in ('着順','枠','馬番','馬名')}
+    optional={'finishClockLiteral':('タイム',),'officialMarginLiteral':('着差',),'final600Ms':('上り3F','上3F','上がり3F'),'weightG':('斤量','負担重量')}
+    for k,names in optional.items():
+        found=[i for i,n in enumerate(headers) if n in names]
+        if len(found)==1:cols[k]=found[0]
+    groups=[]
+    for i,r,cs in rs:
+        if len(cs)!=2:continue
+        mm=re.fullmatch(r'(?:第)?([1-4])(?:角|コーナー)',txt(cs[0]))
+        if not mm:continue
+        literal=txt(cs[1])
+        # For NAR use only unambiguous explicit ordinal rows. Parenthesized
+        # groups are not assigned an individual rank without a separate witness.
+        if not re.fullmatch(r'\d{1,2}(?:\s*[, -]\s*\d{1,2})*',literal):continue
+        ns=list(map(int,re.findall(r'\d+',literal)))
+        if len(ns)!=len(set(ns)) or not all(1<=n<=24 for n in ns):continue
+        groups.append((int(mm[1]),i,literal,ns))
+    labels=[g[0] for g in groups]
+    if labels!=sorted(set(labels)):groups=[];labels=[]
+    result=[]
+    for i,r,cs in rs:
+        if i<=hi:continue
+        parent=r.parent
+        while parent and parent.tag!='table':parent=parent.parent
+        if parent is not table:continue
+        if len(cs)!=len(headers):continue
+        v=[txt(c) for c in cs];no=v[cols['馬番']]
+        if not re.fullmatch(r'\d{1,2}',no):continue
+        no=int(no);need(1<=no<=24,'RESULT_HORSE_NO')
+        horse=cs[cols['馬名']];hid=id_link(horse,meta['sourceRef'],'LOCAL')
+        ff={'finish':field(v[cols['着順']],i,cols['着順'])}
+        for k in optional:
+            if k in cols and v[cols[k]]:ff[k]=field(v[cols[k]],i,cols[k])
+        if v[cols['枠']]:ff['gate']=field(v[cols['枠']],i,cols['枠'])
+        if groups and all(no in g[3] for g in groups):
+            pos=[g[3].index(no)+1 for g in groups]
+            ff['cornerPositionsLiteral']=field(','.join(map(str,pos)),i,cols['馬番'],cornerLabels=labels,groupRows=[{'row':g[1],'label':g[0],'literal':g[2],'positionRange':[p,p]} for g,p in zip(groups,pos)])
+        result.append({'horseId':hid,'horseNo':no,'displayName':txt(horse),'fields':ff})
+    need(result and len({h['horseId'] for h in result})==len(result) and len({h['horseNo'] for h in result})==len(result),'RESULT_ROWS')
+    # Explicit header-only context, never later payout or result text.
+    lead=body[:body.find(result[0]['displayName'])]
+    ef={}
+    course=re.findall(r'(ダート|芝)\s*(\d{3,4})\s*m(?:\s*\((右|左|直)[^)]*\))?',lead)
+    if len(set(course))==1:
+        a,b,c=course[0];ef['surfaceLiteral']=field(a,'header','course');ef['distanceM']=field(b,'header','course')
+        if c:ef['directionLiteral']=field('直線' if c=='直' else c,'header','course')
+    going=re.findall(r'馬場\s*[:：]?\s*(不良|稍重|良|重)',lead)
+    if len(set(going))==1:ef['goingLiteral']=field(going[0],'header','going')
+    count=re.findall(r'(?:出走頭数|出走馬)\s*[:：]?\s*(\d{1,2})頭',lead)
+    if len(set(count))==1:ef['declaredCount']=field(count[0],'header','declaredCount')
+    return ef,result
 def jra_corners(root,meta):
     u=urlparse(meta['sourceRef']);p=parse_qs(u.query,keep_blank_values=True)
     need(u.scheme=='https' and u.netloc=='www.jra.go.jp' and u.path=='/JRADB/accessS.html' and not u.fragment and set(p)=={'CNAME'} and len(p['CNAME'])==1,'JRA_RESULT_URL')
     m=re.fullmatch(r'pw01sde(?:01|10)(\d{2})(\d{4})\d{4}(\d{2})(\d{8})/[0-9A-Fa-f]{2}',p['CNAME'][0])
     need(m and m[1]==meta['venueId'] and m[2]==meta['dateJst'][:4] and int(m[3])==meta['raceNo'] and m[4]==meta['dateJst'].replace('-','') and JRA[int(m[1])-1]==meta['track'] and meta['dateJst']<meta['targetDateJst'],'JRA_RESULT_TUPLE')
+    header=' '.join(txt(n) for n in root.all() if 'race_header' in n.classes())
+    date=list(map(int,meta['dateJst'].split('-')));dm=re.search(r'(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日',header)
+    need(dm and list(map(int,dm.groups()))==date and meta['track'] in header,'JRA_HEADER_DATE_TRACK')
     rs=rows(root);groups=[]
     for i,r,cs in rs:
         if len(cs)!=2 or cs[0].tag!='th':continue
@@ -202,13 +270,13 @@ def main():
     need(len(sys.argv)==4,'ARGUMENTS')
     meta=json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
     base=['format','sourceRef','originalSha256','encoding','nativeRaceId','dateJst','venueId','track','raceNo','checkedAt','targetDateJst']
-    mode=meta.get('format');extra={'NAR_DEBA_HTML_PROJECTION_1':['scheduledPost'],'NAR_HISTORY_HTML_PROJECTION_1':['horseId','horseNo','displayName'],'JRA_CORNER_HTML_PROJECTION_1':[]}
+    mode=meta.get('format');extra={'NAR_DEBA_HTML_PROJECTION_1':['scheduledPost'],'NAR_HISTORY_HTML_PROJECTION_1':['horseId','horseNo','displayName'],'JRA_CORNER_HTML_PROJECTION_1':[],'NAR_RESULT_HTML_PROJECTION_1':[]}
     need(mode in extra,'FORMAT');exact(meta,base+extra[mode]);need(re.fullmatch(r'\d{4}-\d\d-\d\d',meta['dateJst']) and re.fullmatch(r'\d{4}-\d\d-\d\d',meta['targetDateJst']),'DATE');stamp(meta['checkedAt'])
     if mode.startswith('NAR'):need(NAR.get(meta['track'])==meta['venueId'],'VENUE')
     raw=Path(sys.argv[2]).read_bytes();need(0<len(raw)<=16*1024*1024 and hashlib.sha256(raw).hexdigest()==meta['originalSha256'],'ORIGINAL_HASH')
     need(meta['encoding'] in ('utf-8','cp932','shift_jis'),'ENCODING')
     t=Tree();t.feed(raw.decode(meta['encoding'],errors='strict'));t.close()
-    ef,hs={'NAR_DEBA_HTML_PROJECTION_1':nar_card,'NAR_HISTORY_HTML_PROJECTION_1':nar_history,'JRA_CORNER_HTML_PROJECTION_1':jra_corners}[mode](t.root,meta)
+    ef,hs={'NAR_DEBA_HTML_PROJECTION_1':nar_card,'NAR_HISTORY_HTML_PROJECTION_1':nar_history,'JRA_CORNER_HTML_PROJECTION_1':jra_corners,'NAR_RESULT_HTML_PROJECTION_1':nar_result}[mode](t.root,meta)
     result={'metadata':meta,'eventFields':ef,'rows':hs}
     with open(sys.argv[3],'x',encoding='utf-8') as f:json.dump(result,f,ensure_ascii=False,indent=2)
     print(json.dumps({'rows':len(hs),'eventFields':len(ef),'scope':'DERIVED_PROJECTION_REQUIRES_INDEPENDENT_REVIEW'}))
