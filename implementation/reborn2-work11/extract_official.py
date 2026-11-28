@@ -102,6 +102,8 @@ def nar_card(root,meta):
     # Count and class must be explicit in the original, never inferred from rows.
     count=re.findall(r'(?:出走頭数|出走馬)\s*[:：]?\s*(\d{1,2})頭',lead)
     if len(set(count))==1:ef['declaredCount']=field(count[0],'header','declaredCount')
+    classes=re.findall(r'(?:格組|クラス)\s*[:：]\s*([^\s]{1,32})',lead)
+    if len(set(classes))==1:ef['classLiteral']=field(classes[0],'header','class')
     output=[]
     for idx,(i,j,cs,vs,no,hid,nums) in enumerate(main):
         # Current row only; past rows/market never copied. A status applies
@@ -224,6 +226,15 @@ def nar_result(root,meta):
     if len(set(going))==1:ef['goingLiteral']=field(going[0],'header','going')
     count=re.findall(r'(?:出走頭数|出走馬)\s*[:：]?\s*(\d{1,2})頭',lead)
     if len(set(count))==1:ef['declaredCount']=field(count[0],'header','declaredCount')
+    classes=re.findall(r'(?:格組|クラス)\s*[:：]\s*([^\s]{1,32})',lead)
+    if len(set(classes))==1:ef['classLiteral']=field(classes[0],'header','class')
+    laps=[]
+    for i,r,cs in rs:
+        if len(cs)==2 and re.fullmatch(r'ハロンタイム',txt(cs[0])):
+            literal=txt(cs[1])
+            if re.fullmatch(r'\d{1,3}(?:\.\d{1,3})?(?:\s*[-－]\s*\d{1,3}(?:\.\d{1,3})?)+',literal):
+                laps.append((i,literal))
+    if len(laps)==1:ef['leaderLapSlots']=field(laps[0][1],laps[0][0],1)
     return ef,result
 def jra_corners(root,meta):
     u=urlparse(meta['sourceRef']);p=parse_qs(u.query,keep_blank_values=True)
