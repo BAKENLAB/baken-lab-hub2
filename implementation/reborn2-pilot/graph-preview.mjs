@@ -14,7 +14,7 @@ export async function startGraphPreview(capability,{port=0,normal=false}={}){
  const candidate=normal?runNormalReview(capability):null;
  let detailReads=0;
  const link=(p,q={})=>base+p+(Object.keys(q).length?'?'+new URLSearchParams(q):'');
- const header=(candidate?'<p>REBORN 2 NORMAL v0.2 開発候補・正式採用前</p>':'')+'<h1>BAKEN LAB REBORN 2｜証拠閲覧</h1><p>独立プレビュー・'+esc(overview.receipt.scope)+'・総合評価未確定</p><nav><a href="'+base+'/">全頭一覧</a></nav>';
+ const header=(candidate?'<p>REBORN 2 NORMAL v0.2 開発候補・正式採用前</p>':'')+(candidate?.analysisTiming?'<p>'+esc(candidate.retrospective?'遡及検証（発走後分析・予想公開不可）':'発走前分析候補')+'／材料時点 '+esc(candidate.analysisTiming.featureCutoff)+'／分析時刻 '+esc(candidate.analysisTiming.analysisAt)+'</p>':'')+'<h1>BAKEN LAB REBORN 2｜証拠閲覧</h1><p>独立プレビュー・'+esc(overview.receipt.scope)+'・総合評価未確定</p><nav><a href="'+base+'/">全頭一覧</a></nav>';
  const server=createServer((req,res)=>{
   res.setHeader('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'");
   res.setHeader('Cache-Control','no-store');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Content-Type-Options','nosniff');

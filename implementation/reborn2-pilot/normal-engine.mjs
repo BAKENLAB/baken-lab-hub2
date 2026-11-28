@@ -38,7 +38,7 @@ export function decideNormalGrade({eligible,completeField,allHistory,paceCovered
  return hold('NO_SUFFICIENT_CONDITIONAL_PATH');
 }
 // Work10 typed source supply is the native input, not a fixture wrapper.
-export function computeNormalFromSupply(supply,originalGraphDigest,originalPacket){
+export function computeNormalFromSupply(supply,originalGraphDigest,originalPacket,{eyeEnabled=true}={}){
  assert.ok(originalPacket&&sha(originalPacket)===originalGraphDigest,'ORIGINAL_ISSUED_GRAPH_REQUIRED');
  assert.equal(supply.schema,'REBORN2_NORMAL_SUPPLY_1');
  assert.equal(supply.scope,'ISSUED_NATIVE_MATERIAL_ONLY_NOT_GRADE');
@@ -50,7 +50,7 @@ export function computeNormalFromSupply(supply,originalGraphDigest,originalPacke
  const roster=supply.field.map(h=>({horseId:h.horseId,horseNo:h.horseNo,status:h.status}));
  const actual=new Map(originalPacket.roots.map(n=>[n.id,n]));for(const n of packet.roots)assert.deepEqual(n,actual.get(n.id),'WORK10_ORIGINAL_ROOT_BINDING');
  for(const e of packet.events){const src=originalPacket.events.find(q=>q.eventId===e.eventId);assert.ok(src);assert.deepEqual(e.nativeRaceIdentity,src.nativeRaceIdentity);for(const [subject,x] of [[null,e],...e.rows.map(h=>[h.nativeId,h])]){const original=subject===null?src:src.rows.find(q=>q.nativeId===subject);assert.ok(original);for(const [k,f] of Object.entries(x.observations))if(f.state==='OBSERVED_NATIVE_VERIFIED')assert.deepEqual(f,original.observations[k],'WORK10_ORIGINAL_FIELD_BINDING');}}
- const result=computeNormal(packet,roster,{fixture:false});
+ const result=computeNormal(packet,roster,{fixture:false,eyeEnabled});
  return {...result,sourceGraphDigest:originalGraphDigest,supplyDigest,work10Relations:{direct:supply.direct.length,common:supply.common.length,opponents:supply.opponents.length},supplyScope:supply.scope};
 }
 function computeNormalV01(packet,roster,{fixture=false}={}){

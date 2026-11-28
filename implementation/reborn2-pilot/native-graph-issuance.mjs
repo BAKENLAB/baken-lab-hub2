@@ -14,8 +14,10 @@ import {csvRows} from '../../research/reborn2-work44/offline-intake-v0.2.mjs';
 import {convertExistingWork44 as convert07,convertApprovedLocal as local07} from '../reborn2-work07/offline-converter.mjs';
 import {convertExistingWork44 as convert08,convertApprovedLocal as local08} from '../reborn2-work08/offline-converter.mjs';
 export const WORK08='767a8e0bb90bd178e260d6b4b8bcc86fe341520e';
-const pins={'07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
-for(const v of ['07','08']){
+import {convertApprovedLocal as local11,convertExistingWork44 as convert11,verifyApprovedManifest as verify11} from '../reborn2-work11/offline-converter.mjs';
+import {replayOfficialOriginals,checkAnalysisTime} from './work11-original-replay.mjs';
+const pins={'11':'2854de5e9c8a7f3730e0cb29b5abeda4c4f38195','07':'d86fb5f23749fd53f30ce39e0b7977bff976dc96','08':'53bc6dcf149fc3222fcfde904cd460aff761fe09'};
+for(const v of ['07','08','11']){
  const bytes=readFileSync(new URL('../reborn2-work'+v+'/offline-converter.mjs',import.meta.url));
  assert.equal(createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex'),pins[v],'CONVERTER_PIN');
 }
@@ -123,7 +125,7 @@ export function validateGraphClosure(packet){
  for(const id of m.keys())visit(id);
  return {roots:m.size,verified:done.size};
 }
-function issue(g,{fixture,approvalDigest=null}){
+function issue(g,{fixture,approvalDigest=null,analysisTiming=null,replayReceipt=null}){
  const {packet,facts,metadata,pkg}=g;
  validateGraphClosure(packet);
  // Only fixture path may use count-based rank interval; native needs
@@ -134,14 +136,14 @@ function issue(g,{fixture,approvalDigest=null}){
   const seen=new Set();function visit(id){if(seen.has(id))return;assert.ok(m.has(id));seen.add(id);m.get(id).depends.forEach(visit);}
   f.directRefs.forEach(visit);assert.deepEqual([...seen].sort(),f.refs);
  }
- const receipt=freeze({...metadata,approvalDigest,scope:packet.scope,outputDigest:sha(runners),formal:false,realAdmission:false,persistenceAllowed:false});
+ const receipt=freeze({...metadata,approvalDigest,scope:packet.scope,outputDigest:sha(runners),...(analysisTiming?{analysisTiming,replayReceipt}:{}),formal:false,realAdmission:false,persistenceAllowed:false});
  const capability=Object.freeze({schema:'REBORN2_GRAPH_REVIEW_CAPABILITY_1',receiptDigest:sha(receipt)});
  registry.set(capability,freeze({packet,facts,receipt,runners,roster:pkg.roster,availability:availability(pkg,runners)}));
  return capability;
 }
 export function exerciseExistingGraph(version='08'){
- assert.ok(['07','08'].includes(version));
- const {b,trust}=partialFixture(),x=(version==='08'?convert08:convert07)(b,trust);
+ assert.ok(['07','08','11'].includes(version));
+ const {b,trust}=partialFixture(),x=(version==='11'?convert11:version==='08'?convert08:convert07)(b,trust);
  assert.equal(x.scope,'EXISTING_WORK44_FIXTURE_CONVERSION_ONLY');
  const witnesses=b.identity.payload.rows.map(w=>({eventId:w.eventId,horseNo:w.no,horseId:w.horseId,displayName:w.displayName,proofRef:trust.expectedIdentitySha256}));
  return issue(build(x,witnesses,{fixture:true,version,manifestDigest:trust.expectedManifestSha256}),{fixture:true});
@@ -151,36 +153,54 @@ export function exerciseExistingGraph(version='08'){
 // custody, identities, complete roster and version inventory review. The
 // signature is an attestation of separately performed review, not proof by
 // itself of source authenticity. No key/pin or real source configured.
-export function issueNativeGraph(request){
+export function issueNativeGraph(request){return issueNativeGraphMode(request,'PROSPECTIVE');}
+export function issueRetrospectiveGraph(request){return issueNativeGraphMode(request,'RETROSPECTIVE');}
+function issueNativeGraphMode(request,mode){
  assert.equal(authority.state,'CONFIGURED','MAIN_NATIVE_APPROVAL_NOT_CONFIGURED');
- exact(request,['version','signedManifest','raws','approval']);
- assert.ok(['07','08'].includes(request.version));
+ const startAt=Date.now();
+ const v11=request?.version==='11';
+ exact(request,['version','signedManifest','raws','approval',...(v11?['originals']:[])]);
+ assert.ok(['07','08','11'].includes(request.version));
  const manifestDigest=verifyPinned(request.signedManifest,authority.sourceKey,authority.sourcePins);
  const approvalDigest=verifyPinned(request.approval,authority.reviewKey,authority.approvalPins),a=request.approval.payload;
- exact(a,['schema','engineCommit','converterBlob','manifestDigest','packageDigest','sourceStatesDigest','sourceGraphDigest','factsDigest','rosterDigest','canonicalRaceKey','rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest','validUntil']);
- assert.equal(a.schema,'REBORN2_NATIVE_GRAPH_APPROVAL_1');assert.equal(a.engineCommit,ENGINE);assert.equal(a.converterBlob,pins[request.version]);assert.equal(a.manifestDigest,manifestDigest);
- for(const k of ['rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest'])assert.ok(hex(a[k]),'INDEPENDENT_REVIEW_DIGEST');
- assert.ok(Date.now()<Date.parse(a.validUntil),'APPROVAL_EXPIRED');
- const x=(request.version==='08'?local08:local07)(request.signedManifest,request.raws,{authorityPublicKeyPem:authority.sourceKey,expectedManifestSha256:manifestDigest});
+ const extra=[...(v11?['originalReplayDigest','officialRosterStatusReviewDigest']:[]),...(mode==='RETROSPECTIVE'?['outcomePartitionReviewDigest','sealedOutcomeCommitment']:[])];
+ exact(a,['schema','engineCommit','converterBlob','manifestDigest','packageDigest','sourceStatesDigest','sourceGraphDigest','factsDigest','rosterDigest','canonicalRaceKey','rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest','validUntil',...extra]);
+ assert.equal(a.schema,mode==='RETROSPECTIVE'?'REBORN2_RETROSPECTIVE_GRAPH_APPROVAL_1':v11?'REBORN2_NATIVE_GRAPH_APPROVAL_2':'REBORN2_NATIVE_GRAPH_APPROVAL_1');
+ assert.equal(a.engineCommit,ENGINE);assert.equal(a.converterBlob,pins[request.version]);assert.equal(a.manifestDigest,manifestDigest);
+ for(const k of ['rightsReviewDigest','identityReviewDigest','custodyReviewDigest','versionReviewDigest','rosterReviewDigest',...extra])assert.ok(hex(a[k]),'INDEPENDENT_REVIEW_DIGEST');
+ const timing=checkAnalysisTime({mode,cutoff:request.signedManifest.payload.cutoff,startLower:request.signedManifest.payload.startLower,scheduledPost:request.signedManifest.payload.scheduledPost,validUntil:a.validUntil},startAt);
+ const sourceTrust={authorityPublicKeyPem:authority.sourceKey,expectedManifestSha256:manifestDigest};
+ let replayReceipt=null;
+ if(v11){const manifest=verify11(request.signedManifest,sourceTrust);replayReceipt=replayOfficialOriginals(manifest,request.raws,request.originals);assert.equal(replayReceipt.replayDigest,a.originalReplayDigest,'APPROVAL_ORIGINAL_REPLAY_BINDING');}
+ const x=(v11?local11:request.version==='08'?local08:local07)(request.signedManifest,request.raws,sourceTrust);
  assert.equal(x.scope,'LOCAL_EXTRACTION_NOT_ADMISSION');
+ // A status inferred from a numbered HTML row is not sufficient by itself.
+ // Require explicitly pinned manifest status and independent signed official
+ // roster semantics review; unresolved/excluded status remains UNKNOWN.
+ if(v11)for(const h of x.package.roster){const declared=request.signedManifest.payload.roster.find(q=>q.horseId===h.horseId);assert.ok(declared);if(h.status==='ACTIVE')assert.equal(declared.status,'ACTIVE','EXPLICIT_REVIEWED_ACTIVE_REQUIRED');}
  const g=build(x,request.signedManifest.payload.rowWitnesses,{fixture:false,version:request.version,manifestDigest});
  for(const k of ['packageDigest','sourceStatesDigest','sourceGraphDigest','factsDigest','rosterDigest','canonicalRaceKey'])assert.equal(a[k],g.metadata[k],'APPROVAL_GRAPH_BINDING '+k);
- assert.ok(Date.now()<Date.parse(g.pkg.startLower),'NATIVE_POST_BOUNDARY');
- return issue(g,{fixture:false,approvalDigest});
+ checkAnalysisTime({mode,cutoff:g.pkg.cutoff,startLower:g.pkg.startLower,scheduledPost:g.pkg.scheduledPost,validUntil:a.validUntil},Date.now());
+ // Outcome commitment is a signed external partition attestation, not an
+ // outcome or proof of sealing by this process. Never enters packet/engine.
+ return issue(g,{fixture:false,approvalDigest,analysisTiming:timing,replayReceipt});
 }
 // Review preparation deliberately does not issue a graph, run analysis, sign,
 // install authority, or persist. The independent source reviewer must obtain
 // source trust OUTSIDE this API and already have authorized local raw bytes.
 // Its caller-supplied trust is not used by issueNativeGraph.
-export function prepareNativeReviewOffline({version,signedManifest,raws,sourceTrust}){
- assert.ok(['07','08'].includes(version));
+export function prepareNativeReviewOffline({version,signedManifest,raws,sourceTrust,originals}){
+ assert.ok(['07','08','11'].includes(version));
  exact(sourceTrust,['authorityPublicKeyPem','expectedManifestSha256']);
  const manifestDigest=sha(signedManifest.payload);
  assert.equal(manifestDigest,sourceTrust.expectedManifestSha256,'REVIEW_SOURCE_PIN');
- const x=(version==='08'?local08:local07)(signedManifest,raws,sourceTrust);
+ const replayReceipt=version==='11'?replayOfficialOriginals(verify11(signedManifest,sourceTrust),raws,originals):null;
+ const x=(version==='11'?local11:version==='08'?local08:local07)(signedManifest,raws,sourceTrust);
  assert.equal(x.scope,'LOCAL_EXTRACTION_NOT_ADMISSION');
  const g=build(x,signedManifest.payload.rowWitnesses,{fixture:false,version,manifestDigest});
- return reviewPreparation(g);
+ const draft=reviewPreparation(g);
+ if(replayReceipt){draft.replayReceipt=replayReceipt;draft.approvalPayloadBase.originalReplayDigest=replayReceipt.replayDigest;draft.requiredIndependentReviews.push('officialRosterStatusReviewDigest');}
+ return draft;
 }
 function reviewPreparation(g){
  const closure=validateGraphClosure(g.packet),m=g.metadata;
@@ -259,7 +279,7 @@ function resolveOriginalField(draft,descriptors,raws,rootId){
   assert.ok(p.columns.every(i=>Number.isInteger(i)&&i>=1&&i<=row.fields.length),'REVIEW_CSV_COLUMNS');
   original=p.columns.map(column=>({column,literal:row.fields[column-1]}));
  }else{
-  assert.ok(['NAR_STORED_CORNER_SNAPSHOT_1','OFFICIAL_CARD_STATUS_PROJECTION_1','JRA_STORED_ROW_JSON_1'].includes(descriptor.format),'REVIEW_JSON_FORMAT');
+  assert.ok(['NAR_STORED_CORNER_SNAPSHOT_1','OFFICIAL_CARD_STATUS_PROJECTION_1','JRA_STORED_ROW_JSON_1','NAR_DEBA_HTML_PROJECTION_1','NAR_HISTORY_HTML_PROJECTION_1','JRA_CORNER_HTML_PROJECTION_1','NAR_RESULT_HTML_PROJECTION_1'].includes(descriptor.format),'REVIEW_JSON_FORMAT');
   assert.ok(typeof p.row==='string'&&typeof p.field==='string');
   const parts=[...p.row.split(/[./]/),p.field];
   assert.ok(parts.every(k=>/^[A-Za-z0-9_]+$/.test(k)&&!['__proto__','prototype','constructor'].includes(k)),'REVIEW_JSON_POINTER');
@@ -279,8 +299,12 @@ export function inspectExistingOriginalField(rootId,version='08'){
 }
 
 // Only issued capabilities may enter NORMAL; no caller-constructed graph.
-export function runNormalReview(c){
- const x=lookup(c);
- if(x.packet.scope==='FIXED_FIXTURE_GRAPH_ONLY')return computeNormal(x.packet,x.roster,{fixture:true});
- return computeNormalFromSupply(prepareNormalSupply(c),x.receipt.sourceGraphDigest,x.packet);
+export function runNormalReview(c,{eyeEnabled=true}={}){
+ assert.equal(typeof eyeEnabled,'boolean');const x=lookup(c);
+ if(x.packet.scope==='FIXED_FIXTURE_GRAPH_ONLY')return computeNormal(x.packet,x.roster,{fixture:true,eyeEnabled});
+ const timing=x.receipt.analysisTiming;assert.ok(timing,'NATIVE_ANALYSIS_TIMING_REQUIRED');
+ const began=Date.now();if(timing.mode==='PROSPECTIVE')assert.ok(began<Date.parse(timing.startLower),'NATIVE_POST_BOUNDARY');
+ const result=computeNormalFromSupply(prepareNormalSupply(c),x.receipt.sourceGraphDigest,x.packet,{eyeEnabled});
+ const ended=Date.now();if(timing.mode==='PROSPECTIVE')assert.ok(ended<Date.parse(timing.startLower),'NATIVE_POST_BOUNDARY');
+ return {...result,analysisTiming:{...timing,analysisAt:new Date(began).toISOString(),completedAt:new Date(ended).toISOString()},retrospective:timing.mode==='RETROSPECTIVE',publicationAllowed:false};
 }
